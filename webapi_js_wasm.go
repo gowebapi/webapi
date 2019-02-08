@@ -2335,6 +2335,8 @@ func NewEvent(_type string, eventInitDict *EventInit) (_result *Event) {
 	return
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *Event) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -2342,6 +2344,8 @@ func (_this *Event) Type() string {
 	return ret
 }
 
+// Target returning attribute 'target' with
+// type EventTarget (idl: EventTarget).
 func (_this *Event) Target() *EventTarget {
 	var ret *EventTarget
 	value := _this.value.Get("target")
@@ -2351,6 +2355,8 @@ func (_this *Event) Target() *EventTarget {
 	return ret
 }
 
+// SrcElement returning attribute 'srcElement' with
+// type EventTarget (idl: EventTarget).
 func (_this *Event) SrcElement() *EventTarget {
 	var ret *EventTarget
 	value := _this.value.Get("srcElement")
@@ -2360,6 +2366,8 @@ func (_this *Event) SrcElement() *EventTarget {
 	return ret
 }
 
+// CurrentTarget returning attribute 'currentTarget' with
+// type EventTarget (idl: EventTarget).
 func (_this *Event) CurrentTarget() *EventTarget {
 	var ret *EventTarget
 	value := _this.value.Get("currentTarget")
@@ -2369,6 +2377,8 @@ func (_this *Event) CurrentTarget() *EventTarget {
 	return ret
 }
 
+// EventPhase returning attribute 'eventPhase' with
+// type int (idl: unsigned short).
 func (_this *Event) EventPhase() int {
 	var ret int
 	value := _this.value.Get("eventPhase")
@@ -2376,6 +2386,8 @@ func (_this *Event) EventPhase() int {
 	return ret
 }
 
+// CancelBubble returning attribute 'cancelBubble' with
+// type bool (idl: boolean).
 func (_this *Event) CancelBubble() bool {
 	var ret bool
 	value := _this.value.Get("cancelBubble")
@@ -2383,11 +2395,15 @@ func (_this *Event) CancelBubble() bool {
 	return ret
 }
 
+// SetCancelBubble setting attribute 'cancelBubble' with
+// type bool (idl: boolean).
 func (_this *Event) SetCancelBubble(value bool) {
 	input := value
 	_this.value.Set("cancelBubble", input)
 }
 
+// Bubbles returning attribute 'bubbles' with
+// type bool (idl: boolean).
 func (_this *Event) Bubbles() bool {
 	var ret bool
 	value := _this.value.Get("bubbles")
@@ -2395,6 +2411,8 @@ func (_this *Event) Bubbles() bool {
 	return ret
 }
 
+// Cancelable returning attribute 'cancelable' with
+// type bool (idl: boolean).
 func (_this *Event) Cancelable() bool {
 	var ret bool
 	value := _this.value.Get("cancelable")
@@ -2402,6 +2420,8 @@ func (_this *Event) Cancelable() bool {
 	return ret
 }
 
+// ReturnValue returning attribute 'returnValue' with
+// type bool (idl: boolean).
 func (_this *Event) ReturnValue() bool {
 	var ret bool
 	value := _this.value.Get("returnValue")
@@ -2409,11 +2429,15 @@ func (_this *Event) ReturnValue() bool {
 	return ret
 }
 
+// SetReturnValue setting attribute 'returnValue' with
+// type bool (idl: boolean).
 func (_this *Event) SetReturnValue(value bool) {
 	input := value
 	_this.value.Set("returnValue", input)
 }
 
+// DefaultPrevented returning attribute 'defaultPrevented' with
+// type bool (idl: boolean).
 func (_this *Event) DefaultPrevented() bool {
 	var ret bool
 	value := _this.value.Get("defaultPrevented")
@@ -2421,6 +2445,8 @@ func (_this *Event) DefaultPrevented() bool {
 	return ret
 }
 
+// Composed returning attribute 'composed' with
+// type bool (idl: boolean).
 func (_this *Event) Composed() bool {
 	var ret bool
 	value := _this.value.Get("composed")
@@ -2428,6 +2454,8 @@ func (_this *Event) Composed() bool {
 	return ret
 }
 
+// IsTrusted returning attribute 'isTrusted' with
+// type bool (idl: boolean).
 func (_this *Event) IsTrusted() bool {
 	var ret bool
 	value := _this.value.Get("isTrusted")
@@ -2435,6 +2463,8 @@ func (_this *Event) IsTrusted() bool {
 	return ret
 }
 
+// TimeStamp returning attribute 'timeStamp' with
+// type float64 (idl: double).
 func (_this *Event) TimeStamp() float64 {
 	var ret float64
 	value := _this.value.Get("timeStamp")
@@ -2443,12 +2473,11 @@ func (_this *Event) TimeStamp() float64 {
 }
 
 func (_this *Event) ComposedPath() (_result []*EventTarget) {
-	_method := _this.value.Get("composedPath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("composedPath", _args[0:_end]...)
 	var (
 		_converted []*EventTarget // javascript: idl-sequence _what_return_name
 	)
@@ -2466,37 +2495,33 @@ func (_this *Event) ComposedPath() (_result []*EventTarget) {
 }
 
 func (_this *Event) StopPropagation() {
-	_method := _this.value.Get("stopPropagation")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stopPropagation", _args[0:_end]...)
 	return
 }
 
 func (_this *Event) StopImmediatePropagation() {
-	_method := _this.value.Get("stopImmediatePropagation")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stopImmediatePropagation", _args[0:_end]...)
 	return
 }
 
 func (_this *Event) PreventDefault() {
-	_method := _this.value.Get("preventDefault")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("preventDefault", _args[0:_end]...)
 	return
 }
 
 func (_this *Event) InitEvent(_type string, bubbles *bool, cancelable *bool) {
-	_method := _this.value.Get("initEvent")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2514,7 +2539,7 @@ func (_this *Event) InitEvent(_type string, bubbles *bool, cancelable *bool) {
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("initEvent", _args[0:_end]...)
 	return
 }
 
@@ -2560,6 +2585,8 @@ func NewCustomEvent(_type string, eventInitDict *CustomEventInit) (_result *Cust
 	return
 }
 
+// Detail returning attribute 'detail' with
+// type js.Value (idl: any).
 func (_this *CustomEvent) Detail() js.Value {
 	var ret js.Value
 	value := _this.value.Get("detail")
@@ -2568,7 +2595,6 @@ func (_this *CustomEvent) Detail() js.Value {
 }
 
 func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail js.Value) {
-	_method := _this.value.Get("initCustomEvent")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2591,7 +2617,7 @@ func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelabl
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("initCustomEvent", _args[0:_end]...)
 	return
 }
 
@@ -2630,7 +2656,6 @@ func NewEventTarget() (_result *EventTarget) {
 }
 
 func (_this *EventTarget) AddEventListener(_type string, callback *EventListener, options *Union) {
-	_method := _this.value.Get("addEventListener")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2646,12 +2671,11 @@ func (_this *EventTarget) AddEventListener(_type string, callback *EventListener
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("addEventListener", _args[0:_end]...)
 	return
 }
 
 func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListener, options *Union) {
-	_method := _this.value.Get("removeEventListener")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2667,12 +2691,11 @@ func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListe
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("removeEventListener", _args[0:_end]...)
 	return
 }
 
 func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
-	_method := _this.value.Get("dispatchEvent")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2680,7 +2703,7 @@ func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
 	_p0 := event.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("dispatchEvent", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -2709,7 +2732,6 @@ func EventListenerFromJS(input js.Value) *EventListener {
 }
 
 func (_this *EventListener) HandleEvent(event *Event) {
-	_method := _this.value.Get("handleEvent")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2717,7 +2739,7 @@ func (_this *EventListener) HandleEvent(event *Event) {
 	_p0 := event.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("handleEvent", _args[0:_end]...)
 	return
 }
 
@@ -2755,6 +2777,8 @@ func NewAbortController() (_result *AbortController) {
 	return
 }
 
+// Signal returning attribute 'signal' with
+// type AbortSignal (idl: AbortSignal).
 func (_this *AbortController) Signal() *AbortSignal {
 	var ret *AbortSignal
 	value := _this.value.Get("signal")
@@ -2763,12 +2787,11 @@ func (_this *AbortController) Signal() *AbortSignal {
 }
 
 func (_this *AbortController) Abort() {
-	_method := _this.value.Get("abort")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("abort", _args[0:_end]...)
 	return
 }
 
@@ -2791,6 +2814,8 @@ func AbortSignalFromJS(input js.Value) *AbortSignal {
 	return ret
 }
 
+// Aborted returning attribute 'aborted' with
+// type bool (idl: boolean).
 func (_this *AbortSignal) Aborted() bool {
 	var ret bool
 	value := _this.value.Get("aborted")
@@ -2798,6 +2823,8 @@ func (_this *AbortSignal) Aborted() bool {
 	return ret
 }
 
+// Onabort returning attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AbortSignal) Onabort() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onabort")
@@ -2807,6 +2834,8 @@ func (_this *AbortSignal) Onabort() EventHandler {
 	return ret
 }
 
+// SetOnabort setting attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AbortSignal) SetOnabort(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -2837,6 +2866,8 @@ func NodeListFromJS(input js.Value) *NodeList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *NodeList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -2845,7 +2876,6 @@ func (_this *NodeList) Length() uint {
 }
 
 func (_this *NodeList) Item(index uint) (_result *Node) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2853,7 +2883,7 @@ func (_this *NodeList) Item(index uint) (_result *Node) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -2883,6 +2913,8 @@ func HTMLCollectionFromJS(input js.Value) *HTMLCollection {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLCollection) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -2891,7 +2923,6 @@ func (_this *HTMLCollection) Length() uint {
 }
 
 func (_this *HTMLCollection) Item(index uint) (_result *Element) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2899,7 +2930,7 @@ func (_this *HTMLCollection) Item(index uint) (_result *Element) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -2911,7 +2942,6 @@ func (_this *HTMLCollection) Item(index uint) (_result *Element) {
 }
 
 func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2919,7 +2949,7 @@ func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -2975,7 +3005,6 @@ func NewMutationObserver(callback *js.Callback) (_result *MutationObserver) {
 }
 
 func (_this *MutationObserver) Observe(target *Node, options *MutationObserverInit) {
-	_method := _this.value.Get("observe")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2988,27 +3017,25 @@ func (_this *MutationObserver) Observe(target *Node, options *MutationObserverIn
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("observe", _args[0:_end]...)
 	return
 }
 
 func (_this *MutationObserver) Disconnect() {
-	_method := _this.value.Get("disconnect")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("disconnect", _args[0:_end]...)
 	return
 }
 
 func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
-	_method := _this.value.Get("takeRecords")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("takeRecords", _args[0:_end]...)
 	var (
 		_converted []*MutationRecord // javascript: idl-sequence _what_return_name
 	)
@@ -3044,6 +3071,8 @@ func MutationRecordFromJS(input js.Value) *MutationRecord {
 	return ret
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *MutationRecord) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -3051,6 +3080,8 @@ func (_this *MutationRecord) Type() string {
 	return ret
 }
 
+// Target returning attribute 'target' with
+// type Node (idl: Node).
 func (_this *MutationRecord) Target() *Node {
 	var ret *Node
 	value := _this.value.Get("target")
@@ -3058,6 +3089,8 @@ func (_this *MutationRecord) Target() *Node {
 	return ret
 }
 
+// AddedNodes returning attribute 'addedNodes' with
+// type NodeList (idl: NodeList).
 func (_this *MutationRecord) AddedNodes() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("addedNodes")
@@ -3065,6 +3098,8 @@ func (_this *MutationRecord) AddedNodes() *NodeList {
 	return ret
 }
 
+// RemovedNodes returning attribute 'removedNodes' with
+// type NodeList (idl: NodeList).
 func (_this *MutationRecord) RemovedNodes() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("removedNodes")
@@ -3072,6 +3107,8 @@ func (_this *MutationRecord) RemovedNodes() *NodeList {
 	return ret
 }
 
+// PreviousSibling returning attribute 'previousSibling' with
+// type Node (idl: Node).
 func (_this *MutationRecord) PreviousSibling() *Node {
 	var ret *Node
 	value := _this.value.Get("previousSibling")
@@ -3081,6 +3118,8 @@ func (_this *MutationRecord) PreviousSibling() *Node {
 	return ret
 }
 
+// NextSibling returning attribute 'nextSibling' with
+// type Node (idl: Node).
 func (_this *MutationRecord) NextSibling() *Node {
 	var ret *Node
 	value := _this.value.Get("nextSibling")
@@ -3090,6 +3129,8 @@ func (_this *MutationRecord) NextSibling() *Node {
 	return ret
 }
 
+// AttributeName returning attribute 'attributeName' with
+// type string (idl: DOMString).
 func (_this *MutationRecord) AttributeName() *string {
 	var ret *string
 	value := _this.value.Get("attributeName")
@@ -3100,6 +3141,8 @@ func (_this *MutationRecord) AttributeName() *string {
 	return ret
 }
 
+// AttributeNamespace returning attribute 'attributeNamespace' with
+// type string (idl: DOMString).
 func (_this *MutationRecord) AttributeNamespace() *string {
 	var ret *string
 	value := _this.value.Get("attributeNamespace")
@@ -3110,6 +3153,8 @@ func (_this *MutationRecord) AttributeNamespace() *string {
 	return ret
 }
 
+// OldValue returning attribute 'oldValue' with
+// type string (idl: DOMString).
 func (_this *MutationRecord) OldValue() *string {
 	var ret *string
 	value := _this.value.Get("oldValue")
@@ -3158,6 +3203,8 @@ const DOCUMENTPOSITIONCONTAINS_Node int = 0x08
 const DOCUMENTPOSITIONCONTAINEDBY_Node int = 0x10
 const DOCUMENTPOSITIONIMPLEMENTATIONSPECIFIC_Node int = 0x20
 
+// NodeType returning attribute 'nodeType' with
+// type int (idl: unsigned short).
 func (_this *Node) NodeType() int {
 	var ret int
 	value := _this.value.Get("nodeType")
@@ -3165,6 +3212,8 @@ func (_this *Node) NodeType() int {
 	return ret
 }
 
+// NodeName returning attribute 'nodeName' with
+// type string (idl: DOMString).
 func (_this *Node) NodeName() string {
 	var ret string
 	value := _this.value.Get("nodeName")
@@ -3172,6 +3221,8 @@ func (_this *Node) NodeName() string {
 	return ret
 }
 
+// BaseURI returning attribute 'baseURI' with
+// type string (idl: USVString).
 func (_this *Node) BaseURI() string {
 	var ret string
 	value := _this.value.Get("baseURI")
@@ -3179,6 +3230,8 @@ func (_this *Node) BaseURI() string {
 	return ret
 }
 
+// IsConnected returning attribute 'isConnected' with
+// type bool (idl: boolean).
 func (_this *Node) IsConnected() bool {
 	var ret bool
 	value := _this.value.Get("isConnected")
@@ -3186,6 +3239,8 @@ func (_this *Node) IsConnected() bool {
 	return ret
 }
 
+// OwnerDocument returning attribute 'ownerDocument' with
+// type Document (idl: Document).
 func (_this *Node) OwnerDocument() *Document {
 	var ret *Document
 	value := _this.value.Get("ownerDocument")
@@ -3195,6 +3250,8 @@ func (_this *Node) OwnerDocument() *Document {
 	return ret
 }
 
+// ParentNode returning attribute 'parentNode' with
+// type Node (idl: Node).
 func (_this *Node) ParentNode() *Node {
 	var ret *Node
 	value := _this.value.Get("parentNode")
@@ -3204,6 +3261,8 @@ func (_this *Node) ParentNode() *Node {
 	return ret
 }
 
+// ParentElement returning attribute 'parentElement' with
+// type Element (idl: Element).
 func (_this *Node) ParentElement() *Element {
 	var ret *Element
 	value := _this.value.Get("parentElement")
@@ -3213,6 +3272,8 @@ func (_this *Node) ParentElement() *Element {
 	return ret
 }
 
+// ChildNodes returning attribute 'childNodes' with
+// type NodeList (idl: NodeList).
 func (_this *Node) ChildNodes() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("childNodes")
@@ -3220,6 +3281,8 @@ func (_this *Node) ChildNodes() *NodeList {
 	return ret
 }
 
+// FirstChild returning attribute 'firstChild' with
+// type Node (idl: Node).
 func (_this *Node) FirstChild() *Node {
 	var ret *Node
 	value := _this.value.Get("firstChild")
@@ -3229,6 +3292,8 @@ func (_this *Node) FirstChild() *Node {
 	return ret
 }
 
+// LastChild returning attribute 'lastChild' with
+// type Node (idl: Node).
 func (_this *Node) LastChild() *Node {
 	var ret *Node
 	value := _this.value.Get("lastChild")
@@ -3238,6 +3303,8 @@ func (_this *Node) LastChild() *Node {
 	return ret
 }
 
+// PreviousSibling returning attribute 'previousSibling' with
+// type Node (idl: Node).
 func (_this *Node) PreviousSibling() *Node {
 	var ret *Node
 	value := _this.value.Get("previousSibling")
@@ -3247,6 +3314,8 @@ func (_this *Node) PreviousSibling() *Node {
 	return ret
 }
 
+// NextSibling returning attribute 'nextSibling' with
+// type Node (idl: Node).
 func (_this *Node) NextSibling() *Node {
 	var ret *Node
 	value := _this.value.Get("nextSibling")
@@ -3256,6 +3325,8 @@ func (_this *Node) NextSibling() *Node {
 	return ret
 }
 
+// NodeValue returning attribute 'nodeValue' with
+// type string (idl: DOMString).
 func (_this *Node) NodeValue() *string {
 	var ret *string
 	value := _this.value.Get("nodeValue")
@@ -3266,11 +3337,15 @@ func (_this *Node) NodeValue() *string {
 	return ret
 }
 
+// SetNodeValue setting attribute 'nodeValue' with
+// type string (idl: DOMString).
 func (_this *Node) SetNodeValue(value *string) {
 	input := value
 	_this.value.Set("nodeValue", input)
 }
 
+// TextContent returning attribute 'textContent' with
+// type string (idl: DOMString).
 func (_this *Node) TextContent() *string {
 	var ret *string
 	value := _this.value.Get("textContent")
@@ -3281,13 +3356,14 @@ func (_this *Node) TextContent() *string {
 	return ret
 }
 
+// SetTextContent setting attribute 'textContent' with
+// type string (idl: DOMString).
 func (_this *Node) SetTextContent(value *string) {
 	input := value
 	_this.value.Set("textContent", input)
 }
 
 func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
-	_method := _this.value.Get("getRootNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3297,7 +3373,7 @@ func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getRootNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3307,12 +3383,11 @@ func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
 }
 
 func (_this *Node) HasChildNodes() (_result bool) {
-	_method := _this.value.Get("hasChildNodes")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasChildNodes", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -3322,17 +3397,15 @@ func (_this *Node) HasChildNodes() (_result bool) {
 }
 
 func (_this *Node) Normalize() {
-	_method := _this.value.Get("normalize")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("normalize", _args[0:_end]...)
 	return
 }
 
 func (_this *Node) CloneNode(deep *bool) (_result *Node) {
-	_method := _this.value.Get("cloneNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3342,7 +3415,7 @@ func (_this *Node) CloneNode(deep *bool) (_result *Node) {
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("cloneNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3352,7 +3425,6 @@ func (_this *Node) CloneNode(deep *bool) (_result *Node) {
 }
 
 func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
-	_method := _this.value.Get("isEqualNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3360,7 +3432,7 @@ func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
 	_p0 := otherNode.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isEqualNode", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -3370,7 +3442,6 @@ func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
 }
 
 func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
-	_method := _this.value.Get("isSameNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3378,7 +3449,7 @@ func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
 	_p0 := otherNode.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isSameNode", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -3388,7 +3459,6 @@ func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
 }
 
 func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
-	_method := _this.value.Get("compareDocumentPosition")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3396,7 +3466,7 @@ func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
 	_p0 := other.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("compareDocumentPosition", _args[0:_end]...)
 	var (
 		_converted int // javascript: unsigned short _what_return_name
 	)
@@ -3406,7 +3476,6 @@ func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
 }
 
 func (_this *Node) Contains(other *Node) (_result bool) {
-	_method := _this.value.Get("contains")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3414,7 +3483,7 @@ func (_this *Node) Contains(other *Node) (_result bool) {
 	_p0 := other.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("contains", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -3424,7 +3493,6 @@ func (_this *Node) Contains(other *Node) (_result bool) {
 }
 
 func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
-	_method := _this.value.Get("lookupPrefix")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3432,7 +3500,7 @@ func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
 	_p0 := namespace
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("lookupPrefix", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -3445,7 +3513,6 @@ func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
 }
 
 func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
-	_method := _this.value.Get("lookupNamespaceURI")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3453,7 +3520,7 @@ func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
 	_p0 := prefix
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("lookupNamespaceURI", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -3466,7 +3533,6 @@ func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
 }
 
 func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
-	_method := _this.value.Get("isDefaultNamespace")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3474,7 +3540,7 @@ func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
 	_p0 := namespace
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isDefaultNamespace", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -3484,7 +3550,6 @@ func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
 }
 
 func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
-	_method := _this.value.Get("insertBefore")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3495,7 +3560,7 @@ func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
 	_p1 := child.JSValue()
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("insertBefore", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3505,7 +3570,6 @@ func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
 }
 
 func (_this *Node) AppendChild(node *Node) (_result *Node) {
-	_method := _this.value.Get("appendChild")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3513,7 +3577,7 @@ func (_this *Node) AppendChild(node *Node) (_result *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("appendChild", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3523,7 +3587,6 @@ func (_this *Node) AppendChild(node *Node) (_result *Node) {
 }
 
 func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
-	_method := _this.value.Get("replaceChild")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3534,7 +3597,7 @@ func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
 	_p1 := child.JSValue()
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("replaceChild", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3544,7 +3607,6 @@ func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
 }
 
 func (_this *Node) RemoveChild(child *Node) (_result *Node) {
-	_method := _this.value.Get("removeChild")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3552,7 +3614,7 @@ func (_this *Node) RemoveChild(child *Node) (_result *Node) {
 	_p0 := child.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("removeChild", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -3595,6 +3657,8 @@ func NewDocument() (_result *Document) {
 	return
 }
 
+// Implementation returning attribute 'implementation' with
+// type DOMImplementation (idl: DOMImplementation).
 func (_this *Document) Implementation() *DOMImplementation {
 	var ret *DOMImplementation
 	value := _this.value.Get("implementation")
@@ -3602,6 +3666,8 @@ func (_this *Document) Implementation() *DOMImplementation {
 	return ret
 }
 
+// URL returning attribute 'URL' with
+// type string (idl: USVString).
 func (_this *Document) URL() string {
 	var ret string
 	value := _this.value.Get("URL")
@@ -3609,6 +3675,8 @@ func (_this *Document) URL() string {
 	return ret
 }
 
+// DocumentURI returning attribute 'documentURI' with
+// type string (idl: USVString).
 func (_this *Document) DocumentURI() string {
 	var ret string
 	value := _this.value.Get("documentURI")
@@ -3616,6 +3684,8 @@ func (_this *Document) DocumentURI() string {
 	return ret
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *Document) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -3623,6 +3693,8 @@ func (_this *Document) Origin() string {
 	return ret
 }
 
+// CompatMode returning attribute 'compatMode' with
+// type string (idl: DOMString).
 func (_this *Document) CompatMode() string {
 	var ret string
 	value := _this.value.Get("compatMode")
@@ -3630,6 +3702,8 @@ func (_this *Document) CompatMode() string {
 	return ret
 }
 
+// CharacterSet returning attribute 'characterSet' with
+// type string (idl: DOMString).
 func (_this *Document) CharacterSet() string {
 	var ret string
 	value := _this.value.Get("characterSet")
@@ -3637,6 +3711,8 @@ func (_this *Document) CharacterSet() string {
 	return ret
 }
 
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *Document) Charset() string {
 	var ret string
 	value := _this.value.Get("charset")
@@ -3644,6 +3720,8 @@ func (_this *Document) Charset() string {
 	return ret
 }
 
+// InputEncoding returning attribute 'inputEncoding' with
+// type string (idl: DOMString).
 func (_this *Document) InputEncoding() string {
 	var ret string
 	value := _this.value.Get("inputEncoding")
@@ -3651,6 +3729,8 @@ func (_this *Document) InputEncoding() string {
 	return ret
 }
 
+// ContentType returning attribute 'contentType' with
+// type string (idl: DOMString).
 func (_this *Document) ContentType() string {
 	var ret string
 	value := _this.value.Get("contentType")
@@ -3658,6 +3738,8 @@ func (_this *Document) ContentType() string {
 	return ret
 }
 
+// Doctype returning attribute 'doctype' with
+// type DocumentType (idl: DocumentType).
 func (_this *Document) Doctype() *DocumentType {
 	var ret *DocumentType
 	value := _this.value.Get("doctype")
@@ -3667,6 +3749,8 @@ func (_this *Document) Doctype() *DocumentType {
 	return ret
 }
 
+// DocumentElement returning attribute 'documentElement' with
+// type Element (idl: Element).
 func (_this *Document) DocumentElement() *Element {
 	var ret *Element
 	value := _this.value.Get("documentElement")
@@ -3676,6 +3760,8 @@ func (_this *Document) DocumentElement() *Element {
 	return ret
 }
 
+// Location returning attribute 'location' with
+// type Location (idl: Location).
 func (_this *Document) Location() *Location {
 	var ret *Location
 	value := _this.value.Get("location")
@@ -3685,6 +3771,8 @@ func (_this *Document) Location() *Location {
 	return ret
 }
 
+// Domain returning attribute 'domain' with
+// type string (idl: USVString).
 func (_this *Document) Domain() string {
 	var ret string
 	value := _this.value.Get("domain")
@@ -3692,11 +3780,15 @@ func (_this *Document) Domain() string {
 	return ret
 }
 
+// SetDomain setting attribute 'domain' with
+// type string (idl: USVString).
 func (_this *Document) SetDomain(value string) {
 	input := value
 	_this.value.Set("domain", input)
 }
 
+// Referrer returning attribute 'referrer' with
+// type string (idl: USVString).
 func (_this *Document) Referrer() string {
 	var ret string
 	value := _this.value.Get("referrer")
@@ -3704,6 +3796,8 @@ func (_this *Document) Referrer() string {
 	return ret
 }
 
+// Cookie returning attribute 'cookie' with
+// type string (idl: USVString).
 func (_this *Document) Cookie() string {
 	var ret string
 	value := _this.value.Get("cookie")
@@ -3711,11 +3805,15 @@ func (_this *Document) Cookie() string {
 	return ret
 }
 
+// SetCookie setting attribute 'cookie' with
+// type string (idl: USVString).
 func (_this *Document) SetCookie(value string) {
 	input := value
 	_this.value.Set("cookie", input)
 }
 
+// LastModified returning attribute 'lastModified' with
+// type string (idl: DOMString).
 func (_this *Document) LastModified() string {
 	var ret string
 	value := _this.value.Get("lastModified")
@@ -3723,6 +3821,8 @@ func (_this *Document) LastModified() string {
 	return ret
 }
 
+// ReadyState returning attribute 'readyState' with
+// type DocumentReadyState (idl: DocumentReadyState).
 func (_this *Document) ReadyState() DocumentReadyState {
 	var ret DocumentReadyState
 	value := _this.value.Get("readyState")
@@ -3730,6 +3830,8 @@ func (_this *Document) ReadyState() DocumentReadyState {
 	return ret
 }
 
+// Title returning attribute 'title' with
+// type string (idl: DOMString).
 func (_this *Document) Title() string {
 	var ret string
 	value := _this.value.Get("title")
@@ -3737,11 +3839,15 @@ func (_this *Document) Title() string {
 	return ret
 }
 
+// SetTitle setting attribute 'title' with
+// type string (idl: DOMString).
 func (_this *Document) SetTitle(value string) {
 	input := value
 	_this.value.Set("title", input)
 }
 
+// Dir returning attribute 'dir' with
+// type string (idl: DOMString).
 func (_this *Document) Dir() string {
 	var ret string
 	value := _this.value.Get("dir")
@@ -3749,11 +3855,15 @@ func (_this *Document) Dir() string {
 	return ret
 }
 
+// SetDir setting attribute 'dir' with
+// type string (idl: DOMString).
 func (_this *Document) SetDir(value string) {
 	input := value
 	_this.value.Set("dir", input)
 }
 
+// Body returning attribute 'body' with
+// type HTMLElement (idl: HTMLElement).
 func (_this *Document) Body() *HTMLElement {
 	var ret *HTMLElement
 	value := _this.value.Get("body")
@@ -3763,11 +3873,15 @@ func (_this *Document) Body() *HTMLElement {
 	return ret
 }
 
+// SetBody setting attribute 'body' with
+// type HTMLElement (idl: HTMLElement).
 func (_this *Document) SetBody(value *HTMLElement) {
 	input := value.JSValue()
 	_this.value.Set("body", input)
 }
 
+// Head returning attribute 'head' with
+// type HTMLHeadElement (idl: HTMLHeadElement).
 func (_this *Document) Head() *HTMLHeadElement {
 	var ret *HTMLHeadElement
 	value := _this.value.Get("head")
@@ -3777,6 +3891,8 @@ func (_this *Document) Head() *HTMLHeadElement {
 	return ret
 }
 
+// Images returning attribute 'images' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Images() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("images")
@@ -3784,6 +3900,8 @@ func (_this *Document) Images() *HTMLCollection {
 	return ret
 }
 
+// Embeds returning attribute 'embeds' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Embeds() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("embeds")
@@ -3791,6 +3909,8 @@ func (_this *Document) Embeds() *HTMLCollection {
 	return ret
 }
 
+// Plugins returning attribute 'plugins' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Plugins() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("plugins")
@@ -3798,6 +3918,8 @@ func (_this *Document) Plugins() *HTMLCollection {
 	return ret
 }
 
+// Links returning attribute 'links' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Links() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("links")
@@ -3805,6 +3927,8 @@ func (_this *Document) Links() *HTMLCollection {
 	return ret
 }
 
+// Forms returning attribute 'forms' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Forms() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("forms")
@@ -3812,6 +3936,8 @@ func (_this *Document) Forms() *HTMLCollection {
 	return ret
 }
 
+// Scripts returning attribute 'scripts' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Scripts() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("scripts")
@@ -3819,6 +3945,8 @@ func (_this *Document) Scripts() *HTMLCollection {
 	return ret
 }
 
+// CurrentScript returning attribute 'currentScript' with
+// type Union (idl: Union).
 func (_this *Document) CurrentScript() *Union {
 	var ret *Union
 	value := _this.value.Get("currentScript")
@@ -3828,6 +3956,8 @@ func (_this *Document) CurrentScript() *Union {
 	return ret
 }
 
+// DefaultView returning attribute 'defaultView' with
+// type Window (idl: Window).
 func (_this *Document) DefaultView() *Window {
 	var ret *Window
 	value := _this.value.Get("defaultView")
@@ -3837,6 +3967,8 @@ func (_this *Document) DefaultView() *Window {
 	return ret
 }
 
+// ActiveElement returning attribute 'activeElement' with
+// type Element (idl: Element).
 func (_this *Document) ActiveElement() *Element {
 	var ret *Element
 	value := _this.value.Get("activeElement")
@@ -3846,6 +3978,8 @@ func (_this *Document) ActiveElement() *Element {
 	return ret
 }
 
+// DesignMode returning attribute 'designMode' with
+// type string (idl: DOMString).
 func (_this *Document) DesignMode() string {
 	var ret string
 	value := _this.value.Get("designMode")
@@ -3853,11 +3987,15 @@ func (_this *Document) DesignMode() string {
 	return ret
 }
 
+// SetDesignMode setting attribute 'designMode' with
+// type string (idl: DOMString).
 func (_this *Document) SetDesignMode(value string) {
 	input := value
 	_this.value.Set("designMode", input)
 }
 
+// Onreadystatechange returning attribute 'onreadystatechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onreadystatechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onreadystatechange")
@@ -3867,6 +4005,8 @@ func (_this *Document) Onreadystatechange() EventHandler {
 	return ret
 }
 
+// SetOnreadystatechange setting attribute 'onreadystatechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnreadystatechange(value *js.Callback) {
 	var __callback31 js.Value
 	if value != nil {
@@ -3878,6 +4018,8 @@ func (_this *Document) SetOnreadystatechange(value *js.Callback) {
 	_this.value.Set("onreadystatechange", input)
 }
 
+// FgColor returning attribute 'fgColor' with
+// type string (idl: DOMString).
 func (_this *Document) FgColor() string {
 	var ret string
 	value := _this.value.Get("fgColor")
@@ -3885,11 +4027,15 @@ func (_this *Document) FgColor() string {
 	return ret
 }
 
+// SetFgColor setting attribute 'fgColor' with
+// type string (idl: DOMString).
 func (_this *Document) SetFgColor(value string) {
 	input := value
 	_this.value.Set("fgColor", input)
 }
 
+// LinkColor returning attribute 'linkColor' with
+// type string (idl: DOMString).
 func (_this *Document) LinkColor() string {
 	var ret string
 	value := _this.value.Get("linkColor")
@@ -3897,11 +4043,15 @@ func (_this *Document) LinkColor() string {
 	return ret
 }
 
+// SetLinkColor setting attribute 'linkColor' with
+// type string (idl: DOMString).
 func (_this *Document) SetLinkColor(value string) {
 	input := value
 	_this.value.Set("linkColor", input)
 }
 
+// VlinkColor returning attribute 'vlinkColor' with
+// type string (idl: DOMString).
 func (_this *Document) VlinkColor() string {
 	var ret string
 	value := _this.value.Get("vlinkColor")
@@ -3909,11 +4059,15 @@ func (_this *Document) VlinkColor() string {
 	return ret
 }
 
+// SetVlinkColor setting attribute 'vlinkColor' with
+// type string (idl: DOMString).
 func (_this *Document) SetVlinkColor(value string) {
 	input := value
 	_this.value.Set("vlinkColor", input)
 }
 
+// AlinkColor returning attribute 'alinkColor' with
+// type string (idl: DOMString).
 func (_this *Document) AlinkColor() string {
 	var ret string
 	value := _this.value.Get("alinkColor")
@@ -3921,11 +4075,15 @@ func (_this *Document) AlinkColor() string {
 	return ret
 }
 
+// SetAlinkColor setting attribute 'alinkColor' with
+// type string (idl: DOMString).
 func (_this *Document) SetAlinkColor(value string) {
 	input := value
 	_this.value.Set("alinkColor", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *Document) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -3933,11 +4091,15 @@ func (_this *Document) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *Document) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
 }
 
+// Anchors returning attribute 'anchors' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Anchors() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("anchors")
@@ -3945,6 +4107,8 @@ func (_this *Document) Anchors() *HTMLCollection {
 	return ret
 }
 
+// Applets returning attribute 'applets' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Applets() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("applets")
@@ -3952,6 +4116,8 @@ func (_this *Document) Applets() *HTMLCollection {
 	return ret
 }
 
+// All returning attribute 'all' with
+// type HTMLAllCollection (idl: HTMLAllCollection).
 func (_this *Document) All() *HTMLAllCollection {
 	var ret *HTMLAllCollection
 	value := _this.value.Get("all")
@@ -3959,6 +4125,8 @@ func (_this *Document) All() *HTMLAllCollection {
 	return ret
 }
 
+// Children returning attribute 'children' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Children() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("children")
@@ -3966,6 +4134,8 @@ func (_this *Document) Children() *HTMLCollection {
 	return ret
 }
 
+// FirstElementChild returning attribute 'firstElementChild' with
+// type Element (idl: Element).
 func (_this *Document) FirstElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("firstElementChild")
@@ -3975,6 +4145,8 @@ func (_this *Document) FirstElementChild() *Element {
 	return ret
 }
 
+// LastElementChild returning attribute 'lastElementChild' with
+// type Element (idl: Element).
 func (_this *Document) LastElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("lastElementChild")
@@ -3984,6 +4156,8 @@ func (_this *Document) LastElementChild() *Element {
 	return ret
 }
 
+// ChildElementCount returning attribute 'childElementCount' with
+// type uint (idl: unsigned long).
 func (_this *Document) ChildElementCount() uint {
 	var ret uint
 	value := _this.value.Get("childElementCount")
@@ -3991,6 +4165,8 @@ func (_this *Document) ChildElementCount() uint {
 	return ret
 }
 
+// Onabort returning attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onabort() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onabort")
@@ -4000,6 +4176,8 @@ func (_this *Document) Onabort() EventHandler {
 	return ret
 }
 
+// SetOnabort setting attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnabort(value *js.Callback) {
 	var __callback44 js.Value
 	if value != nil {
@@ -4011,6 +4189,8 @@ func (_this *Document) SetOnabort(value *js.Callback) {
 	_this.value.Set("onabort", input)
 }
 
+// Onauxclick returning attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onauxclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onauxclick")
@@ -4020,6 +4200,8 @@ func (_this *Document) Onauxclick() EventHandler {
 	return ret
 }
 
+// SetOnauxclick setting attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnauxclick(value *js.Callback) {
 	var __callback45 js.Value
 	if value != nil {
@@ -4031,6 +4213,8 @@ func (_this *Document) SetOnauxclick(value *js.Callback) {
 	_this.value.Set("onauxclick", input)
 }
 
+// Onblur returning attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onblur() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onblur")
@@ -4040,6 +4224,8 @@ func (_this *Document) Onblur() EventHandler {
 	return ret
 }
 
+// SetOnblur setting attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnblur(value *js.Callback) {
 	var __callback46 js.Value
 	if value != nil {
@@ -4051,6 +4237,8 @@ func (_this *Document) SetOnblur(value *js.Callback) {
 	_this.value.Set("onblur", input)
 }
 
+// Oncancel returning attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncancel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncancel")
@@ -4060,6 +4248,8 @@ func (_this *Document) Oncancel() EventHandler {
 	return ret
 }
 
+// SetOncancel setting attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncancel(value *js.Callback) {
 	var __callback47 js.Value
 	if value != nil {
@@ -4071,6 +4261,8 @@ func (_this *Document) SetOncancel(value *js.Callback) {
 	_this.value.Set("oncancel", input)
 }
 
+// Oncanplay returning attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncanplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplay")
@@ -4080,6 +4272,8 @@ func (_this *Document) Oncanplay() EventHandler {
 	return ret
 }
 
+// SetOncanplay setting attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplay(value *js.Callback) {
 	var __callback48 js.Value
 	if value != nil {
@@ -4091,6 +4285,8 @@ func (_this *Document) SetOncanplay(value *js.Callback) {
 	_this.value.Set("oncanplay", input)
 }
 
+// Oncanplaythrough returning attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncanplaythrough() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplaythrough")
@@ -4100,6 +4296,8 @@ func (_this *Document) Oncanplaythrough() EventHandler {
 	return ret
 }
 
+// SetOncanplaythrough setting attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplaythrough(value *js.Callback) {
 	var __callback49 js.Value
 	if value != nil {
@@ -4111,6 +4309,8 @@ func (_this *Document) SetOncanplaythrough(value *js.Callback) {
 	_this.value.Set("oncanplaythrough", input)
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -4120,6 +4320,8 @@ func (_this *Document) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnchange(value *js.Callback) {
 	var __callback50 js.Value
 	if value != nil {
@@ -4131,6 +4333,8 @@ func (_this *Document) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onclick returning attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclick")
@@ -4140,6 +4344,8 @@ func (_this *Document) Onclick() EventHandler {
 	return ret
 }
 
+// SetOnclick setting attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclick(value *js.Callback) {
 	var __callback51 js.Value
 	if value != nil {
@@ -4151,6 +4357,8 @@ func (_this *Document) SetOnclick(value *js.Callback) {
 	_this.value.Set("onclick", input)
 }
 
+// Onclose returning attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onclose() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclose")
@@ -4160,6 +4368,8 @@ func (_this *Document) Onclose() EventHandler {
 	return ret
 }
 
+// SetOnclose setting attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclose(value *js.Callback) {
 	var __callback52 js.Value
 	if value != nil {
@@ -4171,6 +4381,8 @@ func (_this *Document) SetOnclose(value *js.Callback) {
 	_this.value.Set("onclose", input)
 }
 
+// Oncontextmenu returning attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncontextmenu() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncontextmenu")
@@ -4180,6 +4392,8 @@ func (_this *Document) Oncontextmenu() EventHandler {
 	return ret
 }
 
+// SetOncontextmenu setting attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncontextmenu(value *js.Callback) {
 	var __callback53 js.Value
 	if value != nil {
@@ -4191,6 +4405,8 @@ func (_this *Document) SetOncontextmenu(value *js.Callback) {
 	_this.value.Set("oncontextmenu", input)
 }
 
+// Oncuechange returning attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncuechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncuechange")
@@ -4200,6 +4416,8 @@ func (_this *Document) Oncuechange() EventHandler {
 	return ret
 }
 
+// SetOncuechange setting attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncuechange(value *js.Callback) {
 	var __callback54 js.Value
 	if value != nil {
@@ -4211,6 +4429,8 @@ func (_this *Document) SetOncuechange(value *js.Callback) {
 	_this.value.Set("oncuechange", input)
 }
 
+// Ondblclick returning attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondblclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondblclick")
@@ -4220,6 +4440,8 @@ func (_this *Document) Ondblclick() EventHandler {
 	return ret
 }
 
+// SetOndblclick setting attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndblclick(value *js.Callback) {
 	var __callback55 js.Value
 	if value != nil {
@@ -4231,6 +4453,8 @@ func (_this *Document) SetOndblclick(value *js.Callback) {
 	_this.value.Set("ondblclick", input)
 }
 
+// Ondrag returning attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondrag() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrag")
@@ -4240,6 +4464,8 @@ func (_this *Document) Ondrag() EventHandler {
 	return ret
 }
 
+// SetOndrag setting attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrag(value *js.Callback) {
 	var __callback56 js.Value
 	if value != nil {
@@ -4251,6 +4477,8 @@ func (_this *Document) SetOndrag(value *js.Callback) {
 	_this.value.Set("ondrag", input)
 }
 
+// Ondragend returning attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragend")
@@ -4260,6 +4488,8 @@ func (_this *Document) Ondragend() EventHandler {
 	return ret
 }
 
+// SetOndragend setting attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragend(value *js.Callback) {
 	var __callback57 js.Value
 	if value != nil {
@@ -4271,6 +4501,8 @@ func (_this *Document) SetOndragend(value *js.Callback) {
 	_this.value.Set("ondragend", input)
 }
 
+// Ondragenter returning attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragenter")
@@ -4280,6 +4512,8 @@ func (_this *Document) Ondragenter() EventHandler {
 	return ret
 }
 
+// SetOndragenter setting attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragenter(value *js.Callback) {
 	var __callback58 js.Value
 	if value != nil {
@@ -4291,6 +4525,8 @@ func (_this *Document) SetOndragenter(value *js.Callback) {
 	_this.value.Set("ondragenter", input)
 }
 
+// Ondragexit returning attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragexit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragexit")
@@ -4300,6 +4536,8 @@ func (_this *Document) Ondragexit() EventHandler {
 	return ret
 }
 
+// SetOndragexit setting attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragexit(value *js.Callback) {
 	var __callback59 js.Value
 	if value != nil {
@@ -4311,6 +4549,8 @@ func (_this *Document) SetOndragexit(value *js.Callback) {
 	_this.value.Set("ondragexit", input)
 }
 
+// Ondragleave returning attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragleave")
@@ -4320,6 +4560,8 @@ func (_this *Document) Ondragleave() EventHandler {
 	return ret
 }
 
+// SetOndragleave setting attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragleave(value *js.Callback) {
 	var __callback60 js.Value
 	if value != nil {
@@ -4331,6 +4573,8 @@ func (_this *Document) SetOndragleave(value *js.Callback) {
 	_this.value.Set("ondragleave", input)
 }
 
+// Ondragover returning attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragover")
@@ -4340,6 +4584,8 @@ func (_this *Document) Ondragover() EventHandler {
 	return ret
 }
 
+// SetOndragover setting attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragover(value *js.Callback) {
 	var __callback61 js.Value
 	if value != nil {
@@ -4351,6 +4597,8 @@ func (_this *Document) SetOndragover(value *js.Callback) {
 	_this.value.Set("ondragover", input)
 }
 
+// Ondragstart returning attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondragstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragstart")
@@ -4360,6 +4608,8 @@ func (_this *Document) Ondragstart() EventHandler {
 	return ret
 }
 
+// SetOndragstart setting attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragstart(value *js.Callback) {
 	var __callback62 js.Value
 	if value != nil {
@@ -4371,6 +4621,8 @@ func (_this *Document) SetOndragstart(value *js.Callback) {
 	_this.value.Set("ondragstart", input)
 }
 
+// Ondrop returning attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondrop() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrop")
@@ -4380,6 +4632,8 @@ func (_this *Document) Ondrop() EventHandler {
 	return ret
 }
 
+// SetOndrop setting attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrop(value *js.Callback) {
 	var __callback63 js.Value
 	if value != nil {
@@ -4391,6 +4645,8 @@ func (_this *Document) SetOndrop(value *js.Callback) {
 	_this.value.Set("ondrop", input)
 }
 
+// Ondurationchange returning attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ondurationchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondurationchange")
@@ -4400,6 +4656,8 @@ func (_this *Document) Ondurationchange() EventHandler {
 	return ret
 }
 
+// SetOndurationchange setting attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndurationchange(value *js.Callback) {
 	var __callback64 js.Value
 	if value != nil {
@@ -4411,6 +4669,8 @@ func (_this *Document) SetOndurationchange(value *js.Callback) {
 	_this.value.Set("ondurationchange", input)
 }
 
+// Onemptied returning attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onemptied() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onemptied")
@@ -4420,6 +4680,8 @@ func (_this *Document) Onemptied() EventHandler {
 	return ret
 }
 
+// SetOnemptied setting attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnemptied(value *js.Callback) {
 	var __callback65 js.Value
 	if value != nil {
@@ -4431,6 +4693,8 @@ func (_this *Document) SetOnemptied(value *js.Callback) {
 	_this.value.Set("onemptied", input)
 }
 
+// Onended returning attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onended() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onended")
@@ -4440,6 +4704,8 @@ func (_this *Document) Onended() EventHandler {
 	return ret
 }
 
+// SetOnended setting attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnended(value *js.Callback) {
 	var __callback66 js.Value
 	if value != nil {
@@ -4451,6 +4717,8 @@ func (_this *Document) SetOnended(value *js.Callback) {
 	_this.value.Set("onended", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *Document) Onerror() OnErrorEventHandlerNonNull {
 	var ret OnErrorEventHandlerNonNull
 	value := _this.value.Get("onerror")
@@ -4460,6 +4728,8 @@ func (_this *Document) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *Document) SetOnerror(value *js.Callback) {
 	var __callback67 js.Value
 	if value != nil {
@@ -4471,6 +4741,8 @@ func (_this *Document) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onfocus returning attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onfocus() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onfocus")
@@ -4480,6 +4752,8 @@ func (_this *Document) Onfocus() EventHandler {
 	return ret
 }
 
+// SetOnfocus setting attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnfocus(value *js.Callback) {
 	var __callback68 js.Value
 	if value != nil {
@@ -4491,6 +4765,8 @@ func (_this *Document) SetOnfocus(value *js.Callback) {
 	_this.value.Set("onfocus", input)
 }
 
+// Onformdata returning attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onformdata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onformdata")
@@ -4500,6 +4776,8 @@ func (_this *Document) Onformdata() EventHandler {
 	return ret
 }
 
+// SetOnformdata setting attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnformdata(value *js.Callback) {
 	var __callback69 js.Value
 	if value != nil {
@@ -4511,6 +4789,8 @@ func (_this *Document) SetOnformdata(value *js.Callback) {
 	_this.value.Set("onformdata", input)
 }
 
+// Oninput returning attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oninput() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninput")
@@ -4520,6 +4800,8 @@ func (_this *Document) Oninput() EventHandler {
 	return ret
 }
 
+// SetOninput setting attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninput(value *js.Callback) {
 	var __callback70 js.Value
 	if value != nil {
@@ -4531,6 +4813,8 @@ func (_this *Document) SetOninput(value *js.Callback) {
 	_this.value.Set("oninput", input)
 }
 
+// Oninvalid returning attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oninvalid() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninvalid")
@@ -4540,6 +4824,8 @@ func (_this *Document) Oninvalid() EventHandler {
 	return ret
 }
 
+// SetOninvalid setting attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninvalid(value *js.Callback) {
 	var __callback71 js.Value
 	if value != nil {
@@ -4551,6 +4837,8 @@ func (_this *Document) SetOninvalid(value *js.Callback) {
 	_this.value.Set("oninvalid", input)
 }
 
+// Onkeydown returning attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onkeydown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeydown")
@@ -4560,6 +4848,8 @@ func (_this *Document) Onkeydown() EventHandler {
 	return ret
 }
 
+// SetOnkeydown setting attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeydown(value *js.Callback) {
 	var __callback72 js.Value
 	if value != nil {
@@ -4571,6 +4861,8 @@ func (_this *Document) SetOnkeydown(value *js.Callback) {
 	_this.value.Set("onkeydown", input)
 }
 
+// Onkeypress returning attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onkeypress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeypress")
@@ -4580,6 +4872,8 @@ func (_this *Document) Onkeypress() EventHandler {
 	return ret
 }
 
+// SetOnkeypress setting attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeypress(value *js.Callback) {
 	var __callback73 js.Value
 	if value != nil {
@@ -4591,6 +4885,8 @@ func (_this *Document) SetOnkeypress(value *js.Callback) {
 	_this.value.Set("onkeypress", input)
 }
 
+// Onkeyup returning attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onkeyup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeyup")
@@ -4600,6 +4896,8 @@ func (_this *Document) Onkeyup() EventHandler {
 	return ret
 }
 
+// SetOnkeyup setting attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeyup(value *js.Callback) {
 	var __callback74 js.Value
 	if value != nil {
@@ -4611,6 +4909,8 @@ func (_this *Document) SetOnkeyup(value *js.Callback) {
 	_this.value.Set("onkeyup", input)
 }
 
+// Onload returning attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onload")
@@ -4620,6 +4920,8 @@ func (_this *Document) Onload() EventHandler {
 	return ret
 }
 
+// SetOnload setting attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnload(value *js.Callback) {
 	var __callback75 js.Value
 	if value != nil {
@@ -4631,6 +4933,8 @@ func (_this *Document) SetOnload(value *js.Callback) {
 	_this.value.Set("onload", input)
 }
 
+// Onloadeddata returning attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onloadeddata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadeddata")
@@ -4640,6 +4944,8 @@ func (_this *Document) Onloadeddata() EventHandler {
 	return ret
 }
 
+// SetOnloadeddata setting attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadeddata(value *js.Callback) {
 	var __callback76 js.Value
 	if value != nil {
@@ -4651,6 +4957,8 @@ func (_this *Document) SetOnloadeddata(value *js.Callback) {
 	_this.value.Set("onloadeddata", input)
 }
 
+// Onloadedmetadata returning attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onloadedmetadata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadedmetadata")
@@ -4660,6 +4968,8 @@ func (_this *Document) Onloadedmetadata() EventHandler {
 	return ret
 }
 
+// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadedmetadata(value *js.Callback) {
 	var __callback77 js.Value
 	if value != nil {
@@ -4671,6 +4981,8 @@ func (_this *Document) SetOnloadedmetadata(value *js.Callback) {
 	_this.value.Set("onloadedmetadata", input)
 }
 
+// Onloadend returning attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onloadend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadend")
@@ -4680,6 +4992,8 @@ func (_this *Document) Onloadend() EventHandler {
 	return ret
 }
 
+// SetOnloadend setting attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadend(value *js.Callback) {
 	var __callback78 js.Value
 	if value != nil {
@@ -4691,6 +5005,8 @@ func (_this *Document) SetOnloadend(value *js.Callback) {
 	_this.value.Set("onloadend", input)
 }
 
+// Onloadstart returning attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onloadstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadstart")
@@ -4700,6 +5016,8 @@ func (_this *Document) Onloadstart() EventHandler {
 	return ret
 }
 
+// SetOnloadstart setting attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadstart(value *js.Callback) {
 	var __callback79 js.Value
 	if value != nil {
@@ -4711,6 +5029,8 @@ func (_this *Document) SetOnloadstart(value *js.Callback) {
 	_this.value.Set("onloadstart", input)
 }
 
+// Onmousedown returning attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmousedown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousedown")
@@ -4720,6 +5040,8 @@ func (_this *Document) Onmousedown() EventHandler {
 	return ret
 }
 
+// SetOnmousedown setting attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousedown(value *js.Callback) {
 	var __callback80 js.Value
 	if value != nil {
@@ -4731,6 +5053,8 @@ func (_this *Document) SetOnmousedown(value *js.Callback) {
 	_this.value.Set("onmousedown", input)
 }
 
+// Onmouseenter returning attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmouseenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseenter")
@@ -4740,6 +5064,8 @@ func (_this *Document) Onmouseenter() EventHandler {
 	return ret
 }
 
+// SetOnmouseenter setting attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseenter(value *js.Callback) {
 	var __callback81 js.Value
 	if value != nil {
@@ -4751,6 +5077,8 @@ func (_this *Document) SetOnmouseenter(value *js.Callback) {
 	_this.value.Set("onmouseenter", input)
 }
 
+// Onmouseleave returning attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmouseleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseleave")
@@ -4760,6 +5088,8 @@ func (_this *Document) Onmouseleave() EventHandler {
 	return ret
 }
 
+// SetOnmouseleave setting attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseleave(value *js.Callback) {
 	var __callback82 js.Value
 	if value != nil {
@@ -4771,6 +5101,8 @@ func (_this *Document) SetOnmouseleave(value *js.Callback) {
 	_this.value.Set("onmouseleave", input)
 }
 
+// Onmousemove returning attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmousemove() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousemove")
@@ -4780,6 +5112,8 @@ func (_this *Document) Onmousemove() EventHandler {
 	return ret
 }
 
+// SetOnmousemove setting attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousemove(value *js.Callback) {
 	var __callback83 js.Value
 	if value != nil {
@@ -4791,6 +5125,8 @@ func (_this *Document) SetOnmousemove(value *js.Callback) {
 	_this.value.Set("onmousemove", input)
 }
 
+// Onmouseout returning attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmouseout() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseout")
@@ -4800,6 +5136,8 @@ func (_this *Document) Onmouseout() EventHandler {
 	return ret
 }
 
+// SetOnmouseout setting attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseout(value *js.Callback) {
 	var __callback84 js.Value
 	if value != nil {
@@ -4811,6 +5149,8 @@ func (_this *Document) SetOnmouseout(value *js.Callback) {
 	_this.value.Set("onmouseout", input)
 }
 
+// Onmouseover returning attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmouseover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseover")
@@ -4820,6 +5160,8 @@ func (_this *Document) Onmouseover() EventHandler {
 	return ret
 }
 
+// SetOnmouseover setting attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseover(value *js.Callback) {
 	var __callback85 js.Value
 	if value != nil {
@@ -4831,6 +5173,8 @@ func (_this *Document) SetOnmouseover(value *js.Callback) {
 	_this.value.Set("onmouseover", input)
 }
 
+// Onmouseup returning attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onmouseup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseup")
@@ -4840,6 +5184,8 @@ func (_this *Document) Onmouseup() EventHandler {
 	return ret
 }
 
+// SetOnmouseup setting attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseup(value *js.Callback) {
 	var __callback86 js.Value
 	if value != nil {
@@ -4851,6 +5197,8 @@ func (_this *Document) SetOnmouseup(value *js.Callback) {
 	_this.value.Set("onmouseup", input)
 }
 
+// Onwheel returning attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onwheel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwheel")
@@ -4860,6 +5208,8 @@ func (_this *Document) Onwheel() EventHandler {
 	return ret
 }
 
+// SetOnwheel setting attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwheel(value *js.Callback) {
 	var __callback87 js.Value
 	if value != nil {
@@ -4871,6 +5221,8 @@ func (_this *Document) SetOnwheel(value *js.Callback) {
 	_this.value.Set("onwheel", input)
 }
 
+// Onpause returning attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onpause() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpause")
@@ -4880,6 +5232,8 @@ func (_this *Document) Onpause() EventHandler {
 	return ret
 }
 
+// SetOnpause setting attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpause(value *js.Callback) {
 	var __callback88 js.Value
 	if value != nil {
@@ -4891,6 +5245,8 @@ func (_this *Document) SetOnpause(value *js.Callback) {
 	_this.value.Set("onpause", input)
 }
 
+// Onplay returning attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplay")
@@ -4900,6 +5256,8 @@ func (_this *Document) Onplay() EventHandler {
 	return ret
 }
 
+// SetOnplay setting attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplay(value *js.Callback) {
 	var __callback89 js.Value
 	if value != nil {
@@ -4911,6 +5269,8 @@ func (_this *Document) SetOnplay(value *js.Callback) {
 	_this.value.Set("onplay", input)
 }
 
+// Onplaying returning attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onplaying() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplaying")
@@ -4920,6 +5280,8 @@ func (_this *Document) Onplaying() EventHandler {
 	return ret
 }
 
+// SetOnplaying setting attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplaying(value *js.Callback) {
 	var __callback90 js.Value
 	if value != nil {
@@ -4931,6 +5293,8 @@ func (_this *Document) SetOnplaying(value *js.Callback) {
 	_this.value.Set("onplaying", input)
 }
 
+// Onprogress returning attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onprogress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onprogress")
@@ -4940,6 +5304,8 @@ func (_this *Document) Onprogress() EventHandler {
 	return ret
 }
 
+// SetOnprogress setting attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnprogress(value *js.Callback) {
 	var __callback91 js.Value
 	if value != nil {
@@ -4951,6 +5317,8 @@ func (_this *Document) SetOnprogress(value *js.Callback) {
 	_this.value.Set("onprogress", input)
 }
 
+// Onratechange returning attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onratechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onratechange")
@@ -4960,6 +5328,8 @@ func (_this *Document) Onratechange() EventHandler {
 	return ret
 }
 
+// SetOnratechange setting attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnratechange(value *js.Callback) {
 	var __callback92 js.Value
 	if value != nil {
@@ -4971,6 +5341,8 @@ func (_this *Document) SetOnratechange(value *js.Callback) {
 	_this.value.Set("onratechange", input)
 }
 
+// Onreset returning attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onreset() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onreset")
@@ -4980,6 +5352,8 @@ func (_this *Document) Onreset() EventHandler {
 	return ret
 }
 
+// SetOnreset setting attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnreset(value *js.Callback) {
 	var __callback93 js.Value
 	if value != nil {
@@ -4991,6 +5365,8 @@ func (_this *Document) SetOnreset(value *js.Callback) {
 	_this.value.Set("onreset", input)
 }
 
+// Onresize returning attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onresize() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onresize")
@@ -5000,6 +5376,8 @@ func (_this *Document) Onresize() EventHandler {
 	return ret
 }
 
+// SetOnresize setting attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnresize(value *js.Callback) {
 	var __callback94 js.Value
 	if value != nil {
@@ -5011,6 +5389,8 @@ func (_this *Document) SetOnresize(value *js.Callback) {
 	_this.value.Set("onresize", input)
 }
 
+// Onscroll returning attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onscroll() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onscroll")
@@ -5020,6 +5400,8 @@ func (_this *Document) Onscroll() EventHandler {
 	return ret
 }
 
+// SetOnscroll setting attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnscroll(value *js.Callback) {
 	var __callback95 js.Value
 	if value != nil {
@@ -5031,6 +5413,8 @@ func (_this *Document) SetOnscroll(value *js.Callback) {
 	_this.value.Set("onscroll", input)
 }
 
+// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onsecuritypolicyviolation() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsecuritypolicyviolation")
@@ -5040,6 +5424,8 @@ func (_this *Document) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
+// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsecuritypolicyviolation(value *js.Callback) {
 	var __callback96 js.Value
 	if value != nil {
@@ -5051,6 +5437,8 @@ func (_this *Document) SetOnsecuritypolicyviolation(value *js.Callback) {
 	_this.value.Set("onsecuritypolicyviolation", input)
 }
 
+// Onseeked returning attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onseeked() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeked")
@@ -5060,6 +5448,8 @@ func (_this *Document) Onseeked() EventHandler {
 	return ret
 }
 
+// SetOnseeked setting attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeked(value *js.Callback) {
 	var __callback97 js.Value
 	if value != nil {
@@ -5071,6 +5461,8 @@ func (_this *Document) SetOnseeked(value *js.Callback) {
 	_this.value.Set("onseeked", input)
 }
 
+// Onseeking returning attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onseeking() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeking")
@@ -5080,6 +5472,8 @@ func (_this *Document) Onseeking() EventHandler {
 	return ret
 }
 
+// SetOnseeking setting attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeking(value *js.Callback) {
 	var __callback98 js.Value
 	if value != nil {
@@ -5091,6 +5485,8 @@ func (_this *Document) SetOnseeking(value *js.Callback) {
 	_this.value.Set("onseeking", input)
 }
 
+// Onselect returning attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onselect() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onselect")
@@ -5100,6 +5496,8 @@ func (_this *Document) Onselect() EventHandler {
 	return ret
 }
 
+// SetOnselect setting attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnselect(value *js.Callback) {
 	var __callback99 js.Value
 	if value != nil {
@@ -5111,6 +5509,8 @@ func (_this *Document) SetOnselect(value *js.Callback) {
 	_this.value.Set("onselect", input)
 }
 
+// Onstalled returning attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onstalled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstalled")
@@ -5120,6 +5520,8 @@ func (_this *Document) Onstalled() EventHandler {
 	return ret
 }
 
+// SetOnstalled setting attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnstalled(value *js.Callback) {
 	var __callback100 js.Value
 	if value != nil {
@@ -5131,6 +5533,8 @@ func (_this *Document) SetOnstalled(value *js.Callback) {
 	_this.value.Set("onstalled", input)
 }
 
+// Onsubmit returning attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onsubmit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsubmit")
@@ -5140,6 +5544,8 @@ func (_this *Document) Onsubmit() EventHandler {
 	return ret
 }
 
+// SetOnsubmit setting attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsubmit(value *js.Callback) {
 	var __callback101 js.Value
 	if value != nil {
@@ -5151,6 +5557,8 @@ func (_this *Document) SetOnsubmit(value *js.Callback) {
 	_this.value.Set("onsubmit", input)
 }
 
+// Onsuspend returning attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onsuspend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsuspend")
@@ -5160,6 +5568,8 @@ func (_this *Document) Onsuspend() EventHandler {
 	return ret
 }
 
+// SetOnsuspend setting attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsuspend(value *js.Callback) {
 	var __callback102 js.Value
 	if value != nil {
@@ -5171,6 +5581,8 @@ func (_this *Document) SetOnsuspend(value *js.Callback) {
 	_this.value.Set("onsuspend", input)
 }
 
+// Ontimeupdate returning attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ontimeupdate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontimeupdate")
@@ -5180,6 +5592,8 @@ func (_this *Document) Ontimeupdate() EventHandler {
 	return ret
 }
 
+// SetOntimeupdate setting attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntimeupdate(value *js.Callback) {
 	var __callback103 js.Value
 	if value != nil {
@@ -5191,6 +5605,8 @@ func (_this *Document) SetOntimeupdate(value *js.Callback) {
 	_this.value.Set("ontimeupdate", input)
 }
 
+// Ontoggle returning attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Ontoggle() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontoggle")
@@ -5200,6 +5616,8 @@ func (_this *Document) Ontoggle() EventHandler {
 	return ret
 }
 
+// SetOntoggle setting attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntoggle(value *js.Callback) {
 	var __callback104 js.Value
 	if value != nil {
@@ -5211,6 +5629,8 @@ func (_this *Document) SetOntoggle(value *js.Callback) {
 	_this.value.Set("ontoggle", input)
 }
 
+// Onvolumechange returning attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onvolumechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onvolumechange")
@@ -5220,6 +5640,8 @@ func (_this *Document) Onvolumechange() EventHandler {
 	return ret
 }
 
+// SetOnvolumechange setting attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnvolumechange(value *js.Callback) {
 	var __callback105 js.Value
 	if value != nil {
@@ -5231,6 +5653,8 @@ func (_this *Document) SetOnvolumechange(value *js.Callback) {
 	_this.value.Set("onvolumechange", input)
 }
 
+// Onwaiting returning attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onwaiting() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwaiting")
@@ -5240,6 +5664,8 @@ func (_this *Document) Onwaiting() EventHandler {
 	return ret
 }
 
+// SetOnwaiting setting attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwaiting(value *js.Callback) {
 	var __callback106 js.Value
 	if value != nil {
@@ -5251,6 +5677,8 @@ func (_this *Document) SetOnwaiting(value *js.Callback) {
 	_this.value.Set("onwaiting", input)
 }
 
+// Oncopy returning attribute 'oncopy' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncopy() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncopy")
@@ -5260,6 +5688,8 @@ func (_this *Document) Oncopy() EventHandler {
 	return ret
 }
 
+// SetOncopy setting attribute 'oncopy' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncopy(value *js.Callback) {
 	var __callback107 js.Value
 	if value != nil {
@@ -5271,6 +5701,8 @@ func (_this *Document) SetOncopy(value *js.Callback) {
 	_this.value.Set("oncopy", input)
 }
 
+// Oncut returning attribute 'oncut' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Oncut() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncut")
@@ -5280,6 +5712,8 @@ func (_this *Document) Oncut() EventHandler {
 	return ret
 }
 
+// SetOncut setting attribute 'oncut' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncut(value *js.Callback) {
 	var __callback108 js.Value
 	if value != nil {
@@ -5291,6 +5725,8 @@ func (_this *Document) SetOncut(value *js.Callback) {
 	_this.value.Set("oncut", input)
 }
 
+// Onpaste returning attribute 'onpaste' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onpaste() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpaste")
@@ -5300,6 +5736,8 @@ func (_this *Document) Onpaste() EventHandler {
 	return ret
 }
 
+// SetOnpaste setting attribute 'onpaste' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpaste(value *js.Callback) {
 	var __callback109 js.Value
 	if value != nil {
@@ -5312,7 +5750,6 @@ func (_this *Document) SetOnpaste(value *js.Callback) {
 }
 
 func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByTagName")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5320,7 +5757,7 @@ func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTML
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByTagName", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -5330,7 +5767,6 @@ func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTML
 }
 
 func (_this *Document) GetElementsByTagNameNS(namespace *string, localName string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByTagNameNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5341,7 +5777,7 @@ func (_this *Document) GetElementsByTagNameNS(namespace *string, localName strin
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByTagNameNS", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -5351,7 +5787,6 @@ func (_this *Document) GetElementsByTagNameNS(namespace *string, localName strin
 }
 
 func (_this *Document) GetElementsByClassName(classNames string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByClassName")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5359,7 +5794,7 @@ func (_this *Document) GetElementsByClassName(classNames string) (_result *HTMLC
 	_p0 := classNames
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByClassName", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -5369,7 +5804,6 @@ func (_this *Document) GetElementsByClassName(classNames string) (_result *HTMLC
 }
 
 func (_this *Document) CreateElement(localName string, options *Union) (_result *Element) {
-	_method := _this.value.Get("createElement")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5382,7 +5816,7 @@ func (_this *Document) CreateElement(localName string, options *Union) (_result 
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createElement", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -5392,7 +5826,6 @@ func (_this *Document) CreateElement(localName string, options *Union) (_result 
 }
 
 func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, options *Union) (_result *Element) {
-	_method := _this.value.Get("createElementNS")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5408,7 +5841,7 @@ func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, 
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createElementNS", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -5418,12 +5851,11 @@ func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, 
 }
 
 func (_this *Document) CreateDocumentFragment() (_result *DocumentFragment) {
-	_method := _this.value.Get("createDocumentFragment")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createDocumentFragment", _args[0:_end]...)
 	var (
 		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
 	)
@@ -5433,7 +5865,6 @@ func (_this *Document) CreateDocumentFragment() (_result *DocumentFragment) {
 }
 
 func (_this *Document) CreateTextNode(data string) (_result *Text) {
-	_method := _this.value.Get("createTextNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5441,7 +5872,7 @@ func (_this *Document) CreateTextNode(data string) (_result *Text) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createTextNode", _args[0:_end]...)
 	var (
 		_converted *Text // javascript: Text _what_return_name
 	)
@@ -5451,7 +5882,6 @@ func (_this *Document) CreateTextNode(data string) (_result *Text) {
 }
 
 func (_this *Document) CreateCDATASection(data string) (_result *CDATASection) {
-	_method := _this.value.Get("createCDATASection")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5459,7 +5889,7 @@ func (_this *Document) CreateCDATASection(data string) (_result *CDATASection) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createCDATASection", _args[0:_end]...)
 	var (
 		_converted *CDATASection // javascript: CDATASection _what_return_name
 	)
@@ -5469,7 +5899,6 @@ func (_this *Document) CreateCDATASection(data string) (_result *CDATASection) {
 }
 
 func (_this *Document) CreateComment(data string) (_result *Comment) {
-	_method := _this.value.Get("createComment")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5477,7 +5906,7 @@ func (_this *Document) CreateComment(data string) (_result *Comment) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createComment", _args[0:_end]...)
 	var (
 		_converted *Comment // javascript: Comment _what_return_name
 	)
@@ -5487,7 +5916,6 @@ func (_this *Document) CreateComment(data string) (_result *Comment) {
 }
 
 func (_this *Document) CreateProcessingInstruction(target string, data string) (_result *ProcessingInstruction) {
-	_method := _this.value.Get("createProcessingInstruction")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5498,7 +5926,7 @@ func (_this *Document) CreateProcessingInstruction(target string, data string) (
 	_p1 := data
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createProcessingInstruction", _args[0:_end]...)
 	var (
 		_converted *ProcessingInstruction // javascript: ProcessingInstruction _what_return_name
 	)
@@ -5508,7 +5936,6 @@ func (_this *Document) CreateProcessingInstruction(target string, data string) (
 }
 
 func (_this *Document) ImportNode(node *Node, deep *bool) (_result *Node) {
-	_method := _this.value.Get("importNode")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5521,7 +5948,7 @@ func (_this *Document) ImportNode(node *Node, deep *bool) (_result *Node) {
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("importNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -5531,7 +5958,6 @@ func (_this *Document) ImportNode(node *Node, deep *bool) (_result *Node) {
 }
 
 func (_this *Document) AdoptNode(node *Node) (_result *Node) {
-	_method := _this.value.Get("adoptNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5539,7 +5965,7 @@ func (_this *Document) AdoptNode(node *Node) (_result *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("adoptNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -5549,7 +5975,6 @@ func (_this *Document) AdoptNode(node *Node) (_result *Node) {
 }
 
 func (_this *Document) CreateAttribute(localName string) (_result *Attr) {
-	_method := _this.value.Get("createAttribute")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5557,7 +5982,7 @@ func (_this *Document) CreateAttribute(localName string) (_result *Attr) {
 	_p0 := localName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createAttribute", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -5567,7 +5992,6 @@ func (_this *Document) CreateAttribute(localName string) (_result *Attr) {
 }
 
 func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string) (_result *Attr) {
-	_method := _this.value.Get("createAttributeNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5578,7 +6002,7 @@ func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string
 	_p1 := qualifiedName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createAttributeNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -5588,7 +6012,6 @@ func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string
 }
 
 func (_this *Document) CreateEvent(_interface string) (_result *Event) {
-	_method := _this.value.Get("createEvent")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5596,7 +6019,7 @@ func (_this *Document) CreateEvent(_interface string) (_result *Event) {
 	_p0 := _interface
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createEvent", _args[0:_end]...)
 	var (
 		_converted *Event // javascript: Event _what_return_name
 	)
@@ -5606,12 +6029,11 @@ func (_this *Document) CreateEvent(_interface string) (_result *Event) {
 }
 
 func (_this *Document) CreateRange() (_result *Range) {
-	_method := _this.value.Get("createRange")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createRange", _args[0:_end]...)
 	var (
 		_converted *Range // javascript: Range _what_return_name
 	)
@@ -5621,7 +6043,6 @@ func (_this *Document) CreateRange() (_result *Range) {
 }
 
 func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *NodeFilter) (_result *NodeIterator) {
-	_method := _this.value.Get("createNodeIterator")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5639,7 +6060,7 @@ func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createNodeIterator", _args[0:_end]...)
 	var (
 		_converted *NodeIterator // javascript: NodeIterator _what_return_name
 	)
@@ -5649,7 +6070,6 @@ func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *
 }
 
 func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *NodeFilter) (_result *TreeWalker) {
-	_method := _this.value.Get("createTreeWalker")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5667,7 +6087,7 @@ func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *No
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createTreeWalker", _args[0:_end]...)
 	var (
 		_converted *TreeWalker // javascript: TreeWalker _what_return_name
 	)
@@ -5677,7 +6097,6 @@ func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *No
 }
 
 func (_this *Document) GetElementsByName(elementName string) (_result *NodeList) {
-	_method := _this.value.Get("getElementsByName")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5685,7 +6104,7 @@ func (_this *Document) GetElementsByName(elementName string) (_result *NodeList)
 	_p0 := elementName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByName", _args[0:_end]...)
 	var (
 		_converted *NodeList // javascript: NodeList _what_return_name
 	)
@@ -5695,7 +6114,6 @@ func (_this *Document) GetElementsByName(elementName string) (_result *NodeList)
 }
 
 func (_this *Document) Open(unused1 *string, unused2 *string) (_result *Document) {
-	_method := _this.value.Get("open")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5710,7 +6128,7 @@ func (_this *Document) Open(unused1 *string, unused2 *string) (_result *Document
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("open", _args[0:_end]...)
 	var (
 		_converted *Document // javascript: Document _what_return_name
 	)
@@ -5720,7 +6138,6 @@ func (_this *Document) Open(unused1 *string, unused2 *string) (_result *Document
 }
 
 func (_this *Document) Open2(url string, name string, features string) (_result *Window) {
-	_method := _this.value.Get("open")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5734,7 +6151,7 @@ func (_this *Document) Open2(url string, name string, features string) (_result 
 	_p2 := features
 	_args[2] = _p2
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("open", _args[0:_end]...)
 	var (
 		_converted *Window // javascript: Window _what_return_name
 	)
@@ -5746,17 +6163,15 @@ func (_this *Document) Open2(url string, name string, features string) (_result 
 }
 
 func (_this *Document) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) Write(text ...string) {
-	_method := _this.value.Get("write")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(text))
 		_end  int
@@ -5766,12 +6181,11 @@ func (_this *Document) Write(text ...string) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("write", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) Writeln(text ...string) {
-	_method := _this.value.Get("writeln")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(text))
 		_end  int
@@ -5781,17 +6195,16 @@ func (_this *Document) Writeln(text ...string) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("writeln", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) HasFocus() (_result bool) {
-	_method := _this.value.Get("hasFocus")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasFocus", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5801,7 +6214,6 @@ func (_this *Document) HasFocus() (_result bool) {
 }
 
 func (_this *Document) ExecCommand(commandId string, showUI *bool, value *string) (_result bool) {
-	_method := _this.value.Get("execCommand")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5819,7 +6231,7 @@ func (_this *Document) ExecCommand(commandId string, showUI *bool, value *string
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("execCommand", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5829,7 +6241,6 @@ func (_this *Document) ExecCommand(commandId string, showUI *bool, value *string
 }
 
 func (_this *Document) QueryCommandEnabled(commandId string) (_result bool) {
-	_method := _this.value.Get("queryCommandEnabled")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5837,7 +6248,7 @@ func (_this *Document) QueryCommandEnabled(commandId string) (_result bool) {
 	_p0 := commandId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("queryCommandEnabled", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5847,7 +6258,6 @@ func (_this *Document) QueryCommandEnabled(commandId string) (_result bool) {
 }
 
 func (_this *Document) QueryCommandIndeterm(commandId string) (_result bool) {
-	_method := _this.value.Get("queryCommandIndeterm")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5855,7 +6265,7 @@ func (_this *Document) QueryCommandIndeterm(commandId string) (_result bool) {
 	_p0 := commandId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("queryCommandIndeterm", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5865,7 +6275,6 @@ func (_this *Document) QueryCommandIndeterm(commandId string) (_result bool) {
 }
 
 func (_this *Document) QueryCommandState(commandId string) (_result bool) {
-	_method := _this.value.Get("queryCommandState")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5873,7 +6282,7 @@ func (_this *Document) QueryCommandState(commandId string) (_result bool) {
 	_p0 := commandId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("queryCommandState", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5883,7 +6292,6 @@ func (_this *Document) QueryCommandState(commandId string) (_result bool) {
 }
 
 func (_this *Document) QueryCommandSupported(commandId string) (_result bool) {
-	_method := _this.value.Get("queryCommandSupported")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5891,7 +6299,7 @@ func (_this *Document) QueryCommandSupported(commandId string) (_result bool) {
 	_p0 := commandId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("queryCommandSupported", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -5901,7 +6309,6 @@ func (_this *Document) QueryCommandSupported(commandId string) (_result bool) {
 }
 
 func (_this *Document) QueryCommandValue(commandId string) (_result string) {
-	_method := _this.value.Get("queryCommandValue")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5909,7 +6316,7 @@ func (_this *Document) QueryCommandValue(commandId string) (_result string) {
 	_p0 := commandId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("queryCommandValue", _args[0:_end]...)
 	var (
 		_converted string // javascript: DOMString _what_return_name
 	)
@@ -5919,37 +6326,33 @@ func (_this *Document) QueryCommandValue(commandId string) (_result string) {
 }
 
 func (_this *Document) Clear() {
-	_method := _this.value.Get("clear")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clear", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) CaptureEvents() {
-	_method := _this.value.Get("captureEvents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("captureEvents", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) ReleaseEvents() {
-	_method := _this.value.Get("releaseEvents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("releaseEvents", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) GetElementById(elementId string) (_result *Element) {
-	_method := _this.value.Get("getElementById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5957,7 +6360,7 @@ func (_this *Document) GetElementById(elementId string) (_result *Element) {
 	_p0 := elementId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementById", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -5969,7 +6372,6 @@ func (_this *Document) GetElementById(elementId string) (_result *Element) {
 }
 
 func (_this *Document) Prepend(nodes ...*Union) {
-	_method := _this.value.Get("prepend")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -5979,12 +6381,11 @@ func (_this *Document) Prepend(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("prepend", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) Append(nodes ...*Union) {
-	_method := _this.value.Get("append")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -5994,12 +6395,11 @@ func (_this *Document) Append(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("append", _args[0:_end]...)
 	return
 }
 
 func (_this *Document) QuerySelector(selectors string) (_result *Element) {
-	_method := _this.value.Get("querySelector")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6007,7 +6407,7 @@ func (_this *Document) QuerySelector(selectors string) (_result *Element) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelector", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -6019,7 +6419,6 @@ func (_this *Document) QuerySelector(selectors string) (_result *Element) {
 }
 
 func (_this *Document) QuerySelectorAll(selectors string) (_result *NodeList) {
-	_method := _this.value.Get("querySelectorAll")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6027,7 +6426,7 @@ func (_this *Document) QuerySelectorAll(selectors string) (_result *NodeList) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelectorAll", _args[0:_end]...)
 	var (
 		_converted *NodeList // javascript: NodeList _what_return_name
 	)
@@ -6075,7 +6474,6 @@ func DOMImplementationFromJS(input js.Value) *DOMImplementation {
 }
 
 func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicId string, systemId string) (_result *DocumentType) {
-	_method := _this.value.Get("createDocumentType")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6089,7 +6487,7 @@ func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicI
 	_p2 := systemId
 	_args[2] = _p2
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createDocumentType", _args[0:_end]...)
 	var (
 		_converted *DocumentType // javascript: DocumentType _what_return_name
 	)
@@ -6099,7 +6497,6 @@ func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicI
 }
 
 func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName string, doctype *DocumentType) (_result *XMLDocument) {
-	_method := _this.value.Get("createDocument")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6115,7 +6512,7 @@ func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName 
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createDocument", _args[0:_end]...)
 	var (
 		_converted *XMLDocument // javascript: XMLDocument _what_return_name
 	)
@@ -6125,7 +6522,6 @@ func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName 
 }
 
 func (_this *DOMImplementation) CreateHTMLDocument(title *string) (_result *Document) {
-	_method := _this.value.Get("createHTMLDocument")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6135,7 +6531,7 @@ func (_this *DOMImplementation) CreateHTMLDocument(title *string) (_result *Docu
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createHTMLDocument", _args[0:_end]...)
 	var (
 		_converted *Document // javascript: Document _what_return_name
 	)
@@ -6145,12 +6541,11 @@ func (_this *DOMImplementation) CreateHTMLDocument(title *string) (_result *Docu
 }
 
 func (_this *DOMImplementation) HasFeature() (_result bool) {
-	_method := _this.value.Get("hasFeature")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasFeature", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6178,6 +6573,8 @@ func DocumentTypeFromJS(input js.Value) *DocumentType {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *DocumentType) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -6185,6 +6582,8 @@ func (_this *DocumentType) Name() string {
 	return ret
 }
 
+// PublicId returning attribute 'publicId' with
+// type string (idl: DOMString).
 func (_this *DocumentType) PublicId() string {
 	var ret string
 	value := _this.value.Get("publicId")
@@ -6192,6 +6591,8 @@ func (_this *DocumentType) PublicId() string {
 	return ret
 }
 
+// SystemId returning attribute 'systemId' with
+// type string (idl: DOMString).
 func (_this *DocumentType) SystemId() string {
 	var ret string
 	value := _this.value.Get("systemId")
@@ -6200,7 +6601,6 @@ func (_this *DocumentType) SystemId() string {
 }
 
 func (_this *DocumentType) Before(nodes ...*Union) {
-	_method := _this.value.Get("before")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -6210,12 +6610,11 @@ func (_this *DocumentType) Before(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("before", _args[0:_end]...)
 	return
 }
 
 func (_this *DocumentType) After(nodes ...*Union) {
-	_method := _this.value.Get("after")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -6225,12 +6624,11 @@ func (_this *DocumentType) After(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("after", _args[0:_end]...)
 	return
 }
 
 func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
-	_method := _this.value.Get("replaceWith")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -6240,17 +6638,16 @@ func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replaceWith", _args[0:_end]...)
 	return
 }
 
 func (_this *DocumentType) Remove() {
-	_method := _this.value.Get("remove")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
@@ -6288,6 +6685,8 @@ func NewDocumentFragment() (_result *DocumentFragment) {
 	return
 }
 
+// Children returning attribute 'children' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *DocumentFragment) Children() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("children")
@@ -6295,6 +6694,8 @@ func (_this *DocumentFragment) Children() *HTMLCollection {
 	return ret
 }
 
+// FirstElementChild returning attribute 'firstElementChild' with
+// type Element (idl: Element).
 func (_this *DocumentFragment) FirstElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("firstElementChild")
@@ -6304,6 +6705,8 @@ func (_this *DocumentFragment) FirstElementChild() *Element {
 	return ret
 }
 
+// LastElementChild returning attribute 'lastElementChild' with
+// type Element (idl: Element).
 func (_this *DocumentFragment) LastElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("lastElementChild")
@@ -6313,6 +6716,8 @@ func (_this *DocumentFragment) LastElementChild() *Element {
 	return ret
 }
 
+// ChildElementCount returning attribute 'childElementCount' with
+// type uint (idl: unsigned long).
 func (_this *DocumentFragment) ChildElementCount() uint {
 	var ret uint
 	value := _this.value.Get("childElementCount")
@@ -6321,7 +6726,6 @@ func (_this *DocumentFragment) ChildElementCount() uint {
 }
 
 func (_this *DocumentFragment) GetElementById(elementId string) (_result *Element) {
-	_method := _this.value.Get("getElementById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6329,7 +6733,7 @@ func (_this *DocumentFragment) GetElementById(elementId string) (_result *Elemen
 	_p0 := elementId
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementById", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -6341,7 +6745,6 @@ func (_this *DocumentFragment) GetElementById(elementId string) (_result *Elemen
 }
 
 func (_this *DocumentFragment) Prepend(nodes ...*Union) {
-	_method := _this.value.Get("prepend")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -6351,12 +6754,11 @@ func (_this *DocumentFragment) Prepend(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("prepend", _args[0:_end]...)
 	return
 }
 
 func (_this *DocumentFragment) Append(nodes ...*Union) {
-	_method := _this.value.Get("append")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -6366,12 +6768,11 @@ func (_this *DocumentFragment) Append(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("append", _args[0:_end]...)
 	return
 }
 
 func (_this *DocumentFragment) QuerySelector(selectors string) (_result *Element) {
-	_method := _this.value.Get("querySelector")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6379,7 +6780,7 @@ func (_this *DocumentFragment) QuerySelector(selectors string) (_result *Element
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelector", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -6391,7 +6792,6 @@ func (_this *DocumentFragment) QuerySelector(selectors string) (_result *Element
 }
 
 func (_this *DocumentFragment) QuerySelectorAll(selectors string) (_result *NodeList) {
-	_method := _this.value.Get("querySelectorAll")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6399,7 +6799,7 @@ func (_this *DocumentFragment) QuerySelectorAll(selectors string) (_result *Node
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelectorAll", _args[0:_end]...)
 	var (
 		_converted *NodeList // javascript: NodeList _what_return_name
 	)
@@ -6427,6 +6827,8 @@ func ShadowRootFromJS(input js.Value) *ShadowRoot {
 	return ret
 }
 
+// Mode returning attribute 'mode' with
+// type ShadowRootMode (idl: ShadowRootMode).
 func (_this *ShadowRoot) Mode() ShadowRootMode {
 	var ret ShadowRootMode
 	value := _this.value.Get("mode")
@@ -6434,6 +6836,8 @@ func (_this *ShadowRoot) Mode() ShadowRootMode {
 	return ret
 }
 
+// Host returning attribute 'host' with
+// type Element (idl: Element).
 func (_this *ShadowRoot) Host() *Element {
 	var ret *Element
 	value := _this.value.Get("host")
@@ -6460,6 +6864,8 @@ func ElementFromJS(input js.Value) *Element {
 	return ret
 }
 
+// NamespaceURI returning attribute 'namespaceURI' with
+// type string (idl: DOMString).
 func (_this *Element) NamespaceURI() *string {
 	var ret *string
 	value := _this.value.Get("namespaceURI")
@@ -6470,6 +6876,8 @@ func (_this *Element) NamespaceURI() *string {
 	return ret
 }
 
+// Prefix returning attribute 'prefix' with
+// type string (idl: DOMString).
 func (_this *Element) Prefix() *string {
 	var ret *string
 	value := _this.value.Get("prefix")
@@ -6480,6 +6888,8 @@ func (_this *Element) Prefix() *string {
 	return ret
 }
 
+// LocalName returning attribute 'localName' with
+// type string (idl: DOMString).
 func (_this *Element) LocalName() string {
 	var ret string
 	value := _this.value.Get("localName")
@@ -6487,6 +6897,8 @@ func (_this *Element) LocalName() string {
 	return ret
 }
 
+// TagName returning attribute 'tagName' with
+// type string (idl: DOMString).
 func (_this *Element) TagName() string {
 	var ret string
 	value := _this.value.Get("tagName")
@@ -6494,6 +6906,8 @@ func (_this *Element) TagName() string {
 	return ret
 }
 
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
 func (_this *Element) Id() string {
 	var ret string
 	value := _this.value.Get("id")
@@ -6501,11 +6915,15 @@ func (_this *Element) Id() string {
 	return ret
 }
 
+// SetId setting attribute 'id' with
+// type string (idl: DOMString).
 func (_this *Element) SetId(value string) {
 	input := value
 	_this.value.Set("id", input)
 }
 
+// ClassName returning attribute 'className' with
+// type string (idl: DOMString).
 func (_this *Element) ClassName() string {
 	var ret string
 	value := _this.value.Get("className")
@@ -6513,11 +6931,15 @@ func (_this *Element) ClassName() string {
 	return ret
 }
 
+// SetClassName setting attribute 'className' with
+// type string (idl: DOMString).
 func (_this *Element) SetClassName(value string) {
 	input := value
 	_this.value.Set("className", input)
 }
 
+// ClassList returning attribute 'classList' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *Element) ClassList() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("classList")
@@ -6525,6 +6947,8 @@ func (_this *Element) ClassList() *DOMTokenList {
 	return ret
 }
 
+// Slot returning attribute 'slot' with
+// type string (idl: DOMString).
 func (_this *Element) Slot() string {
 	var ret string
 	value := _this.value.Get("slot")
@@ -6532,11 +6956,15 @@ func (_this *Element) Slot() string {
 	return ret
 }
 
+// SetSlot setting attribute 'slot' with
+// type string (idl: DOMString).
 func (_this *Element) SetSlot(value string) {
 	input := value
 	_this.value.Set("slot", input)
 }
 
+// Attributes returning attribute 'attributes' with
+// type NamedNodeMap (idl: NamedNodeMap).
 func (_this *Element) Attributes() *NamedNodeMap {
 	var ret *NamedNodeMap
 	value := _this.value.Get("attributes")
@@ -6544,6 +6972,8 @@ func (_this *Element) Attributes() *NamedNodeMap {
 	return ret
 }
 
+// ShadowRoot returning attribute 'shadowRoot' with
+// type ShadowRoot (idl: ShadowRoot).
 func (_this *Element) ShadowRoot() *ShadowRoot {
 	var ret *ShadowRoot
 	value := _this.value.Get("shadowRoot")
@@ -6553,6 +6983,8 @@ func (_this *Element) ShadowRoot() *ShadowRoot {
 	return ret
 }
 
+// Children returning attribute 'children' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *Element) Children() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("children")
@@ -6560,6 +6992,8 @@ func (_this *Element) Children() *HTMLCollection {
 	return ret
 }
 
+// FirstElementChild returning attribute 'firstElementChild' with
+// type Element (idl: Element).
 func (_this *Element) FirstElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("firstElementChild")
@@ -6569,6 +7003,8 @@ func (_this *Element) FirstElementChild() *Element {
 	return ret
 }
 
+// LastElementChild returning attribute 'lastElementChild' with
+// type Element (idl: Element).
 func (_this *Element) LastElementChild() *Element {
 	var ret *Element
 	value := _this.value.Get("lastElementChild")
@@ -6578,6 +7014,8 @@ func (_this *Element) LastElementChild() *Element {
 	return ret
 }
 
+// ChildElementCount returning attribute 'childElementCount' with
+// type uint (idl: unsigned long).
 func (_this *Element) ChildElementCount() uint {
 	var ret uint
 	value := _this.value.Get("childElementCount")
@@ -6585,6 +7023,8 @@ func (_this *Element) ChildElementCount() uint {
 	return ret
 }
 
+// PreviousElementSibling returning attribute 'previousElementSibling' with
+// type Element (idl: Element).
 func (_this *Element) PreviousElementSibling() *Element {
 	var ret *Element
 	value := _this.value.Get("previousElementSibling")
@@ -6594,6 +7034,8 @@ func (_this *Element) PreviousElementSibling() *Element {
 	return ret
 }
 
+// NextElementSibling returning attribute 'nextElementSibling' with
+// type Element (idl: Element).
 func (_this *Element) NextElementSibling() *Element {
 	var ret *Element
 	value := _this.value.Get("nextElementSibling")
@@ -6603,6 +7045,8 @@ func (_this *Element) NextElementSibling() *Element {
 	return ret
 }
 
+// AssignedSlot returning attribute 'assignedSlot' with
+// type HTMLSlotElement (idl: HTMLSlotElement).
 func (_this *Element) AssignedSlot() *HTMLSlotElement {
 	var ret *HTMLSlotElement
 	value := _this.value.Get("assignedSlot")
@@ -6613,12 +7057,11 @@ func (_this *Element) AssignedSlot() *HTMLSlotElement {
 }
 
 func (_this *Element) HasAttributes() (_result bool) {
-	_method := _this.value.Get("hasAttributes")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasAttributes", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6628,12 +7071,11 @@ func (_this *Element) HasAttributes() (_result bool) {
 }
 
 func (_this *Element) GetAttributeNames() (_result []string) {
-	_method := _this.value.Get("getAttributeNames")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAttributeNames", _args[0:_end]...)
 	var (
 		_converted []string // javascript: idl-sequence _what_return_name
 	)
@@ -6651,7 +7093,6 @@ func (_this *Element) GetAttributeNames() (_result []string) {
 }
 
 func (_this *Element) GetAttribute(qualifiedName string) (_result *string) {
-	_method := _this.value.Get("getAttribute")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6659,7 +7100,7 @@ func (_this *Element) GetAttribute(qualifiedName string) (_result *string) {
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAttribute", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -6672,7 +7113,6 @@ func (_this *Element) GetAttribute(qualifiedName string) (_result *string) {
 }
 
 func (_this *Element) GetAttributeNS(namespace *string, localName string) (_result *string) {
-	_method := _this.value.Get("getAttributeNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6683,7 +7123,7 @@ func (_this *Element) GetAttributeNS(namespace *string, localName string) (_resu
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAttributeNS", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -6696,7 +7136,6 @@ func (_this *Element) GetAttributeNS(namespace *string, localName string) (_resu
 }
 
 func (_this *Element) SetAttribute(qualifiedName string, value string) {
-	_method := _this.value.Get("setAttribute")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6707,12 +7146,11 @@ func (_this *Element) SetAttribute(qualifiedName string, value string) {
 	_p1 := value
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setAttribute", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) SetAttributeNS(namespace *string, qualifiedName string, value string) {
-	_method := _this.value.Get("setAttributeNS")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6726,12 +7164,11 @@ func (_this *Element) SetAttributeNS(namespace *string, qualifiedName string, va
 	_p2 := value
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setAttributeNS", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) RemoveAttribute(qualifiedName string) {
-	_method := _this.value.Get("removeAttribute")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6739,12 +7176,11 @@ func (_this *Element) RemoveAttribute(qualifiedName string) {
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("removeAttribute", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) RemoveAttributeNS(namespace *string, localName string) {
-	_method := _this.value.Get("removeAttributeNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6755,12 +7191,11 @@ func (_this *Element) RemoveAttributeNS(namespace *string, localName string) {
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("removeAttributeNS", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) ToggleAttribute(qualifiedName string, force *bool) (_result bool) {
-	_method := _this.value.Get("toggleAttribute")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6773,7 +7208,7 @@ func (_this *Element) ToggleAttribute(qualifiedName string, force *bool) (_resul
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("toggleAttribute", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6783,7 +7218,6 @@ func (_this *Element) ToggleAttribute(qualifiedName string, force *bool) (_resul
 }
 
 func (_this *Element) HasAttribute(qualifiedName string) (_result bool) {
-	_method := _this.value.Get("hasAttribute")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6791,7 +7225,7 @@ func (_this *Element) HasAttribute(qualifiedName string) (_result bool) {
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasAttribute", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6801,7 +7235,6 @@ func (_this *Element) HasAttribute(qualifiedName string) (_result bool) {
 }
 
 func (_this *Element) HasAttributeNS(namespace *string, localName string) (_result bool) {
-	_method := _this.value.Get("hasAttributeNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6812,7 +7245,7 @@ func (_this *Element) HasAttributeNS(namespace *string, localName string) (_resu
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("hasAttributeNS", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6822,7 +7255,6 @@ func (_this *Element) HasAttributeNS(namespace *string, localName string) (_resu
 }
 
 func (_this *Element) GetAttributeNode(qualifiedName string) (_result *Attr) {
-	_method := _this.value.Get("getAttributeNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6830,7 +7262,7 @@ func (_this *Element) GetAttributeNode(qualifiedName string) (_result *Attr) {
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAttributeNode", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -6842,7 +7274,6 @@ func (_this *Element) GetAttributeNode(qualifiedName string) (_result *Attr) {
 }
 
 func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_result *Attr) {
-	_method := _this.value.Get("getAttributeNodeNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6853,7 +7284,7 @@ func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAttributeNodeNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -6865,7 +7296,6 @@ func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_
 }
 
 func (_this *Element) SetAttributeNode(attr *Attr) (_result *Attr) {
-	_method := _this.value.Get("setAttributeNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6873,7 +7303,7 @@ func (_this *Element) SetAttributeNode(attr *Attr) (_result *Attr) {
 	_p0 := attr.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setAttributeNode", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -6885,7 +7315,6 @@ func (_this *Element) SetAttributeNode(attr *Attr) (_result *Attr) {
 }
 
 func (_this *Element) SetAttributeNodeNS(attr *Attr) (_result *Attr) {
-	_method := _this.value.Get("setAttributeNodeNS")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6893,7 +7322,7 @@ func (_this *Element) SetAttributeNodeNS(attr *Attr) (_result *Attr) {
 	_p0 := attr.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setAttributeNodeNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -6905,7 +7334,6 @@ func (_this *Element) SetAttributeNodeNS(attr *Attr) (_result *Attr) {
 }
 
 func (_this *Element) RemoveAttributeNode(attr *Attr) (_result *Attr) {
-	_method := _this.value.Get("removeAttributeNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6913,7 +7341,7 @@ func (_this *Element) RemoveAttributeNode(attr *Attr) (_result *Attr) {
 	_p0 := attr.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("removeAttributeNode", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -6923,7 +7351,6 @@ func (_this *Element) RemoveAttributeNode(attr *Attr) (_result *Attr) {
 }
 
 func (_this *Element) AttachShadow(init *ShadowRootInit) (_result *ShadowRoot) {
-	_method := _this.value.Get("attachShadow")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6931,7 +7358,7 @@ func (_this *Element) AttachShadow(init *ShadowRootInit) (_result *ShadowRoot) {
 	_p0 := init.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("attachShadow", _args[0:_end]...)
 	var (
 		_converted *ShadowRoot // javascript: ShadowRoot _what_return_name
 	)
@@ -6941,7 +7368,6 @@ func (_this *Element) AttachShadow(init *ShadowRootInit) (_result *ShadowRoot) {
 }
 
 func (_this *Element) Closest(selectors string) (_result *Element) {
-	_method := _this.value.Get("closest")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6949,7 +7375,7 @@ func (_this *Element) Closest(selectors string) (_result *Element) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("closest", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -6961,7 +7387,6 @@ func (_this *Element) Closest(selectors string) (_result *Element) {
 }
 
 func (_this *Element) Matches(selectors string) (_result bool) {
-	_method := _this.value.Get("matches")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6969,7 +7394,7 @@ func (_this *Element) Matches(selectors string) (_result bool) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("matches", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6979,7 +7404,6 @@ func (_this *Element) Matches(selectors string) (_result bool) {
 }
 
 func (_this *Element) WebkitMatchesSelector(selectors string) (_result bool) {
-	_method := _this.value.Get("webkitMatchesSelector")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6987,7 +7411,7 @@ func (_this *Element) WebkitMatchesSelector(selectors string) (_result bool) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("webkitMatchesSelector", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -6997,7 +7421,6 @@ func (_this *Element) WebkitMatchesSelector(selectors string) (_result bool) {
 }
 
 func (_this *Element) GetElementsByTagName(qualifiedName string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByTagName")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7005,7 +7428,7 @@ func (_this *Element) GetElementsByTagName(qualifiedName string) (_result *HTMLC
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByTagName", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -7015,7 +7438,6 @@ func (_this *Element) GetElementsByTagName(qualifiedName string) (_result *HTMLC
 }
 
 func (_this *Element) GetElementsByTagNameNS(namespace *string, localName string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByTagNameNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7026,7 +7448,7 @@ func (_this *Element) GetElementsByTagNameNS(namespace *string, localName string
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByTagNameNS", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -7036,7 +7458,6 @@ func (_this *Element) GetElementsByTagNameNS(namespace *string, localName string
 }
 
 func (_this *Element) GetElementsByClassName(classNames string) (_result *HTMLCollection) {
-	_method := _this.value.Get("getElementsByClassName")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7044,7 +7465,7 @@ func (_this *Element) GetElementsByClassName(classNames string) (_result *HTMLCo
 	_p0 := classNames
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getElementsByClassName", _args[0:_end]...)
 	var (
 		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
@@ -7054,7 +7475,6 @@ func (_this *Element) GetElementsByClassName(classNames string) (_result *HTMLCo
 }
 
 func (_this *Element) InsertAdjacentElement(where string, element *Element) (_result *Element) {
-	_method := _this.value.Get("insertAdjacentElement")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7065,7 +7485,7 @@ func (_this *Element) InsertAdjacentElement(where string, element *Element) (_re
 	_p1 := element.JSValue()
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("insertAdjacentElement", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -7077,7 +7497,6 @@ func (_this *Element) InsertAdjacentElement(where string, element *Element) (_re
 }
 
 func (_this *Element) InsertAdjacentText(where string, data string) {
-	_method := _this.value.Get("insertAdjacentText")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7088,12 +7507,11 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	_p1 := data
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("insertAdjacentText", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) Prepend(nodes ...*Union) {
-	_method := _this.value.Get("prepend")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7103,12 +7521,11 @@ func (_this *Element) Prepend(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("prepend", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) Append(nodes ...*Union) {
-	_method := _this.value.Get("append")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7118,12 +7535,11 @@ func (_this *Element) Append(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("append", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) QuerySelector(selectors string) (_result *Element) {
-	_method := _this.value.Get("querySelector")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7131,7 +7547,7 @@ func (_this *Element) QuerySelector(selectors string) (_result *Element) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelector", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -7143,7 +7559,6 @@ func (_this *Element) QuerySelector(selectors string) (_result *Element) {
 }
 
 func (_this *Element) QuerySelectorAll(selectors string) (_result *NodeList) {
-	_method := _this.value.Get("querySelectorAll")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7151,7 +7566,7 @@ func (_this *Element) QuerySelectorAll(selectors string) (_result *NodeList) {
 	_p0 := selectors
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("querySelectorAll", _args[0:_end]...)
 	var (
 		_converted *NodeList // javascript: NodeList _what_return_name
 	)
@@ -7161,7 +7576,6 @@ func (_this *Element) QuerySelectorAll(selectors string) (_result *NodeList) {
 }
 
 func (_this *Element) Before(nodes ...*Union) {
-	_method := _this.value.Get("before")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7171,12 +7585,11 @@ func (_this *Element) Before(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("before", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) After(nodes ...*Union) {
-	_method := _this.value.Get("after")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7186,12 +7599,11 @@ func (_this *Element) After(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("after", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) ReplaceWith(nodes ...*Union) {
-	_method := _this.value.Get("replaceWith")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7201,17 +7613,16 @@ func (_this *Element) ReplaceWith(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replaceWith", _args[0:_end]...)
 	return
 }
 
 func (_this *Element) Remove() {
-	_method := _this.value.Get("remove")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
@@ -7234,6 +7645,8 @@ func NamedNodeMapFromJS(input js.Value) *NamedNodeMap {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *NamedNodeMap) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -7242,7 +7655,6 @@ func (_this *NamedNodeMap) Length() uint {
 }
 
 func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7250,7 +7662,7 @@ func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7262,7 +7674,6 @@ func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
 }
 
 func (_this *NamedNodeMap) GetNamedItem(qualifiedName string) (_result *Attr) {
-	_method := _this.value.Get("getNamedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7270,7 +7681,7 @@ func (_this *NamedNodeMap) GetNamedItem(qualifiedName string) (_result *Attr) {
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getNamedItem", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7282,7 +7693,6 @@ func (_this *NamedNodeMap) GetNamedItem(qualifiedName string) (_result *Attr) {
 }
 
 func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (_result *Attr) {
-	_method := _this.value.Get("getNamedItemNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7293,7 +7703,7 @@ func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getNamedItemNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7305,7 +7715,6 @@ func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (
 }
 
 func (_this *NamedNodeMap) SetNamedItem(attr *Attr) (_result *Attr) {
-	_method := _this.value.Get("setNamedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7313,7 +7722,7 @@ func (_this *NamedNodeMap) SetNamedItem(attr *Attr) (_result *Attr) {
 	_p0 := attr.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setNamedItem", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7325,7 +7734,6 @@ func (_this *NamedNodeMap) SetNamedItem(attr *Attr) (_result *Attr) {
 }
 
 func (_this *NamedNodeMap) SetNamedItemNS(attr *Attr) (_result *Attr) {
-	_method := _this.value.Get("setNamedItemNS")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7333,7 +7741,7 @@ func (_this *NamedNodeMap) SetNamedItemNS(attr *Attr) (_result *Attr) {
 	_p0 := attr.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setNamedItemNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7345,7 +7753,6 @@ func (_this *NamedNodeMap) SetNamedItemNS(attr *Attr) (_result *Attr) {
 }
 
 func (_this *NamedNodeMap) RemoveNamedItem(qualifiedName string) (_result *Attr) {
-	_method := _this.value.Get("removeNamedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7353,7 +7760,7 @@ func (_this *NamedNodeMap) RemoveNamedItem(qualifiedName string) (_result *Attr)
 	_p0 := qualifiedName
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("removeNamedItem", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7363,7 +7770,6 @@ func (_this *NamedNodeMap) RemoveNamedItem(qualifiedName string) (_result *Attr)
 }
 
 func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string) (_result *Attr) {
-	_method := _this.value.Get("removeNamedItemNS")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7374,7 +7780,7 @@ func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string
 	_p1 := localName
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("removeNamedItemNS", _args[0:_end]...)
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
@@ -7402,6 +7808,8 @@ func AttrFromJS(input js.Value) *Attr {
 	return ret
 }
 
+// NamespaceURI returning attribute 'namespaceURI' with
+// type string (idl: DOMString).
 func (_this *Attr) NamespaceURI() *string {
 	var ret *string
 	value := _this.value.Get("namespaceURI")
@@ -7412,6 +7820,8 @@ func (_this *Attr) NamespaceURI() *string {
 	return ret
 }
 
+// Prefix returning attribute 'prefix' with
+// type string (idl: DOMString).
 func (_this *Attr) Prefix() *string {
 	var ret *string
 	value := _this.value.Get("prefix")
@@ -7422,6 +7832,8 @@ func (_this *Attr) Prefix() *string {
 	return ret
 }
 
+// LocalName returning attribute 'localName' with
+// type string (idl: DOMString).
 func (_this *Attr) LocalName() string {
 	var ret string
 	value := _this.value.Get("localName")
@@ -7429,6 +7841,8 @@ func (_this *Attr) LocalName() string {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *Attr) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -7436,6 +7850,8 @@ func (_this *Attr) Name() string {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *Attr) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -7443,11 +7859,15 @@ func (_this *Attr) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *Attr) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// OwnerElement returning attribute 'ownerElement' with
+// type Element (idl: Element).
 func (_this *Attr) OwnerElement() *Element {
 	var ret *Element
 	value := _this.value.Get("ownerElement")
@@ -7457,6 +7877,8 @@ func (_this *Attr) OwnerElement() *Element {
 	return ret
 }
 
+// Specified returning attribute 'specified' with
+// type bool (idl: boolean).
 func (_this *Attr) Specified() bool {
 	var ret bool
 	value := _this.value.Get("specified")
@@ -7483,6 +7905,8 @@ func CharacterDataFromJS(input js.Value) *CharacterData {
 	return ret
 }
 
+// Data returning attribute 'data' with
+// type string (idl: DOMString).
 func (_this *CharacterData) Data() string {
 	var ret string
 	value := _this.value.Get("data")
@@ -7490,11 +7914,15 @@ func (_this *CharacterData) Data() string {
 	return ret
 }
 
+// SetData setting attribute 'data' with
+// type string (idl: DOMString).
 func (_this *CharacterData) SetData(value string) {
 	input := value
 	_this.value.Set("data", input)
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *CharacterData) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -7502,6 +7930,8 @@ func (_this *CharacterData) Length() uint {
 	return ret
 }
 
+// PreviousElementSibling returning attribute 'previousElementSibling' with
+// type Element (idl: Element).
 func (_this *CharacterData) PreviousElementSibling() *Element {
 	var ret *Element
 	value := _this.value.Get("previousElementSibling")
@@ -7511,6 +7941,8 @@ func (_this *CharacterData) PreviousElementSibling() *Element {
 	return ret
 }
 
+// NextElementSibling returning attribute 'nextElementSibling' with
+// type Element (idl: Element).
 func (_this *CharacterData) NextElementSibling() *Element {
 	var ret *Element
 	value := _this.value.Get("nextElementSibling")
@@ -7521,7 +7953,6 @@ func (_this *CharacterData) NextElementSibling() *Element {
 }
 
 func (_this *CharacterData) SubstringData(offset uint, count uint) (_result string) {
-	_method := _this.value.Get("substringData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7532,7 +7963,7 @@ func (_this *CharacterData) SubstringData(offset uint, count uint) (_result stri
 	_p1 := count
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("substringData", _args[0:_end]...)
 	var (
 		_converted string // javascript: DOMString _what_return_name
 	)
@@ -7542,7 +7973,6 @@ func (_this *CharacterData) SubstringData(offset uint, count uint) (_result stri
 }
 
 func (_this *CharacterData) AppendData(data string) {
-	_method := _this.value.Get("appendData")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7550,12 +7980,11 @@ func (_this *CharacterData) AppendData(data string) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("appendData", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) InsertData(offset uint, data string) {
-	_method := _this.value.Get("insertData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7566,12 +7995,11 @@ func (_this *CharacterData) InsertData(offset uint, data string) {
 	_p1 := data
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("insertData", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) DeleteData(offset uint, count uint) {
-	_method := _this.value.Get("deleteData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7582,12 +8010,11 @@ func (_this *CharacterData) DeleteData(offset uint, count uint) {
 	_p1 := count
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteData", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) ReplaceData(offset uint, count uint, data string) {
-	_method := _this.value.Get("replaceData")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -7601,12 +8028,11 @@ func (_this *CharacterData) ReplaceData(offset uint, count uint, data string) {
 	_p2 := data
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replaceData", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) Before(nodes ...*Union) {
-	_method := _this.value.Get("before")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7616,12 +8042,11 @@ func (_this *CharacterData) Before(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("before", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) After(nodes ...*Union) {
-	_method := _this.value.Get("after")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7631,12 +8056,11 @@ func (_this *CharacterData) After(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("after", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) ReplaceWith(nodes ...*Union) {
-	_method := _this.value.Get("replaceWith")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -7646,17 +8070,16 @@ func (_this *CharacterData) ReplaceWith(nodes ...*Union) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replaceWith", _args[0:_end]...)
 	return
 }
 
 func (_this *CharacterData) Remove() {
-	_method := _this.value.Get("remove")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
@@ -7699,6 +8122,8 @@ func NewText(data *string) (_result *Text) {
 	return
 }
 
+// WholeText returning attribute 'wholeText' with
+// type string (idl: DOMString).
 func (_this *Text) WholeText() string {
 	var ret string
 	value := _this.value.Get("wholeText")
@@ -7706,6 +8131,8 @@ func (_this *Text) WholeText() string {
 	return ret
 }
 
+// AssignedSlot returning attribute 'assignedSlot' with
+// type HTMLSlotElement (idl: HTMLSlotElement).
 func (_this *Text) AssignedSlot() *HTMLSlotElement {
 	var ret *HTMLSlotElement
 	value := _this.value.Get("assignedSlot")
@@ -7716,7 +8143,6 @@ func (_this *Text) AssignedSlot() *HTMLSlotElement {
 }
 
 func (_this *Text) SplitText(offset uint) (_result *Text) {
-	_method := _this.value.Get("splitText")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7724,7 +8150,7 @@ func (_this *Text) SplitText(offset uint) (_result *Text) {
 	_p0 := offset
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("splitText", _args[0:_end]...)
 	var (
 		_converted *Text // javascript: Text _what_return_name
 	)
@@ -7771,6 +8197,8 @@ func ProcessingInstructionFromJS(input js.Value) *ProcessingInstruction {
 	return ret
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *ProcessingInstruction) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -7836,6 +8264,8 @@ func AbstractRangeFromJS(input js.Value) *AbstractRange {
 	return ret
 }
 
+// StartContainer returning attribute 'startContainer' with
+// type Node (idl: Node).
 func (_this *AbstractRange) StartContainer() *Node {
 	var ret *Node
 	value := _this.value.Get("startContainer")
@@ -7843,6 +8273,8 @@ func (_this *AbstractRange) StartContainer() *Node {
 	return ret
 }
 
+// StartOffset returning attribute 'startOffset' with
+// type uint (idl: unsigned long).
 func (_this *AbstractRange) StartOffset() uint {
 	var ret uint
 	value := _this.value.Get("startOffset")
@@ -7850,6 +8282,8 @@ func (_this *AbstractRange) StartOffset() uint {
 	return ret
 }
 
+// EndContainer returning attribute 'endContainer' with
+// type Node (idl: Node).
 func (_this *AbstractRange) EndContainer() *Node {
 	var ret *Node
 	value := _this.value.Get("endContainer")
@@ -7857,6 +8291,8 @@ func (_this *AbstractRange) EndContainer() *Node {
 	return ret
 }
 
+// EndOffset returning attribute 'endOffset' with
+// type uint (idl: unsigned long).
 func (_this *AbstractRange) EndOffset() uint {
 	var ret uint
 	value := _this.value.Get("endOffset")
@@ -7864,6 +8300,8 @@ func (_this *AbstractRange) EndOffset() uint {
 	return ret
 }
 
+// Collapsed returning attribute 'collapsed' with
+// type bool (idl: boolean).
 func (_this *AbstractRange) Collapsed() bool {
 	var ret bool
 	value := _this.value.Get("collapsed")
@@ -7929,6 +8367,8 @@ func NewRange() (_result *Range) {
 	return
 }
 
+// CommonAncestorContainer returning attribute 'commonAncestorContainer' with
+// type Node (idl: Node).
 func (_this *Range) CommonAncestorContainer() *Node {
 	var ret *Node
 	value := _this.value.Get("commonAncestorContainer")
@@ -7937,7 +8377,6 @@ func (_this *Range) CommonAncestorContainer() *Node {
 }
 
 func (_this *Range) SetStart(node *Node, offset uint) {
-	_method := _this.value.Get("setStart")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7948,12 +8387,11 @@ func (_this *Range) SetStart(node *Node, offset uint) {
 	_p1 := offset
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setStart", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SetEnd(node *Node, offset uint) {
-	_method := _this.value.Get("setEnd")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -7964,12 +8402,11 @@ func (_this *Range) SetEnd(node *Node, offset uint) {
 	_p1 := offset
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setEnd", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SetStartBefore(node *Node) {
-	_method := _this.value.Get("setStartBefore")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7977,12 +8414,11 @@ func (_this *Range) SetStartBefore(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setStartBefore", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SetStartAfter(node *Node) {
-	_method := _this.value.Get("setStartAfter")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7990,12 +8426,11 @@ func (_this *Range) SetStartAfter(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setStartAfter", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SetEndBefore(node *Node) {
-	_method := _this.value.Get("setEndBefore")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8003,12 +8438,11 @@ func (_this *Range) SetEndBefore(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setEndBefore", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SetEndAfter(node *Node) {
-	_method := _this.value.Get("setEndAfter")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8016,12 +8450,11 @@ func (_this *Range) SetEndAfter(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setEndAfter", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) Collapse(toStart *bool) {
-	_method := _this.value.Get("collapse")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8031,12 +8464,11 @@ func (_this *Range) Collapse(toStart *bool) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("collapse", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SelectNode(node *Node) {
-	_method := _this.value.Get("selectNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8044,12 +8476,11 @@ func (_this *Range) SelectNode(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("selectNode", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SelectNodeContents(node *Node) {
-	_method := _this.value.Get("selectNodeContents")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8057,12 +8488,11 @@ func (_this *Range) SelectNodeContents(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("selectNodeContents", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) CompareBoundaryPoints(how int, sourceRange *Range) (_result int) {
-	_method := _this.value.Get("compareBoundaryPoints")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8073,7 +8503,7 @@ func (_this *Range) CompareBoundaryPoints(how int, sourceRange *Range) (_result 
 	_p1 := sourceRange.JSValue()
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("compareBoundaryPoints", _args[0:_end]...)
 	var (
 		_converted int // javascript: short _what_return_name
 	)
@@ -8083,22 +8513,20 @@ func (_this *Range) CompareBoundaryPoints(how int, sourceRange *Range) (_result 
 }
 
 func (_this *Range) DeleteContents() {
-	_method := _this.value.Get("deleteContents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteContents", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) ExtractContents() (_result *DocumentFragment) {
-	_method := _this.value.Get("extractContents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("extractContents", _args[0:_end]...)
 	var (
 		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
 	)
@@ -8108,12 +8536,11 @@ func (_this *Range) ExtractContents() (_result *DocumentFragment) {
 }
 
 func (_this *Range) CloneContents() (_result *DocumentFragment) {
-	_method := _this.value.Get("cloneContents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("cloneContents", _args[0:_end]...)
 	var (
 		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
 	)
@@ -8123,7 +8550,6 @@ func (_this *Range) CloneContents() (_result *DocumentFragment) {
 }
 
 func (_this *Range) InsertNode(node *Node) {
-	_method := _this.value.Get("insertNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8131,12 +8557,11 @@ func (_this *Range) InsertNode(node *Node) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("insertNode", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) SurroundContents(newParent *Node) {
-	_method := _this.value.Get("surroundContents")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8144,17 +8569,16 @@ func (_this *Range) SurroundContents(newParent *Node) {
 	_p0 := newParent.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("surroundContents", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) CloneRange() (_result *Range) {
-	_method := _this.value.Get("cloneRange")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("cloneRange", _args[0:_end]...)
 	var (
 		_converted *Range // javascript: Range _what_return_name
 	)
@@ -8164,17 +8588,15 @@ func (_this *Range) CloneRange() (_result *Range) {
 }
 
 func (_this *Range) Detach() {
-	_method := _this.value.Get("detach")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("detach", _args[0:_end]...)
 	return
 }
 
 func (_this *Range) IsPointInRange(node *Node, offset uint) (_result bool) {
-	_method := _this.value.Get("isPointInRange")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8185,7 +8607,7 @@ func (_this *Range) IsPointInRange(node *Node, offset uint) (_result bool) {
 	_p1 := offset
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInRange", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8195,7 +8617,6 @@ func (_this *Range) IsPointInRange(node *Node, offset uint) (_result bool) {
 }
 
 func (_this *Range) ComparePoint(node *Node, offset uint) (_result int) {
-	_method := _this.value.Get("comparePoint")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8206,7 +8627,7 @@ func (_this *Range) ComparePoint(node *Node, offset uint) (_result int) {
 	_p1 := offset
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("comparePoint", _args[0:_end]...)
 	var (
 		_converted int // javascript: short _what_return_name
 	)
@@ -8216,7 +8637,6 @@ func (_this *Range) ComparePoint(node *Node, offset uint) (_result int) {
 }
 
 func (_this *Range) IntersectsNode(node *Node) (_result bool) {
-	_method := _this.value.Get("intersectsNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8224,7 +8644,7 @@ func (_this *Range) IntersectsNode(node *Node) (_result bool) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("intersectsNode", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8252,6 +8672,8 @@ func NodeIteratorFromJS(input js.Value) *NodeIterator {
 	return ret
 }
 
+// Root returning attribute 'root' with
+// type Node (idl: Node).
 func (_this *NodeIterator) Root() *Node {
 	var ret *Node
 	value := _this.value.Get("root")
@@ -8259,6 +8681,8 @@ func (_this *NodeIterator) Root() *Node {
 	return ret
 }
 
+// ReferenceNode returning attribute 'referenceNode' with
+// type Node (idl: Node).
 func (_this *NodeIterator) ReferenceNode() *Node {
 	var ret *Node
 	value := _this.value.Get("referenceNode")
@@ -8266,6 +8690,8 @@ func (_this *NodeIterator) ReferenceNode() *Node {
 	return ret
 }
 
+// PointerBeforeReferenceNode returning attribute 'pointerBeforeReferenceNode' with
+// type bool (idl: boolean).
 func (_this *NodeIterator) PointerBeforeReferenceNode() bool {
 	var ret bool
 	value := _this.value.Get("pointerBeforeReferenceNode")
@@ -8273,6 +8699,8 @@ func (_this *NodeIterator) PointerBeforeReferenceNode() bool {
 	return ret
 }
 
+// WhatToShow returning attribute 'whatToShow' with
+// type uint (idl: unsigned long).
 func (_this *NodeIterator) WhatToShow() uint {
 	var ret uint
 	value := _this.value.Get("whatToShow")
@@ -8280,6 +8708,8 @@ func (_this *NodeIterator) WhatToShow() uint {
 	return ret
 }
 
+// Filter returning attribute 'filter' with
+// type NodeFilter (idl: NodeFilter).
 func (_this *NodeIterator) Filter() *NodeFilter {
 	var ret *NodeFilter
 	value := _this.value.Get("filter")
@@ -8290,12 +8720,11 @@ func (_this *NodeIterator) Filter() *NodeFilter {
 }
 
 func (_this *NodeIterator) NextNode() (_result *Node) {
-	_method := _this.value.Get("nextNode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("nextNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8307,12 +8736,11 @@ func (_this *NodeIterator) NextNode() (_result *Node) {
 }
 
 func (_this *NodeIterator) PreviousNode() (_result *Node) {
-	_method := _this.value.Get("previousNode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("previousNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8324,12 +8752,11 @@ func (_this *NodeIterator) PreviousNode() (_result *Node) {
 }
 
 func (_this *NodeIterator) Detach() {
-	_method := _this.value.Get("detach")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("detach", _args[0:_end]...)
 	return
 }
 
@@ -8352,6 +8779,8 @@ func TreeWalkerFromJS(input js.Value) *TreeWalker {
 	return ret
 }
 
+// Root returning attribute 'root' with
+// type Node (idl: Node).
 func (_this *TreeWalker) Root() *Node {
 	var ret *Node
 	value := _this.value.Get("root")
@@ -8359,6 +8788,8 @@ func (_this *TreeWalker) Root() *Node {
 	return ret
 }
 
+// WhatToShow returning attribute 'whatToShow' with
+// type uint (idl: unsigned long).
 func (_this *TreeWalker) WhatToShow() uint {
 	var ret uint
 	value := _this.value.Get("whatToShow")
@@ -8366,6 +8797,8 @@ func (_this *TreeWalker) WhatToShow() uint {
 	return ret
 }
 
+// Filter returning attribute 'filter' with
+// type NodeFilter (idl: NodeFilter).
 func (_this *TreeWalker) Filter() *NodeFilter {
 	var ret *NodeFilter
 	value := _this.value.Get("filter")
@@ -8375,6 +8808,8 @@ func (_this *TreeWalker) Filter() *NodeFilter {
 	return ret
 }
 
+// CurrentNode returning attribute 'currentNode' with
+// type Node (idl: Node).
 func (_this *TreeWalker) CurrentNode() *Node {
 	var ret *Node
 	value := _this.value.Get("currentNode")
@@ -8382,18 +8817,19 @@ func (_this *TreeWalker) CurrentNode() *Node {
 	return ret
 }
 
+// SetCurrentNode setting attribute 'currentNode' with
+// type Node (idl: Node).
 func (_this *TreeWalker) SetCurrentNode(value *Node) {
 	input := value.JSValue()
 	_this.value.Set("currentNode", input)
 }
 
 func (_this *TreeWalker) ParentNode() (_result *Node) {
-	_method := _this.value.Get("parentNode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("parentNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8405,12 +8841,11 @@ func (_this *TreeWalker) ParentNode() (_result *Node) {
 }
 
 func (_this *TreeWalker) FirstChild() (_result *Node) {
-	_method := _this.value.Get("firstChild")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("firstChild", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8422,12 +8857,11 @@ func (_this *TreeWalker) FirstChild() (_result *Node) {
 }
 
 func (_this *TreeWalker) LastChild() (_result *Node) {
-	_method := _this.value.Get("lastChild")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("lastChild", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8439,12 +8873,11 @@ func (_this *TreeWalker) LastChild() (_result *Node) {
 }
 
 func (_this *TreeWalker) PreviousSibling() (_result *Node) {
-	_method := _this.value.Get("previousSibling")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("previousSibling", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8456,12 +8889,11 @@ func (_this *TreeWalker) PreviousSibling() (_result *Node) {
 }
 
 func (_this *TreeWalker) NextSibling() (_result *Node) {
-	_method := _this.value.Get("nextSibling")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("nextSibling", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8473,12 +8905,11 @@ func (_this *TreeWalker) NextSibling() (_result *Node) {
 }
 
 func (_this *TreeWalker) PreviousNode() (_result *Node) {
-	_method := _this.value.Get("previousNode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("previousNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8490,12 +8921,11 @@ func (_this *TreeWalker) PreviousNode() (_result *Node) {
 }
 
 func (_this *TreeWalker) NextNode() (_result *Node) {
-	_method := _this.value.Get("nextNode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("nextNode", _args[0:_end]...)
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
@@ -8543,7 +8973,6 @@ const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
 const SHOWNOTATION_NodeFilter uint = 0x800
 
 func (_this *NodeFilter) AcceptNode(node *Node) (_result int) {
-	_method := _this.value.Get("acceptNode")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8551,7 +8980,7 @@ func (_this *NodeFilter) AcceptNode(node *Node) (_result int) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("acceptNode", _args[0:_end]...)
 	var (
 		_converted int // javascript: unsigned short _what_return_name
 	)
@@ -8579,6 +9008,8 @@ func DOMTokenListFromJS(input js.Value) *DOMTokenList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *DOMTokenList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -8586,6 +9017,8 @@ func (_this *DOMTokenList) Length() uint {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *DOMTokenList) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -8593,13 +9026,14 @@ func (_this *DOMTokenList) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *DOMTokenList) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
 func (_this *DOMTokenList) Item(index uint) (_result *string) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8607,7 +9041,7 @@ func (_this *DOMTokenList) Item(index uint) (_result *string) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -8620,7 +9054,6 @@ func (_this *DOMTokenList) Item(index uint) (_result *string) {
 }
 
 func (_this *DOMTokenList) Contains(token string) (_result bool) {
-	_method := _this.value.Get("contains")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8628,7 +9061,7 @@ func (_this *DOMTokenList) Contains(token string) (_result bool) {
 	_p0 := token
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("contains", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8638,7 +9071,6 @@ func (_this *DOMTokenList) Contains(token string) (_result bool) {
 }
 
 func (_this *DOMTokenList) Add(tokens ...string) {
-	_method := _this.value.Get("add")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(tokens))
 		_end  int
@@ -8648,12 +9080,11 @@ func (_this *DOMTokenList) Add(tokens ...string) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("add", _args[0:_end]...)
 	return
 }
 
 func (_this *DOMTokenList) Remove(tokens ...string) {
-	_method := _this.value.Get("remove")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(tokens))
 		_end  int
@@ -8663,12 +9094,11 @@ func (_this *DOMTokenList) Remove(tokens ...string) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
 func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
-	_method := _this.value.Get("toggle")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8681,7 +9111,7 @@ func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("toggle", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8691,7 +9121,6 @@ func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
 }
 
 func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool) {
-	_method := _this.value.Get("replace")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8702,7 +9131,7 @@ func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool)
 	_p1 := newToken
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("replace", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8712,7 +9141,6 @@ func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool)
 }
 
 func (_this *DOMTokenList) Supports(token string) (_result bool) {
-	_method := _this.value.Get("supports")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8720,7 +9148,7 @@ func (_this *DOMTokenList) Supports(token string) (_result bool) {
 	_p0 := token
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("supports", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -8748,6 +9176,8 @@ func HTMLAllCollectionFromJS(input js.Value) *HTMLAllCollection {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLAllCollection) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -8756,7 +9186,6 @@ func (_this *HTMLAllCollection) Length() uint {
 }
 
 func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8764,7 +9193,7 @@ func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
@@ -8776,7 +9205,6 @@ func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
 }
 
 func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8786,7 +9214,7 @@ func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
@@ -8817,7 +9245,6 @@ func HTMLFormControlsCollectionFromJS(input js.Value) *HTMLFormControlsCollectio
 }
 
 func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8825,7 +9252,7 @@ func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
@@ -8855,6 +9282,8 @@ func RadioNodeListFromJS(input js.Value) *RadioNodeList {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *RadioNodeList) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -8862,6 +9291,8 @@ func (_this *RadioNodeList) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *RadioNodeList) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
@@ -8886,6 +9317,8 @@ func HTMLOptionsCollectionFromJS(input js.Value) *HTMLOptionsCollection {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLOptionsCollection) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -8893,11 +9326,15 @@ func (_this *HTMLOptionsCollection) Length() uint {
 	return ret
 }
 
+// SetLength setting attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLOptionsCollection) SetLength(value uint) {
 	input := value
 	_this.value.Set("length", input)
 }
 
+// SelectedIndex returning attribute 'selectedIndex' with
+// type int (idl: long).
 func (_this *HTMLOptionsCollection) SelectedIndex() int {
 	var ret int
 	value := _this.value.Get("selectedIndex")
@@ -8905,13 +9342,14 @@ func (_this *HTMLOptionsCollection) SelectedIndex() int {
 	return ret
 }
 
+// SetSelectedIndex setting attribute 'selectedIndex' with
+// type int (idl: long).
 func (_this *HTMLOptionsCollection) SetSelectedIndex(value int) {
 	input := value
 	_this.value.Set("selectedIndex", input)
 }
 
 func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
-	_method := _this.value.Get("add")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -8924,12 +9362,11 @@ func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("add", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLOptionsCollection) Remove(index int) {
-	_method := _this.value.Get("remove")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8937,7 +9374,7 @@ func (_this *HTMLOptionsCollection) Remove(index int) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
@@ -8960,6 +9397,8 @@ func DOMStringListFromJS(input js.Value) *DOMStringList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *DOMStringList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -8968,7 +9407,6 @@ func (_this *DOMStringList) Length() uint {
 }
 
 func (_this *DOMStringList) Item(index uint) (_result *string) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8976,7 +9414,7 @@ func (_this *DOMStringList) Item(index uint) (_result *string) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -8989,7 +9427,6 @@ func (_this *DOMStringList) Item(index uint) (_result *string) {
 }
 
 func (_this *DOMStringList) Contains(string string) (_result bool) {
-	_method := _this.value.Get("contains")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8997,7 +9434,7 @@ func (_this *DOMStringList) Contains(string string) (_result bool) {
 	_p0 := string
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("contains", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -9025,6 +9462,8 @@ func HTMLElementFromJS(input js.Value) *HTMLElement {
 	return ret
 }
 
+// Title returning attribute 'title' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) Title() string {
 	var ret string
 	value := _this.value.Get("title")
@@ -9032,11 +9471,15 @@ func (_this *HTMLElement) Title() string {
 	return ret
 }
 
+// SetTitle setting attribute 'title' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetTitle(value string) {
 	input := value
 	_this.value.Set("title", input)
 }
 
+// Lang returning attribute 'lang' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) Lang() string {
 	var ret string
 	value := _this.value.Get("lang")
@@ -9044,11 +9487,15 @@ func (_this *HTMLElement) Lang() string {
 	return ret
 }
 
+// SetLang setting attribute 'lang' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetLang(value string) {
 	input := value
 	_this.value.Set("lang", input)
 }
 
+// Translate returning attribute 'translate' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) Translate() bool {
 	var ret bool
 	value := _this.value.Get("translate")
@@ -9056,11 +9503,15 @@ func (_this *HTMLElement) Translate() bool {
 	return ret
 }
 
+// SetTranslate setting attribute 'translate' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) SetTranslate(value bool) {
 	input := value
 	_this.value.Set("translate", input)
 }
 
+// Dir returning attribute 'dir' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) Dir() string {
 	var ret string
 	value := _this.value.Get("dir")
@@ -9068,11 +9519,15 @@ func (_this *HTMLElement) Dir() string {
 	return ret
 }
 
+// SetDir setting attribute 'dir' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetDir(value string) {
 	input := value
 	_this.value.Set("dir", input)
 }
 
+// Hidden returning attribute 'hidden' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) Hidden() bool {
 	var ret bool
 	value := _this.value.Get("hidden")
@@ -9080,11 +9535,15 @@ func (_this *HTMLElement) Hidden() bool {
 	return ret
 }
 
+// SetHidden setting attribute 'hidden' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) SetHidden(value bool) {
 	input := value
 	_this.value.Set("hidden", input)
 }
 
+// AccessKey returning attribute 'accessKey' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) AccessKey() string {
 	var ret string
 	value := _this.value.Get("accessKey")
@@ -9092,11 +9551,15 @@ func (_this *HTMLElement) AccessKey() string {
 	return ret
 }
 
+// SetAccessKey setting attribute 'accessKey' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetAccessKey(value string) {
 	input := value
 	_this.value.Set("accessKey", input)
 }
 
+// AccessKeyLabel returning attribute 'accessKeyLabel' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) AccessKeyLabel() string {
 	var ret string
 	value := _this.value.Get("accessKeyLabel")
@@ -9104,6 +9567,8 @@ func (_this *HTMLElement) AccessKeyLabel() string {
 	return ret
 }
 
+// Draggable returning attribute 'draggable' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) Draggable() bool {
 	var ret bool
 	value := _this.value.Get("draggable")
@@ -9111,11 +9576,15 @@ func (_this *HTMLElement) Draggable() bool {
 	return ret
 }
 
+// SetDraggable setting attribute 'draggable' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) SetDraggable(value bool) {
 	input := value
 	_this.value.Set("draggable", input)
 }
 
+// Spellcheck returning attribute 'spellcheck' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) Spellcheck() bool {
 	var ret bool
 	value := _this.value.Get("spellcheck")
@@ -9123,11 +9592,15 @@ func (_this *HTMLElement) Spellcheck() bool {
 	return ret
 }
 
+// SetSpellcheck setting attribute 'spellcheck' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) SetSpellcheck(value bool) {
 	input := value
 	_this.value.Set("spellcheck", input)
 }
 
+// Autocapitalize returning attribute 'autocapitalize' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) Autocapitalize() string {
 	var ret string
 	value := _this.value.Get("autocapitalize")
@@ -9135,11 +9608,15 @@ func (_this *HTMLElement) Autocapitalize() string {
 	return ret
 }
 
+// SetAutocapitalize setting attribute 'autocapitalize' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetAutocapitalize(value string) {
 	input := value
 	_this.value.Set("autocapitalize", input)
 }
 
+// InnerText returning attribute 'innerText' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) InnerText() string {
 	var ret string
 	value := _this.value.Get("innerText")
@@ -9147,11 +9624,15 @@ func (_this *HTMLElement) InnerText() string {
 	return ret
 }
 
+// SetInnerText setting attribute 'innerText' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetInnerText(value string) {
 	input := value
 	_this.value.Set("innerText", input)
 }
 
+// Onabort returning attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onabort() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onabort")
@@ -9161,6 +9642,8 @@ func (_this *HTMLElement) Onabort() EventHandler {
 	return ret
 }
 
+// SetOnabort setting attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnabort(value *js.Callback) {
 	var __callback11 js.Value
 	if value != nil {
@@ -9172,6 +9655,8 @@ func (_this *HTMLElement) SetOnabort(value *js.Callback) {
 	_this.value.Set("onabort", input)
 }
 
+// Onauxclick returning attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onauxclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onauxclick")
@@ -9181,6 +9666,8 @@ func (_this *HTMLElement) Onauxclick() EventHandler {
 	return ret
 }
 
+// SetOnauxclick setting attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnauxclick(value *js.Callback) {
 	var __callback12 js.Value
 	if value != nil {
@@ -9192,6 +9679,8 @@ func (_this *HTMLElement) SetOnauxclick(value *js.Callback) {
 	_this.value.Set("onauxclick", input)
 }
 
+// Onblur returning attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onblur() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onblur")
@@ -9201,6 +9690,8 @@ func (_this *HTMLElement) Onblur() EventHandler {
 	return ret
 }
 
+// SetOnblur setting attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnblur(value *js.Callback) {
 	var __callback13 js.Value
 	if value != nil {
@@ -9212,6 +9703,8 @@ func (_this *HTMLElement) SetOnblur(value *js.Callback) {
 	_this.value.Set("onblur", input)
 }
 
+// Oncancel returning attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncancel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncancel")
@@ -9221,6 +9714,8 @@ func (_this *HTMLElement) Oncancel() EventHandler {
 	return ret
 }
 
+// SetOncancel setting attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncancel(value *js.Callback) {
 	var __callback14 js.Value
 	if value != nil {
@@ -9232,6 +9727,8 @@ func (_this *HTMLElement) SetOncancel(value *js.Callback) {
 	_this.value.Set("oncancel", input)
 }
 
+// Oncanplay returning attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncanplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplay")
@@ -9241,6 +9738,8 @@ func (_this *HTMLElement) Oncanplay() EventHandler {
 	return ret
 }
 
+// SetOncanplay setting attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncanplay(value *js.Callback) {
 	var __callback15 js.Value
 	if value != nil {
@@ -9252,6 +9751,8 @@ func (_this *HTMLElement) SetOncanplay(value *js.Callback) {
 	_this.value.Set("oncanplay", input)
 }
 
+// Oncanplaythrough returning attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncanplaythrough() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplaythrough")
@@ -9261,6 +9762,8 @@ func (_this *HTMLElement) Oncanplaythrough() EventHandler {
 	return ret
 }
 
+// SetOncanplaythrough setting attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncanplaythrough(value *js.Callback) {
 	var __callback16 js.Value
 	if value != nil {
@@ -9272,6 +9775,8 @@ func (_this *HTMLElement) SetOncanplaythrough(value *js.Callback) {
 	_this.value.Set("oncanplaythrough", input)
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -9281,6 +9786,8 @@ func (_this *HTMLElement) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnchange(value *js.Callback) {
 	var __callback17 js.Value
 	if value != nil {
@@ -9292,6 +9799,8 @@ func (_this *HTMLElement) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onclick returning attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclick")
@@ -9301,6 +9810,8 @@ func (_this *HTMLElement) Onclick() EventHandler {
 	return ret
 }
 
+// SetOnclick setting attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnclick(value *js.Callback) {
 	var __callback18 js.Value
 	if value != nil {
@@ -9312,6 +9823,8 @@ func (_this *HTMLElement) SetOnclick(value *js.Callback) {
 	_this.value.Set("onclick", input)
 }
 
+// Onclose returning attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onclose() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclose")
@@ -9321,6 +9834,8 @@ func (_this *HTMLElement) Onclose() EventHandler {
 	return ret
 }
 
+// SetOnclose setting attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnclose(value *js.Callback) {
 	var __callback19 js.Value
 	if value != nil {
@@ -9332,6 +9847,8 @@ func (_this *HTMLElement) SetOnclose(value *js.Callback) {
 	_this.value.Set("onclose", input)
 }
 
+// Oncontextmenu returning attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncontextmenu() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncontextmenu")
@@ -9341,6 +9858,8 @@ func (_this *HTMLElement) Oncontextmenu() EventHandler {
 	return ret
 }
 
+// SetOncontextmenu setting attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncontextmenu(value *js.Callback) {
 	var __callback20 js.Value
 	if value != nil {
@@ -9352,6 +9871,8 @@ func (_this *HTMLElement) SetOncontextmenu(value *js.Callback) {
 	_this.value.Set("oncontextmenu", input)
 }
 
+// Oncuechange returning attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncuechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncuechange")
@@ -9361,6 +9882,8 @@ func (_this *HTMLElement) Oncuechange() EventHandler {
 	return ret
 }
 
+// SetOncuechange setting attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncuechange(value *js.Callback) {
 	var __callback21 js.Value
 	if value != nil {
@@ -9372,6 +9895,8 @@ func (_this *HTMLElement) SetOncuechange(value *js.Callback) {
 	_this.value.Set("oncuechange", input)
 }
 
+// Ondblclick returning attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondblclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondblclick")
@@ -9381,6 +9906,8 @@ func (_this *HTMLElement) Ondblclick() EventHandler {
 	return ret
 }
 
+// SetOndblclick setting attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndblclick(value *js.Callback) {
 	var __callback22 js.Value
 	if value != nil {
@@ -9392,6 +9919,8 @@ func (_this *HTMLElement) SetOndblclick(value *js.Callback) {
 	_this.value.Set("ondblclick", input)
 }
 
+// Ondrag returning attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondrag() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrag")
@@ -9401,6 +9930,8 @@ func (_this *HTMLElement) Ondrag() EventHandler {
 	return ret
 }
 
+// SetOndrag setting attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndrag(value *js.Callback) {
 	var __callback23 js.Value
 	if value != nil {
@@ -9412,6 +9943,8 @@ func (_this *HTMLElement) SetOndrag(value *js.Callback) {
 	_this.value.Set("ondrag", input)
 }
 
+// Ondragend returning attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragend")
@@ -9421,6 +9954,8 @@ func (_this *HTMLElement) Ondragend() EventHandler {
 	return ret
 }
 
+// SetOndragend setting attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragend(value *js.Callback) {
 	var __callback24 js.Value
 	if value != nil {
@@ -9432,6 +9967,8 @@ func (_this *HTMLElement) SetOndragend(value *js.Callback) {
 	_this.value.Set("ondragend", input)
 }
 
+// Ondragenter returning attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragenter")
@@ -9441,6 +9978,8 @@ func (_this *HTMLElement) Ondragenter() EventHandler {
 	return ret
 }
 
+// SetOndragenter setting attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragenter(value *js.Callback) {
 	var __callback25 js.Value
 	if value != nil {
@@ -9452,6 +9991,8 @@ func (_this *HTMLElement) SetOndragenter(value *js.Callback) {
 	_this.value.Set("ondragenter", input)
 }
 
+// Ondragexit returning attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragexit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragexit")
@@ -9461,6 +10002,8 @@ func (_this *HTMLElement) Ondragexit() EventHandler {
 	return ret
 }
 
+// SetOndragexit setting attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragexit(value *js.Callback) {
 	var __callback26 js.Value
 	if value != nil {
@@ -9472,6 +10015,8 @@ func (_this *HTMLElement) SetOndragexit(value *js.Callback) {
 	_this.value.Set("ondragexit", input)
 }
 
+// Ondragleave returning attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragleave")
@@ -9481,6 +10026,8 @@ func (_this *HTMLElement) Ondragleave() EventHandler {
 	return ret
 }
 
+// SetOndragleave setting attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragleave(value *js.Callback) {
 	var __callback27 js.Value
 	if value != nil {
@@ -9492,6 +10039,8 @@ func (_this *HTMLElement) SetOndragleave(value *js.Callback) {
 	_this.value.Set("ondragleave", input)
 }
 
+// Ondragover returning attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragover")
@@ -9501,6 +10050,8 @@ func (_this *HTMLElement) Ondragover() EventHandler {
 	return ret
 }
 
+// SetOndragover setting attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragover(value *js.Callback) {
 	var __callback28 js.Value
 	if value != nil {
@@ -9512,6 +10063,8 @@ func (_this *HTMLElement) SetOndragover(value *js.Callback) {
 	_this.value.Set("ondragover", input)
 }
 
+// Ondragstart returning attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondragstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragstart")
@@ -9521,6 +10074,8 @@ func (_this *HTMLElement) Ondragstart() EventHandler {
 	return ret
 }
 
+// SetOndragstart setting attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndragstart(value *js.Callback) {
 	var __callback29 js.Value
 	if value != nil {
@@ -9532,6 +10087,8 @@ func (_this *HTMLElement) SetOndragstart(value *js.Callback) {
 	_this.value.Set("ondragstart", input)
 }
 
+// Ondrop returning attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondrop() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrop")
@@ -9541,6 +10098,8 @@ func (_this *HTMLElement) Ondrop() EventHandler {
 	return ret
 }
 
+// SetOndrop setting attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndrop(value *js.Callback) {
 	var __callback30 js.Value
 	if value != nil {
@@ -9552,6 +10111,8 @@ func (_this *HTMLElement) SetOndrop(value *js.Callback) {
 	_this.value.Set("ondrop", input)
 }
 
+// Ondurationchange returning attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ondurationchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondurationchange")
@@ -9561,6 +10122,8 @@ func (_this *HTMLElement) Ondurationchange() EventHandler {
 	return ret
 }
 
+// SetOndurationchange setting attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOndurationchange(value *js.Callback) {
 	var __callback31 js.Value
 	if value != nil {
@@ -9572,6 +10135,8 @@ func (_this *HTMLElement) SetOndurationchange(value *js.Callback) {
 	_this.value.Set("ondurationchange", input)
 }
 
+// Onemptied returning attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onemptied() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onemptied")
@@ -9581,6 +10146,8 @@ func (_this *HTMLElement) Onemptied() EventHandler {
 	return ret
 }
 
+// SetOnemptied setting attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnemptied(value *js.Callback) {
 	var __callback32 js.Value
 	if value != nil {
@@ -9592,6 +10159,8 @@ func (_this *HTMLElement) SetOnemptied(value *js.Callback) {
 	_this.value.Set("onemptied", input)
 }
 
+// Onended returning attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onended() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onended")
@@ -9601,6 +10170,8 @@ func (_this *HTMLElement) Onended() EventHandler {
 	return ret
 }
 
+// SetOnended setting attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnended(value *js.Callback) {
 	var __callback33 js.Value
 	if value != nil {
@@ -9612,6 +10183,8 @@ func (_this *HTMLElement) SetOnended(value *js.Callback) {
 	_this.value.Set("onended", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *HTMLElement) Onerror() OnErrorEventHandlerNonNull {
 	var ret OnErrorEventHandlerNonNull
 	value := _this.value.Get("onerror")
@@ -9621,6 +10194,8 @@ func (_this *HTMLElement) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *HTMLElement) SetOnerror(value *js.Callback) {
 	var __callback34 js.Value
 	if value != nil {
@@ -9632,6 +10207,8 @@ func (_this *HTMLElement) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onfocus returning attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onfocus() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onfocus")
@@ -9641,6 +10218,8 @@ func (_this *HTMLElement) Onfocus() EventHandler {
 	return ret
 }
 
+// SetOnfocus setting attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnfocus(value *js.Callback) {
 	var __callback35 js.Value
 	if value != nil {
@@ -9652,6 +10231,8 @@ func (_this *HTMLElement) SetOnfocus(value *js.Callback) {
 	_this.value.Set("onfocus", input)
 }
 
+// Onformdata returning attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onformdata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onformdata")
@@ -9661,6 +10242,8 @@ func (_this *HTMLElement) Onformdata() EventHandler {
 	return ret
 }
 
+// SetOnformdata setting attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnformdata(value *js.Callback) {
 	var __callback36 js.Value
 	if value != nil {
@@ -9672,6 +10255,8 @@ func (_this *HTMLElement) SetOnformdata(value *js.Callback) {
 	_this.value.Set("onformdata", input)
 }
 
+// Oninput returning attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oninput() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninput")
@@ -9681,6 +10266,8 @@ func (_this *HTMLElement) Oninput() EventHandler {
 	return ret
 }
 
+// SetOninput setting attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOninput(value *js.Callback) {
 	var __callback37 js.Value
 	if value != nil {
@@ -9692,6 +10279,8 @@ func (_this *HTMLElement) SetOninput(value *js.Callback) {
 	_this.value.Set("oninput", input)
 }
 
+// Oninvalid returning attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oninvalid() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninvalid")
@@ -9701,6 +10290,8 @@ func (_this *HTMLElement) Oninvalid() EventHandler {
 	return ret
 }
 
+// SetOninvalid setting attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOninvalid(value *js.Callback) {
 	var __callback38 js.Value
 	if value != nil {
@@ -9712,6 +10303,8 @@ func (_this *HTMLElement) SetOninvalid(value *js.Callback) {
 	_this.value.Set("oninvalid", input)
 }
 
+// Onkeydown returning attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onkeydown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeydown")
@@ -9721,6 +10314,8 @@ func (_this *HTMLElement) Onkeydown() EventHandler {
 	return ret
 }
 
+// SetOnkeydown setting attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnkeydown(value *js.Callback) {
 	var __callback39 js.Value
 	if value != nil {
@@ -9732,6 +10327,8 @@ func (_this *HTMLElement) SetOnkeydown(value *js.Callback) {
 	_this.value.Set("onkeydown", input)
 }
 
+// Onkeypress returning attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onkeypress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeypress")
@@ -9741,6 +10338,8 @@ func (_this *HTMLElement) Onkeypress() EventHandler {
 	return ret
 }
 
+// SetOnkeypress setting attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnkeypress(value *js.Callback) {
 	var __callback40 js.Value
 	if value != nil {
@@ -9752,6 +10351,8 @@ func (_this *HTMLElement) SetOnkeypress(value *js.Callback) {
 	_this.value.Set("onkeypress", input)
 }
 
+// Onkeyup returning attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onkeyup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeyup")
@@ -9761,6 +10362,8 @@ func (_this *HTMLElement) Onkeyup() EventHandler {
 	return ret
 }
 
+// SetOnkeyup setting attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnkeyup(value *js.Callback) {
 	var __callback41 js.Value
 	if value != nil {
@@ -9772,6 +10375,8 @@ func (_this *HTMLElement) SetOnkeyup(value *js.Callback) {
 	_this.value.Set("onkeyup", input)
 }
 
+// Onload returning attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onload")
@@ -9781,6 +10386,8 @@ func (_this *HTMLElement) Onload() EventHandler {
 	return ret
 }
 
+// SetOnload setting attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnload(value *js.Callback) {
 	var __callback42 js.Value
 	if value != nil {
@@ -9792,6 +10399,8 @@ func (_this *HTMLElement) SetOnload(value *js.Callback) {
 	_this.value.Set("onload", input)
 }
 
+// Onloadeddata returning attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onloadeddata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadeddata")
@@ -9801,6 +10410,8 @@ func (_this *HTMLElement) Onloadeddata() EventHandler {
 	return ret
 }
 
+// SetOnloadeddata setting attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnloadeddata(value *js.Callback) {
 	var __callback43 js.Value
 	if value != nil {
@@ -9812,6 +10423,8 @@ func (_this *HTMLElement) SetOnloadeddata(value *js.Callback) {
 	_this.value.Set("onloadeddata", input)
 }
 
+// Onloadedmetadata returning attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onloadedmetadata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadedmetadata")
@@ -9821,6 +10434,8 @@ func (_this *HTMLElement) Onloadedmetadata() EventHandler {
 	return ret
 }
 
+// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnloadedmetadata(value *js.Callback) {
 	var __callback44 js.Value
 	if value != nil {
@@ -9832,6 +10447,8 @@ func (_this *HTMLElement) SetOnloadedmetadata(value *js.Callback) {
 	_this.value.Set("onloadedmetadata", input)
 }
 
+// Onloadend returning attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onloadend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadend")
@@ -9841,6 +10458,8 @@ func (_this *HTMLElement) Onloadend() EventHandler {
 	return ret
 }
 
+// SetOnloadend setting attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnloadend(value *js.Callback) {
 	var __callback45 js.Value
 	if value != nil {
@@ -9852,6 +10471,8 @@ func (_this *HTMLElement) SetOnloadend(value *js.Callback) {
 	_this.value.Set("onloadend", input)
 }
 
+// Onloadstart returning attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onloadstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadstart")
@@ -9861,6 +10482,8 @@ func (_this *HTMLElement) Onloadstart() EventHandler {
 	return ret
 }
 
+// SetOnloadstart setting attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnloadstart(value *js.Callback) {
 	var __callback46 js.Value
 	if value != nil {
@@ -9872,6 +10495,8 @@ func (_this *HTMLElement) SetOnloadstart(value *js.Callback) {
 	_this.value.Set("onloadstart", input)
 }
 
+// Onmousedown returning attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmousedown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousedown")
@@ -9881,6 +10506,8 @@ func (_this *HTMLElement) Onmousedown() EventHandler {
 	return ret
 }
 
+// SetOnmousedown setting attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmousedown(value *js.Callback) {
 	var __callback47 js.Value
 	if value != nil {
@@ -9892,6 +10519,8 @@ func (_this *HTMLElement) SetOnmousedown(value *js.Callback) {
 	_this.value.Set("onmousedown", input)
 }
 
+// Onmouseenter returning attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmouseenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseenter")
@@ -9901,6 +10530,8 @@ func (_this *HTMLElement) Onmouseenter() EventHandler {
 	return ret
 }
 
+// SetOnmouseenter setting attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmouseenter(value *js.Callback) {
 	var __callback48 js.Value
 	if value != nil {
@@ -9912,6 +10543,8 @@ func (_this *HTMLElement) SetOnmouseenter(value *js.Callback) {
 	_this.value.Set("onmouseenter", input)
 }
 
+// Onmouseleave returning attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmouseleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseleave")
@@ -9921,6 +10554,8 @@ func (_this *HTMLElement) Onmouseleave() EventHandler {
 	return ret
 }
 
+// SetOnmouseleave setting attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmouseleave(value *js.Callback) {
 	var __callback49 js.Value
 	if value != nil {
@@ -9932,6 +10567,8 @@ func (_this *HTMLElement) SetOnmouseleave(value *js.Callback) {
 	_this.value.Set("onmouseleave", input)
 }
 
+// Onmousemove returning attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmousemove() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousemove")
@@ -9941,6 +10578,8 @@ func (_this *HTMLElement) Onmousemove() EventHandler {
 	return ret
 }
 
+// SetOnmousemove setting attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmousemove(value *js.Callback) {
 	var __callback50 js.Value
 	if value != nil {
@@ -9952,6 +10591,8 @@ func (_this *HTMLElement) SetOnmousemove(value *js.Callback) {
 	_this.value.Set("onmousemove", input)
 }
 
+// Onmouseout returning attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmouseout() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseout")
@@ -9961,6 +10602,8 @@ func (_this *HTMLElement) Onmouseout() EventHandler {
 	return ret
 }
 
+// SetOnmouseout setting attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmouseout(value *js.Callback) {
 	var __callback51 js.Value
 	if value != nil {
@@ -9972,6 +10615,8 @@ func (_this *HTMLElement) SetOnmouseout(value *js.Callback) {
 	_this.value.Set("onmouseout", input)
 }
 
+// Onmouseover returning attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmouseover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseover")
@@ -9981,6 +10626,8 @@ func (_this *HTMLElement) Onmouseover() EventHandler {
 	return ret
 }
 
+// SetOnmouseover setting attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmouseover(value *js.Callback) {
 	var __callback52 js.Value
 	if value != nil {
@@ -9992,6 +10639,8 @@ func (_this *HTMLElement) SetOnmouseover(value *js.Callback) {
 	_this.value.Set("onmouseover", input)
 }
 
+// Onmouseup returning attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onmouseup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseup")
@@ -10001,6 +10650,8 @@ func (_this *HTMLElement) Onmouseup() EventHandler {
 	return ret
 }
 
+// SetOnmouseup setting attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnmouseup(value *js.Callback) {
 	var __callback53 js.Value
 	if value != nil {
@@ -10012,6 +10663,8 @@ func (_this *HTMLElement) SetOnmouseup(value *js.Callback) {
 	_this.value.Set("onmouseup", input)
 }
 
+// Onwheel returning attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onwheel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwheel")
@@ -10021,6 +10674,8 @@ func (_this *HTMLElement) Onwheel() EventHandler {
 	return ret
 }
 
+// SetOnwheel setting attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnwheel(value *js.Callback) {
 	var __callback54 js.Value
 	if value != nil {
@@ -10032,6 +10687,8 @@ func (_this *HTMLElement) SetOnwheel(value *js.Callback) {
 	_this.value.Set("onwheel", input)
 }
 
+// Onpause returning attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onpause() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpause")
@@ -10041,6 +10698,8 @@ func (_this *HTMLElement) Onpause() EventHandler {
 	return ret
 }
 
+// SetOnpause setting attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnpause(value *js.Callback) {
 	var __callback55 js.Value
 	if value != nil {
@@ -10052,6 +10711,8 @@ func (_this *HTMLElement) SetOnpause(value *js.Callback) {
 	_this.value.Set("onpause", input)
 }
 
+// Onplay returning attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplay")
@@ -10061,6 +10722,8 @@ func (_this *HTMLElement) Onplay() EventHandler {
 	return ret
 }
 
+// SetOnplay setting attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnplay(value *js.Callback) {
 	var __callback56 js.Value
 	if value != nil {
@@ -10072,6 +10735,8 @@ func (_this *HTMLElement) SetOnplay(value *js.Callback) {
 	_this.value.Set("onplay", input)
 }
 
+// Onplaying returning attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onplaying() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplaying")
@@ -10081,6 +10746,8 @@ func (_this *HTMLElement) Onplaying() EventHandler {
 	return ret
 }
 
+// SetOnplaying setting attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnplaying(value *js.Callback) {
 	var __callback57 js.Value
 	if value != nil {
@@ -10092,6 +10759,8 @@ func (_this *HTMLElement) SetOnplaying(value *js.Callback) {
 	_this.value.Set("onplaying", input)
 }
 
+// Onprogress returning attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onprogress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onprogress")
@@ -10101,6 +10770,8 @@ func (_this *HTMLElement) Onprogress() EventHandler {
 	return ret
 }
 
+// SetOnprogress setting attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnprogress(value *js.Callback) {
 	var __callback58 js.Value
 	if value != nil {
@@ -10112,6 +10783,8 @@ func (_this *HTMLElement) SetOnprogress(value *js.Callback) {
 	_this.value.Set("onprogress", input)
 }
 
+// Onratechange returning attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onratechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onratechange")
@@ -10121,6 +10794,8 @@ func (_this *HTMLElement) Onratechange() EventHandler {
 	return ret
 }
 
+// SetOnratechange setting attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnratechange(value *js.Callback) {
 	var __callback59 js.Value
 	if value != nil {
@@ -10132,6 +10807,8 @@ func (_this *HTMLElement) SetOnratechange(value *js.Callback) {
 	_this.value.Set("onratechange", input)
 }
 
+// Onreset returning attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onreset() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onreset")
@@ -10141,6 +10818,8 @@ func (_this *HTMLElement) Onreset() EventHandler {
 	return ret
 }
 
+// SetOnreset setting attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnreset(value *js.Callback) {
 	var __callback60 js.Value
 	if value != nil {
@@ -10152,6 +10831,8 @@ func (_this *HTMLElement) SetOnreset(value *js.Callback) {
 	_this.value.Set("onreset", input)
 }
 
+// Onresize returning attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onresize() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onresize")
@@ -10161,6 +10842,8 @@ func (_this *HTMLElement) Onresize() EventHandler {
 	return ret
 }
 
+// SetOnresize setting attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnresize(value *js.Callback) {
 	var __callback61 js.Value
 	if value != nil {
@@ -10172,6 +10855,8 @@ func (_this *HTMLElement) SetOnresize(value *js.Callback) {
 	_this.value.Set("onresize", input)
 }
 
+// Onscroll returning attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onscroll() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onscroll")
@@ -10181,6 +10866,8 @@ func (_this *HTMLElement) Onscroll() EventHandler {
 	return ret
 }
 
+// SetOnscroll setting attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnscroll(value *js.Callback) {
 	var __callback62 js.Value
 	if value != nil {
@@ -10192,6 +10879,8 @@ func (_this *HTMLElement) SetOnscroll(value *js.Callback) {
 	_this.value.Set("onscroll", input)
 }
 
+// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onsecuritypolicyviolation() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsecuritypolicyviolation")
@@ -10201,6 +10890,8 @@ func (_this *HTMLElement) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
+// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Callback) {
 	var __callback63 js.Value
 	if value != nil {
@@ -10212,6 +10903,8 @@ func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Callback) {
 	_this.value.Set("onsecuritypolicyviolation", input)
 }
 
+// Onseeked returning attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onseeked() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeked")
@@ -10221,6 +10914,8 @@ func (_this *HTMLElement) Onseeked() EventHandler {
 	return ret
 }
 
+// SetOnseeked setting attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnseeked(value *js.Callback) {
 	var __callback64 js.Value
 	if value != nil {
@@ -10232,6 +10927,8 @@ func (_this *HTMLElement) SetOnseeked(value *js.Callback) {
 	_this.value.Set("onseeked", input)
 }
 
+// Onseeking returning attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onseeking() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeking")
@@ -10241,6 +10938,8 @@ func (_this *HTMLElement) Onseeking() EventHandler {
 	return ret
 }
 
+// SetOnseeking setting attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnseeking(value *js.Callback) {
 	var __callback65 js.Value
 	if value != nil {
@@ -10252,6 +10951,8 @@ func (_this *HTMLElement) SetOnseeking(value *js.Callback) {
 	_this.value.Set("onseeking", input)
 }
 
+// Onselect returning attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onselect() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onselect")
@@ -10261,6 +10962,8 @@ func (_this *HTMLElement) Onselect() EventHandler {
 	return ret
 }
 
+// SetOnselect setting attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnselect(value *js.Callback) {
 	var __callback66 js.Value
 	if value != nil {
@@ -10272,6 +10975,8 @@ func (_this *HTMLElement) SetOnselect(value *js.Callback) {
 	_this.value.Set("onselect", input)
 }
 
+// Onstalled returning attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onstalled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstalled")
@@ -10281,6 +10986,8 @@ func (_this *HTMLElement) Onstalled() EventHandler {
 	return ret
 }
 
+// SetOnstalled setting attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnstalled(value *js.Callback) {
 	var __callback67 js.Value
 	if value != nil {
@@ -10292,6 +10999,8 @@ func (_this *HTMLElement) SetOnstalled(value *js.Callback) {
 	_this.value.Set("onstalled", input)
 }
 
+// Onsubmit returning attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onsubmit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsubmit")
@@ -10301,6 +11010,8 @@ func (_this *HTMLElement) Onsubmit() EventHandler {
 	return ret
 }
 
+// SetOnsubmit setting attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnsubmit(value *js.Callback) {
 	var __callback68 js.Value
 	if value != nil {
@@ -10312,6 +11023,8 @@ func (_this *HTMLElement) SetOnsubmit(value *js.Callback) {
 	_this.value.Set("onsubmit", input)
 }
 
+// Onsuspend returning attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onsuspend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsuspend")
@@ -10321,6 +11034,8 @@ func (_this *HTMLElement) Onsuspend() EventHandler {
 	return ret
 }
 
+// SetOnsuspend setting attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnsuspend(value *js.Callback) {
 	var __callback69 js.Value
 	if value != nil {
@@ -10332,6 +11047,8 @@ func (_this *HTMLElement) SetOnsuspend(value *js.Callback) {
 	_this.value.Set("onsuspend", input)
 }
 
+// Ontimeupdate returning attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ontimeupdate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontimeupdate")
@@ -10341,6 +11058,8 @@ func (_this *HTMLElement) Ontimeupdate() EventHandler {
 	return ret
 }
 
+// SetOntimeupdate setting attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOntimeupdate(value *js.Callback) {
 	var __callback70 js.Value
 	if value != nil {
@@ -10352,6 +11071,8 @@ func (_this *HTMLElement) SetOntimeupdate(value *js.Callback) {
 	_this.value.Set("ontimeupdate", input)
 }
 
+// Ontoggle returning attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Ontoggle() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontoggle")
@@ -10361,6 +11082,8 @@ func (_this *HTMLElement) Ontoggle() EventHandler {
 	return ret
 }
 
+// SetOntoggle setting attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOntoggle(value *js.Callback) {
 	var __callback71 js.Value
 	if value != nil {
@@ -10372,6 +11095,8 @@ func (_this *HTMLElement) SetOntoggle(value *js.Callback) {
 	_this.value.Set("ontoggle", input)
 }
 
+// Onvolumechange returning attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onvolumechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onvolumechange")
@@ -10381,6 +11106,8 @@ func (_this *HTMLElement) Onvolumechange() EventHandler {
 	return ret
 }
 
+// SetOnvolumechange setting attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnvolumechange(value *js.Callback) {
 	var __callback72 js.Value
 	if value != nil {
@@ -10392,6 +11119,8 @@ func (_this *HTMLElement) SetOnvolumechange(value *js.Callback) {
 	_this.value.Set("onvolumechange", input)
 }
 
+// Onwaiting returning attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onwaiting() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwaiting")
@@ -10401,6 +11130,8 @@ func (_this *HTMLElement) Onwaiting() EventHandler {
 	return ret
 }
 
+// SetOnwaiting setting attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnwaiting(value *js.Callback) {
 	var __callback73 js.Value
 	if value != nil {
@@ -10412,6 +11143,8 @@ func (_this *HTMLElement) SetOnwaiting(value *js.Callback) {
 	_this.value.Set("onwaiting", input)
 }
 
+// Oncopy returning attribute 'oncopy' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncopy() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncopy")
@@ -10421,6 +11154,8 @@ func (_this *HTMLElement) Oncopy() EventHandler {
 	return ret
 }
 
+// SetOncopy setting attribute 'oncopy' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncopy(value *js.Callback) {
 	var __callback74 js.Value
 	if value != nil {
@@ -10432,6 +11167,8 @@ func (_this *HTMLElement) SetOncopy(value *js.Callback) {
 	_this.value.Set("oncopy", input)
 }
 
+// Oncut returning attribute 'oncut' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Oncut() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncut")
@@ -10441,6 +11178,8 @@ func (_this *HTMLElement) Oncut() EventHandler {
 	return ret
 }
 
+// SetOncut setting attribute 'oncut' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOncut(value *js.Callback) {
 	var __callback75 js.Value
 	if value != nil {
@@ -10452,6 +11191,8 @@ func (_this *HTMLElement) SetOncut(value *js.Callback) {
 	_this.value.Set("oncut", input)
 }
 
+// Onpaste returning attribute 'onpaste' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onpaste() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpaste")
@@ -10461,6 +11202,8 @@ func (_this *HTMLElement) Onpaste() EventHandler {
 	return ret
 }
 
+// SetOnpaste setting attribute 'onpaste' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) SetOnpaste(value *js.Callback) {
 	var __callback76 js.Value
 	if value != nil {
@@ -10472,6 +11215,8 @@ func (_this *HTMLElement) SetOnpaste(value *js.Callback) {
 	_this.value.Set("onpaste", input)
 }
 
+// ContentEditable returning attribute 'contentEditable' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) ContentEditable() string {
 	var ret string
 	value := _this.value.Get("contentEditable")
@@ -10479,11 +11224,15 @@ func (_this *HTMLElement) ContentEditable() string {
 	return ret
 }
 
+// SetContentEditable setting attribute 'contentEditable' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetContentEditable(value string) {
 	input := value
 	_this.value.Set("contentEditable", input)
 }
 
+// EnterKeyHint returning attribute 'enterKeyHint' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) EnterKeyHint() string {
 	var ret string
 	value := _this.value.Get("enterKeyHint")
@@ -10491,11 +11240,15 @@ func (_this *HTMLElement) EnterKeyHint() string {
 	return ret
 }
 
+// SetEnterKeyHint setting attribute 'enterKeyHint' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetEnterKeyHint(value string) {
 	input := value
 	_this.value.Set("enterKeyHint", input)
 }
 
+// IsContentEditable returning attribute 'isContentEditable' with
+// type bool (idl: boolean).
 func (_this *HTMLElement) IsContentEditable() bool {
 	var ret bool
 	value := _this.value.Get("isContentEditable")
@@ -10503,6 +11256,8 @@ func (_this *HTMLElement) IsContentEditable() bool {
 	return ret
 }
 
+// InputMode returning attribute 'inputMode' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) InputMode() string {
 	var ret string
 	value := _this.value.Get("inputMode")
@@ -10510,11 +11265,15 @@ func (_this *HTMLElement) InputMode() string {
 	return ret
 }
 
+// SetInputMode setting attribute 'inputMode' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetInputMode(value string) {
 	input := value
 	_this.value.Set("inputMode", input)
 }
 
+// Dataset returning attribute 'dataset' with
+// type DOMStringMap (idl: DOMStringMap).
 func (_this *HTMLElement) Dataset() *DOMStringMap {
 	var ret *DOMStringMap
 	value := _this.value.Get("dataset")
@@ -10522,6 +11281,8 @@ func (_this *HTMLElement) Dataset() *DOMStringMap {
 	return ret
 }
 
+// Nonce returning attribute 'nonce' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) Nonce() string {
 	var ret string
 	value := _this.value.Get("nonce")
@@ -10529,11 +11290,15 @@ func (_this *HTMLElement) Nonce() string {
 	return ret
 }
 
+// SetNonce setting attribute 'nonce' with
+// type string (idl: DOMString).
 func (_this *HTMLElement) SetNonce(value string) {
 	input := value
 	_this.value.Set("nonce", input)
 }
 
+// TabIndex returning attribute 'tabIndex' with
+// type int (idl: long).
 func (_this *HTMLElement) TabIndex() int {
 	var ret int
 	value := _this.value.Get("tabIndex")
@@ -10541,23 +11306,23 @@ func (_this *HTMLElement) TabIndex() int {
 	return ret
 }
 
+// SetTabIndex setting attribute 'tabIndex' with
+// type int (idl: long).
 func (_this *HTMLElement) SetTabIndex(value int) {
 	input := value
 	_this.value.Set("tabIndex", input)
 }
 
 func (_this *HTMLElement) Click() {
-	_method := _this.value.Get("click")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("click", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLElement) Focus(options *FocusOptions) {
-	_method := _this.value.Get("focus")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -10567,17 +11332,16 @@ func (_this *HTMLElement) Focus(options *FocusOptions) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("focus", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLElement) Blur() {
-	_method := _this.value.Get("blur")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("blur", _args[0:_end]...)
 	return
 }
 
@@ -10638,6 +11402,8 @@ func HTMLHtmlElementFromJS(input js.Value) *HTMLHtmlElement {
 	return ret
 }
 
+// Version returning attribute 'version' with
+// type string (idl: DOMString).
 func (_this *HTMLHtmlElement) Version() string {
 	var ret string
 	value := _this.value.Get("version")
@@ -10645,6 +11411,8 @@ func (_this *HTMLHtmlElement) Version() string {
 	return ret
 }
 
+// SetVersion setting attribute 'version' with
+// type string (idl: DOMString).
 func (_this *HTMLHtmlElement) SetVersion(value string) {
 	input := value
 	_this.value.Set("version", input)
@@ -10688,6 +11456,8 @@ func HTMLTitleElementFromJS(input js.Value) *HTMLTitleElement {
 	return ret
 }
 
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLTitleElement) Text() string {
 	var ret string
 	value := _this.value.Get("text")
@@ -10695,6 +11465,8 @@ func (_this *HTMLTitleElement) Text() string {
 	return ret
 }
 
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLTitleElement) SetText(value string) {
 	input := value
 	_this.value.Set("text", input)
@@ -10719,6 +11491,8 @@ func HTMLBaseElementFromJS(input js.Value) *HTMLBaseElement {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLBaseElement) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -10726,11 +11500,15 @@ func (_this *HTMLBaseElement) Href() string {
 	return ret
 }
 
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLBaseElement) SetHref(value string) {
 	input := value
 	_this.value.Set("href", input)
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLBaseElement) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -10738,6 +11516,8 @@ func (_this *HTMLBaseElement) Target() string {
 	return ret
 }
 
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLBaseElement) SetTarget(value string) {
 	input := value
 	_this.value.Set("target", input)
@@ -10762,6 +11542,8 @@ func HTMLLinkElementFromJS(input js.Value) *HTMLLinkElement {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLLinkElement) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -10769,11 +11551,15 @@ func (_this *HTMLLinkElement) Href() string {
 	return ret
 }
 
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLLinkElement) SetHref(value string) {
 	input := value
 	_this.value.Set("href", input)
 }
 
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.value.Get("crossOrigin")
@@ -10784,11 +11570,15 @@ func (_this *HTMLLinkElement) CrossOrigin() *string {
 	return ret
 }
 
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetCrossOrigin(value *string) {
 	input := value
 	_this.value.Set("crossOrigin", input)
 }
 
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Rel() string {
 	var ret string
 	value := _this.value.Get("rel")
@@ -10796,11 +11586,15 @@ func (_this *HTMLLinkElement) Rel() string {
 	return ret
 }
 
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetRel(value string) {
 	input := value
 	_this.value.Set("rel", input)
 }
 
+// As returning attribute 'as' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) As() string {
 	var ret string
 	value := _this.value.Get("as")
@@ -10808,11 +11602,15 @@ func (_this *HTMLLinkElement) As() string {
 	return ret
 }
 
+// SetAs setting attribute 'as' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetAs(value string) {
 	input := value
 	_this.value.Set("as", input)
 }
 
+// RelList returning attribute 'relList' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLLinkElement) RelList() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("relList")
@@ -10820,6 +11618,8 @@ func (_this *HTMLLinkElement) RelList() *DOMTokenList {
 	return ret
 }
 
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Media() string {
 	var ret string
 	value := _this.value.Get("media")
@@ -10827,11 +11627,15 @@ func (_this *HTMLLinkElement) Media() string {
 	return ret
 }
 
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetMedia(value string) {
 	input := value
 	_this.value.Set("media", input)
 }
 
+// Integrity returning attribute 'integrity' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Integrity() string {
 	var ret string
 	value := _this.value.Get("integrity")
@@ -10839,11 +11643,15 @@ func (_this *HTMLLinkElement) Integrity() string {
 	return ret
 }
 
+// SetIntegrity setting attribute 'integrity' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetIntegrity(value string) {
 	input := value
 	_this.value.Set("integrity", input)
 }
 
+// Hreflang returning attribute 'hreflang' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Hreflang() string {
 	var ret string
 	value := _this.value.Get("hreflang")
@@ -10851,11 +11659,15 @@ func (_this *HTMLLinkElement) Hreflang() string {
 	return ret
 }
 
+// SetHreflang setting attribute 'hreflang' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetHreflang(value string) {
 	input := value
 	_this.value.Set("hreflang", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -10863,11 +11675,15 @@ func (_this *HTMLLinkElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Sizes returning attribute 'sizes' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLLinkElement) Sizes() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("sizes")
@@ -10875,6 +11691,8 @@ func (_this *HTMLLinkElement) Sizes() *DOMTokenList {
 	return ret
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -10882,11 +11700,15 @@ func (_this *HTMLLinkElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Charset() string {
 	var ret string
 	value := _this.value.Get("charset")
@@ -10894,11 +11716,15 @@ func (_this *HTMLLinkElement) Charset() string {
 	return ret
 }
 
+// SetCharset setting attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetCharset(value string) {
 	input := value
 	_this.value.Set("charset", input)
 }
 
+// Rev returning attribute 'rev' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Rev() string {
 	var ret string
 	value := _this.value.Get("rev")
@@ -10906,11 +11732,15 @@ func (_this *HTMLLinkElement) Rev() string {
 	return ret
 }
 
+// SetRev setting attribute 'rev' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetRev(value string) {
 	input := value
 	_this.value.Set("rev", input)
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -10918,6 +11748,8 @@ func (_this *HTMLLinkElement) Target() string {
 	return ret
 }
 
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetTarget(value string) {
 	input := value
 	_this.value.Set("target", input)
@@ -10942,6 +11774,8 @@ func HTMLMetaElementFromJS(input js.Value) *HTMLMetaElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -10949,11 +11783,15 @@ func (_this *HTMLMetaElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// HttpEquiv returning attribute 'httpEquiv' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) HttpEquiv() string {
 	var ret string
 	value := _this.value.Get("httpEquiv")
@@ -10961,11 +11799,15 @@ func (_this *HTMLMetaElement) HttpEquiv() string {
 	return ret
 }
 
+// SetHttpEquiv setting attribute 'httpEquiv' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) SetHttpEquiv(value string) {
 	input := value
 	_this.value.Set("httpEquiv", input)
 }
 
+// Content returning attribute 'content' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) Content() string {
 	var ret string
 	value := _this.value.Get("content")
@@ -10973,11 +11815,15 @@ func (_this *HTMLMetaElement) Content() string {
 	return ret
 }
 
+// SetContent setting attribute 'content' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) SetContent(value string) {
 	input := value
 	_this.value.Set("content", input)
 }
 
+// Scheme returning attribute 'scheme' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) Scheme() string {
 	var ret string
 	value := _this.value.Get("scheme")
@@ -10985,6 +11831,8 @@ func (_this *HTMLMetaElement) Scheme() string {
 	return ret
 }
 
+// SetScheme setting attribute 'scheme' with
+// type string (idl: DOMString).
 func (_this *HTMLMetaElement) SetScheme(value string) {
 	input := value
 	_this.value.Set("scheme", input)
@@ -11009,6 +11857,8 @@ func HTMLStyleElementFromJS(input js.Value) *HTMLStyleElement {
 	return ret
 }
 
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLStyleElement) Media() string {
 	var ret string
 	value := _this.value.Get("media")
@@ -11016,11 +11866,15 @@ func (_this *HTMLStyleElement) Media() string {
 	return ret
 }
 
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLStyleElement) SetMedia(value string) {
 	input := value
 	_this.value.Set("media", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLStyleElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -11028,6 +11882,8 @@ func (_this *HTMLStyleElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLStyleElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
@@ -11052,6 +11908,8 @@ func HTMLBodyElementFromJS(input js.Value) *HTMLBodyElement {
 	return ret
 }
 
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) Text() string {
 	var ret string
 	value := _this.value.Get("text")
@@ -11059,11 +11917,15 @@ func (_this *HTMLBodyElement) Text() string {
 	return ret
 }
 
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetText(value string) {
 	input := value
 	_this.value.Set("text", input)
 }
 
+// Link returning attribute 'link' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) Link() string {
 	var ret string
 	value := _this.value.Get("link")
@@ -11071,11 +11933,15 @@ func (_this *HTMLBodyElement) Link() string {
 	return ret
 }
 
+// SetLink setting attribute 'link' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetLink(value string) {
 	input := value
 	_this.value.Set("link", input)
 }
 
+// VLink returning attribute 'vLink' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) VLink() string {
 	var ret string
 	value := _this.value.Get("vLink")
@@ -11083,11 +11949,15 @@ func (_this *HTMLBodyElement) VLink() string {
 	return ret
 }
 
+// SetVLink setting attribute 'vLink' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetVLink(value string) {
 	input := value
 	_this.value.Set("vLink", input)
 }
 
+// ALink returning attribute 'aLink' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) ALink() string {
 	var ret string
 	value := _this.value.Get("aLink")
@@ -11095,11 +11965,15 @@ func (_this *HTMLBodyElement) ALink() string {
 	return ret
 }
 
+// SetALink setting attribute 'aLink' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetALink(value string) {
 	input := value
 	_this.value.Set("aLink", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -11107,11 +11981,15 @@ func (_this *HTMLBodyElement) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
 }
 
+// Background returning attribute 'background' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) Background() string {
 	var ret string
 	value := _this.value.Get("background")
@@ -11119,11 +11997,15 @@ func (_this *HTMLBodyElement) Background() string {
 	return ret
 }
 
+// SetBackground setting attribute 'background' with
+// type string (idl: DOMString).
 func (_this *HTMLBodyElement) SetBackground(value string) {
 	input := value
 	_this.value.Set("background", input)
 }
 
+// Onafterprint returning attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onafterprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onafterprint")
@@ -11133,6 +12015,8 @@ func (_this *HTMLBodyElement) Onafterprint() EventHandler {
 	return ret
 }
 
+// SetOnafterprint setting attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnafterprint(value *js.Callback) {
 	var __callback6 js.Value
 	if value != nil {
@@ -11144,6 +12028,8 @@ func (_this *HTMLBodyElement) SetOnafterprint(value *js.Callback) {
 	_this.value.Set("onafterprint", input)
 }
 
+// Onbeforeprint returning attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onbeforeprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onbeforeprint")
@@ -11153,6 +12039,8 @@ func (_this *HTMLBodyElement) Onbeforeprint() EventHandler {
 	return ret
 }
 
+// SetOnbeforeprint setting attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Callback) {
 	var __callback7 js.Value
 	if value != nil {
@@ -11164,6 +12052,8 @@ func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Callback) {
 	_this.value.Set("onbeforeprint", input)
 }
 
+// Onbeforeunload returning attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
 	var ret OnBeforeUnloadEventHandlerNonNull
 	value := _this.value.Get("onbeforeunload")
@@ -11173,6 +12063,8 @@ func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull
 	return ret
 }
 
+// SetOnbeforeunload setting attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -11184,6 +12076,8 @@ func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Callback) {
 	_this.value.Set("onbeforeunload", input)
 }
 
+// Onhashchange returning attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onhashchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onhashchange")
@@ -11193,6 +12087,8 @@ func (_this *HTMLBodyElement) Onhashchange() EventHandler {
 	return ret
 }
 
+// SetOnhashchange setting attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnhashchange(value *js.Callback) {
 	var __callback9 js.Value
 	if value != nil {
@@ -11204,6 +12100,8 @@ func (_this *HTMLBodyElement) SetOnhashchange(value *js.Callback) {
 	_this.value.Set("onhashchange", input)
 }
 
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onlanguagechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onlanguagechange")
@@ -11213,6 +12111,8 @@ func (_this *HTMLBodyElement) Onlanguagechange() EventHandler {
 	return ret
 }
 
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Callback) {
 	var __callback10 js.Value
 	if value != nil {
@@ -11224,6 +12124,8 @@ func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Callback) {
 	_this.value.Set("onlanguagechange", input)
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -11233,6 +12135,8 @@ func (_this *HTMLBodyElement) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnmessage(value *js.Callback) {
 	var __callback11 js.Value
 	if value != nil {
@@ -11244,6 +12148,8 @@ func (_this *HTMLBodyElement) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -11253,6 +12159,8 @@ func (_this *HTMLBodyElement) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Callback) {
 	var __callback12 js.Value
 	if value != nil {
@@ -11264,6 +12172,8 @@ func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Callback) {
 	_this.value.Set("onmessageerror", input)
 }
 
+// Onoffline returning attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onoffline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onoffline")
@@ -11273,6 +12183,8 @@ func (_this *HTMLBodyElement) Onoffline() EventHandler {
 	return ret
 }
 
+// SetOnoffline setting attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnoffline(value *js.Callback) {
 	var __callback13 js.Value
 	if value != nil {
@@ -11284,6 +12196,8 @@ func (_this *HTMLBodyElement) SetOnoffline(value *js.Callback) {
 	_this.value.Set("onoffline", input)
 }
 
+// Ononline returning attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Ononline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ononline")
@@ -11293,6 +12207,8 @@ func (_this *HTMLBodyElement) Ononline() EventHandler {
 	return ret
 }
 
+// SetOnonline setting attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnonline(value *js.Callback) {
 	var __callback14 js.Value
 	if value != nil {
@@ -11304,6 +12220,8 @@ func (_this *HTMLBodyElement) SetOnonline(value *js.Callback) {
 	_this.value.Set("ononline", input)
 }
 
+// Onpagehide returning attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onpagehide() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpagehide")
@@ -11313,6 +12231,8 @@ func (_this *HTMLBodyElement) Onpagehide() EventHandler {
 	return ret
 }
 
+// SetOnpagehide setting attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnpagehide(value *js.Callback) {
 	var __callback15 js.Value
 	if value != nil {
@@ -11324,6 +12244,8 @@ func (_this *HTMLBodyElement) SetOnpagehide(value *js.Callback) {
 	_this.value.Set("onpagehide", input)
 }
 
+// Onpageshow returning attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onpageshow() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpageshow")
@@ -11333,6 +12255,8 @@ func (_this *HTMLBodyElement) Onpageshow() EventHandler {
 	return ret
 }
 
+// SetOnpageshow setting attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnpageshow(value *js.Callback) {
 	var __callback16 js.Value
 	if value != nil {
@@ -11344,6 +12268,8 @@ func (_this *HTMLBodyElement) SetOnpageshow(value *js.Callback) {
 	_this.value.Set("onpageshow", input)
 }
 
+// Onpopstate returning attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onpopstate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpopstate")
@@ -11353,6 +12279,8 @@ func (_this *HTMLBodyElement) Onpopstate() EventHandler {
 	return ret
 }
 
+// SetOnpopstate setting attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnpopstate(value *js.Callback) {
 	var __callback17 js.Value
 	if value != nil {
@@ -11364,6 +12292,8 @@ func (_this *HTMLBodyElement) SetOnpopstate(value *js.Callback) {
 	_this.value.Set("onpopstate", input)
 }
 
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onrejectionhandled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onrejectionhandled")
@@ -11373,6 +12303,8 @@ func (_this *HTMLBodyElement) Onrejectionhandled() EventHandler {
 	return ret
 }
 
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Callback) {
 	var __callback18 js.Value
 	if value != nil {
@@ -11384,6 +12316,8 @@ func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Callback) {
 	_this.value.Set("onrejectionhandled", input)
 }
 
+// Onstorage returning attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onstorage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstorage")
@@ -11393,6 +12327,8 @@ func (_this *HTMLBodyElement) Onstorage() EventHandler {
 	return ret
 }
 
+// SetOnstorage setting attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnstorage(value *js.Callback) {
 	var __callback19 js.Value
 	if value != nil {
@@ -11404,6 +12340,8 @@ func (_this *HTMLBodyElement) SetOnstorage(value *js.Callback) {
 	_this.value.Set("onstorage", input)
 }
 
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onunhandledrejection() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunhandledrejection")
@@ -11413,6 +12351,8 @@ func (_this *HTMLBodyElement) Onunhandledrejection() EventHandler {
 	return ret
 }
 
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Callback) {
 	var __callback20 js.Value
 	if value != nil {
@@ -11424,6 +12364,8 @@ func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Callback) {
 	_this.value.Set("onunhandledrejection", input)
 }
 
+// Onunload returning attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) Onunload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunload")
@@ -11433,6 +12375,8 @@ func (_this *HTMLBodyElement) Onunload() EventHandler {
 	return ret
 }
 
+// SetOnunload setting attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLBodyElement) SetOnunload(value *js.Callback) {
 	var __callback21 js.Value
 	if value != nil {
@@ -11463,6 +12407,8 @@ func HTMLHeadingElementFromJS(input js.Value) *HTMLHeadingElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLHeadingElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -11470,6 +12416,8 @@ func (_this *HTMLHeadingElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLHeadingElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
@@ -11494,6 +12442,8 @@ func HTMLParagraphElementFromJS(input js.Value) *HTMLParagraphElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLParagraphElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -11501,6 +12451,8 @@ func (_this *HTMLParagraphElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLParagraphElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
@@ -11525,6 +12477,8 @@ func HTMLHRElementFromJS(input js.Value) *HTMLHRElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -11532,11 +12486,15 @@ func (_this *HTMLHRElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Color returning attribute 'color' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) Color() string {
 	var ret string
 	value := _this.value.Get("color")
@@ -11544,11 +12502,15 @@ func (_this *HTMLHRElement) Color() string {
 	return ret
 }
 
+// SetColor setting attribute 'color' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) SetColor(value string) {
 	input := value
 	_this.value.Set("color", input)
 }
 
+// NoShade returning attribute 'noShade' with
+// type bool (idl: boolean).
 func (_this *HTMLHRElement) NoShade() bool {
 	var ret bool
 	value := _this.value.Get("noShade")
@@ -11556,11 +12518,15 @@ func (_this *HTMLHRElement) NoShade() bool {
 	return ret
 }
 
+// SetNoShade setting attribute 'noShade' with
+// type bool (idl: boolean).
 func (_this *HTMLHRElement) SetNoShade(value bool) {
 	input := value
 	_this.value.Set("noShade", input)
 }
 
+// Size returning attribute 'size' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) Size() string {
 	var ret string
 	value := _this.value.Get("size")
@@ -11568,11 +12534,15 @@ func (_this *HTMLHRElement) Size() string {
 	return ret
 }
 
+// SetSize setting attribute 'size' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) SetSize(value string) {
 	input := value
 	_this.value.Set("size", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -11580,6 +12550,8 @@ func (_this *HTMLHRElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLHRElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
@@ -11604,6 +12576,8 @@ func HTMLPreElementFromJS(input js.Value) *HTMLPreElement {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type int (idl: long).
 func (_this *HTMLPreElement) Width() int {
 	var ret int
 	value := _this.value.Get("width")
@@ -11611,6 +12585,8 @@ func (_this *HTMLPreElement) Width() int {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type int (idl: long).
 func (_this *HTMLPreElement) SetWidth(value int) {
 	input := value
 	_this.value.Set("width", input)
@@ -11635,6 +12611,8 @@ func HTMLQuoteElementFromJS(input js.Value) *HTMLQuoteElement {
 	return ret
 }
 
+// Cite returning attribute 'cite' with
+// type string (idl: USVString).
 func (_this *HTMLQuoteElement) Cite() string {
 	var ret string
 	value := _this.value.Get("cite")
@@ -11642,6 +12620,8 @@ func (_this *HTMLQuoteElement) Cite() string {
 	return ret
 }
 
+// SetCite setting attribute 'cite' with
+// type string (idl: USVString).
 func (_this *HTMLQuoteElement) SetCite(value string) {
 	input := value
 	_this.value.Set("cite", input)
@@ -11666,6 +12646,8 @@ func HTMLOListElementFromJS(input js.Value) *HTMLOListElement {
 	return ret
 }
 
+// Reversed returning attribute 'reversed' with
+// type bool (idl: boolean).
 func (_this *HTMLOListElement) Reversed() bool {
 	var ret bool
 	value := _this.value.Get("reversed")
@@ -11673,11 +12655,15 @@ func (_this *HTMLOListElement) Reversed() bool {
 	return ret
 }
 
+// SetReversed setting attribute 'reversed' with
+// type bool (idl: boolean).
 func (_this *HTMLOListElement) SetReversed(value bool) {
 	input := value
 	_this.value.Set("reversed", input)
 }
 
+// Start returning attribute 'start' with
+// type int (idl: long).
 func (_this *HTMLOListElement) Start() int {
 	var ret int
 	value := _this.value.Get("start")
@@ -11685,11 +12671,15 @@ func (_this *HTMLOListElement) Start() int {
 	return ret
 }
 
+// SetStart setting attribute 'start' with
+// type int (idl: long).
 func (_this *HTMLOListElement) SetStart(value int) {
 	input := value
 	_this.value.Set("start", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLOListElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -11697,11 +12687,15 @@ func (_this *HTMLOListElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLOListElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLOListElement) Compact() bool {
 	var ret bool
 	value := _this.value.Get("compact")
@@ -11709,6 +12703,8 @@ func (_this *HTMLOListElement) Compact() bool {
 	return ret
 }
 
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLOListElement) SetCompact(value bool) {
 	input := value
 	_this.value.Set("compact", input)
@@ -11733,6 +12729,8 @@ func HTMLUListElementFromJS(input js.Value) *HTMLUListElement {
 	return ret
 }
 
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLUListElement) Compact() bool {
 	var ret bool
 	value := _this.value.Get("compact")
@@ -11740,11 +12738,15 @@ func (_this *HTMLUListElement) Compact() bool {
 	return ret
 }
 
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLUListElement) SetCompact(value bool) {
 	input := value
 	_this.value.Set("compact", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLUListElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -11752,6 +12754,8 @@ func (_this *HTMLUListElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLUListElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
@@ -11776,6 +12780,8 @@ func HTMLMenuElementFromJS(input js.Value) *HTMLMenuElement {
 	return ret
 }
 
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLMenuElement) Compact() bool {
 	var ret bool
 	value := _this.value.Get("compact")
@@ -11783,6 +12789,8 @@ func (_this *HTMLMenuElement) Compact() bool {
 	return ret
 }
 
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLMenuElement) SetCompact(value bool) {
 	input := value
 	_this.value.Set("compact", input)
@@ -11807,6 +12815,8 @@ func HTMLLIElementFromJS(input js.Value) *HTMLLIElement {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type int (idl: long).
 func (_this *HTMLLIElement) Value() int {
 	var ret int
 	value := _this.value.Get("value")
@@ -11814,11 +12824,15 @@ func (_this *HTMLLIElement) Value() int {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type int (idl: long).
 func (_this *HTMLLIElement) SetValue(value int) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLLIElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -11826,6 +12840,8 @@ func (_this *HTMLLIElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLLIElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
@@ -11850,6 +12866,8 @@ func HTMLDListElementFromJS(input js.Value) *HTMLDListElement {
 	return ret
 }
 
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLDListElement) Compact() bool {
 	var ret bool
 	value := _this.value.Get("compact")
@@ -11857,6 +12875,8 @@ func (_this *HTMLDListElement) Compact() bool {
 	return ret
 }
 
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLDListElement) SetCompact(value bool) {
 	input := value
 	_this.value.Set("compact", input)
@@ -11881,6 +12901,8 @@ func HTMLDivElementFromJS(input js.Value) *HTMLDivElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLDivElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -11888,6 +12910,8 @@ func (_this *HTMLDivElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLDivElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
@@ -11912,6 +12936,8 @@ func HTMLAnchorElementFromJS(input js.Value) *HTMLAnchorElement {
 	return ret
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -11919,11 +12945,15 @@ func (_this *HTMLAnchorElement) Target() string {
 	return ret
 }
 
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetTarget(value string) {
 	input := value
 	_this.value.Set("target", input)
 }
 
+// Download returning attribute 'download' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Download() string {
 	var ret string
 	value := _this.value.Get("download")
@@ -11931,11 +12961,15 @@ func (_this *HTMLAnchorElement) Download() string {
 	return ret
 }
 
+// SetDownload setting attribute 'download' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetDownload(value string) {
 	input := value
 	_this.value.Set("download", input)
 }
 
+// Ping returning attribute 'ping' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Ping() string {
 	var ret string
 	value := _this.value.Get("ping")
@@ -11943,11 +12977,15 @@ func (_this *HTMLAnchorElement) Ping() string {
 	return ret
 }
 
+// SetPing setting attribute 'ping' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetPing(value string) {
 	input := value
 	_this.value.Set("ping", input)
 }
 
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Rel() string {
 	var ret string
 	value := _this.value.Get("rel")
@@ -11955,11 +12993,15 @@ func (_this *HTMLAnchorElement) Rel() string {
 	return ret
 }
 
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetRel(value string) {
 	input := value
 	_this.value.Set("rel", input)
 }
 
+// RelList returning attribute 'relList' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLAnchorElement) RelList() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("relList")
@@ -11967,6 +13009,8 @@ func (_this *HTMLAnchorElement) RelList() *DOMTokenList {
 	return ret
 }
 
+// Hreflang returning attribute 'hreflang' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Hreflang() string {
 	var ret string
 	value := _this.value.Get("hreflang")
@@ -11974,11 +13018,15 @@ func (_this *HTMLAnchorElement) Hreflang() string {
 	return ret
 }
 
+// SetHreflang setting attribute 'hreflang' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetHreflang(value string) {
 	input := value
 	_this.value.Set("hreflang", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -11986,11 +13034,15 @@ func (_this *HTMLAnchorElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Text() string {
 	var ret string
 	value := _this.value.Get("text")
@@ -11998,11 +13050,15 @@ func (_this *HTMLAnchorElement) Text() string {
 	return ret
 }
 
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetText(value string) {
 	input := value
 	_this.value.Set("text", input)
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -12010,11 +13066,15 @@ func (_this *HTMLAnchorElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// Coords returning attribute 'coords' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Coords() string {
 	var ret string
 	value := _this.value.Get("coords")
@@ -12022,11 +13082,15 @@ func (_this *HTMLAnchorElement) Coords() string {
 	return ret
 }
 
+// SetCoords setting attribute 'coords' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetCoords(value string) {
 	input := value
 	_this.value.Set("coords", input)
 }
 
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Charset() string {
 	var ret string
 	value := _this.value.Get("charset")
@@ -12034,11 +13098,15 @@ func (_this *HTMLAnchorElement) Charset() string {
 	return ret
 }
 
+// SetCharset setting attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetCharset(value string) {
 	input := value
 	_this.value.Set("charset", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -12046,11 +13114,15 @@ func (_this *HTMLAnchorElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Rev returning attribute 'rev' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Rev() string {
 	var ret string
 	value := _this.value.Get("rev")
@@ -12058,11 +13130,15 @@ func (_this *HTMLAnchorElement) Rev() string {
 	return ret
 }
 
+// SetRev setting attribute 'rev' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetRev(value string) {
 	input := value
 	_this.value.Set("rev", input)
 }
 
+// Shape returning attribute 'shape' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) Shape() string {
 	var ret string
 	value := _this.value.Get("shape")
@@ -12070,11 +13146,15 @@ func (_this *HTMLAnchorElement) Shape() string {
 	return ret
 }
 
+// SetShape setting attribute 'shape' with
+// type string (idl: DOMString).
 func (_this *HTMLAnchorElement) SetShape(value string) {
 	input := value
 	_this.value.Set("shape", input)
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -12082,11 +13162,15 @@ func (_this *HTMLAnchorElement) Href() string {
 	return ret
 }
 
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetHref(value string) {
 	input := value
 	_this.value.Set("href", input)
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -12094,6 +13178,8 @@ func (_this *HTMLAnchorElement) Origin() string {
 	return ret
 }
 
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Protocol() string {
 	var ret string
 	value := _this.value.Get("protocol")
@@ -12101,11 +13187,15 @@ func (_this *HTMLAnchorElement) Protocol() string {
 	return ret
 }
 
+// SetProtocol setting attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetProtocol(value string) {
 	input := value
 	_this.value.Set("protocol", input)
 }
 
+// Username returning attribute 'username' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Username() string {
 	var ret string
 	value := _this.value.Get("username")
@@ -12113,11 +13203,15 @@ func (_this *HTMLAnchorElement) Username() string {
 	return ret
 }
 
+// SetUsername setting attribute 'username' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetUsername(value string) {
 	input := value
 	_this.value.Set("username", input)
 }
 
+// Password returning attribute 'password' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Password() string {
 	var ret string
 	value := _this.value.Get("password")
@@ -12125,11 +13219,15 @@ func (_this *HTMLAnchorElement) Password() string {
 	return ret
 }
 
+// SetPassword setting attribute 'password' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetPassword(value string) {
 	input := value
 	_this.value.Set("password", input)
 }
 
+// Host returning attribute 'host' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Host() string {
 	var ret string
 	value := _this.value.Get("host")
@@ -12137,11 +13235,15 @@ func (_this *HTMLAnchorElement) Host() string {
 	return ret
 }
 
+// SetHost setting attribute 'host' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetHost(value string) {
 	input := value
 	_this.value.Set("host", input)
 }
 
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Hostname() string {
 	var ret string
 	value := _this.value.Get("hostname")
@@ -12149,11 +13251,15 @@ func (_this *HTMLAnchorElement) Hostname() string {
 	return ret
 }
 
+// SetHostname setting attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetHostname(value string) {
 	input := value
 	_this.value.Set("hostname", input)
 }
 
+// Port returning attribute 'port' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Port() string {
 	var ret string
 	value := _this.value.Get("port")
@@ -12161,11 +13267,15 @@ func (_this *HTMLAnchorElement) Port() string {
 	return ret
 }
 
+// SetPort setting attribute 'port' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetPort(value string) {
 	input := value
 	_this.value.Set("port", input)
 }
 
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Pathname() string {
 	var ret string
 	value := _this.value.Get("pathname")
@@ -12173,11 +13283,15 @@ func (_this *HTMLAnchorElement) Pathname() string {
 	return ret
 }
 
+// SetPathname setting attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetPathname(value string) {
 	input := value
 	_this.value.Set("pathname", input)
 }
 
+// Search returning attribute 'search' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Search() string {
 	var ret string
 	value := _this.value.Get("search")
@@ -12185,11 +13299,15 @@ func (_this *HTMLAnchorElement) Search() string {
 	return ret
 }
 
+// SetSearch setting attribute 'search' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetSearch(value string) {
 	input := value
 	_this.value.Set("search", input)
 }
 
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) Hash() string {
 	var ret string
 	value := _this.value.Get("hash")
@@ -12197,6 +13315,8 @@ func (_this *HTMLAnchorElement) Hash() string {
 	return ret
 }
 
+// SetHash setting attribute 'hash' with
+// type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetHash(value string) {
 	input := value
 	_this.value.Set("hash", input)
@@ -12221,6 +13341,8 @@ func HTMLDataElementFromJS(input js.Value) *HTMLDataElement {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLDataElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -12228,6 +13350,8 @@ func (_this *HTMLDataElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLDataElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
@@ -12252,6 +13376,8 @@ func HTMLTimeElementFromJS(input js.Value) *HTMLTimeElement {
 	return ret
 }
 
+// DateTime returning attribute 'dateTime' with
+// type string (idl: DOMString).
 func (_this *HTMLTimeElement) DateTime() string {
 	var ret string
 	value := _this.value.Get("dateTime")
@@ -12259,6 +13385,8 @@ func (_this *HTMLTimeElement) DateTime() string {
 	return ret
 }
 
+// SetDateTime setting attribute 'dateTime' with
+// type string (idl: DOMString).
 func (_this *HTMLTimeElement) SetDateTime(value string) {
 	input := value
 	_this.value.Set("dateTime", input)
@@ -12302,6 +13430,8 @@ func HTMLBRElementFromJS(input js.Value) *HTMLBRElement {
 	return ret
 }
 
+// Clear returning attribute 'clear' with
+// type string (idl: DOMString).
 func (_this *HTMLBRElement) Clear() string {
 	var ret string
 	value := _this.value.Get("clear")
@@ -12309,6 +13439,8 @@ func (_this *HTMLBRElement) Clear() string {
 	return ret
 }
 
+// SetClear setting attribute 'clear' with
+// type string (idl: DOMString).
 func (_this *HTMLBRElement) SetClear(value string) {
 	input := value
 	_this.value.Set("clear", input)
@@ -12333,6 +13465,8 @@ func HTMLModElementFromJS(input js.Value) *HTMLModElement {
 	return ret
 }
 
+// Cite returning attribute 'cite' with
+// type string (idl: USVString).
 func (_this *HTMLModElement) Cite() string {
 	var ret string
 	value := _this.value.Get("cite")
@@ -12340,11 +13474,15 @@ func (_this *HTMLModElement) Cite() string {
 	return ret
 }
 
+// SetCite setting attribute 'cite' with
+// type string (idl: USVString).
 func (_this *HTMLModElement) SetCite(value string) {
 	input := value
 	_this.value.Set("cite", input)
 }
 
+// DateTime returning attribute 'dateTime' with
+// type string (idl: DOMString).
 func (_this *HTMLModElement) DateTime() string {
 	var ret string
 	value := _this.value.Get("dateTime")
@@ -12352,6 +13490,8 @@ func (_this *HTMLModElement) DateTime() string {
 	return ret
 }
 
+// SetDateTime setting attribute 'dateTime' with
+// type string (idl: DOMString).
 func (_this *HTMLModElement) SetDateTime(value string) {
 	input := value
 	_this.value.Set("dateTime", input)
@@ -12395,6 +13535,8 @@ func HTMLSourceElementFromJS(input js.Value) *HTMLSourceElement {
 	return ret
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLSourceElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -12402,11 +13544,15 @@ func (_this *HTMLSourceElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLSourceElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -12414,11 +13560,15 @@ func (_this *HTMLSourceElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Srcset returning attribute 'srcset' with
+// type string (idl: USVString).
 func (_this *HTMLSourceElement) Srcset() string {
 	var ret string
 	value := _this.value.Get("srcset")
@@ -12426,11 +13576,15 @@ func (_this *HTMLSourceElement) Srcset() string {
 	return ret
 }
 
+// SetSrcset setting attribute 'srcset' with
+// type string (idl: USVString).
 func (_this *HTMLSourceElement) SetSrcset(value string) {
 	input := value
 	_this.value.Set("srcset", input)
 }
 
+// Sizes returning attribute 'sizes' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) Sizes() string {
 	var ret string
 	value := _this.value.Get("sizes")
@@ -12438,11 +13592,15 @@ func (_this *HTMLSourceElement) Sizes() string {
 	return ret
 }
 
+// SetSizes setting attribute 'sizes' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) SetSizes(value string) {
 	input := value
 	_this.value.Set("sizes", input)
 }
 
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) Media() string {
 	var ret string
 	value := _this.value.Get("media")
@@ -12450,6 +13608,8 @@ func (_this *HTMLSourceElement) Media() string {
 	return ret
 }
 
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
 func (_this *HTMLSourceElement) SetMedia(value string) {
 	input := value
 	_this.value.Set("media", input)
@@ -12474,6 +13634,8 @@ func HTMLImageElementFromJS(input js.Value) *HTMLImageElement {
 	return ret
 }
 
+// Alt returning attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Alt() string {
 	var ret string
 	value := _this.value.Get("alt")
@@ -12481,11 +13643,15 @@ func (_this *HTMLImageElement) Alt() string {
 	return ret
 }
 
+// SetAlt setting attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetAlt(value string) {
 	input := value
 	_this.value.Set("alt", input)
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -12493,11 +13659,15 @@ func (_this *HTMLImageElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Srcset returning attribute 'srcset' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) Srcset() string {
 	var ret string
 	value := _this.value.Get("srcset")
@@ -12505,11 +13675,15 @@ func (_this *HTMLImageElement) Srcset() string {
 	return ret
 }
 
+// SetSrcset setting attribute 'srcset' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) SetSrcset(value string) {
 	input := value
 	_this.value.Set("srcset", input)
 }
 
+// Sizes returning attribute 'sizes' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Sizes() string {
 	var ret string
 	value := _this.value.Get("sizes")
@@ -12517,11 +13691,15 @@ func (_this *HTMLImageElement) Sizes() string {
 	return ret
 }
 
+// SetSizes setting attribute 'sizes' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetSizes(value string) {
 	input := value
 	_this.value.Set("sizes", input)
 }
 
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.value.Get("crossOrigin")
@@ -12532,11 +13710,15 @@ func (_this *HTMLImageElement) CrossOrigin() *string {
 	return ret
 }
 
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetCrossOrigin(value *string) {
 	input := value
 	_this.value.Set("crossOrigin", input)
 }
 
+// UseMap returning attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) UseMap() string {
 	var ret string
 	value := _this.value.Get("useMap")
@@ -12544,11 +13726,15 @@ func (_this *HTMLImageElement) UseMap() string {
 	return ret
 }
 
+// SetUseMap setting attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetUseMap(value string) {
 	input := value
 	_this.value.Set("useMap", input)
 }
 
+// IsMap returning attribute 'isMap' with
+// type bool (idl: boolean).
 func (_this *HTMLImageElement) IsMap() bool {
 	var ret bool
 	value := _this.value.Get("isMap")
@@ -12556,11 +13742,15 @@ func (_this *HTMLImageElement) IsMap() bool {
 	return ret
 }
 
+// SetIsMap setting attribute 'isMap' with
+// type bool (idl: boolean).
 func (_this *HTMLImageElement) SetIsMap(value bool) {
 	input := value
 	_this.value.Set("isMap", input)
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -12568,11 +13758,15 @@ func (_this *HTMLImageElement) Width() uint {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) SetWidth(value uint) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -12580,11 +13774,15 @@ func (_this *HTMLImageElement) Height() uint {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) SetHeight(value uint) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// NaturalWidth returning attribute 'naturalWidth' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) NaturalWidth() uint {
 	var ret uint
 	value := _this.value.Get("naturalWidth")
@@ -12592,6 +13790,8 @@ func (_this *HTMLImageElement) NaturalWidth() uint {
 	return ret
 }
 
+// NaturalHeight returning attribute 'naturalHeight' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) NaturalHeight() uint {
 	var ret uint
 	value := _this.value.Get("naturalHeight")
@@ -12599,6 +13799,8 @@ func (_this *HTMLImageElement) NaturalHeight() uint {
 	return ret
 }
 
+// Complete returning attribute 'complete' with
+// type bool (idl: boolean).
 func (_this *HTMLImageElement) Complete() bool {
 	var ret bool
 	value := _this.value.Get("complete")
@@ -12606,6 +13808,8 @@ func (_this *HTMLImageElement) Complete() bool {
 	return ret
 }
 
+// CurrentSrc returning attribute 'currentSrc' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) CurrentSrc() string {
 	var ret string
 	value := _this.value.Get("currentSrc")
@@ -12613,6 +13817,8 @@ func (_this *HTMLImageElement) CurrentSrc() string {
 	return ret
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -12620,11 +13826,15 @@ func (_this *HTMLImageElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// Decoding returning attribute 'decoding' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Decoding() string {
 	var ret string
 	value := _this.value.Get("decoding")
@@ -12632,11 +13842,15 @@ func (_this *HTMLImageElement) Decoding() string {
 	return ret
 }
 
+// SetDecoding setting attribute 'decoding' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetDecoding(value string) {
 	input := value
 	_this.value.Set("decoding", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -12644,11 +13858,15 @@ func (_this *HTMLImageElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Lowsrc returning attribute 'lowsrc' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) Lowsrc() string {
 	var ret string
 	value := _this.value.Get("lowsrc")
@@ -12656,11 +13874,15 @@ func (_this *HTMLImageElement) Lowsrc() string {
 	return ret
 }
 
+// SetLowsrc setting attribute 'lowsrc' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) SetLowsrc(value string) {
 	input := value
 	_this.value.Set("lowsrc", input)
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -12668,11 +13890,15 @@ func (_this *HTMLImageElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Hspace returning attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) Hspace() uint {
 	var ret uint
 	value := _this.value.Get("hspace")
@@ -12680,11 +13906,15 @@ func (_this *HTMLImageElement) Hspace() uint {
 	return ret
 }
 
+// SetHspace setting attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) SetHspace(value uint) {
 	input := value
 	_this.value.Set("hspace", input)
 }
 
+// Vspace returning attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) Vspace() uint {
 	var ret uint
 	value := _this.value.Get("vspace")
@@ -12692,11 +13922,15 @@ func (_this *HTMLImageElement) Vspace() uint {
 	return ret
 }
 
+// SetVspace setting attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLImageElement) SetVspace(value uint) {
 	input := value
 	_this.value.Set("vspace", input)
 }
 
+// LongDesc returning attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) LongDesc() string {
 	var ret string
 	value := _this.value.Get("longDesc")
@@ -12704,11 +13938,15 @@ func (_this *HTMLImageElement) LongDesc() string {
 	return ret
 }
 
+// SetLongDesc setting attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLImageElement) SetLongDesc(value string) {
 	input := value
 	_this.value.Set("longDesc", input)
 }
 
+// Border returning attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) Border() string {
 	var ret string
 	value := _this.value.Get("border")
@@ -12716,18 +13954,19 @@ func (_this *HTMLImageElement) Border() string {
 	return ret
 }
 
+// SetBorder setting attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLImageElement) SetBorder(value string) {
 	input := value
 	_this.value.Set("border", input)
 }
 
 func (_this *HTMLImageElement) Decode() (_result *Promise) {
-	_method := _this.value.Get("decode")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("decode", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -12755,6 +13994,8 @@ func HTMLIFrameElementFromJS(input js.Value) *HTMLIFrameElement {
 	return ret
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLIFrameElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -12762,11 +14003,15 @@ func (_this *HTMLIFrameElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLIFrameElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Srcdoc returning attribute 'srcdoc' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Srcdoc() string {
 	var ret string
 	value := _this.value.Get("srcdoc")
@@ -12774,11 +14019,15 @@ func (_this *HTMLIFrameElement) Srcdoc() string {
 	return ret
 }
 
+// SetSrcdoc setting attribute 'srcdoc' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetSrcdoc(value string) {
 	input := value
 	_this.value.Set("srcdoc", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -12786,11 +14035,15 @@ func (_this *HTMLIFrameElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Sandbox returning attribute 'sandbox' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLIFrameElement) Sandbox() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("sandbox")
@@ -12798,6 +14051,8 @@ func (_this *HTMLIFrameElement) Sandbox() *DOMTokenList {
 	return ret
 }
 
+// Allow returning attribute 'allow' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Allow() string {
 	var ret string
 	value := _this.value.Get("allow")
@@ -12805,11 +14060,15 @@ func (_this *HTMLIFrameElement) Allow() string {
 	return ret
 }
 
+// SetAllow setting attribute 'allow' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetAllow(value string) {
 	input := value
 	_this.value.Set("allow", input)
 }
 
+// AllowFullscreen returning attribute 'allowFullscreen' with
+// type bool (idl: boolean).
 func (_this *HTMLIFrameElement) AllowFullscreen() bool {
 	var ret bool
 	value := _this.value.Get("allowFullscreen")
@@ -12817,11 +14076,15 @@ func (_this *HTMLIFrameElement) AllowFullscreen() bool {
 	return ret
 }
 
+// SetAllowFullscreen setting attribute 'allowFullscreen' with
+// type bool (idl: boolean).
 func (_this *HTMLIFrameElement) SetAllowFullscreen(value bool) {
 	input := value
 	_this.value.Set("allowFullscreen", input)
 }
 
+// AllowPaymentRequest returning attribute 'allowPaymentRequest' with
+// type bool (idl: boolean).
 func (_this *HTMLIFrameElement) AllowPaymentRequest() bool {
 	var ret bool
 	value := _this.value.Get("allowPaymentRequest")
@@ -12829,11 +14092,15 @@ func (_this *HTMLIFrameElement) AllowPaymentRequest() bool {
 	return ret
 }
 
+// SetAllowPaymentRequest setting attribute 'allowPaymentRequest' with
+// type bool (idl: boolean).
 func (_this *HTMLIFrameElement) SetAllowPaymentRequest(value bool) {
 	input := value
 	_this.value.Set("allowPaymentRequest", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -12841,11 +14108,15 @@ func (_this *HTMLIFrameElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Height() string {
 	var ret string
 	value := _this.value.Get("height")
@@ -12853,11 +14124,15 @@ func (_this *HTMLIFrameElement) Height() string {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetHeight(value string) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -12865,11 +14140,15 @@ func (_this *HTMLIFrameElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// ContentDocument returning attribute 'contentDocument' with
+// type Document (idl: Document).
 func (_this *HTMLIFrameElement) ContentDocument() *Document {
 	var ret *Document
 	value := _this.value.Get("contentDocument")
@@ -12879,6 +14158,8 @@ func (_this *HTMLIFrameElement) ContentDocument() *Document {
 	return ret
 }
 
+// ContentWindow returning attribute 'contentWindow' with
+// type Window (idl: Window).
 func (_this *HTMLIFrameElement) ContentWindow() *Window {
 	var ret *Window
 	value := _this.value.Get("contentWindow")
@@ -12888,6 +14169,8 @@ func (_this *HTMLIFrameElement) ContentWindow() *Window {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -12895,11 +14178,15 @@ func (_this *HTMLIFrameElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Scrolling returning attribute 'scrolling' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) Scrolling() string {
 	var ret string
 	value := _this.value.Get("scrolling")
@@ -12907,11 +14194,15 @@ func (_this *HTMLIFrameElement) Scrolling() string {
 	return ret
 }
 
+// SetScrolling setting attribute 'scrolling' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetScrolling(value string) {
 	input := value
 	_this.value.Set("scrolling", input)
 }
 
+// FrameBorder returning attribute 'frameBorder' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) FrameBorder() string {
 	var ret string
 	value := _this.value.Get("frameBorder")
@@ -12919,11 +14210,15 @@ func (_this *HTMLIFrameElement) FrameBorder() string {
 	return ret
 }
 
+// SetFrameBorder setting attribute 'frameBorder' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetFrameBorder(value string) {
 	input := value
 	_this.value.Set("frameBorder", input)
 }
 
+// LongDesc returning attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLIFrameElement) LongDesc() string {
 	var ret string
 	value := _this.value.Get("longDesc")
@@ -12931,11 +14226,15 @@ func (_this *HTMLIFrameElement) LongDesc() string {
 	return ret
 }
 
+// SetLongDesc setting attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLIFrameElement) SetLongDesc(value string) {
 	input := value
 	_this.value.Set("longDesc", input)
 }
 
+// MarginHeight returning attribute 'marginHeight' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) MarginHeight() string {
 	var ret string
 	value := _this.value.Get("marginHeight")
@@ -12943,11 +14242,15 @@ func (_this *HTMLIFrameElement) MarginHeight() string {
 	return ret
 }
 
+// SetMarginHeight setting attribute 'marginHeight' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetMarginHeight(value string) {
 	input := value
 	_this.value.Set("marginHeight", input)
 }
 
+// MarginWidth returning attribute 'marginWidth' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) MarginWidth() string {
 	var ret string
 	value := _this.value.Get("marginWidth")
@@ -12955,18 +14258,19 @@ func (_this *HTMLIFrameElement) MarginWidth() string {
 	return ret
 }
 
+// SetMarginWidth setting attribute 'marginWidth' with
+// type string (idl: DOMString).
 func (_this *HTMLIFrameElement) SetMarginWidth(value string) {
 	input := value
 	_this.value.Set("marginWidth", input)
 }
 
 func (_this *HTMLIFrameElement) GetSVGDocument() (_result *Document) {
-	_method := _this.value.Get("getSVGDocument")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getSVGDocument", _args[0:_end]...)
 	var (
 		_converted *Document // javascript: Document _what_return_name
 	)
@@ -12996,6 +14300,8 @@ func HTMLEmbedElementFromJS(input js.Value) *HTMLEmbedElement {
 	return ret
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLEmbedElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -13003,11 +14309,15 @@ func (_this *HTMLEmbedElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLEmbedElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -13015,11 +14325,15 @@ func (_this *HTMLEmbedElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -13027,11 +14341,15 @@ func (_this *HTMLEmbedElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) Height() string {
 	var ret string
 	value := _this.value.Get("height")
@@ -13039,11 +14357,15 @@ func (_this *HTMLEmbedElement) Height() string {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) SetHeight(value string) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -13051,11 +14373,15 @@ func (_this *HTMLEmbedElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -13063,18 +14389,19 @@ func (_this *HTMLEmbedElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLEmbedElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
 func (_this *HTMLEmbedElement) GetSVGDocument() (_result *Document) {
-	_method := _this.value.Get("getSVGDocument")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getSVGDocument", _args[0:_end]...)
 	var (
 		_converted *Document // javascript: Document _what_return_name
 	)
@@ -13104,6 +14431,8 @@ func HTMLObjectElementFromJS(input js.Value) *HTMLObjectElement {
 	return ret
 }
 
+// Data returning attribute 'data' with
+// type string (idl: USVString).
 func (_this *HTMLObjectElement) Data() string {
 	var ret string
 	value := _this.value.Get("data")
@@ -13111,11 +14440,15 @@ func (_this *HTMLObjectElement) Data() string {
 	return ret
 }
 
+// SetData setting attribute 'data' with
+// type string (idl: USVString).
 func (_this *HTMLObjectElement) SetData(value string) {
 	input := value
 	_this.value.Set("data", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -13123,11 +14456,15 @@ func (_this *HTMLObjectElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// TypeMustMatch returning attribute 'typeMustMatch' with
+// type bool (idl: boolean).
 func (_this *HTMLObjectElement) TypeMustMatch() bool {
 	var ret bool
 	value := _this.value.Get("typeMustMatch")
@@ -13135,11 +14472,15 @@ func (_this *HTMLObjectElement) TypeMustMatch() bool {
 	return ret
 }
 
+// SetTypeMustMatch setting attribute 'typeMustMatch' with
+// type bool (idl: boolean).
 func (_this *HTMLObjectElement) SetTypeMustMatch(value bool) {
 	input := value
 	_this.value.Set("typeMustMatch", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -13147,11 +14488,15 @@ func (_this *HTMLObjectElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// UseMap returning attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) UseMap() string {
 	var ret string
 	value := _this.value.Get("useMap")
@@ -13159,11 +14504,15 @@ func (_this *HTMLObjectElement) UseMap() string {
 	return ret
 }
 
+// SetUseMap setting attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetUseMap(value string) {
 	input := value
 	_this.value.Set("useMap", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLObjectElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -13173,6 +14522,8 @@ func (_this *HTMLObjectElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -13180,11 +14531,15 @@ func (_this *HTMLObjectElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Height() string {
 	var ret string
 	value := _this.value.Get("height")
@@ -13192,11 +14547,15 @@ func (_this *HTMLObjectElement) Height() string {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetHeight(value string) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// ContentDocument returning attribute 'contentDocument' with
+// type Document (idl: Document).
 func (_this *HTMLObjectElement) ContentDocument() *Document {
 	var ret *Document
 	value := _this.value.Get("contentDocument")
@@ -13206,6 +14565,8 @@ func (_this *HTMLObjectElement) ContentDocument() *Document {
 	return ret
 }
 
+// ContentWindow returning attribute 'contentWindow' with
+// type Window (idl: Window).
 func (_this *HTMLObjectElement) ContentWindow() *Window {
 	var ret *Window
 	value := _this.value.Get("contentWindow")
@@ -13215,6 +14576,8 @@ func (_this *HTMLObjectElement) ContentWindow() *Window {
 	return ret
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLObjectElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -13222,6 +14585,8 @@ func (_this *HTMLObjectElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLObjectElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -13229,6 +14594,8 @@ func (_this *HTMLObjectElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -13236,6 +14603,8 @@ func (_this *HTMLObjectElement) ValidationMessage() string {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -13243,11 +14612,15 @@ func (_this *HTMLObjectElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Archive returning attribute 'archive' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Archive() string {
 	var ret string
 	value := _this.value.Get("archive")
@@ -13255,11 +14628,15 @@ func (_this *HTMLObjectElement) Archive() string {
 	return ret
 }
 
+// SetArchive setting attribute 'archive' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetArchive(value string) {
 	input := value
 	_this.value.Set("archive", input)
 }
 
+// Code returning attribute 'code' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Code() string {
 	var ret string
 	value := _this.value.Get("code")
@@ -13267,11 +14644,15 @@ func (_this *HTMLObjectElement) Code() string {
 	return ret
 }
 
+// SetCode setting attribute 'code' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetCode(value string) {
 	input := value
 	_this.value.Set("code", input)
 }
 
+// Declare returning attribute 'declare' with
+// type bool (idl: boolean).
 func (_this *HTMLObjectElement) Declare() bool {
 	var ret bool
 	value := _this.value.Get("declare")
@@ -13279,11 +14660,15 @@ func (_this *HTMLObjectElement) Declare() bool {
 	return ret
 }
 
+// SetDeclare setting attribute 'declare' with
+// type bool (idl: boolean).
 func (_this *HTMLObjectElement) SetDeclare(value bool) {
 	input := value
 	_this.value.Set("declare", input)
 }
 
+// Hspace returning attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLObjectElement) Hspace() uint {
 	var ret uint
 	value := _this.value.Get("hspace")
@@ -13291,11 +14676,15 @@ func (_this *HTMLObjectElement) Hspace() uint {
 	return ret
 }
 
+// SetHspace setting attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLObjectElement) SetHspace(value uint) {
 	input := value
 	_this.value.Set("hspace", input)
 }
 
+// Standby returning attribute 'standby' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Standby() string {
 	var ret string
 	value := _this.value.Get("standby")
@@ -13303,11 +14692,15 @@ func (_this *HTMLObjectElement) Standby() string {
 	return ret
 }
 
+// SetStandby setting attribute 'standby' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetStandby(value string) {
 	input := value
 	_this.value.Set("standby", input)
 }
 
+// Vspace returning attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLObjectElement) Vspace() uint {
 	var ret uint
 	value := _this.value.Get("vspace")
@@ -13315,11 +14708,15 @@ func (_this *HTMLObjectElement) Vspace() uint {
 	return ret
 }
 
+// SetVspace setting attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLObjectElement) SetVspace(value uint) {
 	input := value
 	_this.value.Set("vspace", input)
 }
 
+// CodeBase returning attribute 'codeBase' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) CodeBase() string {
 	var ret string
 	value := _this.value.Get("codeBase")
@@ -13327,11 +14724,15 @@ func (_this *HTMLObjectElement) CodeBase() string {
 	return ret
 }
 
+// SetCodeBase setting attribute 'codeBase' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetCodeBase(value string) {
 	input := value
 	_this.value.Set("codeBase", input)
 }
 
+// CodeType returning attribute 'codeType' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) CodeType() string {
 	var ret string
 	value := _this.value.Get("codeType")
@@ -13339,11 +14740,15 @@ func (_this *HTMLObjectElement) CodeType() string {
 	return ret
 }
 
+// SetCodeType setting attribute 'codeType' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetCodeType(value string) {
 	input := value
 	_this.value.Set("codeType", input)
 }
 
+// Border returning attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) Border() string {
 	var ret string
 	value := _this.value.Get("border")
@@ -13351,18 +14756,19 @@ func (_this *HTMLObjectElement) Border() string {
 	return ret
 }
 
+// SetBorder setting attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLObjectElement) SetBorder(value string) {
 	input := value
 	_this.value.Set("border", input)
 }
 
 func (_this *HTMLObjectElement) GetSVGDocument() (_result *Document) {
-	_method := _this.value.Get("getSVGDocument")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getSVGDocument", _args[0:_end]...)
 	var (
 		_converted *Document // javascript: Document _what_return_name
 	)
@@ -13374,12 +14780,11 @@ func (_this *HTMLObjectElement) GetSVGDocument() (_result *Document) {
 }
 
 func (_this *HTMLObjectElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -13389,12 +14794,11 @@ func (_this *HTMLObjectElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLObjectElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -13404,7 +14808,6 @@ func (_this *HTMLObjectElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLObjectElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -13412,7 +14815,7 @@ func (_this *HTMLObjectElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
@@ -13435,6 +14838,8 @@ func HTMLParamElementFromJS(input js.Value) *HTMLParamElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -13442,11 +14847,15 @@ func (_this *HTMLParamElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -13454,11 +14863,15 @@ func (_this *HTMLParamElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -13466,11 +14879,15 @@ func (_this *HTMLParamElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// ValueType returning attribute 'valueType' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) ValueType() string {
 	var ret string
 	value := _this.value.Get("valueType")
@@ -13478,6 +14895,8 @@ func (_this *HTMLParamElement) ValueType() string {
 	return ret
 }
 
+// SetValueType setting attribute 'valueType' with
+// type string (idl: DOMString).
 func (_this *HTMLParamElement) SetValueType(value string) {
 	input := value
 	_this.value.Set("valueType", input)
@@ -13502,6 +14921,8 @@ func HTMLVideoElementFromJS(input js.Value) *HTMLVideoElement {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -13509,11 +14930,15 @@ func (_this *HTMLVideoElement) Width() uint {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) SetWidth(value uint) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -13521,11 +14946,15 @@ func (_this *HTMLVideoElement) Height() uint {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) SetHeight(value uint) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// VideoWidth returning attribute 'videoWidth' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) VideoWidth() uint {
 	var ret uint
 	value := _this.value.Get("videoWidth")
@@ -13533,6 +14962,8 @@ func (_this *HTMLVideoElement) VideoWidth() uint {
 	return ret
 }
 
+// VideoHeight returning attribute 'videoHeight' with
+// type uint (idl: unsigned long).
 func (_this *HTMLVideoElement) VideoHeight() uint {
 	var ret uint
 	value := _this.value.Get("videoHeight")
@@ -13540,6 +14971,8 @@ func (_this *HTMLVideoElement) VideoHeight() uint {
 	return ret
 }
 
+// Poster returning attribute 'poster' with
+// type string (idl: USVString).
 func (_this *HTMLVideoElement) Poster() string {
 	var ret string
 	value := _this.value.Get("poster")
@@ -13547,11 +14980,15 @@ func (_this *HTMLVideoElement) Poster() string {
 	return ret
 }
 
+// SetPoster setting attribute 'poster' with
+// type string (idl: USVString).
 func (_this *HTMLVideoElement) SetPoster(value string) {
 	input := value
 	_this.value.Set("poster", input)
 }
 
+// PlaysInline returning attribute 'playsInline' with
+// type bool (idl: boolean).
 func (_this *HTMLVideoElement) PlaysInline() bool {
 	var ret bool
 	value := _this.value.Get("playsInline")
@@ -13559,6 +14996,8 @@ func (_this *HTMLVideoElement) PlaysInline() bool {
 	return ret
 }
 
+// SetPlaysInline setting attribute 'playsInline' with
+// type bool (idl: boolean).
 func (_this *HTMLVideoElement) SetPlaysInline(value bool) {
 	input := value
 	_this.value.Set("playsInline", input)
@@ -13607,6 +15046,8 @@ const LOADING_HTMLTrackElement int = 1
 const LOADED_HTMLTrackElement int = 2
 const ERROR_HTMLTrackElement int = 3
 
+// Kind returning attribute 'kind' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) Kind() string {
 	var ret string
 	value := _this.value.Get("kind")
@@ -13614,11 +15055,15 @@ func (_this *HTMLTrackElement) Kind() string {
 	return ret
 }
 
+// SetKind setting attribute 'kind' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) SetKind(value string) {
 	input := value
 	_this.value.Set("kind", input)
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLTrackElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -13626,11 +15071,15 @@ func (_this *HTMLTrackElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLTrackElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Srclang returning attribute 'srclang' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) Srclang() string {
 	var ret string
 	value := _this.value.Get("srclang")
@@ -13638,11 +15087,15 @@ func (_this *HTMLTrackElement) Srclang() string {
 	return ret
 }
 
+// SetSrclang setting attribute 'srclang' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) SetSrclang(value string) {
 	input := value
 	_this.value.Set("srclang", input)
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -13650,11 +15103,15 @@ func (_this *HTMLTrackElement) Label() string {
 	return ret
 }
 
+// SetLabel setting attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLTrackElement) SetLabel(value string) {
 	input := value
 	_this.value.Set("label", input)
 }
 
+// Default returning attribute 'default' with
+// type bool (idl: boolean).
 func (_this *HTMLTrackElement) Default() bool {
 	var ret bool
 	value := _this.value.Get("default")
@@ -13662,11 +15119,15 @@ func (_this *HTMLTrackElement) Default() bool {
 	return ret
 }
 
+// SetDefault setting attribute 'default' with
+// type bool (idl: boolean).
 func (_this *HTMLTrackElement) SetDefault(value bool) {
 	input := value
 	_this.value.Set("default", input)
 }
 
+// ReadyState returning attribute 'readyState' with
+// type int (idl: unsigned short).
 func (_this *HTMLTrackElement) ReadyState() int {
 	var ret int
 	value := _this.value.Get("readyState")
@@ -13674,6 +15135,8 @@ func (_this *HTMLTrackElement) ReadyState() int {
 	return ret
 }
 
+// Track returning attribute 'track' with
+// type TextTrack (idl: TextTrack).
 func (_this *HTMLTrackElement) Track() *TextTrack {
 	var ret *TextTrack
 	value := _this.value.Get("track")
@@ -13710,6 +15173,8 @@ const HAVECURRENTDATA_HTMLMediaElement int = 2
 const HAVEFUTUREDATA_HTMLMediaElement int = 3
 const HAVEENOUGHDATA_HTMLMediaElement int = 4
 
+// Error returning attribute 'error' with
+// type MediaError (idl: MediaError).
 func (_this *HTMLMediaElement) Error() *MediaError {
 	var ret *MediaError
 	value := _this.value.Get("error")
@@ -13719,6 +15184,8 @@ func (_this *HTMLMediaElement) Error() *MediaError {
 	return ret
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLMediaElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -13726,11 +15193,15 @@ func (_this *HTMLMediaElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLMediaElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// SrcObject returning attribute 'srcObject' with
+// type Union (idl: Union).
 func (_this *HTMLMediaElement) SrcObject() *Union {
 	var ret *Union
 	value := _this.value.Get("srcObject")
@@ -13740,11 +15211,15 @@ func (_this *HTMLMediaElement) SrcObject() *Union {
 	return ret
 }
 
+// SetSrcObject setting attribute 'srcObject' with
+// type Union (idl: Union).
 func (_this *HTMLMediaElement) SetSrcObject(value *Union) {
 	input := value.JSValue()
 	_this.value.Set("srcObject", input)
 }
 
+// CurrentSrc returning attribute 'currentSrc' with
+// type string (idl: USVString).
 func (_this *HTMLMediaElement) CurrentSrc() string {
 	var ret string
 	value := _this.value.Get("currentSrc")
@@ -13752,6 +15227,8 @@ func (_this *HTMLMediaElement) CurrentSrc() string {
 	return ret
 }
 
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLMediaElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.value.Get("crossOrigin")
@@ -13762,11 +15239,15 @@ func (_this *HTMLMediaElement) CrossOrigin() *string {
 	return ret
 }
 
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLMediaElement) SetCrossOrigin(value *string) {
 	input := value
 	_this.value.Set("crossOrigin", input)
 }
 
+// NetworkState returning attribute 'networkState' with
+// type int (idl: unsigned short).
 func (_this *HTMLMediaElement) NetworkState() int {
 	var ret int
 	value := _this.value.Get("networkState")
@@ -13774,6 +15255,8 @@ func (_this *HTMLMediaElement) NetworkState() int {
 	return ret
 }
 
+// Preload returning attribute 'preload' with
+// type string (idl: DOMString).
 func (_this *HTMLMediaElement) Preload() string {
 	var ret string
 	value := _this.value.Get("preload")
@@ -13781,11 +15264,15 @@ func (_this *HTMLMediaElement) Preload() string {
 	return ret
 }
 
+// SetPreload setting attribute 'preload' with
+// type string (idl: DOMString).
 func (_this *HTMLMediaElement) SetPreload(value string) {
 	input := value
 	_this.value.Set("preload", input)
 }
 
+// Buffered returning attribute 'buffered' with
+// type TimeRanges (idl: TimeRanges).
 func (_this *HTMLMediaElement) Buffered() *TimeRanges {
 	var ret *TimeRanges
 	value := _this.value.Get("buffered")
@@ -13793,6 +15280,8 @@ func (_this *HTMLMediaElement) Buffered() *TimeRanges {
 	return ret
 }
 
+// ReadyState returning attribute 'readyState' with
+// type int (idl: unsigned short).
 func (_this *HTMLMediaElement) ReadyState() int {
 	var ret int
 	value := _this.value.Get("readyState")
@@ -13800,6 +15289,8 @@ func (_this *HTMLMediaElement) ReadyState() int {
 	return ret
 }
 
+// Seeking returning attribute 'seeking' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Seeking() bool {
 	var ret bool
 	value := _this.value.Get("seeking")
@@ -13807,6 +15298,8 @@ func (_this *HTMLMediaElement) Seeking() bool {
 	return ret
 }
 
+// CurrentTime returning attribute 'currentTime' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) CurrentTime() float64 {
 	var ret float64
 	value := _this.value.Get("currentTime")
@@ -13814,11 +15307,15 @@ func (_this *HTMLMediaElement) CurrentTime() float64 {
 	return ret
 }
 
+// SetCurrentTime setting attribute 'currentTime' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) SetCurrentTime(value float64) {
 	input := value
 	_this.value.Set("currentTime", input)
 }
 
+// Duration returning attribute 'duration' with
+// type float64 (idl: unrestricted double).
 func (_this *HTMLMediaElement) Duration() float64 {
 	var ret float64
 	value := _this.value.Get("duration")
@@ -13826,6 +15323,8 @@ func (_this *HTMLMediaElement) Duration() float64 {
 	return ret
 }
 
+// Paused returning attribute 'paused' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Paused() bool {
 	var ret bool
 	value := _this.value.Get("paused")
@@ -13833,6 +15332,8 @@ func (_this *HTMLMediaElement) Paused() bool {
 	return ret
 }
 
+// DefaultPlaybackRate returning attribute 'defaultPlaybackRate' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) DefaultPlaybackRate() float64 {
 	var ret float64
 	value := _this.value.Get("defaultPlaybackRate")
@@ -13840,11 +15341,15 @@ func (_this *HTMLMediaElement) DefaultPlaybackRate() float64 {
 	return ret
 }
 
+// SetDefaultPlaybackRate setting attribute 'defaultPlaybackRate' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) SetDefaultPlaybackRate(value float64) {
 	input := value
 	_this.value.Set("defaultPlaybackRate", input)
 }
 
+// PlaybackRate returning attribute 'playbackRate' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) PlaybackRate() float64 {
 	var ret float64
 	value := _this.value.Get("playbackRate")
@@ -13852,11 +15357,15 @@ func (_this *HTMLMediaElement) PlaybackRate() float64 {
 	return ret
 }
 
+// SetPlaybackRate setting attribute 'playbackRate' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) SetPlaybackRate(value float64) {
 	input := value
 	_this.value.Set("playbackRate", input)
 }
 
+// Played returning attribute 'played' with
+// type TimeRanges (idl: TimeRanges).
 func (_this *HTMLMediaElement) Played() *TimeRanges {
 	var ret *TimeRanges
 	value := _this.value.Get("played")
@@ -13864,6 +15373,8 @@ func (_this *HTMLMediaElement) Played() *TimeRanges {
 	return ret
 }
 
+// Seekable returning attribute 'seekable' with
+// type TimeRanges (idl: TimeRanges).
 func (_this *HTMLMediaElement) Seekable() *TimeRanges {
 	var ret *TimeRanges
 	value := _this.value.Get("seekable")
@@ -13871,6 +15382,8 @@ func (_this *HTMLMediaElement) Seekable() *TimeRanges {
 	return ret
 }
 
+// Ended returning attribute 'ended' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Ended() bool {
 	var ret bool
 	value := _this.value.Get("ended")
@@ -13878,6 +15391,8 @@ func (_this *HTMLMediaElement) Ended() bool {
 	return ret
 }
 
+// Autoplay returning attribute 'autoplay' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Autoplay() bool {
 	var ret bool
 	value := _this.value.Get("autoplay")
@@ -13885,11 +15400,15 @@ func (_this *HTMLMediaElement) Autoplay() bool {
 	return ret
 }
 
+// SetAutoplay setting attribute 'autoplay' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) SetAutoplay(value bool) {
 	input := value
 	_this.value.Set("autoplay", input)
 }
 
+// Loop returning attribute 'loop' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Loop() bool {
 	var ret bool
 	value := _this.value.Get("loop")
@@ -13897,11 +15416,15 @@ func (_this *HTMLMediaElement) Loop() bool {
 	return ret
 }
 
+// SetLoop setting attribute 'loop' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) SetLoop(value bool) {
 	input := value
 	_this.value.Set("loop", input)
 }
 
+// Controls returning attribute 'controls' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Controls() bool {
 	var ret bool
 	value := _this.value.Get("controls")
@@ -13909,11 +15432,15 @@ func (_this *HTMLMediaElement) Controls() bool {
 	return ret
 }
 
+// SetControls setting attribute 'controls' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) SetControls(value bool) {
 	input := value
 	_this.value.Set("controls", input)
 }
 
+// Volume returning attribute 'volume' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) Volume() float64 {
 	var ret float64
 	value := _this.value.Get("volume")
@@ -13921,11 +15448,15 @@ func (_this *HTMLMediaElement) Volume() float64 {
 	return ret
 }
 
+// SetVolume setting attribute 'volume' with
+// type float64 (idl: double).
 func (_this *HTMLMediaElement) SetVolume(value float64) {
 	input := value
 	_this.value.Set("volume", input)
 }
 
+// Muted returning attribute 'muted' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) Muted() bool {
 	var ret bool
 	value := _this.value.Get("muted")
@@ -13933,11 +15464,15 @@ func (_this *HTMLMediaElement) Muted() bool {
 	return ret
 }
 
+// SetMuted setting attribute 'muted' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) SetMuted(value bool) {
 	input := value
 	_this.value.Set("muted", input)
 }
 
+// DefaultMuted returning attribute 'defaultMuted' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) DefaultMuted() bool {
 	var ret bool
 	value := _this.value.Get("defaultMuted")
@@ -13945,11 +15480,15 @@ func (_this *HTMLMediaElement) DefaultMuted() bool {
 	return ret
 }
 
+// SetDefaultMuted setting attribute 'defaultMuted' with
+// type bool (idl: boolean).
 func (_this *HTMLMediaElement) SetDefaultMuted(value bool) {
 	input := value
 	_this.value.Set("defaultMuted", input)
 }
 
+// AudioTracks returning attribute 'audioTracks' with
+// type AudioTrackList (idl: AudioTrackList).
 func (_this *HTMLMediaElement) AudioTracks() *AudioTrackList {
 	var ret *AudioTrackList
 	value := _this.value.Get("audioTracks")
@@ -13957,6 +15496,8 @@ func (_this *HTMLMediaElement) AudioTracks() *AudioTrackList {
 	return ret
 }
 
+// VideoTracks returning attribute 'videoTracks' with
+// type VideoTrackList (idl: VideoTrackList).
 func (_this *HTMLMediaElement) VideoTracks() *VideoTrackList {
 	var ret *VideoTrackList
 	value := _this.value.Get("videoTracks")
@@ -13964,6 +15505,8 @@ func (_this *HTMLMediaElement) VideoTracks() *VideoTrackList {
 	return ret
 }
 
+// TextTracks returning attribute 'textTracks' with
+// type TextTrackList (idl: TextTrackList).
 func (_this *HTMLMediaElement) TextTracks() *TextTrackList {
 	var ret *TextTrackList
 	value := _this.value.Get("textTracks")
@@ -13972,17 +15515,15 @@ func (_this *HTMLMediaElement) TextTracks() *TextTrackList {
 }
 
 func (_this *HTMLMediaElement) Load() {
-	_method := _this.value.Get("load")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("load", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLMediaElement) CanPlayType(_type string) (_result CanPlayTypeResult) {
-	_method := _this.value.Get("canPlayType")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -13990,7 +15531,7 @@ func (_this *HTMLMediaElement) CanPlayType(_type string) (_result CanPlayTypeRes
 	_p0 := _type
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("canPlayType", _args[0:_end]...)
 	var (
 		_converted CanPlayTypeResult // javascript: CanPlayTypeResult _what_return_name
 	)
@@ -14000,7 +15541,6 @@ func (_this *HTMLMediaElement) CanPlayType(_type string) (_result CanPlayTypeRes
 }
 
 func (_this *HTMLMediaElement) FastSeek(time float64) {
-	_method := _this.value.Get("fastSeek")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14008,17 +15548,16 @@ func (_this *HTMLMediaElement) FastSeek(time float64) {
 	_p0 := time
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fastSeek", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLMediaElement) GetStartDate() (_result *Object) {
-	_method := _this.value.Get("getStartDate")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getStartDate", _args[0:_end]...)
 	var (
 		_converted *Object // javascript: object _what_return_name
 	)
@@ -14028,12 +15567,11 @@ func (_this *HTMLMediaElement) GetStartDate() (_result *Object) {
 }
 
 func (_this *HTMLMediaElement) Play() (_result *Promise) {
-	_method := _this.value.Get("play")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("play", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -14043,17 +15581,15 @@ func (_this *HTMLMediaElement) Play() (_result *Promise) {
 }
 
 func (_this *HTMLMediaElement) Pause() {
-	_method := _this.value.Get("pause")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("pause", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, language *string) (_result *TextTrack) {
-	_method := _this.value.Get("addTextTrack")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -14071,7 +15607,7 @@ func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, l
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("addTextTrack", _args[0:_end]...)
 	var (
 		_converted *TextTrack // javascript: TextTrack _what_return_name
 	)
@@ -14104,6 +15640,8 @@ const MEDIAERRNETWORK_MediaError int = 2
 const MEDIAERRDECODE_MediaError int = 3
 const MEDIAERRSRCNOTSUPPORTED_MediaError int = 4
 
+// Code returning attribute 'code' with
+// type int (idl: unsigned short).
 func (_this *MediaError) Code() int {
 	var ret int
 	value := _this.value.Get("code")
@@ -14111,6 +15649,8 @@ func (_this *MediaError) Code() int {
 	return ret
 }
 
+// Message returning attribute 'message' with
+// type string (idl: DOMString).
 func (_this *MediaError) Message() string {
 	var ret string
 	value := _this.value.Get("message")
@@ -14137,6 +15677,8 @@ func AudioTrackListFromJS(input js.Value) *AudioTrackList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *AudioTrackList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -14144,6 +15686,8 @@ func (_this *AudioTrackList) Length() uint {
 	return ret
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -14153,6 +15697,8 @@ func (_this *AudioTrackList) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) SetOnchange(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -14164,6 +15710,8 @@ func (_this *AudioTrackList) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onaddtrack returning attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) Onaddtrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onaddtrack")
@@ -14173,6 +15721,8 @@ func (_this *AudioTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
+// SetOnaddtrack setting attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) SetOnaddtrack(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -14184,6 +15734,8 @@ func (_this *AudioTrackList) SetOnaddtrack(value *js.Callback) {
 	_this.value.Set("onaddtrack", input)
 }
 
+// Onremovetrack returning attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) Onremovetrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onremovetrack")
@@ -14193,6 +15745,8 @@ func (_this *AudioTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
+// SetOnremovetrack setting attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *AudioTrackList) SetOnremovetrack(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -14205,7 +15759,6 @@ func (_this *AudioTrackList) SetOnremovetrack(value *js.Callback) {
 }
 
 func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
-	_method := _this.value.Get("getTrackById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14213,7 +15766,7 @@ func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
 	_p0 := id
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getTrackById", _args[0:_end]...)
 	var (
 		_converted *AudioTrack // javascript: AudioTrack _what_return_name
 	)
@@ -14243,6 +15796,8 @@ func AudioTrackFromJS(input js.Value) *AudioTrack {
 	return ret
 }
 
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
 func (_this *AudioTrack) Id() string {
 	var ret string
 	value := _this.value.Get("id")
@@ -14250,6 +15805,8 @@ func (_this *AudioTrack) Id() string {
 	return ret
 }
 
+// Kind returning attribute 'kind' with
+// type string (idl: DOMString).
 func (_this *AudioTrack) Kind() string {
 	var ret string
 	value := _this.value.Get("kind")
@@ -14257,6 +15814,8 @@ func (_this *AudioTrack) Kind() string {
 	return ret
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *AudioTrack) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -14264,6 +15823,8 @@ func (_this *AudioTrack) Label() string {
 	return ret
 }
 
+// Language returning attribute 'language' with
+// type string (idl: DOMString).
 func (_this *AudioTrack) Language() string {
 	var ret string
 	value := _this.value.Get("language")
@@ -14271,6 +15832,8 @@ func (_this *AudioTrack) Language() string {
 	return ret
 }
 
+// Enabled returning attribute 'enabled' with
+// type bool (idl: boolean).
 func (_this *AudioTrack) Enabled() bool {
 	var ret bool
 	value := _this.value.Get("enabled")
@@ -14278,6 +15841,8 @@ func (_this *AudioTrack) Enabled() bool {
 	return ret
 }
 
+// SetEnabled setting attribute 'enabled' with
+// type bool (idl: boolean).
 func (_this *AudioTrack) SetEnabled(value bool) {
 	input := value
 	_this.value.Set("enabled", input)
@@ -14302,6 +15867,8 @@ func VideoTrackListFromJS(input js.Value) *VideoTrackList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *VideoTrackList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -14309,6 +15876,8 @@ func (_this *VideoTrackList) Length() uint {
 	return ret
 }
 
+// SelectedIndex returning attribute 'selectedIndex' with
+// type int (idl: long).
 func (_this *VideoTrackList) SelectedIndex() int {
 	var ret int
 	value := _this.value.Get("selectedIndex")
@@ -14316,6 +15885,8 @@ func (_this *VideoTrackList) SelectedIndex() int {
 	return ret
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -14325,6 +15896,8 @@ func (_this *VideoTrackList) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) SetOnchange(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -14336,6 +15909,8 @@ func (_this *VideoTrackList) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onaddtrack returning attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) Onaddtrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onaddtrack")
@@ -14345,6 +15920,8 @@ func (_this *VideoTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
+// SetOnaddtrack setting attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) SetOnaddtrack(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -14356,6 +15933,8 @@ func (_this *VideoTrackList) SetOnaddtrack(value *js.Callback) {
 	_this.value.Set("onaddtrack", input)
 }
 
+// Onremovetrack returning attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) Onremovetrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onremovetrack")
@@ -14365,6 +15944,8 @@ func (_this *VideoTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
+// SetOnremovetrack setting attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *VideoTrackList) SetOnremovetrack(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -14377,7 +15958,6 @@ func (_this *VideoTrackList) SetOnremovetrack(value *js.Callback) {
 }
 
 func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {
-	_method := _this.value.Get("getTrackById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14385,7 +15965,7 @@ func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {
 	_p0 := id
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getTrackById", _args[0:_end]...)
 	var (
 		_converted *VideoTrack // javascript: VideoTrack _what_return_name
 	)
@@ -14415,6 +15995,8 @@ func VideoTrackFromJS(input js.Value) *VideoTrack {
 	return ret
 }
 
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
 func (_this *VideoTrack) Id() string {
 	var ret string
 	value := _this.value.Get("id")
@@ -14422,6 +16004,8 @@ func (_this *VideoTrack) Id() string {
 	return ret
 }
 
+// Kind returning attribute 'kind' with
+// type string (idl: DOMString).
 func (_this *VideoTrack) Kind() string {
 	var ret string
 	value := _this.value.Get("kind")
@@ -14429,6 +16013,8 @@ func (_this *VideoTrack) Kind() string {
 	return ret
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *VideoTrack) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -14436,6 +16022,8 @@ func (_this *VideoTrack) Label() string {
 	return ret
 }
 
+// Language returning attribute 'language' with
+// type string (idl: DOMString).
 func (_this *VideoTrack) Language() string {
 	var ret string
 	value := _this.value.Get("language")
@@ -14443,6 +16031,8 @@ func (_this *VideoTrack) Language() string {
 	return ret
 }
 
+// Selected returning attribute 'selected' with
+// type bool (idl: boolean).
 func (_this *VideoTrack) Selected() bool {
 	var ret bool
 	value := _this.value.Get("selected")
@@ -14450,6 +16040,8 @@ func (_this *VideoTrack) Selected() bool {
 	return ret
 }
 
+// SetSelected setting attribute 'selected' with
+// type bool (idl: boolean).
 func (_this *VideoTrack) SetSelected(value bool) {
 	input := value
 	_this.value.Set("selected", input)
@@ -14474,6 +16066,8 @@ func TextTrackListFromJS(input js.Value) *TextTrackList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *TextTrackList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -14481,6 +16075,8 @@ func (_this *TextTrackList) Length() uint {
 	return ret
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -14490,6 +16086,8 @@ func (_this *TextTrackList) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) SetOnchange(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -14501,6 +16099,8 @@ func (_this *TextTrackList) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onaddtrack returning attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) Onaddtrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onaddtrack")
@@ -14510,6 +16110,8 @@ func (_this *TextTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
+// SetOnaddtrack setting attribute 'onaddtrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) SetOnaddtrack(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -14521,6 +16123,8 @@ func (_this *TextTrackList) SetOnaddtrack(value *js.Callback) {
 	_this.value.Set("onaddtrack", input)
 }
 
+// Onremovetrack returning attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) Onremovetrack() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onremovetrack")
@@ -14530,6 +16134,8 @@ func (_this *TextTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
+// SetOnremovetrack setting attribute 'onremovetrack' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackList) SetOnremovetrack(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -14542,7 +16148,6 @@ func (_this *TextTrackList) SetOnremovetrack(value *js.Callback) {
 }
 
 func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
-	_method := _this.value.Get("getTrackById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14550,7 +16155,7 @@ func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
 	_p0 := id
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getTrackById", _args[0:_end]...)
 	var (
 		_converted *TextTrack // javascript: TextTrack _what_return_name
 	)
@@ -14580,6 +16185,8 @@ func TextTrackFromJS(input js.Value) *TextTrack {
 	return ret
 }
 
+// Kind returning attribute 'kind' with
+// type TextTrackKind (idl: TextTrackKind).
 func (_this *TextTrack) Kind() TextTrackKind {
 	var ret TextTrackKind
 	value := _this.value.Get("kind")
@@ -14587,6 +16194,8 @@ func (_this *TextTrack) Kind() TextTrackKind {
 	return ret
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *TextTrack) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -14594,6 +16203,8 @@ func (_this *TextTrack) Label() string {
 	return ret
 }
 
+// Language returning attribute 'language' with
+// type string (idl: DOMString).
 func (_this *TextTrack) Language() string {
 	var ret string
 	value := _this.value.Get("language")
@@ -14601,6 +16212,8 @@ func (_this *TextTrack) Language() string {
 	return ret
 }
 
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
 func (_this *TextTrack) Id() string {
 	var ret string
 	value := _this.value.Get("id")
@@ -14608,6 +16221,8 @@ func (_this *TextTrack) Id() string {
 	return ret
 }
 
+// InBandMetadataTrackDispatchType returning attribute 'inBandMetadataTrackDispatchType' with
+// type string (idl: DOMString).
 func (_this *TextTrack) InBandMetadataTrackDispatchType() string {
 	var ret string
 	value := _this.value.Get("inBandMetadataTrackDispatchType")
@@ -14615,6 +16230,8 @@ func (_this *TextTrack) InBandMetadataTrackDispatchType() string {
 	return ret
 }
 
+// Mode returning attribute 'mode' with
+// type TextTrackMode (idl: TextTrackMode).
 func (_this *TextTrack) Mode() TextTrackMode {
 	var ret TextTrackMode
 	value := _this.value.Get("mode")
@@ -14622,11 +16239,15 @@ func (_this *TextTrack) Mode() TextTrackMode {
 	return ret
 }
 
+// SetMode setting attribute 'mode' with
+// type TextTrackMode (idl: TextTrackMode).
 func (_this *TextTrack) SetMode(value TextTrackMode) {
 	input := value.JSValue()
 	_this.value.Set("mode", input)
 }
 
+// Cues returning attribute 'cues' with
+// type TextTrackCueList (idl: TextTrackCueList).
 func (_this *TextTrack) Cues() *TextTrackCueList {
 	var ret *TextTrackCueList
 	value := _this.value.Get("cues")
@@ -14636,6 +16257,8 @@ func (_this *TextTrack) Cues() *TextTrackCueList {
 	return ret
 }
 
+// ActiveCues returning attribute 'activeCues' with
+// type TextTrackCueList (idl: TextTrackCueList).
 func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 	var ret *TextTrackCueList
 	value := _this.value.Get("activeCues")
@@ -14645,6 +16268,8 @@ func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 	return ret
 }
 
+// Oncuechange returning attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrack) Oncuechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncuechange")
@@ -14654,6 +16279,8 @@ func (_this *TextTrack) Oncuechange() EventHandler {
 	return ret
 }
 
+// SetOncuechange setting attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrack) SetOncuechange(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -14666,7 +16293,6 @@ func (_this *TextTrack) SetOncuechange(value *js.Callback) {
 }
 
 func (_this *TextTrack) AddCue(cue *TextTrackCue) {
-	_method := _this.value.Get("addCue")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14674,12 +16300,11 @@ func (_this *TextTrack) AddCue(cue *TextTrackCue) {
 	_p0 := cue.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("addCue", _args[0:_end]...)
 	return
 }
 
 func (_this *TextTrack) RemoveCue(cue *TextTrackCue) {
-	_method := _this.value.Get("removeCue")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14687,7 +16312,7 @@ func (_this *TextTrack) RemoveCue(cue *TextTrackCue) {
 	_p0 := cue.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("removeCue", _args[0:_end]...)
 	return
 }
 
@@ -14710,6 +16335,8 @@ func TextTrackCueListFromJS(input js.Value) *TextTrackCueList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *TextTrackCueList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -14718,7 +16345,6 @@ func (_this *TextTrackCueList) Length() uint {
 }
 
 func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
-	_method := _this.value.Get("getCueById")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14726,7 +16352,7 @@ func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
 	_p0 := id
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getCueById", _args[0:_end]...)
 	var (
 		_converted *TextTrackCue // javascript: TextTrackCue _what_return_name
 	)
@@ -14756,6 +16382,8 @@ func TextTrackCueFromJS(input js.Value) *TextTrackCue {
 	return ret
 }
 
+// Track returning attribute 'track' with
+// type TextTrack (idl: TextTrack).
 func (_this *TextTrackCue) Track() *TextTrack {
 	var ret *TextTrack
 	value := _this.value.Get("track")
@@ -14765,6 +16393,8 @@ func (_this *TextTrackCue) Track() *TextTrack {
 	return ret
 }
 
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
 func (_this *TextTrackCue) Id() string {
 	var ret string
 	value := _this.value.Get("id")
@@ -14772,11 +16402,15 @@ func (_this *TextTrackCue) Id() string {
 	return ret
 }
 
+// SetId setting attribute 'id' with
+// type string (idl: DOMString).
 func (_this *TextTrackCue) SetId(value string) {
 	input := value
 	_this.value.Set("id", input)
 }
 
+// StartTime returning attribute 'startTime' with
+// type float64 (idl: double).
 func (_this *TextTrackCue) StartTime() float64 {
 	var ret float64
 	value := _this.value.Get("startTime")
@@ -14784,11 +16418,15 @@ func (_this *TextTrackCue) StartTime() float64 {
 	return ret
 }
 
+// SetStartTime setting attribute 'startTime' with
+// type float64 (idl: double).
 func (_this *TextTrackCue) SetStartTime(value float64) {
 	input := value
 	_this.value.Set("startTime", input)
 }
 
+// EndTime returning attribute 'endTime' with
+// type float64 (idl: double).
 func (_this *TextTrackCue) EndTime() float64 {
 	var ret float64
 	value := _this.value.Get("endTime")
@@ -14796,11 +16434,15 @@ func (_this *TextTrackCue) EndTime() float64 {
 	return ret
 }
 
+// SetEndTime setting attribute 'endTime' with
+// type float64 (idl: double).
 func (_this *TextTrackCue) SetEndTime(value float64) {
 	input := value
 	_this.value.Set("endTime", input)
 }
 
+// PauseOnExit returning attribute 'pauseOnExit' with
+// type bool (idl: boolean).
 func (_this *TextTrackCue) PauseOnExit() bool {
 	var ret bool
 	value := _this.value.Get("pauseOnExit")
@@ -14808,11 +16450,15 @@ func (_this *TextTrackCue) PauseOnExit() bool {
 	return ret
 }
 
+// SetPauseOnExit setting attribute 'pauseOnExit' with
+// type bool (idl: boolean).
 func (_this *TextTrackCue) SetPauseOnExit(value bool) {
 	input := value
 	_this.value.Set("pauseOnExit", input)
 }
 
+// Onenter returning attribute 'onenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackCue) Onenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onenter")
@@ -14822,6 +16468,8 @@ func (_this *TextTrackCue) Onenter() EventHandler {
 	return ret
 }
 
+// SetOnenter setting attribute 'onenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackCue) SetOnenter(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -14833,6 +16481,8 @@ func (_this *TextTrackCue) SetOnenter(value *js.Callback) {
 	_this.value.Set("onenter", input)
 }
 
+// Onexit returning attribute 'onexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackCue) Onexit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onexit")
@@ -14842,6 +16492,8 @@ func (_this *TextTrackCue) Onexit() EventHandler {
 	return ret
 }
 
+// SetOnexit setting attribute 'onexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *TextTrackCue) SetOnexit(value *js.Callback) {
 	var __callback6 js.Value
 	if value != nil {
@@ -14872,6 +16524,8 @@ func TimeRangesFromJS(input js.Value) *TimeRanges {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *TimeRanges) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -14880,7 +16534,6 @@ func (_this *TimeRanges) Length() uint {
 }
 
 func (_this *TimeRanges) Start(index uint) (_result float64) {
-	_method := _this.value.Get("start")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14888,7 +16541,7 @@ func (_this *TimeRanges) Start(index uint) (_result float64) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("start", _args[0:_end]...)
 	var (
 		_converted float64 // javascript: double _what_return_name
 	)
@@ -14898,7 +16551,6 @@ func (_this *TimeRanges) Start(index uint) (_result float64) {
 }
 
 func (_this *TimeRanges) End(index uint) (_result float64) {
-	_method := _this.value.Get("end")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -14906,7 +16558,7 @@ func (_this *TimeRanges) End(index uint) (_result float64) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("end", _args[0:_end]...)
 	var (
 		_converted float64 // javascript: double _what_return_name
 	)
@@ -14957,6 +16609,8 @@ func NewTrackEvent(_type string, eventInitDict *TrackEventInit) (_result *TrackE
 	return
 }
 
+// Track returning attribute 'track' with
+// type Union (idl: Union).
 func (_this *TrackEvent) Track() *Union {
 	var ret *Union
 	value := _this.value.Get("track")
@@ -14985,6 +16639,8 @@ func HTMLMapElementFromJS(input js.Value) *HTMLMapElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLMapElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -14992,11 +16648,15 @@ func (_this *HTMLMapElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLMapElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Areas returning attribute 'areas' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLMapElement) Areas() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("areas")
@@ -15023,6 +16683,8 @@ func HTMLAreaElementFromJS(input js.Value) *HTMLAreaElement {
 	return ret
 }
 
+// Alt returning attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Alt() string {
 	var ret string
 	value := _this.value.Get("alt")
@@ -15030,11 +16692,15 @@ func (_this *HTMLAreaElement) Alt() string {
 	return ret
 }
 
+// SetAlt setting attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetAlt(value string) {
 	input := value
 	_this.value.Set("alt", input)
 }
 
+// Coords returning attribute 'coords' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Coords() string {
 	var ret string
 	value := _this.value.Get("coords")
@@ -15042,11 +16708,15 @@ func (_this *HTMLAreaElement) Coords() string {
 	return ret
 }
 
+// SetCoords setting attribute 'coords' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetCoords(value string) {
 	input := value
 	_this.value.Set("coords", input)
 }
 
+// Shape returning attribute 'shape' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Shape() string {
 	var ret string
 	value := _this.value.Get("shape")
@@ -15054,11 +16724,15 @@ func (_this *HTMLAreaElement) Shape() string {
 	return ret
 }
 
+// SetShape setting attribute 'shape' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetShape(value string) {
 	input := value
 	_this.value.Set("shape", input)
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -15066,11 +16740,15 @@ func (_this *HTMLAreaElement) Target() string {
 	return ret
 }
 
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetTarget(value string) {
 	input := value
 	_this.value.Set("target", input)
 }
 
+// Download returning attribute 'download' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Download() string {
 	var ret string
 	value := _this.value.Get("download")
@@ -15078,11 +16756,15 @@ func (_this *HTMLAreaElement) Download() string {
 	return ret
 }
 
+// SetDownload setting attribute 'download' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetDownload(value string) {
 	input := value
 	_this.value.Set("download", input)
 }
 
+// Ping returning attribute 'ping' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Ping() string {
 	var ret string
 	value := _this.value.Get("ping")
@@ -15090,11 +16772,15 @@ func (_this *HTMLAreaElement) Ping() string {
 	return ret
 }
 
+// SetPing setting attribute 'ping' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetPing(value string) {
 	input := value
 	_this.value.Set("ping", input)
 }
 
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) Rel() string {
 	var ret string
 	value := _this.value.Get("rel")
@@ -15102,11 +16788,15 @@ func (_this *HTMLAreaElement) Rel() string {
 	return ret
 }
 
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetRel(value string) {
 	input := value
 	_this.value.Set("rel", input)
 }
 
+// RelList returning attribute 'relList' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLAreaElement) RelList() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("relList")
@@ -15114,6 +16804,8 @@ func (_this *HTMLAreaElement) RelList() *DOMTokenList {
 	return ret
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -15121,11 +16813,15 @@ func (_this *HTMLAreaElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLAreaElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// NoHref returning attribute 'noHref' with
+// type bool (idl: boolean).
 func (_this *HTMLAreaElement) NoHref() bool {
 	var ret bool
 	value := _this.value.Get("noHref")
@@ -15133,11 +16829,15 @@ func (_this *HTMLAreaElement) NoHref() bool {
 	return ret
 }
 
+// SetNoHref setting attribute 'noHref' with
+// type bool (idl: boolean).
 func (_this *HTMLAreaElement) SetNoHref(value bool) {
 	input := value
 	_this.value.Set("noHref", input)
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -15145,11 +16845,15 @@ func (_this *HTMLAreaElement) Href() string {
 	return ret
 }
 
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetHref(value string) {
 	input := value
 	_this.value.Set("href", input)
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -15157,6 +16861,8 @@ func (_this *HTMLAreaElement) Origin() string {
 	return ret
 }
 
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Protocol() string {
 	var ret string
 	value := _this.value.Get("protocol")
@@ -15164,11 +16870,15 @@ func (_this *HTMLAreaElement) Protocol() string {
 	return ret
 }
 
+// SetProtocol setting attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetProtocol(value string) {
 	input := value
 	_this.value.Set("protocol", input)
 }
 
+// Username returning attribute 'username' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Username() string {
 	var ret string
 	value := _this.value.Get("username")
@@ -15176,11 +16886,15 @@ func (_this *HTMLAreaElement) Username() string {
 	return ret
 }
 
+// SetUsername setting attribute 'username' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetUsername(value string) {
 	input := value
 	_this.value.Set("username", input)
 }
 
+// Password returning attribute 'password' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Password() string {
 	var ret string
 	value := _this.value.Get("password")
@@ -15188,11 +16902,15 @@ func (_this *HTMLAreaElement) Password() string {
 	return ret
 }
 
+// SetPassword setting attribute 'password' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetPassword(value string) {
 	input := value
 	_this.value.Set("password", input)
 }
 
+// Host returning attribute 'host' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Host() string {
 	var ret string
 	value := _this.value.Get("host")
@@ -15200,11 +16918,15 @@ func (_this *HTMLAreaElement) Host() string {
 	return ret
 }
 
+// SetHost setting attribute 'host' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetHost(value string) {
 	input := value
 	_this.value.Set("host", input)
 }
 
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Hostname() string {
 	var ret string
 	value := _this.value.Get("hostname")
@@ -15212,11 +16934,15 @@ func (_this *HTMLAreaElement) Hostname() string {
 	return ret
 }
 
+// SetHostname setting attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetHostname(value string) {
 	input := value
 	_this.value.Set("hostname", input)
 }
 
+// Port returning attribute 'port' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Port() string {
 	var ret string
 	value := _this.value.Get("port")
@@ -15224,11 +16950,15 @@ func (_this *HTMLAreaElement) Port() string {
 	return ret
 }
 
+// SetPort setting attribute 'port' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetPort(value string) {
 	input := value
 	_this.value.Set("port", input)
 }
 
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Pathname() string {
 	var ret string
 	value := _this.value.Get("pathname")
@@ -15236,11 +16966,15 @@ func (_this *HTMLAreaElement) Pathname() string {
 	return ret
 }
 
+// SetPathname setting attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetPathname(value string) {
 	input := value
 	_this.value.Set("pathname", input)
 }
 
+// Search returning attribute 'search' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Search() string {
 	var ret string
 	value := _this.value.Get("search")
@@ -15248,11 +16982,15 @@ func (_this *HTMLAreaElement) Search() string {
 	return ret
 }
 
+// SetSearch setting attribute 'search' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetSearch(value string) {
 	input := value
 	_this.value.Set("search", input)
 }
 
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) Hash() string {
 	var ret string
 	value := _this.value.Get("hash")
@@ -15260,6 +16998,8 @@ func (_this *HTMLAreaElement) Hash() string {
 	return ret
 }
 
+// SetHash setting attribute 'hash' with
+// type string (idl: USVString).
 func (_this *HTMLAreaElement) SetHash(value string) {
 	input := value
 	_this.value.Set("hash", input)
@@ -15284,6 +17024,8 @@ func HTMLTableElementFromJS(input js.Value) *HTMLTableElement {
 	return ret
 }
 
+// Caption returning attribute 'caption' with
+// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
 func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
 	var ret *HTMLTableCaptionElement
 	value := _this.value.Get("caption")
@@ -15293,11 +17035,15 @@ func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
 	return ret
 }
 
+// SetCaption setting attribute 'caption' with
+// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
 func (_this *HTMLTableElement) SetCaption(value *HTMLTableCaptionElement) {
 	input := value.JSValue()
 	_this.value.Set("caption", input)
 }
 
+// THead returning attribute 'tHead' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
 func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
 	var ret *HTMLTableSectionElement
 	value := _this.value.Get("tHead")
@@ -15307,11 +17053,15 @@ func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
 	return ret
 }
 
+// SetTHead setting attribute 'tHead' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
 func (_this *HTMLTableElement) SetTHead(value *HTMLTableSectionElement) {
 	input := value.JSValue()
 	_this.value.Set("tHead", input)
 }
 
+// TFoot returning attribute 'tFoot' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
 func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
 	var ret *HTMLTableSectionElement
 	value := _this.value.Get("tFoot")
@@ -15321,11 +17071,15 @@ func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
 	return ret
 }
 
+// SetTFoot setting attribute 'tFoot' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
 func (_this *HTMLTableElement) SetTFoot(value *HTMLTableSectionElement) {
 	input := value.JSValue()
 	_this.value.Set("tFoot", input)
 }
 
+// TBodies returning attribute 'tBodies' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLTableElement) TBodies() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("tBodies")
@@ -15333,6 +17087,8 @@ func (_this *HTMLTableElement) TBodies() *HTMLCollection {
 	return ret
 }
 
+// Rows returning attribute 'rows' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLTableElement) Rows() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("rows")
@@ -15340,6 +17096,8 @@ func (_this *HTMLTableElement) Rows() *HTMLCollection {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -15347,11 +17105,15 @@ func (_this *HTMLTableElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Border returning attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Border() string {
 	var ret string
 	value := _this.value.Get("border")
@@ -15359,11 +17121,15 @@ func (_this *HTMLTableElement) Border() string {
 	return ret
 }
 
+// SetBorder setting attribute 'border' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetBorder(value string) {
 	input := value
 	_this.value.Set("border", input)
 }
 
+// Frame returning attribute 'frame' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Frame() string {
 	var ret string
 	value := _this.value.Get("frame")
@@ -15371,11 +17137,15 @@ func (_this *HTMLTableElement) Frame() string {
 	return ret
 }
 
+// SetFrame setting attribute 'frame' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetFrame(value string) {
 	input := value
 	_this.value.Set("frame", input)
 }
 
+// Rules returning attribute 'rules' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Rules() string {
 	var ret string
 	value := _this.value.Get("rules")
@@ -15383,11 +17153,15 @@ func (_this *HTMLTableElement) Rules() string {
 	return ret
 }
 
+// SetRules setting attribute 'rules' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetRules(value string) {
 	input := value
 	_this.value.Set("rules", input)
 }
 
+// Summary returning attribute 'summary' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Summary() string {
 	var ret string
 	value := _this.value.Get("summary")
@@ -15395,11 +17169,15 @@ func (_this *HTMLTableElement) Summary() string {
 	return ret
 }
 
+// SetSummary setting attribute 'summary' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetSummary(value string) {
 	input := value
 	_this.value.Set("summary", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -15407,11 +17185,15 @@ func (_this *HTMLTableElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -15419,11 +17201,15 @@ func (_this *HTMLTableElement) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
 }
 
+// CellPadding returning attribute 'cellPadding' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) CellPadding() string {
 	var ret string
 	value := _this.value.Get("cellPadding")
@@ -15431,11 +17217,15 @@ func (_this *HTMLTableElement) CellPadding() string {
 	return ret
 }
 
+// SetCellPadding setting attribute 'cellPadding' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetCellPadding(value string) {
 	input := value
 	_this.value.Set("cellPadding", input)
 }
 
+// CellSpacing returning attribute 'cellSpacing' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) CellSpacing() string {
 	var ret string
 	value := _this.value.Get("cellSpacing")
@@ -15443,18 +17233,19 @@ func (_this *HTMLTableElement) CellSpacing() string {
 	return ret
 }
 
+// SetCellSpacing setting attribute 'cellSpacing' with
+// type string (idl: DOMString).
 func (_this *HTMLTableElement) SetCellSpacing(value string) {
 	input := value
 	_this.value.Set("cellSpacing", input)
 }
 
 func (_this *HTMLTableElement) CreateCaption() (_result *HTMLTableCaptionElement) {
-	_method := _this.value.Get("createCaption")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createCaption", _args[0:_end]...)
 	var (
 		_converted *HTMLTableCaptionElement // javascript: HTMLTableCaptionElement _what_return_name
 	)
@@ -15464,22 +17255,20 @@ func (_this *HTMLTableElement) CreateCaption() (_result *HTMLTableCaptionElement
 }
 
 func (_this *HTMLTableElement) DeleteCaption() {
-	_method := _this.value.Get("deleteCaption")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteCaption", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTableElement) CreateTHead() (_result *HTMLTableSectionElement) {
-	_method := _this.value.Get("createTHead")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createTHead", _args[0:_end]...)
 	var (
 		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
 	)
@@ -15489,22 +17278,20 @@ func (_this *HTMLTableElement) CreateTHead() (_result *HTMLTableSectionElement) 
 }
 
 func (_this *HTMLTableElement) DeleteTHead() {
-	_method := _this.value.Get("deleteTHead")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteTHead", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTableElement) CreateTFoot() (_result *HTMLTableSectionElement) {
-	_method := _this.value.Get("createTFoot")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createTFoot", _args[0:_end]...)
 	var (
 		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
 	)
@@ -15514,22 +17301,20 @@ func (_this *HTMLTableElement) CreateTFoot() (_result *HTMLTableSectionElement) 
 }
 
 func (_this *HTMLTableElement) DeleteTFoot() {
-	_method := _this.value.Get("deleteTFoot")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteTFoot", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTableElement) CreateTBody() (_result *HTMLTableSectionElement) {
-	_method := _this.value.Get("createTBody")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createTBody", _args[0:_end]...)
 	var (
 		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
 	)
@@ -15539,7 +17324,6 @@ func (_this *HTMLTableElement) CreateTBody() (_result *HTMLTableSectionElement) 
 }
 
 func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	_method := _this.value.Get("insertRow")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15549,7 +17333,7 @@ func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowEleme
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("insertRow", _args[0:_end]...)
 	var (
 		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
 	)
@@ -15559,7 +17343,6 @@ func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowEleme
 }
 
 func (_this *HTMLTableElement) DeleteRow(index int) {
-	_method := _this.value.Get("deleteRow")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15567,7 +17350,7 @@ func (_this *HTMLTableElement) DeleteRow(index int) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteRow", _args[0:_end]...)
 	return
 }
 
@@ -15590,6 +17373,8 @@ func HTMLTableCaptionElementFromJS(input js.Value) *HTMLTableCaptionElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCaptionElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -15597,6 +17382,8 @@ func (_this *HTMLTableCaptionElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCaptionElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
@@ -15621,6 +17408,8 @@ func HTMLTableColElementFromJS(input js.Value) *HTMLTableColElement {
 	return ret
 }
 
+// Span returning attribute 'span' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableColElement) Span() uint {
 	var ret uint
 	value := _this.value.Get("span")
@@ -15628,11 +17417,15 @@ func (_this *HTMLTableColElement) Span() uint {
 	return ret
 }
 
+// SetSpan setting attribute 'span' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableColElement) SetSpan(value uint) {
 	input := value
 	_this.value.Set("span", input)
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -15640,11 +17433,15 @@ func (_this *HTMLTableColElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) Ch() string {
 	var ret string
 	value := _this.value.Get("ch")
@@ -15652,11 +17449,15 @@ func (_this *HTMLTableColElement) Ch() string {
 	return ret
 }
 
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) SetCh(value string) {
 	input := value
 	_this.value.Set("ch", input)
 }
 
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) ChOff() string {
 	var ret string
 	value := _this.value.Get("chOff")
@@ -15664,11 +17465,15 @@ func (_this *HTMLTableColElement) ChOff() string {
 	return ret
 }
 
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) SetChOff(value string) {
 	input := value
 	_this.value.Set("chOff", input)
 }
 
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) VAlign() string {
 	var ret string
 	value := _this.value.Get("vAlign")
@@ -15676,11 +17481,15 @@ func (_this *HTMLTableColElement) VAlign() string {
 	return ret
 }
 
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) SetVAlign(value string) {
 	input := value
 	_this.value.Set("vAlign", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -15688,6 +17497,8 @@ func (_this *HTMLTableColElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableColElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
@@ -15712,6 +17523,8 @@ func HTMLTableSectionElementFromJS(input js.Value) *HTMLTableSectionElement {
 	return ret
 }
 
+// Rows returning attribute 'rows' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLTableSectionElement) Rows() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("rows")
@@ -15719,6 +17532,8 @@ func (_this *HTMLTableSectionElement) Rows() *HTMLCollection {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -15726,11 +17541,15 @@ func (_this *HTMLTableSectionElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) Ch() string {
 	var ret string
 	value := _this.value.Get("ch")
@@ -15738,11 +17557,15 @@ func (_this *HTMLTableSectionElement) Ch() string {
 	return ret
 }
 
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) SetCh(value string) {
 	input := value
 	_this.value.Set("ch", input)
 }
 
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) ChOff() string {
 	var ret string
 	value := _this.value.Get("chOff")
@@ -15750,11 +17573,15 @@ func (_this *HTMLTableSectionElement) ChOff() string {
 	return ret
 }
 
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) SetChOff(value string) {
 	input := value
 	_this.value.Set("chOff", input)
 }
 
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) VAlign() string {
 	var ret string
 	value := _this.value.Get("vAlign")
@@ -15762,13 +17589,14 @@ func (_this *HTMLTableSectionElement) VAlign() string {
 	return ret
 }
 
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableSectionElement) SetVAlign(value string) {
 	input := value
 	_this.value.Set("vAlign", input)
 }
 
 func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	_method := _this.value.Get("insertRow")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15778,7 +17606,7 @@ func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableR
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("insertRow", _args[0:_end]...)
 	var (
 		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
 	)
@@ -15788,7 +17616,6 @@ func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableR
 }
 
 func (_this *HTMLTableSectionElement) DeleteRow(index int) {
-	_method := _this.value.Get("deleteRow")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15796,7 +17623,7 @@ func (_this *HTMLTableSectionElement) DeleteRow(index int) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteRow", _args[0:_end]...)
 	return
 }
 
@@ -15819,6 +17646,8 @@ func HTMLTableRowElementFromJS(input js.Value) *HTMLTableRowElement {
 	return ret
 }
 
+// RowIndex returning attribute 'rowIndex' with
+// type int (idl: long).
 func (_this *HTMLTableRowElement) RowIndex() int {
 	var ret int
 	value := _this.value.Get("rowIndex")
@@ -15826,6 +17655,8 @@ func (_this *HTMLTableRowElement) RowIndex() int {
 	return ret
 }
 
+// SectionRowIndex returning attribute 'sectionRowIndex' with
+// type int (idl: long).
 func (_this *HTMLTableRowElement) SectionRowIndex() int {
 	var ret int
 	value := _this.value.Get("sectionRowIndex")
@@ -15833,6 +17664,8 @@ func (_this *HTMLTableRowElement) SectionRowIndex() int {
 	return ret
 }
 
+// Cells returning attribute 'cells' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLTableRowElement) Cells() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("cells")
@@ -15840,6 +17673,8 @@ func (_this *HTMLTableRowElement) Cells() *HTMLCollection {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -15847,11 +17682,15 @@ func (_this *HTMLTableRowElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) Ch() string {
 	var ret string
 	value := _this.value.Get("ch")
@@ -15859,11 +17698,15 @@ func (_this *HTMLTableRowElement) Ch() string {
 	return ret
 }
 
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) SetCh(value string) {
 	input := value
 	_this.value.Set("ch", input)
 }
 
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) ChOff() string {
 	var ret string
 	value := _this.value.Get("chOff")
@@ -15871,11 +17714,15 @@ func (_this *HTMLTableRowElement) ChOff() string {
 	return ret
 }
 
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) SetChOff(value string) {
 	input := value
 	_this.value.Set("chOff", input)
 }
 
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) VAlign() string {
 	var ret string
 	value := _this.value.Get("vAlign")
@@ -15883,11 +17730,15 @@ func (_this *HTMLTableRowElement) VAlign() string {
 	return ret
 }
 
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) SetVAlign(value string) {
 	input := value
 	_this.value.Set("vAlign", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -15895,13 +17746,14 @@ func (_this *HTMLTableRowElement) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableRowElement) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
 }
 
 func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCellElement) {
-	_method := _this.value.Get("insertCell")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15911,7 +17763,7 @@ func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCell
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("insertCell", _args[0:_end]...)
 	var (
 		_converted *HTMLTableCellElement // javascript: HTMLTableCellElement _what_return_name
 	)
@@ -15921,7 +17773,6 @@ func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCell
 }
 
 func (_this *HTMLTableRowElement) DeleteCell(index int) {
-	_method := _this.value.Get("deleteCell")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -15929,7 +17780,7 @@ func (_this *HTMLTableRowElement) DeleteCell(index int) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("deleteCell", _args[0:_end]...)
 	return
 }
 
@@ -15952,6 +17803,8 @@ func HTMLTableCellElementFromJS(input js.Value) *HTMLTableCellElement {
 	return ret
 }
 
+// ColSpan returning attribute 'colSpan' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableCellElement) ColSpan() uint {
 	var ret uint
 	value := _this.value.Get("colSpan")
@@ -15959,11 +17812,15 @@ func (_this *HTMLTableCellElement) ColSpan() uint {
 	return ret
 }
 
+// SetColSpan setting attribute 'colSpan' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableCellElement) SetColSpan(value uint) {
 	input := value
 	_this.value.Set("colSpan", input)
 }
 
+// RowSpan returning attribute 'rowSpan' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableCellElement) RowSpan() uint {
 	var ret uint
 	value := _this.value.Get("rowSpan")
@@ -15971,11 +17828,15 @@ func (_this *HTMLTableCellElement) RowSpan() uint {
 	return ret
 }
 
+// SetRowSpan setting attribute 'rowSpan' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTableCellElement) SetRowSpan(value uint) {
 	input := value
 	_this.value.Set("rowSpan", input)
 }
 
+// Headers returning attribute 'headers' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Headers() string {
 	var ret string
 	value := _this.value.Get("headers")
@@ -15983,11 +17844,15 @@ func (_this *HTMLTableCellElement) Headers() string {
 	return ret
 }
 
+// SetHeaders setting attribute 'headers' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetHeaders(value string) {
 	input := value
 	_this.value.Set("headers", input)
 }
 
+// CellIndex returning attribute 'cellIndex' with
+// type int (idl: long).
 func (_this *HTMLTableCellElement) CellIndex() int {
 	var ret int
 	value := _this.value.Get("cellIndex")
@@ -15995,6 +17860,8 @@ func (_this *HTMLTableCellElement) CellIndex() int {
 	return ret
 }
 
+// Scope returning attribute 'scope' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Scope() string {
 	var ret string
 	value := _this.value.Get("scope")
@@ -16002,11 +17869,15 @@ func (_this *HTMLTableCellElement) Scope() string {
 	return ret
 }
 
+// SetScope setting attribute 'scope' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetScope(value string) {
 	input := value
 	_this.value.Set("scope", input)
 }
 
+// Abbr returning attribute 'abbr' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Abbr() string {
 	var ret string
 	value := _this.value.Get("abbr")
@@ -16014,11 +17885,15 @@ func (_this *HTMLTableCellElement) Abbr() string {
 	return ret
 }
 
+// SetAbbr setting attribute 'abbr' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetAbbr(value string) {
 	input := value
 	_this.value.Set("abbr", input)
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -16026,11 +17901,15 @@ func (_this *HTMLTableCellElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// Axis returning attribute 'axis' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Axis() string {
 	var ret string
 	value := _this.value.Get("axis")
@@ -16038,11 +17917,15 @@ func (_this *HTMLTableCellElement) Axis() string {
 	return ret
 }
 
+// SetAxis setting attribute 'axis' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetAxis(value string) {
 	input := value
 	_this.value.Set("axis", input)
 }
 
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Height() string {
 	var ret string
 	value := _this.value.Get("height")
@@ -16050,11 +17933,15 @@ func (_this *HTMLTableCellElement) Height() string {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetHeight(value string) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -16062,11 +17949,15 @@ func (_this *HTMLTableCellElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) Ch() string {
 	var ret string
 	value := _this.value.Get("ch")
@@ -16074,11 +17965,15 @@ func (_this *HTMLTableCellElement) Ch() string {
 	return ret
 }
 
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetCh(value string) {
 	input := value
 	_this.value.Set("ch", input)
 }
 
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) ChOff() string {
 	var ret string
 	value := _this.value.Get("chOff")
@@ -16086,11 +17981,15 @@ func (_this *HTMLTableCellElement) ChOff() string {
 	return ret
 }
 
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetChOff(value string) {
 	input := value
 	_this.value.Set("chOff", input)
 }
 
+// NoWrap returning attribute 'noWrap' with
+// type bool (idl: boolean).
 func (_this *HTMLTableCellElement) NoWrap() bool {
 	var ret bool
 	value := _this.value.Get("noWrap")
@@ -16098,11 +17997,15 @@ func (_this *HTMLTableCellElement) NoWrap() bool {
 	return ret
 }
 
+// SetNoWrap setting attribute 'noWrap' with
+// type bool (idl: boolean).
 func (_this *HTMLTableCellElement) SetNoWrap(value bool) {
 	input := value
 	_this.value.Set("noWrap", input)
 }
 
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) VAlign() string {
 	var ret string
 	value := _this.value.Get("vAlign")
@@ -16110,11 +18013,15 @@ func (_this *HTMLTableCellElement) VAlign() string {
 	return ret
 }
 
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetVAlign(value string) {
 	input := value
 	_this.value.Set("vAlign", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -16122,6 +18029,8 @@ func (_this *HTMLTableCellElement) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLTableCellElement) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
@@ -16146,6 +18055,8 @@ func HTMLFormElementFromJS(input js.Value) *HTMLFormElement {
 	return ret
 }
 
+// AcceptCharset returning attribute 'acceptCharset' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) AcceptCharset() string {
 	var ret string
 	value := _this.value.Get("acceptCharset")
@@ -16153,11 +18064,15 @@ func (_this *HTMLFormElement) AcceptCharset() string {
 	return ret
 }
 
+// SetAcceptCharset setting attribute 'acceptCharset' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetAcceptCharset(value string) {
 	input := value
 	_this.value.Set("acceptCharset", input)
 }
 
+// Action returning attribute 'action' with
+// type string (idl: USVString).
 func (_this *HTMLFormElement) Action() string {
 	var ret string
 	value := _this.value.Get("action")
@@ -16165,11 +18080,15 @@ func (_this *HTMLFormElement) Action() string {
 	return ret
 }
 
+// SetAction setting attribute 'action' with
+// type string (idl: USVString).
 func (_this *HTMLFormElement) SetAction(value string) {
 	input := value
 	_this.value.Set("action", input)
 }
 
+// Autocomplete returning attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Autocomplete() string {
 	var ret string
 	value := _this.value.Get("autocomplete")
@@ -16177,11 +18096,15 @@ func (_this *HTMLFormElement) Autocomplete() string {
 	return ret
 }
 
+// SetAutocomplete setting attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetAutocomplete(value string) {
 	input := value
 	_this.value.Set("autocomplete", input)
 }
 
+// Enctype returning attribute 'enctype' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Enctype() string {
 	var ret string
 	value := _this.value.Get("enctype")
@@ -16189,11 +18112,15 @@ func (_this *HTMLFormElement) Enctype() string {
 	return ret
 }
 
+// SetEnctype setting attribute 'enctype' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetEnctype(value string) {
 	input := value
 	_this.value.Set("enctype", input)
 }
 
+// Encoding returning attribute 'encoding' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Encoding() string {
 	var ret string
 	value := _this.value.Get("encoding")
@@ -16201,11 +18128,15 @@ func (_this *HTMLFormElement) Encoding() string {
 	return ret
 }
 
+// SetEncoding setting attribute 'encoding' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetEncoding(value string) {
 	input := value
 	_this.value.Set("encoding", input)
 }
 
+// Method returning attribute 'method' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Method() string {
 	var ret string
 	value := _this.value.Get("method")
@@ -16213,11 +18144,15 @@ func (_this *HTMLFormElement) Method() string {
 	return ret
 }
 
+// SetMethod setting attribute 'method' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetMethod(value string) {
 	input := value
 	_this.value.Set("method", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -16225,11 +18160,15 @@ func (_this *HTMLFormElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// NoValidate returning attribute 'noValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLFormElement) NoValidate() bool {
 	var ret bool
 	value := _this.value.Get("noValidate")
@@ -16237,11 +18176,15 @@ func (_this *HTMLFormElement) NoValidate() bool {
 	return ret
 }
 
+// SetNoValidate setting attribute 'noValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLFormElement) SetNoValidate(value bool) {
 	input := value
 	_this.value.Set("noValidate", input)
 }
 
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) Target() string {
 	var ret string
 	value := _this.value.Get("target")
@@ -16249,11 +18192,15 @@ func (_this *HTMLFormElement) Target() string {
 	return ret
 }
 
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
 func (_this *HTMLFormElement) SetTarget(value string) {
 	input := value
 	_this.value.Set("target", input)
 }
 
+// Elements returning attribute 'elements' with
+// type HTMLFormControlsCollection (idl: HTMLFormControlsCollection).
 func (_this *HTMLFormElement) Elements() *HTMLFormControlsCollection {
 	var ret *HTMLFormControlsCollection
 	value := _this.value.Get("elements")
@@ -16261,6 +18208,8 @@ func (_this *HTMLFormElement) Elements() *HTMLFormControlsCollection {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLFormElement) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -16269,32 +18218,29 @@ func (_this *HTMLFormElement) Length() uint {
 }
 
 func (_this *HTMLFormElement) Submit() {
-	_method := _this.value.Get("submit")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("submit", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLFormElement) Reset() {
-	_method := _this.value.Get("reset")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("reset", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLFormElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -16304,12 +18250,11 @@ func (_this *HTMLFormElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLFormElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -16337,6 +18282,8 @@ func HTMLLabelElementFromJS(input js.Value) *HTMLLabelElement {
 	return ret
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLLabelElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -16346,6 +18293,8 @@ func (_this *HTMLLabelElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// HtmlFor returning attribute 'htmlFor' with
+// type string (idl: DOMString).
 func (_this *HTMLLabelElement) HtmlFor() string {
 	var ret string
 	value := _this.value.Get("htmlFor")
@@ -16353,11 +18302,15 @@ func (_this *HTMLLabelElement) HtmlFor() string {
 	return ret
 }
 
+// SetHtmlFor setting attribute 'htmlFor' with
+// type string (idl: DOMString).
 func (_this *HTMLLabelElement) SetHtmlFor(value string) {
 	input := value
 	_this.value.Set("htmlFor", input)
 }
 
+// Control returning attribute 'control' with
+// type HTMLElement (idl: HTMLElement).
 func (_this *HTMLLabelElement) Control() *HTMLElement {
 	var ret *HTMLElement
 	value := _this.value.Get("control")
@@ -16386,6 +18339,8 @@ func HTMLInputElementFromJS(input js.Value) *HTMLInputElement {
 	return ret
 }
 
+// Accept returning attribute 'accept' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Accept() string {
 	var ret string
 	value := _this.value.Get("accept")
@@ -16393,11 +18348,15 @@ func (_this *HTMLInputElement) Accept() string {
 	return ret
 }
 
+// SetAccept setting attribute 'accept' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetAccept(value string) {
 	input := value
 	_this.value.Set("accept", input)
 }
 
+// Alt returning attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Alt() string {
 	var ret string
 	value := _this.value.Get("alt")
@@ -16405,11 +18364,15 @@ func (_this *HTMLInputElement) Alt() string {
 	return ret
 }
 
+// SetAlt setting attribute 'alt' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetAlt(value string) {
 	input := value
 	_this.value.Set("alt", input)
 }
 
+// Autocomplete returning attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Autocomplete() string {
 	var ret string
 	value := _this.value.Get("autocomplete")
@@ -16417,11 +18380,15 @@ func (_this *HTMLInputElement) Autocomplete() string {
 	return ret
 }
 
+// SetAutocomplete setting attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetAutocomplete(value string) {
 	input := value
 	_this.value.Set("autocomplete", input)
 }
 
+// Autofocus returning attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Autofocus() bool {
 	var ret bool
 	value := _this.value.Get("autofocus")
@@ -16429,11 +18396,15 @@ func (_this *HTMLInputElement) Autofocus() bool {
 	return ret
 }
 
+// SetAutofocus setting attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetAutofocus(value bool) {
 	input := value
 	_this.value.Set("autofocus", input)
 }
 
+// DefaultChecked returning attribute 'defaultChecked' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) DefaultChecked() bool {
 	var ret bool
 	value := _this.value.Get("defaultChecked")
@@ -16441,11 +18412,15 @@ func (_this *HTMLInputElement) DefaultChecked() bool {
 	return ret
 }
 
+// SetDefaultChecked setting attribute 'defaultChecked' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetDefaultChecked(value bool) {
 	input := value
 	_this.value.Set("defaultChecked", input)
 }
 
+// Checked returning attribute 'checked' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Checked() bool {
 	var ret bool
 	value := _this.value.Get("checked")
@@ -16453,11 +18428,15 @@ func (_this *HTMLInputElement) Checked() bool {
 	return ret
 }
 
+// SetChecked setting attribute 'checked' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetChecked(value bool) {
 	input := value
 	_this.value.Set("checked", input)
 }
 
+// DirName returning attribute 'dirName' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) DirName() string {
 	var ret string
 	value := _this.value.Get("dirName")
@@ -16465,11 +18444,15 @@ func (_this *HTMLInputElement) DirName() string {
 	return ret
 }
 
+// SetDirName setting attribute 'dirName' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetDirName(value string) {
 	input := value
 	_this.value.Set("dirName", input)
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -16477,11 +18460,15 @@ func (_this *HTMLInputElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLInputElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -16491,6 +18478,8 @@ func (_this *HTMLInputElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Files returning attribute 'files' with
+// type FileList (idl: FileList).
 func (_this *HTMLInputElement) Files() *FileList {
 	var ret *FileList
 	value := _this.value.Get("files")
@@ -16500,11 +18489,15 @@ func (_this *HTMLInputElement) Files() *FileList {
 	return ret
 }
 
+// SetFiles setting attribute 'files' with
+// type FileList (idl: FileList).
 func (_this *HTMLInputElement) SetFiles(value *FileList) {
 	input := value.JSValue()
 	_this.value.Set("files", input)
 }
 
+// FormAction returning attribute 'formAction' with
+// type string (idl: USVString).
 func (_this *HTMLInputElement) FormAction() string {
 	var ret string
 	value := _this.value.Get("formAction")
@@ -16512,11 +18505,15 @@ func (_this *HTMLInputElement) FormAction() string {
 	return ret
 }
 
+// SetFormAction setting attribute 'formAction' with
+// type string (idl: USVString).
 func (_this *HTMLInputElement) SetFormAction(value string) {
 	input := value
 	_this.value.Set("formAction", input)
 }
 
+// FormEnctype returning attribute 'formEnctype' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) FormEnctype() string {
 	var ret string
 	value := _this.value.Get("formEnctype")
@@ -16524,11 +18521,15 @@ func (_this *HTMLInputElement) FormEnctype() string {
 	return ret
 }
 
+// SetFormEnctype setting attribute 'formEnctype' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetFormEnctype(value string) {
 	input := value
 	_this.value.Set("formEnctype", input)
 }
 
+// FormMethod returning attribute 'formMethod' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) FormMethod() string {
 	var ret string
 	value := _this.value.Get("formMethod")
@@ -16536,11 +18537,15 @@ func (_this *HTMLInputElement) FormMethod() string {
 	return ret
 }
 
+// SetFormMethod setting attribute 'formMethod' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetFormMethod(value string) {
 	input := value
 	_this.value.Set("formMethod", input)
 }
 
+// FormNoValidate returning attribute 'formNoValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) FormNoValidate() bool {
 	var ret bool
 	value := _this.value.Get("formNoValidate")
@@ -16548,11 +18553,15 @@ func (_this *HTMLInputElement) FormNoValidate() bool {
 	return ret
 }
 
+// SetFormNoValidate setting attribute 'formNoValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetFormNoValidate(value bool) {
 	input := value
 	_this.value.Set("formNoValidate", input)
 }
 
+// FormTarget returning attribute 'formTarget' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) FormTarget() string {
 	var ret string
 	value := _this.value.Get("formTarget")
@@ -16560,11 +18569,15 @@ func (_this *HTMLInputElement) FormTarget() string {
 	return ret
 }
 
+// SetFormTarget setting attribute 'formTarget' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetFormTarget(value string) {
 	input := value
 	_this.value.Set("formTarget", input)
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -16572,11 +18585,15 @@ func (_this *HTMLInputElement) Height() uint {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetHeight(value uint) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// Indeterminate returning attribute 'indeterminate' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Indeterminate() bool {
 	var ret bool
 	value := _this.value.Get("indeterminate")
@@ -16584,11 +18601,15 @@ func (_this *HTMLInputElement) Indeterminate() bool {
 	return ret
 }
 
+// SetIndeterminate setting attribute 'indeterminate' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetIndeterminate(value bool) {
 	input := value
 	_this.value.Set("indeterminate", input)
 }
 
+// List returning attribute 'list' with
+// type HTMLElement (idl: HTMLElement).
 func (_this *HTMLInputElement) List() *HTMLElement {
 	var ret *HTMLElement
 	value := _this.value.Get("list")
@@ -16598,6 +18619,8 @@ func (_this *HTMLInputElement) List() *HTMLElement {
 	return ret
 }
 
+// Max returning attribute 'max' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Max() string {
 	var ret string
 	value := _this.value.Get("max")
@@ -16605,11 +18628,15 @@ func (_this *HTMLInputElement) Max() string {
 	return ret
 }
 
+// SetMax setting attribute 'max' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetMax(value string) {
 	input := value
 	_this.value.Set("max", input)
 }
 
+// MaxLength returning attribute 'maxLength' with
+// type int (idl: long).
 func (_this *HTMLInputElement) MaxLength() int {
 	var ret int
 	value := _this.value.Get("maxLength")
@@ -16617,11 +18644,15 @@ func (_this *HTMLInputElement) MaxLength() int {
 	return ret
 }
 
+// SetMaxLength setting attribute 'maxLength' with
+// type int (idl: long).
 func (_this *HTMLInputElement) SetMaxLength(value int) {
 	input := value
 	_this.value.Set("maxLength", input)
 }
 
+// Min returning attribute 'min' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Min() string {
 	var ret string
 	value := _this.value.Get("min")
@@ -16629,11 +18660,15 @@ func (_this *HTMLInputElement) Min() string {
 	return ret
 }
 
+// SetMin setting attribute 'min' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetMin(value string) {
 	input := value
 	_this.value.Set("min", input)
 }
 
+// MinLength returning attribute 'minLength' with
+// type int (idl: long).
 func (_this *HTMLInputElement) MinLength() int {
 	var ret int
 	value := _this.value.Get("minLength")
@@ -16641,11 +18676,15 @@ func (_this *HTMLInputElement) MinLength() int {
 	return ret
 }
 
+// SetMinLength setting attribute 'minLength' with
+// type int (idl: long).
 func (_this *HTMLInputElement) SetMinLength(value int) {
 	input := value
 	_this.value.Set("minLength", input)
 }
 
+// Multiple returning attribute 'multiple' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Multiple() bool {
 	var ret bool
 	value := _this.value.Get("multiple")
@@ -16653,11 +18692,15 @@ func (_this *HTMLInputElement) Multiple() bool {
 	return ret
 }
 
+// SetMultiple setting attribute 'multiple' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetMultiple(value bool) {
 	input := value
 	_this.value.Set("multiple", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -16665,11 +18708,15 @@ func (_this *HTMLInputElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Pattern returning attribute 'pattern' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Pattern() string {
 	var ret string
 	value := _this.value.Get("pattern")
@@ -16677,11 +18724,15 @@ func (_this *HTMLInputElement) Pattern() string {
 	return ret
 }
 
+// SetPattern setting attribute 'pattern' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetPattern(value string) {
 	input := value
 	_this.value.Set("pattern", input)
 }
 
+// Placeholder returning attribute 'placeholder' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Placeholder() string {
 	var ret string
 	value := _this.value.Get("placeholder")
@@ -16689,11 +18740,15 @@ func (_this *HTMLInputElement) Placeholder() string {
 	return ret
 }
 
+// SetPlaceholder setting attribute 'placeholder' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetPlaceholder(value string) {
 	input := value
 	_this.value.Set("placeholder", input)
 }
 
+// ReadOnly returning attribute 'readOnly' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) ReadOnly() bool {
 	var ret bool
 	value := _this.value.Get("readOnly")
@@ -16701,11 +18756,15 @@ func (_this *HTMLInputElement) ReadOnly() bool {
 	return ret
 }
 
+// SetReadOnly setting attribute 'readOnly' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetReadOnly(value bool) {
 	input := value
 	_this.value.Set("readOnly", input)
 }
 
+// Required returning attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) Required() bool {
 	var ret bool
 	value := _this.value.Get("required")
@@ -16713,11 +18772,15 @@ func (_this *HTMLInputElement) Required() bool {
 	return ret
 }
 
+// SetRequired setting attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) SetRequired(value bool) {
 	input := value
 	_this.value.Set("required", input)
 }
 
+// Size returning attribute 'size' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) Size() uint {
 	var ret uint
 	value := _this.value.Get("size")
@@ -16725,11 +18788,15 @@ func (_this *HTMLInputElement) Size() uint {
 	return ret
 }
 
+// SetSize setting attribute 'size' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetSize(value uint) {
 	input := value
 	_this.value.Set("size", input)
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLInputElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -16737,11 +18804,15 @@ func (_this *HTMLInputElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLInputElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Step returning attribute 'step' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Step() string {
 	var ret string
 	value := _this.value.Get("step")
@@ -16749,11 +18820,15 @@ func (_this *HTMLInputElement) Step() string {
 	return ret
 }
 
+// SetStep setting attribute 'step' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetStep(value string) {
 	input := value
 	_this.value.Set("step", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -16761,11 +18836,15 @@ func (_this *HTMLInputElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// DefaultValue returning attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) DefaultValue() string {
 	var ret string
 	value := _this.value.Get("defaultValue")
@@ -16773,11 +18852,15 @@ func (_this *HTMLInputElement) DefaultValue() string {
 	return ret
 }
 
+// SetDefaultValue setting attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetDefaultValue(value string) {
 	input := value
 	_this.value.Set("defaultValue", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -16785,11 +18868,15 @@ func (_this *HTMLInputElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// ValueAsDate returning attribute 'valueAsDate' with
+// type Object (idl: object).
 func (_this *HTMLInputElement) ValueAsDate() *Object {
 	var ret *Object
 	value := _this.value.Get("valueAsDate")
@@ -16799,11 +18886,15 @@ func (_this *HTMLInputElement) ValueAsDate() *Object {
 	return ret
 }
 
+// SetValueAsDate setting attribute 'valueAsDate' with
+// type Object (idl: object).
 func (_this *HTMLInputElement) SetValueAsDate(value *Object) {
 	input := value.JSValue()
 	_this.value.Set("valueAsDate", input)
 }
 
+// ValueAsNumber returning attribute 'valueAsNumber' with
+// type float64 (idl: unrestricted double).
 func (_this *HTMLInputElement) ValueAsNumber() float64 {
 	var ret float64
 	value := _this.value.Get("valueAsNumber")
@@ -16811,11 +18902,15 @@ func (_this *HTMLInputElement) ValueAsNumber() float64 {
 	return ret
 }
 
+// SetValueAsNumber setting attribute 'valueAsNumber' with
+// type float64 (idl: unrestricted double).
 func (_this *HTMLInputElement) SetValueAsNumber(value float64) {
 	input := value
 	_this.value.Set("valueAsNumber", input)
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -16823,11 +18918,15 @@ func (_this *HTMLInputElement) Width() uint {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetWidth(value uint) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLInputElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -16835,6 +18934,8 @@ func (_this *HTMLInputElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLInputElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -16842,6 +18943,8 @@ func (_this *HTMLInputElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -16849,6 +18952,8 @@ func (_this *HTMLInputElement) ValidationMessage() string {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLInputElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -16858,6 +18963,8 @@ func (_this *HTMLInputElement) Labels() *NodeList {
 	return ret
 }
 
+// SelectionStart returning attribute 'selectionStart' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SelectionStart() *uint {
 	var ret *uint
 	value := _this.value.Get("selectionStart")
@@ -16868,11 +18975,15 @@ func (_this *HTMLInputElement) SelectionStart() *uint {
 	return ret
 }
 
+// SetSelectionStart setting attribute 'selectionStart' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetSelectionStart(value *uint) {
 	input := value
 	_this.value.Set("selectionStart", input)
 }
 
+// SelectionEnd returning attribute 'selectionEnd' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SelectionEnd() *uint {
 	var ret *uint
 	value := _this.value.Get("selectionEnd")
@@ -16883,11 +18994,15 @@ func (_this *HTMLInputElement) SelectionEnd() *uint {
 	return ret
 }
 
+// SetSelectionEnd setting attribute 'selectionEnd' with
+// type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetSelectionEnd(value *uint) {
 	input := value
 	_this.value.Set("selectionEnd", input)
 }
 
+// SelectionDirection returning attribute 'selectionDirection' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SelectionDirection() *string {
 	var ret *string
 	value := _this.value.Get("selectionDirection")
@@ -16898,11 +19013,15 @@ func (_this *HTMLInputElement) SelectionDirection() *string {
 	return ret
 }
 
+// SetSelectionDirection setting attribute 'selectionDirection' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetSelectionDirection(value *string) {
 	input := value
 	_this.value.Set("selectionDirection", input)
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -16910,11 +19029,15 @@ func (_this *HTMLInputElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
 }
 
+// UseMap returning attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) UseMap() string {
 	var ret string
 	value := _this.value.Get("useMap")
@@ -16922,13 +19045,14 @@ func (_this *HTMLInputElement) UseMap() string {
 	return ret
 }
 
+// SetUseMap setting attribute 'useMap' with
+// type string (idl: DOMString).
 func (_this *HTMLInputElement) SetUseMap(value string) {
 	input := value
 	_this.value.Set("useMap", input)
 }
 
 func (_this *HTMLInputElement) StepUp(n *int) {
-	_method := _this.value.Get("stepUp")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -16938,12 +19062,11 @@ func (_this *HTMLInputElement) StepUp(n *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stepUp", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) StepDown(n *int) {
-	_method := _this.value.Get("stepDown")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -16953,17 +19076,16 @@ func (_this *HTMLInputElement) StepDown(n *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stepDown", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -16973,12 +19095,11 @@ func (_this *HTMLInputElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLInputElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -16988,7 +19109,6 @@ func (_this *HTMLInputElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLInputElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -16996,22 +19116,20 @@ func (_this *HTMLInputElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) Select() {
-	_method := _this.value.Get("select")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("select", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) SetRangeText(replacement string) {
-	_method := _this.value.Get("setRangeText")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17019,12 +19137,11 @@ func (_this *HTMLInputElement) SetRangeText(replacement string) {
 	_p0 := replacement
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setRangeText", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) SetRangeText2(replacement string, start uint, end uint, selectionMode *SelectionMode) {
-	_method := _this.value.Get("setRangeText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -17043,12 +19160,11 @@ func (_this *HTMLInputElement) SetRangeText2(replacement string, start uint, end
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setRangeText", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction *string) {
-	_method := _this.value.Get("setSelectionRange")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -17064,7 +19180,7 @@ func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setSelectionRange", _args[0:_end]...)
 	return
 }
 
@@ -17087,6 +19203,8 @@ func HTMLButtonElementFromJS(input js.Value) *HTMLButtonElement {
 	return ret
 }
 
+// Autofocus returning attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) Autofocus() bool {
 	var ret bool
 	value := _this.value.Get("autofocus")
@@ -17094,11 +19212,15 @@ func (_this *HTMLButtonElement) Autofocus() bool {
 	return ret
 }
 
+// SetAutofocus setting attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) SetAutofocus(value bool) {
 	input := value
 	_this.value.Set("autofocus", input)
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -17106,11 +19228,15 @@ func (_this *HTMLButtonElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLButtonElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -17120,6 +19246,8 @@ func (_this *HTMLButtonElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// FormAction returning attribute 'formAction' with
+// type string (idl: USVString).
 func (_this *HTMLButtonElement) FormAction() string {
 	var ret string
 	value := _this.value.Get("formAction")
@@ -17127,11 +19255,15 @@ func (_this *HTMLButtonElement) FormAction() string {
 	return ret
 }
 
+// SetFormAction setting attribute 'formAction' with
+// type string (idl: USVString).
 func (_this *HTMLButtonElement) SetFormAction(value string) {
 	input := value
 	_this.value.Set("formAction", input)
 }
 
+// FormEnctype returning attribute 'formEnctype' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) FormEnctype() string {
 	var ret string
 	value := _this.value.Get("formEnctype")
@@ -17139,11 +19271,15 @@ func (_this *HTMLButtonElement) FormEnctype() string {
 	return ret
 }
 
+// SetFormEnctype setting attribute 'formEnctype' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetFormEnctype(value string) {
 	input := value
 	_this.value.Set("formEnctype", input)
 }
 
+// FormMethod returning attribute 'formMethod' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) FormMethod() string {
 	var ret string
 	value := _this.value.Get("formMethod")
@@ -17151,11 +19287,15 @@ func (_this *HTMLButtonElement) FormMethod() string {
 	return ret
 }
 
+// SetFormMethod setting attribute 'formMethod' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetFormMethod(value string) {
 	input := value
 	_this.value.Set("formMethod", input)
 }
 
+// FormNoValidate returning attribute 'formNoValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) FormNoValidate() bool {
 	var ret bool
 	value := _this.value.Get("formNoValidate")
@@ -17163,11 +19303,15 @@ func (_this *HTMLButtonElement) FormNoValidate() bool {
 	return ret
 }
 
+// SetFormNoValidate setting attribute 'formNoValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) SetFormNoValidate(value bool) {
 	input := value
 	_this.value.Set("formNoValidate", input)
 }
 
+// FormTarget returning attribute 'formTarget' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) FormTarget() string {
 	var ret string
 	value := _this.value.Get("formTarget")
@@ -17175,11 +19319,15 @@ func (_this *HTMLButtonElement) FormTarget() string {
 	return ret
 }
 
+// SetFormTarget setting attribute 'formTarget' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetFormTarget(value string) {
 	input := value
 	_this.value.Set("formTarget", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -17187,11 +19335,15 @@ func (_this *HTMLButtonElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -17199,11 +19351,15 @@ func (_this *HTMLButtonElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -17211,11 +19367,15 @@ func (_this *HTMLButtonElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLButtonElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -17223,6 +19383,8 @@ func (_this *HTMLButtonElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLButtonElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -17230,6 +19392,8 @@ func (_this *HTMLButtonElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLButtonElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -17237,6 +19401,8 @@ func (_this *HTMLButtonElement) ValidationMessage() string {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLButtonElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -17245,12 +19411,11 @@ func (_this *HTMLButtonElement) Labels() *NodeList {
 }
 
 func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -17260,12 +19425,11 @@ func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -17275,7 +19439,6 @@ func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17283,7 +19446,7 @@ func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
@@ -17306,6 +19469,8 @@ func HTMLSelectElementFromJS(input js.Value) *HTMLSelectElement {
 	return ret
 }
 
+// Autocomplete returning attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) Autocomplete() string {
 	var ret string
 	value := _this.value.Get("autocomplete")
@@ -17313,11 +19478,15 @@ func (_this *HTMLSelectElement) Autocomplete() string {
 	return ret
 }
 
+// SetAutocomplete setting attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) SetAutocomplete(value string) {
 	input := value
 	_this.value.Set("autocomplete", input)
 }
 
+// Autofocus returning attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) Autofocus() bool {
 	var ret bool
 	value := _this.value.Get("autofocus")
@@ -17325,11 +19494,15 @@ func (_this *HTMLSelectElement) Autofocus() bool {
 	return ret
 }
 
+// SetAutofocus setting attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) SetAutofocus(value bool) {
 	input := value
 	_this.value.Set("autofocus", input)
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -17337,11 +19510,15 @@ func (_this *HTMLSelectElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLSelectElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -17351,6 +19528,8 @@ func (_this *HTMLSelectElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Multiple returning attribute 'multiple' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) Multiple() bool {
 	var ret bool
 	value := _this.value.Get("multiple")
@@ -17358,11 +19537,15 @@ func (_this *HTMLSelectElement) Multiple() bool {
 	return ret
 }
 
+// SetMultiple setting attribute 'multiple' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) SetMultiple(value bool) {
 	input := value
 	_this.value.Set("multiple", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -17370,11 +19553,15 @@ func (_this *HTMLSelectElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Required returning attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) Required() bool {
 	var ret bool
 	value := _this.value.Get("required")
@@ -17382,11 +19569,15 @@ func (_this *HTMLSelectElement) Required() bool {
 	return ret
 }
 
+// SetRequired setting attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) SetRequired(value bool) {
 	input := value
 	_this.value.Set("required", input)
 }
 
+// Size returning attribute 'size' with
+// type uint (idl: unsigned long).
 func (_this *HTMLSelectElement) Size() uint {
 	var ret uint
 	value := _this.value.Get("size")
@@ -17394,11 +19585,15 @@ func (_this *HTMLSelectElement) Size() uint {
 	return ret
 }
 
+// SetSize setting attribute 'size' with
+// type uint (idl: unsigned long).
 func (_this *HTMLSelectElement) SetSize(value uint) {
 	input := value
 	_this.value.Set("size", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -17406,6 +19601,8 @@ func (_this *HTMLSelectElement) Type() string {
 	return ret
 }
 
+// Options returning attribute 'options' with
+// type HTMLOptionsCollection (idl: HTMLOptionsCollection).
 func (_this *HTMLSelectElement) Options() *HTMLOptionsCollection {
 	var ret *HTMLOptionsCollection
 	value := _this.value.Get("options")
@@ -17413,6 +19610,8 @@ func (_this *HTMLSelectElement) Options() *HTMLOptionsCollection {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLSelectElement) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -17420,11 +19619,15 @@ func (_this *HTMLSelectElement) Length() uint {
 	return ret
 }
 
+// SetLength setting attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *HTMLSelectElement) SetLength(value uint) {
 	input := value
 	_this.value.Set("length", input)
 }
 
+// SelectedOptions returning attribute 'selectedOptions' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLSelectElement) SelectedOptions() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("selectedOptions")
@@ -17432,6 +19635,8 @@ func (_this *HTMLSelectElement) SelectedOptions() *HTMLCollection {
 	return ret
 }
 
+// SelectedIndex returning attribute 'selectedIndex' with
+// type int (idl: long).
 func (_this *HTMLSelectElement) SelectedIndex() int {
 	var ret int
 	value := _this.value.Get("selectedIndex")
@@ -17439,11 +19644,15 @@ func (_this *HTMLSelectElement) SelectedIndex() int {
 	return ret
 }
 
+// SetSelectedIndex setting attribute 'selectedIndex' with
+// type int (idl: long).
 func (_this *HTMLSelectElement) SetSelectedIndex(value int) {
 	input := value
 	_this.value.Set("selectedIndex", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -17451,11 +19660,15 @@ func (_this *HTMLSelectElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLSelectElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -17463,6 +19676,8 @@ func (_this *HTMLSelectElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLSelectElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -17470,6 +19685,8 @@ func (_this *HTMLSelectElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLSelectElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -17477,6 +19694,8 @@ func (_this *HTMLSelectElement) ValidationMessage() string {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLSelectElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -17485,7 +19704,6 @@ func (_this *HTMLSelectElement) Labels() *NodeList {
 }
 
 func (_this *HTMLSelectElement) Item(index uint) (_result *Element) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17493,7 +19711,7 @@ func (_this *HTMLSelectElement) Item(index uint) (_result *Element) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
@@ -17505,7 +19723,6 @@ func (_this *HTMLSelectElement) Item(index uint) (_result *Element) {
 }
 
 func (_this *HTMLSelectElement) NamedItem(name string) (_result *HTMLOptionElement) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17513,7 +19730,7 @@ func (_this *HTMLSelectElement) NamedItem(name string) (_result *HTMLOptionEleme
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *HTMLOptionElement // javascript: HTMLOptionElement _what_return_name
 	)
@@ -17525,7 +19742,6 @@ func (_this *HTMLSelectElement) NamedItem(name string) (_result *HTMLOptionEleme
 }
 
 func (_this *HTMLSelectElement) Add(element *Union, before *Union) {
-	_method := _this.value.Get("add")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -17538,22 +19754,20 @@ func (_this *HTMLSelectElement) Add(element *Union, before *Union) {
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("add", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLSelectElement) Remove2() {
-	_method := _this.value.Get("remove")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLSelectElement) Remove3(index int) {
-	_method := _this.value.Get("remove")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17561,17 +19775,16 @@ func (_this *HTMLSelectElement) Remove3(index int) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLSelectElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -17581,12 +19794,11 @@ func (_this *HTMLSelectElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLSelectElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -17596,7 +19808,6 @@ func (_this *HTMLSelectElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLSelectElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -17604,7 +19815,7 @@ func (_this *HTMLSelectElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
@@ -17627,6 +19838,8 @@ func HTMLDataListElementFromJS(input js.Value) *HTMLDataListElement {
 	return ret
 }
 
+// Options returning attribute 'options' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLDataListElement) Options() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("options")
@@ -17653,6 +19866,8 @@ func HTMLOptGroupElementFromJS(input js.Value) *HTMLOptGroupElement {
 	return ret
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLOptGroupElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -17660,11 +19875,15 @@ func (_this *HTMLOptGroupElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLOptGroupElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLOptGroupElement) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -17672,6 +19891,8 @@ func (_this *HTMLOptGroupElement) Label() string {
 	return ret
 }
 
+// SetLabel setting attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLOptGroupElement) SetLabel(value string) {
 	input := value
 	_this.value.Set("label", input)
@@ -17696,6 +19917,8 @@ func HTMLOptionElementFromJS(input js.Value) *HTMLOptionElement {
 	return ret
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -17703,11 +19926,15 @@ func (_this *HTMLOptionElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLOptionElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -17717,6 +19944,8 @@ func (_this *HTMLOptionElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) Label() string {
 	var ret string
 	value := _this.value.Get("label")
@@ -17724,11 +19953,15 @@ func (_this *HTMLOptionElement) Label() string {
 	return ret
 }
 
+// SetLabel setting attribute 'label' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) SetLabel(value string) {
 	input := value
 	_this.value.Set("label", input)
 }
 
+// DefaultSelected returning attribute 'defaultSelected' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) DefaultSelected() bool {
 	var ret bool
 	value := _this.value.Get("defaultSelected")
@@ -17736,11 +19969,15 @@ func (_this *HTMLOptionElement) DefaultSelected() bool {
 	return ret
 }
 
+// SetDefaultSelected setting attribute 'defaultSelected' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) SetDefaultSelected(value bool) {
 	input := value
 	_this.value.Set("defaultSelected", input)
 }
 
+// Selected returning attribute 'selected' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) Selected() bool {
 	var ret bool
 	value := _this.value.Get("selected")
@@ -17748,11 +19985,15 @@ func (_this *HTMLOptionElement) Selected() bool {
 	return ret
 }
 
+// SetSelected setting attribute 'selected' with
+// type bool (idl: boolean).
 func (_this *HTMLOptionElement) SetSelected(value bool) {
 	input := value
 	_this.value.Set("selected", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -17760,11 +20001,15 @@ func (_this *HTMLOptionElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) Text() string {
 	var ret string
 	value := _this.value.Get("text")
@@ -17772,11 +20017,15 @@ func (_this *HTMLOptionElement) Text() string {
 	return ret
 }
 
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLOptionElement) SetText(value string) {
 	input := value
 	_this.value.Set("text", input)
 }
 
+// Index returning attribute 'index' with
+// type int (idl: long).
 func (_this *HTMLOptionElement) Index() int {
 	var ret int
 	value := _this.value.Get("index")
@@ -17803,6 +20052,8 @@ func HTMLTextAreaElementFromJS(input js.Value) *HTMLTextAreaElement {
 	return ret
 }
 
+// Autocomplete returning attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Autocomplete() string {
 	var ret string
 	value := _this.value.Get("autocomplete")
@@ -17810,11 +20061,15 @@ func (_this *HTMLTextAreaElement) Autocomplete() string {
 	return ret
 }
 
+// SetAutocomplete setting attribute 'autocomplete' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetAutocomplete(value string) {
 	input := value
 	_this.value.Set("autocomplete", input)
 }
 
+// Autofocus returning attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) Autofocus() bool {
 	var ret bool
 	value := _this.value.Get("autofocus")
@@ -17822,11 +20077,15 @@ func (_this *HTMLTextAreaElement) Autofocus() bool {
 	return ret
 }
 
+// SetAutofocus setting attribute 'autofocus' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) SetAutofocus(value bool) {
 	input := value
 	_this.value.Set("autofocus", input)
 }
 
+// Cols returning attribute 'cols' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) Cols() uint {
 	var ret uint
 	value := _this.value.Get("cols")
@@ -17834,11 +20093,15 @@ func (_this *HTMLTextAreaElement) Cols() uint {
 	return ret
 }
 
+// SetCols setting attribute 'cols' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SetCols(value uint) {
 	input := value
 	_this.value.Set("cols", input)
 }
 
+// DirName returning attribute 'dirName' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) DirName() string {
 	var ret string
 	value := _this.value.Get("dirName")
@@ -17846,11 +20109,15 @@ func (_this *HTMLTextAreaElement) DirName() string {
 	return ret
 }
 
+// SetDirName setting attribute 'dirName' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetDirName(value string) {
 	input := value
 	_this.value.Set("dirName", input)
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -17858,11 +20125,15 @@ func (_this *HTMLTextAreaElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLTextAreaElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -17872,6 +20143,8 @@ func (_this *HTMLTextAreaElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// MaxLength returning attribute 'maxLength' with
+// type int (idl: long).
 func (_this *HTMLTextAreaElement) MaxLength() int {
 	var ret int
 	value := _this.value.Get("maxLength")
@@ -17879,11 +20152,15 @@ func (_this *HTMLTextAreaElement) MaxLength() int {
 	return ret
 }
 
+// SetMaxLength setting attribute 'maxLength' with
+// type int (idl: long).
 func (_this *HTMLTextAreaElement) SetMaxLength(value int) {
 	input := value
 	_this.value.Set("maxLength", input)
 }
 
+// MinLength returning attribute 'minLength' with
+// type int (idl: long).
 func (_this *HTMLTextAreaElement) MinLength() int {
 	var ret int
 	value := _this.value.Get("minLength")
@@ -17891,11 +20168,15 @@ func (_this *HTMLTextAreaElement) MinLength() int {
 	return ret
 }
 
+// SetMinLength setting attribute 'minLength' with
+// type int (idl: long).
 func (_this *HTMLTextAreaElement) SetMinLength(value int) {
 	input := value
 	_this.value.Set("minLength", input)
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -17903,11 +20184,15 @@ func (_this *HTMLTextAreaElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Placeholder returning attribute 'placeholder' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Placeholder() string {
 	var ret string
 	value := _this.value.Get("placeholder")
@@ -17915,11 +20200,15 @@ func (_this *HTMLTextAreaElement) Placeholder() string {
 	return ret
 }
 
+// SetPlaceholder setting attribute 'placeholder' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetPlaceholder(value string) {
 	input := value
 	_this.value.Set("placeholder", input)
 }
 
+// ReadOnly returning attribute 'readOnly' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) ReadOnly() bool {
 	var ret bool
 	value := _this.value.Get("readOnly")
@@ -17927,11 +20216,15 @@ func (_this *HTMLTextAreaElement) ReadOnly() bool {
 	return ret
 }
 
+// SetReadOnly setting attribute 'readOnly' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) SetReadOnly(value bool) {
 	input := value
 	_this.value.Set("readOnly", input)
 }
 
+// Required returning attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) Required() bool {
 	var ret bool
 	value := _this.value.Get("required")
@@ -17939,11 +20232,15 @@ func (_this *HTMLTextAreaElement) Required() bool {
 	return ret
 }
 
+// SetRequired setting attribute 'required' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) SetRequired(value bool) {
 	input := value
 	_this.value.Set("required", input)
 }
 
+// Rows returning attribute 'rows' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) Rows() uint {
 	var ret uint
 	value := _this.value.Get("rows")
@@ -17951,11 +20248,15 @@ func (_this *HTMLTextAreaElement) Rows() uint {
 	return ret
 }
 
+// SetRows setting attribute 'rows' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SetRows(value uint) {
 	input := value
 	_this.value.Set("rows", input)
 }
 
+// Wrap returning attribute 'wrap' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Wrap() string {
 	var ret string
 	value := _this.value.Get("wrap")
@@ -17963,11 +20264,15 @@ func (_this *HTMLTextAreaElement) Wrap() string {
 	return ret
 }
 
+// SetWrap setting attribute 'wrap' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetWrap(value string) {
 	input := value
 	_this.value.Set("wrap", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -17975,6 +20280,8 @@ func (_this *HTMLTextAreaElement) Type() string {
 	return ret
 }
 
+// DefaultValue returning attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) DefaultValue() string {
 	var ret string
 	value := _this.value.Get("defaultValue")
@@ -17982,11 +20289,15 @@ func (_this *HTMLTextAreaElement) DefaultValue() string {
 	return ret
 }
 
+// SetDefaultValue setting attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetDefaultValue(value string) {
 	input := value
 	_this.value.Set("defaultValue", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -17994,11 +20305,15 @@ func (_this *HTMLTextAreaElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// TextLength returning attribute 'textLength' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) TextLength() uint {
 	var ret uint
 	value := _this.value.Get("textLength")
@@ -18006,6 +20321,8 @@ func (_this *HTMLTextAreaElement) TextLength() uint {
 	return ret
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLTextAreaElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -18013,6 +20330,8 @@ func (_this *HTMLTextAreaElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLTextAreaElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -18020,6 +20339,8 @@ func (_this *HTMLTextAreaElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -18027,6 +20348,8 @@ func (_this *HTMLTextAreaElement) ValidationMessage() string {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLTextAreaElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -18034,6 +20357,8 @@ func (_this *HTMLTextAreaElement) Labels() *NodeList {
 	return ret
 }
 
+// SelectionStart returning attribute 'selectionStart' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SelectionStart() uint {
 	var ret uint
 	value := _this.value.Get("selectionStart")
@@ -18041,11 +20366,15 @@ func (_this *HTMLTextAreaElement) SelectionStart() uint {
 	return ret
 }
 
+// SetSelectionStart setting attribute 'selectionStart' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SetSelectionStart(value uint) {
 	input := value
 	_this.value.Set("selectionStart", input)
 }
 
+// SelectionEnd returning attribute 'selectionEnd' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SelectionEnd() uint {
 	var ret uint
 	value := _this.value.Get("selectionEnd")
@@ -18053,11 +20382,15 @@ func (_this *HTMLTextAreaElement) SelectionEnd() uint {
 	return ret
 }
 
+// SetSelectionEnd setting attribute 'selectionEnd' with
+// type uint (idl: unsigned long).
 func (_this *HTMLTextAreaElement) SetSelectionEnd(value uint) {
 	input := value
 	_this.value.Set("selectionEnd", input)
 }
 
+// SelectionDirection returning attribute 'selectionDirection' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SelectionDirection() string {
 	var ret string
 	value := _this.value.Get("selectionDirection")
@@ -18065,18 +20398,19 @@ func (_this *HTMLTextAreaElement) SelectionDirection() string {
 	return ret
 }
 
+// SetSelectionDirection setting attribute 'selectionDirection' with
+// type string (idl: DOMString).
 func (_this *HTMLTextAreaElement) SetSelectionDirection(value string) {
 	input := value
 	_this.value.Set("selectionDirection", input)
 }
 
 func (_this *HTMLTextAreaElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18086,12 +20420,11 @@ func (_this *HTMLTextAreaElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLTextAreaElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18101,7 +20434,6 @@ func (_this *HTMLTextAreaElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLTextAreaElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -18109,22 +20441,20 @@ func (_this *HTMLTextAreaElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTextAreaElement) Select() {
-	_method := _this.value.Get("select")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("select", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTextAreaElement) SetRangeText(replacement string) {
-	_method := _this.value.Get("setRangeText")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -18132,12 +20462,11 @@ func (_this *HTMLTextAreaElement) SetRangeText(replacement string) {
 	_p0 := replacement
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setRangeText", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTextAreaElement) SetRangeText2(replacement string, start uint, end uint, selectionMode *SelectionMode) {
-	_method := _this.value.Get("setRangeText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -18156,12 +20485,11 @@ func (_this *HTMLTextAreaElement) SetRangeText2(replacement string, start uint, 
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setRangeText", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direction *string) {
-	_method := _this.value.Get("setSelectionRange")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -18177,7 +20505,7 @@ func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direct
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setSelectionRange", _args[0:_end]...)
 	return
 }
 
@@ -18200,6 +20528,8 @@ func HTMLOutputElementFromJS(input js.Value) *HTMLOutputElement {
 	return ret
 }
 
+// HtmlFor returning attribute 'htmlFor' with
+// type DOMTokenList (idl: DOMTokenList).
 func (_this *HTMLOutputElement) HtmlFor() *DOMTokenList {
 	var ret *DOMTokenList
 	value := _this.value.Get("htmlFor")
@@ -18207,6 +20537,8 @@ func (_this *HTMLOutputElement) HtmlFor() *DOMTokenList {
 	return ret
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLOutputElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -18216,6 +20548,8 @@ func (_this *HTMLOutputElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -18223,11 +20557,15 @@ func (_this *HTMLOutputElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -18235,6 +20573,8 @@ func (_this *HTMLOutputElement) Type() string {
 	return ret
 }
 
+// DefaultValue returning attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) DefaultValue() string {
 	var ret string
 	value := _this.value.Get("defaultValue")
@@ -18242,11 +20582,15 @@ func (_this *HTMLOutputElement) DefaultValue() string {
 	return ret
 }
 
+// SetDefaultValue setting attribute 'defaultValue' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) SetDefaultValue(value string) {
 	input := value
 	_this.value.Set("defaultValue", input)
 }
 
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) Value() string {
 	var ret string
 	value := _this.value.Get("value")
@@ -18254,11 +20598,15 @@ func (_this *HTMLOutputElement) Value() string {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) SetValue(value string) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLOutputElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -18266,6 +20614,8 @@ func (_this *HTMLOutputElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLOutputElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -18273,6 +20623,8 @@ func (_this *HTMLOutputElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLOutputElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -18280,6 +20632,8 @@ func (_this *HTMLOutputElement) ValidationMessage() string {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLOutputElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -18288,12 +20642,11 @@ func (_this *HTMLOutputElement) Labels() *NodeList {
 }
 
 func (_this *HTMLOutputElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18303,12 +20656,11 @@ func (_this *HTMLOutputElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLOutputElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18318,7 +20670,6 @@ func (_this *HTMLOutputElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -18326,7 +20677,7 @@ func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
@@ -18349,6 +20700,8 @@ func HTMLProgressElementFromJS(input js.Value) *HTMLProgressElement {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type float64 (idl: double).
 func (_this *HTMLProgressElement) Value() float64 {
 	var ret float64
 	value := _this.value.Get("value")
@@ -18356,11 +20709,15 @@ func (_this *HTMLProgressElement) Value() float64 {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type float64 (idl: double).
 func (_this *HTMLProgressElement) SetValue(value float64) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// Max returning attribute 'max' with
+// type float64 (idl: double).
 func (_this *HTMLProgressElement) Max() float64 {
 	var ret float64
 	value := _this.value.Get("max")
@@ -18368,11 +20725,15 @@ func (_this *HTMLProgressElement) Max() float64 {
 	return ret
 }
 
+// SetMax setting attribute 'max' with
+// type float64 (idl: double).
 func (_this *HTMLProgressElement) SetMax(value float64) {
 	input := value
 	_this.value.Set("max", input)
 }
 
+// Position returning attribute 'position' with
+// type float64 (idl: double).
 func (_this *HTMLProgressElement) Position() float64 {
 	var ret float64
 	value := _this.value.Get("position")
@@ -18380,6 +20741,8 @@ func (_this *HTMLProgressElement) Position() float64 {
 	return ret
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLProgressElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -18406,6 +20769,8 @@ func HTMLMeterElementFromJS(input js.Value) *HTMLMeterElement {
 	return ret
 }
 
+// Value returning attribute 'value' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) Value() float64 {
 	var ret float64
 	value := _this.value.Get("value")
@@ -18413,11 +20778,15 @@ func (_this *HTMLMeterElement) Value() float64 {
 	return ret
 }
 
+// SetValue setting attribute 'value' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetValue(value float64) {
 	input := value
 	_this.value.Set("value", input)
 }
 
+// Min returning attribute 'min' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) Min() float64 {
 	var ret float64
 	value := _this.value.Get("min")
@@ -18425,11 +20794,15 @@ func (_this *HTMLMeterElement) Min() float64 {
 	return ret
 }
 
+// SetMin setting attribute 'min' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetMin(value float64) {
 	input := value
 	_this.value.Set("min", input)
 }
 
+// Max returning attribute 'max' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) Max() float64 {
 	var ret float64
 	value := _this.value.Get("max")
@@ -18437,11 +20810,15 @@ func (_this *HTMLMeterElement) Max() float64 {
 	return ret
 }
 
+// SetMax setting attribute 'max' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetMax(value float64) {
 	input := value
 	_this.value.Set("max", input)
 }
 
+// Low returning attribute 'low' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) Low() float64 {
 	var ret float64
 	value := _this.value.Get("low")
@@ -18449,11 +20826,15 @@ func (_this *HTMLMeterElement) Low() float64 {
 	return ret
 }
 
+// SetLow setting attribute 'low' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetLow(value float64) {
 	input := value
 	_this.value.Set("low", input)
 }
 
+// High returning attribute 'high' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) High() float64 {
 	var ret float64
 	value := _this.value.Get("high")
@@ -18461,11 +20842,15 @@ func (_this *HTMLMeterElement) High() float64 {
 	return ret
 }
 
+// SetHigh setting attribute 'high' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetHigh(value float64) {
 	input := value
 	_this.value.Set("high", input)
 }
 
+// Optimum returning attribute 'optimum' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) Optimum() float64 {
 	var ret float64
 	value := _this.value.Get("optimum")
@@ -18473,11 +20858,15 @@ func (_this *HTMLMeterElement) Optimum() float64 {
 	return ret
 }
 
+// SetOptimum setting attribute 'optimum' with
+// type float64 (idl: double).
 func (_this *HTMLMeterElement) SetOptimum(value float64) {
 	input := value
 	_this.value.Set("optimum", input)
 }
 
+// Labels returning attribute 'labels' with
+// type NodeList (idl: NodeList).
 func (_this *HTMLMeterElement) Labels() *NodeList {
 	var ret *NodeList
 	value := _this.value.Get("labels")
@@ -18504,6 +20893,8 @@ func HTMLFieldSetElementFromJS(input js.Value) *HTMLFieldSetElement {
 	return ret
 }
 
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLFieldSetElement) Disabled() bool {
 	var ret bool
 	value := _this.value.Get("disabled")
@@ -18511,11 +20902,15 @@ func (_this *HTMLFieldSetElement) Disabled() bool {
 	return ret
 }
 
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
 func (_this *HTMLFieldSetElement) SetDisabled(value bool) {
 	input := value
 	_this.value.Set("disabled", input)
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -18525,6 +20920,8 @@ func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFieldSetElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -18532,11 +20929,15 @@ func (_this *HTMLFieldSetElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFieldSetElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLFieldSetElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -18544,6 +20945,8 @@ func (_this *HTMLFieldSetElement) Type() string {
 	return ret
 }
 
+// Elements returning attribute 'elements' with
+// type HTMLCollection (idl: HTMLCollection).
 func (_this *HTMLFieldSetElement) Elements() *HTMLCollection {
 	var ret *HTMLCollection
 	value := _this.value.Get("elements")
@@ -18551,6 +20954,8 @@ func (_this *HTMLFieldSetElement) Elements() *HTMLCollection {
 	return ret
 }
 
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
 func (_this *HTMLFieldSetElement) WillValidate() bool {
 	var ret bool
 	value := _this.value.Get("willValidate")
@@ -18558,6 +20963,8 @@ func (_this *HTMLFieldSetElement) WillValidate() bool {
 	return ret
 }
 
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
 func (_this *HTMLFieldSetElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.value.Get("validity")
@@ -18565,6 +20972,8 @@ func (_this *HTMLFieldSetElement) Validity() *ValidityState {
 	return ret
 }
 
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
 func (_this *HTMLFieldSetElement) ValidationMessage() string {
 	var ret string
 	value := _this.value.Get("validationMessage")
@@ -18573,12 +20982,11 @@ func (_this *HTMLFieldSetElement) ValidationMessage() string {
 }
 
 func (_this *HTMLFieldSetElement) CheckValidity() (_result bool) {
-	_method := _this.value.Get("checkValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("checkValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18588,12 +20996,11 @@ func (_this *HTMLFieldSetElement) CheckValidity() (_result bool) {
 }
 
 func (_this *HTMLFieldSetElement) ReportValidity() (_result bool) {
-	_method := _this.value.Get("reportValidity")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("reportValidity", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -18603,7 +21010,6 @@ func (_this *HTMLFieldSetElement) ReportValidity() (_result bool) {
 }
 
 func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
-	_method := _this.value.Get("setCustomValidity")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -18611,7 +21017,7 @@ func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
 	_p0 := _error
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setCustomValidity", _args[0:_end]...)
 	return
 }
 
@@ -18634,6 +21040,8 @@ func HTMLLegendElementFromJS(input js.Value) *HTMLLegendElement {
 	return ret
 }
 
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
 func (_this *HTMLLegendElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.value.Get("form")
@@ -18643,6 +21051,8 @@ func (_this *HTMLLegendElement) Form() *HTMLFormElement {
 	return ret
 }
 
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLLegendElement) Align() string {
 	var ret string
 	value := _this.value.Get("align")
@@ -18650,6 +21060,8 @@ func (_this *HTMLLegendElement) Align() string {
 	return ret
 }
 
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
 func (_this *HTMLLegendElement) SetAlign(value string) {
 	input := value
 	_this.value.Set("align", input)
@@ -18674,6 +21086,8 @@ func ValidityStateFromJS(input js.Value) *ValidityState {
 	return ret
 }
 
+// ValueMissing returning attribute 'valueMissing' with
+// type bool (idl: boolean).
 func (_this *ValidityState) ValueMissing() bool {
 	var ret bool
 	value := _this.value.Get("valueMissing")
@@ -18681,6 +21095,8 @@ func (_this *ValidityState) ValueMissing() bool {
 	return ret
 }
 
+// TypeMismatch returning attribute 'typeMismatch' with
+// type bool (idl: boolean).
 func (_this *ValidityState) TypeMismatch() bool {
 	var ret bool
 	value := _this.value.Get("typeMismatch")
@@ -18688,6 +21104,8 @@ func (_this *ValidityState) TypeMismatch() bool {
 	return ret
 }
 
+// PatternMismatch returning attribute 'patternMismatch' with
+// type bool (idl: boolean).
 func (_this *ValidityState) PatternMismatch() bool {
 	var ret bool
 	value := _this.value.Get("patternMismatch")
@@ -18695,6 +21113,8 @@ func (_this *ValidityState) PatternMismatch() bool {
 	return ret
 }
 
+// TooLong returning attribute 'tooLong' with
+// type bool (idl: boolean).
 func (_this *ValidityState) TooLong() bool {
 	var ret bool
 	value := _this.value.Get("tooLong")
@@ -18702,6 +21122,8 @@ func (_this *ValidityState) TooLong() bool {
 	return ret
 }
 
+// TooShort returning attribute 'tooShort' with
+// type bool (idl: boolean).
 func (_this *ValidityState) TooShort() bool {
 	var ret bool
 	value := _this.value.Get("tooShort")
@@ -18709,6 +21131,8 @@ func (_this *ValidityState) TooShort() bool {
 	return ret
 }
 
+// RangeUnderflow returning attribute 'rangeUnderflow' with
+// type bool (idl: boolean).
 func (_this *ValidityState) RangeUnderflow() bool {
 	var ret bool
 	value := _this.value.Get("rangeUnderflow")
@@ -18716,6 +21140,8 @@ func (_this *ValidityState) RangeUnderflow() bool {
 	return ret
 }
 
+// RangeOverflow returning attribute 'rangeOverflow' with
+// type bool (idl: boolean).
 func (_this *ValidityState) RangeOverflow() bool {
 	var ret bool
 	value := _this.value.Get("rangeOverflow")
@@ -18723,6 +21149,8 @@ func (_this *ValidityState) RangeOverflow() bool {
 	return ret
 }
 
+// StepMismatch returning attribute 'stepMismatch' with
+// type bool (idl: boolean).
 func (_this *ValidityState) StepMismatch() bool {
 	var ret bool
 	value := _this.value.Get("stepMismatch")
@@ -18730,6 +21158,8 @@ func (_this *ValidityState) StepMismatch() bool {
 	return ret
 }
 
+// BadInput returning attribute 'badInput' with
+// type bool (idl: boolean).
 func (_this *ValidityState) BadInput() bool {
 	var ret bool
 	value := _this.value.Get("badInput")
@@ -18737,6 +21167,8 @@ func (_this *ValidityState) BadInput() bool {
 	return ret
 }
 
+// CustomError returning attribute 'customError' with
+// type bool (idl: boolean).
 func (_this *ValidityState) CustomError() bool {
 	var ret bool
 	value := _this.value.Get("customError")
@@ -18744,6 +21176,8 @@ func (_this *ValidityState) CustomError() bool {
 	return ret
 }
 
+// Valid returning attribute 'valid' with
+// type bool (idl: boolean).
 func (_this *ValidityState) Valid() bool {
 	var ret bool
 	value := _this.value.Get("valid")
@@ -18793,6 +21227,8 @@ func NewFormDataEvent(_type string, eventInitDict *FormDataEventInit) (_result *
 	return
 }
 
+// FormData returning attribute 'formData' with
+// type FormData (idl: FormData).
 func (_this *FormDataEvent) FormData() *FormData {
 	var ret *FormData
 	value := _this.value.Get("formData")
@@ -18819,6 +21255,8 @@ func HTMLDetailsElementFromJS(input js.Value) *HTMLDetailsElement {
 	return ret
 }
 
+// Open returning attribute 'open' with
+// type bool (idl: boolean).
 func (_this *HTMLDetailsElement) Open() bool {
 	var ret bool
 	value := _this.value.Get("open")
@@ -18826,6 +21264,8 @@ func (_this *HTMLDetailsElement) Open() bool {
 	return ret
 }
 
+// SetOpen setting attribute 'open' with
+// type bool (idl: boolean).
 func (_this *HTMLDetailsElement) SetOpen(value bool) {
 	input := value
 	_this.value.Set("open", input)
@@ -18850,6 +21290,8 @@ func HTMLDialogElementFromJS(input js.Value) *HTMLDialogElement {
 	return ret
 }
 
+// Open returning attribute 'open' with
+// type bool (idl: boolean).
 func (_this *HTMLDialogElement) Open() bool {
 	var ret bool
 	value := _this.value.Get("open")
@@ -18857,11 +21299,15 @@ func (_this *HTMLDialogElement) Open() bool {
 	return ret
 }
 
+// SetOpen setting attribute 'open' with
+// type bool (idl: boolean).
 func (_this *HTMLDialogElement) SetOpen(value bool) {
 	input := value
 	_this.value.Set("open", input)
 }
 
+// ReturnValue returning attribute 'returnValue' with
+// type string (idl: DOMString).
 func (_this *HTMLDialogElement) ReturnValue() string {
 	var ret string
 	value := _this.value.Get("returnValue")
@@ -18869,33 +21315,32 @@ func (_this *HTMLDialogElement) ReturnValue() string {
 	return ret
 }
 
+// SetReturnValue setting attribute 'returnValue' with
+// type string (idl: DOMString).
 func (_this *HTMLDialogElement) SetReturnValue(value string) {
 	input := value
 	_this.value.Set("returnValue", input)
 }
 
 func (_this *HTMLDialogElement) Show() {
-	_method := _this.value.Get("show")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("show", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLDialogElement) ShowModal() {
-	_method := _this.value.Get("showModal")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("showModal", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLDialogElement) Close(returnValue *string) {
-	_method := _this.value.Get("close")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -18905,7 +21350,7 @@ func (_this *HTMLDialogElement) Close(returnValue *string) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -18928,6 +21373,8 @@ func HTMLScriptElementFromJS(input js.Value) *HTMLScriptElement {
 	return ret
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLScriptElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -18935,11 +21382,15 @@ func (_this *HTMLScriptElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLScriptElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -18947,11 +21398,15 @@ func (_this *HTMLScriptElement) Type() string {
 	return ret
 }
 
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetType(value string) {
 	input := value
 	_this.value.Set("type", input)
 }
 
+// NoModule returning attribute 'noModule' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) NoModule() bool {
 	var ret bool
 	value := _this.value.Get("noModule")
@@ -18959,11 +21414,15 @@ func (_this *HTMLScriptElement) NoModule() bool {
 	return ret
 }
 
+// SetNoModule setting attribute 'noModule' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) SetNoModule(value bool) {
 	input := value
 	_this.value.Set("noModule", input)
 }
 
+// Async returning attribute 'async' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) Async() bool {
 	var ret bool
 	value := _this.value.Get("async")
@@ -18971,11 +21430,15 @@ func (_this *HTMLScriptElement) Async() bool {
 	return ret
 }
 
+// SetAsync setting attribute 'async' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) SetAsync(value bool) {
 	input := value
 	_this.value.Set("async", input)
 }
 
+// Defer returning attribute 'defer' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) Defer() bool {
 	var ret bool
 	value := _this.value.Get("defer")
@@ -18983,11 +21446,15 @@ func (_this *HTMLScriptElement) Defer() bool {
 	return ret
 }
 
+// SetDefer setting attribute 'defer' with
+// type bool (idl: boolean).
 func (_this *HTMLScriptElement) SetDefer(value bool) {
 	input := value
 	_this.value.Set("defer", input)
 }
 
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.value.Get("crossOrigin")
@@ -18998,11 +21465,15 @@ func (_this *HTMLScriptElement) CrossOrigin() *string {
 	return ret
 }
 
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetCrossOrigin(value *string) {
 	input := value
 	_this.value.Set("crossOrigin", input)
 }
 
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) Text() string {
 	var ret string
 	value := _this.value.Get("text")
@@ -19010,11 +21481,15 @@ func (_this *HTMLScriptElement) Text() string {
 	return ret
 }
 
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetText(value string) {
 	input := value
 	_this.value.Set("text", input)
 }
 
+// Integrity returning attribute 'integrity' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) Integrity() string {
 	var ret string
 	value := _this.value.Get("integrity")
@@ -19022,11 +21497,15 @@ func (_this *HTMLScriptElement) Integrity() string {
 	return ret
 }
 
+// SetIntegrity setting attribute 'integrity' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetIntegrity(value string) {
 	input := value
 	_this.value.Set("integrity", input)
 }
 
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) ReferrerPolicy() string {
 	var ret string
 	value := _this.value.Get("referrerPolicy")
@@ -19034,11 +21513,15 @@ func (_this *HTMLScriptElement) ReferrerPolicy() string {
 	return ret
 }
 
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetReferrerPolicy(value string) {
 	input := value
 	_this.value.Set("referrerPolicy", input)
 }
 
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) Charset() string {
 	var ret string
 	value := _this.value.Get("charset")
@@ -19046,11 +21529,15 @@ func (_this *HTMLScriptElement) Charset() string {
 	return ret
 }
 
+// SetCharset setting attribute 'charset' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetCharset(value string) {
 	input := value
 	_this.value.Set("charset", input)
 }
 
+// Event returning attribute 'event' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) Event() string {
 	var ret string
 	value := _this.value.Get("event")
@@ -19058,11 +21545,15 @@ func (_this *HTMLScriptElement) Event() string {
 	return ret
 }
 
+// SetEvent setting attribute 'event' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetEvent(value string) {
 	input := value
 	_this.value.Set("event", input)
 }
 
+// HtmlFor returning attribute 'htmlFor' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) HtmlFor() string {
 	var ret string
 	value := _this.value.Get("htmlFor")
@@ -19070,6 +21561,8 @@ func (_this *HTMLScriptElement) HtmlFor() string {
 	return ret
 }
 
+// SetHtmlFor setting attribute 'htmlFor' with
+// type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetHtmlFor(value string) {
 	input := value
 	_this.value.Set("htmlFor", input)
@@ -19094,6 +21587,8 @@ func HTMLTemplateElementFromJS(input js.Value) *HTMLTemplateElement {
 	return ret
 }
 
+// Content returning attribute 'content' with
+// type DocumentFragment (idl: DocumentFragment).
 func (_this *HTMLTemplateElement) Content() *DocumentFragment {
 	var ret *DocumentFragment
 	value := _this.value.Get("content")
@@ -19120,6 +21615,8 @@ func HTMLSlotElementFromJS(input js.Value) *HTMLSlotElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLSlotElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -19127,13 +21624,14 @@ func (_this *HTMLSlotElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLSlotElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
 func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_result []*Node) {
-	_method := _this.value.Get("assignedNodes")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19143,7 +21641,7 @@ func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_res
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("assignedNodes", _args[0:_end]...)
 	var (
 		_converted []*Node // javascript: idl-sequence _what_return_name
 	)
@@ -19161,7 +21659,6 @@ func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_res
 }
 
 func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_result []*Element) {
-	_method := _this.value.Get("assignedElements")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19171,7 +21668,7 @@ func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("assignedElements", _args[0:_end]...)
 	var (
 		_converted []*Element // javascript: idl-sequence _what_return_name
 	)
@@ -19207,6 +21704,8 @@ func HTMLCanvasElementFromJS(input js.Value) *HTMLCanvasElement {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLCanvasElement) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -19214,11 +21713,15 @@ func (_this *HTMLCanvasElement) Width() uint {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *HTMLCanvasElement) SetWidth(value uint) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLCanvasElement) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -19226,13 +21729,14 @@ func (_this *HTMLCanvasElement) Height() uint {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *HTMLCanvasElement) SetHeight(value uint) {
 	input := value
 	_this.value.Set("height", input)
 }
 
 func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (_result *Union) {
-	_method := _this.value.Get("getContext")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19245,7 +21749,7 @@ func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getContext", _args[0:_end]...)
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
@@ -19257,7 +21761,6 @@ func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (
 }
 
 func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_result string) {
-	_method := _this.value.Get("toDataURL")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19272,7 +21775,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("toDataURL", _args[0:_end]...)
 	var (
 		_converted string // javascript: USVString _what_return_name
 	)
@@ -19282,7 +21785,6 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 }
 
 func (_this *HTMLCanvasElement) ToBlob(callback *js.Callback, _type *string, quality js.Value) {
-	_method := _this.value.Get("toBlob")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -19307,17 +21809,16 @@ func (_this *HTMLCanvasElement) ToBlob(callback *js.Callback, _type *string, qua
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("toBlob", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *OffscreenCanvas) {
-	_method := _this.value.Get("transferControlToOffscreen")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("transferControlToOffscreen", _args[0:_end]...)
 	var (
 		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
 	)
@@ -19345,6 +21846,8 @@ func CanvasRenderingContext2DFromJS(input js.Value) *CanvasRenderingContext2D {
 	return ret
 }
 
+// Canvas returning attribute 'canvas' with
+// type HTMLCanvasElement (idl: HTMLCanvasElement).
 func (_this *CanvasRenderingContext2D) Canvas() *HTMLCanvasElement {
 	var ret *HTMLCanvasElement
 	value := _this.value.Get("canvas")
@@ -19352,6 +21855,8 @@ func (_this *CanvasRenderingContext2D) Canvas() *HTMLCanvasElement {
 	return ret
 }
 
+// GlobalAlpha returning attribute 'globalAlpha' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) GlobalAlpha() float64 {
 	var ret float64
 	value := _this.value.Get("globalAlpha")
@@ -19359,11 +21864,15 @@ func (_this *CanvasRenderingContext2D) GlobalAlpha() float64 {
 	return ret
 }
 
+// SetGlobalAlpha setting attribute 'globalAlpha' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetGlobalAlpha(value float64) {
 	input := value
 	_this.value.Set("globalAlpha", input)
 }
 
+// GlobalCompositeOperation returning attribute 'globalCompositeOperation' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) GlobalCompositeOperation() string {
 	var ret string
 	value := _this.value.Get("globalCompositeOperation")
@@ -19371,11 +21880,15 @@ func (_this *CanvasRenderingContext2D) GlobalCompositeOperation() string {
 	return ret
 }
 
+// SetGlobalCompositeOperation setting attribute 'globalCompositeOperation' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) SetGlobalCompositeOperation(value string) {
 	input := value
 	_this.value.Set("globalCompositeOperation", input)
 }
 
+// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
 func (_this *CanvasRenderingContext2D) ImageSmoothingEnabled() bool {
 	var ret bool
 	value := _this.value.Get("imageSmoothingEnabled")
@@ -19383,11 +21896,15 @@ func (_this *CanvasRenderingContext2D) ImageSmoothingEnabled() bool {
 	return ret
 }
 
+// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
 func (_this *CanvasRenderingContext2D) SetImageSmoothingEnabled(value bool) {
 	input := value
 	_this.value.Set("imageSmoothingEnabled", input)
 }
 
+// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
+// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
 func (_this *CanvasRenderingContext2D) ImageSmoothingQuality() ImageSmoothingQuality {
 	var ret ImageSmoothingQuality
 	value := _this.value.Get("imageSmoothingQuality")
@@ -19395,11 +21912,15 @@ func (_this *CanvasRenderingContext2D) ImageSmoothingQuality() ImageSmoothingQua
 	return ret
 }
 
+// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
+// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
 func (_this *CanvasRenderingContext2D) SetImageSmoothingQuality(value ImageSmoothingQuality) {
 	input := value.JSValue()
 	_this.value.Set("imageSmoothingQuality", input)
 }
 
+// StrokeStyle returning attribute 'strokeStyle' with
+// type Union (idl: Union).
 func (_this *CanvasRenderingContext2D) StrokeStyle() *Union {
 	var ret *Union
 	value := _this.value.Get("strokeStyle")
@@ -19407,11 +21928,15 @@ func (_this *CanvasRenderingContext2D) StrokeStyle() *Union {
 	return ret
 }
 
+// SetStrokeStyle setting attribute 'strokeStyle' with
+// type Union (idl: Union).
 func (_this *CanvasRenderingContext2D) SetStrokeStyle(value *Union) {
 	input := value.JSValue()
 	_this.value.Set("strokeStyle", input)
 }
 
+// FillStyle returning attribute 'fillStyle' with
+// type Union (idl: Union).
 func (_this *CanvasRenderingContext2D) FillStyle() *Union {
 	var ret *Union
 	value := _this.value.Get("fillStyle")
@@ -19419,11 +21944,15 @@ func (_this *CanvasRenderingContext2D) FillStyle() *Union {
 	return ret
 }
 
+// SetFillStyle setting attribute 'fillStyle' with
+// type Union (idl: Union).
 func (_this *CanvasRenderingContext2D) SetFillStyle(value *Union) {
 	input := value.JSValue()
 	_this.value.Set("fillStyle", input)
 }
 
+// ShadowOffsetX returning attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) ShadowOffsetX() float64 {
 	var ret float64
 	value := _this.value.Get("shadowOffsetX")
@@ -19431,11 +21960,15 @@ func (_this *CanvasRenderingContext2D) ShadowOffsetX() float64 {
 	return ret
 }
 
+// SetShadowOffsetX setting attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetShadowOffsetX(value float64) {
 	input := value
 	_this.value.Set("shadowOffsetX", input)
 }
 
+// ShadowOffsetY returning attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) ShadowOffsetY() float64 {
 	var ret float64
 	value := _this.value.Get("shadowOffsetY")
@@ -19443,11 +21976,15 @@ func (_this *CanvasRenderingContext2D) ShadowOffsetY() float64 {
 	return ret
 }
 
+// SetShadowOffsetY setting attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetShadowOffsetY(value float64) {
 	input := value
 	_this.value.Set("shadowOffsetY", input)
 }
 
+// ShadowBlur returning attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) ShadowBlur() float64 {
 	var ret float64
 	value := _this.value.Get("shadowBlur")
@@ -19455,11 +21992,15 @@ func (_this *CanvasRenderingContext2D) ShadowBlur() float64 {
 	return ret
 }
 
+// SetShadowBlur setting attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetShadowBlur(value float64) {
 	input := value
 	_this.value.Set("shadowBlur", input)
 }
 
+// ShadowColor returning attribute 'shadowColor' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) ShadowColor() string {
 	var ret string
 	value := _this.value.Get("shadowColor")
@@ -19467,11 +22008,15 @@ func (_this *CanvasRenderingContext2D) ShadowColor() string {
 	return ret
 }
 
+// SetShadowColor setting attribute 'shadowColor' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) SetShadowColor(value string) {
 	input := value
 	_this.value.Set("shadowColor", input)
 }
 
+// Filter returning attribute 'filter' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) Filter() string {
 	var ret string
 	value := _this.value.Get("filter")
@@ -19479,11 +22024,15 @@ func (_this *CanvasRenderingContext2D) Filter() string {
 	return ret
 }
 
+// SetFilter setting attribute 'filter' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) SetFilter(value string) {
 	input := value
 	_this.value.Set("filter", input)
 }
 
+// LineWidth returning attribute 'lineWidth' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) LineWidth() float64 {
 	var ret float64
 	value := _this.value.Get("lineWidth")
@@ -19491,11 +22040,15 @@ func (_this *CanvasRenderingContext2D) LineWidth() float64 {
 	return ret
 }
 
+// SetLineWidth setting attribute 'lineWidth' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetLineWidth(value float64) {
 	input := value
 	_this.value.Set("lineWidth", input)
 }
 
+// LineCap returning attribute 'lineCap' with
+// type CanvasLineCap (idl: CanvasLineCap).
 func (_this *CanvasRenderingContext2D) LineCap() CanvasLineCap {
 	var ret CanvasLineCap
 	value := _this.value.Get("lineCap")
@@ -19503,11 +22056,15 @@ func (_this *CanvasRenderingContext2D) LineCap() CanvasLineCap {
 	return ret
 }
 
+// SetLineCap setting attribute 'lineCap' with
+// type CanvasLineCap (idl: CanvasLineCap).
 func (_this *CanvasRenderingContext2D) SetLineCap(value CanvasLineCap) {
 	input := value.JSValue()
 	_this.value.Set("lineCap", input)
 }
 
+// LineJoin returning attribute 'lineJoin' with
+// type CanvasLineJoin (idl: CanvasLineJoin).
 func (_this *CanvasRenderingContext2D) LineJoin() CanvasLineJoin {
 	var ret CanvasLineJoin
 	value := _this.value.Get("lineJoin")
@@ -19515,11 +22072,15 @@ func (_this *CanvasRenderingContext2D) LineJoin() CanvasLineJoin {
 	return ret
 }
 
+// SetLineJoin setting attribute 'lineJoin' with
+// type CanvasLineJoin (idl: CanvasLineJoin).
 func (_this *CanvasRenderingContext2D) SetLineJoin(value CanvasLineJoin) {
 	input := value.JSValue()
 	_this.value.Set("lineJoin", input)
 }
 
+// MiterLimit returning attribute 'miterLimit' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) MiterLimit() float64 {
 	var ret float64
 	value := _this.value.Get("miterLimit")
@@ -19527,11 +22088,15 @@ func (_this *CanvasRenderingContext2D) MiterLimit() float64 {
 	return ret
 }
 
+// SetMiterLimit setting attribute 'miterLimit' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetMiterLimit(value float64) {
 	input := value
 	_this.value.Set("miterLimit", input)
 }
 
+// LineDashOffset returning attribute 'lineDashOffset' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) LineDashOffset() float64 {
 	var ret float64
 	value := _this.value.Get("lineDashOffset")
@@ -19539,11 +22104,15 @@ func (_this *CanvasRenderingContext2D) LineDashOffset() float64 {
 	return ret
 }
 
+// SetLineDashOffset setting attribute 'lineDashOffset' with
+// type float64 (idl: unrestricted double).
 func (_this *CanvasRenderingContext2D) SetLineDashOffset(value float64) {
 	input := value
 	_this.value.Set("lineDashOffset", input)
 }
 
+// Font returning attribute 'font' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) Font() string {
 	var ret string
 	value := _this.value.Get("font")
@@ -19551,11 +22120,15 @@ func (_this *CanvasRenderingContext2D) Font() string {
 	return ret
 }
 
+// SetFont setting attribute 'font' with
+// type string (idl: DOMString).
 func (_this *CanvasRenderingContext2D) SetFont(value string) {
 	input := value
 	_this.value.Set("font", input)
 }
 
+// TextAlign returning attribute 'textAlign' with
+// type CanvasTextAlign (idl: CanvasTextAlign).
 func (_this *CanvasRenderingContext2D) TextAlign() CanvasTextAlign {
 	var ret CanvasTextAlign
 	value := _this.value.Get("textAlign")
@@ -19563,11 +22136,15 @@ func (_this *CanvasRenderingContext2D) TextAlign() CanvasTextAlign {
 	return ret
 }
 
+// SetTextAlign setting attribute 'textAlign' with
+// type CanvasTextAlign (idl: CanvasTextAlign).
 func (_this *CanvasRenderingContext2D) SetTextAlign(value CanvasTextAlign) {
 	input := value.JSValue()
 	_this.value.Set("textAlign", input)
 }
 
+// TextBaseline returning attribute 'textBaseline' with
+// type CanvasTextBaseline (idl: CanvasTextBaseline).
 func (_this *CanvasRenderingContext2D) TextBaseline() CanvasTextBaseline {
 	var ret CanvasTextBaseline
 	value := _this.value.Get("textBaseline")
@@ -19575,11 +22152,15 @@ func (_this *CanvasRenderingContext2D) TextBaseline() CanvasTextBaseline {
 	return ret
 }
 
+// SetTextBaseline setting attribute 'textBaseline' with
+// type CanvasTextBaseline (idl: CanvasTextBaseline).
 func (_this *CanvasRenderingContext2D) SetTextBaseline(value CanvasTextBaseline) {
 	input := value.JSValue()
 	_this.value.Set("textBaseline", input)
 }
 
+// Direction returning attribute 'direction' with
+// type CanvasDirection (idl: CanvasDirection).
 func (_this *CanvasRenderingContext2D) Direction() CanvasDirection {
 	var ret CanvasDirection
 	value := _this.value.Get("direction")
@@ -19587,18 +22168,19 @@ func (_this *CanvasRenderingContext2D) Direction() CanvasDirection {
 	return ret
 }
 
+// SetDirection setting attribute 'direction' with
+// type CanvasDirection (idl: CanvasDirection).
 func (_this *CanvasRenderingContext2D) SetDirection(value CanvasDirection) {
 	input := value.JSValue()
 	_this.value.Set("direction", input)
 }
 
 func (_this *CanvasRenderingContext2D) GetContextAttributes() (_result *CanvasRenderingContext2DSettings) {
-	_method := _this.value.Get("getContextAttributes")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getContextAttributes", _args[0:_end]...)
 	var (
 		_converted *CanvasRenderingContext2DSettings // javascript: CanvasRenderingContext2DSettings _what_return_name
 	)
@@ -19608,27 +22190,24 @@ func (_this *CanvasRenderingContext2D) GetContextAttributes() (_result *CanvasRe
 }
 
 func (_this *CanvasRenderingContext2D) Save() {
-	_method := _this.value.Get("save")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("save", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Restore() {
-	_method := _this.value.Get("restore")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("restore", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Scale(x float64, y float64) {
-	_method := _this.value.Get("scale")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19639,12 +22218,11 @@ func (_this *CanvasRenderingContext2D) Scale(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("scale", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Rotate(angle float64) {
-	_method := _this.value.Get("rotate")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19652,12 +22230,11 @@ func (_this *CanvasRenderingContext2D) Rotate(angle float64) {
 	_p0 := angle
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("rotate", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Translate(x float64, y float64) {
-	_method := _this.value.Get("translate")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19668,12 +22245,11 @@ func (_this *CanvasRenderingContext2D) Translate(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("translate", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Transform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	_method := _this.value.Get("transform")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -19696,17 +22272,16 @@ func (_this *CanvasRenderingContext2D) Transform(a float64, b float64, c float64
 	_p5 := f
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("transform", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) GetTransform() (_result *DOMMatrix) {
-	_method := _this.value.Get("getTransform")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getTransform", _args[0:_end]...)
 	var (
 		_converted *DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
@@ -19716,7 +22291,6 @@ func (_this *CanvasRenderingContext2D) GetTransform() (_result *DOMMatrix) {
 }
 
 func (_this *CanvasRenderingContext2D) SetTransform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	_method := _this.value.Get("setTransform")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -19739,12 +22313,11 @@ func (_this *CanvasRenderingContext2D) SetTransform(a float64, b float64, c floa
 	_p5 := f
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) SetTransform2(transform *DOMMatrix2DInit) {
-	_method := _this.value.Get("setTransform")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19754,22 +22327,20 @@ func (_this *CanvasRenderingContext2D) SetTransform2(transform *DOMMatrix2DInit)
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) ResetTransform() {
-	_method := _this.value.Get("resetTransform")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("resetTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *CanvasGradient) {
-	_method := _this.value.Get("createLinearGradient")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -19786,7 +22357,7 @@ func (_this *CanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float
 	_p3 := y1
 	_args[3] = _p3
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createLinearGradient", _args[0:_end]...)
 	var (
 		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
 	)
@@ -19796,7 +22367,6 @@ func (_this *CanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float
 }
 
 func (_this *CanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *CanvasGradient) {
-	_method := _this.value.Get("createRadialGradient")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -19819,7 +22389,7 @@ func (_this *CanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float
 	_p5 := r1
 	_args[5] = _p5
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createRadialGradient", _args[0:_end]...)
 	var (
 		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
 	)
@@ -19829,7 +22399,6 @@ func (_this *CanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float
 }
 
 func (_this *CanvasRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *CanvasPattern) {
-	_method := _this.value.Get("createPattern")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19840,7 +22409,7 @@ func (_this *CanvasRenderingContext2D) CreatePattern(image *Union, repetition st
 	_p1 := repetition
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createPattern", _args[0:_end]...)
 	var (
 		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
 	)
@@ -19852,7 +22421,6 @@ func (_this *CanvasRenderingContext2D) CreatePattern(image *Union, repetition st
 }
 
 func (_this *CanvasRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("clearRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -19869,12 +22437,11 @@ func (_this *CanvasRenderingContext2D) ClearRect(x float64, y float64, w float64
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearRect", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("fillRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -19891,12 +22458,11 @@ func (_this *CanvasRenderingContext2D) FillRect(x float64, y float64, w float64,
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fillRect", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("strokeRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -19913,22 +22479,20 @@ func (_this *CanvasRenderingContext2D) StrokeRect(x float64, y float64, w float6
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("strokeRect", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) BeginPath() {
-	_method := _this.value.Get("beginPath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("beginPath", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
-	_method := _this.value.Get("fill")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19938,12 +22502,11 @@ func (_this *CanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fill", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Fill2(path *Path2D, fillRule *CanvasFillRule) {
-	_method := _this.value.Get("fill")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -19956,22 +22519,20 @@ func (_this *CanvasRenderingContext2D) Fill2(path *Path2D, fillRule *CanvasFillR
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fill", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Stroke() {
-	_method := _this.value.Get("stroke")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stroke", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Stroke2(path *Path2D) {
-	_method := _this.value.Get("stroke")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19979,12 +22540,11 @@ func (_this *CanvasRenderingContext2D) Stroke2(path *Path2D) {
 	_p0 := path.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stroke", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
-	_method := _this.value.Get("clip")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -19994,12 +22554,11 @@ func (_this *CanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clip", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Clip2(path *Path2D, fillRule *CanvasFillRule) {
-	_method := _this.value.Get("clip")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20012,12 +22571,11 @@ func (_this *CanvasRenderingContext2D) Clip2(path *Path2D, fillRule *CanvasFillR
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clip", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	_method := _this.value.Get("isPointInPath")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -20033,7 +22591,7 @@ func (_this *CanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillR
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInPath", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -20043,7 +22601,6 @@ func (_this *CanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillR
 }
 
 func (_this *CanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	_method := _this.value.Get("isPointInPath")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20062,7 +22619,7 @@ func (_this *CanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y
 		_args[3] = _p3
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInPath", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -20072,7 +22629,6 @@ func (_this *CanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y
 }
 
 func (_this *CanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_result bool) {
-	_method := _this.value.Get("isPointInStroke")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20083,7 +22639,7 @@ func (_this *CanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_r
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInStroke", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -20093,7 +22649,6 @@ func (_this *CanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_r
 }
 
 func (_this *CanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64, y float64) (_result bool) {
-	_method := _this.value.Get("isPointInStroke")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -20107,7 +22662,7 @@ func (_this *CanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64,
 	_p2 := y
 	_args[2] = _p2
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInStroke", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -20117,7 +22672,6 @@ func (_this *CanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64,
 }
 
 func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded(element *Element) {
-	_method := _this.value.Get("drawFocusIfNeeded")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20125,12 +22679,11 @@ func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded(element *Element) {
 	_p0 := element.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawFocusIfNeeded", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded2(path *Path2D, element *Element) {
-	_method := _this.value.Get("drawFocusIfNeeded")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20141,22 +22694,20 @@ func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded2(path *Path2D, element 
 	_p1 := element.JSValue()
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawFocusIfNeeded", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) ScrollPathIntoView() {
-	_method := _this.value.Get("scrollPathIntoView")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("scrollPathIntoView", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) ScrollPathIntoView2(path *Path2D) {
-	_method := _this.value.Get("scrollPathIntoView")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20164,12 +22715,11 @@ func (_this *CanvasRenderingContext2D) ScrollPathIntoView2(path *Path2D) {
 	_p0 := path.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("scrollPathIntoView", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) FillText(text string, x float64, y float64, maxWidth *float64) {
-	_method := _this.value.Get("fillText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20188,12 +22738,11 @@ func (_this *CanvasRenderingContext2D) FillText(text string, x float64, y float6
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fillText", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) StrokeText(text string, x float64, y float64, maxWidth *float64) {
-	_method := _this.value.Get("strokeText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20212,12 +22761,11 @@ func (_this *CanvasRenderingContext2D) StrokeText(text string, x float64, y floa
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("strokeText", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) MeasureText(text string) (_result *TextMetrics) {
-	_method := _this.value.Get("measureText")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20225,7 +22773,7 @@ func (_this *CanvasRenderingContext2D) MeasureText(text string) (_result *TextMe
 	_p0 := text
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("measureText", _args[0:_end]...)
 	var (
 		_converted *TextMetrics // javascript: TextMetrics _what_return_name
 	)
@@ -20235,7 +22783,6 @@ func (_this *CanvasRenderingContext2D) MeasureText(text string) (_result *TextMe
 }
 
 func (_this *CanvasRenderingContext2D) DrawImage(image *Union, dx float64, dy float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -20249,12 +22796,11 @@ func (_this *CanvasRenderingContext2D) DrawImage(image *Union, dx float64, dy fl
 	_p2 := dy
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) DrawImage2(image *Union, dx float64, dy float64, dw float64, dh float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [5]interface{}
 		_end  int
@@ -20274,12 +22820,11 @@ func (_this *CanvasRenderingContext2D) DrawImage2(image *Union, dx float64, dy f
 	_p4 := dh
 	_args[4] = _p4
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) DrawImage3(image *Union, sx float64, sy float64, sw float64, sh float64, dx float64, dy float64, dw float64, dh float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [9]interface{}
 		_end  int
@@ -20311,12 +22856,11 @@ func (_this *CanvasRenderingContext2D) DrawImage3(image *Union, sx float64, sy f
 	_p8 := dh
 	_args[8] = _p8
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result *ImageData) {
-	_method := _this.value.Get("createImageData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20327,7 +22871,7 @@ func (_this *CanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result 
 	_p1 := sh
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -20337,7 +22881,6 @@ func (_this *CanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result 
 }
 
 func (_this *CanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_result *ImageData) {
-	_method := _this.value.Get("createImageData")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20345,7 +22888,7 @@ func (_this *CanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_
 	_p0 := imagedata.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -20355,7 +22898,6 @@ func (_this *CanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_
 }
 
 func (_this *CanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh int) (_result *ImageData) {
-	_method := _this.value.Get("getImageData")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20372,7 +22914,7 @@ func (_this *CanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh i
 	_p3 := sh
 	_args[3] = _p3
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -20382,7 +22924,6 @@ func (_this *CanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh i
 }
 
 func (_this *CanvasRenderingContext2D) PutImageData(imagedata *ImageData, dx int, dy int) {
-	_method := _this.value.Get("putImageData")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -20396,12 +22937,11 @@ func (_this *CanvasRenderingContext2D) PutImageData(imagedata *ImageData, dx int
 	_p2 := dy
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("putImageData", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx int, dy int, dirtyX int, dirtyY int, dirtyWidth int, dirtyHeight int) {
-	_method := _this.value.Get("putImageData")
 	var (
 		_args [7]interface{}
 		_end  int
@@ -20427,12 +22967,11 @@ func (_this *CanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx in
 	_p6 := dirtyHeight
 	_args[6] = _p6
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("putImageData", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) SetLineDash(segments js.Value) {
-	_method := _this.value.Get("setLineDash")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20440,17 +22979,16 @@ func (_this *CanvasRenderingContext2D) SetLineDash(segments js.Value) {
 	_p0 := segments
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setLineDash", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) GetLineDash() (_result js.Value) {
-	_method := _this.value.Get("getLineDash")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getLineDash", _args[0:_end]...)
 	var (
 		_converted js.Value // javascript: typed-array _what_return_name
 	)
@@ -20460,17 +22998,15 @@ func (_this *CanvasRenderingContext2D) GetLineDash() (_result js.Value) {
 }
 
 func (_this *CanvasRenderingContext2D) ClosePath() {
-	_method := _this.value.Get("closePath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("closePath", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) MoveTo(x float64, y float64) {
-	_method := _this.value.Get("moveTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20481,12 +23017,11 @@ func (_this *CanvasRenderingContext2D) MoveTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("moveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) LineTo(x float64, y float64) {
-	_method := _this.value.Get("lineTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20497,12 +23032,11 @@ func (_this *CanvasRenderingContext2D) LineTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("lineTo", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	_method := _this.value.Get("quadraticCurveTo")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20519,12 +23053,11 @@ func (_this *CanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64
 	_p3 := y
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("quadraticCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	_method := _this.value.Get("bezierCurveTo")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -20547,12 +23080,11 @@ func (_this *CanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64,
 	_p5 := y
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("bezierCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	_method := _this.value.Get("arcTo")
 	var (
 		_args [5]interface{}
 		_end  int
@@ -20572,12 +23104,11 @@ func (_this *CanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64,
 	_p4 := radius
 	_args[4] = _p4
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arcTo", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("rect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -20594,12 +23125,11 @@ func (_this *CanvasRenderingContext2D) Rect(x float64, y float64, w float64, h f
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("rect", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("arc")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -20624,12 +23154,11 @@ func (_this *CanvasRenderingContext2D) Arc(x float64, y float64, radius float64,
 		_args[5] = _p5
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arc", _args[0:_end]...)
 	return
 }
 
 func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("ellipse")
 	var (
 		_args [8]interface{}
 		_end  int
@@ -20660,7 +23189,7 @@ func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX flo
 		_args[7] = _p7
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("ellipse", _args[0:_end]...)
 	return
 }
 
@@ -20684,7 +23213,6 @@ func CanvasGradientFromJS(input js.Value) *CanvasGradient {
 }
 
 func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
-	_method := _this.value.Get("addColorStop")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20695,7 +23223,7 @@ func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
 	_p1 := color
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("addColorStop", _args[0:_end]...)
 	return
 }
 
@@ -20719,7 +23247,6 @@ func CanvasPatternFromJS(input js.Value) *CanvasPattern {
 }
 
 func (_this *CanvasPattern) SetTransform(transform *DOMMatrix2DInit) {
-	_method := _this.value.Get("setTransform")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -20729,7 +23256,7 @@ func (_this *CanvasPattern) SetTransform(transform *DOMMatrix2DInit) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setTransform", _args[0:_end]...)
 	return
 }
 
@@ -20752,6 +23279,8 @@ func TextMetricsFromJS(input js.Value) *TextMetrics {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type float64 (idl: double).
 func (_this *TextMetrics) Width() float64 {
 	var ret float64
 	value := _this.value.Get("width")
@@ -20759,6 +23288,8 @@ func (_this *TextMetrics) Width() float64 {
 	return ret
 }
 
+// ActualBoundingBoxLeft returning attribute 'actualBoundingBoxLeft' with
+// type float64 (idl: double).
 func (_this *TextMetrics) ActualBoundingBoxLeft() float64 {
 	var ret float64
 	value := _this.value.Get("actualBoundingBoxLeft")
@@ -20766,6 +23297,8 @@ func (_this *TextMetrics) ActualBoundingBoxLeft() float64 {
 	return ret
 }
 
+// ActualBoundingBoxRight returning attribute 'actualBoundingBoxRight' with
+// type float64 (idl: double).
 func (_this *TextMetrics) ActualBoundingBoxRight() float64 {
 	var ret float64
 	value := _this.value.Get("actualBoundingBoxRight")
@@ -20773,6 +23306,8 @@ func (_this *TextMetrics) ActualBoundingBoxRight() float64 {
 	return ret
 }
 
+// FontBoundingBoxAscent returning attribute 'fontBoundingBoxAscent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) FontBoundingBoxAscent() float64 {
 	var ret float64
 	value := _this.value.Get("fontBoundingBoxAscent")
@@ -20780,6 +23315,8 @@ func (_this *TextMetrics) FontBoundingBoxAscent() float64 {
 	return ret
 }
 
+// FontBoundingBoxDescent returning attribute 'fontBoundingBoxDescent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) FontBoundingBoxDescent() float64 {
 	var ret float64
 	value := _this.value.Get("fontBoundingBoxDescent")
@@ -20787,6 +23324,8 @@ func (_this *TextMetrics) FontBoundingBoxDescent() float64 {
 	return ret
 }
 
+// ActualBoundingBoxAscent returning attribute 'actualBoundingBoxAscent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) ActualBoundingBoxAscent() float64 {
 	var ret float64
 	value := _this.value.Get("actualBoundingBoxAscent")
@@ -20794,6 +23333,8 @@ func (_this *TextMetrics) ActualBoundingBoxAscent() float64 {
 	return ret
 }
 
+// ActualBoundingBoxDescent returning attribute 'actualBoundingBoxDescent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) ActualBoundingBoxDescent() float64 {
 	var ret float64
 	value := _this.value.Get("actualBoundingBoxDescent")
@@ -20801,6 +23342,8 @@ func (_this *TextMetrics) ActualBoundingBoxDescent() float64 {
 	return ret
 }
 
+// EmHeightAscent returning attribute 'emHeightAscent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) EmHeightAscent() float64 {
 	var ret float64
 	value := _this.value.Get("emHeightAscent")
@@ -20808,6 +23351,8 @@ func (_this *TextMetrics) EmHeightAscent() float64 {
 	return ret
 }
 
+// EmHeightDescent returning attribute 'emHeightDescent' with
+// type float64 (idl: double).
 func (_this *TextMetrics) EmHeightDescent() float64 {
 	var ret float64
 	value := _this.value.Get("emHeightDescent")
@@ -20815,6 +23360,8 @@ func (_this *TextMetrics) EmHeightDescent() float64 {
 	return ret
 }
 
+// HangingBaseline returning attribute 'hangingBaseline' with
+// type float64 (idl: double).
 func (_this *TextMetrics) HangingBaseline() float64 {
 	var ret float64
 	value := _this.value.Get("hangingBaseline")
@@ -20822,6 +23369,8 @@ func (_this *TextMetrics) HangingBaseline() float64 {
 	return ret
 }
 
+// AlphabeticBaseline returning attribute 'alphabeticBaseline' with
+// type float64 (idl: double).
 func (_this *TextMetrics) AlphabeticBaseline() float64 {
 	var ret float64
 	value := _this.value.Get("alphabeticBaseline")
@@ -20829,6 +23378,8 @@ func (_this *TextMetrics) AlphabeticBaseline() float64 {
 	return ret
 }
 
+// IdeographicBaseline returning attribute 'ideographicBaseline' with
+// type float64 (idl: double).
 func (_this *TextMetrics) IdeographicBaseline() float64 {
 	var ret float64
 	value := _this.value.Get("ideographicBaseline")
@@ -20881,6 +23432,8 @@ func NewImageData(data *Uint8ClampedArray, sw uint, sh *uint) (_result *ImageDat
 	return
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *ImageData) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -20888,6 +23441,8 @@ func (_this *ImageData) Width() uint {
 	return ret
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *ImageData) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -20895,6 +23450,8 @@ func (_this *ImageData) Height() uint {
 	return ret
 }
 
+// Data returning attribute 'data' with
+// type Uint8ClampedArray (idl: Uint8ClampedArray).
 func (_this *ImageData) Data() *Uint8ClampedArray {
 	var ret *Uint8ClampedArray
 	value := _this.value.Get("data")
@@ -20942,7 +23499,6 @@ func NewPath2D(path *Union) (_result *Path2D) {
 }
 
 func (_this *Path2D) AddPath(path *Path2D, transform *DOMMatrix2DInit) {
-	_method := _this.value.Get("addPath")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20955,22 +23511,20 @@ func (_this *Path2D) AddPath(path *Path2D, transform *DOMMatrix2DInit) {
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("addPath", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) ClosePath() {
-	_method := _this.value.Get("closePath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("closePath", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) MoveTo(x float64, y float64) {
-	_method := _this.value.Get("moveTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20981,12 +23535,11 @@ func (_this *Path2D) MoveTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("moveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) LineTo(x float64, y float64) {
-	_method := _this.value.Get("lineTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -20997,12 +23550,11 @@ func (_this *Path2D) LineTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("lineTo", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	_method := _this.value.Get("quadraticCurveTo")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21019,12 +23571,11 @@ func (_this *Path2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y flo
 	_p3 := y
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("quadraticCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	_method := _this.value.Get("bezierCurveTo")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -21047,12 +23598,11 @@ func (_this *Path2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2
 	_p5 := y
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("bezierCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	_method := _this.value.Get("arcTo")
 	var (
 		_args [5]interface{}
 		_end  int
@@ -21072,12 +23622,11 @@ func (_this *Path2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radiu
 	_p4 := radius
 	_args[4] = _p4
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arcTo", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) Rect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("rect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21094,12 +23643,11 @@ func (_this *Path2D) Rect(x float64, y float64, w float64, h float64) {
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("rect", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("arc")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -21124,12 +23672,11 @@ func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float6
 		_args[5] = _p5
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arc", _args[0:_end]...)
 	return
 }
 
 func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("ellipse")
 	var (
 		_args [8]interface{}
 		_end  int
@@ -21160,7 +23707,7 @@ func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY floa
 		_args[7] = _p7
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("ellipse", _args[0:_end]...)
 	return
 }
 
@@ -21183,6 +23730,8 @@ func ImageBitmapRenderingContextFromJS(input js.Value) *ImageBitmapRenderingCont
 	return ret
 }
 
+// Canvas returning attribute 'canvas' with
+// type HTMLCanvasElement (idl: HTMLCanvasElement).
 func (_this *ImageBitmapRenderingContext) Canvas() *HTMLCanvasElement {
 	var ret *HTMLCanvasElement
 	value := _this.value.Get("canvas")
@@ -21191,7 +23740,6 @@ func (_this *ImageBitmapRenderingContext) Canvas() *HTMLCanvasElement {
 }
 
 func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageBitmap) {
-	_method := _this.value.Get("transferFromImageBitmap")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21199,7 +23747,7 @@ func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageB
 	_p0 := bitmap.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("transferFromImageBitmap", _args[0:_end]...)
 	return
 }
 
@@ -21243,6 +23791,8 @@ func NewOffscreenCanvas(width int, height int) (_result *OffscreenCanvas) {
 	return
 }
 
+// Width returning attribute 'width' with
+// type int (idl: unsigned long long).
 func (_this *OffscreenCanvas) Width() int {
 	var ret int
 	value := _this.value.Get("width")
@@ -21250,11 +23800,15 @@ func (_this *OffscreenCanvas) Width() int {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type int (idl: unsigned long long).
 func (_this *OffscreenCanvas) SetWidth(value int) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Height returning attribute 'height' with
+// type int (idl: unsigned long long).
 func (_this *OffscreenCanvas) Height() int {
 	var ret int
 	value := _this.value.Get("height")
@@ -21262,13 +23816,14 @@ func (_this *OffscreenCanvas) Height() int {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type int (idl: unsigned long long).
 func (_this *OffscreenCanvas) SetHeight(value int) {
 	input := value
 	_this.value.Set("height", input)
 }
 
 func (_this *OffscreenCanvas) GetContext(contextId OffscreenRenderingContextId, options js.Value) (_result *Union) {
-	_method := _this.value.Get("getContext")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -21281,7 +23836,7 @@ func (_this *OffscreenCanvas) GetContext(contextId OffscreenRenderingContextId, 
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getContext", _args[0:_end]...)
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
@@ -21293,12 +23848,11 @@ func (_this *OffscreenCanvas) GetContext(contextId OffscreenRenderingContextId, 
 }
 
 func (_this *OffscreenCanvas) TransferToImageBitmap() (_result *ImageBitmap) {
-	_method := _this.value.Get("transferToImageBitmap")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("transferToImageBitmap", _args[0:_end]...)
 	var (
 		_converted *ImageBitmap // javascript: ImageBitmap _what_return_name
 	)
@@ -21308,7 +23862,6 @@ func (_this *OffscreenCanvas) TransferToImageBitmap() (_result *ImageBitmap) {
 }
 
 func (_this *OffscreenCanvas) ConvertToBlob(options *ImageEncodeOptions) (_result *Promise) {
-	_method := _this.value.Get("convertToBlob")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21318,7 +23871,7 @@ func (_this *OffscreenCanvas) ConvertToBlob(options *ImageEncodeOptions) (_resul
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("convertToBlob", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -21346,6 +23899,8 @@ func OffscreenCanvasRenderingContext2DFromJS(input js.Value) *OffscreenCanvasRen
 	return ret
 }
 
+// Canvas returning attribute 'canvas' with
+// type OffscreenCanvas (idl: OffscreenCanvas).
 func (_this *OffscreenCanvasRenderingContext2D) Canvas() *OffscreenCanvas {
 	var ret *OffscreenCanvas
 	value := _this.value.Get("canvas")
@@ -21353,6 +23908,8 @@ func (_this *OffscreenCanvasRenderingContext2D) Canvas() *OffscreenCanvas {
 	return ret
 }
 
+// GlobalAlpha returning attribute 'globalAlpha' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) GlobalAlpha() float64 {
 	var ret float64
 	value := _this.value.Get("globalAlpha")
@@ -21360,11 +23917,15 @@ func (_this *OffscreenCanvasRenderingContext2D) GlobalAlpha() float64 {
 	return ret
 }
 
+// SetGlobalAlpha setting attribute 'globalAlpha' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetGlobalAlpha(value float64) {
 	input := value
 	_this.value.Set("globalAlpha", input)
 }
 
+// GlobalCompositeOperation returning attribute 'globalCompositeOperation' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) GlobalCompositeOperation() string {
 	var ret string
 	value := _this.value.Get("globalCompositeOperation")
@@ -21372,11 +23933,15 @@ func (_this *OffscreenCanvasRenderingContext2D) GlobalCompositeOperation() strin
 	return ret
 }
 
+// SetGlobalCompositeOperation setting attribute 'globalCompositeOperation' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) SetGlobalCompositeOperation(value string) {
 	input := value
 	_this.value.Set("globalCompositeOperation", input)
 }
 
+// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
 func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingEnabled() bool {
 	var ret bool
 	value := _this.value.Get("imageSmoothingEnabled")
@@ -21384,11 +23949,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingEnabled() bool {
 	return ret
 }
 
+// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
 func (_this *OffscreenCanvasRenderingContext2D) SetImageSmoothingEnabled(value bool) {
 	input := value
 	_this.value.Set("imageSmoothingEnabled", input)
 }
 
+// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
+// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
 func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingQuality() ImageSmoothingQuality {
 	var ret ImageSmoothingQuality
 	value := _this.value.Get("imageSmoothingQuality")
@@ -21396,11 +23965,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingQuality() ImageSmo
 	return ret
 }
 
+// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
+// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
 func (_this *OffscreenCanvasRenderingContext2D) SetImageSmoothingQuality(value ImageSmoothingQuality) {
 	input := value.JSValue()
 	_this.value.Set("imageSmoothingQuality", input)
 }
 
+// StrokeStyle returning attribute 'strokeStyle' with
+// type Union (idl: Union).
 func (_this *OffscreenCanvasRenderingContext2D) StrokeStyle() *Union {
 	var ret *Union
 	value := _this.value.Get("strokeStyle")
@@ -21408,11 +23981,15 @@ func (_this *OffscreenCanvasRenderingContext2D) StrokeStyle() *Union {
 	return ret
 }
 
+// SetStrokeStyle setting attribute 'strokeStyle' with
+// type Union (idl: Union).
 func (_this *OffscreenCanvasRenderingContext2D) SetStrokeStyle(value *Union) {
 	input := value.JSValue()
 	_this.value.Set("strokeStyle", input)
 }
 
+// FillStyle returning attribute 'fillStyle' with
+// type Union (idl: Union).
 func (_this *OffscreenCanvasRenderingContext2D) FillStyle() *Union {
 	var ret *Union
 	value := _this.value.Get("fillStyle")
@@ -21420,11 +23997,15 @@ func (_this *OffscreenCanvasRenderingContext2D) FillStyle() *Union {
 	return ret
 }
 
+// SetFillStyle setting attribute 'fillStyle' with
+// type Union (idl: Union).
 func (_this *OffscreenCanvasRenderingContext2D) SetFillStyle(value *Union) {
 	input := value.JSValue()
 	_this.value.Set("fillStyle", input)
 }
 
+// ShadowOffsetX returning attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetX() float64 {
 	var ret float64
 	value := _this.value.Get("shadowOffsetX")
@@ -21432,11 +24013,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetX() float64 {
 	return ret
 }
 
+// SetShadowOffsetX setting attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetShadowOffsetX(value float64) {
 	input := value
 	_this.value.Set("shadowOffsetX", input)
 }
 
+// ShadowOffsetY returning attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetY() float64 {
 	var ret float64
 	value := _this.value.Get("shadowOffsetY")
@@ -21444,11 +24029,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetY() float64 {
 	return ret
 }
 
+// SetShadowOffsetY setting attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetShadowOffsetY(value float64) {
 	input := value
 	_this.value.Set("shadowOffsetY", input)
 }
 
+// ShadowBlur returning attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) ShadowBlur() float64 {
 	var ret float64
 	value := _this.value.Get("shadowBlur")
@@ -21456,11 +24045,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ShadowBlur() float64 {
 	return ret
 }
 
+// SetShadowBlur setting attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetShadowBlur(value float64) {
 	input := value
 	_this.value.Set("shadowBlur", input)
 }
 
+// ShadowColor returning attribute 'shadowColor' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) ShadowColor() string {
 	var ret string
 	value := _this.value.Get("shadowColor")
@@ -21468,11 +24061,15 @@ func (_this *OffscreenCanvasRenderingContext2D) ShadowColor() string {
 	return ret
 }
 
+// SetShadowColor setting attribute 'shadowColor' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) SetShadowColor(value string) {
 	input := value
 	_this.value.Set("shadowColor", input)
 }
 
+// Filter returning attribute 'filter' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) Filter() string {
 	var ret string
 	value := _this.value.Get("filter")
@@ -21480,11 +24077,15 @@ func (_this *OffscreenCanvasRenderingContext2D) Filter() string {
 	return ret
 }
 
+// SetFilter setting attribute 'filter' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) SetFilter(value string) {
 	input := value
 	_this.value.Set("filter", input)
 }
 
+// LineWidth returning attribute 'lineWidth' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) LineWidth() float64 {
 	var ret float64
 	value := _this.value.Get("lineWidth")
@@ -21492,11 +24093,15 @@ func (_this *OffscreenCanvasRenderingContext2D) LineWidth() float64 {
 	return ret
 }
 
+// SetLineWidth setting attribute 'lineWidth' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetLineWidth(value float64) {
 	input := value
 	_this.value.Set("lineWidth", input)
 }
 
+// LineCap returning attribute 'lineCap' with
+// type CanvasLineCap (idl: CanvasLineCap).
 func (_this *OffscreenCanvasRenderingContext2D) LineCap() CanvasLineCap {
 	var ret CanvasLineCap
 	value := _this.value.Get("lineCap")
@@ -21504,11 +24109,15 @@ func (_this *OffscreenCanvasRenderingContext2D) LineCap() CanvasLineCap {
 	return ret
 }
 
+// SetLineCap setting attribute 'lineCap' with
+// type CanvasLineCap (idl: CanvasLineCap).
 func (_this *OffscreenCanvasRenderingContext2D) SetLineCap(value CanvasLineCap) {
 	input := value.JSValue()
 	_this.value.Set("lineCap", input)
 }
 
+// LineJoin returning attribute 'lineJoin' with
+// type CanvasLineJoin (idl: CanvasLineJoin).
 func (_this *OffscreenCanvasRenderingContext2D) LineJoin() CanvasLineJoin {
 	var ret CanvasLineJoin
 	value := _this.value.Get("lineJoin")
@@ -21516,11 +24125,15 @@ func (_this *OffscreenCanvasRenderingContext2D) LineJoin() CanvasLineJoin {
 	return ret
 }
 
+// SetLineJoin setting attribute 'lineJoin' with
+// type CanvasLineJoin (idl: CanvasLineJoin).
 func (_this *OffscreenCanvasRenderingContext2D) SetLineJoin(value CanvasLineJoin) {
 	input := value.JSValue()
 	_this.value.Set("lineJoin", input)
 }
 
+// MiterLimit returning attribute 'miterLimit' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) MiterLimit() float64 {
 	var ret float64
 	value := _this.value.Get("miterLimit")
@@ -21528,11 +24141,15 @@ func (_this *OffscreenCanvasRenderingContext2D) MiterLimit() float64 {
 	return ret
 }
 
+// SetMiterLimit setting attribute 'miterLimit' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetMiterLimit(value float64) {
 	input := value
 	_this.value.Set("miterLimit", input)
 }
 
+// LineDashOffset returning attribute 'lineDashOffset' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) LineDashOffset() float64 {
 	var ret float64
 	value := _this.value.Get("lineDashOffset")
@@ -21540,11 +24157,15 @@ func (_this *OffscreenCanvasRenderingContext2D) LineDashOffset() float64 {
 	return ret
 }
 
+// SetLineDashOffset setting attribute 'lineDashOffset' with
+// type float64 (idl: unrestricted double).
 func (_this *OffscreenCanvasRenderingContext2D) SetLineDashOffset(value float64) {
 	input := value
 	_this.value.Set("lineDashOffset", input)
 }
 
+// Font returning attribute 'font' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) Font() string {
 	var ret string
 	value := _this.value.Get("font")
@@ -21552,11 +24173,15 @@ func (_this *OffscreenCanvasRenderingContext2D) Font() string {
 	return ret
 }
 
+// SetFont setting attribute 'font' with
+// type string (idl: DOMString).
 func (_this *OffscreenCanvasRenderingContext2D) SetFont(value string) {
 	input := value
 	_this.value.Set("font", input)
 }
 
+// TextAlign returning attribute 'textAlign' with
+// type CanvasTextAlign (idl: CanvasTextAlign).
 func (_this *OffscreenCanvasRenderingContext2D) TextAlign() CanvasTextAlign {
 	var ret CanvasTextAlign
 	value := _this.value.Get("textAlign")
@@ -21564,11 +24189,15 @@ func (_this *OffscreenCanvasRenderingContext2D) TextAlign() CanvasTextAlign {
 	return ret
 }
 
+// SetTextAlign setting attribute 'textAlign' with
+// type CanvasTextAlign (idl: CanvasTextAlign).
 func (_this *OffscreenCanvasRenderingContext2D) SetTextAlign(value CanvasTextAlign) {
 	input := value.JSValue()
 	_this.value.Set("textAlign", input)
 }
 
+// TextBaseline returning attribute 'textBaseline' with
+// type CanvasTextBaseline (idl: CanvasTextBaseline).
 func (_this *OffscreenCanvasRenderingContext2D) TextBaseline() CanvasTextBaseline {
 	var ret CanvasTextBaseline
 	value := _this.value.Get("textBaseline")
@@ -21576,11 +24205,15 @@ func (_this *OffscreenCanvasRenderingContext2D) TextBaseline() CanvasTextBaselin
 	return ret
 }
 
+// SetTextBaseline setting attribute 'textBaseline' with
+// type CanvasTextBaseline (idl: CanvasTextBaseline).
 func (_this *OffscreenCanvasRenderingContext2D) SetTextBaseline(value CanvasTextBaseline) {
 	input := value.JSValue()
 	_this.value.Set("textBaseline", input)
 }
 
+// Direction returning attribute 'direction' with
+// type CanvasDirection (idl: CanvasDirection).
 func (_this *OffscreenCanvasRenderingContext2D) Direction() CanvasDirection {
 	var ret CanvasDirection
 	value := _this.value.Get("direction")
@@ -21588,43 +24221,41 @@ func (_this *OffscreenCanvasRenderingContext2D) Direction() CanvasDirection {
 	return ret
 }
 
+// SetDirection setting attribute 'direction' with
+// type CanvasDirection (idl: CanvasDirection).
 func (_this *OffscreenCanvasRenderingContext2D) SetDirection(value CanvasDirection) {
 	input := value.JSValue()
 	_this.value.Set("direction", input)
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Commit() {
-	_method := _this.value.Get("commit")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("commit", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Save() {
-	_method := _this.value.Get("save")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("save", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Restore() {
-	_method := _this.value.Get("restore")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("restore", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Scale(x float64, y float64) {
-	_method := _this.value.Get("scale")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -21635,12 +24266,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Scale(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("scale", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Rotate(angle float64) {
-	_method := _this.value.Get("rotate")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21648,12 +24278,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Rotate(angle float64) {
 	_p0 := angle
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("rotate", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Translate(x float64, y float64) {
-	_method := _this.value.Get("translate")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -21664,12 +24293,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Translate(x float64, y float64) 
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("translate", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Transform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	_method := _this.value.Get("transform")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -21692,17 +24320,16 @@ func (_this *OffscreenCanvasRenderingContext2D) Transform(a float64, b float64, 
 	_p5 := f
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("transform", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) GetTransform() (_result *DOMMatrix) {
-	_method := _this.value.Get("getTransform")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getTransform", _args[0:_end]...)
 	var (
 		_converted *DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
@@ -21712,7 +24339,6 @@ func (_this *OffscreenCanvasRenderingContext2D) GetTransform() (_result *DOMMatr
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) SetTransform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	_method := _this.value.Get("setTransform")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -21735,12 +24361,11 @@ func (_this *OffscreenCanvasRenderingContext2D) SetTransform(a float64, b float6
 	_p5 := f
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) SetTransform2(transform *DOMMatrix2DInit) {
-	_method := _this.value.Get("setTransform")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21750,22 +24375,20 @@ func (_this *OffscreenCanvasRenderingContext2D) SetTransform2(transform *DOMMatr
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) ResetTransform() {
-	_method := _this.value.Get("resetTransform")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("resetTransform", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *CanvasGradient) {
-	_method := _this.value.Get("createLinearGradient")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21782,7 +24405,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateLinearGradient(x0 float64,
 	_p3 := y1
 	_args[3] = _p3
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createLinearGradient", _args[0:_end]...)
 	var (
 		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
 	)
@@ -21792,7 +24415,6 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateLinearGradient(x0 float64,
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *CanvasGradient) {
-	_method := _this.value.Get("createRadialGradient")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -21815,7 +24437,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateRadialGradient(x0 float64,
 	_p5 := r1
 	_args[5] = _p5
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createRadialGradient", _args[0:_end]...)
 	var (
 		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
 	)
@@ -21825,7 +24447,6 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateRadialGradient(x0 float64,
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *CanvasPattern) {
-	_method := _this.value.Get("createPattern")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -21836,7 +24457,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreatePattern(image *Union, repe
 	_p1 := repetition
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createPattern", _args[0:_end]...)
 	var (
 		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
 	)
@@ -21848,7 +24469,6 @@ func (_this *OffscreenCanvasRenderingContext2D) CreatePattern(image *Union, repe
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("clearRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21865,12 +24485,11 @@ func (_this *OffscreenCanvasRenderingContext2D) ClearRect(x float64, y float64, 
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearRect", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("fillRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21887,12 +24506,11 @@ func (_this *OffscreenCanvasRenderingContext2D) FillRect(x float64, y float64, w
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fillRect", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("strokeRect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -21909,22 +24527,20 @@ func (_this *OffscreenCanvasRenderingContext2D) StrokeRect(x float64, y float64,
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("strokeRect", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) BeginPath() {
-	_method := _this.value.Get("beginPath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("beginPath", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
-	_method := _this.value.Get("fill")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21934,12 +24550,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fill", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Fill2(path *Path2D, fillRule *CanvasFillRule) {
-	_method := _this.value.Get("fill")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -21952,22 +24567,20 @@ func (_this *OffscreenCanvasRenderingContext2D) Fill2(path *Path2D, fillRule *Ca
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fill", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Stroke() {
-	_method := _this.value.Get("stroke")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stroke", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Stroke2(path *Path2D) {
-	_method := _this.value.Get("stroke")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21975,12 +24588,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Stroke2(path *Path2D) {
 	_p0 := path.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stroke", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
-	_method := _this.value.Get("clip")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -21990,12 +24602,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clip", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Clip2(path *Path2D, fillRule *CanvasFillRule) {
-	_method := _this.value.Get("clip")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22008,12 +24619,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Clip2(path *Path2D, fillRule *Ca
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clip", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	_method := _this.value.Get("isPointInPath")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22029,7 +24639,7 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath(x float64, y float
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInPath", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -22039,7 +24649,6 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath(x float64, y float
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	_method := _this.value.Get("isPointInPath")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22058,7 +24667,7 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath2(path *Path2D, x f
 		_args[3] = _p3
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInPath", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -22068,7 +24677,6 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath2(path *Path2D, x f
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_result bool) {
-	_method := _this.value.Get("isPointInStroke")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22079,7 +24687,7 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke(x float64, y flo
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInStroke", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -22089,7 +24697,6 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke(x float64, y flo
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64, y float64) (_result bool) {
-	_method := _this.value.Get("isPointInStroke")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22103,7 +24710,7 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x
 	_p2 := y
 	_args[2] = _p2
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("isPointInStroke", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -22113,7 +24720,6 @@ func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) FillText(text string, x float64, y float64, maxWidth *float64) {
-	_method := _this.value.Get("fillText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22132,12 +24738,11 @@ func (_this *OffscreenCanvasRenderingContext2D) FillText(text string, x float64,
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("fillText", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) StrokeText(text string, x float64, y float64, maxWidth *float64) {
-	_method := _this.value.Get("strokeText")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22156,12 +24761,11 @@ func (_this *OffscreenCanvasRenderingContext2D) StrokeText(text string, x float6
 		_args[3] = _p3
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("strokeText", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) MeasureText(text string) (_result *TextMetrics) {
-	_method := _this.value.Get("measureText")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22169,7 +24773,7 @@ func (_this *OffscreenCanvasRenderingContext2D) MeasureText(text string) (_resul
 	_p0 := text
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("measureText", _args[0:_end]...)
 	var (
 		_converted *TextMetrics // javascript: TextMetrics _what_return_name
 	)
@@ -22179,7 +24783,6 @@ func (_this *OffscreenCanvasRenderingContext2D) MeasureText(text string) (_resul
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) DrawImage(image *Union, dx float64, dy float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22193,12 +24796,11 @@ func (_this *OffscreenCanvasRenderingContext2D) DrawImage(image *Union, dx float
 	_p2 := dy
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) DrawImage2(image *Union, dx float64, dy float64, dw float64, dh float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [5]interface{}
 		_end  int
@@ -22218,12 +24820,11 @@ func (_this *OffscreenCanvasRenderingContext2D) DrawImage2(image *Union, dx floa
 	_p4 := dh
 	_args[4] = _p4
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) DrawImage3(image *Union, sx float64, sy float64, sw float64, sh float64, dx float64, dy float64, dw float64, dh float64) {
-	_method := _this.value.Get("drawImage")
 	var (
 		_args [9]interface{}
 		_end  int
@@ -22255,12 +24856,11 @@ func (_this *OffscreenCanvasRenderingContext2D) DrawImage3(image *Union, sx floa
 	_p8 := dh
 	_args[8] = _p8
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("drawImage", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result *ImageData) {
-	_method := _this.value.Get("createImageData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22271,7 +24871,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateImageData(sw int, sh int) 
 	_p1 := sh
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -22281,7 +24881,6 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateImageData(sw int, sh int) 
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_result *ImageData) {
-	_method := _this.value.Get("createImageData")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22289,7 +24888,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateImageData2(imagedata *Imag
 	_p0 := imagedata.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -22299,7 +24898,6 @@ func (_this *OffscreenCanvasRenderingContext2D) CreateImageData2(imagedata *Imag
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh int) (_result *ImageData) {
-	_method := _this.value.Get("getImageData")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22316,7 +24914,7 @@ func (_this *OffscreenCanvasRenderingContext2D) GetImageData(sx int, sy int, sw 
 	_p3 := sh
 	_args[3] = _p3
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getImageData", _args[0:_end]...)
 	var (
 		_converted *ImageData // javascript: ImageData _what_return_name
 	)
@@ -22326,7 +24924,6 @@ func (_this *OffscreenCanvasRenderingContext2D) GetImageData(sx int, sy int, sw 
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) PutImageData(imagedata *ImageData, dx int, dy int) {
-	_method := _this.value.Get("putImageData")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22340,12 +24937,11 @@ func (_this *OffscreenCanvasRenderingContext2D) PutImageData(imagedata *ImageDat
 	_p2 := dy
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("putImageData", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx int, dy int, dirtyX int, dirtyY int, dirtyWidth int, dirtyHeight int) {
-	_method := _this.value.Get("putImageData")
 	var (
 		_args [7]interface{}
 		_end  int
@@ -22371,12 +24967,11 @@ func (_this *OffscreenCanvasRenderingContext2D) PutImageData2(imagedata *ImageDa
 	_p6 := dirtyHeight
 	_args[6] = _p6
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("putImageData", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) SetLineDash(segments js.Value) {
-	_method := _this.value.Get("setLineDash")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22384,17 +24979,16 @@ func (_this *OffscreenCanvasRenderingContext2D) SetLineDash(segments js.Value) {
 	_p0 := segments
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setLineDash", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) GetLineDash() (_result js.Value) {
-	_method := _this.value.Get("getLineDash")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getLineDash", _args[0:_end]...)
 	var (
 		_converted js.Value // javascript: typed-array _what_return_name
 	)
@@ -22404,17 +24998,15 @@ func (_this *OffscreenCanvasRenderingContext2D) GetLineDash() (_result js.Value)
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) ClosePath() {
-	_method := _this.value.Get("closePath")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("closePath", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) MoveTo(x float64, y float64) {
-	_method := _this.value.Get("moveTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22425,12 +25017,11 @@ func (_this *OffscreenCanvasRenderingContext2D) MoveTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("moveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) LineTo(x float64, y float64) {
-	_method := _this.value.Get("lineTo")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22441,12 +25032,11 @@ func (_this *OffscreenCanvasRenderingContext2D) LineTo(x float64, y float64) {
 	_p1 := y
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("lineTo", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	_method := _this.value.Get("quadraticCurveTo")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22463,12 +25053,11 @@ func (_this *OffscreenCanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cp
 	_p3 := y
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("quadraticCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	_method := _this.value.Get("bezierCurveTo")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -22491,12 +25080,11 @@ func (_this *OffscreenCanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y
 	_p5 := y
 	_args[5] = _p5
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("bezierCurveTo", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	_method := _this.value.Get("arcTo")
 	var (
 		_args [5]interface{}
 		_end  int
@@ -22516,12 +25104,11 @@ func (_this *OffscreenCanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2
 	_p4 := radius
 	_args[4] = _p4
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arcTo", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
-	_method := _this.value.Get("rect")
 	var (
 		_args [4]interface{}
 		_end  int
@@ -22538,12 +25125,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Rect(x float64, y float64, w flo
 	_p3 := h
 	_args[3] = _p3
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("rect", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("arc")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -22568,12 +25154,11 @@ func (_this *OffscreenCanvasRenderingContext2D) Arc(x float64, y float64, radius
 		_args[5] = _p5
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("arc", _args[0:_end]...)
 	return
 }
 
 func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	_method := _this.value.Get("ellipse")
 	var (
 		_args [8]interface{}
 		_end  int
@@ -22604,7 +25189,7 @@ func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, ra
 		_args[7] = _p7
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("ellipse", _args[0:_end]...)
 	return
 }
 
@@ -22628,7 +25213,6 @@ func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
 }
 
 func (_this *CustomElementRegistry) Define(name string, constructor *js.Callback, options *ElementDefinitionOptions) {
-	_method := _this.value.Get("define")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22651,12 +25235,11 @@ func (_this *CustomElementRegistry) Define(name string, constructor *js.Callback
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("define", _args[0:_end]...)
 	return
 }
 
 func (_this *CustomElementRegistry) Get(name string) (_result js.Value) {
-	_method := _this.value.Get("get")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22664,7 +25247,7 @@ func (_this *CustomElementRegistry) Get(name string) (_result js.Value) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("get", _args[0:_end]...)
 	var (
 		_converted js.Value // javascript: any _what_return_name
 	)
@@ -22674,7 +25257,6 @@ func (_this *CustomElementRegistry) Get(name string) (_result js.Value) {
 }
 
 func (_this *CustomElementRegistry) WhenDefined(name string) (_result *Promise) {
-	_method := _this.value.Get("whenDefined")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22682,7 +25264,7 @@ func (_this *CustomElementRegistry) WhenDefined(name string) (_result *Promise) 
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("whenDefined", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -22692,7 +25274,6 @@ func (_this *CustomElementRegistry) WhenDefined(name string) (_result *Promise) 
 }
 
 func (_this *CustomElementRegistry) Upgrade(root *Node) {
-	_method := _this.value.Get("upgrade")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22700,7 +25281,7 @@ func (_this *CustomElementRegistry) Upgrade(root *Node) {
 	_p0 := root.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("upgrade", _args[0:_end]...)
 	return
 }
 
@@ -22738,6 +25319,8 @@ func NewDataTransfer() (_result *DataTransfer) {
 	return
 }
 
+// DropEffect returning attribute 'dropEffect' with
+// type string (idl: DOMString).
 func (_this *DataTransfer) DropEffect() string {
 	var ret string
 	value := _this.value.Get("dropEffect")
@@ -22745,11 +25328,15 @@ func (_this *DataTransfer) DropEffect() string {
 	return ret
 }
 
+// SetDropEffect setting attribute 'dropEffect' with
+// type string (idl: DOMString).
 func (_this *DataTransfer) SetDropEffect(value string) {
 	input := value
 	_this.value.Set("dropEffect", input)
 }
 
+// EffectAllowed returning attribute 'effectAllowed' with
+// type string (idl: DOMString).
 func (_this *DataTransfer) EffectAllowed() string {
 	var ret string
 	value := _this.value.Get("effectAllowed")
@@ -22757,11 +25344,15 @@ func (_this *DataTransfer) EffectAllowed() string {
 	return ret
 }
 
+// SetEffectAllowed setting attribute 'effectAllowed' with
+// type string (idl: DOMString).
 func (_this *DataTransfer) SetEffectAllowed(value string) {
 	input := value
 	_this.value.Set("effectAllowed", input)
 }
 
+// Items returning attribute 'items' with
+// type DataTransferItemList (idl: DataTransferItemList).
 func (_this *DataTransfer) Items() *DataTransferItemList {
 	var ret *DataTransferItemList
 	value := _this.value.Get("items")
@@ -22769,6 +25360,8 @@ func (_this *DataTransfer) Items() *DataTransferItemList {
 	return ret
 }
 
+// Types returning attribute 'types' with
+// type FrozenArray (idl: FrozenArray).
 func (_this *DataTransfer) Types() *FrozenArray {
 	var ret *FrozenArray
 	value := _this.value.Get("types")
@@ -22776,6 +25369,8 @@ func (_this *DataTransfer) Types() *FrozenArray {
 	return ret
 }
 
+// Files returning attribute 'files' with
+// type FileList (idl: FileList).
 func (_this *DataTransfer) Files() *FileList {
 	var ret *FileList
 	value := _this.value.Get("files")
@@ -22784,7 +25379,6 @@ func (_this *DataTransfer) Files() *FileList {
 }
 
 func (_this *DataTransfer) SetDragImage(image *Element, x int, y int) {
-	_method := _this.value.Get("setDragImage")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -22798,12 +25392,11 @@ func (_this *DataTransfer) SetDragImage(image *Element, x int, y int) {
 	_p2 := y
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setDragImage", _args[0:_end]...)
 	return
 }
 
 func (_this *DataTransfer) GetData(format string) (_result string) {
-	_method := _this.value.Get("getData")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22811,7 +25404,7 @@ func (_this *DataTransfer) GetData(format string) (_result string) {
 	_p0 := format
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getData", _args[0:_end]...)
 	var (
 		_converted string // javascript: DOMString _what_return_name
 	)
@@ -22821,7 +25414,6 @@ func (_this *DataTransfer) GetData(format string) (_result string) {
 }
 
 func (_this *DataTransfer) SetData(format string, data string) {
-	_method := _this.value.Get("setData")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22832,12 +25424,11 @@ func (_this *DataTransfer) SetData(format string, data string) {
 	_p1 := data
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setData", _args[0:_end]...)
 	return
 }
 
 func (_this *DataTransfer) ClearData(format *string) {
-	_method := _this.value.Get("clearData")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22847,7 +25438,7 @@ func (_this *DataTransfer) ClearData(format *string) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearData", _args[0:_end]...)
 	return
 }
 
@@ -22870,6 +25461,8 @@ func DataTransferItemListFromJS(input js.Value) *DataTransferItemList {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *DataTransferItemList) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -22878,7 +25471,6 @@ func (_this *DataTransferItemList) Length() uint {
 }
 
 func (_this *DataTransferItemList) Add(data string, _type string) (_result *DataTransferItem) {
-	_method := _this.value.Get("add")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -22889,7 +25481,7 @@ func (_this *DataTransferItemList) Add(data string, _type string) (_result *Data
 	_p1 := _type
 	_args[1] = _p1
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("add", _args[0:_end]...)
 	var (
 		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
 	)
@@ -22901,7 +25493,6 @@ func (_this *DataTransferItemList) Add(data string, _type string) (_result *Data
 }
 
 func (_this *DataTransferItemList) Add2(data *File) (_result *DataTransferItem) {
-	_method := _this.value.Get("add")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22909,7 +25500,7 @@ func (_this *DataTransferItemList) Add2(data *File) (_result *DataTransferItem) 
 	_p0 := data.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("add", _args[0:_end]...)
 	var (
 		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
 	)
@@ -22921,7 +25512,6 @@ func (_this *DataTransferItemList) Add2(data *File) (_result *DataTransferItem) 
 }
 
 func (_this *DataTransferItemList) Remove(index uint) {
-	_method := _this.value.Get("remove")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22929,17 +25519,16 @@ func (_this *DataTransferItemList) Remove(index uint) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("remove", _args[0:_end]...)
 	return
 }
 
 func (_this *DataTransferItemList) Clear() {
-	_method := _this.value.Get("clear")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clear", _args[0:_end]...)
 	return
 }
 
@@ -22962,6 +25551,8 @@ func DataTransferItemFromJS(input js.Value) *DataTransferItem {
 	return ret
 }
 
+// Kind returning attribute 'kind' with
+// type string (idl: DOMString).
 func (_this *DataTransferItem) Kind() string {
 	var ret string
 	value := _this.value.Get("kind")
@@ -22969,6 +25560,8 @@ func (_this *DataTransferItem) Kind() string {
 	return ret
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *DataTransferItem) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -22977,7 +25570,6 @@ func (_this *DataTransferItem) Type() string {
 }
 
 func (_this *DataTransferItem) GetAsString(callback *js.Callback) {
-	_method := _this.value.Get("getAsString")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -22992,17 +25584,16 @@ func (_this *DataTransferItem) GetAsString(callback *js.Callback) {
 	_p0 := __callback0
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("getAsString", _args[0:_end]...)
 	return
 }
 
 func (_this *DataTransferItem) GetAsFile() (_result *File) {
-	_method := _this.value.Get("getAsFile")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getAsFile", _args[0:_end]...)
 	var (
 		_converted *File // javascript: File _what_return_name
 	)
@@ -23055,6 +25646,8 @@ func NewDragEvent(_type string, eventInitDict *DragEventInit) (_result *DragEven
 	return
 }
 
+// DataTransfer returning attribute 'dataTransfer' with
+// type DataTransfer (idl: DataTransfer).
 func (_this *DragEvent) DataTransfer() *DataTransfer {
 	var ret *DataTransfer
 	value := _this.value.Get("dataTransfer")
@@ -23083,6 +25676,8 @@ func WindowFromJS(input js.Value) *Window {
 	return ret
 }
 
+// Window returning attribute 'window' with
+// type Window (idl: Window).
 func (_this *Window) Window() *Window {
 	var ret *Window
 	value := _this.value.Get("window")
@@ -23090,6 +25685,8 @@ func (_this *Window) Window() *Window {
 	return ret
 }
 
+// Self returning attribute 'self' with
+// type Window (idl: Window).
 func (_this *Window) Self() *Window {
 	var ret *Window
 	value := _this.value.Get("self")
@@ -23097,6 +25694,8 @@ func (_this *Window) Self() *Window {
 	return ret
 }
 
+// Document returning attribute 'document' with
+// type Document (idl: Document).
 func (_this *Window) Document() *Document {
 	var ret *Document
 	value := _this.value.Get("document")
@@ -23104,6 +25703,8 @@ func (_this *Window) Document() *Document {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *Window) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -23111,11 +25712,15 @@ func (_this *Window) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *Window) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Location returning attribute 'location' with
+// type Location (idl: Location).
 func (_this *Window) Location() *Location {
 	var ret *Location
 	value := _this.value.Get("location")
@@ -23123,6 +25728,8 @@ func (_this *Window) Location() *Location {
 	return ret
 }
 
+// History returning attribute 'history' with
+// type History (idl: History).
 func (_this *Window) History() *History {
 	var ret *History
 	value := _this.value.Get("history")
@@ -23130,6 +25737,8 @@ func (_this *Window) History() *History {
 	return ret
 }
 
+// CustomElements returning attribute 'customElements' with
+// type CustomElementRegistry (idl: CustomElementRegistry).
 func (_this *Window) CustomElements() *CustomElementRegistry {
 	var ret *CustomElementRegistry
 	value := _this.value.Get("customElements")
@@ -23137,6 +25746,8 @@ func (_this *Window) CustomElements() *CustomElementRegistry {
 	return ret
 }
 
+// Locationbar returning attribute 'locationbar' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Locationbar() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("locationbar")
@@ -23144,6 +25755,8 @@ func (_this *Window) Locationbar() *BarProp {
 	return ret
 }
 
+// Menubar returning attribute 'menubar' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Menubar() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("menubar")
@@ -23151,6 +25764,8 @@ func (_this *Window) Menubar() *BarProp {
 	return ret
 }
 
+// Personalbar returning attribute 'personalbar' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Personalbar() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("personalbar")
@@ -23158,6 +25773,8 @@ func (_this *Window) Personalbar() *BarProp {
 	return ret
 }
 
+// Scrollbars returning attribute 'scrollbars' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Scrollbars() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("scrollbars")
@@ -23165,6 +25782,8 @@ func (_this *Window) Scrollbars() *BarProp {
 	return ret
 }
 
+// Statusbar returning attribute 'statusbar' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Statusbar() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("statusbar")
@@ -23172,6 +25791,8 @@ func (_this *Window) Statusbar() *BarProp {
 	return ret
 }
 
+// Toolbar returning attribute 'toolbar' with
+// type BarProp (idl: BarProp).
 func (_this *Window) Toolbar() *BarProp {
 	var ret *BarProp
 	value := _this.value.Get("toolbar")
@@ -23179,6 +25800,8 @@ func (_this *Window) Toolbar() *BarProp {
 	return ret
 }
 
+// Status returning attribute 'status' with
+// type string (idl: DOMString).
 func (_this *Window) Status() string {
 	var ret string
 	value := _this.value.Get("status")
@@ -23186,11 +25809,15 @@ func (_this *Window) Status() string {
 	return ret
 }
 
+// SetStatus setting attribute 'status' with
+// type string (idl: DOMString).
 func (_this *Window) SetStatus(value string) {
 	input := value
 	_this.value.Set("status", input)
 }
 
+// Closed returning attribute 'closed' with
+// type bool (idl: boolean).
 func (_this *Window) Closed() bool {
 	var ret bool
 	value := _this.value.Get("closed")
@@ -23198,6 +25825,8 @@ func (_this *Window) Closed() bool {
 	return ret
 }
 
+// Frames returning attribute 'frames' with
+// type Window (idl: Window).
 func (_this *Window) Frames() *Window {
 	var ret *Window
 	value := _this.value.Get("frames")
@@ -23205,6 +25834,8 @@ func (_this *Window) Frames() *Window {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *Window) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -23212,6 +25843,8 @@ func (_this *Window) Length() uint {
 	return ret
 }
 
+// Top returning attribute 'top' with
+// type Window (idl: Window).
 func (_this *Window) Top() *Window {
 	var ret *Window
 	value := _this.value.Get("top")
@@ -23221,6 +25854,8 @@ func (_this *Window) Top() *Window {
 	return ret
 }
 
+// Opener returning attribute 'opener' with
+// type js.Value (idl: any).
 func (_this *Window) Opener() js.Value {
 	var ret js.Value
 	value := _this.value.Get("opener")
@@ -23228,11 +25863,15 @@ func (_this *Window) Opener() js.Value {
 	return ret
 }
 
+// SetOpener setting attribute 'opener' with
+// type js.Value (idl: any).
 func (_this *Window) SetOpener(value js.Value) {
 	input := value
 	_this.value.Set("opener", input)
 }
 
+// Parent returning attribute 'parent' with
+// type Window (idl: Window).
 func (_this *Window) Parent() *Window {
 	var ret *Window
 	value := _this.value.Get("parent")
@@ -23242,6 +25881,8 @@ func (_this *Window) Parent() *Window {
 	return ret
 }
 
+// FrameElement returning attribute 'frameElement' with
+// type Element (idl: Element).
 func (_this *Window) FrameElement() *Element {
 	var ret *Element
 	value := _this.value.Get("frameElement")
@@ -23251,6 +25892,8 @@ func (_this *Window) FrameElement() *Element {
 	return ret
 }
 
+// Navigator returning attribute 'navigator' with
+// type Navigator (idl: Navigator).
 func (_this *Window) Navigator() *Navigator {
 	var ret *Navigator
 	value := _this.value.Get("navigator")
@@ -23258,6 +25901,8 @@ func (_this *Window) Navigator() *Navigator {
 	return ret
 }
 
+// ApplicationCache returning attribute 'applicationCache' with
+// type ApplicationCache (idl: ApplicationCache).
 func (_this *Window) ApplicationCache() *ApplicationCache {
 	var ret *ApplicationCache
 	value := _this.value.Get("applicationCache")
@@ -23265,6 +25910,8 @@ func (_this *Window) ApplicationCache() *ApplicationCache {
 	return ret
 }
 
+// Event returning attribute 'event' with
+// type js.Value (idl: any).
 func (_this *Window) Event() js.Value {
 	var ret js.Value
 	value := _this.value.Get("event")
@@ -23272,6 +25919,8 @@ func (_this *Window) Event() js.Value {
 	return ret
 }
 
+// External returning attribute 'external' with
+// type External (idl: External).
 func (_this *Window) External() *External {
 	var ret *External
 	value := _this.value.Get("external")
@@ -23279,6 +25928,8 @@ func (_this *Window) External() *External {
 	return ret
 }
 
+// Onabort returning attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onabort() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onabort")
@@ -23288,6 +25939,8 @@ func (_this *Window) Onabort() EventHandler {
 	return ret
 }
 
+// SetOnabort setting attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnabort(value *js.Callback) {
 	var __callback25 js.Value
 	if value != nil {
@@ -23299,6 +25952,8 @@ func (_this *Window) SetOnabort(value *js.Callback) {
 	_this.value.Set("onabort", input)
 }
 
+// Onauxclick returning attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onauxclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onauxclick")
@@ -23308,6 +25963,8 @@ func (_this *Window) Onauxclick() EventHandler {
 	return ret
 }
 
+// SetOnauxclick setting attribute 'onauxclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnauxclick(value *js.Callback) {
 	var __callback26 js.Value
 	if value != nil {
@@ -23319,6 +25976,8 @@ func (_this *Window) SetOnauxclick(value *js.Callback) {
 	_this.value.Set("onauxclick", input)
 }
 
+// Onblur returning attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onblur() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onblur")
@@ -23328,6 +25987,8 @@ func (_this *Window) Onblur() EventHandler {
 	return ret
 }
 
+// SetOnblur setting attribute 'onblur' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnblur(value *js.Callback) {
 	var __callback27 js.Value
 	if value != nil {
@@ -23339,6 +26000,8 @@ func (_this *Window) SetOnblur(value *js.Callback) {
 	_this.value.Set("onblur", input)
 }
 
+// Oncancel returning attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oncancel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncancel")
@@ -23348,6 +26011,8 @@ func (_this *Window) Oncancel() EventHandler {
 	return ret
 }
 
+// SetOncancel setting attribute 'oncancel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncancel(value *js.Callback) {
 	var __callback28 js.Value
 	if value != nil {
@@ -23359,6 +26024,8 @@ func (_this *Window) SetOncancel(value *js.Callback) {
 	_this.value.Set("oncancel", input)
 }
 
+// Oncanplay returning attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oncanplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplay")
@@ -23368,6 +26035,8 @@ func (_this *Window) Oncanplay() EventHandler {
 	return ret
 }
 
+// SetOncanplay setting attribute 'oncanplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncanplay(value *js.Callback) {
 	var __callback29 js.Value
 	if value != nil {
@@ -23379,6 +26048,8 @@ func (_this *Window) SetOncanplay(value *js.Callback) {
 	_this.value.Set("oncanplay", input)
 }
 
+// Oncanplaythrough returning attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oncanplaythrough() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncanplaythrough")
@@ -23388,6 +26059,8 @@ func (_this *Window) Oncanplaythrough() EventHandler {
 	return ret
 }
 
+// SetOncanplaythrough setting attribute 'oncanplaythrough' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncanplaythrough(value *js.Callback) {
 	var __callback30 js.Value
 	if value != nil {
@@ -23399,6 +26072,8 @@ func (_this *Window) SetOncanplaythrough(value *js.Callback) {
 	_this.value.Set("oncanplaythrough", input)
 }
 
+// Onchange returning attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchange")
@@ -23408,6 +26083,8 @@ func (_this *Window) Onchange() EventHandler {
 	return ret
 }
 
+// SetOnchange setting attribute 'onchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnchange(value *js.Callback) {
 	var __callback31 js.Value
 	if value != nil {
@@ -23419,6 +26096,8 @@ func (_this *Window) SetOnchange(value *js.Callback) {
 	_this.value.Set("onchange", input)
 }
 
+// Onclick returning attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclick")
@@ -23428,6 +26107,8 @@ func (_this *Window) Onclick() EventHandler {
 	return ret
 }
 
+// SetOnclick setting attribute 'onclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnclick(value *js.Callback) {
 	var __callback32 js.Value
 	if value != nil {
@@ -23439,6 +26120,8 @@ func (_this *Window) SetOnclick(value *js.Callback) {
 	_this.value.Set("onclick", input)
 }
 
+// Onclose returning attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onclose() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclose")
@@ -23448,6 +26131,8 @@ func (_this *Window) Onclose() EventHandler {
 	return ret
 }
 
+// SetOnclose setting attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnclose(value *js.Callback) {
 	var __callback33 js.Value
 	if value != nil {
@@ -23459,6 +26144,8 @@ func (_this *Window) SetOnclose(value *js.Callback) {
 	_this.value.Set("onclose", input)
 }
 
+// Oncontextmenu returning attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oncontextmenu() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncontextmenu")
@@ -23468,6 +26155,8 @@ func (_this *Window) Oncontextmenu() EventHandler {
 	return ret
 }
 
+// SetOncontextmenu setting attribute 'oncontextmenu' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncontextmenu(value *js.Callback) {
 	var __callback34 js.Value
 	if value != nil {
@@ -23479,6 +26168,8 @@ func (_this *Window) SetOncontextmenu(value *js.Callback) {
 	_this.value.Set("oncontextmenu", input)
 }
 
+// Oncuechange returning attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oncuechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncuechange")
@@ -23488,6 +26179,8 @@ func (_this *Window) Oncuechange() EventHandler {
 	return ret
 }
 
+// SetOncuechange setting attribute 'oncuechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncuechange(value *js.Callback) {
 	var __callback35 js.Value
 	if value != nil {
@@ -23499,6 +26192,8 @@ func (_this *Window) SetOncuechange(value *js.Callback) {
 	_this.value.Set("oncuechange", input)
 }
 
+// Ondblclick returning attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondblclick() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondblclick")
@@ -23508,6 +26203,8 @@ func (_this *Window) Ondblclick() EventHandler {
 	return ret
 }
 
+// SetOndblclick setting attribute 'ondblclick' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndblclick(value *js.Callback) {
 	var __callback36 js.Value
 	if value != nil {
@@ -23519,6 +26216,8 @@ func (_this *Window) SetOndblclick(value *js.Callback) {
 	_this.value.Set("ondblclick", input)
 }
 
+// Ondrag returning attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondrag() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrag")
@@ -23528,6 +26227,8 @@ func (_this *Window) Ondrag() EventHandler {
 	return ret
 }
 
+// SetOndrag setting attribute 'ondrag' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndrag(value *js.Callback) {
 	var __callback37 js.Value
 	if value != nil {
@@ -23539,6 +26240,8 @@ func (_this *Window) SetOndrag(value *js.Callback) {
 	_this.value.Set("ondrag", input)
 }
 
+// Ondragend returning attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragend")
@@ -23548,6 +26251,8 @@ func (_this *Window) Ondragend() EventHandler {
 	return ret
 }
 
+// SetOndragend setting attribute 'ondragend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragend(value *js.Callback) {
 	var __callback38 js.Value
 	if value != nil {
@@ -23559,6 +26264,8 @@ func (_this *Window) SetOndragend(value *js.Callback) {
 	_this.value.Set("ondragend", input)
 }
 
+// Ondragenter returning attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragenter")
@@ -23568,6 +26275,8 @@ func (_this *Window) Ondragenter() EventHandler {
 	return ret
 }
 
+// SetOndragenter setting attribute 'ondragenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragenter(value *js.Callback) {
 	var __callback39 js.Value
 	if value != nil {
@@ -23579,6 +26288,8 @@ func (_this *Window) SetOndragenter(value *js.Callback) {
 	_this.value.Set("ondragenter", input)
 }
 
+// Ondragexit returning attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragexit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragexit")
@@ -23588,6 +26299,8 @@ func (_this *Window) Ondragexit() EventHandler {
 	return ret
 }
 
+// SetOndragexit setting attribute 'ondragexit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragexit(value *js.Callback) {
 	var __callback40 js.Value
 	if value != nil {
@@ -23599,6 +26312,8 @@ func (_this *Window) SetOndragexit(value *js.Callback) {
 	_this.value.Set("ondragexit", input)
 }
 
+// Ondragleave returning attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragleave")
@@ -23608,6 +26323,8 @@ func (_this *Window) Ondragleave() EventHandler {
 	return ret
 }
 
+// SetOndragleave setting attribute 'ondragleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragleave(value *js.Callback) {
 	var __callback41 js.Value
 	if value != nil {
@@ -23619,6 +26336,8 @@ func (_this *Window) SetOndragleave(value *js.Callback) {
 	_this.value.Set("ondragleave", input)
 }
 
+// Ondragover returning attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragover")
@@ -23628,6 +26347,8 @@ func (_this *Window) Ondragover() EventHandler {
 	return ret
 }
 
+// SetOndragover setting attribute 'ondragover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragover(value *js.Callback) {
 	var __callback42 js.Value
 	if value != nil {
@@ -23639,6 +26360,8 @@ func (_this *Window) SetOndragover(value *js.Callback) {
 	_this.value.Set("ondragover", input)
 }
 
+// Ondragstart returning attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondragstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondragstart")
@@ -23648,6 +26371,8 @@ func (_this *Window) Ondragstart() EventHandler {
 	return ret
 }
 
+// SetOndragstart setting attribute 'ondragstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragstart(value *js.Callback) {
 	var __callback43 js.Value
 	if value != nil {
@@ -23659,6 +26384,8 @@ func (_this *Window) SetOndragstart(value *js.Callback) {
 	_this.value.Set("ondragstart", input)
 }
 
+// Ondrop returning attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondrop() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondrop")
@@ -23668,6 +26395,8 @@ func (_this *Window) Ondrop() EventHandler {
 	return ret
 }
 
+// SetOndrop setting attribute 'ondrop' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndrop(value *js.Callback) {
 	var __callback44 js.Value
 	if value != nil {
@@ -23679,6 +26408,8 @@ func (_this *Window) SetOndrop(value *js.Callback) {
 	_this.value.Set("ondrop", input)
 }
 
+// Ondurationchange returning attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ondurationchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondurationchange")
@@ -23688,6 +26419,8 @@ func (_this *Window) Ondurationchange() EventHandler {
 	return ret
 }
 
+// SetOndurationchange setting attribute 'ondurationchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndurationchange(value *js.Callback) {
 	var __callback45 js.Value
 	if value != nil {
@@ -23699,6 +26432,8 @@ func (_this *Window) SetOndurationchange(value *js.Callback) {
 	_this.value.Set("ondurationchange", input)
 }
 
+// Onemptied returning attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onemptied() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onemptied")
@@ -23708,6 +26443,8 @@ func (_this *Window) Onemptied() EventHandler {
 	return ret
 }
 
+// SetOnemptied setting attribute 'onemptied' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnemptied(value *js.Callback) {
 	var __callback46 js.Value
 	if value != nil {
@@ -23719,6 +26456,8 @@ func (_this *Window) SetOnemptied(value *js.Callback) {
 	_this.value.Set("onemptied", input)
 }
 
+// Onended returning attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onended() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onended")
@@ -23728,6 +26467,8 @@ func (_this *Window) Onended() EventHandler {
 	return ret
 }
 
+// SetOnended setting attribute 'onended' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnended(value *js.Callback) {
 	var __callback47 js.Value
 	if value != nil {
@@ -23739,6 +26480,8 @@ func (_this *Window) SetOnended(value *js.Callback) {
 	_this.value.Set("onended", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *Window) Onerror() OnErrorEventHandlerNonNull {
 	var ret OnErrorEventHandlerNonNull
 	value := _this.value.Get("onerror")
@@ -23748,6 +26491,8 @@ func (_this *Window) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *Window) SetOnerror(value *js.Callback) {
 	var __callback48 js.Value
 	if value != nil {
@@ -23759,6 +26504,8 @@ func (_this *Window) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onfocus returning attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onfocus() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onfocus")
@@ -23768,6 +26515,8 @@ func (_this *Window) Onfocus() EventHandler {
 	return ret
 }
 
+// SetOnfocus setting attribute 'onfocus' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnfocus(value *js.Callback) {
 	var __callback49 js.Value
 	if value != nil {
@@ -23779,6 +26528,8 @@ func (_this *Window) SetOnfocus(value *js.Callback) {
 	_this.value.Set("onfocus", input)
 }
 
+// Onformdata returning attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onformdata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onformdata")
@@ -23788,6 +26539,8 @@ func (_this *Window) Onformdata() EventHandler {
 	return ret
 }
 
+// SetOnformdata setting attribute 'onformdata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnformdata(value *js.Callback) {
 	var __callback50 js.Value
 	if value != nil {
@@ -23799,6 +26552,8 @@ func (_this *Window) SetOnformdata(value *js.Callback) {
 	_this.value.Set("onformdata", input)
 }
 
+// Oninput returning attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oninput() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninput")
@@ -23808,6 +26563,8 @@ func (_this *Window) Oninput() EventHandler {
 	return ret
 }
 
+// SetOninput setting attribute 'oninput' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOninput(value *js.Callback) {
 	var __callback51 js.Value
 	if value != nil {
@@ -23819,6 +26576,8 @@ func (_this *Window) SetOninput(value *js.Callback) {
 	_this.value.Set("oninput", input)
 }
 
+// Oninvalid returning attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Oninvalid() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oninvalid")
@@ -23828,6 +26587,8 @@ func (_this *Window) Oninvalid() EventHandler {
 	return ret
 }
 
+// SetOninvalid setting attribute 'oninvalid' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOninvalid(value *js.Callback) {
 	var __callback52 js.Value
 	if value != nil {
@@ -23839,6 +26600,8 @@ func (_this *Window) SetOninvalid(value *js.Callback) {
 	_this.value.Set("oninvalid", input)
 }
 
+// Onkeydown returning attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onkeydown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeydown")
@@ -23848,6 +26611,8 @@ func (_this *Window) Onkeydown() EventHandler {
 	return ret
 }
 
+// SetOnkeydown setting attribute 'onkeydown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeydown(value *js.Callback) {
 	var __callback53 js.Value
 	if value != nil {
@@ -23859,6 +26624,8 @@ func (_this *Window) SetOnkeydown(value *js.Callback) {
 	_this.value.Set("onkeydown", input)
 }
 
+// Onkeypress returning attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onkeypress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeypress")
@@ -23868,6 +26635,8 @@ func (_this *Window) Onkeypress() EventHandler {
 	return ret
 }
 
+// SetOnkeypress setting attribute 'onkeypress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeypress(value *js.Callback) {
 	var __callback54 js.Value
 	if value != nil {
@@ -23879,6 +26648,8 @@ func (_this *Window) SetOnkeypress(value *js.Callback) {
 	_this.value.Set("onkeypress", input)
 }
 
+// Onkeyup returning attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onkeyup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onkeyup")
@@ -23888,6 +26659,8 @@ func (_this *Window) Onkeyup() EventHandler {
 	return ret
 }
 
+// SetOnkeyup setting attribute 'onkeyup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeyup(value *js.Callback) {
 	var __callback55 js.Value
 	if value != nil {
@@ -23899,6 +26672,8 @@ func (_this *Window) SetOnkeyup(value *js.Callback) {
 	_this.value.Set("onkeyup", input)
 }
 
+// Onload returning attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onload")
@@ -23908,6 +26683,8 @@ func (_this *Window) Onload() EventHandler {
 	return ret
 }
 
+// SetOnload setting attribute 'onload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnload(value *js.Callback) {
 	var __callback56 js.Value
 	if value != nil {
@@ -23919,6 +26696,8 @@ func (_this *Window) SetOnload(value *js.Callback) {
 	_this.value.Set("onload", input)
 }
 
+// Onloadeddata returning attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onloadeddata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadeddata")
@@ -23928,6 +26707,8 @@ func (_this *Window) Onloadeddata() EventHandler {
 	return ret
 }
 
+// SetOnloadeddata setting attribute 'onloadeddata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadeddata(value *js.Callback) {
 	var __callback57 js.Value
 	if value != nil {
@@ -23939,6 +26720,8 @@ func (_this *Window) SetOnloadeddata(value *js.Callback) {
 	_this.value.Set("onloadeddata", input)
 }
 
+// Onloadedmetadata returning attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onloadedmetadata() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadedmetadata")
@@ -23948,6 +26731,8 @@ func (_this *Window) Onloadedmetadata() EventHandler {
 	return ret
 }
 
+// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadedmetadata(value *js.Callback) {
 	var __callback58 js.Value
 	if value != nil {
@@ -23959,6 +26744,8 @@ func (_this *Window) SetOnloadedmetadata(value *js.Callback) {
 	_this.value.Set("onloadedmetadata", input)
 }
 
+// Onloadend returning attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onloadend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadend")
@@ -23968,6 +26755,8 @@ func (_this *Window) Onloadend() EventHandler {
 	return ret
 }
 
+// SetOnloadend setting attribute 'onloadend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadend(value *js.Callback) {
 	var __callback59 js.Value
 	if value != nil {
@@ -23979,6 +26768,8 @@ func (_this *Window) SetOnloadend(value *js.Callback) {
 	_this.value.Set("onloadend", input)
 }
 
+// Onloadstart returning attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onloadstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onloadstart")
@@ -23988,6 +26779,8 @@ func (_this *Window) Onloadstart() EventHandler {
 	return ret
 }
 
+// SetOnloadstart setting attribute 'onloadstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadstart(value *js.Callback) {
 	var __callback60 js.Value
 	if value != nil {
@@ -23999,6 +26792,8 @@ func (_this *Window) SetOnloadstart(value *js.Callback) {
 	_this.value.Set("onloadstart", input)
 }
 
+// Onmousedown returning attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmousedown() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousedown")
@@ -24008,6 +26803,8 @@ func (_this *Window) Onmousedown() EventHandler {
 	return ret
 }
 
+// SetOnmousedown setting attribute 'onmousedown' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmousedown(value *js.Callback) {
 	var __callback61 js.Value
 	if value != nil {
@@ -24019,6 +26816,8 @@ func (_this *Window) SetOnmousedown(value *js.Callback) {
 	_this.value.Set("onmousedown", input)
 }
 
+// Onmouseenter returning attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmouseenter() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseenter")
@@ -24028,6 +26827,8 @@ func (_this *Window) Onmouseenter() EventHandler {
 	return ret
 }
 
+// SetOnmouseenter setting attribute 'onmouseenter' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseenter(value *js.Callback) {
 	var __callback62 js.Value
 	if value != nil {
@@ -24039,6 +26840,8 @@ func (_this *Window) SetOnmouseenter(value *js.Callback) {
 	_this.value.Set("onmouseenter", input)
 }
 
+// Onmouseleave returning attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmouseleave() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseleave")
@@ -24048,6 +26851,8 @@ func (_this *Window) Onmouseleave() EventHandler {
 	return ret
 }
 
+// SetOnmouseleave setting attribute 'onmouseleave' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseleave(value *js.Callback) {
 	var __callback63 js.Value
 	if value != nil {
@@ -24059,6 +26864,8 @@ func (_this *Window) SetOnmouseleave(value *js.Callback) {
 	_this.value.Set("onmouseleave", input)
 }
 
+// Onmousemove returning attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmousemove() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmousemove")
@@ -24068,6 +26875,8 @@ func (_this *Window) Onmousemove() EventHandler {
 	return ret
 }
 
+// SetOnmousemove setting attribute 'onmousemove' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmousemove(value *js.Callback) {
 	var __callback64 js.Value
 	if value != nil {
@@ -24079,6 +26888,8 @@ func (_this *Window) SetOnmousemove(value *js.Callback) {
 	_this.value.Set("onmousemove", input)
 }
 
+// Onmouseout returning attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmouseout() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseout")
@@ -24088,6 +26899,8 @@ func (_this *Window) Onmouseout() EventHandler {
 	return ret
 }
 
+// SetOnmouseout setting attribute 'onmouseout' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseout(value *js.Callback) {
 	var __callback65 js.Value
 	if value != nil {
@@ -24099,6 +26912,8 @@ func (_this *Window) SetOnmouseout(value *js.Callback) {
 	_this.value.Set("onmouseout", input)
 }
 
+// Onmouseover returning attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmouseover() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseover")
@@ -24108,6 +26923,8 @@ func (_this *Window) Onmouseover() EventHandler {
 	return ret
 }
 
+// SetOnmouseover setting attribute 'onmouseover' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseover(value *js.Callback) {
 	var __callback66 js.Value
 	if value != nil {
@@ -24119,6 +26936,8 @@ func (_this *Window) SetOnmouseover(value *js.Callback) {
 	_this.value.Set("onmouseover", input)
 }
 
+// Onmouseup returning attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmouseup() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmouseup")
@@ -24128,6 +26947,8 @@ func (_this *Window) Onmouseup() EventHandler {
 	return ret
 }
 
+// SetOnmouseup setting attribute 'onmouseup' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseup(value *js.Callback) {
 	var __callback67 js.Value
 	if value != nil {
@@ -24139,6 +26960,8 @@ func (_this *Window) SetOnmouseup(value *js.Callback) {
 	_this.value.Set("onmouseup", input)
 }
 
+// Onwheel returning attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onwheel() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwheel")
@@ -24148,6 +26971,8 @@ func (_this *Window) Onwheel() EventHandler {
 	return ret
 }
 
+// SetOnwheel setting attribute 'onwheel' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnwheel(value *js.Callback) {
 	var __callback68 js.Value
 	if value != nil {
@@ -24159,6 +26984,8 @@ func (_this *Window) SetOnwheel(value *js.Callback) {
 	_this.value.Set("onwheel", input)
 }
 
+// Onpause returning attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onpause() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpause")
@@ -24168,6 +26995,8 @@ func (_this *Window) Onpause() EventHandler {
 	return ret
 }
 
+// SetOnpause setting attribute 'onpause' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpause(value *js.Callback) {
 	var __callback69 js.Value
 	if value != nil {
@@ -24179,6 +27008,8 @@ func (_this *Window) SetOnpause(value *js.Callback) {
 	_this.value.Set("onpause", input)
 }
 
+// Onplay returning attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onplay() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplay")
@@ -24188,6 +27019,8 @@ func (_this *Window) Onplay() EventHandler {
 	return ret
 }
 
+// SetOnplay setting attribute 'onplay' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnplay(value *js.Callback) {
 	var __callback70 js.Value
 	if value != nil {
@@ -24199,6 +27032,8 @@ func (_this *Window) SetOnplay(value *js.Callback) {
 	_this.value.Set("onplay", input)
 }
 
+// Onplaying returning attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onplaying() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onplaying")
@@ -24208,6 +27043,8 @@ func (_this *Window) Onplaying() EventHandler {
 	return ret
 }
 
+// SetOnplaying setting attribute 'onplaying' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnplaying(value *js.Callback) {
 	var __callback71 js.Value
 	if value != nil {
@@ -24219,6 +27056,8 @@ func (_this *Window) SetOnplaying(value *js.Callback) {
 	_this.value.Set("onplaying", input)
 }
 
+// Onprogress returning attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onprogress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onprogress")
@@ -24228,6 +27067,8 @@ func (_this *Window) Onprogress() EventHandler {
 	return ret
 }
 
+// SetOnprogress setting attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnprogress(value *js.Callback) {
 	var __callback72 js.Value
 	if value != nil {
@@ -24239,6 +27080,8 @@ func (_this *Window) SetOnprogress(value *js.Callback) {
 	_this.value.Set("onprogress", input)
 }
 
+// Onratechange returning attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onratechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onratechange")
@@ -24248,6 +27091,8 @@ func (_this *Window) Onratechange() EventHandler {
 	return ret
 }
 
+// SetOnratechange setting attribute 'onratechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnratechange(value *js.Callback) {
 	var __callback73 js.Value
 	if value != nil {
@@ -24259,6 +27104,8 @@ func (_this *Window) SetOnratechange(value *js.Callback) {
 	_this.value.Set("onratechange", input)
 }
 
+// Onreset returning attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onreset() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onreset")
@@ -24268,6 +27115,8 @@ func (_this *Window) Onreset() EventHandler {
 	return ret
 }
 
+// SetOnreset setting attribute 'onreset' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnreset(value *js.Callback) {
 	var __callback74 js.Value
 	if value != nil {
@@ -24279,6 +27128,8 @@ func (_this *Window) SetOnreset(value *js.Callback) {
 	_this.value.Set("onreset", input)
 }
 
+// Onresize returning attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onresize() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onresize")
@@ -24288,6 +27139,8 @@ func (_this *Window) Onresize() EventHandler {
 	return ret
 }
 
+// SetOnresize setting attribute 'onresize' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnresize(value *js.Callback) {
 	var __callback75 js.Value
 	if value != nil {
@@ -24299,6 +27152,8 @@ func (_this *Window) SetOnresize(value *js.Callback) {
 	_this.value.Set("onresize", input)
 }
 
+// Onscroll returning attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onscroll() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onscroll")
@@ -24308,6 +27163,8 @@ func (_this *Window) Onscroll() EventHandler {
 	return ret
 }
 
+// SetOnscroll setting attribute 'onscroll' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnscroll(value *js.Callback) {
 	var __callback76 js.Value
 	if value != nil {
@@ -24319,6 +27176,8 @@ func (_this *Window) SetOnscroll(value *js.Callback) {
 	_this.value.Set("onscroll", input)
 }
 
+// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onsecuritypolicyviolation() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsecuritypolicyviolation")
@@ -24328,6 +27187,8 @@ func (_this *Window) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
+// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsecuritypolicyviolation(value *js.Callback) {
 	var __callback77 js.Value
 	if value != nil {
@@ -24339,6 +27200,8 @@ func (_this *Window) SetOnsecuritypolicyviolation(value *js.Callback) {
 	_this.value.Set("onsecuritypolicyviolation", input)
 }
 
+// Onseeked returning attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onseeked() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeked")
@@ -24348,6 +27211,8 @@ func (_this *Window) Onseeked() EventHandler {
 	return ret
 }
 
+// SetOnseeked setting attribute 'onseeked' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnseeked(value *js.Callback) {
 	var __callback78 js.Value
 	if value != nil {
@@ -24359,6 +27224,8 @@ func (_this *Window) SetOnseeked(value *js.Callback) {
 	_this.value.Set("onseeked", input)
 }
 
+// Onseeking returning attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onseeking() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onseeking")
@@ -24368,6 +27235,8 @@ func (_this *Window) Onseeking() EventHandler {
 	return ret
 }
 
+// SetOnseeking setting attribute 'onseeking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnseeking(value *js.Callback) {
 	var __callback79 js.Value
 	if value != nil {
@@ -24379,6 +27248,8 @@ func (_this *Window) SetOnseeking(value *js.Callback) {
 	_this.value.Set("onseeking", input)
 }
 
+// Onselect returning attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onselect() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onselect")
@@ -24388,6 +27259,8 @@ func (_this *Window) Onselect() EventHandler {
 	return ret
 }
 
+// SetOnselect setting attribute 'onselect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnselect(value *js.Callback) {
 	var __callback80 js.Value
 	if value != nil {
@@ -24399,6 +27272,8 @@ func (_this *Window) SetOnselect(value *js.Callback) {
 	_this.value.Set("onselect", input)
 }
 
+// Onstalled returning attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onstalled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstalled")
@@ -24408,6 +27283,8 @@ func (_this *Window) Onstalled() EventHandler {
 	return ret
 }
 
+// SetOnstalled setting attribute 'onstalled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnstalled(value *js.Callback) {
 	var __callback81 js.Value
 	if value != nil {
@@ -24419,6 +27296,8 @@ func (_this *Window) SetOnstalled(value *js.Callback) {
 	_this.value.Set("onstalled", input)
 }
 
+// Onsubmit returning attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onsubmit() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsubmit")
@@ -24428,6 +27307,8 @@ func (_this *Window) Onsubmit() EventHandler {
 	return ret
 }
 
+// SetOnsubmit setting attribute 'onsubmit' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsubmit(value *js.Callback) {
 	var __callback82 js.Value
 	if value != nil {
@@ -24439,6 +27320,8 @@ func (_this *Window) SetOnsubmit(value *js.Callback) {
 	_this.value.Set("onsubmit", input)
 }
 
+// Onsuspend returning attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onsuspend() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onsuspend")
@@ -24448,6 +27331,8 @@ func (_this *Window) Onsuspend() EventHandler {
 	return ret
 }
 
+// SetOnsuspend setting attribute 'onsuspend' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsuspend(value *js.Callback) {
 	var __callback83 js.Value
 	if value != nil {
@@ -24459,6 +27344,8 @@ func (_this *Window) SetOnsuspend(value *js.Callback) {
 	_this.value.Set("onsuspend", input)
 }
 
+// Ontimeupdate returning attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ontimeupdate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontimeupdate")
@@ -24468,6 +27355,8 @@ func (_this *Window) Ontimeupdate() EventHandler {
 	return ret
 }
 
+// SetOntimeupdate setting attribute 'ontimeupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOntimeupdate(value *js.Callback) {
 	var __callback84 js.Value
 	if value != nil {
@@ -24479,6 +27368,8 @@ func (_this *Window) SetOntimeupdate(value *js.Callback) {
 	_this.value.Set("ontimeupdate", input)
 }
 
+// Ontoggle returning attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ontoggle() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ontoggle")
@@ -24488,6 +27379,8 @@ func (_this *Window) Ontoggle() EventHandler {
 	return ret
 }
 
+// SetOntoggle setting attribute 'ontoggle' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOntoggle(value *js.Callback) {
 	var __callback85 js.Value
 	if value != nil {
@@ -24499,6 +27392,8 @@ func (_this *Window) SetOntoggle(value *js.Callback) {
 	_this.value.Set("ontoggle", input)
 }
 
+// Onvolumechange returning attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onvolumechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onvolumechange")
@@ -24508,6 +27403,8 @@ func (_this *Window) Onvolumechange() EventHandler {
 	return ret
 }
 
+// SetOnvolumechange setting attribute 'onvolumechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnvolumechange(value *js.Callback) {
 	var __callback86 js.Value
 	if value != nil {
@@ -24519,6 +27416,8 @@ func (_this *Window) SetOnvolumechange(value *js.Callback) {
 	_this.value.Set("onvolumechange", input)
 }
 
+// Onwaiting returning attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onwaiting() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onwaiting")
@@ -24528,6 +27427,8 @@ func (_this *Window) Onwaiting() EventHandler {
 	return ret
 }
 
+// SetOnwaiting setting attribute 'onwaiting' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnwaiting(value *js.Callback) {
 	var __callback87 js.Value
 	if value != nil {
@@ -24539,6 +27440,8 @@ func (_this *Window) SetOnwaiting(value *js.Callback) {
 	_this.value.Set("onwaiting", input)
 }
 
+// Onafterprint returning attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onafterprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onafterprint")
@@ -24548,6 +27451,8 @@ func (_this *Window) Onafterprint() EventHandler {
 	return ret
 }
 
+// SetOnafterprint setting attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnafterprint(value *js.Callback) {
 	var __callback88 js.Value
 	if value != nil {
@@ -24559,6 +27464,8 @@ func (_this *Window) SetOnafterprint(value *js.Callback) {
 	_this.value.Set("onafterprint", input)
 }
 
+// Onbeforeprint returning attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onbeforeprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onbeforeprint")
@@ -24568,6 +27475,8 @@ func (_this *Window) Onbeforeprint() EventHandler {
 	return ret
 }
 
+// SetOnbeforeprint setting attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnbeforeprint(value *js.Callback) {
 	var __callback89 js.Value
 	if value != nil {
@@ -24579,6 +27488,8 @@ func (_this *Window) SetOnbeforeprint(value *js.Callback) {
 	_this.value.Set("onbeforeprint", input)
 }
 
+// Onbeforeunload returning attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *Window) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
 	var ret OnBeforeUnloadEventHandlerNonNull
 	value := _this.value.Get("onbeforeunload")
@@ -24588,6 +27499,8 @@ func (_this *Window) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
 	return ret
 }
 
+// SetOnbeforeunload setting attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *Window) SetOnbeforeunload(value *js.Callback) {
 	var __callback90 js.Value
 	if value != nil {
@@ -24599,6 +27512,8 @@ func (_this *Window) SetOnbeforeunload(value *js.Callback) {
 	_this.value.Set("onbeforeunload", input)
 }
 
+// Onhashchange returning attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onhashchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onhashchange")
@@ -24608,6 +27523,8 @@ func (_this *Window) Onhashchange() EventHandler {
 	return ret
 }
 
+// SetOnhashchange setting attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnhashchange(value *js.Callback) {
 	var __callback91 js.Value
 	if value != nil {
@@ -24619,6 +27536,8 @@ func (_this *Window) SetOnhashchange(value *js.Callback) {
 	_this.value.Set("onhashchange", input)
 }
 
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onlanguagechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onlanguagechange")
@@ -24628,6 +27547,8 @@ func (_this *Window) Onlanguagechange() EventHandler {
 	return ret
 }
 
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnlanguagechange(value *js.Callback) {
 	var __callback92 js.Value
 	if value != nil {
@@ -24639,6 +27560,8 @@ func (_this *Window) SetOnlanguagechange(value *js.Callback) {
 	_this.value.Set("onlanguagechange", input)
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -24648,6 +27571,8 @@ func (_this *Window) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmessage(value *js.Callback) {
 	var __callback93 js.Value
 	if value != nil {
@@ -24659,6 +27584,8 @@ func (_this *Window) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -24668,6 +27595,8 @@ func (_this *Window) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmessageerror(value *js.Callback) {
 	var __callback94 js.Value
 	if value != nil {
@@ -24679,6 +27608,8 @@ func (_this *Window) SetOnmessageerror(value *js.Callback) {
 	_this.value.Set("onmessageerror", input)
 }
 
+// Onoffline returning attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onoffline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onoffline")
@@ -24688,6 +27619,8 @@ func (_this *Window) Onoffline() EventHandler {
 	return ret
 }
 
+// SetOnoffline setting attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnoffline(value *js.Callback) {
 	var __callback95 js.Value
 	if value != nil {
@@ -24699,6 +27632,8 @@ func (_this *Window) SetOnoffline(value *js.Callback) {
 	_this.value.Set("onoffline", input)
 }
 
+// Ononline returning attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Ononline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ononline")
@@ -24708,6 +27643,8 @@ func (_this *Window) Ononline() EventHandler {
 	return ret
 }
 
+// SetOnonline setting attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnonline(value *js.Callback) {
 	var __callback96 js.Value
 	if value != nil {
@@ -24719,6 +27656,8 @@ func (_this *Window) SetOnonline(value *js.Callback) {
 	_this.value.Set("ononline", input)
 }
 
+// Onpagehide returning attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onpagehide() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpagehide")
@@ -24728,6 +27667,8 @@ func (_this *Window) Onpagehide() EventHandler {
 	return ret
 }
 
+// SetOnpagehide setting attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpagehide(value *js.Callback) {
 	var __callback97 js.Value
 	if value != nil {
@@ -24739,6 +27680,8 @@ func (_this *Window) SetOnpagehide(value *js.Callback) {
 	_this.value.Set("onpagehide", input)
 }
 
+// Onpageshow returning attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onpageshow() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpageshow")
@@ -24748,6 +27691,8 @@ func (_this *Window) Onpageshow() EventHandler {
 	return ret
 }
 
+// SetOnpageshow setting attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpageshow(value *js.Callback) {
 	var __callback98 js.Value
 	if value != nil {
@@ -24759,6 +27704,8 @@ func (_this *Window) SetOnpageshow(value *js.Callback) {
 	_this.value.Set("onpageshow", input)
 }
 
+// Onpopstate returning attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onpopstate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpopstate")
@@ -24768,6 +27715,8 @@ func (_this *Window) Onpopstate() EventHandler {
 	return ret
 }
 
+// SetOnpopstate setting attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpopstate(value *js.Callback) {
 	var __callback99 js.Value
 	if value != nil {
@@ -24779,6 +27728,8 @@ func (_this *Window) SetOnpopstate(value *js.Callback) {
 	_this.value.Set("onpopstate", input)
 }
 
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onrejectionhandled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onrejectionhandled")
@@ -24788,6 +27739,8 @@ func (_this *Window) Onrejectionhandled() EventHandler {
 	return ret
 }
 
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnrejectionhandled(value *js.Callback) {
 	var __callback100 js.Value
 	if value != nil {
@@ -24799,6 +27752,8 @@ func (_this *Window) SetOnrejectionhandled(value *js.Callback) {
 	_this.value.Set("onrejectionhandled", input)
 }
 
+// Onstorage returning attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onstorage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstorage")
@@ -24808,6 +27763,8 @@ func (_this *Window) Onstorage() EventHandler {
 	return ret
 }
 
+// SetOnstorage setting attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnstorage(value *js.Callback) {
 	var __callback101 js.Value
 	if value != nil {
@@ -24819,6 +27776,8 @@ func (_this *Window) SetOnstorage(value *js.Callback) {
 	_this.value.Set("onstorage", input)
 }
 
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onunhandledrejection() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunhandledrejection")
@@ -24828,6 +27787,8 @@ func (_this *Window) Onunhandledrejection() EventHandler {
 	return ret
 }
 
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnunhandledrejection(value *js.Callback) {
 	var __callback102 js.Value
 	if value != nil {
@@ -24839,6 +27800,8 @@ func (_this *Window) SetOnunhandledrejection(value *js.Callback) {
 	_this.value.Set("onunhandledrejection", input)
 }
 
+// Onunload returning attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onunload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunload")
@@ -24848,6 +27811,8 @@ func (_this *Window) Onunload() EventHandler {
 	return ret
 }
 
+// SetOnunload setting attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnunload(value *js.Callback) {
 	var __callback103 js.Value
 	if value != nil {
@@ -24859,6 +27824,8 @@ func (_this *Window) SetOnunload(value *js.Callback) {
 	_this.value.Set("onunload", input)
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *Window) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -24866,6 +27833,8 @@ func (_this *Window) Origin() string {
 	return ret
 }
 
+// SessionStorage returning attribute 'sessionStorage' with
+// type Storage (idl: Storage).
 func (_this *Window) SessionStorage() *Storage {
 	var ret *Storage
 	value := _this.value.Get("sessionStorage")
@@ -24873,6 +27842,8 @@ func (_this *Window) SessionStorage() *Storage {
 	return ret
 }
 
+// LocalStorage returning attribute 'localStorage' with
+// type Storage (idl: Storage).
 func (_this *Window) LocalStorage() *Storage {
 	var ret *Storage
 	value := _this.value.Get("localStorage")
@@ -24881,47 +27852,42 @@ func (_this *Window) LocalStorage() *Storage {
 }
 
 func (_this *Window) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Stop() {
-	_method := _this.value.Get("stop")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stop", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Focus() {
-	_method := _this.value.Get("focus")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("focus", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Blur() {
-	_method := _this.value.Get("blur")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("blur", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Open(url *string, target *string, features *string) (_result *Window) {
-	_method := _this.value.Get("open")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -24941,7 +27907,7 @@ func (_this *Window) Open(url *string, target *string, features *string) (_resul
 		_args[2] = _p2
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("open", _args[0:_end]...)
 	var (
 		_converted *Window // javascript: Window _what_return_name
 	)
@@ -24953,17 +27919,15 @@ func (_this *Window) Open(url *string, target *string, features *string) (_resul
 }
 
 func (_this *Window) Alert() {
-	_method := _this.value.Get("alert")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("alert", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Alert2(message string) {
-	_method := _this.value.Get("alert")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -24971,12 +27935,11 @@ func (_this *Window) Alert2(message string) {
 	_p0 := message
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("alert", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Confirm(message *string) (_result bool) {
-	_method := _this.value.Get("confirm")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -24986,7 +27949,7 @@ func (_this *Window) Confirm(message *string) (_result bool) {
 		_args[0] = _p0
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("confirm", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -24996,7 +27959,6 @@ func (_this *Window) Confirm(message *string) (_result bool) {
 }
 
 func (_this *Window) Prompt(message *string, _default *string) (_result *string) {
-	_method := _this.value.Get("prompt")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -25011,7 +27973,7 @@ func (_this *Window) Prompt(message *string, _default *string) (_result *string)
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("prompt", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -25024,17 +27986,15 @@ func (_this *Window) Prompt(message *string, _default *string) (_result *string)
 }
 
 func (_this *Window) Print() {
-	_method := _this.value.Get("print")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("print", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer *[]*Object) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -25054,12 +28014,11 @@ func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) PostMessage2(message js.Value, options *WindowPostMessageOptions) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -25072,32 +28031,29 @@ func (_this *Window) PostMessage2(message js.Value, options *WindowPostMessageOp
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) CaptureEvents() {
-	_method := _this.value.Get("captureEvents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("captureEvents", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) ReleaseEvents() {
-	_method := _this.value.Get("releaseEvents")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("releaseEvents", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) Btoa(data string) (_result string) {
-	_method := _this.value.Get("btoa")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25105,7 +28061,7 @@ func (_this *Window) Btoa(data string) (_result string) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("btoa", _args[0:_end]...)
 	var (
 		_converted string // javascript: DOMString _what_return_name
 	)
@@ -25115,7 +28071,6 @@ func (_this *Window) Btoa(data string) (_result string) {
 }
 
 func (_this *Window) Atob(data string) (_result *ByteString) {
-	_method := _this.value.Get("atob")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25123,7 +28078,7 @@ func (_this *Window) Atob(data string) (_result *ByteString) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("atob", _args[0:_end]...)
 	var (
 		_converted *ByteString // javascript: ByteString _what_return_name
 	)
@@ -25133,7 +28088,6 @@ func (_this *Window) Atob(data string) (_result *ByteString) {
 }
 
 func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	_method := _this.value.Get("setTimeout")
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -25151,7 +28105,7 @@ func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...js.Va
 		_args[_end] = __out
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setTimeout", _args[0:_end]...)
 	var (
 		_converted int // javascript: long _what_return_name
 	)
@@ -25161,7 +28115,6 @@ func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...js.Va
 }
 
 func (_this *Window) ClearTimeout(handle *int) {
-	_method := _this.value.Get("clearTimeout")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25171,12 +28124,11 @@ func (_this *Window) ClearTimeout(handle *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearTimeout", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	_method := _this.value.Get("setInterval")
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -25194,7 +28146,7 @@ func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...js.V
 		_args[_end] = __out
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setInterval", _args[0:_end]...)
 	var (
 		_converted int // javascript: long _what_return_name
 	)
@@ -25204,7 +28156,6 @@ func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...js.V
 }
 
 func (_this *Window) ClearInterval(handle *int) {
-	_method := _this.value.Get("clearInterval")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25214,12 +28165,11 @@ func (_this *Window) ClearInterval(handle *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearInterval", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) QueueMicrotask(callback *VoidFunction) {
-	_method := _this.value.Get("queueMicrotask")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25227,12 +28177,11 @@ func (_this *Window) QueueMicrotask(callback *VoidFunction) {
 	_p0 := callback.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("queueMicrotask", _args[0:_end]...)
 	return
 }
 
 func (_this *Window) CreateImageBitmap(image *Union, options *ImageBitmapOptions) (_result *Promise) {
-	_method := _this.value.Get("createImageBitmap")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -25245,7 +28194,7 @@ func (_this *Window) CreateImageBitmap(image *Union, options *ImageBitmapOptions
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageBitmap", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -25255,7 +28204,6 @@ func (_this *Window) CreateImageBitmap(image *Union, options *ImageBitmapOptions
 }
 
 func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *ImageBitmapOptions) (_result *Promise) {
-	_method := _this.value.Get("createImageBitmap")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -25280,7 +28228,7 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 		_args[5] = _p5
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageBitmap", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -25290,7 +28238,6 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 }
 
 func (_this *Window) RequestAnimationFrame(callback *js.Callback) (_result uint) {
-	_method := _this.value.Get("requestAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25305,7 +28252,7 @@ func (_this *Window) RequestAnimationFrame(callback *js.Callback) (_result uint)
 	_p0 := __callback0
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("requestAnimationFrame", _args[0:_end]...)
 	var (
 		_converted uint // javascript: unsigned long _what_return_name
 	)
@@ -25315,7 +28262,6 @@ func (_this *Window) RequestAnimationFrame(callback *js.Callback) (_result uint)
 }
 
 func (_this *Window) CancelAnimationFrame(handle uint) {
-	_method := _this.value.Get("cancelAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25323,7 +28269,7 @@ func (_this *Window) CancelAnimationFrame(handle uint) {
 	_p0 := handle
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("cancelAnimationFrame", _args[0:_end]...)
 	return
 }
 
@@ -25346,6 +28292,8 @@ func BarPropFromJS(input js.Value) *BarProp {
 	return ret
 }
 
+// Visible returning attribute 'visible' with
+// type bool (idl: boolean).
 func (_this *BarProp) Visible() bool {
 	var ret bool
 	value := _this.value.Get("visible")
@@ -25372,6 +28320,8 @@ func HistoryFromJS(input js.Value) *History {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *History) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -25379,6 +28329,8 @@ func (_this *History) Length() uint {
 	return ret
 }
 
+// ScrollRestoration returning attribute 'scrollRestoration' with
+// type ScrollRestoration (idl: ScrollRestoration).
 func (_this *History) ScrollRestoration() ScrollRestoration {
 	var ret ScrollRestoration
 	value := _this.value.Get("scrollRestoration")
@@ -25386,11 +28338,15 @@ func (_this *History) ScrollRestoration() ScrollRestoration {
 	return ret
 }
 
+// SetScrollRestoration setting attribute 'scrollRestoration' with
+// type ScrollRestoration (idl: ScrollRestoration).
 func (_this *History) SetScrollRestoration(value ScrollRestoration) {
 	input := value.JSValue()
 	_this.value.Set("scrollRestoration", input)
 }
 
+// State returning attribute 'state' with
+// type js.Value (idl: any).
 func (_this *History) State() js.Value {
 	var ret js.Value
 	value := _this.value.Get("state")
@@ -25399,7 +28355,6 @@ func (_this *History) State() js.Value {
 }
 
 func (_this *History) Go(delta *int) {
-	_method := _this.value.Get("go")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25409,32 +28364,29 @@ func (_this *History) Go(delta *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("go", _args[0:_end]...)
 	return
 }
 
 func (_this *History) Back() {
-	_method := _this.value.Get("back")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("back", _args[0:_end]...)
 	return
 }
 
 func (_this *History) Forward() {
-	_method := _this.value.Get("forward")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("forward", _args[0:_end]...)
 	return
 }
 
 func (_this *History) PushState(data js.Value, title string, url *string) {
-	_method := _this.value.Get("pushState")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -25450,12 +28402,11 @@ func (_this *History) PushState(data js.Value, title string, url *string) {
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("pushState", _args[0:_end]...)
 	return
 }
 
 func (_this *History) ReplaceState(data js.Value, title string, url *string) {
-	_method := _this.value.Get("replaceState")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -25471,7 +28422,7 @@ func (_this *History) ReplaceState(data js.Value, title string, url *string) {
 		_args[2] = _p2
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replaceState", _args[0:_end]...)
 	return
 }
 
@@ -25494,6 +28445,8 @@ func LocationFromJS(input js.Value) *Location {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *Location) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -25501,11 +28454,15 @@ func (_this *Location) Href() string {
 	return ret
 }
 
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
 func (_this *Location) SetHref(value string) {
 	input := value
 	_this.value.Set("href", input)
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *Location) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -25513,6 +28470,8 @@ func (_this *Location) Origin() string {
 	return ret
 }
 
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *Location) Protocol() string {
 	var ret string
 	value := _this.value.Get("protocol")
@@ -25520,11 +28479,15 @@ func (_this *Location) Protocol() string {
 	return ret
 }
 
+// SetProtocol setting attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *Location) SetProtocol(value string) {
 	input := value
 	_this.value.Set("protocol", input)
 }
 
+// Host returning attribute 'host' with
+// type string (idl: USVString).
 func (_this *Location) Host() string {
 	var ret string
 	value := _this.value.Get("host")
@@ -25532,11 +28495,15 @@ func (_this *Location) Host() string {
 	return ret
 }
 
+// SetHost setting attribute 'host' with
+// type string (idl: USVString).
 func (_this *Location) SetHost(value string) {
 	input := value
 	_this.value.Set("host", input)
 }
 
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *Location) Hostname() string {
 	var ret string
 	value := _this.value.Get("hostname")
@@ -25544,11 +28511,15 @@ func (_this *Location) Hostname() string {
 	return ret
 }
 
+// SetHostname setting attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *Location) SetHostname(value string) {
 	input := value
 	_this.value.Set("hostname", input)
 }
 
+// Port returning attribute 'port' with
+// type string (idl: USVString).
 func (_this *Location) Port() string {
 	var ret string
 	value := _this.value.Get("port")
@@ -25556,11 +28527,15 @@ func (_this *Location) Port() string {
 	return ret
 }
 
+// SetPort setting attribute 'port' with
+// type string (idl: USVString).
 func (_this *Location) SetPort(value string) {
 	input := value
 	_this.value.Set("port", input)
 }
 
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *Location) Pathname() string {
 	var ret string
 	value := _this.value.Get("pathname")
@@ -25568,11 +28543,15 @@ func (_this *Location) Pathname() string {
 	return ret
 }
 
+// SetPathname setting attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *Location) SetPathname(value string) {
 	input := value
 	_this.value.Set("pathname", input)
 }
 
+// Search returning attribute 'search' with
+// type string (idl: USVString).
 func (_this *Location) Search() string {
 	var ret string
 	value := _this.value.Get("search")
@@ -25580,11 +28559,15 @@ func (_this *Location) Search() string {
 	return ret
 }
 
+// SetSearch setting attribute 'search' with
+// type string (idl: USVString).
 func (_this *Location) SetSearch(value string) {
 	input := value
 	_this.value.Set("search", input)
 }
 
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
 func (_this *Location) Hash() string {
 	var ret string
 	value := _this.value.Get("hash")
@@ -25592,11 +28575,15 @@ func (_this *Location) Hash() string {
 	return ret
 }
 
+// SetHash setting attribute 'hash' with
+// type string (idl: USVString).
 func (_this *Location) SetHash(value string) {
 	input := value
 	_this.value.Set("hash", input)
 }
 
+// AncestorOrigins returning attribute 'ancestorOrigins' with
+// type DOMStringList (idl: DOMStringList).
 func (_this *Location) AncestorOrigins() *DOMStringList {
 	var ret *DOMStringList
 	value := _this.value.Get("ancestorOrigins")
@@ -25605,7 +28592,6 @@ func (_this *Location) AncestorOrigins() *DOMStringList {
 }
 
 func (_this *Location) Assign(url string) {
-	_method := _this.value.Get("assign")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25613,12 +28599,11 @@ func (_this *Location) Assign(url string) {
 	_p0 := url
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("assign", _args[0:_end]...)
 	return
 }
 
 func (_this *Location) Replace(url string) {
-	_method := _this.value.Get("replace")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -25626,17 +28611,16 @@ func (_this *Location) Replace(url string) {
 	_p0 := url
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("replace", _args[0:_end]...)
 	return
 }
 
 func (_this *Location) Reload() {
-	_method := _this.value.Get("reload")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("reload", _args[0:_end]...)
 	return
 }
 
@@ -25682,6 +28666,8 @@ func NewPopStateEvent(_type string, eventInitDict *PopStateEventInit) (_result *
 	return
 }
 
+// State returning attribute 'state' with
+// type js.Value (idl: any).
 func (_this *PopStateEvent) State() js.Value {
 	var ret js.Value
 	value := _this.value.Get("state")
@@ -25731,6 +28717,8 @@ func NewHashChangeEvent(_type string, eventInitDict *HashChangeEventInit) (_resu
 	return
 }
 
+// OldURL returning attribute 'oldURL' with
+// type string (idl: USVString).
 func (_this *HashChangeEvent) OldURL() string {
 	var ret string
 	value := _this.value.Get("oldURL")
@@ -25738,6 +28726,8 @@ func (_this *HashChangeEvent) OldURL() string {
 	return ret
 }
 
+// NewURL returning attribute 'newURL' with
+// type string (idl: USVString).
 func (_this *HashChangeEvent) NewURL() string {
 	var ret string
 	value := _this.value.Get("newURL")
@@ -25787,6 +28777,8 @@ func NewPageTransitionEvent(_type string, eventInitDict *PageTransitionEventInit
 	return
 }
 
+// Persisted returning attribute 'persisted' with
+// type bool (idl: boolean).
 func (_this *PageTransitionEvent) Persisted() bool {
 	var ret bool
 	value := _this.value.Get("persisted")
@@ -25813,6 +28805,8 @@ func BeforeUnloadEventFromJS(input js.Value) *BeforeUnloadEvent {
 	return ret
 }
 
+// ReturnValue returning attribute 'returnValue' with
+// type string (idl: DOMString).
 func (_this *BeforeUnloadEvent) ReturnValue() string {
 	var ret string
 	value := _this.value.Get("returnValue")
@@ -25820,6 +28814,8 @@ func (_this *BeforeUnloadEvent) ReturnValue() string {
 	return ret
 }
 
+// SetReturnValue setting attribute 'returnValue' with
+// type string (idl: DOMString).
 func (_this *BeforeUnloadEvent) SetReturnValue(value string) {
 	input := value
 	_this.value.Set("returnValue", input)
@@ -25851,6 +28847,8 @@ const DOWNLOADING_ApplicationCache int = 3
 const UPDATEREADY_ApplicationCache int = 4
 const OBSOLETE_ApplicationCache int = 5
 
+// Status returning attribute 'status' with
+// type int (idl: unsigned short).
 func (_this *ApplicationCache) Status() int {
 	var ret int
 	value := _this.value.Get("status")
@@ -25858,6 +28856,8 @@ func (_this *ApplicationCache) Status() int {
 	return ret
 }
 
+// Onchecking returning attribute 'onchecking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onchecking() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onchecking")
@@ -25867,6 +28867,8 @@ func (_this *ApplicationCache) Onchecking() EventHandler {
 	return ret
 }
 
+// SetOnchecking setting attribute 'onchecking' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnchecking(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -25878,6 +28880,8 @@ func (_this *ApplicationCache) SetOnchecking(value *js.Callback) {
 	_this.value.Set("onchecking", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onerror")
@@ -25887,6 +28891,8 @@ func (_this *ApplicationCache) Onerror() EventHandler {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnerror(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -25898,6 +28904,8 @@ func (_this *ApplicationCache) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onnoupdate returning attribute 'onnoupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onnoupdate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onnoupdate")
@@ -25907,6 +28915,8 @@ func (_this *ApplicationCache) Onnoupdate() EventHandler {
 	return ret
 }
 
+// SetOnnoupdate setting attribute 'onnoupdate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnnoupdate(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -25918,6 +28928,8 @@ func (_this *ApplicationCache) SetOnnoupdate(value *js.Callback) {
 	_this.value.Set("onnoupdate", input)
 }
 
+// Ondownloading returning attribute 'ondownloading' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Ondownloading() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ondownloading")
@@ -25927,6 +28939,8 @@ func (_this *ApplicationCache) Ondownloading() EventHandler {
 	return ret
 }
 
+// SetOndownloading setting attribute 'ondownloading' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOndownloading(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -25938,6 +28952,8 @@ func (_this *ApplicationCache) SetOndownloading(value *js.Callback) {
 	_this.value.Set("ondownloading", input)
 }
 
+// Onprogress returning attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onprogress() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onprogress")
@@ -25947,6 +28963,8 @@ func (_this *ApplicationCache) Onprogress() EventHandler {
 	return ret
 }
 
+// SetOnprogress setting attribute 'onprogress' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnprogress(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -25958,6 +28976,8 @@ func (_this *ApplicationCache) SetOnprogress(value *js.Callback) {
 	_this.value.Set("onprogress", input)
 }
 
+// Onupdateready returning attribute 'onupdateready' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onupdateready() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onupdateready")
@@ -25967,6 +28987,8 @@ func (_this *ApplicationCache) Onupdateready() EventHandler {
 	return ret
 }
 
+// SetOnupdateready setting attribute 'onupdateready' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnupdateready(value *js.Callback) {
 	var __callback6 js.Value
 	if value != nil {
@@ -25978,6 +29000,8 @@ func (_this *ApplicationCache) SetOnupdateready(value *js.Callback) {
 	_this.value.Set("onupdateready", input)
 }
 
+// Oncached returning attribute 'oncached' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Oncached() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("oncached")
@@ -25987,6 +29011,8 @@ func (_this *ApplicationCache) Oncached() EventHandler {
 	return ret
 }
 
+// SetOncached setting attribute 'oncached' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOncached(value *js.Callback) {
 	var __callback7 js.Value
 	if value != nil {
@@ -25998,6 +29024,8 @@ func (_this *ApplicationCache) SetOncached(value *js.Callback) {
 	_this.value.Set("oncached", input)
 }
 
+// Onobsolete returning attribute 'onobsolete' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) Onobsolete() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onobsolete")
@@ -26007,6 +29035,8 @@ func (_this *ApplicationCache) Onobsolete() EventHandler {
 	return ret
 }
 
+// SetOnobsolete setting attribute 'onobsolete' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *ApplicationCache) SetOnobsolete(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -26019,32 +29049,29 @@ func (_this *ApplicationCache) SetOnobsolete(value *js.Callback) {
 }
 
 func (_this *ApplicationCache) Update() {
-	_method := _this.value.Get("update")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("update", _args[0:_end]...)
 	return
 }
 
 func (_this *ApplicationCache) Abort() {
-	_method := _this.value.Get("abort")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("abort", _args[0:_end]...)
 	return
 }
 
 func (_this *ApplicationCache) SwapCache() {
-	_method := _this.value.Get("swapCache")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("swapCache", _args[0:_end]...)
 	return
 }
 
@@ -26090,6 +29117,8 @@ func NewErrorEvent(_type string, eventInitDict *ErrorEventInit) (_result *ErrorE
 	return
 }
 
+// Message returning attribute 'message' with
+// type string (idl: DOMString).
 func (_this *ErrorEvent) Message() string {
 	var ret string
 	value := _this.value.Get("message")
@@ -26097,6 +29126,8 @@ func (_this *ErrorEvent) Message() string {
 	return ret
 }
 
+// Filename returning attribute 'filename' with
+// type string (idl: USVString).
 func (_this *ErrorEvent) Filename() string {
 	var ret string
 	value := _this.value.Get("filename")
@@ -26104,6 +29135,8 @@ func (_this *ErrorEvent) Filename() string {
 	return ret
 }
 
+// Lineno returning attribute 'lineno' with
+// type uint (idl: unsigned long).
 func (_this *ErrorEvent) Lineno() uint {
 	var ret uint
 	value := _this.value.Get("lineno")
@@ -26111,6 +29144,8 @@ func (_this *ErrorEvent) Lineno() uint {
 	return ret
 }
 
+// Colno returning attribute 'colno' with
+// type uint (idl: unsigned long).
 func (_this *ErrorEvent) Colno() uint {
 	var ret uint
 	value := _this.value.Get("colno")
@@ -26118,6 +29153,8 @@ func (_this *ErrorEvent) Colno() uint {
 	return ret
 }
 
+// Error returning attribute 'error' with
+// type js.Value (idl: any).
 func (_this *ErrorEvent) Error() js.Value {
 	var ret js.Value
 	value := _this.value.Get("error")
@@ -26165,6 +29202,8 @@ func NewPromiseRejectionEvent(_type string, eventInitDict *PromiseRejectionEvent
 	return
 }
 
+// Promise returning attribute 'promise' with
+// type Promise (idl: Promise).
 func (_this *PromiseRejectionEvent) Promise() *Promise {
 	var ret *Promise
 	value := _this.value.Get("promise")
@@ -26172,6 +29211,8 @@ func (_this *PromiseRejectionEvent) Promise() *Promise {
 	return ret
 }
 
+// Reason returning attribute 'reason' with
+// type js.Value (idl: any).
 func (_this *PromiseRejectionEvent) Reason() js.Value {
 	var ret js.Value
 	value := _this.value.Get("reason")
@@ -26198,6 +29239,8 @@ func NavigatorFromJS(input js.Value) *Navigator {
 	return ret
 }
 
+// AppCodeName returning attribute 'appCodeName' with
+// type string (idl: DOMString).
 func (_this *Navigator) AppCodeName() string {
 	var ret string
 	value := _this.value.Get("appCodeName")
@@ -26205,6 +29248,8 @@ func (_this *Navigator) AppCodeName() string {
 	return ret
 }
 
+// AppName returning attribute 'appName' with
+// type string (idl: DOMString).
 func (_this *Navigator) AppName() string {
 	var ret string
 	value := _this.value.Get("appName")
@@ -26212,6 +29257,8 @@ func (_this *Navigator) AppName() string {
 	return ret
 }
 
+// AppVersion returning attribute 'appVersion' with
+// type string (idl: DOMString).
 func (_this *Navigator) AppVersion() string {
 	var ret string
 	value := _this.value.Get("appVersion")
@@ -26219,6 +29266,8 @@ func (_this *Navigator) AppVersion() string {
 	return ret
 }
 
+// Platform returning attribute 'platform' with
+// type string (idl: DOMString).
 func (_this *Navigator) Platform() string {
 	var ret string
 	value := _this.value.Get("platform")
@@ -26226,6 +29275,8 @@ func (_this *Navigator) Platform() string {
 	return ret
 }
 
+// Product returning attribute 'product' with
+// type string (idl: DOMString).
 func (_this *Navigator) Product() string {
 	var ret string
 	value := _this.value.Get("product")
@@ -26233,6 +29284,8 @@ func (_this *Navigator) Product() string {
 	return ret
 }
 
+// ProductSub returning attribute 'productSub' with
+// type string (idl: DOMString).
 func (_this *Navigator) ProductSub() string {
 	var ret string
 	value := _this.value.Get("productSub")
@@ -26240,6 +29293,8 @@ func (_this *Navigator) ProductSub() string {
 	return ret
 }
 
+// UserAgent returning attribute 'userAgent' with
+// type string (idl: DOMString).
 func (_this *Navigator) UserAgent() string {
 	var ret string
 	value := _this.value.Get("userAgent")
@@ -26247,6 +29302,8 @@ func (_this *Navigator) UserAgent() string {
 	return ret
 }
 
+// Vendor returning attribute 'vendor' with
+// type string (idl: DOMString).
 func (_this *Navigator) Vendor() string {
 	var ret string
 	value := _this.value.Get("vendor")
@@ -26254,6 +29311,8 @@ func (_this *Navigator) Vendor() string {
 	return ret
 }
 
+// VendorSub returning attribute 'vendorSub' with
+// type string (idl: DOMString).
 func (_this *Navigator) VendorSub() string {
 	var ret string
 	value := _this.value.Get("vendorSub")
@@ -26261,6 +29320,8 @@ func (_this *Navigator) VendorSub() string {
 	return ret
 }
 
+// Oscpu returning attribute 'oscpu' with
+// type string (idl: DOMString).
 func (_this *Navigator) Oscpu() string {
 	var ret string
 	value := _this.value.Get("oscpu")
@@ -26268,6 +29329,8 @@ func (_this *Navigator) Oscpu() string {
 	return ret
 }
 
+// Language returning attribute 'language' with
+// type string (idl: DOMString).
 func (_this *Navigator) Language() string {
 	var ret string
 	value := _this.value.Get("language")
@@ -26275,6 +29338,8 @@ func (_this *Navigator) Language() string {
 	return ret
 }
 
+// Languages returning attribute 'languages' with
+// type FrozenArray (idl: FrozenArray).
 func (_this *Navigator) Languages() *FrozenArray {
 	var ret *FrozenArray
 	value := _this.value.Get("languages")
@@ -26282,6 +29347,8 @@ func (_this *Navigator) Languages() *FrozenArray {
 	return ret
 }
 
+// OnLine returning attribute 'onLine' with
+// type bool (idl: boolean).
 func (_this *Navigator) OnLine() bool {
 	var ret bool
 	value := _this.value.Get("onLine")
@@ -26289,6 +29356,8 @@ func (_this *Navigator) OnLine() bool {
 	return ret
 }
 
+// CookieEnabled returning attribute 'cookieEnabled' with
+// type bool (idl: boolean).
 func (_this *Navigator) CookieEnabled() bool {
 	var ret bool
 	value := _this.value.Get("cookieEnabled")
@@ -26296,6 +29365,8 @@ func (_this *Navigator) CookieEnabled() bool {
 	return ret
 }
 
+// Plugins returning attribute 'plugins' with
+// type PluginArray (idl: PluginArray).
 func (_this *Navigator) Plugins() *PluginArray {
 	var ret *PluginArray
 	value := _this.value.Get("plugins")
@@ -26303,6 +29374,8 @@ func (_this *Navigator) Plugins() *PluginArray {
 	return ret
 }
 
+// MimeTypes returning attribute 'mimeTypes' with
+// type MimeTypeArray (idl: MimeTypeArray).
 func (_this *Navigator) MimeTypes() *MimeTypeArray {
 	var ret *MimeTypeArray
 	value := _this.value.Get("mimeTypes")
@@ -26310,6 +29383,8 @@ func (_this *Navigator) MimeTypes() *MimeTypeArray {
 	return ret
 }
 
+// HardwareConcurrency returning attribute 'hardwareConcurrency' with
+// type int (idl: unsigned long long).
 func (_this *Navigator) HardwareConcurrency() int {
 	var ret int
 	value := _this.value.Get("hardwareConcurrency")
@@ -26318,12 +29393,11 @@ func (_this *Navigator) HardwareConcurrency() int {
 }
 
 func (_this *Navigator) TaintEnabled() (_result bool) {
-	_method := _this.value.Get("taintEnabled")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("taintEnabled", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -26333,7 +29407,6 @@ func (_this *Navigator) TaintEnabled() (_result bool) {
 }
 
 func (_this *Navigator) RegisterProtocolHandler(scheme string, url string, title string) {
-	_method := _this.value.Get("registerProtocolHandler")
 	var (
 		_args [3]interface{}
 		_end  int
@@ -26347,12 +29420,11 @@ func (_this *Navigator) RegisterProtocolHandler(scheme string, url string, title
 	_p2 := title
 	_args[2] = _p2
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("registerProtocolHandler", _args[0:_end]...)
 	return
 }
 
 func (_this *Navigator) UnregisterProtocolHandler(scheme string, url string) {
-	_method := _this.value.Get("unregisterProtocolHandler")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -26363,17 +29435,16 @@ func (_this *Navigator) UnregisterProtocolHandler(scheme string, url string) {
 	_p1 := url
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("unregisterProtocolHandler", _args[0:_end]...)
 	return
 }
 
 func (_this *Navigator) JavaEnabled() (_result bool) {
-	_method := _this.value.Get("javaEnabled")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("javaEnabled", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -26401,6 +29472,8 @@ func PluginArrayFromJS(input js.Value) *PluginArray {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *PluginArray) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -26409,7 +29482,6 @@ func (_this *PluginArray) Length() uint {
 }
 
 func (_this *PluginArray) Refresh(reload *bool) {
-	_method := _this.value.Get("refresh")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26419,12 +29491,11 @@ func (_this *PluginArray) Refresh(reload *bool) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("refresh", _args[0:_end]...)
 	return
 }
 
 func (_this *PluginArray) Item(index uint) (_result *Plugin) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26432,7 +29503,7 @@ func (_this *PluginArray) Item(index uint) (_result *Plugin) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *Plugin // javascript: Plugin _what_return_name
 	)
@@ -26444,7 +29515,6 @@ func (_this *PluginArray) Item(index uint) (_result *Plugin) {
 }
 
 func (_this *PluginArray) NamedItem(name string) (_result *Plugin) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26452,7 +29522,7 @@ func (_this *PluginArray) NamedItem(name string) (_result *Plugin) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *Plugin // javascript: Plugin _what_return_name
 	)
@@ -26482,6 +29552,8 @@ func MimeTypeArrayFromJS(input js.Value) *MimeTypeArray {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *MimeTypeArray) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -26490,7 +29562,6 @@ func (_this *MimeTypeArray) Length() uint {
 }
 
 func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26498,7 +29569,7 @@ func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
@@ -26510,7 +29581,6 @@ func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
 }
 
 func (_this *MimeTypeArray) NamedItem(name string) (_result *MimeType) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26518,7 +29588,7 @@ func (_this *MimeTypeArray) NamedItem(name string) (_result *MimeType) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
@@ -26548,6 +29618,8 @@ func PluginFromJS(input js.Value) *Plugin {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *Plugin) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -26555,6 +29627,8 @@ func (_this *Plugin) Name() string {
 	return ret
 }
 
+// Description returning attribute 'description' with
+// type string (idl: DOMString).
 func (_this *Plugin) Description() string {
 	var ret string
 	value := _this.value.Get("description")
@@ -26562,6 +29636,8 @@ func (_this *Plugin) Description() string {
 	return ret
 }
 
+// Filename returning attribute 'filename' with
+// type string (idl: DOMString).
 func (_this *Plugin) Filename() string {
 	var ret string
 	value := _this.value.Get("filename")
@@ -26569,6 +29645,8 @@ func (_this *Plugin) Filename() string {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *Plugin) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -26577,7 +29655,6 @@ func (_this *Plugin) Length() uint {
 }
 
 func (_this *Plugin) Item(index uint) (_result *MimeType) {
-	_method := _this.value.Get("item")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26585,7 +29662,7 @@ func (_this *Plugin) Item(index uint) (_result *MimeType) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("item", _args[0:_end]...)
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
@@ -26597,7 +29674,6 @@ func (_this *Plugin) Item(index uint) (_result *MimeType) {
 }
 
 func (_this *Plugin) NamedItem(name string) (_result *MimeType) {
-	_method := _this.value.Get("namedItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -26605,7 +29681,7 @@ func (_this *Plugin) NamedItem(name string) (_result *MimeType) {
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("namedItem", _args[0:_end]...)
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
@@ -26635,6 +29711,8 @@ func MimeTypeFromJS(input js.Value) *MimeType {
 	return ret
 }
 
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
 func (_this *MimeType) Type() string {
 	var ret string
 	value := _this.value.Get("type")
@@ -26642,6 +29720,8 @@ func (_this *MimeType) Type() string {
 	return ret
 }
 
+// Description returning attribute 'description' with
+// type string (idl: DOMString).
 func (_this *MimeType) Description() string {
 	var ret string
 	value := _this.value.Get("description")
@@ -26649,6 +29729,8 @@ func (_this *MimeType) Description() string {
 	return ret
 }
 
+// Suffixes returning attribute 'suffixes' with
+// type string (idl: DOMString).
 func (_this *MimeType) Suffixes() string {
 	var ret string
 	value := _this.value.Get("suffixes")
@@ -26656,6 +29738,8 @@ func (_this *MimeType) Suffixes() string {
 	return ret
 }
 
+// EnabledPlugin returning attribute 'enabledPlugin' with
+// type Plugin (idl: Plugin).
 func (_this *MimeType) EnabledPlugin() *Plugin {
 	var ret *Plugin
 	value := _this.value.Get("enabledPlugin")
@@ -26682,6 +29766,8 @@ func ImageBitmapFromJS(input js.Value) *ImageBitmap {
 	return ret
 }
 
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
 func (_this *ImageBitmap) Width() uint {
 	var ret uint
 	value := _this.value.Get("width")
@@ -26689,6 +29775,8 @@ func (_this *ImageBitmap) Width() uint {
 	return ret
 }
 
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
 func (_this *ImageBitmap) Height() uint {
 	var ret uint
 	value := _this.value.Get("height")
@@ -26697,12 +29785,11 @@ func (_this *ImageBitmap) Height() uint {
 }
 
 func (_this *ImageBitmap) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -26748,6 +29835,8 @@ func NewMessageEvent(_type string, eventInitDict *MessageEventInit) (_result *Me
 	return
 }
 
+// Data returning attribute 'data' with
+// type js.Value (idl: any).
 func (_this *MessageEvent) Data() js.Value {
 	var ret js.Value
 	value := _this.value.Get("data")
@@ -26755,6 +29844,8 @@ func (_this *MessageEvent) Data() js.Value {
 	return ret
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *MessageEvent) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -26762,6 +29853,8 @@ func (_this *MessageEvent) Origin() string {
 	return ret
 }
 
+// LastEventId returning attribute 'lastEventId' with
+// type string (idl: DOMString).
 func (_this *MessageEvent) LastEventId() string {
 	var ret string
 	value := _this.value.Get("lastEventId")
@@ -26769,6 +29862,8 @@ func (_this *MessageEvent) LastEventId() string {
 	return ret
 }
 
+// Source returning attribute 'source' with
+// type Union (idl: Union).
 func (_this *MessageEvent) Source() *Union {
 	var ret *Union
 	value := _this.value.Get("source")
@@ -26778,6 +29873,8 @@ func (_this *MessageEvent) Source() *Union {
 	return ret
 }
 
+// Ports returning attribute 'ports' with
+// type FrozenArray (idl: FrozenArray).
 func (_this *MessageEvent) Ports() *FrozenArray {
 	var ret *FrozenArray
 	value := _this.value.Get("ports")
@@ -26786,7 +29883,6 @@ func (_this *MessageEvent) Ports() *FrozenArray {
 }
 
 func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data js.Value, origin *string, lastEventId *string, source *Union, ports *[]*MessagePort) {
-	_method := _this.value.Get("initMessageEvent")
 	var (
 		_args [8]interface{}
 		_end  int
@@ -26833,7 +29929,7 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 		_args[7] = _p7
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("initMessageEvent", _args[0:_end]...)
 	return
 }
 
@@ -26883,6 +29979,8 @@ func NewEventSource(url string, eventSourceInitDict *EventSourceInit) (_result *
 	return
 }
 
+// Url returning attribute 'url' with
+// type string (idl: USVString).
 func (_this *EventSource) Url() string {
 	var ret string
 	value := _this.value.Get("url")
@@ -26890,6 +29988,8 @@ func (_this *EventSource) Url() string {
 	return ret
 }
 
+// WithCredentials returning attribute 'withCredentials' with
+// type bool (idl: boolean).
 func (_this *EventSource) WithCredentials() bool {
 	var ret bool
 	value := _this.value.Get("withCredentials")
@@ -26897,6 +29997,8 @@ func (_this *EventSource) WithCredentials() bool {
 	return ret
 }
 
+// ReadyState returning attribute 'readyState' with
+// type int (idl: unsigned short).
 func (_this *EventSource) ReadyState() int {
 	var ret int
 	value := _this.value.Get("readyState")
@@ -26904,6 +30006,8 @@ func (_this *EventSource) ReadyState() int {
 	return ret
 }
 
+// Onopen returning attribute 'onopen' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) Onopen() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onopen")
@@ -26913,6 +30017,8 @@ func (_this *EventSource) Onopen() EventHandler {
 	return ret
 }
 
+// SetOnopen setting attribute 'onopen' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) SetOnopen(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -26924,6 +30030,8 @@ func (_this *EventSource) SetOnopen(value *js.Callback) {
 	_this.value.Set("onopen", input)
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -26933,6 +30041,8 @@ func (_this *EventSource) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) SetOnmessage(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -26944,6 +30054,8 @@ func (_this *EventSource) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) Onerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onerror")
@@ -26953,6 +30065,8 @@ func (_this *EventSource) Onerror() EventHandler {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *EventSource) SetOnerror(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -26965,12 +30079,11 @@ func (_this *EventSource) SetOnerror(value *js.Callback) {
 }
 
 func (_this *EventSource) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -27021,6 +30134,8 @@ func NewWebSocket(url string, protocols *Union) (_result *WebSocket) {
 	return
 }
 
+// Url returning attribute 'url' with
+// type string (idl: USVString).
 func (_this *WebSocket) Url() string {
 	var ret string
 	value := _this.value.Get("url")
@@ -27028,6 +30143,8 @@ func (_this *WebSocket) Url() string {
 	return ret
 }
 
+// ReadyState returning attribute 'readyState' with
+// type int (idl: unsigned short).
 func (_this *WebSocket) ReadyState() int {
 	var ret int
 	value := _this.value.Get("readyState")
@@ -27035,6 +30152,8 @@ func (_this *WebSocket) ReadyState() int {
 	return ret
 }
 
+// BufferedAmount returning attribute 'bufferedAmount' with
+// type int (idl: unsigned long long).
 func (_this *WebSocket) BufferedAmount() int {
 	var ret int
 	value := _this.value.Get("bufferedAmount")
@@ -27042,6 +30161,8 @@ func (_this *WebSocket) BufferedAmount() int {
 	return ret
 }
 
+// Onopen returning attribute 'onopen' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) Onopen() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onopen")
@@ -27051,6 +30172,8 @@ func (_this *WebSocket) Onopen() EventHandler {
 	return ret
 }
 
+// SetOnopen setting attribute 'onopen' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnopen(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -27062,6 +30185,8 @@ func (_this *WebSocket) SetOnopen(value *js.Callback) {
 	_this.value.Set("onopen", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) Onerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onerror")
@@ -27071,6 +30196,8 @@ func (_this *WebSocket) Onerror() EventHandler {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnerror(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -27082,6 +30209,8 @@ func (_this *WebSocket) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onclose returning attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) Onclose() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onclose")
@@ -27091,6 +30220,8 @@ func (_this *WebSocket) Onclose() EventHandler {
 	return ret
 }
 
+// SetOnclose setting attribute 'onclose' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnclose(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -27102,6 +30233,8 @@ func (_this *WebSocket) SetOnclose(value *js.Callback) {
 	_this.value.Set("onclose", input)
 }
 
+// Extensions returning attribute 'extensions' with
+// type string (idl: DOMString).
 func (_this *WebSocket) Extensions() string {
 	var ret string
 	value := _this.value.Get("extensions")
@@ -27109,6 +30242,8 @@ func (_this *WebSocket) Extensions() string {
 	return ret
 }
 
+// Protocol returning attribute 'protocol' with
+// type string (idl: DOMString).
 func (_this *WebSocket) Protocol() string {
 	var ret string
 	value := _this.value.Get("protocol")
@@ -27116,6 +30251,8 @@ func (_this *WebSocket) Protocol() string {
 	return ret
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -27125,6 +30262,8 @@ func (_this *WebSocket) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnmessage(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -27136,6 +30275,8 @@ func (_this *WebSocket) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// BinaryType returning attribute 'binaryType' with
+// type BinaryType (idl: BinaryType).
 func (_this *WebSocket) BinaryType() BinaryType {
 	var ret BinaryType
 	value := _this.value.Get("binaryType")
@@ -27143,13 +30284,14 @@ func (_this *WebSocket) BinaryType() BinaryType {
 	return ret
 }
 
+// SetBinaryType setting attribute 'binaryType' with
+// type BinaryType (idl: BinaryType).
 func (_this *WebSocket) SetBinaryType(value BinaryType) {
 	input := value.JSValue()
 	_this.value.Set("binaryType", input)
 }
 
 func (_this *WebSocket) Close(code *int, reason *string) {
-	_method := _this.value.Get("close")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -27164,12 +30306,11 @@ func (_this *WebSocket) Close(code *int, reason *string) {
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
 func (_this *WebSocket) Send(data string) {
-	_method := _this.value.Get("send")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27177,12 +30318,11 @@ func (_this *WebSocket) Send(data string) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("send", _args[0:_end]...)
 	return
 }
 
 func (_this *WebSocket) Send2(data *Blob) {
-	_method := _this.value.Get("send")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27190,12 +30330,11 @@ func (_this *WebSocket) Send2(data *Blob) {
 	_p0 := data.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("send", _args[0:_end]...)
 	return
 }
 
 func (_this *WebSocket) Send3(data *ArrayBuffer) {
-	_method := _this.value.Get("send")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27203,12 +30342,11 @@ func (_this *WebSocket) Send3(data *ArrayBuffer) {
 	_p0 := data.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("send", _args[0:_end]...)
 	return
 }
 
 func (_this *WebSocket) Send4(data *ArrayBufferView) {
-	_method := _this.value.Get("send")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27216,7 +30354,7 @@ func (_this *WebSocket) Send4(data *ArrayBufferView) {
 	_p0 := data.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("send", _args[0:_end]...)
 	return
 }
 
@@ -27262,6 +30400,8 @@ func NewCloseEvent(_type string, eventInitDict *CloseEventInit) (_result *CloseE
 	return
 }
 
+// WasClean returning attribute 'wasClean' with
+// type bool (idl: boolean).
 func (_this *CloseEvent) WasClean() bool {
 	var ret bool
 	value := _this.value.Get("wasClean")
@@ -27269,6 +30409,8 @@ func (_this *CloseEvent) WasClean() bool {
 	return ret
 }
 
+// Code returning attribute 'code' with
+// type int (idl: unsigned short).
 func (_this *CloseEvent) Code() int {
 	var ret int
 	value := _this.value.Get("code")
@@ -27276,6 +30418,8 @@ func (_this *CloseEvent) Code() int {
 	return ret
 }
 
+// Reason returning attribute 'reason' with
+// type string (idl: USVString).
 func (_this *CloseEvent) Reason() string {
 	var ret string
 	value := _this.value.Get("reason")
@@ -27317,6 +30461,8 @@ func NewMessageChannel() (_result *MessageChannel) {
 	return
 }
 
+// Port1 returning attribute 'port1' with
+// type MessagePort (idl: MessagePort).
 func (_this *MessageChannel) Port1() *MessagePort {
 	var ret *MessagePort
 	value := _this.value.Get("port1")
@@ -27324,6 +30470,8 @@ func (_this *MessageChannel) Port1() *MessagePort {
 	return ret
 }
 
+// Port2 returning attribute 'port2' with
+// type MessagePort (idl: MessagePort).
 func (_this *MessageChannel) Port2() *MessagePort {
 	var ret *MessagePort
 	value := _this.value.Get("port2")
@@ -27350,6 +30498,8 @@ func MessagePortFromJS(input js.Value) *MessagePort {
 	return ret
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *MessagePort) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -27359,6 +30509,8 @@ func (_this *MessagePort) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *MessagePort) SetOnmessage(value *js.Callback) {
 	var __callback0 js.Value
 	if value != nil {
@@ -27370,6 +30522,8 @@ func (_this *MessagePort) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *MessagePort) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -27379,6 +30533,8 @@ func (_this *MessagePort) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *MessagePort) SetOnmessageerror(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -27391,7 +30547,6 @@ func (_this *MessagePort) SetOnmessageerror(value *js.Callback) {
 }
 
 func (_this *MessagePort) PostMessage(message js.Value, transfer []*Object) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -27406,12 +30561,11 @@ func (_this *MessagePort) PostMessage(message js.Value, transfer []*Object) {
 	}
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *MessagePort) PostMessage2(message js.Value, options *PostMessageOptions) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -27424,27 +30578,25 @@ func (_this *MessagePort) PostMessage2(message js.Value, options *PostMessageOpt
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *MessagePort) Start() {
-	_method := _this.value.Get("start")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("start", _args[0:_end]...)
 	return
 }
 
 func (_this *MessagePort) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -27485,6 +30637,8 @@ func NewBroadcastChannel(name string) (_result *BroadcastChannel) {
 	return
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *BroadcastChannel) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -27492,6 +30646,8 @@ func (_this *BroadcastChannel) Name() string {
 	return ret
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *BroadcastChannel) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -27501,6 +30657,8 @@ func (_this *BroadcastChannel) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *BroadcastChannel) SetOnmessage(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -27512,6 +30670,8 @@ func (_this *BroadcastChannel) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *BroadcastChannel) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -27521,6 +30681,8 @@ func (_this *BroadcastChannel) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *BroadcastChannel) SetOnmessageerror(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -27533,7 +30695,6 @@ func (_this *BroadcastChannel) SetOnmessageerror(value *js.Callback) {
 }
 
 func (_this *BroadcastChannel) PostMessage(message js.Value) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27541,17 +30702,16 @@ func (_this *BroadcastChannel) PostMessage(message js.Value) {
 	_p0 := message
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *BroadcastChannel) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -27574,6 +30734,8 @@ func WorkerGlobalScopeFromJS(input js.Value) *WorkerGlobalScope {
 	return ret
 }
 
+// Self returning attribute 'self' with
+// type WorkerGlobalScope (idl: WorkerGlobalScope).
 func (_this *WorkerGlobalScope) Self() *WorkerGlobalScope {
 	var ret *WorkerGlobalScope
 	value := _this.value.Get("self")
@@ -27581,6 +30743,8 @@ func (_this *WorkerGlobalScope) Self() *WorkerGlobalScope {
 	return ret
 }
 
+// Location returning attribute 'location' with
+// type WorkerLocation (idl: WorkerLocation).
 func (_this *WorkerGlobalScope) Location() *WorkerLocation {
 	var ret *WorkerLocation
 	value := _this.value.Get("location")
@@ -27588,6 +30752,8 @@ func (_this *WorkerGlobalScope) Location() *WorkerLocation {
 	return ret
 }
 
+// Navigator returning attribute 'navigator' with
+// type WorkerNavigator (idl: WorkerNavigator).
 func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 	var ret *WorkerNavigator
 	value := _this.value.Get("navigator")
@@ -27595,6 +30761,8 @@ func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 	return ret
 }
 
+// Onerror returning attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *WorkerGlobalScope) Onerror() OnErrorEventHandlerNonNull {
 	var ret OnErrorEventHandlerNonNull
 	value := _this.value.Get("onerror")
@@ -27604,6 +30772,8 @@ func (_this *WorkerGlobalScope) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnerror(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -27615,6 +30785,8 @@ func (_this *WorkerGlobalScope) SetOnerror(value *js.Callback) {
 	_this.value.Set("onerror", input)
 }
 
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) Onlanguagechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onlanguagechange")
@@ -27624,6 +30796,8 @@ func (_this *WorkerGlobalScope) Onlanguagechange() EventHandler {
 	return ret
 }
 
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -27635,6 +30809,8 @@ func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Callback) {
 	_this.value.Set("onlanguagechange", input)
 }
 
+// Onoffline returning attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) Onoffline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onoffline")
@@ -27644,6 +30820,8 @@ func (_this *WorkerGlobalScope) Onoffline() EventHandler {
 	return ret
 }
 
+// SetOnoffline setting attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnoffline(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -27655,6 +30833,8 @@ func (_this *WorkerGlobalScope) SetOnoffline(value *js.Callback) {
 	_this.value.Set("onoffline", input)
 }
 
+// Ononline returning attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) Ononline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ononline")
@@ -27664,6 +30844,8 @@ func (_this *WorkerGlobalScope) Ononline() EventHandler {
 	return ret
 }
 
+// SetOnonline setting attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnonline(value *js.Callback) {
 	var __callback6 js.Value
 	if value != nil {
@@ -27675,6 +30857,8 @@ func (_this *WorkerGlobalScope) SetOnonline(value *js.Callback) {
 	_this.value.Set("ononline", input)
 }
 
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) Onrejectionhandled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onrejectionhandled")
@@ -27684,6 +30868,8 @@ func (_this *WorkerGlobalScope) Onrejectionhandled() EventHandler {
 	return ret
 }
 
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Callback) {
 	var __callback7 js.Value
 	if value != nil {
@@ -27695,6 +30881,8 @@ func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Callback) {
 	_this.value.Set("onrejectionhandled", input)
 }
 
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) Onunhandledrejection() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunhandledrejection")
@@ -27704,6 +30892,8 @@ func (_this *WorkerGlobalScope) Onunhandledrejection() EventHandler {
 	return ret
 }
 
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -27715,6 +30905,8 @@ func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Callback) {
 	_this.value.Set("onunhandledrejection", input)
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *WorkerGlobalScope) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -27723,7 +30915,6 @@ func (_this *WorkerGlobalScope) Origin() string {
 }
 
 func (_this *WorkerGlobalScope) ImportScripts(urls ...string) {
-	_method := _this.value.Get("importScripts")
 	var (
 		_args []interface{} = make([]interface{}, 0+len(urls))
 		_end  int
@@ -27733,12 +30924,11 @@ func (_this *WorkerGlobalScope) ImportScripts(urls ...string) {
 		_args[_end] = __out
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("importScripts", _args[0:_end]...)
 	return
 }
 
 func (_this *WorkerGlobalScope) Btoa(data string) (_result string) {
-	_method := _this.value.Get("btoa")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27746,7 +30936,7 @@ func (_this *WorkerGlobalScope) Btoa(data string) (_result string) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("btoa", _args[0:_end]...)
 	var (
 		_converted string // javascript: DOMString _what_return_name
 	)
@@ -27756,7 +30946,6 @@ func (_this *WorkerGlobalScope) Btoa(data string) (_result string) {
 }
 
 func (_this *WorkerGlobalScope) Atob(data string) (_result *ByteString) {
-	_method := _this.value.Get("atob")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27764,7 +30953,7 @@ func (_this *WorkerGlobalScope) Atob(data string) (_result *ByteString) {
 	_p0 := data
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("atob", _args[0:_end]...)
 	var (
 		_converted *ByteString // javascript: ByteString _what_return_name
 	)
@@ -27774,7 +30963,6 @@ func (_this *WorkerGlobalScope) Atob(data string) (_result *ByteString) {
 }
 
 func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	_method := _this.value.Get("setTimeout")
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -27792,7 +30980,7 @@ func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, argumen
 		_args[_end] = __out
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setTimeout", _args[0:_end]...)
 	var (
 		_converted int // javascript: long _what_return_name
 	)
@@ -27802,7 +30990,6 @@ func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, argumen
 }
 
 func (_this *WorkerGlobalScope) ClearTimeout(handle *int) {
-	_method := _this.value.Get("clearTimeout")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27812,12 +30999,11 @@ func (_this *WorkerGlobalScope) ClearTimeout(handle *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearTimeout", _args[0:_end]...)
 	return
 }
 
 func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	_method := _this.value.Get("setInterval")
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -27835,7 +31021,7 @@ func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, argume
 		_args[_end] = __out
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("setInterval", _args[0:_end]...)
 	var (
 		_converted int // javascript: long _what_return_name
 	)
@@ -27845,7 +31031,6 @@ func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, argume
 }
 
 func (_this *WorkerGlobalScope) ClearInterval(handle *int) {
-	_method := _this.value.Get("clearInterval")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27855,12 +31040,11 @@ func (_this *WorkerGlobalScope) ClearInterval(handle *int) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clearInterval", _args[0:_end]...)
 	return
 }
 
 func (_this *WorkerGlobalScope) QueueMicrotask(callback *VoidFunction) {
-	_method := _this.value.Get("queueMicrotask")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27868,12 +31052,11 @@ func (_this *WorkerGlobalScope) QueueMicrotask(callback *VoidFunction) {
 	_p0 := callback.JSValue()
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("queueMicrotask", _args[0:_end]...)
 	return
 }
 
 func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *ImageBitmapOptions) (_result *Promise) {
-	_method := _this.value.Get("createImageBitmap")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -27886,7 +31069,7 @@ func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *ImageBi
 		_args[1] = _p1
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageBitmap", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -27896,7 +31079,6 @@ func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *ImageBi
 }
 
 func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *ImageBitmapOptions) (_result *Promise) {
-	_method := _this.value.Get("createImageBitmap")
 	var (
 		_args [6]interface{}
 		_end  int
@@ -27921,7 +31103,7 @@ func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int,
 		_args[5] = _p5
 		_end++
 	}
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("createImageBitmap", _args[0:_end]...)
 	var (
 		_converted *Promise // javascript: Promise _what_return_name
 	)
@@ -27949,6 +31131,8 @@ func DedicatedWorkerGlobalScopeFromJS(input js.Value) *DedicatedWorkerGlobalScop
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *DedicatedWorkerGlobalScope) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -27956,6 +31140,8 @@ func (_this *DedicatedWorkerGlobalScope) Name() string {
 	return ret
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *DedicatedWorkerGlobalScope) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -27965,6 +31151,8 @@ func (_this *DedicatedWorkerGlobalScope) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -27976,6 +31164,8 @@ func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *DedicatedWorkerGlobalScope) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -27985,6 +31175,8 @@ func (_this *DedicatedWorkerGlobalScope) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -27997,7 +31189,6 @@ func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Callback) {
 }
 
 func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer []*Object) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28012,12 +31203,11 @@ func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer 
 	}
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *DedicatedWorkerGlobalScope) PostMessage2(message js.Value, options *PostMessageOptions) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28030,22 +31220,20 @@ func (_this *DedicatedWorkerGlobalScope) PostMessage2(message js.Value, options 
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *DedicatedWorkerGlobalScope) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
 func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Callback) (_result uint) {
-	_method := _this.value.Get("requestAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -28060,7 +31248,7 @@ func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Call
 	_p0 := __callback0
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("requestAnimationFrame", _args[0:_end]...)
 	var (
 		_converted uint // javascript: unsigned long _what_return_name
 	)
@@ -28070,7 +31258,6 @@ func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Call
 }
 
 func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
-	_method := _this.value.Get("cancelAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -28078,7 +31265,7 @@ func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
 	_p0 := handle
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("cancelAnimationFrame", _args[0:_end]...)
 	return
 }
 
@@ -28101,6 +31288,8 @@ func SharedWorkerGlobalScopeFromJS(input js.Value) *SharedWorkerGlobalScope {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *SharedWorkerGlobalScope) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -28108,6 +31297,8 @@ func (_this *SharedWorkerGlobalScope) Name() string {
 	return ret
 }
 
+// Onconnect returning attribute 'onconnect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *SharedWorkerGlobalScope) Onconnect() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onconnect")
@@ -28117,6 +31308,8 @@ func (_this *SharedWorkerGlobalScope) Onconnect() EventHandler {
 	return ret
 }
 
+// SetOnconnect setting attribute 'onconnect' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -28129,12 +31322,11 @@ func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Callback) {
 }
 
 func (_this *SharedWorkerGlobalScope) Close() {
-	_method := _this.value.Get("close")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("close", _args[0:_end]...)
 	return
 }
 
@@ -28180,6 +31372,8 @@ func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
 	return
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -28189,6 +31383,8 @@ func (_this *Worker) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) SetOnmessage(value *js.Callback) {
 	var __callback0 js.Value
 	if value != nil {
@@ -28200,6 +31396,8 @@ func (_this *Worker) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -28209,6 +31407,8 @@ func (_this *Worker) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) SetOnmessageerror(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -28220,6 +31420,8 @@ func (_this *Worker) SetOnmessageerror(value *js.Callback) {
 	_this.value.Set("onmessageerror", input)
 }
 
+// Onerror returning attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) Onerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onerror")
@@ -28229,6 +31431,8 @@ func (_this *Worker) Onerror() EventHandler {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *Worker) SetOnerror(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -28241,17 +31445,15 @@ func (_this *Worker) SetOnerror(value *js.Callback) {
 }
 
 func (_this *Worker) Terminate() {
-	_method := _this.value.Get("terminate")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("terminate", _args[0:_end]...)
 	return
 }
 
 func (_this *Worker) PostMessage(message js.Value, transfer []*Object) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28266,12 +31468,11 @@ func (_this *Worker) PostMessage(message js.Value, transfer []*Object) {
 	}
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
 func (_this *Worker) PostMessage2(message js.Value, options *PostMessageOptions) {
-	_method := _this.value.Get("postMessage")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28284,7 +31485,7 @@ func (_this *Worker) PostMessage2(message js.Value, options *PostMessageOptions)
 		_args[1] = _p1
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("postMessage", _args[0:_end]...)
 	return
 }
 
@@ -28330,6 +31531,8 @@ func NewSharedWorker(scriptURL string, options *Union) (_result *SharedWorker) {
 	return
 }
 
+// Port returning attribute 'port' with
+// type MessagePort (idl: MessagePort).
 func (_this *SharedWorker) Port() *MessagePort {
 	var ret *MessagePort
 	value := _this.value.Get("port")
@@ -28337,6 +31540,8 @@ func (_this *SharedWorker) Port() *MessagePort {
 	return ret
 }
 
+// Onerror returning attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *SharedWorker) Onerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onerror")
@@ -28346,6 +31551,8 @@ func (_this *SharedWorker) Onerror() EventHandler {
 	return ret
 }
 
+// SetOnerror setting attribute 'onerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *SharedWorker) SetOnerror(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
@@ -28376,6 +31583,8 @@ func WorkerNavigatorFromJS(input js.Value) *WorkerNavigator {
 	return ret
 }
 
+// AppCodeName returning attribute 'appCodeName' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) AppCodeName() string {
 	var ret string
 	value := _this.value.Get("appCodeName")
@@ -28383,6 +31592,8 @@ func (_this *WorkerNavigator) AppCodeName() string {
 	return ret
 }
 
+// AppName returning attribute 'appName' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) AppName() string {
 	var ret string
 	value := _this.value.Get("appName")
@@ -28390,6 +31601,8 @@ func (_this *WorkerNavigator) AppName() string {
 	return ret
 }
 
+// AppVersion returning attribute 'appVersion' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) AppVersion() string {
 	var ret string
 	value := _this.value.Get("appVersion")
@@ -28397,6 +31610,8 @@ func (_this *WorkerNavigator) AppVersion() string {
 	return ret
 }
 
+// Platform returning attribute 'platform' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) Platform() string {
 	var ret string
 	value := _this.value.Get("platform")
@@ -28404,6 +31619,8 @@ func (_this *WorkerNavigator) Platform() string {
 	return ret
 }
 
+// Product returning attribute 'product' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) Product() string {
 	var ret string
 	value := _this.value.Get("product")
@@ -28411,6 +31628,8 @@ func (_this *WorkerNavigator) Product() string {
 	return ret
 }
 
+// ProductSub returning attribute 'productSub' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) ProductSub() string {
 	var ret string
 	value := _this.value.Get("productSub")
@@ -28418,6 +31637,8 @@ func (_this *WorkerNavigator) ProductSub() string {
 	return ret
 }
 
+// UserAgent returning attribute 'userAgent' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) UserAgent() string {
 	var ret string
 	value := _this.value.Get("userAgent")
@@ -28425,6 +31646,8 @@ func (_this *WorkerNavigator) UserAgent() string {
 	return ret
 }
 
+// Vendor returning attribute 'vendor' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) Vendor() string {
 	var ret string
 	value := _this.value.Get("vendor")
@@ -28432,6 +31655,8 @@ func (_this *WorkerNavigator) Vendor() string {
 	return ret
 }
 
+// VendorSub returning attribute 'vendorSub' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) VendorSub() string {
 	var ret string
 	value := _this.value.Get("vendorSub")
@@ -28439,6 +31664,8 @@ func (_this *WorkerNavigator) VendorSub() string {
 	return ret
 }
 
+// Oscpu returning attribute 'oscpu' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) Oscpu() string {
 	var ret string
 	value := _this.value.Get("oscpu")
@@ -28446,6 +31673,8 @@ func (_this *WorkerNavigator) Oscpu() string {
 	return ret
 }
 
+// Language returning attribute 'language' with
+// type string (idl: DOMString).
 func (_this *WorkerNavigator) Language() string {
 	var ret string
 	value := _this.value.Get("language")
@@ -28453,6 +31682,8 @@ func (_this *WorkerNavigator) Language() string {
 	return ret
 }
 
+// Languages returning attribute 'languages' with
+// type FrozenArray (idl: FrozenArray).
 func (_this *WorkerNavigator) Languages() *FrozenArray {
 	var ret *FrozenArray
 	value := _this.value.Get("languages")
@@ -28460,6 +31691,8 @@ func (_this *WorkerNavigator) Languages() *FrozenArray {
 	return ret
 }
 
+// OnLine returning attribute 'onLine' with
+// type bool (idl: boolean).
 func (_this *WorkerNavigator) OnLine() bool {
 	var ret bool
 	value := _this.value.Get("onLine")
@@ -28467,6 +31700,8 @@ func (_this *WorkerNavigator) OnLine() bool {
 	return ret
 }
 
+// HardwareConcurrency returning attribute 'hardwareConcurrency' with
+// type int (idl: unsigned long long).
 func (_this *WorkerNavigator) HardwareConcurrency() int {
 	var ret int
 	value := _this.value.Get("hardwareConcurrency")
@@ -28475,12 +31710,11 @@ func (_this *WorkerNavigator) HardwareConcurrency() int {
 }
 
 func (_this *WorkerNavigator) TaintEnabled() (_result bool) {
-	_method := _this.value.Get("taintEnabled")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("taintEnabled", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
@@ -28508,6 +31742,8 @@ func WorkerLocationFromJS(input js.Value) *WorkerLocation {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Href() string {
 	var ret string
 	value := _this.value.Get("href")
@@ -28515,6 +31751,8 @@ func (_this *WorkerLocation) Href() string {
 	return ret
 }
 
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Origin() string {
 	var ret string
 	value := _this.value.Get("origin")
@@ -28522,6 +31760,8 @@ func (_this *WorkerLocation) Origin() string {
 	return ret
 }
 
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Protocol() string {
 	var ret string
 	value := _this.value.Get("protocol")
@@ -28529,6 +31769,8 @@ func (_this *WorkerLocation) Protocol() string {
 	return ret
 }
 
+// Host returning attribute 'host' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Host() string {
 	var ret string
 	value := _this.value.Get("host")
@@ -28536,6 +31778,8 @@ func (_this *WorkerLocation) Host() string {
 	return ret
 }
 
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Hostname() string {
 	var ret string
 	value := _this.value.Get("hostname")
@@ -28543,6 +31787,8 @@ func (_this *WorkerLocation) Hostname() string {
 	return ret
 }
 
+// Port returning attribute 'port' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Port() string {
 	var ret string
 	value := _this.value.Get("port")
@@ -28550,6 +31796,8 @@ func (_this *WorkerLocation) Port() string {
 	return ret
 }
 
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Pathname() string {
 	var ret string
 	value := _this.value.Get("pathname")
@@ -28557,6 +31805,8 @@ func (_this *WorkerLocation) Pathname() string {
 	return ret
 }
 
+// Search returning attribute 'search' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Search() string {
 	var ret string
 	value := _this.value.Get("search")
@@ -28564,6 +31814,8 @@ func (_this *WorkerLocation) Search() string {
 	return ret
 }
 
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
 func (_this *WorkerLocation) Hash() string {
 	var ret string
 	value := _this.value.Get("hash")
@@ -28590,6 +31842,8 @@ func StorageFromJS(input js.Value) *Storage {
 	return ret
 }
 
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
 func (_this *Storage) Length() uint {
 	var ret uint
 	value := _this.value.Get("length")
@@ -28598,7 +31852,6 @@ func (_this *Storage) Length() uint {
 }
 
 func (_this *Storage) Key(index uint) (_result *string) {
-	_method := _this.value.Get("key")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -28606,7 +31859,7 @@ func (_this *Storage) Key(index uint) (_result *string) {
 	_p0 := index
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("key", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -28619,7 +31872,6 @@ func (_this *Storage) Key(index uint) (_result *string) {
 }
 
 func (_this *Storage) GetItem(key string) (_result *string) {
-	_method := _this.value.Get("getItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -28627,7 +31879,7 @@ func (_this *Storage) GetItem(key string) (_result *string) {
 	_p0 := key
 	_args[0] = _p0
 	_end++
-	_returned := _method.Invoke(_args[0:_end]...)
+	_returned := _this.value.Call("getItem", _args[0:_end]...)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
@@ -28640,7 +31892,6 @@ func (_this *Storage) GetItem(key string) (_result *string) {
 }
 
 func (_this *Storage) SetItem(key string, value string) {
-	_method := _this.value.Get("setItem")
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28651,12 +31902,11 @@ func (_this *Storage) SetItem(key string, value string) {
 	_p1 := value
 	_args[1] = _p1
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("setItem", _args[0:_end]...)
 	return
 }
 
 func (_this *Storage) RemoveItem(key string) {
-	_method := _this.value.Get("removeItem")
 	var (
 		_args [1]interface{}
 		_end  int
@@ -28664,17 +31914,16 @@ func (_this *Storage) RemoveItem(key string) {
 	_p0 := key
 	_args[0] = _p0
 	_end++
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("removeItem", _args[0:_end]...)
 	return
 }
 
 func (_this *Storage) Clear() {
-	_method := _this.value.Get("clear")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("clear", _args[0:_end]...)
 	return
 }
 
@@ -28720,6 +31969,8 @@ func NewStorageEvent(_type string, eventInitDict *StorageEventInit) (_result *St
 	return
 }
 
+// Key returning attribute 'key' with
+// type string (idl: DOMString).
 func (_this *StorageEvent) Key() *string {
 	var ret *string
 	value := _this.value.Get("key")
@@ -28730,6 +31981,8 @@ func (_this *StorageEvent) Key() *string {
 	return ret
 }
 
+// OldValue returning attribute 'oldValue' with
+// type string (idl: DOMString).
 func (_this *StorageEvent) OldValue() *string {
 	var ret *string
 	value := _this.value.Get("oldValue")
@@ -28740,6 +31993,8 @@ func (_this *StorageEvent) OldValue() *string {
 	return ret
 }
 
+// NewValue returning attribute 'newValue' with
+// type string (idl: DOMString).
 func (_this *StorageEvent) NewValue() *string {
 	var ret *string
 	value := _this.value.Get("newValue")
@@ -28750,6 +32005,8 @@ func (_this *StorageEvent) NewValue() *string {
 	return ret
 }
 
+// Url returning attribute 'url' with
+// type string (idl: USVString).
 func (_this *StorageEvent) Url() string {
 	var ret string
 	value := _this.value.Get("url")
@@ -28757,6 +32014,8 @@ func (_this *StorageEvent) Url() string {
 	return ret
 }
 
+// StorageArea returning attribute 'storageArea' with
+// type Storage (idl: Storage).
 func (_this *StorageEvent) StorageArea() *Storage {
 	var ret *Storage
 	value := _this.value.Get("storageArea")
@@ -28767,7 +32026,6 @@ func (_this *StorageEvent) StorageArea() *Storage {
 }
 
 func (_this *StorageEvent) InitStorageEvent(_type string, bubbles *bool, cancelable *bool, key *string, oldValue *string, newValue *string, url *string, storageArea *Storage) {
-	_method := _this.value.Get("initStorageEvent")
 	var (
 		_args [8]interface{}
 		_end  int
@@ -28810,7 +32068,7 @@ func (_this *StorageEvent) InitStorageEvent(_type string, bubbles *bool, cancela
 		_args[7] = _p7
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("initStorageEvent", _args[0:_end]...)
 	return
 }
 
@@ -28833,6 +32091,8 @@ func HTMLMarqueeElementFromJS(input js.Value) *HTMLMarqueeElement {
 	return ret
 }
 
+// Behavior returning attribute 'behavior' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) Behavior() string {
 	var ret string
 	value := _this.value.Get("behavior")
@@ -28840,11 +32100,15 @@ func (_this *HTMLMarqueeElement) Behavior() string {
 	return ret
 }
 
+// SetBehavior setting attribute 'behavior' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) SetBehavior(value string) {
 	input := value
 	_this.value.Set("behavior", input)
 }
 
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) BgColor() string {
 	var ret string
 	value := _this.value.Get("bgColor")
@@ -28852,11 +32116,15 @@ func (_this *HTMLMarqueeElement) BgColor() string {
 	return ret
 }
 
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) SetBgColor(value string) {
 	input := value
 	_this.value.Set("bgColor", input)
 }
 
+// Direction returning attribute 'direction' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) Direction() string {
 	var ret string
 	value := _this.value.Get("direction")
@@ -28864,11 +32132,15 @@ func (_this *HTMLMarqueeElement) Direction() string {
 	return ret
 }
 
+// SetDirection setting attribute 'direction' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) SetDirection(value string) {
 	input := value
 	_this.value.Set("direction", input)
 }
 
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) Height() string {
 	var ret string
 	value := _this.value.Get("height")
@@ -28876,11 +32148,15 @@ func (_this *HTMLMarqueeElement) Height() string {
 	return ret
 }
 
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) SetHeight(value string) {
 	input := value
 	_this.value.Set("height", input)
 }
 
+// Hspace returning attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) Hspace() uint {
 	var ret uint
 	value := _this.value.Get("hspace")
@@ -28888,11 +32164,15 @@ func (_this *HTMLMarqueeElement) Hspace() uint {
 	return ret
 }
 
+// SetHspace setting attribute 'hspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) SetHspace(value uint) {
 	input := value
 	_this.value.Set("hspace", input)
 }
 
+// Loop returning attribute 'loop' with
+// type int (idl: long).
 func (_this *HTMLMarqueeElement) Loop() int {
 	var ret int
 	value := _this.value.Get("loop")
@@ -28900,11 +32180,15 @@ func (_this *HTMLMarqueeElement) Loop() int {
 	return ret
 }
 
+// SetLoop setting attribute 'loop' with
+// type int (idl: long).
 func (_this *HTMLMarqueeElement) SetLoop(value int) {
 	input := value
 	_this.value.Set("loop", input)
 }
 
+// ScrollAmount returning attribute 'scrollAmount' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) ScrollAmount() uint {
 	var ret uint
 	value := _this.value.Get("scrollAmount")
@@ -28912,11 +32196,15 @@ func (_this *HTMLMarqueeElement) ScrollAmount() uint {
 	return ret
 }
 
+// SetScrollAmount setting attribute 'scrollAmount' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) SetScrollAmount(value uint) {
 	input := value
 	_this.value.Set("scrollAmount", input)
 }
 
+// ScrollDelay returning attribute 'scrollDelay' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) ScrollDelay() uint {
 	var ret uint
 	value := _this.value.Get("scrollDelay")
@@ -28924,11 +32212,15 @@ func (_this *HTMLMarqueeElement) ScrollDelay() uint {
 	return ret
 }
 
+// SetScrollDelay setting attribute 'scrollDelay' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) SetScrollDelay(value uint) {
 	input := value
 	_this.value.Set("scrollDelay", input)
 }
 
+// TrueSpeed returning attribute 'trueSpeed' with
+// type bool (idl: boolean).
 func (_this *HTMLMarqueeElement) TrueSpeed() bool {
 	var ret bool
 	value := _this.value.Get("trueSpeed")
@@ -28936,11 +32228,15 @@ func (_this *HTMLMarqueeElement) TrueSpeed() bool {
 	return ret
 }
 
+// SetTrueSpeed setting attribute 'trueSpeed' with
+// type bool (idl: boolean).
 func (_this *HTMLMarqueeElement) SetTrueSpeed(value bool) {
 	input := value
 	_this.value.Set("trueSpeed", input)
 }
 
+// Vspace returning attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) Vspace() uint {
 	var ret uint
 	value := _this.value.Get("vspace")
@@ -28948,11 +32244,15 @@ func (_this *HTMLMarqueeElement) Vspace() uint {
 	return ret
 }
 
+// SetVspace setting attribute 'vspace' with
+// type uint (idl: unsigned long).
 func (_this *HTMLMarqueeElement) SetVspace(value uint) {
 	input := value
 	_this.value.Set("vspace", input)
 }
 
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) Width() string {
 	var ret string
 	value := _this.value.Get("width")
@@ -28960,11 +32260,15 @@ func (_this *HTMLMarqueeElement) Width() string {
 	return ret
 }
 
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
 func (_this *HTMLMarqueeElement) SetWidth(value string) {
 	input := value
 	_this.value.Set("width", input)
 }
 
+// Onbounce returning attribute 'onbounce' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) Onbounce() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onbounce")
@@ -28974,6 +32278,8 @@ func (_this *HTMLMarqueeElement) Onbounce() EventHandler {
 	return ret
 }
 
+// SetOnbounce setting attribute 'onbounce' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Callback) {
 	var __callback11 js.Value
 	if value != nil {
@@ -28985,6 +32291,8 @@ func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Callback) {
 	_this.value.Set("onbounce", input)
 }
 
+// Onfinish returning attribute 'onfinish' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) Onfinish() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onfinish")
@@ -28994,6 +32302,8 @@ func (_this *HTMLMarqueeElement) Onfinish() EventHandler {
 	return ret
 }
 
+// SetOnfinish setting attribute 'onfinish' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Callback) {
 	var __callback12 js.Value
 	if value != nil {
@@ -29005,6 +32315,8 @@ func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Callback) {
 	_this.value.Set("onfinish", input)
 }
 
+// Onstart returning attribute 'onstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) Onstart() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstart")
@@ -29014,6 +32326,8 @@ func (_this *HTMLMarqueeElement) Onstart() EventHandler {
 	return ret
 }
 
+// SetOnstart setting attribute 'onstart' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLMarqueeElement) SetOnstart(value *js.Callback) {
 	var __callback13 js.Value
 	if value != nil {
@@ -29026,22 +32340,20 @@ func (_this *HTMLMarqueeElement) SetOnstart(value *js.Callback) {
 }
 
 func (_this *HTMLMarqueeElement) Start() {
-	_method := _this.value.Get("start")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("start", _args[0:_end]...)
 	return
 }
 
 func (_this *HTMLMarqueeElement) Stop() {
-	_method := _this.value.Get("stop")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("stop", _args[0:_end]...)
 	return
 }
 
@@ -29064,6 +32376,8 @@ func HTMLFrameSetElementFromJS(input js.Value) *HTMLFrameSetElement {
 	return ret
 }
 
+// Cols returning attribute 'cols' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameSetElement) Cols() string {
 	var ret string
 	value := _this.value.Get("cols")
@@ -29071,11 +32385,15 @@ func (_this *HTMLFrameSetElement) Cols() string {
 	return ret
 }
 
+// SetCols setting attribute 'cols' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameSetElement) SetCols(value string) {
 	input := value
 	_this.value.Set("cols", input)
 }
 
+// Rows returning attribute 'rows' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameSetElement) Rows() string {
 	var ret string
 	value := _this.value.Get("rows")
@@ -29083,11 +32401,15 @@ func (_this *HTMLFrameSetElement) Rows() string {
 	return ret
 }
 
+// SetRows setting attribute 'rows' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameSetElement) SetRows(value string) {
 	input := value
 	_this.value.Set("rows", input)
 }
 
+// Onafterprint returning attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onafterprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onafterprint")
@@ -29097,6 +32419,8 @@ func (_this *HTMLFrameSetElement) Onafterprint() EventHandler {
 	return ret
 }
 
+// SetOnafterprint setting attribute 'onafterprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
@@ -29108,6 +32432,8 @@ func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Callback) {
 	_this.value.Set("onafterprint", input)
 }
 
+// Onbeforeprint returning attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onbeforeprint() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onbeforeprint")
@@ -29117,6 +32443,8 @@ func (_this *HTMLFrameSetElement) Onbeforeprint() EventHandler {
 	return ret
 }
 
+// SetOnbeforeprint setting attribute 'onbeforeprint' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
@@ -29128,6 +32456,8 @@ func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Callback) {
 	_this.value.Set("onbeforeprint", input)
 }
 
+// Onbeforeunload returning attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
 	var ret OnBeforeUnloadEventHandlerNonNull
 	value := _this.value.Get("onbeforeunload")
@@ -29137,6 +32467,8 @@ func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerNon
 	return ret
 }
 
+// SetOnbeforeunload setting attribute 'onbeforeunload' with
+// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Callback) {
 	var __callback4 js.Value
 	if value != nil {
@@ -29148,6 +32480,8 @@ func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Callback) {
 	_this.value.Set("onbeforeunload", input)
 }
 
+// Onhashchange returning attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onhashchange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onhashchange")
@@ -29157,6 +32491,8 @@ func (_this *HTMLFrameSetElement) Onhashchange() EventHandler {
 	return ret
 }
 
+// SetOnhashchange setting attribute 'onhashchange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Callback) {
 	var __callback5 js.Value
 	if value != nil {
@@ -29168,6 +32504,8 @@ func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Callback) {
 	_this.value.Set("onhashchange", input)
 }
 
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onlanguagechange() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onlanguagechange")
@@ -29177,6 +32515,8 @@ func (_this *HTMLFrameSetElement) Onlanguagechange() EventHandler {
 	return ret
 }
 
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Callback) {
 	var __callback6 js.Value
 	if value != nil {
@@ -29188,6 +32528,8 @@ func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Callback) {
 	_this.value.Set("onlanguagechange", input)
 }
 
+// Onmessage returning attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onmessage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessage")
@@ -29197,6 +32539,8 @@ func (_this *HTMLFrameSetElement) Onmessage() EventHandler {
 	return ret
 }
 
+// SetOnmessage setting attribute 'onmessage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Callback) {
 	var __callback7 js.Value
 	if value != nil {
@@ -29208,6 +32552,8 @@ func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Callback) {
 	_this.value.Set("onmessage", input)
 }
 
+// Onmessageerror returning attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onmessageerror() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onmessageerror")
@@ -29217,6 +32563,8 @@ func (_this *HTMLFrameSetElement) Onmessageerror() EventHandler {
 	return ret
 }
 
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Callback) {
 	var __callback8 js.Value
 	if value != nil {
@@ -29228,6 +32576,8 @@ func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Callback) {
 	_this.value.Set("onmessageerror", input)
 }
 
+// Onoffline returning attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onoffline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onoffline")
@@ -29237,6 +32587,8 @@ func (_this *HTMLFrameSetElement) Onoffline() EventHandler {
 	return ret
 }
 
+// SetOnoffline setting attribute 'onoffline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Callback) {
 	var __callback9 js.Value
 	if value != nil {
@@ -29248,6 +32600,8 @@ func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Callback) {
 	_this.value.Set("onoffline", input)
 }
 
+// Ononline returning attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Ononline() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("ononline")
@@ -29257,6 +32611,8 @@ func (_this *HTMLFrameSetElement) Ononline() EventHandler {
 	return ret
 }
 
+// SetOnonline setting attribute 'ononline' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnonline(value *js.Callback) {
 	var __callback10 js.Value
 	if value != nil {
@@ -29268,6 +32624,8 @@ func (_this *HTMLFrameSetElement) SetOnonline(value *js.Callback) {
 	_this.value.Set("ononline", input)
 }
 
+// Onpagehide returning attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onpagehide() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpagehide")
@@ -29277,6 +32635,8 @@ func (_this *HTMLFrameSetElement) Onpagehide() EventHandler {
 	return ret
 }
 
+// SetOnpagehide setting attribute 'onpagehide' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Callback) {
 	var __callback11 js.Value
 	if value != nil {
@@ -29288,6 +32648,8 @@ func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Callback) {
 	_this.value.Set("onpagehide", input)
 }
 
+// Onpageshow returning attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onpageshow() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpageshow")
@@ -29297,6 +32659,8 @@ func (_this *HTMLFrameSetElement) Onpageshow() EventHandler {
 	return ret
 }
 
+// SetOnpageshow setting attribute 'onpageshow' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Callback) {
 	var __callback12 js.Value
 	if value != nil {
@@ -29308,6 +32672,8 @@ func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Callback) {
 	_this.value.Set("onpageshow", input)
 }
 
+// Onpopstate returning attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onpopstate() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onpopstate")
@@ -29317,6 +32683,8 @@ func (_this *HTMLFrameSetElement) Onpopstate() EventHandler {
 	return ret
 }
 
+// SetOnpopstate setting attribute 'onpopstate' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Callback) {
 	var __callback13 js.Value
 	if value != nil {
@@ -29328,6 +32696,8 @@ func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Callback) {
 	_this.value.Set("onpopstate", input)
 }
 
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onrejectionhandled() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onrejectionhandled")
@@ -29337,6 +32707,8 @@ func (_this *HTMLFrameSetElement) Onrejectionhandled() EventHandler {
 	return ret
 }
 
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Callback) {
 	var __callback14 js.Value
 	if value != nil {
@@ -29348,6 +32720,8 @@ func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Callback) {
 	_this.value.Set("onrejectionhandled", input)
 }
 
+// Onstorage returning attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onstorage() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onstorage")
@@ -29357,6 +32731,8 @@ func (_this *HTMLFrameSetElement) Onstorage() EventHandler {
 	return ret
 }
 
+// SetOnstorage setting attribute 'onstorage' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Callback) {
 	var __callback15 js.Value
 	if value != nil {
@@ -29368,6 +32744,8 @@ func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Callback) {
 	_this.value.Set("onstorage", input)
 }
 
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onunhandledrejection() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunhandledrejection")
@@ -29377,6 +32755,8 @@ func (_this *HTMLFrameSetElement) Onunhandledrejection() EventHandler {
 	return ret
 }
 
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Callback) {
 	var __callback16 js.Value
 	if value != nil {
@@ -29388,6 +32768,8 @@ func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Callback) {
 	_this.value.Set("onunhandledrejection", input)
 }
 
+// Onunload returning attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) Onunload() EventHandler {
 	var ret EventHandler
 	value := _this.value.Get("onunload")
@@ -29397,6 +32779,8 @@ func (_this *HTMLFrameSetElement) Onunload() EventHandler {
 	return ret
 }
 
+// SetOnunload setting attribute 'onunload' with
+// type EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLFrameSetElement) SetOnunload(value *js.Callback) {
 	var __callback17 js.Value
 	if value != nil {
@@ -29427,6 +32811,8 @@ func HTMLFrameElementFromJS(input js.Value) *HTMLFrameElement {
 	return ret
 }
 
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) Name() string {
 	var ret string
 	value := _this.value.Get("name")
@@ -29434,11 +32820,15 @@ func (_this *HTMLFrameElement) Name() string {
 	return ret
 }
 
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) SetName(value string) {
 	input := value
 	_this.value.Set("name", input)
 }
 
+// Scrolling returning attribute 'scrolling' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) Scrolling() string {
 	var ret string
 	value := _this.value.Get("scrolling")
@@ -29446,11 +32836,15 @@ func (_this *HTMLFrameElement) Scrolling() string {
 	return ret
 }
 
+// SetScrolling setting attribute 'scrolling' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) SetScrolling(value string) {
 	input := value
 	_this.value.Set("scrolling", input)
 }
 
+// Src returning attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLFrameElement) Src() string {
 	var ret string
 	value := _this.value.Get("src")
@@ -29458,11 +32852,15 @@ func (_this *HTMLFrameElement) Src() string {
 	return ret
 }
 
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
 func (_this *HTMLFrameElement) SetSrc(value string) {
 	input := value
 	_this.value.Set("src", input)
 }
 
+// FrameBorder returning attribute 'frameBorder' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) FrameBorder() string {
 	var ret string
 	value := _this.value.Get("frameBorder")
@@ -29470,11 +32868,15 @@ func (_this *HTMLFrameElement) FrameBorder() string {
 	return ret
 }
 
+// SetFrameBorder setting attribute 'frameBorder' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) SetFrameBorder(value string) {
 	input := value
 	_this.value.Set("frameBorder", input)
 }
 
+// LongDesc returning attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLFrameElement) LongDesc() string {
 	var ret string
 	value := _this.value.Get("longDesc")
@@ -29482,11 +32884,15 @@ func (_this *HTMLFrameElement) LongDesc() string {
 	return ret
 }
 
+// SetLongDesc setting attribute 'longDesc' with
+// type string (idl: USVString).
 func (_this *HTMLFrameElement) SetLongDesc(value string) {
 	input := value
 	_this.value.Set("longDesc", input)
 }
 
+// NoResize returning attribute 'noResize' with
+// type bool (idl: boolean).
 func (_this *HTMLFrameElement) NoResize() bool {
 	var ret bool
 	value := _this.value.Get("noResize")
@@ -29494,11 +32900,15 @@ func (_this *HTMLFrameElement) NoResize() bool {
 	return ret
 }
 
+// SetNoResize setting attribute 'noResize' with
+// type bool (idl: boolean).
 func (_this *HTMLFrameElement) SetNoResize(value bool) {
 	input := value
 	_this.value.Set("noResize", input)
 }
 
+// ContentDocument returning attribute 'contentDocument' with
+// type Document (idl: Document).
 func (_this *HTMLFrameElement) ContentDocument() *Document {
 	var ret *Document
 	value := _this.value.Get("contentDocument")
@@ -29508,6 +32918,8 @@ func (_this *HTMLFrameElement) ContentDocument() *Document {
 	return ret
 }
 
+// ContentWindow returning attribute 'contentWindow' with
+// type Window (idl: Window).
 func (_this *HTMLFrameElement) ContentWindow() *Window {
 	var ret *Window
 	value := _this.value.Get("contentWindow")
@@ -29517,6 +32929,8 @@ func (_this *HTMLFrameElement) ContentWindow() *Window {
 	return ret
 }
 
+// MarginHeight returning attribute 'marginHeight' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) MarginHeight() string {
 	var ret string
 	value := _this.value.Get("marginHeight")
@@ -29524,11 +32938,15 @@ func (_this *HTMLFrameElement) MarginHeight() string {
 	return ret
 }
 
+// SetMarginHeight setting attribute 'marginHeight' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) SetMarginHeight(value string) {
 	input := value
 	_this.value.Set("marginHeight", input)
 }
 
+// MarginWidth returning attribute 'marginWidth' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) MarginWidth() string {
 	var ret string
 	value := _this.value.Get("marginWidth")
@@ -29536,6 +32954,8 @@ func (_this *HTMLFrameElement) MarginWidth() string {
 	return ret
 }
 
+// SetMarginWidth setting attribute 'marginWidth' with
+// type string (idl: DOMString).
 func (_this *HTMLFrameElement) SetMarginWidth(value string) {
 	input := value
 	_this.value.Set("marginWidth", input)
@@ -29560,6 +32980,8 @@ func HTMLDirectoryElementFromJS(input js.Value) *HTMLDirectoryElement {
 	return ret
 }
 
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLDirectoryElement) Compact() bool {
 	var ret bool
 	value := _this.value.Get("compact")
@@ -29567,6 +32989,8 @@ func (_this *HTMLDirectoryElement) Compact() bool {
 	return ret
 }
 
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
 func (_this *HTMLDirectoryElement) SetCompact(value bool) {
 	input := value
 	_this.value.Set("compact", input)
@@ -29591,6 +33015,8 @@ func HTMLFontElementFromJS(input js.Value) *HTMLFontElement {
 	return ret
 }
 
+// Color returning attribute 'color' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) Color() string {
 	var ret string
 	value := _this.value.Get("color")
@@ -29598,11 +33024,15 @@ func (_this *HTMLFontElement) Color() string {
 	return ret
 }
 
+// SetColor setting attribute 'color' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) SetColor(value string) {
 	input := value
 	_this.value.Set("color", input)
 }
 
+// Face returning attribute 'face' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) Face() string {
 	var ret string
 	value := _this.value.Get("face")
@@ -29610,11 +33040,15 @@ func (_this *HTMLFontElement) Face() string {
 	return ret
 }
 
+// SetFace setting attribute 'face' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) SetFace(value string) {
 	input := value
 	_this.value.Set("face", input)
 }
 
+// Size returning attribute 'size' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) Size() string {
 	var ret string
 	value := _this.value.Get("size")
@@ -29622,6 +33056,8 @@ func (_this *HTMLFontElement) Size() string {
 	return ret
 }
 
+// SetSize setting attribute 'size' with
+// type string (idl: DOMString).
 func (_this *HTMLFontElement) SetSize(value string) {
 	input := value
 	_this.value.Set("size", input)
@@ -29647,22 +33083,20 @@ func ExternalFromJS(input js.Value) *External {
 }
 
 func (_this *External) AddSearchProvider() {
-	_method := _this.value.Get("AddSearchProvider")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("AddSearchProvider", _args[0:_end]...)
 	return
 }
 
 func (_this *External) IsSearchProviderInstalled() {
-	_method := _this.value.Get("IsSearchProviderInstalled")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_method.Invoke(_args[0:_end]...)
+	_this.value.Call("IsSearchProviderInstalled", _args[0:_end]...)
 	return
 }
 
