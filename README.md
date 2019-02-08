@@ -23,7 +23,6 @@ func main() {
 ## Status
 
 * Currently we are in an initail phase we where to generator can create compilable code.
-* The plan is to move types into specification related packages. _webapiall.*_ will be changed to _dom.*_, _html.*_, _webgl.*_ etc
-* Allocated of callbacks doesn't take account of memory related issues and need to be refactored.
+* The plan is to move types into specification related packages. _webapi.*_ will be changed to _dom.*_, _html.*_, _webgl.*_ etc
 
 More infomation of missing stuff can be found on the [generator status info](https://github.com/gowebapi/webidlgenerator).

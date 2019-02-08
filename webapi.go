@@ -928,23 +928,29 @@ func WorkerTypeFromJS(value js.Value) WorkerType {
 // callback: MutationCallback
 type MutationCallback func(mutations []*MutationRecord, observer *MutationObserver)
 
-func invokeMutationCallback(callback MutationCallback, args []js.Value) {
-	var (
-		_p0 []*MutationRecord // javascript: idl-sequence mutations
-		_p1 *MutationObserver // javascript: MutationObserver observer
-	)
-	__length0 := args[0].Length()
-	__array0 := make([]*MutationRecord, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *MutationRecord
-		__in := args[0].Index(__idx)
-		__out = MutationRecordFromJS(__in)
-		__array0[__idx] = __out
+func MutationCallbackToJS(callback MutationCallback) *js.Callback {
+	if callback == nil {
+		return nil
 	}
-	_p0 = __array0
-	_p1 = MutationObserverFromJS(args[1])
-	// TODO: return value
-	callback(_p0, _p1)
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 []*MutationRecord // javascript: idl-sequence mutations
+			_p1 *MutationObserver // javascript: MutationObserver observer
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*MutationRecord, __length0, __length0)
+		for __idx := 0; __idx < __length0; __idx++ {
+			var __out *MutationRecord
+			__in := args[0].Index(__idx)
+			__out = MutationRecordFromJS(__in)
+			__array0[__idx] = __out
+		}
+		_p0 = __array0
+		_p1 = MutationObserverFromJS(args[1])
+		// TODO: return value
+		callback(_p0, _p1)
+	})
+	return &ret
 }
 
 func MutationCallbackFromJS(_value js.Value) MutationCallback {
@@ -971,15 +977,21 @@ func MutationCallbackFromJS(_value js.Value) MutationCallback {
 // callback: BlobCallback
 type BlobCallback func(blob *Blob)
 
-func invokeBlobCallback(callback BlobCallback, args []js.Value) {
-	var (
-		_p0 *Blob // javascript: Blob blob
-	)
-	if args[0].Type() != js.TypeNull {
-		_p0 = BlobFromJS(args[0])
+func BlobCallbackToJS(callback BlobCallback) *js.Callback {
+	if callback == nil {
+		return nil
 	}
-	// TODO: return value
-	callback(_p0)
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Blob // javascript: Blob blob
+		)
+		if args[0].Type() != js.TypeNull {
+			_p0 = BlobFromJS(args[0])
+		}
+		// TODO: return value
+		callback(_p0)
+	})
+	return &ret
 }
 
 func BlobCallbackFromJS(_value js.Value) BlobCallback {
@@ -999,10 +1011,16 @@ func BlobCallbackFromJS(_value js.Value) BlobCallback {
 // callback: CustomElementConstructor
 type CustomElementConstructor func() js.Value
 
-func invokeCustomElementConstructor(callback CustomElementConstructor, args []js.Value) {
-	var ()
-	// TODO: return value
-	callback()
+func CustomElementConstructorToJS(callback CustomElementConstructor) *js.Callback {
+	if callback == nil {
+		return nil
+	}
+	ret := js.NewCallback(func(args []js.Value) {
+		var ()
+		// TODO: return value
+		callback()
+	})
+	return &ret
 }
 
 func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
@@ -1024,13 +1042,19 @@ func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
 // callback: FunctionStringCallback
 type FunctionStringCallback func(data string)
 
-func invokeFunctionStringCallback(callback FunctionStringCallback, args []js.Value) {
-	var (
-		_p0 string // javascript: DOMString data
-	)
-	_p0 = (args[0]).String()
-	// TODO: return value
-	callback(_p0)
+func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Callback {
+	if callback == nil {
+		return nil
+	}
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 string // javascript: DOMString data
+		)
+		_p0 = (args[0]).String()
+		// TODO: return value
+		callback(_p0)
+	})
+	return &ret
 }
 
 func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallback {
@@ -1050,13 +1074,19 @@ func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallback {
 // callback: EventHandlerNonNull
 type EventHandler func(event *Event) js.Value
 
-func invokeEventHandler(callback EventHandler, args []js.Value) {
-	var (
-		_p0 *Event // javascript: Event event
-	)
-	_p0 = EventFromJS(args[0])
-	// TODO: return value
-	callback(_p0)
+func EventHandlerToJS(callback EventHandler) *js.Callback {
+	if callback == nil {
+		return nil
+	}
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Event // javascript: Event event
+		)
+		_p0 = EventFromJS(args[0])
+		// TODO: return value
+		callback(_p0)
+	})
+	return &ret
 }
 
 func EventHandlerFromJS(_value js.Value) EventHandler {
@@ -1081,32 +1111,38 @@ func EventHandlerFromJS(_value js.Value) EventHandler {
 // callback: OnErrorEventHandlerNonNull
 type OnErrorEventHandlerNonNull func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
 
-func invokeOnErrorEventHandlerNonNull(callback OnErrorEventHandlerNonNull, args []js.Value) {
-	var (
-		_p0 *Union   // javascript: Union event
-		_p1 *string  // javascript: DOMString source
-		_p2 *uint    // javascript: unsigned long lineno
-		_p3 *uint    // javascript: unsigned long colno
-		_p4 js.Value // javascript: any _error
-	)
-	_p0 = UnionFromJS(args[0])
-	if len(args) > 1 {
-		__tmp := (args[1]).String()
-		_p1 = &__tmp
+func OnErrorEventHandlerNonNullToJS(callback OnErrorEventHandlerNonNull) *js.Callback {
+	if callback == nil {
+		return nil
 	}
-	if len(args) > 2 {
-		__tmp := (uint)((args[2]).Int())
-		_p2 = &__tmp
-	}
-	if len(args) > 3 {
-		__tmp := (uint)((args[3]).Int())
-		_p3 = &__tmp
-	}
-	if len(args) > 4 {
-		_p4 = args[4]
-	}
-	// TODO: return value
-	callback(_p0, _p1, _p2, _p3, _p4)
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Union   // javascript: Union event
+			_p1 *string  // javascript: DOMString source
+			_p2 *uint    // javascript: unsigned long lineno
+			_p3 *uint    // javascript: unsigned long colno
+			_p4 js.Value // javascript: any _error
+		)
+		_p0 = UnionFromJS(args[0])
+		if len(args) > 1 {
+			__tmp := (args[1]).String()
+			_p1 = &__tmp
+		}
+		if len(args) > 2 {
+			__tmp := (uint)((args[2]).Int())
+			_p2 = &__tmp
+		}
+		if len(args) > 3 {
+			__tmp := (uint)((args[3]).Int())
+			_p3 = &__tmp
+		}
+		if len(args) > 4 {
+			_p4 = args[4]
+		}
+		// TODO: return value
+		callback(_p0, _p1, _p2, _p3, _p4)
+	})
+	return &ret
 }
 
 func OnErrorEventHandlerNonNullFromJS(_value js.Value) OnErrorEventHandlerNonNull {
@@ -1151,13 +1187,19 @@ func OnErrorEventHandlerNonNullFromJS(_value js.Value) OnErrorEventHandlerNonNul
 // callback: OnBeforeUnloadEventHandlerNonNull
 type OnBeforeUnloadEventHandlerNonNull func(event *Event) *string
 
-func invokeOnBeforeUnloadEventHandlerNonNull(callback OnBeforeUnloadEventHandlerNonNull, args []js.Value) {
-	var (
-		_p0 *Event // javascript: Event event
-	)
-	_p0 = EventFromJS(args[0])
-	// TODO: return value
-	callback(_p0)
+func OnBeforeUnloadEventHandlerNonNullToJS(callback OnBeforeUnloadEventHandlerNonNull) *js.Callback {
+	if callback == nil {
+		return nil
+	}
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Event // javascript: Event event
+		)
+		_p0 = EventFromJS(args[0])
+		// TODO: return value
+		callback(_p0)
+	})
+	return &ret
 }
 
 func OnBeforeUnloadEventHandlerNonNullFromJS(_value js.Value) OnBeforeUnloadEventHandlerNonNull {
@@ -1185,13 +1227,19 @@ func OnBeforeUnloadEventHandlerNonNullFromJS(_value js.Value) OnBeforeUnloadEven
 // callback: FrameRequestCallback
 type FrameRequestCallback func(time float64)
 
-func invokeFrameRequestCallback(callback FrameRequestCallback, args []js.Value) {
-	var (
-		_p0 float64 // javascript: double time
-	)
-	_p0 = (args[0]).Float()
-	// TODO: return value
-	callback(_p0)
+func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Callback {
+	if callback == nil {
+		return nil
+	}
+	ret := js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 float64 // javascript: double time
+		)
+		_p0 = (args[0]).Float()
+		// TODO: return value
+		callback(_p0)
+	})
+	return &ret
 }
 
 func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallback {
@@ -2761,14 +2809,15 @@ func (_this *AbortSignal) Onabort() EventHandler {
 	return ret
 }
 
-func (_this *AbortSignal) SetOnabort(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *AbortSignal) SetOnabort(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onabort", input)
-	return
 }
 
 // interface: NodeList
@@ -2902,17 +2951,20 @@ func MutationObserverFromJS(input js.Value) *MutationObserver {
 	return ret
 }
 
-func NewMutationObserver(callback MutationCallback) (_result *MutationObserver, _release ReleasableApiResource) {
+func NewMutationObserver(callback *js.Callback) (_result *MutationObserver) {
 	_klass := js.Global().Get("MutationObserver")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
-	_p0 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeMutationCallback(callback, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p0)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	_returned := _klass.New(_args[0:_end]...)
@@ -3817,14 +3869,15 @@ func (_this *Document) Onreadystatechange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnreadystatechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnreadystatechange(value *js.Callback) {
+	var __callback31 js.Value
+	if value != nil {
+		__callback31 = (*value).Value
+	} else {
+		__callback31 = js.Null()
+	}
+	input := __callback31
 	_this.value.Set("onreadystatechange", input)
-	return
 }
 
 func (_this *Document) FgColor() string {
@@ -3949,14 +4002,15 @@ func (_this *Document) Onabort() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnabort(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnabort(value *js.Callback) {
+	var __callback44 js.Value
+	if value != nil {
+		__callback44 = (*value).Value
+	} else {
+		__callback44 = js.Null()
+	}
+	input := __callback44
 	_this.value.Set("onabort", input)
-	return
 }
 
 func (_this *Document) Onauxclick() EventHandler {
@@ -3968,14 +4022,15 @@ func (_this *Document) Onauxclick() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnauxclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnauxclick(value *js.Callback) {
+	var __callback45 js.Value
+	if value != nil {
+		__callback45 = (*value).Value
+	} else {
+		__callback45 = js.Null()
+	}
+	input := __callback45
 	_this.value.Set("onauxclick", input)
-	return
 }
 
 func (_this *Document) Onblur() EventHandler {
@@ -3987,14 +4042,15 @@ func (_this *Document) Onblur() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnblur(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnblur(value *js.Callback) {
+	var __callback46 js.Value
+	if value != nil {
+		__callback46 = (*value).Value
+	} else {
+		__callback46 = js.Null()
+	}
+	input := __callback46
 	_this.value.Set("onblur", input)
-	return
 }
 
 func (_this *Document) Oncancel() EventHandler {
@@ -4006,14 +4062,15 @@ func (_this *Document) Oncancel() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncancel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncancel(value *js.Callback) {
+	var __callback47 js.Value
+	if value != nil {
+		__callback47 = (*value).Value
+	} else {
+		__callback47 = js.Null()
+	}
+	input := __callback47
 	_this.value.Set("oncancel", input)
-	return
 }
 
 func (_this *Document) Oncanplay() EventHandler {
@@ -4025,14 +4082,15 @@ func (_this *Document) Oncanplay() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncanplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncanplay(value *js.Callback) {
+	var __callback48 js.Value
+	if value != nil {
+		__callback48 = (*value).Value
+	} else {
+		__callback48 = js.Null()
+	}
+	input := __callback48
 	_this.value.Set("oncanplay", input)
-	return
 }
 
 func (_this *Document) Oncanplaythrough() EventHandler {
@@ -4044,14 +4102,15 @@ func (_this *Document) Oncanplaythrough() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncanplaythrough(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncanplaythrough(value *js.Callback) {
+	var __callback49 js.Value
+	if value != nil {
+		__callback49 = (*value).Value
+	} else {
+		__callback49 = js.Null()
+	}
+	input := __callback49
 	_this.value.Set("oncanplaythrough", input)
-	return
 }
 
 func (_this *Document) Onchange() EventHandler {
@@ -4063,14 +4122,15 @@ func (_this *Document) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnchange(value *js.Callback) {
+	var __callback50 js.Value
+	if value != nil {
+		__callback50 = (*value).Value
+	} else {
+		__callback50 = js.Null()
+	}
+	input := __callback50
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *Document) Onclick() EventHandler {
@@ -4082,14 +4142,15 @@ func (_this *Document) Onclick() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnclick(value *js.Callback) {
+	var __callback51 js.Value
+	if value != nil {
+		__callback51 = (*value).Value
+	} else {
+		__callback51 = js.Null()
+	}
+	input := __callback51
 	_this.value.Set("onclick", input)
-	return
 }
 
 func (_this *Document) Onclose() EventHandler {
@@ -4101,14 +4162,15 @@ func (_this *Document) Onclose() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnclose(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnclose(value *js.Callback) {
+	var __callback52 js.Value
+	if value != nil {
+		__callback52 = (*value).Value
+	} else {
+		__callback52 = js.Null()
+	}
+	input := __callback52
 	_this.value.Set("onclose", input)
-	return
 }
 
 func (_this *Document) Oncontextmenu() EventHandler {
@@ -4120,14 +4182,15 @@ func (_this *Document) Oncontextmenu() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncontextmenu(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncontextmenu(value *js.Callback) {
+	var __callback53 js.Value
+	if value != nil {
+		__callback53 = (*value).Value
+	} else {
+		__callback53 = js.Null()
+	}
+	input := __callback53
 	_this.value.Set("oncontextmenu", input)
-	return
 }
 
 func (_this *Document) Oncuechange() EventHandler {
@@ -4139,14 +4202,15 @@ func (_this *Document) Oncuechange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncuechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncuechange(value *js.Callback) {
+	var __callback54 js.Value
+	if value != nil {
+		__callback54 = (*value).Value
+	} else {
+		__callback54 = js.Null()
+	}
+	input := __callback54
 	_this.value.Set("oncuechange", input)
-	return
 }
 
 func (_this *Document) Ondblclick() EventHandler {
@@ -4158,14 +4222,15 @@ func (_this *Document) Ondblclick() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndblclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndblclick(value *js.Callback) {
+	var __callback55 js.Value
+	if value != nil {
+		__callback55 = (*value).Value
+	} else {
+		__callback55 = js.Null()
+	}
+	input := __callback55
 	_this.value.Set("ondblclick", input)
-	return
 }
 
 func (_this *Document) Ondrag() EventHandler {
@@ -4177,14 +4242,15 @@ func (_this *Document) Ondrag() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndrag(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndrag(value *js.Callback) {
+	var __callback56 js.Value
+	if value != nil {
+		__callback56 = (*value).Value
+	} else {
+		__callback56 = js.Null()
+	}
+	input := __callback56
 	_this.value.Set("ondrag", input)
-	return
 }
 
 func (_this *Document) Ondragend() EventHandler {
@@ -4196,14 +4262,15 @@ func (_this *Document) Ondragend() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragend(value *js.Callback) {
+	var __callback57 js.Value
+	if value != nil {
+		__callback57 = (*value).Value
+	} else {
+		__callback57 = js.Null()
+	}
+	input := __callback57
 	_this.value.Set("ondragend", input)
-	return
 }
 
 func (_this *Document) Ondragenter() EventHandler {
@@ -4215,14 +4282,15 @@ func (_this *Document) Ondragenter() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragenter(value *js.Callback) {
+	var __callback58 js.Value
+	if value != nil {
+		__callback58 = (*value).Value
+	} else {
+		__callback58 = js.Null()
+	}
+	input := __callback58
 	_this.value.Set("ondragenter", input)
-	return
 }
 
 func (_this *Document) Ondragexit() EventHandler {
@@ -4234,14 +4302,15 @@ func (_this *Document) Ondragexit() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragexit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragexit(value *js.Callback) {
+	var __callback59 js.Value
+	if value != nil {
+		__callback59 = (*value).Value
+	} else {
+		__callback59 = js.Null()
+	}
+	input := __callback59
 	_this.value.Set("ondragexit", input)
-	return
 }
 
 func (_this *Document) Ondragleave() EventHandler {
@@ -4253,14 +4322,15 @@ func (_this *Document) Ondragleave() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragleave(value *js.Callback) {
+	var __callback60 js.Value
+	if value != nil {
+		__callback60 = (*value).Value
+	} else {
+		__callback60 = js.Null()
+	}
+	input := __callback60
 	_this.value.Set("ondragleave", input)
-	return
 }
 
 func (_this *Document) Ondragover() EventHandler {
@@ -4272,14 +4342,15 @@ func (_this *Document) Ondragover() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragover(value *js.Callback) {
+	var __callback61 js.Value
+	if value != nil {
+		__callback61 = (*value).Value
+	} else {
+		__callback61 = js.Null()
+	}
+	input := __callback61
 	_this.value.Set("ondragover", input)
-	return
 }
 
 func (_this *Document) Ondragstart() EventHandler {
@@ -4291,14 +4362,15 @@ func (_this *Document) Ondragstart() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndragstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndragstart(value *js.Callback) {
+	var __callback62 js.Value
+	if value != nil {
+		__callback62 = (*value).Value
+	} else {
+		__callback62 = js.Null()
+	}
+	input := __callback62
 	_this.value.Set("ondragstart", input)
-	return
 }
 
 func (_this *Document) Ondrop() EventHandler {
@@ -4310,14 +4382,15 @@ func (_this *Document) Ondrop() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndrop(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndrop(value *js.Callback) {
+	var __callback63 js.Value
+	if value != nil {
+		__callback63 = (*value).Value
+	} else {
+		__callback63 = js.Null()
+	}
+	input := __callback63
 	_this.value.Set("ondrop", input)
-	return
 }
 
 func (_this *Document) Ondurationchange() EventHandler {
@@ -4329,14 +4402,15 @@ func (_this *Document) Ondurationchange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOndurationchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOndurationchange(value *js.Callback) {
+	var __callback64 js.Value
+	if value != nil {
+		__callback64 = (*value).Value
+	} else {
+		__callback64 = js.Null()
+	}
+	input := __callback64
 	_this.value.Set("ondurationchange", input)
-	return
 }
 
 func (_this *Document) Onemptied() EventHandler {
@@ -4348,14 +4422,15 @@ func (_this *Document) Onemptied() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnemptied(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnemptied(value *js.Callback) {
+	var __callback65 js.Value
+	if value != nil {
+		__callback65 = (*value).Value
+	} else {
+		__callback65 = js.Null()
+	}
+	input := __callback65
 	_this.value.Set("onemptied", input)
-	return
 }
 
 func (_this *Document) Onended() EventHandler {
@@ -4367,14 +4442,15 @@ func (_this *Document) Onended() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnended(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnended(value *js.Callback) {
+	var __callback66 js.Value
+	if value != nil {
+		__callback66 = (*value).Value
+	} else {
+		__callback66 = js.Null()
+	}
+	input := __callback66
 	_this.value.Set("onended", input)
-	return
 }
 
 func (_this *Document) Onerror() OnErrorEventHandlerNonNull {
@@ -4386,14 +4462,15 @@ func (_this *Document) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
-func (_this *Document) SetOnerror(value OnErrorEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnErrorEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnerror(value *js.Callback) {
+	var __callback67 js.Value
+	if value != nil {
+		__callback67 = (*value).Value
+	} else {
+		__callback67 = js.Null()
+	}
+	input := __callback67
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *Document) Onfocus() EventHandler {
@@ -4405,14 +4482,15 @@ func (_this *Document) Onfocus() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnfocus(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnfocus(value *js.Callback) {
+	var __callback68 js.Value
+	if value != nil {
+		__callback68 = (*value).Value
+	} else {
+		__callback68 = js.Null()
+	}
+	input := __callback68
 	_this.value.Set("onfocus", input)
-	return
 }
 
 func (_this *Document) Onformdata() EventHandler {
@@ -4424,14 +4502,15 @@ func (_this *Document) Onformdata() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnformdata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnformdata(value *js.Callback) {
+	var __callback69 js.Value
+	if value != nil {
+		__callback69 = (*value).Value
+	} else {
+		__callback69 = js.Null()
+	}
+	input := __callback69
 	_this.value.Set("onformdata", input)
-	return
 }
 
 func (_this *Document) Oninput() EventHandler {
@@ -4443,14 +4522,15 @@ func (_this *Document) Oninput() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOninput(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOninput(value *js.Callback) {
+	var __callback70 js.Value
+	if value != nil {
+		__callback70 = (*value).Value
+	} else {
+		__callback70 = js.Null()
+	}
+	input := __callback70
 	_this.value.Set("oninput", input)
-	return
 }
 
 func (_this *Document) Oninvalid() EventHandler {
@@ -4462,14 +4542,15 @@ func (_this *Document) Oninvalid() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOninvalid(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOninvalid(value *js.Callback) {
+	var __callback71 js.Value
+	if value != nil {
+		__callback71 = (*value).Value
+	} else {
+		__callback71 = js.Null()
+	}
+	input := __callback71
 	_this.value.Set("oninvalid", input)
-	return
 }
 
 func (_this *Document) Onkeydown() EventHandler {
@@ -4481,14 +4562,15 @@ func (_this *Document) Onkeydown() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnkeydown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnkeydown(value *js.Callback) {
+	var __callback72 js.Value
+	if value != nil {
+		__callback72 = (*value).Value
+	} else {
+		__callback72 = js.Null()
+	}
+	input := __callback72
 	_this.value.Set("onkeydown", input)
-	return
 }
 
 func (_this *Document) Onkeypress() EventHandler {
@@ -4500,14 +4582,15 @@ func (_this *Document) Onkeypress() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnkeypress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnkeypress(value *js.Callback) {
+	var __callback73 js.Value
+	if value != nil {
+		__callback73 = (*value).Value
+	} else {
+		__callback73 = js.Null()
+	}
+	input := __callback73
 	_this.value.Set("onkeypress", input)
-	return
 }
 
 func (_this *Document) Onkeyup() EventHandler {
@@ -4519,14 +4602,15 @@ func (_this *Document) Onkeyup() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnkeyup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnkeyup(value *js.Callback) {
+	var __callback74 js.Value
+	if value != nil {
+		__callback74 = (*value).Value
+	} else {
+		__callback74 = js.Null()
+	}
+	input := __callback74
 	_this.value.Set("onkeyup", input)
-	return
 }
 
 func (_this *Document) Onload() EventHandler {
@@ -4538,14 +4622,15 @@ func (_this *Document) Onload() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnload(value *js.Callback) {
+	var __callback75 js.Value
+	if value != nil {
+		__callback75 = (*value).Value
+	} else {
+		__callback75 = js.Null()
+	}
+	input := __callback75
 	_this.value.Set("onload", input)
-	return
 }
 
 func (_this *Document) Onloadeddata() EventHandler {
@@ -4557,14 +4642,15 @@ func (_this *Document) Onloadeddata() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnloadeddata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnloadeddata(value *js.Callback) {
+	var __callback76 js.Value
+	if value != nil {
+		__callback76 = (*value).Value
+	} else {
+		__callback76 = js.Null()
+	}
+	input := __callback76
 	_this.value.Set("onloadeddata", input)
-	return
 }
 
 func (_this *Document) Onloadedmetadata() EventHandler {
@@ -4576,14 +4662,15 @@ func (_this *Document) Onloadedmetadata() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnloadedmetadata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnloadedmetadata(value *js.Callback) {
+	var __callback77 js.Value
+	if value != nil {
+		__callback77 = (*value).Value
+	} else {
+		__callback77 = js.Null()
+	}
+	input := __callback77
 	_this.value.Set("onloadedmetadata", input)
-	return
 }
 
 func (_this *Document) Onloadend() EventHandler {
@@ -4595,14 +4682,15 @@ func (_this *Document) Onloadend() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnloadend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnloadend(value *js.Callback) {
+	var __callback78 js.Value
+	if value != nil {
+		__callback78 = (*value).Value
+	} else {
+		__callback78 = js.Null()
+	}
+	input := __callback78
 	_this.value.Set("onloadend", input)
-	return
 }
 
 func (_this *Document) Onloadstart() EventHandler {
@@ -4614,14 +4702,15 @@ func (_this *Document) Onloadstart() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnloadstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnloadstart(value *js.Callback) {
+	var __callback79 js.Value
+	if value != nil {
+		__callback79 = (*value).Value
+	} else {
+		__callback79 = js.Null()
+	}
+	input := __callback79
 	_this.value.Set("onloadstart", input)
-	return
 }
 
 func (_this *Document) Onmousedown() EventHandler {
@@ -4633,14 +4722,15 @@ func (_this *Document) Onmousedown() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmousedown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmousedown(value *js.Callback) {
+	var __callback80 js.Value
+	if value != nil {
+		__callback80 = (*value).Value
+	} else {
+		__callback80 = js.Null()
+	}
+	input := __callback80
 	_this.value.Set("onmousedown", input)
-	return
 }
 
 func (_this *Document) Onmouseenter() EventHandler {
@@ -4652,14 +4742,15 @@ func (_this *Document) Onmouseenter() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmouseenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmouseenter(value *js.Callback) {
+	var __callback81 js.Value
+	if value != nil {
+		__callback81 = (*value).Value
+	} else {
+		__callback81 = js.Null()
+	}
+	input := __callback81
 	_this.value.Set("onmouseenter", input)
-	return
 }
 
 func (_this *Document) Onmouseleave() EventHandler {
@@ -4671,14 +4762,15 @@ func (_this *Document) Onmouseleave() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmouseleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmouseleave(value *js.Callback) {
+	var __callback82 js.Value
+	if value != nil {
+		__callback82 = (*value).Value
+	} else {
+		__callback82 = js.Null()
+	}
+	input := __callback82
 	_this.value.Set("onmouseleave", input)
-	return
 }
 
 func (_this *Document) Onmousemove() EventHandler {
@@ -4690,14 +4782,15 @@ func (_this *Document) Onmousemove() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmousemove(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmousemove(value *js.Callback) {
+	var __callback83 js.Value
+	if value != nil {
+		__callback83 = (*value).Value
+	} else {
+		__callback83 = js.Null()
+	}
+	input := __callback83
 	_this.value.Set("onmousemove", input)
-	return
 }
 
 func (_this *Document) Onmouseout() EventHandler {
@@ -4709,14 +4802,15 @@ func (_this *Document) Onmouseout() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmouseout(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmouseout(value *js.Callback) {
+	var __callback84 js.Value
+	if value != nil {
+		__callback84 = (*value).Value
+	} else {
+		__callback84 = js.Null()
+	}
+	input := __callback84
 	_this.value.Set("onmouseout", input)
-	return
 }
 
 func (_this *Document) Onmouseover() EventHandler {
@@ -4728,14 +4822,15 @@ func (_this *Document) Onmouseover() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmouseover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmouseover(value *js.Callback) {
+	var __callback85 js.Value
+	if value != nil {
+		__callback85 = (*value).Value
+	} else {
+		__callback85 = js.Null()
+	}
+	input := __callback85
 	_this.value.Set("onmouseover", input)
-	return
 }
 
 func (_this *Document) Onmouseup() EventHandler {
@@ -4747,14 +4842,15 @@ func (_this *Document) Onmouseup() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnmouseup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnmouseup(value *js.Callback) {
+	var __callback86 js.Value
+	if value != nil {
+		__callback86 = (*value).Value
+	} else {
+		__callback86 = js.Null()
+	}
+	input := __callback86
 	_this.value.Set("onmouseup", input)
-	return
 }
 
 func (_this *Document) Onwheel() EventHandler {
@@ -4766,14 +4862,15 @@ func (_this *Document) Onwheel() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnwheel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnwheel(value *js.Callback) {
+	var __callback87 js.Value
+	if value != nil {
+		__callback87 = (*value).Value
+	} else {
+		__callback87 = js.Null()
+	}
+	input := __callback87
 	_this.value.Set("onwheel", input)
-	return
 }
 
 func (_this *Document) Onpause() EventHandler {
@@ -4785,14 +4882,15 @@ func (_this *Document) Onpause() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnpause(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnpause(value *js.Callback) {
+	var __callback88 js.Value
+	if value != nil {
+		__callback88 = (*value).Value
+	} else {
+		__callback88 = js.Null()
+	}
+	input := __callback88
 	_this.value.Set("onpause", input)
-	return
 }
 
 func (_this *Document) Onplay() EventHandler {
@@ -4804,14 +4902,15 @@ func (_this *Document) Onplay() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnplay(value *js.Callback) {
+	var __callback89 js.Value
+	if value != nil {
+		__callback89 = (*value).Value
+	} else {
+		__callback89 = js.Null()
+	}
+	input := __callback89
 	_this.value.Set("onplay", input)
-	return
 }
 
 func (_this *Document) Onplaying() EventHandler {
@@ -4823,14 +4922,15 @@ func (_this *Document) Onplaying() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnplaying(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnplaying(value *js.Callback) {
+	var __callback90 js.Value
+	if value != nil {
+		__callback90 = (*value).Value
+	} else {
+		__callback90 = js.Null()
+	}
+	input := __callback90
 	_this.value.Set("onplaying", input)
-	return
 }
 
 func (_this *Document) Onprogress() EventHandler {
@@ -4842,14 +4942,15 @@ func (_this *Document) Onprogress() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnprogress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnprogress(value *js.Callback) {
+	var __callback91 js.Value
+	if value != nil {
+		__callback91 = (*value).Value
+	} else {
+		__callback91 = js.Null()
+	}
+	input := __callback91
 	_this.value.Set("onprogress", input)
-	return
 }
 
 func (_this *Document) Onratechange() EventHandler {
@@ -4861,14 +4962,15 @@ func (_this *Document) Onratechange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnratechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnratechange(value *js.Callback) {
+	var __callback92 js.Value
+	if value != nil {
+		__callback92 = (*value).Value
+	} else {
+		__callback92 = js.Null()
+	}
+	input := __callback92
 	_this.value.Set("onratechange", input)
-	return
 }
 
 func (_this *Document) Onreset() EventHandler {
@@ -4880,14 +4982,15 @@ func (_this *Document) Onreset() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnreset(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnreset(value *js.Callback) {
+	var __callback93 js.Value
+	if value != nil {
+		__callback93 = (*value).Value
+	} else {
+		__callback93 = js.Null()
+	}
+	input := __callback93
 	_this.value.Set("onreset", input)
-	return
 }
 
 func (_this *Document) Onresize() EventHandler {
@@ -4899,14 +5002,15 @@ func (_this *Document) Onresize() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnresize(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnresize(value *js.Callback) {
+	var __callback94 js.Value
+	if value != nil {
+		__callback94 = (*value).Value
+	} else {
+		__callback94 = js.Null()
+	}
+	input := __callback94
 	_this.value.Set("onresize", input)
-	return
 }
 
 func (_this *Document) Onscroll() EventHandler {
@@ -4918,14 +5022,15 @@ func (_this *Document) Onscroll() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnscroll(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnscroll(value *js.Callback) {
+	var __callback95 js.Value
+	if value != nil {
+		__callback95 = (*value).Value
+	} else {
+		__callback95 = js.Null()
+	}
+	input := __callback95
 	_this.value.Set("onscroll", input)
-	return
 }
 
 func (_this *Document) Onsecuritypolicyviolation() EventHandler {
@@ -4937,14 +5042,15 @@ func (_this *Document) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnsecuritypolicyviolation(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnsecuritypolicyviolation(value *js.Callback) {
+	var __callback96 js.Value
+	if value != nil {
+		__callback96 = (*value).Value
+	} else {
+		__callback96 = js.Null()
+	}
+	input := __callback96
 	_this.value.Set("onsecuritypolicyviolation", input)
-	return
 }
 
 func (_this *Document) Onseeked() EventHandler {
@@ -4956,14 +5062,15 @@ func (_this *Document) Onseeked() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnseeked(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnseeked(value *js.Callback) {
+	var __callback97 js.Value
+	if value != nil {
+		__callback97 = (*value).Value
+	} else {
+		__callback97 = js.Null()
+	}
+	input := __callback97
 	_this.value.Set("onseeked", input)
-	return
 }
 
 func (_this *Document) Onseeking() EventHandler {
@@ -4975,14 +5082,15 @@ func (_this *Document) Onseeking() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnseeking(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnseeking(value *js.Callback) {
+	var __callback98 js.Value
+	if value != nil {
+		__callback98 = (*value).Value
+	} else {
+		__callback98 = js.Null()
+	}
+	input := __callback98
 	_this.value.Set("onseeking", input)
-	return
 }
 
 func (_this *Document) Onselect() EventHandler {
@@ -4994,14 +5102,15 @@ func (_this *Document) Onselect() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnselect(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnselect(value *js.Callback) {
+	var __callback99 js.Value
+	if value != nil {
+		__callback99 = (*value).Value
+	} else {
+		__callback99 = js.Null()
+	}
+	input := __callback99
 	_this.value.Set("onselect", input)
-	return
 }
 
 func (_this *Document) Onstalled() EventHandler {
@@ -5013,14 +5122,15 @@ func (_this *Document) Onstalled() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnstalled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnstalled(value *js.Callback) {
+	var __callback100 js.Value
+	if value != nil {
+		__callback100 = (*value).Value
+	} else {
+		__callback100 = js.Null()
+	}
+	input := __callback100
 	_this.value.Set("onstalled", input)
-	return
 }
 
 func (_this *Document) Onsubmit() EventHandler {
@@ -5032,14 +5142,15 @@ func (_this *Document) Onsubmit() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnsubmit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnsubmit(value *js.Callback) {
+	var __callback101 js.Value
+	if value != nil {
+		__callback101 = (*value).Value
+	} else {
+		__callback101 = js.Null()
+	}
+	input := __callback101
 	_this.value.Set("onsubmit", input)
-	return
 }
 
 func (_this *Document) Onsuspend() EventHandler {
@@ -5051,14 +5162,15 @@ func (_this *Document) Onsuspend() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnsuspend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnsuspend(value *js.Callback) {
+	var __callback102 js.Value
+	if value != nil {
+		__callback102 = (*value).Value
+	} else {
+		__callback102 = js.Null()
+	}
+	input := __callback102
 	_this.value.Set("onsuspend", input)
-	return
 }
 
 func (_this *Document) Ontimeupdate() EventHandler {
@@ -5070,14 +5182,15 @@ func (_this *Document) Ontimeupdate() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOntimeupdate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOntimeupdate(value *js.Callback) {
+	var __callback103 js.Value
+	if value != nil {
+		__callback103 = (*value).Value
+	} else {
+		__callback103 = js.Null()
+	}
+	input := __callback103
 	_this.value.Set("ontimeupdate", input)
-	return
 }
 
 func (_this *Document) Ontoggle() EventHandler {
@@ -5089,14 +5202,15 @@ func (_this *Document) Ontoggle() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOntoggle(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOntoggle(value *js.Callback) {
+	var __callback104 js.Value
+	if value != nil {
+		__callback104 = (*value).Value
+	} else {
+		__callback104 = js.Null()
+	}
+	input := __callback104
 	_this.value.Set("ontoggle", input)
-	return
 }
 
 func (_this *Document) Onvolumechange() EventHandler {
@@ -5108,14 +5222,15 @@ func (_this *Document) Onvolumechange() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnvolumechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnvolumechange(value *js.Callback) {
+	var __callback105 js.Value
+	if value != nil {
+		__callback105 = (*value).Value
+	} else {
+		__callback105 = js.Null()
+	}
+	input := __callback105
 	_this.value.Set("onvolumechange", input)
-	return
 }
 
 func (_this *Document) Onwaiting() EventHandler {
@@ -5127,14 +5242,15 @@ func (_this *Document) Onwaiting() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnwaiting(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnwaiting(value *js.Callback) {
+	var __callback106 js.Value
+	if value != nil {
+		__callback106 = (*value).Value
+	} else {
+		__callback106 = js.Null()
+	}
+	input := __callback106
 	_this.value.Set("onwaiting", input)
-	return
 }
 
 func (_this *Document) Oncopy() EventHandler {
@@ -5146,14 +5262,15 @@ func (_this *Document) Oncopy() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncopy(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncopy(value *js.Callback) {
+	var __callback107 js.Value
+	if value != nil {
+		__callback107 = (*value).Value
+	} else {
+		__callback107 = js.Null()
+	}
+	input := __callback107
 	_this.value.Set("oncopy", input)
-	return
 }
 
 func (_this *Document) Oncut() EventHandler {
@@ -5165,14 +5282,15 @@ func (_this *Document) Oncut() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOncut(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOncut(value *js.Callback) {
+	var __callback108 js.Value
+	if value != nil {
+		__callback108 = (*value).Value
+	} else {
+		__callback108 = js.Null()
+	}
+	input := __callback108
 	_this.value.Set("oncut", input)
-	return
 }
 
 func (_this *Document) Onpaste() EventHandler {
@@ -5184,14 +5302,15 @@ func (_this *Document) Onpaste() EventHandler {
 	return ret
 }
 
-func (_this *Document) SetOnpaste(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Document) SetOnpaste(value *js.Callback) {
+	var __callback109 js.Value
+	if value != nil {
+		__callback109 = (*value).Value
+	} else {
+		__callback109 = js.Null()
+	}
+	input := __callback109
 	_this.value.Set("onpaste", input)
-	return
 }
 
 func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTMLCollection) {
@@ -9044,14 +9163,15 @@ func (_this *HTMLElement) Onabort() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnabort(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnabort(value *js.Callback) {
+	var __callback11 js.Value
+	if value != nil {
+		__callback11 = (*value).Value
+	} else {
+		__callback11 = js.Null()
+	}
+	input := __callback11
 	_this.value.Set("onabort", input)
-	return
 }
 
 func (_this *HTMLElement) Onauxclick() EventHandler {
@@ -9063,14 +9183,15 @@ func (_this *HTMLElement) Onauxclick() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnauxclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnauxclick(value *js.Callback) {
+	var __callback12 js.Value
+	if value != nil {
+		__callback12 = (*value).Value
+	} else {
+		__callback12 = js.Null()
+	}
+	input := __callback12
 	_this.value.Set("onauxclick", input)
-	return
 }
 
 func (_this *HTMLElement) Onblur() EventHandler {
@@ -9082,14 +9203,15 @@ func (_this *HTMLElement) Onblur() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnblur(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnblur(value *js.Callback) {
+	var __callback13 js.Value
+	if value != nil {
+		__callback13 = (*value).Value
+	} else {
+		__callback13 = js.Null()
+	}
+	input := __callback13
 	_this.value.Set("onblur", input)
-	return
 }
 
 func (_this *HTMLElement) Oncancel() EventHandler {
@@ -9101,14 +9223,15 @@ func (_this *HTMLElement) Oncancel() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncancel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncancel(value *js.Callback) {
+	var __callback14 js.Value
+	if value != nil {
+		__callback14 = (*value).Value
+	} else {
+		__callback14 = js.Null()
+	}
+	input := __callback14
 	_this.value.Set("oncancel", input)
-	return
 }
 
 func (_this *HTMLElement) Oncanplay() EventHandler {
@@ -9120,14 +9243,15 @@ func (_this *HTMLElement) Oncanplay() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncanplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncanplay(value *js.Callback) {
+	var __callback15 js.Value
+	if value != nil {
+		__callback15 = (*value).Value
+	} else {
+		__callback15 = js.Null()
+	}
+	input := __callback15
 	_this.value.Set("oncanplay", input)
-	return
 }
 
 func (_this *HTMLElement) Oncanplaythrough() EventHandler {
@@ -9139,14 +9263,15 @@ func (_this *HTMLElement) Oncanplaythrough() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncanplaythrough(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncanplaythrough(value *js.Callback) {
+	var __callback16 js.Value
+	if value != nil {
+		__callback16 = (*value).Value
+	} else {
+		__callback16 = js.Null()
+	}
+	input := __callback16
 	_this.value.Set("oncanplaythrough", input)
-	return
 }
 
 func (_this *HTMLElement) Onchange() EventHandler {
@@ -9158,14 +9283,15 @@ func (_this *HTMLElement) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnchange(value *js.Callback) {
+	var __callback17 js.Value
+	if value != nil {
+		__callback17 = (*value).Value
+	} else {
+		__callback17 = js.Null()
+	}
+	input := __callback17
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *HTMLElement) Onclick() EventHandler {
@@ -9177,14 +9303,15 @@ func (_this *HTMLElement) Onclick() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnclick(value *js.Callback) {
+	var __callback18 js.Value
+	if value != nil {
+		__callback18 = (*value).Value
+	} else {
+		__callback18 = js.Null()
+	}
+	input := __callback18
 	_this.value.Set("onclick", input)
-	return
 }
 
 func (_this *HTMLElement) Onclose() EventHandler {
@@ -9196,14 +9323,15 @@ func (_this *HTMLElement) Onclose() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnclose(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnclose(value *js.Callback) {
+	var __callback19 js.Value
+	if value != nil {
+		__callback19 = (*value).Value
+	} else {
+		__callback19 = js.Null()
+	}
+	input := __callback19
 	_this.value.Set("onclose", input)
-	return
 }
 
 func (_this *HTMLElement) Oncontextmenu() EventHandler {
@@ -9215,14 +9343,15 @@ func (_this *HTMLElement) Oncontextmenu() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncontextmenu(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncontextmenu(value *js.Callback) {
+	var __callback20 js.Value
+	if value != nil {
+		__callback20 = (*value).Value
+	} else {
+		__callback20 = js.Null()
+	}
+	input := __callback20
 	_this.value.Set("oncontextmenu", input)
-	return
 }
 
 func (_this *HTMLElement) Oncuechange() EventHandler {
@@ -9234,14 +9363,15 @@ func (_this *HTMLElement) Oncuechange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncuechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncuechange(value *js.Callback) {
+	var __callback21 js.Value
+	if value != nil {
+		__callback21 = (*value).Value
+	} else {
+		__callback21 = js.Null()
+	}
+	input := __callback21
 	_this.value.Set("oncuechange", input)
-	return
 }
 
 func (_this *HTMLElement) Ondblclick() EventHandler {
@@ -9253,14 +9383,15 @@ func (_this *HTMLElement) Ondblclick() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndblclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndblclick(value *js.Callback) {
+	var __callback22 js.Value
+	if value != nil {
+		__callback22 = (*value).Value
+	} else {
+		__callback22 = js.Null()
+	}
+	input := __callback22
 	_this.value.Set("ondblclick", input)
-	return
 }
 
 func (_this *HTMLElement) Ondrag() EventHandler {
@@ -9272,14 +9403,15 @@ func (_this *HTMLElement) Ondrag() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndrag(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndrag(value *js.Callback) {
+	var __callback23 js.Value
+	if value != nil {
+		__callback23 = (*value).Value
+	} else {
+		__callback23 = js.Null()
+	}
+	input := __callback23
 	_this.value.Set("ondrag", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragend() EventHandler {
@@ -9291,14 +9423,15 @@ func (_this *HTMLElement) Ondragend() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragend(value *js.Callback) {
+	var __callback24 js.Value
+	if value != nil {
+		__callback24 = (*value).Value
+	} else {
+		__callback24 = js.Null()
+	}
+	input := __callback24
 	_this.value.Set("ondragend", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragenter() EventHandler {
@@ -9310,14 +9443,15 @@ func (_this *HTMLElement) Ondragenter() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragenter(value *js.Callback) {
+	var __callback25 js.Value
+	if value != nil {
+		__callback25 = (*value).Value
+	} else {
+		__callback25 = js.Null()
+	}
+	input := __callback25
 	_this.value.Set("ondragenter", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragexit() EventHandler {
@@ -9329,14 +9463,15 @@ func (_this *HTMLElement) Ondragexit() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragexit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragexit(value *js.Callback) {
+	var __callback26 js.Value
+	if value != nil {
+		__callback26 = (*value).Value
+	} else {
+		__callback26 = js.Null()
+	}
+	input := __callback26
 	_this.value.Set("ondragexit", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragleave() EventHandler {
@@ -9348,14 +9483,15 @@ func (_this *HTMLElement) Ondragleave() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragleave(value *js.Callback) {
+	var __callback27 js.Value
+	if value != nil {
+		__callback27 = (*value).Value
+	} else {
+		__callback27 = js.Null()
+	}
+	input := __callback27
 	_this.value.Set("ondragleave", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragover() EventHandler {
@@ -9367,14 +9503,15 @@ func (_this *HTMLElement) Ondragover() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragover(value *js.Callback) {
+	var __callback28 js.Value
+	if value != nil {
+		__callback28 = (*value).Value
+	} else {
+		__callback28 = js.Null()
+	}
+	input := __callback28
 	_this.value.Set("ondragover", input)
-	return
 }
 
 func (_this *HTMLElement) Ondragstart() EventHandler {
@@ -9386,14 +9523,15 @@ func (_this *HTMLElement) Ondragstart() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndragstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndragstart(value *js.Callback) {
+	var __callback29 js.Value
+	if value != nil {
+		__callback29 = (*value).Value
+	} else {
+		__callback29 = js.Null()
+	}
+	input := __callback29
 	_this.value.Set("ondragstart", input)
-	return
 }
 
 func (_this *HTMLElement) Ondrop() EventHandler {
@@ -9405,14 +9543,15 @@ func (_this *HTMLElement) Ondrop() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndrop(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndrop(value *js.Callback) {
+	var __callback30 js.Value
+	if value != nil {
+		__callback30 = (*value).Value
+	} else {
+		__callback30 = js.Null()
+	}
+	input := __callback30
 	_this.value.Set("ondrop", input)
-	return
 }
 
 func (_this *HTMLElement) Ondurationchange() EventHandler {
@@ -9424,14 +9563,15 @@ func (_this *HTMLElement) Ondurationchange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOndurationchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOndurationchange(value *js.Callback) {
+	var __callback31 js.Value
+	if value != nil {
+		__callback31 = (*value).Value
+	} else {
+		__callback31 = js.Null()
+	}
+	input := __callback31
 	_this.value.Set("ondurationchange", input)
-	return
 }
 
 func (_this *HTMLElement) Onemptied() EventHandler {
@@ -9443,14 +9583,15 @@ func (_this *HTMLElement) Onemptied() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnemptied(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnemptied(value *js.Callback) {
+	var __callback32 js.Value
+	if value != nil {
+		__callback32 = (*value).Value
+	} else {
+		__callback32 = js.Null()
+	}
+	input := __callback32
 	_this.value.Set("onemptied", input)
-	return
 }
 
 func (_this *HTMLElement) Onended() EventHandler {
@@ -9462,14 +9603,15 @@ func (_this *HTMLElement) Onended() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnended(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnended(value *js.Callback) {
+	var __callback33 js.Value
+	if value != nil {
+		__callback33 = (*value).Value
+	} else {
+		__callback33 = js.Null()
+	}
+	input := __callback33
 	_this.value.Set("onended", input)
-	return
 }
 
 func (_this *HTMLElement) Onerror() OnErrorEventHandlerNonNull {
@@ -9481,14 +9623,15 @@ func (_this *HTMLElement) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnerror(value OnErrorEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnErrorEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnerror(value *js.Callback) {
+	var __callback34 js.Value
+	if value != nil {
+		__callback34 = (*value).Value
+	} else {
+		__callback34 = js.Null()
+	}
+	input := __callback34
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *HTMLElement) Onfocus() EventHandler {
@@ -9500,14 +9643,15 @@ func (_this *HTMLElement) Onfocus() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnfocus(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnfocus(value *js.Callback) {
+	var __callback35 js.Value
+	if value != nil {
+		__callback35 = (*value).Value
+	} else {
+		__callback35 = js.Null()
+	}
+	input := __callback35
 	_this.value.Set("onfocus", input)
-	return
 }
 
 func (_this *HTMLElement) Onformdata() EventHandler {
@@ -9519,14 +9663,15 @@ func (_this *HTMLElement) Onformdata() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnformdata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnformdata(value *js.Callback) {
+	var __callback36 js.Value
+	if value != nil {
+		__callback36 = (*value).Value
+	} else {
+		__callback36 = js.Null()
+	}
+	input := __callback36
 	_this.value.Set("onformdata", input)
-	return
 }
 
 func (_this *HTMLElement) Oninput() EventHandler {
@@ -9538,14 +9683,15 @@ func (_this *HTMLElement) Oninput() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOninput(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOninput(value *js.Callback) {
+	var __callback37 js.Value
+	if value != nil {
+		__callback37 = (*value).Value
+	} else {
+		__callback37 = js.Null()
+	}
+	input := __callback37
 	_this.value.Set("oninput", input)
-	return
 }
 
 func (_this *HTMLElement) Oninvalid() EventHandler {
@@ -9557,14 +9703,15 @@ func (_this *HTMLElement) Oninvalid() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOninvalid(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOninvalid(value *js.Callback) {
+	var __callback38 js.Value
+	if value != nil {
+		__callback38 = (*value).Value
+	} else {
+		__callback38 = js.Null()
+	}
+	input := __callback38
 	_this.value.Set("oninvalid", input)
-	return
 }
 
 func (_this *HTMLElement) Onkeydown() EventHandler {
@@ -9576,14 +9723,15 @@ func (_this *HTMLElement) Onkeydown() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnkeydown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnkeydown(value *js.Callback) {
+	var __callback39 js.Value
+	if value != nil {
+		__callback39 = (*value).Value
+	} else {
+		__callback39 = js.Null()
+	}
+	input := __callback39
 	_this.value.Set("onkeydown", input)
-	return
 }
 
 func (_this *HTMLElement) Onkeypress() EventHandler {
@@ -9595,14 +9743,15 @@ func (_this *HTMLElement) Onkeypress() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnkeypress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnkeypress(value *js.Callback) {
+	var __callback40 js.Value
+	if value != nil {
+		__callback40 = (*value).Value
+	} else {
+		__callback40 = js.Null()
+	}
+	input := __callback40
 	_this.value.Set("onkeypress", input)
-	return
 }
 
 func (_this *HTMLElement) Onkeyup() EventHandler {
@@ -9614,14 +9763,15 @@ func (_this *HTMLElement) Onkeyup() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnkeyup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnkeyup(value *js.Callback) {
+	var __callback41 js.Value
+	if value != nil {
+		__callback41 = (*value).Value
+	} else {
+		__callback41 = js.Null()
+	}
+	input := __callback41
 	_this.value.Set("onkeyup", input)
-	return
 }
 
 func (_this *HTMLElement) Onload() EventHandler {
@@ -9633,14 +9783,15 @@ func (_this *HTMLElement) Onload() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnload(value *js.Callback) {
+	var __callback42 js.Value
+	if value != nil {
+		__callback42 = (*value).Value
+	} else {
+		__callback42 = js.Null()
+	}
+	input := __callback42
 	_this.value.Set("onload", input)
-	return
 }
 
 func (_this *HTMLElement) Onloadeddata() EventHandler {
@@ -9652,14 +9803,15 @@ func (_this *HTMLElement) Onloadeddata() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnloadeddata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnloadeddata(value *js.Callback) {
+	var __callback43 js.Value
+	if value != nil {
+		__callback43 = (*value).Value
+	} else {
+		__callback43 = js.Null()
+	}
+	input := __callback43
 	_this.value.Set("onloadeddata", input)
-	return
 }
 
 func (_this *HTMLElement) Onloadedmetadata() EventHandler {
@@ -9671,14 +9823,15 @@ func (_this *HTMLElement) Onloadedmetadata() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnloadedmetadata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnloadedmetadata(value *js.Callback) {
+	var __callback44 js.Value
+	if value != nil {
+		__callback44 = (*value).Value
+	} else {
+		__callback44 = js.Null()
+	}
+	input := __callback44
 	_this.value.Set("onloadedmetadata", input)
-	return
 }
 
 func (_this *HTMLElement) Onloadend() EventHandler {
@@ -9690,14 +9843,15 @@ func (_this *HTMLElement) Onloadend() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnloadend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnloadend(value *js.Callback) {
+	var __callback45 js.Value
+	if value != nil {
+		__callback45 = (*value).Value
+	} else {
+		__callback45 = js.Null()
+	}
+	input := __callback45
 	_this.value.Set("onloadend", input)
-	return
 }
 
 func (_this *HTMLElement) Onloadstart() EventHandler {
@@ -9709,14 +9863,15 @@ func (_this *HTMLElement) Onloadstart() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnloadstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnloadstart(value *js.Callback) {
+	var __callback46 js.Value
+	if value != nil {
+		__callback46 = (*value).Value
+	} else {
+		__callback46 = js.Null()
+	}
+	input := __callback46
 	_this.value.Set("onloadstart", input)
-	return
 }
 
 func (_this *HTMLElement) Onmousedown() EventHandler {
@@ -9728,14 +9883,15 @@ func (_this *HTMLElement) Onmousedown() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmousedown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmousedown(value *js.Callback) {
+	var __callback47 js.Value
+	if value != nil {
+		__callback47 = (*value).Value
+	} else {
+		__callback47 = js.Null()
+	}
+	input := __callback47
 	_this.value.Set("onmousedown", input)
-	return
 }
 
 func (_this *HTMLElement) Onmouseenter() EventHandler {
@@ -9747,14 +9903,15 @@ func (_this *HTMLElement) Onmouseenter() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmouseenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmouseenter(value *js.Callback) {
+	var __callback48 js.Value
+	if value != nil {
+		__callback48 = (*value).Value
+	} else {
+		__callback48 = js.Null()
+	}
+	input := __callback48
 	_this.value.Set("onmouseenter", input)
-	return
 }
 
 func (_this *HTMLElement) Onmouseleave() EventHandler {
@@ -9766,14 +9923,15 @@ func (_this *HTMLElement) Onmouseleave() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmouseleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmouseleave(value *js.Callback) {
+	var __callback49 js.Value
+	if value != nil {
+		__callback49 = (*value).Value
+	} else {
+		__callback49 = js.Null()
+	}
+	input := __callback49
 	_this.value.Set("onmouseleave", input)
-	return
 }
 
 func (_this *HTMLElement) Onmousemove() EventHandler {
@@ -9785,14 +9943,15 @@ func (_this *HTMLElement) Onmousemove() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmousemove(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmousemove(value *js.Callback) {
+	var __callback50 js.Value
+	if value != nil {
+		__callback50 = (*value).Value
+	} else {
+		__callback50 = js.Null()
+	}
+	input := __callback50
 	_this.value.Set("onmousemove", input)
-	return
 }
 
 func (_this *HTMLElement) Onmouseout() EventHandler {
@@ -9804,14 +9963,15 @@ func (_this *HTMLElement) Onmouseout() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmouseout(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmouseout(value *js.Callback) {
+	var __callback51 js.Value
+	if value != nil {
+		__callback51 = (*value).Value
+	} else {
+		__callback51 = js.Null()
+	}
+	input := __callback51
 	_this.value.Set("onmouseout", input)
-	return
 }
 
 func (_this *HTMLElement) Onmouseover() EventHandler {
@@ -9823,14 +9983,15 @@ func (_this *HTMLElement) Onmouseover() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmouseover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmouseover(value *js.Callback) {
+	var __callback52 js.Value
+	if value != nil {
+		__callback52 = (*value).Value
+	} else {
+		__callback52 = js.Null()
+	}
+	input := __callback52
 	_this.value.Set("onmouseover", input)
-	return
 }
 
 func (_this *HTMLElement) Onmouseup() EventHandler {
@@ -9842,14 +10003,15 @@ func (_this *HTMLElement) Onmouseup() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnmouseup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnmouseup(value *js.Callback) {
+	var __callback53 js.Value
+	if value != nil {
+		__callback53 = (*value).Value
+	} else {
+		__callback53 = js.Null()
+	}
+	input := __callback53
 	_this.value.Set("onmouseup", input)
-	return
 }
 
 func (_this *HTMLElement) Onwheel() EventHandler {
@@ -9861,14 +10023,15 @@ func (_this *HTMLElement) Onwheel() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnwheel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnwheel(value *js.Callback) {
+	var __callback54 js.Value
+	if value != nil {
+		__callback54 = (*value).Value
+	} else {
+		__callback54 = js.Null()
+	}
+	input := __callback54
 	_this.value.Set("onwheel", input)
-	return
 }
 
 func (_this *HTMLElement) Onpause() EventHandler {
@@ -9880,14 +10043,15 @@ func (_this *HTMLElement) Onpause() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnpause(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnpause(value *js.Callback) {
+	var __callback55 js.Value
+	if value != nil {
+		__callback55 = (*value).Value
+	} else {
+		__callback55 = js.Null()
+	}
+	input := __callback55
 	_this.value.Set("onpause", input)
-	return
 }
 
 func (_this *HTMLElement) Onplay() EventHandler {
@@ -9899,14 +10063,15 @@ func (_this *HTMLElement) Onplay() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnplay(value *js.Callback) {
+	var __callback56 js.Value
+	if value != nil {
+		__callback56 = (*value).Value
+	} else {
+		__callback56 = js.Null()
+	}
+	input := __callback56
 	_this.value.Set("onplay", input)
-	return
 }
 
 func (_this *HTMLElement) Onplaying() EventHandler {
@@ -9918,14 +10083,15 @@ func (_this *HTMLElement) Onplaying() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnplaying(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnplaying(value *js.Callback) {
+	var __callback57 js.Value
+	if value != nil {
+		__callback57 = (*value).Value
+	} else {
+		__callback57 = js.Null()
+	}
+	input := __callback57
 	_this.value.Set("onplaying", input)
-	return
 }
 
 func (_this *HTMLElement) Onprogress() EventHandler {
@@ -9937,14 +10103,15 @@ func (_this *HTMLElement) Onprogress() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnprogress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnprogress(value *js.Callback) {
+	var __callback58 js.Value
+	if value != nil {
+		__callback58 = (*value).Value
+	} else {
+		__callback58 = js.Null()
+	}
+	input := __callback58
 	_this.value.Set("onprogress", input)
-	return
 }
 
 func (_this *HTMLElement) Onratechange() EventHandler {
@@ -9956,14 +10123,15 @@ func (_this *HTMLElement) Onratechange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnratechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnratechange(value *js.Callback) {
+	var __callback59 js.Value
+	if value != nil {
+		__callback59 = (*value).Value
+	} else {
+		__callback59 = js.Null()
+	}
+	input := __callback59
 	_this.value.Set("onratechange", input)
-	return
 }
 
 func (_this *HTMLElement) Onreset() EventHandler {
@@ -9975,14 +10143,15 @@ func (_this *HTMLElement) Onreset() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnreset(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnreset(value *js.Callback) {
+	var __callback60 js.Value
+	if value != nil {
+		__callback60 = (*value).Value
+	} else {
+		__callback60 = js.Null()
+	}
+	input := __callback60
 	_this.value.Set("onreset", input)
-	return
 }
 
 func (_this *HTMLElement) Onresize() EventHandler {
@@ -9994,14 +10163,15 @@ func (_this *HTMLElement) Onresize() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnresize(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnresize(value *js.Callback) {
+	var __callback61 js.Value
+	if value != nil {
+		__callback61 = (*value).Value
+	} else {
+		__callback61 = js.Null()
+	}
+	input := __callback61
 	_this.value.Set("onresize", input)
-	return
 }
 
 func (_this *HTMLElement) Onscroll() EventHandler {
@@ -10013,14 +10183,15 @@ func (_this *HTMLElement) Onscroll() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnscroll(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnscroll(value *js.Callback) {
+	var __callback62 js.Value
+	if value != nil {
+		__callback62 = (*value).Value
+	} else {
+		__callback62 = js.Null()
+	}
+	input := __callback62
 	_this.value.Set("onscroll", input)
-	return
 }
 
 func (_this *HTMLElement) Onsecuritypolicyviolation() EventHandler {
@@ -10032,14 +10203,15 @@ func (_this *HTMLElement) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnsecuritypolicyviolation(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Callback) {
+	var __callback63 js.Value
+	if value != nil {
+		__callback63 = (*value).Value
+	} else {
+		__callback63 = js.Null()
+	}
+	input := __callback63
 	_this.value.Set("onsecuritypolicyviolation", input)
-	return
 }
 
 func (_this *HTMLElement) Onseeked() EventHandler {
@@ -10051,14 +10223,15 @@ func (_this *HTMLElement) Onseeked() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnseeked(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnseeked(value *js.Callback) {
+	var __callback64 js.Value
+	if value != nil {
+		__callback64 = (*value).Value
+	} else {
+		__callback64 = js.Null()
+	}
+	input := __callback64
 	_this.value.Set("onseeked", input)
-	return
 }
 
 func (_this *HTMLElement) Onseeking() EventHandler {
@@ -10070,14 +10243,15 @@ func (_this *HTMLElement) Onseeking() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnseeking(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnseeking(value *js.Callback) {
+	var __callback65 js.Value
+	if value != nil {
+		__callback65 = (*value).Value
+	} else {
+		__callback65 = js.Null()
+	}
+	input := __callback65
 	_this.value.Set("onseeking", input)
-	return
 }
 
 func (_this *HTMLElement) Onselect() EventHandler {
@@ -10089,14 +10263,15 @@ func (_this *HTMLElement) Onselect() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnselect(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnselect(value *js.Callback) {
+	var __callback66 js.Value
+	if value != nil {
+		__callback66 = (*value).Value
+	} else {
+		__callback66 = js.Null()
+	}
+	input := __callback66
 	_this.value.Set("onselect", input)
-	return
 }
 
 func (_this *HTMLElement) Onstalled() EventHandler {
@@ -10108,14 +10283,15 @@ func (_this *HTMLElement) Onstalled() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnstalled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnstalled(value *js.Callback) {
+	var __callback67 js.Value
+	if value != nil {
+		__callback67 = (*value).Value
+	} else {
+		__callback67 = js.Null()
+	}
+	input := __callback67
 	_this.value.Set("onstalled", input)
-	return
 }
 
 func (_this *HTMLElement) Onsubmit() EventHandler {
@@ -10127,14 +10303,15 @@ func (_this *HTMLElement) Onsubmit() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnsubmit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnsubmit(value *js.Callback) {
+	var __callback68 js.Value
+	if value != nil {
+		__callback68 = (*value).Value
+	} else {
+		__callback68 = js.Null()
+	}
+	input := __callback68
 	_this.value.Set("onsubmit", input)
-	return
 }
 
 func (_this *HTMLElement) Onsuspend() EventHandler {
@@ -10146,14 +10323,15 @@ func (_this *HTMLElement) Onsuspend() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnsuspend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnsuspend(value *js.Callback) {
+	var __callback69 js.Value
+	if value != nil {
+		__callback69 = (*value).Value
+	} else {
+		__callback69 = js.Null()
+	}
+	input := __callback69
 	_this.value.Set("onsuspend", input)
-	return
 }
 
 func (_this *HTMLElement) Ontimeupdate() EventHandler {
@@ -10165,14 +10343,15 @@ func (_this *HTMLElement) Ontimeupdate() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOntimeupdate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOntimeupdate(value *js.Callback) {
+	var __callback70 js.Value
+	if value != nil {
+		__callback70 = (*value).Value
+	} else {
+		__callback70 = js.Null()
+	}
+	input := __callback70
 	_this.value.Set("ontimeupdate", input)
-	return
 }
 
 func (_this *HTMLElement) Ontoggle() EventHandler {
@@ -10184,14 +10363,15 @@ func (_this *HTMLElement) Ontoggle() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOntoggle(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOntoggle(value *js.Callback) {
+	var __callback71 js.Value
+	if value != nil {
+		__callback71 = (*value).Value
+	} else {
+		__callback71 = js.Null()
+	}
+	input := __callback71
 	_this.value.Set("ontoggle", input)
-	return
 }
 
 func (_this *HTMLElement) Onvolumechange() EventHandler {
@@ -10203,14 +10383,15 @@ func (_this *HTMLElement) Onvolumechange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnvolumechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnvolumechange(value *js.Callback) {
+	var __callback72 js.Value
+	if value != nil {
+		__callback72 = (*value).Value
+	} else {
+		__callback72 = js.Null()
+	}
+	input := __callback72
 	_this.value.Set("onvolumechange", input)
-	return
 }
 
 func (_this *HTMLElement) Onwaiting() EventHandler {
@@ -10222,14 +10403,15 @@ func (_this *HTMLElement) Onwaiting() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnwaiting(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnwaiting(value *js.Callback) {
+	var __callback73 js.Value
+	if value != nil {
+		__callback73 = (*value).Value
+	} else {
+		__callback73 = js.Null()
+	}
+	input := __callback73
 	_this.value.Set("onwaiting", input)
-	return
 }
 
 func (_this *HTMLElement) Oncopy() EventHandler {
@@ -10241,14 +10423,15 @@ func (_this *HTMLElement) Oncopy() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncopy(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncopy(value *js.Callback) {
+	var __callback74 js.Value
+	if value != nil {
+		__callback74 = (*value).Value
+	} else {
+		__callback74 = js.Null()
+	}
+	input := __callback74
 	_this.value.Set("oncopy", input)
-	return
 }
 
 func (_this *HTMLElement) Oncut() EventHandler {
@@ -10260,14 +10443,15 @@ func (_this *HTMLElement) Oncut() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOncut(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOncut(value *js.Callback) {
+	var __callback75 js.Value
+	if value != nil {
+		__callback75 = (*value).Value
+	} else {
+		__callback75 = js.Null()
+	}
+	input := __callback75
 	_this.value.Set("oncut", input)
-	return
 }
 
 func (_this *HTMLElement) Onpaste() EventHandler {
@@ -10279,14 +10463,15 @@ func (_this *HTMLElement) Onpaste() EventHandler {
 	return ret
 }
 
-func (_this *HTMLElement) SetOnpaste(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLElement) SetOnpaste(value *js.Callback) {
+	var __callback76 js.Value
+	if value != nil {
+		__callback76 = (*value).Value
+	} else {
+		__callback76 = js.Null()
+	}
+	input := __callback76
 	_this.value.Set("onpaste", input)
-	return
 }
 
 func (_this *HTMLElement) ContentEditable() string {
@@ -10950,14 +11135,15 @@ func (_this *HTMLBodyElement) Onafterprint() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnafterprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnafterprint(value *js.Callback) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
 	_this.value.Set("onafterprint", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onbeforeprint() EventHandler {
@@ -10969,14 +11155,15 @@ func (_this *HTMLBodyElement) Onbeforeprint() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnbeforeprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Callback) {
+	var __callback7 js.Value
+	if value != nil {
+		__callback7 = (*value).Value
+	} else {
+		__callback7 = js.Null()
+	}
+	input := __callback7
 	_this.value.Set("onbeforeprint", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
@@ -10988,14 +11175,15 @@ func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnbeforeunload(value OnBeforeUnloadEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnBeforeUnloadEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("onbeforeunload", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onhashchange() EventHandler {
@@ -11007,14 +11195,15 @@ func (_this *HTMLBodyElement) Onhashchange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnhashchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnhashchange(value *js.Callback) {
+	var __callback9 js.Value
+	if value != nil {
+		__callback9 = (*value).Value
+	} else {
+		__callback9 = js.Null()
+	}
+	input := __callback9
 	_this.value.Set("onhashchange", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onlanguagechange() EventHandler {
@@ -11026,14 +11215,15 @@ func (_this *HTMLBodyElement) Onlanguagechange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnlanguagechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Callback) {
+	var __callback10 js.Value
+	if value != nil {
+		__callback10 = (*value).Value
+	} else {
+		__callback10 = js.Null()
+	}
+	input := __callback10
 	_this.value.Set("onlanguagechange", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onmessage() EventHandler {
@@ -11045,14 +11235,15 @@ func (_this *HTMLBodyElement) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnmessage(value *js.Callback) {
+	var __callback11 js.Value
+	if value != nil {
+		__callback11 = (*value).Value
+	} else {
+		__callback11 = js.Null()
+	}
+	input := __callback11
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onmessageerror() EventHandler {
@@ -11064,14 +11255,15 @@ func (_this *HTMLBodyElement) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Callback) {
+	var __callback12 js.Value
+	if value != nil {
+		__callback12 = (*value).Value
+	} else {
+		__callback12 = js.Null()
+	}
+	input := __callback12
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onoffline() EventHandler {
@@ -11083,14 +11275,15 @@ func (_this *HTMLBodyElement) Onoffline() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnoffline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnoffline(value *js.Callback) {
+	var __callback13 js.Value
+	if value != nil {
+		__callback13 = (*value).Value
+	} else {
+		__callback13 = js.Null()
+	}
+	input := __callback13
 	_this.value.Set("onoffline", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Ononline() EventHandler {
@@ -11102,14 +11295,15 @@ func (_this *HTMLBodyElement) Ononline() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnonline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnonline(value *js.Callback) {
+	var __callback14 js.Value
+	if value != nil {
+		__callback14 = (*value).Value
+	} else {
+		__callback14 = js.Null()
+	}
+	input := __callback14
 	_this.value.Set("ononline", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onpagehide() EventHandler {
@@ -11121,14 +11315,15 @@ func (_this *HTMLBodyElement) Onpagehide() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnpagehide(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnpagehide(value *js.Callback) {
+	var __callback15 js.Value
+	if value != nil {
+		__callback15 = (*value).Value
+	} else {
+		__callback15 = js.Null()
+	}
+	input := __callback15
 	_this.value.Set("onpagehide", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onpageshow() EventHandler {
@@ -11140,14 +11335,15 @@ func (_this *HTMLBodyElement) Onpageshow() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnpageshow(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnpageshow(value *js.Callback) {
+	var __callback16 js.Value
+	if value != nil {
+		__callback16 = (*value).Value
+	} else {
+		__callback16 = js.Null()
+	}
+	input := __callback16
 	_this.value.Set("onpageshow", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onpopstate() EventHandler {
@@ -11159,14 +11355,15 @@ func (_this *HTMLBodyElement) Onpopstate() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnpopstate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnpopstate(value *js.Callback) {
+	var __callback17 js.Value
+	if value != nil {
+		__callback17 = (*value).Value
+	} else {
+		__callback17 = js.Null()
+	}
+	input := __callback17
 	_this.value.Set("onpopstate", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onrejectionhandled() EventHandler {
@@ -11178,14 +11375,15 @@ func (_this *HTMLBodyElement) Onrejectionhandled() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnrejectionhandled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Callback) {
+	var __callback18 js.Value
+	if value != nil {
+		__callback18 = (*value).Value
+	} else {
+		__callback18 = js.Null()
+	}
+	input := __callback18
 	_this.value.Set("onrejectionhandled", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onstorage() EventHandler {
@@ -11197,14 +11395,15 @@ func (_this *HTMLBodyElement) Onstorage() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnstorage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnstorage(value *js.Callback) {
+	var __callback19 js.Value
+	if value != nil {
+		__callback19 = (*value).Value
+	} else {
+		__callback19 = js.Null()
+	}
+	input := __callback19
 	_this.value.Set("onstorage", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onunhandledrejection() EventHandler {
@@ -11216,14 +11415,15 @@ func (_this *HTMLBodyElement) Onunhandledrejection() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnunhandledrejection(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Callback) {
+	var __callback20 js.Value
+	if value != nil {
+		__callback20 = (*value).Value
+	} else {
+		__callback20 = js.Null()
+	}
+	input := __callback20
 	_this.value.Set("onunhandledrejection", input)
-	return
 }
 
 func (_this *HTMLBodyElement) Onunload() EventHandler {
@@ -11235,14 +11435,15 @@ func (_this *HTMLBodyElement) Onunload() EventHandler {
 	return ret
 }
 
-func (_this *HTMLBodyElement) SetOnunload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLBodyElement) SetOnunload(value *js.Callback) {
+	var __callback21 js.Value
+	if value != nil {
+		__callback21 = (*value).Value
+	} else {
+		__callback21 = js.Null()
+	}
+	input := __callback21
 	_this.value.Set("onunload", input)
-	return
 }
 
 // interface: HTMLHeadingElement
@@ -13954,14 +14155,15 @@ func (_this *AudioTrackList) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *AudioTrackList) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *AudioTrackList) SetOnchange(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *AudioTrackList) Onaddtrack() EventHandler {
@@ -13973,14 +14175,15 @@ func (_this *AudioTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
-func (_this *AudioTrackList) SetOnaddtrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *AudioTrackList) SetOnaddtrack(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onaddtrack", input)
-	return
 }
 
 func (_this *AudioTrackList) Onremovetrack() EventHandler {
@@ -13992,14 +14195,15 @@ func (_this *AudioTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
-func (_this *AudioTrackList) SetOnremovetrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *AudioTrackList) SetOnremovetrack(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onremovetrack", input)
-	return
 }
 
 func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
@@ -14123,14 +14327,15 @@ func (_this *VideoTrackList) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *VideoTrackList) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *VideoTrackList) SetOnchange(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *VideoTrackList) Onaddtrack() EventHandler {
@@ -14142,14 +14347,15 @@ func (_this *VideoTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
-func (_this *VideoTrackList) SetOnaddtrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *VideoTrackList) SetOnaddtrack(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onaddtrack", input)
-	return
 }
 
 func (_this *VideoTrackList) Onremovetrack() EventHandler {
@@ -14161,14 +14367,15 @@ func (_this *VideoTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
-func (_this *VideoTrackList) SetOnremovetrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *VideoTrackList) SetOnremovetrack(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("onremovetrack", input)
-	return
 }
 
 func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {
@@ -14285,14 +14492,15 @@ func (_this *TextTrackList) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *TextTrackList) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrackList) SetOnchange(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *TextTrackList) Onaddtrack() EventHandler {
@@ -14304,14 +14512,15 @@ func (_this *TextTrackList) Onaddtrack() EventHandler {
 	return ret
 }
 
-func (_this *TextTrackList) SetOnaddtrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrackList) SetOnaddtrack(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onaddtrack", input)
-	return
 }
 
 func (_this *TextTrackList) Onremovetrack() EventHandler {
@@ -14323,14 +14532,15 @@ func (_this *TextTrackList) Onremovetrack() EventHandler {
 	return ret
 }
 
-func (_this *TextTrackList) SetOnremovetrack(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrackList) SetOnremovetrack(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onremovetrack", input)
-	return
 }
 
 func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
@@ -14446,14 +14656,15 @@ func (_this *TextTrack) Oncuechange() EventHandler {
 	return ret
 }
 
-func (_this *TextTrack) SetOncuechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrack) SetOncuechange(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("oncuechange", input)
-	return
 }
 
 func (_this *TextTrack) AddCue(cue *TextTrackCue) {
@@ -14613,14 +14824,15 @@ func (_this *TextTrackCue) Onenter() EventHandler {
 	return ret
 }
 
-func (_this *TextTrackCue) SetOnenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrackCue) SetOnenter(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onenter", input)
-	return
 }
 
 func (_this *TextTrackCue) Onexit() EventHandler {
@@ -14632,14 +14844,15 @@ func (_this *TextTrackCue) Onexit() EventHandler {
 	return ret
 }
 
-func (_this *TextTrackCue) SetOnexit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *TextTrackCue) SetOnexit(value *js.Callback) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
 	_this.value.Set("onexit", input)
-	return
 }
 
 // interface: TimeRanges
@@ -19070,17 +19283,20 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 	return
 }
 
-func (_this *HTMLCanvasElement) ToBlob(callback BlobCallback, _type *string, quality js.Value) (_release ReleasableApiResource) {
+func (_this *HTMLCanvasElement) ToBlob(callback *js.Callback, _type *string, quality js.Value) {
 	_method := _this.value.Get("toBlob")
 	var (
 		_args [3]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
-	_p0 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeBlobCallback(callback, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p0)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	if _type != nil {
@@ -19094,7 +19310,6 @@ func (_this *HTMLCanvasElement) ToBlob(callback BlobCallback, _type *string, qua
 		_end++
 	}
 	_method.Invoke(_args[0:_end]...)
-	_release = _releaseList
 	return
 }
 
@@ -20218,18 +20433,16 @@ func (_this *CanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx in
 	return
 }
 
-func (_this *CanvasRenderingContext2D) SetLineDash(segments js.Value) (_release ReleasableApiResource) {
+func (_this *CanvasRenderingContext2D) SetLineDash(segments js.Value) {
 	_method := _this.value.Get("setLineDash")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
 	_p0 := segments
 	_args[0] = _p0
 	_end++
 	_method.Invoke(_args[0:_end]...)
-	_release = _releaseList
 	return
 }
 
@@ -22164,18 +22377,16 @@ func (_this *OffscreenCanvasRenderingContext2D) PutImageData2(imagedata *ImageDa
 	return
 }
 
-func (_this *OffscreenCanvasRenderingContext2D) SetLineDash(segments js.Value) (_release ReleasableApiResource) {
+func (_this *OffscreenCanvasRenderingContext2D) SetLineDash(segments js.Value) {
 	_method := _this.value.Get("setLineDash")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
 	_p0 := segments
 	_args[0] = _p0
 	_end++
 	_method.Invoke(_args[0:_end]...)
-	_release = _releaseList
 	return
 }
 
@@ -22418,20 +22629,23 @@ func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
 	return ret
 }
 
-func (_this *CustomElementRegistry) Define(name string, constructor CustomElementConstructor, options *ElementDefinitionOptions) (_release ReleasableApiResource) {
+func (_this *CustomElementRegistry) Define(name string, constructor *js.Callback, options *ElementDefinitionOptions) {
 	_method := _this.value.Get("define")
 	var (
 		_args [3]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
 	_p0 := name
 	_args[0] = _p0
 	_end++
-	_p1 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeCustomElementConstructor(constructor, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p1)
+
+	var __callback1 js.Value
+	if constructor != nil {
+		__callback1 = (*constructor).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	_p1 := __callback1
 	_args[1] = _p1
 	_end++
 	if options != nil {
@@ -22440,7 +22654,6 @@ func (_this *CustomElementRegistry) Define(name string, constructor CustomElemen
 		_end++
 	}
 	_method.Invoke(_args[0:_end]...)
-	_release = _releaseList
 	return
 }
 
@@ -22765,21 +22978,23 @@ func (_this *DataTransferItem) Type() string {
 	return ret
 }
 
-func (_this *DataTransferItem) GetAsString(callback FunctionStringCallback) (_release ReleasableApiResource) {
+func (_this *DataTransferItem) GetAsString(callback *js.Callback) {
 	_method := _this.value.Get("getAsString")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
-	_p0 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeFunctionStringCallback(callback, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p0)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	_method.Invoke(_args[0:_end]...)
-	_release = _releaseList
 	return
 }
 
@@ -23075,14 +23290,15 @@ func (_this *Window) Onabort() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnabort(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnabort(value *js.Callback) {
+	var __callback25 js.Value
+	if value != nil {
+		__callback25 = (*value).Value
+	} else {
+		__callback25 = js.Null()
+	}
+	input := __callback25
 	_this.value.Set("onabort", input)
-	return
 }
 
 func (_this *Window) Onauxclick() EventHandler {
@@ -23094,14 +23310,15 @@ func (_this *Window) Onauxclick() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnauxclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnauxclick(value *js.Callback) {
+	var __callback26 js.Value
+	if value != nil {
+		__callback26 = (*value).Value
+	} else {
+		__callback26 = js.Null()
+	}
+	input := __callback26
 	_this.value.Set("onauxclick", input)
-	return
 }
 
 func (_this *Window) Onblur() EventHandler {
@@ -23113,14 +23330,15 @@ func (_this *Window) Onblur() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnblur(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnblur(value *js.Callback) {
+	var __callback27 js.Value
+	if value != nil {
+		__callback27 = (*value).Value
+	} else {
+		__callback27 = js.Null()
+	}
+	input := __callback27
 	_this.value.Set("onblur", input)
-	return
 }
 
 func (_this *Window) Oncancel() EventHandler {
@@ -23132,14 +23350,15 @@ func (_this *Window) Oncancel() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOncancel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOncancel(value *js.Callback) {
+	var __callback28 js.Value
+	if value != nil {
+		__callback28 = (*value).Value
+	} else {
+		__callback28 = js.Null()
+	}
+	input := __callback28
 	_this.value.Set("oncancel", input)
-	return
 }
 
 func (_this *Window) Oncanplay() EventHandler {
@@ -23151,14 +23370,15 @@ func (_this *Window) Oncanplay() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOncanplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOncanplay(value *js.Callback) {
+	var __callback29 js.Value
+	if value != nil {
+		__callback29 = (*value).Value
+	} else {
+		__callback29 = js.Null()
+	}
+	input := __callback29
 	_this.value.Set("oncanplay", input)
-	return
 }
 
 func (_this *Window) Oncanplaythrough() EventHandler {
@@ -23170,14 +23390,15 @@ func (_this *Window) Oncanplaythrough() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOncanplaythrough(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOncanplaythrough(value *js.Callback) {
+	var __callback30 js.Value
+	if value != nil {
+		__callback30 = (*value).Value
+	} else {
+		__callback30 = js.Null()
+	}
+	input := __callback30
 	_this.value.Set("oncanplaythrough", input)
-	return
 }
 
 func (_this *Window) Onchange() EventHandler {
@@ -23189,14 +23410,15 @@ func (_this *Window) Onchange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnchange(value *js.Callback) {
+	var __callback31 js.Value
+	if value != nil {
+		__callback31 = (*value).Value
+	} else {
+		__callback31 = js.Null()
+	}
+	input := __callback31
 	_this.value.Set("onchange", input)
-	return
 }
 
 func (_this *Window) Onclick() EventHandler {
@@ -23208,14 +23430,15 @@ func (_this *Window) Onclick() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnclick(value *js.Callback) {
+	var __callback32 js.Value
+	if value != nil {
+		__callback32 = (*value).Value
+	} else {
+		__callback32 = js.Null()
+	}
+	input := __callback32
 	_this.value.Set("onclick", input)
-	return
 }
 
 func (_this *Window) Onclose() EventHandler {
@@ -23227,14 +23450,15 @@ func (_this *Window) Onclose() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnclose(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnclose(value *js.Callback) {
+	var __callback33 js.Value
+	if value != nil {
+		__callback33 = (*value).Value
+	} else {
+		__callback33 = js.Null()
+	}
+	input := __callback33
 	_this.value.Set("onclose", input)
-	return
 }
 
 func (_this *Window) Oncontextmenu() EventHandler {
@@ -23246,14 +23470,15 @@ func (_this *Window) Oncontextmenu() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOncontextmenu(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOncontextmenu(value *js.Callback) {
+	var __callback34 js.Value
+	if value != nil {
+		__callback34 = (*value).Value
+	} else {
+		__callback34 = js.Null()
+	}
+	input := __callback34
 	_this.value.Set("oncontextmenu", input)
-	return
 }
 
 func (_this *Window) Oncuechange() EventHandler {
@@ -23265,14 +23490,15 @@ func (_this *Window) Oncuechange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOncuechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOncuechange(value *js.Callback) {
+	var __callback35 js.Value
+	if value != nil {
+		__callback35 = (*value).Value
+	} else {
+		__callback35 = js.Null()
+	}
+	input := __callback35
 	_this.value.Set("oncuechange", input)
-	return
 }
 
 func (_this *Window) Ondblclick() EventHandler {
@@ -23284,14 +23510,15 @@ func (_this *Window) Ondblclick() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndblclick(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndblclick(value *js.Callback) {
+	var __callback36 js.Value
+	if value != nil {
+		__callback36 = (*value).Value
+	} else {
+		__callback36 = js.Null()
+	}
+	input := __callback36
 	_this.value.Set("ondblclick", input)
-	return
 }
 
 func (_this *Window) Ondrag() EventHandler {
@@ -23303,14 +23530,15 @@ func (_this *Window) Ondrag() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndrag(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndrag(value *js.Callback) {
+	var __callback37 js.Value
+	if value != nil {
+		__callback37 = (*value).Value
+	} else {
+		__callback37 = js.Null()
+	}
+	input := __callback37
 	_this.value.Set("ondrag", input)
-	return
 }
 
 func (_this *Window) Ondragend() EventHandler {
@@ -23322,14 +23550,15 @@ func (_this *Window) Ondragend() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragend(value *js.Callback) {
+	var __callback38 js.Value
+	if value != nil {
+		__callback38 = (*value).Value
+	} else {
+		__callback38 = js.Null()
+	}
+	input := __callback38
 	_this.value.Set("ondragend", input)
-	return
 }
 
 func (_this *Window) Ondragenter() EventHandler {
@@ -23341,14 +23570,15 @@ func (_this *Window) Ondragenter() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragenter(value *js.Callback) {
+	var __callback39 js.Value
+	if value != nil {
+		__callback39 = (*value).Value
+	} else {
+		__callback39 = js.Null()
+	}
+	input := __callback39
 	_this.value.Set("ondragenter", input)
-	return
 }
 
 func (_this *Window) Ondragexit() EventHandler {
@@ -23360,14 +23590,15 @@ func (_this *Window) Ondragexit() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragexit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragexit(value *js.Callback) {
+	var __callback40 js.Value
+	if value != nil {
+		__callback40 = (*value).Value
+	} else {
+		__callback40 = js.Null()
+	}
+	input := __callback40
 	_this.value.Set("ondragexit", input)
-	return
 }
 
 func (_this *Window) Ondragleave() EventHandler {
@@ -23379,14 +23610,15 @@ func (_this *Window) Ondragleave() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragleave(value *js.Callback) {
+	var __callback41 js.Value
+	if value != nil {
+		__callback41 = (*value).Value
+	} else {
+		__callback41 = js.Null()
+	}
+	input := __callback41
 	_this.value.Set("ondragleave", input)
-	return
 }
 
 func (_this *Window) Ondragover() EventHandler {
@@ -23398,14 +23630,15 @@ func (_this *Window) Ondragover() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragover(value *js.Callback) {
+	var __callback42 js.Value
+	if value != nil {
+		__callback42 = (*value).Value
+	} else {
+		__callback42 = js.Null()
+	}
+	input := __callback42
 	_this.value.Set("ondragover", input)
-	return
 }
 
 func (_this *Window) Ondragstart() EventHandler {
@@ -23417,14 +23650,15 @@ func (_this *Window) Ondragstart() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndragstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndragstart(value *js.Callback) {
+	var __callback43 js.Value
+	if value != nil {
+		__callback43 = (*value).Value
+	} else {
+		__callback43 = js.Null()
+	}
+	input := __callback43
 	_this.value.Set("ondragstart", input)
-	return
 }
 
 func (_this *Window) Ondrop() EventHandler {
@@ -23436,14 +23670,15 @@ func (_this *Window) Ondrop() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndrop(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndrop(value *js.Callback) {
+	var __callback44 js.Value
+	if value != nil {
+		__callback44 = (*value).Value
+	} else {
+		__callback44 = js.Null()
+	}
+	input := __callback44
 	_this.value.Set("ondrop", input)
-	return
 }
 
 func (_this *Window) Ondurationchange() EventHandler {
@@ -23455,14 +23690,15 @@ func (_this *Window) Ondurationchange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOndurationchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOndurationchange(value *js.Callback) {
+	var __callback45 js.Value
+	if value != nil {
+		__callback45 = (*value).Value
+	} else {
+		__callback45 = js.Null()
+	}
+	input := __callback45
 	_this.value.Set("ondurationchange", input)
-	return
 }
 
 func (_this *Window) Onemptied() EventHandler {
@@ -23474,14 +23710,15 @@ func (_this *Window) Onemptied() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnemptied(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnemptied(value *js.Callback) {
+	var __callback46 js.Value
+	if value != nil {
+		__callback46 = (*value).Value
+	} else {
+		__callback46 = js.Null()
+	}
+	input := __callback46
 	_this.value.Set("onemptied", input)
-	return
 }
 
 func (_this *Window) Onended() EventHandler {
@@ -23493,14 +23730,15 @@ func (_this *Window) Onended() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnended(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnended(value *js.Callback) {
+	var __callback47 js.Value
+	if value != nil {
+		__callback47 = (*value).Value
+	} else {
+		__callback47 = js.Null()
+	}
+	input := __callback47
 	_this.value.Set("onended", input)
-	return
 }
 
 func (_this *Window) Onerror() OnErrorEventHandlerNonNull {
@@ -23512,14 +23750,15 @@ func (_this *Window) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
-func (_this *Window) SetOnerror(value OnErrorEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnErrorEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnerror(value *js.Callback) {
+	var __callback48 js.Value
+	if value != nil {
+		__callback48 = (*value).Value
+	} else {
+		__callback48 = js.Null()
+	}
+	input := __callback48
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *Window) Onfocus() EventHandler {
@@ -23531,14 +23770,15 @@ func (_this *Window) Onfocus() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnfocus(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnfocus(value *js.Callback) {
+	var __callback49 js.Value
+	if value != nil {
+		__callback49 = (*value).Value
+	} else {
+		__callback49 = js.Null()
+	}
+	input := __callback49
 	_this.value.Set("onfocus", input)
-	return
 }
 
 func (_this *Window) Onformdata() EventHandler {
@@ -23550,14 +23790,15 @@ func (_this *Window) Onformdata() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnformdata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnformdata(value *js.Callback) {
+	var __callback50 js.Value
+	if value != nil {
+		__callback50 = (*value).Value
+	} else {
+		__callback50 = js.Null()
+	}
+	input := __callback50
 	_this.value.Set("onformdata", input)
-	return
 }
 
 func (_this *Window) Oninput() EventHandler {
@@ -23569,14 +23810,15 @@ func (_this *Window) Oninput() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOninput(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOninput(value *js.Callback) {
+	var __callback51 js.Value
+	if value != nil {
+		__callback51 = (*value).Value
+	} else {
+		__callback51 = js.Null()
+	}
+	input := __callback51
 	_this.value.Set("oninput", input)
-	return
 }
 
 func (_this *Window) Oninvalid() EventHandler {
@@ -23588,14 +23830,15 @@ func (_this *Window) Oninvalid() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOninvalid(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOninvalid(value *js.Callback) {
+	var __callback52 js.Value
+	if value != nil {
+		__callback52 = (*value).Value
+	} else {
+		__callback52 = js.Null()
+	}
+	input := __callback52
 	_this.value.Set("oninvalid", input)
-	return
 }
 
 func (_this *Window) Onkeydown() EventHandler {
@@ -23607,14 +23850,15 @@ func (_this *Window) Onkeydown() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnkeydown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnkeydown(value *js.Callback) {
+	var __callback53 js.Value
+	if value != nil {
+		__callback53 = (*value).Value
+	} else {
+		__callback53 = js.Null()
+	}
+	input := __callback53
 	_this.value.Set("onkeydown", input)
-	return
 }
 
 func (_this *Window) Onkeypress() EventHandler {
@@ -23626,14 +23870,15 @@ func (_this *Window) Onkeypress() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnkeypress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnkeypress(value *js.Callback) {
+	var __callback54 js.Value
+	if value != nil {
+		__callback54 = (*value).Value
+	} else {
+		__callback54 = js.Null()
+	}
+	input := __callback54
 	_this.value.Set("onkeypress", input)
-	return
 }
 
 func (_this *Window) Onkeyup() EventHandler {
@@ -23645,14 +23890,15 @@ func (_this *Window) Onkeyup() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnkeyup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnkeyup(value *js.Callback) {
+	var __callback55 js.Value
+	if value != nil {
+		__callback55 = (*value).Value
+	} else {
+		__callback55 = js.Null()
+	}
+	input := __callback55
 	_this.value.Set("onkeyup", input)
-	return
 }
 
 func (_this *Window) Onload() EventHandler {
@@ -23664,14 +23910,15 @@ func (_this *Window) Onload() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnload(value *js.Callback) {
+	var __callback56 js.Value
+	if value != nil {
+		__callback56 = (*value).Value
+	} else {
+		__callback56 = js.Null()
+	}
+	input := __callback56
 	_this.value.Set("onload", input)
-	return
 }
 
 func (_this *Window) Onloadeddata() EventHandler {
@@ -23683,14 +23930,15 @@ func (_this *Window) Onloadeddata() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnloadeddata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnloadeddata(value *js.Callback) {
+	var __callback57 js.Value
+	if value != nil {
+		__callback57 = (*value).Value
+	} else {
+		__callback57 = js.Null()
+	}
+	input := __callback57
 	_this.value.Set("onloadeddata", input)
-	return
 }
 
 func (_this *Window) Onloadedmetadata() EventHandler {
@@ -23702,14 +23950,15 @@ func (_this *Window) Onloadedmetadata() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnloadedmetadata(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnloadedmetadata(value *js.Callback) {
+	var __callback58 js.Value
+	if value != nil {
+		__callback58 = (*value).Value
+	} else {
+		__callback58 = js.Null()
+	}
+	input := __callback58
 	_this.value.Set("onloadedmetadata", input)
-	return
 }
 
 func (_this *Window) Onloadend() EventHandler {
@@ -23721,14 +23970,15 @@ func (_this *Window) Onloadend() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnloadend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnloadend(value *js.Callback) {
+	var __callback59 js.Value
+	if value != nil {
+		__callback59 = (*value).Value
+	} else {
+		__callback59 = js.Null()
+	}
+	input := __callback59
 	_this.value.Set("onloadend", input)
-	return
 }
 
 func (_this *Window) Onloadstart() EventHandler {
@@ -23740,14 +23990,15 @@ func (_this *Window) Onloadstart() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnloadstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnloadstart(value *js.Callback) {
+	var __callback60 js.Value
+	if value != nil {
+		__callback60 = (*value).Value
+	} else {
+		__callback60 = js.Null()
+	}
+	input := __callback60
 	_this.value.Set("onloadstart", input)
-	return
 }
 
 func (_this *Window) Onmousedown() EventHandler {
@@ -23759,14 +24010,15 @@ func (_this *Window) Onmousedown() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmousedown(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmousedown(value *js.Callback) {
+	var __callback61 js.Value
+	if value != nil {
+		__callback61 = (*value).Value
+	} else {
+		__callback61 = js.Null()
+	}
+	input := __callback61
 	_this.value.Set("onmousedown", input)
-	return
 }
 
 func (_this *Window) Onmouseenter() EventHandler {
@@ -23778,14 +24030,15 @@ func (_this *Window) Onmouseenter() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmouseenter(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmouseenter(value *js.Callback) {
+	var __callback62 js.Value
+	if value != nil {
+		__callback62 = (*value).Value
+	} else {
+		__callback62 = js.Null()
+	}
+	input := __callback62
 	_this.value.Set("onmouseenter", input)
-	return
 }
 
 func (_this *Window) Onmouseleave() EventHandler {
@@ -23797,14 +24050,15 @@ func (_this *Window) Onmouseleave() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmouseleave(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmouseleave(value *js.Callback) {
+	var __callback63 js.Value
+	if value != nil {
+		__callback63 = (*value).Value
+	} else {
+		__callback63 = js.Null()
+	}
+	input := __callback63
 	_this.value.Set("onmouseleave", input)
-	return
 }
 
 func (_this *Window) Onmousemove() EventHandler {
@@ -23816,14 +24070,15 @@ func (_this *Window) Onmousemove() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmousemove(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmousemove(value *js.Callback) {
+	var __callback64 js.Value
+	if value != nil {
+		__callback64 = (*value).Value
+	} else {
+		__callback64 = js.Null()
+	}
+	input := __callback64
 	_this.value.Set("onmousemove", input)
-	return
 }
 
 func (_this *Window) Onmouseout() EventHandler {
@@ -23835,14 +24090,15 @@ func (_this *Window) Onmouseout() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmouseout(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmouseout(value *js.Callback) {
+	var __callback65 js.Value
+	if value != nil {
+		__callback65 = (*value).Value
+	} else {
+		__callback65 = js.Null()
+	}
+	input := __callback65
 	_this.value.Set("onmouseout", input)
-	return
 }
 
 func (_this *Window) Onmouseover() EventHandler {
@@ -23854,14 +24110,15 @@ func (_this *Window) Onmouseover() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmouseover(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmouseover(value *js.Callback) {
+	var __callback66 js.Value
+	if value != nil {
+		__callback66 = (*value).Value
+	} else {
+		__callback66 = js.Null()
+	}
+	input := __callback66
 	_this.value.Set("onmouseover", input)
-	return
 }
 
 func (_this *Window) Onmouseup() EventHandler {
@@ -23873,14 +24130,15 @@ func (_this *Window) Onmouseup() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmouseup(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmouseup(value *js.Callback) {
+	var __callback67 js.Value
+	if value != nil {
+		__callback67 = (*value).Value
+	} else {
+		__callback67 = js.Null()
+	}
+	input := __callback67
 	_this.value.Set("onmouseup", input)
-	return
 }
 
 func (_this *Window) Onwheel() EventHandler {
@@ -23892,14 +24150,15 @@ func (_this *Window) Onwheel() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnwheel(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnwheel(value *js.Callback) {
+	var __callback68 js.Value
+	if value != nil {
+		__callback68 = (*value).Value
+	} else {
+		__callback68 = js.Null()
+	}
+	input := __callback68
 	_this.value.Set("onwheel", input)
-	return
 }
 
 func (_this *Window) Onpause() EventHandler {
@@ -23911,14 +24170,15 @@ func (_this *Window) Onpause() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnpause(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnpause(value *js.Callback) {
+	var __callback69 js.Value
+	if value != nil {
+		__callback69 = (*value).Value
+	} else {
+		__callback69 = js.Null()
+	}
+	input := __callback69
 	_this.value.Set("onpause", input)
-	return
 }
 
 func (_this *Window) Onplay() EventHandler {
@@ -23930,14 +24190,15 @@ func (_this *Window) Onplay() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnplay(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnplay(value *js.Callback) {
+	var __callback70 js.Value
+	if value != nil {
+		__callback70 = (*value).Value
+	} else {
+		__callback70 = js.Null()
+	}
+	input := __callback70
 	_this.value.Set("onplay", input)
-	return
 }
 
 func (_this *Window) Onplaying() EventHandler {
@@ -23949,14 +24210,15 @@ func (_this *Window) Onplaying() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnplaying(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnplaying(value *js.Callback) {
+	var __callback71 js.Value
+	if value != nil {
+		__callback71 = (*value).Value
+	} else {
+		__callback71 = js.Null()
+	}
+	input := __callback71
 	_this.value.Set("onplaying", input)
-	return
 }
 
 func (_this *Window) Onprogress() EventHandler {
@@ -23968,14 +24230,15 @@ func (_this *Window) Onprogress() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnprogress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnprogress(value *js.Callback) {
+	var __callback72 js.Value
+	if value != nil {
+		__callback72 = (*value).Value
+	} else {
+		__callback72 = js.Null()
+	}
+	input := __callback72
 	_this.value.Set("onprogress", input)
-	return
 }
 
 func (_this *Window) Onratechange() EventHandler {
@@ -23987,14 +24250,15 @@ func (_this *Window) Onratechange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnratechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnratechange(value *js.Callback) {
+	var __callback73 js.Value
+	if value != nil {
+		__callback73 = (*value).Value
+	} else {
+		__callback73 = js.Null()
+	}
+	input := __callback73
 	_this.value.Set("onratechange", input)
-	return
 }
 
 func (_this *Window) Onreset() EventHandler {
@@ -24006,14 +24270,15 @@ func (_this *Window) Onreset() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnreset(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnreset(value *js.Callback) {
+	var __callback74 js.Value
+	if value != nil {
+		__callback74 = (*value).Value
+	} else {
+		__callback74 = js.Null()
+	}
+	input := __callback74
 	_this.value.Set("onreset", input)
-	return
 }
 
 func (_this *Window) Onresize() EventHandler {
@@ -24025,14 +24290,15 @@ func (_this *Window) Onresize() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnresize(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnresize(value *js.Callback) {
+	var __callback75 js.Value
+	if value != nil {
+		__callback75 = (*value).Value
+	} else {
+		__callback75 = js.Null()
+	}
+	input := __callback75
 	_this.value.Set("onresize", input)
-	return
 }
 
 func (_this *Window) Onscroll() EventHandler {
@@ -24044,14 +24310,15 @@ func (_this *Window) Onscroll() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnscroll(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnscroll(value *js.Callback) {
+	var __callback76 js.Value
+	if value != nil {
+		__callback76 = (*value).Value
+	} else {
+		__callback76 = js.Null()
+	}
+	input := __callback76
 	_this.value.Set("onscroll", input)
-	return
 }
 
 func (_this *Window) Onsecuritypolicyviolation() EventHandler {
@@ -24063,14 +24330,15 @@ func (_this *Window) Onsecuritypolicyviolation() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnsecuritypolicyviolation(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnsecuritypolicyviolation(value *js.Callback) {
+	var __callback77 js.Value
+	if value != nil {
+		__callback77 = (*value).Value
+	} else {
+		__callback77 = js.Null()
+	}
+	input := __callback77
 	_this.value.Set("onsecuritypolicyviolation", input)
-	return
 }
 
 func (_this *Window) Onseeked() EventHandler {
@@ -24082,14 +24350,15 @@ func (_this *Window) Onseeked() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnseeked(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnseeked(value *js.Callback) {
+	var __callback78 js.Value
+	if value != nil {
+		__callback78 = (*value).Value
+	} else {
+		__callback78 = js.Null()
+	}
+	input := __callback78
 	_this.value.Set("onseeked", input)
-	return
 }
 
 func (_this *Window) Onseeking() EventHandler {
@@ -24101,14 +24370,15 @@ func (_this *Window) Onseeking() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnseeking(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnseeking(value *js.Callback) {
+	var __callback79 js.Value
+	if value != nil {
+		__callback79 = (*value).Value
+	} else {
+		__callback79 = js.Null()
+	}
+	input := __callback79
 	_this.value.Set("onseeking", input)
-	return
 }
 
 func (_this *Window) Onselect() EventHandler {
@@ -24120,14 +24390,15 @@ func (_this *Window) Onselect() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnselect(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnselect(value *js.Callback) {
+	var __callback80 js.Value
+	if value != nil {
+		__callback80 = (*value).Value
+	} else {
+		__callback80 = js.Null()
+	}
+	input := __callback80
 	_this.value.Set("onselect", input)
-	return
 }
 
 func (_this *Window) Onstalled() EventHandler {
@@ -24139,14 +24410,15 @@ func (_this *Window) Onstalled() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnstalled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnstalled(value *js.Callback) {
+	var __callback81 js.Value
+	if value != nil {
+		__callback81 = (*value).Value
+	} else {
+		__callback81 = js.Null()
+	}
+	input := __callback81
 	_this.value.Set("onstalled", input)
-	return
 }
 
 func (_this *Window) Onsubmit() EventHandler {
@@ -24158,14 +24430,15 @@ func (_this *Window) Onsubmit() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnsubmit(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnsubmit(value *js.Callback) {
+	var __callback82 js.Value
+	if value != nil {
+		__callback82 = (*value).Value
+	} else {
+		__callback82 = js.Null()
+	}
+	input := __callback82
 	_this.value.Set("onsubmit", input)
-	return
 }
 
 func (_this *Window) Onsuspend() EventHandler {
@@ -24177,14 +24450,15 @@ func (_this *Window) Onsuspend() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnsuspend(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnsuspend(value *js.Callback) {
+	var __callback83 js.Value
+	if value != nil {
+		__callback83 = (*value).Value
+	} else {
+		__callback83 = js.Null()
+	}
+	input := __callback83
 	_this.value.Set("onsuspend", input)
-	return
 }
 
 func (_this *Window) Ontimeupdate() EventHandler {
@@ -24196,14 +24470,15 @@ func (_this *Window) Ontimeupdate() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOntimeupdate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOntimeupdate(value *js.Callback) {
+	var __callback84 js.Value
+	if value != nil {
+		__callback84 = (*value).Value
+	} else {
+		__callback84 = js.Null()
+	}
+	input := __callback84
 	_this.value.Set("ontimeupdate", input)
-	return
 }
 
 func (_this *Window) Ontoggle() EventHandler {
@@ -24215,14 +24490,15 @@ func (_this *Window) Ontoggle() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOntoggle(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOntoggle(value *js.Callback) {
+	var __callback85 js.Value
+	if value != nil {
+		__callback85 = (*value).Value
+	} else {
+		__callback85 = js.Null()
+	}
+	input := __callback85
 	_this.value.Set("ontoggle", input)
-	return
 }
 
 func (_this *Window) Onvolumechange() EventHandler {
@@ -24234,14 +24510,15 @@ func (_this *Window) Onvolumechange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnvolumechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnvolumechange(value *js.Callback) {
+	var __callback86 js.Value
+	if value != nil {
+		__callback86 = (*value).Value
+	} else {
+		__callback86 = js.Null()
+	}
+	input := __callback86
 	_this.value.Set("onvolumechange", input)
-	return
 }
 
 func (_this *Window) Onwaiting() EventHandler {
@@ -24253,14 +24530,15 @@ func (_this *Window) Onwaiting() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnwaiting(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnwaiting(value *js.Callback) {
+	var __callback87 js.Value
+	if value != nil {
+		__callback87 = (*value).Value
+	} else {
+		__callback87 = js.Null()
+	}
+	input := __callback87
 	_this.value.Set("onwaiting", input)
-	return
 }
 
 func (_this *Window) Onafterprint() EventHandler {
@@ -24272,14 +24550,15 @@ func (_this *Window) Onafterprint() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnafterprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnafterprint(value *js.Callback) {
+	var __callback88 js.Value
+	if value != nil {
+		__callback88 = (*value).Value
+	} else {
+		__callback88 = js.Null()
+	}
+	input := __callback88
 	_this.value.Set("onafterprint", input)
-	return
 }
 
 func (_this *Window) Onbeforeprint() EventHandler {
@@ -24291,14 +24570,15 @@ func (_this *Window) Onbeforeprint() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnbeforeprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnbeforeprint(value *js.Callback) {
+	var __callback89 js.Value
+	if value != nil {
+		__callback89 = (*value).Value
+	} else {
+		__callback89 = js.Null()
+	}
+	input := __callback89
 	_this.value.Set("onbeforeprint", input)
-	return
 }
 
 func (_this *Window) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
@@ -24310,14 +24590,15 @@ func (_this *Window) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
 	return ret
 }
 
-func (_this *Window) SetOnbeforeunload(value OnBeforeUnloadEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnBeforeUnloadEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnbeforeunload(value *js.Callback) {
+	var __callback90 js.Value
+	if value != nil {
+		__callback90 = (*value).Value
+	} else {
+		__callback90 = js.Null()
+	}
+	input := __callback90
 	_this.value.Set("onbeforeunload", input)
-	return
 }
 
 func (_this *Window) Onhashchange() EventHandler {
@@ -24329,14 +24610,15 @@ func (_this *Window) Onhashchange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnhashchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnhashchange(value *js.Callback) {
+	var __callback91 js.Value
+	if value != nil {
+		__callback91 = (*value).Value
+	} else {
+		__callback91 = js.Null()
+	}
+	input := __callback91
 	_this.value.Set("onhashchange", input)
-	return
 }
 
 func (_this *Window) Onlanguagechange() EventHandler {
@@ -24348,14 +24630,15 @@ func (_this *Window) Onlanguagechange() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnlanguagechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnlanguagechange(value *js.Callback) {
+	var __callback92 js.Value
+	if value != nil {
+		__callback92 = (*value).Value
+	} else {
+		__callback92 = js.Null()
+	}
+	input := __callback92
 	_this.value.Set("onlanguagechange", input)
-	return
 }
 
 func (_this *Window) Onmessage() EventHandler {
@@ -24367,14 +24650,15 @@ func (_this *Window) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmessage(value *js.Callback) {
+	var __callback93 js.Value
+	if value != nil {
+		__callback93 = (*value).Value
+	} else {
+		__callback93 = js.Null()
+	}
+	input := __callback93
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *Window) Onmessageerror() EventHandler {
@@ -24386,14 +24670,15 @@ func (_this *Window) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnmessageerror(value *js.Callback) {
+	var __callback94 js.Value
+	if value != nil {
+		__callback94 = (*value).Value
+	} else {
+		__callback94 = js.Null()
+	}
+	input := __callback94
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *Window) Onoffline() EventHandler {
@@ -24405,14 +24690,15 @@ func (_this *Window) Onoffline() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnoffline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnoffline(value *js.Callback) {
+	var __callback95 js.Value
+	if value != nil {
+		__callback95 = (*value).Value
+	} else {
+		__callback95 = js.Null()
+	}
+	input := __callback95
 	_this.value.Set("onoffline", input)
-	return
 }
 
 func (_this *Window) Ononline() EventHandler {
@@ -24424,14 +24710,15 @@ func (_this *Window) Ononline() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnonline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnonline(value *js.Callback) {
+	var __callback96 js.Value
+	if value != nil {
+		__callback96 = (*value).Value
+	} else {
+		__callback96 = js.Null()
+	}
+	input := __callback96
 	_this.value.Set("ononline", input)
-	return
 }
 
 func (_this *Window) Onpagehide() EventHandler {
@@ -24443,14 +24730,15 @@ func (_this *Window) Onpagehide() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnpagehide(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnpagehide(value *js.Callback) {
+	var __callback97 js.Value
+	if value != nil {
+		__callback97 = (*value).Value
+	} else {
+		__callback97 = js.Null()
+	}
+	input := __callback97
 	_this.value.Set("onpagehide", input)
-	return
 }
 
 func (_this *Window) Onpageshow() EventHandler {
@@ -24462,14 +24750,15 @@ func (_this *Window) Onpageshow() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnpageshow(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnpageshow(value *js.Callback) {
+	var __callback98 js.Value
+	if value != nil {
+		__callback98 = (*value).Value
+	} else {
+		__callback98 = js.Null()
+	}
+	input := __callback98
 	_this.value.Set("onpageshow", input)
-	return
 }
 
 func (_this *Window) Onpopstate() EventHandler {
@@ -24481,14 +24770,15 @@ func (_this *Window) Onpopstate() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnpopstate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnpopstate(value *js.Callback) {
+	var __callback99 js.Value
+	if value != nil {
+		__callback99 = (*value).Value
+	} else {
+		__callback99 = js.Null()
+	}
+	input := __callback99
 	_this.value.Set("onpopstate", input)
-	return
 }
 
 func (_this *Window) Onrejectionhandled() EventHandler {
@@ -24500,14 +24790,15 @@ func (_this *Window) Onrejectionhandled() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnrejectionhandled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnrejectionhandled(value *js.Callback) {
+	var __callback100 js.Value
+	if value != nil {
+		__callback100 = (*value).Value
+	} else {
+		__callback100 = js.Null()
+	}
+	input := __callback100
 	_this.value.Set("onrejectionhandled", input)
-	return
 }
 
 func (_this *Window) Onstorage() EventHandler {
@@ -24519,14 +24810,15 @@ func (_this *Window) Onstorage() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnstorage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnstorage(value *js.Callback) {
+	var __callback101 js.Value
+	if value != nil {
+		__callback101 = (*value).Value
+	} else {
+		__callback101 = js.Null()
+	}
+	input := __callback101
 	_this.value.Set("onstorage", input)
-	return
 }
 
 func (_this *Window) Onunhandledrejection() EventHandler {
@@ -24538,14 +24830,15 @@ func (_this *Window) Onunhandledrejection() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnunhandledrejection(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnunhandledrejection(value *js.Callback) {
+	var __callback102 js.Value
+	if value != nil {
+		__callback102 = (*value).Value
+	} else {
+		__callback102 = js.Null()
+	}
+	input := __callback102
 	_this.value.Set("onunhandledrejection", input)
-	return
 }
 
 func (_this *Window) Onunload() EventHandler {
@@ -24557,14 +24850,15 @@ func (_this *Window) Onunload() EventHandler {
 	return ret
 }
 
-func (_this *Window) SetOnunload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Window) SetOnunload(value *js.Callback) {
+	var __callback103 js.Value
+	if value != nil {
+		__callback103 = (*value).Value
+	} else {
+		__callback103 = js.Null()
+	}
+	input := __callback103
 	_this.value.Set("onunload", input)
-	return
 }
 
 func (_this *Window) Origin() string {
@@ -24997,17 +25291,20 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 	return
 }
 
-func (_this *Window) RequestAnimationFrame(callback FrameRequestCallback) (_result uint, _release ReleasableApiResource) {
+func (_this *Window) RequestAnimationFrame(callback *js.Callback) (_result uint) {
 	_method := _this.value.Get("requestAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
-	_p0 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeFrameRequestCallback(callback, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p0)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	_returned := _method.Invoke(_args[0:_end]...)
@@ -25016,7 +25313,6 @@ func (_this *Window) RequestAnimationFrame(callback FrameRequestCallback) (_resu
 	)
 	_converted = (uint)((_returned).Int())
 	_result = _converted
-	_release = _releaseList
 	return
 }
 
@@ -25573,14 +25869,15 @@ func (_this *ApplicationCache) Onchecking() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnchecking(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnchecking(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onchecking", input)
-	return
 }
 
 func (_this *ApplicationCache) Onerror() EventHandler {
@@ -25592,14 +25889,15 @@ func (_this *ApplicationCache) Onerror() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnerror(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *ApplicationCache) Onnoupdate() EventHandler {
@@ -25611,14 +25909,15 @@ func (_this *ApplicationCache) Onnoupdate() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnnoupdate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnnoupdate(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onnoupdate", input)
-	return
 }
 
 func (_this *ApplicationCache) Ondownloading() EventHandler {
@@ -25630,14 +25929,15 @@ func (_this *ApplicationCache) Ondownloading() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOndownloading(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOndownloading(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("ondownloading", input)
-	return
 }
 
 func (_this *ApplicationCache) Onprogress() EventHandler {
@@ -25649,14 +25949,15 @@ func (_this *ApplicationCache) Onprogress() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnprogress(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnprogress(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onprogress", input)
-	return
 }
 
 func (_this *ApplicationCache) Onupdateready() EventHandler {
@@ -25668,14 +25969,15 @@ func (_this *ApplicationCache) Onupdateready() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnupdateready(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnupdateready(value *js.Callback) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
 	_this.value.Set("onupdateready", input)
-	return
 }
 
 func (_this *ApplicationCache) Oncached() EventHandler {
@@ -25687,14 +25989,15 @@ func (_this *ApplicationCache) Oncached() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOncached(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOncached(value *js.Callback) {
+	var __callback7 js.Value
+	if value != nil {
+		__callback7 = (*value).Value
+	} else {
+		__callback7 = js.Null()
+	}
+	input := __callback7
 	_this.value.Set("oncached", input)
-	return
 }
 
 func (_this *ApplicationCache) Onobsolete() EventHandler {
@@ -25706,14 +26009,15 @@ func (_this *ApplicationCache) Onobsolete() EventHandler {
 	return ret
 }
 
-func (_this *ApplicationCache) SetOnobsolete(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *ApplicationCache) SetOnobsolete(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("onobsolete", input)
-	return
 }
 
 func (_this *ApplicationCache) Update() {
@@ -26611,14 +26915,15 @@ func (_this *EventSource) Onopen() EventHandler {
 	return ret
 }
 
-func (_this *EventSource) SetOnopen(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *EventSource) SetOnopen(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onopen", input)
-	return
 }
 
 func (_this *EventSource) Onmessage() EventHandler {
@@ -26630,14 +26935,15 @@ func (_this *EventSource) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *EventSource) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *EventSource) SetOnmessage(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *EventSource) Onerror() EventHandler {
@@ -26649,14 +26955,15 @@ func (_this *EventSource) Onerror() EventHandler {
 	return ret
 }
 
-func (_this *EventSource) SetOnerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *EventSource) SetOnerror(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *EventSource) Close() {
@@ -26746,14 +27053,15 @@ func (_this *WebSocket) Onopen() EventHandler {
 	return ret
 }
 
-func (_this *WebSocket) SetOnopen(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WebSocket) SetOnopen(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onopen", input)
-	return
 }
 
 func (_this *WebSocket) Onerror() EventHandler {
@@ -26765,14 +27073,15 @@ func (_this *WebSocket) Onerror() EventHandler {
 	return ret
 }
 
-func (_this *WebSocket) SetOnerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WebSocket) SetOnerror(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *WebSocket) Onclose() EventHandler {
@@ -26784,14 +27093,15 @@ func (_this *WebSocket) Onclose() EventHandler {
 	return ret
 }
 
-func (_this *WebSocket) SetOnclose(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WebSocket) SetOnclose(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onclose", input)
-	return
 }
 
 func (_this *WebSocket) Extensions() string {
@@ -26817,14 +27127,15 @@ func (_this *WebSocket) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *WebSocket) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WebSocket) SetOnmessage(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *WebSocket) BinaryType() BinaryType {
@@ -27050,14 +27361,15 @@ func (_this *MessagePort) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *MessagePort) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *MessagePort) SetOnmessage(value *js.Callback) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *MessagePort) Onmessageerror() EventHandler {
@@ -27069,14 +27381,15 @@ func (_this *MessagePort) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *MessagePort) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *MessagePort) SetOnmessageerror(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *MessagePort) PostMessage(message js.Value, transfer []*Object) {
@@ -27190,14 +27503,15 @@ func (_this *BroadcastChannel) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *BroadcastChannel) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *BroadcastChannel) SetOnmessage(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *BroadcastChannel) Onmessageerror() EventHandler {
@@ -27209,14 +27523,15 @@ func (_this *BroadcastChannel) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *BroadcastChannel) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *BroadcastChannel) SetOnmessageerror(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *BroadcastChannel) PostMessage(message js.Value) {
@@ -27291,14 +27606,15 @@ func (_this *WorkerGlobalScope) Onerror() OnErrorEventHandlerNonNull {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnerror(value OnErrorEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnErrorEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnerror(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Onlanguagechange() EventHandler {
@@ -27310,14 +27626,15 @@ func (_this *WorkerGlobalScope) Onlanguagechange() EventHandler {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnlanguagechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("onlanguagechange", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Onoffline() EventHandler {
@@ -27329,14 +27646,15 @@ func (_this *WorkerGlobalScope) Onoffline() EventHandler {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnoffline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnoffline(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onoffline", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Ononline() EventHandler {
@@ -27348,14 +27666,15 @@ func (_this *WorkerGlobalScope) Ononline() EventHandler {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnonline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnonline(value *js.Callback) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
 	_this.value.Set("ononline", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Onrejectionhandled() EventHandler {
@@ -27367,14 +27686,15 @@ func (_this *WorkerGlobalScope) Onrejectionhandled() EventHandler {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnrejectionhandled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Callback) {
+	var __callback7 js.Value
+	if value != nil {
+		__callback7 = (*value).Value
+	} else {
+		__callback7 = js.Null()
+	}
+	input := __callback7
 	_this.value.Set("onrejectionhandled", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Onunhandledrejection() EventHandler {
@@ -27386,14 +27706,15 @@ func (_this *WorkerGlobalScope) Onunhandledrejection() EventHandler {
 	return ret
 }
 
-func (_this *WorkerGlobalScope) SetOnunhandledrejection(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("onunhandledrejection", input)
-	return
 }
 
 func (_this *WorkerGlobalScope) Origin() string {
@@ -27646,14 +27967,15 @@ func (_this *DedicatedWorkerGlobalScope) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *DedicatedWorkerGlobalScope) Onmessageerror() EventHandler {
@@ -27665,14 +27987,15 @@ func (_this *DedicatedWorkerGlobalScope) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer []*Object) {
@@ -27723,17 +28046,20 @@ func (_this *DedicatedWorkerGlobalScope) Close() {
 	return
 }
 
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback FrameRequestCallback) (_result uint, _release ReleasableApiResource) {
+func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Callback) (_result uint) {
 	_method := _this.value.Get("requestAnimationFrame")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	var _releaseList releasableApiResourceList
-	_p0 := js.NewCallback(func(_cb_args []js.Value) {
-		invokeFrameRequestCallback(callback, _cb_args)
-	})
-	_releaseList = append(_releaseList, _p0)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	_returned := _method.Invoke(_args[0:_end]...)
@@ -27742,7 +28068,6 @@ func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback FrameReq
 	)
 	_converted = (uint)((_returned).Int())
 	_result = _converted
-	_release = _releaseList
 	return
 }
 
@@ -27794,14 +28119,15 @@ func (_this *SharedWorkerGlobalScope) Onconnect() EventHandler {
 	return ret
 }
 
-func (_this *SharedWorkerGlobalScope) SetOnconnect(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onconnect", input)
-	return
 }
 
 func (_this *SharedWorkerGlobalScope) Close() {
@@ -27865,14 +28191,15 @@ func (_this *Worker) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *Worker) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Worker) SetOnmessage(value *js.Callback) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *Worker) Onmessageerror() EventHandler {
@@ -27884,14 +28211,15 @@ func (_this *Worker) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *Worker) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Worker) SetOnmessageerror(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *Worker) Onerror() EventHandler {
@@ -27903,14 +28231,15 @@ func (_this *Worker) Onerror() EventHandler {
 	return ret
 }
 
-func (_this *Worker) SetOnerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *Worker) SetOnerror(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onerror", input)
-	return
 }
 
 func (_this *Worker) Terminate() {
@@ -28019,14 +28348,15 @@ func (_this *SharedWorker) Onerror() EventHandler {
 	return ret
 }
 
-func (_this *SharedWorker) SetOnerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *SharedWorker) SetOnerror(value *js.Callback) {
+	var __callback1 js.Value
+	if value != nil {
+		__callback1 = (*value).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	input := __callback1
 	_this.value.Set("onerror", input)
-	return
 }
 
 // interface: WorkerNavigator
@@ -28646,14 +28976,15 @@ func (_this *HTMLMarqueeElement) Onbounce() EventHandler {
 	return ret
 }
 
-func (_this *HTMLMarqueeElement) SetOnbounce(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Callback) {
+	var __callback11 js.Value
+	if value != nil {
+		__callback11 = (*value).Value
+	} else {
+		__callback11 = js.Null()
+	}
+	input := __callback11
 	_this.value.Set("onbounce", input)
-	return
 }
 
 func (_this *HTMLMarqueeElement) Onfinish() EventHandler {
@@ -28665,14 +28996,15 @@ func (_this *HTMLMarqueeElement) Onfinish() EventHandler {
 	return ret
 }
 
-func (_this *HTMLMarqueeElement) SetOnfinish(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Callback) {
+	var __callback12 js.Value
+	if value != nil {
+		__callback12 = (*value).Value
+	} else {
+		__callback12 = js.Null()
+	}
+	input := __callback12
 	_this.value.Set("onfinish", input)
-	return
 }
 
 func (_this *HTMLMarqueeElement) Onstart() EventHandler {
@@ -28684,14 +29016,15 @@ func (_this *HTMLMarqueeElement) Onstart() EventHandler {
 	return ret
 }
 
-func (_this *HTMLMarqueeElement) SetOnstart(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLMarqueeElement) SetOnstart(value *js.Callback) {
+	var __callback13 js.Value
+	if value != nil {
+		__callback13 = (*value).Value
+	} else {
+		__callback13 = js.Null()
+	}
+	input := __callback13
 	_this.value.Set("onstart", input)
-	return
 }
 
 func (_this *HTMLMarqueeElement) Start() {
@@ -28766,14 +29099,15 @@ func (_this *HTMLFrameSetElement) Onafterprint() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnafterprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Callback) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
 	_this.value.Set("onafterprint", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onbeforeprint() EventHandler {
@@ -28785,14 +29119,15 @@ func (_this *HTMLFrameSetElement) Onbeforeprint() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnbeforeprint(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Callback) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
 	_this.value.Set("onbeforeprint", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
@@ -28804,14 +29139,15 @@ func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerNon
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value OnBeforeUnloadEventHandlerNonNull) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeOnBeforeUnloadEventHandlerNonNull(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Callback) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
 	_this.value.Set("onbeforeunload", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onhashchange() EventHandler {
@@ -28823,14 +29159,15 @@ func (_this *HTMLFrameSetElement) Onhashchange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnhashchange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Callback) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
 	_this.value.Set("onhashchange", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onlanguagechange() EventHandler {
@@ -28842,14 +29179,15 @@ func (_this *HTMLFrameSetElement) Onlanguagechange() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnlanguagechange(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Callback) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
 	_this.value.Set("onlanguagechange", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onmessage() EventHandler {
@@ -28861,14 +29199,15 @@ func (_this *HTMLFrameSetElement) Onmessage() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnmessage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Callback) {
+	var __callback7 js.Value
+	if value != nil {
+		__callback7 = (*value).Value
+	} else {
+		__callback7 = js.Null()
+	}
+	input := __callback7
 	_this.value.Set("onmessage", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onmessageerror() EventHandler {
@@ -28880,14 +29219,15 @@ func (_this *HTMLFrameSetElement) Onmessageerror() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnmessageerror(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Callback) {
+	var __callback8 js.Value
+	if value != nil {
+		__callback8 = (*value).Value
+	} else {
+		__callback8 = js.Null()
+	}
+	input := __callback8
 	_this.value.Set("onmessageerror", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onoffline() EventHandler {
@@ -28899,14 +29239,15 @@ func (_this *HTMLFrameSetElement) Onoffline() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnoffline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Callback) {
+	var __callback9 js.Value
+	if value != nil {
+		__callback9 = (*value).Value
+	} else {
+		__callback9 = js.Null()
+	}
+	input := __callback9
 	_this.value.Set("onoffline", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Ononline() EventHandler {
@@ -28918,14 +29259,15 @@ func (_this *HTMLFrameSetElement) Ononline() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnonline(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnonline(value *js.Callback) {
+	var __callback10 js.Value
+	if value != nil {
+		__callback10 = (*value).Value
+	} else {
+		__callback10 = js.Null()
+	}
+	input := __callback10
 	_this.value.Set("ononline", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onpagehide() EventHandler {
@@ -28937,14 +29279,15 @@ func (_this *HTMLFrameSetElement) Onpagehide() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnpagehide(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Callback) {
+	var __callback11 js.Value
+	if value != nil {
+		__callback11 = (*value).Value
+	} else {
+		__callback11 = js.Null()
+	}
+	input := __callback11
 	_this.value.Set("onpagehide", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onpageshow() EventHandler {
@@ -28956,14 +29299,15 @@ func (_this *HTMLFrameSetElement) Onpageshow() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnpageshow(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Callback) {
+	var __callback12 js.Value
+	if value != nil {
+		__callback12 = (*value).Value
+	} else {
+		__callback12 = js.Null()
+	}
+	input := __callback12
 	_this.value.Set("onpageshow", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onpopstate() EventHandler {
@@ -28975,14 +29319,15 @@ func (_this *HTMLFrameSetElement) Onpopstate() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnpopstate(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Callback) {
+	var __callback13 js.Value
+	if value != nil {
+		__callback13 = (*value).Value
+	} else {
+		__callback13 = js.Null()
+	}
+	input := __callback13
 	_this.value.Set("onpopstate", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onrejectionhandled() EventHandler {
@@ -28994,14 +29339,15 @@ func (_this *HTMLFrameSetElement) Onrejectionhandled() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Callback) {
+	var __callback14 js.Value
+	if value != nil {
+		__callback14 = (*value).Value
+	} else {
+		__callback14 = js.Null()
+	}
+	input := __callback14
 	_this.value.Set("onrejectionhandled", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onstorage() EventHandler {
@@ -29013,14 +29359,15 @@ func (_this *HTMLFrameSetElement) Onstorage() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnstorage(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Callback) {
+	var __callback15 js.Value
+	if value != nil {
+		__callback15 = (*value).Value
+	} else {
+		__callback15 = js.Null()
+	}
+	input := __callback15
 	_this.value.Set("onstorage", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onunhandledrejection() EventHandler {
@@ -29032,14 +29379,15 @@ func (_this *HTMLFrameSetElement) Onunhandledrejection() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Callback) {
+	var __callback16 js.Value
+	if value != nil {
+		__callback16 = (*value).Value
+	} else {
+		__callback16 = js.Null()
+	}
+	input := __callback16
 	_this.value.Set("onunhandledrejection", input)
-	return
 }
 
 func (_this *HTMLFrameSetElement) Onunload() EventHandler {
@@ -29051,14 +29399,15 @@ func (_this *HTMLFrameSetElement) Onunload() EventHandler {
 	return ret
 }
 
-func (_this *HTMLFrameSetElement) SetOnunload(value EventHandler) (_release ReleasableApiResource) {
-	var _releaseList releasableApiResourceList
-	input := js.NewCallback(func(_cb_args []js.Value) {
-		invokeEventHandler(value, _cb_args)
-	})
-	_releaseList = append(_releaseList, input)
+func (_this *HTMLFrameSetElement) SetOnunload(value *js.Callback) {
+	var __callback17 js.Value
+	if value != nil {
+		__callback17 = (*value).Value
+	} else {
+		__callback17 = js.Null()
+	}
+	input := __callback17
 	_this.value.Set("onunload", input)
-	return
 }
 
 // interface: HTMLFrameElement
