@@ -20,6 +20,11 @@ func (a releasableApiResourceList) Release() {
 	}
 }
 
+// workaround for compiler error
+func unused(value interface{}) {
+	// TODO remove this method
+}
+
 // enum: ShadowRootMode
 type ShadowRootMode int
 
@@ -2657,7 +2662,7 @@ func NewEventTarget() (_result *EventTarget) {
 	return
 }
 
-func (_this *EventTarget) AddEventListener(_type string, callback *EventListener, options *Union) {
+func (_this *EventTarget) AddEventListener(_type string, callback *EventListenerValue, options *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2677,7 +2682,7 @@ func (_this *EventTarget) AddEventListener(_type string, callback *EventListener
 	return
 }
 
-func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListener, options *Union) {
+func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListenerValue, options *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2714,26 +2719,93 @@ func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
 	return
 }
 
-// interface: EventListener
-type EventListener struct {
-	value js.Value
+// EventListener is a callback interface.
+type EventListener interface {
+	HandleEvent(event *Event)
 }
 
-func (t *EventListener) JSValue() js.Value {
-	return t.value
+// EventListenerValue is javascript reference value for callback interface EventListener.
+// This is holding the underlaying javascript object.
+type EventListenerValue struct {
+	// Value is the underlying javascript object or function.
+	Value js.Value
+	// Functions is the underlying function objects that is allocated for the interface callback
+	Functions [1]js.Callback
+	// Go interface to invoke
+	impl      EventListener
+	function  func(event *Event)
+	useInvoke bool
 }
 
-// EventListenerFromJS is casting a js.Value into EventListener.
-func EventListenerFromJS(input js.Value) *EventListener {
-	if input.Type() == js.TypeNull {
-		return nil
+// JSValue is returning the javascript object that implements this callback interface
+func (t *EventListenerValue) JSValue() js.Value {
+	return t.Value
+}
+
+// Release is releasing all resources that is allocated.
+func (t *EventListenerValue) Release() {
+	for i := range t.Functions {
+		if t.Functions[i].Type() != js.TypeUndefined {
+			t.Functions[i].Release()
+		}
 	}
-	ret := &EventListener{}
-	ret.value = input
+}
+
+// NewEventListener is allocating a new javascript object that
+// implements EventListener.
+func NewEventListener(callback EventListener) *EventListenerValue {
+	ret := &EventListenerValue{impl: callback}
+	ret.Value = js.Global().Get("Object").New()
+	ret.Functions[0] = ret.allocateHandleEvent()
+	ret.Value.Set("handleEvent", ret.Functions[0])
 	return ret
 }
 
-func (_this *EventListener) HandleEvent(event *Event) {
+// NewEventListenerFunc is allocating a new javascript
+// function is implements
+// EventListener interface.
+func NewEventListenerFunc(f func(event *Event)) *EventListenerValue {
+	// single function will result in javascript function type, not an object
+	ret := &EventListenerValue{function: f}
+	ret.Functions[0] = ret.allocateHandleEvent()
+	ret.Value = ret.Functions[0].Value
+	return ret
+}
+
+// EventListenerFromJS is taking an javascript object that reference to a
+// callback interface and return a corresponding interface that can be used
+// to invoke on that element.
+func EventListenerFromJS(value js.Value) *EventListenerValue {
+	if value.Type() == js.TypeObject {
+		return &EventListenerValue{Value: value}
+	}
+	if value.Type() == js.TypeFunction {
+		return &EventListenerValue{Value: value, useInvoke: true}
+	}
+	panic("unsupported type")
+}
+
+func (t *EventListenerValue) allocateHandleEvent() js.Callback {
+	return js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Event // javascript: Event event
+		)
+		_p0 = EventFromJS(args[0])
+		if t.function != nil {
+			t.function(_p0)
+		} else {
+			t.impl.HandleEvent(_p0)
+		}
+	})
+}
+
+func (_this *EventListenerValue) HandleEvent(event *Event) {
+	if _this.function != nil {
+		_this.function(event)
+	}
+	if _this.impl != nil {
+		_this.impl.HandleEvent(event)
+	}
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2741,7 +2813,12 @@ func (_this *EventListener) HandleEvent(event *Event) {
 	_p0 := event.JSValue()
 	_args[0] = _p0
 	_end++
-	_this.value.Call("handleEvent", _args[0:_end]...)
+	if _this.useInvoke {
+		// invoke a javascript function
+		_this.Value.Invoke(_args[0:_end]...)
+	} else {
+		_this.Value.Call("handleEvent", _args[0:_end]...)
+	}
 	return
 }
 
@@ -6044,7 +6121,7 @@ func (_this *Document) CreateRange() (_result *Range) {
 	return
 }
 
-func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *NodeFilter) (_result *NodeIterator) {
+func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *NodeFilterValue) (_result *NodeIterator) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6071,7 +6148,7 @@ func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *
 	return
 }
 
-func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *NodeFilter) (_result *TreeWalker) {
+func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *NodeFilterValue) (_result *TreeWalker) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -8712,8 +8789,8 @@ func (_this *NodeIterator) WhatToShow() uint {
 
 // Filter returning attribute 'filter' with
 // type NodeFilter (idl: NodeFilter).
-func (_this *NodeIterator) Filter() *NodeFilter {
-	var ret *NodeFilter
+func (_this *NodeIterator) Filter() NodeFilter {
+	var ret NodeFilter
 	value := _this.value.Get("filter")
 	if value.Type() != js.TypeNull {
 		ret = NodeFilterFromJS(value)
@@ -8801,8 +8878,8 @@ func (_this *TreeWalker) WhatToShow() uint {
 
 // Filter returning attribute 'filter' with
 // type NodeFilter (idl: NodeFilter).
-func (_this *TreeWalker) Filter() *NodeFilter {
-	var ret *NodeFilter
+func (_this *TreeWalker) Filter() NodeFilter {
+	var ret NodeFilter
 	value := _this.value.Get("filter")
 	if value.Type() != js.TypeNull {
 		ret = NodeFilterFromJS(value)
@@ -8938,25 +9015,6 @@ func (_this *TreeWalker) NextNode() (_result *Node) {
 	return
 }
 
-// interface: NodeFilter
-type NodeFilter struct {
-	value js.Value
-}
-
-func (t *NodeFilter) JSValue() js.Value {
-	return t.value
-}
-
-// NodeFilterFromJS is casting a js.Value into NodeFilter.
-func NodeFilterFromJS(input js.Value) *NodeFilter {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &NodeFilter{}
-	ret.value = input
-	return ret
-}
-
 const FILTERACCEPT_NodeFilter int = 1
 const FILTERREJECT_NodeFilter int = 2
 const FILTERSKIP_NodeFilter int = 3
@@ -8974,7 +9032,97 @@ const SHOWDOCUMENTTYPE_NodeFilter uint = 0x200
 const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
 const SHOWNOTATION_NodeFilter uint = 0x800
 
-func (_this *NodeFilter) AcceptNode(node *Node) (_result int) {
+// NodeFilter is a callback interface.
+type NodeFilter interface {
+	AcceptNode(node *Node) (_result int)
+}
+
+// NodeFilterValue is javascript reference value for callback interface NodeFilter.
+// This is holding the underlaying javascript object.
+type NodeFilterValue struct {
+	// Value is the underlying javascript object or function.
+	Value js.Value
+	// Functions is the underlying function objects that is allocated for the interface callback
+	Functions [1]js.Callback
+	// Go interface to invoke
+	impl      NodeFilter
+	function  func(node *Node) (_result int)
+	useInvoke bool
+}
+
+// JSValue is returning the javascript object that implements this callback interface
+func (t *NodeFilterValue) JSValue() js.Value {
+	return t.Value
+}
+
+// Release is releasing all resources that is allocated.
+func (t *NodeFilterValue) Release() {
+	for i := range t.Functions {
+		if t.Functions[i].Type() != js.TypeUndefined {
+			t.Functions[i].Release()
+		}
+	}
+}
+
+// NewNodeFilter is allocating a new javascript object that
+// implements NodeFilter.
+func NewNodeFilter(callback NodeFilter) *NodeFilterValue {
+	ret := &NodeFilterValue{impl: callback}
+	ret.Value = js.Global().Get("Object").New()
+	ret.Functions[0] = ret.allocateAcceptNode()
+	ret.Value.Set("acceptNode", ret.Functions[0])
+	return ret
+}
+
+// NewNodeFilterFunc is allocating a new javascript
+// function is implements
+// NodeFilter interface.
+func NewNodeFilterFunc(f func(node *Node) (_result int)) *NodeFilterValue {
+	// single function will result in javascript function type, not an object
+	ret := &NodeFilterValue{function: f}
+	ret.Functions[0] = ret.allocateAcceptNode()
+	ret.Value = ret.Functions[0].Value
+	return ret
+}
+
+// NodeFilterFromJS is taking an javascript object that reference to a
+// callback interface and return a corresponding interface that can be used
+// to invoke on that element.
+func NodeFilterFromJS(value js.Value) *NodeFilterValue {
+	if value.Type() == js.TypeObject {
+		return &NodeFilterValue{Value: value}
+	}
+	if value.Type() == js.TypeFunction {
+		return &NodeFilterValue{Value: value, useInvoke: true}
+	}
+	panic("unsupported type")
+}
+
+func (t *NodeFilterValue) allocateAcceptNode() js.Callback {
+	return js.NewCallback(func(args []js.Value) {
+		var (
+			_p0 *Node // javascript: Node node
+		)
+		_p0 = NodeFromJS(args[0])
+		var _returned int
+		if t.function != nil {
+			_returned = t.function(_p0)
+		} else {
+			_returned = t.impl.AcceptNode(_p0)
+		}
+		_converted := _returned
+		unused(_converted)
+		panic("go 1.11 does provice anyway to return values in callbacks")
+	})
+}
+
+func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
+	if _this.function != nil {
+		return _this.function(node)
+	}
+	if _this.impl != nil {
+		return _this.impl.AcceptNode(node)
+	}
 	var (
 		_args [1]interface{}
 		_end  int
@@ -8982,7 +9130,13 @@ func (_this *NodeFilter) AcceptNode(node *Node) (_result int) {
 	_p0 := node.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _this.value.Call("acceptNode", _args[0:_end]...)
+	var _returned js.Value
+	if _this.useInvoke {
+		// invoke a javascript function
+		_returned = _this.Value.Invoke(_args[0:_end]...)
+	} else {
+		_returned = _this.Value.Call("acceptNode", _args[0:_end]...)
+	}
 	var (
 		_converted int // javascript: unsigned short _what_return_name
 	)
@@ -33634,6 +33788,8 @@ func PromiseFromJS(input js.Value) *Promise {
 	return ret
 }
 
+// GetDocument returning attribute 'document' with
+// type Document (idl: Document).
 func GetDocument() *Document {
 	var ret *Document
 	_klass := js.Global()
@@ -33642,6 +33798,8 @@ func GetDocument() *Document {
 	return ret
 }
 
+// GetWindow returning attribute 'window' with
+// type Window (idl: Window).
 func GetWindow() *Window {
 	var ret *Window
 	_klass := js.Global()
