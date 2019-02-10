@@ -2,7 +2,7 @@
 
 Go Language Web Assembly bindings for DOM, HTML etc
 
-[![GoDoc Widget]][GoDoc]
+[![GoDoc](https://godoc.org/github.com/gowebapi/webapi?status.svg)](https://godoc.org/github.com/gowebapi/webapi)
 
 > __WARNING__: The current API is in very early state and should be consider to be expremental. There is upcommig changed like moving types into multiple packages.
 
