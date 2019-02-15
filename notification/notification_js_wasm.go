@@ -3,7 +3,12 @@
 package notification
 
 import "syscall/js"
-import "github.com/gowebapi/webapi"
+
+import "github.com/gowebapi/webapi/dom/domcore"
+
+// using following types:
+// domcore.EventHandler
+// domcore.EventTarget
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -37,30 +42,30 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // enum: NotificationPermission
-type NotificationPermission int
+type PermissionMode int
 
 const (
-	DefaultNotificationPermission NotificationPermission = iota
-	DeniedNotificationPermission
-	GrantedNotificationPermission
+	Default PermissionMode = iota
+	Denied
+	Granted
 )
 
 var notificationPermissionToWasmTable = []string{
 	"default", "denied", "granted",
 }
 
-var notificationPermissionFromWasmTable = map[string]NotificationPermission{
-	"default": DefaultNotificationPermission, "denied": DeniedNotificationPermission, "granted": GrantedNotificationPermission,
+var notificationPermissionFromWasmTable = map[string]PermissionMode{
+	"default": Default, "denied": Denied, "granted": Granted,
 }
 
 // JSValue is converting this enum into a java object
-func (this *NotificationPermission) JSValue() js.Value {
+func (this *PermissionMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
 
 // Value is converting this into javascript defined
 // string value
-func (this NotificationPermission) Value() string {
+func (this PermissionMode) Value() string {
 	idx := int(this)
 	if idx >= 0 && idx < len(notificationPermissionToWasmTable) {
 		return notificationPermissionToWasmTable[idx]
@@ -68,9 +73,9 @@ func (this NotificationPermission) Value() string {
 	panic("unknown input value")
 }
 
-// NotificationPermissionFromJS is converting a javascript value into
-// a NotificationPermission enum value.
-func NotificationPermissionFromJS(value js.Value) NotificationPermission {
+// PermissionModeFromJS is converting a javascript value into
+// a PermissionMode enum value.
+func PermissionModeFromJS(value js.Value) PermissionMode {
 	key := value.String()
 	conv, ok := notificationPermissionFromWasmTable[key]
 	if !ok {
@@ -80,30 +85,30 @@ func NotificationPermissionFromJS(value js.Value) NotificationPermission {
 }
 
 // enum: NotificationDirection
-type NotificationDirection int
+type Direction int
 
 const (
-	AutoNotificationDirection NotificationDirection = iota
-	LtrNotificationDirection
-	RtlNotificationDirection
+	Auto Direction = iota
+	LeftToRight
+	RightToLeft
 )
 
 var notificationDirectionToWasmTable = []string{
 	"auto", "ltr", "rtl",
 }
 
-var notificationDirectionFromWasmTable = map[string]NotificationDirection{
-	"auto": AutoNotificationDirection, "ltr": LtrNotificationDirection, "rtl": RtlNotificationDirection,
+var notificationDirectionFromWasmTable = map[string]Direction{
+	"auto": Auto, "ltr": LeftToRight, "rtl": RightToLeft,
 }
 
 // JSValue is converting this enum into a java object
-func (this *NotificationDirection) JSValue() js.Value {
+func (this *Direction) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
 
 // Value is converting this into javascript defined
 // string value
-func (this NotificationDirection) Value() string {
+func (this Direction) Value() string {
 	idx := int(this)
 	if idx >= 0 && idx < len(notificationDirectionToWasmTable) {
 		return notificationDirectionToWasmTable[idx]
@@ -111,9 +116,9 @@ func (this NotificationDirection) Value() string {
 	panic("unknown input value")
 }
 
-// NotificationDirectionFromJS is converting a javascript value into
-// a NotificationDirection enum value.
-func NotificationDirectionFromJS(value js.Value) NotificationDirection {
+// DirectionFromJS is converting a javascript value into
+// a Direction enum value.
+func DirectionFromJS(value js.Value) Direction {
 	key := value.String()
 	conv, ok := notificationDirectionFromWasmTable[key]
 	if !ok {
@@ -123,25 +128,25 @@ func NotificationDirectionFromJS(value js.Value) NotificationDirection {
 }
 
 // callback: NotificationPermissionCallback
-type NotificationPermissionCallback func(permission NotificationPermission)
+type PermissionCallback func(permission PermissionMode)
 
-func NotificationPermissionCallbackToJS(callback NotificationPermissionCallback) *js.Callback {
+func PermissionCallbackToJS(callback PermissionCallback) *js.Callback {
 	if callback == nil {
 		return nil
 	}
 	ret := js.NewCallback(func(args []js.Value) {
 		var (
-			_p0 NotificationPermission // javascript: NotificationPermission permission
+			_p0 PermissionMode // javascript: NotificationPermission permission
 		)
-		_p0 = NotificationPermissionFromJS(args[0])
+		_p0 = PermissionModeFromJS(args[0])
 		// TODO: return value
 		callback(_p0)
 	})
 	return &ret
 }
 
-func NotificationPermissionCallbackFromJS(_value js.Value) NotificationPermissionCallback {
-	return func(permission NotificationPermission) {
+func PermissionCallbackFromJS(_value js.Value) PermissionCallback {
+	return func(permission PermissionMode) {
 		var (
 			_args [1]interface{}
 			_end  int
@@ -155,8 +160,8 @@ func NotificationPermissionCallbackFromJS(_value js.Value) NotificationPermissio
 }
 
 // dictionary: NotificationOptions
-type NotificationOptions struct {
-	Dir  NotificationDirection
+type Options struct {
+	Dir  Direction
 	Lang string
 	Body string
 	Tag  string
@@ -165,7 +170,7 @@ type NotificationOptions struct {
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *NotificationOptions) JSValue() js.Value {
+func (_this *Options) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Dir.JSValue()
 	out.Set("dir", value0)
@@ -180,19 +185,19 @@ func (_this *NotificationOptions) JSValue() js.Value {
 	return out
 }
 
-// NotificationOptionsFromJS is allocating a new
-// NotificationOptions object and copy all values from
+// OptionsFromJS is allocating a new
+// Options object and copy all values from
 // input javascript object
-func NotificationOptionsFromJS(input js.Value) *NotificationOptions {
-	var out NotificationOptions
+func OptionsFromJS(input js.Value) *Options {
+	var out Options
 	var (
-		out0 NotificationDirection // javascript: NotificationDirection {dir Dir dir}
-		out1 string                // javascript: DOMString {lang Lang lang}
-		out2 string                // javascript: DOMString {body Body body}
-		out3 string                // javascript: DOMString {tag Tag tag}
-		out4 string                // javascript: DOMString {icon Icon icon}
+		out0 Direction // javascript: NotificationDirection {dir Dir dir}
+		out1 string    // javascript: DOMString {lang Lang lang}
+		out2 string    // javascript: DOMString {body Body body}
+		out3 string    // javascript: DOMString {tag Tag tag}
+		out4 string    // javascript: DOMString {icon Icon icon}
 	)
-	out0 = NotificationDirectionFromJS(input.Get("dir"))
+	out0 = DirectionFromJS(input.Get("dir"))
 	out.Dir = out0
 	out1 = (input.Get("lang")).String()
 	out.Lang = out1
@@ -207,7 +212,7 @@ func NotificationOptionsFromJS(input js.Value) *NotificationOptions {
 
 // interface: Notification
 type Notification struct {
-	webapi.EventTarget
+	domcore.EventTarget
 }
 
 // NotificationFromJS is casting a js.Value into Notification.
@@ -221,12 +226,12 @@ func NotificationFromJS(input js.Value) *Notification {
 }
 
 // Permission returning attribute 'permission' with
-// type NotificationPermission (idl: NotificationPermission).
-func Permission() NotificationPermission {
-	var ret NotificationPermission
+// type PermissionMode (idl: NotificationPermission).
+func Permission() PermissionMode {
+	var ret PermissionMode
 	_klass := js.Global().Get("Notification")
 	value := _klass.Get("permission")
-	ret = NotificationPermissionFromJS(value)
+	ret = PermissionModeFromJS(value)
 	return ret
 }
 
@@ -253,7 +258,7 @@ func RequestPermission(callback *js.Callback) {
 	return
 }
 
-func NewNotification(title string, options *NotificationOptions) (_result *Notification) {
+func New(title string, options *Options) (_result *Notification) {
 	_klass := js.Global().Get("Notification")
 	var (
 		_args [2]interface{}
@@ -276,20 +281,20 @@ func NewNotification(title string, options *NotificationOptions) (_result *Notif
 	return
 }
 
-// Onclick returning attribute 'onclick' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) Onclick() webapi.EventHandler {
-	var ret webapi.EventHandler
+// OnClick returning attribute 'onclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) OnClick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull {
-		ret = webapi.EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
-// SetOnclick setting attribute 'onclick' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnclick(value *js.Callback) {
+// SetOnClick setting attribute 'onclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) SetOnClick(value *js.Callback) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -300,20 +305,20 @@ func (_this *Notification) SetOnclick(value *js.Callback) {
 	_this.Value_JS.Set("onclick", input)
 }
 
-// Onshow returning attribute 'onshow' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) Onshow() webapi.EventHandler {
-	var ret webapi.EventHandler
+// OnShow returning attribute 'onshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) OnShow() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onshow")
 	if value.Type() != js.TypeNull {
-		ret = webapi.EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
-// SetOnshow setting attribute 'onshow' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnshow(value *js.Callback) {
+// SetOnShow setting attribute 'onshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) SetOnShow(value *js.Callback) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -324,20 +329,20 @@ func (_this *Notification) SetOnshow(value *js.Callback) {
 	_this.Value_JS.Set("onshow", input)
 }
 
-// Onerror returning attribute 'onerror' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) Onerror() webapi.EventHandler {
-	var ret webapi.EventHandler
+// OnError returning attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) OnError() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = webapi.EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnerror(value *js.Callback) {
+// SetOnError setting attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) SetOnError(value *js.Callback) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -348,20 +353,20 @@ func (_this *Notification) SetOnerror(value *js.Callback) {
 	_this.Value_JS.Set("onerror", input)
 }
 
-// Onclose returning attribute 'onclose' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) Onclose() webapi.EventHandler {
-	var ret webapi.EventHandler
+// OnClose returning attribute 'onclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) OnClose() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
-		ret = webapi.EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
-// SetOnclose setting attribute 'onclose' with
-// type webapi.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnclose(value *js.Callback) {
+// SetOnClose setting attribute 'onclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Notification) SetOnClose(value *js.Callback) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -382,11 +387,11 @@ func (_this *Notification) Title() string {
 }
 
 // Dir returning attribute 'dir' with
-// type NotificationDirection (idl: NotificationDirection).
-func (_this *Notification) Dir() NotificationDirection {
-	var ret NotificationDirection
+// type Direction (idl: NotificationDirection).
+func (_this *Notification) Dir() Direction {
+	var ret Direction
 	value := _this.Value_JS.Get("dir")
-	ret = NotificationDirectionFromJS(value)
+	ret = DirectionFromJS(value)
 	return ret
 }
 

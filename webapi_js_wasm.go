@@ -4,6 +4,56 @@ package webapi
 
 import "syscall/js"
 
+import "github.com/gowebapi/webapi/dom/domcore"
+import "github.com/gowebapi/webapi/javascript"
+import "github.com/gowebapi/webapi/patch"
+import "github.com/gowebapi/webapi/html/canvas"
+import "github.com/gowebapi/webapi/dom"
+import "github.com/gowebapi/webapi/html/htmlmisc"
+import "github.com/gowebapi/webapi/html"
+
+// using following types:
+// canvas.ImageBitmapOptions
+// dom.Attr
+// dom.CDATASection
+// dom.Comment
+// dom.DocumentFragment
+// dom.DocumentType
+// dom.Element
+// dom.HTMLCollection
+// dom.Node
+// dom.NodeFilter
+// dom.NodeIterator
+// dom.NodeList
+// dom.ProcessingInstruction
+// dom.Range
+// dom.Text
+// dom.TreeWalker
+// domcore.DOMTokenList
+// domcore.Event
+// domcore.EventHandler
+// domcore.EventTarget
+// html.HTMLAllCollection
+// html.HTMLElement
+// html.HTMLFormElement
+// html.HTMLHeadElement
+// html.OnBeforeUnloadEventHandler
+// html.OnErrorEventHandler
+// html.ValidityState
+// htmlmisc.ApplicationCache
+// htmlmisc.BarProp
+// htmlmisc.CustomElementRegistry
+// htmlmisc.External
+// htmlmisc.FrameRequestCallback
+// htmlmisc.History
+// htmlmisc.Location
+// htmlmisc.Navigator
+// htmlmisc.Storage
+// javascript.Object
+// javascript.Promise
+// patch.ByteString
+// webidl.VoidFunction
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {
@@ -33,48 +83,6 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
-}
-
-// enum: ShadowRootMode
-type ShadowRootMode int
-
-const (
-	OpenShadowRootMode ShadowRootMode = iota
-	ClosedShadowRootMode
-)
-
-var shadowRootModeToWasmTable = []string{
-	"open", "closed",
-}
-
-var shadowRootModeFromWasmTable = map[string]ShadowRootMode{
-	"open": OpenShadowRootMode, "closed": ClosedShadowRootMode,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ShadowRootMode) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ShadowRootMode) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(shadowRootModeToWasmTable) {
-		return shadowRootModeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ShadowRootModeFromJS is converting a javascript value into
-// a ShadowRootMode enum value.
-func ShadowRootModeFromJS(value js.Value) ShadowRootMode {
-	key := value.String()
-	conv, ok := shadowRootModeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
 }
 
 // enum: DocumentReadyState
@@ -114,826 +122,6 @@ func (this DocumentReadyState) Value() string {
 func DocumentReadyStateFromJS(value js.Value) DocumentReadyState {
 	key := value.String()
 	conv, ok := documentReadyStateFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanPlayTypeResult
-type CanPlayTypeResult int
-
-const (
-	EmptyString0CanPlayTypeResult CanPlayTypeResult = iota
-	MaybeCanPlayTypeResult
-	ProbablyCanPlayTypeResult
-)
-
-var canPlayTypeResultToWasmTable = []string{
-	"", "maybe", "probably",
-}
-
-var canPlayTypeResultFromWasmTable = map[string]CanPlayTypeResult{
-	"": EmptyString0CanPlayTypeResult, "maybe": MaybeCanPlayTypeResult, "probably": ProbablyCanPlayTypeResult,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanPlayTypeResult) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanPlayTypeResult) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canPlayTypeResultToWasmTable) {
-		return canPlayTypeResultToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanPlayTypeResultFromJS is converting a javascript value into
-// a CanPlayTypeResult enum value.
-func CanPlayTypeResultFromJS(value js.Value) CanPlayTypeResult {
-	key := value.String()
-	conv, ok := canPlayTypeResultFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: TextTrackMode
-type TextTrackMode int
-
-const (
-	DisabledTextTrackMode TextTrackMode = iota
-	HiddenTextTrackMode
-	ShowingTextTrackMode
-)
-
-var textTrackModeToWasmTable = []string{
-	"disabled", "hidden", "showing",
-}
-
-var textTrackModeFromWasmTable = map[string]TextTrackMode{
-	"disabled": DisabledTextTrackMode, "hidden": HiddenTextTrackMode, "showing": ShowingTextTrackMode,
-}
-
-// JSValue is converting this enum into a java object
-func (this *TextTrackMode) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this TextTrackMode) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(textTrackModeToWasmTable) {
-		return textTrackModeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// TextTrackModeFromJS is converting a javascript value into
-// a TextTrackMode enum value.
-func TextTrackModeFromJS(value js.Value) TextTrackMode {
-	key := value.String()
-	conv, ok := textTrackModeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: TextTrackKind
-type TextTrackKind int
-
-const (
-	SubtitlesTextTrackKind TextTrackKind = iota
-	CaptionsTextTrackKind
-	DescriptionsTextTrackKind
-	ChaptersTextTrackKind
-	MetadataTextTrackKind
-)
-
-var textTrackKindToWasmTable = []string{
-	"subtitles", "captions", "descriptions", "chapters", "metadata",
-}
-
-var textTrackKindFromWasmTable = map[string]TextTrackKind{
-	"subtitles": SubtitlesTextTrackKind, "captions": CaptionsTextTrackKind, "descriptions": DescriptionsTextTrackKind, "chapters": ChaptersTextTrackKind, "metadata": MetadataTextTrackKind,
-}
-
-// JSValue is converting this enum into a java object
-func (this *TextTrackKind) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this TextTrackKind) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(textTrackKindToWasmTable) {
-		return textTrackKindToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// TextTrackKindFromJS is converting a javascript value into
-// a TextTrackKind enum value.
-func TextTrackKindFromJS(value js.Value) TextTrackKind {
-	key := value.String()
-	conv, ok := textTrackKindFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: SelectionMode
-type SelectionMode int
-
-const (
-	SelectSelectionMode SelectionMode = iota
-	StartSelectionMode
-	EndSelectionMode
-	PreserveSelectionMode
-)
-
-var selectionModeToWasmTable = []string{
-	"select", "start", "end", "preserve",
-}
-
-var selectionModeFromWasmTable = map[string]SelectionMode{
-	"select": SelectSelectionMode, "start": StartSelectionMode, "end": EndSelectionMode, "preserve": PreserveSelectionMode,
-}
-
-// JSValue is converting this enum into a java object
-func (this *SelectionMode) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this SelectionMode) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(selectionModeToWasmTable) {
-		return selectionModeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// SelectionModeFromJS is converting a javascript value into
-// a SelectionMode enum value.
-func SelectionModeFromJS(value js.Value) SelectionMode {
-	key := value.String()
-	conv, ok := selectionModeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasFillRule
-type CanvasFillRule int
-
-const (
-	NonzeroCanvasFillRule CanvasFillRule = iota
-	EvenoddCanvasFillRule
-)
-
-var canvasFillRuleToWasmTable = []string{
-	"nonzero", "evenodd",
-}
-
-var canvasFillRuleFromWasmTable = map[string]CanvasFillRule{
-	"nonzero": NonzeroCanvasFillRule, "evenodd": EvenoddCanvasFillRule,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasFillRule) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasFillRule) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasFillRuleToWasmTable) {
-		return canvasFillRuleToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasFillRuleFromJS is converting a javascript value into
-// a CanvasFillRule enum value.
-func CanvasFillRuleFromJS(value js.Value) CanvasFillRule {
-	key := value.String()
-	conv, ok := canvasFillRuleFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ImageSmoothingQuality
-type ImageSmoothingQuality int
-
-const (
-	LowImageSmoothingQuality ImageSmoothingQuality = iota
-	MediumImageSmoothingQuality
-	HighImageSmoothingQuality
-)
-
-var imageSmoothingQualityToWasmTable = []string{
-	"low", "medium", "high",
-}
-
-var imageSmoothingQualityFromWasmTable = map[string]ImageSmoothingQuality{
-	"low": LowImageSmoothingQuality, "medium": MediumImageSmoothingQuality, "high": HighImageSmoothingQuality,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ImageSmoothingQuality) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ImageSmoothingQuality) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(imageSmoothingQualityToWasmTable) {
-		return imageSmoothingQualityToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ImageSmoothingQualityFromJS is converting a javascript value into
-// a ImageSmoothingQuality enum value.
-func ImageSmoothingQualityFromJS(value js.Value) ImageSmoothingQuality {
-	key := value.String()
-	conv, ok := imageSmoothingQualityFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasLineCap
-type CanvasLineCap int
-
-const (
-	ButtCanvasLineCap CanvasLineCap = iota
-	RoundCanvasLineCap
-	SquareCanvasLineCap
-)
-
-var canvasLineCapToWasmTable = []string{
-	"butt", "round", "square",
-}
-
-var canvasLineCapFromWasmTable = map[string]CanvasLineCap{
-	"butt": ButtCanvasLineCap, "round": RoundCanvasLineCap, "square": SquareCanvasLineCap,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasLineCap) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasLineCap) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasLineCapToWasmTable) {
-		return canvasLineCapToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasLineCapFromJS is converting a javascript value into
-// a CanvasLineCap enum value.
-func CanvasLineCapFromJS(value js.Value) CanvasLineCap {
-	key := value.String()
-	conv, ok := canvasLineCapFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasLineJoin
-type CanvasLineJoin int
-
-const (
-	RoundCanvasLineJoin CanvasLineJoin = iota
-	BevelCanvasLineJoin
-	MiterCanvasLineJoin
-)
-
-var canvasLineJoinToWasmTable = []string{
-	"round", "bevel", "miter",
-}
-
-var canvasLineJoinFromWasmTable = map[string]CanvasLineJoin{
-	"round": RoundCanvasLineJoin, "bevel": BevelCanvasLineJoin, "miter": MiterCanvasLineJoin,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasLineJoin) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasLineJoin) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasLineJoinToWasmTable) {
-		return canvasLineJoinToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasLineJoinFromJS is converting a javascript value into
-// a CanvasLineJoin enum value.
-func CanvasLineJoinFromJS(value js.Value) CanvasLineJoin {
-	key := value.String()
-	conv, ok := canvasLineJoinFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasTextAlign
-type CanvasTextAlign int
-
-const (
-	StartCanvasTextAlign CanvasTextAlign = iota
-	EndCanvasTextAlign
-	LeftCanvasTextAlign
-	RightCanvasTextAlign
-	CenterCanvasTextAlign
-)
-
-var canvasTextAlignToWasmTable = []string{
-	"start", "end", "left", "right", "center",
-}
-
-var canvasTextAlignFromWasmTable = map[string]CanvasTextAlign{
-	"start": StartCanvasTextAlign, "end": EndCanvasTextAlign, "left": LeftCanvasTextAlign, "right": RightCanvasTextAlign, "center": CenterCanvasTextAlign,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasTextAlign) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasTextAlign) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasTextAlignToWasmTable) {
-		return canvasTextAlignToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasTextAlignFromJS is converting a javascript value into
-// a CanvasTextAlign enum value.
-func CanvasTextAlignFromJS(value js.Value) CanvasTextAlign {
-	key := value.String()
-	conv, ok := canvasTextAlignFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasTextBaseline
-type CanvasTextBaseline int
-
-const (
-	TopCanvasTextBaseline CanvasTextBaseline = iota
-	HangingCanvasTextBaseline
-	MiddleCanvasTextBaseline
-	AlphabeticCanvasTextBaseline
-	IdeographicCanvasTextBaseline
-	BottomCanvasTextBaseline
-)
-
-var canvasTextBaselineToWasmTable = []string{
-	"top", "hanging", "middle", "alphabetic", "ideographic", "bottom",
-}
-
-var canvasTextBaselineFromWasmTable = map[string]CanvasTextBaseline{
-	"top": TopCanvasTextBaseline, "hanging": HangingCanvasTextBaseline, "middle": MiddleCanvasTextBaseline, "alphabetic": AlphabeticCanvasTextBaseline, "ideographic": IdeographicCanvasTextBaseline, "bottom": BottomCanvasTextBaseline,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasTextBaseline) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasTextBaseline) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasTextBaselineToWasmTable) {
-		return canvasTextBaselineToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasTextBaselineFromJS is converting a javascript value into
-// a CanvasTextBaseline enum value.
-func CanvasTextBaselineFromJS(value js.Value) CanvasTextBaseline {
-	key := value.String()
-	conv, ok := canvasTextBaselineFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: CanvasDirection
-type CanvasDirection int
-
-const (
-	LtrCanvasDirection CanvasDirection = iota
-	RtlCanvasDirection
-	InheritCanvasDirection
-)
-
-var canvasDirectionToWasmTable = []string{
-	"ltr", "rtl", "inherit",
-}
-
-var canvasDirectionFromWasmTable = map[string]CanvasDirection{
-	"ltr": LtrCanvasDirection, "rtl": RtlCanvasDirection, "inherit": InheritCanvasDirection,
-}
-
-// JSValue is converting this enum into a java object
-func (this *CanvasDirection) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CanvasDirection) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(canvasDirectionToWasmTable) {
-		return canvasDirectionToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CanvasDirectionFromJS is converting a javascript value into
-// a CanvasDirection enum value.
-func CanvasDirectionFromJS(value js.Value) CanvasDirection {
-	key := value.String()
-	conv, ok := canvasDirectionFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: OffscreenRenderingContextId
-type OffscreenRenderingContextId int
-
-const (
-	_2dOffscreenRenderingContextId OffscreenRenderingContextId = iota
-	WebglOffscreenRenderingContextId
-	Webgl2OffscreenRenderingContextId
-)
-
-var offscreenRenderingContextIdToWasmTable = []string{
-	"2d", "webgl", "webgl2",
-}
-
-var offscreenRenderingContextIdFromWasmTable = map[string]OffscreenRenderingContextId{
-	"2d": _2dOffscreenRenderingContextId, "webgl": WebglOffscreenRenderingContextId, "webgl2": Webgl2OffscreenRenderingContextId,
-}
-
-// JSValue is converting this enum into a java object
-func (this *OffscreenRenderingContextId) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this OffscreenRenderingContextId) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(offscreenRenderingContextIdToWasmTable) {
-		return offscreenRenderingContextIdToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// OffscreenRenderingContextIdFromJS is converting a javascript value into
-// a OffscreenRenderingContextId enum value.
-func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContextId {
-	key := value.String()
-	conv, ok := offscreenRenderingContextIdFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ScrollRestoration
-type ScrollRestoration int
-
-const (
-	AutoScrollRestoration ScrollRestoration = iota
-	ManualScrollRestoration
-)
-
-var scrollRestorationToWasmTable = []string{
-	"auto", "manual",
-}
-
-var scrollRestorationFromWasmTable = map[string]ScrollRestoration{
-	"auto": AutoScrollRestoration, "manual": ManualScrollRestoration,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ScrollRestoration) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ScrollRestoration) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(scrollRestorationToWasmTable) {
-		return scrollRestorationToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ScrollRestorationFromJS is converting a javascript value into
-// a ScrollRestoration enum value.
-func ScrollRestorationFromJS(value js.Value) ScrollRestoration {
-	key := value.String()
-	conv, ok := scrollRestorationFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ImageOrientation
-type ImageOrientation int
-
-const (
-	NoneImageOrientation ImageOrientation = iota
-	FlipYImageOrientation
-)
-
-var imageOrientationToWasmTable = []string{
-	"none", "flipY",
-}
-
-var imageOrientationFromWasmTable = map[string]ImageOrientation{
-	"none": NoneImageOrientation, "flipY": FlipYImageOrientation,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ImageOrientation) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ImageOrientation) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(imageOrientationToWasmTable) {
-		return imageOrientationToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ImageOrientationFromJS is converting a javascript value into
-// a ImageOrientation enum value.
-func ImageOrientationFromJS(value js.Value) ImageOrientation {
-	key := value.String()
-	conv, ok := imageOrientationFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: PremultiplyAlpha
-type PremultiplyAlpha int
-
-const (
-	NonePremultiplyAlpha PremultiplyAlpha = iota
-	PremultiplyPremultiplyAlpha
-	DefaultPremultiplyAlpha
-)
-
-var premultiplyAlphaToWasmTable = []string{
-	"none", "premultiply", "default",
-}
-
-var premultiplyAlphaFromWasmTable = map[string]PremultiplyAlpha{
-	"none": NonePremultiplyAlpha, "premultiply": PremultiplyPremultiplyAlpha, "default": DefaultPremultiplyAlpha,
-}
-
-// JSValue is converting this enum into a java object
-func (this *PremultiplyAlpha) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this PremultiplyAlpha) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(premultiplyAlphaToWasmTable) {
-		return premultiplyAlphaToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// PremultiplyAlphaFromJS is converting a javascript value into
-// a PremultiplyAlpha enum value.
-func PremultiplyAlphaFromJS(value js.Value) PremultiplyAlpha {
-	key := value.String()
-	conv, ok := premultiplyAlphaFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ColorSpaceConversion
-type ColorSpaceConversion int
-
-const (
-	NoneColorSpaceConversion ColorSpaceConversion = iota
-	DefaultColorSpaceConversion
-)
-
-var colorSpaceConversionToWasmTable = []string{
-	"none", "default",
-}
-
-var colorSpaceConversionFromWasmTable = map[string]ColorSpaceConversion{
-	"none": NoneColorSpaceConversion, "default": DefaultColorSpaceConversion,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ColorSpaceConversion) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ColorSpaceConversion) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(colorSpaceConversionToWasmTable) {
-		return colorSpaceConversionToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ColorSpaceConversionFromJS is converting a javascript value into
-// a ColorSpaceConversion enum value.
-func ColorSpaceConversionFromJS(value js.Value) ColorSpaceConversion {
-	key := value.String()
-	conv, ok := colorSpaceConversionFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ResizeQuality
-type ResizeQuality int
-
-const (
-	PixelatedResizeQuality ResizeQuality = iota
-	LowResizeQuality
-	MediumResizeQuality
-	HighResizeQuality
-)
-
-var resizeQualityToWasmTable = []string{
-	"pixelated", "low", "medium", "high",
-}
-
-var resizeQualityFromWasmTable = map[string]ResizeQuality{
-	"pixelated": PixelatedResizeQuality, "low": LowResizeQuality, "medium": MediumResizeQuality, "high": HighResizeQuality,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ResizeQuality) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ResizeQuality) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(resizeQualityToWasmTable) {
-		return resizeQualityToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ResizeQualityFromJS is converting a javascript value into
-// a ResizeQuality enum value.
-func ResizeQualityFromJS(value js.Value) ResizeQuality {
-	key := value.String()
-	conv, ok := resizeQualityFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: BinaryType
-type BinaryType int
-
-const (
-	BlobBinaryType BinaryType = iota
-	ArraybufferBinaryType
-)
-
-var binaryTypeToWasmTable = []string{
-	"blob", "arraybuffer",
-}
-
-var binaryTypeFromWasmTable = map[string]BinaryType{
-	"blob": BlobBinaryType, "arraybuffer": ArraybufferBinaryType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *BinaryType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this BinaryType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(binaryTypeToWasmTable) {
-		return binaryTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// BinaryTypeFromJS is converting a javascript value into
-// a BinaryType enum value.
-func BinaryTypeFromJS(value js.Value) BinaryType {
-	key := value.String()
-	conv, ok := binaryTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: WorkerType
-type WorkerType int
-
-const (
-	ClassicWorkerType WorkerType = iota
-	ModuleWorkerType
-)
-
-var workerTypeToWasmTable = []string{
-	"classic", "module",
-}
-
-var workerTypeFromWasmTable = map[string]WorkerType{
-	"classic": ClassicWorkerType, "module": ModuleWorkerType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *WorkerType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this WorkerType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(workerTypeToWasmTable) {
-		return workerTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// WorkerTypeFromJS is converting a javascript value into
-// a WorkerType enum value.
-func WorkerTypeFromJS(value js.Value) WorkerType {
-	key := value.String()
-	conv, ok := workerTypeFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -987,414 +175,6 @@ func MutationCallbackFromJS(_value js.Value) MutationCallback {
 		_value.Invoke(_args[0:_end]...)
 		return
 	}
-}
-
-// callback: BlobCallback
-type BlobCallback func(blob *Blob)
-
-func BlobCallbackToJS(callback BlobCallback) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Blob // javascript: Blob blob
-		)
-		if args[0].Type() != js.TypeNull {
-			_p0 = BlobFromJS(args[0])
-		}
-		// TODO: return value
-		callback(_p0)
-	})
-	return &ret
-}
-
-func BlobCallbackFromJS(_value js.Value) BlobCallback {
-	return func(blob *Blob) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := blob.JSValue()
-		_args[0] = _p0
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
-// callback: CustomElementConstructor
-type CustomElementConstructor func() js.Value
-
-func CustomElementConstructorToJS(callback CustomElementConstructor) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var ()
-		// TODO: return value
-		callback()
-	})
-	return &ret
-}
-
-func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
-	return func() (_result js.Value) {
-		var (
-			_args [0]interface{}
-			_end  int
-		)
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted js.Value // javascript: any
-		)
-		_converted = _returned
-		_result = _converted
-		return
-	}
-}
-
-// callback: FunctionStringCallback
-type FunctionStringCallback func(data string)
-
-func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 string // javascript: DOMString data
-		)
-		_p0 = (args[0]).String()
-		// TODO: return value
-		callback(_p0)
-	})
-	return &ret
-}
-
-func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallback {
-	return func(data string) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := data
-		_args[0] = _p0
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
-// callback: EventHandlerNonNull
-type EventHandler func(event *Event) js.Value
-
-func EventHandlerToJS(callback EventHandler) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Event // javascript: Event event
-		)
-		_p0 = EventFromJS(args[0])
-		// TODO: return value
-		callback(_p0)
-	})
-	return &ret
-}
-
-func EventHandlerFromJS(_value js.Value) EventHandler {
-	return func(event *Event) (_result js.Value) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := event.JSValue()
-		_args[0] = _p0
-		_end++
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted js.Value // javascript: any
-		)
-		_converted = _returned
-		_result = _converted
-		return
-	}
-}
-
-// callback: OnErrorEventHandlerNonNull
-type OnErrorEventHandlerNonNull func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
-
-func OnErrorEventHandlerNonNullToJS(callback OnErrorEventHandlerNonNull) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Union   // javascript: Union event
-			_p1 *string  // javascript: DOMString source
-			_p2 *uint    // javascript: unsigned long lineno
-			_p3 *uint    // javascript: unsigned long colno
-			_p4 js.Value // javascript: any _error
-		)
-		_p0 = UnionFromJS(args[0])
-		if len(args) > 1 {
-			__tmp := (args[1]).String()
-			_p1 = &__tmp
-		}
-		if len(args) > 2 {
-			__tmp := (uint)((args[2]).Int())
-			_p2 = &__tmp
-		}
-		if len(args) > 3 {
-			__tmp := (uint)((args[3]).Int())
-			_p3 = &__tmp
-		}
-		if len(args) > 4 {
-			_p4 = args[4]
-		}
-		// TODO: return value
-		callback(_p0, _p1, _p2, _p3, _p4)
-	})
-	return &ret
-}
-
-func OnErrorEventHandlerNonNullFromJS(_value js.Value) OnErrorEventHandlerNonNull {
-	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result js.Value) {
-		var (
-			_args [5]interface{}
-			_end  int
-		)
-		_p0 := event.JSValue()
-		_args[0] = _p0
-		_end++
-		if source != nil {
-			_p1 := source
-			_args[1] = _p1
-			_end++
-		}
-		if lineno != nil {
-			_p2 := lineno
-			_args[2] = _p2
-			_end++
-		}
-		if colno != nil {
-			_p3 := colno
-			_args[3] = _p3
-			_end++
-		}
-		if _error.Type() != js.TypeUndefined {
-			_p4 := _error
-			_args[4] = _p4
-			_end++
-		}
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted js.Value // javascript: any
-		)
-		_converted = _returned
-		_result = _converted
-		return
-	}
-}
-
-// callback: OnBeforeUnloadEventHandlerNonNull
-type OnBeforeUnloadEventHandlerNonNull func(event *Event) *string
-
-func OnBeforeUnloadEventHandlerNonNullToJS(callback OnBeforeUnloadEventHandlerNonNull) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Event // javascript: Event event
-		)
-		_p0 = EventFromJS(args[0])
-		// TODO: return value
-		callback(_p0)
-	})
-	return &ret
-}
-
-func OnBeforeUnloadEventHandlerNonNullFromJS(_value js.Value) OnBeforeUnloadEventHandlerNonNull {
-	return func(event *Event) (_result *string) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := event.JSValue()
-		_args[0] = _p0
-		_end++
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted *string // javascript: DOMString
-		)
-		if _returned.Type() != js.TypeNull {
-			__tmp := (_returned).String()
-			_converted = &__tmp
-		}
-		_result = _converted
-		return
-	}
-}
-
-// callback: FrameRequestCallback
-type FrameRequestCallback func(time float64)
-
-func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Callback {
-	if callback == nil {
-		return nil
-	}
-	ret := js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 float64 // javascript: double time
-		)
-		_p0 = (args[0]).Float()
-		// TODO: return value
-		callback(_p0)
-	})
-	return &ret
-}
-
-func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallback {
-	return func(time float64) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := time
-		_args[0] = _p0
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
-// dictionary: EventInit
-type EventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *EventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
-	return out
-}
-
-// EventInitFromJS is allocating a new
-// EventInit object and copy all values from
-// input javascript object
-func EventInitFromJS(input js.Value) *EventInit {
-	var out EventInit
-	var (
-		out0 bool // javascript: boolean {bubbles Bubbles bubbles}
-		out1 bool // javascript: boolean {cancelable Cancelable cancelable}
-		out2 bool // javascript: boolean {composed Composed composed}
-	)
-	out0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = out0
-	out1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = out1
-	out2 = (input.Get("composed")).Bool()
-	out.Composed = out2
-	return &out
-}
-
-// dictionary: CustomEventInit
-type CustomEventInit struct {
-	Detail js.Value
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *CustomEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Detail
-	out.Set("detail", value0)
-	return out
-}
-
-// CustomEventInitFromJS is allocating a new
-// CustomEventInit object and copy all values from
-// input javascript object
-func CustomEventInitFromJS(input js.Value) *CustomEventInit {
-	var out CustomEventInit
-	var (
-		out0 js.Value // javascript: any {detail Detail detail}
-	)
-	out0 = input.Get("detail")
-	out.Detail = out0
-	return &out
-}
-
-// dictionary: EventListenerOptions
-type EventListenerOptions struct {
-	Capture bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *EventListenerOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Capture
-	out.Set("capture", value0)
-	return out
-}
-
-// EventListenerOptionsFromJS is allocating a new
-// EventListenerOptions object and copy all values from
-// input javascript object
-func EventListenerOptionsFromJS(input js.Value) *EventListenerOptions {
-	var out EventListenerOptions
-	var (
-		out0 bool // javascript: boolean {capture Capture capture}
-	)
-	out0 = (input.Get("capture")).Bool()
-	out.Capture = out0
-	return &out
-}
-
-// dictionary: AddEventListenerOptions
-type AddEventListenerOptions struct {
-	Passive bool
-	Once    bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *AddEventListenerOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Passive
-	out.Set("passive", value0)
-	value1 := _this.Once
-	out.Set("once", value1)
-	return out
-}
-
-// AddEventListenerOptionsFromJS is allocating a new
-// AddEventListenerOptions object and copy all values from
-// input javascript object
-func AddEventListenerOptionsFromJS(input js.Value) *AddEventListenerOptions {
-	var out AddEventListenerOptions
-	var (
-		out0 bool // javascript: boolean {passive Passive passive}
-		out1 bool // javascript: boolean {once Once once}
-	)
-	out0 = (input.Get("passive")).Bool()
-	out.Passive = out0
-	out1 = (input.Get("once")).Bool()
-	out.Once = out1
-	return &out
 }
 
 // dictionary: MutationObserverInit
@@ -1472,33 +252,6 @@ func MutationObserverInitFromJS(input js.Value) *MutationObserverInit {
 	return &out
 }
 
-// dictionary: GetRootNodeOptions
-type GetRootNodeOptions struct {
-	Composed bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *GetRootNodeOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Composed
-	out.Set("composed", value0)
-	return out
-}
-
-// GetRootNodeOptionsFromJS is allocating a new
-// GetRootNodeOptions object and copy all values from
-// input javascript object
-func GetRootNodeOptionsFromJS(input js.Value) *GetRootNodeOptions {
-	var out GetRootNodeOptions
-	var (
-		out0 bool // javascript: boolean {composed Composed composed}
-	)
-	out0 = (input.Get("composed")).Bool()
-	out.Composed = out0
-	return &out
-}
-
 // dictionary: ElementCreationOptions
 type ElementCreationOptions struct {
 	Is string
@@ -1523,259 +276,6 @@ func ElementCreationOptionsFromJS(input js.Value) *ElementCreationOptions {
 	)
 	out0 = (input.Get("is")).String()
 	out.Is = out0
-	return &out
-}
-
-// dictionary: ShadowRootInit
-type ShadowRootInit struct {
-	Mode ShadowRootMode
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *ShadowRootInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Mode.JSValue()
-	out.Set("mode", value0)
-	return out
-}
-
-// ShadowRootInitFromJS is allocating a new
-// ShadowRootInit object and copy all values from
-// input javascript object
-func ShadowRootInitFromJS(input js.Value) *ShadowRootInit {
-	var out ShadowRootInit
-	var (
-		out0 ShadowRootMode // javascript: ShadowRootMode {mode Mode mode}
-	)
-	out0 = ShadowRootModeFromJS(input.Get("mode"))
-	out.Mode = out0
-	return &out
-}
-
-// dictionary: TrackEventInit
-type TrackEventInit struct {
-	Track *Union
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *TrackEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Track.JSValue()
-	out.Set("track", value0)
-	return out
-}
-
-// TrackEventInitFromJS is allocating a new
-// TrackEventInit object and copy all values from
-// input javascript object
-func TrackEventInitFromJS(input js.Value) *TrackEventInit {
-	var out TrackEventInit
-	var (
-		out0 *Union // javascript: Union {track Track track}
-	)
-	if input.Get("track").Type() != js.TypeNull {
-		out0 = UnionFromJS(input.Get("track"))
-	}
-	out.Track = out0
-	return &out
-}
-
-// dictionary: FormDataEventInit
-type FormDataEventInit struct {
-	FormData *FormData
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *FormDataEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.FormData.JSValue()
-	out.Set("formData", value0)
-	return out
-}
-
-// FormDataEventInitFromJS is allocating a new
-// FormDataEventInit object and copy all values from
-// input javascript object
-func FormDataEventInitFromJS(input js.Value) *FormDataEventInit {
-	var out FormDataEventInit
-	var (
-		out0 *FormData // javascript: FormData {formData FormData formData}
-	)
-	out0 = FormDataFromJS(input.Get("formData"))
-	out.FormData = out0
-	return &out
-}
-
-// dictionary: AssignedNodesOptions
-type AssignedNodesOptions struct {
-	Flatten bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *AssignedNodesOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Flatten
-	out.Set("flatten", value0)
-	return out
-}
-
-// AssignedNodesOptionsFromJS is allocating a new
-// AssignedNodesOptions object and copy all values from
-// input javascript object
-func AssignedNodesOptionsFromJS(input js.Value) *AssignedNodesOptions {
-	var out AssignedNodesOptions
-	var (
-		out0 bool // javascript: boolean {flatten Flatten flatten}
-	)
-	out0 = (input.Get("flatten")).Bool()
-	out.Flatten = out0
-	return &out
-}
-
-// dictionary: CanvasRenderingContext2DSettings
-type CanvasRenderingContext2DSettings struct {
-	Alpha bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *CanvasRenderingContext2DSettings) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Alpha
-	out.Set("alpha", value0)
-	return out
-}
-
-// CanvasRenderingContext2DSettingsFromJS is allocating a new
-// CanvasRenderingContext2DSettings object and copy all values from
-// input javascript object
-func CanvasRenderingContext2DSettingsFromJS(input js.Value) *CanvasRenderingContext2DSettings {
-	var out CanvasRenderingContext2DSettings
-	var (
-		out0 bool // javascript: boolean {alpha Alpha alpha}
-	)
-	out0 = (input.Get("alpha")).Bool()
-	out.Alpha = out0
-	return &out
-}
-
-// dictionary: ImageEncodeOptions
-type ImageEncodeOptions struct {
-	Type    string
-	Quality float64
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *ImageEncodeOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Type
-	out.Set("type", value0)
-	value1 := _this.Quality
-	out.Set("quality", value1)
-	return out
-}
-
-// ImageEncodeOptionsFromJS is allocating a new
-// ImageEncodeOptions object and copy all values from
-// input javascript object
-func ImageEncodeOptionsFromJS(input js.Value) *ImageEncodeOptions {
-	var out ImageEncodeOptions
-	var (
-		out0 string  // javascript: DOMString {type Type _type}
-		out1 float64 // javascript: unrestricted double {quality Quality quality}
-	)
-	out0 = (input.Get("type")).String()
-	out.Type = out0
-	out1 = (input.Get("quality")).Float()
-	out.Quality = out1
-	return &out
-}
-
-// dictionary: ElementDefinitionOptions
-type ElementDefinitionOptions struct {
-	Extends string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *ElementDefinitionOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Extends
-	out.Set("extends", value0)
-	return out
-}
-
-// ElementDefinitionOptionsFromJS is allocating a new
-// ElementDefinitionOptions object and copy all values from
-// input javascript object
-func ElementDefinitionOptionsFromJS(input js.Value) *ElementDefinitionOptions {
-	var out ElementDefinitionOptions
-	var (
-		out0 string // javascript: DOMString {extends Extends extends}
-	)
-	out0 = (input.Get("extends")).String()
-	out.Extends = out0
-	return &out
-}
-
-// dictionary: FocusOptions
-type FocusOptions struct {
-	PreventScroll bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *FocusOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.PreventScroll
-	out.Set("preventScroll", value0)
-	return out
-}
-
-// FocusOptionsFromJS is allocating a new
-// FocusOptions object and copy all values from
-// input javascript object
-func FocusOptionsFromJS(input js.Value) *FocusOptions {
-	var out FocusOptions
-	var (
-		out0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
-	)
-	out0 = (input.Get("preventScroll")).Bool()
-	out.PreventScroll = out0
-	return &out
-}
-
-// dictionary: DragEventInit
-type DragEventInit struct {
-	DataTransfer *DataTransfer
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *DragEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.DataTransfer.JSValue()
-	out.Set("dataTransfer", value0)
-	return out
-}
-
-// DragEventInitFromJS is allocating a new
-// DragEventInit object and copy all values from
-// input javascript object
-func DragEventInitFromJS(input js.Value) *DragEventInit {
-	var out DragEventInit
-	var (
-		out0 *DataTransfer // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
-	)
-	if input.Get("dataTransfer").Type() != js.TypeNull {
-		out0 = DataTransferFromJS(input.Get("dataTransfer"))
-	}
-	out.DataTransfer = out0
 	return &out
 }
 
@@ -1806,505 +306,6 @@ func WindowPostMessageOptionsFromJS(input js.Value) *WindowPostMessageOptions {
 	return &out
 }
 
-// dictionary: PopStateEventInit
-type PopStateEventInit struct {
-	State js.Value
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *PopStateEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.State
-	out.Set("state", value0)
-	return out
-}
-
-// PopStateEventInitFromJS is allocating a new
-// PopStateEventInit object and copy all values from
-// input javascript object
-func PopStateEventInitFromJS(input js.Value) *PopStateEventInit {
-	var out PopStateEventInit
-	var (
-		out0 js.Value // javascript: any {state State state}
-	)
-	out0 = input.Get("state")
-	out.State = out0
-	return &out
-}
-
-// dictionary: HashChangeEventInit
-type HashChangeEventInit struct {
-	OldURL string
-	NewURL string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *HashChangeEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.OldURL
-	out.Set("oldURL", value0)
-	value1 := _this.NewURL
-	out.Set("newURL", value1)
-	return out
-}
-
-// HashChangeEventInitFromJS is allocating a new
-// HashChangeEventInit object and copy all values from
-// input javascript object
-func HashChangeEventInitFromJS(input js.Value) *HashChangeEventInit {
-	var out HashChangeEventInit
-	var (
-		out0 string // javascript: USVString {oldURL OldURL oldURL}
-		out1 string // javascript: USVString {newURL NewURL newURL}
-	)
-	out0 = (input.Get("oldURL")).String()
-	out.OldURL = out0
-	out1 = (input.Get("newURL")).String()
-	out.NewURL = out1
-	return &out
-}
-
-// dictionary: PageTransitionEventInit
-type PageTransitionEventInit struct {
-	Persisted bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *PageTransitionEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Persisted
-	out.Set("persisted", value0)
-	return out
-}
-
-// PageTransitionEventInitFromJS is allocating a new
-// PageTransitionEventInit object and copy all values from
-// input javascript object
-func PageTransitionEventInitFromJS(input js.Value) *PageTransitionEventInit {
-	var out PageTransitionEventInit
-	var (
-		out0 bool // javascript: boolean {persisted Persisted persisted}
-	)
-	out0 = (input.Get("persisted")).Bool()
-	out.Persisted = out0
-	return &out
-}
-
-// dictionary: ErrorEventInit
-type ErrorEventInit struct {
-	Message  string
-	Filename string
-	Lineno   uint
-	Colno    uint
-	Error    js.Value
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *ErrorEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Message
-	out.Set("message", value0)
-	value1 := _this.Filename
-	out.Set("filename", value1)
-	value2 := _this.Lineno
-	out.Set("lineno", value2)
-	value3 := _this.Colno
-	out.Set("colno", value3)
-	value4 := _this.Error
-	out.Set("error", value4)
-	return out
-}
-
-// ErrorEventInitFromJS is allocating a new
-// ErrorEventInit object and copy all values from
-// input javascript object
-func ErrorEventInitFromJS(input js.Value) *ErrorEventInit {
-	var out ErrorEventInit
-	var (
-		out0 string   // javascript: DOMString {message Message message}
-		out1 string   // javascript: USVString {filename Filename filename}
-		out2 uint     // javascript: unsigned long {lineno Lineno lineno}
-		out3 uint     // javascript: unsigned long {colno Colno colno}
-		out4 js.Value // javascript: any {error Error _error}
-	)
-	out0 = (input.Get("message")).String()
-	out.Message = out0
-	out1 = (input.Get("filename")).String()
-	out.Filename = out1
-	out2 = (uint)((input.Get("lineno")).Int())
-	out.Lineno = out2
-	out3 = (uint)((input.Get("colno")).Int())
-	out.Colno = out3
-	out4 = input.Get("error")
-	out.Error = out4
-	return &out
-}
-
-// dictionary: PromiseRejectionEventInit
-type PromiseRejectionEventInit struct {
-	Promise *Promise
-	Reason  js.Value
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *PromiseRejectionEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Promise.JSValue()
-	out.Set("promise", value0)
-	value1 := _this.Reason
-	out.Set("reason", value1)
-	return out
-}
-
-// PromiseRejectionEventInitFromJS is allocating a new
-// PromiseRejectionEventInit object and copy all values from
-// input javascript object
-func PromiseRejectionEventInitFromJS(input js.Value) *PromiseRejectionEventInit {
-	var out PromiseRejectionEventInit
-	var (
-		out0 *Promise // javascript: Promise {promise Promise promise}
-		out1 js.Value // javascript: any {reason Reason reason}
-	)
-	out0 = PromiseFromJS(input.Get("promise"))
-	out.Promise = out0
-	out1 = input.Get("reason")
-	out.Reason = out1
-	return &out
-}
-
-// dictionary: ImageBitmapOptions
-type ImageBitmapOptions struct {
-	ImageOrientation     ImageOrientation
-	PremultiplyAlpha     PremultiplyAlpha
-	ColorSpaceConversion ColorSpaceConversion
-	ResizeWidth          uint
-	ResizeHeight         uint
-	ResizeQuality        ResizeQuality
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *ImageBitmapOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.ImageOrientation.JSValue()
-	out.Set("imageOrientation", value0)
-	value1 := _this.PremultiplyAlpha.JSValue()
-	out.Set("premultiplyAlpha", value1)
-	value2 := _this.ColorSpaceConversion.JSValue()
-	out.Set("colorSpaceConversion", value2)
-	value3 := _this.ResizeWidth
-	out.Set("resizeWidth", value3)
-	value4 := _this.ResizeHeight
-	out.Set("resizeHeight", value4)
-	value5 := _this.ResizeQuality.JSValue()
-	out.Set("resizeQuality", value5)
-	return out
-}
-
-// ImageBitmapOptionsFromJS is allocating a new
-// ImageBitmapOptions object and copy all values from
-// input javascript object
-func ImageBitmapOptionsFromJS(input js.Value) *ImageBitmapOptions {
-	var out ImageBitmapOptions
-	var (
-		out0 ImageOrientation     // javascript: ImageOrientation {imageOrientation ImageOrientation imageOrientation}
-		out1 PremultiplyAlpha     // javascript: PremultiplyAlpha {premultiplyAlpha PremultiplyAlpha premultiplyAlpha}
-		out2 ColorSpaceConversion // javascript: ColorSpaceConversion {colorSpaceConversion ColorSpaceConversion colorSpaceConversion}
-		out3 uint                 // javascript: unsigned long {resizeWidth ResizeWidth resizeWidth}
-		out4 uint                 // javascript: unsigned long {resizeHeight ResizeHeight resizeHeight}
-		out5 ResizeQuality        // javascript: ResizeQuality {resizeQuality ResizeQuality resizeQuality}
-	)
-	out0 = ImageOrientationFromJS(input.Get("imageOrientation"))
-	out.ImageOrientation = out0
-	out1 = PremultiplyAlphaFromJS(input.Get("premultiplyAlpha"))
-	out.PremultiplyAlpha = out1
-	out2 = ColorSpaceConversionFromJS(input.Get("colorSpaceConversion"))
-	out.ColorSpaceConversion = out2
-	out3 = (uint)((input.Get("resizeWidth")).Int())
-	out.ResizeWidth = out3
-	out4 = (uint)((input.Get("resizeHeight")).Int())
-	out.ResizeHeight = out4
-	out5 = ResizeQualityFromJS(input.Get("resizeQuality"))
-	out.ResizeQuality = out5
-	return &out
-}
-
-// dictionary: MessageEventInit
-type MessageEventInit struct {
-	Data        js.Value
-	Origin      string
-	LastEventId string
-	Source      *Union
-	Ports       []*MessagePort
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *MessageEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Data
-	out.Set("data", value0)
-	value1 := _this.Origin
-	out.Set("origin", value1)
-	value2 := _this.LastEventId
-	out.Set("lastEventId", value2)
-	value3 := _this.Source.JSValue()
-	out.Set("source", value3)
-	value4 := js.Global().Get("Array").New(len(_this.Ports))
-	for __idx, __in := range _this.Ports {
-		__out := __in.JSValue()
-		value4.SetIndex(__idx, __out)
-	}
-	out.Set("ports", value4)
-	return out
-}
-
-// MessageEventInitFromJS is allocating a new
-// MessageEventInit object and copy all values from
-// input javascript object
-func MessageEventInitFromJS(input js.Value) *MessageEventInit {
-	var out MessageEventInit
-	var (
-		out0 js.Value       // javascript: any {data Data data}
-		out1 string         // javascript: USVString {origin Origin origin}
-		out2 string         // javascript: DOMString {lastEventId LastEventId lastEventId}
-		out3 *Union         // javascript: Union {source Source source}
-		out4 []*MessagePort // javascript: idl-sequence {ports Ports ports}
-	)
-	out0 = input.Get("data")
-	out.Data = out0
-	out1 = (input.Get("origin")).String()
-	out.Origin = out1
-	out2 = (input.Get("lastEventId")).String()
-	out.LastEventId = out2
-	if input.Get("source").Type() != js.TypeNull {
-		out3 = UnionFromJS(input.Get("source"))
-	}
-	out.Source = out3
-	__length4 := input.Get("ports").Length()
-	__array4 := make([]*MessagePort, __length4, __length4)
-	for __idx := 0; __idx < __length4; __idx++ {
-		var __out *MessagePort
-		__in := input.Get("ports").Index(__idx)
-		__out = MessagePortFromJS(__in)
-		__array4[__idx] = __out
-	}
-	out4 = __array4
-	out.Ports = out4
-	return &out
-}
-
-// dictionary: EventSourceInit
-type EventSourceInit struct {
-	WithCredentials bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *EventSourceInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.WithCredentials
-	out.Set("withCredentials", value0)
-	return out
-}
-
-// EventSourceInitFromJS is allocating a new
-// EventSourceInit object and copy all values from
-// input javascript object
-func EventSourceInitFromJS(input js.Value) *EventSourceInit {
-	var out EventSourceInit
-	var (
-		out0 bool // javascript: boolean {withCredentials WithCredentials withCredentials}
-	)
-	out0 = (input.Get("withCredentials")).Bool()
-	out.WithCredentials = out0
-	return &out
-}
-
-// dictionary: CloseEventInit
-type CloseEventInit struct {
-	WasClean bool
-	Code     int
-	Reason   string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *CloseEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.WasClean
-	out.Set("wasClean", value0)
-	value1 := _this.Code
-	out.Set("code", value1)
-	value2 := _this.Reason
-	out.Set("reason", value2)
-	return out
-}
-
-// CloseEventInitFromJS is allocating a new
-// CloseEventInit object and copy all values from
-// input javascript object
-func CloseEventInitFromJS(input js.Value) *CloseEventInit {
-	var out CloseEventInit
-	var (
-		out0 bool   // javascript: boolean {wasClean WasClean wasClean}
-		out1 int    // javascript: unsigned short {code Code code}
-		out2 string // javascript: USVString {reason Reason reason}
-	)
-	out0 = (input.Get("wasClean")).Bool()
-	out.WasClean = out0
-	out1 = (input.Get("code")).Int()
-	out.Code = out1
-	out2 = (input.Get("reason")).String()
-	out.Reason = out2
-	return &out
-}
-
-// dictionary: PostMessageOptions
-type PostMessageOptions struct {
-	Transfer []*Object
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *PostMessageOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := js.Global().Get("Array").New(len(_this.Transfer))
-	for __idx, __in := range _this.Transfer {
-		__out := __in.JSValue()
-		value0.SetIndex(__idx, __out)
-	}
-	out.Set("transfer", value0)
-	return out
-}
-
-// PostMessageOptionsFromJS is allocating a new
-// PostMessageOptions object and copy all values from
-// input javascript object
-func PostMessageOptionsFromJS(input js.Value) *PostMessageOptions {
-	var out PostMessageOptions
-	var (
-		out0 []*Object // javascript: idl-sequence {transfer Transfer transfer}
-	)
-	__length0 := input.Get("transfer").Length()
-	__array0 := make([]*Object, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *Object
-		__in := input.Get("transfer").Index(__idx)
-		__out = ObjectFromJS(__in)
-		__array0[__idx] = __out
-	}
-	out0 = __array0
-	out.Transfer = out0
-	return &out
-}
-
-// dictionary: WorkerOptions
-type WorkerOptions struct {
-	Type        WorkerType
-	Credentials *RequestCredentials
-	Name        string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *WorkerOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Type.JSValue()
-	out.Set("type", value0)
-	value1 := _this.Credentials.JSValue()
-	out.Set("credentials", value1)
-	value2 := _this.Name
-	out.Set("name", value2)
-	return out
-}
-
-// WorkerOptionsFromJS is allocating a new
-// WorkerOptions object and copy all values from
-// input javascript object
-func WorkerOptionsFromJS(input js.Value) *WorkerOptions {
-	var out WorkerOptions
-	var (
-		out0 WorkerType          // javascript: WorkerType {type Type _type}
-		out1 *RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
-		out2 string              // javascript: DOMString {name Name name}
-	)
-	out0 = WorkerTypeFromJS(input.Get("type"))
-	out.Type = out0
-	out1 = RequestCredentialsFromJS(input.Get("credentials"))
-	out.Credentials = out1
-	out2 = (input.Get("name")).String()
-	out.Name = out2
-	return &out
-}
-
-// dictionary: StorageEventInit
-type StorageEventInit struct {
-	Key         *string
-	OldValue    *string
-	NewValue    *string
-	Url         string
-	StorageArea *Storage
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *StorageEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Key
-	out.Set("key", value0)
-	value1 := _this.OldValue
-	out.Set("oldValue", value1)
-	value2 := _this.NewValue
-	out.Set("newValue", value2)
-	value3 := _this.Url
-	out.Set("url", value3)
-	value4 := _this.StorageArea.JSValue()
-	out.Set("storageArea", value4)
-	return out
-}
-
-// StorageEventInitFromJS is allocating a new
-// StorageEventInit object and copy all values from
-// input javascript object
-func StorageEventInitFromJS(input js.Value) *StorageEventInit {
-	var out StorageEventInit
-	var (
-		out0 *string  // javascript: DOMString {key Key key}
-		out1 *string  // javascript: DOMString {oldValue OldValue oldValue}
-		out2 *string  // javascript: DOMString {newValue NewValue newValue}
-		out3 string   // javascript: USVString {url Url url}
-		out4 *Storage // javascript: Storage {storageArea StorageArea storageArea}
-	)
-	if input.Get("key").Type() != js.TypeNull {
-		__tmp := (input.Get("key")).String()
-		out0 = &__tmp
-	}
-	out.Key = out0
-	if input.Get("oldValue").Type() != js.TypeNull {
-		__tmp := (input.Get("oldValue")).String()
-		out1 = &__tmp
-	}
-	out.OldValue = out1
-	if input.Get("newValue").Type() != js.TypeNull {
-		__tmp := (input.Get("newValue")).String()
-		out2 = &__tmp
-	}
-	out.NewValue = out2
-	out3 = (input.Get("url")).String()
-	out.Url = out3
-	if input.Get("storageArea").Type() != js.TypeNull {
-		out4 = StorageFromJS(input.Get("storageArea"))
-	}
-	out.StorageArea = out4
-	return &out
-}
-
 // GetDocument returning attribute 'document' with
 // type Document (idl: Document).
 func GetDocument() *Document {
@@ -2323,747 +324,6 @@ func GetWindow() *Window {
 	value := _klass.Get("window")
 	ret = WindowFromJS(value)
 	return ret
-}
-
-// interface: Event
-type Event struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Event) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// EventFromJS is casting a js.Value into Event.
-func EventFromJS(input js.Value) *Event {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Event{}
-	ret.Value_JS = input
-	return ret
-}
-
-const NONE_Event int = 0
-const CAPTURINGPHASE_Event int = 1
-const ATTARGET_Event int = 2
-const BUBBLINGPHASE_Event int = 3
-
-func NewEvent(_type string, eventInitDict *EventInit) (_result *Event) {
-	_klass := js.Global().Get("Event")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Event // javascript: Event _what_return_name
-	)
-	_converted = EventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *Event) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Target returning attribute 'target' with
-// type EventTarget (idl: EventTarget).
-func (_this *Event) Target() *EventTarget {
-	var ret *EventTarget
-	value := _this.Value_JS.Get("target")
-	if value.Type() != js.TypeNull {
-		ret = EventTargetFromJS(value)
-	}
-	return ret
-}
-
-// SrcElement returning attribute 'srcElement' with
-// type EventTarget (idl: EventTarget).
-func (_this *Event) SrcElement() *EventTarget {
-	var ret *EventTarget
-	value := _this.Value_JS.Get("srcElement")
-	if value.Type() != js.TypeNull {
-		ret = EventTargetFromJS(value)
-	}
-	return ret
-}
-
-// CurrentTarget returning attribute 'currentTarget' with
-// type EventTarget (idl: EventTarget).
-func (_this *Event) CurrentTarget() *EventTarget {
-	var ret *EventTarget
-	value := _this.Value_JS.Get("currentTarget")
-	if value.Type() != js.TypeNull {
-		ret = EventTargetFromJS(value)
-	}
-	return ret
-}
-
-// EventPhase returning attribute 'eventPhase' with
-// type int (idl: unsigned short).
-func (_this *Event) EventPhase() int {
-	var ret int
-	value := _this.Value_JS.Get("eventPhase")
-	ret = (value).Int()
-	return ret
-}
-
-// CancelBubble returning attribute 'cancelBubble' with
-// type bool (idl: boolean).
-func (_this *Event) CancelBubble() bool {
-	var ret bool
-	value := _this.Value_JS.Get("cancelBubble")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCancelBubble setting attribute 'cancelBubble' with
-// type bool (idl: boolean).
-func (_this *Event) SetCancelBubble(value bool) {
-	input := value
-	_this.Value_JS.Set("cancelBubble", input)
-}
-
-// Bubbles returning attribute 'bubbles' with
-// type bool (idl: boolean).
-func (_this *Event) Bubbles() bool {
-	var ret bool
-	value := _this.Value_JS.Get("bubbles")
-	ret = (value).Bool()
-	return ret
-}
-
-// Cancelable returning attribute 'cancelable' with
-// type bool (idl: boolean).
-func (_this *Event) Cancelable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("cancelable")
-	ret = (value).Bool()
-	return ret
-}
-
-// ReturnValue returning attribute 'returnValue' with
-// type bool (idl: boolean).
-func (_this *Event) ReturnValue() bool {
-	var ret bool
-	value := _this.Value_JS.Get("returnValue")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetReturnValue setting attribute 'returnValue' with
-// type bool (idl: boolean).
-func (_this *Event) SetReturnValue(value bool) {
-	input := value
-	_this.Value_JS.Set("returnValue", input)
-}
-
-// DefaultPrevented returning attribute 'defaultPrevented' with
-// type bool (idl: boolean).
-func (_this *Event) DefaultPrevented() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defaultPrevented")
-	ret = (value).Bool()
-	return ret
-}
-
-// Composed returning attribute 'composed' with
-// type bool (idl: boolean).
-func (_this *Event) Composed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("composed")
-	ret = (value).Bool()
-	return ret
-}
-
-// IsTrusted returning attribute 'isTrusted' with
-// type bool (idl: boolean).
-func (_this *Event) IsTrusted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isTrusted")
-	ret = (value).Bool()
-	return ret
-}
-
-// TimeStamp returning attribute 'timeStamp' with
-// type float64 (idl: double).
-func (_this *Event) TimeStamp() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("timeStamp")
-	ret = (value).Float()
-	return ret
-}
-
-func (_this *Event) ComposedPath() (_result []*EventTarget) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("composedPath", _args[0:_end]...)
-	var (
-		_converted []*EventTarget // javascript: idl-sequence _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*EventTarget, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *EventTarget
-		__in := _returned.Index(__idx)
-		__out = EventTargetFromJS(__in)
-		__array0[__idx] = __out
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-func (_this *Event) StopPropagation() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stopPropagation", _args[0:_end]...)
-	return
-}
-
-func (_this *Event) StopImmediatePropagation() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stopImmediatePropagation", _args[0:_end]...)
-	return
-}
-
-func (_this *Event) PreventDefault() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("preventDefault", _args[0:_end]...)
-	return
-}
-
-func (_this *Event) InitEvent(_type string, bubbles *bool, cancelable *bool) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("initEvent", _args[0:_end]...)
-	return
-}
-
-// interface: CustomEvent
-type CustomEvent struct {
-	Event
-}
-
-// CustomEventFromJS is casting a js.Value into CustomEvent.
-func CustomEventFromJS(input js.Value) *CustomEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CustomEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewCustomEvent(_type string, eventInitDict *CustomEventInit) (_result *CustomEvent) {
-	_klass := js.Global().Get("CustomEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *CustomEvent // javascript: CustomEvent _what_return_name
-	)
-	_converted = CustomEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Detail returning attribute 'detail' with
-// type js.Value (idl: any).
-func (_this *CustomEvent) Detail() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("detail")
-	ret = value
-	return ret
-}
-
-func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail js.Value) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	if detail.Type() != js.TypeUndefined {
-		_p3 := detail
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("initCustomEvent", _args[0:_end]...)
-	return
-}
-
-// interface: EventTarget
-type EventTarget struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *EventTarget) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// EventTargetFromJS is casting a js.Value into EventTarget.
-func EventTargetFromJS(input js.Value) *EventTarget {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &EventTarget{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewEventTarget() (_result *EventTarget) {
-	_klass := js.Global().Get("EventTarget")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *EventTarget // javascript: EventTarget _what_return_name
-	)
-	_converted = EventTargetFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *EventTarget) AddEventListener(_type string, callback *EventListenerValue, options *Union) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := callback.JSValue()
-	_args[1] = _p1
-	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("addEventListener", _args[0:_end]...)
-	return
-}
-
-func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListenerValue, options *Union) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := callback.JSValue()
-	_args[1] = _p1
-	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("removeEventListener", _args[0:_end]...)
-	return
-}
-
-func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := event.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("dispatchEvent", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// EventListener is a callback interface.
-type EventListener interface {
-	HandleEvent(event *Event)
-}
-
-// EventListenerValue is javascript reference value for callback interface EventListener.
-// This is holding the underlaying javascript object.
-type EventListenerValue struct {
-	// Value is the underlying javascript object or function.
-	Value js.Value
-	// Functions is the underlying function objects that is allocated for the interface callback
-	Functions [1]js.Callback
-	// Go interface to invoke
-	impl      EventListener
-	function  func(event *Event)
-	useInvoke bool
-}
-
-// JSValue is returning the javascript object that implements this callback interface
-func (t *EventListenerValue) JSValue() js.Value {
-	return t.Value
-}
-
-// Release is releasing all resources that is allocated.
-func (t *EventListenerValue) Release() {
-	for i := range t.Functions {
-		if t.Functions[i].Type() != js.TypeUndefined {
-			t.Functions[i].Release()
-		}
-	}
-}
-
-// NewEventListener is allocating a new javascript object that
-// implements EventListener.
-func NewEventListener(callback EventListener) *EventListenerValue {
-	ret := &EventListenerValue{impl: callback}
-	ret.Value = js.Global().Get("Object").New()
-	ret.Functions[0] = ret.allocateHandleEvent()
-	ret.Value.Set("handleEvent", ret.Functions[0])
-	return ret
-}
-
-// NewEventListenerFunc is allocating a new javascript
-// function is implements
-// EventListener interface.
-func NewEventListenerFunc(f func(event *Event)) *EventListenerValue {
-	// single function will result in javascript function type, not an object
-	ret := &EventListenerValue{function: f}
-	ret.Functions[0] = ret.allocateHandleEvent()
-	ret.Value = ret.Functions[0].Value
-	return ret
-}
-
-// EventListenerFromJS is taking an javascript object that reference to a
-// callback interface and return a corresponding interface that can be used
-// to invoke on that element.
-func EventListenerFromJS(value js.Value) *EventListenerValue {
-	if value.Type() == js.TypeObject {
-		return &EventListenerValue{Value: value}
-	}
-	if value.Type() == js.TypeFunction {
-		return &EventListenerValue{Value: value, useInvoke: true}
-	}
-	panic("unsupported type")
-}
-
-func (t *EventListenerValue) allocateHandleEvent() js.Callback {
-	return js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Event // javascript: Event event
-		)
-		_p0 = EventFromJS(args[0])
-		if t.function != nil {
-			t.function(_p0)
-		} else {
-			t.impl.HandleEvent(_p0)
-		}
-	})
-}
-
-func (_this *EventListenerValue) HandleEvent(event *Event) {
-	if _this.function != nil {
-		_this.function(event)
-	}
-	if _this.impl != nil {
-		_this.impl.HandleEvent(event)
-	}
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := event.JSValue()
-	_args[0] = _p0
-	_end++
-	if _this.useInvoke {
-		// invoke a javascript function
-		_this.Value.Invoke(_args[0:_end]...)
-	} else {
-		_this.Value.Call("handleEvent", _args[0:_end]...)
-	}
-	return
-}
-
-// interface: AbortController
-type AbortController struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *AbortController) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// AbortControllerFromJS is casting a js.Value into AbortController.
-func AbortControllerFromJS(input js.Value) *AbortController {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AbortController{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewAbortController() (_result *AbortController) {
-	_klass := js.Global().Get("AbortController")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *AbortController // javascript: AbortController _what_return_name
-	)
-	_converted = AbortControllerFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Signal returning attribute 'signal' with
-// type AbortSignal (idl: AbortSignal).
-func (_this *AbortController) Signal() *AbortSignal {
-	var ret *AbortSignal
-	value := _this.Value_JS.Get("signal")
-	ret = AbortSignalFromJS(value)
-	return ret
-}
-
-func (_this *AbortController) Abort() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("abort", _args[0:_end]...)
-	return
-}
-
-// interface: AbortSignal
-type AbortSignal struct {
-	EventTarget
-}
-
-// AbortSignalFromJS is casting a js.Value into AbortSignal.
-func AbortSignalFromJS(input js.Value) *AbortSignal {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AbortSignal{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Aborted returning attribute 'aborted' with
-// type bool (idl: boolean).
-func (_this *AbortSignal) Aborted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("aborted")
-	ret = (value).Bool()
-	return ret
-}
-
-// Onabort returning attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) Onabort() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) SetOnabort(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onabort", input)
-}
-
-// interface: NodeList
-type NodeList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *NodeList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// NodeListFromJS is casting a js.Value into NodeList.
-func NodeListFromJS(input js.Value) *NodeList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &NodeList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *NodeList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *NodeList) Item(index uint) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: HTMLCollection
-type HTMLCollection struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *HTMLCollection) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// HTMLCollectionFromJS is casting a js.Value into HTMLCollection.
-func HTMLCollectionFromJS(input js.Value) *HTMLCollection {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCollection) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *HTMLCollection) Item(index uint) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
 }
 
 // interface: MutationObserver
@@ -3111,7 +371,7 @@ func NewMutationObserver(callback *js.Callback) (_result *MutationObserver) {
 	return
 }
 
-func (_this *MutationObserver) Observe(target *Node, options *MutationObserverInit) {
+func (_this *MutationObserver) Observe(target *dom.Node, options *MutationObserverInit) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3189,50 +449,50 @@ func (_this *MutationRecord) Type() string {
 }
 
 // Target returning attribute 'target' with
-// type Node (idl: Node).
-func (_this *MutationRecord) Target() *Node {
-	var ret *Node
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) Target() *dom.Node {
+	var ret *dom.Node
 	value := _this.Value_JS.Get("target")
-	ret = NodeFromJS(value)
+	ret = dom.NodeFromJS(value)
 	return ret
 }
 
 // AddedNodes returning attribute 'addedNodes' with
-// type NodeList (idl: NodeList).
-func (_this *MutationRecord) AddedNodes() *NodeList {
-	var ret *NodeList
+// type dom.NodeList (idl: NodeList).
+func (_this *MutationRecord) AddedNodes() *dom.NodeList {
+	var ret *dom.NodeList
 	value := _this.Value_JS.Get("addedNodes")
-	ret = NodeListFromJS(value)
+	ret = dom.NodeListFromJS(value)
 	return ret
 }
 
 // RemovedNodes returning attribute 'removedNodes' with
-// type NodeList (idl: NodeList).
-func (_this *MutationRecord) RemovedNodes() *NodeList {
-	var ret *NodeList
+// type dom.NodeList (idl: NodeList).
+func (_this *MutationRecord) RemovedNodes() *dom.NodeList {
+	var ret *dom.NodeList
 	value := _this.Value_JS.Get("removedNodes")
-	ret = NodeListFromJS(value)
+	ret = dom.NodeListFromJS(value)
 	return ret
 }
 
 // PreviousSibling returning attribute 'previousSibling' with
-// type Node (idl: Node).
-func (_this *MutationRecord) PreviousSibling() *Node {
-	var ret *Node
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) PreviousSibling() *dom.Node {
+	var ret *dom.Node
 	value := _this.Value_JS.Get("previousSibling")
 	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
+		ret = dom.NodeFromJS(value)
 	}
 	return ret
 }
 
 // NextSibling returning attribute 'nextSibling' with
-// type Node (idl: Node).
-func (_this *MutationRecord) NextSibling() *Node {
-	var ret *Node
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) NextSibling() *dom.Node {
+	var ret *dom.Node
 	value := _this.Value_JS.Get("nextSibling")
 	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
+		ret = dom.NodeFromJS(value)
 	}
 	return ret
 }
@@ -3273,463 +533,9 @@ func (_this *MutationRecord) OldValue() *string {
 	return ret
 }
 
-// interface: Node
-type Node struct {
-	EventTarget
-}
-
-// NodeFromJS is casting a js.Value into Node.
-func NodeFromJS(input js.Value) *Node {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Node{}
-	ret.Value_JS = input
-	return ret
-}
-
-const ELEMENTNODE_Node int = 1
-const ATTRIBUTENODE_Node int = 2
-const TEXTNODE_Node int = 3
-const CDATASECTIONNODE_Node int = 4
-const ENTITYREFERENCENODE_Node int = 5
-const ENTITYNODE_Node int = 6
-const PROCESSINGINSTRUCTIONNODE_Node int = 7
-const COMMENTNODE_Node int = 8
-const DOCUMENTNODE_Node int = 9
-const DOCUMENTTYPENODE_Node int = 10
-const DOCUMENTFRAGMENTNODE_Node int = 11
-const NOTATIONNODE_Node int = 12
-const DOCUMENTPOSITIONDISCONNECTED_Node int = 0x01
-const DOCUMENTPOSITIONPRECEDING_Node int = 0x02
-const DOCUMENTPOSITIONFOLLOWING_Node int = 0x04
-const DOCUMENTPOSITIONCONTAINS_Node int = 0x08
-const DOCUMENTPOSITIONCONTAINEDBY_Node int = 0x10
-const DOCUMENTPOSITIONIMPLEMENTATIONSPECIFIC_Node int = 0x20
-
-// NodeType returning attribute 'nodeType' with
-// type int (idl: unsigned short).
-func (_this *Node) NodeType() int {
-	var ret int
-	value := _this.Value_JS.Get("nodeType")
-	ret = (value).Int()
-	return ret
-}
-
-// NodeName returning attribute 'nodeName' with
-// type string (idl: DOMString).
-func (_this *Node) NodeName() string {
-	var ret string
-	value := _this.Value_JS.Get("nodeName")
-	ret = (value).String()
-	return ret
-}
-
-// BaseURI returning attribute 'baseURI' with
-// type string (idl: USVString).
-func (_this *Node) BaseURI() string {
-	var ret string
-	value := _this.Value_JS.Get("baseURI")
-	ret = (value).String()
-	return ret
-}
-
-// IsConnected returning attribute 'isConnected' with
-// type bool (idl: boolean).
-func (_this *Node) IsConnected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isConnected")
-	ret = (value).Bool()
-	return ret
-}
-
-// OwnerDocument returning attribute 'ownerDocument' with
-// type Document (idl: Document).
-func (_this *Node) OwnerDocument() *Document {
-	var ret *Document
-	value := _this.Value_JS.Get("ownerDocument")
-	if value.Type() != js.TypeNull {
-		ret = DocumentFromJS(value)
-	}
-	return ret
-}
-
-// ParentNode returning attribute 'parentNode' with
-// type Node (idl: Node).
-func (_this *Node) ParentNode() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("parentNode")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// ParentElement returning attribute 'parentElement' with
-// type Element (idl: Element).
-func (_this *Node) ParentElement() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("parentElement")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// ChildNodes returning attribute 'childNodes' with
-// type NodeList (idl: NodeList).
-func (_this *Node) ChildNodes() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("childNodes")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// FirstChild returning attribute 'firstChild' with
-// type Node (idl: Node).
-func (_this *Node) FirstChild() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("firstChild")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// LastChild returning attribute 'lastChild' with
-// type Node (idl: Node).
-func (_this *Node) LastChild() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("lastChild")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// PreviousSibling returning attribute 'previousSibling' with
-// type Node (idl: Node).
-func (_this *Node) PreviousSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("previousSibling")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// NextSibling returning attribute 'nextSibling' with
-// type Node (idl: Node).
-func (_this *Node) NextSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("nextSibling")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// NodeValue returning attribute 'nodeValue' with
-// type string (idl: DOMString).
-func (_this *Node) NodeValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("nodeValue")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetNodeValue setting attribute 'nodeValue' with
-// type string (idl: DOMString).
-func (_this *Node) SetNodeValue(value *string) {
-	input := value
-	_this.Value_JS.Set("nodeValue", input)
-}
-
-// TextContent returning attribute 'textContent' with
-// type string (idl: DOMString).
-func (_this *Node) TextContent() *string {
-	var ret *string
-	value := _this.Value_JS.Get("textContent")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetTextContent setting attribute 'textContent' with
-// type string (idl: DOMString).
-func (_this *Node) SetTextContent(value *string) {
-	input := value
-	_this.Value_JS.Set("textContent", input)
-}
-
-func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getRootNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) HasChildNodes() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("hasChildNodes", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) Normalize() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("normalize", _args[0:_end]...)
-	return
-}
-
-func (_this *Node) CloneNode(deep *bool) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if deep != nil {
-		_p0 := deep
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("cloneNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := otherNode.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isEqualNode", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := otherNode.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isSameNode", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := other.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("compareDocumentPosition", _args[0:_end]...)
-	var (
-		_converted int // javascript: unsigned short _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *Node) Contains(other *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := other.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("lookupPrefix", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := prefix
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("lookupNamespaceURI", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isDefaultNamespace", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := child.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("insertBefore", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) AppendChild(node *Node) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("appendChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := child.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("replaceChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) RemoveChild(child *Node) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := child.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("removeChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
 // interface: Document
 type Document struct {
-	Node
+	dom.Node
 }
 
 // DocumentFromJS is casting a js.Value into Document.
@@ -3839,34 +645,34 @@ func (_this *Document) ContentType() string {
 }
 
 // Doctype returning attribute 'doctype' with
-// type DocumentType (idl: DocumentType).
-func (_this *Document) Doctype() *DocumentType {
-	var ret *DocumentType
+// type dom.DocumentType (idl: DocumentType).
+func (_this *Document) Doctype() *dom.DocumentType {
+	var ret *dom.DocumentType
 	value := _this.Value_JS.Get("doctype")
 	if value.Type() != js.TypeNull {
-		ret = DocumentTypeFromJS(value)
+		ret = dom.DocumentTypeFromJS(value)
 	}
 	return ret
 }
 
 // DocumentElement returning attribute 'documentElement' with
-// type Element (idl: Element).
-func (_this *Document) DocumentElement() *Element {
-	var ret *Element
+// type dom.Element (idl: Element).
+func (_this *Document) DocumentElement() *dom.Element {
+	var ret *dom.Element
 	value := _this.Value_JS.Get("documentElement")
 	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
+		ret = dom.ElementFromJS(value)
 	}
 	return ret
 }
 
 // Location returning attribute 'location' with
-// type Location (idl: Location).
-func (_this *Document) Location() *Location {
-	var ret *Location
+// type htmlmisc.Location (idl: Location).
+func (_this *Document) Location() *htmlmisc.Location {
+	var ret *htmlmisc.Location
 	value := _this.Value_JS.Get("location")
 	if value.Type() != js.TypeNull {
-		ret = LocationFromJS(value)
+		ret = htmlmisc.LocationFromJS(value)
 	}
 	return ret
 }
@@ -3963,85 +769,85 @@ func (_this *Document) SetDir(value string) {
 }
 
 // Body returning attribute 'body' with
-// type HTMLElement (idl: HTMLElement).
-func (_this *Document) Body() *HTMLElement {
-	var ret *HTMLElement
+// type html.HTMLElement (idl: HTMLElement).
+func (_this *Document) Body() *html.HTMLElement {
+	var ret *html.HTMLElement
 	value := _this.Value_JS.Get("body")
 	if value.Type() != js.TypeNull {
-		ret = HTMLElementFromJS(value)
+		ret = html.HTMLElementFromJS(value)
 	}
 	return ret
 }
 
 // SetBody setting attribute 'body' with
-// type HTMLElement (idl: HTMLElement).
-func (_this *Document) SetBody(value *HTMLElement) {
+// type html.HTMLElement (idl: HTMLElement).
+func (_this *Document) SetBody(value *html.HTMLElement) {
 	input := value.JSValue()
 	_this.Value_JS.Set("body", input)
 }
 
 // Head returning attribute 'head' with
-// type HTMLHeadElement (idl: HTMLHeadElement).
-func (_this *Document) Head() *HTMLHeadElement {
-	var ret *HTMLHeadElement
+// type html.HTMLHeadElement (idl: HTMLHeadElement).
+func (_this *Document) Head() *html.HTMLHeadElement {
+	var ret *html.HTMLHeadElement
 	value := _this.Value_JS.Get("head")
 	if value.Type() != js.TypeNull {
-		ret = HTMLHeadElementFromJS(value)
+		ret = html.HTMLHeadElementFromJS(value)
 	}
 	return ret
 }
 
 // Images returning attribute 'images' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Images() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Images() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("images")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Embeds returning attribute 'embeds' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Embeds() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Embeds() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("embeds")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Plugins returning attribute 'plugins' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Plugins() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Plugins() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("plugins")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Links returning attribute 'links' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Links() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Links() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("links")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Forms returning attribute 'forms' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Forms() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Forms() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("forms")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Scripts returning attribute 'scripts' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Scripts() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Scripts() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("scripts")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
@@ -4068,12 +874,12 @@ func (_this *Document) DefaultView() *Window {
 }
 
 // ActiveElement returning attribute 'activeElement' with
-// type Element (idl: Element).
-func (_this *Document) ActiveElement() *Element {
-	var ret *Element
+// type dom.Element (idl: Element).
+func (_this *Document) ActiveElement() *dom.Element {
+	var ret *dom.Element
 	value := _this.Value_JS.Get("activeElement")
 	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
+		ret = dom.ElementFromJS(value)
 	}
 	return ret
 }
@@ -4095,18 +901,18 @@ func (_this *Document) SetDesignMode(value string) {
 }
 
 // Onreadystatechange returning attribute 'onreadystatechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onreadystatechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onreadystatechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onreadystatechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnreadystatechange setting attribute 'onreadystatechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnreadystatechange(value *js.Callback) {
 	var __callback31 js.Value
 	if value != nil {
@@ -4199,59 +1005,59 @@ func (_this *Document) SetBgColor(value string) {
 }
 
 // Anchors returning attribute 'anchors' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Anchors() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Anchors() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("anchors")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // Applets returning attribute 'applets' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Applets() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Applets() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("applets")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // All returning attribute 'all' with
-// type HTMLAllCollection (idl: HTMLAllCollection).
-func (_this *Document) All() *HTMLAllCollection {
-	var ret *HTMLAllCollection
+// type html.HTMLAllCollection (idl: HTMLAllCollection).
+func (_this *Document) All() *html.HTMLAllCollection {
+	var ret *html.HTMLAllCollection
 	value := _this.Value_JS.Get("all")
-	ret = HTMLAllCollectionFromJS(value)
+	ret = html.HTMLAllCollectionFromJS(value)
 	return ret
 }
 
 // Children returning attribute 'children' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Children() *HTMLCollection {
-	var ret *HTMLCollection
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Children() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
 	value := _this.Value_JS.Get("children")
-	ret = HTMLCollectionFromJS(value)
+	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
 // FirstElementChild returning attribute 'firstElementChild' with
-// type Element (idl: Element).
-func (_this *Document) FirstElementChild() *Element {
-	var ret *Element
+// type dom.Element (idl: Element).
+func (_this *Document) FirstElementChild() *dom.Element {
+	var ret *dom.Element
 	value := _this.Value_JS.Get("firstElementChild")
 	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
+		ret = dom.ElementFromJS(value)
 	}
 	return ret
 }
 
 // LastElementChild returning attribute 'lastElementChild' with
-// type Element (idl: Element).
-func (_this *Document) LastElementChild() *Element {
-	var ret *Element
+// type dom.Element (idl: Element).
+func (_this *Document) LastElementChild() *dom.Element {
+	var ret *dom.Element
 	value := _this.Value_JS.Get("lastElementChild")
 	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
+		ret = dom.ElementFromJS(value)
 	}
 	return ret
 }
@@ -4266,18 +1072,18 @@ func (_this *Document) ChildElementCount() uint {
 }
 
 // Onabort returning attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onabort() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onabort() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnabort(value *js.Callback) {
 	var __callback44 js.Value
 	if value != nil {
@@ -4290,18 +1096,18 @@ func (_this *Document) SetOnabort(value *js.Callback) {
 }
 
 // Onauxclick returning attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onauxclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onauxclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onauxclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnauxclick setting attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnauxclick(value *js.Callback) {
 	var __callback45 js.Value
 	if value != nil {
@@ -4314,18 +1120,18 @@ func (_this *Document) SetOnauxclick(value *js.Callback) {
 }
 
 // Onblur returning attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onblur() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onblur() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onblur")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnblur setting attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnblur(value *js.Callback) {
 	var __callback46 js.Value
 	if value != nil {
@@ -4338,18 +1144,18 @@ func (_this *Document) SetOnblur(value *js.Callback) {
 }
 
 // Oncancel returning attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncancel() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncancel() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncancel")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncancel setting attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncancel(value *js.Callback) {
 	var __callback47 js.Value
 	if value != nil {
@@ -4362,18 +1168,18 @@ func (_this *Document) SetOncancel(value *js.Callback) {
 }
 
 // Oncanplay returning attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncanplay() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncanplay() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncanplay")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncanplay setting attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplay(value *js.Callback) {
 	var __callback48 js.Value
 	if value != nil {
@@ -4386,18 +1192,18 @@ func (_this *Document) SetOncanplay(value *js.Callback) {
 }
 
 // Oncanplaythrough returning attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncanplaythrough() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncanplaythrough() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncanplaythrough")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncanplaythrough setting attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplaythrough(value *js.Callback) {
 	var __callback49 js.Value
 	if value != nil {
@@ -4410,18 +1216,18 @@ func (_this *Document) SetOncanplaythrough(value *js.Callback) {
 }
 
 // Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onchange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onchange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnchange(value *js.Callback) {
 	var __callback50 js.Value
 	if value != nil {
@@ -4434,18 +1240,18 @@ func (_this *Document) SetOnchange(value *js.Callback) {
 }
 
 // Onclick returning attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnclick setting attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclick(value *js.Callback) {
 	var __callback51 js.Value
 	if value != nil {
@@ -4458,18 +1264,18 @@ func (_this *Document) SetOnclick(value *js.Callback) {
 }
 
 // Onclose returning attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onclose() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onclose() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnclose setting attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclose(value *js.Callback) {
 	var __callback52 js.Value
 	if value != nil {
@@ -4482,18 +1288,18 @@ func (_this *Document) SetOnclose(value *js.Callback) {
 }
 
 // Oncontextmenu returning attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncontextmenu() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncontextmenu() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncontextmenu")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncontextmenu setting attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncontextmenu(value *js.Callback) {
 	var __callback53 js.Value
 	if value != nil {
@@ -4506,18 +1312,18 @@ func (_this *Document) SetOncontextmenu(value *js.Callback) {
 }
 
 // Oncuechange returning attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncuechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncuechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncuechange setting attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncuechange(value *js.Callback) {
 	var __callback54 js.Value
 	if value != nil {
@@ -4530,18 +1336,18 @@ func (_this *Document) SetOncuechange(value *js.Callback) {
 }
 
 // Ondblclick returning attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondblclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondblclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondblclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndblclick setting attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndblclick(value *js.Callback) {
 	var __callback55 js.Value
 	if value != nil {
@@ -4554,18 +1360,18 @@ func (_this *Document) SetOndblclick(value *js.Callback) {
 }
 
 // Ondrag returning attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondrag() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondrag() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondrag")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndrag setting attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrag(value *js.Callback) {
 	var __callback56 js.Value
 	if value != nil {
@@ -4578,18 +1384,18 @@ func (_this *Document) SetOndrag(value *js.Callback) {
 }
 
 // Ondragend returning attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragend setting attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragend(value *js.Callback) {
 	var __callback57 js.Value
 	if value != nil {
@@ -4602,18 +1408,18 @@ func (_this *Document) SetOndragend(value *js.Callback) {
 }
 
 // Ondragenter returning attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragenter() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragenter() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragenter")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragenter setting attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragenter(value *js.Callback) {
 	var __callback58 js.Value
 	if value != nil {
@@ -4626,18 +1432,18 @@ func (_this *Document) SetOndragenter(value *js.Callback) {
 }
 
 // Ondragexit returning attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragexit() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragexit() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragexit")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragexit setting attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragexit(value *js.Callback) {
 	var __callback59 js.Value
 	if value != nil {
@@ -4650,18 +1456,18 @@ func (_this *Document) SetOndragexit(value *js.Callback) {
 }
 
 // Ondragleave returning attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragleave() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragleave() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragleave")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragleave setting attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragleave(value *js.Callback) {
 	var __callback60 js.Value
 	if value != nil {
@@ -4674,18 +1480,18 @@ func (_this *Document) SetOndragleave(value *js.Callback) {
 }
 
 // Ondragover returning attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragover() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragover() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragover")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragover setting attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragover(value *js.Callback) {
 	var __callback61 js.Value
 	if value != nil {
@@ -4698,18 +1504,18 @@ func (_this *Document) SetOndragover(value *js.Callback) {
 }
 
 // Ondragstart returning attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondragstart() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondragstart() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragstart")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragstart setting attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragstart(value *js.Callback) {
 	var __callback62 js.Value
 	if value != nil {
@@ -4722,18 +1528,18 @@ func (_this *Document) SetOndragstart(value *js.Callback) {
 }
 
 // Ondrop returning attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondrop() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondrop() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondrop")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndrop setting attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrop(value *js.Callback) {
 	var __callback63 js.Value
 	if value != nil {
@@ -4746,18 +1552,18 @@ func (_this *Document) SetOndrop(value *js.Callback) {
 }
 
 // Ondurationchange returning attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ondurationchange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ondurationchange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondurationchange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndurationchange setting attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndurationchange(value *js.Callback) {
 	var __callback64 js.Value
 	if value != nil {
@@ -4770,18 +1576,18 @@ func (_this *Document) SetOndurationchange(value *js.Callback) {
 }
 
 // Onemptied returning attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onemptied() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onemptied() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onemptied")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnemptied setting attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnemptied(value *js.Callback) {
 	var __callback65 js.Value
 	if value != nil {
@@ -4794,18 +1600,18 @@ func (_this *Document) SetOnemptied(value *js.Callback) {
 }
 
 // Onended returning attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onended() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onended() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnended setting attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnended(value *js.Callback) {
 	var __callback66 js.Value
 	if value != nil {
@@ -4818,18 +1624,18 @@ func (_this *Document) SetOnended(value *js.Callback) {
 }
 
 // Onerror returning attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *Document) Onerror() OnErrorEventHandlerNonNull {
-	var ret OnErrorEventHandlerNonNull
+// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *Document) Onerror() html.OnErrorEventHandler {
+	var ret html.OnErrorEventHandler
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = OnErrorEventHandlerNonNullFromJS(value)
+		ret = html.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnerror setting attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
+// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
 func (_this *Document) SetOnerror(value *js.Callback) {
 	var __callback67 js.Value
 	if value != nil {
@@ -4842,18 +1648,18 @@ func (_this *Document) SetOnerror(value *js.Callback) {
 }
 
 // Onfocus returning attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onfocus() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onfocus() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onfocus")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnfocus setting attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnfocus(value *js.Callback) {
 	var __callback68 js.Value
 	if value != nil {
@@ -4866,18 +1672,18 @@ func (_this *Document) SetOnfocus(value *js.Callback) {
 }
 
 // Onformdata returning attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onformdata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onformdata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onformdata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnformdata setting attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnformdata(value *js.Callback) {
 	var __callback69 js.Value
 	if value != nil {
@@ -4890,18 +1696,18 @@ func (_this *Document) SetOnformdata(value *js.Callback) {
 }
 
 // Oninput returning attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oninput() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oninput() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oninput")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOninput setting attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninput(value *js.Callback) {
 	var __callback70 js.Value
 	if value != nil {
@@ -4914,18 +1720,18 @@ func (_this *Document) SetOninput(value *js.Callback) {
 }
 
 // Oninvalid returning attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oninvalid() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oninvalid() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oninvalid")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOninvalid setting attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninvalid(value *js.Callback) {
 	var __callback71 js.Value
 	if value != nil {
@@ -4938,18 +1744,18 @@ func (_this *Document) SetOninvalid(value *js.Callback) {
 }
 
 // Onkeydown returning attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onkeydown() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onkeydown() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeydown")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeydown setting attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeydown(value *js.Callback) {
 	var __callback72 js.Value
 	if value != nil {
@@ -4962,18 +1768,18 @@ func (_this *Document) SetOnkeydown(value *js.Callback) {
 }
 
 // Onkeypress returning attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onkeypress() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onkeypress() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeypress")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeypress setting attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeypress(value *js.Callback) {
 	var __callback73 js.Value
 	if value != nil {
@@ -4986,18 +1792,18 @@ func (_this *Document) SetOnkeypress(value *js.Callback) {
 }
 
 // Onkeyup returning attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onkeyup() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onkeyup() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeyup")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeyup setting attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeyup(value *js.Callback) {
 	var __callback74 js.Value
 	if value != nil {
@@ -5010,18 +1816,18 @@ func (_this *Document) SetOnkeyup(value *js.Callback) {
 }
 
 // Onload returning attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onload() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onload() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnload setting attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnload(value *js.Callback) {
 	var __callback75 js.Value
 	if value != nil {
@@ -5034,18 +1840,18 @@ func (_this *Document) SetOnload(value *js.Callback) {
 }
 
 // Onloadeddata returning attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onloadeddata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onloadeddata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadeddata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadeddata setting attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadeddata(value *js.Callback) {
 	var __callback76 js.Value
 	if value != nil {
@@ -5058,18 +1864,18 @@ func (_this *Document) SetOnloadeddata(value *js.Callback) {
 }
 
 // Onloadedmetadata returning attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onloadedmetadata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onloadedmetadata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadedmetadata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadedmetadata setting attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadedmetadata(value *js.Callback) {
 	var __callback77 js.Value
 	if value != nil {
@@ -5082,18 +1888,18 @@ func (_this *Document) SetOnloadedmetadata(value *js.Callback) {
 }
 
 // Onloadend returning attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onloadend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onloadend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadend setting attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadend(value *js.Callback) {
 	var __callback78 js.Value
 	if value != nil {
@@ -5106,18 +1912,18 @@ func (_this *Document) SetOnloadend(value *js.Callback) {
 }
 
 // Onloadstart returning attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onloadstart() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onloadstart() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadstart setting attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadstart(value *js.Callback) {
 	var __callback79 js.Value
 	if value != nil {
@@ -5130,18 +1936,18 @@ func (_this *Document) SetOnloadstart(value *js.Callback) {
 }
 
 // Onmousedown returning attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmousedown() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmousedown() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmousedown")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmousedown setting attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousedown(value *js.Callback) {
 	var __callback80 js.Value
 	if value != nil {
@@ -5154,18 +1960,18 @@ func (_this *Document) SetOnmousedown(value *js.Callback) {
 }
 
 // Onmouseenter returning attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmouseenter() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmouseenter() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseenter")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseenter setting attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseenter(value *js.Callback) {
 	var __callback81 js.Value
 	if value != nil {
@@ -5178,18 +1984,18 @@ func (_this *Document) SetOnmouseenter(value *js.Callback) {
 }
 
 // Onmouseleave returning attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmouseleave() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmouseleave() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseleave")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseleave setting attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseleave(value *js.Callback) {
 	var __callback82 js.Value
 	if value != nil {
@@ -5202,18 +2008,18 @@ func (_this *Document) SetOnmouseleave(value *js.Callback) {
 }
 
 // Onmousemove returning attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmousemove() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmousemove() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmousemove")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmousemove setting attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousemove(value *js.Callback) {
 	var __callback83 js.Value
 	if value != nil {
@@ -5226,18 +2032,18 @@ func (_this *Document) SetOnmousemove(value *js.Callback) {
 }
 
 // Onmouseout returning attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmouseout() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmouseout() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseout")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseout setting attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseout(value *js.Callback) {
 	var __callback84 js.Value
 	if value != nil {
@@ -5250,18 +2056,18 @@ func (_this *Document) SetOnmouseout(value *js.Callback) {
 }
 
 // Onmouseover returning attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmouseover() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmouseover() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseover")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseover setting attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseover(value *js.Callback) {
 	var __callback85 js.Value
 	if value != nil {
@@ -5274,18 +2080,18 @@ func (_this *Document) SetOnmouseover(value *js.Callback) {
 }
 
 // Onmouseup returning attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onmouseup() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onmouseup() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseup")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseup setting attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseup(value *js.Callback) {
 	var __callback86 js.Value
 	if value != nil {
@@ -5298,18 +2104,18 @@ func (_this *Document) SetOnmouseup(value *js.Callback) {
 }
 
 // Onwheel returning attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onwheel() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onwheel() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onwheel")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnwheel setting attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwheel(value *js.Callback) {
 	var __callback87 js.Value
 	if value != nil {
@@ -5322,18 +2128,18 @@ func (_this *Document) SetOnwheel(value *js.Callback) {
 }
 
 // Onpause returning attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onpause() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpause() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpause setting attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpause(value *js.Callback) {
 	var __callback88 js.Value
 	if value != nil {
@@ -5346,18 +2152,18 @@ func (_this *Document) SetOnpause(value *js.Callback) {
 }
 
 // Onplay returning attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onplay() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onplay() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onplay")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnplay setting attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplay(value *js.Callback) {
 	var __callback89 js.Value
 	if value != nil {
@@ -5370,18 +2176,18 @@ func (_this *Document) SetOnplay(value *js.Callback) {
 }
 
 // Onplaying returning attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onplaying() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onplaying() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onplaying")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnplaying setting attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplaying(value *js.Callback) {
 	var __callback90 js.Value
 	if value != nil {
@@ -5394,18 +2200,18 @@ func (_this *Document) SetOnplaying(value *js.Callback) {
 }
 
 // Onprogress returning attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onprogress() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onprogress() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnprogress setting attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnprogress(value *js.Callback) {
 	var __callback91 js.Value
 	if value != nil {
@@ -5418,18 +2224,18 @@ func (_this *Document) SetOnprogress(value *js.Callback) {
 }
 
 // Onratechange returning attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onratechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onratechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onratechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnratechange setting attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnratechange(value *js.Callback) {
 	var __callback92 js.Value
 	if value != nil {
@@ -5442,18 +2248,18 @@ func (_this *Document) SetOnratechange(value *js.Callback) {
 }
 
 // Onreset returning attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onreset() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onreset() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onreset")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnreset setting attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnreset(value *js.Callback) {
 	var __callback93 js.Value
 	if value != nil {
@@ -5466,18 +2272,18 @@ func (_this *Document) SetOnreset(value *js.Callback) {
 }
 
 // Onresize returning attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onresize() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onresize() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onresize")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnresize setting attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnresize(value *js.Callback) {
 	var __callback94 js.Value
 	if value != nil {
@@ -5490,18 +2296,18 @@ func (_this *Document) SetOnresize(value *js.Callback) {
 }
 
 // Onscroll returning attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onscroll() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onscroll() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onscroll")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnscroll setting attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnscroll(value *js.Callback) {
 	var __callback95 js.Value
 	if value != nil {
@@ -5514,18 +2320,18 @@ func (_this *Document) SetOnscroll(value *js.Callback) {
 }
 
 // Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onsecuritypolicyviolation() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onsecuritypolicyviolation() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsecuritypolicyviolation(value *js.Callback) {
 	var __callback96 js.Value
 	if value != nil {
@@ -5538,18 +2344,18 @@ func (_this *Document) SetOnsecuritypolicyviolation(value *js.Callback) {
 }
 
 // Onseeked returning attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onseeked() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onseeked() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onseeked")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnseeked setting attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeked(value *js.Callback) {
 	var __callback97 js.Value
 	if value != nil {
@@ -5562,18 +2368,18 @@ func (_this *Document) SetOnseeked(value *js.Callback) {
 }
 
 // Onseeking returning attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onseeking() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onseeking() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onseeking")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnseeking setting attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeking(value *js.Callback) {
 	var __callback98 js.Value
 	if value != nil {
@@ -5586,18 +2392,18 @@ func (_this *Document) SetOnseeking(value *js.Callback) {
 }
 
 // Onselect returning attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onselect() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onselect() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onselect")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnselect setting attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnselect(value *js.Callback) {
 	var __callback99 js.Value
 	if value != nil {
@@ -5610,18 +2416,18 @@ func (_this *Document) SetOnselect(value *js.Callback) {
 }
 
 // Onstalled returning attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onstalled() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onstalled() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onstalled")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnstalled setting attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnstalled(value *js.Callback) {
 	var __callback100 js.Value
 	if value != nil {
@@ -5634,18 +2440,18 @@ func (_this *Document) SetOnstalled(value *js.Callback) {
 }
 
 // Onsubmit returning attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onsubmit() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onsubmit() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsubmit")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsubmit setting attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsubmit(value *js.Callback) {
 	var __callback101 js.Value
 	if value != nil {
@@ -5658,18 +2464,18 @@ func (_this *Document) SetOnsubmit(value *js.Callback) {
 }
 
 // Onsuspend returning attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onsuspend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onsuspend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsuspend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsuspend setting attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsuspend(value *js.Callback) {
 	var __callback102 js.Value
 	if value != nil {
@@ -5682,18 +2488,18 @@ func (_this *Document) SetOnsuspend(value *js.Callback) {
 }
 
 // Ontimeupdate returning attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ontimeupdate() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontimeupdate() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ontimeupdate")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOntimeupdate setting attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntimeupdate(value *js.Callback) {
 	var __callback103 js.Value
 	if value != nil {
@@ -5706,18 +2512,18 @@ func (_this *Document) SetOntimeupdate(value *js.Callback) {
 }
 
 // Ontoggle returning attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Ontoggle() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontoggle() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ontoggle")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOntoggle setting attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntoggle(value *js.Callback) {
 	var __callback104 js.Value
 	if value != nil {
@@ -5730,18 +2536,18 @@ func (_this *Document) SetOntoggle(value *js.Callback) {
 }
 
 // Onvolumechange returning attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onvolumechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onvolumechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onvolumechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnvolumechange setting attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnvolumechange(value *js.Callback) {
 	var __callback105 js.Value
 	if value != nil {
@@ -5754,18 +2560,18 @@ func (_this *Document) SetOnvolumechange(value *js.Callback) {
 }
 
 // Onwaiting returning attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onwaiting() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onwaiting() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onwaiting")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnwaiting setting attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwaiting(value *js.Callback) {
 	var __callback106 js.Value
 	if value != nil {
@@ -5778,18 +2584,18 @@ func (_this *Document) SetOnwaiting(value *js.Callback) {
 }
 
 // Oncopy returning attribute 'oncopy' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncopy() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncopy() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncopy")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncopy setting attribute 'oncopy' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncopy(value *js.Callback) {
 	var __callback107 js.Value
 	if value != nil {
@@ -5802,18 +2608,18 @@ func (_this *Document) SetOncopy(value *js.Callback) {
 }
 
 // Oncut returning attribute 'oncut' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Oncut() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Oncut() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncut")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncut setting attribute 'oncut' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncut(value *js.Callback) {
 	var __callback108 js.Value
 	if value != nil {
@@ -5826,18 +2632,18 @@ func (_this *Document) SetOncut(value *js.Callback) {
 }
 
 // Onpaste returning attribute 'onpaste' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Document) Onpaste() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpaste() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpaste")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpaste setting attribute 'onpaste' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpaste(value *js.Callback) {
 	var __callback109 js.Value
 	if value != nil {
@@ -5849,7 +2655,7 @@ func (_this *Document) SetOnpaste(value *js.Callback) {
 	_this.Value_JS.Set("onpaste", input)
 }
 
-func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTMLCollection) {
+func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *dom.HTMLCollection) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5859,14 +2665,14 @@ func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *HTML
 	_end++
 	_returned := _this.Value_JS.Call("getElementsByTagName", _args[0:_end]...)
 	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
+		_converted *dom.HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
-	_converted = HTMLCollectionFromJS(_returned)
+	_converted = dom.HTMLCollectionFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) GetElementsByTagNameNS(namespace *string, localName string) (_result *HTMLCollection) {
+func (_this *Document) GetElementsByTagNameNS(namespace *string, localName string) (_result *dom.HTMLCollection) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5879,14 +2685,14 @@ func (_this *Document) GetElementsByTagNameNS(namespace *string, localName strin
 	_end++
 	_returned := _this.Value_JS.Call("getElementsByTagNameNS", _args[0:_end]...)
 	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
+		_converted *dom.HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
-	_converted = HTMLCollectionFromJS(_returned)
+	_converted = dom.HTMLCollectionFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) GetElementsByClassName(classNames string) (_result *HTMLCollection) {
+func (_this *Document) GetElementsByClassName(classNames string) (_result *dom.HTMLCollection) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5896,14 +2702,14 @@ func (_this *Document) GetElementsByClassName(classNames string) (_result *HTMLC
 	_end++
 	_returned := _this.Value_JS.Call("getElementsByClassName", _args[0:_end]...)
 	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
+		_converted *dom.HTMLCollection // javascript: HTMLCollection _what_return_name
 	)
-	_converted = HTMLCollectionFromJS(_returned)
+	_converted = dom.HTMLCollectionFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateElement(localName string, options *Union) (_result *Element) {
+func (_this *Document) CreateElement(localName string, options *Union) (_result *dom.Element) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -5918,14 +2724,14 @@ func (_this *Document) CreateElement(localName string, options *Union) (_result 
 	}
 	_returned := _this.Value_JS.Call("createElement", _args[0:_end]...)
 	var (
-		_converted *Element // javascript: Element _what_return_name
+		_converted *dom.Element // javascript: Element _what_return_name
 	)
-	_converted = ElementFromJS(_returned)
+	_converted = dom.ElementFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, options *Union) (_result *Element) {
+func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, options *Union) (_result *dom.Element) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -5943,28 +2749,28 @@ func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, 
 	}
 	_returned := _this.Value_JS.Call("createElementNS", _args[0:_end]...)
 	var (
-		_converted *Element // javascript: Element _what_return_name
+		_converted *dom.Element // javascript: Element _what_return_name
 	)
-	_converted = ElementFromJS(_returned)
+	_converted = dom.ElementFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateDocumentFragment() (_result *DocumentFragment) {
+func (_this *Document) CreateDocumentFragment() (_result *dom.DocumentFragment) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createDocumentFragment", _args[0:_end]...)
 	var (
-		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
+		_converted *dom.DocumentFragment // javascript: DocumentFragment _what_return_name
 	)
-	_converted = DocumentFragmentFromJS(_returned)
+	_converted = dom.DocumentFragmentFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateTextNode(data string) (_result *Text) {
+func (_this *Document) CreateTextNode(data string) (_result *dom.Text) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5974,14 +2780,14 @@ func (_this *Document) CreateTextNode(data string) (_result *Text) {
 	_end++
 	_returned := _this.Value_JS.Call("createTextNode", _args[0:_end]...)
 	var (
-		_converted *Text // javascript: Text _what_return_name
+		_converted *dom.Text // javascript: Text _what_return_name
 	)
-	_converted = TextFromJS(_returned)
+	_converted = dom.TextFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateCDATASection(data string) (_result *CDATASection) {
+func (_this *Document) CreateCDATASection(data string) (_result *dom.CDATASection) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -5991,14 +2797,14 @@ func (_this *Document) CreateCDATASection(data string) (_result *CDATASection) {
 	_end++
 	_returned := _this.Value_JS.Call("createCDATASection", _args[0:_end]...)
 	var (
-		_converted *CDATASection // javascript: CDATASection _what_return_name
+		_converted *dom.CDATASection // javascript: CDATASection _what_return_name
 	)
-	_converted = CDATASectionFromJS(_returned)
+	_converted = dom.CDATASectionFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateComment(data string) (_result *Comment) {
+func (_this *Document) CreateComment(data string) (_result *dom.Comment) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6008,14 +2814,14 @@ func (_this *Document) CreateComment(data string) (_result *Comment) {
 	_end++
 	_returned := _this.Value_JS.Call("createComment", _args[0:_end]...)
 	var (
-		_converted *Comment // javascript: Comment _what_return_name
+		_converted *dom.Comment // javascript: Comment _what_return_name
 	)
-	_converted = CommentFromJS(_returned)
+	_converted = dom.CommentFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateProcessingInstruction(target string, data string) (_result *ProcessingInstruction) {
+func (_this *Document) CreateProcessingInstruction(target string, data string) (_result *dom.ProcessingInstruction) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6028,14 +2834,14 @@ func (_this *Document) CreateProcessingInstruction(target string, data string) (
 	_end++
 	_returned := _this.Value_JS.Call("createProcessingInstruction", _args[0:_end]...)
 	var (
-		_converted *ProcessingInstruction // javascript: ProcessingInstruction _what_return_name
+		_converted *dom.ProcessingInstruction // javascript: ProcessingInstruction _what_return_name
 	)
-	_converted = ProcessingInstructionFromJS(_returned)
+	_converted = dom.ProcessingInstructionFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) ImportNode(node *Node, deep *bool) (_result *Node) {
+func (_this *Document) ImportNode(node *dom.Node, deep *bool) (_result *dom.Node) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6050,14 +2856,14 @@ func (_this *Document) ImportNode(node *Node, deep *bool) (_result *Node) {
 	}
 	_returned := _this.Value_JS.Call("importNode", _args[0:_end]...)
 	var (
-		_converted *Node // javascript: Node _what_return_name
+		_converted *dom.Node // javascript: Node _what_return_name
 	)
-	_converted = NodeFromJS(_returned)
+	_converted = dom.NodeFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) AdoptNode(node *Node) (_result *Node) {
+func (_this *Document) AdoptNode(node *dom.Node) (_result *dom.Node) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6067,14 +2873,14 @@ func (_this *Document) AdoptNode(node *Node) (_result *Node) {
 	_end++
 	_returned := _this.Value_JS.Call("adoptNode", _args[0:_end]...)
 	var (
-		_converted *Node // javascript: Node _what_return_name
+		_converted *dom.Node // javascript: Node _what_return_name
 	)
-	_converted = NodeFromJS(_returned)
+	_converted = dom.NodeFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateAttribute(localName string) (_result *Attr) {
+func (_this *Document) CreateAttribute(localName string) (_result *dom.Attr) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6084,14 +2890,14 @@ func (_this *Document) CreateAttribute(localName string) (_result *Attr) {
 	_end++
 	_returned := _this.Value_JS.Call("createAttribute", _args[0:_end]...)
 	var (
-		_converted *Attr // javascript: Attr _what_return_name
+		_converted *dom.Attr // javascript: Attr _what_return_name
 	)
-	_converted = AttrFromJS(_returned)
+	_converted = dom.AttrFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string) (_result *Attr) {
+func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string) (_result *dom.Attr) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6104,14 +2910,14 @@ func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string
 	_end++
 	_returned := _this.Value_JS.Call("createAttributeNS", _args[0:_end]...)
 	var (
-		_converted *Attr // javascript: Attr _what_return_name
+		_converted *dom.Attr // javascript: Attr _what_return_name
 	)
-	_converted = AttrFromJS(_returned)
+	_converted = dom.AttrFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateEvent(_interface string) (_result *Event) {
+func (_this *Document) CreateEvent(_interface string) (_result *domcore.Event) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6121,28 +2927,28 @@ func (_this *Document) CreateEvent(_interface string) (_result *Event) {
 	_end++
 	_returned := _this.Value_JS.Call("createEvent", _args[0:_end]...)
 	var (
-		_converted *Event // javascript: Event _what_return_name
+		_converted *domcore.Event // javascript: Event _what_return_name
 	)
-	_converted = EventFromJS(_returned)
+	_converted = domcore.EventFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateRange() (_result *Range) {
+func (_this *Document) CreateRange() (_result *dom.Range) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createRange", _args[0:_end]...)
 	var (
-		_converted *Range // javascript: Range _what_return_name
+		_converted *dom.Range // javascript: Range _what_return_name
 	)
-	_converted = RangeFromJS(_returned)
+	_converted = dom.RangeFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *NodeFilterValue) (_result *NodeIterator) {
+func (_this *Document) CreateNodeIterator(root *dom.Node, whatToShow *uint, filter *dom.NodeFilterValue) (_result *dom.NodeIterator) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6162,14 +2968,14 @@ func (_this *Document) CreateNodeIterator(root *Node, whatToShow *uint, filter *
 	}
 	_returned := _this.Value_JS.Call("createNodeIterator", _args[0:_end]...)
 	var (
-		_converted *NodeIterator // javascript: NodeIterator _what_return_name
+		_converted *dom.NodeIterator // javascript: NodeIterator _what_return_name
 	)
-	_converted = NodeIteratorFromJS(_returned)
+	_converted = dom.NodeIteratorFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *NodeFilterValue) (_result *TreeWalker) {
+func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter *dom.NodeFilterValue) (_result *dom.TreeWalker) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6189,14 +2995,14 @@ func (_this *Document) CreateTreeWalker(root *Node, whatToShow *uint, filter *No
 	}
 	_returned := _this.Value_JS.Call("createTreeWalker", _args[0:_end]...)
 	var (
-		_converted *TreeWalker // javascript: TreeWalker _what_return_name
+		_converted *dom.TreeWalker // javascript: TreeWalker _what_return_name
 	)
-	_converted = TreeWalkerFromJS(_returned)
+	_converted = dom.TreeWalkerFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Document) GetElementsByName(elementName string) (_result *NodeList) {
+func (_this *Document) GetElementsByName(elementName string) (_result *dom.NodeList) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6206,9 +3012,9 @@ func (_this *Document) GetElementsByName(elementName string) (_result *NodeList)
 	_end++
 	_returned := _this.Value_JS.Call("getElementsByName", _args[0:_end]...)
 	var (
-		_converted *NodeList // javascript: NodeList _what_return_name
+		_converted *dom.NodeList // javascript: NodeList _what_return_name
 	)
-	_converted = NodeListFromJS(_returned)
+	_converted = dom.NodeListFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -6452,7 +3258,7 @@ func (_this *Document) ReleaseEvents() {
 	return
 }
 
-func (_this *Document) GetElementById(elementId string) (_result *Element) {
+func (_this *Document) GetElementById(elementId string) (_result *dom.Element) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6462,10 +3268,10 @@ func (_this *Document) GetElementById(elementId string) (_result *Element) {
 	_end++
 	_returned := _this.Value_JS.Call("getElementById", _args[0:_end]...)
 	var (
-		_converted *Element // javascript: Element _what_return_name
+		_converted *dom.Element // javascript: Element _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
+		_converted = dom.ElementFromJS(_returned)
 	}
 	_result = _converted
 	return
@@ -6499,7 +3305,7 @@ func (_this *Document) Append(nodes ...*Union) {
 	return
 }
 
-func (_this *Document) QuerySelector(selectors string) (_result *Element) {
+func (_this *Document) QuerySelector(selectors string) (_result *dom.Element) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6509,16 +3315,16 @@ func (_this *Document) QuerySelector(selectors string) (_result *Element) {
 	_end++
 	_returned := _this.Value_JS.Call("querySelector", _args[0:_end]...)
 	var (
-		_converted *Element // javascript: Element _what_return_name
+		_converted *dom.Element // javascript: Element _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
+		_converted = dom.ElementFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *Document) QuerySelectorAll(selectors string) (_result *NodeList) {
+func (_this *Document) QuerySelectorAll(selectors string) (_result *dom.NodeList) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -6528,9 +3334,9 @@ func (_this *Document) QuerySelectorAll(selectors string) (_result *NodeList) {
 	_end++
 	_returned := _this.Value_JS.Call("querySelectorAll", _args[0:_end]...)
 	var (
-		_converted *NodeList // javascript: NodeList _what_return_name
+		_converted *dom.NodeList // javascript: NodeList _what_return_name
 	)
-	_converted = NodeListFromJS(_returned)
+	_converted = dom.NodeListFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -6570,7 +3376,7 @@ func DOMImplementationFromJS(input js.Value) *DOMImplementation {
 	return ret
 }
 
-func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicId string, systemId string) (_result *DocumentType) {
+func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicId string, systemId string) (_result *dom.DocumentType) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6586,14 +3392,14 @@ func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicI
 	_end++
 	_returned := _this.Value_JS.Call("createDocumentType", _args[0:_end]...)
 	var (
-		_converted *DocumentType // javascript: DocumentType _what_return_name
+		_converted *dom.DocumentType // javascript: DocumentType _what_return_name
 	)
-	_converted = DocumentTypeFromJS(_returned)
+	_converted = dom.DocumentTypeFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName string, doctype *DocumentType) (_result *XMLDocument) {
+func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName string, doctype *dom.DocumentType) (_result *XMLDocument) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6651,7335 +3457,9 @@ func (_this *DOMImplementation) HasFeature() (_result bool) {
 	return
 }
 
-// interface: DocumentType
-type DocumentType struct {
-	Node
-}
-
-// DocumentTypeFromJS is casting a js.Value into DocumentType.
-func DocumentTypeFromJS(input js.Value) *DocumentType {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DocumentType{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *DocumentType) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// PublicId returning attribute 'publicId' with
-// type string (idl: DOMString).
-func (_this *DocumentType) PublicId() string {
-	var ret string
-	value := _this.Value_JS.Get("publicId")
-	ret = (value).String()
-	return ret
-}
-
-// SystemId returning attribute 'systemId' with
-// type string (idl: DOMString).
-func (_this *DocumentType) SystemId() string {
-	var ret string
-	value := _this.Value_JS.Get("systemId")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *DocumentType) Before(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("before", _args[0:_end]...)
-	return
-}
-
-func (_this *DocumentType) After(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("after", _args[0:_end]...)
-	return
-}
-
-func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
-	return
-}
-
-func (_this *DocumentType) Remove() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: DocumentFragment
-type DocumentFragment struct {
-	Node
-}
-
-// DocumentFragmentFromJS is casting a js.Value into DocumentFragment.
-func DocumentFragmentFromJS(input js.Value) *DocumentFragment {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DocumentFragment{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewDocumentFragment() (_result *DocumentFragment) {
-	_klass := js.Global().Get("DocumentFragment")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
-	)
-	_converted = DocumentFragmentFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Children returning attribute 'children' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *DocumentFragment) Children() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("children")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// FirstElementChild returning attribute 'firstElementChild' with
-// type Element (idl: Element).
-func (_this *DocumentFragment) FirstElementChild() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("firstElementChild")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// LastElementChild returning attribute 'lastElementChild' with
-// type Element (idl: Element).
-func (_this *DocumentFragment) LastElementChild() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("lastElementChild")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// ChildElementCount returning attribute 'childElementCount' with
-// type uint (idl: unsigned long).
-func (_this *DocumentFragment) ChildElementCount() uint {
-	var ret uint
-	value := _this.Value_JS.Get("childElementCount")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *DocumentFragment) GetElementById(elementId string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := elementId
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getElementById", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DocumentFragment) Prepend(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("prepend", _args[0:_end]...)
-	return
-}
-
-func (_this *DocumentFragment) Append(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("append", _args[0:_end]...)
-	return
-}
-
-func (_this *DocumentFragment) QuerySelector(selectors string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("querySelector", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DocumentFragment) QuerySelectorAll(selectors string) (_result *NodeList) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("querySelectorAll", _args[0:_end]...)
-	var (
-		_converted *NodeList // javascript: NodeList _what_return_name
-	)
-	_converted = NodeListFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: ShadowRoot
-type ShadowRoot struct {
-	DocumentFragment
-}
-
-// ShadowRootFromJS is casting a js.Value into ShadowRoot.
-func ShadowRootFromJS(input js.Value) *ShadowRoot {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ShadowRoot{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Mode returning attribute 'mode' with
-// type ShadowRootMode (idl: ShadowRootMode).
-func (_this *ShadowRoot) Mode() ShadowRootMode {
-	var ret ShadowRootMode
-	value := _this.Value_JS.Get("mode")
-	ret = ShadowRootModeFromJS(value)
-	return ret
-}
-
-// Host returning attribute 'host' with
-// type Element (idl: Element).
-func (_this *ShadowRoot) Host() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("host")
-	ret = ElementFromJS(value)
-	return ret
-}
-
-// interface: Element
-type Element struct {
-	Node
-}
-
-// ElementFromJS is casting a js.Value into Element.
-func ElementFromJS(input js.Value) *Element {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Element{}
-	ret.Value_JS = input
-	return ret
-}
-
-// NamespaceURI returning attribute 'namespaceURI' with
-// type string (idl: DOMString).
-func (_this *Element) NamespaceURI() *string {
-	var ret *string
-	value := _this.Value_JS.Get("namespaceURI")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Prefix returning attribute 'prefix' with
-// type string (idl: DOMString).
-func (_this *Element) Prefix() *string {
-	var ret *string
-	value := _this.Value_JS.Get("prefix")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// LocalName returning attribute 'localName' with
-// type string (idl: DOMString).
-func (_this *Element) LocalName() string {
-	var ret string
-	value := _this.Value_JS.Get("localName")
-	ret = (value).String()
-	return ret
-}
-
-// TagName returning attribute 'tagName' with
-// type string (idl: DOMString).
-func (_this *Element) TagName() string {
-	var ret string
-	value := _this.Value_JS.Get("tagName")
-	ret = (value).String()
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *Element) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// SetId setting attribute 'id' with
-// type string (idl: DOMString).
-func (_this *Element) SetId(value string) {
-	input := value
-	_this.Value_JS.Set("id", input)
-}
-
-// ClassName returning attribute 'className' with
-// type string (idl: DOMString).
-func (_this *Element) ClassName() string {
-	var ret string
-	value := _this.Value_JS.Get("className")
-	ret = (value).String()
-	return ret
-}
-
-// SetClassName setting attribute 'className' with
-// type string (idl: DOMString).
-func (_this *Element) SetClassName(value string) {
-	input := value
-	_this.Value_JS.Set("className", input)
-}
-
-// ClassList returning attribute 'classList' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *Element) ClassList() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("classList")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// Slot returning attribute 'slot' with
-// type string (idl: DOMString).
-func (_this *Element) Slot() string {
-	var ret string
-	value := _this.Value_JS.Get("slot")
-	ret = (value).String()
-	return ret
-}
-
-// SetSlot setting attribute 'slot' with
-// type string (idl: DOMString).
-func (_this *Element) SetSlot(value string) {
-	input := value
-	_this.Value_JS.Set("slot", input)
-}
-
-// Attributes returning attribute 'attributes' with
-// type NamedNodeMap (idl: NamedNodeMap).
-func (_this *Element) Attributes() *NamedNodeMap {
-	var ret *NamedNodeMap
-	value := _this.Value_JS.Get("attributes")
-	ret = NamedNodeMapFromJS(value)
-	return ret
-}
-
-// ShadowRoot returning attribute 'shadowRoot' with
-// type ShadowRoot (idl: ShadowRoot).
-func (_this *Element) ShadowRoot() *ShadowRoot {
-	var ret *ShadowRoot
-	value := _this.Value_JS.Get("shadowRoot")
-	if value.Type() != js.TypeNull {
-		ret = ShadowRootFromJS(value)
-	}
-	return ret
-}
-
-// Children returning attribute 'children' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *Element) Children() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("children")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// FirstElementChild returning attribute 'firstElementChild' with
-// type Element (idl: Element).
-func (_this *Element) FirstElementChild() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("firstElementChild")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// LastElementChild returning attribute 'lastElementChild' with
-// type Element (idl: Element).
-func (_this *Element) LastElementChild() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("lastElementChild")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// ChildElementCount returning attribute 'childElementCount' with
-// type uint (idl: unsigned long).
-func (_this *Element) ChildElementCount() uint {
-	var ret uint
-	value := _this.Value_JS.Get("childElementCount")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// PreviousElementSibling returning attribute 'previousElementSibling' with
-// type Element (idl: Element).
-func (_this *Element) PreviousElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// NextElementSibling returning attribute 'nextElementSibling' with
-// type Element (idl: Element).
-func (_this *Element) NextElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// AssignedSlot returning attribute 'assignedSlot' with
-// type HTMLSlotElement (idl: HTMLSlotElement).
-func (_this *Element) AssignedSlot() *HTMLSlotElement {
-	var ret *HTMLSlotElement
-	value := _this.Value_JS.Get("assignedSlot")
-	if value.Type() != js.TypeNull {
-		ret = HTMLSlotElementFromJS(value)
-	}
-	return ret
-}
-
-func (_this *Element) HasAttributes() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("hasAttributes", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAttributeNames() (_result []string) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getAttributeNames", _args[0:_end]...)
-	var (
-		_converted []string // javascript: idl-sequence _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]string, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out string
-		__in := _returned.Index(__idx)
-		__out = (__in).String()
-		__array0[__idx] = __out
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAttribute(qualifiedName string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getAttribute", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAttributeNS(namespace *string, localName string) (_result *string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("getAttributeNS", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) SetAttribute(qualifiedName string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setAttribute", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) SetAttributeNS(namespace *string, qualifiedName string, value string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := qualifiedName
-	_args[1] = _p1
-	_end++
-	_p2 := value
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("setAttributeNS", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) RemoveAttribute(qualifiedName string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("removeAttribute", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) RemoveAttributeNS(namespace *string, localName string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("removeAttributeNS", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) ToggleAttribute(qualifiedName string, force *bool) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	if force != nil {
-		_p1 := force
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("toggleAttribute", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) HasAttribute(qualifiedName string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("hasAttribute", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) HasAttributeNS(namespace *string, localName string) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("hasAttributeNS", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAttributeNode(qualifiedName string) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getAttributeNode", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_result *Attr) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("getAttributeNodeNS", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) SetAttributeNode(attr *Attr) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := attr.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("setAttributeNode", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) SetAttributeNodeNS(attr *Attr) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := attr.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("setAttributeNodeNS", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) RemoveAttributeNode(attr *Attr) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := attr.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("removeAttributeNode", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	_converted = AttrFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) AttachShadow(init *ShadowRootInit) (_result *ShadowRoot) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := init.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("attachShadow", _args[0:_end]...)
-	var (
-		_converted *ShadowRoot // javascript: ShadowRoot _what_return_name
-	)
-	_converted = ShadowRootFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) Closest(selectors string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("closest", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) Matches(selectors string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("matches", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) WebkitMatchesSelector(selectors string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("webkitMatchesSelector", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetElementsByTagName(qualifiedName string) (_result *HTMLCollection) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getElementsByTagName", _args[0:_end]...)
-	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
-	)
-	_converted = HTMLCollectionFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetElementsByTagNameNS(namespace *string, localName string) (_result *HTMLCollection) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("getElementsByTagNameNS", _args[0:_end]...)
-	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
-	)
-	_converted = HTMLCollectionFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetElementsByClassName(classNames string) (_result *HTMLCollection) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := classNames
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getElementsByClassName", _args[0:_end]...)
-	var (
-		_converted *HTMLCollection // javascript: HTMLCollection _what_return_name
-	)
-	_converted = HTMLCollectionFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) InsertAdjacentElement(where string, element *Element) (_result *Element) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := where
-	_args[0] = _p0
-	_end++
-	_p1 := element.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("insertAdjacentElement", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) InsertAdjacentText(where string, data string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := where
-	_args[0] = _p0
-	_end++
-	_p1 := data
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("insertAdjacentText", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) Prepend(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("prepend", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) Append(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("append", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) QuerySelector(selectors string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("querySelector", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Element) QuerySelectorAll(selectors string) (_result *NodeList) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := selectors
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("querySelectorAll", _args[0:_end]...)
-	var (
-		_converted *NodeList // javascript: NodeList _what_return_name
-	)
-	_converted = NodeListFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) Before(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("before", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) After(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("after", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) ReplaceWith(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) Remove() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: NamedNodeMap
-type NamedNodeMap struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *NamedNodeMap) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// NamedNodeMapFromJS is casting a js.Value into NamedNodeMap.
-func NamedNodeMapFromJS(input js.Value) *NamedNodeMap {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &NamedNodeMap{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *NamedNodeMap) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) GetNamedItem(qualifiedName string) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getNamedItem", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (_result *Attr) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("getNamedItemNS", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) SetNamedItem(attr *Attr) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := attr.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("setNamedItem", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) SetNamedItemNS(attr *Attr) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := attr.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("setNamedItemNS", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AttrFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) RemoveNamedItem(qualifiedName string) (_result *Attr) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := qualifiedName
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("removeNamedItem", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	_converted = AttrFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string) (_result *Attr) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_p1 := localName
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("removeNamedItemNS", _args[0:_end]...)
-	var (
-		_converted *Attr // javascript: Attr _what_return_name
-	)
-	_converted = AttrFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: Attr
-type Attr struct {
-	Node
-}
-
-// AttrFromJS is casting a js.Value into Attr.
-func AttrFromJS(input js.Value) *Attr {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Attr{}
-	ret.Value_JS = input
-	return ret
-}
-
-// NamespaceURI returning attribute 'namespaceURI' with
-// type string (idl: DOMString).
-func (_this *Attr) NamespaceURI() *string {
-	var ret *string
-	value := _this.Value_JS.Get("namespaceURI")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Prefix returning attribute 'prefix' with
-// type string (idl: DOMString).
-func (_this *Attr) Prefix() *string {
-	var ret *string
-	value := _this.Value_JS.Get("prefix")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// LocalName returning attribute 'localName' with
-// type string (idl: DOMString).
-func (_this *Attr) LocalName() string {
-	var ret string
-	value := _this.Value_JS.Get("localName")
-	ret = (value).String()
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *Attr) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *Attr) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *Attr) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// OwnerElement returning attribute 'ownerElement' with
-// type Element (idl: Element).
-func (_this *Attr) OwnerElement() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("ownerElement")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// Specified returning attribute 'specified' with
-// type bool (idl: boolean).
-func (_this *Attr) Specified() bool {
-	var ret bool
-	value := _this.Value_JS.Get("specified")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: CharacterData
-type CharacterData struct {
-	Node
-}
-
-// CharacterDataFromJS is casting a js.Value into CharacterData.
-func CharacterDataFromJS(input js.Value) *CharacterData {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CharacterData{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Data returning attribute 'data' with
-// type string (idl: DOMString).
-func (_this *CharacterData) Data() string {
-	var ret string
-	value := _this.Value_JS.Get("data")
-	ret = (value).String()
-	return ret
-}
-
-// SetData setting attribute 'data' with
-// type string (idl: DOMString).
-func (_this *CharacterData) SetData(value string) {
-	input := value
-	_this.Value_JS.Set("data", input)
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *CharacterData) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// PreviousElementSibling returning attribute 'previousElementSibling' with
-// type Element (idl: Element).
-func (_this *CharacterData) PreviousElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// NextElementSibling returning attribute 'nextElementSibling' with
-// type Element (idl: Element).
-func (_this *CharacterData) NextElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-func (_this *CharacterData) SubstringData(offset uint, count uint) (_result string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("substringData", _args[0:_end]...)
-	var (
-		_converted string // javascript: DOMString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *CharacterData) AppendData(data string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("appendData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) InsertData(offset uint, data string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := data
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("insertData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) DeleteData(offset uint, count uint) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("deleteData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) ReplaceData(offset uint, count uint, data string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_p2 := data
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("replaceData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) Before(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("before", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) After(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("after", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) ReplaceWith(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) Remove() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: Text
-type Text struct {
-	CharacterData
-}
-
-// TextFromJS is casting a js.Value into Text.
-func TextFromJS(input js.Value) *Text {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Text{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewText(data *string) (_result *Text) {
-	_klass := js.Global().Get("Text")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if data != nil {
-		_p0 := data
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Text // javascript: Text _what_return_name
-	)
-	_converted = TextFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// WholeText returning attribute 'wholeText' with
-// type string (idl: DOMString).
-func (_this *Text) WholeText() string {
-	var ret string
-	value := _this.Value_JS.Get("wholeText")
-	ret = (value).String()
-	return ret
-}
-
-// AssignedSlot returning attribute 'assignedSlot' with
-// type HTMLSlotElement (idl: HTMLSlotElement).
-func (_this *Text) AssignedSlot() *HTMLSlotElement {
-	var ret *HTMLSlotElement
-	value := _this.Value_JS.Get("assignedSlot")
-	if value.Type() != js.TypeNull {
-		ret = HTMLSlotElementFromJS(value)
-	}
-	return ret
-}
-
-func (_this *Text) SplitText(offset uint) (_result *Text) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("splitText", _args[0:_end]...)
-	var (
-		_converted *Text // javascript: Text _what_return_name
-	)
-	_converted = TextFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: CDATASection
-type CDATASection struct {
-	Text
-}
-
-// CDATASectionFromJS is casting a js.Value into CDATASection.
-func CDATASectionFromJS(input js.Value) *CDATASection {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CDATASection{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ProcessingInstruction
-type ProcessingInstruction struct {
-	CharacterData
-}
-
-// ProcessingInstructionFromJS is casting a js.Value into ProcessingInstruction.
-func ProcessingInstructionFromJS(input js.Value) *ProcessingInstruction {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ProcessingInstruction{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *ProcessingInstruction) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// interface: Comment
-type Comment struct {
-	CharacterData
-}
-
-// CommentFromJS is casting a js.Value into Comment.
-func CommentFromJS(input js.Value) *Comment {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Comment{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewComment(data *string) (_result *Comment) {
-	_klass := js.Global().Get("Comment")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if data != nil {
-		_p0 := data
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Comment // javascript: Comment _what_return_name
-	)
-	_converted = CommentFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: AbstractRange
-type AbstractRange struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *AbstractRange) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// AbstractRangeFromJS is casting a js.Value into AbstractRange.
-func AbstractRangeFromJS(input js.Value) *AbstractRange {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AbstractRange{}
-	ret.Value_JS = input
-	return ret
-}
-
-// StartContainer returning attribute 'startContainer' with
-// type Node (idl: Node).
-func (_this *AbstractRange) StartContainer() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("startContainer")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// StartOffset returning attribute 'startOffset' with
-// type uint (idl: unsigned long).
-func (_this *AbstractRange) StartOffset() uint {
-	var ret uint
-	value := _this.Value_JS.Get("startOffset")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// EndContainer returning attribute 'endContainer' with
-// type Node (idl: Node).
-func (_this *AbstractRange) EndContainer() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("endContainer")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// EndOffset returning attribute 'endOffset' with
-// type uint (idl: unsigned long).
-func (_this *AbstractRange) EndOffset() uint {
-	var ret uint
-	value := _this.Value_JS.Get("endOffset")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Collapsed returning attribute 'collapsed' with
-// type bool (idl: boolean).
-func (_this *AbstractRange) Collapsed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("collapsed")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: StaticRange
-type StaticRange struct {
-	AbstractRange
-}
-
-// StaticRangeFromJS is casting a js.Value into StaticRange.
-func StaticRangeFromJS(input js.Value) *StaticRange {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &StaticRange{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Range
-type Range struct {
-	AbstractRange
-}
-
-// RangeFromJS is casting a js.Value into Range.
-func RangeFromJS(input js.Value) *Range {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Range{}
-	ret.Value_JS = input
-	return ret
-}
-
-const STARTTOSTART_Range int = 0
-const STARTTOEND_Range int = 1
-const ENDTOEND_Range int = 2
-const ENDTOSTART_Range int = 3
-
-func NewRange() (_result *Range) {
-	_klass := js.Global().Get("Range")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Range // javascript: Range _what_return_name
-	)
-	_converted = RangeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// CommonAncestorContainer returning attribute 'commonAncestorContainer' with
-// type Node (idl: Node).
-func (_this *Range) CommonAncestorContainer() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("commonAncestorContainer")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-func (_this *Range) SetStart(node *Node, offset uint) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := offset
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setStart", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SetEnd(node *Node, offset uint) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := offset
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setEnd", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SetStartBefore(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setStartBefore", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SetStartAfter(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setStartAfter", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SetEndBefore(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setEndBefore", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SetEndAfter(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setEndAfter", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) Collapse(toStart *bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if toStart != nil {
-		_p0 := toStart
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("collapse", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SelectNode(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("selectNode", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SelectNodeContents(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("selectNodeContents", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) CompareBoundaryPoints(how int, sourceRange *Range) (_result int) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := how
-	_args[0] = _p0
-	_end++
-	_p1 := sourceRange.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("compareBoundaryPoints", _args[0:_end]...)
-	var (
-		_converted int // javascript: short _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *Range) DeleteContents() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteContents", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) ExtractContents() (_result *DocumentFragment) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("extractContents", _args[0:_end]...)
-	var (
-		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
-	)
-	_converted = DocumentFragmentFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Range) CloneContents() (_result *DocumentFragment) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("cloneContents", _args[0:_end]...)
-	var (
-		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
-	)
-	_converted = DocumentFragmentFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Range) InsertNode(node *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("insertNode", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) SurroundContents(newParent *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := newParent.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("surroundContents", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) CloneRange() (_result *Range) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("cloneRange", _args[0:_end]...)
-	var (
-		_converted *Range // javascript: Range _what_return_name
-	)
-	_converted = RangeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Range) Detach() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("detach", _args[0:_end]...)
-	return
-}
-
-func (_this *Range) IsPointInRange(node *Node, offset uint) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := offset
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("isPointInRange", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Range) ComparePoint(node *Node, offset uint) (_result int) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := offset
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("comparePoint", _args[0:_end]...)
-	var (
-		_converted int // javascript: short _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *Range) IntersectsNode(node *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("intersectsNode", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: NodeIterator
-type NodeIterator struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *NodeIterator) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// NodeIteratorFromJS is casting a js.Value into NodeIterator.
-func NodeIteratorFromJS(input js.Value) *NodeIterator {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &NodeIterator{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Root returning attribute 'root' with
-// type Node (idl: Node).
-func (_this *NodeIterator) Root() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("root")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// ReferenceNode returning attribute 'referenceNode' with
-// type Node (idl: Node).
-func (_this *NodeIterator) ReferenceNode() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("referenceNode")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// PointerBeforeReferenceNode returning attribute 'pointerBeforeReferenceNode' with
-// type bool (idl: boolean).
-func (_this *NodeIterator) PointerBeforeReferenceNode() bool {
-	var ret bool
-	value := _this.Value_JS.Get("pointerBeforeReferenceNode")
-	ret = (value).Bool()
-	return ret
-}
-
-// WhatToShow returning attribute 'whatToShow' with
-// type uint (idl: unsigned long).
-func (_this *NodeIterator) WhatToShow() uint {
-	var ret uint
-	value := _this.Value_JS.Get("whatToShow")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Filter returning attribute 'filter' with
-// type NodeFilter (idl: NodeFilter).
-func (_this *NodeIterator) Filter() NodeFilter {
-	var ret NodeFilter
-	value := _this.Value_JS.Get("filter")
-	if value.Type() != js.TypeNull {
-		ret = NodeFilterFromJS(value)
-	}
-	return ret
-}
-
-func (_this *NodeIterator) NextNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("nextNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NodeIterator) PreviousNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("previousNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *NodeIterator) Detach() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("detach", _args[0:_end]...)
-	return
-}
-
-// interface: TreeWalker
-type TreeWalker struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TreeWalker) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TreeWalkerFromJS is casting a js.Value into TreeWalker.
-func TreeWalkerFromJS(input js.Value) *TreeWalker {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TreeWalker{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Root returning attribute 'root' with
-// type Node (idl: Node).
-func (_this *TreeWalker) Root() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("root")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// WhatToShow returning attribute 'whatToShow' with
-// type uint (idl: unsigned long).
-func (_this *TreeWalker) WhatToShow() uint {
-	var ret uint
-	value := _this.Value_JS.Get("whatToShow")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Filter returning attribute 'filter' with
-// type NodeFilter (idl: NodeFilter).
-func (_this *TreeWalker) Filter() NodeFilter {
-	var ret NodeFilter
-	value := _this.Value_JS.Get("filter")
-	if value.Type() != js.TypeNull {
-		ret = NodeFilterFromJS(value)
-	}
-	return ret
-}
-
-// CurrentNode returning attribute 'currentNode' with
-// type Node (idl: Node).
-func (_this *TreeWalker) CurrentNode() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("currentNode")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// SetCurrentNode setting attribute 'currentNode' with
-// type Node (idl: Node).
-func (_this *TreeWalker) SetCurrentNode(value *Node) {
-	input := value.JSValue()
-	_this.Value_JS.Set("currentNode", input)
-}
-
-func (_this *TreeWalker) ParentNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("parentNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) FirstChild() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("firstChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) LastChild() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("lastChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) PreviousSibling() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("previousSibling", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) NextSibling() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("nextSibling", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) PreviousNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("previousNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *TreeWalker) NextNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("nextNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-const FILTERACCEPT_NodeFilter int = 1
-const FILTERREJECT_NodeFilter int = 2
-const FILTERSKIP_NodeFilter int = 3
-const SHOWALL_NodeFilter uint = 0xFFFFFFFF
-const SHOWELEMENT_NodeFilter uint = 0x1
-const SHOWATTRIBUTE_NodeFilter uint = 0x2
-const SHOWTEXT_NodeFilter uint = 0x4
-const SHOWCDATASECTION_NodeFilter uint = 0x8
-const SHOWENTITYREFERENCE_NodeFilter uint = 0x10
-const SHOWENTITY_NodeFilter uint = 0x20
-const SHOWPROCESSINGINSTRUCTION_NodeFilter uint = 0x40
-const SHOWCOMMENT_NodeFilter uint = 0x80
-const SHOWDOCUMENT_NodeFilter uint = 0x100
-const SHOWDOCUMENTTYPE_NodeFilter uint = 0x200
-const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
-const SHOWNOTATION_NodeFilter uint = 0x800
-
-// NodeFilter is a callback interface.
-type NodeFilter interface {
-	AcceptNode(node *Node) (_result int)
-}
-
-// NodeFilterValue is javascript reference value for callback interface NodeFilter.
-// This is holding the underlaying javascript object.
-type NodeFilterValue struct {
-	// Value is the underlying javascript object or function.
-	Value js.Value
-	// Functions is the underlying function objects that is allocated for the interface callback
-	Functions [1]js.Callback
-	// Go interface to invoke
-	impl      NodeFilter
-	function  func(node *Node) (_result int)
-	useInvoke bool
-}
-
-// JSValue is returning the javascript object that implements this callback interface
-func (t *NodeFilterValue) JSValue() js.Value {
-	return t.Value
-}
-
-// Release is releasing all resources that is allocated.
-func (t *NodeFilterValue) Release() {
-	for i := range t.Functions {
-		if t.Functions[i].Type() != js.TypeUndefined {
-			t.Functions[i].Release()
-		}
-	}
-}
-
-// NewNodeFilter is allocating a new javascript object that
-// implements NodeFilter.
-func NewNodeFilter(callback NodeFilter) *NodeFilterValue {
-	ret := &NodeFilterValue{impl: callback}
-	ret.Value = js.Global().Get("Object").New()
-	ret.Functions[0] = ret.allocateAcceptNode()
-	ret.Value.Set("acceptNode", ret.Functions[0])
-	return ret
-}
-
-// NewNodeFilterFunc is allocating a new javascript
-// function is implements
-// NodeFilter interface.
-func NewNodeFilterFunc(f func(node *Node) (_result int)) *NodeFilterValue {
-	// single function will result in javascript function type, not an object
-	ret := &NodeFilterValue{function: f}
-	ret.Functions[0] = ret.allocateAcceptNode()
-	ret.Value = ret.Functions[0].Value
-	return ret
-}
-
-// NodeFilterFromJS is taking an javascript object that reference to a
-// callback interface and return a corresponding interface that can be used
-// to invoke on that element.
-func NodeFilterFromJS(value js.Value) *NodeFilterValue {
-	if value.Type() == js.TypeObject {
-		return &NodeFilterValue{Value: value}
-	}
-	if value.Type() == js.TypeFunction {
-		return &NodeFilterValue{Value: value, useInvoke: true}
-	}
-	panic("unsupported type")
-}
-
-func (t *NodeFilterValue) allocateAcceptNode() js.Callback {
-	return js.NewCallback(func(args []js.Value) {
-		var (
-			_p0 *Node // javascript: Node node
-		)
-		_p0 = NodeFromJS(args[0])
-		var _returned int
-		if t.function != nil {
-			_returned = t.function(_p0)
-		} else {
-			_returned = t.impl.AcceptNode(_p0)
-		}
-		_converted := _returned
-		unused(_converted)
-		panic("go 1.11 does provice anyway to return values in callbacks")
-	})
-}
-
-func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
-	if _this.function != nil {
-		return _this.function(node)
-	}
-	if _this.impl != nil {
-		return _this.impl.AcceptNode(node)
-	}
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	var _returned js.Value
-	if _this.useInvoke {
-		// invoke a javascript function
-		_returned = _this.Value.Invoke(_args[0:_end]...)
-	} else {
-		_returned = _this.Value.Call("acceptNode", _args[0:_end]...)
-	}
-	var (
-		_converted int // javascript: unsigned short _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-// interface: DOMTokenList
-type DOMTokenList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMTokenList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMTokenListFromJS is casting a js.Value into DOMTokenList.
-func DOMTokenListFromJS(input js.Value) *DOMTokenList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMTokenList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *DOMTokenList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *DOMTokenList) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *DOMTokenList) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-func (_this *DOMTokenList) Item(index uint) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Contains(token string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Add(tokens ...string) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(tokens))
-		_end  int
-	)
-	for _, __in := range tokens {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("add", _args[0:_end]...)
-	return
-}
-
-func (_this *DOMTokenList) Remove(tokens ...string) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(tokens))
-		_end  int
-	)
-	for _, __in := range tokens {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	if force != nil {
-		_p1 := force
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("toggle", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_p1 := newToken
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("replace", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Supports(token string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("supports", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: HTMLAllCollection
-type HTMLAllCollection struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *HTMLAllCollection) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// HTMLAllCollectionFromJS is casting a js.Value into HTMLAllCollection.
-func HTMLAllCollectionFromJS(input js.Value) *HTMLAllCollection {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLAllCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLAllCollection) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if nameOrIndex != nil {
-		_p0 := nameOrIndex
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: HTMLFormControlsCollection
-type HTMLFormControlsCollection struct {
-	HTMLCollection
-}
-
-// HTMLFormControlsCollectionFromJS is casting a js.Value into HTMLFormControlsCollection.
-func HTMLFormControlsCollectionFromJS(input js.Value) *HTMLFormControlsCollection {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFormControlsCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: RadioNodeList
-type RadioNodeList struct {
-	NodeList
-}
-
-// RadioNodeListFromJS is casting a js.Value into RadioNodeList.
-func RadioNodeListFromJS(input js.Value) *RadioNodeList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &RadioNodeList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *RadioNodeList) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *RadioNodeList) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// interface: HTMLOptionsCollection
-type HTMLOptionsCollection struct {
-	HTMLCollection
-}
-
-// HTMLOptionsCollectionFromJS is casting a js.Value into HTMLOptionsCollection.
-func HTMLOptionsCollectionFromJS(input js.Value) *HTMLOptionsCollection {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOptionsCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLOptionsCollection) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetLength setting attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLOptionsCollection) SetLength(value uint) {
-	input := value
-	_this.Value_JS.Set("length", input)
-}
-
-// SelectedIndex returning attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLOptionsCollection) SelectedIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("selectedIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetSelectedIndex setting attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLOptionsCollection) SetSelectedIndex(value int) {
-	input := value
-	_this.Value_JS.Set("selectedIndex", input)
-}
-
-func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := element.JSValue()
-	_args[0] = _p0
-	_end++
-	if before != nil {
-		_p1 := before.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("add", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLOptionsCollection) Remove(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: DOMStringList
-type DOMStringList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMStringList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMStringListFromJS is casting a js.Value into DOMStringList.
-func DOMStringListFromJS(input js.Value) *DOMStringList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMStringList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *DOMStringList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *DOMStringList) Item(index uint) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DOMStringList) Contains(string string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := string
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: HTMLElement
-type HTMLElement struct {
-	Element
-}
-
-// HTMLElementFromJS is casting a js.Value into HTMLElement.
-func HTMLElementFromJS(input js.Value) *HTMLElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Title returning attribute 'title' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Title() string {
-	var ret string
-	value := _this.Value_JS.Get("title")
-	ret = (value).String()
-	return ret
-}
-
-// SetTitle setting attribute 'title' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetTitle(value string) {
-	input := value
-	_this.Value_JS.Set("title", input)
-}
-
-// Lang returning attribute 'lang' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Lang() string {
-	var ret string
-	value := _this.Value_JS.Get("lang")
-	ret = (value).String()
-	return ret
-}
-
-// SetLang setting attribute 'lang' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetLang(value string) {
-	input := value
-	_this.Value_JS.Set("lang", input)
-}
-
-// Translate returning attribute 'translate' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Translate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("translate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetTranslate setting attribute 'translate' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetTranslate(value bool) {
-	input := value
-	_this.Value_JS.Set("translate", input)
-}
-
-// Dir returning attribute 'dir' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Dir() string {
-	var ret string
-	value := _this.Value_JS.Get("dir")
-	ret = (value).String()
-	return ret
-}
-
-// SetDir setting attribute 'dir' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetDir(value string) {
-	input := value
-	_this.Value_JS.Set("dir", input)
-}
-
-// Hidden returning attribute 'hidden' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Hidden() bool {
-	var ret bool
-	value := _this.Value_JS.Get("hidden")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetHidden setting attribute 'hidden' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetHidden(value bool) {
-	input := value
-	_this.Value_JS.Set("hidden", input)
-}
-
-// AccessKey returning attribute 'accessKey' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) AccessKey() string {
-	var ret string
-	value := _this.Value_JS.Get("accessKey")
-	ret = (value).String()
-	return ret
-}
-
-// SetAccessKey setting attribute 'accessKey' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetAccessKey(value string) {
-	input := value
-	_this.Value_JS.Set("accessKey", input)
-}
-
-// AccessKeyLabel returning attribute 'accessKeyLabel' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) AccessKeyLabel() string {
-	var ret string
-	value := _this.Value_JS.Get("accessKeyLabel")
-	ret = (value).String()
-	return ret
-}
-
-// Draggable returning attribute 'draggable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Draggable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("draggable")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDraggable setting attribute 'draggable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetDraggable(value bool) {
-	input := value
-	_this.Value_JS.Set("draggable", input)
-}
-
-// Spellcheck returning attribute 'spellcheck' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Spellcheck() bool {
-	var ret bool
-	value := _this.Value_JS.Get("spellcheck")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetSpellcheck setting attribute 'spellcheck' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetSpellcheck(value bool) {
-	input := value
-	_this.Value_JS.Set("spellcheck", input)
-}
-
-// Autocapitalize returning attribute 'autocapitalize' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Autocapitalize() string {
-	var ret string
-	value := _this.Value_JS.Get("autocapitalize")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocapitalize setting attribute 'autocapitalize' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetAutocapitalize(value string) {
-	input := value
-	_this.Value_JS.Set("autocapitalize", input)
-}
-
-// InnerText returning attribute 'innerText' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) InnerText() string {
-	var ret string
-	value := _this.Value_JS.Get("innerText")
-	ret = (value).String()
-	return ret
-}
-
-// SetInnerText setting attribute 'innerText' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetInnerText(value string) {
-	input := value
-	_this.Value_JS.Set("innerText", input)
-}
-
-// Onabort returning attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onabort() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnabort(value *js.Callback) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onauxclick returning attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onauxclick() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onauxclick")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnauxclick setting attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnauxclick(value *js.Callback) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onauxclick", input)
-}
-
-// Onblur returning attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onblur() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onblur")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnblur setting attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnblur(value *js.Callback) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onblur", input)
-}
-
-// Oncancel returning attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncancel() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncancel")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncancel setting attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncancel(value *js.Callback) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("oncancel", input)
-}
-
-// Oncanplay returning attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplay() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncanplay")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncanplay setting attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplay(value *js.Callback) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("oncanplay", input)
-}
-
-// Oncanplaythrough returning attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplaythrough() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncanplaythrough")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncanplaythrough setting attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplaythrough(value *js.Callback) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("oncanplaythrough", input)
-}
-
-// Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnchange(value *js.Callback) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onclick returning attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclick() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onclick")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnclick setting attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclick(value *js.Callback) {
-	var __callback18 js.Value
-	if value != nil {
-		__callback18 = (*value).Value
-	} else {
-		__callback18 = js.Null()
-	}
-	input := __callback18
-	_this.Value_JS.Set("onclick", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclose() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnclose setting attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclose(value *js.Callback) {
-	var __callback19 js.Value
-	if value != nil {
-		__callback19 = (*value).Value
-	} else {
-		__callback19 = js.Null()
-	}
-	input := __callback19
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Oncontextmenu returning attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncontextmenu() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncontextmenu")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncontextmenu setting attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncontextmenu(value *js.Callback) {
-	var __callback20 js.Value
-	if value != nil {
-		__callback20 = (*value).Value
-	} else {
-		__callback20 = js.Null()
-	}
-	input := __callback20
-	_this.Value_JS.Set("oncontextmenu", input)
-}
-
-// Oncuechange returning attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncuechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncuechange setting attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncuechange(value *js.Callback) {
-	var __callback21 js.Value
-	if value != nil {
-		__callback21 = (*value).Value
-	} else {
-		__callback21 = js.Null()
-	}
-	input := __callback21
-	_this.Value_JS.Set("oncuechange", input)
-}
-
-// Ondblclick returning attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondblclick() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondblclick")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndblclick setting attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndblclick(value *js.Callback) {
-	var __callback22 js.Value
-	if value != nil {
-		__callback22 = (*value).Value
-	} else {
-		__callback22 = js.Null()
-	}
-	input := __callback22
-	_this.Value_JS.Set("ondblclick", input)
-}
-
-// Ondrag returning attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrag() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondrag")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndrag setting attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrag(value *js.Callback) {
-	var __callback23 js.Value
-	if value != nil {
-		__callback23 = (*value).Value
-	} else {
-		__callback23 = js.Null()
-	}
-	input := __callback23
-	_this.Value_JS.Set("ondrag", input)
-}
-
-// Ondragend returning attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragend() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragend")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragend setting attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragend(value *js.Callback) {
-	var __callback24 js.Value
-	if value != nil {
-		__callback24 = (*value).Value
-	} else {
-		__callback24 = js.Null()
-	}
-	input := __callback24
-	_this.Value_JS.Set("ondragend", input)
-}
-
-// Ondragenter returning attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragenter() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragenter")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragenter setting attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragenter(value *js.Callback) {
-	var __callback25 js.Value
-	if value != nil {
-		__callback25 = (*value).Value
-	} else {
-		__callback25 = js.Null()
-	}
-	input := __callback25
-	_this.Value_JS.Set("ondragenter", input)
-}
-
-// Ondragexit returning attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragexit() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragexit")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragexit setting attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragexit(value *js.Callback) {
-	var __callback26 js.Value
-	if value != nil {
-		__callback26 = (*value).Value
-	} else {
-		__callback26 = js.Null()
-	}
-	input := __callback26
-	_this.Value_JS.Set("ondragexit", input)
-}
-
-// Ondragleave returning attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragleave() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragleave")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragleave setting attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragleave(value *js.Callback) {
-	var __callback27 js.Value
-	if value != nil {
-		__callback27 = (*value).Value
-	} else {
-		__callback27 = js.Null()
-	}
-	input := __callback27
-	_this.Value_JS.Set("ondragleave", input)
-}
-
-// Ondragover returning attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragover() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragover")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragover setting attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragover(value *js.Callback) {
-	var __callback28 js.Value
-	if value != nil {
-		__callback28 = (*value).Value
-	} else {
-		__callback28 = js.Null()
-	}
-	input := __callback28
-	_this.Value_JS.Set("ondragover", input)
-}
-
-// Ondragstart returning attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragstart() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondragstart")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragstart setting attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragstart(value *js.Callback) {
-	var __callback29 js.Value
-	if value != nil {
-		__callback29 = (*value).Value
-	} else {
-		__callback29 = js.Null()
-	}
-	input := __callback29
-	_this.Value_JS.Set("ondragstart", input)
-}
-
-// Ondrop returning attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrop() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondrop")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndrop setting attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrop(value *js.Callback) {
-	var __callback30 js.Value
-	if value != nil {
-		__callback30 = (*value).Value
-	} else {
-		__callback30 = js.Null()
-	}
-	input := __callback30
-	_this.Value_JS.Set("ondrop", input)
-}
-
-// Ondurationchange returning attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondurationchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondurationchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndurationchange setting attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndurationchange(value *js.Callback) {
-	var __callback31 js.Value
-	if value != nil {
-		__callback31 = (*value).Value
-	} else {
-		__callback31 = js.Null()
-	}
-	input := __callback31
-	_this.Value_JS.Set("ondurationchange", input)
-}
-
-// Onemptied returning attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onemptied() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onemptied")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnemptied setting attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnemptied(value *js.Callback) {
-	var __callback32 js.Value
-	if value != nil {
-		__callback32 = (*value).Value
-	} else {
-		__callback32 = js.Null()
-	}
-	input := __callback32
-	_this.Value_JS.Set("onemptied", input)
-}
-
-// Onended returning attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onended() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnended setting attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnended(value *js.Callback) {
-	var __callback33 js.Value
-	if value != nil {
-		__callback33 = (*value).Value
-	} else {
-		__callback33 = js.Null()
-	}
-	input := __callback33
-	_this.Value_JS.Set("onended", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) Onerror() OnErrorEventHandlerNonNull {
-	var ret OnErrorEventHandlerNonNull
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = OnErrorEventHandlerNonNullFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) SetOnerror(value *js.Callback) {
-	var __callback34 js.Value
-	if value != nil {
-		__callback34 = (*value).Value
-	} else {
-		__callback34 = js.Null()
-	}
-	input := __callback34
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onfocus returning attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onfocus() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onfocus")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnfocus setting attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnfocus(value *js.Callback) {
-	var __callback35 js.Value
-	if value != nil {
-		__callback35 = (*value).Value
-	} else {
-		__callback35 = js.Null()
-	}
-	input := __callback35
-	_this.Value_JS.Set("onfocus", input)
-}
-
-// Onformdata returning attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onformdata() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onformdata")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnformdata setting attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnformdata(value *js.Callback) {
-	var __callback36 js.Value
-	if value != nil {
-		__callback36 = (*value).Value
-	} else {
-		__callback36 = js.Null()
-	}
-	input := __callback36
-	_this.Value_JS.Set("onformdata", input)
-}
-
-// Oninput returning attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninput() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oninput")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOninput setting attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninput(value *js.Callback) {
-	var __callback37 js.Value
-	if value != nil {
-		__callback37 = (*value).Value
-	} else {
-		__callback37 = js.Null()
-	}
-	input := __callback37
-	_this.Value_JS.Set("oninput", input)
-}
-
-// Oninvalid returning attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninvalid() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oninvalid")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOninvalid setting attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninvalid(value *js.Callback) {
-	var __callback38 js.Value
-	if value != nil {
-		__callback38 = (*value).Value
-	} else {
-		__callback38 = js.Null()
-	}
-	input := __callback38
-	_this.Value_JS.Set("oninvalid", input)
-}
-
-// Onkeydown returning attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeydown() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onkeydown")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeydown setting attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeydown(value *js.Callback) {
-	var __callback39 js.Value
-	if value != nil {
-		__callback39 = (*value).Value
-	} else {
-		__callback39 = js.Null()
-	}
-	input := __callback39
-	_this.Value_JS.Set("onkeydown", input)
-}
-
-// Onkeypress returning attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeypress() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onkeypress")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeypress setting attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeypress(value *js.Callback) {
-	var __callback40 js.Value
-	if value != nil {
-		__callback40 = (*value).Value
-	} else {
-		__callback40 = js.Null()
-	}
-	input := __callback40
-	_this.Value_JS.Set("onkeypress", input)
-}
-
-// Onkeyup returning attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeyup() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onkeyup")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeyup setting attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeyup(value *js.Callback) {
-	var __callback41 js.Value
-	if value != nil {
-		__callback41 = (*value).Value
-	} else {
-		__callback41 = js.Null()
-	}
-	input := __callback41
-	_this.Value_JS.Set("onkeyup", input)
-}
-
-// Onload returning attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onload() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnload setting attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnload(value *js.Callback) {
-	var __callback42 js.Value
-	if value != nil {
-		__callback42 = (*value).Value
-	} else {
-		__callback42 = js.Null()
-	}
-	input := __callback42
-	_this.Value_JS.Set("onload", input)
-}
-
-// Onloadeddata returning attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadeddata() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onloadeddata")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadeddata setting attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadeddata(value *js.Callback) {
-	var __callback43 js.Value
-	if value != nil {
-		__callback43 = (*value).Value
-	} else {
-		__callback43 = js.Null()
-	}
-	input := __callback43
-	_this.Value_JS.Set("onloadeddata", input)
-}
-
-// Onloadedmetadata returning attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadedmetadata() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onloadedmetadata")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadedmetadata(value *js.Callback) {
-	var __callback44 js.Value
-	if value != nil {
-		__callback44 = (*value).Value
-	} else {
-		__callback44 = js.Null()
-	}
-	input := __callback44
-	_this.Value_JS.Set("onloadedmetadata", input)
-}
-
-// Onloadend returning attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadend() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadend setting attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadend(value *js.Callback) {
-	var __callback45 js.Value
-	if value != nil {
-		__callback45 = (*value).Value
-	} else {
-		__callback45 = js.Null()
-	}
-	input := __callback45
-	_this.Value_JS.Set("onloadend", input)
-}
-
-// Onloadstart returning attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadstart() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadstart setting attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadstart(value *js.Callback) {
-	var __callback46 js.Value
-	if value != nil {
-		__callback46 = (*value).Value
-	} else {
-		__callback46 = js.Null()
-	}
-	input := __callback46
-	_this.Value_JS.Set("onloadstart", input)
-}
-
-// Onmousedown returning attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousedown() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmousedown")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmousedown setting attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousedown(value *js.Callback) {
-	var __callback47 js.Value
-	if value != nil {
-		__callback47 = (*value).Value
-	} else {
-		__callback47 = js.Null()
-	}
-	input := __callback47
-	_this.Value_JS.Set("onmousedown", input)
-}
-
-// Onmouseenter returning attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseenter() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmouseenter")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseenter setting attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseenter(value *js.Callback) {
-	var __callback48 js.Value
-	if value != nil {
-		__callback48 = (*value).Value
-	} else {
-		__callback48 = js.Null()
-	}
-	input := __callback48
-	_this.Value_JS.Set("onmouseenter", input)
-}
-
-// Onmouseleave returning attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseleave() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmouseleave")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseleave setting attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseleave(value *js.Callback) {
-	var __callback49 js.Value
-	if value != nil {
-		__callback49 = (*value).Value
-	} else {
-		__callback49 = js.Null()
-	}
-	input := __callback49
-	_this.Value_JS.Set("onmouseleave", input)
-}
-
-// Onmousemove returning attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousemove() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmousemove")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmousemove setting attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousemove(value *js.Callback) {
-	var __callback50 js.Value
-	if value != nil {
-		__callback50 = (*value).Value
-	} else {
-		__callback50 = js.Null()
-	}
-	input := __callback50
-	_this.Value_JS.Set("onmousemove", input)
-}
-
-// Onmouseout returning attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseout() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmouseout")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseout setting attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseout(value *js.Callback) {
-	var __callback51 js.Value
-	if value != nil {
-		__callback51 = (*value).Value
-	} else {
-		__callback51 = js.Null()
-	}
-	input := __callback51
-	_this.Value_JS.Set("onmouseout", input)
-}
-
-// Onmouseover returning attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseover() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmouseover")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseover setting attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseover(value *js.Callback) {
-	var __callback52 js.Value
-	if value != nil {
-		__callback52 = (*value).Value
-	} else {
-		__callback52 = js.Null()
-	}
-	input := __callback52
-	_this.Value_JS.Set("onmouseover", input)
-}
-
-// Onmouseup returning attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseup() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmouseup")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseup setting attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseup(value *js.Callback) {
-	var __callback53 js.Value
-	if value != nil {
-		__callback53 = (*value).Value
-	} else {
-		__callback53 = js.Null()
-	}
-	input := __callback53
-	_this.Value_JS.Set("onmouseup", input)
-}
-
-// Onwheel returning attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwheel() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onwheel")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnwheel setting attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwheel(value *js.Callback) {
-	var __callback54 js.Value
-	if value != nil {
-		__callback54 = (*value).Value
-	} else {
-		__callback54 = js.Null()
-	}
-	input := __callback54
-	_this.Value_JS.Set("onwheel", input)
-}
-
-// Onpause returning attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpause() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpause setting attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpause(value *js.Callback) {
-	var __callback55 js.Value
-	if value != nil {
-		__callback55 = (*value).Value
-	} else {
-		__callback55 = js.Null()
-	}
-	input := __callback55
-	_this.Value_JS.Set("onpause", input)
-}
-
-// Onplay returning attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplay() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onplay")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnplay setting attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplay(value *js.Callback) {
-	var __callback56 js.Value
-	if value != nil {
-		__callback56 = (*value).Value
-	} else {
-		__callback56 = js.Null()
-	}
-	input := __callback56
-	_this.Value_JS.Set("onplay", input)
-}
-
-// Onplaying returning attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplaying() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onplaying")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnplaying setting attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplaying(value *js.Callback) {
-	var __callback57 js.Value
-	if value != nil {
-		__callback57 = (*value).Value
-	} else {
-		__callback57 = js.Null()
-	}
-	input := __callback57
-	_this.Value_JS.Set("onplaying", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onprogress() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnprogress setting attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnprogress(value *js.Callback) {
-	var __callback58 js.Value
-	if value != nil {
-		__callback58 = (*value).Value
-	} else {
-		__callback58 = js.Null()
-	}
-	input := __callback58
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onratechange returning attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onratechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onratechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnratechange setting attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnratechange(value *js.Callback) {
-	var __callback59 js.Value
-	if value != nil {
-		__callback59 = (*value).Value
-	} else {
-		__callback59 = js.Null()
-	}
-	input := __callback59
-	_this.Value_JS.Set("onratechange", input)
-}
-
-// Onreset returning attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onreset() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onreset")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnreset setting attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnreset(value *js.Callback) {
-	var __callback60 js.Value
-	if value != nil {
-		__callback60 = (*value).Value
-	} else {
-		__callback60 = js.Null()
-	}
-	input := __callback60
-	_this.Value_JS.Set("onreset", input)
-}
-
-// Onresize returning attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onresize() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onresize")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnresize setting attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnresize(value *js.Callback) {
-	var __callback61 js.Value
-	if value != nil {
-		__callback61 = (*value).Value
-	} else {
-		__callback61 = js.Null()
-	}
-	input := __callback61
-	_this.Value_JS.Set("onresize", input)
-}
-
-// Onscroll returning attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onscroll() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onscroll")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnscroll setting attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnscroll(value *js.Callback) {
-	var __callback62 js.Value
-	if value != nil {
-		__callback62 = (*value).Value
-	} else {
-		__callback62 = js.Null()
-	}
-	input := __callback62
-	_this.Value_JS.Set("onscroll", input)
-}
-
-// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsecuritypolicyviolation() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onsecuritypolicyviolation")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Callback) {
-	var __callback63 js.Value
-	if value != nil {
-		__callback63 = (*value).Value
-	} else {
-		__callback63 = js.Null()
-	}
-	input := __callback63
-	_this.Value_JS.Set("onsecuritypolicyviolation", input)
-}
-
-// Onseeked returning attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeked() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onseeked")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnseeked setting attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeked(value *js.Callback) {
-	var __callback64 js.Value
-	if value != nil {
-		__callback64 = (*value).Value
-	} else {
-		__callback64 = js.Null()
-	}
-	input := __callback64
-	_this.Value_JS.Set("onseeked", input)
-}
-
-// Onseeking returning attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeking() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onseeking")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnseeking setting attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeking(value *js.Callback) {
-	var __callback65 js.Value
-	if value != nil {
-		__callback65 = (*value).Value
-	} else {
-		__callback65 = js.Null()
-	}
-	input := __callback65
-	_this.Value_JS.Set("onseeking", input)
-}
-
-// Onselect returning attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onselect() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onselect")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnselect setting attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnselect(value *js.Callback) {
-	var __callback66 js.Value
-	if value != nil {
-		__callback66 = (*value).Value
-	} else {
-		__callback66 = js.Null()
-	}
-	input := __callback66
-	_this.Value_JS.Set("onselect", input)
-}
-
-// Onstalled returning attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onstalled() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onstalled")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstalled setting attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnstalled(value *js.Callback) {
-	var __callback67 js.Value
-	if value != nil {
-		__callback67 = (*value).Value
-	} else {
-		__callback67 = js.Null()
-	}
-	input := __callback67
-	_this.Value_JS.Set("onstalled", input)
-}
-
-// Onsubmit returning attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsubmit() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onsubmit")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsubmit setting attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsubmit(value *js.Callback) {
-	var __callback68 js.Value
-	if value != nil {
-		__callback68 = (*value).Value
-	} else {
-		__callback68 = js.Null()
-	}
-	input := __callback68
-	_this.Value_JS.Set("onsubmit", input)
-}
-
-// Onsuspend returning attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsuspend() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onsuspend")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsuspend setting attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsuspend(value *js.Callback) {
-	var __callback69 js.Value
-	if value != nil {
-		__callback69 = (*value).Value
-	} else {
-		__callback69 = js.Null()
-	}
-	input := __callback69
-	_this.Value_JS.Set("onsuspend", input)
-}
-
-// Ontimeupdate returning attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontimeupdate() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ontimeupdate")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOntimeupdate setting attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntimeupdate(value *js.Callback) {
-	var __callback70 js.Value
-	if value != nil {
-		__callback70 = (*value).Value
-	} else {
-		__callback70 = js.Null()
-	}
-	input := __callback70
-	_this.Value_JS.Set("ontimeupdate", input)
-}
-
-// Ontoggle returning attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontoggle() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ontoggle")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOntoggle setting attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntoggle(value *js.Callback) {
-	var __callback71 js.Value
-	if value != nil {
-		__callback71 = (*value).Value
-	} else {
-		__callback71 = js.Null()
-	}
-	input := __callback71
-	_this.Value_JS.Set("ontoggle", input)
-}
-
-// Onvolumechange returning attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onvolumechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onvolumechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnvolumechange setting attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnvolumechange(value *js.Callback) {
-	var __callback72 js.Value
-	if value != nil {
-		__callback72 = (*value).Value
-	} else {
-		__callback72 = js.Null()
-	}
-	input := __callback72
-	_this.Value_JS.Set("onvolumechange", input)
-}
-
-// Onwaiting returning attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwaiting() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onwaiting")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnwaiting setting attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwaiting(value *js.Callback) {
-	var __callback73 js.Value
-	if value != nil {
-		__callback73 = (*value).Value
-	} else {
-		__callback73 = js.Null()
-	}
-	input := __callback73
-	_this.Value_JS.Set("onwaiting", input)
-}
-
-// Oncopy returning attribute 'oncopy' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncopy() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncopy")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncopy setting attribute 'oncopy' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncopy(value *js.Callback) {
-	var __callback74 js.Value
-	if value != nil {
-		__callback74 = (*value).Value
-	} else {
-		__callback74 = js.Null()
-	}
-	input := __callback74
-	_this.Value_JS.Set("oncopy", input)
-}
-
-// Oncut returning attribute 'oncut' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncut() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncut")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncut setting attribute 'oncut' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncut(value *js.Callback) {
-	var __callback75 js.Value
-	if value != nil {
-		__callback75 = (*value).Value
-	} else {
-		__callback75 = js.Null()
-	}
-	input := __callback75
-	_this.Value_JS.Set("oncut", input)
-}
-
-// Onpaste returning attribute 'onpaste' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpaste() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpaste")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpaste setting attribute 'onpaste' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpaste(value *js.Callback) {
-	var __callback76 js.Value
-	if value != nil {
-		__callback76 = (*value).Value
-	} else {
-		__callback76 = js.Null()
-	}
-	input := __callback76
-	_this.Value_JS.Set("onpaste", input)
-}
-
-// ContentEditable returning attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) ContentEditable() string {
-	var ret string
-	value := _this.Value_JS.Get("contentEditable")
-	ret = (value).String()
-	return ret
-}
-
-// SetContentEditable setting attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetContentEditable(value string) {
-	input := value
-	_this.Value_JS.Set("contentEditable", input)
-}
-
-// EnterKeyHint returning attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) EnterKeyHint() string {
-	var ret string
-	value := _this.Value_JS.Get("enterKeyHint")
-	ret = (value).String()
-	return ret
-}
-
-// SetEnterKeyHint setting attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetEnterKeyHint(value string) {
-	input := value
-	_this.Value_JS.Set("enterKeyHint", input)
-}
-
-// IsContentEditable returning attribute 'isContentEditable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) IsContentEditable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isContentEditable")
-	ret = (value).Bool()
-	return ret
-}
-
-// InputMode returning attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) InputMode() string {
-	var ret string
-	value := _this.Value_JS.Get("inputMode")
-	ret = (value).String()
-	return ret
-}
-
-// SetInputMode setting attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetInputMode(value string) {
-	input := value
-	_this.Value_JS.Set("inputMode", input)
-}
-
-// Dataset returning attribute 'dataset' with
-// type DOMStringMap (idl: DOMStringMap).
-func (_this *HTMLElement) Dataset() *DOMStringMap {
-	var ret *DOMStringMap
-	value := _this.Value_JS.Get("dataset")
-	ret = DOMStringMapFromJS(value)
-	return ret
-}
-
-// Nonce returning attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Nonce() string {
-	var ret string
-	value := _this.Value_JS.Get("nonce")
-	ret = (value).String()
-	return ret
-}
-
-// SetNonce setting attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetNonce(value string) {
-	input := value
-	_this.Value_JS.Set("nonce", input)
-}
-
-// TabIndex returning attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) TabIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("tabIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetTabIndex setting attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) SetTabIndex(value int) {
-	input := value
-	_this.Value_JS.Set("tabIndex", input)
-}
-
-func (_this *HTMLElement) Click() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("click", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLElement) Focus(options *FocusOptions) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("focus", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLElement) Blur() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("blur", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLUnknownElement
-type HTMLUnknownElement struct {
-	HTMLElement
-}
-
-// HTMLUnknownElementFromJS is casting a js.Value into HTMLUnknownElement.
-func HTMLUnknownElementFromJS(input js.Value) *HTMLUnknownElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLUnknownElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: DOMStringMap
-type DOMStringMap struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMStringMap) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMStringMapFromJS is casting a js.Value into DOMStringMap.
-func DOMStringMapFromJS(input js.Value) *DOMStringMap {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMStringMap{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLHtmlElement
-type HTMLHtmlElement struct {
-	HTMLElement
-}
-
-// HTMLHtmlElementFromJS is casting a js.Value into HTMLHtmlElement.
-func HTMLHtmlElementFromJS(input js.Value) *HTMLHtmlElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHtmlElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Version returning attribute 'version' with
-// type string (idl: DOMString).
-func (_this *HTMLHtmlElement) Version() string {
-	var ret string
-	value := _this.Value_JS.Get("version")
-	ret = (value).String()
-	return ret
-}
-
-// SetVersion setting attribute 'version' with
-// type string (idl: DOMString).
-func (_this *HTMLHtmlElement) SetVersion(value string) {
-	input := value
-	_this.Value_JS.Set("version", input)
-}
-
-// interface: HTMLHeadElement
-type HTMLHeadElement struct {
-	HTMLElement
-}
-
-// HTMLHeadElementFromJS is casting a js.Value into HTMLHeadElement.
-func HTMLHeadElementFromJS(input js.Value) *HTMLHeadElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHeadElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLTitleElement
-type HTMLTitleElement struct {
-	HTMLElement
-}
-
-// HTMLTitleElementFromJS is casting a js.Value into HTMLTitleElement.
-func HTMLTitleElementFromJS(input js.Value) *HTMLTitleElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTitleElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLTitleElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLTitleElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// interface: HTMLBaseElement
-type HTMLBaseElement struct {
-	HTMLElement
-}
-
-// HTMLBaseElementFromJS is casting a js.Value into HTMLBaseElement.
-func HTMLBaseElementFromJS(input js.Value) *HTMLBaseElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLBaseElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLBaseElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLBaseElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLBaseElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLBaseElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// interface: HTMLLinkElement
-type HTMLLinkElement struct {
-	HTMLElement
-}
-
-// HTMLLinkElementFromJS is casting a js.Value into HTMLLinkElement.
-func HTMLLinkElementFromJS(input js.Value) *HTMLLinkElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLinkElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLLinkElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLLinkElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// As returning attribute 'as' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) As() string {
-	var ret string
-	value := _this.Value_JS.Get("as")
-	ret = (value).String()
-	return ret
-}
-
-// SetAs setting attribute 'as' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetAs(value string) {
-	input := value
-	_this.Value_JS.Set("as", input)
-}
-
-// RelList returning attribute 'relList' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLLinkElement) RelList() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// Media returning attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Media() string {
-	var ret string
-	value := _this.Value_JS.Get("media")
-	ret = (value).String()
-	return ret
-}
-
-// SetMedia setting attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetMedia(value string) {
-	input := value
-	_this.Value_JS.Set("media", input)
-}
-
-// Integrity returning attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Integrity() string {
-	var ret string
-	value := _this.Value_JS.Get("integrity")
-	ret = (value).String()
-	return ret
-}
-
-// SetIntegrity setting attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetIntegrity(value string) {
-	input := value
-	_this.Value_JS.Set("integrity", input)
-}
-
-// Hreflang returning attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Hreflang() string {
-	var ret string
-	value := _this.Value_JS.Get("hreflang")
-	ret = (value).String()
-	return ret
-}
-
-// SetHreflang setting attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetHreflang(value string) {
-	input := value
-	_this.Value_JS.Set("hreflang", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Sizes returning attribute 'sizes' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLLinkElement) Sizes() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("sizes")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Charset returning attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Charset() string {
-	var ret string
-	value := _this.Value_JS.Get("charset")
-	ret = (value).String()
-	return ret
-}
-
-// SetCharset setting attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetCharset(value string) {
-	input := value
-	_this.Value_JS.Set("charset", input)
-}
-
-// Rev returning attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Rev() string {
-	var ret string
-	value := _this.Value_JS.Get("rev")
-	ret = (value).String()
-	return ret
-}
-
-// SetRev setting attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetRev(value string) {
-	input := value
-	_this.Value_JS.Set("rev", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// interface: HTMLMetaElement
-type HTMLMetaElement struct {
-	HTMLElement
-}
-
-// HTMLMetaElementFromJS is casting a js.Value into HTMLMetaElement.
-func HTMLMetaElementFromJS(input js.Value) *HTMLMetaElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMetaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// HttpEquiv returning attribute 'httpEquiv' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) HttpEquiv() string {
-	var ret string
-	value := _this.Value_JS.Get("httpEquiv")
-	ret = (value).String()
-	return ret
-}
-
-// SetHttpEquiv setting attribute 'httpEquiv' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetHttpEquiv(value string) {
-	input := value
-	_this.Value_JS.Set("httpEquiv", input)
-}
-
-// Content returning attribute 'content' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Content() string {
-	var ret string
-	value := _this.Value_JS.Get("content")
-	ret = (value).String()
-	return ret
-}
-
-// SetContent setting attribute 'content' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetContent(value string) {
-	input := value
-	_this.Value_JS.Set("content", input)
-}
-
-// Scheme returning attribute 'scheme' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Scheme() string {
-	var ret string
-	value := _this.Value_JS.Get("scheme")
-	ret = (value).String()
-	return ret
-}
-
-// SetScheme setting attribute 'scheme' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetScheme(value string) {
-	input := value
-	_this.Value_JS.Set("scheme", input)
-}
-
-// interface: HTMLStyleElement
-type HTMLStyleElement struct {
-	HTMLElement
-}
-
-// HTMLStyleElementFromJS is casting a js.Value into HTMLStyleElement.
-func HTMLStyleElementFromJS(input js.Value) *HTMLStyleElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLStyleElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Media returning attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) Media() string {
-	var ret string
-	value := _this.Value_JS.Get("media")
-	ret = (value).String()
-	return ret
-}
-
-// SetMedia setting attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) SetMedia(value string) {
-	input := value
-	_this.Value_JS.Set("media", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLBodyElement
-type HTMLBodyElement struct {
-	HTMLElement
-}
-
-// HTMLBodyElementFromJS is casting a js.Value into HTMLBodyElement.
-func HTMLBodyElementFromJS(input js.Value) *HTMLBodyElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLBodyElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Link returning attribute 'link' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Link() string {
-	var ret string
-	value := _this.Value_JS.Get("link")
-	ret = (value).String()
-	return ret
-}
-
-// SetLink setting attribute 'link' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetLink(value string) {
-	input := value
-	_this.Value_JS.Set("link", input)
-}
-
-// VLink returning attribute 'vLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) VLink() string {
-	var ret string
-	value := _this.Value_JS.Get("vLink")
-	ret = (value).String()
-	return ret
-}
-
-// SetVLink setting attribute 'vLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetVLink(value string) {
-	input := value
-	_this.Value_JS.Set("vLink", input)
-}
-
-// ALink returning attribute 'aLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) ALink() string {
-	var ret string
-	value := _this.Value_JS.Get("aLink")
-	ret = (value).String()
-	return ret
-}
-
-// SetALink setting attribute 'aLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetALink(value string) {
-	input := value
-	_this.Value_JS.Set("aLink", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// Background returning attribute 'background' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Background() string {
-	var ret string
-	value := _this.Value_JS.Get("background")
-	ret = (value).String()
-	return ret
-}
-
-// SetBackground setting attribute 'background' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetBackground(value string) {
-	input := value
-	_this.Value_JS.Set("background", input)
-}
-
-// Onafterprint returning attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onafterprint() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnafterprint setting attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnafterprint(value *js.Callback) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onafterprint", input)
-}
-
-// Onbeforeprint returning attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeprint() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Callback) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("onbeforeprint", input)
-}
-
-// Onbeforeunload returning attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
-	var ret OnBeforeUnloadEventHandlerNonNull
-	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
-		ret = OnBeforeUnloadEventHandlerNonNullFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onbeforeunload", input)
-}
-
-// Onhashchange returning attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onhashchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnhashchange setting attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnhashchange(value *js.Callback) {
-	var __callback9 js.Value
-	if value != nil {
-		__callback9 = (*value).Value
-	} else {
-		__callback9 = js.Null()
-	}
-	input := __callback9
-	_this.Value_JS.Set("onhashchange", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onlanguagechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Callback) {
-	var __callback10 js.Value
-	if value != nil {
-		__callback10 = (*value).Value
-	} else {
-		__callback10 = js.Null()
-	}
-	input := __callback10
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessage(value *js.Callback) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Callback) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onoffline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnoffline setting attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnoffline(value *js.Callback) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Ononline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnonline setting attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnonline(value *js.Callback) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onpagehide returning attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpagehide() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpagehide setting attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpagehide(value *js.Callback) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("onpagehide", input)
-}
-
-// Onpageshow returning attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpageshow() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpageshow setting attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpageshow(value *js.Callback) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("onpageshow", input)
-}
-
-// Onpopstate returning attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpopstate() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpopstate setting attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpopstate(value *js.Callback) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onpopstate", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onrejectionhandled() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Callback) {
-	var __callback18 js.Value
-	if value != nil {
-		__callback18 = (*value).Value
-	} else {
-		__callback18 = js.Null()
-	}
-	input := __callback18
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onstorage returning attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onstorage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstorage setting attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnstorage(value *js.Callback) {
-	var __callback19 js.Value
-	if value != nil {
-		__callback19 = (*value).Value
-	} else {
-		__callback19 = js.Null()
-	}
-	input := __callback19
-	_this.Value_JS.Set("onstorage", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunhandledrejection() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Callback) {
-	var __callback20 js.Value
-	if value != nil {
-		__callback20 = (*value).Value
-	} else {
-		__callback20 = js.Null()
-	}
-	input := __callback20
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Onunload returning attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunload() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunload setting attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunload(value *js.Callback) {
-	var __callback21 js.Value
-	if value != nil {
-		__callback21 = (*value).Value
-	} else {
-		__callback21 = js.Null()
-	}
-	input := __callback21
-	_this.Value_JS.Set("onunload", input)
-}
-
-// interface: HTMLHeadingElement
-type HTMLHeadingElement struct {
-	HTMLElement
-}
-
-// HTMLHeadingElementFromJS is casting a js.Value into HTMLHeadingElement.
-func HTMLHeadingElementFromJS(input js.Value) *HTMLHeadingElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHeadingElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHeadingElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHeadingElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLParagraphElement
-type HTMLParagraphElement struct {
-	HTMLElement
-}
-
-// HTMLParagraphElementFromJS is casting a js.Value into HTMLParagraphElement.
-func HTMLParagraphElementFromJS(input js.Value) *HTMLParagraphElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLParagraphElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLParagraphElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLParagraphElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLHRElement
-type HTMLHRElement struct {
-	HTMLElement
-}
-
-// HTMLHRElementFromJS is casting a js.Value into HTMLHRElement.
-func HTMLHRElementFromJS(input js.Value) *HTMLHRElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHRElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Color returning attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Color() string {
-	var ret string
-	value := _this.Value_JS.Get("color")
-	ret = (value).String()
-	return ret
-}
-
-// SetColor setting attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetColor(value string) {
-	input := value
-	_this.Value_JS.Set("color", input)
-}
-
-// NoShade returning attribute 'noShade' with
-// type bool (idl: boolean).
-func (_this *HTMLHRElement) NoShade() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noShade")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoShade setting attribute 'noShade' with
-// type bool (idl: boolean).
-func (_this *HTMLHRElement) SetNoShade(value bool) {
-	input := value
-	_this.Value_JS.Set("noShade", input)
-}
-
-// Size returning attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Size() string {
-	var ret string
-	value := _this.Value_JS.Get("size")
-	ret = (value).String()
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetSize(value string) {
-	input := value
-	_this.Value_JS.Set("size", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLPreElement
-type HTMLPreElement struct {
-	HTMLElement
-}
-
-// HTMLPreElementFromJS is casting a js.Value into HTMLPreElement.
-func HTMLPreElementFromJS(input js.Value) *HTMLPreElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLPreElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type int (idl: long).
-func (_this *HTMLPreElement) Width() int {
-	var ret int
-	value := _this.Value_JS.Get("width")
-	ret = (value).Int()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type int (idl: long).
-func (_this *HTMLPreElement) SetWidth(value int) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLQuoteElement
-type HTMLQuoteElement struct {
-	HTMLElement
-}
-
-// HTMLQuoteElementFromJS is casting a js.Value into HTMLQuoteElement.
-func HTMLQuoteElementFromJS(input js.Value) *HTMLQuoteElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLQuoteElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Cite returning attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLQuoteElement) Cite() string {
-	var ret string
-	value := _this.Value_JS.Get("cite")
-	ret = (value).String()
-	return ret
-}
-
-// SetCite setting attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLQuoteElement) SetCite(value string) {
-	input := value
-	_this.Value_JS.Set("cite", input)
-}
-
-// interface: HTMLOListElement
-type HTMLOListElement struct {
-	HTMLElement
-}
-
-// HTMLOListElementFromJS is casting a js.Value into HTMLOListElement.
-func HTMLOListElementFromJS(input js.Value) *HTMLOListElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Reversed returning attribute 'reversed' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) Reversed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("reversed")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetReversed setting attribute 'reversed' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) SetReversed(value bool) {
-	input := value
-	_this.Value_JS.Set("reversed", input)
-}
-
-// Start returning attribute 'start' with
-// type int (idl: long).
-func (_this *HTMLOListElement) Start() int {
-	var ret int
-	value := _this.Value_JS.Get("start")
-	ret = (value).Int()
-	return ret
-}
-
-// SetStart setting attribute 'start' with
-// type int (idl: long).
-func (_this *HTMLOListElement) SetStart(value int) {
-	input := value
-	_this.Value_JS.Set("start", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLOListElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLOListElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLUListElement
-type HTMLUListElement struct {
-	HTMLElement
-}
-
-// HTMLUListElementFromJS is casting a js.Value into HTMLUListElement.
-func HTMLUListElementFromJS(input js.Value) *HTMLUListElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLUListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLUListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLUListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLUListElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLUListElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLMenuElement
-type HTMLMenuElement struct {
-	HTMLElement
-}
-
-// HTMLMenuElementFromJS is casting a js.Value into HTMLMenuElement.
-func HTMLMenuElementFromJS(input js.Value) *HTMLMenuElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMenuElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLMenuElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLMenuElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLLIElement
-type HTMLLIElement struct {
-	HTMLElement
-}
-
-// HTMLLIElementFromJS is casting a js.Value into HTMLLIElement.
-func HTMLLIElementFromJS(input js.Value) *HTMLLIElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLIElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type int (idl: long).
-func (_this *HTMLLIElement) Value() int {
-	var ret int
-	value := _this.Value_JS.Get("value")
-	ret = (value).Int()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type int (idl: long).
-func (_this *HTMLLIElement) SetValue(value int) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLIElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLIElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLDListElement
-type HTMLDListElement struct {
-	HTMLElement
-}
-
-// HTMLDListElementFromJS is casting a js.Value into HTMLDListElement.
-func HTMLDListElementFromJS(input js.Value) *HTMLDListElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLDivElement
-type HTMLDivElement struct {
-	HTMLElement
-}
-
-// HTMLDivElementFromJS is casting a js.Value into HTMLDivElement.
-func HTMLDivElementFromJS(input js.Value) *HTMLDivElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDivElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLDivElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLDivElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLAnchorElement
-type HTMLAnchorElement struct {
-	HTMLElement
-}
-
-// HTMLAnchorElementFromJS is casting a js.Value into HTMLAnchorElement.
-func HTMLAnchorElementFromJS(input js.Value) *HTMLAnchorElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLAnchorElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// Download returning attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Download() string {
-	var ret string
-	value := _this.Value_JS.Get("download")
-	ret = (value).String()
-	return ret
-}
-
-// SetDownload setting attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetDownload(value string) {
-	input := value
-	_this.Value_JS.Set("download", input)
-}
-
-// Ping returning attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Ping() string {
-	var ret string
-	value := _this.Value_JS.Get("ping")
-	ret = (value).String()
-	return ret
-}
-
-// SetPing setting attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetPing(value string) {
-	input := value
-	_this.Value_JS.Set("ping", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// RelList returning attribute 'relList' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLAnchorElement) RelList() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// Hreflang returning attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Hreflang() string {
-	var ret string
-	value := _this.Value_JS.Get("hreflang")
-	ret = (value).String()
-	return ret
-}
-
-// SetHreflang setting attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetHreflang(value string) {
-	input := value
-	_this.Value_JS.Set("hreflang", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Coords returning attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Coords() string {
-	var ret string
-	value := _this.Value_JS.Get("coords")
-	ret = (value).String()
-	return ret
-}
-
-// SetCoords setting attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetCoords(value string) {
-	input := value
-	_this.Value_JS.Set("coords", input)
-}
-
-// Charset returning attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Charset() string {
-	var ret string
-	value := _this.Value_JS.Get("charset")
-	ret = (value).String()
-	return ret
-}
-
-// SetCharset setting attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetCharset(value string) {
-	input := value
-	_this.Value_JS.Set("charset", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Rev returning attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Rev() string {
-	var ret string
-	value := _this.Value_JS.Get("rev")
-	ret = (value).String()
-	return ret
-}
-
-// SetRev setting attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetRev(value string) {
-	input := value
-	_this.Value_JS.Set("rev", input)
-}
-
-// Shape returning attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) Shape() string {
-	var ret string
-	value := _this.Value_JS.Get("shape")
-	ret = (value).String()
-	return ret
-}
-
-// SetShape setting attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAnchorElement) SetShape(value string) {
-	input := value
-	_this.Value_JS.Set("shape", input)
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// SetProtocol setting attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetProtocol(value string) {
-	input := value
-	_this.Value_JS.Set("protocol", input)
-}
-
-// Username returning attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Username() string {
-	var ret string
-	value := _this.Value_JS.Get("username")
-	ret = (value).String()
-	return ret
-}
-
-// SetUsername setting attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetUsername(value string) {
-	input := value
-	_this.Value_JS.Set("username", input)
-}
-
-// Password returning attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Password() string {
-	var ret string
-	value := _this.Value_JS.Get("password")
-	ret = (value).String()
-	return ret
-}
-
-// SetPassword setting attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetPassword(value string) {
-	input := value
-	_this.Value_JS.Set("password", input)
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// SetHost setting attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetHost(value string) {
-	input := value
-	_this.Value_JS.Set("host", input)
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// SetHostname setting attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetHostname(value string) {
-	input := value
-	_this.Value_JS.Set("hostname", input)
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// SetPort setting attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetPort(value string) {
-	input := value
-	_this.Value_JS.Set("port", input)
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// SetPathname setting attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetPathname(value string) {
-	input := value
-	_this.Value_JS.Set("pathname", input)
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// SetSearch setting attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetSearch(value string) {
-	input := value
-	_this.Value_JS.Set("search", input)
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
-}
-
-// SetHash setting attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAnchorElement) SetHash(value string) {
-	input := value
-	_this.Value_JS.Set("hash", input)
-}
-
-// interface: HTMLDataElement
-type HTMLDataElement struct {
-	HTMLElement
-}
-
-// HTMLDataElementFromJS is casting a js.Value into HTMLDataElement.
-func HTMLDataElementFromJS(input js.Value) *HTMLDataElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDataElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLDataElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLDataElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// interface: HTMLTimeElement
-type HTMLTimeElement struct {
-	HTMLElement
-}
-
-// HTMLTimeElementFromJS is casting a js.Value into HTMLTimeElement.
-func HTMLTimeElementFromJS(input js.Value) *HTMLTimeElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTimeElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// DateTime returning attribute 'dateTime' with
-// type string (idl: DOMString).
-func (_this *HTMLTimeElement) DateTime() string {
-	var ret string
-	value := _this.Value_JS.Get("dateTime")
-	ret = (value).String()
-	return ret
-}
-
-// SetDateTime setting attribute 'dateTime' with
-// type string (idl: DOMString).
-func (_this *HTMLTimeElement) SetDateTime(value string) {
-	input := value
-	_this.Value_JS.Set("dateTime", input)
-}
-
-// interface: HTMLSpanElement
-type HTMLSpanElement struct {
-	HTMLElement
-}
-
-// HTMLSpanElementFromJS is casting a js.Value into HTMLSpanElement.
-func HTMLSpanElementFromJS(input js.Value) *HTMLSpanElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSpanElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLBRElement
-type HTMLBRElement struct {
-	HTMLElement
-}
-
-// HTMLBRElementFromJS is casting a js.Value into HTMLBRElement.
-func HTMLBRElementFromJS(input js.Value) *HTMLBRElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLBRElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Clear returning attribute 'clear' with
-// type string (idl: DOMString).
-func (_this *HTMLBRElement) Clear() string {
-	var ret string
-	value := _this.Value_JS.Get("clear")
-	ret = (value).String()
-	return ret
-}
-
-// SetClear setting attribute 'clear' with
-// type string (idl: DOMString).
-func (_this *HTMLBRElement) SetClear(value string) {
-	input := value
-	_this.Value_JS.Set("clear", input)
-}
-
-// interface: HTMLModElement
-type HTMLModElement struct {
-	HTMLElement
-}
-
-// HTMLModElementFromJS is casting a js.Value into HTMLModElement.
-func HTMLModElementFromJS(input js.Value) *HTMLModElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLModElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Cite returning attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLModElement) Cite() string {
-	var ret string
-	value := _this.Value_JS.Get("cite")
-	ret = (value).String()
-	return ret
-}
-
-// SetCite setting attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLModElement) SetCite(value string) {
-	input := value
-	_this.Value_JS.Set("cite", input)
-}
-
-// DateTime returning attribute 'dateTime' with
-// type string (idl: DOMString).
-func (_this *HTMLModElement) DateTime() string {
-	var ret string
-	value := _this.Value_JS.Get("dateTime")
-	ret = (value).String()
-	return ret
-}
-
-// SetDateTime setting attribute 'dateTime' with
-// type string (idl: DOMString).
-func (_this *HTMLModElement) SetDateTime(value string) {
-	input := value
-	_this.Value_JS.Set("dateTime", input)
-}
-
-// interface: HTMLPictureElement
-type HTMLPictureElement struct {
-	HTMLElement
-}
-
-// HTMLPictureElementFromJS is casting a js.Value into HTMLPictureElement.
-func HTMLPictureElementFromJS(input js.Value) *HTMLPictureElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLPictureElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLSourceElement
-type HTMLSourceElement struct {
-	HTMLElement
-}
-
-// HTMLSourceElementFromJS is casting a js.Value into HTMLSourceElement.
-func HTMLSourceElementFromJS(input js.Value) *HTMLSourceElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSourceElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Srcset returning attribute 'srcset' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) Srcset() string {
-	var ret string
-	value := _this.Value_JS.Get("srcset")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrcset setting attribute 'srcset' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) SetSrcset(value string) {
-	input := value
-	_this.Value_JS.Set("srcset", input)
-}
-
-// Sizes returning attribute 'sizes' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) Sizes() string {
-	var ret string
-	value := _this.Value_JS.Get("sizes")
-	ret = (value).String()
-	return ret
-}
-
-// SetSizes setting attribute 'sizes' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetSizes(value string) {
-	input := value
-	_this.Value_JS.Set("sizes", input)
-}
-
-// Media returning attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) Media() string {
-	var ret string
-	value := _this.Value_JS.Get("media")
-	ret = (value).String()
-	return ret
-}
-
-// SetMedia setting attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetMedia(value string) {
-	input := value
-	_this.Value_JS.Set("media", input)
-}
-
-// interface: HTMLImageElement
-type HTMLImageElement struct {
-	HTMLElement
-}
-
-// HTMLImageElementFromJS is casting a js.Value into HTMLImageElement.
-func HTMLImageElementFromJS(input js.Value) *HTMLImageElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLImageElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Alt returning attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Alt() string {
-	var ret string
-	value := _this.Value_JS.Get("alt")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlt setting attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetAlt(value string) {
-	input := value
-	_this.Value_JS.Set("alt", input)
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Srcset returning attribute 'srcset' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) Srcset() string {
-	var ret string
-	value := _this.Value_JS.Get("srcset")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrcset setting attribute 'srcset' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) SetSrcset(value string) {
-	input := value
-	_this.Value_JS.Set("srcset", input)
-}
-
-// Sizes returning attribute 'sizes' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Sizes() string {
-	var ret string
-	value := _this.Value_JS.Get("sizes")
-	ret = (value).String()
-	return ret
-}
-
-// SetSizes setting attribute 'sizes' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetSizes(value string) {
-	input := value
-	_this.Value_JS.Set("sizes", input)
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// UseMap returning attribute 'useMap' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) UseMap() string {
-	var ret string
-	value := _this.Value_JS.Get("useMap")
-	ret = (value).String()
-	return ret
-}
-
-// SetUseMap setting attribute 'useMap' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetUseMap(value string) {
-	input := value
-	_this.Value_JS.Set("useMap", input)
-}
-
-// IsMap returning attribute 'isMap' with
-// type bool (idl: boolean).
-func (_this *HTMLImageElement) IsMap() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isMap")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetIsMap setting attribute 'isMap' with
-// type bool (idl: boolean).
-func (_this *HTMLImageElement) SetIsMap(value bool) {
-	input := value
-	_this.Value_JS.Set("isMap", input)
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) SetWidth(value uint) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) SetHeight(value uint) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// NaturalWidth returning attribute 'naturalWidth' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) NaturalWidth() uint {
-	var ret uint
-	value := _this.Value_JS.Get("naturalWidth")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// NaturalHeight returning attribute 'naturalHeight' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) NaturalHeight() uint {
-	var ret uint
-	value := _this.Value_JS.Get("naturalHeight")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Complete returning attribute 'complete' with
-// type bool (idl: boolean).
-func (_this *HTMLImageElement) Complete() bool {
-	var ret bool
-	value := _this.Value_JS.Get("complete")
-	ret = (value).Bool()
-	return ret
-}
-
-// CurrentSrc returning attribute 'currentSrc' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) CurrentSrc() string {
-	var ret string
-	value := _this.Value_JS.Get("currentSrc")
-	ret = (value).String()
-	return ret
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Decoding returning attribute 'decoding' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Decoding() string {
-	var ret string
-	value := _this.Value_JS.Get("decoding")
-	ret = (value).String()
-	return ret
-}
-
-// SetDecoding setting attribute 'decoding' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetDecoding(value string) {
-	input := value
-	_this.Value_JS.Set("decoding", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Lowsrc returning attribute 'lowsrc' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) Lowsrc() string {
-	var ret string
-	value := _this.Value_JS.Get("lowsrc")
-	ret = (value).String()
-	return ret
-}
-
-// SetLowsrc setting attribute 'lowsrc' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) SetLowsrc(value string) {
-	input := value
-	_this.Value_JS.Set("lowsrc", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Hspace returning attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) Hspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("hspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHspace setting attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) SetHspace(value uint) {
-	input := value
-	_this.Value_JS.Set("hspace", input)
-}
-
-// Vspace returning attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) Vspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("vspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetVspace setting attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLImageElement) SetVspace(value uint) {
-	input := value
-	_this.Value_JS.Set("vspace", input)
-}
-
-// LongDesc returning attribute 'longDesc' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) LongDesc() string {
-	var ret string
-	value := _this.Value_JS.Get("longDesc")
-	ret = (value).String()
-	return ret
-}
-
-// SetLongDesc setting attribute 'longDesc' with
-// type string (idl: USVString).
-func (_this *HTMLImageElement) SetLongDesc(value string) {
-	input := value
-	_this.Value_JS.Set("longDesc", input)
-}
-
-// Border returning attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) Border() string {
-	var ret string
-	value := _this.Value_JS.Get("border")
-	ret = (value).String()
-	return ret
-}
-
-// SetBorder setting attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLImageElement) SetBorder(value string) {
-	input := value
-	_this.Value_JS.Set("border", input)
-}
-
-func (_this *HTMLImageElement) Decode() (_result *Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("decode", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
 // interface: HTMLIFrameElement
 type HTMLIFrameElement struct {
-	HTMLElement
+	html.HTMLElement
 }
 
 // HTMLIFrameElementFromJS is casting a js.Value into HTMLIFrameElement.
@@ -14041,11 +3521,11 @@ func (_this *HTMLIFrameElement) SetName(value string) {
 }
 
 // Sandbox returning attribute 'sandbox' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLIFrameElement) Sandbox() *DOMTokenList {
-	var ret *DOMTokenList
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLIFrameElement) Sandbox() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
 	value := _this.Value_JS.Get("sandbox")
-	ret = DOMTokenListFromJS(value)
+	ret = domcore.DOMTokenListFromJS(value)
 	return ret
 }
 
@@ -14281,7 +3761,7 @@ func (_this *HTMLIFrameElement) GetSVGDocument() (_result *Document) {
 
 // interface: HTMLEmbedElement
 type HTMLEmbedElement struct {
-	HTMLElement
+	html.HTMLElement
 }
 
 // HTMLEmbedElementFromJS is casting a js.Value into HTMLEmbedElement.
@@ -14408,7 +3888,7 @@ func (_this *HTMLEmbedElement) GetSVGDocument() (_result *Document) {
 
 // interface: HTMLObjectElement
 type HTMLObjectElement struct {
-	HTMLElement
+	html.HTMLElement
 }
 
 // HTMLObjectElementFromJS is casting a js.Value into HTMLObjectElement.
@@ -14502,12 +3982,12 @@ func (_this *HTMLObjectElement) SetUseMap(value string) {
 }
 
 // Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLObjectElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
+// type html.HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLObjectElement) Form() *html.HTMLFormElement {
+	var ret *html.HTMLFormElement
 	value := _this.Value_JS.Get("form")
 	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
+		ret = html.HTMLFormElementFromJS(value)
 	}
 	return ret
 }
@@ -14576,11 +4056,11 @@ func (_this *HTMLObjectElement) WillValidate() bool {
 }
 
 // Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLObjectElement) Validity() *ValidityState {
-	var ret *ValidityState
+// type html.ValidityState (idl: ValidityState).
+func (_this *HTMLObjectElement) Validity() *html.ValidityState {
+	var ret *html.ValidityState
 	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
+	ret = html.ValidityStateFromJS(value)
 	return ret
 }
 
@@ -14809,10697 +4289,9 @@ func (_this *HTMLObjectElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLParamElement
-type HTMLParamElement struct {
-	HTMLElement
-}
-
-// HTMLParamElementFromJS is casting a js.Value into HTMLParamElement.
-func HTMLParamElementFromJS(input js.Value) *HTMLParamElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLParamElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// ValueType returning attribute 'valueType' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) ValueType() string {
-	var ret string
-	value := _this.Value_JS.Get("valueType")
-	ret = (value).String()
-	return ret
-}
-
-// SetValueType setting attribute 'valueType' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetValueType(value string) {
-	input := value
-	_this.Value_JS.Set("valueType", input)
-}
-
-// interface: HTMLVideoElement
-type HTMLVideoElement struct {
-	HTMLMediaElement
-}
-
-// HTMLVideoElementFromJS is casting a js.Value into HTMLVideoElement.
-func HTMLVideoElementFromJS(input js.Value) *HTMLVideoElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLVideoElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) SetWidth(value uint) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) SetHeight(value uint) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// VideoWidth returning attribute 'videoWidth' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) VideoWidth() uint {
-	var ret uint
-	value := _this.Value_JS.Get("videoWidth")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// VideoHeight returning attribute 'videoHeight' with
-// type uint (idl: unsigned long).
-func (_this *HTMLVideoElement) VideoHeight() uint {
-	var ret uint
-	value := _this.Value_JS.Get("videoHeight")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Poster returning attribute 'poster' with
-// type string (idl: USVString).
-func (_this *HTMLVideoElement) Poster() string {
-	var ret string
-	value := _this.Value_JS.Get("poster")
-	ret = (value).String()
-	return ret
-}
-
-// SetPoster setting attribute 'poster' with
-// type string (idl: USVString).
-func (_this *HTMLVideoElement) SetPoster(value string) {
-	input := value
-	_this.Value_JS.Set("poster", input)
-}
-
-// PlaysInline returning attribute 'playsInline' with
-// type bool (idl: boolean).
-func (_this *HTMLVideoElement) PlaysInline() bool {
-	var ret bool
-	value := _this.Value_JS.Get("playsInline")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetPlaysInline setting attribute 'playsInline' with
-// type bool (idl: boolean).
-func (_this *HTMLVideoElement) SetPlaysInline(value bool) {
-	input := value
-	_this.Value_JS.Set("playsInline", input)
-}
-
-// interface: HTMLAudioElement
-type HTMLAudioElement struct {
-	HTMLMediaElement
-}
-
-// HTMLAudioElementFromJS is casting a js.Value into HTMLAudioElement.
-func HTMLAudioElementFromJS(input js.Value) *HTMLAudioElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLAudioElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLTrackElement
-type HTMLTrackElement struct {
-	HTMLElement
-}
-
-// HTMLTrackElementFromJS is casting a js.Value into HTMLTrackElement.
-func HTMLTrackElementFromJS(input js.Value) *HTMLTrackElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTrackElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-const NONE_HTMLTrackElement int = 0
-const LOADING_HTMLTrackElement int = 1
-const LOADED_HTMLTrackElement int = 2
-const ERROR_HTMLTrackElement int = 3
-
-// Kind returning attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) Kind() string {
-	var ret string
-	value := _this.Value_JS.Get("kind")
-	ret = (value).String()
-	return ret
-}
-
-// SetKind setting attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) SetKind(value string) {
-	input := value
-	_this.Value_JS.Set("kind", input)
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLTrackElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLTrackElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Srclang returning attribute 'srclang' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) Srclang() string {
-	var ret string
-	value := _this.Value_JS.Get("srclang")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrclang setting attribute 'srclang' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) SetSrclang(value string) {
-	input := value
-	_this.Value_JS.Set("srclang", input)
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// SetLabel setting attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLTrackElement) SetLabel(value string) {
-	input := value
-	_this.Value_JS.Set("label", input)
-}
-
-// Default returning attribute 'default' with
-// type bool (idl: boolean).
-func (_this *HTMLTrackElement) Default() bool {
-	var ret bool
-	value := _this.Value_JS.Get("default")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefault setting attribute 'default' with
-// type bool (idl: boolean).
-func (_this *HTMLTrackElement) SetDefault(value bool) {
-	input := value
-	_this.Value_JS.Set("default", input)
-}
-
-// ReadyState returning attribute 'readyState' with
-// type int (idl: unsigned short).
-func (_this *HTMLTrackElement) ReadyState() int {
-	var ret int
-	value := _this.Value_JS.Get("readyState")
-	ret = (value).Int()
-	return ret
-}
-
-// Track returning attribute 'track' with
-// type TextTrack (idl: TextTrack).
-func (_this *HTMLTrackElement) Track() *TextTrack {
-	var ret *TextTrack
-	value := _this.Value_JS.Get("track")
-	ret = TextTrackFromJS(value)
-	return ret
-}
-
-// interface: HTMLMediaElement
-type HTMLMediaElement struct {
-	HTMLElement
-}
-
-// HTMLMediaElementFromJS is casting a js.Value into HTMLMediaElement.
-func HTMLMediaElementFromJS(input js.Value) *HTMLMediaElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMediaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-const NETWORKEMPTY_HTMLMediaElement int = 0
-const NETWORKIDLE_HTMLMediaElement int = 1
-const NETWORKLOADING_HTMLMediaElement int = 2
-const NETWORKNOSOURCE_HTMLMediaElement int = 3
-const HAVENOTHING_HTMLMediaElement int = 0
-const HAVEMETADATA_HTMLMediaElement int = 1
-const HAVECURRENTDATA_HTMLMediaElement int = 2
-const HAVEFUTUREDATA_HTMLMediaElement int = 3
-const HAVEENOUGHDATA_HTMLMediaElement int = 4
-
-// Error returning attribute 'error' with
-// type MediaError (idl: MediaError).
-func (_this *HTMLMediaElement) Error() *MediaError {
-	var ret *MediaError
-	value := _this.Value_JS.Get("error")
-	if value.Type() != js.TypeNull {
-		ret = MediaErrorFromJS(value)
-	}
-	return ret
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLMediaElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLMediaElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// SrcObject returning attribute 'srcObject' with
-// type Union (idl: Union).
-func (_this *HTMLMediaElement) SrcObject() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("srcObject")
-	if value.Type() != js.TypeNull {
-		ret = UnionFromJS(value)
-	}
-	return ret
-}
-
-// SetSrcObject setting attribute 'srcObject' with
-// type Union (idl: Union).
-func (_this *HTMLMediaElement) SetSrcObject(value *Union) {
-	input := value.JSValue()
-	_this.Value_JS.Set("srcObject", input)
-}
-
-// CurrentSrc returning attribute 'currentSrc' with
-// type string (idl: USVString).
-func (_this *HTMLMediaElement) CurrentSrc() string {
-	var ret string
-	value := _this.Value_JS.Get("currentSrc")
-	ret = (value).String()
-	return ret
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLMediaElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLMediaElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// NetworkState returning attribute 'networkState' with
-// type int (idl: unsigned short).
-func (_this *HTMLMediaElement) NetworkState() int {
-	var ret int
-	value := _this.Value_JS.Get("networkState")
-	ret = (value).Int()
-	return ret
-}
-
-// Preload returning attribute 'preload' with
-// type string (idl: DOMString).
-func (_this *HTMLMediaElement) Preload() string {
-	var ret string
-	value := _this.Value_JS.Get("preload")
-	ret = (value).String()
-	return ret
-}
-
-// SetPreload setting attribute 'preload' with
-// type string (idl: DOMString).
-func (_this *HTMLMediaElement) SetPreload(value string) {
-	input := value
-	_this.Value_JS.Set("preload", input)
-}
-
-// Buffered returning attribute 'buffered' with
-// type TimeRanges (idl: TimeRanges).
-func (_this *HTMLMediaElement) Buffered() *TimeRanges {
-	var ret *TimeRanges
-	value := _this.Value_JS.Get("buffered")
-	ret = TimeRangesFromJS(value)
-	return ret
-}
-
-// ReadyState returning attribute 'readyState' with
-// type int (idl: unsigned short).
-func (_this *HTMLMediaElement) ReadyState() int {
-	var ret int
-	value := _this.Value_JS.Get("readyState")
-	ret = (value).Int()
-	return ret
-}
-
-// Seeking returning attribute 'seeking' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Seeking() bool {
-	var ret bool
-	value := _this.Value_JS.Get("seeking")
-	ret = (value).Bool()
-	return ret
-}
-
-// CurrentTime returning attribute 'currentTime' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) CurrentTime() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("currentTime")
-	ret = (value).Float()
-	return ret
-}
-
-// SetCurrentTime setting attribute 'currentTime' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) SetCurrentTime(value float64) {
-	input := value
-	_this.Value_JS.Set("currentTime", input)
-}
-
-// Duration returning attribute 'duration' with
-// type float64 (idl: unrestricted double).
-func (_this *HTMLMediaElement) Duration() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("duration")
-	ret = (value).Float()
-	return ret
-}
-
-// Paused returning attribute 'paused' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Paused() bool {
-	var ret bool
-	value := _this.Value_JS.Get("paused")
-	ret = (value).Bool()
-	return ret
-}
-
-// DefaultPlaybackRate returning attribute 'defaultPlaybackRate' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) DefaultPlaybackRate() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("defaultPlaybackRate")
-	ret = (value).Float()
-	return ret
-}
-
-// SetDefaultPlaybackRate setting attribute 'defaultPlaybackRate' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) SetDefaultPlaybackRate(value float64) {
-	input := value
-	_this.Value_JS.Set("defaultPlaybackRate", input)
-}
-
-// PlaybackRate returning attribute 'playbackRate' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) PlaybackRate() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("playbackRate")
-	ret = (value).Float()
-	return ret
-}
-
-// SetPlaybackRate setting attribute 'playbackRate' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) SetPlaybackRate(value float64) {
-	input := value
-	_this.Value_JS.Set("playbackRate", input)
-}
-
-// Played returning attribute 'played' with
-// type TimeRanges (idl: TimeRanges).
-func (_this *HTMLMediaElement) Played() *TimeRanges {
-	var ret *TimeRanges
-	value := _this.Value_JS.Get("played")
-	ret = TimeRangesFromJS(value)
-	return ret
-}
-
-// Seekable returning attribute 'seekable' with
-// type TimeRanges (idl: TimeRanges).
-func (_this *HTMLMediaElement) Seekable() *TimeRanges {
-	var ret *TimeRanges
-	value := _this.Value_JS.Get("seekable")
-	ret = TimeRangesFromJS(value)
-	return ret
-}
-
-// Ended returning attribute 'ended' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Ended() bool {
-	var ret bool
-	value := _this.Value_JS.Get("ended")
-	ret = (value).Bool()
-	return ret
-}
-
-// Autoplay returning attribute 'autoplay' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Autoplay() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autoplay")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAutoplay setting attribute 'autoplay' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) SetAutoplay(value bool) {
-	input := value
-	_this.Value_JS.Set("autoplay", input)
-}
-
-// Loop returning attribute 'loop' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Loop() bool {
-	var ret bool
-	value := _this.Value_JS.Get("loop")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetLoop setting attribute 'loop' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) SetLoop(value bool) {
-	input := value
-	_this.Value_JS.Set("loop", input)
-}
-
-// Controls returning attribute 'controls' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Controls() bool {
-	var ret bool
-	value := _this.Value_JS.Get("controls")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetControls setting attribute 'controls' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) SetControls(value bool) {
-	input := value
-	_this.Value_JS.Set("controls", input)
-}
-
-// Volume returning attribute 'volume' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) Volume() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("volume")
-	ret = (value).Float()
-	return ret
-}
-
-// SetVolume setting attribute 'volume' with
-// type float64 (idl: double).
-func (_this *HTMLMediaElement) SetVolume(value float64) {
-	input := value
-	_this.Value_JS.Set("volume", input)
-}
-
-// Muted returning attribute 'muted' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) Muted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("muted")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetMuted setting attribute 'muted' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) SetMuted(value bool) {
-	input := value
-	_this.Value_JS.Set("muted", input)
-}
-
-// DefaultMuted returning attribute 'defaultMuted' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) DefaultMuted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defaultMuted")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefaultMuted setting attribute 'defaultMuted' with
-// type bool (idl: boolean).
-func (_this *HTMLMediaElement) SetDefaultMuted(value bool) {
-	input := value
-	_this.Value_JS.Set("defaultMuted", input)
-}
-
-// AudioTracks returning attribute 'audioTracks' with
-// type AudioTrackList (idl: AudioTrackList).
-func (_this *HTMLMediaElement) AudioTracks() *AudioTrackList {
-	var ret *AudioTrackList
-	value := _this.Value_JS.Get("audioTracks")
-	ret = AudioTrackListFromJS(value)
-	return ret
-}
-
-// VideoTracks returning attribute 'videoTracks' with
-// type VideoTrackList (idl: VideoTrackList).
-func (_this *HTMLMediaElement) VideoTracks() *VideoTrackList {
-	var ret *VideoTrackList
-	value := _this.Value_JS.Get("videoTracks")
-	ret = VideoTrackListFromJS(value)
-	return ret
-}
-
-// TextTracks returning attribute 'textTracks' with
-// type TextTrackList (idl: TextTrackList).
-func (_this *HTMLMediaElement) TextTracks() *TextTrackList {
-	var ret *TextTrackList
-	value := _this.Value_JS.Get("textTracks")
-	ret = TextTrackListFromJS(value)
-	return ret
-}
-
-func (_this *HTMLMediaElement) Load() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("load", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLMediaElement) CanPlayType(_type string) (_result CanPlayTypeResult) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("canPlayType", _args[0:_end]...)
-	var (
-		_converted CanPlayTypeResult // javascript: CanPlayTypeResult _what_return_name
-	)
-	_converted = CanPlayTypeResultFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLMediaElement) FastSeek(time float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := time
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("fastSeek", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLMediaElement) GetStartDate() (_result *Object) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getStartDate", _args[0:_end]...)
-	var (
-		_converted *Object // javascript: object _what_return_name
-	)
-	_converted = ObjectFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLMediaElement) Play() (_result *Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("play", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLMediaElement) Pause() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("pause", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, language *string) (_result *TextTrack) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := kind.JSValue()
-	_args[0] = _p0
-	_end++
-	if label != nil {
-		_p1 := label
-		_args[1] = _p1
-		_end++
-	}
-	if language != nil {
-		_p2 := language
-		_args[2] = _p2
-		_end++
-	}
-	_returned := _this.Value_JS.Call("addTextTrack", _args[0:_end]...)
-	var (
-		_converted *TextTrack // javascript: TextTrack _what_return_name
-	)
-	_converted = TextTrackFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: MediaError
-type MediaError struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MediaError) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MediaErrorFromJS is casting a js.Value into MediaError.
-func MediaErrorFromJS(input js.Value) *MediaError {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MediaError{}
-	ret.Value_JS = input
-	return ret
-}
-
-const MEDIAERRABORTED_MediaError int = 1
-const MEDIAERRNETWORK_MediaError int = 2
-const MEDIAERRDECODE_MediaError int = 3
-const MEDIAERRSRCNOTSUPPORTED_MediaError int = 4
-
-// Code returning attribute 'code' with
-// type int (idl: unsigned short).
-func (_this *MediaError) Code() int {
-	var ret int
-	value := _this.Value_JS.Get("code")
-	ret = (value).Int()
-	return ret
-}
-
-// Message returning attribute 'message' with
-// type string (idl: DOMString).
-func (_this *MediaError) Message() string {
-	var ret string
-	value := _this.Value_JS.Get("message")
-	ret = (value).String()
-	return ret
-}
-
-// interface: AudioTrackList
-type AudioTrackList struct {
-	EventTarget
-}
-
-// AudioTrackListFromJS is casting a js.Value into AudioTrackList.
-func AudioTrackListFromJS(input js.Value) *AudioTrackList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AudioTrackList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *AudioTrackList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnchange(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onaddtrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnaddtrack setting attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnaddtrack(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onremovetrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnremovetrack(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onremovetrack", input)
-}
-
-func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := id
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getTrackById", _args[0:_end]...)
-	var (
-		_converted *AudioTrack // javascript: AudioTrack _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = AudioTrackFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: AudioTrack
-type AudioTrack struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *AudioTrack) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// AudioTrackFromJS is casting a js.Value into AudioTrack.
-func AudioTrackFromJS(input js.Value) *AudioTrack {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AudioTrack{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *AudioTrack) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// Kind returning attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *AudioTrack) Kind() string {
-	var ret string
-	value := _this.Value_JS.Get("kind")
-	ret = (value).String()
-	return ret
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *AudioTrack) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// Language returning attribute 'language' with
-// type string (idl: DOMString).
-func (_this *AudioTrack) Language() string {
-	var ret string
-	value := _this.Value_JS.Get("language")
-	ret = (value).String()
-	return ret
-}
-
-// Enabled returning attribute 'enabled' with
-// type bool (idl: boolean).
-func (_this *AudioTrack) Enabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("enabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetEnabled setting attribute 'enabled' with
-// type bool (idl: boolean).
-func (_this *AudioTrack) SetEnabled(value bool) {
-	input := value
-	_this.Value_JS.Set("enabled", input)
-}
-
-// interface: VideoTrackList
-type VideoTrackList struct {
-	EventTarget
-}
-
-// VideoTrackListFromJS is casting a js.Value into VideoTrackList.
-func VideoTrackListFromJS(input js.Value) *VideoTrackList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &VideoTrackList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *VideoTrackList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SelectedIndex returning attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *VideoTrackList) SelectedIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("selectedIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnchange(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onaddtrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnaddtrack setting attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnaddtrack(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onremovetrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnremovetrack(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onremovetrack", input)
-}
-
-func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := id
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getTrackById", _args[0:_end]...)
-	var (
-		_converted *VideoTrack // javascript: VideoTrack _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = VideoTrackFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: VideoTrack
-type VideoTrack struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *VideoTrack) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// VideoTrackFromJS is casting a js.Value into VideoTrack.
-func VideoTrackFromJS(input js.Value) *VideoTrack {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &VideoTrack{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *VideoTrack) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// Kind returning attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *VideoTrack) Kind() string {
-	var ret string
-	value := _this.Value_JS.Get("kind")
-	ret = (value).String()
-	return ret
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *VideoTrack) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// Language returning attribute 'language' with
-// type string (idl: DOMString).
-func (_this *VideoTrack) Language() string {
-	var ret string
-	value := _this.Value_JS.Get("language")
-	ret = (value).String()
-	return ret
-}
-
-// Selected returning attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *VideoTrack) Selected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("selected")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetSelected setting attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *VideoTrack) SetSelected(value bool) {
-	input := value
-	_this.Value_JS.Set("selected", input)
-}
-
-// interface: TextTrackList
-type TextTrackList struct {
-	EventTarget
-}
-
-// TextTrackListFromJS is casting a js.Value into TextTrackList.
-func TextTrackListFromJS(input js.Value) *TextTrackList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextTrackList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *TextTrackList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnchange(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onaddtrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnaddtrack setting attribute 'onaddtrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnaddtrack(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onremovetrack() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnremovetrack(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onremovetrack", input)
-}
-
-func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := id
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getTrackById", _args[0:_end]...)
-	var (
-		_converted *TextTrack // javascript: TextTrack _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = TextTrackFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: TextTrack
-type TextTrack struct {
-	EventTarget
-}
-
-// TextTrackFromJS is casting a js.Value into TextTrack.
-func TextTrackFromJS(input js.Value) *TextTrack {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextTrack{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Kind returning attribute 'kind' with
-// type TextTrackKind (idl: TextTrackKind).
-func (_this *TextTrack) Kind() TextTrackKind {
-	var ret TextTrackKind
-	value := _this.Value_JS.Get("kind")
-	ret = TextTrackKindFromJS(value)
-	return ret
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *TextTrack) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// Language returning attribute 'language' with
-// type string (idl: DOMString).
-func (_this *TextTrack) Language() string {
-	var ret string
-	value := _this.Value_JS.Get("language")
-	ret = (value).String()
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *TextTrack) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// InBandMetadataTrackDispatchType returning attribute 'inBandMetadataTrackDispatchType' with
-// type string (idl: DOMString).
-func (_this *TextTrack) InBandMetadataTrackDispatchType() string {
-	var ret string
-	value := _this.Value_JS.Get("inBandMetadataTrackDispatchType")
-	ret = (value).String()
-	return ret
-}
-
-// Mode returning attribute 'mode' with
-// type TextTrackMode (idl: TextTrackMode).
-func (_this *TextTrack) Mode() TextTrackMode {
-	var ret TextTrackMode
-	value := _this.Value_JS.Get("mode")
-	ret = TextTrackModeFromJS(value)
-	return ret
-}
-
-// SetMode setting attribute 'mode' with
-// type TextTrackMode (idl: TextTrackMode).
-func (_this *TextTrack) SetMode(value TextTrackMode) {
-	input := value.JSValue()
-	_this.Value_JS.Set("mode", input)
-}
-
-// Cues returning attribute 'cues' with
-// type TextTrackCueList (idl: TextTrackCueList).
-func (_this *TextTrack) Cues() *TextTrackCueList {
-	var ret *TextTrackCueList
-	value := _this.Value_JS.Get("cues")
-	if value.Type() != js.TypeNull {
-		ret = TextTrackCueListFromJS(value)
-	}
-	return ret
-}
-
-// ActiveCues returning attribute 'activeCues' with
-// type TextTrackCueList (idl: TextTrackCueList).
-func (_this *TextTrack) ActiveCues() *TextTrackCueList {
-	var ret *TextTrackCueList
-	value := _this.Value_JS.Get("activeCues")
-	if value.Type() != js.TypeNull {
-		ret = TextTrackCueListFromJS(value)
-	}
-	return ret
-}
-
-// Oncuechange returning attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) Oncuechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncuechange setting attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) SetOncuechange(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("oncuechange", input)
-}
-
-func (_this *TextTrack) AddCue(cue *TextTrackCue) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := cue.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("addCue", _args[0:_end]...)
-	return
-}
-
-func (_this *TextTrack) RemoveCue(cue *TextTrackCue) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := cue.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("removeCue", _args[0:_end]...)
-	return
-}
-
-// interface: TextTrackCueList
-type TextTrackCueList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TextTrackCueList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TextTrackCueListFromJS is casting a js.Value into TextTrackCueList.
-func TextTrackCueListFromJS(input js.Value) *TextTrackCueList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextTrackCueList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *TextTrackCueList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := id
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getCueById", _args[0:_end]...)
-	var (
-		_converted *TextTrackCue // javascript: TextTrackCue _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = TextTrackCueFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: TextTrackCue
-type TextTrackCue struct {
-	EventTarget
-}
-
-// TextTrackCueFromJS is casting a js.Value into TextTrackCue.
-func TextTrackCueFromJS(input js.Value) *TextTrackCue {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextTrackCue{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Track returning attribute 'track' with
-// type TextTrack (idl: TextTrack).
-func (_this *TextTrackCue) Track() *TextTrack {
-	var ret *TextTrack
-	value := _this.Value_JS.Get("track")
-	if value.Type() != js.TypeNull {
-		ret = TextTrackFromJS(value)
-	}
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *TextTrackCue) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// SetId setting attribute 'id' with
-// type string (idl: DOMString).
-func (_this *TextTrackCue) SetId(value string) {
-	input := value
-	_this.Value_JS.Set("id", input)
-}
-
-// StartTime returning attribute 'startTime' with
-// type float64 (idl: double).
-func (_this *TextTrackCue) StartTime() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("startTime")
-	ret = (value).Float()
-	return ret
-}
-
-// SetStartTime setting attribute 'startTime' with
-// type float64 (idl: double).
-func (_this *TextTrackCue) SetStartTime(value float64) {
-	input := value
-	_this.Value_JS.Set("startTime", input)
-}
-
-// EndTime returning attribute 'endTime' with
-// type float64 (idl: double).
-func (_this *TextTrackCue) EndTime() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("endTime")
-	ret = (value).Float()
-	return ret
-}
-
-// SetEndTime setting attribute 'endTime' with
-// type float64 (idl: double).
-func (_this *TextTrackCue) SetEndTime(value float64) {
-	input := value
-	_this.Value_JS.Set("endTime", input)
-}
-
-// PauseOnExit returning attribute 'pauseOnExit' with
-// type bool (idl: boolean).
-func (_this *TextTrackCue) PauseOnExit() bool {
-	var ret bool
-	value := _this.Value_JS.Get("pauseOnExit")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetPauseOnExit setting attribute 'pauseOnExit' with
-// type bool (idl: boolean).
-func (_this *TextTrackCue) SetPauseOnExit(value bool) {
-	input := value
-	_this.Value_JS.Set("pauseOnExit", input)
-}
-
-// Onenter returning attribute 'onenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onenter() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onenter")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnenter setting attribute 'onenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnenter(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onenter", input)
-}
-
-// Onexit returning attribute 'onexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onexit() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onexit")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnexit setting attribute 'onexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnexit(value *js.Callback) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onexit", input)
-}
-
-// interface: TimeRanges
-type TimeRanges struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TimeRanges) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TimeRangesFromJS is casting a js.Value into TimeRanges.
-func TimeRangesFromJS(input js.Value) *TimeRanges {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TimeRanges{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *TimeRanges) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *TimeRanges) Start(index uint) (_result float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("start", _args[0:_end]...)
-	var (
-		_converted float64 // javascript: double _what_return_name
-	)
-	_converted = (_returned).Float()
-	_result = _converted
-	return
-}
-
-func (_this *TimeRanges) End(index uint) (_result float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("end", _args[0:_end]...)
-	var (
-		_converted float64 // javascript: double _what_return_name
-	)
-	_converted = (_returned).Float()
-	_result = _converted
-	return
-}
-
-// interface: TrackEvent
-type TrackEvent struct {
-	Event
-}
-
-// TrackEventFromJS is casting a js.Value into TrackEvent.
-func TrackEventFromJS(input js.Value) *TrackEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TrackEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewTrackEvent(_type string, eventInitDict *TrackEventInit) (_result *TrackEvent) {
-	_klass := js.Global().Get("TrackEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *TrackEvent // javascript: TrackEvent _what_return_name
-	)
-	_converted = TrackEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Track returning attribute 'track' with
-// type Union (idl: Union).
-func (_this *TrackEvent) Track() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("track")
-	if value.Type() != js.TypeNull {
-		ret = UnionFromJS(value)
-	}
-	return ret
-}
-
-// interface: HTMLMapElement
-type HTMLMapElement struct {
-	HTMLElement
-}
-
-// HTMLMapElementFromJS is casting a js.Value into HTMLMapElement.
-func HTMLMapElementFromJS(input js.Value) *HTMLMapElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMapElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMapElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMapElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Areas returning attribute 'areas' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLMapElement) Areas() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("areas")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// interface: HTMLAreaElement
-type HTMLAreaElement struct {
-	HTMLElement
-}
-
-// HTMLAreaElementFromJS is casting a js.Value into HTMLAreaElement.
-func HTMLAreaElementFromJS(input js.Value) *HTMLAreaElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLAreaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Alt returning attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Alt() string {
-	var ret string
-	value := _this.Value_JS.Get("alt")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlt setting attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetAlt(value string) {
-	input := value
-	_this.Value_JS.Set("alt", input)
-}
-
-// Coords returning attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Coords() string {
-	var ret string
-	value := _this.Value_JS.Get("coords")
-	ret = (value).String()
-	return ret
-}
-
-// SetCoords setting attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetCoords(value string) {
-	input := value
-	_this.Value_JS.Set("coords", input)
-}
-
-// Shape returning attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Shape() string {
-	var ret string
-	value := _this.Value_JS.Get("shape")
-	ret = (value).String()
-	return ret
-}
-
-// SetShape setting attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetShape(value string) {
-	input := value
-	_this.Value_JS.Set("shape", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// Download returning attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Download() string {
-	var ret string
-	value := _this.Value_JS.Get("download")
-	ret = (value).String()
-	return ret
-}
-
-// SetDownload setting attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetDownload(value string) {
-	input := value
-	_this.Value_JS.Set("download", input)
-}
-
-// Ping returning attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Ping() string {
-	var ret string
-	value := _this.Value_JS.Get("ping")
-	ret = (value).String()
-	return ret
-}
-
-// SetPing setting attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPing(value string) {
-	input := value
-	_this.Value_JS.Set("ping", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// RelList returning attribute 'relList' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLAreaElement) RelList() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// NoHref returning attribute 'noHref' with
-// type bool (idl: boolean).
-func (_this *HTMLAreaElement) NoHref() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noHref")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoHref setting attribute 'noHref' with
-// type bool (idl: boolean).
-func (_this *HTMLAreaElement) SetNoHref(value bool) {
-	input := value
-	_this.Value_JS.Set("noHref", input)
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// SetProtocol setting attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetProtocol(value string) {
-	input := value
-	_this.Value_JS.Set("protocol", input)
-}
-
-// Username returning attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Username() string {
-	var ret string
-	value := _this.Value_JS.Get("username")
-	ret = (value).String()
-	return ret
-}
-
-// SetUsername setting attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetUsername(value string) {
-	input := value
-	_this.Value_JS.Set("username", input)
-}
-
-// Password returning attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Password() string {
-	var ret string
-	value := _this.Value_JS.Get("password")
-	ret = (value).String()
-	return ret
-}
-
-// SetPassword setting attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPassword(value string) {
-	input := value
-	_this.Value_JS.Set("password", input)
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// SetHost setting attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHost(value string) {
-	input := value
-	_this.Value_JS.Set("host", input)
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// SetHostname setting attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHostname(value string) {
-	input := value
-	_this.Value_JS.Set("hostname", input)
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// SetPort setting attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPort(value string) {
-	input := value
-	_this.Value_JS.Set("port", input)
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// SetPathname setting attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPathname(value string) {
-	input := value
-	_this.Value_JS.Set("pathname", input)
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// SetSearch setting attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetSearch(value string) {
-	input := value
-	_this.Value_JS.Set("search", input)
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
-}
-
-// SetHash setting attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHash(value string) {
-	input := value
-	_this.Value_JS.Set("hash", input)
-}
-
-// interface: HTMLTableElement
-type HTMLTableElement struct {
-	HTMLElement
-}
-
-// HTMLTableElementFromJS is casting a js.Value into HTMLTableElement.
-func HTMLTableElementFromJS(input js.Value) *HTMLTableElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Caption returning attribute 'caption' with
-// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
-func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
-	var ret *HTMLTableCaptionElement
-	value := _this.Value_JS.Get("caption")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableCaptionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetCaption setting attribute 'caption' with
-// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
-func (_this *HTMLTableElement) SetCaption(value *HTMLTableCaptionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("caption", input)
-}
-
-// THead returning attribute 'tHead' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
-	var ret *HTMLTableSectionElement
-	value := _this.Value_JS.Get("tHead")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableSectionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetTHead setting attribute 'tHead' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) SetTHead(value *HTMLTableSectionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("tHead", input)
-}
-
-// TFoot returning attribute 'tFoot' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
-	var ret *HTMLTableSectionElement
-	value := _this.Value_JS.Get("tFoot")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableSectionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetTFoot setting attribute 'tFoot' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) SetTFoot(value *HTMLTableSectionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("tFoot", input)
-}
-
-// TBodies returning attribute 'tBodies' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableElement) TBodies() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("tBodies")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Rows returning attribute 'rows' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableElement) Rows() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("rows")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Border returning attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Border() string {
-	var ret string
-	value := _this.Value_JS.Get("border")
-	ret = (value).String()
-	return ret
-}
-
-// SetBorder setting attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetBorder(value string) {
-	input := value
-	_this.Value_JS.Set("border", input)
-}
-
-// Frame returning attribute 'frame' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Frame() string {
-	var ret string
-	value := _this.Value_JS.Get("frame")
-	ret = (value).String()
-	return ret
-}
-
-// SetFrame setting attribute 'frame' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetFrame(value string) {
-	input := value
-	_this.Value_JS.Set("frame", input)
-}
-
-// Rules returning attribute 'rules' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Rules() string {
-	var ret string
-	value := _this.Value_JS.Get("rules")
-	ret = (value).String()
-	return ret
-}
-
-// SetRules setting attribute 'rules' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetRules(value string) {
-	input := value
-	_this.Value_JS.Set("rules", input)
-}
-
-// Summary returning attribute 'summary' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Summary() string {
-	var ret string
-	value := _this.Value_JS.Get("summary")
-	ret = (value).String()
-	return ret
-}
-
-// SetSummary setting attribute 'summary' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetSummary(value string) {
-	input := value
-	_this.Value_JS.Set("summary", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// CellPadding returning attribute 'cellPadding' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) CellPadding() string {
-	var ret string
-	value := _this.Value_JS.Get("cellPadding")
-	ret = (value).String()
-	return ret
-}
-
-// SetCellPadding setting attribute 'cellPadding' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetCellPadding(value string) {
-	input := value
-	_this.Value_JS.Set("cellPadding", input)
-}
-
-// CellSpacing returning attribute 'cellSpacing' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) CellSpacing() string {
-	var ret string
-	value := _this.Value_JS.Get("cellSpacing")
-	ret = (value).String()
-	return ret
-}
-
-// SetCellSpacing setting attribute 'cellSpacing' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetCellSpacing(value string) {
-	input := value
-	_this.Value_JS.Set("cellSpacing", input)
-}
-
-func (_this *HTMLTableElement) CreateCaption() (_result *HTMLTableCaptionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createCaption", _args[0:_end]...)
-	var (
-		_converted *HTMLTableCaptionElement // javascript: HTMLTableCaptionElement _what_return_name
-	)
-	_converted = HTMLTableCaptionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteCaption() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteCaption", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTHead() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTHead", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteTHead() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteTHead", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTFoot() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTFoot", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteTFoot() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteTFoot", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTBody() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTBody", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
-	var (
-		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
-	)
-	_converted = HTMLTableRowElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteRow(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableCaptionElement
-type HTMLTableCaptionElement struct {
-	HTMLElement
-}
-
-// HTMLTableCaptionElementFromJS is casting a js.Value into HTMLTableCaptionElement.
-func HTMLTableCaptionElementFromJS(input js.Value) *HTMLTableCaptionElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableCaptionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCaptionElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCaptionElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLTableColElement
-type HTMLTableColElement struct {
-	HTMLElement
-}
-
-// HTMLTableColElementFromJS is casting a js.Value into HTMLTableColElement.
-func HTMLTableColElementFromJS(input js.Value) *HTMLTableColElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableColElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Span returning attribute 'span' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableColElement) Span() uint {
-	var ret uint
-	value := _this.Value_JS.Get("span")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSpan setting attribute 'span' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableColElement) SetSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("span", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLTableSectionElement
-type HTMLTableSectionElement struct {
-	HTMLElement
-}
-
-// HTMLTableSectionElementFromJS is casting a js.Value into HTMLTableSectionElement.
-func HTMLTableSectionElementFromJS(input js.Value) *HTMLTableSectionElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableSectionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Rows returning attribute 'rows' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableSectionElement) Rows() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("rows")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
-	var (
-		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
-	)
-	_converted = HTMLTableRowElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableSectionElement) DeleteRow(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableRowElement
-type HTMLTableRowElement struct {
-	HTMLElement
-}
-
-// HTMLTableRowElementFromJS is casting a js.Value into HTMLTableRowElement.
-func HTMLTableRowElementFromJS(input js.Value) *HTMLTableRowElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableRowElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// RowIndex returning attribute 'rowIndex' with
-// type int (idl: long).
-func (_this *HTMLTableRowElement) RowIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("rowIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SectionRowIndex returning attribute 'sectionRowIndex' with
-// type int (idl: long).
-func (_this *HTMLTableRowElement) SectionRowIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("sectionRowIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// Cells returning attribute 'cells' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableRowElement) Cells() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("cells")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCellElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertCell", _args[0:_end]...)
-	var (
-		_converted *HTMLTableCellElement // javascript: HTMLTableCellElement _what_return_name
-	)
-	_converted = HTMLTableCellElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableRowElement) DeleteCell(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteCell", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableCellElement
-type HTMLTableCellElement struct {
-	HTMLElement
-}
-
-// HTMLTableCellElementFromJS is casting a js.Value into HTMLTableCellElement.
-func HTMLTableCellElementFromJS(input js.Value) *HTMLTableCellElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableCellElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// ColSpan returning attribute 'colSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) ColSpan() uint {
-	var ret uint
-	value := _this.Value_JS.Get("colSpan")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetColSpan setting attribute 'colSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) SetColSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("colSpan", input)
-}
-
-// RowSpan returning attribute 'rowSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) RowSpan() uint {
-	var ret uint
-	value := _this.Value_JS.Get("rowSpan")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetRowSpan setting attribute 'rowSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) SetRowSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("rowSpan", input)
-}
-
-// Headers returning attribute 'headers' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Headers() string {
-	var ret string
-	value := _this.Value_JS.Get("headers")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeaders setting attribute 'headers' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetHeaders(value string) {
-	input := value
-	_this.Value_JS.Set("headers", input)
-}
-
-// CellIndex returning attribute 'cellIndex' with
-// type int (idl: long).
-func (_this *HTMLTableCellElement) CellIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("cellIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// Scope returning attribute 'scope' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Scope() string {
-	var ret string
-	value := _this.Value_JS.Get("scope")
-	ret = (value).String()
-	return ret
-}
-
-// SetScope setting attribute 'scope' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetScope(value string) {
-	input := value
-	_this.Value_JS.Set("scope", input)
-}
-
-// Abbr returning attribute 'abbr' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Abbr() string {
-	var ret string
-	value := _this.Value_JS.Get("abbr")
-	ret = (value).String()
-	return ret
-}
-
-// SetAbbr setting attribute 'abbr' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAbbr(value string) {
-	input := value
-	_this.Value_JS.Set("abbr", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Axis returning attribute 'axis' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Axis() string {
-	var ret string
-	value := _this.Value_JS.Get("axis")
-	ret = (value).String()
-	return ret
-}
-
-// SetAxis setting attribute 'axis' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAxis(value string) {
-	input := value
-	_this.Value_JS.Set("axis", input)
-}
-
-// Height returning attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Height() string {
-	var ret string
-	value := _this.Value_JS.Get("height")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetHeight(value string) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// NoWrap returning attribute 'noWrap' with
-// type bool (idl: boolean).
-func (_this *HTMLTableCellElement) NoWrap() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noWrap")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoWrap setting attribute 'noWrap' with
-// type bool (idl: boolean).
-func (_this *HTMLTableCellElement) SetNoWrap(value bool) {
-	input := value
-	_this.Value_JS.Set("noWrap", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// interface: HTMLFormElement
-type HTMLFormElement struct {
-	HTMLElement
-}
-
-// HTMLFormElementFromJS is casting a js.Value into HTMLFormElement.
-func HTMLFormElementFromJS(input js.Value) *HTMLFormElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFormElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// AcceptCharset returning attribute 'acceptCharset' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) AcceptCharset() string {
-	var ret string
-	value := _this.Value_JS.Get("acceptCharset")
-	ret = (value).String()
-	return ret
-}
-
-// SetAcceptCharset setting attribute 'acceptCharset' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetAcceptCharset(value string) {
-	input := value
-	_this.Value_JS.Set("acceptCharset", input)
-}
-
-// Action returning attribute 'action' with
-// type string (idl: USVString).
-func (_this *HTMLFormElement) Action() string {
-	var ret string
-	value := _this.Value_JS.Get("action")
-	ret = (value).String()
-	return ret
-}
-
-// SetAction setting attribute 'action' with
-// type string (idl: USVString).
-func (_this *HTMLFormElement) SetAction(value string) {
-	input := value
-	_this.Value_JS.Set("action", input)
-}
-
-// Autocomplete returning attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Autocomplete() string {
-	var ret string
-	value := _this.Value_JS.Get("autocomplete")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocomplete setting attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetAutocomplete(value string) {
-	input := value
-	_this.Value_JS.Set("autocomplete", input)
-}
-
-// Enctype returning attribute 'enctype' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Enctype() string {
-	var ret string
-	value := _this.Value_JS.Get("enctype")
-	ret = (value).String()
-	return ret
-}
-
-// SetEnctype setting attribute 'enctype' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetEnctype(value string) {
-	input := value
-	_this.Value_JS.Set("enctype", input)
-}
-
-// Encoding returning attribute 'encoding' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Encoding() string {
-	var ret string
-	value := _this.Value_JS.Get("encoding")
-	ret = (value).String()
-	return ret
-}
-
-// SetEncoding setting attribute 'encoding' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetEncoding(value string) {
-	input := value
-	_this.Value_JS.Set("encoding", input)
-}
-
-// Method returning attribute 'method' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Method() string {
-	var ret string
-	value := _this.Value_JS.Get("method")
-	ret = (value).String()
-	return ret
-}
-
-// SetMethod setting attribute 'method' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetMethod(value string) {
-	input := value
-	_this.Value_JS.Set("method", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// NoValidate returning attribute 'noValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFormElement) NoValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoValidate setting attribute 'noValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFormElement) SetNoValidate(value bool) {
-	input := value
-	_this.Value_JS.Set("noValidate", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// Elements returning attribute 'elements' with
-// type HTMLFormControlsCollection (idl: HTMLFormControlsCollection).
-func (_this *HTMLFormElement) Elements() *HTMLFormControlsCollection {
-	var ret *HTMLFormControlsCollection
-	value := _this.Value_JS.Get("elements")
-	ret = HTMLFormControlsCollectionFromJS(value)
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLFormElement) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *HTMLFormElement) Submit() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("submit", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLFormElement) Reset() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("reset", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLFormElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLFormElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: HTMLLabelElement
-type HTMLLabelElement struct {
-	HTMLElement
-}
-
-// HTMLLabelElementFromJS is casting a js.Value into HTMLLabelElement.
-func HTMLLabelElementFromJS(input js.Value) *HTMLLabelElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLabelElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLLabelElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// HtmlFor returning attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLLabelElement) HtmlFor() string {
-	var ret string
-	value := _this.Value_JS.Get("htmlFor")
-	ret = (value).String()
-	return ret
-}
-
-// SetHtmlFor setting attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLLabelElement) SetHtmlFor(value string) {
-	input := value
-	_this.Value_JS.Set("htmlFor", input)
-}
-
-// Control returning attribute 'control' with
-// type HTMLElement (idl: HTMLElement).
-func (_this *HTMLLabelElement) Control() *HTMLElement {
-	var ret *HTMLElement
-	value := _this.Value_JS.Get("control")
-	if value.Type() != js.TypeNull {
-		ret = HTMLElementFromJS(value)
-	}
-	return ret
-}
-
-// interface: HTMLInputElement
-type HTMLInputElement struct {
-	HTMLElement
-}
-
-// HTMLInputElementFromJS is casting a js.Value into HTMLInputElement.
-func HTMLInputElementFromJS(input js.Value) *HTMLInputElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLInputElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Accept returning attribute 'accept' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Accept() string {
-	var ret string
-	value := _this.Value_JS.Get("accept")
-	ret = (value).String()
-	return ret
-}
-
-// SetAccept setting attribute 'accept' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetAccept(value string) {
-	input := value
-	_this.Value_JS.Set("accept", input)
-}
-
-// Alt returning attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Alt() string {
-	var ret string
-	value := _this.Value_JS.Get("alt")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlt setting attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetAlt(value string) {
-	input := value
-	_this.Value_JS.Set("alt", input)
-}
-
-// Autocomplete returning attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Autocomplete() string {
-	var ret string
-	value := _this.Value_JS.Get("autocomplete")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocomplete setting attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetAutocomplete(value string) {
-	input := value
-	_this.Value_JS.Set("autocomplete", input)
-}
-
-// Autofocus returning attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Autofocus() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autofocus")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAutofocus setting attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetAutofocus(value bool) {
-	input := value
-	_this.Value_JS.Set("autofocus", input)
-}
-
-// DefaultChecked returning attribute 'defaultChecked' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) DefaultChecked() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defaultChecked")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefaultChecked setting attribute 'defaultChecked' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetDefaultChecked(value bool) {
-	input := value
-	_this.Value_JS.Set("defaultChecked", input)
-}
-
-// Checked returning attribute 'checked' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Checked() bool {
-	var ret bool
-	value := _this.Value_JS.Get("checked")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetChecked setting attribute 'checked' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetChecked(value bool) {
-	input := value
-	_this.Value_JS.Set("checked", input)
-}
-
-// DirName returning attribute 'dirName' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) DirName() string {
-	var ret string
-	value := _this.Value_JS.Get("dirName")
-	ret = (value).String()
-	return ret
-}
-
-// SetDirName setting attribute 'dirName' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetDirName(value string) {
-	input := value
-	_this.Value_JS.Set("dirName", input)
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLInputElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Files returning attribute 'files' with
-// type FileList (idl: FileList).
-func (_this *HTMLInputElement) Files() *FileList {
-	var ret *FileList
-	value := _this.Value_JS.Get("files")
-	if value.Type() != js.TypeNull {
-		ret = FileListFromJS(value)
-	}
-	return ret
-}
-
-// SetFiles setting attribute 'files' with
-// type FileList (idl: FileList).
-func (_this *HTMLInputElement) SetFiles(value *FileList) {
-	input := value.JSValue()
-	_this.Value_JS.Set("files", input)
-}
-
-// FormAction returning attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLInputElement) FormAction() string {
-	var ret string
-	value := _this.Value_JS.Get("formAction")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormAction setting attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLInputElement) SetFormAction(value string) {
-	input := value
-	_this.Value_JS.Set("formAction", input)
-}
-
-// FormEnctype returning attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) FormEnctype() string {
-	var ret string
-	value := _this.Value_JS.Get("formEnctype")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormEnctype setting attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetFormEnctype(value string) {
-	input := value
-	_this.Value_JS.Set("formEnctype", input)
-}
-
-// FormMethod returning attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) FormMethod() string {
-	var ret string
-	value := _this.Value_JS.Get("formMethod")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormMethod setting attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetFormMethod(value string) {
-	input := value
-	_this.Value_JS.Set("formMethod", input)
-}
-
-// FormNoValidate returning attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) FormNoValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("formNoValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetFormNoValidate setting attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetFormNoValidate(value bool) {
-	input := value
-	_this.Value_JS.Set("formNoValidate", input)
-}
-
-// FormTarget returning attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) FormTarget() string {
-	var ret string
-	value := _this.Value_JS.Get("formTarget")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormTarget setting attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetFormTarget(value string) {
-	input := value
-	_this.Value_JS.Set("formTarget", input)
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SetHeight(value uint) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// Indeterminate returning attribute 'indeterminate' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Indeterminate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("indeterminate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetIndeterminate setting attribute 'indeterminate' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetIndeterminate(value bool) {
-	input := value
-	_this.Value_JS.Set("indeterminate", input)
-}
-
-// List returning attribute 'list' with
-// type HTMLElement (idl: HTMLElement).
-func (_this *HTMLInputElement) List() *HTMLElement {
-	var ret *HTMLElement
-	value := _this.Value_JS.Get("list")
-	if value.Type() != js.TypeNull {
-		ret = HTMLElementFromJS(value)
-	}
-	return ret
-}
-
-// Max returning attribute 'max' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Max() string {
-	var ret string
-	value := _this.Value_JS.Get("max")
-	ret = (value).String()
-	return ret
-}
-
-// SetMax setting attribute 'max' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetMax(value string) {
-	input := value
-	_this.Value_JS.Set("max", input)
-}
-
-// MaxLength returning attribute 'maxLength' with
-// type int (idl: long).
-func (_this *HTMLInputElement) MaxLength() int {
-	var ret int
-	value := _this.Value_JS.Get("maxLength")
-	ret = (value).Int()
-	return ret
-}
-
-// SetMaxLength setting attribute 'maxLength' with
-// type int (idl: long).
-func (_this *HTMLInputElement) SetMaxLength(value int) {
-	input := value
-	_this.Value_JS.Set("maxLength", input)
-}
-
-// Min returning attribute 'min' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Min() string {
-	var ret string
-	value := _this.Value_JS.Get("min")
-	ret = (value).String()
-	return ret
-}
-
-// SetMin setting attribute 'min' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetMin(value string) {
-	input := value
-	_this.Value_JS.Set("min", input)
-}
-
-// MinLength returning attribute 'minLength' with
-// type int (idl: long).
-func (_this *HTMLInputElement) MinLength() int {
-	var ret int
-	value := _this.Value_JS.Get("minLength")
-	ret = (value).Int()
-	return ret
-}
-
-// SetMinLength setting attribute 'minLength' with
-// type int (idl: long).
-func (_this *HTMLInputElement) SetMinLength(value int) {
-	input := value
-	_this.Value_JS.Set("minLength", input)
-}
-
-// Multiple returning attribute 'multiple' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Multiple() bool {
-	var ret bool
-	value := _this.Value_JS.Get("multiple")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetMultiple setting attribute 'multiple' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetMultiple(value bool) {
-	input := value
-	_this.Value_JS.Set("multiple", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Pattern returning attribute 'pattern' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Pattern() string {
-	var ret string
-	value := _this.Value_JS.Get("pattern")
-	ret = (value).String()
-	return ret
-}
-
-// SetPattern setting attribute 'pattern' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetPattern(value string) {
-	input := value
-	_this.Value_JS.Set("pattern", input)
-}
-
-// Placeholder returning attribute 'placeholder' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Placeholder() string {
-	var ret string
-	value := _this.Value_JS.Get("placeholder")
-	ret = (value).String()
-	return ret
-}
-
-// SetPlaceholder setting attribute 'placeholder' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetPlaceholder(value string) {
-	input := value
-	_this.Value_JS.Set("placeholder", input)
-}
-
-// ReadOnly returning attribute 'readOnly' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) ReadOnly() bool {
-	var ret bool
-	value := _this.Value_JS.Get("readOnly")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetReadOnly setting attribute 'readOnly' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetReadOnly(value bool) {
-	input := value
-	_this.Value_JS.Set("readOnly", input)
-}
-
-// Required returning attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) Required() bool {
-	var ret bool
-	value := _this.Value_JS.Get("required")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetRequired setting attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) SetRequired(value bool) {
-	input := value
-	_this.Value_JS.Set("required", input)
-}
-
-// Size returning attribute 'size' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) Size() uint {
-	var ret uint
-	value := _this.Value_JS.Get("size")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SetSize(value uint) {
-	input := value
-	_this.Value_JS.Set("size", input)
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLInputElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLInputElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Step returning attribute 'step' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Step() string {
-	var ret string
-	value := _this.Value_JS.Get("step")
-	ret = (value).String()
-	return ret
-}
-
-// SetStep setting attribute 'step' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetStep(value string) {
-	input := value
-	_this.Value_JS.Set("step", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// DefaultValue returning attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) DefaultValue() string {
-	var ret string
-	value := _this.Value_JS.Get("defaultValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetDefaultValue setting attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetDefaultValue(value string) {
-	input := value
-	_this.Value_JS.Set("defaultValue", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// ValueAsDate returning attribute 'valueAsDate' with
-// type Object (idl: object).
-func (_this *HTMLInputElement) ValueAsDate() *Object {
-	var ret *Object
-	value := _this.Value_JS.Get("valueAsDate")
-	if value.Type() != js.TypeNull {
-		ret = ObjectFromJS(value)
-	}
-	return ret
-}
-
-// SetValueAsDate setting attribute 'valueAsDate' with
-// type Object (idl: object).
-func (_this *HTMLInputElement) SetValueAsDate(value *Object) {
-	input := value.JSValue()
-	_this.Value_JS.Set("valueAsDate", input)
-}
-
-// ValueAsNumber returning attribute 'valueAsNumber' with
-// type float64 (idl: unrestricted double).
-func (_this *HTMLInputElement) ValueAsNumber() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("valueAsNumber")
-	ret = (value).Float()
-	return ret
-}
-
-// SetValueAsNumber setting attribute 'valueAsNumber' with
-// type float64 (idl: unrestricted double).
-func (_this *HTMLInputElement) SetValueAsNumber(value float64) {
-	input := value
-	_this.Value_JS.Set("valueAsNumber", input)
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SetWidth(value uint) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLInputElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLInputElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLInputElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	if value.Type() != js.TypeNull {
-		ret = NodeListFromJS(value)
-	}
-	return ret
-}
-
-// SelectionStart returning attribute 'selectionStart' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SelectionStart() *uint {
-	var ret *uint
-	value := _this.Value_JS.Get("selectionStart")
-	if value.Type() != js.TypeNull {
-		__tmp := (uint)((value).Int())
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetSelectionStart setting attribute 'selectionStart' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SetSelectionStart(value *uint) {
-	input := value
-	_this.Value_JS.Set("selectionStart", input)
-}
-
-// SelectionEnd returning attribute 'selectionEnd' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SelectionEnd() *uint {
-	var ret *uint
-	value := _this.Value_JS.Get("selectionEnd")
-	if value.Type() != js.TypeNull {
-		__tmp := (uint)((value).Int())
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetSelectionEnd setting attribute 'selectionEnd' with
-// type uint (idl: unsigned long).
-func (_this *HTMLInputElement) SetSelectionEnd(value *uint) {
-	input := value
-	_this.Value_JS.Set("selectionEnd", input)
-}
-
-// SelectionDirection returning attribute 'selectionDirection' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SelectionDirection() *string {
-	var ret *string
-	value := _this.Value_JS.Get("selectionDirection")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetSelectionDirection setting attribute 'selectionDirection' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetSelectionDirection(value *string) {
-	input := value
-	_this.Value_JS.Set("selectionDirection", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// UseMap returning attribute 'useMap' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) UseMap() string {
-	var ret string
-	value := _this.Value_JS.Get("useMap")
-	ret = (value).String()
-	return ret
-}
-
-// SetUseMap setting attribute 'useMap' with
-// type string (idl: DOMString).
-func (_this *HTMLInputElement) SetUseMap(value string) {
-	input := value
-	_this.Value_JS.Set("useMap", input)
-}
-
-func (_this *HTMLInputElement) StepUp(n *int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if n != nil {
-		_p0 := n
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("stepUp", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) StepDown(n *int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if n != nil {
-		_p0 := n
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("stepDown", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLInputElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLInputElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) Select() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("select", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) SetRangeText(replacement string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := replacement
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setRangeText", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) SetRangeText2(replacement string, start uint, end uint, selectionMode *SelectionMode) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := replacement
-	_args[0] = _p0
-	_end++
-	_p1 := start
-	_args[1] = _p1
-	_end++
-	_p2 := end
-	_args[2] = _p2
-	_end++
-	if selectionMode != nil {
-		_p3 := selectionMode.JSValue()
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("setRangeText", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := start
-	_args[0] = _p0
-	_end++
-	_p1 := end
-	_args[1] = _p1
-	_end++
-	if direction != nil {
-		_p2 := direction
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("setSelectionRange", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLButtonElement
-type HTMLButtonElement struct {
-	HTMLElement
-}
-
-// HTMLButtonElementFromJS is casting a js.Value into HTMLButtonElement.
-func HTMLButtonElementFromJS(input js.Value) *HTMLButtonElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLButtonElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Autofocus returning attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) Autofocus() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autofocus")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAutofocus setting attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetAutofocus(value bool) {
-	input := value
-	_this.Value_JS.Set("autofocus", input)
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLButtonElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// FormAction returning attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLButtonElement) FormAction() string {
-	var ret string
-	value := _this.Value_JS.Get("formAction")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormAction setting attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLButtonElement) SetFormAction(value string) {
-	input := value
-	_this.Value_JS.Set("formAction", input)
-}
-
-// FormEnctype returning attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormEnctype() string {
-	var ret string
-	value := _this.Value_JS.Get("formEnctype")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormEnctype setting attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormEnctype(value string) {
-	input := value
-	_this.Value_JS.Set("formEnctype", input)
-}
-
-// FormMethod returning attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormMethod() string {
-	var ret string
-	value := _this.Value_JS.Get("formMethod")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormMethod setting attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormMethod(value string) {
-	input := value
-	_this.Value_JS.Set("formMethod", input)
-}
-
-// FormNoValidate returning attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) FormNoValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("formNoValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetFormNoValidate setting attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetFormNoValidate(value bool) {
-	input := value
-	_this.Value_JS.Set("formNoValidate", input)
-}
-
-// FormTarget returning attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormTarget() string {
-	var ret string
-	value := _this.Value_JS.Get("formTarget")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormTarget setting attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormTarget(value string) {
-	input := value
-	_this.Value_JS.Set("formTarget", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLButtonElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLButtonElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLSelectElement
-type HTMLSelectElement struct {
-	HTMLElement
-}
-
-// HTMLSelectElementFromJS is casting a js.Value into HTMLSelectElement.
-func HTMLSelectElementFromJS(input js.Value) *HTMLSelectElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSelectElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Autocomplete returning attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) Autocomplete() string {
-	var ret string
-	value := _this.Value_JS.Get("autocomplete")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocomplete setting attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) SetAutocomplete(value string) {
-	input := value
-	_this.Value_JS.Set("autocomplete", input)
-}
-
-// Autofocus returning attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) Autofocus() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autofocus")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAutofocus setting attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) SetAutofocus(value bool) {
-	input := value
-	_this.Value_JS.Set("autofocus", input)
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLSelectElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Multiple returning attribute 'multiple' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) Multiple() bool {
-	var ret bool
-	value := _this.Value_JS.Get("multiple")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetMultiple setting attribute 'multiple' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) SetMultiple(value bool) {
-	input := value
-	_this.Value_JS.Set("multiple", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Required returning attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) Required() bool {
-	var ret bool
-	value := _this.Value_JS.Get("required")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetRequired setting attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) SetRequired(value bool) {
-	input := value
-	_this.Value_JS.Set("required", input)
-}
-
-// Size returning attribute 'size' with
-// type uint (idl: unsigned long).
-func (_this *HTMLSelectElement) Size() uint {
-	var ret uint
-	value := _this.Value_JS.Get("size")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type uint (idl: unsigned long).
-func (_this *HTMLSelectElement) SetSize(value uint) {
-	input := value
-	_this.Value_JS.Set("size", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Options returning attribute 'options' with
-// type HTMLOptionsCollection (idl: HTMLOptionsCollection).
-func (_this *HTMLSelectElement) Options() *HTMLOptionsCollection {
-	var ret *HTMLOptionsCollection
-	value := _this.Value_JS.Get("options")
-	ret = HTMLOptionsCollectionFromJS(value)
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLSelectElement) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetLength setting attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLSelectElement) SetLength(value uint) {
-	input := value
-	_this.Value_JS.Set("length", input)
-}
-
-// SelectedOptions returning attribute 'selectedOptions' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLSelectElement) SelectedOptions() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("selectedOptions")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// SelectedIndex returning attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLSelectElement) SelectedIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("selectedIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetSelectedIndex setting attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLSelectElement) SetSelectedIndex(value int) {
-	input := value
-	_this.Value_JS.Set("selectedIndex", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLSelectElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLSelectElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLSelectElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLSelectElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-func (_this *HTMLSelectElement) Item(index uint) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSelectElement) NamedItem(name string) (_result *HTMLOptionElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *HTMLOptionElement // javascript: HTMLOptionElement _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = HTMLOptionElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSelectElement) Add(element *Union, before *Union) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := element.JSValue()
-	_args[0] = _p0
-	_end++
-	if before != nil {
-		_p1 := before.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("add", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLSelectElement) Remove2() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLSelectElement) Remove3(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLSelectElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSelectElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSelectElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLDataListElement
-type HTMLDataListElement struct {
-	HTMLElement
-}
-
-// HTMLDataListElementFromJS is casting a js.Value into HTMLDataListElement.
-func HTMLDataListElementFromJS(input js.Value) *HTMLDataListElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDataListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Options returning attribute 'options' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLDataListElement) Options() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("options")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// interface: HTMLOptGroupElement
-type HTMLOptGroupElement struct {
-	HTMLElement
-}
-
-// HTMLOptGroupElementFromJS is casting a js.Value into HTMLOptGroupElement.
-func HTMLOptGroupElementFromJS(input js.Value) *HTMLOptGroupElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOptGroupElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptGroupElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptGroupElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptGroupElement) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// SetLabel setting attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptGroupElement) SetLabel(value string) {
-	input := value
-	_this.Value_JS.Set("label", input)
-}
-
-// interface: HTMLOptionElement
-type HTMLOptionElement struct {
-	HTMLElement
-}
-
-// HTMLOptionElementFromJS is casting a js.Value into HTMLOptionElement.
-func HTMLOptionElementFromJS(input js.Value) *HTMLOptionElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOptionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLOptionElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// SetLabel setting attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetLabel(value string) {
-	input := value
-	_this.Value_JS.Set("label", input)
-}
-
-// DefaultSelected returning attribute 'defaultSelected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) DefaultSelected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defaultSelected")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefaultSelected setting attribute 'defaultSelected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetDefaultSelected(value bool) {
-	input := value
-	_this.Value_JS.Set("defaultSelected", input)
-}
-
-// Selected returning attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) Selected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("selected")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetSelected setting attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetSelected(value bool) {
-	input := value
-	_this.Value_JS.Set("selected", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Index returning attribute 'index' with
-// type int (idl: long).
-func (_this *HTMLOptionElement) Index() int {
-	var ret int
-	value := _this.Value_JS.Get("index")
-	ret = (value).Int()
-	return ret
-}
-
-// interface: HTMLTextAreaElement
-type HTMLTextAreaElement struct {
-	HTMLElement
-}
-
-// HTMLTextAreaElementFromJS is casting a js.Value into HTMLTextAreaElement.
-func HTMLTextAreaElementFromJS(input js.Value) *HTMLTextAreaElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTextAreaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Autocomplete returning attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Autocomplete() string {
-	var ret string
-	value := _this.Value_JS.Get("autocomplete")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocomplete setting attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetAutocomplete(value string) {
-	input := value
-	_this.Value_JS.Set("autocomplete", input)
-}
-
-// Autofocus returning attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) Autofocus() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autofocus")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAutofocus setting attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) SetAutofocus(value bool) {
-	input := value
-	_this.Value_JS.Set("autofocus", input)
-}
-
-// Cols returning attribute 'cols' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) Cols() uint {
-	var ret uint
-	value := _this.Value_JS.Get("cols")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetCols setting attribute 'cols' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SetCols(value uint) {
-	input := value
-	_this.Value_JS.Set("cols", input)
-}
-
-// DirName returning attribute 'dirName' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) DirName() string {
-	var ret string
-	value := _this.Value_JS.Get("dirName")
-	ret = (value).String()
-	return ret
-}
-
-// SetDirName setting attribute 'dirName' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetDirName(value string) {
-	input := value
-	_this.Value_JS.Set("dirName", input)
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLTextAreaElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// MaxLength returning attribute 'maxLength' with
-// type int (idl: long).
-func (_this *HTMLTextAreaElement) MaxLength() int {
-	var ret int
-	value := _this.Value_JS.Get("maxLength")
-	ret = (value).Int()
-	return ret
-}
-
-// SetMaxLength setting attribute 'maxLength' with
-// type int (idl: long).
-func (_this *HTMLTextAreaElement) SetMaxLength(value int) {
-	input := value
-	_this.Value_JS.Set("maxLength", input)
-}
-
-// MinLength returning attribute 'minLength' with
-// type int (idl: long).
-func (_this *HTMLTextAreaElement) MinLength() int {
-	var ret int
-	value := _this.Value_JS.Get("minLength")
-	ret = (value).Int()
-	return ret
-}
-
-// SetMinLength setting attribute 'minLength' with
-// type int (idl: long).
-func (_this *HTMLTextAreaElement) SetMinLength(value int) {
-	input := value
-	_this.Value_JS.Set("minLength", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Placeholder returning attribute 'placeholder' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Placeholder() string {
-	var ret string
-	value := _this.Value_JS.Get("placeholder")
-	ret = (value).String()
-	return ret
-}
-
-// SetPlaceholder setting attribute 'placeholder' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetPlaceholder(value string) {
-	input := value
-	_this.Value_JS.Set("placeholder", input)
-}
-
-// ReadOnly returning attribute 'readOnly' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) ReadOnly() bool {
-	var ret bool
-	value := _this.Value_JS.Get("readOnly")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetReadOnly setting attribute 'readOnly' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) SetReadOnly(value bool) {
-	input := value
-	_this.Value_JS.Set("readOnly", input)
-}
-
-// Required returning attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) Required() bool {
-	var ret bool
-	value := _this.Value_JS.Get("required")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetRequired setting attribute 'required' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) SetRequired(value bool) {
-	input := value
-	_this.Value_JS.Set("required", input)
-}
-
-// Rows returning attribute 'rows' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) Rows() uint {
-	var ret uint
-	value := _this.Value_JS.Get("rows")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetRows setting attribute 'rows' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SetRows(value uint) {
-	input := value
-	_this.Value_JS.Set("rows", input)
-}
-
-// Wrap returning attribute 'wrap' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Wrap() string {
-	var ret string
-	value := _this.Value_JS.Get("wrap")
-	ret = (value).String()
-	return ret
-}
-
-// SetWrap setting attribute 'wrap' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetWrap(value string) {
-	input := value
-	_this.Value_JS.Set("wrap", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// DefaultValue returning attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) DefaultValue() string {
-	var ret string
-	value := _this.Value_JS.Get("defaultValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetDefaultValue setting attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetDefaultValue(value string) {
-	input := value
-	_this.Value_JS.Set("defaultValue", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// TextLength returning attribute 'textLength' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) TextLength() uint {
-	var ret uint
-	value := _this.Value_JS.Get("textLength")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLTextAreaElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLTextAreaElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLTextAreaElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// SelectionStart returning attribute 'selectionStart' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SelectionStart() uint {
-	var ret uint
-	value := _this.Value_JS.Get("selectionStart")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSelectionStart setting attribute 'selectionStart' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SetSelectionStart(value uint) {
-	input := value
-	_this.Value_JS.Set("selectionStart", input)
-}
-
-// SelectionEnd returning attribute 'selectionEnd' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SelectionEnd() uint {
-	var ret uint
-	value := _this.Value_JS.Get("selectionEnd")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSelectionEnd setting attribute 'selectionEnd' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTextAreaElement) SetSelectionEnd(value uint) {
-	input := value
-	_this.Value_JS.Set("selectionEnd", input)
-}
-
-// SelectionDirection returning attribute 'selectionDirection' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SelectionDirection() string {
-	var ret string
-	value := _this.Value_JS.Get("selectionDirection")
-	ret = (value).String()
-	return ret
-}
-
-// SetSelectionDirection setting attribute 'selectionDirection' with
-// type string (idl: DOMString).
-func (_this *HTMLTextAreaElement) SetSelectionDirection(value string) {
-	input := value
-	_this.Value_JS.Set("selectionDirection", input)
-}
-
-func (_this *HTMLTextAreaElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTextAreaElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTextAreaElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTextAreaElement) Select() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("select", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTextAreaElement) SetRangeText(replacement string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := replacement
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setRangeText", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTextAreaElement) SetRangeText2(replacement string, start uint, end uint, selectionMode *SelectionMode) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := replacement
-	_args[0] = _p0
-	_end++
-	_p1 := start
-	_args[1] = _p1
-	_end++
-	_p2 := end
-	_args[2] = _p2
-	_end++
-	if selectionMode != nil {
-		_p3 := selectionMode.JSValue()
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("setRangeText", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direction *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := start
-	_args[0] = _p0
-	_end++
-	_p1 := end
-	_args[1] = _p1
-	_end++
-	if direction != nil {
-		_p2 := direction
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("setSelectionRange", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLOutputElement
-type HTMLOutputElement struct {
-	HTMLElement
-}
-
-// HTMLOutputElementFromJS is casting a js.Value into HTMLOutputElement.
-func HTMLOutputElementFromJS(input js.Value) *HTMLOutputElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOutputElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// HtmlFor returning attribute 'htmlFor' with
-// type DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLOutputElement) HtmlFor() *DOMTokenList {
-	var ret *DOMTokenList
-	value := _this.Value_JS.Get("htmlFor")
-	ret = DOMTokenListFromJS(value)
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLOutputElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// DefaultValue returning attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) DefaultValue() string {
-	var ret string
-	value := _this.Value_JS.Get("defaultValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetDefaultValue setting attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetDefaultValue(value string) {
-	input := value
-	_this.Value_JS.Set("defaultValue", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLOutputElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLOutputElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLOutputElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-func (_this *HTMLOutputElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLOutputElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLProgressElement
-type HTMLProgressElement struct {
-	HTMLElement
-}
-
-// HTMLProgressElementFromJS is casting a js.Value into HTMLProgressElement.
-func HTMLProgressElementFromJS(input js.Value) *HTMLProgressElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLProgressElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Value() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("value")
-	ret = (value).Float()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) SetValue(value float64) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Max returning attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Max() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("max")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMax setting attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) SetMax(value float64) {
-	input := value
-	_this.Value_JS.Set("max", input)
-}
-
-// Position returning attribute 'position' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Position() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("position")
-	ret = (value).Float()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLProgressElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// interface: HTMLMeterElement
-type HTMLMeterElement struct {
-	HTMLElement
-}
-
-// HTMLMeterElementFromJS is casting a js.Value into HTMLMeterElement.
-func HTMLMeterElementFromJS(input js.Value) *HTMLMeterElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMeterElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Value() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("value")
-	ret = (value).Float()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetValue(value float64) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Min returning attribute 'min' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Min() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("min")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMin setting attribute 'min' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetMin(value float64) {
-	input := value
-	_this.Value_JS.Set("min", input)
-}
-
-// Max returning attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Max() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("max")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMax setting attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetMax(value float64) {
-	input := value
-	_this.Value_JS.Set("max", input)
-}
-
-// Low returning attribute 'low' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Low() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("low")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLow setting attribute 'low' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetLow(value float64) {
-	input := value
-	_this.Value_JS.Set("low", input)
-}
-
-// High returning attribute 'high' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) High() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("high")
-	ret = (value).Float()
-	return ret
-}
-
-// SetHigh setting attribute 'high' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetHigh(value float64) {
-	input := value
-	_this.Value_JS.Set("high", input)
-}
-
-// Optimum returning attribute 'optimum' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Optimum() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("optimum")
-	ret = (value).Float()
-	return ret
-}
-
-// SetOptimum setting attribute 'optimum' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetOptimum(value float64) {
-	input := value
-	_this.Value_JS.Set("optimum", input)
-}
-
-// Labels returning attribute 'labels' with
-// type NodeList (idl: NodeList).
-func (_this *HTMLMeterElement) Labels() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// interface: HTMLFieldSetElement
-type HTMLFieldSetElement struct {
-	HTMLElement
-}
-
-// HTMLFieldSetElementFromJS is casting a js.Value into HTMLFieldSetElement.
-func HTMLFieldSetElementFromJS(input js.Value) *HTMLFieldSetElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFieldSetElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Elements returning attribute 'elements' with
-// type HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLFieldSetElement) Elements() *HTMLCollection {
-	var ret *HTMLCollection
-	value := _this.Value_JS.Get("elements")
-	ret = HTMLCollectionFromJS(value)
-	return ret
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLFieldSetElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *HTMLFieldSetElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLFieldSetElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _error
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLLegendElement
-type HTMLLegendElement struct {
-	HTMLElement
-}
-
-// HTMLLegendElementFromJS is casting a js.Value into HTMLLegendElement.
-func HTMLLegendElementFromJS(input js.Value) *HTMLLegendElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLegendElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLLegendElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLLegendElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLLegendElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: ValidityState
-type ValidityState struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ValidityState) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ValidityStateFromJS is casting a js.Value into ValidityState.
-func ValidityStateFromJS(input js.Value) *ValidityState {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ValidityState{}
-	ret.Value_JS = input
-	return ret
-}
-
-// ValueMissing returning attribute 'valueMissing' with
-// type bool (idl: boolean).
-func (_this *ValidityState) ValueMissing() bool {
-	var ret bool
-	value := _this.Value_JS.Get("valueMissing")
-	ret = (value).Bool()
-	return ret
-}
-
-// TypeMismatch returning attribute 'typeMismatch' with
-// type bool (idl: boolean).
-func (_this *ValidityState) TypeMismatch() bool {
-	var ret bool
-	value := _this.Value_JS.Get("typeMismatch")
-	ret = (value).Bool()
-	return ret
-}
-
-// PatternMismatch returning attribute 'patternMismatch' with
-// type bool (idl: boolean).
-func (_this *ValidityState) PatternMismatch() bool {
-	var ret bool
-	value := _this.Value_JS.Get("patternMismatch")
-	ret = (value).Bool()
-	return ret
-}
-
-// TooLong returning attribute 'tooLong' with
-// type bool (idl: boolean).
-func (_this *ValidityState) TooLong() bool {
-	var ret bool
-	value := _this.Value_JS.Get("tooLong")
-	ret = (value).Bool()
-	return ret
-}
-
-// TooShort returning attribute 'tooShort' with
-// type bool (idl: boolean).
-func (_this *ValidityState) TooShort() bool {
-	var ret bool
-	value := _this.Value_JS.Get("tooShort")
-	ret = (value).Bool()
-	return ret
-}
-
-// RangeUnderflow returning attribute 'rangeUnderflow' with
-// type bool (idl: boolean).
-func (_this *ValidityState) RangeUnderflow() bool {
-	var ret bool
-	value := _this.Value_JS.Get("rangeUnderflow")
-	ret = (value).Bool()
-	return ret
-}
-
-// RangeOverflow returning attribute 'rangeOverflow' with
-// type bool (idl: boolean).
-func (_this *ValidityState) RangeOverflow() bool {
-	var ret bool
-	value := _this.Value_JS.Get("rangeOverflow")
-	ret = (value).Bool()
-	return ret
-}
-
-// StepMismatch returning attribute 'stepMismatch' with
-// type bool (idl: boolean).
-func (_this *ValidityState) StepMismatch() bool {
-	var ret bool
-	value := _this.Value_JS.Get("stepMismatch")
-	ret = (value).Bool()
-	return ret
-}
-
-// BadInput returning attribute 'badInput' with
-// type bool (idl: boolean).
-func (_this *ValidityState) BadInput() bool {
-	var ret bool
-	value := _this.Value_JS.Get("badInput")
-	ret = (value).Bool()
-	return ret
-}
-
-// CustomError returning attribute 'customError' with
-// type bool (idl: boolean).
-func (_this *ValidityState) CustomError() bool {
-	var ret bool
-	value := _this.Value_JS.Get("customError")
-	ret = (value).Bool()
-	return ret
-}
-
-// Valid returning attribute 'valid' with
-// type bool (idl: boolean).
-func (_this *ValidityState) Valid() bool {
-	var ret bool
-	value := _this.Value_JS.Get("valid")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: FormDataEvent
-type FormDataEvent struct {
-	Event
-}
-
-// FormDataEventFromJS is casting a js.Value into FormDataEvent.
-func FormDataEventFromJS(input js.Value) *FormDataEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FormDataEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewFormDataEvent(_type string, eventInitDict *FormDataEventInit) (_result *FormDataEvent) {
-	_klass := js.Global().Get("FormDataEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *FormDataEvent // javascript: FormDataEvent _what_return_name
-	)
-	_converted = FormDataEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// FormData returning attribute 'formData' with
-// type FormData (idl: FormData).
-func (_this *FormDataEvent) FormData() *FormData {
-	var ret *FormData
-	value := _this.Value_JS.Get("formData")
-	ret = FormDataFromJS(value)
-	return ret
-}
-
-// interface: HTMLDetailsElement
-type HTMLDetailsElement struct {
-	HTMLElement
-}
-
-// HTMLDetailsElementFromJS is casting a js.Value into HTMLDetailsElement.
-func HTMLDetailsElementFromJS(input js.Value) *HTMLDetailsElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDetailsElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Open returning attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDetailsElement) Open() bool {
-	var ret bool
-	value := _this.Value_JS.Get("open")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetOpen setting attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDetailsElement) SetOpen(value bool) {
-	input := value
-	_this.Value_JS.Set("open", input)
-}
-
-// interface: HTMLDialogElement
-type HTMLDialogElement struct {
-	HTMLElement
-}
-
-// HTMLDialogElementFromJS is casting a js.Value into HTMLDialogElement.
-func HTMLDialogElementFromJS(input js.Value) *HTMLDialogElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDialogElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Open returning attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDialogElement) Open() bool {
-	var ret bool
-	value := _this.Value_JS.Get("open")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetOpen setting attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDialogElement) SetOpen(value bool) {
-	input := value
-	_this.Value_JS.Set("open", input)
-}
-
-// ReturnValue returning attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *HTMLDialogElement) ReturnValue() string {
-	var ret string
-	value := _this.Value_JS.Get("returnValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetReturnValue setting attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *HTMLDialogElement) SetReturnValue(value string) {
-	input := value
-	_this.Value_JS.Set("returnValue", input)
-}
-
-func (_this *HTMLDialogElement) Show() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("show", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLDialogElement) ShowModal() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("showModal", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLDialogElement) Close(returnValue *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if returnValue != nil {
-		_p0 := returnValue
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLScriptElement
-type HTMLScriptElement struct {
-	HTMLElement
-}
-
-// HTMLScriptElementFromJS is casting a js.Value into HTMLScriptElement.
-func HTMLScriptElementFromJS(input js.Value) *HTMLScriptElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLScriptElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLScriptElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLScriptElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// NoModule returning attribute 'noModule' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) NoModule() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noModule")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoModule setting attribute 'noModule' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetNoModule(value bool) {
-	input := value
-	_this.Value_JS.Set("noModule", input)
-}
-
-// Async returning attribute 'async' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) Async() bool {
-	var ret bool
-	value := _this.Value_JS.Get("async")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAsync setting attribute 'async' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetAsync(value bool) {
-	input := value
-	_this.Value_JS.Set("async", input)
-}
-
-// Defer returning attribute 'defer' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) Defer() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defer")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefer setting attribute 'defer' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetDefer(value bool) {
-	input := value
-	_this.Value_JS.Set("defer", input)
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Integrity returning attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Integrity() string {
-	var ret string
-	value := _this.Value_JS.Get("integrity")
-	ret = (value).String()
-	return ret
-}
-
-// SetIntegrity setting attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetIntegrity(value string) {
-	input := value
-	_this.Value_JS.Set("integrity", input)
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Charset returning attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Charset() string {
-	var ret string
-	value := _this.Value_JS.Get("charset")
-	ret = (value).String()
-	return ret
-}
-
-// SetCharset setting attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetCharset(value string) {
-	input := value
-	_this.Value_JS.Set("charset", input)
-}
-
-// Event returning attribute 'event' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Event() string {
-	var ret string
-	value := _this.Value_JS.Get("event")
-	ret = (value).String()
-	return ret
-}
-
-// SetEvent setting attribute 'event' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetEvent(value string) {
-	input := value
-	_this.Value_JS.Set("event", input)
-}
-
-// HtmlFor returning attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) HtmlFor() string {
-	var ret string
-	value := _this.Value_JS.Get("htmlFor")
-	ret = (value).String()
-	return ret
-}
-
-// SetHtmlFor setting attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetHtmlFor(value string) {
-	input := value
-	_this.Value_JS.Set("htmlFor", input)
-}
-
-// interface: HTMLTemplateElement
-type HTMLTemplateElement struct {
-	HTMLElement
-}
-
-// HTMLTemplateElementFromJS is casting a js.Value into HTMLTemplateElement.
-func HTMLTemplateElementFromJS(input js.Value) *HTMLTemplateElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTemplateElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Content returning attribute 'content' with
-// type DocumentFragment (idl: DocumentFragment).
-func (_this *HTMLTemplateElement) Content() *DocumentFragment {
-	var ret *DocumentFragment
-	value := _this.Value_JS.Get("content")
-	ret = DocumentFragmentFromJS(value)
-	return ret
-}
-
-// interface: HTMLSlotElement
-type HTMLSlotElement struct {
-	HTMLElement
-}
-
-// HTMLSlotElementFromJS is casting a js.Value into HTMLSlotElement.
-func HTMLSlotElementFromJS(input js.Value) *HTMLSlotElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSlotElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSlotElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSlotElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_result []*Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("assignedNodes", _args[0:_end]...)
-	var (
-		_converted []*Node // javascript: idl-sequence _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*Node, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *Node
-		__in := _returned.Index(__idx)
-		__out = NodeFromJS(__in)
-		__array0[__idx] = __out
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_result []*Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("assignedElements", _args[0:_end]...)
-	var (
-		_converted []*Element // javascript: idl-sequence _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*Element, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *Element
-		__in := _returned.Index(__idx)
-		__out = ElementFromJS(__in)
-		__array0[__idx] = __out
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-// interface: HTMLCanvasElement
-type HTMLCanvasElement struct {
-	HTMLElement
-}
-
-// HTMLCanvasElementFromJS is casting a js.Value into HTMLCanvasElement.
-func HTMLCanvasElementFromJS(input js.Value) *HTMLCanvasElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLCanvasElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) SetWidth(value uint) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) SetHeight(value uint) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (_result *Union) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := contextId
-	_args[0] = _p0
-	_end++
-	if options.Type() != js.TypeUndefined {
-		_p1 := options
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getContext", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_result string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	if _type != nil {
-		_p0 := _type
-		_args[0] = _p0
-		_end++
-	}
-	if quality.Type() != js.TypeUndefined {
-		_p1 := quality
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("toDataURL", _args[0:_end]...)
-	var (
-		_converted string // javascript: USVString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLCanvasElement) ToBlob(callback *js.Callback, _type *string, quality js.Value) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	if _type != nil {
-		_p1 := _type
-		_args[1] = _p1
-		_end++
-	}
-	if quality.Type() != js.TypeUndefined {
-		_p2 := quality
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("toBlob", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *OffscreenCanvas) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("transferControlToOffscreen", _args[0:_end]...)
-	var (
-		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
-	)
-	_converted = OffscreenCanvasFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: CanvasRenderingContext2D
-type CanvasRenderingContext2D struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CanvasRenderingContext2D) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CanvasRenderingContext2DFromJS is casting a js.Value into CanvasRenderingContext2D.
-func CanvasRenderingContext2DFromJS(input js.Value) *CanvasRenderingContext2D {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CanvasRenderingContext2D{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Canvas returning attribute 'canvas' with
-// type HTMLCanvasElement (idl: HTMLCanvasElement).
-func (_this *CanvasRenderingContext2D) Canvas() *HTMLCanvasElement {
-	var ret *HTMLCanvasElement
-	value := _this.Value_JS.Get("canvas")
-	ret = HTMLCanvasElementFromJS(value)
-	return ret
-}
-
-// GlobalAlpha returning attribute 'globalAlpha' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) GlobalAlpha() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("globalAlpha")
-	ret = (value).Float()
-	return ret
-}
-
-// SetGlobalAlpha setting attribute 'globalAlpha' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetGlobalAlpha(value float64) {
-	input := value
-	_this.Value_JS.Set("globalAlpha", input)
-}
-
-// GlobalCompositeOperation returning attribute 'globalCompositeOperation' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) GlobalCompositeOperation() string {
-	var ret string
-	value := _this.Value_JS.Get("globalCompositeOperation")
-	ret = (value).String()
-	return ret
-}
-
-// SetGlobalCompositeOperation setting attribute 'globalCompositeOperation' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) SetGlobalCompositeOperation(value string) {
-	input := value
-	_this.Value_JS.Set("globalCompositeOperation", input)
-}
-
-// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *CanvasRenderingContext2D) ImageSmoothingEnabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("imageSmoothingEnabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *CanvasRenderingContext2D) SetImageSmoothingEnabled(value bool) {
-	input := value
-	_this.Value_JS.Set("imageSmoothingEnabled", input)
-}
-
-// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
-// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *CanvasRenderingContext2D) ImageSmoothingQuality() ImageSmoothingQuality {
-	var ret ImageSmoothingQuality
-	value := _this.Value_JS.Get("imageSmoothingQuality")
-	ret = ImageSmoothingQualityFromJS(value)
-	return ret
-}
-
-// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
-// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *CanvasRenderingContext2D) SetImageSmoothingQuality(value ImageSmoothingQuality) {
-	input := value.JSValue()
-	_this.Value_JS.Set("imageSmoothingQuality", input)
-}
-
-// StrokeStyle returning attribute 'strokeStyle' with
-// type Union (idl: Union).
-func (_this *CanvasRenderingContext2D) StrokeStyle() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("strokeStyle")
-	ret = UnionFromJS(value)
-	return ret
-}
-
-// SetStrokeStyle setting attribute 'strokeStyle' with
-// type Union (idl: Union).
-func (_this *CanvasRenderingContext2D) SetStrokeStyle(value *Union) {
-	input := value.JSValue()
-	_this.Value_JS.Set("strokeStyle", input)
-}
-
-// FillStyle returning attribute 'fillStyle' with
-// type Union (idl: Union).
-func (_this *CanvasRenderingContext2D) FillStyle() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("fillStyle")
-	ret = UnionFromJS(value)
-	return ret
-}
-
-// SetFillStyle setting attribute 'fillStyle' with
-// type Union (idl: Union).
-func (_this *CanvasRenderingContext2D) SetFillStyle(value *Union) {
-	input := value.JSValue()
-	_this.Value_JS.Set("fillStyle", input)
-}
-
-// ShadowOffsetX returning attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) ShadowOffsetX() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetX")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetX setting attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetShadowOffsetX(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetX", input)
-}
-
-// ShadowOffsetY returning attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) ShadowOffsetY() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetY")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetY setting attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetShadowOffsetY(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetY", input)
-}
-
-// ShadowBlur returning attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) ShadowBlur() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowBlur")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowBlur setting attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetShadowBlur(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowBlur", input)
-}
-
-// ShadowColor returning attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) ShadowColor() string {
-	var ret string
-	value := _this.Value_JS.Get("shadowColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetShadowColor setting attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) SetShadowColor(value string) {
-	input := value
-	_this.Value_JS.Set("shadowColor", input)
-}
-
-// Filter returning attribute 'filter' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) Filter() string {
-	var ret string
-	value := _this.Value_JS.Get("filter")
-	ret = (value).String()
-	return ret
-}
-
-// SetFilter setting attribute 'filter' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) SetFilter(value string) {
-	input := value
-	_this.Value_JS.Set("filter", input)
-}
-
-// LineWidth returning attribute 'lineWidth' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) LineWidth() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("lineWidth")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLineWidth setting attribute 'lineWidth' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetLineWidth(value float64) {
-	input := value
-	_this.Value_JS.Set("lineWidth", input)
-}
-
-// LineCap returning attribute 'lineCap' with
-// type CanvasLineCap (idl: CanvasLineCap).
-func (_this *CanvasRenderingContext2D) LineCap() CanvasLineCap {
-	var ret CanvasLineCap
-	value := _this.Value_JS.Get("lineCap")
-	ret = CanvasLineCapFromJS(value)
-	return ret
-}
-
-// SetLineCap setting attribute 'lineCap' with
-// type CanvasLineCap (idl: CanvasLineCap).
-func (_this *CanvasRenderingContext2D) SetLineCap(value CanvasLineCap) {
-	input := value.JSValue()
-	_this.Value_JS.Set("lineCap", input)
-}
-
-// LineJoin returning attribute 'lineJoin' with
-// type CanvasLineJoin (idl: CanvasLineJoin).
-func (_this *CanvasRenderingContext2D) LineJoin() CanvasLineJoin {
-	var ret CanvasLineJoin
-	value := _this.Value_JS.Get("lineJoin")
-	ret = CanvasLineJoinFromJS(value)
-	return ret
-}
-
-// SetLineJoin setting attribute 'lineJoin' with
-// type CanvasLineJoin (idl: CanvasLineJoin).
-func (_this *CanvasRenderingContext2D) SetLineJoin(value CanvasLineJoin) {
-	input := value.JSValue()
-	_this.Value_JS.Set("lineJoin", input)
-}
-
-// MiterLimit returning attribute 'miterLimit' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) MiterLimit() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("miterLimit")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMiterLimit setting attribute 'miterLimit' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetMiterLimit(value float64) {
-	input := value
-	_this.Value_JS.Set("miterLimit", input)
-}
-
-// LineDashOffset returning attribute 'lineDashOffset' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) LineDashOffset() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("lineDashOffset")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLineDashOffset setting attribute 'lineDashOffset' with
-// type float64 (idl: unrestricted double).
-func (_this *CanvasRenderingContext2D) SetLineDashOffset(value float64) {
-	input := value
-	_this.Value_JS.Set("lineDashOffset", input)
-}
-
-// Font returning attribute 'font' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) Font() string {
-	var ret string
-	value := _this.Value_JS.Get("font")
-	ret = (value).String()
-	return ret
-}
-
-// SetFont setting attribute 'font' with
-// type string (idl: DOMString).
-func (_this *CanvasRenderingContext2D) SetFont(value string) {
-	input := value
-	_this.Value_JS.Set("font", input)
-}
-
-// TextAlign returning attribute 'textAlign' with
-// type CanvasTextAlign (idl: CanvasTextAlign).
-func (_this *CanvasRenderingContext2D) TextAlign() CanvasTextAlign {
-	var ret CanvasTextAlign
-	value := _this.Value_JS.Get("textAlign")
-	ret = CanvasTextAlignFromJS(value)
-	return ret
-}
-
-// SetTextAlign setting attribute 'textAlign' with
-// type CanvasTextAlign (idl: CanvasTextAlign).
-func (_this *CanvasRenderingContext2D) SetTextAlign(value CanvasTextAlign) {
-	input := value.JSValue()
-	_this.Value_JS.Set("textAlign", input)
-}
-
-// TextBaseline returning attribute 'textBaseline' with
-// type CanvasTextBaseline (idl: CanvasTextBaseline).
-func (_this *CanvasRenderingContext2D) TextBaseline() CanvasTextBaseline {
-	var ret CanvasTextBaseline
-	value := _this.Value_JS.Get("textBaseline")
-	ret = CanvasTextBaselineFromJS(value)
-	return ret
-}
-
-// SetTextBaseline setting attribute 'textBaseline' with
-// type CanvasTextBaseline (idl: CanvasTextBaseline).
-func (_this *CanvasRenderingContext2D) SetTextBaseline(value CanvasTextBaseline) {
-	input := value.JSValue()
-	_this.Value_JS.Set("textBaseline", input)
-}
-
-// Direction returning attribute 'direction' with
-// type CanvasDirection (idl: CanvasDirection).
-func (_this *CanvasRenderingContext2D) Direction() CanvasDirection {
-	var ret CanvasDirection
-	value := _this.Value_JS.Get("direction")
-	ret = CanvasDirectionFromJS(value)
-	return ret
-}
-
-// SetDirection setting attribute 'direction' with
-// type CanvasDirection (idl: CanvasDirection).
-func (_this *CanvasRenderingContext2D) SetDirection(value CanvasDirection) {
-	input := value.JSValue()
-	_this.Value_JS.Set("direction", input)
-}
-
-func (_this *CanvasRenderingContext2D) GetContextAttributes() (_result *CanvasRenderingContext2DSettings) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getContextAttributes", _args[0:_end]...)
-	var (
-		_converted *CanvasRenderingContext2DSettings // javascript: CanvasRenderingContext2DSettings _what_return_name
-	)
-	_converted = CanvasRenderingContext2DSettingsFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Save() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("save", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Restore() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("restore", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Scale(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("scale", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Rotate(angle float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := angle
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("rotate", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Translate(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("translate", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Transform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := a
-	_args[0] = _p0
-	_end++
-	_p1 := b
-	_args[1] = _p1
-	_end++
-	_p2 := c
-	_args[2] = _p2
-	_end++
-	_p3 := d
-	_args[3] = _p3
-	_end++
-	_p4 := e
-	_args[4] = _p4
-	_end++
-	_p5 := f
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("transform", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) GetTransform() (_result *DOMMatrix) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getTransform", _args[0:_end]...)
-	var (
-		_converted *DOMMatrix // javascript: DOMMatrix _what_return_name
-	)
-	_converted = DOMMatrixFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) SetTransform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := a
-	_args[0] = _p0
-	_end++
-	_p1 := b
-	_args[1] = _p1
-	_end++
-	_p2 := c
-	_args[2] = _p2
-	_end++
-	_p3 := d
-	_args[3] = _p3
-	_end++
-	_p4 := e
-	_args[4] = _p4
-	_end++
-	_p5 := f
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) SetTransform2(transform *DOMMatrix2DInit) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if transform != nil {
-		_p0 := transform.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ResetTransform() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("resetTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *CanvasGradient) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := x1
-	_args[2] = _p2
-	_end++
-	_p3 := y1
-	_args[3] = _p3
-	_end++
-	_returned := _this.Value_JS.Call("createLinearGradient", _args[0:_end]...)
-	var (
-		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *CanvasGradient) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := r0
-	_args[2] = _p2
-	_end++
-	_p3 := x1
-	_args[3] = _p3
-	_end++
-	_p4 := y1
-	_args[4] = _p4
-	_end++
-	_p5 := r1
-	_args[5] = _p5
-	_end++
-	_returned := _this.Value_JS.Call("createRadialGradient", _args[0:_end]...)
-	var (
-		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *CanvasPattern) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := repetition
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("createPattern", _args[0:_end]...)
-	var (
-		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = CanvasPatternFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("clearRect", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("fillRect", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("strokeRect", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) BeginPath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("beginPath", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if fillRule != nil {
-		_p0 := fillRule.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("fill", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Fill2(path *Path2D, fillRule *CanvasFillRule) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if fillRule != nil {
-		_p1 := fillRule.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("fill", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Stroke() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stroke", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Stroke2(path *Path2D) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("stroke", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if fillRule != nil {
-		_p0 := fillRule.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("clip", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Clip2(path *Path2D, fillRule *CanvasFillRule) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if fillRule != nil {
-		_p1 := fillRule.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("clip", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	if fillRule != nil {
-		_p2 := fillRule.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_returned := _this.Value_JS.Call("isPointInPath", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if fillRule != nil {
-		_p3 := fillRule.JSValue()
-		_args[3] = _p3
-		_end++
-	}
-	_returned := _this.Value_JS.Call("isPointInPath", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("isPointInStroke", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64, y float64) (_result bool) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	_returned := _this.Value_JS.Call("isPointInStroke", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded(element *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := element.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("drawFocusIfNeeded", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) DrawFocusIfNeeded2(path *Path2D, element *Element) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := element.JSValue()
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("drawFocusIfNeeded", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ScrollPathIntoView() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("scrollPathIntoView", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ScrollPathIntoView2(path *Path2D) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("scrollPathIntoView", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) FillText(text string, x float64, y float64, maxWidth *float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if maxWidth != nil {
-		_p3 := maxWidth
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("fillText", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) StrokeText(text string, x float64, y float64, maxWidth *float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if maxWidth != nil {
-		_p3 := maxWidth
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("strokeText", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) MeasureText(text string) (_result *TextMetrics) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("measureText", _args[0:_end]...)
-	var (
-		_converted *TextMetrics // javascript: TextMetrics _what_return_name
-	)
-	_converted = TextMetricsFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) DrawImage(image *Union, dx float64, dy float64) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) DrawImage2(image *Union, dx float64, dy float64, dw float64, dh float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_p3 := dw
-	_args[3] = _p3
-	_end++
-	_p4 := dh
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) DrawImage3(image *Union, sx float64, sy float64, sw float64, sh float64, dx float64, dy float64, dw float64, dh float64) {
-	var (
-		_args [9]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := sx
-	_args[1] = _p1
-	_end++
-	_p2 := sy
-	_args[2] = _p2
-	_end++
-	_p3 := sw
-	_args[3] = _p3
-	_end++
-	_p4 := sh
-	_args[4] = _p4
-	_end++
-	_p5 := dx
-	_args[5] = _p5
-	_end++
-	_p6 := dy
-	_args[6] = _p6
-	_end++
-	_p7 := dw
-	_args[7] = _p7
-	_end++
-	_p8 := dh
-	_args[8] = _p8
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result *ImageData) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := sw
-	_args[0] = _p0
-	_end++
-	_p1 := sh
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("createImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_result *ImageData) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("createImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh int) (_result *ImageData) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := sx
-	_args[0] = _p0
-	_end++
-	_p1 := sy
-	_args[1] = _p1
-	_end++
-	_p2 := sw
-	_args[2] = _p2
-	_end++
-	_p3 := sh
-	_args[3] = _p3
-	_end++
-	_returned := _this.Value_JS.Call("getImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) PutImageData(imagedata *ImageData, dx int, dy int) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("putImageData", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx int, dy int, dirtyX int, dirtyY int, dirtyWidth int, dirtyHeight int) {
-	var (
-		_args [7]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_p3 := dirtyX
-	_args[3] = _p3
-	_end++
-	_p4 := dirtyY
-	_args[4] = _p4
-	_end++
-	_p5 := dirtyWidth
-	_args[5] = _p5
-	_end++
-	_p6 := dirtyHeight
-	_args[6] = _p6
-	_end++
-	_this.Value_JS.Call("putImageData", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) SetLineDash(segments js.Value) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := segments
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setLineDash", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) GetLineDash() (_result js.Value) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getLineDash", _args[0:_end]...)
-	var (
-		_converted js.Value // javascript: typed-array _what_return_name
-	)
-	_converted = _returned
-	_result = _converted
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ClosePath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("closePath", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) MoveTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("moveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) LineTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("lineTo", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := cpx
-	_args[0] = _p0
-	_end++
-	_p1 := cpy
-	_args[1] = _p1
-	_end++
-	_p2 := x
-	_args[2] = _p2
-	_end++
-	_p3 := y
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := cp1x
-	_args[0] = _p0
-	_end++
-	_p1 := cp1y
-	_args[1] = _p1
-	_end++
-	_p2 := cp2x
-	_args[2] = _p2
-	_end++
-	_p3 := cp2y
-	_args[3] = _p3
-	_end++
-	_p4 := x
-	_args[4] = _p4
-	_end++
-	_p5 := y
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := x1
-	_args[0] = _p0
-	_end++
-	_p1 := y1
-	_args[1] = _p1
-	_end++
-	_p2 := x2
-	_args[2] = _p2
-	_end++
-	_p3 := y2
-	_args[3] = _p3
-	_end++
-	_p4 := radius
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("arcTo", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("rect", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radius
-	_args[2] = _p2
-	_end++
-	_p3 := startAngle
-	_args[3] = _p3
-	_end++
-	_p4 := endAngle
-	_args[4] = _p4
-	_end++
-	if anticlockwise != nil {
-		_p5 := anticlockwise
-		_args[5] = _p5
-		_end++
-	}
-	_this.Value_JS.Call("arc", _args[0:_end]...)
-	return
-}
-
-func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radiusX
-	_args[2] = _p2
-	_end++
-	_p3 := radiusY
-	_args[3] = _p3
-	_end++
-	_p4 := rotation
-	_args[4] = _p4
-	_end++
-	_p5 := startAngle
-	_args[5] = _p5
-	_end++
-	_p6 := endAngle
-	_args[6] = _p6
-	_end++
-	if anticlockwise != nil {
-		_p7 := anticlockwise
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("ellipse", _args[0:_end]...)
-	return
-}
-
-// interface: CanvasGradient
-type CanvasGradient struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CanvasGradient) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CanvasGradientFromJS is casting a js.Value into CanvasGradient.
-func CanvasGradientFromJS(input js.Value) *CanvasGradient {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CanvasGradient{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := color
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("addColorStop", _args[0:_end]...)
-	return
-}
-
-// interface: CanvasPattern
-type CanvasPattern struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CanvasPattern) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CanvasPatternFromJS is casting a js.Value into CanvasPattern.
-func CanvasPatternFromJS(input js.Value) *CanvasPattern {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CanvasPattern{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *CanvasPattern) SetTransform(transform *DOMMatrix2DInit) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if transform != nil {
-		_p0 := transform.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-// interface: TextMetrics
-type TextMetrics struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TextMetrics) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TextMetricsFromJS is casting a js.Value into TextMetrics.
-func TextMetricsFromJS(input js.Value) *TextMetrics {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextMetrics{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type float64 (idl: double).
-func (_this *TextMetrics) Width() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("width")
-	ret = (value).Float()
-	return ret
-}
-
-// ActualBoundingBoxLeft returning attribute 'actualBoundingBoxLeft' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxLeft() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxLeft")
-	ret = (value).Float()
-	return ret
-}
-
-// ActualBoundingBoxRight returning attribute 'actualBoundingBoxRight' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxRight() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxRight")
-	ret = (value).Float()
-	return ret
-}
-
-// FontBoundingBoxAscent returning attribute 'fontBoundingBoxAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) FontBoundingBoxAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("fontBoundingBoxAscent")
-	ret = (value).Float()
-	return ret
-}
-
-// FontBoundingBoxDescent returning attribute 'fontBoundingBoxDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) FontBoundingBoxDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("fontBoundingBoxDescent")
-	ret = (value).Float()
-	return ret
-}
-
-// ActualBoundingBoxAscent returning attribute 'actualBoundingBoxAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxAscent")
-	ret = (value).Float()
-	return ret
-}
-
-// ActualBoundingBoxDescent returning attribute 'actualBoundingBoxDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxDescent")
-	ret = (value).Float()
-	return ret
-}
-
-// EmHeightAscent returning attribute 'emHeightAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) EmHeightAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("emHeightAscent")
-	ret = (value).Float()
-	return ret
-}
-
-// EmHeightDescent returning attribute 'emHeightDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) EmHeightDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("emHeightDescent")
-	ret = (value).Float()
-	return ret
-}
-
-// HangingBaseline returning attribute 'hangingBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) HangingBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("hangingBaseline")
-	ret = (value).Float()
-	return ret
-}
-
-// AlphabeticBaseline returning attribute 'alphabeticBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) AlphabeticBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("alphabeticBaseline")
-	ret = (value).Float()
-	return ret
-}
-
-// IdeographicBaseline returning attribute 'ideographicBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) IdeographicBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("ideographicBaseline")
-	ret = (value).Float()
-	return ret
-}
-
-// interface: ImageData
-type ImageData struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ImageData) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ImageDataFromJS is casting a js.Value into ImageData.
-func ImageDataFromJS(input js.Value) *ImageData {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ImageData{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewImageData(data *Uint8ClampedArray, sw uint, sh *uint) (_result *ImageData) {
-	_klass := js.Global().Get("ImageData")
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := data.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := sw
-	_args[1] = _p1
-	_end++
-	if sh != nil {
-		_p2 := sh
-		_args[2] = _p2
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *ImageData) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *ImageData) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Data returning attribute 'data' with
-// type Uint8ClampedArray (idl: Uint8ClampedArray).
-func (_this *ImageData) Data() *Uint8ClampedArray {
-	var ret *Uint8ClampedArray
-	value := _this.Value_JS.Get("data")
-	ret = Uint8ClampedArrayFromJS(value)
-	return ret
-}
-
-// interface: Path2D
-type Path2D struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Path2D) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Path2DFromJS is casting a js.Value into Path2D.
-func Path2DFromJS(input js.Value) *Path2D {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Path2D{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewPath2D(path *Union) (_result *Path2D) {
-	_klass := js.Global().Get("Path2D")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if path != nil {
-		_p0 := path.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Path2D // javascript: Path2D _what_return_name
-	)
-	_converted = Path2DFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Path2D) AddPath(path *Path2D, transform *DOMMatrix2DInit) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if transform != nil {
-		_p1 := transform.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("addPath", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) ClosePath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("closePath", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) MoveTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("moveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) LineTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("lineTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := cpx
-	_args[0] = _p0
-	_end++
-	_p1 := cpy
-	_args[1] = _p1
-	_end++
-	_p2 := x
-	_args[2] = _p2
-	_end++
-	_p3 := y
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := cp1x
-	_args[0] = _p0
-	_end++
-	_p1 := cp1y
-	_args[1] = _p1
-	_end++
-	_p2 := cp2x
-	_args[2] = _p2
-	_end++
-	_p3 := cp2y
-	_args[3] = _p3
-	_end++
-	_p4 := x
-	_args[4] = _p4
-	_end++
-	_p5 := y
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := x1
-	_args[0] = _p0
-	_end++
-	_p1 := y1
-	_args[1] = _p1
-	_end++
-	_p2 := x2
-	_args[2] = _p2
-	_end++
-	_p3 := y2
-	_args[3] = _p3
-	_end++
-	_p4 := radius
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("arcTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Rect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("rect", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radius
-	_args[2] = _p2
-	_end++
-	_p3 := startAngle
-	_args[3] = _p3
-	_end++
-	_p4 := endAngle
-	_args[4] = _p4
-	_end++
-	if anticlockwise != nil {
-		_p5 := anticlockwise
-		_args[5] = _p5
-		_end++
-	}
-	_this.Value_JS.Call("arc", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radiusX
-	_args[2] = _p2
-	_end++
-	_p3 := radiusY
-	_args[3] = _p3
-	_end++
-	_p4 := rotation
-	_args[4] = _p4
-	_end++
-	_p5 := startAngle
-	_args[5] = _p5
-	_end++
-	_p6 := endAngle
-	_args[6] = _p6
-	_end++
-	if anticlockwise != nil {
-		_p7 := anticlockwise
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("ellipse", _args[0:_end]...)
-	return
-}
-
-// interface: ImageBitmapRenderingContext
-type ImageBitmapRenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ImageBitmapRenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ImageBitmapRenderingContextFromJS is casting a js.Value into ImageBitmapRenderingContext.
-func ImageBitmapRenderingContextFromJS(input js.Value) *ImageBitmapRenderingContext {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ImageBitmapRenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Canvas returning attribute 'canvas' with
-// type HTMLCanvasElement (idl: HTMLCanvasElement).
-func (_this *ImageBitmapRenderingContext) Canvas() *HTMLCanvasElement {
-	var ret *HTMLCanvasElement
-	value := _this.Value_JS.Get("canvas")
-	ret = HTMLCanvasElementFromJS(value)
-	return ret
-}
-
-func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageBitmap) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := bitmap.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("transferFromImageBitmap", _args[0:_end]...)
-	return
-}
-
-// interface: OffscreenCanvas
-type OffscreenCanvas struct {
-	EventTarget
-}
-
-// OffscreenCanvasFromJS is casting a js.Value into OffscreenCanvas.
-func OffscreenCanvasFromJS(input js.Value) *OffscreenCanvas {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &OffscreenCanvas{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewOffscreenCanvas(width int, height int) (_result *OffscreenCanvas) {
-	_klass := js.Global().Get("OffscreenCanvas")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := width
-	_args[0] = _p0
-	_end++
-	_p1 := height
-	_args[1] = _p1
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
-	)
-	_converted = OffscreenCanvasFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Width returning attribute 'width' with
-// type int (idl: unsigned long long).
-func (_this *OffscreenCanvas) Width() int {
-	var ret int
-	value := _this.Value_JS.Get("width")
-	ret = (value).Int()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type int (idl: unsigned long long).
-func (_this *OffscreenCanvas) SetWidth(value int) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Height returning attribute 'height' with
-// type int (idl: unsigned long long).
-func (_this *OffscreenCanvas) Height() int {
-	var ret int
-	value := _this.Value_JS.Get("height")
-	ret = (value).Int()
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type int (idl: unsigned long long).
-func (_this *OffscreenCanvas) SetHeight(value int) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-func (_this *OffscreenCanvas) GetContext(contextId OffscreenRenderingContextId, options js.Value) (_result *Union) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := contextId.JSValue()
-	_args[0] = _p0
-	_end++
-	if options.Type() != js.TypeUndefined {
-		_p1 := options
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getContext", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvas) TransferToImageBitmap() (_result *ImageBitmap) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("transferToImageBitmap", _args[0:_end]...)
-	var (
-		_converted *ImageBitmap // javascript: ImageBitmap _what_return_name
-	)
-	_converted = ImageBitmapFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvas) ConvertToBlob(options *ImageEncodeOptions) (_result *Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("convertToBlob", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: OffscreenCanvasRenderingContext2D
-type OffscreenCanvasRenderingContext2D struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// OffscreenCanvasRenderingContext2DFromJS is casting a js.Value into OffscreenCanvasRenderingContext2D.
-func OffscreenCanvasRenderingContext2DFromJS(input js.Value) *OffscreenCanvasRenderingContext2D {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &OffscreenCanvasRenderingContext2D{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Canvas returning attribute 'canvas' with
-// type OffscreenCanvas (idl: OffscreenCanvas).
-func (_this *OffscreenCanvasRenderingContext2D) Canvas() *OffscreenCanvas {
-	var ret *OffscreenCanvas
-	value := _this.Value_JS.Get("canvas")
-	ret = OffscreenCanvasFromJS(value)
-	return ret
-}
-
-// GlobalAlpha returning attribute 'globalAlpha' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) GlobalAlpha() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("globalAlpha")
-	ret = (value).Float()
-	return ret
-}
-
-// SetGlobalAlpha setting attribute 'globalAlpha' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetGlobalAlpha(value float64) {
-	input := value
-	_this.Value_JS.Set("globalAlpha", input)
-}
-
-// GlobalCompositeOperation returning attribute 'globalCompositeOperation' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) GlobalCompositeOperation() string {
-	var ret string
-	value := _this.Value_JS.Get("globalCompositeOperation")
-	ret = (value).String()
-	return ret
-}
-
-// SetGlobalCompositeOperation setting attribute 'globalCompositeOperation' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) SetGlobalCompositeOperation(value string) {
-	input := value
-	_this.Value_JS.Set("globalCompositeOperation", input)
-}
-
-// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingEnabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("imageSmoothingEnabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *OffscreenCanvasRenderingContext2D) SetImageSmoothingEnabled(value bool) {
-	input := value
-	_this.Value_JS.Set("imageSmoothingEnabled", input)
-}
-
-// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
-// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *OffscreenCanvasRenderingContext2D) ImageSmoothingQuality() ImageSmoothingQuality {
-	var ret ImageSmoothingQuality
-	value := _this.Value_JS.Get("imageSmoothingQuality")
-	ret = ImageSmoothingQualityFromJS(value)
-	return ret
-}
-
-// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
-// type ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *OffscreenCanvasRenderingContext2D) SetImageSmoothingQuality(value ImageSmoothingQuality) {
-	input := value.JSValue()
-	_this.Value_JS.Set("imageSmoothingQuality", input)
-}
-
-// StrokeStyle returning attribute 'strokeStyle' with
-// type Union (idl: Union).
-func (_this *OffscreenCanvasRenderingContext2D) StrokeStyle() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("strokeStyle")
-	ret = UnionFromJS(value)
-	return ret
-}
-
-// SetStrokeStyle setting attribute 'strokeStyle' with
-// type Union (idl: Union).
-func (_this *OffscreenCanvasRenderingContext2D) SetStrokeStyle(value *Union) {
-	input := value.JSValue()
-	_this.Value_JS.Set("strokeStyle", input)
-}
-
-// FillStyle returning attribute 'fillStyle' with
-// type Union (idl: Union).
-func (_this *OffscreenCanvasRenderingContext2D) FillStyle() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("fillStyle")
-	ret = UnionFromJS(value)
-	return ret
-}
-
-// SetFillStyle setting attribute 'fillStyle' with
-// type Union (idl: Union).
-func (_this *OffscreenCanvasRenderingContext2D) SetFillStyle(value *Union) {
-	input := value.JSValue()
-	_this.Value_JS.Set("fillStyle", input)
-}
-
-// ShadowOffsetX returning attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetX() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetX")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetX setting attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetShadowOffsetX(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetX", input)
-}
-
-// ShadowOffsetY returning attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) ShadowOffsetY() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetY")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetY setting attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetShadowOffsetY(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetY", input)
-}
-
-// ShadowBlur returning attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) ShadowBlur() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowBlur")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowBlur setting attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetShadowBlur(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowBlur", input)
-}
-
-// ShadowColor returning attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) ShadowColor() string {
-	var ret string
-	value := _this.Value_JS.Get("shadowColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetShadowColor setting attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) SetShadowColor(value string) {
-	input := value
-	_this.Value_JS.Set("shadowColor", input)
-}
-
-// Filter returning attribute 'filter' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) Filter() string {
-	var ret string
-	value := _this.Value_JS.Get("filter")
-	ret = (value).String()
-	return ret
-}
-
-// SetFilter setting attribute 'filter' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) SetFilter(value string) {
-	input := value
-	_this.Value_JS.Set("filter", input)
-}
-
-// LineWidth returning attribute 'lineWidth' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) LineWidth() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("lineWidth")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLineWidth setting attribute 'lineWidth' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetLineWidth(value float64) {
-	input := value
-	_this.Value_JS.Set("lineWidth", input)
-}
-
-// LineCap returning attribute 'lineCap' with
-// type CanvasLineCap (idl: CanvasLineCap).
-func (_this *OffscreenCanvasRenderingContext2D) LineCap() CanvasLineCap {
-	var ret CanvasLineCap
-	value := _this.Value_JS.Get("lineCap")
-	ret = CanvasLineCapFromJS(value)
-	return ret
-}
-
-// SetLineCap setting attribute 'lineCap' with
-// type CanvasLineCap (idl: CanvasLineCap).
-func (_this *OffscreenCanvasRenderingContext2D) SetLineCap(value CanvasLineCap) {
-	input := value.JSValue()
-	_this.Value_JS.Set("lineCap", input)
-}
-
-// LineJoin returning attribute 'lineJoin' with
-// type CanvasLineJoin (idl: CanvasLineJoin).
-func (_this *OffscreenCanvasRenderingContext2D) LineJoin() CanvasLineJoin {
-	var ret CanvasLineJoin
-	value := _this.Value_JS.Get("lineJoin")
-	ret = CanvasLineJoinFromJS(value)
-	return ret
-}
-
-// SetLineJoin setting attribute 'lineJoin' with
-// type CanvasLineJoin (idl: CanvasLineJoin).
-func (_this *OffscreenCanvasRenderingContext2D) SetLineJoin(value CanvasLineJoin) {
-	input := value.JSValue()
-	_this.Value_JS.Set("lineJoin", input)
-}
-
-// MiterLimit returning attribute 'miterLimit' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) MiterLimit() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("miterLimit")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMiterLimit setting attribute 'miterLimit' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetMiterLimit(value float64) {
-	input := value
-	_this.Value_JS.Set("miterLimit", input)
-}
-
-// LineDashOffset returning attribute 'lineDashOffset' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) LineDashOffset() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("lineDashOffset")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLineDashOffset setting attribute 'lineDashOffset' with
-// type float64 (idl: unrestricted double).
-func (_this *OffscreenCanvasRenderingContext2D) SetLineDashOffset(value float64) {
-	input := value
-	_this.Value_JS.Set("lineDashOffset", input)
-}
-
-// Font returning attribute 'font' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) Font() string {
-	var ret string
-	value := _this.Value_JS.Get("font")
-	ret = (value).String()
-	return ret
-}
-
-// SetFont setting attribute 'font' with
-// type string (idl: DOMString).
-func (_this *OffscreenCanvasRenderingContext2D) SetFont(value string) {
-	input := value
-	_this.Value_JS.Set("font", input)
-}
-
-// TextAlign returning attribute 'textAlign' with
-// type CanvasTextAlign (idl: CanvasTextAlign).
-func (_this *OffscreenCanvasRenderingContext2D) TextAlign() CanvasTextAlign {
-	var ret CanvasTextAlign
-	value := _this.Value_JS.Get("textAlign")
-	ret = CanvasTextAlignFromJS(value)
-	return ret
-}
-
-// SetTextAlign setting attribute 'textAlign' with
-// type CanvasTextAlign (idl: CanvasTextAlign).
-func (_this *OffscreenCanvasRenderingContext2D) SetTextAlign(value CanvasTextAlign) {
-	input := value.JSValue()
-	_this.Value_JS.Set("textAlign", input)
-}
-
-// TextBaseline returning attribute 'textBaseline' with
-// type CanvasTextBaseline (idl: CanvasTextBaseline).
-func (_this *OffscreenCanvasRenderingContext2D) TextBaseline() CanvasTextBaseline {
-	var ret CanvasTextBaseline
-	value := _this.Value_JS.Get("textBaseline")
-	ret = CanvasTextBaselineFromJS(value)
-	return ret
-}
-
-// SetTextBaseline setting attribute 'textBaseline' with
-// type CanvasTextBaseline (idl: CanvasTextBaseline).
-func (_this *OffscreenCanvasRenderingContext2D) SetTextBaseline(value CanvasTextBaseline) {
-	input := value.JSValue()
-	_this.Value_JS.Set("textBaseline", input)
-}
-
-// Direction returning attribute 'direction' with
-// type CanvasDirection (idl: CanvasDirection).
-func (_this *OffscreenCanvasRenderingContext2D) Direction() CanvasDirection {
-	var ret CanvasDirection
-	value := _this.Value_JS.Get("direction")
-	ret = CanvasDirectionFromJS(value)
-	return ret
-}
-
-// SetDirection setting attribute 'direction' with
-// type CanvasDirection (idl: CanvasDirection).
-func (_this *OffscreenCanvasRenderingContext2D) SetDirection(value CanvasDirection) {
-	input := value.JSValue()
-	_this.Value_JS.Set("direction", input)
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Commit() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("commit", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Save() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("save", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Restore() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("restore", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Scale(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("scale", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Rotate(angle float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := angle
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("rotate", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Translate(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("translate", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Transform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := a
-	_args[0] = _p0
-	_end++
-	_p1 := b
-	_args[1] = _p1
-	_end++
-	_p2 := c
-	_args[2] = _p2
-	_end++
-	_p3 := d
-	_args[3] = _p3
-	_end++
-	_p4 := e
-	_args[4] = _p4
-	_end++
-	_p5 := f
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("transform", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) GetTransform() (_result *DOMMatrix) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getTransform", _args[0:_end]...)
-	var (
-		_converted *DOMMatrix // javascript: DOMMatrix _what_return_name
-	)
-	_converted = DOMMatrixFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) SetTransform(a float64, b float64, c float64, d float64, e float64, f float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := a
-	_args[0] = _p0
-	_end++
-	_p1 := b
-	_args[1] = _p1
-	_end++
-	_p2 := c
-	_args[2] = _p2
-	_end++
-	_p3 := d
-	_args[3] = _p3
-	_end++
-	_p4 := e
-	_args[4] = _p4
-	_end++
-	_p5 := f
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) SetTransform2(transform *DOMMatrix2DInit) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if transform != nil {
-		_p0 := transform.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) ResetTransform() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("resetTransform", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *CanvasGradient) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := x1
-	_args[2] = _p2
-	_end++
-	_p3 := y1
-	_args[3] = _p3
-	_end++
-	_returned := _this.Value_JS.Call("createLinearGradient", _args[0:_end]...)
-	var (
-		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *CanvasGradient) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := r0
-	_args[2] = _p2
-	_end++
-	_p3 := x1
-	_args[3] = _p3
-	_end++
-	_p4 := y1
-	_args[4] = _p4
-	_end++
-	_p5 := r1
-	_args[5] = _p5
-	_end++
-	_returned := _this.Value_JS.Call("createRadialGradient", _args[0:_end]...)
-	var (
-		_converted *CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *CanvasPattern) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := repetition
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("createPattern", _args[0:_end]...)
-	var (
-		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = CanvasPatternFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("clearRect", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("fillRect", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("strokeRect", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) BeginPath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("beginPath", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Fill(fillRule *CanvasFillRule) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if fillRule != nil {
-		_p0 := fillRule.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("fill", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Fill2(path *Path2D, fillRule *CanvasFillRule) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if fillRule != nil {
-		_p1 := fillRule.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("fill", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Stroke() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stroke", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Stroke2(path *Path2D) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("stroke", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Clip(fillRule *CanvasFillRule) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if fillRule != nil {
-		_p0 := fillRule.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("clip", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Clip2(path *Path2D, fillRule *CanvasFillRule) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if fillRule != nil {
-		_p1 := fillRule.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("clip", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath(x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	if fillRule != nil {
-		_p2 := fillRule.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_returned := _this.Value_JS.Call("isPointInPath", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) IsPointInPath2(path *Path2D, x float64, y float64, fillRule *CanvasFillRule) (_result bool) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if fillRule != nil {
-		_p3 := fillRule.JSValue()
-		_args[3] = _p3
-		_end++
-	}
-	_returned := _this.Value_JS.Call("isPointInPath", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke(x float64, y float64) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("isPointInStroke", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) IsPointInStroke2(path *Path2D, x float64, y float64) (_result bool) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	_returned := _this.Value_JS.Call("isPointInStroke", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) FillText(text string, x float64, y float64, maxWidth *float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if maxWidth != nil {
-		_p3 := maxWidth
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("fillText", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) StrokeText(text string, x float64, y float64, maxWidth *float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	if maxWidth != nil {
-		_p3 := maxWidth
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("strokeText", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) MeasureText(text string) (_result *TextMetrics) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := text
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("measureText", _args[0:_end]...)
-	var (
-		_converted *TextMetrics // javascript: TextMetrics _what_return_name
-	)
-	_converted = TextMetricsFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) DrawImage(image *Union, dx float64, dy float64) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) DrawImage2(image *Union, dx float64, dy float64, dw float64, dh float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_p3 := dw
-	_args[3] = _p3
-	_end++
-	_p4 := dh
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) DrawImage3(image *Union, sx float64, sy float64, sw float64, sh float64, dx float64, dy float64, dw float64, dh float64) {
-	var (
-		_args [9]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := sx
-	_args[1] = _p1
-	_end++
-	_p2 := sy
-	_args[2] = _p2
-	_end++
-	_p3 := sw
-	_args[3] = _p3
-	_end++
-	_p4 := sh
-	_args[4] = _p4
-	_end++
-	_p5 := dx
-	_args[5] = _p5
-	_end++
-	_p6 := dy
-	_args[6] = _p6
-	_end++
-	_p7 := dw
-	_args[7] = _p7
-	_end++
-	_p8 := dh
-	_args[8] = _p8
-	_end++
-	_this.Value_JS.Call("drawImage", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) CreateImageData(sw int, sh int) (_result *ImageData) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := sw
-	_args[0] = _p0
-	_end++
-	_p1 := sh
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("createImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) CreateImageData2(imagedata *ImageData) (_result *ImageData) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("createImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) GetImageData(sx int, sy int, sw int, sh int) (_result *ImageData) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := sx
-	_args[0] = _p0
-	_end++
-	_p1 := sy
-	_args[1] = _p1
-	_end++
-	_p2 := sw
-	_args[2] = _p2
-	_end++
-	_p3 := sh
-	_args[3] = _p3
-	_end++
-	_returned := _this.Value_JS.Call("getImageData", _args[0:_end]...)
-	var (
-		_converted *ImageData // javascript: ImageData _what_return_name
-	)
-	_converted = ImageDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) PutImageData(imagedata *ImageData, dx int, dy int) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("putImageData", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) PutImageData2(imagedata *ImageData, dx int, dy int, dirtyX int, dirtyY int, dirtyWidth int, dirtyHeight int) {
-	var (
-		_args [7]interface{}
-		_end  int
-	)
-	_p0 := imagedata.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := dx
-	_args[1] = _p1
-	_end++
-	_p2 := dy
-	_args[2] = _p2
-	_end++
-	_p3 := dirtyX
-	_args[3] = _p3
-	_end++
-	_p4 := dirtyY
-	_args[4] = _p4
-	_end++
-	_p5 := dirtyWidth
-	_args[5] = _p5
-	_end++
-	_p6 := dirtyHeight
-	_args[6] = _p6
-	_end++
-	_this.Value_JS.Call("putImageData", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) SetLineDash(segments js.Value) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := segments
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setLineDash", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) GetLineDash() (_result js.Value) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getLineDash", _args[0:_end]...)
-	var (
-		_converted js.Value // javascript: typed-array _what_return_name
-	)
-	_converted = _returned
-	_result = _converted
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) ClosePath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("closePath", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) MoveTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("moveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) LineTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("lineTo", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := cpx
-	_args[0] = _p0
-	_end++
-	_p1 := cpy
-	_args[1] = _p1
-	_end++
-	_p2 := x
-	_args[2] = _p2
-	_end++
-	_p3 := y
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := cp1x
-	_args[0] = _p0
-	_end++
-	_p1 := cp1y
-	_args[1] = _p1
-	_end++
-	_p2 := cp2x
-	_args[2] = _p2
-	_end++
-	_p3 := cp2y
-	_args[3] = _p3
-	_end++
-	_p4 := x
-	_args[4] = _p4
-	_end++
-	_p5 := y
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := x1
-	_args[0] = _p0
-	_end++
-	_p1 := y1
-	_args[1] = _p1
-	_end++
-	_p2 := x2
-	_args[2] = _p2
-	_end++
-	_p3 := y2
-	_args[3] = _p3
-	_end++
-	_p4 := radius
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("arcTo", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("rect", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radius
-	_args[2] = _p2
-	_end++
-	_p3 := startAngle
-	_args[3] = _p3
-	_end++
-	_p4 := endAngle
-	_args[4] = _p4
-	_end++
-	if anticlockwise != nil {
-		_p5 := anticlockwise
-		_args[5] = _p5
-		_end++
-	}
-	_this.Value_JS.Call("arc", _args[0:_end]...)
-	return
-}
-
-func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radiusX
-	_args[2] = _p2
-	_end++
-	_p3 := radiusY
-	_args[3] = _p3
-	_end++
-	_p4 := rotation
-	_args[4] = _p4
-	_end++
-	_p5 := startAngle
-	_args[5] = _p5
-	_end++
-	_p6 := endAngle
-	_args[6] = _p6
-	_end++
-	if anticlockwise != nil {
-		_p7 := anticlockwise
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("ellipse", _args[0:_end]...)
-	return
-}
-
-// interface: CustomElementRegistry
-type CustomElementRegistry struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CustomElementRegistry) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CustomElementRegistryFromJS is casting a js.Value into CustomElementRegistry.
-func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CustomElementRegistry{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *CustomElementRegistry) Define(name string, constructor *js.Callback, options *ElementDefinitionOptions) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-
-	var __callback1 js.Value
-	if constructor != nil {
-		__callback1 = (*constructor).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	_p1 := __callback1
-	_args[1] = _p1
-	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("define", _args[0:_end]...)
-	return
-}
-
-func (_this *CustomElementRegistry) Get(name string) (_result js.Value) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
-	var (
-		_converted js.Value // javascript: any _what_return_name
-	)
-	_converted = _returned
-	_result = _converted
-	return
-}
-
-func (_this *CustomElementRegistry) WhenDefined(name string) (_result *Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("whenDefined", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *CustomElementRegistry) Upgrade(root *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := root.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("upgrade", _args[0:_end]...)
-	return
-}
-
-// interface: DataTransfer
-type DataTransfer struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DataTransfer) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DataTransferFromJS is casting a js.Value into DataTransfer.
-func DataTransferFromJS(input js.Value) *DataTransfer {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DataTransfer{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewDataTransfer() (_result *DataTransfer) {
-	_klass := js.Global().Get("DataTransfer")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *DataTransfer // javascript: DataTransfer _what_return_name
-	)
-	_converted = DataTransferFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// DropEffect returning attribute 'dropEffect' with
-// type string (idl: DOMString).
-func (_this *DataTransfer) DropEffect() string {
-	var ret string
-	value := _this.Value_JS.Get("dropEffect")
-	ret = (value).String()
-	return ret
-}
-
-// SetDropEffect setting attribute 'dropEffect' with
-// type string (idl: DOMString).
-func (_this *DataTransfer) SetDropEffect(value string) {
-	input := value
-	_this.Value_JS.Set("dropEffect", input)
-}
-
-// EffectAllowed returning attribute 'effectAllowed' with
-// type string (idl: DOMString).
-func (_this *DataTransfer) EffectAllowed() string {
-	var ret string
-	value := _this.Value_JS.Get("effectAllowed")
-	ret = (value).String()
-	return ret
-}
-
-// SetEffectAllowed setting attribute 'effectAllowed' with
-// type string (idl: DOMString).
-func (_this *DataTransfer) SetEffectAllowed(value string) {
-	input := value
-	_this.Value_JS.Set("effectAllowed", input)
-}
-
-// Items returning attribute 'items' with
-// type DataTransferItemList (idl: DataTransferItemList).
-func (_this *DataTransfer) Items() *DataTransferItemList {
-	var ret *DataTransferItemList
-	value := _this.Value_JS.Get("items")
-	ret = DataTransferItemListFromJS(value)
-	return ret
-}
-
-// Types returning attribute 'types' with
-// type FrozenArray (idl: FrozenArray).
-func (_this *DataTransfer) Types() *FrozenArray {
-	var ret *FrozenArray
-	value := _this.Value_JS.Get("types")
-	ret = FrozenArrayFromJS(value)
-	return ret
-}
-
-// Files returning attribute 'files' with
-// type FileList (idl: FileList).
-func (_this *DataTransfer) Files() *FileList {
-	var ret *FileList
-	value := _this.Value_JS.Get("files")
-	ret = FileListFromJS(value)
-	return ret
-}
-
-func (_this *DataTransfer) SetDragImage(image *Element, x int, y int) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := x
-	_args[1] = _p1
-	_end++
-	_p2 := y
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("setDragImage", _args[0:_end]...)
-	return
-}
-
-func (_this *DataTransfer) GetData(format string) (_result string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := format
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getData", _args[0:_end]...)
-	var (
-		_converted string // javascript: DOMString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *DataTransfer) SetData(format string, data string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := format
-	_args[0] = _p0
-	_end++
-	_p1 := data
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setData", _args[0:_end]...)
-	return
-}
-
-func (_this *DataTransfer) ClearData(format *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if format != nil {
-		_p0 := format
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("clearData", _args[0:_end]...)
-	return
-}
-
-// interface: DataTransferItemList
-type DataTransferItemList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DataTransferItemList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DataTransferItemListFromJS is casting a js.Value into DataTransferItemList.
-func DataTransferItemListFromJS(input js.Value) *DataTransferItemList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DataTransferItemList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *DataTransferItemList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *DataTransferItemList) Add(data string, _type string) (_result *DataTransferItem) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_p1 := _type
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("add", _args[0:_end]...)
-	var (
-		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = DataTransferItemFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DataTransferItemList) Add2(data *File) (_result *DataTransferItem) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("add", _args[0:_end]...)
-	var (
-		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = DataTransferItemFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DataTransferItemList) Remove(index uint) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-func (_this *DataTransferItemList) Clear() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("clear", _args[0:_end]...)
-	return
-}
-
-// interface: DataTransferItem
-type DataTransferItem struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DataTransferItem) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DataTransferItemFromJS is casting a js.Value into DataTransferItem.
-func DataTransferItemFromJS(input js.Value) *DataTransferItem {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DataTransferItem{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Kind returning attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *DataTransferItem) Kind() string {
-	var ret string
-	value := _this.Value_JS.Get("kind")
-	ret = (value).String()
-	return ret
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *DataTransferItem) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *DataTransferItem) GetAsString(callback *js.Callback) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("getAsString", _args[0:_end]...)
-	return
-}
-
-func (_this *DataTransferItem) GetAsFile() (_result *File) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getAsFile", _args[0:_end]...)
-	var (
-		_converted *File // javascript: File _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = FileFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: DragEvent
-type DragEvent struct {
-	MouseEvent
-}
-
-// DragEventFromJS is casting a js.Value into DragEvent.
-func DragEventFromJS(input js.Value) *DragEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DragEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewDragEvent(_type string, eventInitDict *DragEventInit) (_result *DragEvent) {
-	_klass := js.Global().Get("DragEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *DragEvent // javascript: DragEvent _what_return_name
-	)
-	_converted = DragEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// DataTransfer returning attribute 'dataTransfer' with
-// type DataTransfer (idl: DataTransfer).
-func (_this *DragEvent) DataTransfer() *DataTransfer {
-	var ret *DataTransfer
-	value := _this.Value_JS.Get("dataTransfer")
-	if value.Type() != js.TypeNull {
-		ret = DataTransferFromJS(value)
-	}
-	return ret
-}
-
 // interface: Window
 type Window struct {
-	EventTarget
+	domcore.EventTarget
 }
 
 // WindowFromJS is casting a js.Value into Window.
@@ -25556,83 +4348,83 @@ func (_this *Window) SetName(value string) {
 }
 
 // Location returning attribute 'location' with
-// type Location (idl: Location).
-func (_this *Window) Location() *Location {
-	var ret *Location
+// type htmlmisc.Location (idl: Location).
+func (_this *Window) Location() *htmlmisc.Location {
+	var ret *htmlmisc.Location
 	value := _this.Value_JS.Get("location")
-	ret = LocationFromJS(value)
+	ret = htmlmisc.LocationFromJS(value)
 	return ret
 }
 
 // History returning attribute 'history' with
-// type History (idl: History).
-func (_this *Window) History() *History {
-	var ret *History
+// type htmlmisc.History (idl: History).
+func (_this *Window) History() *htmlmisc.History {
+	var ret *htmlmisc.History
 	value := _this.Value_JS.Get("history")
-	ret = HistoryFromJS(value)
+	ret = htmlmisc.HistoryFromJS(value)
 	return ret
 }
 
 // CustomElements returning attribute 'customElements' with
-// type CustomElementRegistry (idl: CustomElementRegistry).
-func (_this *Window) CustomElements() *CustomElementRegistry {
-	var ret *CustomElementRegistry
+// type htmlmisc.CustomElementRegistry (idl: CustomElementRegistry).
+func (_this *Window) CustomElements() *htmlmisc.CustomElementRegistry {
+	var ret *htmlmisc.CustomElementRegistry
 	value := _this.Value_JS.Get("customElements")
-	ret = CustomElementRegistryFromJS(value)
+	ret = htmlmisc.CustomElementRegistryFromJS(value)
 	return ret
 }
 
 // Locationbar returning attribute 'locationbar' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Locationbar() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Locationbar() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("locationbar")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
 // Menubar returning attribute 'menubar' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Menubar() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Menubar() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("menubar")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
 // Personalbar returning attribute 'personalbar' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Personalbar() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Personalbar() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("personalbar")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
 // Scrollbars returning attribute 'scrollbars' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Scrollbars() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Scrollbars() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("scrollbars")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
 // Statusbar returning attribute 'statusbar' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Statusbar() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Statusbar() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("statusbar")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
 // Toolbar returning attribute 'toolbar' with
-// type BarProp (idl: BarProp).
-func (_this *Window) Toolbar() *BarProp {
-	var ret *BarProp
+// type htmlmisc.BarProp (idl: BarProp).
+func (_this *Window) Toolbar() *htmlmisc.BarProp {
+	var ret *htmlmisc.BarProp
 	value := _this.Value_JS.Get("toolbar")
-	ret = BarPropFromJS(value)
+	ret = htmlmisc.BarPropFromJS(value)
 	return ret
 }
 
@@ -25718,31 +4510,31 @@ func (_this *Window) Parent() *Window {
 }
 
 // FrameElement returning attribute 'frameElement' with
-// type Element (idl: Element).
-func (_this *Window) FrameElement() *Element {
-	var ret *Element
+// type dom.Element (idl: Element).
+func (_this *Window) FrameElement() *dom.Element {
+	var ret *dom.Element
 	value := _this.Value_JS.Get("frameElement")
 	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
+		ret = dom.ElementFromJS(value)
 	}
 	return ret
 }
 
 // Navigator returning attribute 'navigator' with
-// type Navigator (idl: Navigator).
-func (_this *Window) Navigator() *Navigator {
-	var ret *Navigator
+// type htmlmisc.Navigator (idl: Navigator).
+func (_this *Window) Navigator() *htmlmisc.Navigator {
+	var ret *htmlmisc.Navigator
 	value := _this.Value_JS.Get("navigator")
-	ret = NavigatorFromJS(value)
+	ret = htmlmisc.NavigatorFromJS(value)
 	return ret
 }
 
 // ApplicationCache returning attribute 'applicationCache' with
-// type ApplicationCache (idl: ApplicationCache).
-func (_this *Window) ApplicationCache() *ApplicationCache {
-	var ret *ApplicationCache
+// type htmlmisc.ApplicationCache (idl: ApplicationCache).
+func (_this *Window) ApplicationCache() *htmlmisc.ApplicationCache {
+	var ret *htmlmisc.ApplicationCache
 	value := _this.Value_JS.Get("applicationCache")
-	ret = ApplicationCacheFromJS(value)
+	ret = htmlmisc.ApplicationCacheFromJS(value)
 	return ret
 }
 
@@ -25756,27 +4548,27 @@ func (_this *Window) Event() js.Value {
 }
 
 // External returning attribute 'external' with
-// type External (idl: External).
-func (_this *Window) External() *External {
-	var ret *External
+// type htmlmisc.External (idl: External).
+func (_this *Window) External() *htmlmisc.External {
+	var ret *htmlmisc.External
 	value := _this.Value_JS.Get("external")
-	ret = ExternalFromJS(value)
+	ret = htmlmisc.ExternalFromJS(value)
 	return ret
 }
 
 // Onabort returning attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onabort() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onabort() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnabort(value *js.Callback) {
 	var __callback25 js.Value
 	if value != nil {
@@ -25789,18 +4581,18 @@ func (_this *Window) SetOnabort(value *js.Callback) {
 }
 
 // Onauxclick returning attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onauxclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onauxclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onauxclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnauxclick setting attribute 'onauxclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnauxclick(value *js.Callback) {
 	var __callback26 js.Value
 	if value != nil {
@@ -25813,18 +4605,18 @@ func (_this *Window) SetOnauxclick(value *js.Callback) {
 }
 
 // Onblur returning attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onblur() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onblur() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onblur")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnblur setting attribute 'onblur' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnblur(value *js.Callback) {
 	var __callback27 js.Value
 	if value != nil {
@@ -25837,18 +4629,18 @@ func (_this *Window) SetOnblur(value *js.Callback) {
 }
 
 // Oncancel returning attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oncancel() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oncancel() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncancel")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncancel setting attribute 'oncancel' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncancel(value *js.Callback) {
 	var __callback28 js.Value
 	if value != nil {
@@ -25861,18 +4653,18 @@ func (_this *Window) SetOncancel(value *js.Callback) {
 }
 
 // Oncanplay returning attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oncanplay() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oncanplay() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncanplay")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncanplay setting attribute 'oncanplay' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncanplay(value *js.Callback) {
 	var __callback29 js.Value
 	if value != nil {
@@ -25885,18 +4677,18 @@ func (_this *Window) SetOncanplay(value *js.Callback) {
 }
 
 // Oncanplaythrough returning attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oncanplaythrough() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oncanplaythrough() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncanplaythrough")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncanplaythrough setting attribute 'oncanplaythrough' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncanplaythrough(value *js.Callback) {
 	var __callback30 js.Value
 	if value != nil {
@@ -25909,18 +4701,18 @@ func (_this *Window) SetOncanplaythrough(value *js.Callback) {
 }
 
 // Onchange returning attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onchange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onchange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnchange setting attribute 'onchange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnchange(value *js.Callback) {
 	var __callback31 js.Value
 	if value != nil {
@@ -25933,18 +4725,18 @@ func (_this *Window) SetOnchange(value *js.Callback) {
 }
 
 // Onclick returning attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnclick setting attribute 'onclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnclick(value *js.Callback) {
 	var __callback32 js.Value
 	if value != nil {
@@ -25957,18 +4749,18 @@ func (_this *Window) SetOnclick(value *js.Callback) {
 }
 
 // Onclose returning attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onclose() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onclose() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnclose setting attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnclose(value *js.Callback) {
 	var __callback33 js.Value
 	if value != nil {
@@ -25981,18 +4773,18 @@ func (_this *Window) SetOnclose(value *js.Callback) {
 }
 
 // Oncontextmenu returning attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oncontextmenu() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oncontextmenu() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncontextmenu")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncontextmenu setting attribute 'oncontextmenu' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncontextmenu(value *js.Callback) {
 	var __callback34 js.Value
 	if value != nil {
@@ -26005,18 +4797,18 @@ func (_this *Window) SetOncontextmenu(value *js.Callback) {
 }
 
 // Oncuechange returning attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oncuechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oncuechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOncuechange setting attribute 'oncuechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOncuechange(value *js.Callback) {
 	var __callback35 js.Value
 	if value != nil {
@@ -26029,18 +4821,18 @@ func (_this *Window) SetOncuechange(value *js.Callback) {
 }
 
 // Ondblclick returning attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondblclick() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondblclick() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondblclick")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndblclick setting attribute 'ondblclick' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndblclick(value *js.Callback) {
 	var __callback36 js.Value
 	if value != nil {
@@ -26053,18 +4845,18 @@ func (_this *Window) SetOndblclick(value *js.Callback) {
 }
 
 // Ondrag returning attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondrag() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondrag() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondrag")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndrag setting attribute 'ondrag' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndrag(value *js.Callback) {
 	var __callback37 js.Value
 	if value != nil {
@@ -26077,18 +4869,18 @@ func (_this *Window) SetOndrag(value *js.Callback) {
 }
 
 // Ondragend returning attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragend setting attribute 'ondragend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragend(value *js.Callback) {
 	var __callback38 js.Value
 	if value != nil {
@@ -26101,18 +4893,18 @@ func (_this *Window) SetOndragend(value *js.Callback) {
 }
 
 // Ondragenter returning attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragenter() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragenter() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragenter")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragenter setting attribute 'ondragenter' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragenter(value *js.Callback) {
 	var __callback39 js.Value
 	if value != nil {
@@ -26125,18 +4917,18 @@ func (_this *Window) SetOndragenter(value *js.Callback) {
 }
 
 // Ondragexit returning attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragexit() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragexit() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragexit")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragexit setting attribute 'ondragexit' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragexit(value *js.Callback) {
 	var __callback40 js.Value
 	if value != nil {
@@ -26149,18 +4941,18 @@ func (_this *Window) SetOndragexit(value *js.Callback) {
 }
 
 // Ondragleave returning attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragleave() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragleave() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragleave")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragleave setting attribute 'ondragleave' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragleave(value *js.Callback) {
 	var __callback41 js.Value
 	if value != nil {
@@ -26173,18 +4965,18 @@ func (_this *Window) SetOndragleave(value *js.Callback) {
 }
 
 // Ondragover returning attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragover() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragover() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragover")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragover setting attribute 'ondragover' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragover(value *js.Callback) {
 	var __callback42 js.Value
 	if value != nil {
@@ -26197,18 +4989,18 @@ func (_this *Window) SetOndragover(value *js.Callback) {
 }
 
 // Ondragstart returning attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondragstart() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondragstart() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondragstart")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndragstart setting attribute 'ondragstart' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndragstart(value *js.Callback) {
 	var __callback43 js.Value
 	if value != nil {
@@ -26221,18 +5013,18 @@ func (_this *Window) SetOndragstart(value *js.Callback) {
 }
 
 // Ondrop returning attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondrop() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondrop() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondrop")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndrop setting attribute 'ondrop' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndrop(value *js.Callback) {
 	var __callback44 js.Value
 	if value != nil {
@@ -26245,18 +5037,18 @@ func (_this *Window) SetOndrop(value *js.Callback) {
 }
 
 // Ondurationchange returning attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ondurationchange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondurationchange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ondurationchange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOndurationchange setting attribute 'ondurationchange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOndurationchange(value *js.Callback) {
 	var __callback45 js.Value
 	if value != nil {
@@ -26269,18 +5061,18 @@ func (_this *Window) SetOndurationchange(value *js.Callback) {
 }
 
 // Onemptied returning attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onemptied() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onemptied() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onemptied")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnemptied setting attribute 'onemptied' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnemptied(value *js.Callback) {
 	var __callback46 js.Value
 	if value != nil {
@@ -26293,18 +5085,18 @@ func (_this *Window) SetOnemptied(value *js.Callback) {
 }
 
 // Onended returning attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onended() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onended() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnended setting attribute 'onended' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnended(value *js.Callback) {
 	var __callback47 js.Value
 	if value != nil {
@@ -26317,18 +5109,18 @@ func (_this *Window) SetOnended(value *js.Callback) {
 }
 
 // Onerror returning attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *Window) Onerror() OnErrorEventHandlerNonNull {
-	var ret OnErrorEventHandlerNonNull
+// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *Window) Onerror() html.OnErrorEventHandler {
+	var ret html.OnErrorEventHandler
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = OnErrorEventHandlerNonNullFromJS(value)
+		ret = html.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnerror setting attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
+// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
 func (_this *Window) SetOnerror(value *js.Callback) {
 	var __callback48 js.Value
 	if value != nil {
@@ -26341,18 +5133,18 @@ func (_this *Window) SetOnerror(value *js.Callback) {
 }
 
 // Onfocus returning attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onfocus() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onfocus() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onfocus")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnfocus setting attribute 'onfocus' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnfocus(value *js.Callback) {
 	var __callback49 js.Value
 	if value != nil {
@@ -26365,18 +5157,18 @@ func (_this *Window) SetOnfocus(value *js.Callback) {
 }
 
 // Onformdata returning attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onformdata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onformdata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onformdata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnformdata setting attribute 'onformdata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnformdata(value *js.Callback) {
 	var __callback50 js.Value
 	if value != nil {
@@ -26389,18 +5181,18 @@ func (_this *Window) SetOnformdata(value *js.Callback) {
 }
 
 // Oninput returning attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oninput() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oninput() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oninput")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOninput setting attribute 'oninput' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOninput(value *js.Callback) {
 	var __callback51 js.Value
 	if value != nil {
@@ -26413,18 +5205,18 @@ func (_this *Window) SetOninput(value *js.Callback) {
 }
 
 // Oninvalid returning attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Oninvalid() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Oninvalid() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("oninvalid")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOninvalid setting attribute 'oninvalid' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOninvalid(value *js.Callback) {
 	var __callback52 js.Value
 	if value != nil {
@@ -26437,18 +5229,18 @@ func (_this *Window) SetOninvalid(value *js.Callback) {
 }
 
 // Onkeydown returning attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onkeydown() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onkeydown() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeydown")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeydown setting attribute 'onkeydown' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeydown(value *js.Callback) {
 	var __callback53 js.Value
 	if value != nil {
@@ -26461,18 +5253,18 @@ func (_this *Window) SetOnkeydown(value *js.Callback) {
 }
 
 // Onkeypress returning attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onkeypress() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onkeypress() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeypress")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeypress setting attribute 'onkeypress' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeypress(value *js.Callback) {
 	var __callback54 js.Value
 	if value != nil {
@@ -26485,18 +5277,18 @@ func (_this *Window) SetOnkeypress(value *js.Callback) {
 }
 
 // Onkeyup returning attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onkeyup() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onkeyup() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onkeyup")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnkeyup setting attribute 'onkeyup' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnkeyup(value *js.Callback) {
 	var __callback55 js.Value
 	if value != nil {
@@ -26509,18 +5301,18 @@ func (_this *Window) SetOnkeyup(value *js.Callback) {
 }
 
 // Onload returning attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onload() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onload() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnload setting attribute 'onload' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnload(value *js.Callback) {
 	var __callback56 js.Value
 	if value != nil {
@@ -26533,18 +5325,18 @@ func (_this *Window) SetOnload(value *js.Callback) {
 }
 
 // Onloadeddata returning attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onloadeddata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onloadeddata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadeddata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadeddata setting attribute 'onloadeddata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadeddata(value *js.Callback) {
 	var __callback57 js.Value
 	if value != nil {
@@ -26557,18 +5349,18 @@ func (_this *Window) SetOnloadeddata(value *js.Callback) {
 }
 
 // Onloadedmetadata returning attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onloadedmetadata() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onloadedmetadata() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadedmetadata")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadedmetadata setting attribute 'onloadedmetadata' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadedmetadata(value *js.Callback) {
 	var __callback58 js.Value
 	if value != nil {
@@ -26581,18 +5373,18 @@ func (_this *Window) SetOnloadedmetadata(value *js.Callback) {
 }
 
 // Onloadend returning attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onloadend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onloadend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadend setting attribute 'onloadend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadend(value *js.Callback) {
 	var __callback59 js.Value
 	if value != nil {
@@ -26605,18 +5397,18 @@ func (_this *Window) SetOnloadend(value *js.Callback) {
 }
 
 // Onloadstart returning attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onloadstart() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onloadstart() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnloadstart setting attribute 'onloadstart' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnloadstart(value *js.Callback) {
 	var __callback60 js.Value
 	if value != nil {
@@ -26629,18 +5421,18 @@ func (_this *Window) SetOnloadstart(value *js.Callback) {
 }
 
 // Onmousedown returning attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmousedown() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmousedown() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmousedown")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmousedown setting attribute 'onmousedown' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmousedown(value *js.Callback) {
 	var __callback61 js.Value
 	if value != nil {
@@ -26653,18 +5445,18 @@ func (_this *Window) SetOnmousedown(value *js.Callback) {
 }
 
 // Onmouseenter returning attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmouseenter() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmouseenter() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseenter")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseenter setting attribute 'onmouseenter' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseenter(value *js.Callback) {
 	var __callback62 js.Value
 	if value != nil {
@@ -26677,18 +5469,18 @@ func (_this *Window) SetOnmouseenter(value *js.Callback) {
 }
 
 // Onmouseleave returning attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmouseleave() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmouseleave() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseleave")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseleave setting attribute 'onmouseleave' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseleave(value *js.Callback) {
 	var __callback63 js.Value
 	if value != nil {
@@ -26701,18 +5493,18 @@ func (_this *Window) SetOnmouseleave(value *js.Callback) {
 }
 
 // Onmousemove returning attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmousemove() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmousemove() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmousemove")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmousemove setting attribute 'onmousemove' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmousemove(value *js.Callback) {
 	var __callback64 js.Value
 	if value != nil {
@@ -26725,18 +5517,18 @@ func (_this *Window) SetOnmousemove(value *js.Callback) {
 }
 
 // Onmouseout returning attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmouseout() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmouseout() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseout")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseout setting attribute 'onmouseout' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseout(value *js.Callback) {
 	var __callback65 js.Value
 	if value != nil {
@@ -26749,18 +5541,18 @@ func (_this *Window) SetOnmouseout(value *js.Callback) {
 }
 
 // Onmouseover returning attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmouseover() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmouseover() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseover")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseover setting attribute 'onmouseover' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseover(value *js.Callback) {
 	var __callback66 js.Value
 	if value != nil {
@@ -26773,18 +5565,18 @@ func (_this *Window) SetOnmouseover(value *js.Callback) {
 }
 
 // Onmouseup returning attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmouseup() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmouseup() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmouseup")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmouseup setting attribute 'onmouseup' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmouseup(value *js.Callback) {
 	var __callback67 js.Value
 	if value != nil {
@@ -26797,18 +5589,18 @@ func (_this *Window) SetOnmouseup(value *js.Callback) {
 }
 
 // Onwheel returning attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onwheel() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onwheel() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onwheel")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnwheel setting attribute 'onwheel' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnwheel(value *js.Callback) {
 	var __callback68 js.Value
 	if value != nil {
@@ -26821,18 +5613,18 @@ func (_this *Window) SetOnwheel(value *js.Callback) {
 }
 
 // Onpause returning attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onpause() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpause() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpause setting attribute 'onpause' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpause(value *js.Callback) {
 	var __callback69 js.Value
 	if value != nil {
@@ -26845,18 +5637,18 @@ func (_this *Window) SetOnpause(value *js.Callback) {
 }
 
 // Onplay returning attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onplay() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onplay() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onplay")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnplay setting attribute 'onplay' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnplay(value *js.Callback) {
 	var __callback70 js.Value
 	if value != nil {
@@ -26869,18 +5661,18 @@ func (_this *Window) SetOnplay(value *js.Callback) {
 }
 
 // Onplaying returning attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onplaying() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onplaying() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onplaying")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnplaying setting attribute 'onplaying' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnplaying(value *js.Callback) {
 	var __callback71 js.Value
 	if value != nil {
@@ -26893,18 +5685,18 @@ func (_this *Window) SetOnplaying(value *js.Callback) {
 }
 
 // Onprogress returning attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onprogress() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onprogress() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnprogress setting attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnprogress(value *js.Callback) {
 	var __callback72 js.Value
 	if value != nil {
@@ -26917,18 +5709,18 @@ func (_this *Window) SetOnprogress(value *js.Callback) {
 }
 
 // Onratechange returning attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onratechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onratechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onratechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnratechange setting attribute 'onratechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnratechange(value *js.Callback) {
 	var __callback73 js.Value
 	if value != nil {
@@ -26941,18 +5733,18 @@ func (_this *Window) SetOnratechange(value *js.Callback) {
 }
 
 // Onreset returning attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onreset() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onreset() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onreset")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnreset setting attribute 'onreset' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnreset(value *js.Callback) {
 	var __callback74 js.Value
 	if value != nil {
@@ -26965,18 +5757,18 @@ func (_this *Window) SetOnreset(value *js.Callback) {
 }
 
 // Onresize returning attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onresize() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onresize() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onresize")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnresize setting attribute 'onresize' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnresize(value *js.Callback) {
 	var __callback75 js.Value
 	if value != nil {
@@ -26989,18 +5781,18 @@ func (_this *Window) SetOnresize(value *js.Callback) {
 }
 
 // Onscroll returning attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onscroll() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onscroll() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onscroll")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnscroll setting attribute 'onscroll' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnscroll(value *js.Callback) {
 	var __callback76 js.Value
 	if value != nil {
@@ -27013,18 +5805,18 @@ func (_this *Window) SetOnscroll(value *js.Callback) {
 }
 
 // Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onsecuritypolicyviolation() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onsecuritypolicyviolation() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsecuritypolicyviolation(value *js.Callback) {
 	var __callback77 js.Value
 	if value != nil {
@@ -27037,18 +5829,18 @@ func (_this *Window) SetOnsecuritypolicyviolation(value *js.Callback) {
 }
 
 // Onseeked returning attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onseeked() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onseeked() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onseeked")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnseeked setting attribute 'onseeked' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnseeked(value *js.Callback) {
 	var __callback78 js.Value
 	if value != nil {
@@ -27061,18 +5853,18 @@ func (_this *Window) SetOnseeked(value *js.Callback) {
 }
 
 // Onseeking returning attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onseeking() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onseeking() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onseeking")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnseeking setting attribute 'onseeking' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnseeking(value *js.Callback) {
 	var __callback79 js.Value
 	if value != nil {
@@ -27085,18 +5877,18 @@ func (_this *Window) SetOnseeking(value *js.Callback) {
 }
 
 // Onselect returning attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onselect() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onselect() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onselect")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnselect setting attribute 'onselect' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnselect(value *js.Callback) {
 	var __callback80 js.Value
 	if value != nil {
@@ -27109,18 +5901,18 @@ func (_this *Window) SetOnselect(value *js.Callback) {
 }
 
 // Onstalled returning attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onstalled() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onstalled() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onstalled")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnstalled setting attribute 'onstalled' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnstalled(value *js.Callback) {
 	var __callback81 js.Value
 	if value != nil {
@@ -27133,18 +5925,18 @@ func (_this *Window) SetOnstalled(value *js.Callback) {
 }
 
 // Onsubmit returning attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onsubmit() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onsubmit() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsubmit")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsubmit setting attribute 'onsubmit' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsubmit(value *js.Callback) {
 	var __callback82 js.Value
 	if value != nil {
@@ -27157,18 +5949,18 @@ func (_this *Window) SetOnsubmit(value *js.Callback) {
 }
 
 // Onsuspend returning attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onsuspend() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onsuspend() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onsuspend")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnsuspend setting attribute 'onsuspend' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnsuspend(value *js.Callback) {
 	var __callback83 js.Value
 	if value != nil {
@@ -27181,18 +5973,18 @@ func (_this *Window) SetOnsuspend(value *js.Callback) {
 }
 
 // Ontimeupdate returning attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ontimeupdate() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontimeupdate() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ontimeupdate")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOntimeupdate setting attribute 'ontimeupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOntimeupdate(value *js.Callback) {
 	var __callback84 js.Value
 	if value != nil {
@@ -27205,18 +5997,18 @@ func (_this *Window) SetOntimeupdate(value *js.Callback) {
 }
 
 // Ontoggle returning attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ontoggle() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontoggle() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ontoggle")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOntoggle setting attribute 'ontoggle' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOntoggle(value *js.Callback) {
 	var __callback85 js.Value
 	if value != nil {
@@ -27229,18 +6021,18 @@ func (_this *Window) SetOntoggle(value *js.Callback) {
 }
 
 // Onvolumechange returning attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onvolumechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvolumechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onvolumechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnvolumechange setting attribute 'onvolumechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnvolumechange(value *js.Callback) {
 	var __callback86 js.Value
 	if value != nil {
@@ -27253,18 +6045,18 @@ func (_this *Window) SetOnvolumechange(value *js.Callback) {
 }
 
 // Onwaiting returning attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onwaiting() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onwaiting() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onwaiting")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnwaiting setting attribute 'onwaiting' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnwaiting(value *js.Callback) {
 	var __callback87 js.Value
 	if value != nil {
@@ -27277,18 +6069,18 @@ func (_this *Window) SetOnwaiting(value *js.Callback) {
 }
 
 // Onafterprint returning attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onafterprint() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onafterprint() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onafterprint")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnafterprint setting attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnafterprint(value *js.Callback) {
 	var __callback88 js.Value
 	if value != nil {
@@ -27301,18 +6093,18 @@ func (_this *Window) SetOnafterprint(value *js.Callback) {
 }
 
 // Onbeforeprint returning attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onbeforeprint() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onbeforeprint() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onbeforeprint")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnbeforeprint(value *js.Callback) {
 	var __callback89 js.Value
 	if value != nil {
@@ -27325,18 +6117,18 @@ func (_this *Window) SetOnbeforeprint(value *js.Callback) {
 }
 
 // Onbeforeunload returning attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *Window) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
-	var ret OnBeforeUnloadEventHandlerNonNull
+// type html.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *Window) Onbeforeunload() html.OnBeforeUnloadEventHandler {
+	var ret html.OnBeforeUnloadEventHandler
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull {
-		ret = OnBeforeUnloadEventHandlerNonNullFromJS(value)
+		ret = html.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
+// type html.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
 func (_this *Window) SetOnbeforeunload(value *js.Callback) {
 	var __callback90 js.Value
 	if value != nil {
@@ -27349,18 +6141,18 @@ func (_this *Window) SetOnbeforeunload(value *js.Callback) {
 }
 
 // Onhashchange returning attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onhashchange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onhashchange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onhashchange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnhashchange setting attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnhashchange(value *js.Callback) {
 	var __callback91 js.Value
 	if value != nil {
@@ -27373,18 +6165,18 @@ func (_this *Window) SetOnhashchange(value *js.Callback) {
 }
 
 // Onlanguagechange returning attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onlanguagechange() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onlanguagechange() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onlanguagechange")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnlanguagechange(value *js.Callback) {
 	var __callback92 js.Value
 	if value != nil {
@@ -27397,18 +6189,18 @@ func (_this *Window) SetOnlanguagechange(value *js.Callback) {
 }
 
 // Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmessage() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmessage() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmessage(value *js.Callback) {
 	var __callback93 js.Value
 	if value != nil {
@@ -27421,18 +6213,18 @@ func (_this *Window) SetOnmessage(value *js.Callback) {
 }
 
 // Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onmessageerror() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onmessageerror() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnmessageerror(value *js.Callback) {
 	var __callback94 js.Value
 	if value != nil {
@@ -27445,18 +6237,18 @@ func (_this *Window) SetOnmessageerror(value *js.Callback) {
 }
 
 // Onoffline returning attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onoffline() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onoffline() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onoffline")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnoffline setting attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnoffline(value *js.Callback) {
 	var __callback95 js.Value
 	if value != nil {
@@ -27469,18 +6261,18 @@ func (_this *Window) SetOnoffline(value *js.Callback) {
 }
 
 // Ononline returning attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Ononline() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ononline() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("ononline")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnonline setting attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnonline(value *js.Callback) {
 	var __callback96 js.Value
 	if value != nil {
@@ -27493,18 +6285,18 @@ func (_this *Window) SetOnonline(value *js.Callback) {
 }
 
 // Onpagehide returning attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onpagehide() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpagehide() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpagehide")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpagehide setting attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpagehide(value *js.Callback) {
 	var __callback97 js.Value
 	if value != nil {
@@ -27517,18 +6309,18 @@ func (_this *Window) SetOnpagehide(value *js.Callback) {
 }
 
 // Onpageshow returning attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onpageshow() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpageshow() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpageshow")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpageshow setting attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpageshow(value *js.Callback) {
 	var __callback98 js.Value
 	if value != nil {
@@ -27541,18 +6333,18 @@ func (_this *Window) SetOnpageshow(value *js.Callback) {
 }
 
 // Onpopstate returning attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onpopstate() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpopstate() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onpopstate")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnpopstate setting attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnpopstate(value *js.Callback) {
 	var __callback99 js.Value
 	if value != nil {
@@ -27565,18 +6357,18 @@ func (_this *Window) SetOnpopstate(value *js.Callback) {
 }
 
 // Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onrejectionhandled() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onrejectionhandled() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onrejectionhandled")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnrejectionhandled(value *js.Callback) {
 	var __callback100 js.Value
 	if value != nil {
@@ -27589,18 +6381,18 @@ func (_this *Window) SetOnrejectionhandled(value *js.Callback) {
 }
 
 // Onstorage returning attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onstorage() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onstorage() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onstorage")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnstorage setting attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnstorage(value *js.Callback) {
 	var __callback101 js.Value
 	if value != nil {
@@ -27613,18 +6405,18 @@ func (_this *Window) SetOnstorage(value *js.Callback) {
 }
 
 // Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onunhandledrejection() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onunhandledrejection() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onunhandledrejection")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnunhandledrejection(value *js.Callback) {
 	var __callback102 js.Value
 	if value != nil {
@@ -27637,18 +6429,18 @@ func (_this *Window) SetOnunhandledrejection(value *js.Callback) {
 }
 
 // Onunload returning attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Window) Onunload() EventHandler {
-	var ret EventHandler
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onunload() domcore.EventHandler {
+	var ret domcore.EventHandler
 	value := _this.Value_JS.Get("onunload")
 	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
+		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnunload setting attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
+// type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) SetOnunload(value *js.Callback) {
 	var __callback103 js.Value
 	if value != nil {
@@ -27670,20 +6462,20 @@ func (_this *Window) Origin() string {
 }
 
 // SessionStorage returning attribute 'sessionStorage' with
-// type Storage (idl: Storage).
-func (_this *Window) SessionStorage() *Storage {
-	var ret *Storage
+// type htmlmisc.Storage (idl: Storage).
+func (_this *Window) SessionStorage() *htmlmisc.Storage {
+	var ret *htmlmisc.Storage
 	value := _this.Value_JS.Get("sessionStorage")
-	ret = StorageFromJS(value)
+	ret = htmlmisc.StorageFromJS(value)
 	return ret
 }
 
 // LocalStorage returning attribute 'localStorage' with
-// type Storage (idl: Storage).
-func (_this *Window) LocalStorage() *Storage {
-	var ret *Storage
+// type htmlmisc.Storage (idl: Storage).
+func (_this *Window) LocalStorage() *htmlmisc.Storage {
+	var ret *htmlmisc.Storage
 	value := _this.Value_JS.Get("localStorage")
-	ret = StorageFromJS(value)
+	ret = htmlmisc.StorageFromJS(value)
 	return ret
 }
 
@@ -27830,7 +6622,7 @@ func (_this *Window) Print() {
 	return
 }
 
-func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer *[]*Object) {
+func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer *[]*javascript.Object) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -27906,7 +6698,7 @@ func (_this *Window) Btoa(data string) (_result string) {
 	return
 }
 
-func (_this *Window) Atob(data string) (_result *ByteString) {
+func (_this *Window) Atob(data string) (_result *patch.ByteString) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -27916,9 +6708,9 @@ func (_this *Window) Atob(data string) (_result *ByteString) {
 	_end++
 	_returned := _this.Value_JS.Call("atob", _args[0:_end]...)
 	var (
-		_converted *ByteString // javascript: ByteString _what_return_name
+		_converted *patch.ByteString // javascript: ByteString _what_return_name
 	)
-	_converted = ByteStringFromJS(_returned)
+	_converted = patch.ByteStringFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -28005,19 +6797,26 @@ func (_this *Window) ClearInterval(handle *int) {
 	return
 }
 
-func (_this *Window) QueueMicrotask(callback *VoidFunction) {
+func (_this *Window) QueueMicrotask(callback *js.Callback) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := callback.JSValue()
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("queueMicrotask", _args[0:_end]...)
 	return
 }
 
-func (_this *Window) CreateImageBitmap(image *Union, options *ImageBitmapOptions) (_result *Promise) {
+func (_this *Window) CreateImageBitmap(image *Union, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -28032,14 +6831,14 @@ func (_this *Window) CreateImageBitmap(image *Union, options *ImageBitmapOptions
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *Promise // javascript: Promise _what_return_name
+		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
-	_converted = PromiseFromJS(_returned)
+	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *ImageBitmapOptions) (_result *Promise) {
+func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
 	var (
 		_args [6]interface{}
 		_end  int
@@ -28066,9 +6865,9 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *Promise // javascript: Promise _what_return_name
+		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
-	_converted = PromiseFromJS(_returned)
+	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -28109,4457 +6908,9 @@ func (_this *Window) CancelAnimationFrame(handle uint) {
 	return
 }
 
-// interface: BarProp
-type BarProp struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *BarProp) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// BarPropFromJS is casting a js.Value into BarProp.
-func BarPropFromJS(input js.Value) *BarProp {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &BarProp{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Visible returning attribute 'visible' with
-// type bool (idl: boolean).
-func (_this *BarProp) Visible() bool {
-	var ret bool
-	value := _this.Value_JS.Get("visible")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: History
-type History struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *History) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// HistoryFromJS is casting a js.Value into History.
-func HistoryFromJS(input js.Value) *History {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &History{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *History) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// ScrollRestoration returning attribute 'scrollRestoration' with
-// type ScrollRestoration (idl: ScrollRestoration).
-func (_this *History) ScrollRestoration() ScrollRestoration {
-	var ret ScrollRestoration
-	value := _this.Value_JS.Get("scrollRestoration")
-	ret = ScrollRestorationFromJS(value)
-	return ret
-}
-
-// SetScrollRestoration setting attribute 'scrollRestoration' with
-// type ScrollRestoration (idl: ScrollRestoration).
-func (_this *History) SetScrollRestoration(value ScrollRestoration) {
-	input := value.JSValue()
-	_this.Value_JS.Set("scrollRestoration", input)
-}
-
-// State returning attribute 'state' with
-// type js.Value (idl: any).
-func (_this *History) State() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("state")
-	ret = value
-	return ret
-}
-
-func (_this *History) Go(delta *int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if delta != nil {
-		_p0 := delta
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("go", _args[0:_end]...)
-	return
-}
-
-func (_this *History) Back() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("back", _args[0:_end]...)
-	return
-}
-
-func (_this *History) Forward() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("forward", _args[0:_end]...)
-	return
-}
-
-func (_this *History) PushState(data js.Value, title string, url *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_p1 := title
-	_args[1] = _p1
-	_end++
-	if url != nil {
-		_p2 := url
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("pushState", _args[0:_end]...)
-	return
-}
-
-func (_this *History) ReplaceState(data js.Value, title string, url *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_p1 := title
-	_args[1] = _p1
-	_end++
-	if url != nil {
-		_p2 := url
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("replaceState", _args[0:_end]...)
-	return
-}
-
-// interface: Location
-type Location struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Location) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// LocationFromJS is casting a js.Value into Location.
-func LocationFromJS(input js.Value) *Location {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Location{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *Location) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *Location) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *Location) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *Location) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// SetProtocol setting attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *Location) SetProtocol(value string) {
-	input := value
-	_this.Value_JS.Set("protocol", input)
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *Location) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// SetHost setting attribute 'host' with
-// type string (idl: USVString).
-func (_this *Location) SetHost(value string) {
-	input := value
-	_this.Value_JS.Set("host", input)
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *Location) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// SetHostname setting attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *Location) SetHostname(value string) {
-	input := value
-	_this.Value_JS.Set("hostname", input)
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *Location) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// SetPort setting attribute 'port' with
-// type string (idl: USVString).
-func (_this *Location) SetPort(value string) {
-	input := value
-	_this.Value_JS.Set("port", input)
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *Location) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// SetPathname setting attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *Location) SetPathname(value string) {
-	input := value
-	_this.Value_JS.Set("pathname", input)
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *Location) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// SetSearch setting attribute 'search' with
-// type string (idl: USVString).
-func (_this *Location) SetSearch(value string) {
-	input := value
-	_this.Value_JS.Set("search", input)
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *Location) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
-}
-
-// SetHash setting attribute 'hash' with
-// type string (idl: USVString).
-func (_this *Location) SetHash(value string) {
-	input := value
-	_this.Value_JS.Set("hash", input)
-}
-
-// AncestorOrigins returning attribute 'ancestorOrigins' with
-// type DOMStringList (idl: DOMStringList).
-func (_this *Location) AncestorOrigins() *DOMStringList {
-	var ret *DOMStringList
-	value := _this.Value_JS.Get("ancestorOrigins")
-	ret = DOMStringListFromJS(value)
-	return ret
-}
-
-func (_this *Location) Assign(url string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("assign", _args[0:_end]...)
-	return
-}
-
-func (_this *Location) Replace(url string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("replace", _args[0:_end]...)
-	return
-}
-
-func (_this *Location) Reload() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("reload", _args[0:_end]...)
-	return
-}
-
-// interface: PopStateEvent
-type PopStateEvent struct {
-	Event
-}
-
-// PopStateEventFromJS is casting a js.Value into PopStateEvent.
-func PopStateEventFromJS(input js.Value) *PopStateEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &PopStateEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewPopStateEvent(_type string, eventInitDict *PopStateEventInit) (_result *PopStateEvent) {
-	_klass := js.Global().Get("PopStateEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *PopStateEvent // javascript: PopStateEvent _what_return_name
-	)
-	_converted = PopStateEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// State returning attribute 'state' with
-// type js.Value (idl: any).
-func (_this *PopStateEvent) State() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("state")
-	ret = value
-	return ret
-}
-
-// interface: HashChangeEvent
-type HashChangeEvent struct {
-	Event
-}
-
-// HashChangeEventFromJS is casting a js.Value into HashChangeEvent.
-func HashChangeEventFromJS(input js.Value) *HashChangeEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HashChangeEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewHashChangeEvent(_type string, eventInitDict *HashChangeEventInit) (_result *HashChangeEvent) {
-	_klass := js.Global().Get("HashChangeEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *HashChangeEvent // javascript: HashChangeEvent _what_return_name
-	)
-	_converted = HashChangeEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// OldURL returning attribute 'oldURL' with
-// type string (idl: USVString).
-func (_this *HashChangeEvent) OldURL() string {
-	var ret string
-	value := _this.Value_JS.Get("oldURL")
-	ret = (value).String()
-	return ret
-}
-
-// NewURL returning attribute 'newURL' with
-// type string (idl: USVString).
-func (_this *HashChangeEvent) NewURL() string {
-	var ret string
-	value := _this.Value_JS.Get("newURL")
-	ret = (value).String()
-	return ret
-}
-
-// interface: PageTransitionEvent
-type PageTransitionEvent struct {
-	Event
-}
-
-// PageTransitionEventFromJS is casting a js.Value into PageTransitionEvent.
-func PageTransitionEventFromJS(input js.Value) *PageTransitionEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &PageTransitionEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewPageTransitionEvent(_type string, eventInitDict *PageTransitionEventInit) (_result *PageTransitionEvent) {
-	_klass := js.Global().Get("PageTransitionEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *PageTransitionEvent // javascript: PageTransitionEvent _what_return_name
-	)
-	_converted = PageTransitionEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Persisted returning attribute 'persisted' with
-// type bool (idl: boolean).
-func (_this *PageTransitionEvent) Persisted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("persisted")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: BeforeUnloadEvent
-type BeforeUnloadEvent struct {
-	Event
-}
-
-// BeforeUnloadEventFromJS is casting a js.Value into BeforeUnloadEvent.
-func BeforeUnloadEventFromJS(input js.Value) *BeforeUnloadEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &BeforeUnloadEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-// ReturnValue returning attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *BeforeUnloadEvent) ReturnValue() string {
-	var ret string
-	value := _this.Value_JS.Get("returnValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetReturnValue setting attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *BeforeUnloadEvent) SetReturnValue(value string) {
-	input := value
-	_this.Value_JS.Set("returnValue", input)
-}
-
-// interface: ApplicationCache
-type ApplicationCache struct {
-	EventTarget
-}
-
-// ApplicationCacheFromJS is casting a js.Value into ApplicationCache.
-func ApplicationCacheFromJS(input js.Value) *ApplicationCache {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ApplicationCache{}
-	ret.Value_JS = input
-	return ret
-}
-
-const UNCACHED_ApplicationCache int = 0
-const IDLE_ApplicationCache int = 1
-const CHECKING_ApplicationCache int = 2
-const DOWNLOADING_ApplicationCache int = 3
-const UPDATEREADY_ApplicationCache int = 4
-const OBSOLETE_ApplicationCache int = 5
-
-// Status returning attribute 'status' with
-// type int (idl: unsigned short).
-func (_this *ApplicationCache) Status() int {
-	var ret int
-	value := _this.Value_JS.Get("status")
-	ret = (value).Int()
-	return ret
-}
-
-// Onchecking returning attribute 'onchecking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onchecking() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onchecking")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchecking setting attribute 'onchecking' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnchecking(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onchecking", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnerror(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onnoupdate returning attribute 'onnoupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onnoupdate() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onnoupdate")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnnoupdate setting attribute 'onnoupdate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnnoupdate(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onnoupdate", input)
-}
-
-// Ondownloading returning attribute 'ondownloading' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Ondownloading() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ondownloading")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndownloading setting attribute 'ondownloading' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOndownloading(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("ondownloading", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onprogress() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnprogress setting attribute 'onprogress' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnprogress(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onupdateready returning attribute 'onupdateready' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onupdateready() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onupdateready")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnupdateready setting attribute 'onupdateready' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnupdateready(value *js.Callback) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onupdateready", input)
-}
-
-// Oncached returning attribute 'oncached' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Oncached() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("oncached")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncached setting attribute 'oncached' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOncached(value *js.Callback) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("oncached", input)
-}
-
-// Onobsolete returning attribute 'onobsolete' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onobsolete() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onobsolete")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnobsolete setting attribute 'onobsolete' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnobsolete(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onobsolete", input)
-}
-
-func (_this *ApplicationCache) Update() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("update", _args[0:_end]...)
-	return
-}
-
-func (_this *ApplicationCache) Abort() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("abort", _args[0:_end]...)
-	return
-}
-
-func (_this *ApplicationCache) SwapCache() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("swapCache", _args[0:_end]...)
-	return
-}
-
-// interface: ErrorEvent
-type ErrorEvent struct {
-	Event
-}
-
-// ErrorEventFromJS is casting a js.Value into ErrorEvent.
-func ErrorEventFromJS(input js.Value) *ErrorEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ErrorEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewErrorEvent(_type string, eventInitDict *ErrorEventInit) (_result *ErrorEvent) {
-	_klass := js.Global().Get("ErrorEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ErrorEvent // javascript: ErrorEvent _what_return_name
-	)
-	_converted = ErrorEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Message returning attribute 'message' with
-// type string (idl: DOMString).
-func (_this *ErrorEvent) Message() string {
-	var ret string
-	value := _this.Value_JS.Get("message")
-	ret = (value).String()
-	return ret
-}
-
-// Filename returning attribute 'filename' with
-// type string (idl: USVString).
-func (_this *ErrorEvent) Filename() string {
-	var ret string
-	value := _this.Value_JS.Get("filename")
-	ret = (value).String()
-	return ret
-}
-
-// Lineno returning attribute 'lineno' with
-// type uint (idl: unsigned long).
-func (_this *ErrorEvent) Lineno() uint {
-	var ret uint
-	value := _this.Value_JS.Get("lineno")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Colno returning attribute 'colno' with
-// type uint (idl: unsigned long).
-func (_this *ErrorEvent) Colno() uint {
-	var ret uint
-	value := _this.Value_JS.Get("colno")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Error returning attribute 'error' with
-// type js.Value (idl: any).
-func (_this *ErrorEvent) Error() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("error")
-	ret = value
-	return ret
-}
-
-// interface: PromiseRejectionEvent
-type PromiseRejectionEvent struct {
-	Event
-}
-
-// PromiseRejectionEventFromJS is casting a js.Value into PromiseRejectionEvent.
-func PromiseRejectionEventFromJS(input js.Value) *PromiseRejectionEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &PromiseRejectionEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewPromiseRejectionEvent(_type string, eventInitDict *PromiseRejectionEventInit) (_result *PromiseRejectionEvent) {
-	_klass := js.Global().Get("PromiseRejectionEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := eventInitDict.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *PromiseRejectionEvent // javascript: PromiseRejectionEvent _what_return_name
-	)
-	_converted = PromiseRejectionEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Promise returning attribute 'promise' with
-// type Promise (idl: Promise).
-func (_this *PromiseRejectionEvent) Promise() *Promise {
-	var ret *Promise
-	value := _this.Value_JS.Get("promise")
-	ret = PromiseFromJS(value)
-	return ret
-}
-
-// Reason returning attribute 'reason' with
-// type js.Value (idl: any).
-func (_this *PromiseRejectionEvent) Reason() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("reason")
-	ret = value
-	return ret
-}
-
-// interface: Navigator
-type Navigator struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Navigator) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// NavigatorFromJS is casting a js.Value into Navigator.
-func NavigatorFromJS(input js.Value) *Navigator {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Navigator{}
-	ret.Value_JS = input
-	return ret
-}
-
-// AppCodeName returning attribute 'appCodeName' with
-// type string (idl: DOMString).
-func (_this *Navigator) AppCodeName() string {
-	var ret string
-	value := _this.Value_JS.Get("appCodeName")
-	ret = (value).String()
-	return ret
-}
-
-// AppName returning attribute 'appName' with
-// type string (idl: DOMString).
-func (_this *Navigator) AppName() string {
-	var ret string
-	value := _this.Value_JS.Get("appName")
-	ret = (value).String()
-	return ret
-}
-
-// AppVersion returning attribute 'appVersion' with
-// type string (idl: DOMString).
-func (_this *Navigator) AppVersion() string {
-	var ret string
-	value := _this.Value_JS.Get("appVersion")
-	ret = (value).String()
-	return ret
-}
-
-// Platform returning attribute 'platform' with
-// type string (idl: DOMString).
-func (_this *Navigator) Platform() string {
-	var ret string
-	value := _this.Value_JS.Get("platform")
-	ret = (value).String()
-	return ret
-}
-
-// Product returning attribute 'product' with
-// type string (idl: DOMString).
-func (_this *Navigator) Product() string {
-	var ret string
-	value := _this.Value_JS.Get("product")
-	ret = (value).String()
-	return ret
-}
-
-// ProductSub returning attribute 'productSub' with
-// type string (idl: DOMString).
-func (_this *Navigator) ProductSub() string {
-	var ret string
-	value := _this.Value_JS.Get("productSub")
-	ret = (value).String()
-	return ret
-}
-
-// UserAgent returning attribute 'userAgent' with
-// type string (idl: DOMString).
-func (_this *Navigator) UserAgent() string {
-	var ret string
-	value := _this.Value_JS.Get("userAgent")
-	ret = (value).String()
-	return ret
-}
-
-// Vendor returning attribute 'vendor' with
-// type string (idl: DOMString).
-func (_this *Navigator) Vendor() string {
-	var ret string
-	value := _this.Value_JS.Get("vendor")
-	ret = (value).String()
-	return ret
-}
-
-// VendorSub returning attribute 'vendorSub' with
-// type string (idl: DOMString).
-func (_this *Navigator) VendorSub() string {
-	var ret string
-	value := _this.Value_JS.Get("vendorSub")
-	ret = (value).String()
-	return ret
-}
-
-// Oscpu returning attribute 'oscpu' with
-// type string (idl: DOMString).
-func (_this *Navigator) Oscpu() string {
-	var ret string
-	value := _this.Value_JS.Get("oscpu")
-	ret = (value).String()
-	return ret
-}
-
-// Language returning attribute 'language' with
-// type string (idl: DOMString).
-func (_this *Navigator) Language() string {
-	var ret string
-	value := _this.Value_JS.Get("language")
-	ret = (value).String()
-	return ret
-}
-
-// Languages returning attribute 'languages' with
-// type FrozenArray (idl: FrozenArray).
-func (_this *Navigator) Languages() *FrozenArray {
-	var ret *FrozenArray
-	value := _this.Value_JS.Get("languages")
-	ret = FrozenArrayFromJS(value)
-	return ret
-}
-
-// OnLine returning attribute 'onLine' with
-// type bool (idl: boolean).
-func (_this *Navigator) OnLine() bool {
-	var ret bool
-	value := _this.Value_JS.Get("onLine")
-	ret = (value).Bool()
-	return ret
-}
-
-// CookieEnabled returning attribute 'cookieEnabled' with
-// type bool (idl: boolean).
-func (_this *Navigator) CookieEnabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("cookieEnabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// Plugins returning attribute 'plugins' with
-// type PluginArray (idl: PluginArray).
-func (_this *Navigator) Plugins() *PluginArray {
-	var ret *PluginArray
-	value := _this.Value_JS.Get("plugins")
-	ret = PluginArrayFromJS(value)
-	return ret
-}
-
-// MimeTypes returning attribute 'mimeTypes' with
-// type MimeTypeArray (idl: MimeTypeArray).
-func (_this *Navigator) MimeTypes() *MimeTypeArray {
-	var ret *MimeTypeArray
-	value := _this.Value_JS.Get("mimeTypes")
-	ret = MimeTypeArrayFromJS(value)
-	return ret
-}
-
-// HardwareConcurrency returning attribute 'hardwareConcurrency' with
-// type int (idl: unsigned long long).
-func (_this *Navigator) HardwareConcurrency() int {
-	var ret int
-	value := _this.Value_JS.Get("hardwareConcurrency")
-	ret = (value).Int()
-	return ret
-}
-
-func (_this *Navigator) TaintEnabled() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("taintEnabled", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Navigator) RegisterProtocolHandler(scheme string, url string, title string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := scheme
-	_args[0] = _p0
-	_end++
-	_p1 := url
-	_args[1] = _p1
-	_end++
-	_p2 := title
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("registerProtocolHandler", _args[0:_end]...)
-	return
-}
-
-func (_this *Navigator) UnregisterProtocolHandler(scheme string, url string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scheme
-	_args[0] = _p0
-	_end++
-	_p1 := url
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("unregisterProtocolHandler", _args[0:_end]...)
-	return
-}
-
-func (_this *Navigator) JavaEnabled() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("javaEnabled", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: PluginArray
-type PluginArray struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *PluginArray) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// PluginArrayFromJS is casting a js.Value into PluginArray.
-func PluginArrayFromJS(input js.Value) *PluginArray {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &PluginArray{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *PluginArray) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *PluginArray) Refresh(reload *bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if reload != nil {
-		_p0 := reload
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("refresh", _args[0:_end]...)
-	return
-}
-
-func (_this *PluginArray) Item(index uint) (_result *Plugin) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Plugin // javascript: Plugin _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = PluginFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *PluginArray) NamedItem(name string) (_result *Plugin) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Plugin // javascript: Plugin _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = PluginFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: MimeTypeArray
-type MimeTypeArray struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MimeTypeArray) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MimeTypeArrayFromJS is casting a js.Value into MimeTypeArray.
-func MimeTypeArrayFromJS(input js.Value) *MimeTypeArray {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MimeTypeArray{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *MimeTypeArray) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *MimeType // javascript: MimeType _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = MimeTypeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *MimeTypeArray) NamedItem(name string) (_result *MimeType) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *MimeType // javascript: MimeType _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = MimeTypeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: Plugin
-type Plugin struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Plugin) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// PluginFromJS is casting a js.Value into Plugin.
-func PluginFromJS(input js.Value) *Plugin {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Plugin{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *Plugin) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Description returning attribute 'description' with
-// type string (idl: DOMString).
-func (_this *Plugin) Description() string {
-	var ret string
-	value := _this.Value_JS.Get("description")
-	ret = (value).String()
-	return ret
-}
-
-// Filename returning attribute 'filename' with
-// type string (idl: DOMString).
-func (_this *Plugin) Filename() string {
-	var ret string
-	value := _this.Value_JS.Get("filename")
-	ret = (value).String()
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *Plugin) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *Plugin) Item(index uint) (_result *MimeType) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *MimeType // javascript: MimeType _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = MimeTypeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Plugin) NamedItem(name string) (_result *MimeType) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *MimeType // javascript: MimeType _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = MimeTypeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: MimeType
-type MimeType struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MimeType) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MimeTypeFromJS is casting a js.Value into MimeType.
-func MimeTypeFromJS(input js.Value) *MimeType {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MimeType{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *MimeType) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Description returning attribute 'description' with
-// type string (idl: DOMString).
-func (_this *MimeType) Description() string {
-	var ret string
-	value := _this.Value_JS.Get("description")
-	ret = (value).String()
-	return ret
-}
-
-// Suffixes returning attribute 'suffixes' with
-// type string (idl: DOMString).
-func (_this *MimeType) Suffixes() string {
-	var ret string
-	value := _this.Value_JS.Get("suffixes")
-	ret = (value).String()
-	return ret
-}
-
-// EnabledPlugin returning attribute 'enabledPlugin' with
-// type Plugin (idl: Plugin).
-func (_this *MimeType) EnabledPlugin() *Plugin {
-	var ret *Plugin
-	value := _this.Value_JS.Get("enabledPlugin")
-	ret = PluginFromJS(value)
-	return ret
-}
-
-// interface: ImageBitmap
-type ImageBitmap struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ImageBitmap) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ImageBitmapFromJS is casting a js.Value into ImageBitmap.
-func ImageBitmapFromJS(input js.Value) *ImageBitmap {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ImageBitmap{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *ImageBitmap) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *ImageBitmap) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *ImageBitmap) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: MessageEvent
-type MessageEvent struct {
-	Event
-}
-
-// MessageEventFromJS is casting a js.Value into MessageEvent.
-func MessageEventFromJS(input js.Value) *MessageEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MessageEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewMessageEvent(_type string, eventInitDict *MessageEventInit) (_result *MessageEvent) {
-	_klass := js.Global().Get("MessageEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *MessageEvent // javascript: MessageEvent _what_return_name
-	)
-	_converted = MessageEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Data returning attribute 'data' with
-// type js.Value (idl: any).
-func (_this *MessageEvent) Data() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("data")
-	ret = value
-	return ret
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *MessageEvent) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// LastEventId returning attribute 'lastEventId' with
-// type string (idl: DOMString).
-func (_this *MessageEvent) LastEventId() string {
-	var ret string
-	value := _this.Value_JS.Get("lastEventId")
-	ret = (value).String()
-	return ret
-}
-
-// Source returning attribute 'source' with
-// type Union (idl: Union).
-func (_this *MessageEvent) Source() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("source")
-	if value.Type() != js.TypeNull {
-		ret = UnionFromJS(value)
-	}
-	return ret
-}
-
-// Ports returning attribute 'ports' with
-// type FrozenArray (idl: FrozenArray).
-func (_this *MessageEvent) Ports() *FrozenArray {
-	var ret *FrozenArray
-	value := _this.Value_JS.Get("ports")
-	ret = FrozenArrayFromJS(value)
-	return ret
-}
-
-func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data js.Value, origin *string, lastEventId *string, source *Union, ports *[]*MessagePort) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	if data.Type() != js.TypeUndefined {
-		_p3 := data
-		_args[3] = _p3
-		_end++
-	}
-	if origin != nil {
-		_p4 := origin
-		_args[4] = _p4
-		_end++
-	}
-	if lastEventId != nil {
-		_p5 := lastEventId
-		_args[5] = _p5
-		_end++
-	}
-	if source != nil {
-		_p6 := source.JSValue()
-		_args[6] = _p6
-		_end++
-	}
-	if ports != nil {
-		_p7 := js.Global().Get("Array").New(len(*ports))
-		for __idx, __in := range *ports {
-			__out := __in.JSValue()
-			_p7.SetIndex(__idx, __out)
-		}
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("initMessageEvent", _args[0:_end]...)
-	return
-}
-
-// interface: EventSource
-type EventSource struct {
-	EventTarget
-}
-
-// EventSourceFromJS is casting a js.Value into EventSource.
-func EventSourceFromJS(input js.Value) *EventSource {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &EventSource{}
-	ret.Value_JS = input
-	return ret
-}
-
-const CONNECTING_EventSource int = 0
-const OPEN_EventSource int = 1
-const CLOSED_EventSource int = 2
-
-func NewEventSource(url string, eventSourceInitDict *EventSourceInit) (_result *EventSource) {
-	_klass := js.Global().Get("EventSource")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	if eventSourceInitDict != nil {
-		_p1 := eventSourceInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *EventSource // javascript: EventSource _what_return_name
-	)
-	_converted = EventSourceFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *EventSource) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// WithCredentials returning attribute 'withCredentials' with
-// type bool (idl: boolean).
-func (_this *EventSource) WithCredentials() bool {
-	var ret bool
-	value := _this.Value_JS.Get("withCredentials")
-	ret = (value).Bool()
-	return ret
-}
-
-// ReadyState returning attribute 'readyState' with
-// type int (idl: unsigned short).
-func (_this *EventSource) ReadyState() int {
-	var ret int
-	value := _this.Value_JS.Get("readyState")
-	ret = (value).Int()
-	return ret
-}
-
-// Onopen returning attribute 'onopen' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onopen() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onopen")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnopen setting attribute 'onopen' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnopen(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onopen", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnmessage(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnerror(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onerror", input)
-}
-
-func (_this *EventSource) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: WebSocket
-type WebSocket struct {
-	EventTarget
-}
-
-// WebSocketFromJS is casting a js.Value into WebSocket.
-func WebSocketFromJS(input js.Value) *WebSocket {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebSocket{}
-	ret.Value_JS = input
-	return ret
-}
-
-const CONNECTING_WebSocket int = 0
-const OPEN_WebSocket int = 1
-const CLOSING_WebSocket int = 2
-const CLOSED_WebSocket int = 3
-
-func NewWebSocket(url string, protocols *Union) (_result *WebSocket) {
-	_klass := js.Global().Get("WebSocket")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	if protocols != nil {
-		_p1 := protocols.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *WebSocket // javascript: WebSocket _what_return_name
-	)
-	_converted = WebSocketFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *WebSocket) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// ReadyState returning attribute 'readyState' with
-// type int (idl: unsigned short).
-func (_this *WebSocket) ReadyState() int {
-	var ret int
-	value := _this.Value_JS.Get("readyState")
-	ret = (value).Int()
-	return ret
-}
-
-// BufferedAmount returning attribute 'bufferedAmount' with
-// type int (idl: unsigned long long).
-func (_this *WebSocket) BufferedAmount() int {
-	var ret int
-	value := _this.Value_JS.Get("bufferedAmount")
-	ret = (value).Int()
-	return ret
-}
-
-// Onopen returning attribute 'onopen' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onopen() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onopen")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnopen setting attribute 'onopen' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnopen(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onopen", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnerror(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onclose() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnclose setting attribute 'onclose' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnclose(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Extensions returning attribute 'extensions' with
-// type string (idl: DOMString).
-func (_this *WebSocket) Extensions() string {
-	var ret string
-	value := _this.Value_JS.Get("extensions")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: DOMString).
-func (_this *WebSocket) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnmessage(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// BinaryType returning attribute 'binaryType' with
-// type BinaryType (idl: BinaryType).
-func (_this *WebSocket) BinaryType() BinaryType {
-	var ret BinaryType
-	value := _this.Value_JS.Get("binaryType")
-	ret = BinaryTypeFromJS(value)
-	return ret
-}
-
-// SetBinaryType setting attribute 'binaryType' with
-// type BinaryType (idl: BinaryType).
-func (_this *WebSocket) SetBinaryType(value BinaryType) {
-	input := value.JSValue()
-	_this.Value_JS.Set("binaryType", input)
-}
-
-func (_this *WebSocket) Close(code *int, reason *string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	if code != nil {
-		_p0 := code
-		_args[0] = _p0
-		_end++
-	}
-	if reason != nil {
-		_p1 := reason
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-func (_this *WebSocket) Send(data string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("send", _args[0:_end]...)
-	return
-}
-
-func (_this *WebSocket) Send2(data *Blob) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("send", _args[0:_end]...)
-	return
-}
-
-func (_this *WebSocket) Send3(data *ArrayBuffer) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("send", _args[0:_end]...)
-	return
-}
-
-func (_this *WebSocket) Send4(data *ArrayBufferView) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("send", _args[0:_end]...)
-	return
-}
-
-// interface: CloseEvent
-type CloseEvent struct {
-	Event
-}
-
-// CloseEventFromJS is casting a js.Value into CloseEvent.
-func CloseEventFromJS(input js.Value) *CloseEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CloseEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewCloseEvent(_type string, eventInitDict *CloseEventInit) (_result *CloseEvent) {
-	_klass := js.Global().Get("CloseEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *CloseEvent // javascript: CloseEvent _what_return_name
-	)
-	_converted = CloseEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// WasClean returning attribute 'wasClean' with
-// type bool (idl: boolean).
-func (_this *CloseEvent) WasClean() bool {
-	var ret bool
-	value := _this.Value_JS.Get("wasClean")
-	ret = (value).Bool()
-	return ret
-}
-
-// Code returning attribute 'code' with
-// type int (idl: unsigned short).
-func (_this *CloseEvent) Code() int {
-	var ret int
-	value := _this.Value_JS.Get("code")
-	ret = (value).Int()
-	return ret
-}
-
-// Reason returning attribute 'reason' with
-// type string (idl: USVString).
-func (_this *CloseEvent) Reason() string {
-	var ret string
-	value := _this.Value_JS.Get("reason")
-	ret = (value).String()
-	return ret
-}
-
-// interface: MessageChannel
-type MessageChannel struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MessageChannel) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MessageChannelFromJS is casting a js.Value into MessageChannel.
-func MessageChannelFromJS(input js.Value) *MessageChannel {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MessageChannel{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewMessageChannel() (_result *MessageChannel) {
-	_klass := js.Global().Get("MessageChannel")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *MessageChannel // javascript: MessageChannel _what_return_name
-	)
-	_converted = MessageChannelFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Port1 returning attribute 'port1' with
-// type MessagePort (idl: MessagePort).
-func (_this *MessageChannel) Port1() *MessagePort {
-	var ret *MessagePort
-	value := _this.Value_JS.Get("port1")
-	ret = MessagePortFromJS(value)
-	return ret
-}
-
-// Port2 returning attribute 'port2' with
-// type MessagePort (idl: MessagePort).
-func (_this *MessageChannel) Port2() *MessagePort {
-	var ret *MessagePort
-	value := _this.Value_JS.Get("port2")
-	ret = MessagePortFromJS(value)
-	return ret
-}
-
-// interface: MessagePort
-type MessagePort struct {
-	EventTarget
-}
-
-// MessagePortFromJS is casting a js.Value into MessagePort.
-func MessagePortFromJS(input js.Value) *MessagePort {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MessagePort{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessage(value *js.Callback) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessageerror(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *MessagePort) PostMessage(message js.Value, transfer []*Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) PostMessage2(message js.Value, options *PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) Start() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("start", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: BroadcastChannel
-type BroadcastChannel struct {
-	EventTarget
-}
-
-// BroadcastChannelFromJS is casting a js.Value into BroadcastChannel.
-func BroadcastChannelFromJS(input js.Value) *BroadcastChannel {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &BroadcastChannel{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewBroadcastChannel(name string) (_result *BroadcastChannel) {
-	_klass := js.Global().Get("BroadcastChannel")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *BroadcastChannel // javascript: BroadcastChannel _what_return_name
-	)
-	_converted = BroadcastChannelFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *BroadcastChannel) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessage(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessageerror(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *BroadcastChannel) PostMessage(message js.Value) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *BroadcastChannel) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: WorkerGlobalScope
-type WorkerGlobalScope struct {
-	EventTarget
-}
-
-// WorkerGlobalScopeFromJS is casting a js.Value into WorkerGlobalScope.
-func WorkerGlobalScopeFromJS(input js.Value) *WorkerGlobalScope {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WorkerGlobalScope{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Self returning attribute 'self' with
-// type WorkerGlobalScope (idl: WorkerGlobalScope).
-func (_this *WorkerGlobalScope) Self() *WorkerGlobalScope {
-	var ret *WorkerGlobalScope
-	value := _this.Value_JS.Get("self")
-	ret = WorkerGlobalScopeFromJS(value)
-	return ret
-}
-
-// Location returning attribute 'location' with
-// type WorkerLocation (idl: WorkerLocation).
-func (_this *WorkerGlobalScope) Location() *WorkerLocation {
-	var ret *WorkerLocation
-	value := _this.Value_JS.Get("location")
-	ret = WorkerLocationFromJS(value)
-	return ret
-}
-
-// Navigator returning attribute 'navigator' with
-// type WorkerNavigator (idl: WorkerNavigator).
-func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
-	var ret *WorkerNavigator
-	value := _this.Value_JS.Get("navigator")
-	ret = WorkerNavigatorFromJS(value)
-	return ret
-}
-
-// Onerror returning attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onerror() OnErrorEventHandlerNonNull {
-	var ret OnErrorEventHandlerNonNull
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = OnErrorEventHandlerNonNullFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type OnErrorEventHandlerNonNull (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnerror(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onlanguagechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onoffline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnoffline setting attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnoffline(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Ononline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnonline setting attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnonline(value *js.Callback) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onrejectionhandled() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Callback) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onunhandledrejection() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *WorkerGlobalScope) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *WorkerGlobalScope) ImportScripts(urls ...string) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(urls))
-		_end  int
-	)
-	for _, __in := range urls {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("importScripts", _args[0:_end]...)
-	return
-}
-
-func (_this *WorkerGlobalScope) Btoa(data string) (_result string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("btoa", _args[0:_end]...)
-	var (
-		_converted string // javascript: DOMString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *WorkerGlobalScope) Atob(data string) (_result *ByteString) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := data
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("atob", _args[0:_end]...)
-	var (
-		_converted *ByteString // javascript: ByteString _what_return_name
-	)
-	_converted = ByteStringFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	var (
-		_args []interface{} = make([]interface{}, 2+len(arguments))
-		_end  int
-	)
-	_p0 := handler.JSValue()
-	_args[0] = _p0
-	_end++
-	if timeout != nil {
-		_p1 := timeout
-		_args[1] = _p1
-		_end++
-	}
-	for _, __in := range arguments {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_returned := _this.Value_JS.Call("setTimeout", _args[0:_end]...)
-	var (
-		_converted int // javascript: long _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *WorkerGlobalScope) ClearTimeout(handle *int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if handle != nil {
-		_p0 := handle
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("clearTimeout", _args[0:_end]...)
-	return
-}
-
-func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
-	var (
-		_args []interface{} = make([]interface{}, 2+len(arguments))
-		_end  int
-	)
-	_p0 := handler.JSValue()
-	_args[0] = _p0
-	_end++
-	if timeout != nil {
-		_p1 := timeout
-		_args[1] = _p1
-		_end++
-	}
-	for _, __in := range arguments {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_returned := _this.Value_JS.Call("setInterval", _args[0:_end]...)
-	var (
-		_converted int // javascript: long _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *WorkerGlobalScope) ClearInterval(handle *int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if handle != nil {
-		_p0 := handle
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("clearInterval", _args[0:_end]...)
-	return
-}
-
-func (_this *WorkerGlobalScope) QueueMicrotask(callback *VoidFunction) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := callback.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("queueMicrotask", _args[0:_end]...)
-	return
-}
-
-func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *ImageBitmapOptions) (_result *Promise) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *ImageBitmapOptions) (_result *Promise) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := sx
-	_args[1] = _p1
-	_end++
-	_p2 := sy
-	_args[2] = _p2
-	_end++
-	_p3 := sw
-	_args[3] = _p3
-	_end++
-	_p4 := sh
-	_args[4] = _p4
-	_end++
-	if options != nil {
-		_p5 := options.JSValue()
-		_args[5] = _p5
-		_end++
-	}
-	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
-	var (
-		_converted *Promise // javascript: Promise _what_return_name
-	)
-	_converted = PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: DedicatedWorkerGlobalScope
-type DedicatedWorkerGlobalScope struct {
-	WorkerGlobalScope
-}
-
-// DedicatedWorkerGlobalScopeFromJS is casting a js.Value into DedicatedWorkerGlobalScope.
-func DedicatedWorkerGlobalScopeFromJS(input js.Value) *DedicatedWorkerGlobalScope {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DedicatedWorkerGlobalScope{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *DedicatedWorkerGlobalScope) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer []*Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) PostMessage2(message js.Value, options *PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Callback) (_result uint) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("requestAnimationFrame", _args[0:_end]...)
-	var (
-		_converted uint // javascript: unsigned long _what_return_name
-	)
-	_converted = (uint)((_returned).Int())
-	_result = _converted
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := handle
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("cancelAnimationFrame", _args[0:_end]...)
-	return
-}
-
-// interface: SharedWorkerGlobalScope
-type SharedWorkerGlobalScope struct {
-	WorkerGlobalScope
-}
-
-// SharedWorkerGlobalScopeFromJS is casting a js.Value into SharedWorkerGlobalScope.
-func SharedWorkerGlobalScopeFromJS(input js.Value) *SharedWorkerGlobalScope {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SharedWorkerGlobalScope{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *SharedWorkerGlobalScope) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Onconnect returning attribute 'onconnect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) Onconnect() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onconnect")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnconnect setting attribute 'onconnect' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onconnect", input)
-}
-
-func (_this *SharedWorkerGlobalScope) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: Worker
-type Worker struct {
-	EventTarget
-}
-
-// WorkerFromJS is casting a js.Value into Worker.
-func WorkerFromJS(input js.Value) *Worker {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Worker{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
-	_klass := js.Global().Get("Worker")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scriptURL
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Worker // javascript: Worker _what_return_name
-	)
-	_converted = WorkerFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessage(value *js.Callback) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessageerror(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnerror(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onerror", input)
-}
-
-func (_this *Worker) Terminate() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("terminate", _args[0:_end]...)
-	return
-}
-
-func (_this *Worker) PostMessage(message js.Value, transfer []*Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *Worker) PostMessage2(message js.Value, options *PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-// interface: SharedWorker
-type SharedWorker struct {
-	EventTarget
-}
-
-// SharedWorkerFromJS is casting a js.Value into SharedWorker.
-func SharedWorkerFromJS(input js.Value) *SharedWorker {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SharedWorker{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewSharedWorker(scriptURL string, options *Union) (_result *SharedWorker) {
-	_klass := js.Global().Get("SharedWorker")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scriptURL
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *SharedWorker // javascript: SharedWorker _what_return_name
-	)
-	_converted = SharedWorkerFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Port returning attribute 'port' with
-// type MessagePort (idl: MessagePort).
-func (_this *SharedWorker) Port() *MessagePort {
-	var ret *MessagePort
-	value := _this.Value_JS.Get("port")
-	ret = MessagePortFromJS(value)
-	return ret
-}
-
-// Onerror returning attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) Onerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) SetOnerror(value *js.Callback) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onerror", input)
-}
-
-// interface: WorkerNavigator
-type WorkerNavigator struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WorkerNavigator) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WorkerNavigatorFromJS is casting a js.Value into WorkerNavigator.
-func WorkerNavigatorFromJS(input js.Value) *WorkerNavigator {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WorkerNavigator{}
-	ret.Value_JS = input
-	return ret
-}
-
-// AppCodeName returning attribute 'appCodeName' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) AppCodeName() string {
-	var ret string
-	value := _this.Value_JS.Get("appCodeName")
-	ret = (value).String()
-	return ret
-}
-
-// AppName returning attribute 'appName' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) AppName() string {
-	var ret string
-	value := _this.Value_JS.Get("appName")
-	ret = (value).String()
-	return ret
-}
-
-// AppVersion returning attribute 'appVersion' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) AppVersion() string {
-	var ret string
-	value := _this.Value_JS.Get("appVersion")
-	ret = (value).String()
-	return ret
-}
-
-// Platform returning attribute 'platform' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) Platform() string {
-	var ret string
-	value := _this.Value_JS.Get("platform")
-	ret = (value).String()
-	return ret
-}
-
-// Product returning attribute 'product' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) Product() string {
-	var ret string
-	value := _this.Value_JS.Get("product")
-	ret = (value).String()
-	return ret
-}
-
-// ProductSub returning attribute 'productSub' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) ProductSub() string {
-	var ret string
-	value := _this.Value_JS.Get("productSub")
-	ret = (value).String()
-	return ret
-}
-
-// UserAgent returning attribute 'userAgent' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) UserAgent() string {
-	var ret string
-	value := _this.Value_JS.Get("userAgent")
-	ret = (value).String()
-	return ret
-}
-
-// Vendor returning attribute 'vendor' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) Vendor() string {
-	var ret string
-	value := _this.Value_JS.Get("vendor")
-	ret = (value).String()
-	return ret
-}
-
-// VendorSub returning attribute 'vendorSub' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) VendorSub() string {
-	var ret string
-	value := _this.Value_JS.Get("vendorSub")
-	ret = (value).String()
-	return ret
-}
-
-// Oscpu returning attribute 'oscpu' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) Oscpu() string {
-	var ret string
-	value := _this.Value_JS.Get("oscpu")
-	ret = (value).String()
-	return ret
-}
-
-// Language returning attribute 'language' with
-// type string (idl: DOMString).
-func (_this *WorkerNavigator) Language() string {
-	var ret string
-	value := _this.Value_JS.Get("language")
-	ret = (value).String()
-	return ret
-}
-
-// Languages returning attribute 'languages' with
-// type FrozenArray (idl: FrozenArray).
-func (_this *WorkerNavigator) Languages() *FrozenArray {
-	var ret *FrozenArray
-	value := _this.Value_JS.Get("languages")
-	ret = FrozenArrayFromJS(value)
-	return ret
-}
-
-// OnLine returning attribute 'onLine' with
-// type bool (idl: boolean).
-func (_this *WorkerNavigator) OnLine() bool {
-	var ret bool
-	value := _this.Value_JS.Get("onLine")
-	ret = (value).Bool()
-	return ret
-}
-
-// HardwareConcurrency returning attribute 'hardwareConcurrency' with
-// type int (idl: unsigned long long).
-func (_this *WorkerNavigator) HardwareConcurrency() int {
-	var ret int
-	value := _this.Value_JS.Get("hardwareConcurrency")
-	ret = (value).Int()
-	return ret
-}
-
-func (_this *WorkerNavigator) TaintEnabled() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("taintEnabled", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: WorkerLocation
-type WorkerLocation struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WorkerLocation) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WorkerLocationFromJS is casting a js.Value into WorkerLocation.
-func WorkerLocationFromJS(input js.Value) *WorkerLocation {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WorkerLocation{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
-}
-
-// interface: Storage
-type Storage struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Storage) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// StorageFromJS is casting a js.Value into Storage.
-func StorageFromJS(input js.Value) *Storage {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Storage{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *Storage) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *Storage) Key(index uint) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("key", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Storage) GetItem(key string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Storage) SetItem(key string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) RemoveItem(key string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("removeItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) Clear() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("clear", _args[0:_end]...)
-	return
-}
-
-// interface: StorageEvent
-type StorageEvent struct {
-	Event
-}
-
-// StorageEventFromJS is casting a js.Value into StorageEvent.
-func StorageEventFromJS(input js.Value) *StorageEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &StorageEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewStorageEvent(_type string, eventInitDict *StorageEventInit) (_result *StorageEvent) {
-	_klass := js.Global().Get("StorageEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *StorageEvent // javascript: StorageEvent _what_return_name
-	)
-	_converted = StorageEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Key returning attribute 'key' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) Key() *string {
-	var ret *string
-	value := _this.Value_JS.Get("key")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// OldValue returning attribute 'oldValue' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) OldValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("oldValue")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// NewValue returning attribute 'newValue' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) NewValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("newValue")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *StorageEvent) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// StorageArea returning attribute 'storageArea' with
-// type Storage (idl: Storage).
-func (_this *StorageEvent) StorageArea() *Storage {
-	var ret *Storage
-	value := _this.Value_JS.Get("storageArea")
-	if value.Type() != js.TypeNull {
-		ret = StorageFromJS(value)
-	}
-	return ret
-}
-
-func (_this *StorageEvent) InitStorageEvent(_type string, bubbles *bool, cancelable *bool, key *string, oldValue *string, newValue *string, url *string, storageArea *Storage) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	if key != nil {
-		_p3 := key
-		_args[3] = _p3
-		_end++
-	}
-	if oldValue != nil {
-		_p4 := oldValue
-		_args[4] = _p4
-		_end++
-	}
-	if newValue != nil {
-		_p5 := newValue
-		_args[5] = _p5
-		_end++
-	}
-	if url != nil {
-		_p6 := url
-		_args[6] = _p6
-		_end++
-	}
-	if storageArea != nil {
-		_p7 := storageArea.JSValue()
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("initStorageEvent", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLMarqueeElement
-type HTMLMarqueeElement struct {
-	HTMLElement
-}
-
-// HTMLMarqueeElementFromJS is casting a js.Value into HTMLMarqueeElement.
-func HTMLMarqueeElementFromJS(input js.Value) *HTMLMarqueeElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMarqueeElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Behavior returning attribute 'behavior' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Behavior() string {
-	var ret string
-	value := _this.Value_JS.Get("behavior")
-	ret = (value).String()
-	return ret
-}
-
-// SetBehavior setting attribute 'behavior' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetBehavior(value string) {
-	input := value
-	_this.Value_JS.Set("behavior", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// Direction returning attribute 'direction' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Direction() string {
-	var ret string
-	value := _this.Value_JS.Get("direction")
-	ret = (value).String()
-	return ret
-}
-
-// SetDirection setting attribute 'direction' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetDirection(value string) {
-	input := value
-	_this.Value_JS.Set("direction", input)
-}
-
-// Height returning attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Height() string {
-	var ret string
-	value := _this.Value_JS.Get("height")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetHeight(value string) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// Hspace returning attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) Hspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("hspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHspace setting attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetHspace(value uint) {
-	input := value
-	_this.Value_JS.Set("hspace", input)
-}
-
-// Loop returning attribute 'loop' with
-// type int (idl: long).
-func (_this *HTMLMarqueeElement) Loop() int {
-	var ret int
-	value := _this.Value_JS.Get("loop")
-	ret = (value).Int()
-	return ret
-}
-
-// SetLoop setting attribute 'loop' with
-// type int (idl: long).
-func (_this *HTMLMarqueeElement) SetLoop(value int) {
-	input := value
-	_this.Value_JS.Set("loop", input)
-}
-
-// ScrollAmount returning attribute 'scrollAmount' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) ScrollAmount() uint {
-	var ret uint
-	value := _this.Value_JS.Get("scrollAmount")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetScrollAmount setting attribute 'scrollAmount' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetScrollAmount(value uint) {
-	input := value
-	_this.Value_JS.Set("scrollAmount", input)
-}
-
-// ScrollDelay returning attribute 'scrollDelay' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) ScrollDelay() uint {
-	var ret uint
-	value := _this.Value_JS.Get("scrollDelay")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetScrollDelay setting attribute 'scrollDelay' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetScrollDelay(value uint) {
-	input := value
-	_this.Value_JS.Set("scrollDelay", input)
-}
-
-// TrueSpeed returning attribute 'trueSpeed' with
-// type bool (idl: boolean).
-func (_this *HTMLMarqueeElement) TrueSpeed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("trueSpeed")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetTrueSpeed setting attribute 'trueSpeed' with
-// type bool (idl: boolean).
-func (_this *HTMLMarqueeElement) SetTrueSpeed(value bool) {
-	input := value
-	_this.Value_JS.Set("trueSpeed", input)
-}
-
-// Vspace returning attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) Vspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("vspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetVspace setting attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetVspace(value uint) {
-	input := value
-	_this.Value_JS.Set("vspace", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Onbounce returning attribute 'onbounce' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onbounce() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onbounce")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbounce setting attribute 'onbounce' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Callback) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onbounce", input)
-}
-
-// Onfinish returning attribute 'onfinish' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onfinish() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onfinish")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnfinish setting attribute 'onfinish' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Callback) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onfinish", input)
-}
-
-// Onstart returning attribute 'onstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onstart() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstart setting attribute 'onstart' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnstart(value *js.Callback) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onstart", input)
-}
-
-func (_this *HTMLMarqueeElement) Start() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("start", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLMarqueeElement) Stop() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stop", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLFrameSetElement
-type HTMLFrameSetElement struct {
-	HTMLElement
-}
-
-// HTMLFrameSetElementFromJS is casting a js.Value into HTMLFrameSetElement.
-func HTMLFrameSetElementFromJS(input js.Value) *HTMLFrameSetElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFrameSetElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Cols returning attribute 'cols' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) Cols() string {
-	var ret string
-	value := _this.Value_JS.Get("cols")
-	ret = (value).String()
-	return ret
-}
-
-// SetCols setting attribute 'cols' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) SetCols(value string) {
-	input := value
-	_this.Value_JS.Set("cols", input)
-}
-
-// Rows returning attribute 'rows' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) Rows() string {
-	var ret string
-	value := _this.Value_JS.Get("rows")
-	ret = (value).String()
-	return ret
-}
-
-// SetRows setting attribute 'rows' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) SetRows(value string) {
-	input := value
-	_this.Value_JS.Set("rows", input)
-}
-
-// Onafterprint returning attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onafterprint() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnafterprint setting attribute 'onafterprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Callback) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onafterprint", input)
-}
-
-// Onbeforeprint returning attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeprint() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Callback) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onbeforeprint", input)
-}
-
-// Onbeforeunload returning attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerNonNull {
-	var ret OnBeforeUnloadEventHandlerNonNull
-	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
-		ret = OnBeforeUnloadEventHandlerNonNullFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type OnBeforeUnloadEventHandlerNonNull (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Callback) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onbeforeunload", input)
-}
-
-// Onhashchange returning attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onhashchange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnhashchange setting attribute 'onhashchange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Callback) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onhashchange", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onlanguagechange() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Callback) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Callback) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessageerror() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Callback) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onoffline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnoffline setting attribute 'onoffline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Callback) {
-	var __callback9 js.Value
-	if value != nil {
-		__callback9 = (*value).Value
-	} else {
-		__callback9 = js.Null()
-	}
-	input := __callback9
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Ononline() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnonline setting attribute 'ononline' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnonline(value *js.Callback) {
-	var __callback10 js.Value
-	if value != nil {
-		__callback10 = (*value).Value
-	} else {
-		__callback10 = js.Null()
-	}
-	input := __callback10
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onpagehide returning attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpagehide() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpagehide setting attribute 'onpagehide' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Callback) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onpagehide", input)
-}
-
-// Onpageshow returning attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpageshow() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpageshow setting attribute 'onpageshow' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Callback) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onpageshow", input)
-}
-
-// Onpopstate returning attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpopstate() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpopstate setting attribute 'onpopstate' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Callback) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onpopstate", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onrejectionhandled() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Callback) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onstorage returning attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onstorage() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstorage setting attribute 'onstorage' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Callback) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("onstorage", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunhandledrejection() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Callback) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Onunload returning attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunload() EventHandler {
-	var ret EventHandler
-	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunload setting attribute 'onunload' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunload(value *js.Callback) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onunload", input)
-}
-
 // interface: HTMLFrameElement
 type HTMLFrameElement struct {
-	HTMLElement
+	html.HTMLElement
 }
 
 // HTMLFrameElementFromJS is casting a js.Value into HTMLFrameElement.
@@ -32720,696 +7071,4 @@ func (_this *HTMLFrameElement) MarginWidth() string {
 func (_this *HTMLFrameElement) SetMarginWidth(value string) {
 	input := value
 	_this.Value_JS.Set("marginWidth", input)
-}
-
-// interface: HTMLDirectoryElement
-type HTMLDirectoryElement struct {
-	HTMLElement
-}
-
-// HTMLDirectoryElementFromJS is casting a js.Value into HTMLDirectoryElement.
-func HTMLDirectoryElementFromJS(input js.Value) *HTMLDirectoryElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDirectoryElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDirectoryElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDirectoryElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLFontElement
-type HTMLFontElement struct {
-	HTMLElement
-}
-
-// HTMLFontElementFromJS is casting a js.Value into HTMLFontElement.
-func HTMLFontElementFromJS(input js.Value) *HTMLFontElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFontElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Color returning attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Color() string {
-	var ret string
-	value := _this.Value_JS.Get("color")
-	ret = (value).String()
-	return ret
-}
-
-// SetColor setting attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetColor(value string) {
-	input := value
-	_this.Value_JS.Set("color", input)
-}
-
-// Face returning attribute 'face' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Face() string {
-	var ret string
-	value := _this.Value_JS.Get("face")
-	ret = (value).String()
-	return ret
-}
-
-// SetFace setting attribute 'face' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetFace(value string) {
-	input := value
-	_this.Value_JS.Set("face", input)
-}
-
-// Size returning attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Size() string {
-	var ret string
-	value := _this.Value_JS.Get("size")
-	ret = (value).String()
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetSize(value string) {
-	input := value
-	_this.Value_JS.Set("size", input)
-}
-
-// interface: External
-type External struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *External) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ExternalFromJS is casting a js.Value into External.
-func ExternalFromJS(input js.Value) *External {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &External{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *External) AddSearchProvider() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("AddSearchProvider", _args[0:_end]...)
-	return
-}
-
-func (_this *External) IsSearchProviderInstalled() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("IsSearchProviderInstalled", _args[0:_end]...)
-	return
-}
-
-// interface: object
-type Object struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Object) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ObjectFromJS is casting a js.Value into Object.
-func ObjectFromJS(input js.Value) *Object {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Object{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ArrayBuffer
-type ArrayBuffer struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ArrayBuffer) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ArrayBufferFromJS is casting a js.Value into ArrayBuffer.
-func ArrayBufferFromJS(input js.Value) *ArrayBuffer {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ArrayBuffer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ArrayBufferView
-type ArrayBufferView struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ArrayBufferView) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ArrayBufferViewFromJS is casting a js.Value into ArrayBufferView.
-func ArrayBufferViewFromJS(input js.Value) *ArrayBufferView {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ArrayBufferView{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Blob
-type Blob struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Blob) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// BlobFromJS is casting a js.Value into Blob.
-func BlobFromJS(input js.Value) *Blob {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Blob{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: DOMMatrix2DInit
-type DOMMatrix2DInit struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMMatrix2DInit) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMMatrix2DInitFromJS is casting a js.Value into DOMMatrix2DInit.
-func DOMMatrix2DInitFromJS(input js.Value) *DOMMatrix2DInit {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMMatrix2DInit{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: File
-type File struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *File) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FileFromJS is casting a js.Value into File.
-func FileFromJS(input js.Value) *File {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &File{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: FileList
-type FileList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *FileList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FileListFromJS is casting a js.Value into FileList.
-func FileListFromJS(input js.Value) *FileList {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FileList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: FormData
-type FormData struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *FormData) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FormDataFromJS is casting a js.Value into FormData.
-func FormDataFromJS(input js.Value) *FormData {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FormData{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Function
-type Function struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Function) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FunctionFromJS is casting a js.Value into Function.
-func FunctionFromJS(input js.Value) *Function {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Function{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: MediaSource
-type MediaSource struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MediaSource) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MediaSourceFromJS is casting a js.Value into MediaSource.
-func MediaSourceFromJS(input js.Value) *MediaSource {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MediaSource{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: MediaStream
-type MediaStream struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MediaStream) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MediaStreamFromJS is casting a js.Value into MediaStream.
-func MediaStreamFromJS(input js.Value) *MediaStream {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MediaStream{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: RequestCredentials
-type RequestCredentials struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *RequestCredentials) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// RequestCredentialsFromJS is casting a js.Value into RequestCredentials.
-func RequestCredentialsFromJS(input js.Value) *RequestCredentials {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &RequestCredentials{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ServiceWorker
-type ServiceWorker struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ServiceWorker) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ServiceWorkerFromJS is casting a js.Value into ServiceWorker.
-func ServiceWorkerFromJS(input js.Value) *ServiceWorker {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ServiceWorker{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: SVGScriptElement
-type SVGScriptElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGScriptElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGScriptElementFromJS is casting a js.Value into SVGScriptElement.
-func SVGScriptElementFromJS(input js.Value) *SVGScriptElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGScriptElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: SVGImageElement
-type SVGImageElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGImageElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGImageElementFromJS is casting a js.Value into SVGImageElement.
-func SVGImageElementFromJS(input js.Value) *SVGImageElement {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGImageElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Uint8ClampedArray
-type Uint8ClampedArray struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint8ClampedArray) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint8ClampedArrayFromJS is casting a js.Value into Uint8ClampedArray.
-func Uint8ClampedArrayFromJS(input js.Value) *Uint8ClampedArray {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint8ClampedArray{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLRenderingContext
-type WebGLRenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGLRenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGLRenderingContextFromJS is casting a js.Value into WebGLRenderingContext.
-func WebGLRenderingContextFromJS(input js.Value) *WebGLRenderingContext {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLRenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGL2RenderingContext
-type WebGL2RenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGL2RenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGL2RenderingContextFromJS is casting a js.Value into WebGL2RenderingContext.
-func WebGL2RenderingContextFromJS(input js.Value) *WebGL2RenderingContext {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGL2RenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: BufferSource
-type BufferSource struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *BufferSource) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// BufferSourceFromJS is casting a js.Value into BufferSource.
-func BufferSourceFromJS(input js.Value) *BufferSource {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &BufferSource{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Uint32Array
-type Uint32Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint32Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint32ArrayFromJS is casting a js.Value into Uint32Array.
-func Uint32ArrayFromJS(input js.Value) *Uint32Array {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint32Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Int32Array
-type Int32Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Int32Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Int32ArrayFromJS is casting a js.Value into Int32Array.
-func Int32ArrayFromJS(input js.Value) *Int32Array {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Int32Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Float32Array
-type Float32Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Float32Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Float32ArrayFromJS is casting a js.Value into Float32Array.
-func Float32ArrayFromJS(input js.Value) *Float32Array {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Float32Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: DOMMatrix
-type DOMMatrix struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMMatrix) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMMatrixFromJS is casting a js.Value into DOMMatrix.
-func DOMMatrixFromJS(input js.Value) *DOMMatrix {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMMatrix{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ByteString
-type ByteString struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ByteString) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ByteStringFromJS is casting a js.Value into ByteString.
-func ByteStringFromJS(input js.Value) *ByteString {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ByteString{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: VoidFunction
-type VoidFunction struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *VoidFunction) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// VoidFunctionFromJS is casting a js.Value into VoidFunction.
-func VoidFunctionFromJS(input js.Value) *VoidFunction {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &VoidFunction{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: MouseEvent
-type MouseEvent struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MouseEvent) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MouseEventFromJS is casting a js.Value into MouseEvent.
-func MouseEventFromJS(input js.Value) *MouseEvent {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MouseEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: FrozenArray
-type FrozenArray struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *FrozenArray) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FrozenArrayFromJS is casting a js.Value into FrozenArray.
-func FrozenArrayFromJS(input js.Value) *FrozenArray {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FrozenArray{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Promise
-type Promise struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Promise) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// PromiseFromJS is casting a js.Value into Promise.
-func PromiseFromJS(input js.Value) *Promise {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Promise{}
-	ret.Value_JS = input
-	return ret
 }
