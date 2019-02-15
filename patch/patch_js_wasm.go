@@ -197,46 +197,6 @@ func Uint8ClampedArrayFromJS(input js.Value) *Uint8ClampedArray {
 	return ret
 }
 
-// interface: WebGLRenderingContext
-type WebGLRenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGLRenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGLRenderingContextFromJS is casting a js.Value into WebGLRenderingContext.
-func WebGLRenderingContextFromJS(input js.Value) *WebGLRenderingContext {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLRenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGL2RenderingContext
-type WebGL2RenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGL2RenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGL2RenderingContextFromJS is casting a js.Value into WebGL2RenderingContext.
-func WebGL2RenderingContextFromJS(input js.Value) *WebGL2RenderingContext {
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGL2RenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: ByteString
 type ByteString struct {
 	// Value_JS holds a reference to a javascript value
