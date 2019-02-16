@@ -3066,7 +3066,7 @@ type NodeFilterValue struct {
 	// Value is the underlying javascript object or function.
 	Value js.Value
 	// Functions is the underlying function objects that is allocated for the interface callback
-	Functions [1]js.Callback
+	Functions [1]js.Func
 	// Go interface to invoke
 	impl      NodeFilter
 	function  func(node *Node) (_result int)
@@ -3121,8 +3121,8 @@ func NodeFilterFromJS(value js.Value) *NodeFilterValue {
 	panic("unsupported type")
 }
 
-func (t *NodeFilterValue) allocateAcceptNode() js.Callback {
-	return js.NewCallback(func(args []js.Value) {
+func (t *NodeFilterValue) allocateAcceptNode() js.Func {
+	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Node // javascript: Node node
 		)
@@ -3134,8 +3134,7 @@ func (t *NodeFilterValue) allocateAcceptNode() js.Callback {
 			_returned = t.impl.AcceptNode(_p0)
 		}
 		_converted := _returned
-		unused(_converted)
-		panic("go 1.11 does provice anyway to return values in callbacks")
+		return _converted
 	})
 }
 

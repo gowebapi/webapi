@@ -96,14 +96,15 @@ func ScrollRestorationFromJS(value js.Value) ScrollRestoration {
 // callback: CustomElementConstructor
 type CustomElementConstructor func() js.Value
 
-func CustomElementConstructorToJS(callback CustomElementConstructor) *js.Callback {
+func CustomElementConstructorToJS(callback CustomElementConstructor) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
-		// TODO: return value
-		callback()
+		_returned := callback()
+		_converted := _returned
+		return _converted
 	})
 	return &ret
 }
@@ -127,17 +128,18 @@ func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
 // callback: FrameRequestCallback
 type FrameRequestCallback func(time float64)
 
-func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Callback {
+func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 float64 // javascript: double time
 		)
 		_p0 = (args[0]).Float()
-		// TODO: return value
 		callback(_p0)
+		// returning no return value
+		return nil
 	})
 	return &ret
 }
@@ -356,7 +358,7 @@ func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
 	return ret
 }
 
-func (_this *CustomElementRegistry) Define(name string, constructor *js.Callback, options *ElementDefinitionOptions) {
+func (_this *CustomElementRegistry) Define(name string, constructor *js.Func, options *ElementDefinitionOptions) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -827,7 +829,7 @@ func (_this *ApplicationCache) Onchecking() domcore.EventHandler {
 
 // SetOnchecking setting attribute 'onchecking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnchecking(value *js.Callback) {
+func (_this *ApplicationCache) SetOnchecking(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -851,7 +853,7 @@ func (_this *ApplicationCache) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnerror(value *js.Callback) {
+func (_this *ApplicationCache) SetOnerror(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -875,7 +877,7 @@ func (_this *ApplicationCache) Onnoupdate() domcore.EventHandler {
 
 // SetOnnoupdate setting attribute 'onnoupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnnoupdate(value *js.Callback) {
+func (_this *ApplicationCache) SetOnnoupdate(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -899,7 +901,7 @@ func (_this *ApplicationCache) Ondownloading() domcore.EventHandler {
 
 // SetOndownloading setting attribute 'ondownloading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOndownloading(value *js.Callback) {
+func (_this *ApplicationCache) SetOndownloading(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -923,7 +925,7 @@ func (_this *ApplicationCache) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnprogress(value *js.Callback) {
+func (_this *ApplicationCache) SetOnprogress(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -947,7 +949,7 @@ func (_this *ApplicationCache) Onupdateready() domcore.EventHandler {
 
 // SetOnupdateready setting attribute 'onupdateready' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnupdateready(value *js.Callback) {
+func (_this *ApplicationCache) SetOnupdateready(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -971,7 +973,7 @@ func (_this *ApplicationCache) Oncached() domcore.EventHandler {
 
 // SetOncached setting attribute 'oncached' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOncached(value *js.Callback) {
+func (_this *ApplicationCache) SetOncached(value *js.Func) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -995,7 +997,7 @@ func (_this *ApplicationCache) Onobsolete() domcore.EventHandler {
 
 // SetOnobsolete setting attribute 'onobsolete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnobsolete(value *js.Callback) {
+func (_this *ApplicationCache) SetOnobsolete(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -1647,7 +1649,7 @@ func (_this *EventSource) Onopen() domcore.EventHandler {
 
 // SetOnopen setting attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnopen(value *js.Callback) {
+func (_this *EventSource) SetOnopen(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1671,7 +1673,7 @@ func (_this *EventSource) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnmessage(value *js.Callback) {
+func (_this *EventSource) SetOnmessage(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -1695,7 +1697,7 @@ func (_this *EventSource) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnerror(value *js.Callback) {
+func (_this *EventSource) SetOnerror(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value

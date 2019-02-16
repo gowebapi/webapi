@@ -6,12 +6,12 @@ package worker
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/patch"
-import "github.com/gowebapi/webapi/dom/domcore"
-import "github.com/gowebapi/webapi/html"
 import "github.com/gowebapi/webapi/html/canvas"
 import "github.com/gowebapi/webapi/javascript"
 import "github.com/gowebapi/webapi/html/channel"
+import "github.com/gowebapi/webapi/patch"
+import "github.com/gowebapi/webapi/dom/domcore"
+import "github.com/gowebapi/webapi/html"
 
 // using following types:
 // canvas.ImageBitmapOptions
@@ -195,7 +195,7 @@ func (_this *WorkerGlobalScope) Onerror() html.OnErrorEventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnerror(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnerror(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -219,7 +219,7 @@ func (_this *WorkerGlobalScope) Onlanguagechange() domcore.EventHandler {
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnlanguagechange(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -243,7 +243,7 @@ func (_this *WorkerGlobalScope) Onoffline() domcore.EventHandler {
 
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnoffline(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnoffline(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -267,7 +267,7 @@ func (_this *WorkerGlobalScope) Ononline() domcore.EventHandler {
 
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnonline(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnonline(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -291,7 +291,7 @@ func (_this *WorkerGlobalScope) Onrejectionhandled() domcore.EventHandler {
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *js.Func) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -315,7 +315,7 @@ func (_this *WorkerGlobalScope) Onunhandledrejection() domcore.EventHandler {
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Callback) {
+func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -465,7 +465,7 @@ func (_this *WorkerGlobalScope) ClearInterval(handle *int) {
 	return
 }
 
-func (_this *WorkerGlobalScope) QueueMicrotask(callback *js.Callback) {
+func (_this *WorkerGlobalScope) QueueMicrotask(callback *js.Func) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -577,7 +577,7 @@ func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Callback) {
+func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -601,7 +601,7 @@ func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Callback) {
+func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -657,7 +657,7 @@ func (_this *DedicatedWorkerGlobalScope) Close() {
 	return
 }
 
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Callback) (_result uint) {
+func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *js.Func) (_result uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -730,7 +730,7 @@ func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandler {
 
 // SetOnconnect setting attribute 'onconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Callback) {
+func (_this *SharedWorkerGlobalScope) SetOnconnect(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -801,7 +801,7 @@ func (_this *Worker) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessage(value *js.Callback) {
+func (_this *Worker) SetOnmessage(value *js.Func) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -825,7 +825,7 @@ func (_this *Worker) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessageerror(value *js.Callback) {
+func (_this *Worker) SetOnmessageerror(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -849,7 +849,7 @@ func (_this *Worker) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnerror(value *js.Callback) {
+func (_this *Worker) SetOnerror(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -965,7 +965,7 @@ func (_this *SharedWorker) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) SetOnerror(value *js.Callback) {
+func (_this *SharedWorker) SetOnerror(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value

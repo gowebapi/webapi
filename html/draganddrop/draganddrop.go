@@ -52,17 +52,18 @@ func UnionFromJS(value js.Value) *Union {
 // callback: FunctionStringCallback
 type FunctionStringCallback func(data string)
 
-func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Callback {
+func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 string // javascript: DOMString data
 		)
 		_p0 = (args[0]).String()
-		// TODO: return value
 		callback(_p0)
+		// returning no return value
+		return nil
 	})
 	return &ret
 }
@@ -397,7 +398,7 @@ func (_this *DataTransferItem) Type() string {
 	return ret
 }
 
-func (_this *DataTransferItem) GetAsString(callback *js.Callback) {
+func (_this *DataTransferItem) GetAsString(callback *js.Func) {
 	var (
 		_args [1]interface{}
 		_end  int

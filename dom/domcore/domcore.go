@@ -42,17 +42,18 @@ func UnionFromJS(value js.Value) *Union {
 // callback: EventHandlerNonNull
 type EventHandler func(event *Event) js.Value
 
-func EventHandlerToJS(callback EventHandler) *js.Callback {
+func EventHandlerToJS(callback EventHandler) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Event // javascript: Event event
 		)
 		_p0 = EventFromJS(args[0])
-		// TODO: return value
-		callback(_p0)
+		_returned := callback(_p0)
+		_converted := _returned
+		return _converted
 	})
 	return &ret
 }
@@ -675,7 +676,7 @@ type EventListenerValue struct {
 	// Value is the underlying javascript object or function.
 	Value js.Value
 	// Functions is the underlying function objects that is allocated for the interface callback
-	Functions [1]js.Callback
+	Functions [1]js.Func
 	// Go interface to invoke
 	impl      EventListener
 	function  func(event *Event)
@@ -730,8 +731,8 @@ func EventListenerFromJS(value js.Value) *EventListenerValue {
 	panic("unsupported type")
 }
 
-func (t *EventListenerValue) allocateHandleEvent() js.Callback {
-	return js.NewCallback(func(args []js.Value) {
+func (t *EventListenerValue) allocateHandleEvent() js.Func {
+	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Event // javascript: Event event
 		)
@@ -741,6 +742,8 @@ func (t *EventListenerValue) allocateHandleEvent() js.Callback {
 		} else {
 			t.impl.HandleEvent(_p0)
 		}
+		// returning no return value
+		return nil
 	})
 }
 
@@ -857,7 +860,7 @@ func (_this *AbortSignal) Onabort() EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) SetOnabort(value *js.Callback) {
+func (_this *AbortSignal) SetOnabort(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value

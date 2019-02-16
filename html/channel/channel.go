@@ -6,9 +6,9 @@ package channel
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/javascript"
 import "github.com/gowebapi/webapi/dom/domcore"
 import "github.com/gowebapi/webapi/fileapi"
+import "github.com/gowebapi/webapi/javascript"
 
 // using following types:
 // domcore.Event
@@ -454,7 +454,7 @@ func (_this *WebSocket) Onopen() domcore.EventHandler {
 
 // SetOnopen setting attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnopen(value *js.Callback) {
+func (_this *WebSocket) SetOnopen(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -478,7 +478,7 @@ func (_this *WebSocket) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnerror(value *js.Callback) {
+func (_this *WebSocket) SetOnerror(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -502,7 +502,7 @@ func (_this *WebSocket) Onclose() domcore.EventHandler {
 
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnclose(value *js.Callback) {
+func (_this *WebSocket) SetOnclose(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -544,7 +544,7 @@ func (_this *WebSocket) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnmessage(value *js.Callback) {
+func (_this *WebSocket) SetOnmessage(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -784,7 +784,7 @@ func (_this *MessagePort) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessage(value *js.Callback) {
+func (_this *MessagePort) SetOnmessage(value *js.Func) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -808,7 +808,7 @@ func (_this *MessagePort) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessageerror(value *js.Callback) {
+func (_this *MessagePort) SetOnmessageerror(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -928,7 +928,7 @@ func (_this *BroadcastChannel) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessage(value *js.Callback) {
+func (_this *BroadcastChannel) SetOnmessage(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -952,7 +952,7 @@ func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessageerror(value *js.Callback) {
+func (_this *BroadcastChannel) SetOnmessageerror(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value

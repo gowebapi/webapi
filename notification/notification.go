@@ -132,17 +132,18 @@ func DirectionFromJS(value js.Value) Direction {
 // callback: NotificationPermissionCallback
 type PermissionCallback func(permission PermissionMode)
 
-func PermissionCallbackToJS(callback PermissionCallback) *js.Callback {
+func PermissionCallbackToJS(callback PermissionCallback) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 PermissionMode // javascript: NotificationPermission permission
 		)
 		_p0 = PermissionModeFromJS(args[0])
-		// TODO: return value
 		callback(_p0)
+		// returning no return value
+		return nil
 	})
 	return &ret
 }
@@ -237,7 +238,7 @@ func Permission() PermissionMode {
 	return ret
 }
 
-func RequestPermission(callback *js.Callback) {
+func RequestPermission(callback *js.Func) {
 	_klass := js.Global().Get("Notification")
 	_method := _klass.Get("requestPermission")
 	var (
@@ -296,7 +297,7 @@ func (_this *Notification) OnClick() domcore.EventHandler {
 
 // SetOnClick setting attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClick(value *js.Callback) {
+func (_this *Notification) SetOnClick(value *js.Func) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -320,7 +321,7 @@ func (_this *Notification) OnShow() domcore.EventHandler {
 
 // SetOnShow setting attribute 'onshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnShow(value *js.Callback) {
+func (_this *Notification) SetOnShow(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -344,7 +345,7 @@ func (_this *Notification) OnError() domcore.EventHandler {
 
 // SetOnError setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnError(value *js.Callback) {
+func (_this *Notification) SetOnError(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -368,7 +369,7 @@ func (_this *Notification) OnClose() domcore.EventHandler {
 
 // SetOnClose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClose(value *js.Callback) {
+func (_this *Notification) SetOnClose(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value

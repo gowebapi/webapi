@@ -6,10 +6,10 @@ package htmlevent
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/patch"
-import "github.com/gowebapi/webapi/javascript"
 import "github.com/gowebapi/webapi/dom/domcore"
 import "github.com/gowebapi/webapi/html/htmlmisc"
+import "github.com/gowebapi/webapi/patch"
+import "github.com/gowebapi/webapi/javascript"
 
 // using following types:
 // domcore.Event

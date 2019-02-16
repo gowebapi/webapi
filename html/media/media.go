@@ -958,7 +958,7 @@ func (_this *AudioTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnchange(value *js.Callback) {
+func (_this *AudioTrackList) SetOnchange(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -982,7 +982,7 @@ func (_this *AudioTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnaddtrack(value *js.Callback) {
+func (_this *AudioTrackList) SetOnaddtrack(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -1006,7 +1006,7 @@ func (_this *AudioTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnremovetrack(value *js.Callback) {
+func (_this *AudioTrackList) SetOnremovetrack(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1154,7 +1154,7 @@ func (_this *VideoTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnchange(value *js.Callback) {
+func (_this *VideoTrackList) SetOnchange(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -1178,7 +1178,7 @@ func (_this *VideoTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnaddtrack(value *js.Callback) {
+func (_this *VideoTrackList) SetOnaddtrack(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1202,7 +1202,7 @@ func (_this *VideoTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnremovetrack(value *js.Callback) {
+func (_this *VideoTrackList) SetOnremovetrack(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -1341,7 +1341,7 @@ func (_this *TextTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnchange(value *js.Callback) {
+func (_this *TextTrackList) SetOnchange(value *js.Func) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -1365,7 +1365,7 @@ func (_this *TextTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnaddtrack(value *js.Callback) {
+func (_this *TextTrackList) SetOnaddtrack(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -1389,7 +1389,7 @@ func (_this *TextTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnremovetrack(value *js.Callback) {
+func (_this *TextTrackList) SetOnremovetrack(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1530,7 +1530,7 @@ func (_this *TextTrack) Oncuechange() domcore.EventHandler {
 
 // SetOncuechange setting attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) SetOncuechange(value *js.Callback) {
+func (_this *TextTrack) SetOncuechange(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -1716,7 +1716,7 @@ func (_this *TextTrackCue) Onenter() domcore.EventHandler {
 
 // SetOnenter setting attribute 'onenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnenter(value *js.Callback) {
+func (_this *TextTrackCue) SetOnenter(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -1740,7 +1740,7 @@ func (_this *TextTrackCue) Onexit() domcore.EventHandler {
 
 // SetOnexit setting attribute 'onexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnexit(value *js.Callback) {
+func (_this *TextTrackCue) SetOnexit(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value

@@ -6,10 +6,10 @@ package html
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/dom/domcore"
 import "github.com/gowebapi/webapi/dom"
 import "github.com/gowebapi/webapi/javascript"
 import "github.com/gowebapi/webapi/fileapi"
+import "github.com/gowebapi/webapi/dom/domcore"
 
 // using following types:
 // dom.DocumentFragment
@@ -146,11 +146,11 @@ func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContext
 // callback: OnErrorEventHandlerNonNull
 type OnErrorEventHandler func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
 
-func OnErrorEventHandlerToJS(callback OnErrorEventHandler) *js.Callback {
+func OnErrorEventHandlerToJS(callback OnErrorEventHandler) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Union   // javascript: Union event
 			_p1 *string  // javascript: DOMString source
@@ -174,8 +174,9 @@ func OnErrorEventHandlerToJS(callback OnErrorEventHandler) *js.Callback {
 		if len(args) > 4 {
 			_p4 = args[4]
 		}
-		// TODO: return value
-		callback(_p0, _p1, _p2, _p3, _p4)
+		_returned := callback(_p0, _p1, _p2, _p3, _p4)
+		_converted := _returned
+		return _converted
 	})
 	return &ret
 }
@@ -222,17 +223,18 @@ func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandler {
 // callback: OnBeforeUnloadEventHandlerNonNull
 type OnBeforeUnloadEventHandler func(event *domcore.Event) *string
 
-func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandler) *js.Callback {
+func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandler) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *domcore.Event // javascript: Event event
 		)
 		_p0 = domcore.EventFromJS(args[0])
-		// TODO: return value
-		callback(_p0)
+		_returned := callback(_p0)
+		_converted := _returned
+		return _converted
 	})
 	return &ret
 }
@@ -722,7 +724,7 @@ func (_this *HTMLElement) Onabort() domcore.EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnabort(value *js.Callback) {
+func (_this *HTMLElement) SetOnabort(value *js.Func) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -746,7 +748,7 @@ func (_this *HTMLElement) Onauxclick() domcore.EventHandler {
 
 // SetOnauxclick setting attribute 'onauxclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnauxclick(value *js.Callback) {
+func (_this *HTMLElement) SetOnauxclick(value *js.Func) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -770,7 +772,7 @@ func (_this *HTMLElement) Onblur() domcore.EventHandler {
 
 // SetOnblur setting attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnblur(value *js.Callback) {
+func (_this *HTMLElement) SetOnblur(value *js.Func) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -794,7 +796,7 @@ func (_this *HTMLElement) Oncancel() domcore.EventHandler {
 
 // SetOncancel setting attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncancel(value *js.Callback) {
+func (_this *HTMLElement) SetOncancel(value *js.Func) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -818,7 +820,7 @@ func (_this *HTMLElement) Oncanplay() domcore.EventHandler {
 
 // SetOncanplay setting attribute 'oncanplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplay(value *js.Callback) {
+func (_this *HTMLElement) SetOncanplay(value *js.Func) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -842,7 +844,7 @@ func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandler {
 
 // SetOncanplaythrough setting attribute 'oncanplaythrough' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplaythrough(value *js.Callback) {
+func (_this *HTMLElement) SetOncanplaythrough(value *js.Func) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -866,7 +868,7 @@ func (_this *HTMLElement) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnchange(value *js.Callback) {
+func (_this *HTMLElement) SetOnchange(value *js.Func) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value
@@ -890,7 +892,7 @@ func (_this *HTMLElement) Onclick() domcore.EventHandler {
 
 // SetOnclick setting attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclick(value *js.Callback) {
+func (_this *HTMLElement) SetOnclick(value *js.Func) {
 	var __callback18 js.Value
 	if value != nil {
 		__callback18 = (*value).Value
@@ -914,7 +916,7 @@ func (_this *HTMLElement) Onclose() domcore.EventHandler {
 
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclose(value *js.Callback) {
+func (_this *HTMLElement) SetOnclose(value *js.Func) {
 	var __callback19 js.Value
 	if value != nil {
 		__callback19 = (*value).Value
@@ -938,7 +940,7 @@ func (_this *HTMLElement) Oncontextmenu() domcore.EventHandler {
 
 // SetOncontextmenu setting attribute 'oncontextmenu' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncontextmenu(value *js.Callback) {
+func (_this *HTMLElement) SetOncontextmenu(value *js.Func) {
 	var __callback20 js.Value
 	if value != nil {
 		__callback20 = (*value).Value
@@ -962,7 +964,7 @@ func (_this *HTMLElement) Oncuechange() domcore.EventHandler {
 
 // SetOncuechange setting attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncuechange(value *js.Callback) {
+func (_this *HTMLElement) SetOncuechange(value *js.Func) {
 	var __callback21 js.Value
 	if value != nil {
 		__callback21 = (*value).Value
@@ -986,7 +988,7 @@ func (_this *HTMLElement) Ondblclick() domcore.EventHandler {
 
 // SetOndblclick setting attribute 'ondblclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndblclick(value *js.Callback) {
+func (_this *HTMLElement) SetOndblclick(value *js.Func) {
 	var __callback22 js.Value
 	if value != nil {
 		__callback22 = (*value).Value
@@ -1010,7 +1012,7 @@ func (_this *HTMLElement) Ondrag() domcore.EventHandler {
 
 // SetOndrag setting attribute 'ondrag' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrag(value *js.Callback) {
+func (_this *HTMLElement) SetOndrag(value *js.Func) {
 	var __callback23 js.Value
 	if value != nil {
 		__callback23 = (*value).Value
@@ -1034,7 +1036,7 @@ func (_this *HTMLElement) Ondragend() domcore.EventHandler {
 
 // SetOndragend setting attribute 'ondragend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragend(value *js.Callback) {
+func (_this *HTMLElement) SetOndragend(value *js.Func) {
 	var __callback24 js.Value
 	if value != nil {
 		__callback24 = (*value).Value
@@ -1058,7 +1060,7 @@ func (_this *HTMLElement) Ondragenter() domcore.EventHandler {
 
 // SetOndragenter setting attribute 'ondragenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragenter(value *js.Callback) {
+func (_this *HTMLElement) SetOndragenter(value *js.Func) {
 	var __callback25 js.Value
 	if value != nil {
 		__callback25 = (*value).Value
@@ -1082,7 +1084,7 @@ func (_this *HTMLElement) Ondragexit() domcore.EventHandler {
 
 // SetOndragexit setting attribute 'ondragexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragexit(value *js.Callback) {
+func (_this *HTMLElement) SetOndragexit(value *js.Func) {
 	var __callback26 js.Value
 	if value != nil {
 		__callback26 = (*value).Value
@@ -1106,7 +1108,7 @@ func (_this *HTMLElement) Ondragleave() domcore.EventHandler {
 
 // SetOndragleave setting attribute 'ondragleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragleave(value *js.Callback) {
+func (_this *HTMLElement) SetOndragleave(value *js.Func) {
 	var __callback27 js.Value
 	if value != nil {
 		__callback27 = (*value).Value
@@ -1130,7 +1132,7 @@ func (_this *HTMLElement) Ondragover() domcore.EventHandler {
 
 // SetOndragover setting attribute 'ondragover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragover(value *js.Callback) {
+func (_this *HTMLElement) SetOndragover(value *js.Func) {
 	var __callback28 js.Value
 	if value != nil {
 		__callback28 = (*value).Value
@@ -1154,7 +1156,7 @@ func (_this *HTMLElement) Ondragstart() domcore.EventHandler {
 
 // SetOndragstart setting attribute 'ondragstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragstart(value *js.Callback) {
+func (_this *HTMLElement) SetOndragstart(value *js.Func) {
 	var __callback29 js.Value
 	if value != nil {
 		__callback29 = (*value).Value
@@ -1178,7 +1180,7 @@ func (_this *HTMLElement) Ondrop() domcore.EventHandler {
 
 // SetOndrop setting attribute 'ondrop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrop(value *js.Callback) {
+func (_this *HTMLElement) SetOndrop(value *js.Func) {
 	var __callback30 js.Value
 	if value != nil {
 		__callback30 = (*value).Value
@@ -1202,7 +1204,7 @@ func (_this *HTMLElement) Ondurationchange() domcore.EventHandler {
 
 // SetOndurationchange setting attribute 'ondurationchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndurationchange(value *js.Callback) {
+func (_this *HTMLElement) SetOndurationchange(value *js.Func) {
 	var __callback31 js.Value
 	if value != nil {
 		__callback31 = (*value).Value
@@ -1226,7 +1228,7 @@ func (_this *HTMLElement) Onemptied() domcore.EventHandler {
 
 // SetOnemptied setting attribute 'onemptied' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnemptied(value *js.Callback) {
+func (_this *HTMLElement) SetOnemptied(value *js.Func) {
 	var __callback32 js.Value
 	if value != nil {
 		__callback32 = (*value).Value
@@ -1250,7 +1252,7 @@ func (_this *HTMLElement) Onended() domcore.EventHandler {
 
 // SetOnended setting attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnended(value *js.Callback) {
+func (_this *HTMLElement) SetOnended(value *js.Func) {
 	var __callback33 js.Value
 	if value != nil {
 		__callback33 = (*value).Value
@@ -1274,7 +1276,7 @@ func (_this *HTMLElement) Onerror() OnErrorEventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) SetOnerror(value *js.Callback) {
+func (_this *HTMLElement) SetOnerror(value *js.Func) {
 	var __callback34 js.Value
 	if value != nil {
 		__callback34 = (*value).Value
@@ -1298,7 +1300,7 @@ func (_this *HTMLElement) Onfocus() domcore.EventHandler {
 
 // SetOnfocus setting attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnfocus(value *js.Callback) {
+func (_this *HTMLElement) SetOnfocus(value *js.Func) {
 	var __callback35 js.Value
 	if value != nil {
 		__callback35 = (*value).Value
@@ -1322,7 +1324,7 @@ func (_this *HTMLElement) Onformdata() domcore.EventHandler {
 
 // SetOnformdata setting attribute 'onformdata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnformdata(value *js.Callback) {
+func (_this *HTMLElement) SetOnformdata(value *js.Func) {
 	var __callback36 js.Value
 	if value != nil {
 		__callback36 = (*value).Value
@@ -1346,7 +1348,7 @@ func (_this *HTMLElement) Oninput() domcore.EventHandler {
 
 // SetOninput setting attribute 'oninput' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninput(value *js.Callback) {
+func (_this *HTMLElement) SetOninput(value *js.Func) {
 	var __callback37 js.Value
 	if value != nil {
 		__callback37 = (*value).Value
@@ -1370,7 +1372,7 @@ func (_this *HTMLElement) Oninvalid() domcore.EventHandler {
 
 // SetOninvalid setting attribute 'oninvalid' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninvalid(value *js.Callback) {
+func (_this *HTMLElement) SetOninvalid(value *js.Func) {
 	var __callback38 js.Value
 	if value != nil {
 		__callback38 = (*value).Value
@@ -1394,7 +1396,7 @@ func (_this *HTMLElement) Onkeydown() domcore.EventHandler {
 
 // SetOnkeydown setting attribute 'onkeydown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeydown(value *js.Callback) {
+func (_this *HTMLElement) SetOnkeydown(value *js.Func) {
 	var __callback39 js.Value
 	if value != nil {
 		__callback39 = (*value).Value
@@ -1418,7 +1420,7 @@ func (_this *HTMLElement) Onkeypress() domcore.EventHandler {
 
 // SetOnkeypress setting attribute 'onkeypress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeypress(value *js.Callback) {
+func (_this *HTMLElement) SetOnkeypress(value *js.Func) {
 	var __callback40 js.Value
 	if value != nil {
 		__callback40 = (*value).Value
@@ -1442,7 +1444,7 @@ func (_this *HTMLElement) Onkeyup() domcore.EventHandler {
 
 // SetOnkeyup setting attribute 'onkeyup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeyup(value *js.Callback) {
+func (_this *HTMLElement) SetOnkeyup(value *js.Func) {
 	var __callback41 js.Value
 	if value != nil {
 		__callback41 = (*value).Value
@@ -1466,7 +1468,7 @@ func (_this *HTMLElement) Onload() domcore.EventHandler {
 
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnload(value *js.Callback) {
+func (_this *HTMLElement) SetOnload(value *js.Func) {
 	var __callback42 js.Value
 	if value != nil {
 		__callback42 = (*value).Value
@@ -1490,7 +1492,7 @@ func (_this *HTMLElement) Onloadeddata() domcore.EventHandler {
 
 // SetOnloadeddata setting attribute 'onloadeddata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadeddata(value *js.Callback) {
+func (_this *HTMLElement) SetOnloadeddata(value *js.Func) {
 	var __callback43 js.Value
 	if value != nil {
 		__callback43 = (*value).Value
@@ -1514,7 +1516,7 @@ func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandler {
 
 // SetOnloadedmetadata setting attribute 'onloadedmetadata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadedmetadata(value *js.Callback) {
+func (_this *HTMLElement) SetOnloadedmetadata(value *js.Func) {
 	var __callback44 js.Value
 	if value != nil {
 		__callback44 = (*value).Value
@@ -1538,7 +1540,7 @@ func (_this *HTMLElement) Onloadend() domcore.EventHandler {
 
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadend(value *js.Callback) {
+func (_this *HTMLElement) SetOnloadend(value *js.Func) {
 	var __callback45 js.Value
 	if value != nil {
 		__callback45 = (*value).Value
@@ -1562,7 +1564,7 @@ func (_this *HTMLElement) Onloadstart() domcore.EventHandler {
 
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadstart(value *js.Callback) {
+func (_this *HTMLElement) SetOnloadstart(value *js.Func) {
 	var __callback46 js.Value
 	if value != nil {
 		__callback46 = (*value).Value
@@ -1586,7 +1588,7 @@ func (_this *HTMLElement) Onmousedown() domcore.EventHandler {
 
 // SetOnmousedown setting attribute 'onmousedown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousedown(value *js.Callback) {
+func (_this *HTMLElement) SetOnmousedown(value *js.Func) {
 	var __callback47 js.Value
 	if value != nil {
 		__callback47 = (*value).Value
@@ -1610,7 +1612,7 @@ func (_this *HTMLElement) Onmouseenter() domcore.EventHandler {
 
 // SetOnmouseenter setting attribute 'onmouseenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseenter(value *js.Callback) {
+func (_this *HTMLElement) SetOnmouseenter(value *js.Func) {
 	var __callback48 js.Value
 	if value != nil {
 		__callback48 = (*value).Value
@@ -1634,7 +1636,7 @@ func (_this *HTMLElement) Onmouseleave() domcore.EventHandler {
 
 // SetOnmouseleave setting attribute 'onmouseleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseleave(value *js.Callback) {
+func (_this *HTMLElement) SetOnmouseleave(value *js.Func) {
 	var __callback49 js.Value
 	if value != nil {
 		__callback49 = (*value).Value
@@ -1658,7 +1660,7 @@ func (_this *HTMLElement) Onmousemove() domcore.EventHandler {
 
 // SetOnmousemove setting attribute 'onmousemove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousemove(value *js.Callback) {
+func (_this *HTMLElement) SetOnmousemove(value *js.Func) {
 	var __callback50 js.Value
 	if value != nil {
 		__callback50 = (*value).Value
@@ -1682,7 +1684,7 @@ func (_this *HTMLElement) Onmouseout() domcore.EventHandler {
 
 // SetOnmouseout setting attribute 'onmouseout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseout(value *js.Callback) {
+func (_this *HTMLElement) SetOnmouseout(value *js.Func) {
 	var __callback51 js.Value
 	if value != nil {
 		__callback51 = (*value).Value
@@ -1706,7 +1708,7 @@ func (_this *HTMLElement) Onmouseover() domcore.EventHandler {
 
 // SetOnmouseover setting attribute 'onmouseover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseover(value *js.Callback) {
+func (_this *HTMLElement) SetOnmouseover(value *js.Func) {
 	var __callback52 js.Value
 	if value != nil {
 		__callback52 = (*value).Value
@@ -1730,7 +1732,7 @@ func (_this *HTMLElement) Onmouseup() domcore.EventHandler {
 
 // SetOnmouseup setting attribute 'onmouseup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseup(value *js.Callback) {
+func (_this *HTMLElement) SetOnmouseup(value *js.Func) {
 	var __callback53 js.Value
 	if value != nil {
 		__callback53 = (*value).Value
@@ -1754,7 +1756,7 @@ func (_this *HTMLElement) Onwheel() domcore.EventHandler {
 
 // SetOnwheel setting attribute 'onwheel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwheel(value *js.Callback) {
+func (_this *HTMLElement) SetOnwheel(value *js.Func) {
 	var __callback54 js.Value
 	if value != nil {
 		__callback54 = (*value).Value
@@ -1778,7 +1780,7 @@ func (_this *HTMLElement) Onpause() domcore.EventHandler {
 
 // SetOnpause setting attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpause(value *js.Callback) {
+func (_this *HTMLElement) SetOnpause(value *js.Func) {
 	var __callback55 js.Value
 	if value != nil {
 		__callback55 = (*value).Value
@@ -1802,7 +1804,7 @@ func (_this *HTMLElement) Onplay() domcore.EventHandler {
 
 // SetOnplay setting attribute 'onplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplay(value *js.Callback) {
+func (_this *HTMLElement) SetOnplay(value *js.Func) {
 	var __callback56 js.Value
 	if value != nil {
 		__callback56 = (*value).Value
@@ -1826,7 +1828,7 @@ func (_this *HTMLElement) Onplaying() domcore.EventHandler {
 
 // SetOnplaying setting attribute 'onplaying' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplaying(value *js.Callback) {
+func (_this *HTMLElement) SetOnplaying(value *js.Func) {
 	var __callback57 js.Value
 	if value != nil {
 		__callback57 = (*value).Value
@@ -1850,7 +1852,7 @@ func (_this *HTMLElement) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnprogress(value *js.Callback) {
+func (_this *HTMLElement) SetOnprogress(value *js.Func) {
 	var __callback58 js.Value
 	if value != nil {
 		__callback58 = (*value).Value
@@ -1874,7 +1876,7 @@ func (_this *HTMLElement) Onratechange() domcore.EventHandler {
 
 // SetOnratechange setting attribute 'onratechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnratechange(value *js.Callback) {
+func (_this *HTMLElement) SetOnratechange(value *js.Func) {
 	var __callback59 js.Value
 	if value != nil {
 		__callback59 = (*value).Value
@@ -1898,7 +1900,7 @@ func (_this *HTMLElement) Onreset() domcore.EventHandler {
 
 // SetOnreset setting attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnreset(value *js.Callback) {
+func (_this *HTMLElement) SetOnreset(value *js.Func) {
 	var __callback60 js.Value
 	if value != nil {
 		__callback60 = (*value).Value
@@ -1922,7 +1924,7 @@ func (_this *HTMLElement) Onresize() domcore.EventHandler {
 
 // SetOnresize setting attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnresize(value *js.Callback) {
+func (_this *HTMLElement) SetOnresize(value *js.Func) {
 	var __callback61 js.Value
 	if value != nil {
 		__callback61 = (*value).Value
@@ -1946,7 +1948,7 @@ func (_this *HTMLElement) Onscroll() domcore.EventHandler {
 
 // SetOnscroll setting attribute 'onscroll' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnscroll(value *js.Callback) {
+func (_this *HTMLElement) SetOnscroll(value *js.Func) {
 	var __callback62 js.Value
 	if value != nil {
 		__callback62 = (*value).Value
@@ -1970,7 +1972,7 @@ func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandler {
 
 // SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Callback) {
+func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Func) {
 	var __callback63 js.Value
 	if value != nil {
 		__callback63 = (*value).Value
@@ -1994,7 +1996,7 @@ func (_this *HTMLElement) Onseeked() domcore.EventHandler {
 
 // SetOnseeked setting attribute 'onseeked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeked(value *js.Callback) {
+func (_this *HTMLElement) SetOnseeked(value *js.Func) {
 	var __callback64 js.Value
 	if value != nil {
 		__callback64 = (*value).Value
@@ -2018,7 +2020,7 @@ func (_this *HTMLElement) Onseeking() domcore.EventHandler {
 
 // SetOnseeking setting attribute 'onseeking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeking(value *js.Callback) {
+func (_this *HTMLElement) SetOnseeking(value *js.Func) {
 	var __callback65 js.Value
 	if value != nil {
 		__callback65 = (*value).Value
@@ -2042,7 +2044,7 @@ func (_this *HTMLElement) Onselect() domcore.EventHandler {
 
 // SetOnselect setting attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnselect(value *js.Callback) {
+func (_this *HTMLElement) SetOnselect(value *js.Func) {
 	var __callback66 js.Value
 	if value != nil {
 		__callback66 = (*value).Value
@@ -2066,7 +2068,7 @@ func (_this *HTMLElement) Onstalled() domcore.EventHandler {
 
 // SetOnstalled setting attribute 'onstalled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnstalled(value *js.Callback) {
+func (_this *HTMLElement) SetOnstalled(value *js.Func) {
 	var __callback67 js.Value
 	if value != nil {
 		__callback67 = (*value).Value
@@ -2090,7 +2092,7 @@ func (_this *HTMLElement) Onsubmit() domcore.EventHandler {
 
 // SetOnsubmit setting attribute 'onsubmit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsubmit(value *js.Callback) {
+func (_this *HTMLElement) SetOnsubmit(value *js.Func) {
 	var __callback68 js.Value
 	if value != nil {
 		__callback68 = (*value).Value
@@ -2114,7 +2116,7 @@ func (_this *HTMLElement) Onsuspend() domcore.EventHandler {
 
 // SetOnsuspend setting attribute 'onsuspend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsuspend(value *js.Callback) {
+func (_this *HTMLElement) SetOnsuspend(value *js.Func) {
 	var __callback69 js.Value
 	if value != nil {
 		__callback69 = (*value).Value
@@ -2138,7 +2140,7 @@ func (_this *HTMLElement) Ontimeupdate() domcore.EventHandler {
 
 // SetOntimeupdate setting attribute 'ontimeupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntimeupdate(value *js.Callback) {
+func (_this *HTMLElement) SetOntimeupdate(value *js.Func) {
 	var __callback70 js.Value
 	if value != nil {
 		__callback70 = (*value).Value
@@ -2162,7 +2164,7 @@ func (_this *HTMLElement) Ontoggle() domcore.EventHandler {
 
 // SetOntoggle setting attribute 'ontoggle' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntoggle(value *js.Callback) {
+func (_this *HTMLElement) SetOntoggle(value *js.Func) {
 	var __callback71 js.Value
 	if value != nil {
 		__callback71 = (*value).Value
@@ -2186,7 +2188,7 @@ func (_this *HTMLElement) Onvolumechange() domcore.EventHandler {
 
 // SetOnvolumechange setting attribute 'onvolumechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnvolumechange(value *js.Callback) {
+func (_this *HTMLElement) SetOnvolumechange(value *js.Func) {
 	var __callback72 js.Value
 	if value != nil {
 		__callback72 = (*value).Value
@@ -2210,7 +2212,7 @@ func (_this *HTMLElement) Onwaiting() domcore.EventHandler {
 
 // SetOnwaiting setting attribute 'onwaiting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwaiting(value *js.Callback) {
+func (_this *HTMLElement) SetOnwaiting(value *js.Func) {
 	var __callback73 js.Value
 	if value != nil {
 		__callback73 = (*value).Value
@@ -2234,7 +2236,7 @@ func (_this *HTMLElement) Oncopy() domcore.EventHandler {
 
 // SetOncopy setting attribute 'oncopy' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncopy(value *js.Callback) {
+func (_this *HTMLElement) SetOncopy(value *js.Func) {
 	var __callback74 js.Value
 	if value != nil {
 		__callback74 = (*value).Value
@@ -2258,7 +2260,7 @@ func (_this *HTMLElement) Oncut() domcore.EventHandler {
 
 // SetOncut setting attribute 'oncut' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncut(value *js.Callback) {
+func (_this *HTMLElement) SetOncut(value *js.Func) {
 	var __callback75 js.Value
 	if value != nil {
 		__callback75 = (*value).Value
@@ -2282,7 +2284,7 @@ func (_this *HTMLElement) Onpaste() domcore.EventHandler {
 
 // SetOnpaste setting attribute 'onpaste' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpaste(value *js.Callback) {
+func (_this *HTMLElement) SetOnpaste(value *js.Func) {
 	var __callback76 js.Value
 	if value != nil {
 		__callback76 = (*value).Value
@@ -3040,7 +3042,7 @@ func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandler {
 
 // SetOnafterprint setting attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnafterprint(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnafterprint(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -3064,7 +3066,7 @@ func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandler {
 
 // SetOnbeforeprint setting attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Func) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -3088,7 +3090,7 @@ func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandler {
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -3112,7 +3114,7 @@ func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandler {
 
 // SetOnhashchange setting attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnhashchange(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnhashchange(value *js.Func) {
 	var __callback9 js.Value
 	if value != nil {
 		__callback9 = (*value).Value
@@ -3136,7 +3138,7 @@ func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandler {
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Func) {
 	var __callback10 js.Value
 	if value != nil {
 		__callback10 = (*value).Value
@@ -3160,7 +3162,7 @@ func (_this *HTMLBodyElement) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessage(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnmessage(value *js.Func) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -3184,7 +3186,7 @@ func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Func) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -3208,7 +3210,7 @@ func (_this *HTMLBodyElement) Onoffline() domcore.EventHandler {
 
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnoffline(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnoffline(value *js.Func) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -3232,7 +3234,7 @@ func (_this *HTMLBodyElement) Ononline() domcore.EventHandler {
 
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnonline(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnonline(value *js.Func) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -3256,7 +3258,7 @@ func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandler {
 
 // SetOnpagehide setting attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpagehide(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnpagehide(value *js.Func) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -3280,7 +3282,7 @@ func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandler {
 
 // SetOnpageshow setting attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpageshow(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnpageshow(value *js.Func) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -3304,7 +3306,7 @@ func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandler {
 
 // SetOnpopstate setting attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpopstate(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnpopstate(value *js.Func) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value
@@ -3328,7 +3330,7 @@ func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandler {
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Func) {
 	var __callback18 js.Value
 	if value != nil {
 		__callback18 = (*value).Value
@@ -3352,7 +3354,7 @@ func (_this *HTMLBodyElement) Onstorage() domcore.EventHandler {
 
 // SetOnstorage setting attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnstorage(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnstorage(value *js.Func) {
 	var __callback19 js.Value
 	if value != nil {
 		__callback19 = (*value).Value
@@ -3376,7 +3378,7 @@ func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandler {
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Func) {
 	var __callback20 js.Value
 	if value != nil {
 		__callback20 = (*value).Value
@@ -3400,7 +3402,7 @@ func (_this *HTMLBodyElement) Onunload() domcore.EventHandler {
 
 // SetOnunload setting attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunload(value *js.Callback) {
+func (_this *HTMLBodyElement) SetOnunload(value *js.Func) {
 	var __callback21 js.Value
 	if value != nil {
 		__callback21 = (*value).Value
@@ -10171,7 +10173,7 @@ func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandler {
 
 // SetOnbounce setting attribute 'onbounce' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Callback) {
+func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Func) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -10195,7 +10197,7 @@ func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandler {
 
 // SetOnfinish setting attribute 'onfinish' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Callback) {
+func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Func) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -10219,7 +10221,7 @@ func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandler {
 
 // SetOnstart setting attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnstart(value *js.Callback) {
+func (_this *HTMLMarqueeElement) SetOnstart(value *js.Func) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -10308,7 +10310,7 @@ func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandler {
 
 // SetOnafterprint setting attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Func) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -10332,7 +10334,7 @@ func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandler {
 
 // SetOnbeforeprint setting attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -10356,7 +10358,7 @@ func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandler {
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -10380,7 +10382,7 @@ func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandler {
 
 // SetOnhashchange setting attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -10404,7 +10406,7 @@ func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandler {
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -10428,7 +10430,7 @@ func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Func) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -10452,7 +10454,7 @@ func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -10476,7 +10478,7 @@ func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandler {
 
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Func) {
 	var __callback9 js.Value
 	if value != nil {
 		__callback9 = (*value).Value
@@ -10500,7 +10502,7 @@ func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandler {
 
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnonline(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnonline(value *js.Func) {
 	var __callback10 js.Value
 	if value != nil {
 		__callback10 = (*value).Value
@@ -10524,7 +10526,7 @@ func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandler {
 
 // SetOnpagehide setting attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Func) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -10548,7 +10550,7 @@ func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandler {
 
 // SetOnpageshow setting attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Func) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -10572,7 +10574,7 @@ func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandler {
 
 // SetOnpopstate setting attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Func) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -10596,7 +10598,7 @@ func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandler {
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Func) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -10620,7 +10622,7 @@ func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandler {
 
 // SetOnstorage setting attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Func) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -10644,7 +10646,7 @@ func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandler {
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Func) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -10668,7 +10670,7 @@ func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandler {
 
 // SetOnunload setting attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunload(value *js.Callback) {
+func (_this *HTMLFrameSetElement) SetOnunload(value *js.Func) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value

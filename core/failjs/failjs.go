@@ -6,22 +6,6 @@ package failjs
 
 const message = "this library should be executed under WASM"
 
-type Callback struct {
-	Value
-}
-
-func NewCallback(fn func(args []Value)) Callback {
-	panic(message)
-}
-
-func NewEventCallback(flags EventCallbackFlag, fn func(event Value)) Callback {
-	panic(message)
-}
-
-func (c Callback) Release() {
-	panic(message)
-}
-
 type Error struct {
 	Value
 }
@@ -29,14 +13,6 @@ type Error struct {
 func (e Error) Error() string {
 	panic(message)
 }
-
-type EventCallbackFlag int
-
-const (
-	PreventDefault EventCallbackFlag = 1 << iota
-	StopPropagation
-	StopImmediatePropagation
-)
 
 type Func struct {
 	Value

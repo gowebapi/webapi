@@ -6,11 +6,11 @@ package canvas
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
+import "github.com/gowebapi/webapi/patch"
+import "github.com/gowebapi/webapi/javascript"
 import "github.com/gowebapi/webapi/html"
 import "github.com/gowebapi/webapi/dom/domcore"
 import "github.com/gowebapi/webapi/dom"
-import "github.com/gowebapi/webapi/patch"
-import "github.com/gowebapi/webapi/javascript"
 
 // using following types:
 // dom.Element
@@ -710,7 +710,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 	return
 }
 
-func (_this *HTMLCanvasElement) ToBlob(callback *js.Callback, _type *string, quality js.Value) {
+func (_this *HTMLCanvasElement) ToBlob(callback *js.Func, _type *string, quality js.Value) {
 	var (
 		_args [3]interface{}
 		_end  int

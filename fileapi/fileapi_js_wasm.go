@@ -89,19 +89,20 @@ func EndingTypeFromJS(value js.Value) EndingType {
 // callback: BlobCallback
 type BlobCallback func(blob *Blob)
 
-func BlobCallbackToJS(callback BlobCallback) *js.Callback {
+func BlobCallbackToJS(callback BlobCallback) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Blob // javascript: Blob blob
 		)
 		if args[0].Type() != js.TypeNull {
 			_p0 = BlobFromJS(args[0])
 		}
-		// TODO: return value
 		callback(_p0)
+		// returning no return value
+		return nil
 	})
 	return &ret
 }
@@ -465,7 +466,7 @@ func (_this *FileReader) Onloadstart() domcore.EventHandler {
 
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadstart(value *js.Callback) {
+func (_this *FileReader) SetOnloadstart(value *js.Func) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -489,7 +490,7 @@ func (_this *FileReader) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnprogress(value *js.Callback) {
+func (_this *FileReader) SetOnprogress(value *js.Func) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -513,7 +514,7 @@ func (_this *FileReader) Onload() domcore.EventHandler {
 
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnload(value *js.Callback) {
+func (_this *FileReader) SetOnload(value *js.Func) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -537,7 +538,7 @@ func (_this *FileReader) Onabort() domcore.EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnabort(value *js.Callback) {
+func (_this *FileReader) SetOnabort(value *js.Func) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -561,7 +562,7 @@ func (_this *FileReader) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnerror(value *js.Callback) {
+func (_this *FileReader) SetOnerror(value *js.Func) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -585,7 +586,7 @@ func (_this *FileReader) Onloadend() domcore.EventHandler {
 
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadend(value *js.Callback) {
+func (_this *FileReader) SetOnloadend(value *js.Func) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value

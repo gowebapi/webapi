@@ -40,11 +40,11 @@ func UnionFromJS(value js.Value) *Union {
 // callback: Function
 type Function func(arguments ...js.Value) js.Value
 
-func FunctionToJS(callback Function) *js.Callback {
+func FunctionToJS(callback Function) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 []js.Value // javascript: any arguments
 		)
@@ -54,8 +54,9 @@ func FunctionToJS(callback Function) *js.Callback {
 			__out = __in
 			_p0 = append(_p0, __out)
 		}
-		// TODO: return value
-		callback(_p0...)
+		_returned := callback(_p0...)
+		_converted := _returned
+		return _converted
 	})
 	return &ret
 }
@@ -84,14 +85,15 @@ func FunctionFromJS(_value js.Value) Function {
 // callback: VoidFunction
 type VoidFunction func()
 
-func VoidFunctionToJS(callback VoidFunction) *js.Callback {
+func VoidFunctionToJS(callback VoidFunction) *js.Func {
 	if callback == nil {
 		return nil
 	}
-	ret := js.NewCallback(func(args []js.Value) {
+	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
-		// TODO: return value
 		callback()
+		// returning no return value
+		return nil
 	})
 	return &ret
 }
