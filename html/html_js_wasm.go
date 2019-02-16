@@ -4,10 +4,12 @@ package html
 
 import "syscall/js"
 
-import "github.com/gowebapi/webapi/dom"
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/fileapi"
-import "github.com/gowebapi/webapi/dom/domcore"
+import (
+	"github.com/gowebapi/webapi/dom"
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // dom.DocumentFragment
@@ -142,13 +144,19 @@ func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContext
 }
 
 // callback: OnErrorEventHandlerNonNull
-type OnErrorEventHandler func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
+type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
 
-func OnErrorEventHandlerToJS(callback OnErrorEventHandler) *js.Func {
+// OnErrorEventHandler is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type OnErrorEventHandler js.Func
+
+func OnErrorEventHandlerToJS(callback OnErrorEventHandlerFunc) *OnErrorEventHandler {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := OnErrorEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Union   // javascript: Union event
 			_p1 *string  // javascript: DOMString source
@@ -175,11 +183,11 @@ func OnErrorEventHandlerToJS(callback OnErrorEventHandler) *js.Func {
 		_returned := callback(_p0, _p1, _p2, _p3, _p4)
 		_converted := _returned
 		return _converted
-	})
+	}))
 	return &ret
 }
 
-func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandler {
+func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
 	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result js.Value) {
 		var (
 			_args [5]interface{}
@@ -219,13 +227,19 @@ func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandler {
 }
 
 // callback: OnBeforeUnloadEventHandlerNonNull
-type OnBeforeUnloadEventHandler func(event *domcore.Event) *string
+type OnBeforeUnloadEventHandlerFunc func(event *domcore.Event) *string
 
-func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandler) *js.Func {
+// OnBeforeUnloadEventHandler is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type OnBeforeUnloadEventHandler js.Func
+
+func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandlerFunc) *OnBeforeUnloadEventHandler {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := OnBeforeUnloadEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *domcore.Event // javascript: Event event
 		)
@@ -233,11 +247,11 @@ func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandler) *js.Fun
 		_returned := callback(_p0)
 		_converted := _returned
 		return _converted
-	})
+	}))
 	return &ret
 }
 
-func OnBeforeUnloadEventHandlerFromJS(_value js.Value) OnBeforeUnloadEventHandler {
+func OnBeforeUnloadEventHandlerFromJS(_value js.Value) OnBeforeUnloadEventHandlerFunc {
 	return func(event *domcore.Event) (_result *string) {
 		var (
 			_args [1]interface{}
@@ -276,7 +290,8 @@ func (_this *AssignedNodesOptions) JSValue() js.Value {
 // AssignedNodesOptionsFromJS is allocating a new
 // AssignedNodesOptions object and copy all values from
 // input javascript object
-func AssignedNodesOptionsFromJS(input js.Value) *AssignedNodesOptions {
+func AssignedNodesOptionsFromJS(value js.Wrapper) *AssignedNodesOptions {
+	input := value.JSValue()
 	var out AssignedNodesOptions
 	var (
 		out0 bool // javascript: boolean {flatten Flatten flatten}
@@ -306,7 +321,8 @@ func (_this *ImageEncodeOptions) JSValue() js.Value {
 // ImageEncodeOptionsFromJS is allocating a new
 // ImageEncodeOptions object and copy all values from
 // input javascript object
-func ImageEncodeOptionsFromJS(input js.Value) *ImageEncodeOptions {
+func ImageEncodeOptionsFromJS(value js.Wrapper) *ImageEncodeOptions {
+	input := value.JSValue()
 	var out ImageEncodeOptions
 	var (
 		out0 string  // javascript: DOMString {type Type _type}
@@ -336,7 +352,8 @@ func (_this *FocusOptions) JSValue() js.Value {
 // FocusOptionsFromJS is allocating a new
 // FocusOptions object and copy all values from
 // input javascript object
-func FocusOptionsFromJS(input js.Value) *FocusOptions {
+func FocusOptionsFromJS(value js.Wrapper) *FocusOptions {
+	input := value.JSValue()
 	var out FocusOptions
 	var (
 		out0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
@@ -356,8 +373,9 @@ func (_this *HTMLAllCollection) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HTMLAllCollectionFromJS is casting a js.Value into HTMLAllCollection.
-func HTMLAllCollectionFromJS(input js.Value) *HTMLAllCollection {
+// HTMLAllCollectionFromJS is casting a js.Wrapper into HTMLAllCollection.
+func HTMLAllCollectionFromJS(value js.Wrapper) *HTMLAllCollection {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -420,8 +438,9 @@ type HTMLFormControlsCollection struct {
 	dom.HTMLCollection
 }
 
-// HTMLFormControlsCollectionFromJS is casting a js.Value into HTMLFormControlsCollection.
-func HTMLFormControlsCollectionFromJS(input js.Value) *HTMLFormControlsCollection {
+// HTMLFormControlsCollectionFromJS is casting a js.Wrapper into HTMLFormControlsCollection.
+func HTMLFormControlsCollectionFromJS(value js.Wrapper) *HTMLFormControlsCollection {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -454,8 +473,9 @@ type HTMLOptionsCollection struct {
 	dom.HTMLCollection
 }
 
-// HTMLOptionsCollectionFromJS is casting a js.Value into HTMLOptionsCollection.
-func HTMLOptionsCollectionFromJS(input js.Value) *HTMLOptionsCollection {
+// HTMLOptionsCollectionFromJS is casting a js.Wrapper into HTMLOptionsCollection.
+func HTMLOptionsCollectionFromJS(value js.Wrapper) *HTMLOptionsCollection {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -530,8 +550,9 @@ type HTMLElement struct {
 	dom.Element
 }
 
-// HTMLElementFromJS is casting a js.Value into HTMLElement.
-func HTMLElementFromJS(input js.Value) *HTMLElement {
+// HTMLElementFromJS is casting a js.Wrapper into HTMLElement.
+func HTMLElementFromJS(value js.Wrapper) *HTMLElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -711,8 +732,8 @@ func (_this *HTMLElement) SetInnerText(value string) {
 
 // Onabort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onabort() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onabort() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -722,7 +743,7 @@ func (_this *HTMLElement) Onabort() domcore.EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnabort(value *js.Func) {
+func (_this *HTMLElement) SetOnabort(value *domcore.EventHandler) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -735,8 +756,8 @@ func (_this *HTMLElement) SetOnabort(value *js.Func) {
 
 // Onauxclick returning attribute 'onauxclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onauxclick() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onauxclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onauxclick")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -746,7 +767,7 @@ func (_this *HTMLElement) Onauxclick() domcore.EventHandler {
 
 // SetOnauxclick setting attribute 'onauxclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnauxclick(value *js.Func) {
+func (_this *HTMLElement) SetOnauxclick(value *domcore.EventHandler) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -759,8 +780,8 @@ func (_this *HTMLElement) SetOnauxclick(value *js.Func) {
 
 // Onblur returning attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onblur() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onblur() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -770,7 +791,7 @@ func (_this *HTMLElement) Onblur() domcore.EventHandler {
 
 // SetOnblur setting attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnblur(value *js.Func) {
+func (_this *HTMLElement) SetOnblur(value *domcore.EventHandler) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -783,8 +804,8 @@ func (_this *HTMLElement) SetOnblur(value *js.Func) {
 
 // Oncancel returning attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncancel() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -794,7 +815,7 @@ func (_this *HTMLElement) Oncancel() domcore.EventHandler {
 
 // SetOncancel setting attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncancel(value *js.Func) {
+func (_this *HTMLElement) SetOncancel(value *domcore.EventHandler) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -807,8 +828,8 @@ func (_this *HTMLElement) SetOncancel(value *js.Func) {
 
 // Oncanplay returning attribute 'oncanplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplay() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncanplay() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplay")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -818,7 +839,7 @@ func (_this *HTMLElement) Oncanplay() domcore.EventHandler {
 
 // SetOncanplay setting attribute 'oncanplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplay(value *js.Func) {
+func (_this *HTMLElement) SetOncanplay(value *domcore.EventHandler) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -831,8 +852,8 @@ func (_this *HTMLElement) SetOncanplay(value *js.Func) {
 
 // Oncanplaythrough returning attribute 'oncanplaythrough' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplaythrough")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -842,7 +863,7 @@ func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandler {
 
 // SetOncanplaythrough setting attribute 'oncanplaythrough' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplaythrough(value *js.Func) {
+func (_this *HTMLElement) SetOncanplaythrough(value *domcore.EventHandler) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -855,8 +876,8 @@ func (_this *HTMLElement) SetOncanplaythrough(value *js.Func) {
 
 // Onchange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -866,7 +887,7 @@ func (_this *HTMLElement) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnchange(value *js.Func) {
+func (_this *HTMLElement) SetOnchange(value *domcore.EventHandler) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value
@@ -879,8 +900,8 @@ func (_this *HTMLElement) SetOnchange(value *js.Func) {
 
 // Onclick returning attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclick() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -890,7 +911,7 @@ func (_this *HTMLElement) Onclick() domcore.EventHandler {
 
 // SetOnclick setting attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclick(value *js.Func) {
+func (_this *HTMLElement) SetOnclick(value *domcore.EventHandler) {
 	var __callback18 js.Value
 	if value != nil {
 		__callback18 = (*value).Value
@@ -903,8 +924,8 @@ func (_this *HTMLElement) SetOnclick(value *js.Func) {
 
 // Onclose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclose() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onclose() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -914,7 +935,7 @@ func (_this *HTMLElement) Onclose() domcore.EventHandler {
 
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclose(value *js.Func) {
+func (_this *HTMLElement) SetOnclose(value *domcore.EventHandler) {
 	var __callback19 js.Value
 	if value != nil {
 		__callback19 = (*value).Value
@@ -927,8 +948,8 @@ func (_this *HTMLElement) SetOnclose(value *js.Func) {
 
 // Oncontextmenu returning attribute 'oncontextmenu' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncontextmenu() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncontextmenu() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontextmenu")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -938,7 +959,7 @@ func (_this *HTMLElement) Oncontextmenu() domcore.EventHandler {
 
 // SetOncontextmenu setting attribute 'oncontextmenu' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncontextmenu(value *js.Func) {
+func (_this *HTMLElement) SetOncontextmenu(value *domcore.EventHandler) {
 	var __callback20 js.Value
 	if value != nil {
 		__callback20 = (*value).Value
@@ -951,8 +972,8 @@ func (_this *HTMLElement) SetOncontextmenu(value *js.Func) {
 
 // Oncuechange returning attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncuechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncuechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -962,7 +983,7 @@ func (_this *HTMLElement) Oncuechange() domcore.EventHandler {
 
 // SetOncuechange setting attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncuechange(value *js.Func) {
+func (_this *HTMLElement) SetOncuechange(value *domcore.EventHandler) {
 	var __callback21 js.Value
 	if value != nil {
 		__callback21 = (*value).Value
@@ -975,8 +996,8 @@ func (_this *HTMLElement) SetOncuechange(value *js.Func) {
 
 // Ondblclick returning attribute 'ondblclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondblclick() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondblclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondblclick")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -986,7 +1007,7 @@ func (_this *HTMLElement) Ondblclick() domcore.EventHandler {
 
 // SetOndblclick setting attribute 'ondblclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndblclick(value *js.Func) {
+func (_this *HTMLElement) SetOndblclick(value *domcore.EventHandler) {
 	var __callback22 js.Value
 	if value != nil {
 		__callback22 = (*value).Value
@@ -999,8 +1020,8 @@ func (_this *HTMLElement) SetOndblclick(value *js.Func) {
 
 // Ondrag returning attribute 'ondrag' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrag() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondrag() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrag")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1010,7 +1031,7 @@ func (_this *HTMLElement) Ondrag() domcore.EventHandler {
 
 // SetOndrag setting attribute 'ondrag' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrag(value *js.Func) {
+func (_this *HTMLElement) SetOndrag(value *domcore.EventHandler) {
 	var __callback23 js.Value
 	if value != nil {
 		__callback23 = (*value).Value
@@ -1023,8 +1044,8 @@ func (_this *HTMLElement) SetOndrag(value *js.Func) {
 
 // Ondragend returning attribute 'ondragend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragend() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragend")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1034,7 +1055,7 @@ func (_this *HTMLElement) Ondragend() domcore.EventHandler {
 
 // SetOndragend setting attribute 'ondragend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragend(value *js.Func) {
+func (_this *HTMLElement) SetOndragend(value *domcore.EventHandler) {
 	var __callback24 js.Value
 	if value != nil {
 		__callback24 = (*value).Value
@@ -1047,8 +1068,8 @@ func (_this *HTMLElement) SetOndragend(value *js.Func) {
 
 // Ondragenter returning attribute 'ondragenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragenter() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragenter")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1058,7 +1079,7 @@ func (_this *HTMLElement) Ondragenter() domcore.EventHandler {
 
 // SetOndragenter setting attribute 'ondragenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragenter(value *js.Func) {
+func (_this *HTMLElement) SetOndragenter(value *domcore.EventHandler) {
 	var __callback25 js.Value
 	if value != nil {
 		__callback25 = (*value).Value
@@ -1071,8 +1092,8 @@ func (_this *HTMLElement) SetOndragenter(value *js.Func) {
 
 // Ondragexit returning attribute 'ondragexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragexit() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragexit() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragexit")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1082,7 +1103,7 @@ func (_this *HTMLElement) Ondragexit() domcore.EventHandler {
 
 // SetOndragexit setting attribute 'ondragexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragexit(value *js.Func) {
+func (_this *HTMLElement) SetOndragexit(value *domcore.EventHandler) {
 	var __callback26 js.Value
 	if value != nil {
 		__callback26 = (*value).Value
@@ -1095,8 +1116,8 @@ func (_this *HTMLElement) SetOndragexit(value *js.Func) {
 
 // Ondragleave returning attribute 'ondragleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragleave() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragleave")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1106,7 +1127,7 @@ func (_this *HTMLElement) Ondragleave() domcore.EventHandler {
 
 // SetOndragleave setting attribute 'ondragleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragleave(value *js.Func) {
+func (_this *HTMLElement) SetOndragleave(value *domcore.EventHandler) {
 	var __callback27 js.Value
 	if value != nil {
 		__callback27 = (*value).Value
@@ -1119,8 +1140,8 @@ func (_this *HTMLElement) SetOndragleave(value *js.Func) {
 
 // Ondragover returning attribute 'ondragover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragover() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragover")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1130,7 +1151,7 @@ func (_this *HTMLElement) Ondragover() domcore.EventHandler {
 
 // SetOndragover setting attribute 'ondragover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragover(value *js.Func) {
+func (_this *HTMLElement) SetOndragover(value *domcore.EventHandler) {
 	var __callback28 js.Value
 	if value != nil {
 		__callback28 = (*value).Value
@@ -1143,8 +1164,8 @@ func (_this *HTMLElement) SetOndragover(value *js.Func) {
 
 // Ondragstart returning attribute 'ondragstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragstart() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondragstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragstart")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1154,7 +1175,7 @@ func (_this *HTMLElement) Ondragstart() domcore.EventHandler {
 
 // SetOndragstart setting attribute 'ondragstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragstart(value *js.Func) {
+func (_this *HTMLElement) SetOndragstart(value *domcore.EventHandler) {
 	var __callback29 js.Value
 	if value != nil {
 		__callback29 = (*value).Value
@@ -1167,8 +1188,8 @@ func (_this *HTMLElement) SetOndragstart(value *js.Func) {
 
 // Ondrop returning attribute 'ondrop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrop() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondrop() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrop")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1178,7 +1199,7 @@ func (_this *HTMLElement) Ondrop() domcore.EventHandler {
 
 // SetOndrop setting attribute 'ondrop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrop(value *js.Func) {
+func (_this *HTMLElement) SetOndrop(value *domcore.EventHandler) {
 	var __callback30 js.Value
 	if value != nil {
 		__callback30 = (*value).Value
@@ -1191,8 +1212,8 @@ func (_this *HTMLElement) SetOndrop(value *js.Func) {
 
 // Ondurationchange returning attribute 'ondurationchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondurationchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ondurationchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondurationchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1202,7 +1223,7 @@ func (_this *HTMLElement) Ondurationchange() domcore.EventHandler {
 
 // SetOndurationchange setting attribute 'ondurationchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndurationchange(value *js.Func) {
+func (_this *HTMLElement) SetOndurationchange(value *domcore.EventHandler) {
 	var __callback31 js.Value
 	if value != nil {
 		__callback31 = (*value).Value
@@ -1215,8 +1236,8 @@ func (_this *HTMLElement) SetOndurationchange(value *js.Func) {
 
 // Onemptied returning attribute 'onemptied' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onemptied() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onemptied() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onemptied")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1226,7 +1247,7 @@ func (_this *HTMLElement) Onemptied() domcore.EventHandler {
 
 // SetOnemptied setting attribute 'onemptied' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnemptied(value *js.Func) {
+func (_this *HTMLElement) SetOnemptied(value *domcore.EventHandler) {
 	var __callback32 js.Value
 	if value != nil {
 		__callback32 = (*value).Value
@@ -1239,8 +1260,8 @@ func (_this *HTMLElement) SetOnemptied(value *js.Func) {
 
 // Onended returning attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onended() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onended() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1250,7 +1271,7 @@ func (_this *HTMLElement) Onended() domcore.EventHandler {
 
 // SetOnended setting attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnended(value *js.Func) {
+func (_this *HTMLElement) SetOnended(value *domcore.EventHandler) {
 	var __callback33 js.Value
 	if value != nil {
 		__callback33 = (*value).Value
@@ -1263,8 +1284,8 @@ func (_this *HTMLElement) SetOnended(value *js.Func) {
 
 // Onerror returning attribute 'onerror' with
 // type OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) Onerror() OnErrorEventHandler {
-	var ret OnErrorEventHandler
+func (_this *HTMLElement) Onerror() OnErrorEventHandlerFunc {
+	var ret OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = OnErrorEventHandlerFromJS(value)
@@ -1274,7 +1295,7 @@ func (_this *HTMLElement) Onerror() OnErrorEventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) SetOnerror(value *js.Func) {
+func (_this *HTMLElement) SetOnerror(value *OnErrorEventHandler) {
 	var __callback34 js.Value
 	if value != nil {
 		__callback34 = (*value).Value
@@ -1287,8 +1308,8 @@ func (_this *HTMLElement) SetOnerror(value *js.Func) {
 
 // Onfocus returning attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onfocus() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onfocus() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1298,7 +1319,7 @@ func (_this *HTMLElement) Onfocus() domcore.EventHandler {
 
 // SetOnfocus setting attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnfocus(value *js.Func) {
+func (_this *HTMLElement) SetOnfocus(value *domcore.EventHandler) {
 	var __callback35 js.Value
 	if value != nil {
 		__callback35 = (*value).Value
@@ -1311,8 +1332,8 @@ func (_this *HTMLElement) SetOnfocus(value *js.Func) {
 
 // Onformdata returning attribute 'onformdata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onformdata() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onformdata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onformdata")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1322,7 +1343,7 @@ func (_this *HTMLElement) Onformdata() domcore.EventHandler {
 
 // SetOnformdata setting attribute 'onformdata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnformdata(value *js.Func) {
+func (_this *HTMLElement) SetOnformdata(value *domcore.EventHandler) {
 	var __callback36 js.Value
 	if value != nil {
 		__callback36 = (*value).Value
@@ -1335,8 +1356,8 @@ func (_this *HTMLElement) SetOnformdata(value *js.Func) {
 
 // Oninput returning attribute 'oninput' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninput() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oninput() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninput")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1346,7 +1367,7 @@ func (_this *HTMLElement) Oninput() domcore.EventHandler {
 
 // SetOninput setting attribute 'oninput' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninput(value *js.Func) {
+func (_this *HTMLElement) SetOninput(value *domcore.EventHandler) {
 	var __callback37 js.Value
 	if value != nil {
 		__callback37 = (*value).Value
@@ -1359,8 +1380,8 @@ func (_this *HTMLElement) SetOninput(value *js.Func) {
 
 // Oninvalid returning attribute 'oninvalid' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninvalid() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oninvalid() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninvalid")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1370,7 +1391,7 @@ func (_this *HTMLElement) Oninvalid() domcore.EventHandler {
 
 // SetOninvalid setting attribute 'oninvalid' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninvalid(value *js.Func) {
+func (_this *HTMLElement) SetOninvalid(value *domcore.EventHandler) {
 	var __callback38 js.Value
 	if value != nil {
 		__callback38 = (*value).Value
@@ -1383,8 +1404,8 @@ func (_this *HTMLElement) SetOninvalid(value *js.Func) {
 
 // Onkeydown returning attribute 'onkeydown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeydown() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onkeydown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeydown")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1394,7 +1415,7 @@ func (_this *HTMLElement) Onkeydown() domcore.EventHandler {
 
 // SetOnkeydown setting attribute 'onkeydown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeydown(value *js.Func) {
+func (_this *HTMLElement) SetOnkeydown(value *domcore.EventHandler) {
 	var __callback39 js.Value
 	if value != nil {
 		__callback39 = (*value).Value
@@ -1407,8 +1428,8 @@ func (_this *HTMLElement) SetOnkeydown(value *js.Func) {
 
 // Onkeypress returning attribute 'onkeypress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeypress() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onkeypress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeypress")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1418,7 +1439,7 @@ func (_this *HTMLElement) Onkeypress() domcore.EventHandler {
 
 // SetOnkeypress setting attribute 'onkeypress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeypress(value *js.Func) {
+func (_this *HTMLElement) SetOnkeypress(value *domcore.EventHandler) {
 	var __callback40 js.Value
 	if value != nil {
 		__callback40 = (*value).Value
@@ -1431,8 +1452,8 @@ func (_this *HTMLElement) SetOnkeypress(value *js.Func) {
 
 // Onkeyup returning attribute 'onkeyup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeyup() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onkeyup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeyup")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1442,7 +1463,7 @@ func (_this *HTMLElement) Onkeyup() domcore.EventHandler {
 
 // SetOnkeyup setting attribute 'onkeyup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeyup(value *js.Func) {
+func (_this *HTMLElement) SetOnkeyup(value *domcore.EventHandler) {
 	var __callback41 js.Value
 	if value != nil {
 		__callback41 = (*value).Value
@@ -1455,8 +1476,8 @@ func (_this *HTMLElement) SetOnkeyup(value *js.Func) {
 
 // Onload returning attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onload() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1466,7 +1487,7 @@ func (_this *HTMLElement) Onload() domcore.EventHandler {
 
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnload(value *js.Func) {
+func (_this *HTMLElement) SetOnload(value *domcore.EventHandler) {
 	var __callback42 js.Value
 	if value != nil {
 		__callback42 = (*value).Value
@@ -1479,8 +1500,8 @@ func (_this *HTMLElement) SetOnload(value *js.Func) {
 
 // Onloadeddata returning attribute 'onloadeddata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadeddata() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onloadeddata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadeddata")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1490,7 +1511,7 @@ func (_this *HTMLElement) Onloadeddata() domcore.EventHandler {
 
 // SetOnloadeddata setting attribute 'onloadeddata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadeddata(value *js.Func) {
+func (_this *HTMLElement) SetOnloadeddata(value *domcore.EventHandler) {
 	var __callback43 js.Value
 	if value != nil {
 		__callback43 = (*value).Value
@@ -1503,8 +1524,8 @@ func (_this *HTMLElement) SetOnloadeddata(value *js.Func) {
 
 // Onloadedmetadata returning attribute 'onloadedmetadata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadedmetadata")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1514,7 +1535,7 @@ func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandler {
 
 // SetOnloadedmetadata setting attribute 'onloadedmetadata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadedmetadata(value *js.Func) {
+func (_this *HTMLElement) SetOnloadedmetadata(value *domcore.EventHandler) {
 	var __callback44 js.Value
 	if value != nil {
 		__callback44 = (*value).Value
@@ -1527,8 +1548,8 @@ func (_this *HTMLElement) SetOnloadedmetadata(value *js.Func) {
 
 // Onloadend returning attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadend() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onloadend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1538,7 +1559,7 @@ func (_this *HTMLElement) Onloadend() domcore.EventHandler {
 
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadend(value *js.Func) {
+func (_this *HTMLElement) SetOnloadend(value *domcore.EventHandler) {
 	var __callback45 js.Value
 	if value != nil {
 		__callback45 = (*value).Value
@@ -1551,8 +1572,8 @@ func (_this *HTMLElement) SetOnloadend(value *js.Func) {
 
 // Onloadstart returning attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadstart() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onloadstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1562,7 +1583,7 @@ func (_this *HTMLElement) Onloadstart() domcore.EventHandler {
 
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadstart(value *js.Func) {
+func (_this *HTMLElement) SetOnloadstart(value *domcore.EventHandler) {
 	var __callback46 js.Value
 	if value != nil {
 		__callback46 = (*value).Value
@@ -1575,8 +1596,8 @@ func (_this *HTMLElement) SetOnloadstart(value *js.Func) {
 
 // Onmousedown returning attribute 'onmousedown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousedown() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmousedown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousedown")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1586,7 +1607,7 @@ func (_this *HTMLElement) Onmousedown() domcore.EventHandler {
 
 // SetOnmousedown setting attribute 'onmousedown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousedown(value *js.Func) {
+func (_this *HTMLElement) SetOnmousedown(value *domcore.EventHandler) {
 	var __callback47 js.Value
 	if value != nil {
 		__callback47 = (*value).Value
@@ -1599,8 +1620,8 @@ func (_this *HTMLElement) SetOnmousedown(value *js.Func) {
 
 // Onmouseenter returning attribute 'onmouseenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseenter() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmouseenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseenter")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1610,7 +1631,7 @@ func (_this *HTMLElement) Onmouseenter() domcore.EventHandler {
 
 // SetOnmouseenter setting attribute 'onmouseenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseenter(value *js.Func) {
+func (_this *HTMLElement) SetOnmouseenter(value *domcore.EventHandler) {
 	var __callback48 js.Value
 	if value != nil {
 		__callback48 = (*value).Value
@@ -1623,8 +1644,8 @@ func (_this *HTMLElement) SetOnmouseenter(value *js.Func) {
 
 // Onmouseleave returning attribute 'onmouseleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseleave() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmouseleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseleave")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1634,7 +1655,7 @@ func (_this *HTMLElement) Onmouseleave() domcore.EventHandler {
 
 // SetOnmouseleave setting attribute 'onmouseleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseleave(value *js.Func) {
+func (_this *HTMLElement) SetOnmouseleave(value *domcore.EventHandler) {
 	var __callback49 js.Value
 	if value != nil {
 		__callback49 = (*value).Value
@@ -1647,8 +1668,8 @@ func (_this *HTMLElement) SetOnmouseleave(value *js.Func) {
 
 // Onmousemove returning attribute 'onmousemove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousemove() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmousemove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousemove")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1658,7 +1679,7 @@ func (_this *HTMLElement) Onmousemove() domcore.EventHandler {
 
 // SetOnmousemove setting attribute 'onmousemove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousemove(value *js.Func) {
+func (_this *HTMLElement) SetOnmousemove(value *domcore.EventHandler) {
 	var __callback50 js.Value
 	if value != nil {
 		__callback50 = (*value).Value
@@ -1671,8 +1692,8 @@ func (_this *HTMLElement) SetOnmousemove(value *js.Func) {
 
 // Onmouseout returning attribute 'onmouseout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseout() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmouseout() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseout")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1682,7 +1703,7 @@ func (_this *HTMLElement) Onmouseout() domcore.EventHandler {
 
 // SetOnmouseout setting attribute 'onmouseout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseout(value *js.Func) {
+func (_this *HTMLElement) SetOnmouseout(value *domcore.EventHandler) {
 	var __callback51 js.Value
 	if value != nil {
 		__callback51 = (*value).Value
@@ -1695,8 +1716,8 @@ func (_this *HTMLElement) SetOnmouseout(value *js.Func) {
 
 // Onmouseover returning attribute 'onmouseover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseover() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmouseover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseover")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1706,7 +1727,7 @@ func (_this *HTMLElement) Onmouseover() domcore.EventHandler {
 
 // SetOnmouseover setting attribute 'onmouseover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseover(value *js.Func) {
+func (_this *HTMLElement) SetOnmouseover(value *domcore.EventHandler) {
 	var __callback52 js.Value
 	if value != nil {
 		__callback52 = (*value).Value
@@ -1719,8 +1740,8 @@ func (_this *HTMLElement) SetOnmouseover(value *js.Func) {
 
 // Onmouseup returning attribute 'onmouseup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseup() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onmouseup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseup")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1730,7 +1751,7 @@ func (_this *HTMLElement) Onmouseup() domcore.EventHandler {
 
 // SetOnmouseup setting attribute 'onmouseup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseup(value *js.Func) {
+func (_this *HTMLElement) SetOnmouseup(value *domcore.EventHandler) {
 	var __callback53 js.Value
 	if value != nil {
 		__callback53 = (*value).Value
@@ -1743,8 +1764,8 @@ func (_this *HTMLElement) SetOnmouseup(value *js.Func) {
 
 // Onwheel returning attribute 'onwheel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwheel() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onwheel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwheel")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1754,7 +1775,7 @@ func (_this *HTMLElement) Onwheel() domcore.EventHandler {
 
 // SetOnwheel setting attribute 'onwheel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwheel(value *js.Func) {
+func (_this *HTMLElement) SetOnwheel(value *domcore.EventHandler) {
 	var __callback54 js.Value
 	if value != nil {
 		__callback54 = (*value).Value
@@ -1767,8 +1788,8 @@ func (_this *HTMLElement) SetOnwheel(value *js.Func) {
 
 // Onpause returning attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpause() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onpause() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1778,7 +1799,7 @@ func (_this *HTMLElement) Onpause() domcore.EventHandler {
 
 // SetOnpause setting attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpause(value *js.Func) {
+func (_this *HTMLElement) SetOnpause(value *domcore.EventHandler) {
 	var __callback55 js.Value
 	if value != nil {
 		__callback55 = (*value).Value
@@ -1791,8 +1812,8 @@ func (_this *HTMLElement) SetOnpause(value *js.Func) {
 
 // Onplay returning attribute 'onplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplay() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onplay() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplay")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1802,7 +1823,7 @@ func (_this *HTMLElement) Onplay() domcore.EventHandler {
 
 // SetOnplay setting attribute 'onplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplay(value *js.Func) {
+func (_this *HTMLElement) SetOnplay(value *domcore.EventHandler) {
 	var __callback56 js.Value
 	if value != nil {
 		__callback56 = (*value).Value
@@ -1815,8 +1836,8 @@ func (_this *HTMLElement) SetOnplay(value *js.Func) {
 
 // Onplaying returning attribute 'onplaying' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplaying() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onplaying() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplaying")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1826,7 +1847,7 @@ func (_this *HTMLElement) Onplaying() domcore.EventHandler {
 
 // SetOnplaying setting attribute 'onplaying' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplaying(value *js.Func) {
+func (_this *HTMLElement) SetOnplaying(value *domcore.EventHandler) {
 	var __callback57 js.Value
 	if value != nil {
 		__callback57 = (*value).Value
@@ -1839,8 +1860,8 @@ func (_this *HTMLElement) SetOnplaying(value *js.Func) {
 
 // Onprogress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onprogress() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onprogress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1850,7 +1871,7 @@ func (_this *HTMLElement) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnprogress(value *js.Func) {
+func (_this *HTMLElement) SetOnprogress(value *domcore.EventHandler) {
 	var __callback58 js.Value
 	if value != nil {
 		__callback58 = (*value).Value
@@ -1863,8 +1884,8 @@ func (_this *HTMLElement) SetOnprogress(value *js.Func) {
 
 // Onratechange returning attribute 'onratechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onratechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onratechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onratechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1874,7 +1895,7 @@ func (_this *HTMLElement) Onratechange() domcore.EventHandler {
 
 // SetOnratechange setting attribute 'onratechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnratechange(value *js.Func) {
+func (_this *HTMLElement) SetOnratechange(value *domcore.EventHandler) {
 	var __callback59 js.Value
 	if value != nil {
 		__callback59 = (*value).Value
@@ -1887,8 +1908,8 @@ func (_this *HTMLElement) SetOnratechange(value *js.Func) {
 
 // Onreset returning attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onreset() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onreset() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1898,7 +1919,7 @@ func (_this *HTMLElement) Onreset() domcore.EventHandler {
 
 // SetOnreset setting attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnreset(value *js.Func) {
+func (_this *HTMLElement) SetOnreset(value *domcore.EventHandler) {
 	var __callback60 js.Value
 	if value != nil {
 		__callback60 = (*value).Value
@@ -1911,8 +1932,8 @@ func (_this *HTMLElement) SetOnreset(value *js.Func) {
 
 // Onresize returning attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onresize() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onresize() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1922,7 +1943,7 @@ func (_this *HTMLElement) Onresize() domcore.EventHandler {
 
 // SetOnresize setting attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnresize(value *js.Func) {
+func (_this *HTMLElement) SetOnresize(value *domcore.EventHandler) {
 	var __callback61 js.Value
 	if value != nil {
 		__callback61 = (*value).Value
@@ -1935,8 +1956,8 @@ func (_this *HTMLElement) SetOnresize(value *js.Func) {
 
 // Onscroll returning attribute 'onscroll' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onscroll() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onscroll() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onscroll")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1946,7 +1967,7 @@ func (_this *HTMLElement) Onscroll() domcore.EventHandler {
 
 // SetOnscroll setting attribute 'onscroll' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnscroll(value *js.Func) {
+func (_this *HTMLElement) SetOnscroll(value *domcore.EventHandler) {
 	var __callback62 js.Value
 	if value != nil {
 		__callback62 = (*value).Value
@@ -1959,8 +1980,8 @@ func (_this *HTMLElement) SetOnscroll(value *js.Func) {
 
 // Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1970,7 +1991,7 @@ func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandler {
 
 // SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Func) {
+func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *domcore.EventHandler) {
 	var __callback63 js.Value
 	if value != nil {
 		__callback63 = (*value).Value
@@ -1983,8 +2004,8 @@ func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *js.Func) {
 
 // Onseeked returning attribute 'onseeked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeked() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onseeked() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeked")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1994,7 +2015,7 @@ func (_this *HTMLElement) Onseeked() domcore.EventHandler {
 
 // SetOnseeked setting attribute 'onseeked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeked(value *js.Func) {
+func (_this *HTMLElement) SetOnseeked(value *domcore.EventHandler) {
 	var __callback64 js.Value
 	if value != nil {
 		__callback64 = (*value).Value
@@ -2007,8 +2028,8 @@ func (_this *HTMLElement) SetOnseeked(value *js.Func) {
 
 // Onseeking returning attribute 'onseeking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeking() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onseeking() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeking")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2018,7 +2039,7 @@ func (_this *HTMLElement) Onseeking() domcore.EventHandler {
 
 // SetOnseeking setting attribute 'onseeking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeking(value *js.Func) {
+func (_this *HTMLElement) SetOnseeking(value *domcore.EventHandler) {
 	var __callback65 js.Value
 	if value != nil {
 		__callback65 = (*value).Value
@@ -2031,8 +2052,8 @@ func (_this *HTMLElement) SetOnseeking(value *js.Func) {
 
 // Onselect returning attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onselect() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onselect() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2042,7 +2063,7 @@ func (_this *HTMLElement) Onselect() domcore.EventHandler {
 
 // SetOnselect setting attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnselect(value *js.Func) {
+func (_this *HTMLElement) SetOnselect(value *domcore.EventHandler) {
 	var __callback66 js.Value
 	if value != nil {
 		__callback66 = (*value).Value
@@ -2055,8 +2076,8 @@ func (_this *HTMLElement) SetOnselect(value *js.Func) {
 
 // Onstalled returning attribute 'onstalled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onstalled() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onstalled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstalled")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2066,7 +2087,7 @@ func (_this *HTMLElement) Onstalled() domcore.EventHandler {
 
 // SetOnstalled setting attribute 'onstalled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnstalled(value *js.Func) {
+func (_this *HTMLElement) SetOnstalled(value *domcore.EventHandler) {
 	var __callback67 js.Value
 	if value != nil {
 		__callback67 = (*value).Value
@@ -2079,8 +2100,8 @@ func (_this *HTMLElement) SetOnstalled(value *js.Func) {
 
 // Onsubmit returning attribute 'onsubmit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsubmit() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onsubmit() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsubmit")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2090,7 +2111,7 @@ func (_this *HTMLElement) Onsubmit() domcore.EventHandler {
 
 // SetOnsubmit setting attribute 'onsubmit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsubmit(value *js.Func) {
+func (_this *HTMLElement) SetOnsubmit(value *domcore.EventHandler) {
 	var __callback68 js.Value
 	if value != nil {
 		__callback68 = (*value).Value
@@ -2103,8 +2124,8 @@ func (_this *HTMLElement) SetOnsubmit(value *js.Func) {
 
 // Onsuspend returning attribute 'onsuspend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsuspend() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onsuspend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuspend")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2114,7 +2135,7 @@ func (_this *HTMLElement) Onsuspend() domcore.EventHandler {
 
 // SetOnsuspend setting attribute 'onsuspend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsuspend(value *js.Func) {
+func (_this *HTMLElement) SetOnsuspend(value *domcore.EventHandler) {
 	var __callback69 js.Value
 	if value != nil {
 		__callback69 = (*value).Value
@@ -2127,8 +2148,8 @@ func (_this *HTMLElement) SetOnsuspend(value *js.Func) {
 
 // Ontimeupdate returning attribute 'ontimeupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontimeupdate() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ontimeupdate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeupdate")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2138,7 +2159,7 @@ func (_this *HTMLElement) Ontimeupdate() domcore.EventHandler {
 
 // SetOntimeupdate setting attribute 'ontimeupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntimeupdate(value *js.Func) {
+func (_this *HTMLElement) SetOntimeupdate(value *domcore.EventHandler) {
 	var __callback70 js.Value
 	if value != nil {
 		__callback70 = (*value).Value
@@ -2151,8 +2172,8 @@ func (_this *HTMLElement) SetOntimeupdate(value *js.Func) {
 
 // Ontoggle returning attribute 'ontoggle' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontoggle() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Ontoggle() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontoggle")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2162,7 +2183,7 @@ func (_this *HTMLElement) Ontoggle() domcore.EventHandler {
 
 // SetOntoggle setting attribute 'ontoggle' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntoggle(value *js.Func) {
+func (_this *HTMLElement) SetOntoggle(value *domcore.EventHandler) {
 	var __callback71 js.Value
 	if value != nil {
 		__callback71 = (*value).Value
@@ -2175,8 +2196,8 @@ func (_this *HTMLElement) SetOntoggle(value *js.Func) {
 
 // Onvolumechange returning attribute 'onvolumechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onvolumechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onvolumechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvolumechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2186,7 +2207,7 @@ func (_this *HTMLElement) Onvolumechange() domcore.EventHandler {
 
 // SetOnvolumechange setting attribute 'onvolumechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnvolumechange(value *js.Func) {
+func (_this *HTMLElement) SetOnvolumechange(value *domcore.EventHandler) {
 	var __callback72 js.Value
 	if value != nil {
 		__callback72 = (*value).Value
@@ -2199,8 +2220,8 @@ func (_this *HTMLElement) SetOnvolumechange(value *js.Func) {
 
 // Onwaiting returning attribute 'onwaiting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwaiting() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onwaiting() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaiting")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2210,7 +2231,7 @@ func (_this *HTMLElement) Onwaiting() domcore.EventHandler {
 
 // SetOnwaiting setting attribute 'onwaiting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwaiting(value *js.Func) {
+func (_this *HTMLElement) SetOnwaiting(value *domcore.EventHandler) {
 	var __callback73 js.Value
 	if value != nil {
 		__callback73 = (*value).Value
@@ -2223,8 +2244,8 @@ func (_this *HTMLElement) SetOnwaiting(value *js.Func) {
 
 // Oncopy returning attribute 'oncopy' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncopy() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncopy")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2234,7 +2255,7 @@ func (_this *HTMLElement) Oncopy() domcore.EventHandler {
 
 // SetOncopy setting attribute 'oncopy' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncopy(value *js.Func) {
+func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
 	var __callback74 js.Value
 	if value != nil {
 		__callback74 = (*value).Value
@@ -2247,8 +2268,8 @@ func (_this *HTMLElement) SetOncopy(value *js.Func) {
 
 // Oncut returning attribute 'oncut' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncut() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncut")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2258,7 +2279,7 @@ func (_this *HTMLElement) Oncut() domcore.EventHandler {
 
 // SetOncut setting attribute 'oncut' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncut(value *js.Func) {
+func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
 	var __callback75 js.Value
 	if value != nil {
 		__callback75 = (*value).Value
@@ -2271,8 +2292,8 @@ func (_this *HTMLElement) SetOncut(value *js.Func) {
 
 // Onpaste returning attribute 'onpaste' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpaste() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaste")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -2282,7 +2303,7 @@ func (_this *HTMLElement) Onpaste() domcore.EventHandler {
 
 // SetOnpaste setting attribute 'onpaste' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpaste(value *js.Func) {
+func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
 	var __callback76 js.Value
 	if value != nil {
 		__callback76 = (*value).Value
@@ -2428,8 +2449,9 @@ type HTMLUnknownElement struct {
 	HTMLElement
 }
 
-// HTMLUnknownElementFromJS is casting a js.Value into HTMLUnknownElement.
-func HTMLUnknownElementFromJS(input js.Value) *HTMLUnknownElement {
+// HTMLUnknownElementFromJS is casting a js.Wrapper into HTMLUnknownElement.
+func HTMLUnknownElementFromJS(value js.Wrapper) *HTMLUnknownElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2443,8 +2465,9 @@ type HTMLHtmlElement struct {
 	HTMLElement
 }
 
-// HTMLHtmlElementFromJS is casting a js.Value into HTMLHtmlElement.
-func HTMLHtmlElementFromJS(input js.Value) *HTMLHtmlElement {
+// HTMLHtmlElementFromJS is casting a js.Wrapper into HTMLHtmlElement.
+func HTMLHtmlElementFromJS(value js.Wrapper) *HTMLHtmlElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2474,8 +2497,9 @@ type HTMLHeadElement struct {
 	HTMLElement
 }
 
-// HTMLHeadElementFromJS is casting a js.Value into HTMLHeadElement.
-func HTMLHeadElementFromJS(input js.Value) *HTMLHeadElement {
+// HTMLHeadElementFromJS is casting a js.Wrapper into HTMLHeadElement.
+func HTMLHeadElementFromJS(value js.Wrapper) *HTMLHeadElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2489,8 +2513,9 @@ type HTMLTitleElement struct {
 	HTMLElement
 }
 
-// HTMLTitleElementFromJS is casting a js.Value into HTMLTitleElement.
-func HTMLTitleElementFromJS(input js.Value) *HTMLTitleElement {
+// HTMLTitleElementFromJS is casting a js.Wrapper into HTMLTitleElement.
+func HTMLTitleElementFromJS(value js.Wrapper) *HTMLTitleElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2520,8 +2545,9 @@ type HTMLBaseElement struct {
 	HTMLElement
 }
 
-// HTMLBaseElementFromJS is casting a js.Value into HTMLBaseElement.
-func HTMLBaseElementFromJS(input js.Value) *HTMLBaseElement {
+// HTMLBaseElementFromJS is casting a js.Wrapper into HTMLBaseElement.
+func HTMLBaseElementFromJS(value js.Wrapper) *HTMLBaseElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2567,8 +2593,9 @@ type HTMLLinkElement struct {
 	HTMLElement
 }
 
-// HTMLLinkElementFromJS is casting a js.Value into HTMLLinkElement.
-func HTMLLinkElementFromJS(input js.Value) *HTMLLinkElement {
+// HTMLLinkElementFromJS is casting a js.Wrapper into HTMLLinkElement.
+func HTMLLinkElementFromJS(value js.Wrapper) *HTMLLinkElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2795,8 +2822,9 @@ type HTMLMetaElement struct {
 	HTMLElement
 }
 
-// HTMLMetaElementFromJS is casting a js.Value into HTMLMetaElement.
-func HTMLMetaElementFromJS(input js.Value) *HTMLMetaElement {
+// HTMLMetaElementFromJS is casting a js.Wrapper into HTMLMetaElement.
+func HTMLMetaElementFromJS(value js.Wrapper) *HTMLMetaElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2874,8 +2902,9 @@ type HTMLStyleElement struct {
 	HTMLElement
 }
 
-// HTMLStyleElementFromJS is casting a js.Value into HTMLStyleElement.
-func HTMLStyleElementFromJS(input js.Value) *HTMLStyleElement {
+// HTMLStyleElementFromJS is casting a js.Wrapper into HTMLStyleElement.
+func HTMLStyleElementFromJS(value js.Wrapper) *HTMLStyleElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2921,8 +2950,9 @@ type HTMLBodyElement struct {
 	HTMLElement
 }
 
-// HTMLBodyElementFromJS is casting a js.Value into HTMLBodyElement.
-func HTMLBodyElementFromJS(input js.Value) *HTMLBodyElement {
+// HTMLBodyElementFromJS is casting a js.Wrapper into HTMLBodyElement.
+func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3029,8 +3059,8 @@ func (_this *HTMLBodyElement) SetBackground(value string) {
 
 // Onafterprint returning attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3040,7 +3070,7 @@ func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandler {
 
 // SetOnafterprint setting attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnafterprint(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnafterprint(value *domcore.EventHandler) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -3053,8 +3083,8 @@ func (_this *HTMLBodyElement) SetOnafterprint(value *js.Func) {
 
 // Onbeforeprint returning attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3064,7 +3094,7 @@ func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandler {
 
 // SetOnbeforeprint setting attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnbeforeprint(value *domcore.EventHandler) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -3077,8 +3107,8 @@ func (_this *HTMLBodyElement) SetOnbeforeprint(value *js.Func) {
 
 // Onbeforeunload returning attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandler {
-	var ret OnBeforeUnloadEventHandler
+func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandlerFunc {
+	var ret OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull {
 		ret = OnBeforeUnloadEventHandlerFromJS(value)
@@ -3088,7 +3118,7 @@ func (_this *HTMLBodyElement) Onbeforeunload() OnBeforeUnloadEventHandler {
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnbeforeunload(value *OnBeforeUnloadEventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -3101,8 +3131,8 @@ func (_this *HTMLBodyElement) SetOnbeforeunload(value *js.Func) {
 
 // Onhashchange returning attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3112,7 +3142,7 @@ func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandler {
 
 // SetOnhashchange setting attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnhashchange(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnhashchange(value *domcore.EventHandler) {
 	var __callback9 js.Value
 	if value != nil {
 		__callback9 = (*value).Value
@@ -3125,8 +3155,8 @@ func (_this *HTMLBodyElement) SetOnhashchange(value *js.Func) {
 
 // Onlanguagechange returning attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3136,7 +3166,7 @@ func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandler {
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnlanguagechange(value *domcore.EventHandler) {
 	var __callback10 js.Value
 	if value != nil {
 		__callback10 = (*value).Value
@@ -3149,8 +3179,8 @@ func (_this *HTMLBodyElement) SetOnlanguagechange(value *js.Func) {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3160,7 +3190,7 @@ func (_this *HTMLBodyElement) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessage(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnmessage(value *domcore.EventHandler) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -3173,8 +3203,8 @@ func (_this *HTMLBodyElement) SetOnmessage(value *js.Func) {
 
 // Onmessageerror returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3184,7 +3214,7 @@ func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnmessageerror(value *domcore.EventHandler) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -3197,8 +3227,8 @@ func (_this *HTMLBodyElement) SetOnmessageerror(value *js.Func) {
 
 // Onoffline returning attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onoffline() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onoffline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3208,7 +3238,7 @@ func (_this *HTMLBodyElement) Onoffline() domcore.EventHandler {
 
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnoffline(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnoffline(value *domcore.EventHandler) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -3221,8 +3251,8 @@ func (_this *HTMLBodyElement) SetOnoffline(value *js.Func) {
 
 // Ononline returning attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Ononline() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Ononline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3232,7 +3262,7 @@ func (_this *HTMLBodyElement) Ononline() domcore.EventHandler {
 
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnonline(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnonline(value *domcore.EventHandler) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -3245,8 +3275,8 @@ func (_this *HTMLBodyElement) SetOnonline(value *js.Func) {
 
 // Onpagehide returning attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3256,7 +3286,7 @@ func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandler {
 
 // SetOnpagehide setting attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpagehide(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnpagehide(value *domcore.EventHandler) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -3269,8 +3299,8 @@ func (_this *HTMLBodyElement) SetOnpagehide(value *js.Func) {
 
 // Onpageshow returning attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3280,7 +3310,7 @@ func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandler {
 
 // SetOnpageshow setting attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpageshow(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnpageshow(value *domcore.EventHandler) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -3293,8 +3323,8 @@ func (_this *HTMLBodyElement) SetOnpageshow(value *js.Func) {
 
 // Onpopstate returning attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3304,7 +3334,7 @@ func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandler {
 
 // SetOnpopstate setting attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpopstate(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnpopstate(value *domcore.EventHandler) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value
@@ -3317,8 +3347,8 @@ func (_this *HTMLBodyElement) SetOnpopstate(value *js.Func) {
 
 // Onrejectionhandled returning attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3328,7 +3358,7 @@ func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandler {
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnrejectionhandled(value *domcore.EventHandler) {
 	var __callback18 js.Value
 	if value != nil {
 		__callback18 = (*value).Value
@@ -3341,8 +3371,8 @@ func (_this *HTMLBodyElement) SetOnrejectionhandled(value *js.Func) {
 
 // Onstorage returning attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onstorage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onstorage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3352,7 +3382,7 @@ func (_this *HTMLBodyElement) Onstorage() domcore.EventHandler {
 
 // SetOnstorage setting attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnstorage(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnstorage(value *domcore.EventHandler) {
 	var __callback19 js.Value
 	if value != nil {
 		__callback19 = (*value).Value
@@ -3365,8 +3395,8 @@ func (_this *HTMLBodyElement) SetOnstorage(value *js.Func) {
 
 // Onunhandledrejection returning attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3376,7 +3406,7 @@ func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandler {
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnunhandledrejection(value *domcore.EventHandler) {
 	var __callback20 js.Value
 	if value != nil {
 		__callback20 = (*value).Value
@@ -3389,8 +3419,8 @@ func (_this *HTMLBodyElement) SetOnunhandledrejection(value *js.Func) {
 
 // Onunload returning attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunload() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLBodyElement) Onunload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -3400,7 +3430,7 @@ func (_this *HTMLBodyElement) Onunload() domcore.EventHandler {
 
 // SetOnunload setting attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunload(value *js.Func) {
+func (_this *HTMLBodyElement) SetOnunload(value *domcore.EventHandler) {
 	var __callback21 js.Value
 	if value != nil {
 		__callback21 = (*value).Value
@@ -3416,8 +3446,9 @@ type HTMLHeadingElement struct {
 	HTMLElement
 }
 
-// HTMLHeadingElementFromJS is casting a js.Value into HTMLHeadingElement.
-func HTMLHeadingElementFromJS(input js.Value) *HTMLHeadingElement {
+// HTMLHeadingElementFromJS is casting a js.Wrapper into HTMLHeadingElement.
+func HTMLHeadingElementFromJS(value js.Wrapper) *HTMLHeadingElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3447,8 +3478,9 @@ type HTMLParagraphElement struct {
 	HTMLElement
 }
 
-// HTMLParagraphElementFromJS is casting a js.Value into HTMLParagraphElement.
-func HTMLParagraphElementFromJS(input js.Value) *HTMLParagraphElement {
+// HTMLParagraphElementFromJS is casting a js.Wrapper into HTMLParagraphElement.
+func HTMLParagraphElementFromJS(value js.Wrapper) *HTMLParagraphElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3478,8 +3510,9 @@ type HTMLHRElement struct {
 	HTMLElement
 }
 
-// HTMLHRElementFromJS is casting a js.Value into HTMLHRElement.
-func HTMLHRElementFromJS(input js.Value) *HTMLHRElement {
+// HTMLHRElementFromJS is casting a js.Wrapper into HTMLHRElement.
+func HTMLHRElementFromJS(value js.Wrapper) *HTMLHRElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3573,8 +3606,9 @@ type HTMLPreElement struct {
 	HTMLElement
 }
 
-// HTMLPreElementFromJS is casting a js.Value into HTMLPreElement.
-func HTMLPreElementFromJS(input js.Value) *HTMLPreElement {
+// HTMLPreElementFromJS is casting a js.Wrapper into HTMLPreElement.
+func HTMLPreElementFromJS(value js.Wrapper) *HTMLPreElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3604,8 +3638,9 @@ type HTMLQuoteElement struct {
 	HTMLElement
 }
 
-// HTMLQuoteElementFromJS is casting a js.Value into HTMLQuoteElement.
-func HTMLQuoteElementFromJS(input js.Value) *HTMLQuoteElement {
+// HTMLQuoteElementFromJS is casting a js.Wrapper into HTMLQuoteElement.
+func HTMLQuoteElementFromJS(value js.Wrapper) *HTMLQuoteElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3635,8 +3670,9 @@ type HTMLOListElement struct {
 	HTMLElement
 }
 
-// HTMLOListElementFromJS is casting a js.Value into HTMLOListElement.
-func HTMLOListElementFromJS(input js.Value) *HTMLOListElement {
+// HTMLOListElementFromJS is casting a js.Wrapper into HTMLOListElement.
+func HTMLOListElementFromJS(value js.Wrapper) *HTMLOListElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3714,8 +3750,9 @@ type HTMLUListElement struct {
 	HTMLElement
 }
 
-// HTMLUListElementFromJS is casting a js.Value into HTMLUListElement.
-func HTMLUListElementFromJS(input js.Value) *HTMLUListElement {
+// HTMLUListElementFromJS is casting a js.Wrapper into HTMLUListElement.
+func HTMLUListElementFromJS(value js.Wrapper) *HTMLUListElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3761,8 +3798,9 @@ type HTMLMenuElement struct {
 	HTMLElement
 }
 
-// HTMLMenuElementFromJS is casting a js.Value into HTMLMenuElement.
-func HTMLMenuElementFromJS(input js.Value) *HTMLMenuElement {
+// HTMLMenuElementFromJS is casting a js.Wrapper into HTMLMenuElement.
+func HTMLMenuElementFromJS(value js.Wrapper) *HTMLMenuElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3792,8 +3830,9 @@ type HTMLLIElement struct {
 	HTMLElement
 }
 
-// HTMLLIElementFromJS is casting a js.Value into HTMLLIElement.
-func HTMLLIElementFromJS(input js.Value) *HTMLLIElement {
+// HTMLLIElementFromJS is casting a js.Wrapper into HTMLLIElement.
+func HTMLLIElementFromJS(value js.Wrapper) *HTMLLIElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3839,8 +3878,9 @@ type HTMLDListElement struct {
 	HTMLElement
 }
 
-// HTMLDListElementFromJS is casting a js.Value into HTMLDListElement.
-func HTMLDListElementFromJS(input js.Value) *HTMLDListElement {
+// HTMLDListElementFromJS is casting a js.Wrapper into HTMLDListElement.
+func HTMLDListElementFromJS(value js.Wrapper) *HTMLDListElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3870,8 +3910,9 @@ type HTMLDivElement struct {
 	HTMLElement
 }
 
-// HTMLDivElementFromJS is casting a js.Value into HTMLDivElement.
-func HTMLDivElementFromJS(input js.Value) *HTMLDivElement {
+// HTMLDivElementFromJS is casting a js.Wrapper into HTMLDivElement.
+func HTMLDivElementFromJS(value js.Wrapper) *HTMLDivElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3901,8 +3942,9 @@ type HTMLAnchorElement struct {
 	HTMLElement
 }
 
-// HTMLAnchorElementFromJS is casting a js.Value into HTMLAnchorElement.
-func HTMLAnchorElementFromJS(input js.Value) *HTMLAnchorElement {
+// HTMLAnchorElementFromJS is casting a js.Wrapper into HTMLAnchorElement.
+func HTMLAnchorElementFromJS(value js.Wrapper) *HTMLAnchorElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4302,8 +4344,9 @@ type HTMLDataElement struct {
 	HTMLElement
 }
 
-// HTMLDataElementFromJS is casting a js.Value into HTMLDataElement.
-func HTMLDataElementFromJS(input js.Value) *HTMLDataElement {
+// HTMLDataElementFromJS is casting a js.Wrapper into HTMLDataElement.
+func HTMLDataElementFromJS(value js.Wrapper) *HTMLDataElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4333,8 +4376,9 @@ type HTMLTimeElement struct {
 	HTMLElement
 }
 
-// HTMLTimeElementFromJS is casting a js.Value into HTMLTimeElement.
-func HTMLTimeElementFromJS(input js.Value) *HTMLTimeElement {
+// HTMLTimeElementFromJS is casting a js.Wrapper into HTMLTimeElement.
+func HTMLTimeElementFromJS(value js.Wrapper) *HTMLTimeElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4364,8 +4408,9 @@ type HTMLSpanElement struct {
 	HTMLElement
 }
 
-// HTMLSpanElementFromJS is casting a js.Value into HTMLSpanElement.
-func HTMLSpanElementFromJS(input js.Value) *HTMLSpanElement {
+// HTMLSpanElementFromJS is casting a js.Wrapper into HTMLSpanElement.
+func HTMLSpanElementFromJS(value js.Wrapper) *HTMLSpanElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4379,8 +4424,9 @@ type HTMLBRElement struct {
 	HTMLElement
 }
 
-// HTMLBRElementFromJS is casting a js.Value into HTMLBRElement.
-func HTMLBRElementFromJS(input js.Value) *HTMLBRElement {
+// HTMLBRElementFromJS is casting a js.Wrapper into HTMLBRElement.
+func HTMLBRElementFromJS(value js.Wrapper) *HTMLBRElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4410,8 +4456,9 @@ type HTMLModElement struct {
 	HTMLElement
 }
 
-// HTMLModElementFromJS is casting a js.Value into HTMLModElement.
-func HTMLModElementFromJS(input js.Value) *HTMLModElement {
+// HTMLModElementFromJS is casting a js.Wrapper into HTMLModElement.
+func HTMLModElementFromJS(value js.Wrapper) *HTMLModElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4457,8 +4504,9 @@ type HTMLPictureElement struct {
 	HTMLElement
 }
 
-// HTMLPictureElementFromJS is casting a js.Value into HTMLPictureElement.
-func HTMLPictureElementFromJS(input js.Value) *HTMLPictureElement {
+// HTMLPictureElementFromJS is casting a js.Wrapper into HTMLPictureElement.
+func HTMLPictureElementFromJS(value js.Wrapper) *HTMLPictureElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4472,8 +4520,9 @@ type HTMLSourceElement struct {
 	HTMLElement
 }
 
-// HTMLSourceElementFromJS is casting a js.Value into HTMLSourceElement.
-func HTMLSourceElementFromJS(input js.Value) *HTMLSourceElement {
+// HTMLSourceElementFromJS is casting a js.Wrapper into HTMLSourceElement.
+func HTMLSourceElementFromJS(value js.Wrapper) *HTMLSourceElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4567,8 +4616,9 @@ type HTMLImageElement struct {
 	HTMLElement
 }
 
-// HTMLImageElementFromJS is casting a js.Value into HTMLImageElement.
-func HTMLImageElementFromJS(input js.Value) *HTMLImageElement {
+// HTMLImageElementFromJS is casting a js.Wrapper into HTMLImageElement.
+func HTMLImageElementFromJS(value js.Wrapper) *HTMLImageElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4923,8 +4973,9 @@ type HTMLParamElement struct {
 	HTMLElement
 }
 
-// HTMLParamElementFromJS is casting a js.Value into HTMLParamElement.
-func HTMLParamElementFromJS(input js.Value) *HTMLParamElement {
+// HTMLParamElementFromJS is casting a js.Wrapper into HTMLParamElement.
+func HTMLParamElementFromJS(value js.Wrapper) *HTMLParamElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5007,8 +5058,9 @@ func (_this *TimeRanges) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TimeRangesFromJS is casting a js.Value into TimeRanges.
-func TimeRangesFromJS(input js.Value) *TimeRanges {
+// TimeRangesFromJS is casting a js.Wrapper into TimeRanges.
+func TimeRangesFromJS(value js.Wrapper) *TimeRanges {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5065,8 +5117,9 @@ type HTMLMapElement struct {
 	HTMLElement
 }
 
-// HTMLMapElementFromJS is casting a js.Value into HTMLMapElement.
-func HTMLMapElementFromJS(input js.Value) *HTMLMapElement {
+// HTMLMapElementFromJS is casting a js.Wrapper into HTMLMapElement.
+func HTMLMapElementFromJS(value js.Wrapper) *HTMLMapElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5105,8 +5158,9 @@ type HTMLAreaElement struct {
 	HTMLElement
 }
 
-// HTMLAreaElementFromJS is casting a js.Value into HTMLAreaElement.
-func HTMLAreaElementFromJS(input js.Value) *HTMLAreaElement {
+// HTMLAreaElementFromJS is casting a js.Wrapper into HTMLAreaElement.
+func HTMLAreaElementFromJS(value js.Wrapper) *HTMLAreaElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5442,8 +5496,9 @@ type HTMLTableElement struct {
 	HTMLElement
 }
 
-// HTMLTableElementFromJS is casting a js.Value into HTMLTableElement.
-func HTMLTableElementFromJS(input js.Value) *HTMLTableElement {
+// HTMLTableElementFromJS is casting a js.Wrapper into HTMLTableElement.
+func HTMLTableElementFromJS(value js.Wrapper) *HTMLTableElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5787,8 +5842,9 @@ type HTMLTableCaptionElement struct {
 	HTMLElement
 }
 
-// HTMLTableCaptionElementFromJS is casting a js.Value into HTMLTableCaptionElement.
-func HTMLTableCaptionElementFromJS(input js.Value) *HTMLTableCaptionElement {
+// HTMLTableCaptionElementFromJS is casting a js.Wrapper into HTMLTableCaptionElement.
+func HTMLTableCaptionElementFromJS(value js.Wrapper) *HTMLTableCaptionElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5818,8 +5874,9 @@ type HTMLTableColElement struct {
 	HTMLElement
 }
 
-// HTMLTableColElementFromJS is casting a js.Value into HTMLTableColElement.
-func HTMLTableColElementFromJS(input js.Value) *HTMLTableColElement {
+// HTMLTableColElementFromJS is casting a js.Wrapper into HTMLTableColElement.
+func HTMLTableColElementFromJS(value js.Wrapper) *HTMLTableColElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -5929,8 +5986,9 @@ type HTMLTableSectionElement struct {
 	HTMLElement
 }
 
-// HTMLTableSectionElementFromJS is casting a js.Value into HTMLTableSectionElement.
-func HTMLTableSectionElementFromJS(input js.Value) *HTMLTableSectionElement {
+// HTMLTableSectionElementFromJS is casting a js.Wrapper into HTMLTableSectionElement.
+func HTMLTableSectionElementFromJS(value js.Wrapper) *HTMLTableSectionElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -6048,8 +6106,9 @@ type HTMLTableRowElement struct {
 	HTMLElement
 }
 
-// HTMLTableRowElementFromJS is casting a js.Value into HTMLTableRowElement.
-func HTMLTableRowElementFromJS(input js.Value) *HTMLTableRowElement {
+// HTMLTableRowElementFromJS is casting a js.Wrapper into HTMLTableRowElement.
+func HTMLTableRowElementFromJS(value js.Wrapper) *HTMLTableRowElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -6201,8 +6260,9 @@ type HTMLTableCellElement struct {
 	HTMLElement
 }
 
-// HTMLTableCellElementFromJS is casting a js.Value into HTMLTableCellElement.
-func HTMLTableCellElementFromJS(input js.Value) *HTMLTableCellElement {
+// HTMLTableCellElementFromJS is casting a js.Wrapper into HTMLTableCellElement.
+func HTMLTableCellElementFromJS(value js.Wrapper) *HTMLTableCellElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -6449,8 +6509,9 @@ type HTMLFormElement struct {
 	HTMLElement
 }
 
-// HTMLFormElementFromJS is casting a js.Value into HTMLFormElement.
-func HTMLFormElementFromJS(input js.Value) *HTMLFormElement {
+// HTMLFormElementFromJS is casting a js.Wrapper into HTMLFormElement.
+func HTMLFormElementFromJS(value js.Wrapper) *HTMLFormElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -6672,8 +6733,9 @@ type HTMLLabelElement struct {
 	HTMLElement
 }
 
-// HTMLLabelElementFromJS is casting a js.Value into HTMLLabelElement.
-func HTMLLabelElementFromJS(input js.Value) *HTMLLabelElement {
+// HTMLLabelElementFromJS is casting a js.Wrapper into HTMLLabelElement.
+func HTMLLabelElementFromJS(value js.Wrapper) *HTMLLabelElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -6725,8 +6787,9 @@ type HTMLInputElement struct {
 	HTMLElement
 }
 
-// HTMLInputElementFromJS is casting a js.Value into HTMLInputElement.
-func HTMLInputElementFromJS(input js.Value) *HTMLInputElement {
+// HTMLInputElementFromJS is casting a js.Wrapper into HTMLInputElement.
+func HTMLInputElementFromJS(value js.Wrapper) *HTMLInputElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -7585,8 +7648,9 @@ type HTMLButtonElement struct {
 	HTMLElement
 }
 
-// HTMLButtonElementFromJS is casting a js.Value into HTMLButtonElement.
-func HTMLButtonElementFromJS(input js.Value) *HTMLButtonElement {
+// HTMLButtonElementFromJS is casting a js.Wrapper into HTMLButtonElement.
+func HTMLButtonElementFromJS(value js.Wrapper) *HTMLButtonElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -7847,8 +7911,9 @@ type HTMLSelectElement struct {
 	HTMLElement
 }
 
-// HTMLSelectElementFromJS is casting a js.Value into HTMLSelectElement.
-func HTMLSelectElementFromJS(input js.Value) *HTMLSelectElement {
+// HTMLSelectElementFromJS is casting a js.Wrapper into HTMLSelectElement.
+func HTMLSelectElementFromJS(value js.Wrapper) *HTMLSelectElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -8212,8 +8277,9 @@ type HTMLDataListElement struct {
 	HTMLElement
 }
 
-// HTMLDataListElementFromJS is casting a js.Value into HTMLDataListElement.
-func HTMLDataListElementFromJS(input js.Value) *HTMLDataListElement {
+// HTMLDataListElementFromJS is casting a js.Wrapper into HTMLDataListElement.
+func HTMLDataListElementFromJS(value js.Wrapper) *HTMLDataListElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -8236,8 +8302,9 @@ type HTMLOptGroupElement struct {
 	HTMLElement
 }
 
-// HTMLOptGroupElementFromJS is casting a js.Value into HTMLOptGroupElement.
-func HTMLOptGroupElementFromJS(input js.Value) *HTMLOptGroupElement {
+// HTMLOptGroupElementFromJS is casting a js.Wrapper into HTMLOptGroupElement.
+func HTMLOptGroupElementFromJS(value js.Wrapper) *HTMLOptGroupElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -8283,8 +8350,9 @@ type HTMLOptionElement struct {
 	HTMLElement
 }
 
-// HTMLOptionElementFromJS is casting a js.Value into HTMLOptionElement.
-func HTMLOptionElementFromJS(input js.Value) *HTMLOptionElement {
+// HTMLOptionElementFromJS is casting a js.Wrapper into HTMLOptionElement.
+func HTMLOptionElementFromJS(value js.Wrapper) *HTMLOptionElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -8414,8 +8482,9 @@ type HTMLTextAreaElement struct {
 	HTMLElement
 }
 
-// HTMLTextAreaElementFromJS is casting a js.Value into HTMLTextAreaElement.
-func HTMLTextAreaElementFromJS(input js.Value) *HTMLTextAreaElement {
+// HTMLTextAreaElementFromJS is casting a js.Wrapper into HTMLTextAreaElement.
+func HTMLTextAreaElementFromJS(value js.Wrapper) *HTMLTextAreaElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -8886,8 +8955,9 @@ type HTMLOutputElement struct {
 	HTMLElement
 }
 
-// HTMLOutputElementFromJS is casting a js.Value into HTMLOutputElement.
-func HTMLOutputElementFromJS(input js.Value) *HTMLOutputElement {
+// HTMLOutputElementFromJS is casting a js.Wrapper into HTMLOutputElement.
+func HTMLOutputElementFromJS(value js.Wrapper) *HTMLOutputElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9054,8 +9124,9 @@ type HTMLProgressElement struct {
 	HTMLElement
 }
 
-// HTMLProgressElementFromJS is casting a js.Value into HTMLProgressElement.
-func HTMLProgressElementFromJS(input js.Value) *HTMLProgressElement {
+// HTMLProgressElementFromJS is casting a js.Wrapper into HTMLProgressElement.
+func HTMLProgressElementFromJS(value js.Wrapper) *HTMLProgressElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9119,8 +9190,9 @@ type HTMLMeterElement struct {
 	HTMLElement
 }
 
-// HTMLMeterElementFromJS is casting a js.Value into HTMLMeterElement.
-func HTMLMeterElementFromJS(input js.Value) *HTMLMeterElement {
+// HTMLMeterElementFromJS is casting a js.Wrapper into HTMLMeterElement.
+func HTMLMeterElementFromJS(value js.Wrapper) *HTMLMeterElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9239,8 +9311,9 @@ type HTMLFieldSetElement struct {
 	HTMLElement
 }
 
-// HTMLFieldSetElementFromJS is casting a js.Value into HTMLFieldSetElement.
-func HTMLFieldSetElementFromJS(input js.Value) *HTMLFieldSetElement {
+// HTMLFieldSetElementFromJS is casting a js.Wrapper into HTMLFieldSetElement.
+func HTMLFieldSetElementFromJS(value js.Wrapper) *HTMLFieldSetElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9382,8 +9455,9 @@ type HTMLLegendElement struct {
 	HTMLElement
 }
 
-// HTMLLegendElementFromJS is casting a js.Value into HTMLLegendElement.
-func HTMLLegendElementFromJS(input js.Value) *HTMLLegendElement {
+// HTMLLegendElementFromJS is casting a js.Wrapper into HTMLLegendElement.
+func HTMLLegendElementFromJS(value js.Wrapper) *HTMLLegendElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9429,8 +9503,9 @@ func (_this *ValidityState) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ValidityStateFromJS is casting a js.Value into ValidityState.
-func ValidityStateFromJS(input js.Value) *ValidityState {
+// ValidityStateFromJS is casting a js.Wrapper into ValidityState.
+func ValidityStateFromJS(value js.Wrapper) *ValidityState {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9543,8 +9618,9 @@ type HTMLDetailsElement struct {
 	HTMLElement
 }
 
-// HTMLDetailsElementFromJS is casting a js.Value into HTMLDetailsElement.
-func HTMLDetailsElementFromJS(input js.Value) *HTMLDetailsElement {
+// HTMLDetailsElementFromJS is casting a js.Wrapper into HTMLDetailsElement.
+func HTMLDetailsElementFromJS(value js.Wrapper) *HTMLDetailsElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9574,8 +9650,9 @@ type HTMLDialogElement struct {
 	HTMLElement
 }
 
-// HTMLDialogElementFromJS is casting a js.Value into HTMLDialogElement.
-func HTMLDialogElementFromJS(input js.Value) *HTMLDialogElement {
+// HTMLDialogElementFromJS is casting a js.Wrapper into HTMLDialogElement.
+func HTMLDialogElementFromJS(value js.Wrapper) *HTMLDialogElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9653,8 +9730,9 @@ type HTMLScriptElement struct {
 	HTMLElement
 }
 
-// HTMLScriptElementFromJS is casting a js.Value into HTMLScriptElement.
-func HTMLScriptElementFromJS(input js.Value) *HTMLScriptElement {
+// HTMLScriptElementFromJS is casting a js.Wrapper into HTMLScriptElement.
+func HTMLScriptElementFromJS(value js.Wrapper) *HTMLScriptElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9863,8 +9941,9 @@ type HTMLTemplateElement struct {
 	HTMLElement
 }
 
-// HTMLTemplateElementFromJS is casting a js.Value into HTMLTemplateElement.
-func HTMLTemplateElementFromJS(input js.Value) *HTMLTemplateElement {
+// HTMLTemplateElementFromJS is casting a js.Wrapper into HTMLTemplateElement.
+func HTMLTemplateElementFromJS(value js.Wrapper) *HTMLTemplateElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9887,8 +9966,9 @@ type HTMLSlotElement struct {
 	HTMLElement
 }
 
-// HTMLSlotElementFromJS is casting a js.Value into HTMLSlotElement.
-func HTMLSlotElementFromJS(input js.Value) *HTMLSlotElement {
+// HTMLSlotElementFromJS is casting a js.Wrapper into HTMLSlotElement.
+func HTMLSlotElementFromJS(value js.Wrapper) *HTMLSlotElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -9972,8 +10052,9 @@ type HTMLMarqueeElement struct {
 	HTMLElement
 }
 
-// HTMLMarqueeElementFromJS is casting a js.Value into HTMLMarqueeElement.
-func HTMLMarqueeElementFromJS(input js.Value) *HTMLMarqueeElement {
+// HTMLMarqueeElementFromJS is casting a js.Wrapper into HTMLMarqueeElement.
+func HTMLMarqueeElementFromJS(value js.Wrapper) *HTMLMarqueeElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -10160,8 +10241,8 @@ func (_this *HTMLMarqueeElement) SetWidth(value string) {
 
 // Onbounce returning attribute 'onbounce' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbounce")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10171,7 +10252,7 @@ func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandler {
 
 // SetOnbounce setting attribute 'onbounce' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Func) {
+func (_this *HTMLMarqueeElement) SetOnbounce(value *domcore.EventHandler) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -10184,8 +10265,8 @@ func (_this *HTMLMarqueeElement) SetOnbounce(value *js.Func) {
 
 // Onfinish returning attribute 'onfinish' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfinish")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10195,7 +10276,7 @@ func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandler {
 
 // SetOnfinish setting attribute 'onfinish' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Func) {
+func (_this *HTMLMarqueeElement) SetOnfinish(value *domcore.EventHandler) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -10208,8 +10289,8 @@ func (_this *HTMLMarqueeElement) SetOnfinish(value *js.Func) {
 
 // Onstart returning attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10219,7 +10300,7 @@ func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandler {
 
 // SetOnstart setting attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnstart(value *js.Func) {
+func (_this *HTMLMarqueeElement) SetOnstart(value *domcore.EventHandler) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -10253,8 +10334,9 @@ type HTMLFrameSetElement struct {
 	HTMLElement
 }
 
-// HTMLFrameSetElementFromJS is casting a js.Value into HTMLFrameSetElement.
-func HTMLFrameSetElementFromJS(input js.Value) *HTMLFrameSetElement {
+// HTMLFrameSetElementFromJS is casting a js.Wrapper into HTMLFrameSetElement.
+func HTMLFrameSetElementFromJS(value js.Wrapper) *HTMLFrameSetElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -10297,8 +10379,8 @@ func (_this *HTMLFrameSetElement) SetRows(value string) {
 
 // Onafterprint returning attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10308,7 +10390,7 @@ func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandler {
 
 // SetOnafterprint setting attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnafterprint(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -10321,8 +10403,8 @@ func (_this *HTMLFrameSetElement) SetOnafterprint(value *js.Func) {
 
 // Onbeforeprint returning attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10332,7 +10414,7 @@ func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandler {
 
 // SetOnbeforeprint setting attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -10345,8 +10427,8 @@ func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *js.Func) {
 
 // Onbeforeunload returning attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandler {
-	var ret OnBeforeUnloadEventHandler
+func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandlerFunc {
+	var ret OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull {
 		ret = OnBeforeUnloadEventHandlerFromJS(value)
@@ -10356,7 +10438,7 @@ func (_this *HTMLFrameSetElement) Onbeforeunload() OnBeforeUnloadEventHandler {
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
 // type OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *OnBeforeUnloadEventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -10369,8 +10451,8 @@ func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *js.Func) {
 
 // Onhashchange returning attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10380,7 +10462,7 @@ func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandler {
 
 // SetOnhashchange setting attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnhashchange(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -10393,8 +10475,8 @@ func (_this *HTMLFrameSetElement) SetOnhashchange(value *js.Func) {
 
 // Onlanguagechange returning attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10404,7 +10486,7 @@ func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandler {
 
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *domcore.EventHandler) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -10417,8 +10499,8 @@ func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *js.Func) {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10428,7 +10510,7 @@ func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnmessage(value *domcore.EventHandler) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -10441,8 +10523,8 @@ func (_this *HTMLFrameSetElement) SetOnmessage(value *js.Func) {
 
 // Onmessageerror returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10452,7 +10534,7 @@ func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnmessageerror(value *domcore.EventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -10465,8 +10547,8 @@ func (_this *HTMLFrameSetElement) SetOnmessageerror(value *js.Func) {
 
 // Onoffline returning attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10476,7 +10558,7 @@ func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandler {
 
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnoffline(value *domcore.EventHandler) {
 	var __callback9 js.Value
 	if value != nil {
 		__callback9 = (*value).Value
@@ -10489,8 +10571,8 @@ func (_this *HTMLFrameSetElement) SetOnoffline(value *js.Func) {
 
 // Ononline returning attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10500,7 +10582,7 @@ func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandler {
 
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnonline(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnonline(value *domcore.EventHandler) {
 	var __callback10 js.Value
 	if value != nil {
 		__callback10 = (*value).Value
@@ -10513,8 +10595,8 @@ func (_this *HTMLFrameSetElement) SetOnonline(value *js.Func) {
 
 // Onpagehide returning attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10524,7 +10606,7 @@ func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandler {
 
 // SetOnpagehide setting attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnpagehide(value *domcore.EventHandler) {
 	var __callback11 js.Value
 	if value != nil {
 		__callback11 = (*value).Value
@@ -10537,8 +10619,8 @@ func (_this *HTMLFrameSetElement) SetOnpagehide(value *js.Func) {
 
 // Onpageshow returning attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10548,7 +10630,7 @@ func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandler {
 
 // SetOnpageshow setting attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnpageshow(value *domcore.EventHandler) {
 	var __callback12 js.Value
 	if value != nil {
 		__callback12 = (*value).Value
@@ -10561,8 +10643,8 @@ func (_this *HTMLFrameSetElement) SetOnpageshow(value *js.Func) {
 
 // Onpopstate returning attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10572,7 +10654,7 @@ func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandler {
 
 // SetOnpopstate setting attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnpopstate(value *domcore.EventHandler) {
 	var __callback13 js.Value
 	if value != nil {
 		__callback13 = (*value).Value
@@ -10585,8 +10667,8 @@ func (_this *HTMLFrameSetElement) SetOnpopstate(value *js.Func) {
 
 // Onrejectionhandled returning attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10596,7 +10678,7 @@ func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandler {
 
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *domcore.EventHandler) {
 	var __callback14 js.Value
 	if value != nil {
 		__callback14 = (*value).Value
@@ -10609,8 +10691,8 @@ func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *js.Func) {
 
 // Onstorage returning attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10620,7 +10702,7 @@ func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandler {
 
 // SetOnstorage setting attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnstorage(value *domcore.EventHandler) {
 	var __callback15 js.Value
 	if value != nil {
 		__callback15 = (*value).Value
@@ -10633,8 +10715,8 @@ func (_this *HTMLFrameSetElement) SetOnstorage(value *js.Func) {
 
 // Onunhandledrejection returning attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10644,7 +10726,7 @@ func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandler {
 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *domcore.EventHandler) {
 	var __callback16 js.Value
 	if value != nil {
 		__callback16 = (*value).Value
@@ -10657,8 +10739,8 @@ func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *js.Func) {
 
 // Onunload returning attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -10668,7 +10750,7 @@ func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandler {
 
 // SetOnunload setting attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunload(value *js.Func) {
+func (_this *HTMLFrameSetElement) SetOnunload(value *domcore.EventHandler) {
 	var __callback17 js.Value
 	if value != nil {
 		__callback17 = (*value).Value
@@ -10684,8 +10766,9 @@ type HTMLDirectoryElement struct {
 	HTMLElement
 }
 
-// HTMLDirectoryElementFromJS is casting a js.Value into HTMLDirectoryElement.
-func HTMLDirectoryElementFromJS(input js.Value) *HTMLDirectoryElement {
+// HTMLDirectoryElementFromJS is casting a js.Wrapper into HTMLDirectoryElement.
+func HTMLDirectoryElementFromJS(value js.Wrapper) *HTMLDirectoryElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -10715,8 +10798,9 @@ type HTMLFontElement struct {
 	HTMLElement
 }
 
-// HTMLFontElementFromJS is casting a js.Value into HTMLFontElement.
-func HTMLFontElementFromJS(input js.Value) *HTMLFontElement {
+// HTMLFontElementFromJS is casting a js.Wrapper into HTMLFontElement.
+func HTMLFontElementFromJS(value js.Wrapper) *HTMLFontElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

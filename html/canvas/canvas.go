@@ -6,11 +6,14 @@ package canvas
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/patch"
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/html"
-import "github.com/gowebapi/webapi/dom/domcore"
-import "github.com/gowebapi/webapi/dom"
+import (
+	"github.com/gowebapi/webapi/dom"
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/html"
+	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/patch"
+)
 
 // using following types:
 // dom.Element
@@ -548,7 +551,8 @@ func (_this *CanvasRenderingContext2DSettings) JSValue() js.Value {
 // CanvasRenderingContext2DSettingsFromJS is allocating a new
 // CanvasRenderingContext2DSettings object and copy all values from
 // input javascript object
-func CanvasRenderingContext2DSettingsFromJS(input js.Value) *CanvasRenderingContext2DSettings {
+func CanvasRenderingContext2DSettingsFromJS(value js.Wrapper) *CanvasRenderingContext2DSettings {
+	input := value.JSValue()
 	var out CanvasRenderingContext2DSettings
 	var (
 		out0 bool // javascript: boolean {alpha Alpha alpha}
@@ -590,7 +594,8 @@ func (_this *ImageBitmapOptions) JSValue() js.Value {
 // ImageBitmapOptionsFromJS is allocating a new
 // ImageBitmapOptions object and copy all values from
 // input javascript object
-func ImageBitmapOptionsFromJS(input js.Value) *ImageBitmapOptions {
+func ImageBitmapOptionsFromJS(value js.Wrapper) *ImageBitmapOptions {
+	input := value.JSValue()
 	var out ImageBitmapOptions
 	var (
 		out0 ImageOrientation     // javascript: ImageOrientation {imageOrientation ImageOrientation imageOrientation}
@@ -620,8 +625,9 @@ type HTMLCanvasElement struct {
 	html.HTMLElement
 }
 
-// HTMLCanvasElementFromJS is casting a js.Value into HTMLCanvasElement.
-func HTMLCanvasElementFromJS(input js.Value) *HTMLCanvasElement {
+// HTMLCanvasElementFromJS is casting a js.Wrapper into HTMLCanvasElement.
+func HTMLCanvasElementFromJS(value js.Wrapper) *HTMLCanvasElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -710,7 +716,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 	return
 }
 
-func (_this *HTMLCanvasElement) ToBlob(callback *js.Func, _type *string, quality js.Value) {
+func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality js.Value) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -763,8 +769,9 @@ func (_this *CanvasRenderingContext2D) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CanvasRenderingContext2DFromJS is casting a js.Value into CanvasRenderingContext2D.
-func CanvasRenderingContext2DFromJS(input js.Value) *CanvasRenderingContext2D {
+// CanvasRenderingContext2DFromJS is casting a js.Wrapper into CanvasRenderingContext2D.
+func CanvasRenderingContext2DFromJS(value js.Wrapper) *CanvasRenderingContext2D {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2130,8 +2137,9 @@ func (_this *CanvasGradient) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CanvasGradientFromJS is casting a js.Value into CanvasGradient.
-func CanvasGradientFromJS(input js.Value) *CanvasGradient {
+// CanvasGradientFromJS is casting a js.Wrapper into CanvasGradient.
+func CanvasGradientFromJS(value js.Wrapper) *CanvasGradient {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2165,8 +2173,9 @@ func (_this *CanvasPattern) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CanvasPatternFromJS is casting a js.Value into CanvasPattern.
-func CanvasPatternFromJS(input js.Value) *CanvasPattern {
+// CanvasPatternFromJS is casting a js.Wrapper into CanvasPattern.
+func CanvasPatternFromJS(value js.Wrapper) *CanvasPattern {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2199,8 +2208,9 @@ func (_this *TextMetrics) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TextMetricsFromJS is casting a js.Value into TextMetrics.
-func TextMetricsFromJS(input js.Value) *TextMetrics {
+// TextMetricsFromJS is casting a js.Wrapper into TextMetrics.
+func TextMetricsFromJS(value js.Wrapper) *TextMetrics {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2327,8 +2337,9 @@ func (_this *ImageData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ImageDataFromJS is casting a js.Value into ImageData.
-func ImageDataFromJS(input js.Value) *ImageData {
+// ImageDataFromJS is casting a js.Wrapper into ImageData.
+func ImageDataFromJS(value js.Wrapper) *ImageData {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2400,8 +2411,9 @@ func (_this *Path2D) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Path2DFromJS is casting a js.Value into Path2D.
-func Path2DFromJS(input js.Value) *Path2D {
+// Path2DFromJS is casting a js.Wrapper into Path2D.
+func Path2DFromJS(value js.Wrapper) *Path2D {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2653,8 +2665,9 @@ func (_this *ImageBitmapRenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ImageBitmapRenderingContextFromJS is casting a js.Value into ImageBitmapRenderingContext.
-func ImageBitmapRenderingContextFromJS(input js.Value) *ImageBitmapRenderingContext {
+// ImageBitmapRenderingContextFromJS is casting a js.Wrapper into ImageBitmapRenderingContext.
+func ImageBitmapRenderingContextFromJS(value js.Wrapper) *ImageBitmapRenderingContext {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2689,8 +2702,9 @@ type OffscreenCanvas struct {
 	domcore.EventTarget
 }
 
-// OffscreenCanvasFromJS is casting a js.Value into OffscreenCanvas.
-func OffscreenCanvasFromJS(input js.Value) *OffscreenCanvas {
+// OffscreenCanvasFromJS is casting a js.Wrapper into OffscreenCanvas.
+func OffscreenCanvasFromJS(value js.Wrapper) *OffscreenCanvas {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -2819,8 +2833,9 @@ func (_this *OffscreenCanvasRenderingContext2D) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OffscreenCanvasRenderingContext2DFromJS is casting a js.Value into OffscreenCanvasRenderingContext2D.
-func OffscreenCanvasRenderingContext2DFromJS(input js.Value) *OffscreenCanvasRenderingContext2D {
+// OffscreenCanvasRenderingContext2DFromJS is casting a js.Wrapper into OffscreenCanvasRenderingContext2D.
+func OffscreenCanvasRenderingContext2DFromJS(value js.Wrapper) *OffscreenCanvasRenderingContext2D {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -4133,8 +4148,9 @@ func (_this *ImageBitmap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ImageBitmapFromJS is casting a js.Value into ImageBitmap.
-func ImageBitmapFromJS(input js.Value) *ImageBitmap {
+// ImageBitmapFromJS is casting a js.Wrapper into ImageBitmap.
+func ImageBitmapFromJS(value js.Wrapper) *ImageBitmap {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

@@ -47,8 +47,9 @@ func (_this *FormData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FormDataFromJS is casting a js.Value into FormData.
-func FormDataFromJS(input js.Value) *FormData {
+// FormDataFromJS is casting a js.Wrapper into FormData.
+func FormDataFromJS(value js.Wrapper) *FormData {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -67,8 +68,9 @@ func (_this *MediaSource) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaSourceFromJS is casting a js.Value into MediaSource.
-func MediaSourceFromJS(input js.Value) *MediaSource {
+// MediaSourceFromJS is casting a js.Wrapper into MediaSource.
+func MediaSourceFromJS(value js.Wrapper) *MediaSource {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -87,8 +89,9 @@ func (_this *MediaStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaStreamFromJS is casting a js.Value into MediaStream.
-func MediaStreamFromJS(input js.Value) *MediaStream {
+// MediaStreamFromJS is casting a js.Wrapper into MediaStream.
+func MediaStreamFromJS(value js.Wrapper) *MediaStream {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -107,8 +110,9 @@ func (_this *RequestCredentials) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RequestCredentialsFromJS is casting a js.Value into RequestCredentials.
-func RequestCredentialsFromJS(input js.Value) *RequestCredentials {
+// RequestCredentialsFromJS is casting a js.Wrapper into RequestCredentials.
+func RequestCredentialsFromJS(value js.Wrapper) *RequestCredentials {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -127,8 +131,9 @@ func (_this *ServiceWorker) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServiceWorkerFromJS is casting a js.Value into ServiceWorker.
-func ServiceWorkerFromJS(input js.Value) *ServiceWorker {
+// ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
+func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -147,8 +152,9 @@ func (_this *SVGScriptElement) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGScriptElementFromJS is casting a js.Value into SVGScriptElement.
-func SVGScriptElementFromJS(input js.Value) *SVGScriptElement {
+// SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
+func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -167,8 +173,9 @@ func (_this *SVGImageElement) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGImageElementFromJS is casting a js.Value into SVGImageElement.
-func SVGImageElementFromJS(input js.Value) *SVGImageElement {
+// SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
+func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -187,8 +194,9 @@ func (_this *Uint8ClampedArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint8ClampedArrayFromJS is casting a js.Value into Uint8ClampedArray.
-func Uint8ClampedArrayFromJS(input js.Value) *Uint8ClampedArray {
+// Uint8ClampedArrayFromJS is casting a js.Wrapper into Uint8ClampedArray.
+func Uint8ClampedArrayFromJS(value js.Wrapper) *Uint8ClampedArray {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -207,8 +215,9 @@ func (_this *ByteString) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ByteStringFromJS is casting a js.Value into ByteString.
-func ByteStringFromJS(input js.Value) *ByteString {
+// ByteStringFromJS is casting a js.Wrapper into ByteString.
+func ByteStringFromJS(value js.Wrapper) *ByteString {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -227,8 +236,9 @@ func (_this *MouseEvent) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MouseEventFromJS is casting a js.Value into MouseEvent.
-func MouseEventFromJS(input js.Value) *MouseEvent {
+// MouseEventFromJS is casting a js.Wrapper into MouseEvent.
+func MouseEventFromJS(value js.Wrapper) *MouseEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

@@ -6,9 +6,11 @@ package channel
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/dom/domcore"
-import "github.com/gowebapi/webapi/fileapi"
-import "github.com/gowebapi/webapi/javascript"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // domcore.Event
@@ -125,7 +127,8 @@ func (_this *MessageEventInit) JSValue() js.Value {
 // MessageEventInitFromJS is allocating a new
 // MessageEventInit object and copy all values from
 // input javascript object
-func MessageEventInitFromJS(input js.Value) *MessageEventInit {
+func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
+	input := value.JSValue()
 	var out MessageEventInit
 	var (
 		out0 js.Value       // javascript: any {data Data data}
@@ -180,7 +183,8 @@ func (_this *CloseEventInit) JSValue() js.Value {
 // CloseEventInitFromJS is allocating a new
 // CloseEventInit object and copy all values from
 // input javascript object
-func CloseEventInitFromJS(input js.Value) *CloseEventInit {
+func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
+	input := value.JSValue()
 	var out CloseEventInit
 	var (
 		out0 bool   // javascript: boolean {wasClean WasClean wasClean}
@@ -217,7 +221,8 @@ func (_this *PostMessageOptions) JSValue() js.Value {
 // PostMessageOptionsFromJS is allocating a new
 // PostMessageOptions object and copy all values from
 // input javascript object
-func PostMessageOptionsFromJS(input js.Value) *PostMessageOptions {
+func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
+	input := value.JSValue()
 	var out PostMessageOptions
 	var (
 		out0 []*javascript.Object // javascript: idl-sequence {transfer Transfer transfer}
@@ -240,8 +245,9 @@ type MessageEvent struct {
 	domcore.Event
 }
 
-// MessageEventFromJS is casting a js.Value into MessageEvent.
-func MessageEventFromJS(input js.Value) *MessageEvent {
+// MessageEventFromJS is casting a js.Wrapper into MessageEvent.
+func MessageEventFromJS(value js.Wrapper) *MessageEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -376,8 +382,9 @@ type WebSocket struct {
 	domcore.EventTarget
 }
 
-// WebSocketFromJS is casting a js.Value into WebSocket.
-func WebSocketFromJS(input js.Value) *WebSocket {
+// WebSocketFromJS is casting a js.Wrapper into WebSocket.
+func WebSocketFromJS(value js.Wrapper) *WebSocket {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -443,8 +450,8 @@ func (_this *WebSocket) BufferedAmount() int {
 
 // Onopen returning attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onopen() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *WebSocket) Onopen() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -454,7 +461,7 @@ func (_this *WebSocket) Onopen() domcore.EventHandler {
 
 // SetOnopen setting attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnopen(value *js.Func) {
+func (_this *WebSocket) SetOnopen(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -467,8 +474,8 @@ func (_this *WebSocket) SetOnopen(value *js.Func) {
 
 // Onerror returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *WebSocket) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -478,7 +485,7 @@ func (_this *WebSocket) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnerror(value *js.Func) {
+func (_this *WebSocket) SetOnerror(value *domcore.EventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -491,8 +498,8 @@ func (_this *WebSocket) SetOnerror(value *js.Func) {
 
 // Onclose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onclose() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *WebSocket) Onclose() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -502,7 +509,7 @@ func (_this *WebSocket) Onclose() domcore.EventHandler {
 
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnclose(value *js.Func) {
+func (_this *WebSocket) SetOnclose(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -533,8 +540,8 @@ func (_this *WebSocket) Protocol() string {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *WebSocket) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -544,7 +551,7 @@ func (_this *WebSocket) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnmessage(value *js.Func) {
+func (_this *WebSocket) SetOnmessage(value *domcore.EventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -643,8 +650,9 @@ type CloseEvent struct {
 	domcore.Event
 }
 
-// CloseEventFromJS is casting a js.Value into CloseEvent.
-func CloseEventFromJS(input js.Value) *CloseEvent {
+// CloseEventFromJS is casting a js.Wrapper into CloseEvent.
+func CloseEventFromJS(value js.Wrapper) *CloseEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -713,8 +721,9 @@ func (_this *MessageChannel) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MessageChannelFromJS is casting a js.Value into MessageChannel.
-func MessageChannelFromJS(input js.Value) *MessageChannel {
+// MessageChannelFromJS is casting a js.Wrapper into MessageChannel.
+func MessageChannelFromJS(value js.Wrapper) *MessageChannel {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -761,8 +770,9 @@ type MessagePort struct {
 	domcore.EventTarget
 }
 
-// MessagePortFromJS is casting a js.Value into MessagePort.
-func MessagePortFromJS(input js.Value) *MessagePort {
+// MessagePortFromJS is casting a js.Wrapper into MessagePort.
+func MessagePortFromJS(value js.Wrapper) *MessagePort {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -773,8 +783,8 @@ func MessagePortFromJS(input js.Value) *MessagePort {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -784,7 +794,7 @@ func (_this *MessagePort) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessage(value *js.Func) {
+func (_this *MessagePort) SetOnmessage(value *domcore.EventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -797,8 +807,8 @@ func (_this *MessagePort) SetOnmessage(value *js.Func) {
 
 // Onmessageerror returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessageerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -808,7 +818,7 @@ func (_this *MessagePort) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessageerror(value *js.Func) {
+func (_this *MessagePort) SetOnmessageerror(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -878,8 +888,9 @@ type BroadcastChannel struct {
 	domcore.EventTarget
 }
 
-// BroadcastChannelFromJS is casting a js.Value into BroadcastChannel.
-func BroadcastChannelFromJS(input js.Value) *BroadcastChannel {
+// BroadcastChannelFromJS is casting a js.Wrapper into BroadcastChannel.
+func BroadcastChannelFromJS(value js.Wrapper) *BroadcastChannel {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -917,8 +928,8 @@ func (_this *BroadcastChannel) Name() string {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -928,7 +939,7 @@ func (_this *BroadcastChannel) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessage(value *js.Func) {
+func (_this *BroadcastChannel) SetOnmessage(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -941,8 +952,8 @@ func (_this *BroadcastChannel) SetOnmessage(value *js.Func) {
 
 // Onmessageerror returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -952,7 +963,7 @@ func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandler {
 
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessageerror(value *js.Func) {
+func (_this *BroadcastChannel) SetOnmessageerror(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value

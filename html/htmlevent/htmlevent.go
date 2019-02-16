@@ -6,10 +6,12 @@ package htmlevent
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/dom/domcore"
-import "github.com/gowebapi/webapi/html/htmlmisc"
-import "github.com/gowebapi/webapi/patch"
-import "github.com/gowebapi/webapi/javascript"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/html/htmlmisc"
+	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/patch"
+)
 
 // using following types:
 // domcore.Event
@@ -65,7 +67,8 @@ func (_this *TrackEventInit) JSValue() js.Value {
 // TrackEventInitFromJS is allocating a new
 // TrackEventInit object and copy all values from
 // input javascript object
-func TrackEventInitFromJS(input js.Value) *TrackEventInit {
+func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
+	input := value.JSValue()
 	var out TrackEventInit
 	var (
 		out0 *Union // javascript: Union {track Track track}
@@ -94,7 +97,8 @@ func (_this *FormDataEventInit) JSValue() js.Value {
 // FormDataEventInitFromJS is allocating a new
 // FormDataEventInit object and copy all values from
 // input javascript object
-func FormDataEventInitFromJS(input js.Value) *FormDataEventInit {
+func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
+	input := value.JSValue()
 	var out FormDataEventInit
 	var (
 		out0 *patch.FormData // javascript: FormData {formData FormData formData}
@@ -121,7 +125,8 @@ func (_this *PopStateEventInit) JSValue() js.Value {
 // PopStateEventInitFromJS is allocating a new
 // PopStateEventInit object and copy all values from
 // input javascript object
-func PopStateEventInitFromJS(input js.Value) *PopStateEventInit {
+func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
+	input := value.JSValue()
 	var out PopStateEventInit
 	var (
 		out0 js.Value // javascript: any {state State state}
@@ -148,7 +153,8 @@ func (_this *PageTransitionEventInit) JSValue() js.Value {
 // PageTransitionEventInitFromJS is allocating a new
 // PageTransitionEventInit object and copy all values from
 // input javascript object
-func PageTransitionEventInitFromJS(input js.Value) *PageTransitionEventInit {
+func PageTransitionEventInitFromJS(value js.Wrapper) *PageTransitionEventInit {
+	input := value.JSValue()
 	var out PageTransitionEventInit
 	var (
 		out0 bool // javascript: boolean {persisted Persisted persisted}
@@ -187,7 +193,8 @@ func (_this *ErrorEventInit) JSValue() js.Value {
 // ErrorEventInitFromJS is allocating a new
 // ErrorEventInit object and copy all values from
 // input javascript object
-func ErrorEventInitFromJS(input js.Value) *ErrorEventInit {
+func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
+	input := value.JSValue()
 	var out ErrorEventInit
 	var (
 		out0 string   // javascript: DOMString {message Message message}
@@ -229,7 +236,8 @@ func (_this *PromiseRejectionEventInit) JSValue() js.Value {
 // PromiseRejectionEventInitFromJS is allocating a new
 // PromiseRejectionEventInit object and copy all values from
 // input javascript object
-func PromiseRejectionEventInitFromJS(input js.Value) *PromiseRejectionEventInit {
+func PromiseRejectionEventInitFromJS(value js.Wrapper) *PromiseRejectionEventInit {
+	input := value.JSValue()
 	var out PromiseRejectionEventInit
 	var (
 		out0 *javascript.Promise // javascript: Promise {promise Promise promise}
@@ -247,8 +255,9 @@ type TrackEvent struct {
 	domcore.Event
 }
 
-// TrackEventFromJS is casting a js.Value into TrackEvent.
-func TrackEventFromJS(input js.Value) *TrackEvent {
+// TrackEventFromJS is casting a js.Wrapper into TrackEvent.
+func TrackEventFromJS(value js.Wrapper) *TrackEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -296,8 +305,9 @@ type FormDataEvent struct {
 	domcore.Event
 }
 
-// FormDataEventFromJS is casting a js.Value into FormDataEvent.
-func FormDataEventFromJS(input js.Value) *FormDataEvent {
+// FormDataEventFromJS is casting a js.Wrapper into FormDataEvent.
+func FormDataEventFromJS(value js.Wrapper) *FormDataEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -343,8 +353,9 @@ type PopStateEvent struct {
 	domcore.Event
 }
 
-// PopStateEventFromJS is casting a js.Value into PopStateEvent.
-func PopStateEventFromJS(input js.Value) *PopStateEvent {
+// PopStateEventFromJS is casting a js.Wrapper into PopStateEvent.
+func PopStateEventFromJS(value js.Wrapper) *PopStateEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -390,8 +401,9 @@ type HashChangeEvent struct {
 	domcore.Event
 }
 
-// HashChangeEventFromJS is casting a js.Value into HashChangeEvent.
-func HashChangeEventFromJS(input js.Value) *HashChangeEvent {
+// HashChangeEventFromJS is casting a js.Wrapper into HashChangeEvent.
+func HashChangeEventFromJS(value js.Wrapper) *HashChangeEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -446,8 +458,9 @@ type PageTransitionEvent struct {
 	domcore.Event
 }
 
-// PageTransitionEventFromJS is casting a js.Value into PageTransitionEvent.
-func PageTransitionEventFromJS(input js.Value) *PageTransitionEvent {
+// PageTransitionEventFromJS is casting a js.Wrapper into PageTransitionEvent.
+func PageTransitionEventFromJS(value js.Wrapper) *PageTransitionEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -493,8 +506,9 @@ type BeforeUnloadEvent struct {
 	domcore.Event
 }
 
-// BeforeUnloadEventFromJS is casting a js.Value into BeforeUnloadEvent.
-func BeforeUnloadEventFromJS(input js.Value) *BeforeUnloadEvent {
+// BeforeUnloadEventFromJS is casting a js.Wrapper into BeforeUnloadEvent.
+func BeforeUnloadEventFromJS(value js.Wrapper) *BeforeUnloadEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -524,8 +538,9 @@ type ErrorEvent struct {
 	domcore.Event
 }
 
-// ErrorEventFromJS is casting a js.Value into ErrorEvent.
-func ErrorEventFromJS(input js.Value) *ErrorEvent {
+// ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
+func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -607,8 +622,9 @@ type PromiseRejectionEvent struct {
 	domcore.Event
 }
 
-// PromiseRejectionEventFromJS is casting a js.Value into PromiseRejectionEvent.
-func PromiseRejectionEventFromJS(input js.Value) *PromiseRejectionEvent {
+// PromiseRejectionEventFromJS is casting a js.Wrapper into PromiseRejectionEvent.
+func PromiseRejectionEventFromJS(value js.Wrapper) *PromiseRejectionEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

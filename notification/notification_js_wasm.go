@@ -4,7 +4,9 @@ package notification
 
 import "syscall/js"
 
-import "github.com/gowebapi/webapi/dom/domcore"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+)
 
 // using following types:
 // domcore.EventHandler
@@ -128,13 +130,19 @@ func DirectionFromJS(value js.Value) Direction {
 }
 
 // callback: NotificationPermissionCallback
-type PermissionCallback func(permission PermissionMode)
+type PermissionCallbackFunc func(permission PermissionMode)
 
-func PermissionCallbackToJS(callback PermissionCallback) *js.Func {
+// PermissionCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PermissionCallback js.Func
+
+func PermissionCallbackToJS(callback PermissionCallbackFunc) *PermissionCallback {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := PermissionCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 PermissionMode // javascript: NotificationPermission permission
 		)
@@ -142,11 +150,11 @@ func PermissionCallbackToJS(callback PermissionCallback) *js.Func {
 		callback(_p0)
 		// returning no return value
 		return nil
-	})
+	}))
 	return &ret
 }
 
-func PermissionCallbackFromJS(_value js.Value) PermissionCallback {
+func PermissionCallbackFromJS(_value js.Value) PermissionCallbackFunc {
 	return func(permission PermissionMode) {
 		var (
 			_args [1]interface{}
@@ -189,7 +197,8 @@ func (_this *Options) JSValue() js.Value {
 // OptionsFromJS is allocating a new
 // Options object and copy all values from
 // input javascript object
-func OptionsFromJS(input js.Value) *Options {
+func OptionsFromJS(value js.Wrapper) *Options {
+	input := value.JSValue()
 	var out Options
 	var (
 		out0 Direction // javascript: NotificationDirection {dir Dir dir}
@@ -216,8 +225,9 @@ type Notification struct {
 	domcore.EventTarget
 }
 
-// NotificationFromJS is casting a js.Value into Notification.
-func NotificationFromJS(input js.Value) *Notification {
+// NotificationFromJS is casting a js.Wrapper into Notification.
+func NotificationFromJS(value js.Wrapper) *Notification {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -236,7 +246,7 @@ func Permission() PermissionMode {
 	return ret
 }
 
-func RequestPermission(callback *js.Func) {
+func RequestPermission(callback *PermissionCallback) {
 	_klass := js.Global().Get("Notification")
 	_method := _klass.Get("requestPermission")
 	var (
@@ -284,8 +294,8 @@ func New(title string, options *Options) (_result *Notification) {
 
 // OnClick returning attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) OnClick() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *Notification) OnClick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -295,7 +305,7 @@ func (_this *Notification) OnClick() domcore.EventHandler {
 
 // SetOnClick setting attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClick(value *js.Func) {
+func (_this *Notification) SetOnClick(value *domcore.EventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -308,8 +318,8 @@ func (_this *Notification) SetOnClick(value *js.Func) {
 
 // OnShow returning attribute 'onshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) OnShow() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *Notification) OnShow() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onshow")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -319,7 +329,7 @@ func (_this *Notification) OnShow() domcore.EventHandler {
 
 // SetOnShow setting attribute 'onshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnShow(value *js.Func) {
+func (_this *Notification) SetOnShow(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -332,8 +342,8 @@ func (_this *Notification) SetOnShow(value *js.Func) {
 
 // OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) OnError() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *Notification) OnError() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -343,7 +353,7 @@ func (_this *Notification) OnError() domcore.EventHandler {
 
 // SetOnError setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnError(value *js.Func) {
+func (_this *Notification) SetOnError(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -356,8 +366,8 @@ func (_this *Notification) SetOnError(value *js.Func) {
 
 // OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) OnClose() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *Notification) OnClose() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -367,7 +377,7 @@ func (_this *Notification) OnClose() domcore.EventHandler {
 
 // SetOnClose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClose(value *js.Func) {
+func (_this *Notification) SetOnClose(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value

@@ -40,13 +40,19 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: EventHandlerNonNull
-type EventHandler func(event *Event) js.Value
+type EventHandlerFunc func(event *Event) js.Value
 
-func EventHandlerToJS(callback EventHandler) *js.Func {
+// EventHandler is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type EventHandler js.Func
+
+func EventHandlerToJS(callback EventHandlerFunc) *EventHandler {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := EventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Event // javascript: Event event
 		)
@@ -54,11 +60,11 @@ func EventHandlerToJS(callback EventHandler) *js.Func {
 		_returned := callback(_p0)
 		_converted := _returned
 		return _converted
-	})
+	}))
 	return &ret
 }
 
-func EventHandlerFromJS(_value js.Value) EventHandler {
+func EventHandlerFromJS(_value js.Value) EventHandlerFunc {
 	return func(event *Event) (_result js.Value) {
 		var (
 			_args [1]interface{}
@@ -100,7 +106,8 @@ func (_this *EventInit) JSValue() js.Value {
 // EventInitFromJS is allocating a new
 // EventInit object and copy all values from
 // input javascript object
-func EventInitFromJS(input js.Value) *EventInit {
+func EventInitFromJS(value js.Wrapper) *EventInit {
+	input := value.JSValue()
 	var out EventInit
 	var (
 		out0 bool // javascript: boolean {bubbles Bubbles bubbles}
@@ -133,7 +140,8 @@ func (_this *CustomEventInit) JSValue() js.Value {
 // CustomEventInitFromJS is allocating a new
 // CustomEventInit object and copy all values from
 // input javascript object
-func CustomEventInitFromJS(input js.Value) *CustomEventInit {
+func CustomEventInitFromJS(value js.Wrapper) *CustomEventInit {
+	input := value.JSValue()
 	var out CustomEventInit
 	var (
 		out0 js.Value // javascript: any {detail Detail detail}
@@ -160,7 +168,8 @@ func (_this *EventListenerOptions) JSValue() js.Value {
 // EventListenerOptionsFromJS is allocating a new
 // EventListenerOptions object and copy all values from
 // input javascript object
-func EventListenerOptionsFromJS(input js.Value) *EventListenerOptions {
+func EventListenerOptionsFromJS(value js.Wrapper) *EventListenerOptions {
+	input := value.JSValue()
 	var out EventListenerOptions
 	var (
 		out0 bool // javascript: boolean {capture Capture capture}
@@ -190,7 +199,8 @@ func (_this *AddEventListenerOptions) JSValue() js.Value {
 // AddEventListenerOptionsFromJS is allocating a new
 // AddEventListenerOptions object and copy all values from
 // input javascript object
-func AddEventListenerOptionsFromJS(input js.Value) *AddEventListenerOptions {
+func AddEventListenerOptionsFromJS(value js.Wrapper) *AddEventListenerOptions {
+	input := value.JSValue()
 	var out AddEventListenerOptions
 	var (
 		out0 bool // javascript: boolean {passive Passive passive}
@@ -213,8 +223,9 @@ func (_this *DOMMatrix2DInit) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMMatrix2DInitFromJS is casting a js.Value into DOMMatrix2DInit.
-func DOMMatrix2DInitFromJS(input js.Value) *DOMMatrix2DInit {
+// DOMMatrix2DInitFromJS is casting a js.Wrapper into DOMMatrix2DInit.
+func DOMMatrix2DInitFromJS(value js.Wrapper) *DOMMatrix2DInit {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -233,8 +244,9 @@ func (_this *DOMMatrix) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMMatrixFromJS is casting a js.Value into DOMMatrix.
-func DOMMatrixFromJS(input js.Value) *DOMMatrix {
+// DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
+func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -253,8 +265,9 @@ func (_this *Event) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventFromJS is casting a js.Value into Event.
-func EventFromJS(input js.Value) *Event {
+// EventFromJS is casting a js.Wrapper into Event.
+func EventFromJS(value js.Wrapper) *Event {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -504,8 +517,9 @@ type CustomEvent struct {
 	Event
 }
 
-// CustomEventFromJS is casting a js.Value into CustomEvent.
-func CustomEventFromJS(input js.Value) *CustomEvent {
+// CustomEventFromJS is casting a js.Wrapper into CustomEvent.
+func CustomEventFromJS(value js.Wrapper) *CustomEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -583,8 +597,9 @@ func (_this *EventTarget) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventTargetFromJS is casting a js.Value into EventTarget.
-func EventTargetFromJS(input js.Value) *EventTarget {
+// EventTargetFromJS is casting a js.Wrapper into EventTarget.
+func EventTargetFromJS(value js.Wrapper) *EventTarget {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -721,12 +736,13 @@ func NewEventListenerFunc(f func(event *Event)) *EventListenerValue {
 // EventListenerFromJS is taking an javascript object that reference to a
 // callback interface and return a corresponding interface that can be used
 // to invoke on that element.
-func EventListenerFromJS(value js.Value) *EventListenerValue {
-	if value.Type() == js.TypeObject {
-		return &EventListenerValue{Value: value}
+func EventListenerFromJS(value js.Wrapper) *EventListenerValue {
+	input := value.JSValue()
+	if input.Type() == js.TypeObject {
+		return &EventListenerValue{Value: input}
 	}
-	if value.Type() == js.TypeFunction {
-		return &EventListenerValue{Value: value, useInvoke: true}
+	if input.Type() == js.TypeFunction {
+		return &EventListenerValue{Value: input, useInvoke: true}
 	}
 	panic("unsupported type")
 }
@@ -780,8 +796,9 @@ func (_this *AbortController) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AbortControllerFromJS is casting a js.Value into AbortController.
-func AbortControllerFromJS(input js.Value) *AbortController {
+// AbortControllerFromJS is casting a js.Wrapper into AbortController.
+func AbortControllerFromJS(value js.Wrapper) *AbortController {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -828,8 +845,9 @@ type AbortSignal struct {
 	EventTarget
 }
 
-// AbortSignalFromJS is casting a js.Value into AbortSignal.
-func AbortSignalFromJS(input js.Value) *AbortSignal {
+// AbortSignalFromJS is casting a js.Wrapper into AbortSignal.
+func AbortSignalFromJS(value js.Wrapper) *AbortSignal {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -849,8 +867,8 @@ func (_this *AbortSignal) Aborted() bool {
 
 // Onabort returning attribute 'onabort' with
 // type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) Onabort() EventHandler {
-	var ret EventHandler
+func (_this *AbortSignal) Onabort() EventHandlerFunc {
+	var ret EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull {
 		ret = EventHandlerFromJS(value)
@@ -860,7 +878,7 @@ func (_this *AbortSignal) Onabort() EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) SetOnabort(value *js.Func) {
+func (_this *AbortSignal) SetOnabort(value *EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -881,8 +899,9 @@ func (_this *DOMTokenList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMTokenListFromJS is casting a js.Value into DOMTokenList.
-func DOMTokenListFromJS(input js.Value) *DOMTokenList {
+// DOMTokenListFromJS is casting a js.Wrapper into DOMTokenList.
+func DOMTokenListFromJS(value js.Wrapper) *DOMTokenList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1050,8 +1069,9 @@ func (_this *DOMException) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMExceptionFromJS is casting a js.Value into DOMException.
-func DOMExceptionFromJS(input js.Value) *DOMException {
+// DOMExceptionFromJS is casting a js.Wrapper into DOMException.
+func DOMExceptionFromJS(value js.Wrapper) *DOMException {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1148,8 +1168,9 @@ func (_this *DOMStringList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMStringListFromJS is casting a js.Value into DOMStringList.
-func DOMStringListFromJS(input js.Value) *DOMStringList {
+// DOMStringListFromJS is casting a js.Wrapper into DOMStringList.
+func DOMStringListFromJS(value js.Wrapper) *DOMStringList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1214,8 +1235,9 @@ func (_this *DOMStringMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMStringMapFromJS is casting a js.Value into DOMStringMap.
-func DOMStringMapFromJS(input js.Value) *DOMStringMap {
+// DOMStringMapFromJS is casting a js.Wrapper into DOMStringMap.
+func DOMStringMapFromJS(value js.Wrapper) *DOMStringMap {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

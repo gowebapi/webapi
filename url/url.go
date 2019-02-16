@@ -49,8 +49,9 @@ func (_this *URL) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLFromJS is casting a js.Value into URL.
-func URLFromJS(input js.Value) *URL {
+// URLFromJS is casting a js.Wrapper into URL.
+func URLFromJS(value js.Wrapper) *URL {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -317,8 +318,9 @@ func (_this *URLSearchParams) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLSearchParamsFromJS is casting a js.Value into URLSearchParams.
-func URLSearchParamsFromJS(input js.Value) *URLSearchParams {
+// URLSearchParamsFromJS is casting a js.Wrapper into URLSearchParams.
+func URLSearchParamsFromJS(value js.Wrapper) *URLSearchParams {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

@@ -11,7 +11,7 @@ import (
 
 func Example_buttonTest() {
 	element := webapi.GetWindow().Document().GetElementById("foo")
-	button := html.HTMLButtonElementFromJS(element.JSValue())
+	button := html.HTMLButtonElementFromJS(element)
 	button.SetInnerText("Press me!")
 
 	count := 1

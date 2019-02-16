@@ -38,13 +38,19 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: Function
-type Function func(arguments ...js.Value) js.Value
+type FunctionFunc func(arguments ...js.Value) js.Value
 
-func FunctionToJS(callback Function) *js.Func {
+// Function is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type Function js.Func
+
+func FunctionToJS(callback FunctionFunc) *Function {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := Function(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 []js.Value // javascript: any arguments
 		)
@@ -57,11 +63,11 @@ func FunctionToJS(callback Function) *js.Func {
 		_returned := callback(_p0...)
 		_converted := _returned
 		return _converted
-	})
+	}))
 	return &ret
 }
 
-func FunctionFromJS(_value js.Value) Function {
+func FunctionFromJS(_value js.Value) FunctionFunc {
 	return func(arguments ...js.Value) (_result js.Value) {
 		var (
 			_args []interface{} = make([]interface{}, 0+len(arguments))
@@ -83,22 +89,28 @@ func FunctionFromJS(_value js.Value) Function {
 }
 
 // callback: VoidFunction
-type VoidFunction func()
+type VoidFunctionFunc func()
 
-func VoidFunctionToJS(callback VoidFunction) *js.Func {
+// VoidFunction is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type VoidFunction js.Func
+
+func VoidFunctionToJS(callback VoidFunctionFunc) *VoidFunction {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := VoidFunction(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		callback()
 		// returning no return value
 		return nil
-	})
+	}))
 	return &ret
 }
 
-func VoidFunctionFromJS(_value js.Value) VoidFunction {
+func VoidFunctionFromJS(_value js.Value) VoidFunctionFunc {
 	return func() {
 		var (
 			_args [0]interface{}

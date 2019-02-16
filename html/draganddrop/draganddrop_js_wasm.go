@@ -4,10 +4,12 @@ package draganddrop
 
 import "syscall/js"
 
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/fileapi"
-import "github.com/gowebapi/webapi/dom"
-import "github.com/gowebapi/webapi/patch"
+import (
+	"github.com/gowebapi/webapi/dom"
+	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/patch"
+)
 
 // using following types:
 // dom.Element
@@ -48,13 +50,19 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: FunctionStringCallback
-type FunctionStringCallback func(data string)
+type FunctionStringCallbackFunc func(data string)
 
-func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Func {
+// FunctionStringCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type FunctionStringCallback js.Func
+
+func FunctionStringCallbackToJS(callback FunctionStringCallbackFunc) *FunctionStringCallback {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := FunctionStringCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 string // javascript: DOMString data
 		)
@@ -62,11 +70,11 @@ func FunctionStringCallbackToJS(callback FunctionStringCallback) *js.Func {
 		callback(_p0)
 		// returning no return value
 		return nil
-	})
+	}))
 	return &ret
 }
 
-func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallback {
+func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallbackFunc {
 	return func(data string) {
 		var (
 			_args [1]interface{}
@@ -97,7 +105,8 @@ func (_this *DragEventInit) JSValue() js.Value {
 // DragEventInitFromJS is allocating a new
 // DragEventInit object and copy all values from
 // input javascript object
-func DragEventInitFromJS(input js.Value) *DragEventInit {
+func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
+	input := value.JSValue()
 	var out DragEventInit
 	var (
 		out0 *DataTransfer // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
@@ -119,8 +128,9 @@ func (_this *DataTransfer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferFromJS is casting a js.Value into DataTransfer.
-func DataTransferFromJS(input js.Value) *DataTransfer {
+// DataTransferFromJS is casting a js.Wrapper into DataTransfer.
+func DataTransferFromJS(value js.Wrapper) *DataTransfer {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -277,8 +287,9 @@ func (_this *DataTransferItemList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferItemListFromJS is casting a js.Value into DataTransferItemList.
-func DataTransferItemListFromJS(input js.Value) *DataTransferItemList {
+// DataTransferItemListFromJS is casting a js.Wrapper into DataTransferItemList.
+func DataTransferItemListFromJS(value js.Wrapper) *DataTransferItemList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -368,8 +379,9 @@ func (_this *DataTransferItem) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferItemFromJS is casting a js.Value into DataTransferItem.
-func DataTransferItemFromJS(input js.Value) *DataTransferItem {
+// DataTransferItemFromJS is casting a js.Wrapper into DataTransferItem.
+func DataTransferItemFromJS(value js.Wrapper) *DataTransferItem {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -396,7 +408,7 @@ func (_this *DataTransferItem) Type() string {
 	return ret
 }
 
-func (_this *DataTransferItem) GetAsString(callback *js.Func) {
+func (_this *DataTransferItem) GetAsString(callback *FunctionStringCallback) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -436,8 +448,9 @@ type DragEvent struct {
 	patch.MouseEvent
 }
 
-// DragEventFromJS is casting a js.Value into DragEvent.
-func DragEventFromJS(input js.Value) *DragEvent {
+// DragEventFromJS is casting a js.Wrapper into DragEvent.
+func DragEventFromJS(value js.Wrapper) *DragEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

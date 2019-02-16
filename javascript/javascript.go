@@ -49,8 +49,9 @@ func (_this *Object) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ObjectFromJS is casting a js.Value into Object.
-func ObjectFromJS(input js.Value) *Object {
+// ObjectFromJS is casting a js.Wrapper into Object.
+func ObjectFromJS(value js.Wrapper) *Object {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -69,8 +70,9 @@ func (_this *ArrayBuffer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayBufferFromJS is casting a js.Value into ArrayBuffer.
-func ArrayBufferFromJS(input js.Value) *ArrayBuffer {
+// ArrayBufferFromJS is casting a js.Wrapper into ArrayBuffer.
+func ArrayBufferFromJS(value js.Wrapper) *ArrayBuffer {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -89,8 +91,9 @@ func (_this *Int8Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int8ArrayFromJS is casting a js.Value into Int8Array.
-func Int8ArrayFromJS(input js.Value) *Int8Array {
+// Int8ArrayFromJS is casting a js.Wrapper into Int8Array.
+func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -109,8 +112,9 @@ func (_this *Int16Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int16ArrayFromJS is casting a js.Value into Int16Array.
-func Int16ArrayFromJS(input js.Value) *Int16Array {
+// Int16ArrayFromJS is casting a js.Wrapper into Int16Array.
+func Int16ArrayFromJS(value js.Wrapper) *Int16Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -129,8 +133,9 @@ func (_this *Uint8Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint8ArrayFromJS is casting a js.Value into Uint8Array.
-func Uint8ArrayFromJS(input js.Value) *Uint8Array {
+// Uint8ArrayFromJS is casting a js.Wrapper into Uint8Array.
+func Uint8ArrayFromJS(value js.Wrapper) *Uint8Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -149,8 +154,9 @@ func (_this *Uint16Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint16ArrayFromJS is casting a js.Value into Uint16Array.
-func Uint16ArrayFromJS(input js.Value) *Uint16Array {
+// Uint16ArrayFromJS is casting a js.Wrapper into Uint16Array.
+func Uint16ArrayFromJS(value js.Wrapper) *Uint16Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -169,8 +175,9 @@ func (_this *Float64Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Float64ArrayFromJS is casting a js.Value into Float64Array.
-func Float64ArrayFromJS(input js.Value) *Float64Array {
+// Float64ArrayFromJS is casting a js.Wrapper into Float64Array.
+func Float64ArrayFromJS(value js.Wrapper) *Float64Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -189,8 +196,9 @@ func (_this *DataView) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataViewFromJS is casting a js.Value into DataView.
-func DataViewFromJS(input js.Value) *DataView {
+// DataViewFromJS is casting a js.Wrapper into DataView.
+func DataViewFromJS(value js.Wrapper) *DataView {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -209,8 +217,9 @@ func (_this *Uint32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint32ArrayFromJS is casting a js.Value into Uint32Array.
-func Uint32ArrayFromJS(input js.Value) *Uint32Array {
+// Uint32ArrayFromJS is casting a js.Wrapper into Uint32Array.
+func Uint32ArrayFromJS(value js.Wrapper) *Uint32Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -229,8 +238,9 @@ func (_this *Int32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int32ArrayFromJS is casting a js.Value into Int32Array.
-func Int32ArrayFromJS(input js.Value) *Int32Array {
+// Int32ArrayFromJS is casting a js.Wrapper into Int32Array.
+func Int32ArrayFromJS(value js.Wrapper) *Int32Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -249,8 +259,9 @@ func (_this *Float32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Float32ArrayFromJS is casting a js.Value into Float32Array.
-func Float32ArrayFromJS(input js.Value) *Float32Array {
+// Float32ArrayFromJS is casting a js.Wrapper into Float32Array.
+func Float32ArrayFromJS(value js.Wrapper) *Float32Array {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -269,8 +280,9 @@ func (_this *FrozenArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FrozenArrayFromJS is casting a js.Value into FrozenArray.
-func FrozenArrayFromJS(input js.Value) *FrozenArray {
+// FrozenArrayFromJS is casting a js.Wrapper into FrozenArray.
+func FrozenArrayFromJS(value js.Wrapper) *FrozenArray {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -289,8 +301,9 @@ func (_this *Promise) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseFromJS is casting a js.Value into Promise.
-func PromiseFromJS(input js.Value) *Promise {
+// PromiseFromJS is casting a js.Wrapper into Promise.
+func PromiseFromJS(value js.Wrapper) *Promise {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

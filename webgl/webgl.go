@@ -6,8 +6,10 @@ package webgl
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/dom/domcore"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // domcore.Event
@@ -125,7 +127,8 @@ func (_this *WebGLContextAttributes) JSValue() js.Value {
 // WebGLContextAttributesFromJS is allocating a new
 // WebGLContextAttributes object and copy all values from
 // input javascript object
-func WebGLContextAttributesFromJS(input js.Value) *WebGLContextAttributes {
+func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
+	input := value.JSValue()
 	var out WebGLContextAttributes
 	var (
 		out0 bool                 // javascript: boolean {alpha Alpha alpha}
@@ -173,7 +176,8 @@ func (_this *WebGLContextEventInit) JSValue() js.Value {
 // WebGLContextEventInitFromJS is allocating a new
 // WebGLContextEventInit object and copy all values from
 // input javascript object
-func WebGLContextEventInitFromJS(input js.Value) *WebGLContextEventInit {
+func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
+	input := value.JSValue()
 	var out WebGLContextEventInit
 	var (
 		out0 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
@@ -193,8 +197,9 @@ func (_this *WebGLObject) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLObjectFromJS is casting a js.Value into WebGLObject.
-func WebGLObjectFromJS(input js.Value) *WebGLObject {
+// WebGLObjectFromJS is casting a js.Wrapper into WebGLObject.
+func WebGLObjectFromJS(value js.Wrapper) *WebGLObject {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -208,8 +213,9 @@ type WebGLBuffer struct {
 	WebGLObject
 }
 
-// WebGLBufferFromJS is casting a js.Value into WebGLBuffer.
-func WebGLBufferFromJS(input js.Value) *WebGLBuffer {
+// WebGLBufferFromJS is casting a js.Wrapper into WebGLBuffer.
+func WebGLBufferFromJS(value js.Wrapper) *WebGLBuffer {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -223,8 +229,9 @@ type WebGLFramebuffer struct {
 	WebGLObject
 }
 
-// WebGLFramebufferFromJS is casting a js.Value into WebGLFramebuffer.
-func WebGLFramebufferFromJS(input js.Value) *WebGLFramebuffer {
+// WebGLFramebufferFromJS is casting a js.Wrapper into WebGLFramebuffer.
+func WebGLFramebufferFromJS(value js.Wrapper) *WebGLFramebuffer {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -238,8 +245,9 @@ type WebGLProgram struct {
 	WebGLObject
 }
 
-// WebGLProgramFromJS is casting a js.Value into WebGLProgram.
-func WebGLProgramFromJS(input js.Value) *WebGLProgram {
+// WebGLProgramFromJS is casting a js.Wrapper into WebGLProgram.
+func WebGLProgramFromJS(value js.Wrapper) *WebGLProgram {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -253,8 +261,9 @@ type WebGLRenderbuffer struct {
 	WebGLObject
 }
 
-// WebGLRenderbufferFromJS is casting a js.Value into WebGLRenderbuffer.
-func WebGLRenderbufferFromJS(input js.Value) *WebGLRenderbuffer {
+// WebGLRenderbufferFromJS is casting a js.Wrapper into WebGLRenderbuffer.
+func WebGLRenderbufferFromJS(value js.Wrapper) *WebGLRenderbuffer {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -268,8 +277,9 @@ type WebGLShader struct {
 	WebGLObject
 }
 
-// WebGLShaderFromJS is casting a js.Value into WebGLShader.
-func WebGLShaderFromJS(input js.Value) *WebGLShader {
+// WebGLShaderFromJS is casting a js.Wrapper into WebGLShader.
+func WebGLShaderFromJS(value js.Wrapper) *WebGLShader {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -283,8 +293,9 @@ type WebGLTexture struct {
 	WebGLObject
 }
 
-// WebGLTextureFromJS is casting a js.Value into WebGLTexture.
-func WebGLTextureFromJS(input js.Value) *WebGLTexture {
+// WebGLTextureFromJS is casting a js.Wrapper into WebGLTexture.
+func WebGLTextureFromJS(value js.Wrapper) *WebGLTexture {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -303,8 +314,9 @@ func (_this *WebGLUniformLocation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLUniformLocationFromJS is casting a js.Value into WebGLUniformLocation.
-func WebGLUniformLocationFromJS(input js.Value) *WebGLUniformLocation {
+// WebGLUniformLocationFromJS is casting a js.Wrapper into WebGLUniformLocation.
+func WebGLUniformLocationFromJS(value js.Wrapper) *WebGLUniformLocation {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -323,8 +335,9 @@ func (_this *WebGLActiveInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLActiveInfoFromJS is casting a js.Value into WebGLActiveInfo.
-func WebGLActiveInfoFromJS(input js.Value) *WebGLActiveInfo {
+// WebGLActiveInfoFromJS is casting a js.Wrapper into WebGLActiveInfo.
+func WebGLActiveInfoFromJS(value js.Wrapper) *WebGLActiveInfo {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -370,8 +383,9 @@ func (_this *WebGLShaderPrecisionFormat) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLShaderPrecisionFormatFromJS is casting a js.Value into WebGLShaderPrecisionFormat.
-func WebGLShaderPrecisionFormatFromJS(input js.Value) *WebGLShaderPrecisionFormat {
+// WebGLShaderPrecisionFormatFromJS is casting a js.Wrapper into WebGLShaderPrecisionFormat.
+func WebGLShaderPrecisionFormatFromJS(value js.Wrapper) *WebGLShaderPrecisionFormat {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -417,8 +431,9 @@ func (_this *WebGLRenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLRenderingContextFromJS is casting a js.Value into WebGLRenderingContext.
-func WebGLRenderingContextFromJS(input js.Value) *WebGLRenderingContext {
+// WebGLRenderingContextFromJS is casting a js.Wrapper into WebGLRenderingContext.
+func WebGLRenderingContextFromJS(value js.Wrapper) *WebGLRenderingContext {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -3228,8 +3243,9 @@ type WebGLContextEvent struct {
 	domcore.Event
 }
 
-// WebGLContextEventFromJS is casting a js.Value into WebGLContextEvent.
-func WebGLContextEventFromJS(input js.Value) *WebGLContextEvent {
+// WebGLContextEventFromJS is casting a js.Wrapper into WebGLContextEvent.
+func WebGLContextEventFromJS(value js.Wrapper) *WebGLContextEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

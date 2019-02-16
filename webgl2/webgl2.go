@@ -6,8 +6,10 @@ package webgl2
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/webgl"
-import "github.com/gowebapi/webapi/javascript"
+import (
+	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/webgl"
+)
 
 // using following types:
 // javascript.Object
@@ -59,8 +61,9 @@ type WebGLQuery struct {
 	webgl.WebGLObject
 }
 
-// WebGLQueryFromJS is casting a js.Value into WebGLQuery.
-func WebGLQueryFromJS(input js.Value) *WebGLQuery {
+// WebGLQueryFromJS is casting a js.Wrapper into WebGLQuery.
+func WebGLQueryFromJS(value js.Wrapper) *WebGLQuery {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -74,8 +77,9 @@ type WebGLSampler struct {
 	webgl.WebGLObject
 }
 
-// WebGLSamplerFromJS is casting a js.Value into WebGLSampler.
-func WebGLSamplerFromJS(input js.Value) *WebGLSampler {
+// WebGLSamplerFromJS is casting a js.Wrapper into WebGLSampler.
+func WebGLSamplerFromJS(value js.Wrapper) *WebGLSampler {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -89,8 +93,9 @@ type WebGLSync struct {
 	webgl.WebGLObject
 }
 
-// WebGLSyncFromJS is casting a js.Value into WebGLSync.
-func WebGLSyncFromJS(input js.Value) *WebGLSync {
+// WebGLSyncFromJS is casting a js.Wrapper into WebGLSync.
+func WebGLSyncFromJS(value js.Wrapper) *WebGLSync {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -104,8 +109,9 @@ type WebGLTransformFeedback struct {
 	webgl.WebGLObject
 }
 
-// WebGLTransformFeedbackFromJS is casting a js.Value into WebGLTransformFeedback.
-func WebGLTransformFeedbackFromJS(input js.Value) *WebGLTransformFeedback {
+// WebGLTransformFeedbackFromJS is casting a js.Wrapper into WebGLTransformFeedback.
+func WebGLTransformFeedbackFromJS(value js.Wrapper) *WebGLTransformFeedback {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -119,8 +125,9 @@ type WebGLVertexArrayObject struct {
 	webgl.WebGLObject
 }
 
-// WebGLVertexArrayObjectFromJS is casting a js.Value into WebGLVertexArrayObject.
-func WebGLVertexArrayObjectFromJS(input js.Value) *WebGLVertexArrayObject {
+// WebGLVertexArrayObjectFromJS is casting a js.Wrapper into WebGLVertexArrayObject.
+func WebGLVertexArrayObjectFromJS(value js.Wrapper) *WebGLVertexArrayObject {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -139,8 +146,9 @@ func (_this *WebGL2RenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGL2RenderingContextFromJS is casting a js.Value into WebGL2RenderingContext.
-func WebGL2RenderingContextFromJS(input js.Value) *WebGL2RenderingContext {
+// WebGL2RenderingContextFromJS is casting a js.Wrapper into WebGL2RenderingContext.
+func WebGL2RenderingContextFromJS(value js.Wrapper) *WebGL2RenderingContext {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

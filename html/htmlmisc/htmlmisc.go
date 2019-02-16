@@ -6,9 +6,11 @@ package htmlmisc
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/dom"
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/dom/domcore"
+import (
+	"github.com/gowebapi/webapi/dom"
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // dom.Node
@@ -94,22 +96,28 @@ func ScrollRestorationFromJS(value js.Value) ScrollRestoration {
 }
 
 // callback: CustomElementConstructor
-type CustomElementConstructor func() js.Value
+type CustomElementConstructorFunc func() js.Value
 
-func CustomElementConstructorToJS(callback CustomElementConstructor) *js.Func {
+// CustomElementConstructor is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type CustomElementConstructor js.Func
+
+func CustomElementConstructorToJS(callback CustomElementConstructorFunc) *CustomElementConstructor {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := CustomElementConstructor(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		_returned := callback()
 		_converted := _returned
 		return _converted
-	})
+	}))
 	return &ret
 }
 
-func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
+func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructorFunc {
 	return func() (_result js.Value) {
 		var (
 			_args [0]interface{}
@@ -126,13 +134,19 @@ func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructor {
 }
 
 // callback: FrameRequestCallback
-type FrameRequestCallback func(time float64)
+type FrameRequestCallbackFunc func(time float64)
 
-func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Func {
+// FrameRequestCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type FrameRequestCallback js.Func
+
+func FrameRequestCallbackToJS(callback FrameRequestCallbackFunc) *FrameRequestCallback {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := FrameRequestCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 float64 // javascript: double time
 		)
@@ -140,11 +154,11 @@ func FrameRequestCallbackToJS(callback FrameRequestCallback) *js.Func {
 		callback(_p0)
 		// returning no return value
 		return nil
-	})
+	}))
 	return &ret
 }
 
-func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallback {
+func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallbackFunc {
 	return func(time float64) {
 		var (
 			_args [1]interface{}
@@ -175,7 +189,8 @@ func (_this *ElementDefinitionOptions) JSValue() js.Value {
 // ElementDefinitionOptionsFromJS is allocating a new
 // ElementDefinitionOptions object and copy all values from
 // input javascript object
-func ElementDefinitionOptionsFromJS(input js.Value) *ElementDefinitionOptions {
+func ElementDefinitionOptionsFromJS(value js.Wrapper) *ElementDefinitionOptions {
+	input := value.JSValue()
 	var out ElementDefinitionOptions
 	var (
 		out0 string // javascript: DOMString {extends Extends extends}
@@ -205,7 +220,8 @@ func (_this *HashChangeEventInit) JSValue() js.Value {
 // HashChangeEventInitFromJS is allocating a new
 // HashChangeEventInit object and copy all values from
 // input javascript object
-func HashChangeEventInitFromJS(input js.Value) *HashChangeEventInit {
+func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
+	input := value.JSValue()
 	var out HashChangeEventInit
 	var (
 		out0 string // javascript: USVString {oldURL OldURL oldURL}
@@ -235,7 +251,8 @@ func (_this *EventSourceInit) JSValue() js.Value {
 // EventSourceInitFromJS is allocating a new
 // EventSourceInit object and copy all values from
 // input javascript object
-func EventSourceInitFromJS(input js.Value) *EventSourceInit {
+func EventSourceInitFromJS(value js.Wrapper) *EventSourceInit {
+	input := value.JSValue()
 	var out EventSourceInit
 	var (
 		out0 bool // javascript: boolean {withCredentials WithCredentials withCredentials}
@@ -274,7 +291,8 @@ func (_this *StorageEventInit) JSValue() js.Value {
 // StorageEventInitFromJS is allocating a new
 // StorageEventInit object and copy all values from
 // input javascript object
-func StorageEventInitFromJS(input js.Value) *StorageEventInit {
+func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
+	input := value.JSValue()
 	var out StorageEventInit
 	var (
 		out0 *string  // javascript: DOMString {key Key key}
@@ -312,8 +330,9 @@ type RadioNodeList struct {
 	dom.NodeList
 }
 
-// RadioNodeListFromJS is casting a js.Value into RadioNodeList.
-func RadioNodeListFromJS(input js.Value) *RadioNodeList {
+// RadioNodeListFromJS is casting a js.Wrapper into RadioNodeList.
+func RadioNodeListFromJS(value js.Wrapper) *RadioNodeList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -348,8 +367,9 @@ func (_this *CustomElementRegistry) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CustomElementRegistryFromJS is casting a js.Value into CustomElementRegistry.
-func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
+// CustomElementRegistryFromJS is casting a js.Wrapper into CustomElementRegistry.
+func CustomElementRegistryFromJS(value js.Wrapper) *CustomElementRegistry {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -358,7 +378,7 @@ func CustomElementRegistryFromJS(input js.Value) *CustomElementRegistry {
 	return ret
 }
 
-func (_this *CustomElementRegistry) Define(name string, constructor *js.Func, options *ElementDefinitionOptions) {
+func (_this *CustomElementRegistry) Define(name string, constructor *CustomElementConstructor, options *ElementDefinitionOptions) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -441,8 +461,9 @@ func (_this *BarProp) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BarPropFromJS is casting a js.Value into BarProp.
-func BarPropFromJS(input js.Value) *BarProp {
+// BarPropFromJS is casting a js.Wrapper into BarProp.
+func BarPropFromJS(value js.Wrapper) *BarProp {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -470,8 +491,9 @@ func (_this *History) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HistoryFromJS is casting a js.Value into History.
-func HistoryFromJS(input js.Value) *History {
+// HistoryFromJS is casting a js.Wrapper into History.
+func HistoryFromJS(value js.Wrapper) *History {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -596,8 +618,9 @@ func (_this *Location) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LocationFromJS is casting a js.Value into Location.
-func LocationFromJS(input js.Value) *Location {
+// LocationFromJS is casting a js.Wrapper into Location.
+func LocationFromJS(value js.Wrapper) *Location {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -790,8 +813,9 @@ type ApplicationCache struct {
 	domcore.EventTarget
 }
 
-// ApplicationCacheFromJS is casting a js.Value into ApplicationCache.
-func ApplicationCacheFromJS(input js.Value) *ApplicationCache {
+// ApplicationCacheFromJS is casting a js.Wrapper into ApplicationCache.
+func ApplicationCacheFromJS(value js.Wrapper) *ApplicationCache {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -818,8 +842,8 @@ func (_this *ApplicationCache) Status() int {
 
 // Onchecking returning attribute 'onchecking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onchecking() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onchecking() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchecking")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -829,7 +853,7 @@ func (_this *ApplicationCache) Onchecking() domcore.EventHandler {
 
 // SetOnchecking setting attribute 'onchecking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnchecking(value *js.Func) {
+func (_this *ApplicationCache) SetOnchecking(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -842,8 +866,8 @@ func (_this *ApplicationCache) SetOnchecking(value *js.Func) {
 
 // Onerror returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -853,7 +877,7 @@ func (_this *ApplicationCache) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnerror(value *js.Func) {
+func (_this *ApplicationCache) SetOnerror(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -866,8 +890,8 @@ func (_this *ApplicationCache) SetOnerror(value *js.Func) {
 
 // Onnoupdate returning attribute 'onnoupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onnoupdate() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onnoupdate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnoupdate")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -877,7 +901,7 @@ func (_this *ApplicationCache) Onnoupdate() domcore.EventHandler {
 
 // SetOnnoupdate setting attribute 'onnoupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnnoupdate(value *js.Func) {
+func (_this *ApplicationCache) SetOnnoupdate(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -890,8 +914,8 @@ func (_this *ApplicationCache) SetOnnoupdate(value *js.Func) {
 
 // Ondownloading returning attribute 'ondownloading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Ondownloading() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Ondownloading() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondownloading")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -901,7 +925,7 @@ func (_this *ApplicationCache) Ondownloading() domcore.EventHandler {
 
 // SetOndownloading setting attribute 'ondownloading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOndownloading(value *js.Func) {
+func (_this *ApplicationCache) SetOndownloading(value *domcore.EventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -914,8 +938,8 @@ func (_this *ApplicationCache) SetOndownloading(value *js.Func) {
 
 // Onprogress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onprogress() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onprogress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -925,7 +949,7 @@ func (_this *ApplicationCache) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnprogress(value *js.Func) {
+func (_this *ApplicationCache) SetOnprogress(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -938,8 +962,8 @@ func (_this *ApplicationCache) SetOnprogress(value *js.Func) {
 
 // Onupdateready returning attribute 'onupdateready' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onupdateready() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onupdateready() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdateready")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -949,7 +973,7 @@ func (_this *ApplicationCache) Onupdateready() domcore.EventHandler {
 
 // SetOnupdateready setting attribute 'onupdateready' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnupdateready(value *js.Func) {
+func (_this *ApplicationCache) SetOnupdateready(value *domcore.EventHandler) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -962,8 +986,8 @@ func (_this *ApplicationCache) SetOnupdateready(value *js.Func) {
 
 // Oncached returning attribute 'oncached' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Oncached() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Oncached() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncached")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -973,7 +997,7 @@ func (_this *ApplicationCache) Oncached() domcore.EventHandler {
 
 // SetOncached setting attribute 'oncached' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOncached(value *js.Func) {
+func (_this *ApplicationCache) SetOncached(value *domcore.EventHandler) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -986,8 +1010,8 @@ func (_this *ApplicationCache) SetOncached(value *js.Func) {
 
 // Onobsolete returning attribute 'onobsolete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onobsolete() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *ApplicationCache) Onobsolete() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onobsolete")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -997,7 +1021,7 @@ func (_this *ApplicationCache) Onobsolete() domcore.EventHandler {
 
 // SetOnobsolete setting attribute 'onobsolete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnobsolete(value *js.Func) {
+func (_this *ApplicationCache) SetOnobsolete(value *domcore.EventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -1045,8 +1069,9 @@ func (_this *Navigator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NavigatorFromJS is casting a js.Value into Navigator.
-func NavigatorFromJS(input js.Value) *Navigator {
+// NavigatorFromJS is casting a js.Wrapper into Navigator.
+func NavigatorFromJS(value js.Wrapper) *Navigator {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1279,8 +1304,9 @@ func (_this *PluginArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PluginArrayFromJS is casting a js.Value into PluginArray.
-func PluginArrayFromJS(input js.Value) *PluginArray {
+// PluginArrayFromJS is casting a js.Wrapper into PluginArray.
+func PluginArrayFromJS(value js.Wrapper) *PluginArray {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1360,8 +1386,9 @@ func (_this *MimeTypeArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MimeTypeArrayFromJS is casting a js.Value into MimeTypeArray.
-func MimeTypeArrayFromJS(input js.Value) *MimeTypeArray {
+// MimeTypeArrayFromJS is casting a js.Wrapper into MimeTypeArray.
+func MimeTypeArrayFromJS(value js.Wrapper) *MimeTypeArray {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1427,8 +1454,9 @@ func (_this *Plugin) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PluginFromJS is casting a js.Value into Plugin.
-func PluginFromJS(input js.Value) *Plugin {
+// PluginFromJS is casting a js.Wrapper into Plugin.
+func PluginFromJS(value js.Wrapper) *Plugin {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1521,8 +1549,9 @@ func (_this *MimeType) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MimeTypeFromJS is casting a js.Value into MimeType.
-func MimeTypeFromJS(input js.Value) *MimeType {
+// MimeTypeFromJS is casting a js.Wrapper into MimeType.
+func MimeTypeFromJS(value js.Wrapper) *MimeType {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1572,8 +1601,9 @@ type EventSource struct {
 	domcore.EventTarget
 }
 
-// EventSourceFromJS is casting a js.Value into EventSource.
-func EventSourceFromJS(input js.Value) *EventSource {
+// EventSourceFromJS is casting a js.Wrapper into EventSource.
+func EventSourceFromJS(value js.Wrapper) *EventSource {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1638,8 +1668,8 @@ func (_this *EventSource) ReadyState() int {
 
 // Onopen returning attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onopen() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *EventSource) Onopen() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1649,7 +1679,7 @@ func (_this *EventSource) Onopen() domcore.EventHandler {
 
 // SetOnopen setting attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnopen(value *js.Func) {
+func (_this *EventSource) SetOnopen(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1662,8 +1692,8 @@ func (_this *EventSource) SetOnopen(value *js.Func) {
 
 // Onmessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onmessage() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *EventSource) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1673,7 +1703,7 @@ func (_this *EventSource) Onmessage() domcore.EventHandler {
 
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnmessage(value *js.Func) {
+func (_this *EventSource) SetOnmessage(value *domcore.EventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -1686,8 +1716,8 @@ func (_this *EventSource) SetOnmessage(value *js.Func) {
 
 // Onerror returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *EventSource) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1697,7 +1727,7 @@ func (_this *EventSource) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnerror(value *js.Func) {
+func (_this *EventSource) SetOnerror(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -1727,8 +1757,9 @@ func (_this *Storage) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StorageFromJS is casting a js.Value into Storage.
-func StorageFromJS(input js.Value) *Storage {
+// StorageFromJS is casting a js.Wrapper into Storage.
+func StorageFromJS(value js.Wrapper) *Storage {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1827,8 +1858,9 @@ type StorageEvent struct {
 	domcore.Event
 }
 
-// StorageEventFromJS is casting a js.Value into StorageEvent.
-func StorageEventFromJS(input js.Value) *StorageEvent {
+// StorageEventFromJS is casting a js.Wrapper into StorageEvent.
+func StorageEventFromJS(value js.Wrapper) *StorageEvent {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1973,8 +2005,9 @@ func (_this *External) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ExternalFromJS is casting a js.Value into External.
-func ExternalFromJS(input js.Value) *External {
+// ExternalFromJS is casting a js.Wrapper into External.
+func ExternalFromJS(value js.Wrapper) *External {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}

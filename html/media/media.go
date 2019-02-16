@@ -6,9 +6,11 @@ package media
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/html"
-import "github.com/gowebapi/webapi/javascript"
-import "github.com/gowebapi/webapi/dom/domcore"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/html"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // domcore.EventHandler
@@ -185,8 +187,9 @@ type HTMLVideoElement struct {
 	HTMLMediaElement
 }
 
-// HTMLVideoElementFromJS is casting a js.Value into HTMLVideoElement.
-func HTMLVideoElementFromJS(input js.Value) *HTMLVideoElement {
+// HTMLVideoElementFromJS is casting a js.Wrapper into HTMLVideoElement.
+func HTMLVideoElementFromJS(value js.Wrapper) *HTMLVideoElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -282,8 +285,9 @@ type HTMLAudioElement struct {
 	HTMLMediaElement
 }
 
-// HTMLAudioElementFromJS is casting a js.Value into HTMLAudioElement.
-func HTMLAudioElementFromJS(input js.Value) *HTMLAudioElement {
+// HTMLAudioElementFromJS is casting a js.Wrapper into HTMLAudioElement.
+func HTMLAudioElementFromJS(value js.Wrapper) *HTMLAudioElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -297,8 +301,9 @@ type HTMLTrackElement struct {
 	html.HTMLElement
 }
 
-// HTMLTrackElementFromJS is casting a js.Value into HTMLTrackElement.
-func HTMLTrackElementFromJS(input js.Value) *HTMLTrackElement {
+// HTMLTrackElementFromJS is casting a js.Wrapper into HTMLTrackElement.
+func HTMLTrackElementFromJS(value js.Wrapper) *HTMLTrackElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -415,8 +420,9 @@ type HTMLMediaElement struct {
 	html.HTMLElement
 }
 
-// HTMLMediaElementFromJS is casting a js.Value into HTMLMediaElement.
-func HTMLMediaElementFromJS(input js.Value) *HTMLMediaElement {
+// HTMLMediaElementFromJS is casting a js.Wrapper into HTMLMediaElement.
+func HTMLMediaElementFromJS(value js.Wrapper) *HTMLMediaElement {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -888,8 +894,9 @@ func (_this *MediaError) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaErrorFromJS is casting a js.Value into MediaError.
-func MediaErrorFromJS(input js.Value) *MediaError {
+// MediaErrorFromJS is casting a js.Wrapper into MediaError.
+func MediaErrorFromJS(value js.Wrapper) *MediaError {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -926,8 +933,9 @@ type AudioTrackList struct {
 	domcore.EventTarget
 }
 
-// AudioTrackListFromJS is casting a js.Value into AudioTrackList.
-func AudioTrackListFromJS(input js.Value) *AudioTrackList {
+// AudioTrackListFromJS is casting a js.Wrapper into AudioTrackList.
+func AudioTrackListFromJS(value js.Wrapper) *AudioTrackList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -947,8 +955,8 @@ func (_this *AudioTrackList) Length() uint {
 
 // Onchange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *AudioTrackList) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -958,7 +966,7 @@ func (_this *AudioTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnchange(value *js.Func) {
+func (_this *AudioTrackList) SetOnchange(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -971,8 +979,8 @@ func (_this *AudioTrackList) SetOnchange(value *js.Func) {
 
 // Onaddtrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onaddtrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *AudioTrackList) Onaddtrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -982,7 +990,7 @@ func (_this *AudioTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnaddtrack(value *js.Func) {
+func (_this *AudioTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -995,8 +1003,8 @@ func (_this *AudioTrackList) SetOnaddtrack(value *js.Func) {
 
 // Onremovetrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onremovetrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *AudioTrackList) Onremovetrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1006,7 +1014,7 @@ func (_this *AudioTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnremovetrack(value *js.Func) {
+func (_this *AudioTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1046,8 +1054,9 @@ func (_this *AudioTrack) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioTrackFromJS is casting a js.Value into AudioTrack.
-func AudioTrackFromJS(input js.Value) *AudioTrack {
+// AudioTrackFromJS is casting a js.Wrapper into AudioTrack.
+func AudioTrackFromJS(value js.Wrapper) *AudioTrack {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1113,8 +1122,9 @@ type VideoTrackList struct {
 	domcore.EventTarget
 }
 
-// VideoTrackListFromJS is casting a js.Value into VideoTrackList.
-func VideoTrackListFromJS(input js.Value) *VideoTrackList {
+// VideoTrackListFromJS is casting a js.Wrapper into VideoTrackList.
+func VideoTrackListFromJS(value js.Wrapper) *VideoTrackList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1143,8 +1153,8 @@ func (_this *VideoTrackList) SelectedIndex() int {
 
 // Onchange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *VideoTrackList) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1154,7 +1164,7 @@ func (_this *VideoTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnchange(value *js.Func) {
+func (_this *VideoTrackList) SetOnchange(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -1167,8 +1177,8 @@ func (_this *VideoTrackList) SetOnchange(value *js.Func) {
 
 // Onaddtrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onaddtrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *VideoTrackList) Onaddtrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1178,7 +1188,7 @@ func (_this *VideoTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnaddtrack(value *js.Func) {
+func (_this *VideoTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1191,8 +1201,8 @@ func (_this *VideoTrackList) SetOnaddtrack(value *js.Func) {
 
 // Onremovetrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onremovetrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *VideoTrackList) Onremovetrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1202,7 +1212,7 @@ func (_this *VideoTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnremovetrack(value *js.Func) {
+func (_this *VideoTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -1242,8 +1252,9 @@ func (_this *VideoTrack) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// VideoTrackFromJS is casting a js.Value into VideoTrack.
-func VideoTrackFromJS(input js.Value) *VideoTrack {
+// VideoTrackFromJS is casting a js.Wrapper into VideoTrack.
+func VideoTrackFromJS(value js.Wrapper) *VideoTrack {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1309,8 +1320,9 @@ type TextTrackList struct {
 	domcore.EventTarget
 }
 
-// TextTrackListFromJS is casting a js.Value into TextTrackList.
-func TextTrackListFromJS(input js.Value) *TextTrackList {
+// TextTrackListFromJS is casting a js.Wrapper into TextTrackList.
+func TextTrackListFromJS(value js.Wrapper) *TextTrackList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1330,8 +1342,8 @@ func (_this *TextTrackList) Length() uint {
 
 // Onchange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onchange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrackList) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1341,7 +1353,7 @@ func (_this *TextTrackList) Onchange() domcore.EventHandler {
 
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnchange(value *js.Func) {
+func (_this *TextTrackList) SetOnchange(value *domcore.EventHandler) {
 	var __callback1 js.Value
 	if value != nil {
 		__callback1 = (*value).Value
@@ -1354,8 +1366,8 @@ func (_this *TextTrackList) SetOnchange(value *js.Func) {
 
 // Onaddtrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onaddtrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrackList) Onaddtrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1365,7 +1377,7 @@ func (_this *TextTrackList) Onaddtrack() domcore.EventHandler {
 
 // SetOnaddtrack setting attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnaddtrack(value *js.Func) {
+func (_this *TextTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 	var __callback2 js.Value
 	if value != nil {
 		__callback2 = (*value).Value
@@ -1378,8 +1390,8 @@ func (_this *TextTrackList) SetOnaddtrack(value *js.Func) {
 
 // Onremovetrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onremovetrack() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrackList) Onremovetrack() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1389,7 +1401,7 @@ func (_this *TextTrackList) Onremovetrack() domcore.EventHandler {
 
 // SetOnremovetrack setting attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnremovetrack(value *js.Func) {
+func (_this *TextTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -1424,8 +1436,9 @@ type TextTrack struct {
 	domcore.EventTarget
 }
 
-// TextTrackFromJS is casting a js.Value into TextTrack.
-func TextTrackFromJS(input js.Value) *TextTrack {
+// TextTrackFromJS is casting a js.Wrapper into TextTrack.
+func TextTrackFromJS(value js.Wrapper) *TextTrack {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1519,8 +1532,8 @@ func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 
 // Oncuechange returning attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) Oncuechange() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrack) Oncuechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1530,7 +1543,7 @@ func (_this *TextTrack) Oncuechange() domcore.EventHandler {
 
 // SetOncuechange setting attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) SetOncuechange(value *js.Func) {
+func (_this *TextTrack) SetOncuechange(value *domcore.EventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -1575,8 +1588,9 @@ func (_this *TextTrackCueList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TextTrackCueListFromJS is casting a js.Value into TextTrackCueList.
-func TextTrackCueListFromJS(input js.Value) *TextTrackCueList {
+// TextTrackCueListFromJS is casting a js.Wrapper into TextTrackCueList.
+func TextTrackCueListFromJS(value js.Wrapper) *TextTrackCueList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1618,8 +1632,9 @@ type TextTrackCue struct {
 	domcore.EventTarget
 }
 
-// TextTrackCueFromJS is casting a js.Value into TextTrackCue.
-func TextTrackCueFromJS(input js.Value) *TextTrackCue {
+// TextTrackCueFromJS is casting a js.Wrapper into TextTrackCue.
+func TextTrackCueFromJS(value js.Wrapper) *TextTrackCue {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -1705,8 +1720,8 @@ func (_this *TextTrackCue) SetPauseOnExit(value bool) {
 
 // Onenter returning attribute 'onenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onenter() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrackCue) Onenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onenter")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1716,7 +1731,7 @@ func (_this *TextTrackCue) Onenter() domcore.EventHandler {
 
 // SetOnenter setting attribute 'onenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnenter(value *js.Func) {
+func (_this *TextTrackCue) SetOnenter(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -1729,8 +1744,8 @@ func (_this *TextTrackCue) SetOnenter(value *js.Func) {
 
 // Onexit returning attribute 'onexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onexit() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *TextTrackCue) Onexit() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onexit")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -1740,7 +1755,7 @@ func (_this *TextTrackCue) Onexit() domcore.EventHandler {
 
 // SetOnexit setting attribute 'onexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnexit(value *js.Func) {
+func (_this *TextTrackCue) SetOnexit(value *domcore.EventHandler) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value

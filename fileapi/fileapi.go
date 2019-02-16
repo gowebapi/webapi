@@ -6,8 +6,10 @@ package fileapi
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
-import "github.com/gowebapi/webapi/dom/domcore"
-import "github.com/gowebapi/webapi/javascript"
+import (
+	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
+)
 
 // using following types:
 // domcore.DOMException
@@ -89,13 +91,19 @@ func EndingTypeFromJS(value js.Value) EndingType {
 }
 
 // callback: BlobCallback
-type BlobCallback func(blob *Blob)
+type BlobCallbackFunc func(blob *Blob)
 
-func BlobCallbackToJS(callback BlobCallback) *js.Func {
+// BlobCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type BlobCallback js.Func
+
+func BlobCallbackToJS(callback BlobCallbackFunc) *BlobCallback {
 	if callback == nil {
 		return nil
 	}
-	ret := js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := BlobCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 *Blob // javascript: Blob blob
 		)
@@ -105,11 +113,11 @@ func BlobCallbackToJS(callback BlobCallback) *js.Func {
 		callback(_p0)
 		// returning no return value
 		return nil
-	})
+	}))
 	return &ret
 }
 
-func BlobCallbackFromJS(_value js.Value) BlobCallback {
+func BlobCallbackFromJS(_value js.Value) BlobCallbackFunc {
 	return func(blob *Blob) {
 		var (
 			_args [1]interface{}
@@ -143,7 +151,8 @@ func (_this *BlobPropertyBag) JSValue() js.Value {
 // BlobPropertyBagFromJS is allocating a new
 // BlobPropertyBag object and copy all values from
 // input javascript object
-func BlobPropertyBagFromJS(input js.Value) *BlobPropertyBag {
+func BlobPropertyBagFromJS(value js.Wrapper) *BlobPropertyBag {
+	input := value.JSValue()
 	var out BlobPropertyBag
 	var (
 		out0 string     // javascript: DOMString {type Type _type}
@@ -173,7 +182,8 @@ func (_this *FilePropertyBag) JSValue() js.Value {
 // FilePropertyBagFromJS is allocating a new
 // FilePropertyBag object and copy all values from
 // input javascript object
-func FilePropertyBagFromJS(input js.Value) *FilePropertyBag {
+func FilePropertyBagFromJS(value js.Wrapper) *FilePropertyBag {
+	input := value.JSValue()
 	var out FilePropertyBag
 	var (
 		out0 int // javascript: long long {lastModified LastModified lastModified}
@@ -193,8 +203,9 @@ func (_this *Blob) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BlobFromJS is casting a js.Value into Blob.
-func BlobFromJS(input js.Value) *Blob {
+// BlobFromJS is casting a js.Wrapper into Blob.
+func BlobFromJS(value js.Wrapper) *Blob {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -284,8 +295,9 @@ type File struct {
 	Blob
 }
 
-// FileFromJS is casting a js.Value into File.
-func FileFromJS(input js.Value) *File {
+// FileFromJS is casting a js.Wrapper into File.
+func FileFromJS(value js.Wrapper) *File {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -352,8 +364,9 @@ func (_this *FileList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileListFromJS is casting a js.Value into FileList.
-func FileListFromJS(input js.Value) *FileList {
+// FileListFromJS is casting a js.Wrapper into FileList.
+func FileListFromJS(value js.Wrapper) *FileList {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -395,8 +408,9 @@ type FileReader struct {
 	domcore.EventTarget
 }
 
-// FileReaderFromJS is casting a js.Value into FileReader.
-func FileReaderFromJS(input js.Value) *FileReader {
+// FileReaderFromJS is casting a js.Wrapper into FileReader.
+func FileReaderFromJS(value js.Wrapper) *FileReader {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
@@ -457,8 +471,8 @@ func (_this *FileReader) Error() *domcore.DOMException {
 
 // Onloadstart returning attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onloadstart() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onloadstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -468,7 +482,7 @@ func (_this *FileReader) Onloadstart() domcore.EventHandler {
 
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadstart(value *js.Func) {
+func (_this *FileReader) SetOnloadstart(value *domcore.EventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -481,8 +495,8 @@ func (_this *FileReader) SetOnloadstart(value *js.Func) {
 
 // Onprogress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onprogress() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onprogress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -492,7 +506,7 @@ func (_this *FileReader) Onprogress() domcore.EventHandler {
 
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnprogress(value *js.Func) {
+func (_this *FileReader) SetOnprogress(value *domcore.EventHandler) {
 	var __callback4 js.Value
 	if value != nil {
 		__callback4 = (*value).Value
@@ -505,8 +519,8 @@ func (_this *FileReader) SetOnprogress(value *js.Func) {
 
 // Onload returning attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onload() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -516,7 +530,7 @@ func (_this *FileReader) Onload() domcore.EventHandler {
 
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnload(value *js.Func) {
+func (_this *FileReader) SetOnload(value *domcore.EventHandler) {
 	var __callback5 js.Value
 	if value != nil {
 		__callback5 = (*value).Value
@@ -529,8 +543,8 @@ func (_this *FileReader) SetOnload(value *js.Func) {
 
 // Onabort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onabort() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onabort() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -540,7 +554,7 @@ func (_this *FileReader) Onabort() domcore.EventHandler {
 
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnabort(value *js.Func) {
+func (_this *FileReader) SetOnabort(value *domcore.EventHandler) {
 	var __callback6 js.Value
 	if value != nil {
 		__callback6 = (*value).Value
@@ -553,8 +567,8 @@ func (_this *FileReader) SetOnabort(value *js.Func) {
 
 // Onerror returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onerror() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -564,7 +578,7 @@ func (_this *FileReader) Onerror() domcore.EventHandler {
 
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnerror(value *js.Func) {
+func (_this *FileReader) SetOnerror(value *domcore.EventHandler) {
 	var __callback7 js.Value
 	if value != nil {
 		__callback7 = (*value).Value
@@ -577,8 +591,8 @@ func (_this *FileReader) SetOnerror(value *js.Func) {
 
 // Onloadend returning attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onloadend() domcore.EventHandler {
-	var ret domcore.EventHandler
+func (_this *FileReader) Onloadend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventHandlerFromJS(value)
@@ -588,7 +602,7 @@ func (_this *FileReader) Onloadend() domcore.EventHandler {
 
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadend(value *js.Func) {
+func (_this *FileReader) SetOnloadend(value *domcore.EventHandler) {
 	var __callback8 js.Value
 	if value != nil {
 		__callback8 = (*value).Value
@@ -671,8 +685,9 @@ func (_this *FileReaderSync) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileReaderSyncFromJS is casting a js.Value into FileReaderSync.
-func FileReaderSyncFromJS(input js.Value) *FileReaderSync {
+// FileReaderSyncFromJS is casting a js.Wrapper into FileReaderSync.
+func FileReaderSyncFromJS(value js.Wrapper) *FileReaderSync {
+	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
