@@ -386,7 +386,7 @@ func NewPopStateEvent(_type string, eventInitDict *PopStateEventInit) (_result *
 }
 
 // State returning attribute 'state' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *PopStateEvent) State() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("state")
@@ -607,7 +607,7 @@ func (_this *ErrorEvent) Colno() uint {
 }
 
 // Error returning attribute 'error' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *ErrorEvent) Error() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("error")
@@ -662,7 +662,7 @@ func (_this *PromiseRejectionEvent) Promise() *javascript.Promise {
 }
 
 // Reason returning attribute 'reason' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *PromiseRejectionEvent) Reason() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("reason")

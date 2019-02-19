@@ -146,7 +146,7 @@ func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContext
 }
 
 // callback: OnErrorEventHandlerNonNull
-type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) js.Value
+type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) interface{}
 
 // OnErrorEventHandler is a javascript function type.
 //
@@ -190,7 +190,7 @@ func OnErrorEventHandlerToJS(callback OnErrorEventHandlerFunc) *OnErrorEventHand
 }
 
 func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
-	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result js.Value) {
+	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result interface{}) {
 		var (
 			_args [5]interface{}
 			_end  int

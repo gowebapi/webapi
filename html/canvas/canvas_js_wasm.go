@@ -666,7 +666,7 @@ func (_this *HTMLCanvasElement) SetHeight(value uint) {
 	_this.Value_JS.Set("height", input)
 }
 
-func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (_result *Union) {
+func (_this *HTMLCanvasElement) GetContext(contextId string, options interface{}) (_result *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -674,7 +674,7 @@ func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (
 	_p0 := contextId
 	_args[0] = _p0
 	_end++
-	if options.Type() != js.TypeUndefined {
+	if options != nil {
 		_p1 := options
 		_args[1] = _p1
 		_end++
@@ -690,7 +690,7 @@ func (_this *HTMLCanvasElement) GetContext(contextId string, options js.Value) (
 	return
 }
 
-func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_result string) {
+func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality interface{}) (_result string) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -700,7 +700,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 		_args[0] = _p0
 		_end++
 	}
-	if quality.Type() != js.TypeUndefined {
+	if quality != nil {
 		_p1 := quality
 		_args[1] = _p1
 		_end++
@@ -714,7 +714,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality js.Value) (_res
 	return
 }
 
-func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality js.Value) {
+func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality interface{}) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -734,7 +734,7 @@ func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *st
 		_args[1] = _p1
 		_end++
 	}
-	if quality.Type() != js.TypeUndefined {
+	if quality != nil {
 		_p2 := quality
 		_args[2] = _p2
 		_end++
@@ -2764,7 +2764,7 @@ func (_this *OffscreenCanvas) SetHeight(value int) {
 	_this.Value_JS.Set("height", input)
 }
 
-func (_this *OffscreenCanvas) GetContext(contextId html.OffscreenRenderingContextId, options js.Value) (_result *Union) {
+func (_this *OffscreenCanvas) GetContext(contextId html.OffscreenRenderingContextId, options interface{}) (_result *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2772,7 +2772,7 @@ func (_this *OffscreenCanvas) GetContext(contextId html.OffscreenRenderingContex
 	_p0 := contextId.JSValue()
 	_args[0] = _p0
 	_end++
-	if options.Type() != js.TypeUndefined {
+	if options != nil {
 		_p1 := options
 		_args[1] = _p1
 		_end++

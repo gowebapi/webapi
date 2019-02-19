@@ -38,7 +38,7 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: Function
-type FunctionFunc func(arguments []js.Value) js.Value
+type FunctionFunc func(arguments []js.Value) interface{}
 
 // Function is a javascript function type.
 //
@@ -68,7 +68,7 @@ func FunctionToJS(callback FunctionFunc) *Function {
 }
 
 func FunctionFromJS(_value js.Value) FunctionFunc {
-	return func(arguments []js.Value) (_result js.Value) {
+	return func(arguments []js.Value) (_result interface{}) {
 		var (
 			_args []interface{} = make([]interface{}, 0+len(arguments))
 			_end  int

@@ -280,7 +280,7 @@ func NewMessageEvent(_type string, eventInitDict *MessageEventInit) (_result *Me
 }
 
 // Data returning attribute 'data' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *MessageEvent) Data() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("data")
@@ -326,7 +326,7 @@ func (_this *MessageEvent) Ports() *javascript.FrozenArray {
 	return ret
 }
 
-func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data js.Value, origin *string, lastEventId *string, source *Union, ports []*MessagePort) {
+func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data interface{}, origin *string, lastEventId *string, source *Union, ports []*MessagePort) {
 	var (
 		_args [8]interface{}
 		_end  int
@@ -344,7 +344,7 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 		_args[2] = _p2
 		_end++
 	}
-	if data.Type() != js.TypeUndefined {
+	if data != nil {
 		_p3 := data
 		_args[3] = _p3
 		_end++
@@ -829,7 +829,7 @@ func (_this *MessagePort) SetOnmessageerror(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
-func (_this *MessagePort) PostMessage(message js.Value, transfer []*javascript.Object) {
+func (_this *MessagePort) PostMessage(message interface{}, transfer []*javascript.Object) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -848,7 +848,7 @@ func (_this *MessagePort) PostMessage(message js.Value, transfer []*javascript.O
 	return
 }
 
-func (_this *MessagePort) PostMessage2(message js.Value, options *PostMessageOptions) {
+func (_this *MessagePort) PostMessage2(message interface{}, options *PostMessageOptions) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -974,7 +974,7 @@ func (_this *BroadcastChannel) SetOnmessageerror(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
-func (_this *BroadcastChannel) PostMessage(message js.Value) {
+func (_this *BroadcastChannel) PostMessage(message interface{}) {
 	var (
 		_args [1]interface{}
 		_end  int

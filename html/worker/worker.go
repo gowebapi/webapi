@@ -389,7 +389,7 @@ func (_this *WorkerGlobalScope) Atob(data string) (_result *patch.ByteString) {
 	return
 }
 
-func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
+func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, arguments ...interface{}) (_result int) {
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -430,7 +430,7 @@ func (_this *WorkerGlobalScope) ClearTimeout(handle *int) {
 	return
 }
 
-func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
+func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, arguments ...interface{}) (_result int) {
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -619,7 +619,7 @@ func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *domcore.EventH
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
-func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer []*javascript.Object) {
+func (_this *DedicatedWorkerGlobalScope) PostMessage(message interface{}, transfer []*javascript.Object) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -638,7 +638,7 @@ func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer 
 	return
 }
 
-func (_this *DedicatedWorkerGlobalScope) PostMessage2(message js.Value, options *channel.PostMessageOptions) {
+func (_this *DedicatedWorkerGlobalScope) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -878,7 +878,7 @@ func (_this *Worker) Terminate() {
 	return
 }
 
-func (_this *Worker) PostMessage(message js.Value, transfer []*javascript.Object) {
+func (_this *Worker) PostMessage(message interface{}, transfer []*javascript.Object) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -897,7 +897,7 @@ func (_this *Worker) PostMessage(message js.Value, transfer []*javascript.Object
 	return
 }
 
-func (_this *Worker) PostMessage2(message js.Value, options *channel.PostMessageOptions) {
+func (_this *Worker) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
 	var (
 		_args [2]interface{}
 		_end  int

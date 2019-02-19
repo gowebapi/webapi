@@ -38,7 +38,7 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: EventHandlerNonNull
-type EventHandlerFunc func(event *Event) js.Value
+type EventHandlerFunc func(event *Event) interface{}
 
 // EventHandler is a javascript function type.
 //
@@ -63,7 +63,7 @@ func EventHandlerToJS(callback EventHandlerFunc) *EventHandler {
 }
 
 func EventHandlerFromJS(_value js.Value) EventHandlerFunc {
-	return func(event *Event) (_result js.Value) {
+	return func(event *Event) (_result interface{}) {
 		var (
 			_args [1]interface{}
 			_end  int
@@ -550,7 +550,7 @@ func NewCustomEvent(_type string, eventInitDict *CustomEventInit) (_result *Cust
 }
 
 // Detail returning attribute 'detail' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *CustomEvent) Detail() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("detail")
@@ -558,7 +558,7 @@ func (_this *CustomEvent) Detail() js.Value {
 	return ret
 }
 
-func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail js.Value) {
+func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail interface{}) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -576,7 +576,7 @@ func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelabl
 		_args[2] = _p2
 		_end++
 	}
-	if detail.Type() != js.TypeUndefined {
+	if detail != nil {
 		_p3 := detail
 		_args[3] = _p3
 		_end++

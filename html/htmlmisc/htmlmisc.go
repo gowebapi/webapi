@@ -96,7 +96,7 @@ func ScrollRestorationFromJS(value js.Value) ScrollRestoration {
 }
 
 // callback: CustomElementConstructor
-type CustomElementConstructorFunc func() js.Value
+type CustomElementConstructorFunc func() interface{}
 
 // CustomElementConstructor is a javascript function type.
 //
@@ -118,7 +118,7 @@ func CustomElementConstructorToJS(callback CustomElementConstructorFunc) *Custom
 }
 
 func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructorFunc {
-	return func() (_result js.Value) {
+	return func() (_result interface{}) {
 		var (
 			_args [0]interface{}
 			_end  int
@@ -528,7 +528,7 @@ func (_this *History) SetScrollRestoration(value ScrollRestoration) {
 }
 
 // State returning attribute 'state' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *History) State() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("state")
@@ -568,7 +568,7 @@ func (_this *History) Forward() {
 	return
 }
 
-func (_this *History) PushState(data js.Value, title string, url *string) {
+func (_this *History) PushState(data interface{}, title string, url *string) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -588,7 +588,7 @@ func (_this *History) PushState(data js.Value, title string, url *string) {
 	return
 }
 
-func (_this *History) ReplaceState(data js.Value, title string, url *string) {
+func (_this *History) ReplaceState(data interface{}, title string, url *string) {
 	var (
 		_args [3]interface{}
 		_end  int

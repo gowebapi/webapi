@@ -4505,7 +4505,7 @@ func (_this *Window) Top() *Window {
 }
 
 // Opener returning attribute 'opener' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *Window) Opener() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("opener")
@@ -4514,8 +4514,8 @@ func (_this *Window) Opener() js.Value {
 }
 
 // SetOpener setting attribute 'opener' with
-// type js.Value (idl: any).
-func (_this *Window) SetOpener(value js.Value) {
+// type Any (idl: any).
+func (_this *Window) SetOpener(value interface{}) {
 	input := value
 	_this.Value_JS.Set("opener", input)
 }
@@ -4561,7 +4561,7 @@ func (_this *Window) ApplicationCache() *htmlmisc.ApplicationCache {
 }
 
 // Event returning attribute 'event' with
-// type js.Value (idl: any).
+// type Any (idl: any).
 func (_this *Window) Event() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("event")
@@ -6644,7 +6644,7 @@ func (_this *Window) Print() {
 	return
 }
 
-func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer []*javascript.Object) {
+func (_this *Window) PostMessage(message interface{}, targetOrigin string, transfer []*javascript.Object) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6668,7 +6668,7 @@ func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer
 	return
 }
 
-func (_this *Window) PostMessage2(message js.Value, options *WindowPostMessageOptions) {
+func (_this *Window) PostMessage2(message interface{}, options *WindowPostMessageOptions) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -6737,7 +6737,7 @@ func (_this *Window) Atob(data string) (_result *patch.ByteString) {
 	return
 }
 
-func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
+func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...interface{}) (_result int) {
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
@@ -6778,7 +6778,7 @@ func (_this *Window) ClearTimeout(handle *int) {
 	return
 }
 
-func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...js.Value) (_result int) {
+func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...interface{}) (_result int) {
 	var (
 		_args []interface{} = make([]interface{}, 2+len(arguments))
 		_end  int
