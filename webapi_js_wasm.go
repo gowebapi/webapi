@@ -146,16 +146,16 @@ func MutationCallbackToJS(callback MutationCallbackFunc) *MutationCallback {
 	}
 	ret := MutationCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
-			_p0 []*MutationRecord // javascript: idl-sequence mutations
+			_p0 []*MutationRecord // javascript: sequence<MutationRecord> mutations
 			_p1 *MutationObserver // javascript: MutationObserver observer
 		)
 		__length0 := args[0].Length()
 		__array0 := make([]*MutationRecord, __length0, __length0)
 		for __idx := 0; __idx < __length0; __idx++ {
-			var __out *MutationRecord
-			__in := args[0].Index(__idx)
-			__out = MutationRecordFromJS(__in)
-			__array0[__idx] = __out
+			var __seq_out *MutationRecord
+			__seq_in := args[0].Index(__idx)
+			__seq_out = MutationRecordFromJS(__seq_in)
+			__array0[__idx] = __seq_out
 		}
 		_p0 = __array0
 		_p1 = MutationObserverFromJS(args[1])
@@ -173,9 +173,9 @@ func MutationCallbackFromJS(_value js.Value) MutationCallbackFunc {
 			_end  int
 		)
 		_p0 := js.Global().Get("Array").New(len(mutations))
-		for __idx, __in := range mutations {
-			__out := __in.JSValue()
-			_p0.SetIndex(__idx, __out)
+		for __idx, __seq_in := range mutations {
+			__seq_out := __seq_in.JSValue()
+			_p0.SetIndex(__idx, __seq_out)
 		}
 		_args[0] = _p0
 		_end++
@@ -215,9 +215,9 @@ func (_this *MutationObserverInit) JSValue() js.Value {
 	value5 := _this.CharacterDataOldValue
 	out.Set("characterDataOldValue", value5)
 	value6 := js.Global().Get("Array").New(len(_this.AttributeFilter))
-	for __idx, __in := range _this.AttributeFilter {
-		__out := __in
-		value6.SetIndex(__idx, __out)
+	for __idx, __seq_in := range _this.AttributeFilter {
+		__seq_out := __seq_in
+		value6.SetIndex(__idx, __seq_out)
 	}
 	out.Set("attributeFilter", value6)
 	return out
@@ -230,36 +230,36 @@ func MutationObserverInitFromJS(value js.Wrapper) *MutationObserverInit {
 	input := value.JSValue()
 	var out MutationObserverInit
 	var (
-		out0 bool     // javascript: boolean {childList ChildList childList}
-		out1 bool     // javascript: boolean {attributes Attributes attributes}
-		out2 bool     // javascript: boolean {characterData CharacterData characterData}
-		out3 bool     // javascript: boolean {subtree Subtree subtree}
-		out4 bool     // javascript: boolean {attributeOldValue AttributeOldValue attributeOldValue}
-		out5 bool     // javascript: boolean {characterDataOldValue CharacterDataOldValue characterDataOldValue}
-		out6 []string // javascript: idl-sequence {attributeFilter AttributeFilter attributeFilter}
+		value0 bool     // javascript: boolean {childList ChildList childList}
+		value1 bool     // javascript: boolean {attributes Attributes attributes}
+		value2 bool     // javascript: boolean {characterData CharacterData characterData}
+		value3 bool     // javascript: boolean {subtree Subtree subtree}
+		value4 bool     // javascript: boolean {attributeOldValue AttributeOldValue attributeOldValue}
+		value5 bool     // javascript: boolean {characterDataOldValue CharacterDataOldValue characterDataOldValue}
+		value6 []string // javascript: sequence<DOMString> {attributeFilter AttributeFilter attributeFilter}
 	)
-	out0 = (input.Get("childList")).Bool()
-	out.ChildList = out0
-	out1 = (input.Get("attributes")).Bool()
-	out.Attributes = out1
-	out2 = (input.Get("characterData")).Bool()
-	out.CharacterData = out2
-	out3 = (input.Get("subtree")).Bool()
-	out.Subtree = out3
-	out4 = (input.Get("attributeOldValue")).Bool()
-	out.AttributeOldValue = out4
-	out5 = (input.Get("characterDataOldValue")).Bool()
-	out.CharacterDataOldValue = out5
+	value0 = (input.Get("childList")).Bool()
+	out.ChildList = value0
+	value1 = (input.Get("attributes")).Bool()
+	out.Attributes = value1
+	value2 = (input.Get("characterData")).Bool()
+	out.CharacterData = value2
+	value3 = (input.Get("subtree")).Bool()
+	out.Subtree = value3
+	value4 = (input.Get("attributeOldValue")).Bool()
+	out.AttributeOldValue = value4
+	value5 = (input.Get("characterDataOldValue")).Bool()
+	out.CharacterDataOldValue = value5
 	__length6 := input.Get("attributeFilter").Length()
 	__array6 := make([]string, __length6, __length6)
 	for __idx := 0; __idx < __length6; __idx++ {
-		var __out string
-		__in := input.Get("attributeFilter").Index(__idx)
-		__out = (__in).String()
-		__array6[__idx] = __out
+		var __seq_out string
+		__seq_in := input.Get("attributeFilter").Index(__idx)
+		__seq_out = (__seq_in).String()
+		__array6[__idx] = __seq_out
 	}
-	out6 = __array6
-	out.AttributeFilter = out6
+	value6 = __array6
+	out.AttributeFilter = value6
 	return &out
 }
 
@@ -284,10 +284,10 @@ func ElementCreationOptionsFromJS(value js.Wrapper) *ElementCreationOptions {
 	input := value.JSValue()
 	var out ElementCreationOptions
 	var (
-		out0 string // javascript: DOMString {is Is is}
+		value0 string // javascript: DOMString {is Is is}
 	)
-	out0 = (input.Get("is")).String()
-	out.Is = out0
+	value0 = (input.Get("is")).String()
+	out.Is = value0
 	return &out
 }
 
@@ -312,10 +312,10 @@ func WindowPostMessageOptionsFromJS(value js.Wrapper) *WindowPostMessageOptions 
 	input := value.JSValue()
 	var out WindowPostMessageOptions
 	var (
-		out0 string // javascript: USVString {targetOrigin TargetOrigin targetOrigin}
+		value0 string // javascript: USVString {targetOrigin TargetOrigin targetOrigin}
 	)
-	out0 = (input.Get("targetOrigin")).String()
-	out.TargetOrigin = out0
+	value0 = (input.Get("targetOrigin")).String()
+	out.TargetOrigin = value0
 	return &out
 }
 
@@ -418,15 +418,15 @@ func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
 	)
 	_returned := _this.Value_JS.Call("takeRecords", _args[0:_end]...)
 	var (
-		_converted []*MutationRecord // javascript: idl-sequence _what_return_name
+		_converted []*MutationRecord // javascript: sequence<MutationRecord> _what_return_name
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*MutationRecord, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *MutationRecord
-		__in := _returned.Index(__idx)
-		__out = MutationRecordFromJS(__in)
-		__array0[__idx] = __out
+		var __seq_out *MutationRecord
+		__seq_in := _returned.Index(__idx)
+		__seq_out = MutationRecordFromJS(__seq_in)
+		__array0[__idx] = __seq_out
 	}
 	_converted = __array0
 	_result = _converted
@@ -6644,7 +6644,7 @@ func (_this *Window) Print() {
 	return
 }
 
-func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer *[]*javascript.Object) {
+func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer []*javascript.Object) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -6656,10 +6656,10 @@ func (_this *Window) PostMessage(message js.Value, targetOrigin string, transfer
 	_args[1] = _p1
 	_end++
 	if transfer != nil {
-		_p2 := js.Global().Get("Array").New(len(*transfer))
-		for __idx, __in := range *transfer {
-			__out := __in.JSValue()
-			_p2.SetIndex(__idx, __out)
+		_p2 := js.Global().Get("Array").New(len(transfer))
+		for __idx, __seq_in := range transfer {
+			__seq_out := __seq_in.JSValue()
+			_p2.SetIndex(__idx, __seq_out)
 		}
 		_args[2] = _p2
 		_end++

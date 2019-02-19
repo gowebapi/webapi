@@ -553,10 +553,10 @@ func CanvasRenderingContext2DSettingsFromJS(value js.Wrapper) *CanvasRenderingCo
 	input := value.JSValue()
 	var out CanvasRenderingContext2DSettings
 	var (
-		out0 bool // javascript: boolean {alpha Alpha alpha}
+		value0 bool // javascript: boolean {alpha Alpha alpha}
 	)
-	out0 = (input.Get("alpha")).Bool()
-	out.Alpha = out0
+	value0 = (input.Get("alpha")).Bool()
+	out.Alpha = value0
 	return &out
 }
 
@@ -596,25 +596,25 @@ func ImageBitmapOptionsFromJS(value js.Wrapper) *ImageBitmapOptions {
 	input := value.JSValue()
 	var out ImageBitmapOptions
 	var (
-		out0 ImageOrientation     // javascript: ImageOrientation {imageOrientation ImageOrientation imageOrientation}
-		out1 PremultiplyAlpha     // javascript: PremultiplyAlpha {premultiplyAlpha PremultiplyAlpha premultiplyAlpha}
-		out2 ColorSpaceConversion // javascript: ColorSpaceConversion {colorSpaceConversion ColorSpaceConversion colorSpaceConversion}
-		out3 uint                 // javascript: unsigned long {resizeWidth ResizeWidth resizeWidth}
-		out4 uint                 // javascript: unsigned long {resizeHeight ResizeHeight resizeHeight}
-		out5 ResizeQuality        // javascript: ResizeQuality {resizeQuality ResizeQuality resizeQuality}
+		value0 ImageOrientation     // javascript: ImageOrientation {imageOrientation ImageOrientation imageOrientation}
+		value1 PremultiplyAlpha     // javascript: PremultiplyAlpha {premultiplyAlpha PremultiplyAlpha premultiplyAlpha}
+		value2 ColorSpaceConversion // javascript: ColorSpaceConversion {colorSpaceConversion ColorSpaceConversion colorSpaceConversion}
+		value3 uint                 // javascript: unsigned long {resizeWidth ResizeWidth resizeWidth}
+		value4 uint                 // javascript: unsigned long {resizeHeight ResizeHeight resizeHeight}
+		value5 ResizeQuality        // javascript: ResizeQuality {resizeQuality ResizeQuality resizeQuality}
 	)
-	out0 = ImageOrientationFromJS(input.Get("imageOrientation"))
-	out.ImageOrientation = out0
-	out1 = PremultiplyAlphaFromJS(input.Get("premultiplyAlpha"))
-	out.PremultiplyAlpha = out1
-	out2 = ColorSpaceConversionFromJS(input.Get("colorSpaceConversion"))
-	out.ColorSpaceConversion = out2
-	out3 = (uint)((input.Get("resizeWidth")).Int())
-	out.ResizeWidth = out3
-	out4 = (uint)((input.Get("resizeHeight")).Int())
-	out.ResizeHeight = out4
-	out5 = ResizeQualityFromJS(input.Get("resizeQuality"))
-	out.ResizeQuality = out5
+	value0 = ImageOrientationFromJS(input.Get("imageOrientation"))
+	out.ImageOrientation = value0
+	value1 = PremultiplyAlphaFromJS(input.Get("premultiplyAlpha"))
+	out.PremultiplyAlpha = value1
+	value2 = ColorSpaceConversionFromJS(input.Get("colorSpaceConversion"))
+	out.ColorSpaceConversion = value2
+	value3 = (uint)((input.Get("resizeWidth")).Int())
+	out.ResizeWidth = value3
+	value4 = (uint)((input.Get("resizeHeight")).Int())
+	out.ResizeHeight = value4
+	value5 = ResizeQualityFromJS(input.Get("resizeQuality"))
+	out.ResizeQuality = value5
 	return &out
 }
 

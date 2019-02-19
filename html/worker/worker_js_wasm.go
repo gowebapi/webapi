@@ -130,16 +130,16 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	input := value.JSValue()
 	var out WorkerOptions
 	var (
-		out0 WorkerType                // javascript: WorkerType {type Type _type}
-		out1 *patch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
-		out2 string                    // javascript: DOMString {name Name name}
+		value0 WorkerType                // javascript: WorkerType {type Type _type}
+		value1 *patch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
+		value2 string                    // javascript: DOMString {name Name name}
 	)
-	out0 = WorkerTypeFromJS(input.Get("type"))
-	out.Type = out0
-	out1 = patch.RequestCredentialsFromJS(input.Get("credentials"))
-	out.Credentials = out1
-	out2 = (input.Get("name")).String()
-	out.Name = out2
+	value0 = WorkerTypeFromJS(input.Get("type"))
+	out.Type = value0
+	value1 = patch.RequestCredentialsFromJS(input.Get("credentials"))
+	out.Credentials = value1
+	value2 = (input.Get("name")).String()
+	out.Name = value2
 	return &out
 }
 
@@ -626,9 +626,9 @@ func (_this *DedicatedWorkerGlobalScope) PostMessage(message js.Value, transfer 
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
+	for __idx, __seq_in := range transfer {
+		__seq_out := __seq_in.JSValue()
+		_p1.SetIndex(__idx, __seq_out)
 	}
 	_args[1] = _p1
 	_end++
@@ -885,9 +885,9 @@ func (_this *Worker) PostMessage(message js.Value, transfer []*javascript.Object
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
+	for __idx, __seq_in := range transfer {
+		__seq_out := __seq_in.JSValue()
+		_p1.SetIndex(__idx, __seq_out)
 	}
 	_args[1] = _p1
 	_end++

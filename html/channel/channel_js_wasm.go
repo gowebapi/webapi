@@ -114,9 +114,9 @@ func (_this *MessageEventInit) JSValue() js.Value {
 	value3 := _this.Source.JSValue()
 	out.Set("source", value3)
 	value4 := js.Global().Get("Array").New(len(_this.Ports))
-	for __idx, __in := range _this.Ports {
-		__out := __in.JSValue()
-		value4.SetIndex(__idx, __out)
+	for __idx, __seq_in := range _this.Ports {
+		__seq_out := __seq_in.JSValue()
+		value4.SetIndex(__idx, __seq_out)
 	}
 	out.Set("ports", value4)
 	return out
@@ -129,32 +129,32 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 	input := value.JSValue()
 	var out MessageEventInit
 	var (
-		out0 js.Value       // javascript: any {data Data data}
-		out1 string         // javascript: USVString {origin Origin origin}
-		out2 string         // javascript: DOMString {lastEventId LastEventId lastEventId}
-		out3 *Union         // javascript: Union {source Source source}
-		out4 []*MessagePort // javascript: idl-sequence {ports Ports ports}
+		value0 js.Value       // javascript: any {data Data data}
+		value1 string         // javascript: USVString {origin Origin origin}
+		value2 string         // javascript: DOMString {lastEventId LastEventId lastEventId}
+		value3 *Union         // javascript: Union {source Source source}
+		value4 []*MessagePort // javascript: sequence<MessagePort> {ports Ports ports}
 	)
-	out0 = input.Get("data")
-	out.Data = out0
-	out1 = (input.Get("origin")).String()
-	out.Origin = out1
-	out2 = (input.Get("lastEventId")).String()
-	out.LastEventId = out2
+	value0 = input.Get("data")
+	out.Data = value0
+	value1 = (input.Get("origin")).String()
+	out.Origin = value1
+	value2 = (input.Get("lastEventId")).String()
+	out.LastEventId = value2
 	if input.Get("source").Type() != js.TypeNull {
-		out3 = UnionFromJS(input.Get("source"))
+		value3 = UnionFromJS(input.Get("source"))
 	}
-	out.Source = out3
+	out.Source = value3
 	__length4 := input.Get("ports").Length()
 	__array4 := make([]*MessagePort, __length4, __length4)
 	for __idx := 0; __idx < __length4; __idx++ {
-		var __out *MessagePort
-		__in := input.Get("ports").Index(__idx)
-		__out = MessagePortFromJS(__in)
-		__array4[__idx] = __out
+		var __seq_out *MessagePort
+		__seq_in := input.Get("ports").Index(__idx)
+		__seq_out = MessagePortFromJS(__seq_in)
+		__array4[__idx] = __seq_out
 	}
-	out4 = __array4
-	out.Ports = out4
+	value4 = __array4
+	out.Ports = value4
 	return &out
 }
 
@@ -185,16 +185,16 @@ func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
 	input := value.JSValue()
 	var out CloseEventInit
 	var (
-		out0 bool   // javascript: boolean {wasClean WasClean wasClean}
-		out1 int    // javascript: unsigned short {code Code code}
-		out2 string // javascript: USVString {reason Reason reason}
+		value0 bool   // javascript: boolean {wasClean WasClean wasClean}
+		value1 int    // javascript: unsigned short {code Code code}
+		value2 string // javascript: USVString {reason Reason reason}
 	)
-	out0 = (input.Get("wasClean")).Bool()
-	out.WasClean = out0
-	out1 = (input.Get("code")).Int()
-	out.Code = out1
-	out2 = (input.Get("reason")).String()
-	out.Reason = out2
+	value0 = (input.Get("wasClean")).Bool()
+	out.WasClean = value0
+	value1 = (input.Get("code")).Int()
+	out.Code = value1
+	value2 = (input.Get("reason")).String()
+	out.Reason = value2
 	return &out
 }
 
@@ -208,9 +208,9 @@ type PostMessageOptions struct {
 func (_this *PostMessageOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := js.Global().Get("Array").New(len(_this.Transfer))
-	for __idx, __in := range _this.Transfer {
-		__out := __in.JSValue()
-		value0.SetIndex(__idx, __out)
+	for __idx, __seq_in := range _this.Transfer {
+		__seq_out := __seq_in.JSValue()
+		value0.SetIndex(__idx, __seq_out)
 	}
 	out.Set("transfer", value0)
 	return out
@@ -223,18 +223,18 @@ func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
 	input := value.JSValue()
 	var out PostMessageOptions
 	var (
-		out0 []*javascript.Object // javascript: idl-sequence {transfer Transfer transfer}
+		value0 []*javascript.Object // javascript: sequence<object> {transfer Transfer transfer}
 	)
 	__length0 := input.Get("transfer").Length()
 	__array0 := make([]*javascript.Object, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *javascript.Object
-		__in := input.Get("transfer").Index(__idx)
-		__out = javascript.ObjectFromJS(__in)
-		__array0[__idx] = __out
+		var __seq_out *javascript.Object
+		__seq_in := input.Get("transfer").Index(__idx)
+		__seq_out = javascript.ObjectFromJS(__seq_in)
+		__array0[__idx] = __seq_out
 	}
-	out0 = __array0
-	out.Transfer = out0
+	value0 = __array0
+	out.Transfer = value0
 	return &out
 }
 
@@ -324,7 +324,7 @@ func (_this *MessageEvent) Ports() *javascript.FrozenArray {
 	return ret
 }
 
-func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data js.Value, origin *string, lastEventId *string, source *Union, ports *[]*MessagePort) {
+func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancelable *bool, data js.Value, origin *string, lastEventId *string, source *Union, ports []*MessagePort) {
 	var (
 		_args [8]interface{}
 		_end  int
@@ -363,10 +363,10 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 		_end++
 	}
 	if ports != nil {
-		_p7 := js.Global().Get("Array").New(len(*ports))
-		for __idx, __in := range *ports {
-			__out := __in.JSValue()
-			_p7.SetIndex(__idx, __out)
+		_p7 := js.Global().Get("Array").New(len(ports))
+		for __idx, __seq_in := range ports {
+			__seq_out := __seq_in.JSValue()
+			_p7.SetIndex(__idx, __seq_out)
 		}
 		_args[7] = _p7
 		_end++
@@ -836,9 +836,9 @@ func (_this *MessagePort) PostMessage(message js.Value, transfer []*javascript.O
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __in := range transfer {
-		__out := __in.JSValue()
-		_p1.SetIndex(__idx, __out)
+	for __idx, __seq_in := range transfer {
+		__seq_out := __seq_in.JSValue()
+		_p1.SetIndex(__idx, __seq_out)
 	}
 	_args[1] = _p1
 	_end++

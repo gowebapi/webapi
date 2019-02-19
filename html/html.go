@@ -296,10 +296,10 @@ func AssignedNodesOptionsFromJS(value js.Wrapper) *AssignedNodesOptions {
 	input := value.JSValue()
 	var out AssignedNodesOptions
 	var (
-		out0 bool // javascript: boolean {flatten Flatten flatten}
+		value0 bool // javascript: boolean {flatten Flatten flatten}
 	)
-	out0 = (input.Get("flatten")).Bool()
-	out.Flatten = out0
+	value0 = (input.Get("flatten")).Bool()
+	out.Flatten = value0
 	return &out
 }
 
@@ -327,13 +327,13 @@ func ImageEncodeOptionsFromJS(value js.Wrapper) *ImageEncodeOptions {
 	input := value.JSValue()
 	var out ImageEncodeOptions
 	var (
-		out0 string  // javascript: DOMString {type Type _type}
-		out1 float64 // javascript: unrestricted double {quality Quality quality}
+		value0 string  // javascript: DOMString {type Type _type}
+		value1 float64 // javascript: unrestricted double {quality Quality quality}
 	)
-	out0 = (input.Get("type")).String()
-	out.Type = out0
-	out1 = (input.Get("quality")).Float()
-	out.Quality = out1
+	value0 = (input.Get("type")).String()
+	out.Type = value0
+	value1 = (input.Get("quality")).Float()
+	out.Quality = value1
 	return &out
 }
 
@@ -358,10 +358,10 @@ func FocusOptionsFromJS(value js.Wrapper) *FocusOptions {
 	input := value.JSValue()
 	var out FocusOptions
 	var (
-		out0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
+		value0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
 	)
-	out0 = (input.Get("preventScroll")).Bool()
-	out.PreventScroll = out0
+	value0 = (input.Get("preventScroll")).Bool()
+	out.PreventScroll = value0
 	return &out
 }
 
@@ -10007,15 +10007,15 @@ func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_res
 	}
 	_returned := _this.Value_JS.Call("assignedNodes", _args[0:_end]...)
 	var (
-		_converted []*dom.Node // javascript: idl-sequence _what_return_name
+		_converted []*dom.Node // javascript: sequence<Node> _what_return_name
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*dom.Node, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *dom.Node
-		__in := _returned.Index(__idx)
-		__out = dom.NodeFromJS(__in)
-		__array0[__idx] = __out
+		var __seq_out *dom.Node
+		__seq_in := _returned.Index(__idx)
+		__seq_out = dom.NodeFromJS(__seq_in)
+		__array0[__idx] = __seq_out
 	}
 	_converted = __array0
 	_result = _converted
@@ -10034,15 +10034,15 @@ func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_
 	}
 	_returned := _this.Value_JS.Call("assignedElements", _args[0:_end]...)
 	var (
-		_converted []*dom.Element // javascript: idl-sequence _what_return_name
+		_converted []*dom.Element // javascript: sequence<Element> _what_return_name
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*dom.Element, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *dom.Element
-		__in := _returned.Index(__idx)
-		__out = dom.ElementFromJS(__in)
-		__array0[__idx] = __out
+		var __seq_out *dom.Element
+		__seq_in := _returned.Index(__idx)
+		__seq_out = dom.ElementFromJS(__seq_in)
+		__array0[__idx] = __seq_out
 	}
 	_converted = __array0
 	_result = _converted

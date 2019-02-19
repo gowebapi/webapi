@@ -38,7 +38,7 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // callback: Function
-type FunctionFunc func(arguments ...js.Value) js.Value
+type FunctionFunc func(arguments []js.Value) js.Value
 
 // Function is a javascript function type.
 //
@@ -60,7 +60,7 @@ func FunctionToJS(callback FunctionFunc) *Function {
 			__out = __in
 			_p0 = append(_p0, __out)
 		}
-		_returned := callback(_p0...)
+		_returned := callback(_p0)
 		_converted := _returned
 		return _converted
 	}))
@@ -68,7 +68,7 @@ func FunctionToJS(callback FunctionFunc) *Function {
 }
 
 func FunctionFromJS(_value js.Value) FunctionFunc {
-	return func(arguments ...js.Value) (_result js.Value) {
+	return func(arguments []js.Value) (_result js.Value) {
 		var (
 			_args []interface{} = make([]interface{}, 0+len(arguments))
 			_end  int

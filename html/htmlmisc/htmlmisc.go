@@ -193,10 +193,10 @@ func ElementDefinitionOptionsFromJS(value js.Wrapper) *ElementDefinitionOptions 
 	input := value.JSValue()
 	var out ElementDefinitionOptions
 	var (
-		out0 string // javascript: DOMString {extends Extends extends}
+		value0 string // javascript: DOMString {extends Extends extends}
 	)
-	out0 = (input.Get("extends")).String()
-	out.Extends = out0
+	value0 = (input.Get("extends")).String()
+	out.Extends = value0
 	return &out
 }
 
@@ -224,13 +224,13 @@ func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
 	input := value.JSValue()
 	var out HashChangeEventInit
 	var (
-		out0 string // javascript: USVString {oldURL OldURL oldURL}
-		out1 string // javascript: USVString {newURL NewURL newURL}
+		value0 string // javascript: USVString {oldURL OldURL oldURL}
+		value1 string // javascript: USVString {newURL NewURL newURL}
 	)
-	out0 = (input.Get("oldURL")).String()
-	out.OldURL = out0
-	out1 = (input.Get("newURL")).String()
-	out.NewURL = out1
+	value0 = (input.Get("oldURL")).String()
+	out.OldURL = value0
+	value1 = (input.Get("newURL")).String()
+	out.NewURL = value1
 	return &out
 }
 
@@ -255,10 +255,10 @@ func EventSourceInitFromJS(value js.Wrapper) *EventSourceInit {
 	input := value.JSValue()
 	var out EventSourceInit
 	var (
-		out0 bool // javascript: boolean {withCredentials WithCredentials withCredentials}
+		value0 bool // javascript: boolean {withCredentials WithCredentials withCredentials}
 	)
-	out0 = (input.Get("withCredentials")).Bool()
-	out.WithCredentials = out0
+	value0 = (input.Get("withCredentials")).Bool()
+	out.WithCredentials = value0
 	return &out
 }
 
@@ -295,33 +295,33 @@ func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
 	input := value.JSValue()
 	var out StorageEventInit
 	var (
-		out0 *string  // javascript: DOMString {key Key key}
-		out1 *string  // javascript: DOMString {oldValue OldValue oldValue}
-		out2 *string  // javascript: DOMString {newValue NewValue newValue}
-		out3 string   // javascript: USVString {url Url url}
-		out4 *Storage // javascript: Storage {storageArea StorageArea storageArea}
+		value0 *string  // javascript: DOMString {key Key key}
+		value1 *string  // javascript: DOMString {oldValue OldValue oldValue}
+		value2 *string  // javascript: DOMString {newValue NewValue newValue}
+		value3 string   // javascript: USVString {url Url url}
+		value4 *Storage // javascript: Storage {storageArea StorageArea storageArea}
 	)
 	if input.Get("key").Type() != js.TypeNull {
 		__tmp := (input.Get("key")).String()
-		out0 = &__tmp
+		value0 = &__tmp
 	}
-	out.Key = out0
+	out.Key = value0
 	if input.Get("oldValue").Type() != js.TypeNull {
 		__tmp := (input.Get("oldValue")).String()
-		out1 = &__tmp
+		value1 = &__tmp
 	}
-	out.OldValue = out1
+	out.OldValue = value1
 	if input.Get("newValue").Type() != js.TypeNull {
 		__tmp := (input.Get("newValue")).String()
-		out2 = &__tmp
+		value2 = &__tmp
 	}
-	out.NewValue = out2
-	out3 = (input.Get("url")).String()
-	out.Url = out3
+	out.NewValue = value2
+	value3 = (input.Get("url")).String()
+	out.Url = value3
 	if input.Get("storageArea").Type() != js.TypeNull {
-		out4 = StorageFromJS(input.Get("storageArea"))
+		value4 = StorageFromJS(input.Get("storageArea"))
 	}
-	out.StorageArea = out4
+	out.StorageArea = value4
 	return &out
 }
 

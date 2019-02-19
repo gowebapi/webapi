@@ -203,22 +203,22 @@ func OptionsFromJS(value js.Wrapper) *Options {
 	input := value.JSValue()
 	var out Options
 	var (
-		out0 Direction // javascript: NotificationDirection {dir Dir dir}
-		out1 string    // javascript: DOMString {lang Lang lang}
-		out2 string    // javascript: DOMString {body Body body}
-		out3 string    // javascript: DOMString {tag Tag tag}
-		out4 string    // javascript: DOMString {icon Icon icon}
+		value0 Direction // javascript: NotificationDirection {dir Dir dir}
+		value1 string    // javascript: DOMString {lang Lang lang}
+		value2 string    // javascript: DOMString {body Body body}
+		value3 string    // javascript: DOMString {tag Tag tag}
+		value4 string    // javascript: DOMString {icon Icon icon}
 	)
-	out0 = DirectionFromJS(input.Get("dir"))
-	out.Dir = out0
-	out1 = (input.Get("lang")).String()
-	out.Lang = out1
-	out2 = (input.Get("body")).String()
-	out.Body = out2
-	out3 = (input.Get("tag")).String()
-	out.Tag = out3
-	out4 = (input.Get("icon")).String()
-	out.Icon = out4
+	value0 = DirectionFromJS(input.Get("dir"))
+	out.Dir = value0
+	value1 = (input.Get("lang")).String()
+	out.Lang = value1
+	value2 = (input.Get("body")).String()
+	out.Body = value2
+	value3 = (input.Get("tag")).String()
+	out.Tag = value3
+	value4 = (input.Get("icon")).String()
+	out.Icon = value4
 	return &out
 }
 

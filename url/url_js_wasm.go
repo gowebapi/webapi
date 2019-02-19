@@ -384,15 +384,15 @@ func (_this *URLSearchParams) GetAll(name string) (_result []string) {
 	_end++
 	_returned := _this.Value_JS.Call("getAll", _args[0:_end]...)
 	var (
-		_converted []string // javascript: idl-sequence _what_return_name
+		_converted []string // javascript: sequence<USVString> _what_return_name
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]string, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out string
-		__in := _returned.Index(__idx)
-		__out = (__in).String()
-		__array0[__idx] = __out
+		var __seq_out string
+		__seq_in := _returned.Index(__idx)
+		__seq_out = (__seq_in).String()
+		__array0[__idx] = __seq_out
 	}
 	_converted = __array0
 	_result = _converted

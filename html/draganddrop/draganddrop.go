@@ -111,12 +111,12 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	input := value.JSValue()
 	var out DragEventInit
 	var (
-		out0 *DataTransfer // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
+		value0 *DataTransfer // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
 	)
 	if input.Get("dataTransfer").Type() != js.TypeNull {
-		out0 = DataTransferFromJS(input.Get("dataTransfer"))
+		value0 = DataTransferFromJS(input.Get("dataTransfer"))
 	}
-	out.DataTransfer = out0
+	out.DataTransfer = value0
 	return &out
 }
 

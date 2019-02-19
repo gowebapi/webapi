@@ -71,12 +71,12 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 	input := value.JSValue()
 	var out TrackEventInit
 	var (
-		out0 *Union // javascript: Union {track Track track}
+		value0 *Union // javascript: Union {track Track track}
 	)
 	if input.Get("track").Type() != js.TypeNull {
-		out0 = UnionFromJS(input.Get("track"))
+		value0 = UnionFromJS(input.Get("track"))
 	}
-	out.Track = out0
+	out.Track = value0
 	return &out
 }
 
@@ -101,10 +101,10 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	input := value.JSValue()
 	var out FormDataEventInit
 	var (
-		out0 *patch.FormData // javascript: FormData {formData FormData formData}
+		value0 *patch.FormData // javascript: FormData {formData FormData formData}
 	)
-	out0 = patch.FormDataFromJS(input.Get("formData"))
-	out.FormData = out0
+	value0 = patch.FormDataFromJS(input.Get("formData"))
+	out.FormData = value0
 	return &out
 }
 
@@ -129,10 +129,10 @@ func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
 	input := value.JSValue()
 	var out PopStateEventInit
 	var (
-		out0 js.Value // javascript: any {state State state}
+		value0 js.Value // javascript: any {state State state}
 	)
-	out0 = input.Get("state")
-	out.State = out0
+	value0 = input.Get("state")
+	out.State = value0
 	return &out
 }
 
@@ -157,10 +157,10 @@ func PageTransitionEventInitFromJS(value js.Wrapper) *PageTransitionEventInit {
 	input := value.JSValue()
 	var out PageTransitionEventInit
 	var (
-		out0 bool // javascript: boolean {persisted Persisted persisted}
+		value0 bool // javascript: boolean {persisted Persisted persisted}
 	)
-	out0 = (input.Get("persisted")).Bool()
-	out.Persisted = out0
+	value0 = (input.Get("persisted")).Bool()
+	out.Persisted = value0
 	return &out
 }
 
@@ -197,22 +197,22 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 	input := value.JSValue()
 	var out ErrorEventInit
 	var (
-		out0 string   // javascript: DOMString {message Message message}
-		out1 string   // javascript: USVString {filename Filename filename}
-		out2 uint     // javascript: unsigned long {lineno Lineno lineno}
-		out3 uint     // javascript: unsigned long {colno Colno colno}
-		out4 js.Value // javascript: any {error Error _error}
+		value0 string   // javascript: DOMString {message Message message}
+		value1 string   // javascript: USVString {filename Filename filename}
+		value2 uint     // javascript: unsigned long {lineno Lineno lineno}
+		value3 uint     // javascript: unsigned long {colno Colno colno}
+		value4 js.Value // javascript: any {error Error _error}
 	)
-	out0 = (input.Get("message")).String()
-	out.Message = out0
-	out1 = (input.Get("filename")).String()
-	out.Filename = out1
-	out2 = (uint)((input.Get("lineno")).Int())
-	out.Lineno = out2
-	out3 = (uint)((input.Get("colno")).Int())
-	out.Colno = out3
-	out4 = input.Get("error")
-	out.Error = out4
+	value0 = (input.Get("message")).String()
+	out.Message = value0
+	value1 = (input.Get("filename")).String()
+	out.Filename = value1
+	value2 = (uint)((input.Get("lineno")).Int())
+	out.Lineno = value2
+	value3 = (uint)((input.Get("colno")).Int())
+	out.Colno = value3
+	value4 = input.Get("error")
+	out.Error = value4
 	return &out
 }
 
@@ -240,13 +240,13 @@ func PromiseRejectionEventInitFromJS(value js.Wrapper) *PromiseRejectionEventIni
 	input := value.JSValue()
 	var out PromiseRejectionEventInit
 	var (
-		out0 *javascript.Promise // javascript: Promise {promise Promise promise}
-		out1 js.Value            // javascript: any {reason Reason reason}
+		value0 *javascript.Promise // javascript: Promise {promise Promise promise}
+		value1 js.Value            // javascript: any {reason Reason reason}
 	)
-	out0 = javascript.PromiseFromJS(input.Get("promise"))
-	out.Promise = out0
-	out1 = input.Get("reason")
-	out.Reason = out1
+	value0 = javascript.PromiseFromJS(input.Get("promise"))
+	out.Promise = value0
+	value1 = input.Get("reason")
+	out.Reason = value1
 	return &out
 }
 

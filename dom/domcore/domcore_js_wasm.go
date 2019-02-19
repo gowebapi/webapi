@@ -108,16 +108,16 @@ func EventInitFromJS(value js.Wrapper) *EventInit {
 	input := value.JSValue()
 	var out EventInit
 	var (
-		out0 bool // javascript: boolean {bubbles Bubbles bubbles}
-		out1 bool // javascript: boolean {cancelable Cancelable cancelable}
-		out2 bool // javascript: boolean {composed Composed composed}
+		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool // javascript: boolean {composed Composed composed}
 	)
-	out0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = out0
-	out1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = out1
-	out2 = (input.Get("composed")).Bool()
-	out.Composed = out2
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
 	return &out
 }
 
@@ -142,10 +142,10 @@ func CustomEventInitFromJS(value js.Wrapper) *CustomEventInit {
 	input := value.JSValue()
 	var out CustomEventInit
 	var (
-		out0 js.Value // javascript: any {detail Detail detail}
+		value0 js.Value // javascript: any {detail Detail detail}
 	)
-	out0 = input.Get("detail")
-	out.Detail = out0
+	value0 = input.Get("detail")
+	out.Detail = value0
 	return &out
 }
 
@@ -170,10 +170,10 @@ func EventListenerOptionsFromJS(value js.Wrapper) *EventListenerOptions {
 	input := value.JSValue()
 	var out EventListenerOptions
 	var (
-		out0 bool // javascript: boolean {capture Capture capture}
+		value0 bool // javascript: boolean {capture Capture capture}
 	)
-	out0 = (input.Get("capture")).Bool()
-	out.Capture = out0
+	value0 = (input.Get("capture")).Bool()
+	out.Capture = value0
 	return &out
 }
 
@@ -201,13 +201,13 @@ func AddEventListenerOptionsFromJS(value js.Wrapper) *AddEventListenerOptions {
 	input := value.JSValue()
 	var out AddEventListenerOptions
 	var (
-		out0 bool // javascript: boolean {passive Passive passive}
-		out1 bool // javascript: boolean {once Once once}
+		value0 bool // javascript: boolean {passive Passive passive}
+		value1 bool // javascript: boolean {once Once once}
 	)
-	out0 = (input.Get("passive")).Bool()
-	out.Passive = out0
-	out1 = (input.Get("once")).Bool()
-	out.Once = out1
+	value0 = (input.Get("passive")).Bool()
+	out.Passive = value0
+	value1 = (input.Get("once")).Bool()
+	out.Once = value1
 	return &out
 }
 
@@ -446,15 +446,15 @@ func (_this *Event) ComposedPath() (_result []*EventTarget) {
 	)
 	_returned := _this.Value_JS.Call("composedPath", _args[0:_end]...)
 	var (
-		_converted []*EventTarget // javascript: idl-sequence _what_return_name
+		_converted []*EventTarget // javascript: sequence<EventTarget> _what_return_name
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*EventTarget, __length0, __length0)
 	for __idx := 0; __idx < __length0; __idx++ {
-		var __out *EventTarget
-		__in := _returned.Index(__idx)
-		__out = EventTargetFromJS(__in)
-		__array0[__idx] = __out
+		var __seq_out *EventTarget
+		__seq_in := _returned.Index(__idx)
+		__seq_out = EventTargetFromJS(__seq_in)
+		__array0[__idx] = __seq_out
 	}
 	_converted = __array0
 	_result = _converted

@@ -129,31 +129,31 @@ func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
 	input := value.JSValue()
 	var out WebGLContextAttributes
 	var (
-		out0 bool                 // javascript: boolean {alpha Alpha alpha}
-		out1 bool                 // javascript: boolean {depth Depth depth}
-		out2 bool                 // javascript: boolean {stencil Stencil stencil}
-		out3 bool                 // javascript: boolean {antialias Antialias antialias}
-		out4 bool                 // javascript: boolean {premultipliedAlpha PremultipliedAlpha premultipliedAlpha}
-		out5 bool                 // javascript: boolean {preserveDrawingBuffer PreserveDrawingBuffer preserveDrawingBuffer}
-		out6 WebGLPowerPreference // javascript: WebGLPowerPreference {powerPreference PowerPreference powerPreference}
-		out7 bool                 // javascript: boolean {failIfMajorPerformanceCaveat FailIfMajorPerformanceCaveat failIfMajorPerformanceCaveat}
+		value0 bool                 // javascript: boolean {alpha Alpha alpha}
+		value1 bool                 // javascript: boolean {depth Depth depth}
+		value2 bool                 // javascript: boolean {stencil Stencil stencil}
+		value3 bool                 // javascript: boolean {antialias Antialias antialias}
+		value4 bool                 // javascript: boolean {premultipliedAlpha PremultipliedAlpha premultipliedAlpha}
+		value5 bool                 // javascript: boolean {preserveDrawingBuffer PreserveDrawingBuffer preserveDrawingBuffer}
+		value6 WebGLPowerPreference // javascript: WebGLPowerPreference {powerPreference PowerPreference powerPreference}
+		value7 bool                 // javascript: boolean {failIfMajorPerformanceCaveat FailIfMajorPerformanceCaveat failIfMajorPerformanceCaveat}
 	)
-	out0 = (input.Get("alpha")).Bool()
-	out.Alpha = out0
-	out1 = (input.Get("depth")).Bool()
-	out.Depth = out1
-	out2 = (input.Get("stencil")).Bool()
-	out.Stencil = out2
-	out3 = (input.Get("antialias")).Bool()
-	out.Antialias = out3
-	out4 = (input.Get("premultipliedAlpha")).Bool()
-	out.PremultipliedAlpha = out4
-	out5 = (input.Get("preserveDrawingBuffer")).Bool()
-	out.PreserveDrawingBuffer = out5
-	out6 = WebGLPowerPreferenceFromJS(input.Get("powerPreference"))
-	out.PowerPreference = out6
-	out7 = (input.Get("failIfMajorPerformanceCaveat")).Bool()
-	out.FailIfMajorPerformanceCaveat = out7
+	value0 = (input.Get("alpha")).Bool()
+	out.Alpha = value0
+	value1 = (input.Get("depth")).Bool()
+	out.Depth = value1
+	value2 = (input.Get("stencil")).Bool()
+	out.Stencil = value2
+	value3 = (input.Get("antialias")).Bool()
+	out.Antialias = value3
+	value4 = (input.Get("premultipliedAlpha")).Bool()
+	out.PremultipliedAlpha = value4
+	value5 = (input.Get("preserveDrawingBuffer")).Bool()
+	out.PreserveDrawingBuffer = value5
+	value6 = WebGLPowerPreferenceFromJS(input.Get("powerPreference"))
+	out.PowerPreference = value6
+	value7 = (input.Get("failIfMajorPerformanceCaveat")).Bool()
+	out.FailIfMajorPerformanceCaveat = value7
 	return &out
 }
 
@@ -178,10 +178,10 @@ func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
 	input := value.JSValue()
 	var out WebGLContextEventInit
 	var (
-		out0 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
+		value0 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
 	)
-	out0 = (input.Get("statusMessage")).String()
-	out.StatusMessage = out0
+	value0 = (input.Get("statusMessage")).String()
+	out.StatusMessage = value0
 	return &out
 }
 
@@ -794,25 +794,25 @@ func (_this *WebGLRenderingContext) IsContextLost() (_result bool) {
 	return
 }
 
-func (_this *WebGLRenderingContext) GetSupportedExtensions() (_result *[]string) {
+func (_this *WebGLRenderingContext) GetSupportedExtensions() (_result []string) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getSupportedExtensions", _args[0:_end]...)
 	var (
-		_converted *[]string // javascript: idl-sequence _what_return_name
+		_converted []string // javascript: sequence<DOMString> _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]string, __length0, __length0)
 		for __idx := 0; __idx < __length0; __idx++ {
-			var __out string
-			__in := _returned.Index(__idx)
-			__out = (__in).String()
-			__array0[__idx] = __out
+			var __seq_out string
+			__seq_in := _returned.Index(__idx)
+			__seq_out = (__seq_in).String()
+			__array0[__idx] = __seq_out
 		}
-		_converted = &__array0
+		_converted = __array0
 	}
 	_result = _converted
 	return
@@ -1771,7 +1771,7 @@ func (_this *WebGLRenderingContext) GetActiveUniform(program *WebGLProgram, inde
 	return
 }
 
-func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_result *[]*WebGLShader) {
+func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_result []*WebGLShader) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1781,18 +1781,18 @@ func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_
 	_end++
 	_returned := _this.Value_JS.Call("getAttachedShaders", _args[0:_end]...)
 	var (
-		_converted *[]*WebGLShader // javascript: idl-sequence _what_return_name
+		_converted []*WebGLShader // javascript: sequence<WebGLShader> _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]*WebGLShader, __length0, __length0)
 		for __idx := 0; __idx < __length0; __idx++ {
-			var __out *WebGLShader
-			__in := _returned.Index(__idx)
-			__out = WebGLShaderFromJS(__in)
-			__array0[__idx] = __out
+			var __seq_out *WebGLShader
+			__seq_in := _returned.Index(__idx)
+			__seq_out = WebGLShaderFromJS(__seq_in)
+			__array0[__idx] = __seq_out
 		}
-		_converted = &__array0
+		_converted = __array0
 	}
 	_result = _converted
 	return
