@@ -8,6 +8,7 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -22,13 +23,14 @@ import (
 // channel.PostMessageOptions
 // domcore.EventHandler
 // domcore.EventTarget
+// fetch.RequestCredentials
+// fetch.RequestInit
 // htmlevent.FrameRequestCallback
 // htmlevent.OnErrorEventHandler
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
 // patch.ByteString
-// patch.RequestCredentials
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -107,7 +109,7 @@ func WorkerTypeFromJS(value js.Value) WorkerType {
 // dictionary: WorkerOptions
 type WorkerOptions struct {
 	Type        WorkerType
-	Credentials *patch.RequestCredentials
+	Credentials fetch.RequestCredentials
 	Name        string
 }
 
@@ -131,13 +133,13 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	input := value.JSValue()
 	var out WorkerOptions
 	var (
-		value0 WorkerType                // javascript: WorkerType {type Type _type}
-		value1 *patch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
-		value2 string                    // javascript: DOMString {name Name name}
+		value0 WorkerType               // javascript: WorkerType {type Type _type}
+		value1 fetch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
+		value2 string                   // javascript: DOMString {name Name name}
 	)
 	value0 = WorkerTypeFromJS(input.Get("type"))
 	out.Type = value0
-	value1 = patch.RequestCredentialsFromJS(input.Get("credentials"))
+	value1 = fetch.RequestCredentialsFromJS(input.Get("credentials"))
 	out.Credentials = value1
 	value2 = (input.Get("name")).String()
 	out.Name = value2
@@ -537,6 +539,28 @@ func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int,
 		_end++
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := input.JSValue()
+	_args[0] = _p0
+	_end++
+	if init != nil {
+		_p1 := init.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)

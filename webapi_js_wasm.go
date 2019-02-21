@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -37,6 +38,7 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// fetch.RequestInit
 // html.HTMLAllCollection
 // html.HTMLElement
 // html.HTMLFormElement
@@ -126,6 +128,49 @@ func (this DocumentReadyState) Value() string {
 func DocumentReadyStateFromJS(value js.Value) DocumentReadyState {
 	key := value.String()
 	conv, ok := documentReadyStateFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: VisibilityState
+type VisibilityState int
+
+const (
+	HiddenVisibilityState VisibilityState = iota
+	VisibleVisibilityState
+	PrerenderVisibilityState
+)
+
+var visibilityStateToWasmTable = []string{
+	"hidden", "visible", "prerender",
+}
+
+var visibilityStateFromWasmTable = map[string]VisibilityState{
+	"hidden": HiddenVisibilityState, "visible": VisibleVisibilityState, "prerender": PrerenderVisibilityState,
+}
+
+// JSValue is converting this enum into a java object
+func (this *VisibilityState) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this VisibilityState) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(visibilityStateToWasmTable) {
+		return visibilityStateToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// VisibilityStateFromJS is converting a javascript value into
+// a VisibilityState enum value.
+func VisibilityStateFromJS(value js.Value) VisibilityState {
+	key := value.String()
+	conv, ok := visibilityStateFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -1066,6 +1111,48 @@ func (_this *Document) All() *html.HTMLAllCollection {
 	return ret
 }
 
+// Hidden returning attribute 'hidden' with
+// type bool (idl: boolean).
+func (_this *Document) Hidden() bool {
+	var ret bool
+	value := _this.Value_JS.Get("hidden")
+	ret = (value).Bool()
+	return ret
+}
+
+// VisibilityState returning attribute 'visibilityState' with
+// type VisibilityState (idl: VisibilityState).
+func (_this *Document) VisibilityState() VisibilityState {
+	var ret VisibilityState
+	value := _this.Value_JS.Get("visibilityState")
+	ret = VisibilityStateFromJS(value)
+	return ret
+}
+
+// Onvisibilitychange returning attribute 'onvisibilitychange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onvisibilitychange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvisibilitychange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvisibilitychange setting attribute 'onvisibilitychange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnvisibilitychange(value *domcore.EventHandler) {
+	var __callback42 js.Value
+	if value != nil {
+		__callback42 = (*value).Value
+	} else {
+		__callback42 = js.Null()
+	}
+	input := __callback42
+	_this.Value_JS.Set("onvisibilitychange", input)
+}
+
 // Children returning attribute 'children' with
 // type dom.HTMLCollection (idl: HTMLCollection).
 func (_this *Document) Children() *dom.HTMLCollection {
@@ -1120,13 +1207,13 @@ func (_this *Document) Onabort() domcore.EventHandlerFunc {
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnabort(value *domcore.EventHandler) {
-	var __callback44 js.Value
+	var __callback47 js.Value
 	if value != nil {
-		__callback44 = (*value).Value
+		__callback47 = (*value).Value
 	} else {
-		__callback44 = js.Null()
+		__callback47 = js.Null()
 	}
-	input := __callback44
+	input := __callback47
 	_this.Value_JS.Set("onabort", input)
 }
 
@@ -1144,13 +1231,13 @@ func (_this *Document) Onauxclick() domcore.EventHandlerFunc {
 // SetOnauxclick setting attribute 'onauxclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnauxclick(value *domcore.EventHandler) {
-	var __callback45 js.Value
+	var __callback48 js.Value
 	if value != nil {
-		__callback45 = (*value).Value
+		__callback48 = (*value).Value
 	} else {
-		__callback45 = js.Null()
+		__callback48 = js.Null()
 	}
-	input := __callback45
+	input := __callback48
 	_this.Value_JS.Set("onauxclick", input)
 }
 
@@ -1168,13 +1255,13 @@ func (_this *Document) Onblur() domcore.EventHandlerFunc {
 // SetOnblur setting attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnblur(value *domcore.EventHandler) {
-	var __callback46 js.Value
+	var __callback49 js.Value
 	if value != nil {
-		__callback46 = (*value).Value
+		__callback49 = (*value).Value
 	} else {
-		__callback46 = js.Null()
+		__callback49 = js.Null()
 	}
-	input := __callback46
+	input := __callback49
 	_this.Value_JS.Set("onblur", input)
 }
 
@@ -1192,13 +1279,13 @@ func (_this *Document) Oncancel() domcore.EventHandlerFunc {
 // SetOncancel setting attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncancel(value *domcore.EventHandler) {
-	var __callback47 js.Value
+	var __callback50 js.Value
 	if value != nil {
-		__callback47 = (*value).Value
+		__callback50 = (*value).Value
 	} else {
-		__callback47 = js.Null()
+		__callback50 = js.Null()
 	}
-	input := __callback47
+	input := __callback50
 	_this.Value_JS.Set("oncancel", input)
 }
 
@@ -1216,13 +1303,13 @@ func (_this *Document) Oncanplay() domcore.EventHandlerFunc {
 // SetOncanplay setting attribute 'oncanplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplay(value *domcore.EventHandler) {
-	var __callback48 js.Value
+	var __callback51 js.Value
 	if value != nil {
-		__callback48 = (*value).Value
+		__callback51 = (*value).Value
 	} else {
-		__callback48 = js.Null()
+		__callback51 = js.Null()
 	}
-	input := __callback48
+	input := __callback51
 	_this.Value_JS.Set("oncanplay", input)
 }
 
@@ -1240,13 +1327,13 @@ func (_this *Document) Oncanplaythrough() domcore.EventHandlerFunc {
 // SetOncanplaythrough setting attribute 'oncanplaythrough' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncanplaythrough(value *domcore.EventHandler) {
-	var __callback49 js.Value
+	var __callback52 js.Value
 	if value != nil {
-		__callback49 = (*value).Value
+		__callback52 = (*value).Value
 	} else {
-		__callback49 = js.Null()
+		__callback52 = js.Null()
 	}
-	input := __callback49
+	input := __callback52
 	_this.Value_JS.Set("oncanplaythrough", input)
 }
 
@@ -1264,13 +1351,13 @@ func (_this *Document) Onchange() domcore.EventHandlerFunc {
 // SetOnchange setting attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnchange(value *domcore.EventHandler) {
-	var __callback50 js.Value
+	var __callback53 js.Value
 	if value != nil {
-		__callback50 = (*value).Value
+		__callback53 = (*value).Value
 	} else {
-		__callback50 = js.Null()
+		__callback53 = js.Null()
 	}
-	input := __callback50
+	input := __callback53
 	_this.Value_JS.Set("onchange", input)
 }
 
@@ -1288,13 +1375,13 @@ func (_this *Document) Onclick() domcore.EventHandlerFunc {
 // SetOnclick setting attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclick(value *domcore.EventHandler) {
-	var __callback51 js.Value
+	var __callback54 js.Value
 	if value != nil {
-		__callback51 = (*value).Value
+		__callback54 = (*value).Value
 	} else {
-		__callback51 = js.Null()
+		__callback54 = js.Null()
 	}
-	input := __callback51
+	input := __callback54
 	_this.Value_JS.Set("onclick", input)
 }
 
@@ -1312,13 +1399,13 @@ func (_this *Document) Onclose() domcore.EventHandlerFunc {
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnclose(value *domcore.EventHandler) {
-	var __callback52 js.Value
+	var __callback55 js.Value
 	if value != nil {
-		__callback52 = (*value).Value
+		__callback55 = (*value).Value
 	} else {
-		__callback52 = js.Null()
+		__callback55 = js.Null()
 	}
-	input := __callback52
+	input := __callback55
 	_this.Value_JS.Set("onclose", input)
 }
 
@@ -1336,13 +1423,13 @@ func (_this *Document) Oncontextmenu() domcore.EventHandlerFunc {
 // SetOncontextmenu setting attribute 'oncontextmenu' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncontextmenu(value *domcore.EventHandler) {
-	var __callback53 js.Value
+	var __callback56 js.Value
 	if value != nil {
-		__callback53 = (*value).Value
+		__callback56 = (*value).Value
 	} else {
-		__callback53 = js.Null()
+		__callback56 = js.Null()
 	}
-	input := __callback53
+	input := __callback56
 	_this.Value_JS.Set("oncontextmenu", input)
 }
 
@@ -1360,13 +1447,13 @@ func (_this *Document) Oncuechange() domcore.EventHandlerFunc {
 // SetOncuechange setting attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncuechange(value *domcore.EventHandler) {
-	var __callback54 js.Value
+	var __callback57 js.Value
 	if value != nil {
-		__callback54 = (*value).Value
+		__callback57 = (*value).Value
 	} else {
-		__callback54 = js.Null()
+		__callback57 = js.Null()
 	}
-	input := __callback54
+	input := __callback57
 	_this.Value_JS.Set("oncuechange", input)
 }
 
@@ -1384,13 +1471,13 @@ func (_this *Document) Ondblclick() domcore.EventHandlerFunc {
 // SetOndblclick setting attribute 'ondblclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndblclick(value *domcore.EventHandler) {
-	var __callback55 js.Value
+	var __callback58 js.Value
 	if value != nil {
-		__callback55 = (*value).Value
+		__callback58 = (*value).Value
 	} else {
-		__callback55 = js.Null()
+		__callback58 = js.Null()
 	}
-	input := __callback55
+	input := __callback58
 	_this.Value_JS.Set("ondblclick", input)
 }
 
@@ -1408,13 +1495,13 @@ func (_this *Document) Ondrag() domcore.EventHandlerFunc {
 // SetOndrag setting attribute 'ondrag' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrag(value *domcore.EventHandler) {
-	var __callback56 js.Value
+	var __callback59 js.Value
 	if value != nil {
-		__callback56 = (*value).Value
+		__callback59 = (*value).Value
 	} else {
-		__callback56 = js.Null()
+		__callback59 = js.Null()
 	}
-	input := __callback56
+	input := __callback59
 	_this.Value_JS.Set("ondrag", input)
 }
 
@@ -1432,13 +1519,13 @@ func (_this *Document) Ondragend() domcore.EventHandlerFunc {
 // SetOndragend setting attribute 'ondragend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragend(value *domcore.EventHandler) {
-	var __callback57 js.Value
+	var __callback60 js.Value
 	if value != nil {
-		__callback57 = (*value).Value
+		__callback60 = (*value).Value
 	} else {
-		__callback57 = js.Null()
+		__callback60 = js.Null()
 	}
-	input := __callback57
+	input := __callback60
 	_this.Value_JS.Set("ondragend", input)
 }
 
@@ -1456,13 +1543,13 @@ func (_this *Document) Ondragenter() domcore.EventHandlerFunc {
 // SetOndragenter setting attribute 'ondragenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragenter(value *domcore.EventHandler) {
-	var __callback58 js.Value
+	var __callback61 js.Value
 	if value != nil {
-		__callback58 = (*value).Value
+		__callback61 = (*value).Value
 	} else {
-		__callback58 = js.Null()
+		__callback61 = js.Null()
 	}
-	input := __callback58
+	input := __callback61
 	_this.Value_JS.Set("ondragenter", input)
 }
 
@@ -1480,13 +1567,13 @@ func (_this *Document) Ondragexit() domcore.EventHandlerFunc {
 // SetOndragexit setting attribute 'ondragexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragexit(value *domcore.EventHandler) {
-	var __callback59 js.Value
+	var __callback62 js.Value
 	if value != nil {
-		__callback59 = (*value).Value
+		__callback62 = (*value).Value
 	} else {
-		__callback59 = js.Null()
+		__callback62 = js.Null()
 	}
-	input := __callback59
+	input := __callback62
 	_this.Value_JS.Set("ondragexit", input)
 }
 
@@ -1504,13 +1591,13 @@ func (_this *Document) Ondragleave() domcore.EventHandlerFunc {
 // SetOndragleave setting attribute 'ondragleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragleave(value *domcore.EventHandler) {
-	var __callback60 js.Value
+	var __callback63 js.Value
 	if value != nil {
-		__callback60 = (*value).Value
+		__callback63 = (*value).Value
 	} else {
-		__callback60 = js.Null()
+		__callback63 = js.Null()
 	}
-	input := __callback60
+	input := __callback63
 	_this.Value_JS.Set("ondragleave", input)
 }
 
@@ -1528,13 +1615,13 @@ func (_this *Document) Ondragover() domcore.EventHandlerFunc {
 // SetOndragover setting attribute 'ondragover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragover(value *domcore.EventHandler) {
-	var __callback61 js.Value
+	var __callback64 js.Value
 	if value != nil {
-		__callback61 = (*value).Value
+		__callback64 = (*value).Value
 	} else {
-		__callback61 = js.Null()
+		__callback64 = js.Null()
 	}
-	input := __callback61
+	input := __callback64
 	_this.Value_JS.Set("ondragover", input)
 }
 
@@ -1552,13 +1639,13 @@ func (_this *Document) Ondragstart() domcore.EventHandlerFunc {
 // SetOndragstart setting attribute 'ondragstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndragstart(value *domcore.EventHandler) {
-	var __callback62 js.Value
+	var __callback65 js.Value
 	if value != nil {
-		__callback62 = (*value).Value
+		__callback65 = (*value).Value
 	} else {
-		__callback62 = js.Null()
+		__callback65 = js.Null()
 	}
-	input := __callback62
+	input := __callback65
 	_this.Value_JS.Set("ondragstart", input)
 }
 
@@ -1576,13 +1663,13 @@ func (_this *Document) Ondrop() domcore.EventHandlerFunc {
 // SetOndrop setting attribute 'ondrop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndrop(value *domcore.EventHandler) {
-	var __callback63 js.Value
+	var __callback66 js.Value
 	if value != nil {
-		__callback63 = (*value).Value
+		__callback66 = (*value).Value
 	} else {
-		__callback63 = js.Null()
+		__callback66 = js.Null()
 	}
-	input := __callback63
+	input := __callback66
 	_this.Value_JS.Set("ondrop", input)
 }
 
@@ -1600,13 +1687,13 @@ func (_this *Document) Ondurationchange() domcore.EventHandlerFunc {
 // SetOndurationchange setting attribute 'ondurationchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOndurationchange(value *domcore.EventHandler) {
-	var __callback64 js.Value
+	var __callback67 js.Value
 	if value != nil {
-		__callback64 = (*value).Value
+		__callback67 = (*value).Value
 	} else {
-		__callback64 = js.Null()
+		__callback67 = js.Null()
 	}
-	input := __callback64
+	input := __callback67
 	_this.Value_JS.Set("ondurationchange", input)
 }
 
@@ -1624,13 +1711,13 @@ func (_this *Document) Onemptied() domcore.EventHandlerFunc {
 // SetOnemptied setting attribute 'onemptied' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnemptied(value *domcore.EventHandler) {
-	var __callback65 js.Value
+	var __callback68 js.Value
 	if value != nil {
-		__callback65 = (*value).Value
+		__callback68 = (*value).Value
 	} else {
-		__callback65 = js.Null()
+		__callback68 = js.Null()
 	}
-	input := __callback65
+	input := __callback68
 	_this.Value_JS.Set("onemptied", input)
 }
 
@@ -1648,13 +1735,13 @@ func (_this *Document) Onended() domcore.EventHandlerFunc {
 // SetOnended setting attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnended(value *domcore.EventHandler) {
-	var __callback66 js.Value
+	var __callback69 js.Value
 	if value != nil {
-		__callback66 = (*value).Value
+		__callback69 = (*value).Value
 	} else {
-		__callback66 = js.Null()
+		__callback69 = js.Null()
 	}
-	input := __callback66
+	input := __callback69
 	_this.Value_JS.Set("onended", input)
 }
 
@@ -1672,13 +1759,13 @@ func (_this *Document) Onerror() htmlevent.OnErrorEventHandlerFunc {
 // SetOnerror setting attribute 'onerror' with
 // type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
 func (_this *Document) SetOnerror(value *htmlevent.OnErrorEventHandler) {
-	var __callback67 js.Value
+	var __callback70 js.Value
 	if value != nil {
-		__callback67 = (*value).Value
+		__callback70 = (*value).Value
 	} else {
-		__callback67 = js.Null()
+		__callback70 = js.Null()
 	}
-	input := __callback67
+	input := __callback70
 	_this.Value_JS.Set("onerror", input)
 }
 
@@ -1696,13 +1783,13 @@ func (_this *Document) Onfocus() domcore.EventHandlerFunc {
 // SetOnfocus setting attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnfocus(value *domcore.EventHandler) {
-	var __callback68 js.Value
+	var __callback71 js.Value
 	if value != nil {
-		__callback68 = (*value).Value
+		__callback71 = (*value).Value
 	} else {
-		__callback68 = js.Null()
+		__callback71 = js.Null()
 	}
-	input := __callback68
+	input := __callback71
 	_this.Value_JS.Set("onfocus", input)
 }
 
@@ -1720,13 +1807,13 @@ func (_this *Document) Onformdata() domcore.EventHandlerFunc {
 // SetOnformdata setting attribute 'onformdata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnformdata(value *domcore.EventHandler) {
-	var __callback69 js.Value
+	var __callback72 js.Value
 	if value != nil {
-		__callback69 = (*value).Value
+		__callback72 = (*value).Value
 	} else {
-		__callback69 = js.Null()
+		__callback72 = js.Null()
 	}
-	input := __callback69
+	input := __callback72
 	_this.Value_JS.Set("onformdata", input)
 }
 
@@ -1744,13 +1831,13 @@ func (_this *Document) Oninput() domcore.EventHandlerFunc {
 // SetOninput setting attribute 'oninput' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninput(value *domcore.EventHandler) {
-	var __callback70 js.Value
+	var __callback73 js.Value
 	if value != nil {
-		__callback70 = (*value).Value
+		__callback73 = (*value).Value
 	} else {
-		__callback70 = js.Null()
+		__callback73 = js.Null()
 	}
-	input := __callback70
+	input := __callback73
 	_this.Value_JS.Set("oninput", input)
 }
 
@@ -1768,13 +1855,13 @@ func (_this *Document) Oninvalid() domcore.EventHandlerFunc {
 // SetOninvalid setting attribute 'oninvalid' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOninvalid(value *domcore.EventHandler) {
-	var __callback71 js.Value
+	var __callback74 js.Value
 	if value != nil {
-		__callback71 = (*value).Value
+		__callback74 = (*value).Value
 	} else {
-		__callback71 = js.Null()
+		__callback74 = js.Null()
 	}
-	input := __callback71
+	input := __callback74
 	_this.Value_JS.Set("oninvalid", input)
 }
 
@@ -1792,13 +1879,13 @@ func (_this *Document) Onkeydown() domcore.EventHandlerFunc {
 // SetOnkeydown setting attribute 'onkeydown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeydown(value *domcore.EventHandler) {
-	var __callback72 js.Value
+	var __callback75 js.Value
 	if value != nil {
-		__callback72 = (*value).Value
+		__callback75 = (*value).Value
 	} else {
-		__callback72 = js.Null()
+		__callback75 = js.Null()
 	}
-	input := __callback72
+	input := __callback75
 	_this.Value_JS.Set("onkeydown", input)
 }
 
@@ -1816,13 +1903,13 @@ func (_this *Document) Onkeypress() domcore.EventHandlerFunc {
 // SetOnkeypress setting attribute 'onkeypress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeypress(value *domcore.EventHandler) {
-	var __callback73 js.Value
+	var __callback76 js.Value
 	if value != nil {
-		__callback73 = (*value).Value
+		__callback76 = (*value).Value
 	} else {
-		__callback73 = js.Null()
+		__callback76 = js.Null()
 	}
-	input := __callback73
+	input := __callback76
 	_this.Value_JS.Set("onkeypress", input)
 }
 
@@ -1840,13 +1927,13 @@ func (_this *Document) Onkeyup() domcore.EventHandlerFunc {
 // SetOnkeyup setting attribute 'onkeyup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnkeyup(value *domcore.EventHandler) {
-	var __callback74 js.Value
+	var __callback77 js.Value
 	if value != nil {
-		__callback74 = (*value).Value
+		__callback77 = (*value).Value
 	} else {
-		__callback74 = js.Null()
+		__callback77 = js.Null()
 	}
-	input := __callback74
+	input := __callback77
 	_this.Value_JS.Set("onkeyup", input)
 }
 
@@ -1864,13 +1951,13 @@ func (_this *Document) Onload() domcore.EventHandlerFunc {
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnload(value *domcore.EventHandler) {
-	var __callback75 js.Value
+	var __callback78 js.Value
 	if value != nil {
-		__callback75 = (*value).Value
+		__callback78 = (*value).Value
 	} else {
-		__callback75 = js.Null()
+		__callback78 = js.Null()
 	}
-	input := __callback75
+	input := __callback78
 	_this.Value_JS.Set("onload", input)
 }
 
@@ -1888,13 +1975,13 @@ func (_this *Document) Onloadeddata() domcore.EventHandlerFunc {
 // SetOnloadeddata setting attribute 'onloadeddata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadeddata(value *domcore.EventHandler) {
-	var __callback76 js.Value
+	var __callback79 js.Value
 	if value != nil {
-		__callback76 = (*value).Value
+		__callback79 = (*value).Value
 	} else {
-		__callback76 = js.Null()
+		__callback79 = js.Null()
 	}
-	input := __callback76
+	input := __callback79
 	_this.Value_JS.Set("onloadeddata", input)
 }
 
@@ -1912,13 +1999,13 @@ func (_this *Document) Onloadedmetadata() domcore.EventHandlerFunc {
 // SetOnloadedmetadata setting attribute 'onloadedmetadata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadedmetadata(value *domcore.EventHandler) {
-	var __callback77 js.Value
+	var __callback80 js.Value
 	if value != nil {
-		__callback77 = (*value).Value
+		__callback80 = (*value).Value
 	} else {
-		__callback77 = js.Null()
+		__callback80 = js.Null()
 	}
-	input := __callback77
+	input := __callback80
 	_this.Value_JS.Set("onloadedmetadata", input)
 }
 
@@ -1936,13 +2023,13 @@ func (_this *Document) Onloadend() domcore.EventHandlerFunc {
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadend(value *domcore.EventHandler) {
-	var __callback78 js.Value
+	var __callback81 js.Value
 	if value != nil {
-		__callback78 = (*value).Value
+		__callback81 = (*value).Value
 	} else {
-		__callback78 = js.Null()
+		__callback81 = js.Null()
 	}
-	input := __callback78
+	input := __callback81
 	_this.Value_JS.Set("onloadend", input)
 }
 
@@ -1960,13 +2047,13 @@ func (_this *Document) Onloadstart() domcore.EventHandlerFunc {
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback79 js.Value
+	var __callback82 js.Value
 	if value != nil {
-		__callback79 = (*value).Value
+		__callback82 = (*value).Value
 	} else {
-		__callback79 = js.Null()
+		__callback82 = js.Null()
 	}
-	input := __callback79
+	input := __callback82
 	_this.Value_JS.Set("onloadstart", input)
 }
 
@@ -1984,13 +2071,13 @@ func (_this *Document) Onmousedown() domcore.EventHandlerFunc {
 // SetOnmousedown setting attribute 'onmousedown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousedown(value *domcore.EventHandler) {
-	var __callback80 js.Value
+	var __callback83 js.Value
 	if value != nil {
-		__callback80 = (*value).Value
+		__callback83 = (*value).Value
 	} else {
-		__callback80 = js.Null()
+		__callback83 = js.Null()
 	}
-	input := __callback80
+	input := __callback83
 	_this.Value_JS.Set("onmousedown", input)
 }
 
@@ -2008,13 +2095,13 @@ func (_this *Document) Onmouseenter() domcore.EventHandlerFunc {
 // SetOnmouseenter setting attribute 'onmouseenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseenter(value *domcore.EventHandler) {
-	var __callback81 js.Value
+	var __callback84 js.Value
 	if value != nil {
-		__callback81 = (*value).Value
+		__callback84 = (*value).Value
 	} else {
-		__callback81 = js.Null()
+		__callback84 = js.Null()
 	}
-	input := __callback81
+	input := __callback84
 	_this.Value_JS.Set("onmouseenter", input)
 }
 
@@ -2032,13 +2119,13 @@ func (_this *Document) Onmouseleave() domcore.EventHandlerFunc {
 // SetOnmouseleave setting attribute 'onmouseleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseleave(value *domcore.EventHandler) {
-	var __callback82 js.Value
+	var __callback85 js.Value
 	if value != nil {
-		__callback82 = (*value).Value
+		__callback85 = (*value).Value
 	} else {
-		__callback82 = js.Null()
+		__callback85 = js.Null()
 	}
-	input := __callback82
+	input := __callback85
 	_this.Value_JS.Set("onmouseleave", input)
 }
 
@@ -2056,13 +2143,13 @@ func (_this *Document) Onmousemove() domcore.EventHandlerFunc {
 // SetOnmousemove setting attribute 'onmousemove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmousemove(value *domcore.EventHandler) {
-	var __callback83 js.Value
+	var __callback86 js.Value
 	if value != nil {
-		__callback83 = (*value).Value
+		__callback86 = (*value).Value
 	} else {
-		__callback83 = js.Null()
+		__callback86 = js.Null()
 	}
-	input := __callback83
+	input := __callback86
 	_this.Value_JS.Set("onmousemove", input)
 }
 
@@ -2080,13 +2167,13 @@ func (_this *Document) Onmouseout() domcore.EventHandlerFunc {
 // SetOnmouseout setting attribute 'onmouseout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseout(value *domcore.EventHandler) {
-	var __callback84 js.Value
+	var __callback87 js.Value
 	if value != nil {
-		__callback84 = (*value).Value
+		__callback87 = (*value).Value
 	} else {
-		__callback84 = js.Null()
+		__callback87 = js.Null()
 	}
-	input := __callback84
+	input := __callback87
 	_this.Value_JS.Set("onmouseout", input)
 }
 
@@ -2104,13 +2191,13 @@ func (_this *Document) Onmouseover() domcore.EventHandlerFunc {
 // SetOnmouseover setting attribute 'onmouseover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseover(value *domcore.EventHandler) {
-	var __callback85 js.Value
+	var __callback88 js.Value
 	if value != nil {
-		__callback85 = (*value).Value
+		__callback88 = (*value).Value
 	} else {
-		__callback85 = js.Null()
+		__callback88 = js.Null()
 	}
-	input := __callback85
+	input := __callback88
 	_this.Value_JS.Set("onmouseover", input)
 }
 
@@ -2128,13 +2215,13 @@ func (_this *Document) Onmouseup() domcore.EventHandlerFunc {
 // SetOnmouseup setting attribute 'onmouseup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnmouseup(value *domcore.EventHandler) {
-	var __callback86 js.Value
+	var __callback89 js.Value
 	if value != nil {
-		__callback86 = (*value).Value
+		__callback89 = (*value).Value
 	} else {
-		__callback86 = js.Null()
+		__callback89 = js.Null()
 	}
-	input := __callback86
+	input := __callback89
 	_this.Value_JS.Set("onmouseup", input)
 }
 
@@ -2152,13 +2239,13 @@ func (_this *Document) Onwheel() domcore.EventHandlerFunc {
 // SetOnwheel setting attribute 'onwheel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwheel(value *domcore.EventHandler) {
-	var __callback87 js.Value
+	var __callback90 js.Value
 	if value != nil {
-		__callback87 = (*value).Value
+		__callback90 = (*value).Value
 	} else {
-		__callback87 = js.Null()
+		__callback90 = js.Null()
 	}
-	input := __callback87
+	input := __callback90
 	_this.Value_JS.Set("onwheel", input)
 }
 
@@ -2176,13 +2263,13 @@ func (_this *Document) Onpause() domcore.EventHandlerFunc {
 // SetOnpause setting attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpause(value *domcore.EventHandler) {
-	var __callback88 js.Value
+	var __callback91 js.Value
 	if value != nil {
-		__callback88 = (*value).Value
+		__callback91 = (*value).Value
 	} else {
-		__callback88 = js.Null()
+		__callback91 = js.Null()
 	}
-	input := __callback88
+	input := __callback91
 	_this.Value_JS.Set("onpause", input)
 }
 
@@ -2200,13 +2287,13 @@ func (_this *Document) Onplay() domcore.EventHandlerFunc {
 // SetOnplay setting attribute 'onplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplay(value *domcore.EventHandler) {
-	var __callback89 js.Value
+	var __callback92 js.Value
 	if value != nil {
-		__callback89 = (*value).Value
+		__callback92 = (*value).Value
 	} else {
-		__callback89 = js.Null()
+		__callback92 = js.Null()
 	}
-	input := __callback89
+	input := __callback92
 	_this.Value_JS.Set("onplay", input)
 }
 
@@ -2224,13 +2311,13 @@ func (_this *Document) Onplaying() domcore.EventHandlerFunc {
 // SetOnplaying setting attribute 'onplaying' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnplaying(value *domcore.EventHandler) {
-	var __callback90 js.Value
+	var __callback93 js.Value
 	if value != nil {
-		__callback90 = (*value).Value
+		__callback93 = (*value).Value
 	} else {
-		__callback90 = js.Null()
+		__callback93 = js.Null()
 	}
-	input := __callback90
+	input := __callback93
 	_this.Value_JS.Set("onplaying", input)
 }
 
@@ -2248,13 +2335,13 @@ func (_this *Document) Onprogress() domcore.EventHandlerFunc {
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnprogress(value *domcore.EventHandler) {
-	var __callback91 js.Value
+	var __callback94 js.Value
 	if value != nil {
-		__callback91 = (*value).Value
+		__callback94 = (*value).Value
 	} else {
-		__callback91 = js.Null()
+		__callback94 = js.Null()
 	}
-	input := __callback91
+	input := __callback94
 	_this.Value_JS.Set("onprogress", input)
 }
 
@@ -2272,13 +2359,13 @@ func (_this *Document) Onratechange() domcore.EventHandlerFunc {
 // SetOnratechange setting attribute 'onratechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnratechange(value *domcore.EventHandler) {
-	var __callback92 js.Value
+	var __callback95 js.Value
 	if value != nil {
-		__callback92 = (*value).Value
+		__callback95 = (*value).Value
 	} else {
-		__callback92 = js.Null()
+		__callback95 = js.Null()
 	}
-	input := __callback92
+	input := __callback95
 	_this.Value_JS.Set("onratechange", input)
 }
 
@@ -2296,13 +2383,13 @@ func (_this *Document) Onreset() domcore.EventHandlerFunc {
 // SetOnreset setting attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnreset(value *domcore.EventHandler) {
-	var __callback93 js.Value
+	var __callback96 js.Value
 	if value != nil {
-		__callback93 = (*value).Value
+		__callback96 = (*value).Value
 	} else {
-		__callback93 = js.Null()
+		__callback96 = js.Null()
 	}
-	input := __callback93
+	input := __callback96
 	_this.Value_JS.Set("onreset", input)
 }
 
@@ -2320,13 +2407,13 @@ func (_this *Document) Onresize() domcore.EventHandlerFunc {
 // SetOnresize setting attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnresize(value *domcore.EventHandler) {
-	var __callback94 js.Value
+	var __callback97 js.Value
 	if value != nil {
-		__callback94 = (*value).Value
+		__callback97 = (*value).Value
 	} else {
-		__callback94 = js.Null()
+		__callback97 = js.Null()
 	}
-	input := __callback94
+	input := __callback97
 	_this.Value_JS.Set("onresize", input)
 }
 
@@ -2344,13 +2431,13 @@ func (_this *Document) Onscroll() domcore.EventHandlerFunc {
 // SetOnscroll setting attribute 'onscroll' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnscroll(value *domcore.EventHandler) {
-	var __callback95 js.Value
+	var __callback98 js.Value
 	if value != nil {
-		__callback95 = (*value).Value
+		__callback98 = (*value).Value
 	} else {
-		__callback95 = js.Null()
+		__callback98 = js.Null()
 	}
-	input := __callback95
+	input := __callback98
 	_this.Value_JS.Set("onscroll", input)
 }
 
@@ -2368,13 +2455,13 @@ func (_this *Document) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
 // SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsecuritypolicyviolation(value *domcore.EventHandler) {
-	var __callback96 js.Value
+	var __callback99 js.Value
 	if value != nil {
-		__callback96 = (*value).Value
+		__callback99 = (*value).Value
 	} else {
-		__callback96 = js.Null()
+		__callback99 = js.Null()
 	}
-	input := __callback96
+	input := __callback99
 	_this.Value_JS.Set("onsecuritypolicyviolation", input)
 }
 
@@ -2392,13 +2479,13 @@ func (_this *Document) Onseeked() domcore.EventHandlerFunc {
 // SetOnseeked setting attribute 'onseeked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeked(value *domcore.EventHandler) {
-	var __callback97 js.Value
+	var __callback100 js.Value
 	if value != nil {
-		__callback97 = (*value).Value
+		__callback100 = (*value).Value
 	} else {
-		__callback97 = js.Null()
+		__callback100 = js.Null()
 	}
-	input := __callback97
+	input := __callback100
 	_this.Value_JS.Set("onseeked", input)
 }
 
@@ -2416,13 +2503,13 @@ func (_this *Document) Onseeking() domcore.EventHandlerFunc {
 // SetOnseeking setting attribute 'onseeking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnseeking(value *domcore.EventHandler) {
-	var __callback98 js.Value
+	var __callback101 js.Value
 	if value != nil {
-		__callback98 = (*value).Value
+		__callback101 = (*value).Value
 	} else {
-		__callback98 = js.Null()
+		__callback101 = js.Null()
 	}
-	input := __callback98
+	input := __callback101
 	_this.Value_JS.Set("onseeking", input)
 }
 
@@ -2440,13 +2527,13 @@ func (_this *Document) Onselect() domcore.EventHandlerFunc {
 // SetOnselect setting attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnselect(value *domcore.EventHandler) {
-	var __callback99 js.Value
+	var __callback102 js.Value
 	if value != nil {
-		__callback99 = (*value).Value
+		__callback102 = (*value).Value
 	} else {
-		__callback99 = js.Null()
+		__callback102 = js.Null()
 	}
-	input := __callback99
+	input := __callback102
 	_this.Value_JS.Set("onselect", input)
 }
 
@@ -2464,13 +2551,13 @@ func (_this *Document) Onstalled() domcore.EventHandlerFunc {
 // SetOnstalled setting attribute 'onstalled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnstalled(value *domcore.EventHandler) {
-	var __callback100 js.Value
+	var __callback103 js.Value
 	if value != nil {
-		__callback100 = (*value).Value
+		__callback103 = (*value).Value
 	} else {
-		__callback100 = js.Null()
+		__callback103 = js.Null()
 	}
-	input := __callback100
+	input := __callback103
 	_this.Value_JS.Set("onstalled", input)
 }
 
@@ -2488,13 +2575,13 @@ func (_this *Document) Onsubmit() domcore.EventHandlerFunc {
 // SetOnsubmit setting attribute 'onsubmit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsubmit(value *domcore.EventHandler) {
-	var __callback101 js.Value
+	var __callback104 js.Value
 	if value != nil {
-		__callback101 = (*value).Value
+		__callback104 = (*value).Value
 	} else {
-		__callback101 = js.Null()
+		__callback104 = js.Null()
 	}
-	input := __callback101
+	input := __callback104
 	_this.Value_JS.Set("onsubmit", input)
 }
 
@@ -2512,13 +2599,13 @@ func (_this *Document) Onsuspend() domcore.EventHandlerFunc {
 // SetOnsuspend setting attribute 'onsuspend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnsuspend(value *domcore.EventHandler) {
-	var __callback102 js.Value
+	var __callback105 js.Value
 	if value != nil {
-		__callback102 = (*value).Value
+		__callback105 = (*value).Value
 	} else {
-		__callback102 = js.Null()
+		__callback105 = js.Null()
 	}
-	input := __callback102
+	input := __callback105
 	_this.Value_JS.Set("onsuspend", input)
 }
 
@@ -2536,13 +2623,13 @@ func (_this *Document) Ontimeupdate() domcore.EventHandlerFunc {
 // SetOntimeupdate setting attribute 'ontimeupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntimeupdate(value *domcore.EventHandler) {
-	var __callback103 js.Value
+	var __callback106 js.Value
 	if value != nil {
-		__callback103 = (*value).Value
+		__callback106 = (*value).Value
 	} else {
-		__callback103 = js.Null()
+		__callback106 = js.Null()
 	}
-	input := __callback103
+	input := __callback106
 	_this.Value_JS.Set("ontimeupdate", input)
 }
 
@@ -2560,13 +2647,13 @@ func (_this *Document) Ontoggle() domcore.EventHandlerFunc {
 // SetOntoggle setting attribute 'ontoggle' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOntoggle(value *domcore.EventHandler) {
-	var __callback104 js.Value
+	var __callback107 js.Value
 	if value != nil {
-		__callback104 = (*value).Value
+		__callback107 = (*value).Value
 	} else {
-		__callback104 = js.Null()
+		__callback107 = js.Null()
 	}
-	input := __callback104
+	input := __callback107
 	_this.Value_JS.Set("ontoggle", input)
 }
 
@@ -2584,13 +2671,13 @@ func (_this *Document) Onvolumechange() domcore.EventHandlerFunc {
 // SetOnvolumechange setting attribute 'onvolumechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnvolumechange(value *domcore.EventHandler) {
-	var __callback105 js.Value
+	var __callback108 js.Value
 	if value != nil {
-		__callback105 = (*value).Value
+		__callback108 = (*value).Value
 	} else {
-		__callback105 = js.Null()
+		__callback108 = js.Null()
 	}
-	input := __callback105
+	input := __callback108
 	_this.Value_JS.Set("onvolumechange", input)
 }
 
@@ -2608,13 +2695,13 @@ func (_this *Document) Onwaiting() domcore.EventHandlerFunc {
 // SetOnwaiting setting attribute 'onwaiting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnwaiting(value *domcore.EventHandler) {
-	var __callback106 js.Value
+	var __callback109 js.Value
 	if value != nil {
-		__callback106 = (*value).Value
+		__callback109 = (*value).Value
 	} else {
-		__callback106 = js.Null()
+		__callback109 = js.Null()
 	}
-	input := __callback106
+	input := __callback109
 	_this.Value_JS.Set("onwaiting", input)
 }
 
@@ -2632,13 +2719,13 @@ func (_this *Document) Oncopy() domcore.EventHandlerFunc {
 // SetOncopy setting attribute 'oncopy' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncopy(value *domcore.EventHandler) {
-	var __callback107 js.Value
+	var __callback110 js.Value
 	if value != nil {
-		__callback107 = (*value).Value
+		__callback110 = (*value).Value
 	} else {
-		__callback107 = js.Null()
+		__callback110 = js.Null()
 	}
-	input := __callback107
+	input := __callback110
 	_this.Value_JS.Set("oncopy", input)
 }
 
@@ -2656,13 +2743,13 @@ func (_this *Document) Oncut() domcore.EventHandlerFunc {
 // SetOncut setting attribute 'oncut' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOncut(value *domcore.EventHandler) {
-	var __callback108 js.Value
+	var __callback111 js.Value
 	if value != nil {
-		__callback108 = (*value).Value
+		__callback111 = (*value).Value
 	} else {
-		__callback108 = js.Null()
+		__callback111 = js.Null()
 	}
-	input := __callback108
+	input := __callback111
 	_this.Value_JS.Set("oncut", input)
 }
 
@@ -2680,13 +2767,13 @@ func (_this *Document) Onpaste() domcore.EventHandlerFunc {
 // SetOnpaste setting attribute 'onpaste' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) SetOnpaste(value *domcore.EventHandler) {
-	var __callback109 js.Value
+	var __callback112 js.Value
 	if value != nil {
-		__callback109 = (*value).Value
+		__callback112 = (*value).Value
 	} else {
-		__callback109 = js.Null()
+		__callback112 = js.Null()
 	}
-	input := __callback109
+	input := __callback112
 	_this.Value_JS.Set("onpaste", input)
 }
 
@@ -6905,6 +6992,28 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 		_end++
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) Fetch(input *Union, init *fetch.RequestInit) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := input.JSValue()
+	_args[0] = _p0
+	_end++
+	if init != nil {
+		_p1 := init.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)

@@ -120,27 +120,6 @@ func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 	return ret
 }
 
-// interface: RequestCredentials
-type RequestCredentials struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *RequestCredentials) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// RequestCredentialsFromJS is casting a js.Wrapper into RequestCredentials.
-func RequestCredentialsFromJS(value js.Wrapper) *RequestCredentials {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &RequestCredentials{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: ServiceWorker
 type ServiceWorker struct {
 	// Value_JS holds a reference to a javascript value
