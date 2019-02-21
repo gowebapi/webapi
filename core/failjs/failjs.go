@@ -1,4 +1,4 @@
-// Equal api to syscall/js but is panic on all method invocation.
+// Package failjs is equal api to syscall/js but is panic on all method invocation.
 //
 // The usage is to get a tab complession to work inside an IDE
 // (e.g. Visual Studio Code) without changing to GOOS to js

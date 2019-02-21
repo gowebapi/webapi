@@ -1,4 +1,4 @@
-// Go Language Web Assembly bindings for DOM, HTML etc
+// Go Language Web Assembly bindings for DOM, HTML etc.
 //
 // WARNING: The current API is in very early state and should be consider
 // to be expremental. There is upcommig changed like moving types into
