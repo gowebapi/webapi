@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/gowebapi/webapi"
-	js "github.com/gowebapi/webapi/core/failjs"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html"
 )
@@ -15,10 +14,10 @@ func Example_buttonTest() {
 	button.SetInnerText("Press me!")
 
 	count := 1
-	callback := domcore.EventHandlerToJS(func(event *domcore.Event) js.Value {
+	callback := domcore.EventHandlerToJS(func(event *domcore.Event) interface{} {
 		button.SetInnerText(fmt.Sprint("Count: ", count))
 		count++
-		return js.Null()
+		return nil
 	})
 	button.SetOnclick(callback)
 
