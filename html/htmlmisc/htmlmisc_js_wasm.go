@@ -8,6 +8,7 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/serviceworker"
 )
 
 // using following types:
@@ -19,6 +20,7 @@ import (
 // domcore.EventTarget
 // javascript.FrozenArray
 // javascript.Promise
+// serviceworker.ServiceWorkerContainer
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -1020,6 +1022,15 @@ func NavigatorFromJS(value js.Wrapper) *Navigator {
 	}
 	ret := &Navigator{}
 	ret.Value_JS = input
+	return ret
+}
+
+// ServiceWorker returning attribute 'serviceWorker' with
+// type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
+func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
+	var ret *serviceworker.ServiceWorkerContainer
+	value := _this.Value_JS.Get("serviceWorker")
+	ret = serviceworker.ServiceWorkerContainerFromJS(value)
 	return ret
 }
 

@@ -12,6 +12,7 @@ import (
 	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/webidl"
 )
 
@@ -25,10 +26,15 @@ import (
 // fetch.RequestInit
 // htmlevent.FrameRequestCallback
 // htmlevent.OnErrorEventHandler
+// htmlevent.WorkerType
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
 // patch.ByteString
+// serviceworker.CacheStorage
+// serviceworker.Clients
+// serviceworker.ServiceWorkerContainer
+// serviceworker.ServiceWorkerRegistration
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -62,51 +68,9 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// enum: WorkerType
-type WorkerType int
-
-const (
-	ClassicWorkerType WorkerType = iota
-	ModuleWorkerType
-)
-
-var workerTypeToWasmTable = []string{
-	"classic", "module",
-}
-
-var workerTypeFromWasmTable = map[string]WorkerType{
-	"classic": ClassicWorkerType, "module": ModuleWorkerType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *WorkerType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this WorkerType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(workerTypeToWasmTable) {
-		return workerTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// WorkerTypeFromJS is converting a javascript value into
-// a WorkerType enum value.
-func WorkerTypeFromJS(value js.Value) WorkerType {
-	key := value.String()
-	conv, ok := workerTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // dictionary: WorkerOptions
 type WorkerOptions struct {
-	Type        WorkerType
+	Type        htmlevent.WorkerType
 	Credentials fetch.RequestCredentials
 	Name        string
 }
@@ -131,17 +95,185 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	input := value.JSValue()
 	var out WorkerOptions
 	var (
-		value0 WorkerType               // javascript: WorkerType {type Type _type}
+		value0 htmlevent.WorkerType     // javascript: WorkerType {type Type _type}
 		value1 fetch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
 		value2 string                   // javascript: DOMString {name Name name}
 	)
-	value0 = WorkerTypeFromJS(input.Get("type"))
+	value0 = htmlevent.WorkerTypeFromJS(input.Get("type"))
 	out.Type = value0
 	value1 = fetch.RequestCredentialsFromJS(input.Get("credentials"))
 	out.Credentials = value1
 	value2 = (input.Get("name")).String()
 	out.Name = value2
 	return &out
+}
+
+// interface: ServiceWorkerGlobalScope
+type ServiceWorkerGlobalScope struct {
+	WorkerGlobalScope
+}
+
+// ServiceWorkerGlobalScopeFromJS is casting a js.Wrapper into ServiceWorkerGlobalScope.
+func ServiceWorkerGlobalScopeFromJS(value js.Wrapper) *ServiceWorkerGlobalScope {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ServiceWorkerGlobalScope{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Clients returning attribute 'clients' with
+// type serviceworker.Clients (idl: Clients).
+func (_this *ServiceWorkerGlobalScope) Clients() *serviceworker.Clients {
+	var ret *serviceworker.Clients
+	value := _this.Value_JS.Get("clients")
+	ret = serviceworker.ClientsFromJS(value)
+	return ret
+}
+
+// Registration returning attribute 'registration' with
+// type serviceworker.ServiceWorkerRegistration (idl: ServiceWorkerRegistration).
+func (_this *ServiceWorkerGlobalScope) Registration() *serviceworker.ServiceWorkerRegistration {
+	var ret *serviceworker.ServiceWorkerRegistration
+	value := _this.Value_JS.Get("registration")
+	ret = serviceworker.ServiceWorkerRegistrationFromJS(value)
+	return ret
+}
+
+// Oninstall returning attribute 'oninstall' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Oninstall() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oninstall")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOninstall setting attribute 'oninstall' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOninstall(value *domcore.EventHandler) {
+	var __callback2 js.Value
+	if value != nil {
+		__callback2 = (*value).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	input := __callback2
+	_this.Value_JS.Set("oninstall", input)
+}
+
+// Onactivate returning attribute 'onactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onactivate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onactivate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnactivate setting attribute 'onactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnactivate(value *domcore.EventHandler) {
+	var __callback3 js.Value
+	if value != nil {
+		__callback3 = (*value).Value
+	} else {
+		__callback3 = js.Null()
+	}
+	input := __callback3
+	_this.Value_JS.Set("onactivate", input)
+}
+
+// Onfetch returning attribute 'onfetch' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onfetch() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onfetch")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnfetch setting attribute 'onfetch' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnfetch(value *domcore.EventHandler) {
+	var __callback4 js.Value
+	if value != nil {
+		__callback4 = (*value).Value
+	} else {
+		__callback4 = js.Null()
+	}
+	input := __callback4
+	_this.Value_JS.Set("onfetch", input)
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
+	var __callback5 js.Value
+	if value != nil {
+		__callback5 = (*value).Value
+	} else {
+		__callback5 = js.Null()
+	}
+	input := __callback5
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback6 js.Value
+	if value != nil {
+		__callback6 = (*value).Value
+	} else {
+		__callback6 = js.Null()
+	}
+	input := __callback6
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("skipWaiting", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: WorkerGlobalScope
@@ -337,6 +469,15 @@ func (_this *WorkerGlobalScope) Origin() string {
 	var ret string
 	value := _this.Value_JS.Get("origin")
 	ret = (value).String()
+	return ret
+}
+
+// Caches returning attribute 'caches' with
+// type serviceworker.CacheStorage (idl: CacheStorage).
+func (_this *WorkerGlobalScope) Caches() *serviceworker.CacheStorage {
+	var ret *serviceworker.CacheStorage
+	value := _this.Value_JS.Get("caches")
+	ret = serviceworker.CacheStorageFromJS(value)
 	return ret
 }
 
@@ -1025,6 +1166,15 @@ func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
 	}
 	ret := &WorkerNavigator{}
 	ret.Value_JS = input
+	return ret
+}
+
+// ServiceWorker returning attribute 'serviceWorker' with
+// type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
+func (_this *WorkerNavigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
+	var ret *serviceworker.ServiceWorkerContainer
+	value := _this.Value_JS.Get("serviceWorker")
+	ret = serviceworker.ServiceWorkerContainerFromJS(value)
 	return ret
 }
 

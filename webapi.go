@@ -16,6 +16,7 @@ import (
 	"github.com/gowebapi/webapi/html/htmlmisc"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/webidl"
 )
 
@@ -40,6 +41,7 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// domcore.VisibilityState
 // fetch.RequestInit
 // html.HTMLAllCollection
 // html.HTMLElement
@@ -60,6 +62,7 @@ import (
 // javascript.Object
 // javascript.Promise
 // patch.ByteString
+// serviceworker.CacheStorage
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -130,49 +133,6 @@ func (this DocumentReadyState) Value() string {
 func DocumentReadyStateFromJS(value js.Value) DocumentReadyState {
 	key := value.String()
 	conv, ok := documentReadyStateFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: VisibilityState
-type VisibilityState int
-
-const (
-	HiddenVisibilityState VisibilityState = iota
-	VisibleVisibilityState
-	PrerenderVisibilityState
-)
-
-var visibilityStateToWasmTable = []string{
-	"hidden", "visible", "prerender",
-}
-
-var visibilityStateFromWasmTable = map[string]VisibilityState{
-	"hidden": HiddenVisibilityState, "visible": VisibleVisibilityState, "prerender": PrerenderVisibilityState,
-}
-
-// JSValue is converting this enum into a java object
-func (this *VisibilityState) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this VisibilityState) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(visibilityStateToWasmTable) {
-		return visibilityStateToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// VisibilityStateFromJS is converting a javascript value into
-// a VisibilityState enum value.
-func VisibilityStateFromJS(value js.Value) VisibilityState {
-	key := value.String()
-	conv, ok := visibilityStateFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -1123,11 +1083,11 @@ func (_this *Document) Hidden() bool {
 }
 
 // VisibilityState returning attribute 'visibilityState' with
-// type VisibilityState (idl: VisibilityState).
-func (_this *Document) VisibilityState() VisibilityState {
-	var ret VisibilityState
+// type domcore.VisibilityState (idl: VisibilityState).
+func (_this *Document) VisibilityState() domcore.VisibilityState {
+	var ret domcore.VisibilityState
 	value := _this.Value_JS.Get("visibilityState")
-	ret = VisibilityStateFromJS(value)
+	ret = domcore.VisibilityStateFromJS(value)
 	return ret
 }
 
@@ -6588,6 +6548,15 @@ func (_this *Window) Origin() string {
 	var ret string
 	value := _this.Value_JS.Get("origin")
 	ret = (value).String()
+	return ret
+}
+
+// Caches returning attribute 'caches' with
+// type serviceworker.CacheStorage (idl: CacheStorage).
+func (_this *Window) Caches() *serviceworker.CacheStorage {
+	var ret *serviceworker.CacheStorage
+	value := _this.Value_JS.Get("caches")
+	ret = serviceworker.CacheStorageFromJS(value)
 	return ret
 }
 

@@ -46,6 +46,48 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: WorkerType
+type WorkerType int
+
+const (
+	ClassicWorkerType WorkerType = iota
+	ModuleWorkerType
+)
+
+var workerTypeToWasmTable = []string{
+	"classic", "module",
+}
+
+var workerTypeFromWasmTable = map[string]WorkerType{
+	"classic": ClassicWorkerType, "module": ModuleWorkerType,
+}
+
+// JSValue is converting this enum into a java object
+func (this *WorkerType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this WorkerType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(workerTypeToWasmTable) {
+		return workerTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// WorkerTypeFromJS is converting a javascript value into
+// a WorkerType enum value.
+func WorkerTypeFromJS(value js.Value) WorkerType {
+	key := value.String()
+	conv, ok := workerTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: OnErrorEventHandlerNonNull
 type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) interface{}
 

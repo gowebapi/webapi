@@ -122,27 +122,6 @@ func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 	return ret
 }
 
-// interface: ServiceWorker
-type ServiceWorker struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ServiceWorker) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
-func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ServiceWorker{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: SVGScriptElement
 type SVGScriptElement struct {
 	// Value_JS holds a reference to a javascript value

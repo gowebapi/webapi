@@ -37,6 +37,49 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: VisibilityState
+type VisibilityState int
+
+const (
+	HiddenVisibilityState VisibilityState = iota
+	VisibleVisibilityState
+	PrerenderVisibilityState
+)
+
+var visibilityStateToWasmTable = []string{
+	"hidden", "visible", "prerender",
+}
+
+var visibilityStateFromWasmTable = map[string]VisibilityState{
+	"hidden": HiddenVisibilityState, "visible": VisibleVisibilityState, "prerender": PrerenderVisibilityState,
+}
+
+// JSValue is converting this enum into a java object
+func (this *VisibilityState) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this VisibilityState) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(visibilityStateToWasmTable) {
+		return visibilityStateToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// VisibilityStateFromJS is converting a javascript value into
+// a VisibilityState enum value.
+func VisibilityStateFromJS(value js.Value) VisibilityState {
+	key := value.String()
+	conv, ok := visibilityStateFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: EventHandlerNonNull
 type EventHandlerFunc func(event *Event) interface{}
 
