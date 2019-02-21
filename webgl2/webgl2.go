@@ -786,11 +786,11 @@ func (_this *WebGL2RenderingContext) GetSupportedExtensions() (_result []string)
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]string, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out string
-			__seq_in := _returned.Index(__idx)
-			__seq_out = (__seq_in).String()
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 string
+			__seq_in0 := _returned.Index(__idx0)
+			__seq_out0 = (__seq_in0).String()
+			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
 	}
@@ -1766,11 +1766,11 @@ func (_this *WebGL2RenderingContext) GetAttachedShaders(program *webgl.WebGLProg
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]*webgl.WebGLShader, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out *webgl.WebGLShader
-			__seq_in := _returned.Index(__idx)
-			__seq_out = webgl.WebGLShaderFromJS(__seq_in)
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *webgl.WebGLShader
+			__seq_in0 := _returned.Index(__idx0)
+			__seq_out0 = webgl.WebGLShaderFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
 	}
@@ -3446,9 +3446,9 @@ func (_this *WebGL2RenderingContext) InvalidateFramebuffer(target uint, attachme
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(attachments))
-	for __idx, __seq_in := range attachments {
-		__seq_out := __seq_in
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range attachments {
+		__seq_out1 := __seq_in1
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++
@@ -3465,9 +3465,9 @@ func (_this *WebGL2RenderingContext) InvalidateSubFramebuffer(target uint, attac
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(attachments))
-	for __idx, __seq_in := range attachments {
-		__seq_out := __seq_in
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range attachments {
+		__seq_out1 := __seq_in1
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++
@@ -5534,9 +5534,9 @@ func (_this *WebGL2RenderingContext) DrawBuffers(buffers []uint) {
 		_end  int
 	)
 	_p0 := js.Global().Get("Array").New(len(buffers))
-	for __idx, __seq_in := range buffers {
-		__seq_out := __seq_in
-		_p0.SetIndex(__idx, __seq_out)
+	for __idx0, __seq_in0 := range buffers {
+		__seq_out0 := __seq_in0
+		_p0.SetIndex(__idx0, __seq_out0)
 	}
 	_args[0] = _p0
 	_end++
@@ -6066,9 +6066,9 @@ func (_this *WebGL2RenderingContext) TransformFeedbackVaryings(program *webgl.We
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(varyings))
-	for __idx, __seq_in := range varyings {
-		__seq_out := __seq_in
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range varyings {
+		__seq_out1 := __seq_in1
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++
@@ -6190,9 +6190,9 @@ func (_this *WebGL2RenderingContext) GetUniformIndices(program *webgl.WebGLProgr
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(uniformNames))
-	for __idx, __seq_in := range uniformNames {
-		__seq_out := __seq_in
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range uniformNames {
+		__seq_out1 := __seq_in1
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++
@@ -6203,11 +6203,11 @@ func (_this *WebGL2RenderingContext) GetUniformIndices(program *webgl.WebGLProgr
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]uint, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out uint
-			__seq_in := _returned.Index(__idx)
-			__seq_out = (uint)((__seq_in).Int())
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 uint
+			__seq_in0 := _returned.Index(__idx0)
+			__seq_out0 = (uint)((__seq_in0).Int())
+			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
 	}
@@ -6224,9 +6224,9 @@ func (_this *WebGL2RenderingContext) GetActiveUniforms(program *webgl.WebGLProgr
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(uniformIndices))
-	for __idx, __seq_in := range uniformIndices {
-		__seq_out := __seq_in
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range uniformIndices {
+		__seq_out1 := __seq_in1
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++

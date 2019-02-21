@@ -96,6 +96,9 @@ func BinaryTypeFromJS(value js.Value) BinaryType {
 
 // dictionary: MessageEventInit
 type MessageEventInit struct {
+	Bubbles     bool
+	Cancelable  bool
+	Composed    bool
 	Data        js.Value
 	Origin      string
 	LastEventId string
@@ -107,20 +110,26 @@ type MessageEventInit struct {
 // all values
 func (_this *MessageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Data
-	out.Set("data", value0)
-	value1 := _this.Origin
-	out.Set("origin", value1)
-	value2 := _this.LastEventId
-	out.Set("lastEventId", value2)
-	value3 := _this.Source.JSValue()
-	out.Set("source", value3)
-	value4 := js.Global().Get("Array").New(len(_this.Ports))
-	for __idx, __seq_in := range _this.Ports {
-		__seq_out := __seq_in.JSValue()
-		value4.SetIndex(__idx, __seq_out)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Data
+	out.Set("data", value3)
+	value4 := _this.Origin
+	out.Set("origin", value4)
+	value5 := _this.LastEventId
+	out.Set("lastEventId", value5)
+	value6 := _this.Source.JSValue()
+	out.Set("source", value6)
+	value7 := js.Global().Get("Array").New(len(_this.Ports))
+	for __idx7, __seq_in7 := range _this.Ports {
+		__seq_out7 := __seq_in7.JSValue()
+		value7.SetIndex(__idx7, __seq_out7)
 	}
-	out.Set("ports", value4)
+	out.Set("ports", value7)
 	return out
 }
 
@@ -131,52 +140,70 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 	input := value.JSValue()
 	var out MessageEventInit
 	var (
-		value0 js.Value       // javascript: any {data Data data}
-		value1 string         // javascript: USVString {origin Origin origin}
-		value2 string         // javascript: DOMString {lastEventId LastEventId lastEventId}
-		value3 *Union         // javascript: Union {source Source source}
-		value4 []*MessagePort // javascript: sequence<MessagePort> {ports Ports ports}
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 js.Value       // javascript: any {data Data data}
+		value4 string         // javascript: USVString {origin Origin origin}
+		value5 string         // javascript: DOMString {lastEventId LastEventId lastEventId}
+		value6 *Union         // javascript: Union {source Source source}
+		value7 []*MessagePort // javascript: sequence<MessagePort> {ports Ports ports}
 	)
-	value0 = input.Get("data")
-	out.Data = value0
-	value1 = (input.Get("origin")).String()
-	out.Origin = value1
-	value2 = (input.Get("lastEventId")).String()
-	out.LastEventId = value2
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = input.Get("data")
+	out.Data = value3
+	value4 = (input.Get("origin")).String()
+	out.Origin = value4
+	value5 = (input.Get("lastEventId")).String()
+	out.LastEventId = value5
 	if input.Get("source").Type() != js.TypeNull {
-		value3 = UnionFromJS(input.Get("source"))
+		value6 = UnionFromJS(input.Get("source"))
 	}
-	out.Source = value3
-	__length4 := input.Get("ports").Length()
-	__array4 := make([]*MessagePort, __length4, __length4)
-	for __idx := 0; __idx < __length4; __idx++ {
-		var __seq_out *MessagePort
-		__seq_in := input.Get("ports").Index(__idx)
-		__seq_out = MessagePortFromJS(__seq_in)
-		__array4[__idx] = __seq_out
+	out.Source = value6
+	__length7 := input.Get("ports").Length()
+	__array7 := make([]*MessagePort, __length7, __length7)
+	for __idx7 := 0; __idx7 < __length7; __idx7++ {
+		var __seq_out7 *MessagePort
+		__seq_in7 := input.Get("ports").Index(__idx7)
+		__seq_out7 = MessagePortFromJS(__seq_in7)
+		__array7[__idx7] = __seq_out7
 	}
-	value4 = __array4
-	out.Ports = value4
+	value7 = __array7
+	out.Ports = value7
 	return &out
 }
 
 // dictionary: CloseEventInit
 type CloseEventInit struct {
-	WasClean bool
-	Code     int
-	Reason   string
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	WasClean   bool
+	Code       int
+	Reason     string
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *CloseEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.WasClean
-	out.Set("wasClean", value0)
-	value1 := _this.Code
-	out.Set("code", value1)
-	value2 := _this.Reason
-	out.Set("reason", value2)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.WasClean
+	out.Set("wasClean", value3)
+	value4 := _this.Code
+	out.Set("code", value4)
+	value5 := _this.Reason
+	out.Set("reason", value5)
 	return out
 }
 
@@ -187,16 +214,25 @@ func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
 	input := value.JSValue()
 	var out CloseEventInit
 	var (
-		value0 bool   // javascript: boolean {wasClean WasClean wasClean}
-		value1 int    // javascript: unsigned short {code Code code}
-		value2 string // javascript: USVString {reason Reason reason}
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 bool   // javascript: boolean {wasClean WasClean wasClean}
+		value4 int    // javascript: unsigned short {code Code code}
+		value5 string // javascript: USVString {reason Reason reason}
 	)
-	value0 = (input.Get("wasClean")).Bool()
-	out.WasClean = value0
-	value1 = (input.Get("code")).Int()
-	out.Code = value1
-	value2 = (input.Get("reason")).String()
-	out.Reason = value2
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("wasClean")).Bool()
+	out.WasClean = value3
+	value4 = (input.Get("code")).Int()
+	out.Code = value4
+	value5 = (input.Get("reason")).String()
+	out.Reason = value5
 	return &out
 }
 
@@ -210,9 +246,9 @@ type PostMessageOptions struct {
 func (_this *PostMessageOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := js.Global().Get("Array").New(len(_this.Transfer))
-	for __idx, __seq_in := range _this.Transfer {
-		__seq_out := __seq_in.JSValue()
-		value0.SetIndex(__idx, __seq_out)
+	for __idx0, __seq_in0 := range _this.Transfer {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
 	}
 	out.Set("transfer", value0)
 	return out
@@ -229,11 +265,11 @@ func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
 	)
 	__length0 := input.Get("transfer").Length()
 	__array0 := make([]*javascript.Object, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __seq_out *javascript.Object
-		__seq_in := input.Get("transfer").Index(__idx)
-		__seq_out = javascript.ObjectFromJS(__seq_in)
-		__array0[__idx] = __seq_out
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *javascript.Object
+		__seq_in0 := input.Get("transfer").Index(__idx0)
+		__seq_out0 = javascript.ObjectFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Transfer = value0
@@ -366,9 +402,9 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 	}
 	if ports != nil {
 		_p7 := js.Global().Get("Array").New(len(ports))
-		for __idx, __seq_in := range ports {
-			__seq_out := __seq_in.JSValue()
-			_p7.SetIndex(__idx, __seq_out)
+		for __idx7, __seq_in7 := range ports {
+			__seq_out7 := __seq_in7.JSValue()
+			_p7.SetIndex(__idx7, __seq_out7)
 		}
 		_args[7] = _p7
 		_end++
@@ -838,9 +874,9 @@ func (_this *MessagePort) PostMessage(message interface{}, transfer []*javascrip
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __seq_in := range transfer {
-		__seq_out := __seq_in.JSValue()
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++

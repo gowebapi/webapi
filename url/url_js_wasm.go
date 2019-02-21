@@ -388,11 +388,11 @@ func (_this *URLSearchParams) GetAll(name string) (_result []string) {
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]string, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __seq_out string
-		__seq_in := _returned.Index(__idx)
-		__seq_out = (__seq_in).String()
-		__array0[__idx] = __seq_out
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 string
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = (__seq_in0).String()
+		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
 	_result = _converted

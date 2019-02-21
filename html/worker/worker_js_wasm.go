@@ -626,9 +626,9 @@ func (_this *DedicatedWorkerGlobalScope) PostMessage(message interface{}, transf
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __seq_in := range transfer {
-		__seq_out := __seq_in.JSValue()
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++
@@ -885,9 +885,9 @@ func (_this *Worker) PostMessage(message interface{}, transfer []*javascript.Obj
 	_args[0] = _p0
 	_end++
 	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx, __seq_in := range transfer {
-		__seq_out := __seq_in.JSValue()
-		_p1.SetIndex(__idx, __seq_out)
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
 	}
 	_args[1] = _p1
 	_end++

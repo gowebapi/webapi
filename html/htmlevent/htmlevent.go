@@ -52,15 +52,24 @@ func UnionFromJS(value js.Value) *Union {
 
 // dictionary: TrackEventInit
 type TrackEventInit struct {
-	Track *Union
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Track      *Union
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *TrackEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Track.JSValue()
-	out.Set("track", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Track.JSValue()
+	out.Set("track", value3)
 	return out
 }
 
@@ -71,26 +80,44 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 	input := value.JSValue()
 	var out TrackEventInit
 	var (
-		value0 *Union // javascript: Union {track Track track}
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 *Union // javascript: Union {track Track track}
 	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
 	if input.Get("track").Type() != js.TypeNull {
-		value0 = UnionFromJS(input.Get("track"))
+		value3 = UnionFromJS(input.Get("track"))
 	}
-	out.Track = value0
+	out.Track = value3
 	return &out
 }
 
 // dictionary: FormDataEventInit
 type FormDataEventInit struct {
-	FormData *patch.FormData
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	FormData   *patch.FormData
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *FormDataEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.FormData.JSValue()
-	out.Set("formData", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.FormData.JSValue()
+	out.Set("formData", value3)
 	return out
 }
 
@@ -101,24 +128,42 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	input := value.JSValue()
 	var out FormDataEventInit
 	var (
-		value0 *patch.FormData // javascript: FormData {formData FormData formData}
+		value0 bool            // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool            // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool            // javascript: boolean {composed Composed composed}
+		value3 *patch.FormData // javascript: FormData {formData FormData formData}
 	)
-	value0 = patch.FormDataFromJS(input.Get("formData"))
-	out.FormData = value0
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = patch.FormDataFromJS(input.Get("formData"))
+	out.FormData = value3
 	return &out
 }
 
 // dictionary: PopStateEventInit
 type PopStateEventInit struct {
-	State js.Value
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	State      js.Value
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *PopStateEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.State
-	out.Set("state", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.State
+	out.Set("state", value3)
 	return out
 }
 
@@ -129,24 +174,42 @@ func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
 	input := value.JSValue()
 	var out PopStateEventInit
 	var (
-		value0 js.Value // javascript: any {state State state}
+		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool     // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool     // javascript: boolean {composed Composed composed}
+		value3 js.Value // javascript: any {state State state}
 	)
-	value0 = input.Get("state")
-	out.State = value0
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = input.Get("state")
+	out.State = value3
 	return &out
 }
 
 // dictionary: PageTransitionEventInit
 type PageTransitionEventInit struct {
-	Persisted bool
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Persisted  bool
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *PageTransitionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Persisted
-	out.Set("persisted", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Persisted
+	out.Set("persisted", value3)
 	return out
 }
 
@@ -157,36 +220,54 @@ func PageTransitionEventInitFromJS(value js.Wrapper) *PageTransitionEventInit {
 	input := value.JSValue()
 	var out PageTransitionEventInit
 	var (
-		value0 bool // javascript: boolean {persisted Persisted persisted}
+		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool // javascript: boolean {composed Composed composed}
+		value3 bool // javascript: boolean {persisted Persisted persisted}
 	)
-	value0 = (input.Get("persisted")).Bool()
-	out.Persisted = value0
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("persisted")).Bool()
+	out.Persisted = value3
 	return &out
 }
 
 // dictionary: ErrorEventInit
 type ErrorEventInit struct {
-	Message  string
-	Filename string
-	Lineno   uint
-	Colno    uint
-	Error    js.Value
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Message    string
+	Filename   string
+	Lineno     uint
+	Colno      uint
+	Error      js.Value
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *ErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Message
-	out.Set("message", value0)
-	value1 := _this.Filename
-	out.Set("filename", value1)
-	value2 := _this.Lineno
-	out.Set("lineno", value2)
-	value3 := _this.Colno
-	out.Set("colno", value3)
-	value4 := _this.Error
-	out.Set("error", value4)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Message
+	out.Set("message", value3)
+	value4 := _this.Filename
+	out.Set("filename", value4)
+	value5 := _this.Lineno
+	out.Set("lineno", value5)
+	value6 := _this.Colno
+	out.Set("colno", value6)
+	value7 := _this.Error
+	out.Set("error", value7)
 	return out
 }
 
@@ -197,39 +278,57 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 	input := value.JSValue()
 	var out ErrorEventInit
 	var (
-		value0 string   // javascript: DOMString {message Message message}
-		value1 string   // javascript: USVString {filename Filename filename}
-		value2 uint     // javascript: unsigned long {lineno Lineno lineno}
-		value3 uint     // javascript: unsigned long {colno Colno colno}
-		value4 js.Value // javascript: any {error Error _error}
+		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool     // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool     // javascript: boolean {composed Composed composed}
+		value3 string   // javascript: DOMString {message Message message}
+		value4 string   // javascript: USVString {filename Filename filename}
+		value5 uint     // javascript: unsigned long {lineno Lineno lineno}
+		value6 uint     // javascript: unsigned long {colno Colno colno}
+		value7 js.Value // javascript: any {error Error _error}
 	)
-	value0 = (input.Get("message")).String()
-	out.Message = value0
-	value1 = (input.Get("filename")).String()
-	out.Filename = value1
-	value2 = (uint)((input.Get("lineno")).Int())
-	out.Lineno = value2
-	value3 = (uint)((input.Get("colno")).Int())
-	out.Colno = value3
-	value4 = input.Get("error")
-	out.Error = value4
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("message")).String()
+	out.Message = value3
+	value4 = (input.Get("filename")).String()
+	out.Filename = value4
+	value5 = (uint)((input.Get("lineno")).Int())
+	out.Lineno = value5
+	value6 = (uint)((input.Get("colno")).Int())
+	out.Colno = value6
+	value7 = input.Get("error")
+	out.Error = value7
 	return &out
 }
 
 // dictionary: PromiseRejectionEventInit
 type PromiseRejectionEventInit struct {
-	Promise *javascript.Promise
-	Reason  js.Value
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Promise    *javascript.Promise
+	Reason     js.Value
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *PromiseRejectionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Promise.JSValue()
-	out.Set("promise", value0)
-	value1 := _this.Reason
-	out.Set("reason", value1)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Promise.JSValue()
+	out.Set("promise", value3)
+	value4 := _this.Reason
+	out.Set("reason", value4)
 	return out
 }
 
@@ -240,13 +339,22 @@ func PromiseRejectionEventInitFromJS(value js.Wrapper) *PromiseRejectionEventIni
 	input := value.JSValue()
 	var out PromiseRejectionEventInit
 	var (
-		value0 *javascript.Promise // javascript: Promise {promise Promise promise}
-		value1 js.Value            // javascript: any {reason Reason reason}
+		value0 bool                // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                // javascript: boolean {composed Composed composed}
+		value3 *javascript.Promise // javascript: Promise {promise Promise promise}
+		value4 js.Value            // javascript: any {reason Reason reason}
 	)
-	value0 = javascript.PromiseFromJS(input.Get("promise"))
-	out.Promise = value0
-	value1 = input.Get("reason")
-	out.Reason = value1
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = javascript.PromiseFromJS(input.Get("promise"))
+	out.Promise = value3
+	value4 = input.Get("reason")
+	out.Reason = value4
 	return &out
 }
 

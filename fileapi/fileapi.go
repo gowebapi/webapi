@@ -167,6 +167,8 @@ func BlobPropertyBagFromJS(value js.Wrapper) *BlobPropertyBag {
 
 // dictionary: FilePropertyBag
 type FilePropertyBag struct {
+	Type         string
+	Endings      EndingType
 	LastModified int
 }
 
@@ -174,8 +176,12 @@ type FilePropertyBag struct {
 // all values
 func (_this *FilePropertyBag) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.LastModified
-	out.Set("lastModified", value0)
+	value0 := _this.Type
+	out.Set("type", value0)
+	value1 := _this.Endings.JSValue()
+	out.Set("endings", value1)
+	value2 := _this.LastModified
+	out.Set("lastModified", value2)
 	return out
 }
 
@@ -186,10 +192,16 @@ func FilePropertyBagFromJS(value js.Wrapper) *FilePropertyBag {
 	input := value.JSValue()
 	var out FilePropertyBag
 	var (
-		value0 int // javascript: long long {lastModified LastModified lastModified}
+		value0 string     // javascript: DOMString {type Type _type}
+		value1 EndingType // javascript: EndingType {endings Endings endings}
+		value2 int        // javascript: long long {lastModified LastModified lastModified}
 	)
-	value0 = (input.Get("lastModified")).Int()
-	out.LastModified = value0
+	value0 = (input.Get("type")).String()
+	out.Type = value0
+	value1 = EndingTypeFromJS(input.Get("endings"))
+	out.Endings = value1
+	value2 = (input.Get("lastModified")).Int()
+	out.LastModified = value2
 	return &out
 }
 
@@ -222,9 +234,9 @@ func NewBlob(blobParts []*Union, options *BlobPropertyBag) (_result *Blob) {
 	)
 	if blobParts != nil {
 		_p0 := js.Global().Get("Array").New(len(blobParts))
-		for __idx, __seq_in := range blobParts {
-			__seq_out := __seq_in.JSValue()
-			_p0.SetIndex(__idx, __seq_out)
+		for __idx0, __seq_in0 := range blobParts {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
 		}
 		_args[0] = _p0
 		_end++
@@ -313,9 +325,9 @@ func NewFile(fileBits []*Union, fileName string, options *FilePropertyBag) (_res
 		_end  int
 	)
 	_p0 := js.Global().Get("Array").New(len(fileBits))
-	for __idx, __seq_in := range fileBits {
-		__seq_out := __seq_in.JSValue()
-		_p0.SetIndex(__idx, __seq_out)
+	for __idx0, __seq_in0 := range fileBits {
+		__seq_out0 := __seq_in0.JSValue()
+		_p0.SetIndex(__idx0, __seq_out0)
 	}
 	_args[0] = _p0
 	_end++

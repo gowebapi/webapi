@@ -151,11 +151,11 @@ func MutationCallbackToJS(callback MutationCallbackFunc) *MutationCallback {
 		)
 		__length0 := args[0].Length()
 		__array0 := make([]*MutationRecord, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out *MutationRecord
-			__seq_in := args[0].Index(__idx)
-			__seq_out = MutationRecordFromJS(__seq_in)
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *MutationRecord
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = MutationRecordFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
 		}
 		_p0 = __array0
 		_p1 = MutationObserverFromJS(args[1])
@@ -173,9 +173,9 @@ func MutationCallbackFromJS(_value js.Value) MutationCallbackFunc {
 			_end  int
 		)
 		_p0 := js.Global().Get("Array").New(len(mutations))
-		for __idx, __seq_in := range mutations {
-			__seq_out := __seq_in.JSValue()
-			_p0.SetIndex(__idx, __seq_out)
+		for __idx0, __seq_in0 := range mutations {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
 		}
 		_args[0] = _p0
 		_end++
@@ -215,9 +215,9 @@ func (_this *MutationObserverInit) JSValue() js.Value {
 	value5 := _this.CharacterDataOldValue
 	out.Set("characterDataOldValue", value5)
 	value6 := js.Global().Get("Array").New(len(_this.AttributeFilter))
-	for __idx, __seq_in := range _this.AttributeFilter {
-		__seq_out := __seq_in
-		value6.SetIndex(__idx, __seq_out)
+	for __idx6, __seq_in6 := range _this.AttributeFilter {
+		__seq_out6 := __seq_in6
+		value6.SetIndex(__idx6, __seq_out6)
 	}
 	out.Set("attributeFilter", value6)
 	return out
@@ -252,11 +252,11 @@ func MutationObserverInitFromJS(value js.Wrapper) *MutationObserverInit {
 	out.CharacterDataOldValue = value5
 	__length6 := input.Get("attributeFilter").Length()
 	__array6 := make([]string, __length6, __length6)
-	for __idx := 0; __idx < __length6; __idx++ {
-		var __seq_out string
-		__seq_in := input.Get("attributeFilter").Index(__idx)
-		__seq_out = (__seq_in).String()
-		__array6[__idx] = __seq_out
+	for __idx6 := 0; __idx6 < __length6; __idx6++ {
+		var __seq_out6 string
+		__seq_in6 := input.Get("attributeFilter").Index(__idx6)
+		__seq_out6 = (__seq_in6).String()
+		__array6[__idx6] = __seq_out6
 	}
 	value6 = __array6
 	out.AttributeFilter = value6
@@ -293,6 +293,7 @@ func ElementCreationOptionsFromJS(value js.Wrapper) *ElementCreationOptions {
 
 // dictionary: WindowPostMessageOptions
 type WindowPostMessageOptions struct {
+	Transfer     []*javascript.Object
 	TargetOrigin string
 }
 
@@ -300,8 +301,14 @@ type WindowPostMessageOptions struct {
 // all values
 func (_this *WindowPostMessageOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.TargetOrigin
-	out.Set("targetOrigin", value0)
+	value0 := js.Global().Get("Array").New(len(_this.Transfer))
+	for __idx0, __seq_in0 := range _this.Transfer {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("transfer", value0)
+	value1 := _this.TargetOrigin
+	out.Set("targetOrigin", value1)
 	return out
 }
 
@@ -312,10 +319,21 @@ func WindowPostMessageOptionsFromJS(value js.Wrapper) *WindowPostMessageOptions 
 	input := value.JSValue()
 	var out WindowPostMessageOptions
 	var (
-		value0 string // javascript: USVString {targetOrigin TargetOrigin targetOrigin}
+		value0 []*javascript.Object // javascript: sequence<object> {transfer Transfer transfer}
+		value1 string               // javascript: USVString {targetOrigin TargetOrigin targetOrigin}
 	)
-	value0 = (input.Get("targetOrigin")).String()
-	out.TargetOrigin = value0
+	__length0 := input.Get("transfer").Length()
+	__array0 := make([]*javascript.Object, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *javascript.Object
+		__seq_in0 := input.Get("transfer").Index(__idx0)
+		__seq_out0 = javascript.ObjectFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Transfer = value0
+	value1 = (input.Get("targetOrigin")).String()
+	out.TargetOrigin = value1
 	return &out
 }
 
@@ -422,11 +440,11 @@ func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*MutationRecord, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __seq_out *MutationRecord
-		__seq_in := _returned.Index(__idx)
-		__seq_out = MutationRecordFromJS(__seq_in)
-		__array0[__idx] = __seq_out
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *MutationRecord
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = MutationRecordFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
 	_result = _converted
@@ -6657,9 +6675,9 @@ func (_this *Window) PostMessage(message interface{}, targetOrigin string, trans
 	_end++
 	if transfer != nil {
 		_p2 := js.Global().Get("Array").New(len(transfer))
-		for __idx, __seq_in := range transfer {
-			__seq_out := __seq_in.JSValue()
-			_p2.SetIndex(__idx, __seq_out)
+		for __idx2, __seq_in2 := range transfer {
+			__seq_out2 := __seq_in2.JSValue()
+			_p2.SetIndex(__idx2, __seq_out2)
 		}
 		_args[2] = _p2
 		_end++

@@ -200,18 +200,27 @@ func ElementDefinitionOptionsFromJS(value js.Wrapper) *ElementDefinitionOptions 
 
 // dictionary: HashChangeEventInit
 type HashChangeEventInit struct {
-	OldURL string
-	NewURL string
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	OldURL     string
+	NewURL     string
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *HashChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.OldURL
-	out.Set("oldURL", value0)
-	value1 := _this.NewURL
-	out.Set("newURL", value1)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.OldURL
+	out.Set("oldURL", value3)
+	value4 := _this.NewURL
+	out.Set("newURL", value4)
 	return out
 }
 
@@ -222,13 +231,22 @@ func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
 	input := value.JSValue()
 	var out HashChangeEventInit
 	var (
-		value0 string // javascript: USVString {oldURL OldURL oldURL}
-		value1 string // javascript: USVString {newURL NewURL newURL}
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 string // javascript: USVString {oldURL OldURL oldURL}
+		value4 string // javascript: USVString {newURL NewURL newURL}
 	)
-	value0 = (input.Get("oldURL")).String()
-	out.OldURL = value0
-	value1 = (input.Get("newURL")).String()
-	out.NewURL = value1
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("oldURL")).String()
+	out.OldURL = value3
+	value4 = (input.Get("newURL")).String()
+	out.NewURL = value4
 	return &out
 }
 
@@ -262,6 +280,9 @@ func EventSourceInitFromJS(value js.Wrapper) *EventSourceInit {
 
 // dictionary: StorageEventInit
 type StorageEventInit struct {
+	Bubbles     bool
+	Cancelable  bool
+	Composed    bool
 	Key         *string
 	OldValue    *string
 	NewValue    *string
@@ -273,16 +294,22 @@ type StorageEventInit struct {
 // all values
 func (_this *StorageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Key
-	out.Set("key", value0)
-	value1 := _this.OldValue
-	out.Set("oldValue", value1)
-	value2 := _this.NewValue
-	out.Set("newValue", value2)
-	value3 := _this.Url
-	out.Set("url", value3)
-	value4 := _this.StorageArea.JSValue()
-	out.Set("storageArea", value4)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Key
+	out.Set("key", value3)
+	value4 := _this.OldValue
+	out.Set("oldValue", value4)
+	value5 := _this.NewValue
+	out.Set("newValue", value5)
+	value6 := _this.Url
+	out.Set("url", value6)
+	value7 := _this.StorageArea.JSValue()
+	out.Set("storageArea", value7)
 	return out
 }
 
@@ -293,33 +320,42 @@ func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
 	input := value.JSValue()
 	var out StorageEventInit
 	var (
-		value0 *string  // javascript: DOMString {key Key key}
-		value1 *string  // javascript: DOMString {oldValue OldValue oldValue}
-		value2 *string  // javascript: DOMString {newValue NewValue newValue}
-		value3 string   // javascript: USVString {url Url url}
-		value4 *Storage // javascript: Storage {storageArea StorageArea storageArea}
+		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool     // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool     // javascript: boolean {composed Composed composed}
+		value3 *string  // javascript: DOMString {key Key key}
+		value4 *string  // javascript: DOMString {oldValue OldValue oldValue}
+		value5 *string  // javascript: DOMString {newValue NewValue newValue}
+		value6 string   // javascript: USVString {url Url url}
+		value7 *Storage // javascript: Storage {storageArea StorageArea storageArea}
 	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
 	if input.Get("key").Type() != js.TypeNull {
 		__tmp := (input.Get("key")).String()
-		value0 = &__tmp
+		value3 = &__tmp
 	}
-	out.Key = value0
+	out.Key = value3
 	if input.Get("oldValue").Type() != js.TypeNull {
 		__tmp := (input.Get("oldValue")).String()
-		value1 = &__tmp
+		value4 = &__tmp
 	}
-	out.OldValue = value1
+	out.OldValue = value4
 	if input.Get("newValue").Type() != js.TypeNull {
 		__tmp := (input.Get("newValue")).String()
-		value2 = &__tmp
+		value5 = &__tmp
 	}
-	out.NewValue = value2
-	value3 = (input.Get("url")).String()
-	out.Url = value3
+	out.NewValue = value5
+	value6 = (input.Get("url")).String()
+	out.Url = value6
 	if input.Get("storageArea").Type() != js.TypeNull {
-		value4 = StorageFromJS(input.Get("storageArea"))
+		value7 = StorageFromJS(input.Get("storageArea"))
 	}
-	out.StorageArea = value4
+	out.StorageArea = value7
 	return &out
 }
 

@@ -37,6 +37,26 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// dictionary: MouseEventInit
+type MouseEventInit struct {
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MouseEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	return out
+}
+
+// MouseEventInitFromJS is allocating a new
+// MouseEventInit object and copy all values from
+// input javascript object
+func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
+	var out MouseEventInit
+	var ()
+	return &out
+}
+
 // interface: FormData
 type FormData struct {
 	// Value_JS holds a reference to a javascript value

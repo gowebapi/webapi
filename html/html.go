@@ -10011,11 +10011,11 @@ func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_res
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*dom.Node, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __seq_out *dom.Node
-		__seq_in := _returned.Index(__idx)
-		__seq_out = dom.NodeFromJS(__seq_in)
-		__array0[__idx] = __seq_out
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.Node
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.NodeFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
 	_result = _converted
@@ -10038,11 +10038,11 @@ func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_
 	)
 	__length0 := _returned.Length()
 	__array0 := make([]*dom.Element, __length0, __length0)
-	for __idx := 0; __idx < __length0; __idx++ {
-		var __seq_out *dom.Element
-		__seq_in := _returned.Index(__idx)
-		__seq_out = dom.ElementFromJS(__seq_in)
-		__array0[__idx] = __seq_out
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.Element
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.ElementFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
 	_result = _converted

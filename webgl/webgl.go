@@ -161,6 +161,9 @@ func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
 
 // dictionary: WebGLContextEventInit
 type WebGLContextEventInit struct {
+	Bubbles       bool
+	Cancelable    bool
+	Composed      bool
 	StatusMessage string
 }
 
@@ -168,8 +171,14 @@ type WebGLContextEventInit struct {
 // all values
 func (_this *WebGLContextEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.StatusMessage
-	out.Set("statusMessage", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.StatusMessage
+	out.Set("statusMessage", value3)
 	return out
 }
 
@@ -180,10 +189,19 @@ func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
 	input := value.JSValue()
 	var out WebGLContextEventInit
 	var (
-		value0 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
 	)
-	value0 = (input.Get("statusMessage")).String()
-	out.StatusMessage = value0
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("statusMessage")).String()
+	out.StatusMessage = value3
 	return &out
 }
 
@@ -808,11 +826,11 @@ func (_this *WebGLRenderingContext) GetSupportedExtensions() (_result []string) 
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]string, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out string
-			__seq_in := _returned.Index(__idx)
-			__seq_out = (__seq_in).String()
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 string
+			__seq_in0 := _returned.Index(__idx0)
+			__seq_out0 = (__seq_in0).String()
+			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
 	}
@@ -1788,11 +1806,11 @@ func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
 		__array0 := make([]*WebGLShader, __length0, __length0)
-		for __idx := 0; __idx < __length0; __idx++ {
-			var __seq_out *WebGLShader
-			__seq_in := _returned.Index(__idx)
-			__seq_out = WebGLShaderFromJS(__seq_in)
-			__array0[__idx] = __seq_out
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *WebGLShader
+			__seq_in0 := _returned.Index(__idx0)
+			__seq_out0 = WebGLShaderFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
 	}
