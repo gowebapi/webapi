@@ -6,7 +6,12 @@ package url
 
 import js "github.com/gowebapi/webapi/core/failjs"
 
+import (
+	"github.com/gowebapi/webapi/fileapi"
+)
+
 // using following types:
+// fileapi.Blob
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -60,14 +65,14 @@ func URLFromJS(value js.Wrapper) *URL {
 	return ret
 }
 
-func CreateObjectURL(obj *Union) (_result string) {
+func CreateObjectURL(blob *fileapi.Blob) (_result string) {
 	_klass := js.Global().Get("URL")
 	_method := _klass.Get("createObjectURL")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := obj.JSValue()
+	_p0 := blob.JSValue()
 	_args[0] = _p0
 	_end++
 	_returned := _method.Invoke(_args[0:_end]...)

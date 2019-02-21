@@ -8,10 +8,9 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
-	"github.com/gowebapi/webapi/html/htmlmisc"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/webidl"
@@ -23,8 +22,8 @@ import (
 // channel.PostMessageOptions
 // domcore.EventHandler
 // domcore.EventTarget
-// html.OnErrorEventHandler
-// htmlmisc.FrameRequestCallback
+// htmlevent.FrameRequestCallback
+// htmlevent.OnErrorEventHandler
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
@@ -189,19 +188,19 @@ func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 }
 
 // Onerror returning attribute 'onerror' with
-// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onerror() html.OnErrorEventHandlerFunc {
-	var ret html.OnErrorEventHandlerFunc
+// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *WorkerGlobalScope) Onerror() htmlevent.OnErrorEventHandlerFunc {
+	var ret htmlevent.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = html.OnErrorEventHandlerFromJS(value)
+		ret = htmlevent.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnerror setting attribute 'onerror' with
-// type html.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnerror(value *html.OnErrorEventHandler) {
+// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *WorkerGlobalScope) SetOnerror(value *htmlevent.OnErrorEventHandler) {
 	var __callback3 js.Value
 	if value != nil {
 		__callback3 = (*value).Value
@@ -664,7 +663,7 @@ func (_this *DedicatedWorkerGlobalScope) Close() {
 	return
 }
 
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlmisc.FrameRequestCallback) (_result uint) {
+func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlevent.FrameRequestCallback) (_result uint) {
 	var (
 		_args [1]interface{}
 		_end  int

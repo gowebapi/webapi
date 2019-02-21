@@ -8,14 +8,12 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/html/htmlmisc"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 )
 
 // using following types:
 // domcore.Event
-// htmlmisc.HashChangeEventInit
 // javascript.Promise
 // patch.FormData
 
@@ -48,6 +46,175 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: OnErrorEventHandlerNonNull
+type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) interface{}
+
+// OnErrorEventHandler is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type OnErrorEventHandler js.Func
+
+func OnErrorEventHandlerToJS(callback OnErrorEventHandlerFunc) *OnErrorEventHandler {
+	if callback == nil {
+		return nil
+	}
+	ret := OnErrorEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Union   // javascript: Union event
+			_p1 *string  // javascript: DOMString source
+			_p2 *uint    // javascript: unsigned long lineno
+			_p3 *uint    // javascript: unsigned long colno
+			_p4 js.Value // javascript: any _error
+		)
+		_p0 = UnionFromJS(args[0])
+		if len(args) > 1 {
+			__tmp := (args[1]).String()
+			_p1 = &__tmp
+		}
+		if len(args) > 2 {
+			__tmp := (uint)((args[2]).Int())
+			_p2 = &__tmp
+		}
+		if len(args) > 3 {
+			__tmp := (uint)((args[3]).Int())
+			_p3 = &__tmp
+		}
+		if len(args) > 4 {
+			_p4 = args[4]
+		}
+		_returned := callback(_p0, _p1, _p2, _p3, _p4)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
+	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result interface{}) {
+		var (
+			_args [5]interface{}
+			_end  int
+		)
+		_p0 := event.JSValue()
+		_args[0] = _p0
+		_end++
+		if source != nil {
+			_p1 := source
+			_args[1] = _p1
+			_end++
+		}
+		if lineno != nil {
+			_p2 := lineno
+			_args[2] = _p2
+			_end++
+		}
+		if colno != nil {
+			_p3 := colno
+			_args[3] = _p3
+			_end++
+		}
+		if _error.Type() != js.TypeUndefined {
+			_p4 := _error
+			_args[4] = _p4
+			_end++
+		}
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted js.Value // javascript: any
+		)
+		_converted = _returned
+		_result = _converted
+		return
+	}
+}
+
+// callback: OnBeforeUnloadEventHandlerNonNull
+type OnBeforeUnloadEventHandlerFunc func(event *domcore.Event) *string
+
+// OnBeforeUnloadEventHandler is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type OnBeforeUnloadEventHandler js.Func
+
+func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandlerFunc) *OnBeforeUnloadEventHandler {
+	if callback == nil {
+		return nil
+	}
+	ret := OnBeforeUnloadEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *domcore.Event // javascript: Event event
+		)
+		_p0 = domcore.EventFromJS(args[0])
+		_returned := callback(_p0)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func OnBeforeUnloadEventHandlerFromJS(_value js.Value) OnBeforeUnloadEventHandlerFunc {
+	return func(event *domcore.Event) (_result *string) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := event.JSValue()
+		_args[0] = _p0
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted *string // javascript: DOMString
+		)
+		if _returned.Type() != js.TypeNull {
+			__tmp := (_returned).String()
+			_converted = &__tmp
+		}
+		_result = _converted
+		return
+	}
+}
+
+// callback: FrameRequestCallback
+type FrameRequestCallbackFunc func(time float64)
+
+// FrameRequestCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type FrameRequestCallback js.Func
+
+func FrameRequestCallbackToJS(callback FrameRequestCallbackFunc) *FrameRequestCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := FrameRequestCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 float64 // javascript: double time
+		)
+		_p0 = (args[0]).Float()
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallbackFunc {
+	return func(time float64) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := time
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: TrackEventInit
@@ -187,6 +354,58 @@ func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
 	out.Composed = value2
 	value3 = input.Get("state")
 	out.State = value3
+	return &out
+}
+
+// dictionary: HashChangeEventInit
+type HashChangeEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	OldURL     string
+	NewURL     string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HashChangeEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.OldURL
+	out.Set("oldURL", value3)
+	value4 := _this.NewURL
+	out.Set("newURL", value4)
+	return out
+}
+
+// HashChangeEventInitFromJS is allocating a new
+// HashChangeEventInit object and copy all values from
+// input javascript object
+func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
+	input := value.JSValue()
+	var out HashChangeEventInit
+	var (
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 string // javascript: USVString {oldURL OldURL oldURL}
+		value4 string // javascript: USVString {newURL NewURL newURL}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("oldURL")).String()
+	out.OldURL = value3
+	value4 = (input.Get("newURL")).String()
+	out.NewURL = value4
 	return &out
 }
 
@@ -520,7 +739,7 @@ func HashChangeEventFromJS(value js.Wrapper) *HashChangeEvent {
 	return ret
 }
 
-func NewHashChangeEvent(_type string, eventInitDict *htmlmisc.HashChangeEventInit) (_result *HashChangeEvent) {
+func NewHashChangeEvent(_type string, eventInitDict *HashChangeEventInit) (_result *HashChangeEvent) {
 	_klass := js.Global().Get("HashChangeEvent")
 	var (
 		_args [2]interface{}

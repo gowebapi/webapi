@@ -268,3 +268,24 @@ func MouseEventFromJS(value js.Wrapper) *MouseEvent {
 	ret.Value_JS = input
 	return ret
 }
+
+// interface: ReadableStream
+type ReadableStream struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ReadableStream) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ReadableStreamFromJS is casting a js.Wrapper into ReadableStream.
+func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ReadableStream{}
+	ret.Value_JS = input
+	return ret
+}

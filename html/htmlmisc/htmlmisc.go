@@ -133,45 +133,6 @@ func CustomElementConstructorFromJS(_value js.Value) CustomElementConstructorFun
 	}
 }
 
-// callback: FrameRequestCallback
-type FrameRequestCallbackFunc func(time float64)
-
-// FrameRequestCallback is a javascript function type.
-//
-// Call Release() when done to release resouces
-// allocated to this type.
-type FrameRequestCallback js.Func
-
-func FrameRequestCallbackToJS(callback FrameRequestCallbackFunc) *FrameRequestCallback {
-	if callback == nil {
-		return nil
-	}
-	ret := FrameRequestCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 float64 // javascript: double time
-		)
-		_p0 = (args[0]).Float()
-		callback(_p0)
-		// returning no return value
-		return nil
-	}))
-	return &ret
-}
-
-func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallbackFunc {
-	return func(time float64) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := time
-		_args[0] = _p0
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
 // dictionary: ElementDefinitionOptions
 type ElementDefinitionOptions struct {
 	Extends string
@@ -197,58 +158,6 @@ func ElementDefinitionOptionsFromJS(value js.Wrapper) *ElementDefinitionOptions 
 	)
 	value0 = (input.Get("extends")).String()
 	out.Extends = value0
-	return &out
-}
-
-// dictionary: HashChangeEventInit
-type HashChangeEventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-	OldURL     string
-	NewURL     string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *HashChangeEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
-	value3 := _this.OldURL
-	out.Set("oldURL", value3)
-	value4 := _this.NewURL
-	out.Set("newURL", value4)
-	return out
-}
-
-// HashChangeEventInitFromJS is allocating a new
-// HashChangeEventInit object and copy all values from
-// input javascript object
-func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
-	input := value.JSValue()
-	var out HashChangeEventInit
-	var (
-		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool   // javascript: boolean {composed Composed composed}
-		value3 string // javascript: USVString {oldURL OldURL oldURL}
-		value4 string // javascript: USVString {newURL NewURL newURL}
-	)
-	value0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
-	out.Composed = value2
-	value3 = (input.Get("oldURL")).String()
-	out.OldURL = value3
-	value4 = (input.Get("newURL")).String()
-	out.NewURL = value4
 	return &out
 }
 

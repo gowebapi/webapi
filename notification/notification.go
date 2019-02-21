@@ -8,11 +8,14 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
+// javascript.FrozenArray
+// javascript.Promise
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -172,11 +175,19 @@ func PermissionCallbackFromJS(_value js.Value) PermissionCallbackFunc {
 
 // dictionary: NotificationOptions
 type Options struct {
-	Dir  Direction
-	Lang string
-	Body string
-	Tag  string
-	Icon string
+	Dir                Direction
+	Lang               string
+	Body               string
+	Tag                string
+	Image              string
+	Icon               string
+	Badge              string
+	Timestamp          int
+	Renotify           bool
+	Silent             bool
+	RequireInteraction bool
+	Data               js.Value
+	Actions            []*NotificationAction
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -191,8 +202,28 @@ func (_this *Options) JSValue() js.Value {
 	out.Set("body", value2)
 	value3 := _this.Tag
 	out.Set("tag", value3)
-	value4 := _this.Icon
-	out.Set("icon", value4)
+	value4 := _this.Image
+	out.Set("image", value4)
+	value5 := _this.Icon
+	out.Set("icon", value5)
+	value6 := _this.Badge
+	out.Set("badge", value6)
+	value7 := _this.Timestamp
+	out.Set("timestamp", value7)
+	value8 := _this.Renotify
+	out.Set("renotify", value8)
+	value9 := _this.Silent
+	out.Set("silent", value9)
+	value10 := _this.RequireInteraction
+	out.Set("requireInteraction", value10)
+	value11 := _this.Data
+	out.Set("data", value11)
+	value12 := js.Global().Get("Array").New(len(_this.Actions))
+	for __idx12, __seq_in12 := range _this.Actions {
+		__seq_out12 := __seq_in12.JSValue()
+		value12.SetIndex(__idx12, __seq_out12)
+	}
+	out.Set("actions", value12)
 	return out
 }
 
@@ -203,11 +234,19 @@ func OptionsFromJS(value js.Wrapper) *Options {
 	input := value.JSValue()
 	var out Options
 	var (
-		value0 Direction // javascript: NotificationDirection {dir Dir dir}
-		value1 string    // javascript: DOMString {lang Lang lang}
-		value2 string    // javascript: DOMString {body Body body}
-		value3 string    // javascript: DOMString {tag Tag tag}
-		value4 string    // javascript: DOMString {icon Icon icon}
+		value0  Direction             // javascript: NotificationDirection {dir Dir dir}
+		value1  string                // javascript: DOMString {lang Lang lang}
+		value2  string                // javascript: DOMString {body Body body}
+		value3  string                // javascript: DOMString {tag Tag tag}
+		value4  string                // javascript: USVString {image Image image}
+		value5  string                // javascript: USVString {icon Icon icon}
+		value6  string                // javascript: USVString {badge Badge badge}
+		value7  int                   // javascript: unsigned long long {timestamp Timestamp timestamp}
+		value8  bool                  // javascript: boolean {renotify Renotify renotify}
+		value9  bool                  // javascript: boolean {silent Silent silent}
+		value10 bool                  // javascript: boolean {requireInteraction RequireInteraction requireInteraction}
+		value11 js.Value              // javascript: any {data Data data}
+		value12 []*NotificationAction // javascript: sequence<NotificationAction> {actions Actions actions}
 	)
 	value0 = DirectionFromJS(input.Get("dir"))
 	out.Dir = value0
@@ -217,8 +256,72 @@ func OptionsFromJS(value js.Wrapper) *Options {
 	out.Body = value2
 	value3 = (input.Get("tag")).String()
 	out.Tag = value3
-	value4 = (input.Get("icon")).String()
-	out.Icon = value4
+	value4 = (input.Get("image")).String()
+	out.Image = value4
+	value5 = (input.Get("icon")).String()
+	out.Icon = value5
+	value6 = (input.Get("badge")).String()
+	out.Badge = value6
+	value7 = (input.Get("timestamp")).Int()
+	out.Timestamp = value7
+	value8 = (input.Get("renotify")).Bool()
+	out.Renotify = value8
+	value9 = (input.Get("silent")).Bool()
+	out.Silent = value9
+	value10 = (input.Get("requireInteraction")).Bool()
+	out.RequireInteraction = value10
+	value11 = input.Get("data")
+	out.Data = value11
+	__length12 := input.Get("actions").Length()
+	__array12 := make([]*NotificationAction, __length12, __length12)
+	for __idx12 := 0; __idx12 < __length12; __idx12++ {
+		var __seq_out12 *NotificationAction
+		__seq_in12 := input.Get("actions").Index(__idx12)
+		__seq_out12 = NotificationActionFromJS(__seq_in12)
+		__array12[__idx12] = __seq_out12
+	}
+	value12 = __array12
+	out.Actions = value12
+	return &out
+}
+
+// dictionary: NotificationAction
+type NotificationAction struct {
+	Action string
+	Title  string
+	Icon   string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *NotificationAction) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Action
+	out.Set("action", value0)
+	value1 := _this.Title
+	out.Set("title", value1)
+	value2 := _this.Icon
+	out.Set("icon", value2)
+	return out
+}
+
+// NotificationActionFromJS is allocating a new
+// NotificationAction object and copy all values from
+// input javascript object
+func NotificationActionFromJS(value js.Wrapper) *NotificationAction {
+	input := value.JSValue()
+	var out NotificationAction
+	var (
+		value0 string // javascript: DOMString {action Action action}
+		value1 string // javascript: DOMString {title Title title}
+		value2 string // javascript: USVString {icon Icon icon}
+	)
+	value0 = (input.Get("action")).String()
+	out.Action = value0
+	value1 = (input.Get("title")).String()
+	out.Title = value1
+	value2 = (input.Get("icon")).String()
+	out.Icon = value2
 	return &out
 }
 
@@ -248,18 +351,28 @@ func Permission() PermissionMode {
 	return ret
 }
 
-func RequestPermission(callback *PermissionCallback) {
+// MaxActions returning attribute 'maxActions' with
+// type uint (idl: unsigned long).
+func MaxActions() uint {
+	var ret uint
+	_klass := js.Global().Get("Notification")
+	value := _klass.Get("maxActions")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+func RequestPermission(deprecatedCallback *PermissionCallback) (_result *javascript.Promise) {
 	_klass := js.Global().Get("Notification")
 	_method := _klass.Get("requestPermission")
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	if callback != nil {
+	if deprecatedCallback != nil {
 
 		var __callback0 js.Value
-		if callback != nil {
-			__callback0 = (*callback).Value
+		if deprecatedCallback != nil {
+			__callback0 = (*deprecatedCallback).Value
 		} else {
 			__callback0 = js.Null()
 		}
@@ -267,7 +380,12 @@ func RequestPermission(callback *PermissionCallback) {
 		_args[0] = _p0
 		_end++
 	}
-	_method.Invoke(_args[0:_end]...)
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -435,12 +553,93 @@ func (_this *Notification) Tag() string {
 	return ret
 }
 
+// Image returning attribute 'image' with
+// type string (idl: USVString).
+func (_this *Notification) Image() string {
+	var ret string
+	value := _this.Value_JS.Get("image")
+	ret = (value).String()
+	return ret
+}
+
 // Icon returning attribute 'icon' with
-// type string (idl: DOMString).
+// type string (idl: USVString).
 func (_this *Notification) Icon() string {
 	var ret string
 	value := _this.Value_JS.Get("icon")
 	ret = (value).String()
+	return ret
+}
+
+// Badge returning attribute 'badge' with
+// type string (idl: USVString).
+func (_this *Notification) Badge() string {
+	var ret string
+	value := _this.Value_JS.Get("badge")
+	ret = (value).String()
+	return ret
+}
+
+// Vibrate returning attribute 'vibrate' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *Notification) Vibrate() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("vibrate")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// Timestamp returning attribute 'timestamp' with
+// type int (idl: unsigned long long).
+func (_this *Notification) Timestamp() int {
+	var ret int
+	value := _this.Value_JS.Get("timestamp")
+	ret = (value).Int()
+	return ret
+}
+
+// Renotify returning attribute 'renotify' with
+// type bool (idl: boolean).
+func (_this *Notification) Renotify() bool {
+	var ret bool
+	value := _this.Value_JS.Get("renotify")
+	ret = (value).Bool()
+	return ret
+}
+
+// Silent returning attribute 'silent' with
+// type bool (idl: boolean).
+func (_this *Notification) Silent() bool {
+	var ret bool
+	value := _this.Value_JS.Get("silent")
+	ret = (value).Bool()
+	return ret
+}
+
+// RequireInteraction returning attribute 'requireInteraction' with
+// type bool (idl: boolean).
+func (_this *Notification) RequireInteraction() bool {
+	var ret bool
+	value := _this.Value_JS.Get("requireInteraction")
+	ret = (value).Bool()
+	return ret
+}
+
+// Data returning attribute 'data' with
+// type Any (idl: any).
+func (_this *Notification) Data() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("data")
+	ret = value
+	return ret
+}
+
+// Actions returning attribute 'actions' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *Notification) Actions() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("actions")
+	ret = javascript.FrozenArrayFromJS(value)
 	return ret
 }
 
