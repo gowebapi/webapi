@@ -58,27 +58,6 @@ func ByteStringFromJS(value js.Wrapper) *ByteString {
 	return ret
 }
 
-// interface: FormData
-type FormData struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *FormData) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FormDataFromJS is casting a js.Wrapper into FormData.
-func FormDataFromJS(value js.Wrapper) *FormData {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FormData{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: MediaSource
 type MediaSource struct {
 	// Value_JS holds a reference to a javascript value

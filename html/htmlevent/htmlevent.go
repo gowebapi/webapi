@@ -10,15 +10,15 @@ import (
 	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/xhr"
 )
 
 // using following types:
 // domcore.Event
 // domcore.EventTarget
 // javascript.Promise
-// patch.FormData
 // webapi.Window
+// xhr.FormData
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -386,7 +386,7 @@ type FormDataEventInit struct {
 	Bubbles    bool
 	Cancelable bool
 	Composed   bool
-	FormData   *patch.FormData
+	FormData   *xhr.FormData
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -411,10 +411,10 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	input := value.JSValue()
 	var out FormDataEventInit
 	var (
-		value0 bool            // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool            // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool            // javascript: boolean {composed Composed composed}
-		value3 *patch.FormData // javascript: FormData {formData FormData formData}
+		value0 bool          // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool          // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool          // javascript: boolean {composed Composed composed}
+		value3 *xhr.FormData // javascript: FormData {formData FormData formData}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -422,7 +422,7 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = patch.FormDataFromJS(input.Get("formData"))
+	value3 = xhr.FormDataFromJS(input.Get("formData"))
 	out.FormData = value3
 	return &out
 }
@@ -1578,11 +1578,11 @@ func NewFormDataEvent(_type string, eventInitDict *FormDataEventInit) (_result *
 }
 
 // FormData returning attribute 'formData' with
-// type patch.FormData (idl: FormData).
-func (_this *FormDataEvent) FormData() *patch.FormData {
-	var ret *patch.FormData
+// type xhr.FormData (idl: FormData).
+func (_this *FormDataEvent) FormData() *xhr.FormData {
+	var ret *xhr.FormData
 	value := _this.Value_JS.Get("formData")
-	ret = patch.FormDataFromJS(value)
+	ret = xhr.FormDataFromJS(value)
 	return ret
 }
 
