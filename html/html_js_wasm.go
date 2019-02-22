@@ -58,6 +58,49 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: OffscreenRenderingContextId
+type OffscreenRenderingContextId int
+
+const (
+	_2dOffscreenRenderingContextId OffscreenRenderingContextId = iota
+	WebglOffscreenRenderingContextId
+	Webgl2OffscreenRenderingContextId
+)
+
+var offscreenRenderingContextIdToWasmTable = []string{
+	"2d", "webgl", "webgl2",
+}
+
+var offscreenRenderingContextIdFromWasmTable = map[string]OffscreenRenderingContextId{
+	"2d": _2dOffscreenRenderingContextId, "webgl": WebglOffscreenRenderingContextId, "webgl2": Webgl2OffscreenRenderingContextId,
+}
+
+// JSValue is converting this enum into a java object
+func (this *OffscreenRenderingContextId) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this OffscreenRenderingContextId) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(offscreenRenderingContextIdToWasmTable) {
+		return offscreenRenderingContextIdToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// OffscreenRenderingContextIdFromJS is converting a javascript value into
+// a OffscreenRenderingContextId enum value.
+func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContextId {
+	key := value.String()
+	conv, ok := offscreenRenderingContextIdFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: SelectionMode
 type SelectionMode int
 
@@ -102,49 +145,6 @@ func SelectionModeFromJS(value js.Value) SelectionMode {
 	return conv
 }
 
-// enum: OffscreenRenderingContextId
-type OffscreenRenderingContextId int
-
-const (
-	_2dOffscreenRenderingContextId OffscreenRenderingContextId = iota
-	WebglOffscreenRenderingContextId
-	Webgl2OffscreenRenderingContextId
-)
-
-var offscreenRenderingContextIdToWasmTable = []string{
-	"2d", "webgl", "webgl2",
-}
-
-var offscreenRenderingContextIdFromWasmTable = map[string]OffscreenRenderingContextId{
-	"2d": _2dOffscreenRenderingContextId, "webgl": WebglOffscreenRenderingContextId, "webgl2": Webgl2OffscreenRenderingContextId,
-}
-
-// JSValue is converting this enum into a java object
-func (this *OffscreenRenderingContextId) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this OffscreenRenderingContextId) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(offscreenRenderingContextIdToWasmTable) {
-		return offscreenRenderingContextIdToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// OffscreenRenderingContextIdFromJS is converting a javascript value into
-// a OffscreenRenderingContextId enum value.
-func OffscreenRenderingContextIdFromJS(value js.Value) OffscreenRenderingContextId {
-	key := value.String()
-	conv, ok := offscreenRenderingContextIdFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // dictionary: AssignedNodesOptions
 type AssignedNodesOptions struct {
 	Flatten bool
@@ -170,6 +170,34 @@ func AssignedNodesOptionsFromJS(value js.Wrapper) *AssignedNodesOptions {
 	)
 	value0 = (input.Get("flatten")).Bool()
 	out.Flatten = value0
+	return &out
+}
+
+// dictionary: FocusOptions
+type FocusOptions struct {
+	PreventScroll bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FocusOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.PreventScroll
+	out.Set("preventScroll", value0)
+	return out
+}
+
+// FocusOptionsFromJS is allocating a new
+// FocusOptions object and copy all values from
+// input javascript object
+func FocusOptionsFromJS(value js.Wrapper) *FocusOptions {
+	input := value.JSValue()
+	var out FocusOptions
+	var (
+		value0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
+	)
+	value0 = (input.Get("preventScroll")).Bool()
+	out.PreventScroll = value0
 	return &out
 }
 
@@ -204,34 +232,6 @@ func ImageEncodeOptionsFromJS(value js.Wrapper) *ImageEncodeOptions {
 	out.Type = value0
 	value1 = (input.Get("quality")).Float()
 	out.Quality = value1
-	return &out
-}
-
-// dictionary: FocusOptions
-type FocusOptions struct {
-	PreventScroll bool
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *FocusOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.PreventScroll
-	out.Set("preventScroll", value0)
-	return out
-}
-
-// FocusOptionsFromJS is allocating a new
-// FocusOptions object and copy all values from
-// input javascript object
-func FocusOptionsFromJS(value js.Wrapper) *FocusOptions {
-	input := value.JSValue()
-	var out FocusOptions
-	var (
-		value0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
-	)
-	value0 = (input.Get("preventScroll")).Bool()
-	out.PreventScroll = value0
 	return &out
 }
 
@@ -303,3510 +303,6 @@ func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
 	}
 	_result = _converted
 	return
-}
-
-// interface: HTMLFormControlsCollection
-type HTMLFormControlsCollection struct {
-	dom.HTMLCollection
-}
-
-// HTMLFormControlsCollectionFromJS is casting a js.Wrapper into HTMLFormControlsCollection.
-func HTMLFormControlsCollectionFromJS(value js.Wrapper) *HTMLFormControlsCollection {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFormControlsCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: HTMLOptionsCollection
-type HTMLOptionsCollection struct {
-	dom.HTMLCollection
-}
-
-// HTMLOptionsCollectionFromJS is casting a js.Wrapper into HTMLOptionsCollection.
-func HTMLOptionsCollectionFromJS(value js.Wrapper) *HTMLOptionsCollection {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOptionsCollection{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLOptionsCollection) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetLength setting attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLOptionsCollection) SetLength(value uint) {
-	input := value
-	_this.Value_JS.Set("length", input)
-}
-
-// SelectedIndex returning attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLOptionsCollection) SelectedIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("selectedIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetSelectedIndex setting attribute 'selectedIndex' with
-// type int (idl: long).
-func (_this *HTMLOptionsCollection) SetSelectedIndex(value int) {
-	input := value
-	_this.Value_JS.Set("selectedIndex", input)
-}
-
-func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := element.JSValue()
-	_args[0] = _p0
-	_end++
-	if before != nil {
-		_p1 := before.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("add", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLOptionsCollection) Remove(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLElement
-type HTMLElement struct {
-	dom.Element
-}
-
-// HTMLElementFromJS is casting a js.Wrapper into HTMLElement.
-func HTMLElementFromJS(value js.Wrapper) *HTMLElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Title returning attribute 'title' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Title() string {
-	var ret string
-	value := _this.Value_JS.Get("title")
-	ret = (value).String()
-	return ret
-}
-
-// SetTitle setting attribute 'title' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetTitle(value string) {
-	input := value
-	_this.Value_JS.Set("title", input)
-}
-
-// Lang returning attribute 'lang' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Lang() string {
-	var ret string
-	value := _this.Value_JS.Get("lang")
-	ret = (value).String()
-	return ret
-}
-
-// SetLang setting attribute 'lang' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetLang(value string) {
-	input := value
-	_this.Value_JS.Set("lang", input)
-}
-
-// Translate returning attribute 'translate' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Translate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("translate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetTranslate setting attribute 'translate' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetTranslate(value bool) {
-	input := value
-	_this.Value_JS.Set("translate", input)
-}
-
-// Dir returning attribute 'dir' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Dir() string {
-	var ret string
-	value := _this.Value_JS.Get("dir")
-	ret = (value).String()
-	return ret
-}
-
-// SetDir setting attribute 'dir' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetDir(value string) {
-	input := value
-	_this.Value_JS.Set("dir", input)
-}
-
-// Hidden returning attribute 'hidden' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Hidden() bool {
-	var ret bool
-	value := _this.Value_JS.Get("hidden")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetHidden setting attribute 'hidden' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetHidden(value bool) {
-	input := value
-	_this.Value_JS.Set("hidden", input)
-}
-
-// AccessKey returning attribute 'accessKey' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) AccessKey() string {
-	var ret string
-	value := _this.Value_JS.Get("accessKey")
-	ret = (value).String()
-	return ret
-}
-
-// SetAccessKey setting attribute 'accessKey' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetAccessKey(value string) {
-	input := value
-	_this.Value_JS.Set("accessKey", input)
-}
-
-// AccessKeyLabel returning attribute 'accessKeyLabel' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) AccessKeyLabel() string {
-	var ret string
-	value := _this.Value_JS.Get("accessKeyLabel")
-	ret = (value).String()
-	return ret
-}
-
-// Draggable returning attribute 'draggable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Draggable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("draggable")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDraggable setting attribute 'draggable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetDraggable(value bool) {
-	input := value
-	_this.Value_JS.Set("draggable", input)
-}
-
-// Spellcheck returning attribute 'spellcheck' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) Spellcheck() bool {
-	var ret bool
-	value := _this.Value_JS.Get("spellcheck")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetSpellcheck setting attribute 'spellcheck' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) SetSpellcheck(value bool) {
-	input := value
-	_this.Value_JS.Set("spellcheck", input)
-}
-
-// Autocapitalize returning attribute 'autocapitalize' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Autocapitalize() string {
-	var ret string
-	value := _this.Value_JS.Get("autocapitalize")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocapitalize setting attribute 'autocapitalize' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetAutocapitalize(value string) {
-	input := value
-	_this.Value_JS.Set("autocapitalize", input)
-}
-
-// InnerText returning attribute 'innerText' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) InnerText() string {
-	var ret string
-	value := _this.Value_JS.Get("innerText")
-	ret = (value).String()
-	return ret
-}
-
-// SetInnerText setting attribute 'innerText' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetInnerText(value string) {
-	input := value
-	_this.Value_JS.Set("innerText", input)
-}
-
-// Onabort returning attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onabort() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnabort setting attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnabort(value *domcore.EventHandler) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onauxclick returning attribute 'onauxclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onauxclick() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onauxclick")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnauxclick setting attribute 'onauxclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnauxclick(value *domcore.EventHandler) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onauxclick", input)
-}
-
-// Onblur returning attribute 'onblur' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onblur() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onblur")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnblur setting attribute 'onblur' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnblur(value *domcore.EventHandler) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onblur", input)
-}
-
-// Oncancel returning attribute 'oncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncancel() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncancel")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncancel setting attribute 'oncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncancel(value *domcore.EventHandler) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("oncancel", input)
-}
-
-// Oncanplay returning attribute 'oncanplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplay() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncanplay")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncanplay setting attribute 'oncanplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplay(value *domcore.EventHandler) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("oncanplay", input)
-}
-
-// Oncanplaythrough returning attribute 'oncanplaythrough' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncanplaythrough")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncanplaythrough setting attribute 'oncanplaythrough' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncanplaythrough(value *domcore.EventHandler) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("oncanplaythrough", input)
-}
-
-// Onchange returning attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onchange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnchange(value *domcore.EventHandler) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onclick returning attribute 'onclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclick() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onclick")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnclick setting attribute 'onclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclick(value *domcore.EventHandler) {
-	var __callback18 js.Value
-	if value != nil {
-		__callback18 = (*value).Value
-	} else {
-		__callback18 = js.Null()
-	}
-	input := __callback18
-	_this.Value_JS.Set("onclick", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onclose() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnclose setting attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnclose(value *domcore.EventHandler) {
-	var __callback19 js.Value
-	if value != nil {
-		__callback19 = (*value).Value
-	} else {
-		__callback19 = js.Null()
-	}
-	input := __callback19
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Oncontextmenu returning attribute 'oncontextmenu' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncontextmenu() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncontextmenu")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncontextmenu setting attribute 'oncontextmenu' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncontextmenu(value *domcore.EventHandler) {
-	var __callback20 js.Value
-	if value != nil {
-		__callback20 = (*value).Value
-	} else {
-		__callback20 = js.Null()
-	}
-	input := __callback20
-	_this.Value_JS.Set("oncontextmenu", input)
-}
-
-// Oncuechange returning attribute 'oncuechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncuechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncuechange setting attribute 'oncuechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncuechange(value *domcore.EventHandler) {
-	var __callback21 js.Value
-	if value != nil {
-		__callback21 = (*value).Value
-	} else {
-		__callback21 = js.Null()
-	}
-	input := __callback21
-	_this.Value_JS.Set("oncuechange", input)
-}
-
-// Ondblclick returning attribute 'ondblclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondblclick() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondblclick")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndblclick setting attribute 'ondblclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndblclick(value *domcore.EventHandler) {
-	var __callback22 js.Value
-	if value != nil {
-		__callback22 = (*value).Value
-	} else {
-		__callback22 = js.Null()
-	}
-	input := __callback22
-	_this.Value_JS.Set("ondblclick", input)
-}
-
-// Ondrag returning attribute 'ondrag' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrag() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondrag")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndrag setting attribute 'ondrag' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrag(value *domcore.EventHandler) {
-	var __callback23 js.Value
-	if value != nil {
-		__callback23 = (*value).Value
-	} else {
-		__callback23 = js.Null()
-	}
-	input := __callback23
-	_this.Value_JS.Set("ondrag", input)
-}
-
-// Ondragend returning attribute 'ondragend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragend() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragend")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragend setting attribute 'ondragend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragend(value *domcore.EventHandler) {
-	var __callback24 js.Value
-	if value != nil {
-		__callback24 = (*value).Value
-	} else {
-		__callback24 = js.Null()
-	}
-	input := __callback24
-	_this.Value_JS.Set("ondragend", input)
-}
-
-// Ondragenter returning attribute 'ondragenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragenter() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragenter")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragenter setting attribute 'ondragenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragenter(value *domcore.EventHandler) {
-	var __callback25 js.Value
-	if value != nil {
-		__callback25 = (*value).Value
-	} else {
-		__callback25 = js.Null()
-	}
-	input := __callback25
-	_this.Value_JS.Set("ondragenter", input)
-}
-
-// Ondragexit returning attribute 'ondragexit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragexit() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragexit")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragexit setting attribute 'ondragexit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragexit(value *domcore.EventHandler) {
-	var __callback26 js.Value
-	if value != nil {
-		__callback26 = (*value).Value
-	} else {
-		__callback26 = js.Null()
-	}
-	input := __callback26
-	_this.Value_JS.Set("ondragexit", input)
-}
-
-// Ondragleave returning attribute 'ondragleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragleave() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragleave")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragleave setting attribute 'ondragleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragleave(value *domcore.EventHandler) {
-	var __callback27 js.Value
-	if value != nil {
-		__callback27 = (*value).Value
-	} else {
-		__callback27 = js.Null()
-	}
-	input := __callback27
-	_this.Value_JS.Set("ondragleave", input)
-}
-
-// Ondragover returning attribute 'ondragover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragover() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragover")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragover setting attribute 'ondragover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragover(value *domcore.EventHandler) {
-	var __callback28 js.Value
-	if value != nil {
-		__callback28 = (*value).Value
-	} else {
-		__callback28 = js.Null()
-	}
-	input := __callback28
-	_this.Value_JS.Set("ondragover", input)
-}
-
-// Ondragstart returning attribute 'ondragstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondragstart() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondragstart")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndragstart setting attribute 'ondragstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndragstart(value *domcore.EventHandler) {
-	var __callback29 js.Value
-	if value != nil {
-		__callback29 = (*value).Value
-	} else {
-		__callback29 = js.Null()
-	}
-	input := __callback29
-	_this.Value_JS.Set("ondragstart", input)
-}
-
-// Ondrop returning attribute 'ondrop' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondrop() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondrop")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndrop setting attribute 'ondrop' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndrop(value *domcore.EventHandler) {
-	var __callback30 js.Value
-	if value != nil {
-		__callback30 = (*value).Value
-	} else {
-		__callback30 = js.Null()
-	}
-	input := __callback30
-	_this.Value_JS.Set("ondrop", input)
-}
-
-// Ondurationchange returning attribute 'ondurationchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ondurationchange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ondurationchange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOndurationchange setting attribute 'ondurationchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOndurationchange(value *domcore.EventHandler) {
-	var __callback31 js.Value
-	if value != nil {
-		__callback31 = (*value).Value
-	} else {
-		__callback31 = js.Null()
-	}
-	input := __callback31
-	_this.Value_JS.Set("ondurationchange", input)
-}
-
-// Onemptied returning attribute 'onemptied' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onemptied() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onemptied")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnemptied setting attribute 'onemptied' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnemptied(value *domcore.EventHandler) {
-	var __callback32 js.Value
-	if value != nil {
-		__callback32 = (*value).Value
-	} else {
-		__callback32 = js.Null()
-	}
-	input := __callback32
-	_this.Value_JS.Set("onemptied", input)
-}
-
-// Onended returning attribute 'onended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onended() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnended setting attribute 'onended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnended(value *domcore.EventHandler) {
-	var __callback33 js.Value
-	if value != nil {
-		__callback33 = (*value).Value
-	} else {
-		__callback33 = js.Null()
-	}
-	input := __callback33
-	_this.Value_JS.Set("onended", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) Onerror() htmlevent.OnErrorEventHandlerFunc {
-	var ret htmlevent.OnErrorEventHandlerFunc
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnErrorEventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) SetOnerror(value *htmlevent.OnErrorEventHandler) {
-	var __callback34 js.Value
-	if value != nil {
-		__callback34 = (*value).Value
-	} else {
-		__callback34 = js.Null()
-	}
-	input := __callback34
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onfocus returning attribute 'onfocus' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onfocus() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onfocus")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnfocus setting attribute 'onfocus' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnfocus(value *domcore.EventHandler) {
-	var __callback35 js.Value
-	if value != nil {
-		__callback35 = (*value).Value
-	} else {
-		__callback35 = js.Null()
-	}
-	input := __callback35
-	_this.Value_JS.Set("onfocus", input)
-}
-
-// Onformdata returning attribute 'onformdata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onformdata() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onformdata")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnformdata setting attribute 'onformdata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnformdata(value *domcore.EventHandler) {
-	var __callback36 js.Value
-	if value != nil {
-		__callback36 = (*value).Value
-	} else {
-		__callback36 = js.Null()
-	}
-	input := __callback36
-	_this.Value_JS.Set("onformdata", input)
-}
-
-// Oninput returning attribute 'oninput' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninput() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oninput")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOninput setting attribute 'oninput' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninput(value *domcore.EventHandler) {
-	var __callback37 js.Value
-	if value != nil {
-		__callback37 = (*value).Value
-	} else {
-		__callback37 = js.Null()
-	}
-	input := __callback37
-	_this.Value_JS.Set("oninput", input)
-}
-
-// Oninvalid returning attribute 'oninvalid' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oninvalid() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oninvalid")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOninvalid setting attribute 'oninvalid' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOninvalid(value *domcore.EventHandler) {
-	var __callback38 js.Value
-	if value != nil {
-		__callback38 = (*value).Value
-	} else {
-		__callback38 = js.Null()
-	}
-	input := __callback38
-	_this.Value_JS.Set("oninvalid", input)
-}
-
-// Onkeydown returning attribute 'onkeydown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeydown() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onkeydown")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeydown setting attribute 'onkeydown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeydown(value *domcore.EventHandler) {
-	var __callback39 js.Value
-	if value != nil {
-		__callback39 = (*value).Value
-	} else {
-		__callback39 = js.Null()
-	}
-	input := __callback39
-	_this.Value_JS.Set("onkeydown", input)
-}
-
-// Onkeypress returning attribute 'onkeypress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeypress() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onkeypress")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeypress setting attribute 'onkeypress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeypress(value *domcore.EventHandler) {
-	var __callback40 js.Value
-	if value != nil {
-		__callback40 = (*value).Value
-	} else {
-		__callback40 = js.Null()
-	}
-	input := __callback40
-	_this.Value_JS.Set("onkeypress", input)
-}
-
-// Onkeyup returning attribute 'onkeyup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onkeyup() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onkeyup")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnkeyup setting attribute 'onkeyup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnkeyup(value *domcore.EventHandler) {
-	var __callback41 js.Value
-	if value != nil {
-		__callback41 = (*value).Value
-	} else {
-		__callback41 = js.Null()
-	}
-	input := __callback41
-	_this.Value_JS.Set("onkeyup", input)
-}
-
-// Onload returning attribute 'onload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onload() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnload setting attribute 'onload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnload(value *domcore.EventHandler) {
-	var __callback42 js.Value
-	if value != nil {
-		__callback42 = (*value).Value
-	} else {
-		__callback42 = js.Null()
-	}
-	input := __callback42
-	_this.Value_JS.Set("onload", input)
-}
-
-// Onloadeddata returning attribute 'onloadeddata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadeddata() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onloadeddata")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadeddata setting attribute 'onloadeddata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadeddata(value *domcore.EventHandler) {
-	var __callback43 js.Value
-	if value != nil {
-		__callback43 = (*value).Value
-	} else {
-		__callback43 = js.Null()
-	}
-	input := __callback43
-	_this.Value_JS.Set("onloadeddata", input)
-}
-
-// Onloadedmetadata returning attribute 'onloadedmetadata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onloadedmetadata")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadedmetadata(value *domcore.EventHandler) {
-	var __callback44 js.Value
-	if value != nil {
-		__callback44 = (*value).Value
-	} else {
-		__callback44 = js.Null()
-	}
-	input := __callback44
-	_this.Value_JS.Set("onloadedmetadata", input)
-}
-
-// Onloadend returning attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadend() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadend setting attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadend(value *domcore.EventHandler) {
-	var __callback45 js.Value
-	if value != nil {
-		__callback45 = (*value).Value
-	} else {
-		__callback45 = js.Null()
-	}
-	input := __callback45
-	_this.Value_JS.Set("onloadend", input)
-}
-
-// Onloadstart returning attribute 'onloadstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onloadstart() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnloadstart setting attribute 'onloadstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback46 js.Value
-	if value != nil {
-		__callback46 = (*value).Value
-	} else {
-		__callback46 = js.Null()
-	}
-	input := __callback46
-	_this.Value_JS.Set("onloadstart", input)
-}
-
-// Onmousedown returning attribute 'onmousedown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousedown() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmousedown")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmousedown setting attribute 'onmousedown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousedown(value *domcore.EventHandler) {
-	var __callback47 js.Value
-	if value != nil {
-		__callback47 = (*value).Value
-	} else {
-		__callback47 = js.Null()
-	}
-	input := __callback47
-	_this.Value_JS.Set("onmousedown", input)
-}
-
-// Onmouseenter returning attribute 'onmouseenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseenter() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmouseenter")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseenter setting attribute 'onmouseenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseenter(value *domcore.EventHandler) {
-	var __callback48 js.Value
-	if value != nil {
-		__callback48 = (*value).Value
-	} else {
-		__callback48 = js.Null()
-	}
-	input := __callback48
-	_this.Value_JS.Set("onmouseenter", input)
-}
-
-// Onmouseleave returning attribute 'onmouseleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseleave() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmouseleave")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseleave setting attribute 'onmouseleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseleave(value *domcore.EventHandler) {
-	var __callback49 js.Value
-	if value != nil {
-		__callback49 = (*value).Value
-	} else {
-		__callback49 = js.Null()
-	}
-	input := __callback49
-	_this.Value_JS.Set("onmouseleave", input)
-}
-
-// Onmousemove returning attribute 'onmousemove' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmousemove() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmousemove")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmousemove setting attribute 'onmousemove' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmousemove(value *domcore.EventHandler) {
-	var __callback50 js.Value
-	if value != nil {
-		__callback50 = (*value).Value
-	} else {
-		__callback50 = js.Null()
-	}
-	input := __callback50
-	_this.Value_JS.Set("onmousemove", input)
-}
-
-// Onmouseout returning attribute 'onmouseout' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseout() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmouseout")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseout setting attribute 'onmouseout' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseout(value *domcore.EventHandler) {
-	var __callback51 js.Value
-	if value != nil {
-		__callback51 = (*value).Value
-	} else {
-		__callback51 = js.Null()
-	}
-	input := __callback51
-	_this.Value_JS.Set("onmouseout", input)
-}
-
-// Onmouseover returning attribute 'onmouseover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseover() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmouseover")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseover setting attribute 'onmouseover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseover(value *domcore.EventHandler) {
-	var __callback52 js.Value
-	if value != nil {
-		__callback52 = (*value).Value
-	} else {
-		__callback52 = js.Null()
-	}
-	input := __callback52
-	_this.Value_JS.Set("onmouseover", input)
-}
-
-// Onmouseup returning attribute 'onmouseup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onmouseup() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmouseup")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmouseup setting attribute 'onmouseup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnmouseup(value *domcore.EventHandler) {
-	var __callback53 js.Value
-	if value != nil {
-		__callback53 = (*value).Value
-	} else {
-		__callback53 = js.Null()
-	}
-	input := __callback53
-	_this.Value_JS.Set("onmouseup", input)
-}
-
-// Onwheel returning attribute 'onwheel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwheel() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onwheel")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnwheel setting attribute 'onwheel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwheel(value *domcore.EventHandler) {
-	var __callback54 js.Value
-	if value != nil {
-		__callback54 = (*value).Value
-	} else {
-		__callback54 = js.Null()
-	}
-	input := __callback54
-	_this.Value_JS.Set("onwheel", input)
-}
-
-// Onpause returning attribute 'onpause' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpause() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpause setting attribute 'onpause' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpause(value *domcore.EventHandler) {
-	var __callback55 js.Value
-	if value != nil {
-		__callback55 = (*value).Value
-	} else {
-		__callback55 = js.Null()
-	}
-	input := __callback55
-	_this.Value_JS.Set("onpause", input)
-}
-
-// Onplay returning attribute 'onplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplay() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onplay")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnplay setting attribute 'onplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplay(value *domcore.EventHandler) {
-	var __callback56 js.Value
-	if value != nil {
-		__callback56 = (*value).Value
-	} else {
-		__callback56 = js.Null()
-	}
-	input := __callback56
-	_this.Value_JS.Set("onplay", input)
-}
-
-// Onplaying returning attribute 'onplaying' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onplaying() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onplaying")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnplaying setting attribute 'onplaying' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnplaying(value *domcore.EventHandler) {
-	var __callback57 js.Value
-	if value != nil {
-		__callback57 = (*value).Value
-	} else {
-		__callback57 = js.Null()
-	}
-	input := __callback57
-	_this.Value_JS.Set("onplaying", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onprogress() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnprogress setting attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnprogress(value *domcore.EventHandler) {
-	var __callback58 js.Value
-	if value != nil {
-		__callback58 = (*value).Value
-	} else {
-		__callback58 = js.Null()
-	}
-	input := __callback58
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onratechange returning attribute 'onratechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onratechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onratechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnratechange setting attribute 'onratechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnratechange(value *domcore.EventHandler) {
-	var __callback59 js.Value
-	if value != nil {
-		__callback59 = (*value).Value
-	} else {
-		__callback59 = js.Null()
-	}
-	input := __callback59
-	_this.Value_JS.Set("onratechange", input)
-}
-
-// Onreset returning attribute 'onreset' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onreset() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onreset")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnreset setting attribute 'onreset' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnreset(value *domcore.EventHandler) {
-	var __callback60 js.Value
-	if value != nil {
-		__callback60 = (*value).Value
-	} else {
-		__callback60 = js.Null()
-	}
-	input := __callback60
-	_this.Value_JS.Set("onreset", input)
-}
-
-// Onresize returning attribute 'onresize' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onresize() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onresize")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnresize setting attribute 'onresize' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnresize(value *domcore.EventHandler) {
-	var __callback61 js.Value
-	if value != nil {
-		__callback61 = (*value).Value
-	} else {
-		__callback61 = js.Null()
-	}
-	input := __callback61
-	_this.Value_JS.Set("onresize", input)
-}
-
-// Onscroll returning attribute 'onscroll' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onscroll() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onscroll")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnscroll setting attribute 'onscroll' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnscroll(value *domcore.EventHandler) {
-	var __callback62 js.Value
-	if value != nil {
-		__callback62 = (*value).Value
-	} else {
-		__callback62 = js.Null()
-	}
-	input := __callback62
-	_this.Value_JS.Set("onscroll", input)
-}
-
-// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onsecuritypolicyviolation")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *domcore.EventHandler) {
-	var __callback63 js.Value
-	if value != nil {
-		__callback63 = (*value).Value
-	} else {
-		__callback63 = js.Null()
-	}
-	input := __callback63
-	_this.Value_JS.Set("onsecuritypolicyviolation", input)
-}
-
-// Onseeked returning attribute 'onseeked' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeked() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onseeked")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnseeked setting attribute 'onseeked' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeked(value *domcore.EventHandler) {
-	var __callback64 js.Value
-	if value != nil {
-		__callback64 = (*value).Value
-	} else {
-		__callback64 = js.Null()
-	}
-	input := __callback64
-	_this.Value_JS.Set("onseeked", input)
-}
-
-// Onseeking returning attribute 'onseeking' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onseeking() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onseeking")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnseeking setting attribute 'onseeking' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnseeking(value *domcore.EventHandler) {
-	var __callback65 js.Value
-	if value != nil {
-		__callback65 = (*value).Value
-	} else {
-		__callback65 = js.Null()
-	}
-	input := __callback65
-	_this.Value_JS.Set("onseeking", input)
-}
-
-// Onselect returning attribute 'onselect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onselect() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onselect")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnselect setting attribute 'onselect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnselect(value *domcore.EventHandler) {
-	var __callback66 js.Value
-	if value != nil {
-		__callback66 = (*value).Value
-	} else {
-		__callback66 = js.Null()
-	}
-	input := __callback66
-	_this.Value_JS.Set("onselect", input)
-}
-
-// Onstalled returning attribute 'onstalled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onstalled() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onstalled")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstalled setting attribute 'onstalled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnstalled(value *domcore.EventHandler) {
-	var __callback67 js.Value
-	if value != nil {
-		__callback67 = (*value).Value
-	} else {
-		__callback67 = js.Null()
-	}
-	input := __callback67
-	_this.Value_JS.Set("onstalled", input)
-}
-
-// Onsubmit returning attribute 'onsubmit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsubmit() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onsubmit")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsubmit setting attribute 'onsubmit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsubmit(value *domcore.EventHandler) {
-	var __callback68 js.Value
-	if value != nil {
-		__callback68 = (*value).Value
-	} else {
-		__callback68 = js.Null()
-	}
-	input := __callback68
-	_this.Value_JS.Set("onsubmit", input)
-}
-
-// Onsuspend returning attribute 'onsuspend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onsuspend() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onsuspend")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsuspend setting attribute 'onsuspend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnsuspend(value *domcore.EventHandler) {
-	var __callback69 js.Value
-	if value != nil {
-		__callback69 = (*value).Value
-	} else {
-		__callback69 = js.Null()
-	}
-	input := __callback69
-	_this.Value_JS.Set("onsuspend", input)
-}
-
-// Ontimeupdate returning attribute 'ontimeupdate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontimeupdate() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ontimeupdate")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOntimeupdate setting attribute 'ontimeupdate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntimeupdate(value *domcore.EventHandler) {
-	var __callback70 js.Value
-	if value != nil {
-		__callback70 = (*value).Value
-	} else {
-		__callback70 = js.Null()
-	}
-	input := __callback70
-	_this.Value_JS.Set("ontimeupdate", input)
-}
-
-// Ontoggle returning attribute 'ontoggle' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Ontoggle() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ontoggle")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOntoggle setting attribute 'ontoggle' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOntoggle(value *domcore.EventHandler) {
-	var __callback71 js.Value
-	if value != nil {
-		__callback71 = (*value).Value
-	} else {
-		__callback71 = js.Null()
-	}
-	input := __callback71
-	_this.Value_JS.Set("ontoggle", input)
-}
-
-// Onvolumechange returning attribute 'onvolumechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onvolumechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onvolumechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnvolumechange setting attribute 'onvolumechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnvolumechange(value *domcore.EventHandler) {
-	var __callback72 js.Value
-	if value != nil {
-		__callback72 = (*value).Value
-	} else {
-		__callback72 = js.Null()
-	}
-	input := __callback72
-	_this.Value_JS.Set("onvolumechange", input)
-}
-
-// Onwaiting returning attribute 'onwaiting' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onwaiting() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onwaiting")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnwaiting setting attribute 'onwaiting' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnwaiting(value *domcore.EventHandler) {
-	var __callback73 js.Value
-	if value != nil {
-		__callback73 = (*value).Value
-	} else {
-		__callback73 = js.Null()
-	}
-	input := __callback73
-	_this.Value_JS.Set("onwaiting", input)
-}
-
-// Oncopy returning attribute 'oncopy' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncopy")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncopy setting attribute 'oncopy' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
-	var __callback74 js.Value
-	if value != nil {
-		__callback74 = (*value).Value
-	} else {
-		__callback74 = js.Null()
-	}
-	input := __callback74
-	_this.Value_JS.Set("oncopy", input)
-}
-
-// Oncut returning attribute 'oncut' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncut")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncut setting attribute 'oncut' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
-	var __callback75 js.Value
-	if value != nil {
-		__callback75 = (*value).Value
-	} else {
-		__callback75 = js.Null()
-	}
-	input := __callback75
-	_this.Value_JS.Set("oncut", input)
-}
-
-// Onpaste returning attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpaste")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpaste setting attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
-	var __callback76 js.Value
-	if value != nil {
-		__callback76 = (*value).Value
-	} else {
-		__callback76 = js.Null()
-	}
-	input := __callback76
-	_this.Value_JS.Set("onpaste", input)
-}
-
-// ContentEditable returning attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) ContentEditable() string {
-	var ret string
-	value := _this.Value_JS.Get("contentEditable")
-	ret = (value).String()
-	return ret
-}
-
-// SetContentEditable setting attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetContentEditable(value string) {
-	input := value
-	_this.Value_JS.Set("contentEditable", input)
-}
-
-// EnterKeyHint returning attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) EnterKeyHint() string {
-	var ret string
-	value := _this.Value_JS.Get("enterKeyHint")
-	ret = (value).String()
-	return ret
-}
-
-// SetEnterKeyHint setting attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetEnterKeyHint(value string) {
-	input := value
-	_this.Value_JS.Set("enterKeyHint", input)
-}
-
-// IsContentEditable returning attribute 'isContentEditable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) IsContentEditable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isContentEditable")
-	ret = (value).Bool()
-	return ret
-}
-
-// InputMode returning attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) InputMode() string {
-	var ret string
-	value := _this.Value_JS.Get("inputMode")
-	ret = (value).String()
-	return ret
-}
-
-// SetInputMode setting attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetInputMode(value string) {
-	input := value
-	_this.Value_JS.Set("inputMode", input)
-}
-
-// Dataset returning attribute 'dataset' with
-// type domcore.DOMStringMap (idl: DOMStringMap).
-func (_this *HTMLElement) Dataset() *domcore.DOMStringMap {
-	var ret *domcore.DOMStringMap
-	value := _this.Value_JS.Get("dataset")
-	ret = domcore.DOMStringMapFromJS(value)
-	return ret
-}
-
-// Nonce returning attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Nonce() string {
-	var ret string
-	value := _this.Value_JS.Get("nonce")
-	ret = (value).String()
-	return ret
-}
-
-// SetNonce setting attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetNonce(value string) {
-	input := value
-	_this.Value_JS.Set("nonce", input)
-}
-
-// TabIndex returning attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) TabIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("tabIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetTabIndex setting attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) SetTabIndex(value int) {
-	input := value
-	_this.Value_JS.Set("tabIndex", input)
-}
-
-func (_this *HTMLElement) Click() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("click", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLElement) Focus(options *FocusOptions) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("focus", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLElement) Blur() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("blur", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLUnknownElement
-type HTMLUnknownElement struct {
-	HTMLElement
-}
-
-// HTMLUnknownElementFromJS is casting a js.Wrapper into HTMLUnknownElement.
-func HTMLUnknownElementFromJS(value js.Wrapper) *HTMLUnknownElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLUnknownElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLHtmlElement
-type HTMLHtmlElement struct {
-	HTMLElement
-}
-
-// HTMLHtmlElementFromJS is casting a js.Wrapper into HTMLHtmlElement.
-func HTMLHtmlElementFromJS(value js.Wrapper) *HTMLHtmlElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHtmlElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Version returning attribute 'version' with
-// type string (idl: DOMString).
-func (_this *HTMLHtmlElement) Version() string {
-	var ret string
-	value := _this.Value_JS.Get("version")
-	ret = (value).String()
-	return ret
-}
-
-// SetVersion setting attribute 'version' with
-// type string (idl: DOMString).
-func (_this *HTMLHtmlElement) SetVersion(value string) {
-	input := value
-	_this.Value_JS.Set("version", input)
-}
-
-// interface: HTMLHeadElement
-type HTMLHeadElement struct {
-	HTMLElement
-}
-
-// HTMLHeadElementFromJS is casting a js.Wrapper into HTMLHeadElement.
-func HTMLHeadElementFromJS(value js.Wrapper) *HTMLHeadElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHeadElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: HTMLTitleElement
-type HTMLTitleElement struct {
-	HTMLElement
-}
-
-// HTMLTitleElementFromJS is casting a js.Wrapper into HTMLTitleElement.
-func HTMLTitleElementFromJS(value js.Wrapper) *HTMLTitleElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTitleElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLTitleElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLTitleElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// interface: HTMLBaseElement
-type HTMLBaseElement struct {
-	HTMLElement
-}
-
-// HTMLBaseElementFromJS is casting a js.Wrapper into HTMLBaseElement.
-func HTMLBaseElementFromJS(value js.Wrapper) *HTMLBaseElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLBaseElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLBaseElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLBaseElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLBaseElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLBaseElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// interface: HTMLLinkElement
-type HTMLLinkElement struct {
-	HTMLElement
-}
-
-// HTMLLinkElementFromJS is casting a js.Wrapper into HTMLLinkElement.
-func HTMLLinkElementFromJS(value js.Wrapper) *HTMLLinkElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLinkElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLLinkElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLLinkElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// As returning attribute 'as' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) As() string {
-	var ret string
-	value := _this.Value_JS.Get("as")
-	ret = (value).String()
-	return ret
-}
-
-// SetAs setting attribute 'as' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetAs(value string) {
-	input := value
-	_this.Value_JS.Set("as", input)
-}
-
-// RelList returning attribute 'relList' with
-// type domcore.DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLLinkElement) RelList() *domcore.DOMTokenList {
-	var ret *domcore.DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = domcore.DOMTokenListFromJS(value)
-	return ret
-}
-
-// Media returning attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Media() string {
-	var ret string
-	value := _this.Value_JS.Get("media")
-	ret = (value).String()
-	return ret
-}
-
-// SetMedia setting attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetMedia(value string) {
-	input := value
-	_this.Value_JS.Set("media", input)
-}
-
-// Integrity returning attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Integrity() string {
-	var ret string
-	value := _this.Value_JS.Get("integrity")
-	ret = (value).String()
-	return ret
-}
-
-// SetIntegrity setting attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetIntegrity(value string) {
-	input := value
-	_this.Value_JS.Set("integrity", input)
-}
-
-// Hreflang returning attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Hreflang() string {
-	var ret string
-	value := _this.Value_JS.Get("hreflang")
-	ret = (value).String()
-	return ret
-}
-
-// SetHreflang setting attribute 'hreflang' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetHreflang(value string) {
-	input := value
-	_this.Value_JS.Set("hreflang", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Sizes returning attribute 'sizes' with
-// type domcore.DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLLinkElement) Sizes() *domcore.DOMTokenList {
-	var ret *domcore.DOMTokenList
-	value := _this.Value_JS.Get("sizes")
-	ret = domcore.DOMTokenListFromJS(value)
-	return ret
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Charset returning attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Charset() string {
-	var ret string
-	value := _this.Value_JS.Get("charset")
-	ret = (value).String()
-	return ret
-}
-
-// SetCharset setting attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetCharset(value string) {
-	input := value
-	_this.Value_JS.Set("charset", input)
-}
-
-// Rev returning attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Rev() string {
-	var ret string
-	value := _this.Value_JS.Get("rev")
-	ret = (value).String()
-	return ret
-}
-
-// SetRev setting attribute 'rev' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetRev(value string) {
-	input := value
-	_this.Value_JS.Set("rev", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLLinkElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// interface: HTMLMetaElement
-type HTMLMetaElement struct {
-	HTMLElement
-}
-
-// HTMLMetaElementFromJS is casting a js.Wrapper into HTMLMetaElement.
-func HTMLMetaElementFromJS(value js.Wrapper) *HTMLMetaElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMetaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// HttpEquiv returning attribute 'httpEquiv' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) HttpEquiv() string {
-	var ret string
-	value := _this.Value_JS.Get("httpEquiv")
-	ret = (value).String()
-	return ret
-}
-
-// SetHttpEquiv setting attribute 'httpEquiv' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetHttpEquiv(value string) {
-	input := value
-	_this.Value_JS.Set("httpEquiv", input)
-}
-
-// Content returning attribute 'content' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Content() string {
-	var ret string
-	value := _this.Value_JS.Get("content")
-	ret = (value).String()
-	return ret
-}
-
-// SetContent setting attribute 'content' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetContent(value string) {
-	input := value
-	_this.Value_JS.Set("content", input)
-}
-
-// Scheme returning attribute 'scheme' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) Scheme() string {
-	var ret string
-	value := _this.Value_JS.Get("scheme")
-	ret = (value).String()
-	return ret
-}
-
-// SetScheme setting attribute 'scheme' with
-// type string (idl: DOMString).
-func (_this *HTMLMetaElement) SetScheme(value string) {
-	input := value
-	_this.Value_JS.Set("scheme", input)
-}
-
-// interface: HTMLStyleElement
-type HTMLStyleElement struct {
-	HTMLElement
-}
-
-// HTMLStyleElementFromJS is casting a js.Wrapper into HTMLStyleElement.
-func HTMLStyleElementFromJS(value js.Wrapper) *HTMLStyleElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLStyleElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Media returning attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) Media() string {
-	var ret string
-	value := _this.Value_JS.Get("media")
-	ret = (value).String()
-	return ret
-}
-
-// SetMedia setting attribute 'media' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) SetMedia(value string) {
-	input := value
-	_this.Value_JS.Set("media", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLStyleElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLBodyElement
-type HTMLBodyElement struct {
-	HTMLElement
-}
-
-// HTMLBodyElementFromJS is casting a js.Wrapper into HTMLBodyElement.
-func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLBodyElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Link returning attribute 'link' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Link() string {
-	var ret string
-	value := _this.Value_JS.Get("link")
-	ret = (value).String()
-	return ret
-}
-
-// SetLink setting attribute 'link' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetLink(value string) {
-	input := value
-	_this.Value_JS.Set("link", input)
-}
-
-// VLink returning attribute 'vLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) VLink() string {
-	var ret string
-	value := _this.Value_JS.Get("vLink")
-	ret = (value).String()
-	return ret
-}
-
-// SetVLink setting attribute 'vLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetVLink(value string) {
-	input := value
-	_this.Value_JS.Set("vLink", input)
-}
-
-// ALink returning attribute 'aLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) ALink() string {
-	var ret string
-	value := _this.Value_JS.Get("aLink")
-	ret = (value).String()
-	return ret
-}
-
-// SetALink setting attribute 'aLink' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetALink(value string) {
-	input := value
-	_this.Value_JS.Set("aLink", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// Background returning attribute 'background' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) Background() string {
-	var ret string
-	value := _this.Value_JS.Get("background")
-	ret = (value).String()
-	return ret
-}
-
-// SetBackground setting attribute 'background' with
-// type string (idl: DOMString).
-func (_this *HTMLBodyElement) SetBackground(value string) {
-	input := value
-	_this.Value_JS.Set("background", input)
-}
-
-// Onafterprint returning attribute 'onafterprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnafterprint setting attribute 'onafterprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnafterprint(value *domcore.EventHandler) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onafterprint", input)
-}
-
-// Onbeforeprint returning attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeprint(value *domcore.EventHandler) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("onbeforeprint", input)
-}
-
-// Onbeforeunload returning attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
-	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
-	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onbeforeunload", input)
-}
-
-// Onhashchange returning attribute 'onhashchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnhashchange setting attribute 'onhashchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnhashchange(value *domcore.EventHandler) {
-	var __callback9 js.Value
-	if value != nil {
-		__callback9 = (*value).Value
-	} else {
-		__callback9 = js.Null()
-	}
-	input := __callback9
-	_this.Value_JS.Set("onhashchange", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnlanguagechange(value *domcore.EventHandler) {
-	var __callback10 js.Value
-	if value != nil {
-		__callback10 = (*value).Value
-	} else {
-		__callback10 = js.Null()
-	}
-	input := __callback10
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessage(value *domcore.EventHandler) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onoffline() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnoffline setting attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnoffline(value *domcore.EventHandler) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Ononline() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnonline setting attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnonline(value *domcore.EventHandler) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onpagehide returning attribute 'onpagehide' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpagehide setting attribute 'onpagehide' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpagehide(value *domcore.EventHandler) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("onpagehide", input)
-}
-
-// Onpageshow returning attribute 'onpageshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpageshow setting attribute 'onpageshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpageshow(value *domcore.EventHandler) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("onpageshow", input)
-}
-
-// Onpopstate returning attribute 'onpopstate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpopstate setting attribute 'onpopstate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnpopstate(value *domcore.EventHandler) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onpopstate", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnrejectionhandled(value *domcore.EventHandler) {
-	var __callback18 js.Value
-	if value != nil {
-		__callback18 = (*value).Value
-	} else {
-		__callback18 = js.Null()
-	}
-	input := __callback18
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onstorage returning attribute 'onstorage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onstorage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstorage setting attribute 'onstorage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnstorage(value *domcore.EventHandler) {
-	var __callback19 js.Value
-	if value != nil {
-		__callback19 = (*value).Value
-	} else {
-		__callback19 = js.Null()
-	}
-	input := __callback19
-	_this.Value_JS.Set("onstorage", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunhandledrejection(value *domcore.EventHandler) {
-	var __callback20 js.Value
-	if value != nil {
-		__callback20 = (*value).Value
-	} else {
-		__callback20 = js.Null()
-	}
-	input := __callback20
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Onunload returning attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) Onunload() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunload setting attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnunload(value *domcore.EventHandler) {
-	var __callback21 js.Value
-	if value != nil {
-		__callback21 = (*value).Value
-	} else {
-		__callback21 = js.Null()
-	}
-	input := __callback21
-	_this.Value_JS.Set("onunload", input)
-}
-
-// interface: HTMLHeadingElement
-type HTMLHeadingElement struct {
-	HTMLElement
-}
-
-// HTMLHeadingElementFromJS is casting a js.Wrapper into HTMLHeadingElement.
-func HTMLHeadingElementFromJS(value js.Wrapper) *HTMLHeadingElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHeadingElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHeadingElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHeadingElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLParagraphElement
-type HTMLParagraphElement struct {
-	HTMLElement
-}
-
-// HTMLParagraphElementFromJS is casting a js.Wrapper into HTMLParagraphElement.
-func HTMLParagraphElementFromJS(value js.Wrapper) *HTMLParagraphElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLParagraphElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLParagraphElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLParagraphElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLHRElement
-type HTMLHRElement struct {
-	HTMLElement
-}
-
-// HTMLHRElementFromJS is casting a js.Wrapper into HTMLHRElement.
-func HTMLHRElementFromJS(value js.Wrapper) *HTMLHRElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLHRElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Color returning attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Color() string {
-	var ret string
-	value := _this.Value_JS.Get("color")
-	ret = (value).String()
-	return ret
-}
-
-// SetColor setting attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetColor(value string) {
-	input := value
-	_this.Value_JS.Set("color", input)
-}
-
-// NoShade returning attribute 'noShade' with
-// type bool (idl: boolean).
-func (_this *HTMLHRElement) NoShade() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noShade")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoShade setting attribute 'noShade' with
-// type bool (idl: boolean).
-func (_this *HTMLHRElement) SetNoShade(value bool) {
-	input := value
-	_this.Value_JS.Set("noShade", input)
-}
-
-// Size returning attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Size() string {
-	var ret string
-	value := _this.Value_JS.Get("size")
-	ret = (value).String()
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetSize(value string) {
-	input := value
-	_this.Value_JS.Set("size", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLHRElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLPreElement
-type HTMLPreElement struct {
-	HTMLElement
-}
-
-// HTMLPreElementFromJS is casting a js.Wrapper into HTMLPreElement.
-func HTMLPreElementFromJS(value js.Wrapper) *HTMLPreElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLPreElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Width returning attribute 'width' with
-// type int (idl: long).
-func (_this *HTMLPreElement) Width() int {
-	var ret int
-	value := _this.Value_JS.Get("width")
-	ret = (value).Int()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type int (idl: long).
-func (_this *HTMLPreElement) SetWidth(value int) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLQuoteElement
-type HTMLQuoteElement struct {
-	HTMLElement
-}
-
-// HTMLQuoteElementFromJS is casting a js.Wrapper into HTMLQuoteElement.
-func HTMLQuoteElementFromJS(value js.Wrapper) *HTMLQuoteElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLQuoteElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Cite returning attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLQuoteElement) Cite() string {
-	var ret string
-	value := _this.Value_JS.Get("cite")
-	ret = (value).String()
-	return ret
-}
-
-// SetCite setting attribute 'cite' with
-// type string (idl: USVString).
-func (_this *HTMLQuoteElement) SetCite(value string) {
-	input := value
-	_this.Value_JS.Set("cite", input)
-}
-
-// interface: HTMLOListElement
-type HTMLOListElement struct {
-	HTMLElement
-}
-
-// HTMLOListElementFromJS is casting a js.Wrapper into HTMLOListElement.
-func HTMLOListElementFromJS(value js.Wrapper) *HTMLOListElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Reversed returning attribute 'reversed' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) Reversed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("reversed")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetReversed setting attribute 'reversed' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) SetReversed(value bool) {
-	input := value
-	_this.Value_JS.Set("reversed", input)
-}
-
-// Start returning attribute 'start' with
-// type int (idl: long).
-func (_this *HTMLOListElement) Start() int {
-	var ret int
-	value := _this.Value_JS.Get("start")
-	ret = (value).Int()
-	return ret
-}
-
-// SetStart setting attribute 'start' with
-// type int (idl: long).
-func (_this *HTMLOListElement) SetStart(value int) {
-	input := value
-	_this.Value_JS.Set("start", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLOListElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLOListElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLOListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLUListElement
-type HTMLUListElement struct {
-	HTMLElement
-}
-
-// HTMLUListElementFromJS is casting a js.Wrapper into HTMLUListElement.
-func HTMLUListElementFromJS(value js.Wrapper) *HTMLUListElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLUListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLUListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLUListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLUListElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLUListElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLMenuElement
-type HTMLMenuElement struct {
-	HTMLElement
-}
-
-// HTMLMenuElementFromJS is casting a js.Wrapper into HTMLMenuElement.
-func HTMLMenuElementFromJS(value js.Wrapper) *HTMLMenuElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMenuElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLMenuElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLMenuElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLLIElement
-type HTMLLIElement struct {
-	HTMLElement
-}
-
-// HTMLLIElementFromJS is casting a js.Wrapper into HTMLLIElement.
-func HTMLLIElementFromJS(value js.Wrapper) *HTMLLIElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLIElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type int (idl: long).
-func (_this *HTMLLIElement) Value() int {
-	var ret int
-	value := _this.Value_JS.Get("value")
-	ret = (value).Int()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type int (idl: long).
-func (_this *HTMLLIElement) SetValue(value int) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLIElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLLIElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// interface: HTMLDListElement
-type HTMLDListElement struct {
-	HTMLElement
-}
-
-// HTMLDListElementFromJS is casting a js.Wrapper into HTMLDListElement.
-func HTMLDListElementFromJS(value js.Wrapper) *HTMLDListElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDListElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDListElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDListElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLDivElement
-type HTMLDivElement struct {
-	HTMLElement
-}
-
-// HTMLDivElementFromJS is casting a js.Wrapper into HTMLDivElement.
-func HTMLDivElementFromJS(value js.Wrapper) *HTMLDivElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDivElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLDivElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLDivElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
 }
 
 // interface: HTMLAnchorElement
@@ -4211,84 +707,342 @@ func (_this *HTMLAnchorElement) SetHash(value string) {
 	_this.Value_JS.Set("hash", input)
 }
 
-// interface: HTMLDataElement
-type HTMLDataElement struct {
+// interface: HTMLAreaElement
+type HTMLAreaElement struct {
 	HTMLElement
 }
 
-// HTMLDataElementFromJS is casting a js.Wrapper into HTMLDataElement.
-func HTMLDataElementFromJS(value js.Wrapper) *HTMLDataElement {
+// HTMLAreaElementFromJS is casting a js.Wrapper into HTMLAreaElement.
+func HTMLAreaElementFromJS(value js.Wrapper) *HTMLAreaElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLDataElement{}
+	ret := &HTMLAreaElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Value returning attribute 'value' with
+// Alt returning attribute 'alt' with
 // type string (idl: DOMString).
-func (_this *HTMLDataElement) Value() string {
+func (_this *HTMLAreaElement) Alt() string {
 	var ret string
-	value := _this.Value_JS.Get("value")
+	value := _this.Value_JS.Get("alt")
 	ret = (value).String()
 	return ret
 }
 
-// SetValue setting attribute 'value' with
+// SetAlt setting attribute 'alt' with
 // type string (idl: DOMString).
-func (_this *HTMLDataElement) SetValue(value string) {
+func (_this *HTMLAreaElement) SetAlt(value string) {
 	input := value
-	_this.Value_JS.Set("value", input)
+	_this.Value_JS.Set("alt", input)
 }
 
-// interface: HTMLTimeElement
-type HTMLTimeElement struct {
-	HTMLElement
-}
-
-// HTMLTimeElementFromJS is casting a js.Wrapper into HTMLTimeElement.
-func HTMLTimeElementFromJS(value js.Wrapper) *HTMLTimeElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTimeElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// DateTime returning attribute 'dateTime' with
+// Coords returning attribute 'coords' with
 // type string (idl: DOMString).
-func (_this *HTMLTimeElement) DateTime() string {
+func (_this *HTMLAreaElement) Coords() string {
 	var ret string
-	value := _this.Value_JS.Get("dateTime")
+	value := _this.Value_JS.Get("coords")
 	ret = (value).String()
 	return ret
 }
 
-// SetDateTime setting attribute 'dateTime' with
+// SetCoords setting attribute 'coords' with
 // type string (idl: DOMString).
-func (_this *HTMLTimeElement) SetDateTime(value string) {
+func (_this *HTMLAreaElement) SetCoords(value string) {
 	input := value
-	_this.Value_JS.Set("dateTime", input)
+	_this.Value_JS.Set("coords", input)
 }
 
-// interface: HTMLSpanElement
-type HTMLSpanElement struct {
-	HTMLElement
-}
-
-// HTMLSpanElementFromJS is casting a js.Wrapper into HTMLSpanElement.
-func HTMLSpanElementFromJS(value js.Wrapper) *HTMLSpanElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSpanElement{}
-	ret.Value_JS = input
+// Shape returning attribute 'shape' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) Shape() string {
+	var ret string
+	value := _this.Value_JS.Get("shape")
+	ret = (value).String()
 	return ret
+}
+
+// SetShape setting attribute 'shape' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) SetShape(value string) {
+	input := value
+	_this.Value_JS.Set("shape", input)
+}
+
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) Target() string {
+	var ret string
+	value := _this.Value_JS.Get("target")
+	ret = (value).String()
+	return ret
+}
+
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) SetTarget(value string) {
+	input := value
+	_this.Value_JS.Set("target", input)
+}
+
+// Download returning attribute 'download' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) Download() string {
+	var ret string
+	value := _this.Value_JS.Get("download")
+	ret = (value).String()
+	return ret
+}
+
+// SetDownload setting attribute 'download' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) SetDownload(value string) {
+	input := value
+	_this.Value_JS.Set("download", input)
+}
+
+// Ping returning attribute 'ping' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Ping() string {
+	var ret string
+	value := _this.Value_JS.Get("ping")
+	ret = (value).String()
+	return ret
+}
+
+// SetPing setting attribute 'ping' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetPing(value string) {
+	input := value
+	_this.Value_JS.Set("ping", input)
+}
+
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) Rel() string {
+	var ret string
+	value := _this.Value_JS.Get("rel")
+	ret = (value).String()
+	return ret
+}
+
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) SetRel(value string) {
+	input := value
+	_this.Value_JS.Set("rel", input)
+}
+
+// RelList returning attribute 'relList' with
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLAreaElement) RelList() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
+	value := _this.Value_JS.Get("relList")
+	ret = domcore.DOMTokenListFromJS(value)
+	return ret
+}
+
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) ReferrerPolicy() string {
+	var ret string
+	value := _this.Value_JS.Get("referrerPolicy")
+	ret = (value).String()
+	return ret
+}
+
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLAreaElement) SetReferrerPolicy(value string) {
+	input := value
+	_this.Value_JS.Set("referrerPolicy", input)
+}
+
+// NoHref returning attribute 'noHref' with
+// type bool (idl: boolean).
+func (_this *HTMLAreaElement) NoHref() bool {
+	var ret bool
+	value := _this.Value_JS.Get("noHref")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetNoHref setting attribute 'noHref' with
+// type bool (idl: boolean).
+func (_this *HTMLAreaElement) SetNoHref(value bool) {
+	input := value
+	_this.Value_JS.Set("noHref", input)
+}
+
+// Href returning attribute 'href' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Href() string {
+	var ret string
+	value := _this.Value_JS.Get("href")
+	ret = (value).String()
+	return ret
+}
+
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetHref(value string) {
+	input := value
+	_this.Value_JS.Set("href", input)
+}
+
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Origin() string {
+	var ret string
+	value := _this.Value_JS.Get("origin")
+	ret = (value).String()
+	return ret
+}
+
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Protocol() string {
+	var ret string
+	value := _this.Value_JS.Get("protocol")
+	ret = (value).String()
+	return ret
+}
+
+// SetProtocol setting attribute 'protocol' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetProtocol(value string) {
+	input := value
+	_this.Value_JS.Set("protocol", input)
+}
+
+// Username returning attribute 'username' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Username() string {
+	var ret string
+	value := _this.Value_JS.Get("username")
+	ret = (value).String()
+	return ret
+}
+
+// SetUsername setting attribute 'username' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetUsername(value string) {
+	input := value
+	_this.Value_JS.Set("username", input)
+}
+
+// Password returning attribute 'password' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Password() string {
+	var ret string
+	value := _this.Value_JS.Get("password")
+	ret = (value).String()
+	return ret
+}
+
+// SetPassword setting attribute 'password' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetPassword(value string) {
+	input := value
+	_this.Value_JS.Set("password", input)
+}
+
+// Host returning attribute 'host' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Host() string {
+	var ret string
+	value := _this.Value_JS.Get("host")
+	ret = (value).String()
+	return ret
+}
+
+// SetHost setting attribute 'host' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetHost(value string) {
+	input := value
+	_this.Value_JS.Set("host", input)
+}
+
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Hostname() string {
+	var ret string
+	value := _this.Value_JS.Get("hostname")
+	ret = (value).String()
+	return ret
+}
+
+// SetHostname setting attribute 'hostname' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetHostname(value string) {
+	input := value
+	_this.Value_JS.Set("hostname", input)
+}
+
+// Port returning attribute 'port' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Port() string {
+	var ret string
+	value := _this.Value_JS.Get("port")
+	ret = (value).String()
+	return ret
+}
+
+// SetPort setting attribute 'port' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetPort(value string) {
+	input := value
+	_this.Value_JS.Set("port", input)
+}
+
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Pathname() string {
+	var ret string
+	value := _this.Value_JS.Get("pathname")
+	ret = (value).String()
+	return ret
+}
+
+// SetPathname setting attribute 'pathname' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetPathname(value string) {
+	input := value
+	_this.Value_JS.Set("pathname", input)
+}
+
+// Search returning attribute 'search' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Search() string {
+	var ret string
+	value := _this.Value_JS.Get("search")
+	ret = (value).String()
+	return ret
+}
+
+// SetSearch setting attribute 'search' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetSearch(value string) {
+	input := value
+	_this.Value_JS.Set("search", input)
+}
+
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) Hash() string {
+	var ret string
+	value := _this.Value_JS.Get("hash")
+	ret = (value).String()
+	return ret
+}
+
+// SetHash setting attribute 'hash' with
+// type string (idl: USVString).
+func (_this *HTMLAreaElement) SetHash(value string) {
+	input := value
+	_this.Value_JS.Set("hash", input)
 }
 
 // interface: HTMLBRElement
@@ -4323,105 +1077,708 @@ func (_this *HTMLBRElement) SetClear(value string) {
 	_this.Value_JS.Set("clear", input)
 }
 
-// interface: HTMLModElement
-type HTMLModElement struct {
+// interface: HTMLBaseElement
+type HTMLBaseElement struct {
 	HTMLElement
 }
 
-// HTMLModElementFromJS is casting a js.Wrapper into HTMLModElement.
-func HTMLModElementFromJS(value js.Wrapper) *HTMLModElement {
+// HTMLBaseElementFromJS is casting a js.Wrapper into HTMLBaseElement.
+func HTMLBaseElementFromJS(value js.Wrapper) *HTMLBaseElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLModElement{}
+	ret := &HTMLBaseElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Cite returning attribute 'cite' with
+// Href returning attribute 'href' with
 // type string (idl: USVString).
-func (_this *HTMLModElement) Cite() string {
+func (_this *HTMLBaseElement) Href() string {
 	var ret string
-	value := _this.Value_JS.Get("cite")
+	value := _this.Value_JS.Get("href")
 	ret = (value).String()
 	return ret
 }
 
-// SetCite setting attribute 'cite' with
+// SetHref setting attribute 'href' with
 // type string (idl: USVString).
-func (_this *HTMLModElement) SetCite(value string) {
+func (_this *HTMLBaseElement) SetHref(value string) {
 	input := value
-	_this.Value_JS.Set("cite", input)
+	_this.Value_JS.Set("href", input)
 }
 
-// DateTime returning attribute 'dateTime' with
+// Target returning attribute 'target' with
 // type string (idl: DOMString).
-func (_this *HTMLModElement) DateTime() string {
+func (_this *HTMLBaseElement) Target() string {
 	var ret string
-	value := _this.Value_JS.Get("dateTime")
+	value := _this.Value_JS.Get("target")
 	ret = (value).String()
 	return ret
 }
 
-// SetDateTime setting attribute 'dateTime' with
+// SetTarget setting attribute 'target' with
 // type string (idl: DOMString).
-func (_this *HTMLModElement) SetDateTime(value string) {
+func (_this *HTMLBaseElement) SetTarget(value string) {
 	input := value
-	_this.Value_JS.Set("dateTime", input)
+	_this.Value_JS.Set("target", input)
 }
 
-// interface: HTMLPictureElement
-type HTMLPictureElement struct {
+// interface: HTMLBodyElement
+type HTMLBodyElement struct {
 	HTMLElement
 }
 
-// HTMLPictureElementFromJS is casting a js.Wrapper into HTMLPictureElement.
-func HTMLPictureElementFromJS(value js.Wrapper) *HTMLPictureElement {
+// HTMLBodyElementFromJS is casting a js.Wrapper into HTMLBodyElement.
+func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLPictureElement{}
+	ret := &HTMLBodyElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// interface: HTMLSourceElement
-type HTMLSourceElement struct {
-	HTMLElement
-}
-
-// HTMLSourceElementFromJS is casting a js.Wrapper into HTMLSourceElement.
-func HTMLSourceElementFromJS(value js.Wrapper) *HTMLSourceElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSourceElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) Src() string {
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) Text() string {
 	var ret string
-	value := _this.Value_JS.Get("src")
+	value := _this.Value_JS.Get("text")
 	ret = (value).String()
 	return ret
 }
 
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLSourceElement) SetSrc(value string) {
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetText(value string) {
 	input := value
-	_this.Value_JS.Set("src", input)
+	_this.Value_JS.Set("text", input)
+}
+
+// Link returning attribute 'link' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) Link() string {
+	var ret string
+	value := _this.Value_JS.Get("link")
+	ret = (value).String()
+	return ret
+}
+
+// SetLink setting attribute 'link' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetLink(value string) {
+	input := value
+	_this.Value_JS.Set("link", input)
+}
+
+// VLink returning attribute 'vLink' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) VLink() string {
+	var ret string
+	value := _this.Value_JS.Get("vLink")
+	ret = (value).String()
+	return ret
+}
+
+// SetVLink setting attribute 'vLink' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetVLink(value string) {
+	input := value
+	_this.Value_JS.Set("vLink", input)
+}
+
+// ALink returning attribute 'aLink' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) ALink() string {
+	var ret string
+	value := _this.Value_JS.Get("aLink")
+	ret = (value).String()
+	return ret
+}
+
+// SetALink setting attribute 'aLink' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetALink(value string) {
+	input := value
+	_this.Value_JS.Set("aLink", input)
+}
+
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) BgColor() string {
+	var ret string
+	value := _this.Value_JS.Get("bgColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetBgColor(value string) {
+	input := value
+	_this.Value_JS.Set("bgColor", input)
+}
+
+// Background returning attribute 'background' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) Background() string {
+	var ret string
+	value := _this.Value_JS.Get("background")
+	ret = (value).String()
+	return ret
+}
+
+// SetBackground setting attribute 'background' with
+// type string (idl: DOMString).
+func (_this *HTMLBodyElement) SetBackground(value string) {
+	input := value
+	_this.Value_JS.Set("background", input)
+}
+
+// Onafterprint returning attribute 'onafterprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onafterprint")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnafterprint setting attribute 'onafterprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnafterprint(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onafterprint", input)
+}
+
+// Onbeforeprint returning attribute 'onbeforeprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbeforeprint")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbeforeprint setting attribute 'onbeforeprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnbeforeprint(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbeforeprint", input)
+}
+
+// Onbeforeunload returning attribute 'onbeforeunload' with
+// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLBodyElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
+	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
+	value := _this.Value_JS.Get("onbeforeunload")
+	if value.Type() != js.TypeNull {
+		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbeforeunload setting attribute 'onbeforeunload' with
+// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbeforeunload", input)
+}
+
+// Onhashchange returning attribute 'onhashchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onhashchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnhashchange setting attribute 'onhashchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnhashchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onhashchange", input)
+}
+
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onlanguagechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnlanguagechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onlanguagechange", input)
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+// Onoffline returning attribute 'onoffline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onoffline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onoffline")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnoffline setting attribute 'onoffline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnoffline(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onoffline", input)
+}
+
+// Ononline returning attribute 'ononline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Ononline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ononline")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnonline setting attribute 'ononline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnonline(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ononline", input)
+}
+
+// Onpagehide returning attribute 'onpagehide' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpagehide")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpagehide setting attribute 'onpagehide' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnpagehide(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpagehide", input)
+}
+
+// Onpageshow returning attribute 'onpageshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpageshow")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpageshow setting attribute 'onpageshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnpageshow(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpageshow", input)
+}
+
+// Onpopstate returning attribute 'onpopstate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpopstate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpopstate setting attribute 'onpopstate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnpopstate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpopstate", input)
+}
+
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onrejectionhandled")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnrejectionhandled(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onrejectionhandled", input)
+}
+
+// Onstorage returning attribute 'onstorage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onstorage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onstorage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnstorage setting attribute 'onstorage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnstorage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onstorage", input)
+}
+
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onunhandledrejection")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnunhandledrejection(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onunhandledrejection", input)
+}
+
+// Onunload returning attribute 'onunload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onunload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onunload")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnunload setting attribute 'onunload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnunload(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onunload", input)
+}
+
+// interface: HTMLButtonElement
+type HTMLButtonElement struct {
+	HTMLElement
+}
+
+// HTMLButtonElementFromJS is casting a js.Wrapper into HTMLButtonElement.
+func HTMLButtonElementFromJS(value js.Wrapper) *HTMLButtonElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLButtonElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Autofocus returning attribute 'autofocus' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) Autofocus() bool {
+	var ret bool
+	value := _this.Value_JS.Get("autofocus")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetAutofocus setting attribute 'autofocus' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) SetAutofocus(value bool) {
+	input := value
+	_this.Value_JS.Set("autofocus", input)
+}
+
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) Disabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) SetDisabled(value bool) {
+	input := value
+	_this.Value_JS.Set("disabled", input)
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLButtonElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// FormAction returning attribute 'formAction' with
+// type string (idl: USVString).
+func (_this *HTMLButtonElement) FormAction() string {
+	var ret string
+	value := _this.Value_JS.Get("formAction")
+	ret = (value).String()
+	return ret
+}
+
+// SetFormAction setting attribute 'formAction' with
+// type string (idl: USVString).
+func (_this *HTMLButtonElement) SetFormAction(value string) {
+	input := value
+	_this.Value_JS.Set("formAction", input)
+}
+
+// FormEnctype returning attribute 'formEnctype' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) FormEnctype() string {
+	var ret string
+	value := _this.Value_JS.Get("formEnctype")
+	ret = (value).String()
+	return ret
+}
+
+// SetFormEnctype setting attribute 'formEnctype' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) SetFormEnctype(value string) {
+	input := value
+	_this.Value_JS.Set("formEnctype", input)
+}
+
+// FormMethod returning attribute 'formMethod' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) FormMethod() string {
+	var ret string
+	value := _this.Value_JS.Get("formMethod")
+	ret = (value).String()
+	return ret
+}
+
+// SetFormMethod setting attribute 'formMethod' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) SetFormMethod(value string) {
+	input := value
+	_this.Value_JS.Set("formMethod", input)
+}
+
+// FormNoValidate returning attribute 'formNoValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) FormNoValidate() bool {
+	var ret bool
+	value := _this.Value_JS.Get("formNoValidate")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetFormNoValidate setting attribute 'formNoValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) SetFormNoValidate(value bool) {
+	input := value
+	_this.Value_JS.Set("formNoValidate", input)
+}
+
+// FormTarget returning attribute 'formTarget' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) FormTarget() string {
+	var ret string
+	value := _this.Value_JS.Get("formTarget")
+	ret = (value).String()
+	return ret
+}
+
+// SetFormTarget setting attribute 'formTarget' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) SetFormTarget(value string) {
+	input := value
+	_this.Value_JS.Set("formTarget", input)
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
 }
 
 // Type returning attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) Type() string {
+func (_this *HTMLButtonElement) Type() string {
 	var ret string
 	value := _this.Value_JS.Get("type")
 	ret = (value).String()
@@ -4430,57 +1787,3365 @@ func (_this *HTMLSourceElement) Type() string {
 
 // SetType setting attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetType(value string) {
+func (_this *HTMLButtonElement) SetType(value string) {
 	input := value
 	_this.Value_JS.Set("type", input)
 }
 
-// Srcset returning attribute 'srcset' with
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) Value() string {
+	var ret string
+	value := _this.Value_JS.Get("value")
+	ret = (value).String()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLButtonElement) WillValidate() bool {
+	var ret bool
+	value := _this.Value_JS.Get("willValidate")
+	ret = (value).Bool()
+	return ret
+}
+
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
+func (_this *HTMLButtonElement) Validity() *ValidityState {
+	var ret *ValidityState
+	value := _this.Value_JS.Get("validity")
+	ret = ValidityStateFromJS(value)
+	return ret
+}
+
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
+func (_this *HTMLButtonElement) ValidationMessage() string {
+	var ret string
+	value := _this.Value_JS.Get("validationMessage")
+	ret = (value).String()
+	return ret
+}
+
+// Labels returning attribute 'labels' with
+// type dom.NodeList (idl: NodeList).
+func (_this *HTMLButtonElement) Labels() *dom.NodeList {
+	var ret *dom.NodeList
+	value := _this.Value_JS.Get("labels")
+	ret = dom.NodeListFromJS(value)
+	return ret
+}
+
+func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := _error
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLDListElement
+type HTMLDListElement struct {
+	HTMLElement
+}
+
+// HTMLDListElementFromJS is casting a js.Wrapper into HTMLDListElement.
+func HTMLDListElementFromJS(value js.Wrapper) *HTMLDListElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDListElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLDListElement) Compact() bool {
+	var ret bool
+	value := _this.Value_JS.Get("compact")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLDListElement) SetCompact(value bool) {
+	input := value
+	_this.Value_JS.Set("compact", input)
+}
+
+// interface: HTMLDataElement
+type HTMLDataElement struct {
+	HTMLElement
+}
+
+// HTMLDataElementFromJS is casting a js.Wrapper into HTMLDataElement.
+func HTMLDataElementFromJS(value js.Wrapper) *HTMLDataElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDataElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLDataElement) Value() string {
+	var ret string
+	value := _this.Value_JS.Get("value")
+	ret = (value).String()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLDataElement) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// interface: HTMLDataListElement
+type HTMLDataListElement struct {
+	HTMLElement
+}
+
+// HTMLDataListElementFromJS is casting a js.Wrapper into HTMLDataListElement.
+func HTMLDataListElementFromJS(value js.Wrapper) *HTMLDataListElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDataListElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Options returning attribute 'options' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLDataListElement) Options() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("options")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// interface: HTMLDetailsElement
+type HTMLDetailsElement struct {
+	HTMLElement
+}
+
+// HTMLDetailsElementFromJS is casting a js.Wrapper into HTMLDetailsElement.
+func HTMLDetailsElementFromJS(value js.Wrapper) *HTMLDetailsElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDetailsElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Open returning attribute 'open' with
+// type bool (idl: boolean).
+func (_this *HTMLDetailsElement) Open() bool {
+	var ret bool
+	value := _this.Value_JS.Get("open")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetOpen setting attribute 'open' with
+// type bool (idl: boolean).
+func (_this *HTMLDetailsElement) SetOpen(value bool) {
+	input := value
+	_this.Value_JS.Set("open", input)
+}
+
+// interface: HTMLDialogElement
+type HTMLDialogElement struct {
+	HTMLElement
+}
+
+// HTMLDialogElementFromJS is casting a js.Wrapper into HTMLDialogElement.
+func HTMLDialogElementFromJS(value js.Wrapper) *HTMLDialogElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDialogElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Open returning attribute 'open' with
+// type bool (idl: boolean).
+func (_this *HTMLDialogElement) Open() bool {
+	var ret bool
+	value := _this.Value_JS.Get("open")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetOpen setting attribute 'open' with
+// type bool (idl: boolean).
+func (_this *HTMLDialogElement) SetOpen(value bool) {
+	input := value
+	_this.Value_JS.Set("open", input)
+}
+
+// ReturnValue returning attribute 'returnValue' with
+// type string (idl: DOMString).
+func (_this *HTMLDialogElement) ReturnValue() string {
+	var ret string
+	value := _this.Value_JS.Get("returnValue")
+	ret = (value).String()
+	return ret
+}
+
+// SetReturnValue setting attribute 'returnValue' with
+// type string (idl: DOMString).
+func (_this *HTMLDialogElement) SetReturnValue(value string) {
+	input := value
+	_this.Value_JS.Set("returnValue", input)
+}
+
+func (_this *HTMLDialogElement) Show() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("show", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLDialogElement) ShowModal() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("showModal", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLDialogElement) Close(returnValue *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if returnValue != nil {
+		_p0 := returnValue
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLDirectoryElement
+type HTMLDirectoryElement struct {
+	HTMLElement
+}
+
+// HTMLDirectoryElementFromJS is casting a js.Wrapper into HTMLDirectoryElement.
+func HTMLDirectoryElementFromJS(value js.Wrapper) *HTMLDirectoryElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDirectoryElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLDirectoryElement) Compact() bool {
+	var ret bool
+	value := _this.Value_JS.Get("compact")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLDirectoryElement) SetCompact(value bool) {
+	input := value
+	_this.Value_JS.Set("compact", input)
+}
+
+// interface: HTMLDivElement
+type HTMLDivElement struct {
+	HTMLElement
+}
+
+// HTMLDivElementFromJS is casting a js.Wrapper into HTMLDivElement.
+func HTMLDivElementFromJS(value js.Wrapper) *HTMLDivElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLDivElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLDivElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLDivElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// interface: HTMLElement
+type HTMLElement struct {
+	dom.Element
+}
+
+// HTMLElementFromJS is casting a js.Wrapper into HTMLElement.
+func HTMLElementFromJS(value js.Wrapper) *HTMLElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Title returning attribute 'title' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Title() string {
+	var ret string
+	value := _this.Value_JS.Get("title")
+	ret = (value).String()
+	return ret
+}
+
+// SetTitle setting attribute 'title' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetTitle(value string) {
+	input := value
+	_this.Value_JS.Set("title", input)
+}
+
+// Lang returning attribute 'lang' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Lang() string {
+	var ret string
+	value := _this.Value_JS.Get("lang")
+	ret = (value).String()
+	return ret
+}
+
+// SetLang setting attribute 'lang' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetLang(value string) {
+	input := value
+	_this.Value_JS.Set("lang", input)
+}
+
+// Translate returning attribute 'translate' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) Translate() bool {
+	var ret bool
+	value := _this.Value_JS.Get("translate")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetTranslate setting attribute 'translate' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) SetTranslate(value bool) {
+	input := value
+	_this.Value_JS.Set("translate", input)
+}
+
+// Dir returning attribute 'dir' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Dir() string {
+	var ret string
+	value := _this.Value_JS.Get("dir")
+	ret = (value).String()
+	return ret
+}
+
+// SetDir setting attribute 'dir' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetDir(value string) {
+	input := value
+	_this.Value_JS.Set("dir", input)
+}
+
+// Hidden returning attribute 'hidden' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) Hidden() bool {
+	var ret bool
+	value := _this.Value_JS.Get("hidden")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetHidden setting attribute 'hidden' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) SetHidden(value bool) {
+	input := value
+	_this.Value_JS.Set("hidden", input)
+}
+
+// AccessKey returning attribute 'accessKey' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) AccessKey() string {
+	var ret string
+	value := _this.Value_JS.Get("accessKey")
+	ret = (value).String()
+	return ret
+}
+
+// SetAccessKey setting attribute 'accessKey' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetAccessKey(value string) {
+	input := value
+	_this.Value_JS.Set("accessKey", input)
+}
+
+// AccessKeyLabel returning attribute 'accessKeyLabel' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) AccessKeyLabel() string {
+	var ret string
+	value := _this.Value_JS.Get("accessKeyLabel")
+	ret = (value).String()
+	return ret
+}
+
+// Draggable returning attribute 'draggable' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) Draggable() bool {
+	var ret bool
+	value := _this.Value_JS.Get("draggable")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDraggable setting attribute 'draggable' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) SetDraggable(value bool) {
+	input := value
+	_this.Value_JS.Set("draggable", input)
+}
+
+// Spellcheck returning attribute 'spellcheck' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) Spellcheck() bool {
+	var ret bool
+	value := _this.Value_JS.Get("spellcheck")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetSpellcheck setting attribute 'spellcheck' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) SetSpellcheck(value bool) {
+	input := value
+	_this.Value_JS.Set("spellcheck", input)
+}
+
+// Autocapitalize returning attribute 'autocapitalize' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Autocapitalize() string {
+	var ret string
+	value := _this.Value_JS.Get("autocapitalize")
+	ret = (value).String()
+	return ret
+}
+
+// SetAutocapitalize setting attribute 'autocapitalize' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetAutocapitalize(value string) {
+	input := value
+	_this.Value_JS.Set("autocapitalize", input)
+}
+
+// InnerText returning attribute 'innerText' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) InnerText() string {
+	var ret string
+	value := _this.Value_JS.Get("innerText")
+	ret = (value).String()
+	return ret
+}
+
+// SetInnerText setting attribute 'innerText' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetInnerText(value string) {
+	input := value
+	_this.Value_JS.Set("innerText", input)
+}
+
+// Onabort returning attribute 'onabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onabort() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onabort")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnabort setting attribute 'onabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnabort(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onabort", input)
+}
+
+// Onauxclick returning attribute 'onauxclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onauxclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onauxclick")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnauxclick setting attribute 'onauxclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnauxclick(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onauxclick", input)
+}
+
+// Onblur returning attribute 'onblur' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onblur() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onblur")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnblur setting attribute 'onblur' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnblur(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onblur", input)
+}
+
+// Oncancel returning attribute 'oncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncancel setting attribute 'oncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncancel", input)
+}
+
+// Oncanplay returning attribute 'oncanplay' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncanplay() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncanplay")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncanplay setting attribute 'oncanplay' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncanplay(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncanplay", input)
+}
+
+// Oncanplaythrough returning attribute 'oncanplaythrough' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncanplaythrough")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncanplaythrough setting attribute 'oncanplaythrough' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncanplaythrough(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncanplaythrough", input)
+}
+
+// Onchange returning attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnchange setting attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onchange", input)
+}
+
+// Onclick returning attribute 'onclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onclick")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnclick setting attribute 'onclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnclick(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onclick", input)
+}
+
+// Onclose returning attribute 'onclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onclose() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onclose")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnclose setting attribute 'onclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnclose(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onclose", input)
+}
+
+// Oncontextmenu returning attribute 'oncontextmenu' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncontextmenu() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncontextmenu")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncontextmenu setting attribute 'oncontextmenu' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncontextmenu(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncontextmenu", input)
+}
+
+// Oncuechange returning attribute 'oncuechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncuechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncuechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncuechange setting attribute 'oncuechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncuechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncuechange", input)
+}
+
+// Ondblclick returning attribute 'ondblclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondblclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondblclick")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndblclick setting attribute 'ondblclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndblclick(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondblclick", input)
+}
+
+// Ondrag returning attribute 'ondrag' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondrag() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondrag")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndrag setting attribute 'ondrag' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndrag(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondrag", input)
+}
+
+// Ondragend returning attribute 'ondragend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragend setting attribute 'ondragend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragend", input)
+}
+
+// Ondragenter returning attribute 'ondragenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragenter")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragenter setting attribute 'ondragenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragenter", input)
+}
+
+// Ondragexit returning attribute 'ondragexit' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragexit() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragexit")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragexit setting attribute 'ondragexit' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragexit(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragexit", input)
+}
+
+// Ondragleave returning attribute 'ondragleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragleave")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragleave setting attribute 'ondragleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragleave(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragleave", input)
+}
+
+// Ondragover returning attribute 'ondragover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragover")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragover setting attribute 'ondragover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragover(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragover", input)
+}
+
+// Ondragstart returning attribute 'ondragstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondragstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondragstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndragstart setting attribute 'ondragstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndragstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondragstart", input)
+}
+
+// Ondrop returning attribute 'ondrop' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondrop() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondrop")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndrop setting attribute 'ondrop' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndrop(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondrop", input)
+}
+
+// Ondurationchange returning attribute 'ondurationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ondurationchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondurationchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndurationchange setting attribute 'ondurationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOndurationchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondurationchange", input)
+}
+
+// Onemptied returning attribute 'onemptied' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onemptied() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onemptied")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnemptied setting attribute 'onemptied' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnemptied(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onemptied", input)
+}
+
+// Onended returning attribute 'onended' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onended() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onended")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnended setting attribute 'onended' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnended(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onended", input)
+}
+
+// Onerror returning attribute 'onerror' with
+// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *HTMLElement) Onerror() htmlevent.OnErrorEventHandlerFunc {
+	var ret htmlevent.OnErrorEventHandlerFunc
+	value := _this.Value_JS.Get("onerror")
+	if value.Type() != js.TypeNull {
+		ret = htmlevent.OnErrorEventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnerror setting attribute 'onerror' with
+// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *HTMLElement) SetOnerror(value *htmlevent.OnErrorEventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onerror", input)
+}
+
+// Onfocus returning attribute 'onfocus' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onfocus() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onfocus")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnfocus setting attribute 'onfocus' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnfocus(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onfocus", input)
+}
+
+// Onformdata returning attribute 'onformdata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onformdata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onformdata")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnformdata setting attribute 'onformdata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnformdata(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onformdata", input)
+}
+
+// Oninput returning attribute 'oninput' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oninput() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oninput")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOninput setting attribute 'oninput' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOninput(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oninput", input)
+}
+
+// Oninvalid returning attribute 'oninvalid' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oninvalid() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oninvalid")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOninvalid setting attribute 'oninvalid' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOninvalid(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oninvalid", input)
+}
+
+// Onkeydown returning attribute 'onkeydown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onkeydown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onkeydown")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnkeydown setting attribute 'onkeydown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnkeydown(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onkeydown", input)
+}
+
+// Onkeypress returning attribute 'onkeypress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onkeypress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onkeypress")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnkeypress setting attribute 'onkeypress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnkeypress(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onkeypress", input)
+}
+
+// Onkeyup returning attribute 'onkeyup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onkeyup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onkeyup")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnkeyup setting attribute 'onkeyup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnkeyup(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onkeyup", input)
+}
+
+// Onload returning attribute 'onload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onload")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnload setting attribute 'onload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnload(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onload", input)
+}
+
+// Onloadeddata returning attribute 'onloadeddata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onloadeddata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onloadeddata")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnloadeddata setting attribute 'onloadeddata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnloadeddata(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onloadeddata", input)
+}
+
+// Onloadedmetadata returning attribute 'onloadedmetadata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onloadedmetadata")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnloadedmetadata(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onloadedmetadata", input)
+}
+
+// Onloadend returning attribute 'onloadend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onloadend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onloadend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnloadend setting attribute 'onloadend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnloadend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onloadend", input)
+}
+
+// Onloadstart returning attribute 'onloadstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onloadstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onloadstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnloadstart setting attribute 'onloadstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnloadstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onloadstart", input)
+}
+
+// Onmousedown returning attribute 'onmousedown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmousedown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmousedown")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmousedown setting attribute 'onmousedown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmousedown(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmousedown", input)
+}
+
+// Onmouseenter returning attribute 'onmouseenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmouseenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmouseenter")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmouseenter setting attribute 'onmouseenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmouseenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmouseenter", input)
+}
+
+// Onmouseleave returning attribute 'onmouseleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmouseleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmouseleave")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmouseleave setting attribute 'onmouseleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmouseleave(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmouseleave", input)
+}
+
+// Onmousemove returning attribute 'onmousemove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmousemove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmousemove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmousemove setting attribute 'onmousemove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmousemove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmousemove", input)
+}
+
+// Onmouseout returning attribute 'onmouseout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmouseout() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmouseout")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmouseout setting attribute 'onmouseout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmouseout(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmouseout", input)
+}
+
+// Onmouseover returning attribute 'onmouseover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmouseover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmouseover")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmouseover setting attribute 'onmouseover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmouseover(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmouseover", input)
+}
+
+// Onmouseup returning attribute 'onmouseup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onmouseup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmouseup")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmouseup setting attribute 'onmouseup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnmouseup(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmouseup", input)
+}
+
+// Onwheel returning attribute 'onwheel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onwheel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onwheel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnwheel setting attribute 'onwheel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnwheel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onwheel", input)
+}
+
+// Onpause returning attribute 'onpause' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpause() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpause")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpause setting attribute 'onpause' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpause(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpause", input)
+}
+
+// Onplay returning attribute 'onplay' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onplay() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onplay")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnplay setting attribute 'onplay' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnplay(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onplay", input)
+}
+
+// Onplaying returning attribute 'onplaying' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onplaying() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onplaying")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnplaying setting attribute 'onplaying' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnplaying(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onplaying", input)
+}
+
+// Onprogress returning attribute 'onprogress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onprogress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onprogress")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnprogress setting attribute 'onprogress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnprogress(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onprogress", input)
+}
+
+// Onratechange returning attribute 'onratechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onratechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onratechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnratechange setting attribute 'onratechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnratechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onratechange", input)
+}
+
+// Onreset returning attribute 'onreset' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onreset() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onreset")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnreset setting attribute 'onreset' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnreset(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onreset", input)
+}
+
+// Onresize returning attribute 'onresize' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onresize() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onresize")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnresize setting attribute 'onresize' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnresize(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onresize", input)
+}
+
+// Onscroll returning attribute 'onscroll' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onscroll() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onscroll")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnscroll setting attribute 'onscroll' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnscroll(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onscroll", input)
+}
+
+// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsecuritypolicyviolation")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsecuritypolicyviolation", input)
+}
+
+// Onseeked returning attribute 'onseeked' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onseeked() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onseeked")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnseeked setting attribute 'onseeked' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnseeked(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onseeked", input)
+}
+
+// Onseeking returning attribute 'onseeking' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onseeking() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onseeking")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnseeking setting attribute 'onseeking' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnseeking(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onseeking", input)
+}
+
+// Onselect returning attribute 'onselect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onselect() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselect")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselect setting attribute 'onselect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnselect(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselect", input)
+}
+
+// Onstalled returning attribute 'onstalled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onstalled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onstalled")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnstalled setting attribute 'onstalled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnstalled(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onstalled", input)
+}
+
+// Onsubmit returning attribute 'onsubmit' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onsubmit() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsubmit")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsubmit setting attribute 'onsubmit' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnsubmit(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsubmit", input)
+}
+
+// Onsuspend returning attribute 'onsuspend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onsuspend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsuspend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsuspend setting attribute 'onsuspend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnsuspend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsuspend", input)
+}
+
+// Ontimeupdate returning attribute 'ontimeupdate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontimeupdate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontimeupdate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntimeupdate setting attribute 'ontimeupdate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntimeupdate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontimeupdate", input)
+}
+
+// Ontoggle returning attribute 'ontoggle' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontoggle() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontoggle")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntoggle setting attribute 'ontoggle' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntoggle(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontoggle", input)
+}
+
+// Onvolumechange returning attribute 'onvolumechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onvolumechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvolumechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvolumechange setting attribute 'onvolumechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnvolumechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvolumechange", input)
+}
+
+// Onwaiting returning attribute 'onwaiting' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onwaiting() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onwaiting")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnwaiting setting attribute 'onwaiting' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnwaiting(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onwaiting", input)
+}
+
+// Oncopy returning attribute 'oncopy' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncopy")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncopy setting attribute 'oncopy' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncopy", input)
+}
+
+// Oncut returning attribute 'oncut' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncut")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncut setting attribute 'oncut' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncut", input)
+}
+
+// Onpaste returning attribute 'onpaste' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpaste")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpaste setting attribute 'onpaste' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpaste", input)
+}
+
+// ContentEditable returning attribute 'contentEditable' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) ContentEditable() string {
+	var ret string
+	value := _this.Value_JS.Get("contentEditable")
+	ret = (value).String()
+	return ret
+}
+
+// SetContentEditable setting attribute 'contentEditable' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetContentEditable(value string) {
+	input := value
+	_this.Value_JS.Set("contentEditable", input)
+}
+
+// EnterKeyHint returning attribute 'enterKeyHint' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) EnterKeyHint() string {
+	var ret string
+	value := _this.Value_JS.Get("enterKeyHint")
+	ret = (value).String()
+	return ret
+}
+
+// SetEnterKeyHint setting attribute 'enterKeyHint' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetEnterKeyHint(value string) {
+	input := value
+	_this.Value_JS.Set("enterKeyHint", input)
+}
+
+// IsContentEditable returning attribute 'isContentEditable' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) IsContentEditable() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isContentEditable")
+	ret = (value).Bool()
+	return ret
+}
+
+// InputMode returning attribute 'inputMode' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) InputMode() string {
+	var ret string
+	value := _this.Value_JS.Get("inputMode")
+	ret = (value).String()
+	return ret
+}
+
+// SetInputMode setting attribute 'inputMode' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetInputMode(value string) {
+	input := value
+	_this.Value_JS.Set("inputMode", input)
+}
+
+// Dataset returning attribute 'dataset' with
+// type domcore.DOMStringMap (idl: DOMStringMap).
+func (_this *HTMLElement) Dataset() *domcore.DOMStringMap {
+	var ret *domcore.DOMStringMap
+	value := _this.Value_JS.Get("dataset")
+	ret = domcore.DOMStringMapFromJS(value)
+	return ret
+}
+
+// Nonce returning attribute 'nonce' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Nonce() string {
+	var ret string
+	value := _this.Value_JS.Get("nonce")
+	ret = (value).String()
+	return ret
+}
+
+// SetNonce setting attribute 'nonce' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetNonce(value string) {
+	input := value
+	_this.Value_JS.Set("nonce", input)
+}
+
+// TabIndex returning attribute 'tabIndex' with
+// type int (idl: long).
+func (_this *HTMLElement) TabIndex() int {
+	var ret int
+	value := _this.Value_JS.Get("tabIndex")
+	ret = (value).Int()
+	return ret
+}
+
+// SetTabIndex setting attribute 'tabIndex' with
+// type int (idl: long).
+func (_this *HTMLElement) SetTabIndex(value int) {
+	input := value
+	_this.Value_JS.Set("tabIndex", input)
+}
+
+func (_this *HTMLElement) Click() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("click", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLElement) Focus(options *FocusOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("focus", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLElement) Blur() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("blur", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLFieldSetElement
+type HTMLFieldSetElement struct {
+	HTMLElement
+}
+
+// HTMLFieldSetElementFromJS is casting a js.Wrapper into HTMLFieldSetElement.
+func HTMLFieldSetElementFromJS(value js.Wrapper) *HTMLFieldSetElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLFieldSetElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLFieldSetElement) Disabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLFieldSetElement) SetDisabled(value bool) {
+	input := value
+	_this.Value_JS.Set("disabled", input)
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLFieldSetElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLFieldSetElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLFieldSetElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// Elements returning attribute 'elements' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLFieldSetElement) Elements() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("elements")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// WillValidate returning attribute 'willValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLFieldSetElement) WillValidate() bool {
+	var ret bool
+	value := _this.Value_JS.Get("willValidate")
+	ret = (value).Bool()
+	return ret
+}
+
+// Validity returning attribute 'validity' with
+// type ValidityState (idl: ValidityState).
+func (_this *HTMLFieldSetElement) Validity() *ValidityState {
+	var ret *ValidityState
+	value := _this.Value_JS.Get("validity")
+	ret = ValidityStateFromJS(value)
+	return ret
+}
+
+// ValidationMessage returning attribute 'validationMessage' with
+// type string (idl: DOMString).
+func (_this *HTMLFieldSetElement) ValidationMessage() string {
+	var ret string
+	value := _this.Value_JS.Get("validationMessage")
+	ret = (value).String()
+	return ret
+}
+
+func (_this *HTMLFieldSetElement) CheckValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLFieldSetElement) ReportValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := _error
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLFontElement
+type HTMLFontElement struct {
+	HTMLElement
+}
+
+// HTMLFontElementFromJS is casting a js.Wrapper into HTMLFontElement.
+func HTMLFontElementFromJS(value js.Wrapper) *HTMLFontElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLFontElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Color returning attribute 'color' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) Color() string {
+	var ret string
+	value := _this.Value_JS.Get("color")
+	ret = (value).String()
+	return ret
+}
+
+// SetColor setting attribute 'color' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) SetColor(value string) {
+	input := value
+	_this.Value_JS.Set("color", input)
+}
+
+// Face returning attribute 'face' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) Face() string {
+	var ret string
+	value := _this.Value_JS.Get("face")
+	ret = (value).String()
+	return ret
+}
+
+// SetFace setting attribute 'face' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) SetFace(value string) {
+	input := value
+	_this.Value_JS.Set("face", input)
+}
+
+// Size returning attribute 'size' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) Size() string {
+	var ret string
+	value := _this.Value_JS.Get("size")
+	ret = (value).String()
+	return ret
+}
+
+// SetSize setting attribute 'size' with
+// type string (idl: DOMString).
+func (_this *HTMLFontElement) SetSize(value string) {
+	input := value
+	_this.Value_JS.Set("size", input)
+}
+
+// interface: HTMLFormControlsCollection
+type HTMLFormControlsCollection struct {
+	dom.HTMLCollection
+}
+
+// HTMLFormControlsCollectionFromJS is casting a js.Wrapper into HTMLFormControlsCollection.
+func HTMLFormControlsCollectionFromJS(value js.Wrapper) *HTMLFormControlsCollection {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLFormControlsCollection{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = UnionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+// interface: HTMLFormElement
+type HTMLFormElement struct {
+	HTMLElement
+}
+
+// HTMLFormElementFromJS is casting a js.Wrapper into HTMLFormElement.
+func HTMLFormElementFromJS(value js.Wrapper) *HTMLFormElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLFormElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// AcceptCharset returning attribute 'acceptCharset' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) AcceptCharset() string {
+	var ret string
+	value := _this.Value_JS.Get("acceptCharset")
+	ret = (value).String()
+	return ret
+}
+
+// SetAcceptCharset setting attribute 'acceptCharset' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetAcceptCharset(value string) {
+	input := value
+	_this.Value_JS.Set("acceptCharset", input)
+}
+
+// Action returning attribute 'action' with
 // type string (idl: USVString).
-func (_this *HTMLSourceElement) Srcset() string {
+func (_this *HTMLFormElement) Action() string {
 	var ret string
-	value := _this.Value_JS.Get("srcset")
+	value := _this.Value_JS.Get("action")
 	ret = (value).String()
 	return ret
 }
 
-// SetSrcset setting attribute 'srcset' with
+// SetAction setting attribute 'action' with
 // type string (idl: USVString).
-func (_this *HTMLSourceElement) SetSrcset(value string) {
+func (_this *HTMLFormElement) SetAction(value string) {
 	input := value
-	_this.Value_JS.Set("srcset", input)
+	_this.Value_JS.Set("action", input)
 }
 
-// Sizes returning attribute 'sizes' with
+// Autocomplete returning attribute 'autocomplete' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) Sizes() string {
+func (_this *HTMLFormElement) Autocomplete() string {
 	var ret string
-	value := _this.Value_JS.Get("sizes")
+	value := _this.Value_JS.Get("autocomplete")
 	ret = (value).String()
 	return ret
 }
 
-// SetSizes setting attribute 'sizes' with
+// SetAutocomplete setting attribute 'autocomplete' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetSizes(value string) {
+func (_this *HTMLFormElement) SetAutocomplete(value string) {
 	input := value
-	_this.Value_JS.Set("sizes", input)
+	_this.Value_JS.Set("autocomplete", input)
 }
 
-// Media returning attribute 'media' with
+// Enctype returning attribute 'enctype' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) Media() string {
+func (_this *HTMLFormElement) Enctype() string {
 	var ret string
-	value := _this.Value_JS.Get("media")
+	value := _this.Value_JS.Get("enctype")
 	ret = (value).String()
 	return ret
 }
 
-// SetMedia setting attribute 'media' with
+// SetEnctype setting attribute 'enctype' with
 // type string (idl: DOMString).
-func (_this *HTMLSourceElement) SetMedia(value string) {
+func (_this *HTMLFormElement) SetEnctype(value string) {
 	input := value
-	_this.Value_JS.Set("media", input)
+	_this.Value_JS.Set("enctype", input)
+}
+
+// Encoding returning attribute 'encoding' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) Encoding() string {
+	var ret string
+	value := _this.Value_JS.Get("encoding")
+	ret = (value).String()
+	return ret
+}
+
+// SetEncoding setting attribute 'encoding' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetEncoding(value string) {
+	input := value
+	_this.Value_JS.Set("encoding", input)
+}
+
+// Method returning attribute 'method' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) Method() string {
+	var ret string
+	value := _this.Value_JS.Get("method")
+	ret = (value).String()
+	return ret
+}
+
+// SetMethod setting attribute 'method' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetMethod(value string) {
+	input := value
+	_this.Value_JS.Set("method", input)
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// NoValidate returning attribute 'noValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLFormElement) NoValidate() bool {
+	var ret bool
+	value := _this.Value_JS.Get("noValidate")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetNoValidate setting attribute 'noValidate' with
+// type bool (idl: boolean).
+func (_this *HTMLFormElement) SetNoValidate(value bool) {
+	input := value
+	_this.Value_JS.Set("noValidate", input)
+}
+
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) Target() string {
+	var ret string
+	value := _this.Value_JS.Get("target")
+	ret = (value).String()
+	return ret
+}
+
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetTarget(value string) {
+	input := value
+	_this.Value_JS.Set("target", input)
+}
+
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) Rel() string {
+	var ret string
+	value := _this.Value_JS.Get("rel")
+	ret = (value).String()
+	return ret
+}
+
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLFormElement) SetRel(value string) {
+	input := value
+	_this.Value_JS.Set("rel", input)
+}
+
+// RelList returning attribute 'relList' with
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLFormElement) RelList() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
+	value := _this.Value_JS.Get("relList")
+	ret = domcore.DOMTokenListFromJS(value)
+	return ret
+}
+
+// Elements returning attribute 'elements' with
+// type HTMLFormControlsCollection (idl: HTMLFormControlsCollection).
+func (_this *HTMLFormElement) Elements() *HTMLFormControlsCollection {
+	var ret *HTMLFormControlsCollection
+	value := _this.Value_JS.Get("elements")
+	ret = HTMLFormControlsCollectionFromJS(value)
+	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *HTMLFormElement) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+func (_this *HTMLFormElement) Submit() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("submit", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLFormElement) Reset() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("reset", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLFormElement) CheckValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLFormElement) ReportValidity() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// interface: HTMLFrameSetElement
+type HTMLFrameSetElement struct {
+	HTMLElement
+}
+
+// HTMLFrameSetElementFromJS is casting a js.Wrapper into HTMLFrameSetElement.
+func HTMLFrameSetElementFromJS(value js.Wrapper) *HTMLFrameSetElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLFrameSetElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Cols returning attribute 'cols' with
+// type string (idl: DOMString).
+func (_this *HTMLFrameSetElement) Cols() string {
+	var ret string
+	value := _this.Value_JS.Get("cols")
+	ret = (value).String()
+	return ret
+}
+
+// SetCols setting attribute 'cols' with
+// type string (idl: DOMString).
+func (_this *HTMLFrameSetElement) SetCols(value string) {
+	input := value
+	_this.Value_JS.Set("cols", input)
+}
+
+// Rows returning attribute 'rows' with
+// type string (idl: DOMString).
+func (_this *HTMLFrameSetElement) Rows() string {
+	var ret string
+	value := _this.Value_JS.Get("rows")
+	ret = (value).String()
+	return ret
+}
+
+// SetRows setting attribute 'rows' with
+// type string (idl: DOMString).
+func (_this *HTMLFrameSetElement) SetRows(value string) {
+	input := value
+	_this.Value_JS.Set("rows", input)
+}
+
+// Onafterprint returning attribute 'onafterprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onafterprint")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnafterprint setting attribute 'onafterprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnafterprint(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onafterprint", input)
+}
+
+// Onbeforeprint returning attribute 'onbeforeprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbeforeprint")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbeforeprint setting attribute 'onbeforeprint' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbeforeprint", input)
+}
+
+// Onbeforeunload returning attribute 'onbeforeunload' with
+// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
+	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
+	value := _this.Value_JS.Get("onbeforeunload")
+	if value.Type() != js.TypeNull {
+		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbeforeunload setting attribute 'onbeforeunload' with
+// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbeforeunload", input)
+}
+
+// Onhashchange returning attribute 'onhashchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onhashchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnhashchange setting attribute 'onhashchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnhashchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onhashchange", input)
+}
+
+// Onlanguagechange returning attribute 'onlanguagechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onlanguagechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onlanguagechange", input)
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+// Onoffline returning attribute 'onoffline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onoffline")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnoffline setting attribute 'onoffline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnoffline(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onoffline", input)
+}
+
+// Ononline returning attribute 'ononline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ononline")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnonline setting attribute 'ononline' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnonline(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ononline", input)
+}
+
+// Onpagehide returning attribute 'onpagehide' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpagehide")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpagehide setting attribute 'onpagehide' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnpagehide(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpagehide", input)
+}
+
+// Onpageshow returning attribute 'onpageshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpageshow")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpageshow setting attribute 'onpageshow' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnpageshow(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpageshow", input)
+}
+
+// Onpopstate returning attribute 'onpopstate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpopstate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpopstate setting attribute 'onpopstate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnpopstate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpopstate", input)
+}
+
+// Onrejectionhandled returning attribute 'onrejectionhandled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onrejectionhandled")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onrejectionhandled", input)
+}
+
+// Onstorage returning attribute 'onstorage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onstorage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnstorage setting attribute 'onstorage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnstorage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onstorage", input)
+}
+
+// Onunhandledrejection returning attribute 'onunhandledrejection' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onunhandledrejection")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onunhandledrejection", input)
+}
+
+// Onunload returning attribute 'onunload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onunload")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnunload setting attribute 'onunload' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnunload(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onunload", input)
+}
+
+// interface: HTMLHRElement
+type HTMLHRElement struct {
+	HTMLElement
+}
+
+// HTMLHRElementFromJS is casting a js.Wrapper into HTMLHRElement.
+func HTMLHRElementFromJS(value js.Wrapper) *HTMLHRElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLHRElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Color returning attribute 'color' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) Color() string {
+	var ret string
+	value := _this.Value_JS.Get("color")
+	ret = (value).String()
+	return ret
+}
+
+// SetColor setting attribute 'color' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) SetColor(value string) {
+	input := value
+	_this.Value_JS.Set("color", input)
+}
+
+// NoShade returning attribute 'noShade' with
+// type bool (idl: boolean).
+func (_this *HTMLHRElement) NoShade() bool {
+	var ret bool
+	value := _this.Value_JS.Get("noShade")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetNoShade setting attribute 'noShade' with
+// type bool (idl: boolean).
+func (_this *HTMLHRElement) SetNoShade(value bool) {
+	input := value
+	_this.Value_JS.Set("noShade", input)
+}
+
+// Size returning attribute 'size' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) Size() string {
+	var ret string
+	value := _this.Value_JS.Get("size")
+	ret = (value).String()
+	return ret
+}
+
+// SetSize setting attribute 'size' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) SetSize(value string) {
+	input := value
+	_this.Value_JS.Set("size", input)
+}
+
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) Width() string {
+	var ret string
+	value := _this.Value_JS.Get("width")
+	ret = (value).String()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLHRElement) SetWidth(value string) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// interface: HTMLHeadElement
+type HTMLHeadElement struct {
+	HTMLElement
+}
+
+// HTMLHeadElementFromJS is casting a js.Wrapper into HTMLHeadElement.
+func HTMLHeadElementFromJS(value js.Wrapper) *HTMLHeadElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLHeadElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: HTMLHeadingElement
+type HTMLHeadingElement struct {
+	HTMLElement
+}
+
+// HTMLHeadingElementFromJS is casting a js.Wrapper into HTMLHeadingElement.
+func HTMLHeadingElementFromJS(value js.Wrapper) *HTMLHeadingElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLHeadingElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLHeadingElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLHeadingElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// interface: HTMLHtmlElement
+type HTMLHtmlElement struct {
+	HTMLElement
+}
+
+// HTMLHtmlElementFromJS is casting a js.Wrapper into HTMLHtmlElement.
+func HTMLHtmlElementFromJS(value js.Wrapper) *HTMLHtmlElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLHtmlElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Version returning attribute 'version' with
+// type string (idl: DOMString).
+func (_this *HTMLHtmlElement) Version() string {
+	var ret string
+	value := _this.Value_JS.Get("version")
+	ret = (value).String()
+	return ret
+}
+
+// SetVersion setting attribute 'version' with
+// type string (idl: DOMString).
+func (_this *HTMLHtmlElement) SetVersion(value string) {
+	input := value
+	_this.Value_JS.Set("version", input)
 }
 
 // interface: HTMLImageElement
@@ -4838,1845 +5503,6 @@ func (_this *HTMLImageElement) Decode() (_result *javascript.Promise) {
 	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
 	return
-}
-
-// interface: HTMLParamElement
-type HTMLParamElement struct {
-	HTMLElement
-}
-
-// HTMLParamElementFromJS is casting a js.Wrapper into HTMLParamElement.
-func HTMLParamElementFromJS(value js.Wrapper) *HTMLParamElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLParamElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// ValueType returning attribute 'valueType' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) ValueType() string {
-	var ret string
-	value := _this.Value_JS.Get("valueType")
-	ret = (value).String()
-	return ret
-}
-
-// SetValueType setting attribute 'valueType' with
-// type string (idl: DOMString).
-func (_this *HTMLParamElement) SetValueType(value string) {
-	input := value
-	_this.Value_JS.Set("valueType", input)
-}
-
-// interface: TimeRanges
-type TimeRanges struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TimeRanges) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TimeRangesFromJS is casting a js.Wrapper into TimeRanges.
-func TimeRangesFromJS(value js.Wrapper) *TimeRanges {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TimeRanges{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *TimeRanges) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *TimeRanges) Start(index uint) (_result float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("start", _args[0:_end]...)
-	var (
-		_converted float64 // javascript: double _what_return_name
-	)
-	_converted = (_returned).Float()
-	_result = _converted
-	return
-}
-
-func (_this *TimeRanges) End(index uint) (_result float64) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("end", _args[0:_end]...)
-	var (
-		_converted float64 // javascript: double _what_return_name
-	)
-	_converted = (_returned).Float()
-	_result = _converted
-	return
-}
-
-// interface: HTMLMapElement
-type HTMLMapElement struct {
-	HTMLElement
-}
-
-// HTMLMapElementFromJS is casting a js.Wrapper into HTMLMapElement.
-func HTMLMapElementFromJS(value js.Wrapper) *HTMLMapElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMapElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMapElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLMapElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Areas returning attribute 'areas' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLMapElement) Areas() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("areas")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// interface: HTMLAreaElement
-type HTMLAreaElement struct {
-	HTMLElement
-}
-
-// HTMLAreaElementFromJS is casting a js.Wrapper into HTMLAreaElement.
-func HTMLAreaElementFromJS(value js.Wrapper) *HTMLAreaElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLAreaElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Alt returning attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Alt() string {
-	var ret string
-	value := _this.Value_JS.Get("alt")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlt setting attribute 'alt' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetAlt(value string) {
-	input := value
-	_this.Value_JS.Set("alt", input)
-}
-
-// Coords returning attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Coords() string {
-	var ret string
-	value := _this.Value_JS.Get("coords")
-	ret = (value).String()
-	return ret
-}
-
-// SetCoords setting attribute 'coords' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetCoords(value string) {
-	input := value
-	_this.Value_JS.Set("coords", input)
-}
-
-// Shape returning attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Shape() string {
-	var ret string
-	value := _this.Value_JS.Get("shape")
-	ret = (value).String()
-	return ret
-}
-
-// SetShape setting attribute 'shape' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetShape(value string) {
-	input := value
-	_this.Value_JS.Set("shape", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// Download returning attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Download() string {
-	var ret string
-	value := _this.Value_JS.Get("download")
-	ret = (value).String()
-	return ret
-}
-
-// SetDownload setting attribute 'download' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetDownload(value string) {
-	input := value
-	_this.Value_JS.Set("download", input)
-}
-
-// Ping returning attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Ping() string {
-	var ret string
-	value := _this.Value_JS.Get("ping")
-	ret = (value).String()
-	return ret
-}
-
-// SetPing setting attribute 'ping' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPing(value string) {
-	input := value
-	_this.Value_JS.Set("ping", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// RelList returning attribute 'relList' with
-// type domcore.DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLAreaElement) RelList() *domcore.DOMTokenList {
-	var ret *domcore.DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = domcore.DOMTokenListFromJS(value)
-	return ret
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLAreaElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// NoHref returning attribute 'noHref' with
-// type bool (idl: boolean).
-func (_this *HTMLAreaElement) NoHref() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noHref")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoHref setting attribute 'noHref' with
-// type bool (idl: boolean).
-func (_this *HTMLAreaElement) SetNoHref(value bool) {
-	input := value
-	_this.Value_JS.Set("noHref", input)
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// SetHref setting attribute 'href' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHref(value string) {
-	input := value
-	_this.Value_JS.Set("href", input)
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// SetProtocol setting attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetProtocol(value string) {
-	input := value
-	_this.Value_JS.Set("protocol", input)
-}
-
-// Username returning attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Username() string {
-	var ret string
-	value := _this.Value_JS.Get("username")
-	ret = (value).String()
-	return ret
-}
-
-// SetUsername setting attribute 'username' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetUsername(value string) {
-	input := value
-	_this.Value_JS.Set("username", input)
-}
-
-// Password returning attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Password() string {
-	var ret string
-	value := _this.Value_JS.Get("password")
-	ret = (value).String()
-	return ret
-}
-
-// SetPassword setting attribute 'password' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPassword(value string) {
-	input := value
-	_this.Value_JS.Set("password", input)
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// SetHost setting attribute 'host' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHost(value string) {
-	input := value
-	_this.Value_JS.Set("host", input)
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// SetHostname setting attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHostname(value string) {
-	input := value
-	_this.Value_JS.Set("hostname", input)
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// SetPort setting attribute 'port' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPort(value string) {
-	input := value
-	_this.Value_JS.Set("port", input)
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// SetPathname setting attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetPathname(value string) {
-	input := value
-	_this.Value_JS.Set("pathname", input)
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// SetSearch setting attribute 'search' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetSearch(value string) {
-	input := value
-	_this.Value_JS.Set("search", input)
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
-}
-
-// SetHash setting attribute 'hash' with
-// type string (idl: USVString).
-func (_this *HTMLAreaElement) SetHash(value string) {
-	input := value
-	_this.Value_JS.Set("hash", input)
-}
-
-// interface: HTMLTableElement
-type HTMLTableElement struct {
-	HTMLElement
-}
-
-// HTMLTableElementFromJS is casting a js.Wrapper into HTMLTableElement.
-func HTMLTableElementFromJS(value js.Wrapper) *HTMLTableElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Caption returning attribute 'caption' with
-// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
-func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
-	var ret *HTMLTableCaptionElement
-	value := _this.Value_JS.Get("caption")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableCaptionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetCaption setting attribute 'caption' with
-// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
-func (_this *HTMLTableElement) SetCaption(value *HTMLTableCaptionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("caption", input)
-}
-
-// THead returning attribute 'tHead' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
-	var ret *HTMLTableSectionElement
-	value := _this.Value_JS.Get("tHead")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableSectionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetTHead setting attribute 'tHead' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) SetTHead(value *HTMLTableSectionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("tHead", input)
-}
-
-// TFoot returning attribute 'tFoot' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
-	var ret *HTMLTableSectionElement
-	value := _this.Value_JS.Get("tFoot")
-	if value.Type() != js.TypeNull {
-		ret = HTMLTableSectionElementFromJS(value)
-	}
-	return ret
-}
-
-// SetTFoot setting attribute 'tFoot' with
-// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
-func (_this *HTMLTableElement) SetTFoot(value *HTMLTableSectionElement) {
-	input := value.JSValue()
-	_this.Value_JS.Set("tFoot", input)
-}
-
-// TBodies returning attribute 'tBodies' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableElement) TBodies() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("tBodies")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Rows returning attribute 'rows' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableElement) Rows() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("rows")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Border returning attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Border() string {
-	var ret string
-	value := _this.Value_JS.Get("border")
-	ret = (value).String()
-	return ret
-}
-
-// SetBorder setting attribute 'border' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetBorder(value string) {
-	input := value
-	_this.Value_JS.Set("border", input)
-}
-
-// Frame returning attribute 'frame' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Frame() string {
-	var ret string
-	value := _this.Value_JS.Get("frame")
-	ret = (value).String()
-	return ret
-}
-
-// SetFrame setting attribute 'frame' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetFrame(value string) {
-	input := value
-	_this.Value_JS.Set("frame", input)
-}
-
-// Rules returning attribute 'rules' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Rules() string {
-	var ret string
-	value := _this.Value_JS.Get("rules")
-	ret = (value).String()
-	return ret
-}
-
-// SetRules setting attribute 'rules' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetRules(value string) {
-	input := value
-	_this.Value_JS.Set("rules", input)
-}
-
-// Summary returning attribute 'summary' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Summary() string {
-	var ret string
-	value := _this.Value_JS.Get("summary")
-	ret = (value).String()
-	return ret
-}
-
-// SetSummary setting attribute 'summary' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetSummary(value string) {
-	input := value
-	_this.Value_JS.Set("summary", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// CellPadding returning attribute 'cellPadding' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) CellPadding() string {
-	var ret string
-	value := _this.Value_JS.Get("cellPadding")
-	ret = (value).String()
-	return ret
-}
-
-// SetCellPadding setting attribute 'cellPadding' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetCellPadding(value string) {
-	input := value
-	_this.Value_JS.Set("cellPadding", input)
-}
-
-// CellSpacing returning attribute 'cellSpacing' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) CellSpacing() string {
-	var ret string
-	value := _this.Value_JS.Get("cellSpacing")
-	ret = (value).String()
-	return ret
-}
-
-// SetCellSpacing setting attribute 'cellSpacing' with
-// type string (idl: DOMString).
-func (_this *HTMLTableElement) SetCellSpacing(value string) {
-	input := value
-	_this.Value_JS.Set("cellSpacing", input)
-}
-
-func (_this *HTMLTableElement) CreateCaption() (_result *HTMLTableCaptionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createCaption", _args[0:_end]...)
-	var (
-		_converted *HTMLTableCaptionElement // javascript: HTMLTableCaptionElement _what_return_name
-	)
-	_converted = HTMLTableCaptionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteCaption() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteCaption", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTHead() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTHead", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteTHead() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteTHead", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTFoot() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTFoot", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteTFoot() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("deleteTFoot", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLTableElement) CreateTBody() (_result *HTMLTableSectionElement) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("createTBody", _args[0:_end]...)
-	var (
-		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
-	)
-	_converted = HTMLTableSectionElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
-	var (
-		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
-	)
-	_converted = HTMLTableRowElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableElement) DeleteRow(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableCaptionElement
-type HTMLTableCaptionElement struct {
-	HTMLElement
-}
-
-// HTMLTableCaptionElementFromJS is casting a js.Wrapper into HTMLTableCaptionElement.
-func HTMLTableCaptionElementFromJS(value js.Wrapper) *HTMLTableCaptionElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableCaptionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCaptionElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCaptionElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// interface: HTMLTableColElement
-type HTMLTableColElement struct {
-	HTMLElement
-}
-
-// HTMLTableColElementFromJS is casting a js.Wrapper into HTMLTableColElement.
-func HTMLTableColElementFromJS(value js.Wrapper) *HTMLTableColElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableColElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Span returning attribute 'span' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableColElement) Span() uint {
-	var ret uint
-	value := _this.Value_JS.Get("span")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetSpan setting attribute 'span' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableColElement) SetSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("span", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableColElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// interface: HTMLTableSectionElement
-type HTMLTableSectionElement struct {
-	HTMLElement
-}
-
-// HTMLTableSectionElementFromJS is casting a js.Wrapper into HTMLTableSectionElement.
-func HTMLTableSectionElementFromJS(value js.Wrapper) *HTMLTableSectionElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableSectionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Rows returning attribute 'rows' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableSectionElement) Rows() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("rows")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableSectionElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
-	var (
-		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
-	)
-	_converted = HTMLTableRowElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableSectionElement) DeleteRow(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableRowElement
-type HTMLTableRowElement struct {
-	HTMLElement
-}
-
-// HTMLTableRowElementFromJS is casting a js.Wrapper into HTMLTableRowElement.
-func HTMLTableRowElementFromJS(value js.Wrapper) *HTMLTableRowElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableRowElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// RowIndex returning attribute 'rowIndex' with
-// type int (idl: long).
-func (_this *HTMLTableRowElement) RowIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("rowIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SectionRowIndex returning attribute 'sectionRowIndex' with
-// type int (idl: long).
-func (_this *HTMLTableRowElement) SectionRowIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("sectionRowIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// Cells returning attribute 'cells' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLTableRowElement) Cells() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("cells")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableRowElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCellElement) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if index != nil {
-		_p0 := index
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("insertCell", _args[0:_end]...)
-	var (
-		_converted *HTMLTableCellElement // javascript: HTMLTableCellElement _what_return_name
-	)
-	_converted = HTMLTableCellElementFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *HTMLTableRowElement) DeleteCell(index int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("deleteCell", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLTableCellElement
-type HTMLTableCellElement struct {
-	HTMLElement
-}
-
-// HTMLTableCellElementFromJS is casting a js.Wrapper into HTMLTableCellElement.
-func HTMLTableCellElementFromJS(value js.Wrapper) *HTMLTableCellElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTableCellElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// ColSpan returning attribute 'colSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) ColSpan() uint {
-	var ret uint
-	value := _this.Value_JS.Get("colSpan")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetColSpan setting attribute 'colSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) SetColSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("colSpan", input)
-}
-
-// RowSpan returning attribute 'rowSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) RowSpan() uint {
-	var ret uint
-	value := _this.Value_JS.Get("rowSpan")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetRowSpan setting attribute 'rowSpan' with
-// type uint (idl: unsigned long).
-func (_this *HTMLTableCellElement) SetRowSpan(value uint) {
-	input := value
-	_this.Value_JS.Set("rowSpan", input)
-}
-
-// Headers returning attribute 'headers' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Headers() string {
-	var ret string
-	value := _this.Value_JS.Get("headers")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeaders setting attribute 'headers' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetHeaders(value string) {
-	input := value
-	_this.Value_JS.Set("headers", input)
-}
-
-// CellIndex returning attribute 'cellIndex' with
-// type int (idl: long).
-func (_this *HTMLTableCellElement) CellIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("cellIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// Scope returning attribute 'scope' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Scope() string {
-	var ret string
-	value := _this.Value_JS.Get("scope")
-	ret = (value).String()
-	return ret
-}
-
-// SetScope setting attribute 'scope' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetScope(value string) {
-	input := value
-	_this.Value_JS.Set("scope", input)
-}
-
-// Abbr returning attribute 'abbr' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Abbr() string {
-	var ret string
-	value := _this.Value_JS.Get("abbr")
-	ret = (value).String()
-	return ret
-}
-
-// SetAbbr setting attribute 'abbr' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAbbr(value string) {
-	input := value
-	_this.Value_JS.Set("abbr", input)
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
-}
-
-// Axis returning attribute 'axis' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Axis() string {
-	var ret string
-	value := _this.Value_JS.Get("axis")
-	ret = (value).String()
-	return ret
-}
-
-// SetAxis setting attribute 'axis' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetAxis(value string) {
-	input := value
-	_this.Value_JS.Set("axis", input)
-}
-
-// Height returning attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Height() string {
-	var ret string
-	value := _this.Value_JS.Get("height")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetHeight(value string) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Ch returning attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) Ch() string {
-	var ret string
-	value := _this.Value_JS.Get("ch")
-	ret = (value).String()
-	return ret
-}
-
-// SetCh setting attribute 'ch' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetCh(value string) {
-	input := value
-	_this.Value_JS.Set("ch", input)
-}
-
-// ChOff returning attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) ChOff() string {
-	var ret string
-	value := _this.Value_JS.Get("chOff")
-	ret = (value).String()
-	return ret
-}
-
-// SetChOff setting attribute 'chOff' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetChOff(value string) {
-	input := value
-	_this.Value_JS.Set("chOff", input)
-}
-
-// NoWrap returning attribute 'noWrap' with
-// type bool (idl: boolean).
-func (_this *HTMLTableCellElement) NoWrap() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noWrap")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoWrap setting attribute 'noWrap' with
-// type bool (idl: boolean).
-func (_this *HTMLTableCellElement) SetNoWrap(value bool) {
-	input := value
-	_this.Value_JS.Set("noWrap", input)
-}
-
-// VAlign returning attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) VAlign() string {
-	var ret string
-	value := _this.Value_JS.Get("vAlign")
-	ret = (value).String()
-	return ret
-}
-
-// SetVAlign setting attribute 'vAlign' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetVAlign(value string) {
-	input := value
-	_this.Value_JS.Set("vAlign", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLTableCellElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// interface: HTMLFormElement
-type HTMLFormElement struct {
-	HTMLElement
-}
-
-// HTMLFormElementFromJS is casting a js.Wrapper into HTMLFormElement.
-func HTMLFormElementFromJS(value js.Wrapper) *HTMLFormElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFormElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// AcceptCharset returning attribute 'acceptCharset' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) AcceptCharset() string {
-	var ret string
-	value := _this.Value_JS.Get("acceptCharset")
-	ret = (value).String()
-	return ret
-}
-
-// SetAcceptCharset setting attribute 'acceptCharset' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetAcceptCharset(value string) {
-	input := value
-	_this.Value_JS.Set("acceptCharset", input)
-}
-
-// Action returning attribute 'action' with
-// type string (idl: USVString).
-func (_this *HTMLFormElement) Action() string {
-	var ret string
-	value := _this.Value_JS.Get("action")
-	ret = (value).String()
-	return ret
-}
-
-// SetAction setting attribute 'action' with
-// type string (idl: USVString).
-func (_this *HTMLFormElement) SetAction(value string) {
-	input := value
-	_this.Value_JS.Set("action", input)
-}
-
-// Autocomplete returning attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Autocomplete() string {
-	var ret string
-	value := _this.Value_JS.Get("autocomplete")
-	ret = (value).String()
-	return ret
-}
-
-// SetAutocomplete setting attribute 'autocomplete' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetAutocomplete(value string) {
-	input := value
-	_this.Value_JS.Set("autocomplete", input)
-}
-
-// Enctype returning attribute 'enctype' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Enctype() string {
-	var ret string
-	value := _this.Value_JS.Get("enctype")
-	ret = (value).String()
-	return ret
-}
-
-// SetEnctype setting attribute 'enctype' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetEnctype(value string) {
-	input := value
-	_this.Value_JS.Set("enctype", input)
-}
-
-// Encoding returning attribute 'encoding' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Encoding() string {
-	var ret string
-	value := _this.Value_JS.Get("encoding")
-	ret = (value).String()
-	return ret
-}
-
-// SetEncoding setting attribute 'encoding' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetEncoding(value string) {
-	input := value
-	_this.Value_JS.Set("encoding", input)
-}
-
-// Method returning attribute 'method' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Method() string {
-	var ret string
-	value := _this.Value_JS.Get("method")
-	ret = (value).String()
-	return ret
-}
-
-// SetMethod setting attribute 'method' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetMethod(value string) {
-	input := value
-	_this.Value_JS.Set("method", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// NoValidate returning attribute 'noValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFormElement) NoValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoValidate setting attribute 'noValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFormElement) SetNoValidate(value bool) {
-	input := value
-	_this.Value_JS.Set("noValidate", input)
-}
-
-// Target returning attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Target() string {
-	var ret string
-	value := _this.Value_JS.Get("target")
-	ret = (value).String()
-	return ret
-}
-
-// SetTarget setting attribute 'target' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetTarget(value string) {
-	input := value
-	_this.Value_JS.Set("target", input)
-}
-
-// Rel returning attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) Rel() string {
-	var ret string
-	value := _this.Value_JS.Get("rel")
-	ret = (value).String()
-	return ret
-}
-
-// SetRel setting attribute 'rel' with
-// type string (idl: DOMString).
-func (_this *HTMLFormElement) SetRel(value string) {
-	input := value
-	_this.Value_JS.Set("rel", input)
-}
-
-// RelList returning attribute 'relList' with
-// type domcore.DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLFormElement) RelList() *domcore.DOMTokenList {
-	var ret *domcore.DOMTokenList
-	value := _this.Value_JS.Get("relList")
-	ret = domcore.DOMTokenListFromJS(value)
-	return ret
-}
-
-// Elements returning attribute 'elements' with
-// type HTMLFormControlsCollection (idl: HTMLFormControlsCollection).
-func (_this *HTMLFormElement) Elements() *HTMLFormControlsCollection {
-	var ret *HTMLFormControlsCollection
-	value := _this.Value_JS.Get("elements")
-	ret = HTMLFormControlsCollectionFromJS(value)
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *HTMLFormElement) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *HTMLFormElement) Submit() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("submit", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLFormElement) Reset() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("reset", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLFormElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLFormElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: HTMLLabelElement
-type HTMLLabelElement struct {
-	HTMLElement
-}
-
-// HTMLLabelElementFromJS is casting a js.Wrapper into HTMLLabelElement.
-func HTMLLabelElementFromJS(value js.Wrapper) *HTMLLabelElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLabelElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLLabelElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// HtmlFor returning attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLLabelElement) HtmlFor() string {
-	var ret string
-	value := _this.Value_JS.Get("htmlFor")
-	ret = (value).String()
-	return ret
-}
-
-// SetHtmlFor setting attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLLabelElement) SetHtmlFor(value string) {
-	input := value
-	_this.Value_JS.Set("htmlFor", input)
-}
-
-// Control returning attribute 'control' with
-// type HTMLElement (idl: HTMLElement).
-func (_this *HTMLLabelElement) Control() *HTMLElement {
-	var ret *HTMLElement
-	value := _this.Value_JS.Get("control")
-	if value.Type() != js.TypeNull {
-		ret = HTMLElementFromJS(value)
-	}
-	return ret
 }
 
 // interface: HTMLInputElement
@@ -7540,164 +6366,41 @@ func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction
 	return
 }
 
-// interface: HTMLButtonElement
-type HTMLButtonElement struct {
+// interface: HTMLLIElement
+type HTMLLIElement struct {
 	HTMLElement
 }
 
-// HTMLButtonElementFromJS is casting a js.Wrapper into HTMLButtonElement.
-func HTMLButtonElementFromJS(value js.Wrapper) *HTMLButtonElement {
+// HTMLLIElementFromJS is casting a js.Wrapper into HTMLLIElement.
+func HTMLLIElementFromJS(value js.Wrapper) *HTMLLIElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLButtonElement{}
+	ret := &HTMLLIElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Autofocus returning attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) Autofocus() bool {
-	var ret bool
-	value := _this.Value_JS.Get("autofocus")
-	ret = (value).Bool()
+// Value returning attribute 'value' with
+// type int (idl: long).
+func (_this *HTMLLIElement) Value() int {
+	var ret int
+	value := _this.Value_JS.Get("value")
+	ret = (value).Int()
 	return ret
 }
 
-// SetAutofocus setting attribute 'autofocus' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetAutofocus(value bool) {
+// SetValue setting attribute 'value' with
+// type int (idl: long).
+func (_this *HTMLLIElement) SetValue(value int) {
 	input := value
-	_this.Value_JS.Set("autofocus", input)
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLButtonElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// FormAction returning attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLButtonElement) FormAction() string {
-	var ret string
-	value := _this.Value_JS.Get("formAction")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormAction setting attribute 'formAction' with
-// type string (idl: USVString).
-func (_this *HTMLButtonElement) SetFormAction(value string) {
-	input := value
-	_this.Value_JS.Set("formAction", input)
-}
-
-// FormEnctype returning attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormEnctype() string {
-	var ret string
-	value := _this.Value_JS.Get("formEnctype")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormEnctype setting attribute 'formEnctype' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormEnctype(value string) {
-	input := value
-	_this.Value_JS.Set("formEnctype", input)
-}
-
-// FormMethod returning attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormMethod() string {
-	var ret string
-	value := _this.Value_JS.Get("formMethod")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormMethod setting attribute 'formMethod' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormMethod(value string) {
-	input := value
-	_this.Value_JS.Set("formMethod", input)
-}
-
-// FormNoValidate returning attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) FormNoValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("formNoValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetFormNoValidate setting attribute 'formNoValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLButtonElement) SetFormNoValidate(value bool) {
-	input := value
-	_this.Value_JS.Set("formNoValidate", input)
-}
-
-// FormTarget returning attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) FormTarget() string {
-	var ret string
-	value := _this.Value_JS.Get("formTarget")
-	ret = (value).String()
-	return ret
-}
-
-// SetFormTarget setting attribute 'formTarget' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetFormTarget(value string) {
-	input := value
-	_this.Value_JS.Set("formTarget", input)
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
+	_this.Value_JS.Set("value", input)
 }
 
 // Type returning attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLButtonElement) Type() string {
+func (_this *HTMLLIElement) Type() string {
 	var ret string
 	value := _this.Value_JS.Get("type")
 	ret = (value).String()
@@ -7706,14 +6409,1163 @@ func (_this *HTMLButtonElement) Type() string {
 
 // SetType setting attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetType(value string) {
+func (_this *HTMLLIElement) SetType(value string) {
 	input := value
 	_this.Value_JS.Set("type", input)
 }
 
+// interface: HTMLLabelElement
+type HTMLLabelElement struct {
+	HTMLElement
+}
+
+// HTMLLabelElementFromJS is casting a js.Wrapper into HTMLLabelElement.
+func HTMLLabelElementFromJS(value js.Wrapper) *HTMLLabelElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLLabelElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLLabelElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// HtmlFor returning attribute 'htmlFor' with
+// type string (idl: DOMString).
+func (_this *HTMLLabelElement) HtmlFor() string {
+	var ret string
+	value := _this.Value_JS.Get("htmlFor")
+	ret = (value).String()
+	return ret
+}
+
+// SetHtmlFor setting attribute 'htmlFor' with
+// type string (idl: DOMString).
+func (_this *HTMLLabelElement) SetHtmlFor(value string) {
+	input := value
+	_this.Value_JS.Set("htmlFor", input)
+}
+
+// Control returning attribute 'control' with
+// type HTMLElement (idl: HTMLElement).
+func (_this *HTMLLabelElement) Control() *HTMLElement {
+	var ret *HTMLElement
+	value := _this.Value_JS.Get("control")
+	if value.Type() != js.TypeNull {
+		ret = HTMLElementFromJS(value)
+	}
+	return ret
+}
+
+// interface: HTMLLegendElement
+type HTMLLegendElement struct {
+	HTMLElement
+}
+
+// HTMLLegendElementFromJS is casting a js.Wrapper into HTMLLegendElement.
+func HTMLLegendElementFromJS(value js.Wrapper) *HTMLLegendElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLLegendElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLLegendElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLLegendElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLLegendElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// interface: HTMLLinkElement
+type HTMLLinkElement struct {
+	HTMLElement
+}
+
+// HTMLLinkElementFromJS is casting a js.Wrapper into HTMLLinkElement.
+func HTMLLinkElementFromJS(value js.Wrapper) *HTMLLinkElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLLinkElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Href returning attribute 'href' with
+// type string (idl: USVString).
+func (_this *HTMLLinkElement) Href() string {
+	var ret string
+	value := _this.Value_JS.Get("href")
+	ret = (value).String()
+	return ret
+}
+
+// SetHref setting attribute 'href' with
+// type string (idl: USVString).
+func (_this *HTMLLinkElement) SetHref(value string) {
+	input := value
+	_this.Value_JS.Set("href", input)
+}
+
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) CrossOrigin() *string {
+	var ret *string
+	value := _this.Value_JS.Get("crossOrigin")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetCrossOrigin(value *string) {
+	input := value
+	_this.Value_JS.Set("crossOrigin", input)
+}
+
+// Rel returning attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Rel() string {
+	var ret string
+	value := _this.Value_JS.Get("rel")
+	ret = (value).String()
+	return ret
+}
+
+// SetRel setting attribute 'rel' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetRel(value string) {
+	input := value
+	_this.Value_JS.Set("rel", input)
+}
+
+// As returning attribute 'as' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) As() string {
+	var ret string
+	value := _this.Value_JS.Get("as")
+	ret = (value).String()
+	return ret
+}
+
+// SetAs setting attribute 'as' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetAs(value string) {
+	input := value
+	_this.Value_JS.Set("as", input)
+}
+
+// RelList returning attribute 'relList' with
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLLinkElement) RelList() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
+	value := _this.Value_JS.Get("relList")
+	ret = domcore.DOMTokenListFromJS(value)
+	return ret
+}
+
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Media() string {
+	var ret string
+	value := _this.Value_JS.Get("media")
+	ret = (value).String()
+	return ret
+}
+
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetMedia(value string) {
+	input := value
+	_this.Value_JS.Set("media", input)
+}
+
+// Integrity returning attribute 'integrity' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Integrity() string {
+	var ret string
+	value := _this.Value_JS.Get("integrity")
+	ret = (value).String()
+	return ret
+}
+
+// SetIntegrity setting attribute 'integrity' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetIntegrity(value string) {
+	input := value
+	_this.Value_JS.Set("integrity", input)
+}
+
+// Hreflang returning attribute 'hreflang' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Hreflang() string {
+	var ret string
+	value := _this.Value_JS.Get("hreflang")
+	ret = (value).String()
+	return ret
+}
+
+// SetHreflang setting attribute 'hreflang' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetHreflang(value string) {
+	input := value
+	_this.Value_JS.Set("hreflang", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// Sizes returning attribute 'sizes' with
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLLinkElement) Sizes() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
+	value := _this.Value_JS.Get("sizes")
+	ret = domcore.DOMTokenListFromJS(value)
+	return ret
+}
+
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) ReferrerPolicy() string {
+	var ret string
+	value := _this.Value_JS.Get("referrerPolicy")
+	ret = (value).String()
+	return ret
+}
+
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetReferrerPolicy(value string) {
+	input := value
+	_this.Value_JS.Set("referrerPolicy", input)
+}
+
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Charset() string {
+	var ret string
+	value := _this.Value_JS.Get("charset")
+	ret = (value).String()
+	return ret
+}
+
+// SetCharset setting attribute 'charset' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetCharset(value string) {
+	input := value
+	_this.Value_JS.Set("charset", input)
+}
+
+// Rev returning attribute 'rev' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Rev() string {
+	var ret string
+	value := _this.Value_JS.Get("rev")
+	ret = (value).String()
+	return ret
+}
+
+// SetRev setting attribute 'rev' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetRev(value string) {
+	input := value
+	_this.Value_JS.Set("rev", input)
+}
+
+// Target returning attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) Target() string {
+	var ret string
+	value := _this.Value_JS.Get("target")
+	ret = (value).String()
+	return ret
+}
+
+// SetTarget setting attribute 'target' with
+// type string (idl: DOMString).
+func (_this *HTMLLinkElement) SetTarget(value string) {
+	input := value
+	_this.Value_JS.Set("target", input)
+}
+
+// interface: HTMLMapElement
+type HTMLMapElement struct {
+	HTMLElement
+}
+
+// HTMLMapElementFromJS is casting a js.Wrapper into HTMLMapElement.
+func HTMLMapElementFromJS(value js.Wrapper) *HTMLMapElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLMapElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLMapElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLMapElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// Areas returning attribute 'areas' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLMapElement) Areas() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("areas")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// interface: HTMLMarqueeElement
+type HTMLMarqueeElement struct {
+	HTMLElement
+}
+
+// HTMLMarqueeElementFromJS is casting a js.Wrapper into HTMLMarqueeElement.
+func HTMLMarqueeElementFromJS(value js.Wrapper) *HTMLMarqueeElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLMarqueeElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Behavior returning attribute 'behavior' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) Behavior() string {
+	var ret string
+	value := _this.Value_JS.Get("behavior")
+	ret = (value).String()
+	return ret
+}
+
+// SetBehavior setting attribute 'behavior' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) SetBehavior(value string) {
+	input := value
+	_this.Value_JS.Set("behavior", input)
+}
+
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) BgColor() string {
+	var ret string
+	value := _this.Value_JS.Get("bgColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) SetBgColor(value string) {
+	input := value
+	_this.Value_JS.Set("bgColor", input)
+}
+
+// Direction returning attribute 'direction' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) Direction() string {
+	var ret string
+	value := _this.Value_JS.Get("direction")
+	ret = (value).String()
+	return ret
+}
+
+// SetDirection setting attribute 'direction' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) SetDirection(value string) {
+	input := value
+	_this.Value_JS.Set("direction", input)
+}
+
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) Height() string {
+	var ret string
+	value := _this.Value_JS.Get("height")
+	ret = (value).String()
+	return ret
+}
+
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) SetHeight(value string) {
+	input := value
+	_this.Value_JS.Set("height", input)
+}
+
+// Hspace returning attribute 'hspace' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) Hspace() uint {
+	var ret uint
+	value := _this.Value_JS.Get("hspace")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetHspace setting attribute 'hspace' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) SetHspace(value uint) {
+	input := value
+	_this.Value_JS.Set("hspace", input)
+}
+
+// Loop returning attribute 'loop' with
+// type int (idl: long).
+func (_this *HTMLMarqueeElement) Loop() int {
+	var ret int
+	value := _this.Value_JS.Get("loop")
+	ret = (value).Int()
+	return ret
+}
+
+// SetLoop setting attribute 'loop' with
+// type int (idl: long).
+func (_this *HTMLMarqueeElement) SetLoop(value int) {
+	input := value
+	_this.Value_JS.Set("loop", input)
+}
+
+// ScrollAmount returning attribute 'scrollAmount' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) ScrollAmount() uint {
+	var ret uint
+	value := _this.Value_JS.Get("scrollAmount")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetScrollAmount setting attribute 'scrollAmount' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) SetScrollAmount(value uint) {
+	input := value
+	_this.Value_JS.Set("scrollAmount", input)
+}
+
+// ScrollDelay returning attribute 'scrollDelay' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) ScrollDelay() uint {
+	var ret uint
+	value := _this.Value_JS.Get("scrollDelay")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetScrollDelay setting attribute 'scrollDelay' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) SetScrollDelay(value uint) {
+	input := value
+	_this.Value_JS.Set("scrollDelay", input)
+}
+
+// TrueSpeed returning attribute 'trueSpeed' with
+// type bool (idl: boolean).
+func (_this *HTMLMarqueeElement) TrueSpeed() bool {
+	var ret bool
+	value := _this.Value_JS.Get("trueSpeed")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetTrueSpeed setting attribute 'trueSpeed' with
+// type bool (idl: boolean).
+func (_this *HTMLMarqueeElement) SetTrueSpeed(value bool) {
+	input := value
+	_this.Value_JS.Set("trueSpeed", input)
+}
+
+// Vspace returning attribute 'vspace' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) Vspace() uint {
+	var ret uint
+	value := _this.Value_JS.Get("vspace")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetVspace setting attribute 'vspace' with
+// type uint (idl: unsigned long).
+func (_this *HTMLMarqueeElement) SetVspace(value uint) {
+	input := value
+	_this.Value_JS.Set("vspace", input)
+}
+
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) Width() string {
+	var ret string
+	value := _this.Value_JS.Get("width")
+	ret = (value).String()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLMarqueeElement) SetWidth(value string) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// Onbounce returning attribute 'onbounce' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbounce")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbounce setting attribute 'onbounce' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) SetOnbounce(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbounce", input)
+}
+
+// Onfinish returning attribute 'onfinish' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onfinish")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnfinish setting attribute 'onfinish' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) SetOnfinish(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onfinish", input)
+}
+
+// Onstart returning attribute 'onstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnstart setting attribute 'onstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMarqueeElement) SetOnstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onstart", input)
+}
+
+func (_this *HTMLMarqueeElement) Start() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("start", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLMarqueeElement) Stop() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("stop", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLMenuElement
+type HTMLMenuElement struct {
+	HTMLElement
+}
+
+// HTMLMenuElementFromJS is casting a js.Wrapper into HTMLMenuElement.
+func HTMLMenuElementFromJS(value js.Wrapper) *HTMLMenuElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLMenuElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLMenuElement) Compact() bool {
+	var ret bool
+	value := _this.Value_JS.Get("compact")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLMenuElement) SetCompact(value bool) {
+	input := value
+	_this.Value_JS.Set("compact", input)
+}
+
+// interface: HTMLMetaElement
+type HTMLMetaElement struct {
+	HTMLElement
+}
+
+// HTMLMetaElementFromJS is casting a js.Wrapper into HTMLMetaElement.
+func HTMLMetaElementFromJS(value js.Wrapper) *HTMLMetaElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLMetaElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// HttpEquiv returning attribute 'httpEquiv' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) HttpEquiv() string {
+	var ret string
+	value := _this.Value_JS.Get("httpEquiv")
+	ret = (value).String()
+	return ret
+}
+
+// SetHttpEquiv setting attribute 'httpEquiv' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) SetHttpEquiv(value string) {
+	input := value
+	_this.Value_JS.Set("httpEquiv", input)
+}
+
+// Content returning attribute 'content' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) Content() string {
+	var ret string
+	value := _this.Value_JS.Get("content")
+	ret = (value).String()
+	return ret
+}
+
+// SetContent setting attribute 'content' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) SetContent(value string) {
+	input := value
+	_this.Value_JS.Set("content", input)
+}
+
+// Scheme returning attribute 'scheme' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) Scheme() string {
+	var ret string
+	value := _this.Value_JS.Get("scheme")
+	ret = (value).String()
+	return ret
+}
+
+// SetScheme setting attribute 'scheme' with
+// type string (idl: DOMString).
+func (_this *HTMLMetaElement) SetScheme(value string) {
+	input := value
+	_this.Value_JS.Set("scheme", input)
+}
+
+// interface: HTMLMeterElement
+type HTMLMeterElement struct {
+	HTMLElement
+}
+
+// HTMLMeterElementFromJS is casting a js.Wrapper into HTMLMeterElement.
+func HTMLMeterElementFromJS(value js.Wrapper) *HTMLMeterElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLMeterElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Value returning attribute 'value' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) Value() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("value")
+	ret = (value).Float()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetValue(value float64) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// Min returning attribute 'min' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) Min() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("min")
+	ret = (value).Float()
+	return ret
+}
+
+// SetMin setting attribute 'min' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetMin(value float64) {
+	input := value
+	_this.Value_JS.Set("min", input)
+}
+
+// Max returning attribute 'max' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) Max() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("max")
+	ret = (value).Float()
+	return ret
+}
+
+// SetMax setting attribute 'max' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetMax(value float64) {
+	input := value
+	_this.Value_JS.Set("max", input)
+}
+
+// Low returning attribute 'low' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) Low() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("low")
+	ret = (value).Float()
+	return ret
+}
+
+// SetLow setting attribute 'low' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetLow(value float64) {
+	input := value
+	_this.Value_JS.Set("low", input)
+}
+
+// High returning attribute 'high' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) High() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("high")
+	ret = (value).Float()
+	return ret
+}
+
+// SetHigh setting attribute 'high' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetHigh(value float64) {
+	input := value
+	_this.Value_JS.Set("high", input)
+}
+
+// Optimum returning attribute 'optimum' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) Optimum() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("optimum")
+	ret = (value).Float()
+	return ret
+}
+
+// SetOptimum setting attribute 'optimum' with
+// type float64 (idl: double).
+func (_this *HTMLMeterElement) SetOptimum(value float64) {
+	input := value
+	_this.Value_JS.Set("optimum", input)
+}
+
+// Labels returning attribute 'labels' with
+// type dom.NodeList (idl: NodeList).
+func (_this *HTMLMeterElement) Labels() *dom.NodeList {
+	var ret *dom.NodeList
+	value := _this.Value_JS.Get("labels")
+	ret = dom.NodeListFromJS(value)
+	return ret
+}
+
+// interface: HTMLModElement
+type HTMLModElement struct {
+	HTMLElement
+}
+
+// HTMLModElementFromJS is casting a js.Wrapper into HTMLModElement.
+func HTMLModElementFromJS(value js.Wrapper) *HTMLModElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLModElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Cite returning attribute 'cite' with
+// type string (idl: USVString).
+func (_this *HTMLModElement) Cite() string {
+	var ret string
+	value := _this.Value_JS.Get("cite")
+	ret = (value).String()
+	return ret
+}
+
+// SetCite setting attribute 'cite' with
+// type string (idl: USVString).
+func (_this *HTMLModElement) SetCite(value string) {
+	input := value
+	_this.Value_JS.Set("cite", input)
+}
+
+// DateTime returning attribute 'dateTime' with
+// type string (idl: DOMString).
+func (_this *HTMLModElement) DateTime() string {
+	var ret string
+	value := _this.Value_JS.Get("dateTime")
+	ret = (value).String()
+	return ret
+}
+
+// SetDateTime setting attribute 'dateTime' with
+// type string (idl: DOMString).
+func (_this *HTMLModElement) SetDateTime(value string) {
+	input := value
+	_this.Value_JS.Set("dateTime", input)
+}
+
+// interface: HTMLOListElement
+type HTMLOListElement struct {
+	HTMLElement
+}
+
+// HTMLOListElementFromJS is casting a js.Wrapper into HTMLOListElement.
+func HTMLOListElementFromJS(value js.Wrapper) *HTMLOListElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLOListElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Reversed returning attribute 'reversed' with
+// type bool (idl: boolean).
+func (_this *HTMLOListElement) Reversed() bool {
+	var ret bool
+	value := _this.Value_JS.Get("reversed")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetReversed setting attribute 'reversed' with
+// type bool (idl: boolean).
+func (_this *HTMLOListElement) SetReversed(value bool) {
+	input := value
+	_this.Value_JS.Set("reversed", input)
+}
+
+// Start returning attribute 'start' with
+// type int (idl: long).
+func (_this *HTMLOListElement) Start() int {
+	var ret int
+	value := _this.Value_JS.Get("start")
+	ret = (value).Int()
+	return ret
+}
+
+// SetStart setting attribute 'start' with
+// type int (idl: long).
+func (_this *HTMLOListElement) SetStart(value int) {
+	input := value
+	_this.Value_JS.Set("start", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLOListElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLOListElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLOListElement) Compact() bool {
+	var ret bool
+	value := _this.Value_JS.Get("compact")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLOListElement) SetCompact(value bool) {
+	input := value
+	_this.Value_JS.Set("compact", input)
+}
+
+// interface: HTMLOptGroupElement
+type HTMLOptGroupElement struct {
+	HTMLElement
+}
+
+// HTMLOptGroupElementFromJS is casting a js.Wrapper into HTMLOptGroupElement.
+func HTMLOptGroupElementFromJS(value js.Wrapper) *HTMLOptGroupElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLOptGroupElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLOptGroupElement) Disabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLOptGroupElement) SetDisabled(value bool) {
+	input := value
+	_this.Value_JS.Set("disabled", input)
+}
+
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
+func (_this *HTMLOptGroupElement) Label() string {
+	var ret string
+	value := _this.Value_JS.Get("label")
+	ret = (value).String()
+	return ret
+}
+
+// SetLabel setting attribute 'label' with
+// type string (idl: DOMString).
+func (_this *HTMLOptGroupElement) SetLabel(value string) {
+	input := value
+	_this.Value_JS.Set("label", input)
+}
+
+// interface: HTMLOptionElement
+type HTMLOptionElement struct {
+	HTMLElement
+}
+
+// HTMLOptionElementFromJS is casting a js.Wrapper into HTMLOptionElement.
+func HTMLOptionElementFromJS(value js.Wrapper) *HTMLOptionElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLOptionElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Disabled returning attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) Disabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisabled setting attribute 'disabled' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) SetDisabled(value bool) {
+	input := value
+	_this.Value_JS.Set("disabled", input)
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLOptionElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// Label returning attribute 'label' with
+// type string (idl: DOMString).
+func (_this *HTMLOptionElement) Label() string {
+	var ret string
+	value := _this.Value_JS.Get("label")
+	ret = (value).String()
+	return ret
+}
+
+// SetLabel setting attribute 'label' with
+// type string (idl: DOMString).
+func (_this *HTMLOptionElement) SetLabel(value string) {
+	input := value
+	_this.Value_JS.Set("label", input)
+}
+
+// DefaultSelected returning attribute 'defaultSelected' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) DefaultSelected() bool {
+	var ret bool
+	value := _this.Value_JS.Get("defaultSelected")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDefaultSelected setting attribute 'defaultSelected' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) SetDefaultSelected(value bool) {
+	input := value
+	_this.Value_JS.Set("defaultSelected", input)
+}
+
+// Selected returning attribute 'selected' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) Selected() bool {
+	var ret bool
+	value := _this.Value_JS.Get("selected")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetSelected setting attribute 'selected' with
+// type bool (idl: boolean).
+func (_this *HTMLOptionElement) SetSelected(value bool) {
+	input := value
+	_this.Value_JS.Set("selected", input)
+}
+
 // Value returning attribute 'value' with
 // type string (idl: DOMString).
-func (_this *HTMLButtonElement) Value() string {
+func (_this *HTMLOptionElement) Value() string {
 	var ret string
 	value := _this.Value_JS.Get("value")
 	ret = (value).String()
@@ -7722,14 +7574,209 @@ func (_this *HTMLButtonElement) Value() string {
 
 // SetValue setting attribute 'value' with
 // type string (idl: DOMString).
-func (_this *HTMLButtonElement) SetValue(value string) {
+func (_this *HTMLOptionElement) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLOptionElement) Text() string {
+	var ret string
+	value := _this.Value_JS.Get("text")
+	ret = (value).String()
+	return ret
+}
+
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLOptionElement) SetText(value string) {
+	input := value
+	_this.Value_JS.Set("text", input)
+}
+
+// Index returning attribute 'index' with
+// type int (idl: long).
+func (_this *HTMLOptionElement) Index() int {
+	var ret int
+	value := _this.Value_JS.Get("index")
+	ret = (value).Int()
+	return ret
+}
+
+// interface: HTMLOptionsCollection
+type HTMLOptionsCollection struct {
+	dom.HTMLCollection
+}
+
+// HTMLOptionsCollectionFromJS is casting a js.Wrapper into HTMLOptionsCollection.
+func HTMLOptionsCollectionFromJS(value js.Wrapper) *HTMLOptionsCollection {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLOptionsCollection{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *HTMLOptionsCollection) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetLength setting attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *HTMLOptionsCollection) SetLength(value uint) {
+	input := value
+	_this.Value_JS.Set("length", input)
+}
+
+// SelectedIndex returning attribute 'selectedIndex' with
+// type int (idl: long).
+func (_this *HTMLOptionsCollection) SelectedIndex() int {
+	var ret int
+	value := _this.Value_JS.Get("selectedIndex")
+	ret = (value).Int()
+	return ret
+}
+
+// SetSelectedIndex setting attribute 'selectedIndex' with
+// type int (idl: long).
+func (_this *HTMLOptionsCollection) SetSelectedIndex(value int) {
+	input := value
+	_this.Value_JS.Set("selectedIndex", input)
+}
+
+func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := element.JSValue()
+	_args[0] = _p0
+	_end++
+	if before != nil {
+		_p1 := before.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("add", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLOptionsCollection) Remove(index int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLOutputElement
+type HTMLOutputElement struct {
+	HTMLElement
+}
+
+// HTMLOutputElementFromJS is casting a js.Wrapper into HTMLOutputElement.
+func HTMLOutputElementFromJS(value js.Wrapper) *HTMLOutputElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLOutputElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// HtmlFor returning attribute 'htmlFor' with
+// type domcore.DOMTokenList (idl: DOMTokenList).
+func (_this *HTMLOutputElement) HtmlFor() *domcore.DOMTokenList {
+	var ret *domcore.DOMTokenList
+	value := _this.Value_JS.Get("htmlFor")
+	ret = domcore.DOMTokenListFromJS(value)
+	return ret
+}
+
+// Form returning attribute 'form' with
+// type HTMLFormElement (idl: HTMLFormElement).
+func (_this *HTMLOutputElement) Form() *HTMLFormElement {
+	var ret *HTMLFormElement
+	value := _this.Value_JS.Get("form")
+	if value.Type() != js.TypeNull {
+		ret = HTMLFormElementFromJS(value)
+	}
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// DefaultValue returning attribute 'defaultValue' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) DefaultValue() string {
+	var ret string
+	value := _this.Value_JS.Get("defaultValue")
+	ret = (value).String()
+	return ret
+}
+
+// SetDefaultValue setting attribute 'defaultValue' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) SetDefaultValue(value string) {
+	input := value
+	_this.Value_JS.Set("defaultValue", input)
+}
+
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) Value() string {
+	var ret string
+	value := _this.Value_JS.Get("value")
+	ret = (value).String()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLOutputElement) SetValue(value string) {
 	input := value
 	_this.Value_JS.Set("value", input)
 }
 
 // WillValidate returning attribute 'willValidate' with
 // type bool (idl: boolean).
-func (_this *HTMLButtonElement) WillValidate() bool {
+func (_this *HTMLOutputElement) WillValidate() bool {
 	var ret bool
 	value := _this.Value_JS.Get("willValidate")
 	ret = (value).Bool()
@@ -7738,7 +7785,7 @@ func (_this *HTMLButtonElement) WillValidate() bool {
 
 // Validity returning attribute 'validity' with
 // type ValidityState (idl: ValidityState).
-func (_this *HTMLButtonElement) Validity() *ValidityState {
+func (_this *HTMLOutputElement) Validity() *ValidityState {
 	var ret *ValidityState
 	value := _this.Value_JS.Get("validity")
 	ret = ValidityStateFromJS(value)
@@ -7747,7 +7794,7 @@ func (_this *HTMLButtonElement) Validity() *ValidityState {
 
 // ValidationMessage returning attribute 'validationMessage' with
 // type string (idl: DOMString).
-func (_this *HTMLButtonElement) ValidationMessage() string {
+func (_this *HTMLOutputElement) ValidationMessage() string {
 	var ret string
 	value := _this.Value_JS.Get("validationMessage")
 	ret = (value).String()
@@ -7756,14 +7803,14 @@ func (_this *HTMLButtonElement) ValidationMessage() string {
 
 // Labels returning attribute 'labels' with
 // type dom.NodeList (idl: NodeList).
-func (_this *HTMLButtonElement) Labels() *dom.NodeList {
+func (_this *HTMLOutputElement) Labels() *dom.NodeList {
 	var ret *dom.NodeList
 	value := _this.Value_JS.Get("labels")
 	ret = dom.NodeListFromJS(value)
 	return ret
 }
 
-func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
+func (_this *HTMLOutputElement) CheckValidity() (_result bool) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -7777,7 +7824,7 @@ func (_this *HTMLButtonElement) CheckValidity() (_result bool) {
 	return
 }
 
-func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
+func (_this *HTMLOutputElement) ReportValidity() (_result bool) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -7791,7 +7838,7 @@ func (_this *HTMLButtonElement) ReportValidity() (_result bool) {
 	return
 }
 
-func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
+func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -7801,6 +7848,475 @@ func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
 	_end++
 	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
 	return
+}
+
+// interface: HTMLParagraphElement
+type HTMLParagraphElement struct {
+	HTMLElement
+}
+
+// HTMLParagraphElementFromJS is casting a js.Wrapper into HTMLParagraphElement.
+func HTMLParagraphElementFromJS(value js.Wrapper) *HTMLParagraphElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLParagraphElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLParagraphElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLParagraphElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// interface: HTMLParamElement
+type HTMLParamElement struct {
+	HTMLElement
+}
+
+// HTMLParamElementFromJS is casting a js.Wrapper into HTMLParamElement.
+func HTMLParamElementFromJS(value js.Wrapper) *HTMLParamElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLParamElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) Value() string {
+	var ret string
+	value := _this.Value_JS.Get("value")
+	ret = (value).String()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// ValueType returning attribute 'valueType' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) ValueType() string {
+	var ret string
+	value := _this.Value_JS.Get("valueType")
+	ret = (value).String()
+	return ret
+}
+
+// SetValueType setting attribute 'valueType' with
+// type string (idl: DOMString).
+func (_this *HTMLParamElement) SetValueType(value string) {
+	input := value
+	_this.Value_JS.Set("valueType", input)
+}
+
+// interface: HTMLPictureElement
+type HTMLPictureElement struct {
+	HTMLElement
+}
+
+// HTMLPictureElementFromJS is casting a js.Wrapper into HTMLPictureElement.
+func HTMLPictureElementFromJS(value js.Wrapper) *HTMLPictureElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLPictureElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: HTMLPreElement
+type HTMLPreElement struct {
+	HTMLElement
+}
+
+// HTMLPreElementFromJS is casting a js.Wrapper into HTMLPreElement.
+func HTMLPreElementFromJS(value js.Wrapper) *HTMLPreElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLPreElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Width returning attribute 'width' with
+// type int (idl: long).
+func (_this *HTMLPreElement) Width() int {
+	var ret int
+	value := _this.Value_JS.Get("width")
+	ret = (value).Int()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type int (idl: long).
+func (_this *HTMLPreElement) SetWidth(value int) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// interface: HTMLProgressElement
+type HTMLProgressElement struct {
+	HTMLElement
+}
+
+// HTMLProgressElementFromJS is casting a js.Wrapper into HTMLProgressElement.
+func HTMLProgressElementFromJS(value js.Wrapper) *HTMLProgressElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLProgressElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Value returning attribute 'value' with
+// type float64 (idl: double).
+func (_this *HTMLProgressElement) Value() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("value")
+	ret = (value).Float()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type float64 (idl: double).
+func (_this *HTMLProgressElement) SetValue(value float64) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// Max returning attribute 'max' with
+// type float64 (idl: double).
+func (_this *HTMLProgressElement) Max() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("max")
+	ret = (value).Float()
+	return ret
+}
+
+// SetMax setting attribute 'max' with
+// type float64 (idl: double).
+func (_this *HTMLProgressElement) SetMax(value float64) {
+	input := value
+	_this.Value_JS.Set("max", input)
+}
+
+// Position returning attribute 'position' with
+// type float64 (idl: double).
+func (_this *HTMLProgressElement) Position() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("position")
+	ret = (value).Float()
+	return ret
+}
+
+// Labels returning attribute 'labels' with
+// type dom.NodeList (idl: NodeList).
+func (_this *HTMLProgressElement) Labels() *dom.NodeList {
+	var ret *dom.NodeList
+	value := _this.Value_JS.Get("labels")
+	ret = dom.NodeListFromJS(value)
+	return ret
+}
+
+// interface: HTMLQuoteElement
+type HTMLQuoteElement struct {
+	HTMLElement
+}
+
+// HTMLQuoteElementFromJS is casting a js.Wrapper into HTMLQuoteElement.
+func HTMLQuoteElementFromJS(value js.Wrapper) *HTMLQuoteElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLQuoteElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Cite returning attribute 'cite' with
+// type string (idl: USVString).
+func (_this *HTMLQuoteElement) Cite() string {
+	var ret string
+	value := _this.Value_JS.Get("cite")
+	ret = (value).String()
+	return ret
+}
+
+// SetCite setting attribute 'cite' with
+// type string (idl: USVString).
+func (_this *HTMLQuoteElement) SetCite(value string) {
+	input := value
+	_this.Value_JS.Set("cite", input)
+}
+
+// interface: HTMLScriptElement
+type HTMLScriptElement struct {
+	HTMLElement
+}
+
+// HTMLScriptElementFromJS is casting a js.Wrapper into HTMLScriptElement.
+func HTMLScriptElementFromJS(value js.Wrapper) *HTMLScriptElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLScriptElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Src returning attribute 'src' with
+// type string (idl: USVString).
+func (_this *HTMLScriptElement) Src() string {
+	var ret string
+	value := _this.Value_JS.Get("src")
+	ret = (value).String()
+	return ret
+}
+
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
+func (_this *HTMLScriptElement) SetSrc(value string) {
+	input := value
+	_this.Value_JS.Set("src", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// NoModule returning attribute 'noModule' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) NoModule() bool {
+	var ret bool
+	value := _this.Value_JS.Get("noModule")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetNoModule setting attribute 'noModule' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) SetNoModule(value bool) {
+	input := value
+	_this.Value_JS.Set("noModule", input)
+}
+
+// Async returning attribute 'async' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) Async() bool {
+	var ret bool
+	value := _this.Value_JS.Get("async")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetAsync setting attribute 'async' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) SetAsync(value bool) {
+	input := value
+	_this.Value_JS.Set("async", input)
+}
+
+// Defer returning attribute 'defer' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) Defer() bool {
+	var ret bool
+	value := _this.Value_JS.Get("defer")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDefer setting attribute 'defer' with
+// type bool (idl: boolean).
+func (_this *HTMLScriptElement) SetDefer(value bool) {
+	input := value
+	_this.Value_JS.Set("defer", input)
+}
+
+// CrossOrigin returning attribute 'crossOrigin' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) CrossOrigin() *string {
+	var ret *string
+	value := _this.Value_JS.Get("crossOrigin")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetCrossOrigin setting attribute 'crossOrigin' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetCrossOrigin(value *string) {
+	input := value
+	_this.Value_JS.Set("crossOrigin", input)
+}
+
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) Text() string {
+	var ret string
+	value := _this.Value_JS.Get("text")
+	ret = (value).String()
+	return ret
+}
+
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetText(value string) {
+	input := value
+	_this.Value_JS.Set("text", input)
+}
+
+// Integrity returning attribute 'integrity' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) Integrity() string {
+	var ret string
+	value := _this.Value_JS.Get("integrity")
+	ret = (value).String()
+	return ret
+}
+
+// SetIntegrity setting attribute 'integrity' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetIntegrity(value string) {
+	input := value
+	_this.Value_JS.Set("integrity", input)
+}
+
+// ReferrerPolicy returning attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) ReferrerPolicy() string {
+	var ret string
+	value := _this.Value_JS.Get("referrerPolicy")
+	ret = (value).String()
+	return ret
+}
+
+// SetReferrerPolicy setting attribute 'referrerPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetReferrerPolicy(value string) {
+	input := value
+	_this.Value_JS.Set("referrerPolicy", input)
+}
+
+// Charset returning attribute 'charset' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) Charset() string {
+	var ret string
+	value := _this.Value_JS.Get("charset")
+	ret = (value).String()
+	return ret
+}
+
+// SetCharset setting attribute 'charset' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetCharset(value string) {
+	input := value
+	_this.Value_JS.Set("charset", input)
+}
+
+// Event returning attribute 'event' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) Event() string {
+	var ret string
+	value := _this.Value_JS.Get("event")
+	ret = (value).String()
+	return ret
+}
+
+// SetEvent setting attribute 'event' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetEvent(value string) {
+	input := value
+	_this.Value_JS.Set("event", input)
+}
+
+// HtmlFor returning attribute 'htmlFor' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) HtmlFor() string {
+	var ret string
+	value := _this.Value_JS.Get("htmlFor")
+	ret = (value).String()
+	return ret
+}
+
+// SetHtmlFor setting attribute 'htmlFor' with
+// type string (idl: DOMString).
+func (_this *HTMLScriptElement) SetHtmlFor(value string) {
+	input := value
+	_this.Value_JS.Set("htmlFor", input)
 }
 
 // interface: HTMLSelectElement
@@ -8169,208 +8685,1287 @@ func (_this *HTMLSelectElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLDataListElement
-type HTMLDataListElement struct {
+// interface: HTMLSlotElement
+type HTMLSlotElement struct {
 	HTMLElement
 }
 
-// HTMLDataListElementFromJS is casting a js.Wrapper into HTMLDataListElement.
-func HTMLDataListElementFromJS(value js.Wrapper) *HTMLDataListElement {
+// HTMLSlotElementFromJS is casting a js.Wrapper into HTMLSlotElement.
+func HTMLSlotElementFromJS(value js.Wrapper) *HTMLSlotElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLDataListElement{}
+	ret := &HTMLSlotElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Options returning attribute 'options' with
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLSlotElement) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// SetName setting attribute 'name' with
+// type string (idl: DOMString).
+func (_this *HTMLSlotElement) SetName(value string) {
+	input := value
+	_this.Value_JS.Set("name", input)
+}
+
+func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_result []*dom.Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("assignedNodes", _args[0:_end]...)
+	var (
+		_converted []*dom.Node // javascript: sequence<Node> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*dom.Node, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.Node
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.NodeFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_result []*dom.Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("assignedElements", _args[0:_end]...)
+	var (
+		_converted []*dom.Element // javascript: sequence<Element> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*dom.Element, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.Element
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.ElementFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+// interface: HTMLSourceElement
+type HTMLSourceElement struct {
+	HTMLElement
+}
+
+// HTMLSourceElementFromJS is casting a js.Wrapper into HTMLSourceElement.
+func HTMLSourceElementFromJS(value js.Wrapper) *HTMLSourceElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLSourceElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Src returning attribute 'src' with
+// type string (idl: USVString).
+func (_this *HTMLSourceElement) Src() string {
+	var ret string
+	value := _this.Value_JS.Get("src")
+	ret = (value).String()
+	return ret
+}
+
+// SetSrc setting attribute 'src' with
+// type string (idl: USVString).
+func (_this *HTMLSourceElement) SetSrc(value string) {
+	input := value
+	_this.Value_JS.Set("src", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// Srcset returning attribute 'srcset' with
+// type string (idl: USVString).
+func (_this *HTMLSourceElement) Srcset() string {
+	var ret string
+	value := _this.Value_JS.Get("srcset")
+	ret = (value).String()
+	return ret
+}
+
+// SetSrcset setting attribute 'srcset' with
+// type string (idl: USVString).
+func (_this *HTMLSourceElement) SetSrcset(value string) {
+	input := value
+	_this.Value_JS.Set("srcset", input)
+}
+
+// Sizes returning attribute 'sizes' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) Sizes() string {
+	var ret string
+	value := _this.Value_JS.Get("sizes")
+	ret = (value).String()
+	return ret
+}
+
+// SetSizes setting attribute 'sizes' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) SetSizes(value string) {
+	input := value
+	_this.Value_JS.Set("sizes", input)
+}
+
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) Media() string {
+	var ret string
+	value := _this.Value_JS.Get("media")
+	ret = (value).String()
+	return ret
+}
+
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLSourceElement) SetMedia(value string) {
+	input := value
+	_this.Value_JS.Set("media", input)
+}
+
+// interface: HTMLSpanElement
+type HTMLSpanElement struct {
+	HTMLElement
+}
+
+// HTMLSpanElementFromJS is casting a js.Wrapper into HTMLSpanElement.
+func HTMLSpanElementFromJS(value js.Wrapper) *HTMLSpanElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLSpanElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: HTMLStyleElement
+type HTMLStyleElement struct {
+	HTMLElement
+}
+
+// HTMLStyleElementFromJS is casting a js.Wrapper into HTMLStyleElement.
+func HTMLStyleElementFromJS(value js.Wrapper) *HTMLStyleElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLStyleElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Media returning attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLStyleElement) Media() string {
+	var ret string
+	value := _this.Value_JS.Get("media")
+	ret = (value).String()
+	return ret
+}
+
+// SetMedia setting attribute 'media' with
+// type string (idl: DOMString).
+func (_this *HTMLStyleElement) SetMedia(value string) {
+	input := value
+	_this.Value_JS.Set("media", input)
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLStyleElement) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// SetType setting attribute 'type' with
+// type string (idl: DOMString).
+func (_this *HTMLStyleElement) SetType(value string) {
+	input := value
+	_this.Value_JS.Set("type", input)
+}
+
+// interface: HTMLTableCaptionElement
+type HTMLTableCaptionElement struct {
+	HTMLElement
+}
+
+// HTMLTableCaptionElementFromJS is casting a js.Wrapper into HTMLTableCaptionElement.
+func HTMLTableCaptionElementFromJS(value js.Wrapper) *HTMLTableCaptionElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTableCaptionElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCaptionElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCaptionElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// interface: HTMLTableCellElement
+type HTMLTableCellElement struct {
+	HTMLElement
+}
+
+// HTMLTableCellElementFromJS is casting a js.Wrapper into HTMLTableCellElement.
+func HTMLTableCellElementFromJS(value js.Wrapper) *HTMLTableCellElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTableCellElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// ColSpan returning attribute 'colSpan' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableCellElement) ColSpan() uint {
+	var ret uint
+	value := _this.Value_JS.Get("colSpan")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetColSpan setting attribute 'colSpan' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableCellElement) SetColSpan(value uint) {
+	input := value
+	_this.Value_JS.Set("colSpan", input)
+}
+
+// RowSpan returning attribute 'rowSpan' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableCellElement) RowSpan() uint {
+	var ret uint
+	value := _this.Value_JS.Get("rowSpan")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetRowSpan setting attribute 'rowSpan' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableCellElement) SetRowSpan(value uint) {
+	input := value
+	_this.Value_JS.Set("rowSpan", input)
+}
+
+// Headers returning attribute 'headers' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Headers() string {
+	var ret string
+	value := _this.Value_JS.Get("headers")
+	ret = (value).String()
+	return ret
+}
+
+// SetHeaders setting attribute 'headers' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetHeaders(value string) {
+	input := value
+	_this.Value_JS.Set("headers", input)
+}
+
+// CellIndex returning attribute 'cellIndex' with
+// type int (idl: long).
+func (_this *HTMLTableCellElement) CellIndex() int {
+	var ret int
+	value := _this.Value_JS.Get("cellIndex")
+	ret = (value).Int()
+	return ret
+}
+
+// Scope returning attribute 'scope' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Scope() string {
+	var ret string
+	value := _this.Value_JS.Get("scope")
+	ret = (value).String()
+	return ret
+}
+
+// SetScope setting attribute 'scope' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetScope(value string) {
+	input := value
+	_this.Value_JS.Set("scope", input)
+}
+
+// Abbr returning attribute 'abbr' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Abbr() string {
+	var ret string
+	value := _this.Value_JS.Get("abbr")
+	ret = (value).String()
+	return ret
+}
+
+// SetAbbr setting attribute 'abbr' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetAbbr(value string) {
+	input := value
+	_this.Value_JS.Set("abbr", input)
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Axis returning attribute 'axis' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Axis() string {
+	var ret string
+	value := _this.Value_JS.Get("axis")
+	ret = (value).String()
+	return ret
+}
+
+// SetAxis setting attribute 'axis' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetAxis(value string) {
+	input := value
+	_this.Value_JS.Set("axis", input)
+}
+
+// Height returning attribute 'height' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Height() string {
+	var ret string
+	value := _this.Value_JS.Get("height")
+	ret = (value).String()
+	return ret
+}
+
+// SetHeight setting attribute 'height' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetHeight(value string) {
+	input := value
+	_this.Value_JS.Set("height", input)
+}
+
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Width() string {
+	var ret string
+	value := _this.Value_JS.Get("width")
+	ret = (value).String()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetWidth(value string) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) Ch() string {
+	var ret string
+	value := _this.Value_JS.Get("ch")
+	ret = (value).String()
+	return ret
+}
+
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetCh(value string) {
+	input := value
+	_this.Value_JS.Set("ch", input)
+}
+
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) ChOff() string {
+	var ret string
+	value := _this.Value_JS.Get("chOff")
+	ret = (value).String()
+	return ret
+}
+
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetChOff(value string) {
+	input := value
+	_this.Value_JS.Set("chOff", input)
+}
+
+// NoWrap returning attribute 'noWrap' with
+// type bool (idl: boolean).
+func (_this *HTMLTableCellElement) NoWrap() bool {
+	var ret bool
+	value := _this.Value_JS.Get("noWrap")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetNoWrap setting attribute 'noWrap' with
+// type bool (idl: boolean).
+func (_this *HTMLTableCellElement) SetNoWrap(value bool) {
+	input := value
+	_this.Value_JS.Set("noWrap", input)
+}
+
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) VAlign() string {
+	var ret string
+	value := _this.Value_JS.Get("vAlign")
+	ret = (value).String()
+	return ret
+}
+
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetVAlign(value string) {
+	input := value
+	_this.Value_JS.Set("vAlign", input)
+}
+
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) BgColor() string {
+	var ret string
+	value := _this.Value_JS.Get("bgColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableCellElement) SetBgColor(value string) {
+	input := value
+	_this.Value_JS.Set("bgColor", input)
+}
+
+// interface: HTMLTableColElement
+type HTMLTableColElement struct {
+	HTMLElement
+}
+
+// HTMLTableColElementFromJS is casting a js.Wrapper into HTMLTableColElement.
+func HTMLTableColElementFromJS(value js.Wrapper) *HTMLTableColElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTableColElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Span returning attribute 'span' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableColElement) Span() uint {
+	var ret uint
+	value := _this.Value_JS.Get("span")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// SetSpan setting attribute 'span' with
+// type uint (idl: unsigned long).
+func (_this *HTMLTableColElement) SetSpan(value uint) {
+	input := value
+	_this.Value_JS.Set("span", input)
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) Ch() string {
+	var ret string
+	value := _this.Value_JS.Get("ch")
+	ret = (value).String()
+	return ret
+}
+
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) SetCh(value string) {
+	input := value
+	_this.Value_JS.Set("ch", input)
+}
+
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) ChOff() string {
+	var ret string
+	value := _this.Value_JS.Get("chOff")
+	ret = (value).String()
+	return ret
+}
+
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) SetChOff(value string) {
+	input := value
+	_this.Value_JS.Set("chOff", input)
+}
+
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) VAlign() string {
+	var ret string
+	value := _this.Value_JS.Get("vAlign")
+	ret = (value).String()
+	return ret
+}
+
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) SetVAlign(value string) {
+	input := value
+	_this.Value_JS.Set("vAlign", input)
+}
+
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) Width() string {
+	var ret string
+	value := _this.Value_JS.Get("width")
+	ret = (value).String()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableColElement) SetWidth(value string) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// interface: HTMLTableElement
+type HTMLTableElement struct {
+	HTMLElement
+}
+
+// HTMLTableElementFromJS is casting a js.Wrapper into HTMLTableElement.
+func HTMLTableElementFromJS(value js.Wrapper) *HTMLTableElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTableElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Caption returning attribute 'caption' with
+// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
+func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
+	var ret *HTMLTableCaptionElement
+	value := _this.Value_JS.Get("caption")
+	if value.Type() != js.TypeNull {
+		ret = HTMLTableCaptionElementFromJS(value)
+	}
+	return ret
+}
+
+// SetCaption setting attribute 'caption' with
+// type HTMLTableCaptionElement (idl: HTMLTableCaptionElement).
+func (_this *HTMLTableElement) SetCaption(value *HTMLTableCaptionElement) {
+	input := value.JSValue()
+	_this.Value_JS.Set("caption", input)
+}
+
+// THead returning attribute 'tHead' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
+func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
+	var ret *HTMLTableSectionElement
+	value := _this.Value_JS.Get("tHead")
+	if value.Type() != js.TypeNull {
+		ret = HTMLTableSectionElementFromJS(value)
+	}
+	return ret
+}
+
+// SetTHead setting attribute 'tHead' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
+func (_this *HTMLTableElement) SetTHead(value *HTMLTableSectionElement) {
+	input := value.JSValue()
+	_this.Value_JS.Set("tHead", input)
+}
+
+// TFoot returning attribute 'tFoot' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
+func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
+	var ret *HTMLTableSectionElement
+	value := _this.Value_JS.Get("tFoot")
+	if value.Type() != js.TypeNull {
+		ret = HTMLTableSectionElementFromJS(value)
+	}
+	return ret
+}
+
+// SetTFoot setting attribute 'tFoot' with
+// type HTMLTableSectionElement (idl: HTMLTableSectionElement).
+func (_this *HTMLTableElement) SetTFoot(value *HTMLTableSectionElement) {
+	input := value.JSValue()
+	_this.Value_JS.Set("tFoot", input)
+}
+
+// TBodies returning attribute 'tBodies' with
 // type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLDataListElement) Options() *dom.HTMLCollection {
+func (_this *HTMLTableElement) TBodies() *dom.HTMLCollection {
 	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("options")
+	value := _this.Value_JS.Get("tBodies")
 	ret = dom.HTMLCollectionFromJS(value)
 	return ret
 }
 
-// interface: HTMLOptGroupElement
-type HTMLOptGroupElement struct {
+// Rows returning attribute 'rows' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLTableElement) Rows() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("rows")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Border returning attribute 'border' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Border() string {
+	var ret string
+	value := _this.Value_JS.Get("border")
+	ret = (value).String()
+	return ret
+}
+
+// SetBorder setting attribute 'border' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetBorder(value string) {
+	input := value
+	_this.Value_JS.Set("border", input)
+}
+
+// Frame returning attribute 'frame' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Frame() string {
+	var ret string
+	value := _this.Value_JS.Get("frame")
+	ret = (value).String()
+	return ret
+}
+
+// SetFrame setting attribute 'frame' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetFrame(value string) {
+	input := value
+	_this.Value_JS.Set("frame", input)
+}
+
+// Rules returning attribute 'rules' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Rules() string {
+	var ret string
+	value := _this.Value_JS.Get("rules")
+	ret = (value).String()
+	return ret
+}
+
+// SetRules setting attribute 'rules' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetRules(value string) {
+	input := value
+	_this.Value_JS.Set("rules", input)
+}
+
+// Summary returning attribute 'summary' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Summary() string {
+	var ret string
+	value := _this.Value_JS.Get("summary")
+	ret = (value).String()
+	return ret
+}
+
+// SetSummary setting attribute 'summary' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetSummary(value string) {
+	input := value
+	_this.Value_JS.Set("summary", input)
+}
+
+// Width returning attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) Width() string {
+	var ret string
+	value := _this.Value_JS.Get("width")
+	ret = (value).String()
+	return ret
+}
+
+// SetWidth setting attribute 'width' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetWidth(value string) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) BgColor() string {
+	var ret string
+	value := _this.Value_JS.Get("bgColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetBgColor(value string) {
+	input := value
+	_this.Value_JS.Set("bgColor", input)
+}
+
+// CellPadding returning attribute 'cellPadding' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) CellPadding() string {
+	var ret string
+	value := _this.Value_JS.Get("cellPadding")
+	ret = (value).String()
+	return ret
+}
+
+// SetCellPadding setting attribute 'cellPadding' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetCellPadding(value string) {
+	input := value
+	_this.Value_JS.Set("cellPadding", input)
+}
+
+// CellSpacing returning attribute 'cellSpacing' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) CellSpacing() string {
+	var ret string
+	value := _this.Value_JS.Get("cellSpacing")
+	ret = (value).String()
+	return ret
+}
+
+// SetCellSpacing setting attribute 'cellSpacing' with
+// type string (idl: DOMString).
+func (_this *HTMLTableElement) SetCellSpacing(value string) {
+	input := value
+	_this.Value_JS.Set("cellSpacing", input)
+}
+
+func (_this *HTMLTableElement) CreateCaption() (_result *HTMLTableCaptionElement) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("createCaption", _args[0:_end]...)
+	var (
+		_converted *HTMLTableCaptionElement // javascript: HTMLTableCaptionElement _what_return_name
+	)
+	_converted = HTMLTableCaptionElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableElement) DeleteCaption() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("deleteCaption", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLTableElement) CreateTHead() (_result *HTMLTableSectionElement) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("createTHead", _args[0:_end]...)
+	var (
+		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
+	)
+	_converted = HTMLTableSectionElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableElement) DeleteTHead() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("deleteTHead", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLTableElement) CreateTFoot() (_result *HTMLTableSectionElement) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("createTFoot", _args[0:_end]...)
+	var (
+		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
+	)
+	_converted = HTMLTableSectionElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableElement) DeleteTFoot() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("deleteTFoot", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLTableElement) CreateTBody() (_result *HTMLTableSectionElement) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("createTBody", _args[0:_end]...)
+	var (
+		_converted *HTMLTableSectionElement // javascript: HTMLTableSectionElement _what_return_name
+	)
+	_converted = HTMLTableSectionElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if index != nil {
+		_p0 := index
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
+	var (
+		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
+	)
+	_converted = HTMLTableRowElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableElement) DeleteRow(index int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLTableRowElement
+type HTMLTableRowElement struct {
 	HTMLElement
 }
 
-// HTMLOptGroupElementFromJS is casting a js.Wrapper into HTMLOptGroupElement.
-func HTMLOptGroupElementFromJS(value js.Wrapper) *HTMLOptGroupElement {
+// HTMLTableRowElementFromJS is casting a js.Wrapper into HTMLTableRowElement.
+func HTMLTableRowElementFromJS(value js.Wrapper) *HTMLTableRowElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLOptGroupElement{}
+	ret := &HTMLTableRowElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptGroupElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptGroupElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptGroupElement) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// SetLabel setting attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptGroupElement) SetLabel(value string) {
-	input := value
-	_this.Value_JS.Set("label", input)
-}
-
-// interface: HTMLOptionElement
-type HTMLOptionElement struct {
-	HTMLElement
-}
-
-// HTMLOptionElementFromJS is casting a js.Wrapper into HTMLOptionElement.
-func HTMLOptionElementFromJS(value js.Wrapper) *HTMLOptionElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLOptionElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLOptionElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Label returning attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Label() string {
-	var ret string
-	value := _this.Value_JS.Get("label")
-	ret = (value).String()
-	return ret
-}
-
-// SetLabel setting attribute 'label' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetLabel(value string) {
-	input := value
-	_this.Value_JS.Set("label", input)
-}
-
-// DefaultSelected returning attribute 'defaultSelected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) DefaultSelected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defaultSelected")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefaultSelected setting attribute 'defaultSelected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetDefaultSelected(value bool) {
-	input := value
-	_this.Value_JS.Set("defaultSelected", input)
-}
-
-// Selected returning attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) Selected() bool {
-	var ret bool
-	value := _this.Value_JS.Get("selected")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetSelected setting attribute 'selected' with
-// type bool (idl: boolean).
-func (_this *HTMLOptionElement) SetSelected(value bool) {
-	input := value
-	_this.Value_JS.Set("selected", input)
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLOptionElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Index returning attribute 'index' with
+// RowIndex returning attribute 'rowIndex' with
 // type int (idl: long).
-func (_this *HTMLOptionElement) Index() int {
+func (_this *HTMLTableRowElement) RowIndex() int {
 	var ret int
-	value := _this.Value_JS.Get("index")
+	value := _this.Value_JS.Get("rowIndex")
 	ret = (value).Int()
+	return ret
+}
+
+// SectionRowIndex returning attribute 'sectionRowIndex' with
+// type int (idl: long).
+func (_this *HTMLTableRowElement) SectionRowIndex() int {
+	var ret int
+	value := _this.Value_JS.Get("sectionRowIndex")
+	ret = (value).Int()
+	return ret
+}
+
+// Cells returning attribute 'cells' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLTableRowElement) Cells() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("cells")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) Ch() string {
+	var ret string
+	value := _this.Value_JS.Get("ch")
+	ret = (value).String()
+	return ret
+}
+
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) SetCh(value string) {
+	input := value
+	_this.Value_JS.Set("ch", input)
+}
+
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) ChOff() string {
+	var ret string
+	value := _this.Value_JS.Get("chOff")
+	ret = (value).String()
+	return ret
+}
+
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) SetChOff(value string) {
+	input := value
+	_this.Value_JS.Set("chOff", input)
+}
+
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) VAlign() string {
+	var ret string
+	value := _this.Value_JS.Get("vAlign")
+	ret = (value).String()
+	return ret
+}
+
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) SetVAlign(value string) {
+	input := value
+	_this.Value_JS.Set("vAlign", input)
+}
+
+// BgColor returning attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) BgColor() string {
+	var ret string
+	value := _this.Value_JS.Get("bgColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetBgColor setting attribute 'bgColor' with
+// type string (idl: DOMString).
+func (_this *HTMLTableRowElement) SetBgColor(value string) {
+	input := value
+	_this.Value_JS.Set("bgColor", input)
+}
+
+func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCellElement) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if index != nil {
+		_p0 := index
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("insertCell", _args[0:_end]...)
+	var (
+		_converted *HTMLTableCellElement // javascript: HTMLTableCellElement _what_return_name
+	)
+	_converted = HTMLTableCellElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableRowElement) DeleteCell(index int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("deleteCell", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLTableSectionElement
+type HTMLTableSectionElement struct {
+	HTMLElement
+}
+
+// HTMLTableSectionElementFromJS is casting a js.Wrapper into HTMLTableSectionElement.
+func HTMLTableSectionElementFromJS(value js.Wrapper) *HTMLTableSectionElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTableSectionElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Rows returning attribute 'rows' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *HTMLTableSectionElement) Rows() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("rows")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// Align returning attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) Align() string {
+	var ret string
+	value := _this.Value_JS.Get("align")
+	ret = (value).String()
+	return ret
+}
+
+// SetAlign setting attribute 'align' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) SetAlign(value string) {
+	input := value
+	_this.Value_JS.Set("align", input)
+}
+
+// Ch returning attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) Ch() string {
+	var ret string
+	value := _this.Value_JS.Get("ch")
+	ret = (value).String()
+	return ret
+}
+
+// SetCh setting attribute 'ch' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) SetCh(value string) {
+	input := value
+	_this.Value_JS.Set("ch", input)
+}
+
+// ChOff returning attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) ChOff() string {
+	var ret string
+	value := _this.Value_JS.Get("chOff")
+	ret = (value).String()
+	return ret
+}
+
+// SetChOff setting attribute 'chOff' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) SetChOff(value string) {
+	input := value
+	_this.Value_JS.Set("chOff", input)
+}
+
+// VAlign returning attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) VAlign() string {
+	var ret string
+	value := _this.Value_JS.Get("vAlign")
+	ret = (value).String()
+	return ret
+}
+
+// SetVAlign setting attribute 'vAlign' with
+// type string (idl: DOMString).
+func (_this *HTMLTableSectionElement) SetVAlign(value string) {
+	input := value
+	_this.Value_JS.Set("vAlign", input)
+}
+
+func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableRowElement) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if index != nil {
+		_p0 := index
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("insertRow", _args[0:_end]...)
+	var (
+		_converted *HTMLTableRowElement // javascript: HTMLTableRowElement _what_return_name
+	)
+	_converted = HTMLTableRowElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLTableSectionElement) DeleteRow(index int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("deleteRow", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLTemplateElement
+type HTMLTemplateElement struct {
+	HTMLElement
+}
+
+// HTMLTemplateElementFromJS is casting a js.Wrapper into HTMLTemplateElement.
+func HTMLTemplateElementFromJS(value js.Wrapper) *HTMLTemplateElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTemplateElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Content returning attribute 'content' with
+// type dom.DocumentFragment (idl: DocumentFragment).
+func (_this *HTMLTemplateElement) Content() *dom.DocumentFragment {
+	var ret *dom.DocumentFragment
+	value := _this.Value_JS.Get("content")
+	ret = dom.DocumentFragmentFromJS(value)
 	return ret
 }
 
@@ -8847,547 +10442,196 @@ func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direct
 	return
 }
 
-// interface: HTMLOutputElement
-type HTMLOutputElement struct {
+// interface: HTMLTimeElement
+type HTMLTimeElement struct {
 	HTMLElement
 }
 
-// HTMLOutputElementFromJS is casting a js.Wrapper into HTMLOutputElement.
-func HTMLOutputElementFromJS(value js.Wrapper) *HTMLOutputElement {
+// HTMLTimeElementFromJS is casting a js.Wrapper into HTMLTimeElement.
+func HTMLTimeElementFromJS(value js.Wrapper) *HTMLTimeElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLOutputElement{}
+	ret := &HTMLTimeElement{}
 	ret.Value_JS = input
 	return ret
 }
 
-// HtmlFor returning attribute 'htmlFor' with
-// type domcore.DOMTokenList (idl: DOMTokenList).
-func (_this *HTMLOutputElement) HtmlFor() *domcore.DOMTokenList {
-	var ret *domcore.DOMTokenList
-	value := _this.Value_JS.Get("htmlFor")
-	ret = domcore.DOMTokenListFromJS(value)
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLOutputElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Name returning attribute 'name' with
+// DateTime returning attribute 'dateTime' with
 // type string (idl: DOMString).
-func (_this *HTMLOutputElement) Name() string {
+func (_this *HTMLTimeElement) DateTime() string {
 	var ret string
-	value := _this.Value_JS.Get("name")
+	value := _this.Value_JS.Get("dateTime")
 	ret = (value).String()
 	return ret
 }
 
-// SetName setting attribute 'name' with
+// SetDateTime setting attribute 'dateTime' with
 // type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetName(value string) {
+func (_this *HTMLTimeElement) SetDateTime(value string) {
 	input := value
-	_this.Value_JS.Set("name", input)
+	_this.Value_JS.Set("dateTime", input)
+}
+
+// interface: HTMLTitleElement
+type HTMLTitleElement struct {
+	HTMLElement
+}
+
+// HTMLTitleElementFromJS is casting a js.Wrapper into HTMLTitleElement.
+func HTMLTitleElementFromJS(value js.Wrapper) *HTMLTitleElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLTitleElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Text returning attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLTitleElement) Text() string {
+	var ret string
+	value := _this.Value_JS.Get("text")
+	ret = (value).String()
+	return ret
+}
+
+// SetText setting attribute 'text' with
+// type string (idl: DOMString).
+func (_this *HTMLTitleElement) SetText(value string) {
+	input := value
+	_this.Value_JS.Set("text", input)
+}
+
+// interface: HTMLUListElement
+type HTMLUListElement struct {
+	HTMLElement
+}
+
+// HTMLUListElementFromJS is casting a js.Wrapper into HTMLUListElement.
+func HTMLUListElementFromJS(value js.Wrapper) *HTMLUListElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLUListElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Compact returning attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLUListElement) Compact() bool {
+	var ret bool
+	value := _this.Value_JS.Get("compact")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetCompact setting attribute 'compact' with
+// type bool (idl: boolean).
+func (_this *HTMLUListElement) SetCompact(value bool) {
+	input := value
+	_this.Value_JS.Set("compact", input)
 }
 
 // Type returning attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLOutputElement) Type() string {
+func (_this *HTMLUListElement) Type() string {
 	var ret string
 	value := _this.Value_JS.Get("type")
 	ret = (value).String()
 	return ret
 }
 
-// DefaultValue returning attribute 'defaultValue' with
+// SetType setting attribute 'type' with
 // type string (idl: DOMString).
-func (_this *HTMLOutputElement) DefaultValue() string {
-	var ret string
-	value := _this.Value_JS.Get("defaultValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetDefaultValue setting attribute 'defaultValue' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetDefaultValue(value string) {
+func (_this *HTMLUListElement) SetType(value string) {
 	input := value
-	_this.Value_JS.Set("defaultValue", input)
+	_this.Value_JS.Set("type", input)
 }
 
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
+// interface: HTMLUnknownElement
+type HTMLUnknownElement struct {
+	HTMLElement
+}
+
+// HTMLUnknownElementFromJS is casting a js.Wrapper into HTMLUnknownElement.
+func HTMLUnknownElementFromJS(value js.Wrapper) *HTMLUnknownElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLUnknownElement{}
+	ret.Value_JS = input
 	return ret
 }
 
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
+// interface: TimeRanges
+type TimeRanges struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
 }
 
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLOutputElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
+func (_this *TimeRanges) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// TimeRangesFromJS is casting a js.Wrapper into TimeRanges.
+func TimeRangesFromJS(value js.Wrapper) *TimeRanges {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &TimeRanges{}
+	ret.Value_JS = input
 	return ret
 }
 
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLOutputElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *TimeRanges) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
 	return ret
 }
 
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLOutputElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type dom.NodeList (idl: NodeList).
-func (_this *HTMLOutputElement) Labels() *dom.NodeList {
-	var ret *dom.NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = dom.NodeListFromJS(value)
-	return ret
-}
-
-func (_this *HTMLOutputElement) CheckValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLOutputElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
+func (_this *TimeRanges) Start(index uint) (_result float64) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := _error
+	_p0 := index
 	_args[0] = _p0
 	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLProgressElement
-type HTMLProgressElement struct {
-	HTMLElement
-}
-
-// HTMLProgressElementFromJS is casting a js.Wrapper into HTMLProgressElement.
-func HTMLProgressElementFromJS(value js.Wrapper) *HTMLProgressElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLProgressElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Value() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("value")
-	ret = (value).Float()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) SetValue(value float64) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Max returning attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Max() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("max")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMax setting attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) SetMax(value float64) {
-	input := value
-	_this.Value_JS.Set("max", input)
-}
-
-// Position returning attribute 'position' with
-// type float64 (idl: double).
-func (_this *HTMLProgressElement) Position() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("position")
-	ret = (value).Float()
-	return ret
-}
-
-// Labels returning attribute 'labels' with
-// type dom.NodeList (idl: NodeList).
-func (_this *HTMLProgressElement) Labels() *dom.NodeList {
-	var ret *dom.NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = dom.NodeListFromJS(value)
-	return ret
-}
-
-// interface: HTMLMeterElement
-type HTMLMeterElement struct {
-	HTMLElement
-}
-
-// HTMLMeterElementFromJS is casting a js.Wrapper into HTMLMeterElement.
-func HTMLMeterElementFromJS(value js.Wrapper) *HTMLMeterElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMeterElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Value() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("value")
-	ret = (value).Float()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetValue(value float64) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// Min returning attribute 'min' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Min() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("min")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMin setting attribute 'min' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetMin(value float64) {
-	input := value
-	_this.Value_JS.Set("min", input)
-}
-
-// Max returning attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Max() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("max")
-	ret = (value).Float()
-	return ret
-}
-
-// SetMax setting attribute 'max' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetMax(value float64) {
-	input := value
-	_this.Value_JS.Set("max", input)
-}
-
-// Low returning attribute 'low' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Low() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("low")
-	ret = (value).Float()
-	return ret
-}
-
-// SetLow setting attribute 'low' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetLow(value float64) {
-	input := value
-	_this.Value_JS.Set("low", input)
-}
-
-// High returning attribute 'high' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) High() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("high")
-	ret = (value).Float()
-	return ret
-}
-
-// SetHigh setting attribute 'high' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetHigh(value float64) {
-	input := value
-	_this.Value_JS.Set("high", input)
-}
-
-// Optimum returning attribute 'optimum' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) Optimum() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("optimum")
-	ret = (value).Float()
-	return ret
-}
-
-// SetOptimum setting attribute 'optimum' with
-// type float64 (idl: double).
-func (_this *HTMLMeterElement) SetOptimum(value float64) {
-	input := value
-	_this.Value_JS.Set("optimum", input)
-}
-
-// Labels returning attribute 'labels' with
-// type dom.NodeList (idl: NodeList).
-func (_this *HTMLMeterElement) Labels() *dom.NodeList {
-	var ret *dom.NodeList
-	value := _this.Value_JS.Get("labels")
-	ret = dom.NodeListFromJS(value)
-	return ret
-}
-
-// interface: HTMLFieldSetElement
-type HTMLFieldSetElement struct {
-	HTMLElement
-}
-
-// HTMLFieldSetElementFromJS is casting a js.Wrapper into HTMLFieldSetElement.
-func HTMLFieldSetElementFromJS(value js.Wrapper) *HTMLFieldSetElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFieldSetElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Disabled returning attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) Disabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("disabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDisabled setting attribute 'disabled' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) SetDisabled(value bool) {
-	input := value
-	_this.Value_JS.Set("disabled", input)
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Elements returning attribute 'elements' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *HTMLFieldSetElement) Elements() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("elements")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// WillValidate returning attribute 'willValidate' with
-// type bool (idl: boolean).
-func (_this *HTMLFieldSetElement) WillValidate() bool {
-	var ret bool
-	value := _this.Value_JS.Get("willValidate")
-	ret = (value).Bool()
-	return ret
-}
-
-// Validity returning attribute 'validity' with
-// type ValidityState (idl: ValidityState).
-func (_this *HTMLFieldSetElement) Validity() *ValidityState {
-	var ret *ValidityState
-	value := _this.Value_JS.Get("validity")
-	ret = ValidityStateFromJS(value)
-	return ret
-}
-
-// ValidationMessage returning attribute 'validationMessage' with
-// type string (idl: DOMString).
-func (_this *HTMLFieldSetElement) ValidationMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("validationMessage")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *HTMLFieldSetElement) CheckValidity() (_result bool) {
+	_returned := _this.Value_JS.Call("start", _args[0:_end]...)
 	var (
-		_args [0]interface{}
-		_end  int
+		_converted float64 // javascript: double _what_return_name
 	)
-	_returned := _this.Value_JS.Call("checkValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
+	_converted = (_returned).Float()
 	_result = _converted
 	return
 }
 
-func (_this *HTMLFieldSetElement) ReportValidity() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("reportValidity", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
+func (_this *TimeRanges) End(index uint) (_result float64) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := _error
+	_p0 := index
 	_args[0] = _p0
 	_end++
-	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
+	_returned := _this.Value_JS.Call("end", _args[0:_end]...)
+	var (
+		_converted float64 // javascript: double _what_return_name
+	)
+	_converted = (_returned).Float()
+	_result = _converted
 	return
-}
-
-// interface: HTMLLegendElement
-type HTMLLegendElement struct {
-	HTMLElement
-}
-
-// HTMLLegendElementFromJS is casting a js.Wrapper into HTMLLegendElement.
-func HTMLLegendElementFromJS(value js.Wrapper) *HTMLLegendElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLLegendElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Form returning attribute 'form' with
-// type HTMLFormElement (idl: HTMLFormElement).
-func (_this *HTMLLegendElement) Form() *HTMLFormElement {
-	var ret *HTMLFormElement
-	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
-		ret = HTMLFormElementFromJS(value)
-	}
-	return ret
-}
-
-// Align returning attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLLegendElement) Align() string {
-	var ret string
-	value := _this.Value_JS.Get("align")
-	ret = (value).String()
-	return ret
-}
-
-// SetAlign setting attribute 'align' with
-// type string (idl: DOMString).
-func (_this *HTMLLegendElement) SetAlign(value string) {
-	input := value
-	_this.Value_JS.Set("align", input)
 }
 
 // interface: ValidityState
@@ -9508,1248 +10752,4 @@ func (_this *ValidityState) Valid() bool {
 	value := _this.Value_JS.Get("valid")
 	ret = (value).Bool()
 	return ret
-}
-
-// interface: HTMLDetailsElement
-type HTMLDetailsElement struct {
-	HTMLElement
-}
-
-// HTMLDetailsElementFromJS is casting a js.Wrapper into HTMLDetailsElement.
-func HTMLDetailsElementFromJS(value js.Wrapper) *HTMLDetailsElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDetailsElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Open returning attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDetailsElement) Open() bool {
-	var ret bool
-	value := _this.Value_JS.Get("open")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetOpen setting attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDetailsElement) SetOpen(value bool) {
-	input := value
-	_this.Value_JS.Set("open", input)
-}
-
-// interface: HTMLDialogElement
-type HTMLDialogElement struct {
-	HTMLElement
-}
-
-// HTMLDialogElementFromJS is casting a js.Wrapper into HTMLDialogElement.
-func HTMLDialogElementFromJS(value js.Wrapper) *HTMLDialogElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDialogElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Open returning attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDialogElement) Open() bool {
-	var ret bool
-	value := _this.Value_JS.Get("open")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetOpen setting attribute 'open' with
-// type bool (idl: boolean).
-func (_this *HTMLDialogElement) SetOpen(value bool) {
-	input := value
-	_this.Value_JS.Set("open", input)
-}
-
-// ReturnValue returning attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *HTMLDialogElement) ReturnValue() string {
-	var ret string
-	value := _this.Value_JS.Get("returnValue")
-	ret = (value).String()
-	return ret
-}
-
-// SetReturnValue setting attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *HTMLDialogElement) SetReturnValue(value string) {
-	input := value
-	_this.Value_JS.Set("returnValue", input)
-}
-
-func (_this *HTMLDialogElement) Show() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("show", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLDialogElement) ShowModal() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("showModal", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLDialogElement) Close(returnValue *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if returnValue != nil {
-		_p0 := returnValue
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLScriptElement
-type HTMLScriptElement struct {
-	HTMLElement
-}
-
-// HTMLScriptElementFromJS is casting a js.Wrapper into HTMLScriptElement.
-func HTMLScriptElementFromJS(value js.Wrapper) *HTMLScriptElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLScriptElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Src returning attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLScriptElement) Src() string {
-	var ret string
-	value := _this.Value_JS.Get("src")
-	ret = (value).String()
-	return ret
-}
-
-// SetSrc setting attribute 'src' with
-// type string (idl: USVString).
-func (_this *HTMLScriptElement) SetSrc(value string) {
-	input := value
-	_this.Value_JS.Set("src", input)
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// SetType setting attribute 'type' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetType(value string) {
-	input := value
-	_this.Value_JS.Set("type", input)
-}
-
-// NoModule returning attribute 'noModule' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) NoModule() bool {
-	var ret bool
-	value := _this.Value_JS.Get("noModule")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetNoModule setting attribute 'noModule' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetNoModule(value bool) {
-	input := value
-	_this.Value_JS.Set("noModule", input)
-}
-
-// Async returning attribute 'async' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) Async() bool {
-	var ret bool
-	value := _this.Value_JS.Get("async")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetAsync setting attribute 'async' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetAsync(value bool) {
-	input := value
-	_this.Value_JS.Set("async", input)
-}
-
-// Defer returning attribute 'defer' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) Defer() bool {
-	var ret bool
-	value := _this.Value_JS.Get("defer")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetDefer setting attribute 'defer' with
-// type bool (idl: boolean).
-func (_this *HTMLScriptElement) SetDefer(value bool) {
-	input := value
-	_this.Value_JS.Set("defer", input)
-}
-
-// CrossOrigin returning attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) CrossOrigin() *string {
-	var ret *string
-	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetCrossOrigin setting attribute 'crossOrigin' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetCrossOrigin(value *string) {
-	input := value
-	_this.Value_JS.Set("crossOrigin", input)
-}
-
-// Text returning attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Text() string {
-	var ret string
-	value := _this.Value_JS.Get("text")
-	ret = (value).String()
-	return ret
-}
-
-// SetText setting attribute 'text' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetText(value string) {
-	input := value
-	_this.Value_JS.Set("text", input)
-}
-
-// Integrity returning attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Integrity() string {
-	var ret string
-	value := _this.Value_JS.Get("integrity")
-	ret = (value).String()
-	return ret
-}
-
-// SetIntegrity setting attribute 'integrity' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetIntegrity(value string) {
-	input := value
-	_this.Value_JS.Set("integrity", input)
-}
-
-// ReferrerPolicy returning attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) ReferrerPolicy() string {
-	var ret string
-	value := _this.Value_JS.Get("referrerPolicy")
-	ret = (value).String()
-	return ret
-}
-
-// SetReferrerPolicy setting attribute 'referrerPolicy' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetReferrerPolicy(value string) {
-	input := value
-	_this.Value_JS.Set("referrerPolicy", input)
-}
-
-// Charset returning attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Charset() string {
-	var ret string
-	value := _this.Value_JS.Get("charset")
-	ret = (value).String()
-	return ret
-}
-
-// SetCharset setting attribute 'charset' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetCharset(value string) {
-	input := value
-	_this.Value_JS.Set("charset", input)
-}
-
-// Event returning attribute 'event' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) Event() string {
-	var ret string
-	value := _this.Value_JS.Get("event")
-	ret = (value).String()
-	return ret
-}
-
-// SetEvent setting attribute 'event' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetEvent(value string) {
-	input := value
-	_this.Value_JS.Set("event", input)
-}
-
-// HtmlFor returning attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) HtmlFor() string {
-	var ret string
-	value := _this.Value_JS.Get("htmlFor")
-	ret = (value).String()
-	return ret
-}
-
-// SetHtmlFor setting attribute 'htmlFor' with
-// type string (idl: DOMString).
-func (_this *HTMLScriptElement) SetHtmlFor(value string) {
-	input := value
-	_this.Value_JS.Set("htmlFor", input)
-}
-
-// interface: HTMLTemplateElement
-type HTMLTemplateElement struct {
-	HTMLElement
-}
-
-// HTMLTemplateElementFromJS is casting a js.Wrapper into HTMLTemplateElement.
-func HTMLTemplateElementFromJS(value js.Wrapper) *HTMLTemplateElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLTemplateElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Content returning attribute 'content' with
-// type dom.DocumentFragment (idl: DocumentFragment).
-func (_this *HTMLTemplateElement) Content() *dom.DocumentFragment {
-	var ret *dom.DocumentFragment
-	value := _this.Value_JS.Get("content")
-	ret = dom.DocumentFragmentFromJS(value)
-	return ret
-}
-
-// interface: HTMLSlotElement
-type HTMLSlotElement struct {
-	HTMLElement
-}
-
-// HTMLSlotElementFromJS is casting a js.Wrapper into HTMLSlotElement.
-func HTMLSlotElementFromJS(value js.Wrapper) *HTMLSlotElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLSlotElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSlotElement) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// SetName setting attribute 'name' with
-// type string (idl: DOMString).
-func (_this *HTMLSlotElement) SetName(value string) {
-	input := value
-	_this.Value_JS.Set("name", input)
-}
-
-func (_this *HTMLSlotElement) AssignedNodes(options *AssignedNodesOptions) (_result []*dom.Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("assignedNodes", _args[0:_end]...)
-	var (
-		_converted []*dom.Node // javascript: sequence<Node> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*dom.Node, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *dom.Node
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = dom.NodeFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_result []*dom.Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("assignedElements", _args[0:_end]...)
-	var (
-		_converted []*dom.Element // javascript: sequence<Element> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*dom.Element, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *dom.Element
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = dom.ElementFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-// interface: HTMLMarqueeElement
-type HTMLMarqueeElement struct {
-	HTMLElement
-}
-
-// HTMLMarqueeElementFromJS is casting a js.Wrapper into HTMLMarqueeElement.
-func HTMLMarqueeElementFromJS(value js.Wrapper) *HTMLMarqueeElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLMarqueeElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Behavior returning attribute 'behavior' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Behavior() string {
-	var ret string
-	value := _this.Value_JS.Get("behavior")
-	ret = (value).String()
-	return ret
-}
-
-// SetBehavior setting attribute 'behavior' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetBehavior(value string) {
-	input := value
-	_this.Value_JS.Set("behavior", input)
-}
-
-// BgColor returning attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) BgColor() string {
-	var ret string
-	value := _this.Value_JS.Get("bgColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetBgColor setting attribute 'bgColor' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetBgColor(value string) {
-	input := value
-	_this.Value_JS.Set("bgColor", input)
-}
-
-// Direction returning attribute 'direction' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Direction() string {
-	var ret string
-	value := _this.Value_JS.Get("direction")
-	ret = (value).String()
-	return ret
-}
-
-// SetDirection setting attribute 'direction' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetDirection(value string) {
-	input := value
-	_this.Value_JS.Set("direction", input)
-}
-
-// Height returning attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Height() string {
-	var ret string
-	value := _this.Value_JS.Get("height")
-	ret = (value).String()
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetHeight(value string) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-// Hspace returning attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) Hspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("hspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHspace setting attribute 'hspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetHspace(value uint) {
-	input := value
-	_this.Value_JS.Set("hspace", input)
-}
-
-// Loop returning attribute 'loop' with
-// type int (idl: long).
-func (_this *HTMLMarqueeElement) Loop() int {
-	var ret int
-	value := _this.Value_JS.Get("loop")
-	ret = (value).Int()
-	return ret
-}
-
-// SetLoop setting attribute 'loop' with
-// type int (idl: long).
-func (_this *HTMLMarqueeElement) SetLoop(value int) {
-	input := value
-	_this.Value_JS.Set("loop", input)
-}
-
-// ScrollAmount returning attribute 'scrollAmount' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) ScrollAmount() uint {
-	var ret uint
-	value := _this.Value_JS.Get("scrollAmount")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetScrollAmount setting attribute 'scrollAmount' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetScrollAmount(value uint) {
-	input := value
-	_this.Value_JS.Set("scrollAmount", input)
-}
-
-// ScrollDelay returning attribute 'scrollDelay' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) ScrollDelay() uint {
-	var ret uint
-	value := _this.Value_JS.Get("scrollDelay")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetScrollDelay setting attribute 'scrollDelay' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetScrollDelay(value uint) {
-	input := value
-	_this.Value_JS.Set("scrollDelay", input)
-}
-
-// TrueSpeed returning attribute 'trueSpeed' with
-// type bool (idl: boolean).
-func (_this *HTMLMarqueeElement) TrueSpeed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("trueSpeed")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetTrueSpeed setting attribute 'trueSpeed' with
-// type bool (idl: boolean).
-func (_this *HTMLMarqueeElement) SetTrueSpeed(value bool) {
-	input := value
-	_this.Value_JS.Set("trueSpeed", input)
-}
-
-// Vspace returning attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) Vspace() uint {
-	var ret uint
-	value := _this.Value_JS.Get("vspace")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetVspace setting attribute 'vspace' with
-// type uint (idl: unsigned long).
-func (_this *HTMLMarqueeElement) SetVspace(value uint) {
-	input := value
-	_this.Value_JS.Set("vspace", input)
-}
-
-// Width returning attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) Width() string {
-	var ret string
-	value := _this.Value_JS.Get("width")
-	ret = (value).String()
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type string (idl: DOMString).
-func (_this *HTMLMarqueeElement) SetWidth(value string) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Onbounce returning attribute 'onbounce' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onbounce")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbounce setting attribute 'onbounce' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnbounce(value *domcore.EventHandler) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onbounce", input)
-}
-
-// Onfinish returning attribute 'onfinish' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onfinish")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnfinish setting attribute 'onfinish' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnfinish(value *domcore.EventHandler) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onfinish", input)
-}
-
-// Onstart returning attribute 'onstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstart setting attribute 'onstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMarqueeElement) SetOnstart(value *domcore.EventHandler) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onstart", input)
-}
-
-func (_this *HTMLMarqueeElement) Start() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("start", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLMarqueeElement) Stop() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("stop", _args[0:_end]...)
-	return
-}
-
-// interface: HTMLFrameSetElement
-type HTMLFrameSetElement struct {
-	HTMLElement
-}
-
-// HTMLFrameSetElementFromJS is casting a js.Wrapper into HTMLFrameSetElement.
-func HTMLFrameSetElementFromJS(value js.Wrapper) *HTMLFrameSetElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFrameSetElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Cols returning attribute 'cols' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) Cols() string {
-	var ret string
-	value := _this.Value_JS.Get("cols")
-	ret = (value).String()
-	return ret
-}
-
-// SetCols setting attribute 'cols' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) SetCols(value string) {
-	input := value
-	_this.Value_JS.Set("cols", input)
-}
-
-// Rows returning attribute 'rows' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) Rows() string {
-	var ret string
-	value := _this.Value_JS.Get("rows")
-	ret = (value).String()
-	return ret
-}
-
-// SetRows setting attribute 'rows' with
-// type string (idl: DOMString).
-func (_this *HTMLFrameSetElement) SetRows(value string) {
-	input := value
-	_this.Value_JS.Set("rows", input)
-}
-
-// Onafterprint returning attribute 'onafterprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnafterprint setting attribute 'onafterprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnafterprint(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onafterprint", input)
-}
-
-// Onbeforeprint returning attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *domcore.EventHandler) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onbeforeprint", input)
-}
-
-// Onbeforeunload returning attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
-	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
-	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onbeforeunload", input)
-}
-
-// Onhashchange returning attribute 'onhashchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnhashchange setting attribute 'onhashchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnhashchange(value *domcore.EventHandler) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onhashchange", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *domcore.EventHandler) {
-	var __callback6 js.Value
-	if value != nil {
-		__callback6 = (*value).Value
-	} else {
-		__callback6 = js.Null()
-	}
-	input := __callback6
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessage(value *domcore.EventHandler) {
-	var __callback7 js.Value
-	if value != nil {
-		__callback7 = (*value).Value
-	} else {
-		__callback7 = js.Null()
-	}
-	input := __callback7
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback8 js.Value
-	if value != nil {
-		__callback8 = (*value).Value
-	} else {
-		__callback8 = js.Null()
-	}
-	input := __callback8
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnoffline setting attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnoffline(value *domcore.EventHandler) {
-	var __callback9 js.Value
-	if value != nil {
-		__callback9 = (*value).Value
-	} else {
-		__callback9 = js.Null()
-	}
-	input := __callback9
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnonline setting attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnonline(value *domcore.EventHandler) {
-	var __callback10 js.Value
-	if value != nil {
-		__callback10 = (*value).Value
-	} else {
-		__callback10 = js.Null()
-	}
-	input := __callback10
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onpagehide returning attribute 'onpagehide' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpagehide setting attribute 'onpagehide' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpagehide(value *domcore.EventHandler) {
-	var __callback11 js.Value
-	if value != nil {
-		__callback11 = (*value).Value
-	} else {
-		__callback11 = js.Null()
-	}
-	input := __callback11
-	_this.Value_JS.Set("onpagehide", input)
-}
-
-// Onpageshow returning attribute 'onpageshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpageshow setting attribute 'onpageshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpageshow(value *domcore.EventHandler) {
-	var __callback12 js.Value
-	if value != nil {
-		__callback12 = (*value).Value
-	} else {
-		__callback12 = js.Null()
-	}
-	input := __callback12
-	_this.Value_JS.Set("onpageshow", input)
-}
-
-// Onpopstate returning attribute 'onpopstate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpopstate setting attribute 'onpopstate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnpopstate(value *domcore.EventHandler) {
-	var __callback13 js.Value
-	if value != nil {
-		__callback13 = (*value).Value
-	} else {
-		__callback13 = js.Null()
-	}
-	input := __callback13
-	_this.Value_JS.Set("onpopstate", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *domcore.EventHandler) {
-	var __callback14 js.Value
-	if value != nil {
-		__callback14 = (*value).Value
-	} else {
-		__callback14 = js.Null()
-	}
-	input := __callback14
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onstorage returning attribute 'onstorage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstorage setting attribute 'onstorage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnstorage(value *domcore.EventHandler) {
-	var __callback15 js.Value
-	if value != nil {
-		__callback15 = (*value).Value
-	} else {
-		__callback15 = js.Null()
-	}
-	input := __callback15
-	_this.Value_JS.Set("onstorage", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *domcore.EventHandler) {
-	var __callback16 js.Value
-	if value != nil {
-		__callback16 = (*value).Value
-	} else {
-		__callback16 = js.Null()
-	}
-	input := __callback16
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Onunload returning attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnunload setting attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnunload(value *domcore.EventHandler) {
-	var __callback17 js.Value
-	if value != nil {
-		__callback17 = (*value).Value
-	} else {
-		__callback17 = js.Null()
-	}
-	input := __callback17
-	_this.Value_JS.Set("onunload", input)
-}
-
-// interface: HTMLDirectoryElement
-type HTMLDirectoryElement struct {
-	HTMLElement
-}
-
-// HTMLDirectoryElementFromJS is casting a js.Wrapper into HTMLDirectoryElement.
-func HTMLDirectoryElementFromJS(value js.Wrapper) *HTMLDirectoryElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLDirectoryElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Compact returning attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDirectoryElement) Compact() bool {
-	var ret bool
-	value := _this.Value_JS.Get("compact")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetCompact setting attribute 'compact' with
-// type bool (idl: boolean).
-func (_this *HTMLDirectoryElement) SetCompact(value bool) {
-	input := value
-	_this.Value_JS.Set("compact", input)
-}
-
-// interface: HTMLFontElement
-type HTMLFontElement struct {
-	HTMLElement
-}
-
-// HTMLFontElementFromJS is casting a js.Wrapper into HTMLFontElement.
-func HTMLFontElementFromJS(value js.Wrapper) *HTMLFontElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLFontElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Color returning attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Color() string {
-	var ret string
-	value := _this.Value_JS.Get("color")
-	ret = (value).String()
-	return ret
-}
-
-// SetColor setting attribute 'color' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetColor(value string) {
-	input := value
-	_this.Value_JS.Set("color", input)
-}
-
-// Face returning attribute 'face' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Face() string {
-	var ret string
-	value := _this.Value_JS.Get("face")
-	ret = (value).String()
-	return ret
-}
-
-// SetFace setting attribute 'face' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetFace(value string) {
-	input := value
-	_this.Value_JS.Set("face", input)
-}
-
-// Size returning attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) Size() string {
-	var ret string
-	value := _this.Value_JS.Get("size")
-	ret = (value).String()
-	return ret
-}
-
-// SetSize setting attribute 'size' with
-// type string (idl: DOMString).
-func (_this *HTMLFontElement) SetSize(value string) {
-	input := value
-	_this.Value_JS.Set("size", input)
 }

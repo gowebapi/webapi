@@ -56,6 +56,49 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: CanvasDirection
+type CanvasDirection int
+
+const (
+	LtrCanvasDirection CanvasDirection = iota
+	RtlCanvasDirection
+	InheritCanvasDirection
+)
+
+var canvasDirectionToWasmTable = []string{
+	"ltr", "rtl", "inherit",
+}
+
+var canvasDirectionFromWasmTable = map[string]CanvasDirection{
+	"ltr": LtrCanvasDirection, "rtl": RtlCanvasDirection, "inherit": InheritCanvasDirection,
+}
+
+// JSValue is converting this enum into a java object
+func (this *CanvasDirection) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this CanvasDirection) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(canvasDirectionToWasmTable) {
+		return canvasDirectionToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// CanvasDirectionFromJS is converting a javascript value into
+// a CanvasDirection enum value.
+func CanvasDirectionFromJS(value js.Value) CanvasDirection {
+	key := value.String()
+	conv, ok := canvasDirectionFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: CanvasFillRule
 type CanvasFillRule int
 
@@ -92,49 +135,6 @@ func (this CanvasFillRule) Value() string {
 func CanvasFillRuleFromJS(value js.Value) CanvasFillRule {
 	key := value.String()
 	conv, ok := canvasFillRuleFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ImageSmoothingQuality
-type ImageSmoothingQuality int
-
-const (
-	LowImageSmoothingQuality ImageSmoothingQuality = iota
-	MediumImageSmoothingQuality
-	HighImageSmoothingQuality
-)
-
-var imageSmoothingQualityToWasmTable = []string{
-	"low", "medium", "high",
-}
-
-var imageSmoothingQualityFromWasmTable = map[string]ImageSmoothingQuality{
-	"low": LowImageSmoothingQuality, "medium": MediumImageSmoothingQuality, "high": HighImageSmoothingQuality,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ImageSmoothingQuality) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ImageSmoothingQuality) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(imageSmoothingQualityToWasmTable) {
-		return imageSmoothingQualityToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ImageSmoothingQualityFromJS is converting a javascript value into
-// a ImageSmoothingQuality enum value.
-func ImageSmoothingQualityFromJS(value js.Value) ImageSmoothingQuality {
-	key := value.String()
-	conv, ok := imageSmoothingQualityFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -318,43 +318,42 @@ func CanvasTextBaselineFromJS(value js.Value) CanvasTextBaseline {
 	return conv
 }
 
-// enum: CanvasDirection
-type CanvasDirection int
+// enum: ColorSpaceConversion
+type ColorSpaceConversion int
 
 const (
-	LtrCanvasDirection CanvasDirection = iota
-	RtlCanvasDirection
-	InheritCanvasDirection
+	NoneColorSpaceConversion ColorSpaceConversion = iota
+	DefaultColorSpaceConversion
 )
 
-var canvasDirectionToWasmTable = []string{
-	"ltr", "rtl", "inherit",
+var colorSpaceConversionToWasmTable = []string{
+	"none", "default",
 }
 
-var canvasDirectionFromWasmTable = map[string]CanvasDirection{
-	"ltr": LtrCanvasDirection, "rtl": RtlCanvasDirection, "inherit": InheritCanvasDirection,
+var colorSpaceConversionFromWasmTable = map[string]ColorSpaceConversion{
+	"none": NoneColorSpaceConversion, "default": DefaultColorSpaceConversion,
 }
 
 // JSValue is converting this enum into a java object
-func (this *CanvasDirection) JSValue() js.Value {
+func (this *ColorSpaceConversion) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
 
 // Value is converting this into javascript defined
 // string value
-func (this CanvasDirection) Value() string {
+func (this ColorSpaceConversion) Value() string {
 	idx := int(this)
-	if idx >= 0 && idx < len(canvasDirectionToWasmTable) {
-		return canvasDirectionToWasmTable[idx]
+	if idx >= 0 && idx < len(colorSpaceConversionToWasmTable) {
+		return colorSpaceConversionToWasmTable[idx]
 	}
 	panic("unknown input value")
 }
 
-// CanvasDirectionFromJS is converting a javascript value into
-// a CanvasDirection enum value.
-func CanvasDirectionFromJS(value js.Value) CanvasDirection {
+// ColorSpaceConversionFromJS is converting a javascript value into
+// a ColorSpaceConversion enum value.
+func ColorSpaceConversionFromJS(value js.Value) ColorSpaceConversion {
 	key := value.String()
-	conv, ok := canvasDirectionFromWasmTable[key]
+	conv, ok := colorSpaceConversionFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -403,6 +402,49 @@ func ImageOrientationFromJS(value js.Value) ImageOrientation {
 	return conv
 }
 
+// enum: ImageSmoothingQuality
+type ImageSmoothingQuality int
+
+const (
+	LowImageSmoothingQuality ImageSmoothingQuality = iota
+	MediumImageSmoothingQuality
+	HighImageSmoothingQuality
+)
+
+var imageSmoothingQualityToWasmTable = []string{
+	"low", "medium", "high",
+}
+
+var imageSmoothingQualityFromWasmTable = map[string]ImageSmoothingQuality{
+	"low": LowImageSmoothingQuality, "medium": MediumImageSmoothingQuality, "high": HighImageSmoothingQuality,
+}
+
+// JSValue is converting this enum into a java object
+func (this *ImageSmoothingQuality) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ImageSmoothingQuality) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(imageSmoothingQualityToWasmTable) {
+		return imageSmoothingQualityToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ImageSmoothingQualityFromJS is converting a javascript value into
+// a ImageSmoothingQuality enum value.
+func ImageSmoothingQualityFromJS(value js.Value) ImageSmoothingQuality {
+	key := value.String()
+	conv, ok := imageSmoothingQualityFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: PremultiplyAlpha
 type PremultiplyAlpha int
 
@@ -440,48 +482,6 @@ func (this PremultiplyAlpha) Value() string {
 func PremultiplyAlphaFromJS(value js.Value) PremultiplyAlpha {
 	key := value.String()
 	conv, ok := premultiplyAlphaFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ColorSpaceConversion
-type ColorSpaceConversion int
-
-const (
-	NoneColorSpaceConversion ColorSpaceConversion = iota
-	DefaultColorSpaceConversion
-)
-
-var colorSpaceConversionToWasmTable = []string{
-	"none", "default",
-}
-
-var colorSpaceConversionFromWasmTable = map[string]ColorSpaceConversion{
-	"none": NoneColorSpaceConversion, "default": DefaultColorSpaceConversion,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ColorSpaceConversion) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ColorSpaceConversion) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(colorSpaceConversionToWasmTable) {
-		return colorSpaceConversionToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ColorSpaceConversionFromJS is converting a javascript value into
-// a ColorSpaceConversion enum value.
-func ColorSpaceConversionFromJS(value js.Value) ColorSpaceConversion {
-	key := value.String()
-	conv, ok := colorSpaceConversionFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -618,142 +618,74 @@ func ImageBitmapOptionsFromJS(value js.Wrapper) *ImageBitmapOptions {
 	return &out
 }
 
-// interface: HTMLCanvasElement
-type HTMLCanvasElement struct {
-	html.HTMLElement
+// interface: CanvasGradient
+type CanvasGradient struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
 }
 
-// HTMLCanvasElementFromJS is casting a js.Wrapper into HTMLCanvasElement.
-func HTMLCanvasElementFromJS(value js.Wrapper) *HTMLCanvasElement {
+func (_this *CanvasGradient) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CanvasGradientFromJS is casting a js.Wrapper into CanvasGradient.
+func CanvasGradientFromJS(value js.Wrapper) *CanvasGradient {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &HTMLCanvasElement{}
+	ret := &CanvasGradient{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) Width() uint {
-	var ret uint
-	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetWidth setting attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) SetWidth(value uint) {
-	input := value
-	_this.Value_JS.Set("width", input)
-}
-
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// SetHeight setting attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *HTMLCanvasElement) SetHeight(value uint) {
-	input := value
-	_this.Value_JS.Set("height", input)
-}
-
-func (_this *HTMLCanvasElement) GetContext(contextId string, options interface{}) (_result *Union) {
+func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
 	var (
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := contextId
+	_p0 := offset
 	_args[0] = _p0
 	_end++
-	if options != nil {
-		_p1 := options
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getContext", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
+	_p1 := color
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("addColorStop", _args[0:_end]...)
 	return
 }
 
-func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality interface{}) (_result string) {
+// interface: CanvasPattern
+type CanvasPattern struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CanvasPattern) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CanvasPatternFromJS is casting a js.Wrapper into CanvasPattern.
+func CanvasPatternFromJS(value js.Wrapper) *CanvasPattern {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CanvasPattern{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CanvasPattern) SetTransform(transform *domcore.DOMMatrix2DInit) {
 	var (
-		_args [2]interface{}
+		_args [1]interface{}
 		_end  int
 	)
-	if _type != nil {
-		_p0 := _type
+	if transform != nil {
+		_p0 := transform.JSValue()
 		_args[0] = _p0
 		_end++
 	}
-	if quality != nil {
-		_p1 := quality
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("toDataURL", _args[0:_end]...)
-	var (
-		_converted string // javascript: USVString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality interface{}) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	if _type != nil {
-		_p1 := _type
-		_args[1] = _p1
-		_end++
-	}
-	if quality != nil {
-		_p2 := quality
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("toBlob", _args[0:_end]...)
-	return
-}
-
-func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *OffscreenCanvas) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("transferControlToOffscreen", _args[0:_end]...)
-	var (
-		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
-	)
-	_converted = OffscreenCanvasFromJS(_returned)
-	_result = _converted
+	_this.Value_JS.Call("setTransform", _args[0:_end]...)
 	return
 }
 
@@ -2125,204 +2057,233 @@ func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX flo
 	return
 }
 
-// interface: CanvasGradient
-type CanvasGradient struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
+// interface: HTMLCanvasElement
+type HTMLCanvasElement struct {
+	html.HTMLElement
 }
 
-func (_this *CanvasGradient) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CanvasGradientFromJS is casting a js.Wrapper into CanvasGradient.
-func CanvasGradientFromJS(value js.Wrapper) *CanvasGradient {
+// HTMLCanvasElementFromJS is casting a js.Wrapper into HTMLCanvasElement.
+func HTMLCanvasElementFromJS(value js.Wrapper) *HTMLCanvasElement {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &CanvasGradient{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := color
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("addColorStop", _args[0:_end]...)
-	return
-}
-
-// interface: CanvasPattern
-type CanvasPattern struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CanvasPattern) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CanvasPatternFromJS is casting a js.Wrapper into CanvasPattern.
-func CanvasPatternFromJS(value js.Wrapper) *CanvasPattern {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CanvasPattern{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *CanvasPattern) SetTransform(transform *domcore.DOMMatrix2DInit) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if transform != nil {
-		_p0 := transform.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_this.Value_JS.Call("setTransform", _args[0:_end]...)
-	return
-}
-
-// interface: TextMetrics
-type TextMetrics struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *TextMetrics) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// TextMetricsFromJS is casting a js.Wrapper into TextMetrics.
-func TextMetricsFromJS(value js.Wrapper) *TextMetrics {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &TextMetrics{}
+	ret := &HTMLCanvasElement{}
 	ret.Value_JS = input
 	return ret
 }
 
 // Width returning attribute 'width' with
-// type float64 (idl: double).
-func (_this *TextMetrics) Width() float64 {
-	var ret float64
+// type uint (idl: unsigned long).
+func (_this *HTMLCanvasElement) Width() uint {
+	var ret uint
 	value := _this.Value_JS.Get("width")
-	ret = (value).Float()
+	ret = (uint)((value).Int())
 	return ret
 }
 
-// ActualBoundingBoxLeft returning attribute 'actualBoundingBoxLeft' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxLeft() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxLeft")
-	ret = (value).Float()
+// SetWidth setting attribute 'width' with
+// type uint (idl: unsigned long).
+func (_this *HTMLCanvasElement) SetWidth(value uint) {
+	input := value
+	_this.Value_JS.Set("width", input)
+}
+
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
+func (_this *HTMLCanvasElement) Height() uint {
+	var ret uint
+	value := _this.Value_JS.Get("height")
+	ret = (uint)((value).Int())
 	return ret
 }
 
-// ActualBoundingBoxRight returning attribute 'actualBoundingBoxRight' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxRight() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxRight")
-	ret = (value).Float()
+// SetHeight setting attribute 'height' with
+// type uint (idl: unsigned long).
+func (_this *HTMLCanvasElement) SetHeight(value uint) {
+	input := value
+	_this.Value_JS.Set("height", input)
+}
+
+func (_this *HTMLCanvasElement) GetContext(contextId string, options interface{}) (_result *Union) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := contextId
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getContext", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = UnionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality interface{}) (_result string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	if _type != nil {
+		_p0 := _type
+		_args[0] = _p0
+		_end++
+	}
+	if quality != nil {
+		_p1 := quality
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("toDataURL", _args[0:_end]...)
+	var (
+		_converted string // javascript: USVString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality interface{}) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if _type != nil {
+		_p1 := _type
+		_args[1] = _p1
+		_end++
+	}
+	if quality != nil {
+		_p2 := quality
+		_args[2] = _p2
+		_end++
+	}
+	_this.Value_JS.Call("toBlob", _args[0:_end]...)
+	return
+}
+
+func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *OffscreenCanvas) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("transferControlToOffscreen", _args[0:_end]...)
+	var (
+		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
+	)
+	_converted = OffscreenCanvasFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: ImageBitmap
+type ImageBitmap struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ImageBitmap) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ImageBitmapFromJS is casting a js.Wrapper into ImageBitmap.
+func ImageBitmapFromJS(value js.Wrapper) *ImageBitmap {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ImageBitmap{}
+	ret.Value_JS = input
 	return ret
 }
 
-// FontBoundingBoxAscent returning attribute 'fontBoundingBoxAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) FontBoundingBoxAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("fontBoundingBoxAscent")
-	ret = (value).Float()
+// Width returning attribute 'width' with
+// type uint (idl: unsigned long).
+func (_this *ImageBitmap) Width() uint {
+	var ret uint
+	value := _this.Value_JS.Get("width")
+	ret = (uint)((value).Int())
 	return ret
 }
 
-// FontBoundingBoxDescent returning attribute 'fontBoundingBoxDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) FontBoundingBoxDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("fontBoundingBoxDescent")
-	ret = (value).Float()
+// Height returning attribute 'height' with
+// type uint (idl: unsigned long).
+func (_this *ImageBitmap) Height() uint {
+	var ret uint
+	value := _this.Value_JS.Get("height")
+	ret = (uint)((value).Int())
 	return ret
 }
 
-// ActualBoundingBoxAscent returning attribute 'actualBoundingBoxAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxAscent")
-	ret = (value).Float()
+func (_this *ImageBitmap) Close() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+// interface: ImageBitmapRenderingContext
+type ImageBitmapRenderingContext struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ImageBitmapRenderingContext) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ImageBitmapRenderingContextFromJS is casting a js.Wrapper into ImageBitmapRenderingContext.
+func ImageBitmapRenderingContextFromJS(value js.Wrapper) *ImageBitmapRenderingContext {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ImageBitmapRenderingContext{}
+	ret.Value_JS = input
 	return ret
 }
 
-// ActualBoundingBoxDescent returning attribute 'actualBoundingBoxDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) ActualBoundingBoxDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("actualBoundingBoxDescent")
-	ret = (value).Float()
+// Canvas returning attribute 'canvas' with
+// type HTMLCanvasElement (idl: HTMLCanvasElement).
+func (_this *ImageBitmapRenderingContext) Canvas() *HTMLCanvasElement {
+	var ret *HTMLCanvasElement
+	value := _this.Value_JS.Get("canvas")
+	ret = HTMLCanvasElementFromJS(value)
 	return ret
 }
 
-// EmHeightAscent returning attribute 'emHeightAscent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) EmHeightAscent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("emHeightAscent")
-	ret = (value).Float()
-	return ret
-}
-
-// EmHeightDescent returning attribute 'emHeightDescent' with
-// type float64 (idl: double).
-func (_this *TextMetrics) EmHeightDescent() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("emHeightDescent")
-	ret = (value).Float()
-	return ret
-}
-
-// HangingBaseline returning attribute 'hangingBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) HangingBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("hangingBaseline")
-	ret = (value).Float()
-	return ret
-}
-
-// AlphabeticBaseline returning attribute 'alphabeticBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) AlphabeticBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("alphabeticBaseline")
-	ret = (value).Float()
-	return ret
-}
-
-// IdeographicBaseline returning attribute 'ideographicBaseline' with
-// type float64 (idl: double).
-func (_this *TextMetrics) IdeographicBaseline() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("ideographicBaseline")
-	ret = (value).Float()
-	return ret
+func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageBitmap) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := bitmap.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("transferFromImageBitmap", _args[0:_end]...)
+	return
 }
 
 // interface: ImageData
@@ -2397,302 +2358,6 @@ func (_this *ImageData) Data() *patch.Uint8ClampedArray {
 	value := _this.Value_JS.Get("data")
 	ret = patch.Uint8ClampedArrayFromJS(value)
 	return ret
-}
-
-// interface: Path2D
-type Path2D struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Path2D) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Path2DFromJS is casting a js.Wrapper into Path2D.
-func Path2DFromJS(value js.Wrapper) *Path2D {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Path2D{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewPath2D(path *Union) (_result *Path2D) {
-	_klass := js.Global().Get("Path2D")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if path != nil {
-		_p0 := path.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Path2D // javascript: Path2D _what_return_name
-	)
-	_converted = Path2DFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Path2D) AddPath(path *Path2D, transform *domcore.DOMMatrix2DInit) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := path.JSValue()
-	_args[0] = _p0
-	_end++
-	if transform != nil {
-		_p1 := transform.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("addPath", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) ClosePath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("closePath", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) MoveTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("moveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) LineTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("lineTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := cpx
-	_args[0] = _p0
-	_end++
-	_p1 := cpy
-	_args[1] = _p1
-	_end++
-	_p2 := x
-	_args[2] = _p2
-	_end++
-	_p3 := y
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := cp1x
-	_args[0] = _p0
-	_end++
-	_p1 := cp1y
-	_args[1] = _p1
-	_end++
-	_p2 := cp2x
-	_args[2] = _p2
-	_end++
-	_p3 := cp2y
-	_args[3] = _p3
-	_end++
-	_p4 := x
-	_args[4] = _p4
-	_end++
-	_p5 := y
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := x1
-	_args[0] = _p0
-	_end++
-	_p1 := y1
-	_args[1] = _p1
-	_end++
-	_p2 := x2
-	_args[2] = _p2
-	_end++
-	_p3 := y2
-	_args[3] = _p3
-	_end++
-	_p4 := radius
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("arcTo", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Rect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("rect", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radius
-	_args[2] = _p2
-	_end++
-	_p3 := startAngle
-	_args[3] = _p3
-	_end++
-	_p4 := endAngle
-	_args[4] = _p4
-	_end++
-	if anticlockwise != nil {
-		_p5 := anticlockwise
-		_args[5] = _p5
-		_end++
-	}
-	_this.Value_JS.Call("arc", _args[0:_end]...)
-	return
-}
-
-func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radiusX
-	_args[2] = _p2
-	_end++
-	_p3 := radiusY
-	_args[3] = _p3
-	_end++
-	_p4 := rotation
-	_args[4] = _p4
-	_end++
-	_p5 := startAngle
-	_args[5] = _p5
-	_end++
-	_p6 := endAngle
-	_args[6] = _p6
-	_end++
-	if anticlockwise != nil {
-		_p7 := anticlockwise
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("ellipse", _args[0:_end]...)
-	return
-}
-
-// interface: ImageBitmapRenderingContext
-type ImageBitmapRenderingContext struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ImageBitmapRenderingContext) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ImageBitmapRenderingContextFromJS is casting a js.Wrapper into ImageBitmapRenderingContext.
-func ImageBitmapRenderingContextFromJS(value js.Wrapper) *ImageBitmapRenderingContext {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ImageBitmapRenderingContext{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Canvas returning attribute 'canvas' with
-// type HTMLCanvasElement (idl: HTMLCanvasElement).
-func (_this *ImageBitmapRenderingContext) Canvas() *HTMLCanvasElement {
-	var ret *HTMLCanvasElement
-	value := _this.Value_JS.Get("canvas")
-	ret = HTMLCanvasElementFromJS(value)
-	return ret
-}
-
-func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageBitmap) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := bitmap.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("transferFromImageBitmap", _args[0:_end]...)
-	return
 }
 
 // interface: OffscreenCanvas
@@ -4136,50 +3801,385 @@ func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, ra
 	return
 }
 
-// interface: ImageBitmap
-type ImageBitmap struct {
+// interface: Path2D
+type Path2D struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *ImageBitmap) JSValue() js.Value {
+func (_this *Path2D) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ImageBitmapFromJS is casting a js.Wrapper into ImageBitmap.
-func ImageBitmapFromJS(value js.Wrapper) *ImageBitmap {
+// Path2DFromJS is casting a js.Wrapper into Path2D.
+func Path2DFromJS(value js.Wrapper) *Path2D {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &ImageBitmap{}
+	ret := &Path2D{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewPath2D(path *Union) (_result *Path2D) {
+	_klass := js.Global().Get("Path2D")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if path != nil {
+		_p0 := path.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *Path2D // javascript: Path2D _what_return_name
+	)
+	_converted = Path2DFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Path2D) AddPath(path *Path2D, transform *domcore.DOMMatrix2DInit) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := path.JSValue()
+	_args[0] = _p0
+	_end++
+	if transform != nil {
+		_p1 := transform.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("addPath", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) ClosePath() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("closePath", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) MoveTo(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("moveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) LineTo(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("lineTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := cpx
+	_args[0] = _p0
+	_end++
+	_p1 := cpy
+	_args[1] = _p1
+	_end++
+	_p2 := x
+	_args[2] = _p2
+	_end++
+	_p3 := y
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
+	var (
+		_args [6]interface{}
+		_end  int
+	)
+	_p0 := cp1x
+	_args[0] = _p0
+	_end++
+	_p1 := cp1y
+	_args[1] = _p1
+	_end++
+	_p2 := cp2x
+	_args[2] = _p2
+	_end++
+	_p3 := cp2y
+	_args[3] = _p3
+	_end++
+	_p4 := x
+	_args[4] = _p4
+	_end++
+	_p5 := y
+	_args[5] = _p5
+	_end++
+	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
+	var (
+		_args [5]interface{}
+		_end  int
+	)
+	_p0 := x1
+	_args[0] = _p0
+	_end++
+	_p1 := y1
+	_args[1] = _p1
+	_end++
+	_p2 := x2
+	_args[2] = _p2
+	_end++
+	_p3 := y2
+	_args[3] = _p3
+	_end++
+	_p4 := radius
+	_args[4] = _p4
+	_end++
+	_this.Value_JS.Call("arcTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) Rect(x float64, y float64, w float64, h float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := w
+	_args[2] = _p2
+	_end++
+	_p3 := h
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("rect", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
+	var (
+		_args [6]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := radius
+	_args[2] = _p2
+	_end++
+	_p3 := startAngle
+	_args[3] = _p3
+	_end++
+	_p4 := endAngle
+	_args[4] = _p4
+	_end++
+	if anticlockwise != nil {
+		_p5 := anticlockwise
+		_args[5] = _p5
+		_end++
+	}
+	_this.Value_JS.Call("arc", _args[0:_end]...)
+	return
+}
+
+func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
+	var (
+		_args [8]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := radiusX
+	_args[2] = _p2
+	_end++
+	_p3 := radiusY
+	_args[3] = _p3
+	_end++
+	_p4 := rotation
+	_args[4] = _p4
+	_end++
+	_p5 := startAngle
+	_args[5] = _p5
+	_end++
+	_p6 := endAngle
+	_args[6] = _p6
+	_end++
+	if anticlockwise != nil {
+		_p7 := anticlockwise
+		_args[7] = _p7
+		_end++
+	}
+	_this.Value_JS.Call("ellipse", _args[0:_end]...)
+	return
+}
+
+// interface: TextMetrics
+type TextMetrics struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *TextMetrics) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// TextMetricsFromJS is casting a js.Wrapper into TextMetrics.
+func TextMetricsFromJS(value js.Wrapper) *TextMetrics {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &TextMetrics{}
 	ret.Value_JS = input
 	return ret
 }
 
 // Width returning attribute 'width' with
-// type uint (idl: unsigned long).
-func (_this *ImageBitmap) Width() uint {
-	var ret uint
+// type float64 (idl: double).
+func (_this *TextMetrics) Width() float64 {
+	var ret float64
 	value := _this.Value_JS.Get("width")
-	ret = (uint)((value).Int())
+	ret = (value).Float()
 	return ret
 }
 
-// Height returning attribute 'height' with
-// type uint (idl: unsigned long).
-func (_this *ImageBitmap) Height() uint {
-	var ret uint
-	value := _this.Value_JS.Get("height")
-	ret = (uint)((value).Int())
+// ActualBoundingBoxLeft returning attribute 'actualBoundingBoxLeft' with
+// type float64 (idl: double).
+func (_this *TextMetrics) ActualBoundingBoxLeft() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("actualBoundingBoxLeft")
+	ret = (value).Float()
 	return ret
 }
 
-func (_this *ImageBitmap) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
+// ActualBoundingBoxRight returning attribute 'actualBoundingBoxRight' with
+// type float64 (idl: double).
+func (_this *TextMetrics) ActualBoundingBoxRight() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("actualBoundingBoxRight")
+	ret = (value).Float()
+	return ret
+}
+
+// FontBoundingBoxAscent returning attribute 'fontBoundingBoxAscent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) FontBoundingBoxAscent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("fontBoundingBoxAscent")
+	ret = (value).Float()
+	return ret
+}
+
+// FontBoundingBoxDescent returning attribute 'fontBoundingBoxDescent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) FontBoundingBoxDescent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("fontBoundingBoxDescent")
+	ret = (value).Float()
+	return ret
+}
+
+// ActualBoundingBoxAscent returning attribute 'actualBoundingBoxAscent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) ActualBoundingBoxAscent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("actualBoundingBoxAscent")
+	ret = (value).Float()
+	return ret
+}
+
+// ActualBoundingBoxDescent returning attribute 'actualBoundingBoxDescent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) ActualBoundingBoxDescent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("actualBoundingBoxDescent")
+	ret = (value).Float()
+	return ret
+}
+
+// EmHeightAscent returning attribute 'emHeightAscent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) EmHeightAscent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("emHeightAscent")
+	ret = (value).Float()
+	return ret
+}
+
+// EmHeightDescent returning attribute 'emHeightDescent' with
+// type float64 (idl: double).
+func (_this *TextMetrics) EmHeightDescent() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("emHeightDescent")
+	ret = (value).Float()
+	return ret
+}
+
+// HangingBaseline returning attribute 'hangingBaseline' with
+// type float64 (idl: double).
+func (_this *TextMetrics) HangingBaseline() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("hangingBaseline")
+	ret = (value).Float()
+	return ret
+}
+
+// AlphabeticBaseline returning attribute 'alphabeticBaseline' with
+// type float64 (idl: double).
+func (_this *TextMetrics) AlphabeticBaseline() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("alphabeticBaseline")
+	ret = (value).Float()
+	return ret
+}
+
+// IdeographicBaseline returning attribute 'ideographicBaseline' with
+// type float64 (idl: double).
+func (_this *TextMetrics) IdeographicBaseline() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("ideographicBaseline")
+	ret = (value).Float()
+	return ret
 }

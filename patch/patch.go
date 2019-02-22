@@ -59,6 +59,27 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	return &out
 }
 
+// interface: ByteString
+type ByteString struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ByteString) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ByteStringFromJS is casting a js.Wrapper into ByteString.
+func ByteStringFromJS(value js.Wrapper) *ByteString {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ByteString{}
+	ret.Value_JS = input
+	return ret
+}
+
 // interface: FormData
 type FormData struct {
 	// Value_JS holds a reference to a javascript value
@@ -122,90 +143,6 @@ func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 	return ret
 }
 
-// interface: SVGScriptElement
-type SVGScriptElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGScriptElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
-func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGScriptElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: SVGImageElement
-type SVGImageElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGImageElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
-func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGImageElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Uint8ClampedArray
-type Uint8ClampedArray struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint8ClampedArray) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint8ClampedArrayFromJS is casting a js.Wrapper into Uint8ClampedArray.
-func Uint8ClampedArrayFromJS(value js.Wrapper) *Uint8ClampedArray {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint8ClampedArray{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: ByteString
-type ByteString struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *ByteString) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ByteStringFromJS is casting a js.Wrapper into ByteString.
-func ByteStringFromJS(value js.Wrapper) *ByteString {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ByteString{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: MouseEvent
 type MouseEvent struct {
 	// Value_JS holds a reference to a javascript value
@@ -244,6 +181,69 @@ func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
 		return nil
 	}
 	ret := &ReadableStream{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: SVGImageElement
+type SVGImageElement struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *SVGImageElement) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
+func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SVGImageElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: SVGScriptElement
+type SVGScriptElement struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *SVGScriptElement) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
+func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SVGScriptElement{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Uint8ClampedArray
+type Uint8ClampedArray struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Uint8ClampedArray) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Uint8ClampedArrayFromJS is casting a js.Wrapper into Uint8ClampedArray.
+func Uint8ClampedArrayFromJS(value js.Wrapper) *Uint8ClampedArray {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Uint8ClampedArray{}
 	ret.Value_JS = input
 	return ret
 }

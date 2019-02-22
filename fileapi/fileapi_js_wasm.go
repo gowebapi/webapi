@@ -493,13 +493,13 @@ func (_this *FileReader) Onloadstart() domcore.EventHandlerFunc {
 // SetOnloadstart setting attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback3 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback3 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback3 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback3
+	input := __callback0
 	_this.Value_JS.Set("onloadstart", input)
 }
 
@@ -517,13 +517,13 @@ func (_this *FileReader) Onprogress() domcore.EventHandlerFunc {
 // SetOnprogress setting attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnprogress(value *domcore.EventHandler) {
-	var __callback4 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback4 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback4 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback4
+	input := __callback0
 	_this.Value_JS.Set("onprogress", input)
 }
 
@@ -541,13 +541,13 @@ func (_this *FileReader) Onload() domcore.EventHandlerFunc {
 // SetOnload setting attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnload(value *domcore.EventHandler) {
-	var __callback5 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback5 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback5 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback5
+	input := __callback0
 	_this.Value_JS.Set("onload", input)
 }
 
@@ -565,13 +565,13 @@ func (_this *FileReader) Onabort() domcore.EventHandlerFunc {
 // SetOnabort setting attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnabort(value *domcore.EventHandler) {
-	var __callback6 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback6 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback6 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback6
+	input := __callback0
 	_this.Value_JS.Set("onabort", input)
 }
 
@@ -589,13 +589,13 @@ func (_this *FileReader) Onerror() domcore.EventHandlerFunc {
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnerror(value *domcore.EventHandler) {
-	var __callback7 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback7 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback7 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback7
+	input := __callback0
 	_this.Value_JS.Set("onerror", input)
 }
 
@@ -613,13 +613,13 @@ func (_this *FileReader) Onloadend() domcore.EventHandlerFunc {
 // SetOnloadend setting attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *FileReader) SetOnloadend(value *domcore.EventHandler) {
-	var __callback8 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback8 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback8 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback8
+	input := __callback0
 	_this.Value_JS.Set("onloadend", input)
 }
 

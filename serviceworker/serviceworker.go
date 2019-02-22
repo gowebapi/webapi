@@ -58,6 +58,94 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: ClientType
+type ClientType int
+
+const (
+	WindowClientType ClientType = iota
+	WorkerClientType
+	SharedworkerClientType
+	AllClientType
+)
+
+var clientTypeToWasmTable = []string{
+	"window", "worker", "sharedworker", "all",
+}
+
+var clientTypeFromWasmTable = map[string]ClientType{
+	"window": WindowClientType, "worker": WorkerClientType, "sharedworker": SharedworkerClientType, "all": AllClientType,
+}
+
+// JSValue is converting this enum into a java object
+func (this *ClientType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ClientType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(clientTypeToWasmTable) {
+		return clientTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ClientTypeFromJS is converting a javascript value into
+// a ClientType enum value.
+func ClientTypeFromJS(value js.Value) ClientType {
+	key := value.String()
+	conv, ok := clientTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: FrameType
+type FrameType int
+
+const (
+	AuxiliaryFrameType FrameType = iota
+	TopLevelFrameType
+	NestedFrameType
+	NoneFrameType
+)
+
+var frameTypeToWasmTable = []string{
+	"auxiliary", "top-level", "nested", "none",
+}
+
+var frameTypeFromWasmTable = map[string]FrameType{
+	"auxiliary": AuxiliaryFrameType, "top-level": TopLevelFrameType, "nested": NestedFrameType, "none": NoneFrameType,
+}
+
+// JSValue is converting this enum into a java object
+func (this *FrameType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this FrameType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(frameTypeToWasmTable) {
+		return frameTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// FrameTypeFromJS is converting a javascript value into
+// a FrameType enum value.
+func FrameTypeFromJS(value js.Value) FrameType {
+	key := value.String()
+	conv, ok := frameTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: ServiceWorkerState
 type ServiceWorkerState int
 
@@ -146,131 +234,43 @@ func ServiceWorkerUpdateViaCacheFromJS(value js.Value) ServiceWorkerUpdateViaCac
 	return conv
 }
 
-// enum: FrameType
-type FrameType int
-
-const (
-	AuxiliaryFrameType FrameType = iota
-	TopLevelFrameType
-	NestedFrameType
-	NoneFrameType
-)
-
-var frameTypeToWasmTable = []string{
-	"auxiliary", "top-level", "nested", "none",
-}
-
-var frameTypeFromWasmTable = map[string]FrameType{
-	"auxiliary": AuxiliaryFrameType, "top-level": TopLevelFrameType, "nested": NestedFrameType, "none": NoneFrameType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *FrameType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this FrameType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(frameTypeToWasmTable) {
-		return frameTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// FrameTypeFromJS is converting a javascript value into
-// a FrameType enum value.
-func FrameTypeFromJS(value js.Value) FrameType {
-	key := value.String()
-	conv, ok := frameTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: ClientType
-type ClientType int
-
-const (
-	WindowClientType ClientType = iota
-	WorkerClientType
-	SharedworkerClientType
-	AllClientType
-)
-
-var clientTypeToWasmTable = []string{
-	"window", "worker", "sharedworker", "all",
-}
-
-var clientTypeFromWasmTable = map[string]ClientType{
-	"window": WindowClientType, "worker": WorkerClientType, "sharedworker": SharedworkerClientType, "all": AllClientType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ClientType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ClientType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(clientTypeToWasmTable) {
-		return clientTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ClientTypeFromJS is converting a javascript value into
-// a ClientType enum value.
-func ClientTypeFromJS(value js.Value) ClientType {
-	key := value.String()
-	conv, ok := clientTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// dictionary: RegistrationOptions
-type RegistrationOptions struct {
-	Scope          string
-	Type           htmlevent.WorkerType
-	UpdateViaCache ServiceWorkerUpdateViaCache
+// dictionary: CacheQueryOptions
+type CacheQueryOptions struct {
+	IgnoreSearch bool
+	IgnoreMethod bool
+	IgnoreVary   bool
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *RegistrationOptions) JSValue() js.Value {
+func (_this *CacheQueryOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Scope
-	out.Set("scope", value0)
-	value1 := _this.Type.JSValue()
-	out.Set("type", value1)
-	value2 := _this.UpdateViaCache.JSValue()
-	out.Set("updateViaCache", value2)
+	value0 := _this.IgnoreSearch
+	out.Set("ignoreSearch", value0)
+	value1 := _this.IgnoreMethod
+	out.Set("ignoreMethod", value1)
+	value2 := _this.IgnoreVary
+	out.Set("ignoreVary", value2)
 	return out
 }
 
-// RegistrationOptionsFromJS is allocating a new
-// RegistrationOptions object and copy all values from
+// CacheQueryOptionsFromJS is allocating a new
+// CacheQueryOptions object and copy all values from
 // input javascript object
-func RegistrationOptionsFromJS(value js.Wrapper) *RegistrationOptions {
+func CacheQueryOptionsFromJS(value js.Wrapper) *CacheQueryOptions {
 	input := value.JSValue()
-	var out RegistrationOptions
+	var out CacheQueryOptions
 	var (
-		value0 string                      // javascript: USVString {scope Scope scope}
-		value1 htmlevent.WorkerType        // javascript: WorkerType {type Type _type}
-		value2 ServiceWorkerUpdateViaCache // javascript: ServiceWorkerUpdateViaCache {updateViaCache UpdateViaCache updateViaCache}
+		value0 bool // javascript: boolean {ignoreSearch IgnoreSearch ignoreSearch}
+		value1 bool // javascript: boolean {ignoreMethod IgnoreMethod ignoreMethod}
+		value2 bool // javascript: boolean {ignoreVary IgnoreVary ignoreVary}
 	)
-	value0 = (input.Get("scope")).String()
-	out.Scope = value0
-	value1 = htmlevent.WorkerTypeFromJS(input.Get("type"))
-	out.Type = value1
-	value2 = ServiceWorkerUpdateViaCacheFromJS(input.Get("updateViaCache"))
-	out.UpdateViaCache = value2
+	value0 = (input.Get("ignoreSearch")).Bool()
+	out.IgnoreSearch = value0
+	value1 = (input.Get("ignoreMethod")).Bool()
+	out.IgnoreMethod = value1
+	value2 = (input.Get("ignoreVary")).Bool()
+	out.IgnoreVary = value2
 	return &out
 }
 
@@ -345,58 +345,6 @@ func ExtendableEventInitFromJS(value js.Wrapper) *ExtendableEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	return &out
-}
-
-// dictionary: FetchEventInit
-type FetchEventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-	Request    *fetch.Request
-	ClientId   string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *FetchEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
-	value3 := _this.Request.JSValue()
-	out.Set("request", value3)
-	value4 := _this.ClientId
-	out.Set("clientId", value4)
-	return out
-}
-
-// FetchEventInitFromJS is allocating a new
-// FetchEventInit object and copy all values from
-// input javascript object
-func FetchEventInitFromJS(value js.Wrapper) *FetchEventInit {
-	input := value.JSValue()
-	var out FetchEventInit
-	var (
-		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool           // javascript: boolean {composed Composed composed}
-		value3 *fetch.Request // javascript: Request {request Request request}
-		value4 string         // javascript: DOMString {clientId ClientId clientId}
-	)
-	value0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
-	out.Composed = value2
-	value3 = fetch.RequestFromJS(input.Get("request"))
-	out.Request = value3
-	value4 = (input.Get("clientId")).String()
-	out.ClientId = value4
 	return &out
 }
 
@@ -484,43 +432,55 @@ func ExtendableMessageEventInitFromJS(value js.Wrapper) *ExtendableMessageEventI
 	return &out
 }
 
-// dictionary: CacheQueryOptions
-type CacheQueryOptions struct {
-	IgnoreSearch bool
-	IgnoreMethod bool
-	IgnoreVary   bool
+// dictionary: FetchEventInit
+type FetchEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Request    *fetch.Request
+	ClientId   string
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *CacheQueryOptions) JSValue() js.Value {
+func (_this *FetchEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.IgnoreSearch
-	out.Set("ignoreSearch", value0)
-	value1 := _this.IgnoreMethod
-	out.Set("ignoreMethod", value1)
-	value2 := _this.IgnoreVary
-	out.Set("ignoreVary", value2)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Request.JSValue()
+	out.Set("request", value3)
+	value4 := _this.ClientId
+	out.Set("clientId", value4)
 	return out
 }
 
-// CacheQueryOptionsFromJS is allocating a new
-// CacheQueryOptions object and copy all values from
+// FetchEventInitFromJS is allocating a new
+// FetchEventInit object and copy all values from
 // input javascript object
-func CacheQueryOptionsFromJS(value js.Wrapper) *CacheQueryOptions {
+func FetchEventInitFromJS(value js.Wrapper) *FetchEventInit {
 	input := value.JSValue()
-	var out CacheQueryOptions
+	var out FetchEventInit
 	var (
-		value0 bool // javascript: boolean {ignoreSearch IgnoreSearch ignoreSearch}
-		value1 bool // javascript: boolean {ignoreMethod IgnoreMethod ignoreMethod}
-		value2 bool // javascript: boolean {ignoreVary IgnoreVary ignoreVary}
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 *fetch.Request // javascript: Request {request Request request}
+		value4 string         // javascript: DOMString {clientId ClientId clientId}
 	)
-	value0 = (input.Get("ignoreSearch")).Bool()
-	out.IgnoreSearch = value0
-	value1 = (input.Get("ignoreMethod")).Bool()
-	out.IgnoreMethod = value1
-	value2 = (input.Get("ignoreVary")).Bool()
-	out.IgnoreVary = value2
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = fetch.RequestFromJS(input.Get("request"))
+	out.Request = value3
+	value4 = (input.Get("clientId")).String()
+	out.ClientId = value4
 	return &out
 }
 
@@ -570,842 +530,44 @@ func MultiCacheQueryOptionsFromJS(value js.Wrapper) *MultiCacheQueryOptions {
 	return &out
 }
 
-// interface: ServiceWorker
-type ServiceWorker struct {
-	domcore.EventTarget
+// dictionary: RegistrationOptions
+type RegistrationOptions struct {
+	Scope          string
+	Type           htmlevent.WorkerType
+	UpdateViaCache ServiceWorkerUpdateViaCache
 }
 
-// ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
-func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RegistrationOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Scope
+	out.Set("scope", value0)
+	value1 := _this.Type.JSValue()
+	out.Set("type", value1)
+	value2 := _this.UpdateViaCache.JSValue()
+	out.Set("updateViaCache", value2)
+	return out
+}
+
+// RegistrationOptionsFromJS is allocating a new
+// RegistrationOptions object and copy all values from
+// input javascript object
+func RegistrationOptionsFromJS(value js.Wrapper) *RegistrationOptions {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ServiceWorker{}
-	ret.Value_JS = input
-	return ret
-}
-
-// ScriptURL returning attribute 'scriptURL' with
-// type string (idl: USVString).
-func (_this *ServiceWorker) ScriptURL() string {
-	var ret string
-	value := _this.Value_JS.Get("scriptURL")
-	ret = (value).String()
-	return ret
-}
-
-// State returning attribute 'state' with
-// type ServiceWorkerState (idl: ServiceWorkerState).
-func (_this *ServiceWorker) State() ServiceWorkerState {
-	var ret ServiceWorkerState
-	value := _this.Value_JS.Get("state")
-	ret = ServiceWorkerStateFromJS(value)
-	return ret
-}
-
-// Onstatechange returning attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) Onstatechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onstatechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnstatechange setting attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onstatechange", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) Onerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) SetOnerror(value *domcore.EventHandler) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onerror", input)
-}
-
-func (_this *ServiceWorker) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var out RegistrationOptions
 	var (
-		_args [2]interface{}
-		_end  int
+		value0 string                      // javascript: USVString {scope Scope scope}
+		value1 htmlevent.WorkerType        // javascript: WorkerType {type Type _type}
+		value2 ServiceWorkerUpdateViaCache // javascript: ServiceWorkerUpdateViaCache {updateViaCache UpdateViaCache updateViaCache}
 	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if transfer != nil {
-		_p1 := js.Global().Get("Array").New(len(transfer))
-		for __idx1, __seq_in1 := range transfer {
-			__seq_out1 := __seq_in1.JSValue()
-			_p1.SetIndex(__idx1, __seq_out1)
-		}
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-// interface: ServiceWorkerRegistration
-type ServiceWorkerRegistration struct {
-	domcore.EventTarget
-}
-
-// ServiceWorkerRegistrationFromJS is casting a js.Wrapper into ServiceWorkerRegistration.
-func ServiceWorkerRegistrationFromJS(value js.Wrapper) *ServiceWorkerRegistration {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ServiceWorkerRegistration{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Installing returning attribute 'installing' with
-// type ServiceWorker (idl: ServiceWorker).
-func (_this *ServiceWorkerRegistration) Installing() *ServiceWorker {
-	var ret *ServiceWorker
-	value := _this.Value_JS.Get("installing")
-	if value.Type() != js.TypeNull {
-		ret = ServiceWorkerFromJS(value)
-	}
-	return ret
-}
-
-// Waiting returning attribute 'waiting' with
-// type ServiceWorker (idl: ServiceWorker).
-func (_this *ServiceWorkerRegistration) Waiting() *ServiceWorker {
-	var ret *ServiceWorker
-	value := _this.Value_JS.Get("waiting")
-	if value.Type() != js.TypeNull {
-		ret = ServiceWorkerFromJS(value)
-	}
-	return ret
-}
-
-// Active returning attribute 'active' with
-// type ServiceWorker (idl: ServiceWorker).
-func (_this *ServiceWorkerRegistration) Active() *ServiceWorker {
-	var ret *ServiceWorker
-	value := _this.Value_JS.Get("active")
-	if value.Type() != js.TypeNull {
-		ret = ServiceWorkerFromJS(value)
-	}
-	return ret
-}
-
-// Scope returning attribute 'scope' with
-// type string (idl: USVString).
-func (_this *ServiceWorkerRegistration) Scope() string {
-	var ret string
-	value := _this.Value_JS.Get("scope")
-	ret = (value).String()
-	return ret
-}
-
-// UpdateViaCache returning attribute 'updateViaCache' with
-// type ServiceWorkerUpdateViaCache (idl: ServiceWorkerUpdateViaCache).
-func (_this *ServiceWorkerRegistration) UpdateViaCache() ServiceWorkerUpdateViaCache {
-	var ret ServiceWorkerUpdateViaCache
-	value := _this.Value_JS.Get("updateViaCache")
-	ret = ServiceWorkerUpdateViaCacheFromJS(value)
-	return ret
-}
-
-// Onupdatefound returning attribute 'onupdatefound' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerRegistration) Onupdatefound() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onupdatefound")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnupdatefound setting attribute 'onupdatefound' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerRegistration) SetOnupdatefound(value *domcore.EventHandler) {
-	var __callback5 js.Value
-	if value != nil {
-		__callback5 = (*value).Value
-	} else {
-		__callback5 = js.Null()
-	}
-	input := __callback5
-	_this.Value_JS.Set("onupdatefound", input)
-}
-
-func (_this *ServiceWorkerRegistration) Update() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("update", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("unregister", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: ServiceWorkerContainer
-type ServiceWorkerContainer struct {
-	domcore.EventTarget
-}
-
-// ServiceWorkerContainerFromJS is casting a js.Wrapper into ServiceWorkerContainer.
-func ServiceWorkerContainerFromJS(value js.Wrapper) *ServiceWorkerContainer {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ServiceWorkerContainer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Controller returning attribute 'controller' with
-// type ServiceWorker (idl: ServiceWorker).
-func (_this *ServiceWorkerContainer) Controller() *ServiceWorker {
-	var ret *ServiceWorker
-	value := _this.Value_JS.Get("controller")
-	if value.Type() != js.TypeNull {
-		ret = ServiceWorkerFromJS(value)
-	}
-	return ret
-}
-
-// Ready returning attribute 'ready' with
-// type javascript.Promise (idl: Promise).
-func (_this *ServiceWorkerContainer) Ready() *javascript.Promise {
-	var ret *javascript.Promise
-	value := _this.Value_JS.Get("ready")
-	ret = javascript.PromiseFromJS(value)
-	return ret
-}
-
-// Oncontrollerchange returning attribute 'oncontrollerchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Oncontrollerchange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncontrollerchange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncontrollerchange setting attribute 'oncontrollerchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOncontrollerchange(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("oncontrollerchange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOnmessage(value *domcore.EventHandler) {
-	var __callback3 js.Value
-	if value != nil {
-		__callback3 = (*value).Value
-	} else {
-		__callback3 = js.Null()
-	}
-	input := __callback3
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback4 js.Value
-	if value != nil {
-		__callback4 = (*value).Value
-	} else {
-		__callback4 = js.Null()
-	}
-	input := __callback4
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *ServiceWorkerContainer) Register(scriptURL string, options *RegistrationOptions) (_result *javascript.Promise) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scriptURL
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("register", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *ServiceWorkerContainer) GetRegistration(clientURL *string) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if clientURL != nil {
-		_p0 := clientURL
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getRegistration", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *ServiceWorkerContainer) GetRegistrations() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getRegistrations", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *ServiceWorkerContainer) StartMessages() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("startMessages", _args[0:_end]...)
-	return
-}
-
-// interface: Client
-type Client struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Client) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ClientFromJS is casting a js.Wrapper into Client.
-func ClientFromJS(value js.Wrapper) *Client {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Client{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *Client) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// FrameType returning attribute 'frameType' with
-// type FrameType (idl: FrameType).
-func (_this *Client) FrameType() FrameType {
-	var ret FrameType
-	value := _this.Value_JS.Get("frameType")
-	ret = FrameTypeFromJS(value)
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *Client) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// Type returning attribute 'type' with
-// type ClientType (idl: ClientType).
-func (_this *Client) Type() ClientType {
-	var ret ClientType
-	value := _this.Value_JS.Get("type")
-	ret = ClientTypeFromJS(value)
-	return ret
-}
-
-func (_this *Client) PostMessage(message interface{}, transfer []*javascript.Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if transfer != nil {
-		_p1 := js.Global().Get("Array").New(len(transfer))
-		for __idx1, __seq_in1 := range transfer {
-			__seq_out1 := __seq_in1.JSValue()
-			_p1.SetIndex(__idx1, __seq_out1)
-		}
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-// interface: WindowClient
-type WindowClient struct {
-	Client
-}
-
-// WindowClientFromJS is casting a js.Wrapper into WindowClient.
-func WindowClientFromJS(value js.Wrapper) *WindowClient {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WindowClient{}
-	ret.Value_JS = input
-	return ret
-}
-
-// VisibilityState returning attribute 'visibilityState' with
-// type domcore.VisibilityState (idl: VisibilityState).
-func (_this *WindowClient) VisibilityState() domcore.VisibilityState {
-	var ret domcore.VisibilityState
-	value := _this.Value_JS.Get("visibilityState")
-	ret = domcore.VisibilityStateFromJS(value)
-	return ret
-}
-
-// Focused returning attribute 'focused' with
-// type bool (idl: boolean).
-func (_this *WindowClient) Focused() bool {
-	var ret bool
-	value := _this.Value_JS.Get("focused")
-	ret = (value).Bool()
-	return ret
-}
-
-// AncestorOrigins returning attribute 'ancestorOrigins' with
-// type javascript.FrozenArray (idl: FrozenArray).
-func (_this *WindowClient) AncestorOrigins() *javascript.FrozenArray {
-	var ret *javascript.FrozenArray
-	value := _this.Value_JS.Get("ancestorOrigins")
-	ret = javascript.FrozenArrayFromJS(value)
-	return ret
-}
-
-func (_this *WindowClient) Focus() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("focus", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *WindowClient) Navigate(url string) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("navigate", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: Clients
-type Clients struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Clients) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ClientsFromJS is casting a js.Wrapper into Clients.
-func ClientsFromJS(value js.Wrapper) *Clients {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Clients{}
-	ret.Value_JS = input
-	return ret
-}
-
-func (_this *Clients) Get(id string) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := id
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Clients) MatchAll(options *ClientQueryOptions) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Clients) OpenWindow(url string) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("openWindow", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Clients) Claim() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("claim", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: ExtendableEvent
-type ExtendableEvent struct {
-	domcore.Event
-}
-
-// ExtendableEventFromJS is casting a js.Wrapper into ExtendableEvent.
-func ExtendableEventFromJS(value js.Wrapper) *ExtendableEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ExtendableEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewExtendableEvent(_type string, eventInitDict *ExtendableEventInit) (_result *ExtendableEvent) {
-	_klass := js.Global().Get("ExtendableEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ExtendableEvent // javascript: ExtendableEvent _what_return_name
-	)
-	_converted = ExtendableEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *ExtendableEvent) WaitUntil(f *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := f.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("waitUntil", _args[0:_end]...)
-	return
-}
-
-// interface: FetchEvent
-type FetchEvent struct {
-	ExtendableEvent
-}
-
-// FetchEventFromJS is casting a js.Wrapper into FetchEvent.
-func FetchEventFromJS(value js.Wrapper) *FetchEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FetchEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewFetchEvent(_type string, eventInitDict *FetchEventInit) (_result *FetchEvent) {
-	_klass := js.Global().Get("FetchEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := eventInitDict.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *FetchEvent // javascript: FetchEvent _what_return_name
-	)
-	_converted = FetchEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Request returning attribute 'request' with
-// type fetch.Request (idl: Request).
-func (_this *FetchEvent) Request() *fetch.Request {
-	var ret *fetch.Request
-	value := _this.Value_JS.Get("request")
-	ret = fetch.RequestFromJS(value)
-	return ret
-}
-
-// ClientId returning attribute 'clientId' with
-// type string (idl: DOMString).
-func (_this *FetchEvent) ClientId() string {
-	var ret string
-	value := _this.Value_JS.Get("clientId")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *FetchEvent) RespondWith(r *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := r.JSValue()
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("respondWith", _args[0:_end]...)
-	return
-}
-
-// interface: ExtendableMessageEvent
-type ExtendableMessageEvent struct {
-	ExtendableEvent
-}
-
-// ExtendableMessageEventFromJS is casting a js.Wrapper into ExtendableMessageEvent.
-func ExtendableMessageEventFromJS(value js.Wrapper) *ExtendableMessageEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &ExtendableMessageEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewExtendableMessageEvent(_type string, eventInitDict *ExtendableMessageEventInit) (_result *ExtendableMessageEvent) {
-	_klass := js.Global().Get("ExtendableMessageEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ExtendableMessageEvent // javascript: ExtendableMessageEvent _what_return_name
-	)
-	_converted = ExtendableMessageEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Data returning attribute 'data' with
-// type Any (idl: any).
-func (_this *ExtendableMessageEvent) Data() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("data")
-	ret = value
-	return ret
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *ExtendableMessageEvent) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// LastEventId returning attribute 'lastEventId' with
-// type string (idl: DOMString).
-func (_this *ExtendableMessageEvent) LastEventId() string {
-	var ret string
-	value := _this.Value_JS.Get("lastEventId")
-	ret = (value).String()
-	return ret
-}
-
-// Source returning attribute 'source' with
-// type Union (idl: Union).
-func (_this *ExtendableMessageEvent) Source() *Union {
-	var ret *Union
-	value := _this.Value_JS.Get("source")
-	if value.Type() != js.TypeNull {
-		ret = UnionFromJS(value)
-	}
-	return ret
-}
-
-// Ports returning attribute 'ports' with
-// type javascript.FrozenArray (idl: FrozenArray).
-func (_this *ExtendableMessageEvent) Ports() *javascript.FrozenArray {
-	var ret *javascript.FrozenArray
-	value := _this.Value_JS.Get("ports")
-	ret = javascript.FrozenArrayFromJS(value)
-	return ret
+	value0 = (input.Get("scope")).String()
+	out.Scope = value0
+	value1 = htmlevent.WorkerTypeFromJS(input.Get("type"))
+	out.Type = value1
+	value2 = ServiceWorkerUpdateViaCacheFromJS(input.Get("updateViaCache"))
+	out.UpdateViaCache = value2
+	return &out
 }
 
 // interface: Cache
@@ -1679,6 +841,844 @@ func (_this *CacheStorage) Keys() (_result *javascript.Promise) {
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Client
+type Client struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Client) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ClientFromJS is casting a js.Wrapper into Client.
+func ClientFromJS(value js.Wrapper) *Client {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Client{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Url returning attribute 'url' with
+// type string (idl: USVString).
+func (_this *Client) Url() string {
+	var ret string
+	value := _this.Value_JS.Get("url")
+	ret = (value).String()
+	return ret
+}
+
+// FrameType returning attribute 'frameType' with
+// type FrameType (idl: FrameType).
+func (_this *Client) FrameType() FrameType {
+	var ret FrameType
+	value := _this.Value_JS.Get("frameType")
+	ret = FrameTypeFromJS(value)
+	return ret
+}
+
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
+func (_this *Client) Id() string {
+	var ret string
+	value := _this.Value_JS.Get("id")
+	ret = (value).String()
+	return ret
+}
+
+// Type returning attribute 'type' with
+// type ClientType (idl: ClientType).
+func (_this *Client) Type() ClientType {
+	var ret ClientType
+	value := _this.Value_JS.Get("type")
+	ret = ClientTypeFromJS(value)
+	return ret
+}
+
+func (_this *Client) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	if transfer != nil {
+		_p1 := js.Global().Get("Array").New(len(transfer))
+		for __idx1, __seq_in1 := range transfer {
+			__seq_out1 := __seq_in1.JSValue()
+			_p1.SetIndex(__idx1, __seq_out1)
+		}
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+// interface: Clients
+type Clients struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Clients) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ClientsFromJS is casting a js.Wrapper into Clients.
+func ClientsFromJS(value js.Wrapper) *Clients {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Clients{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *Clients) Get(id string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := id
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Clients) MatchAll(options *ClientQueryOptions) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Clients) OpenWindow(url string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := url
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("openWindow", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Clients) Claim() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("claim", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: ExtendableEvent
+type ExtendableEvent struct {
+	domcore.Event
+}
+
+// ExtendableEventFromJS is casting a js.Wrapper into ExtendableEvent.
+func ExtendableEventFromJS(value js.Wrapper) *ExtendableEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ExtendableEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewExtendableEvent(_type string, eventInitDict *ExtendableEventInit) (_result *ExtendableEvent) {
+	_klass := js.Global().Get("ExtendableEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *ExtendableEvent // javascript: ExtendableEvent _what_return_name
+	)
+	_converted = ExtendableEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ExtendableEvent) WaitUntil(f *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := f.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("waitUntil", _args[0:_end]...)
+	return
+}
+
+// interface: ExtendableMessageEvent
+type ExtendableMessageEvent struct {
+	ExtendableEvent
+}
+
+// ExtendableMessageEventFromJS is casting a js.Wrapper into ExtendableMessageEvent.
+func ExtendableMessageEventFromJS(value js.Wrapper) *ExtendableMessageEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ExtendableMessageEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewExtendableMessageEvent(_type string, eventInitDict *ExtendableMessageEventInit) (_result *ExtendableMessageEvent) {
+	_klass := js.Global().Get("ExtendableMessageEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *ExtendableMessageEvent // javascript: ExtendableMessageEvent _what_return_name
+	)
+	_converted = ExtendableMessageEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Data returning attribute 'data' with
+// type Any (idl: any).
+func (_this *ExtendableMessageEvent) Data() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("data")
+	ret = value
+	return ret
+}
+
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
+func (_this *ExtendableMessageEvent) Origin() string {
+	var ret string
+	value := _this.Value_JS.Get("origin")
+	ret = (value).String()
+	return ret
+}
+
+// LastEventId returning attribute 'lastEventId' with
+// type string (idl: DOMString).
+func (_this *ExtendableMessageEvent) LastEventId() string {
+	var ret string
+	value := _this.Value_JS.Get("lastEventId")
+	ret = (value).String()
+	return ret
+}
+
+// Source returning attribute 'source' with
+// type Union (idl: Union).
+func (_this *ExtendableMessageEvent) Source() *Union {
+	var ret *Union
+	value := _this.Value_JS.Get("source")
+	if value.Type() != js.TypeNull {
+		ret = UnionFromJS(value)
+	}
+	return ret
+}
+
+// Ports returning attribute 'ports' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ExtendableMessageEvent) Ports() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("ports")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// interface: FetchEvent
+type FetchEvent struct {
+	ExtendableEvent
+}
+
+// FetchEventFromJS is casting a js.Wrapper into FetchEvent.
+func FetchEventFromJS(value js.Wrapper) *FetchEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &FetchEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewFetchEvent(_type string, eventInitDict *FetchEventInit) (_result *FetchEvent) {
+	_klass := js.Global().Get("FetchEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := eventInitDict.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *FetchEvent // javascript: FetchEvent _what_return_name
+	)
+	_converted = FetchEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Request returning attribute 'request' with
+// type fetch.Request (idl: Request).
+func (_this *FetchEvent) Request() *fetch.Request {
+	var ret *fetch.Request
+	value := _this.Value_JS.Get("request")
+	ret = fetch.RequestFromJS(value)
+	return ret
+}
+
+// ClientId returning attribute 'clientId' with
+// type string (idl: DOMString).
+func (_this *FetchEvent) ClientId() string {
+	var ret string
+	value := _this.Value_JS.Get("clientId")
+	ret = (value).String()
+	return ret
+}
+
+func (_this *FetchEvent) RespondWith(r *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := r.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("respondWith", _args[0:_end]...)
+	return
+}
+
+// interface: ServiceWorker
+type ServiceWorker struct {
+	domcore.EventTarget
+}
+
+// ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
+func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ServiceWorker{}
+	ret.Value_JS = input
+	return ret
+}
+
+// ScriptURL returning attribute 'scriptURL' with
+// type string (idl: USVString).
+func (_this *ServiceWorker) ScriptURL() string {
+	var ret string
+	value := _this.Value_JS.Get("scriptURL")
+	ret = (value).String()
+	return ret
+}
+
+// State returning attribute 'state' with
+// type ServiceWorkerState (idl: ServiceWorkerState).
+func (_this *ServiceWorker) State() ServiceWorkerState {
+	var ret ServiceWorkerState
+	value := _this.Value_JS.Get("state")
+	ret = ServiceWorkerStateFromJS(value)
+	return ret
+}
+
+// Onstatechange returning attribute 'onstatechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorker) Onstatechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onstatechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnstatechange setting attribute 'onstatechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorker) SetOnstatechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onstatechange", input)
+}
+
+// Onerror returning attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorker) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnerror setting attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorker) SetOnerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onerror", input)
+}
+
+func (_this *ServiceWorker) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	if transfer != nil {
+		_p1 := js.Global().Get("Array").New(len(transfer))
+		for __idx1, __seq_in1 := range transfer {
+			__seq_out1 := __seq_in1.JSValue()
+			_p1.SetIndex(__idx1, __seq_out1)
+		}
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+// interface: ServiceWorkerContainer
+type ServiceWorkerContainer struct {
+	domcore.EventTarget
+}
+
+// ServiceWorkerContainerFromJS is casting a js.Wrapper into ServiceWorkerContainer.
+func ServiceWorkerContainerFromJS(value js.Wrapper) *ServiceWorkerContainer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ServiceWorkerContainer{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Controller returning attribute 'controller' with
+// type ServiceWorker (idl: ServiceWorker).
+func (_this *ServiceWorkerContainer) Controller() *ServiceWorker {
+	var ret *ServiceWorker
+	value := _this.Value_JS.Get("controller")
+	if value.Type() != js.TypeNull {
+		ret = ServiceWorkerFromJS(value)
+	}
+	return ret
+}
+
+// Ready returning attribute 'ready' with
+// type javascript.Promise (idl: Promise).
+func (_this *ServiceWorkerContainer) Ready() *javascript.Promise {
+	var ret *javascript.Promise
+	value := _this.Value_JS.Get("ready")
+	ret = javascript.PromiseFromJS(value)
+	return ret
+}
+
+// Oncontrollerchange returning attribute 'oncontrollerchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) Oncontrollerchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncontrollerchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncontrollerchange setting attribute 'oncontrollerchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) SetOncontrollerchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncontrollerchange", input)
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerContainer) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+func (_this *ServiceWorkerContainer) Register(scriptURL string, options *RegistrationOptions) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := scriptURL
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("register", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ServiceWorkerContainer) GetRegistration(clientURL *string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if clientURL != nil {
+		_p0 := clientURL
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getRegistration", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ServiceWorkerContainer) GetRegistrations() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getRegistrations", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ServiceWorkerContainer) StartMessages() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("startMessages", _args[0:_end]...)
+	return
+}
+
+// interface: ServiceWorkerRegistration
+type ServiceWorkerRegistration struct {
+	domcore.EventTarget
+}
+
+// ServiceWorkerRegistrationFromJS is casting a js.Wrapper into ServiceWorkerRegistration.
+func ServiceWorkerRegistrationFromJS(value js.Wrapper) *ServiceWorkerRegistration {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ServiceWorkerRegistration{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Installing returning attribute 'installing' with
+// type ServiceWorker (idl: ServiceWorker).
+func (_this *ServiceWorkerRegistration) Installing() *ServiceWorker {
+	var ret *ServiceWorker
+	value := _this.Value_JS.Get("installing")
+	if value.Type() != js.TypeNull {
+		ret = ServiceWorkerFromJS(value)
+	}
+	return ret
+}
+
+// Waiting returning attribute 'waiting' with
+// type ServiceWorker (idl: ServiceWorker).
+func (_this *ServiceWorkerRegistration) Waiting() *ServiceWorker {
+	var ret *ServiceWorker
+	value := _this.Value_JS.Get("waiting")
+	if value.Type() != js.TypeNull {
+		ret = ServiceWorkerFromJS(value)
+	}
+	return ret
+}
+
+// Active returning attribute 'active' with
+// type ServiceWorker (idl: ServiceWorker).
+func (_this *ServiceWorkerRegistration) Active() *ServiceWorker {
+	var ret *ServiceWorker
+	value := _this.Value_JS.Get("active")
+	if value.Type() != js.TypeNull {
+		ret = ServiceWorkerFromJS(value)
+	}
+	return ret
+}
+
+// Scope returning attribute 'scope' with
+// type string (idl: USVString).
+func (_this *ServiceWorkerRegistration) Scope() string {
+	var ret string
+	value := _this.Value_JS.Get("scope")
+	ret = (value).String()
+	return ret
+}
+
+// UpdateViaCache returning attribute 'updateViaCache' with
+// type ServiceWorkerUpdateViaCache (idl: ServiceWorkerUpdateViaCache).
+func (_this *ServiceWorkerRegistration) UpdateViaCache() ServiceWorkerUpdateViaCache {
+	var ret ServiceWorkerUpdateViaCache
+	value := _this.Value_JS.Get("updateViaCache")
+	ret = ServiceWorkerUpdateViaCacheFromJS(value)
+	return ret
+}
+
+// Onupdatefound returning attribute 'onupdatefound' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerRegistration) Onupdatefound() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onupdatefound")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnupdatefound setting attribute 'onupdatefound' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerRegistration) SetOnupdatefound(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onupdatefound", input)
+}
+
+func (_this *ServiceWorkerRegistration) Update() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("update", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("unregister", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: WindowClient
+type WindowClient struct {
+	Client
+}
+
+// WindowClientFromJS is casting a js.Wrapper into WindowClient.
+func WindowClientFromJS(value js.Wrapper) *WindowClient {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WindowClient{}
+	ret.Value_JS = input
+	return ret
+}
+
+// VisibilityState returning attribute 'visibilityState' with
+// type domcore.VisibilityState (idl: VisibilityState).
+func (_this *WindowClient) VisibilityState() domcore.VisibilityState {
+	var ret domcore.VisibilityState
+	value := _this.Value_JS.Get("visibilityState")
+	ret = domcore.VisibilityStateFromJS(value)
+	return ret
+}
+
+// Focused returning attribute 'focused' with
+// type bool (idl: boolean).
+func (_this *WindowClient) Focused() bool {
+	var ret bool
+	value := _this.Value_JS.Get("focused")
+	ret = (value).Bool()
+	return ret
+}
+
+// AncestorOrigins returning attribute 'ancestorOrigins' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *WindowClient) AncestorOrigins() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("ancestorOrigins")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+func (_this *WindowClient) Focus() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("focus", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *WindowClient) Navigate(url string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := url
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("navigate", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)

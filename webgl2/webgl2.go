@@ -56,86 +56,6 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: WebGLQuery
-type WebGLQuery struct {
-	webgl.WebGLObject
-}
-
-// WebGLQueryFromJS is casting a js.Wrapper into WebGLQuery.
-func WebGLQueryFromJS(value js.Wrapper) *WebGLQuery {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLQuery{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLSampler
-type WebGLSampler struct {
-	webgl.WebGLObject
-}
-
-// WebGLSamplerFromJS is casting a js.Wrapper into WebGLSampler.
-func WebGLSamplerFromJS(value js.Wrapper) *WebGLSampler {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLSampler{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLSync
-type WebGLSync struct {
-	webgl.WebGLObject
-}
-
-// WebGLSyncFromJS is casting a js.Wrapper into WebGLSync.
-func WebGLSyncFromJS(value js.Wrapper) *WebGLSync {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLSync{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLTransformFeedback
-type WebGLTransformFeedback struct {
-	webgl.WebGLObject
-}
-
-// WebGLTransformFeedbackFromJS is casting a js.Wrapper into WebGLTransformFeedback.
-func WebGLTransformFeedbackFromJS(value js.Wrapper) *WebGLTransformFeedback {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLTransformFeedback{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLVertexArrayObject
-type WebGLVertexArrayObject struct {
-	webgl.WebGLObject
-}
-
-// WebGLVertexArrayObjectFromJS is casting a js.Wrapper into WebGLVertexArrayObject.
-func WebGLVertexArrayObjectFromJS(value js.Wrapper) *WebGLVertexArrayObject {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLVertexArrayObject{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: WebGL2RenderingContext
 type WebGL2RenderingContext struct {
 	// Value_JS holds a reference to a javascript value
@@ -6381,4 +6301,84 @@ func (_this *WebGL2RenderingContext) BindVertexArray(array *WebGLVertexArrayObje
 	_end++
 	_this.Value_JS.Call("bindVertexArray", _args[0:_end]...)
 	return
+}
+
+// interface: WebGLQuery
+type WebGLQuery struct {
+	webgl.WebGLObject
+}
+
+// WebGLQueryFromJS is casting a js.Wrapper into WebGLQuery.
+func WebGLQueryFromJS(value js.Wrapper) *WebGLQuery {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLQuery{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLSampler
+type WebGLSampler struct {
+	webgl.WebGLObject
+}
+
+// WebGLSamplerFromJS is casting a js.Wrapper into WebGLSampler.
+func WebGLSamplerFromJS(value js.Wrapper) *WebGLSampler {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLSampler{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLSync
+type WebGLSync struct {
+	webgl.WebGLObject
+}
+
+// WebGLSyncFromJS is casting a js.Wrapper into WebGLSync.
+func WebGLSyncFromJS(value js.Wrapper) *WebGLSync {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLSync{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLTransformFeedback
+type WebGLTransformFeedback struct {
+	webgl.WebGLObject
+}
+
+// WebGLTransformFeedbackFromJS is casting a js.Wrapper into WebGLTransformFeedback.
+func WebGLTransformFeedbackFromJS(value js.Wrapper) *WebGLTransformFeedback {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLTransformFeedback{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLVertexArrayObject
+type WebGLVertexArrayObject struct {
+	webgl.WebGLObject
+}
+
+// WebGLVertexArrayObjectFromJS is casting a js.Wrapper into WebGLVertexArrayObject.
+func WebGLVertexArrayObjectFromJS(value js.Wrapper) *WebGLVertexArrayObject {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLVertexArrayObject{}
+	ret.Value_JS = input
+	return ret
 }

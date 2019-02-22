@@ -279,6 +279,80 @@ func (_this *DataTransfer) ClearData(format *string) {
 	return
 }
 
+// interface: DataTransferItem
+type DataTransferItem struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DataTransferItem) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DataTransferItemFromJS is casting a js.Wrapper into DataTransferItem.
+func DataTransferItemFromJS(value js.Wrapper) *DataTransferItem {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DataTransferItem{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Kind returning attribute 'kind' with
+// type string (idl: DOMString).
+func (_this *DataTransferItem) Kind() string {
+	var ret string
+	value := _this.Value_JS.Get("kind")
+	ret = (value).String()
+	return ret
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *DataTransferItem) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+func (_this *DataTransferItem) GetAsString(callback *FunctionStringCallback) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("getAsString", _args[0:_end]...)
+	return
+}
+
+func (_this *DataTransferItem) GetAsFile() (_result *fileapi.File) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getAsFile", _args[0:_end]...)
+	var (
+		_converted *fileapi.File // javascript: File _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = fileapi.FileFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 // interface: DataTransferItemList
 type DataTransferItemList struct {
 	// Value_JS holds a reference to a javascript value
@@ -368,80 +442,6 @@ func (_this *DataTransferItemList) Clear() {
 		_end  int
 	)
 	_this.Value_JS.Call("clear", _args[0:_end]...)
-	return
-}
-
-// interface: DataTransferItem
-type DataTransferItem struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DataTransferItem) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DataTransferItemFromJS is casting a js.Wrapper into DataTransferItem.
-func DataTransferItemFromJS(value js.Wrapper) *DataTransferItem {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DataTransferItem{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Kind returning attribute 'kind' with
-// type string (idl: DOMString).
-func (_this *DataTransferItem) Kind() string {
-	var ret string
-	value := _this.Value_JS.Get("kind")
-	ret = (value).String()
-	return ret
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *DataTransferItem) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-func (_this *DataTransferItem) GetAsString(callback *FunctionStringCallback) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("getAsString", _args[0:_end]...)
-	return
-}
-
-func (_this *DataTransferItem) GetAsFile() (_result *fileapi.File) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getAsFile", _args[0:_end]...)
-	var (
-		_converted *fileapi.File // javascript: File _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = fileapi.FileFromJS(_returned)
-	}
-	_result = _converted
 	return
 }
 

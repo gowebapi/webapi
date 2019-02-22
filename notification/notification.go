@@ -48,49 +48,6 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// enum: NotificationPermission
-type PermissionMode int
-
-const (
-	Default PermissionMode = iota
-	Denied
-	Granted
-)
-
-var notificationPermissionToWasmTable = []string{
-	"default", "denied", "granted",
-}
-
-var notificationPermissionFromWasmTable = map[string]PermissionMode{
-	"default": Default, "denied": Denied, "granted": Granted,
-}
-
-// JSValue is converting this enum into a java object
-func (this *PermissionMode) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this PermissionMode) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(notificationPermissionToWasmTable) {
-		return notificationPermissionToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// PermissionModeFromJS is converting a javascript value into
-// a PermissionMode enum value.
-func PermissionModeFromJS(value js.Value) PermissionMode {
-	key := value.String()
-	conv, ok := notificationPermissionFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // enum: NotificationDirection
 type Direction int
 
@@ -134,6 +91,49 @@ func DirectionFromJS(value js.Value) Direction {
 	return conv
 }
 
+// enum: NotificationPermission
+type PermissionMode int
+
+const (
+	Default PermissionMode = iota
+	Denied
+	Granted
+)
+
+var notificationPermissionToWasmTable = []string{
+	"default", "denied", "granted",
+}
+
+var notificationPermissionFromWasmTable = map[string]PermissionMode{
+	"default": Default, "denied": Denied, "granted": Granted,
+}
+
+// JSValue is converting this enum into a java object
+func (this *PermissionMode) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this PermissionMode) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(notificationPermissionToWasmTable) {
+		return notificationPermissionToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// PermissionModeFromJS is converting a javascript value into
+// a PermissionMode enum value.
+func PermissionModeFromJS(value js.Value) PermissionMode {
+	key := value.String()
+	conv, ok := notificationPermissionFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: NotificationPermissionCallback
 type PermissionCallbackFunc func(permission PermissionMode)
 
@@ -171,6 +171,46 @@ func PermissionCallbackFromJS(_value js.Value) PermissionCallbackFunc {
 		_value.Invoke(_args[0:_end]...)
 		return
 	}
+}
+
+// dictionary: NotificationAction
+type NotificationAction struct {
+	Action string
+	Title  string
+	Icon   string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *NotificationAction) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Action
+	out.Set("action", value0)
+	value1 := _this.Title
+	out.Set("title", value1)
+	value2 := _this.Icon
+	out.Set("icon", value2)
+	return out
+}
+
+// NotificationActionFromJS is allocating a new
+// NotificationAction object and copy all values from
+// input javascript object
+func NotificationActionFromJS(value js.Wrapper) *NotificationAction {
+	input := value.JSValue()
+	var out NotificationAction
+	var (
+		value0 string // javascript: DOMString {action Action action}
+		value1 string // javascript: DOMString {title Title title}
+		value2 string // javascript: USVString {icon Icon icon}
+	)
+	value0 = (input.Get("action")).String()
+	out.Action = value0
+	value1 = (input.Get("title")).String()
+	out.Title = value1
+	value2 = (input.Get("icon")).String()
+	out.Icon = value2
+	return &out
 }
 
 // dictionary: NotificationOptions
@@ -282,46 +322,6 @@ func OptionsFromJS(value js.Wrapper) *Options {
 	}
 	value12 = __array12
 	out.Actions = value12
-	return &out
-}
-
-// dictionary: NotificationAction
-type NotificationAction struct {
-	Action string
-	Title  string
-	Icon   string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *NotificationAction) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Action
-	out.Set("action", value0)
-	value1 := _this.Title
-	out.Set("title", value1)
-	value2 := _this.Icon
-	out.Set("icon", value2)
-	return out
-}
-
-// NotificationActionFromJS is allocating a new
-// NotificationAction object and copy all values from
-// input javascript object
-func NotificationActionFromJS(value js.Wrapper) *NotificationAction {
-	input := value.JSValue()
-	var out NotificationAction
-	var (
-		value0 string // javascript: DOMString {action Action action}
-		value1 string // javascript: DOMString {title Title title}
-		value2 string // javascript: USVString {icon Icon icon}
-	)
-	value0 = (input.Get("action")).String()
-	out.Action = value0
-	value1 = (input.Get("title")).String()
-	out.Title = value1
-	value2 = (input.Get("icon")).String()
-	out.Icon = value2
 	return &out
 }
 
@@ -450,13 +450,13 @@ func (_this *Notification) OnShow() domcore.EventHandlerFunc {
 // SetOnShow setting attribute 'onshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Notification) SetOnShow(value *domcore.EventHandler) {
-	var __callback1 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback1 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback1 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback1
+	input := __callback0
 	_this.Value_JS.Set("onshow", input)
 }
 
@@ -474,13 +474,13 @@ func (_this *Notification) OnError() domcore.EventHandlerFunc {
 // SetOnError setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Notification) SetOnError(value *domcore.EventHandler) {
-	var __callback2 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback2 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback2 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback2
+	input := __callback0
 	_this.Value_JS.Set("onerror", input)
 }
 
@@ -498,13 +498,13 @@ func (_this *Notification) OnClose() domcore.EventHandlerFunc {
 // SetOnClose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Notification) SetOnClose(value *domcore.EventHandler) {
-	var __callback3 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback3 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback3 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback3
+	input := __callback0
 	_this.Value_JS.Set("onclose", input)
 }
 

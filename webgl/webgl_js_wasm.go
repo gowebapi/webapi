@@ -203,144 +203,6 @@ func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
 	return &out
 }
 
-// interface: WebGLObject
-type WebGLObject struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGLObject) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGLObjectFromJS is casting a js.Wrapper into WebGLObject.
-func WebGLObjectFromJS(value js.Wrapper) *WebGLObject {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLObject{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLBuffer
-type WebGLBuffer struct {
-	WebGLObject
-}
-
-// WebGLBufferFromJS is casting a js.Wrapper into WebGLBuffer.
-func WebGLBufferFromJS(value js.Wrapper) *WebGLBuffer {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLBuffer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLFramebuffer
-type WebGLFramebuffer struct {
-	WebGLObject
-}
-
-// WebGLFramebufferFromJS is casting a js.Wrapper into WebGLFramebuffer.
-func WebGLFramebufferFromJS(value js.Wrapper) *WebGLFramebuffer {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLFramebuffer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLProgram
-type WebGLProgram struct {
-	WebGLObject
-}
-
-// WebGLProgramFromJS is casting a js.Wrapper into WebGLProgram.
-func WebGLProgramFromJS(value js.Wrapper) *WebGLProgram {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLProgram{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLRenderbuffer
-type WebGLRenderbuffer struct {
-	WebGLObject
-}
-
-// WebGLRenderbufferFromJS is casting a js.Wrapper into WebGLRenderbuffer.
-func WebGLRenderbufferFromJS(value js.Wrapper) *WebGLRenderbuffer {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLRenderbuffer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLShader
-type WebGLShader struct {
-	WebGLObject
-}
-
-// WebGLShaderFromJS is casting a js.Wrapper into WebGLShader.
-func WebGLShaderFromJS(value js.Wrapper) *WebGLShader {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLShader{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLTexture
-type WebGLTexture struct {
-	WebGLObject
-}
-
-// WebGLTextureFromJS is casting a js.Wrapper into WebGLTexture.
-func WebGLTextureFromJS(value js.Wrapper) *WebGLTexture {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLTexture{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: WebGLUniformLocation
-type WebGLUniformLocation struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WebGLUniformLocation) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGLUniformLocationFromJS is casting a js.Wrapper into WebGLUniformLocation.
-func WebGLUniformLocationFromJS(value js.Wrapper) *WebGLUniformLocation {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WebGLUniformLocation{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: WebGLActiveInfo
 type WebGLActiveInfo struct {
 	// Value_JS holds a reference to a javascript value
@@ -389,51 +251,136 @@ func (_this *WebGLActiveInfo) Name() string {
 	return ret
 }
 
-// interface: WebGLShaderPrecisionFormat
-type WebGLShaderPrecisionFormat struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
+// interface: WebGLBuffer
+type WebGLBuffer struct {
+	WebGLObject
 }
 
-func (_this *WebGLShaderPrecisionFormat) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WebGLShaderPrecisionFormatFromJS is casting a js.Wrapper into WebGLShaderPrecisionFormat.
-func WebGLShaderPrecisionFormatFromJS(value js.Wrapper) *WebGLShaderPrecisionFormat {
+// WebGLBufferFromJS is casting a js.Wrapper into WebGLBuffer.
+func WebGLBufferFromJS(value js.Wrapper) *WebGLBuffer {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLShaderPrecisionFormat{}
+	ret := &WebGLBuffer{}
 	ret.Value_JS = input
 	return ret
 }
 
-// RangeMin returning attribute 'rangeMin' with
-// type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) RangeMin() int {
-	var ret int
-	value := _this.Value_JS.Get("rangeMin")
-	ret = (value).Int()
+// interface: WebGLContextEvent
+type WebGLContextEvent struct {
+	domcore.Event
+}
+
+// WebGLContextEventFromJS is casting a js.Wrapper into WebGLContextEvent.
+func WebGLContextEventFromJS(value js.Wrapper) *WebGLContextEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLContextEvent{}
+	ret.Value_JS = input
 	return ret
 }
 
-// RangeMax returning attribute 'rangeMax' with
-// type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) RangeMax() int {
-	var ret int
-	value := _this.Value_JS.Get("rangeMax")
-	ret = (value).Int()
+func NewWebGLContextEvent(_type string, eventInit *WebGLContextEventInit) (_result *WebGLContextEvent) {
+	_klass := js.Global().Get("WebGLContextEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInit != nil {
+		_p1 := eventInit.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *WebGLContextEvent // javascript: WebGLContextEvent _what_return_name
+	)
+	_converted = WebGLContextEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// StatusMessage returning attribute 'statusMessage' with
+// type string (idl: DOMString).
+func (_this *WebGLContextEvent) StatusMessage() string {
+	var ret string
+	value := _this.Value_JS.Get("statusMessage")
+	ret = (value).String()
 	return ret
 }
 
-// Precision returning attribute 'precision' with
-// type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) Precision() int {
-	var ret int
-	value := _this.Value_JS.Get("precision")
-	ret = (value).Int()
+// interface: WebGLFramebuffer
+type WebGLFramebuffer struct {
+	WebGLObject
+}
+
+// WebGLFramebufferFromJS is casting a js.Wrapper into WebGLFramebuffer.
+func WebGLFramebufferFromJS(value js.Wrapper) *WebGLFramebuffer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLFramebuffer{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLObject
+type WebGLObject struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *WebGLObject) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// WebGLObjectFromJS is casting a js.Wrapper into WebGLObject.
+func WebGLObjectFromJS(value js.Wrapper) *WebGLObject {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLObject{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLProgram
+type WebGLProgram struct {
+	WebGLObject
+}
+
+// WebGLProgramFromJS is casting a js.Wrapper into WebGLProgram.
+func WebGLProgramFromJS(value js.Wrapper) *WebGLProgram {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLProgram{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLRenderbuffer
+type WebGLRenderbuffer struct {
+	WebGLObject
+}
+
+// WebGLRenderbufferFromJS is casting a js.Wrapper into WebGLRenderbuffer.
+func WebGLRenderbufferFromJS(value js.Wrapper) *WebGLRenderbuffer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLRenderbuffer{}
+	ret.Value_JS = input
 	return ret
 }
 
@@ -3254,50 +3201,103 @@ func (_this *WebGLRenderingContext) Viewport(x int, y int, width int, height int
 	return
 }
 
-// interface: WebGLContextEvent
-type WebGLContextEvent struct {
-	domcore.Event
+// interface: WebGLShader
+type WebGLShader struct {
+	WebGLObject
 }
 
-// WebGLContextEventFromJS is casting a js.Wrapper into WebGLContextEvent.
-func WebGLContextEventFromJS(value js.Wrapper) *WebGLContextEvent {
+// WebGLShaderFromJS is casting a js.Wrapper into WebGLShader.
+func WebGLShaderFromJS(value js.Wrapper) *WebGLShader {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLContextEvent{}
+	ret := &WebGLShader{}
 	ret.Value_JS = input
 	return ret
 }
 
-func NewWebGLContextEvent(_type string, eventInit *WebGLContextEventInit) (_result *WebGLContextEvent) {
-	_klass := js.Global().Get("WebGLContextEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInit != nil {
-		_p1 := eventInit.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *WebGLContextEvent // javascript: WebGLContextEvent _what_return_name
-	)
-	_converted = WebGLContextEventFromJS(_returned)
-	_result = _converted
-	return
+// interface: WebGLShaderPrecisionFormat
+type WebGLShaderPrecisionFormat struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
 }
 
-// StatusMessage returning attribute 'statusMessage' with
-// type string (idl: DOMString).
-func (_this *WebGLContextEvent) StatusMessage() string {
-	var ret string
-	value := _this.Value_JS.Get("statusMessage")
-	ret = (value).String()
+func (_this *WebGLShaderPrecisionFormat) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// WebGLShaderPrecisionFormatFromJS is casting a js.Wrapper into WebGLShaderPrecisionFormat.
+func WebGLShaderPrecisionFormatFromJS(value js.Wrapper) *WebGLShaderPrecisionFormat {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLShaderPrecisionFormat{}
+	ret.Value_JS = input
+	return ret
+}
+
+// RangeMin returning attribute 'rangeMin' with
+// type int (idl: long).
+func (_this *WebGLShaderPrecisionFormat) RangeMin() int {
+	var ret int
+	value := _this.Value_JS.Get("rangeMin")
+	ret = (value).Int()
+	return ret
+}
+
+// RangeMax returning attribute 'rangeMax' with
+// type int (idl: long).
+func (_this *WebGLShaderPrecisionFormat) RangeMax() int {
+	var ret int
+	value := _this.Value_JS.Get("rangeMax")
+	ret = (value).Int()
+	return ret
+}
+
+// Precision returning attribute 'precision' with
+// type int (idl: long).
+func (_this *WebGLShaderPrecisionFormat) Precision() int {
+	var ret int
+	value := _this.Value_JS.Get("precision")
+	ret = (value).Int()
+	return ret
+}
+
+// interface: WebGLTexture
+type WebGLTexture struct {
+	WebGLObject
+}
+
+// WebGLTextureFromJS is casting a js.Wrapper into WebGLTexture.
+func WebGLTextureFromJS(value js.Wrapper) *WebGLTexture {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLTexture{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: WebGLUniformLocation
+type WebGLUniformLocation struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *WebGLUniformLocation) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// WebGLUniformLocationFromJS is casting a js.Wrapper into WebGLUniformLocation.
+func WebGLUniformLocationFromJS(value js.Wrapper) *WebGLUniformLocation {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WebGLUniformLocation{}
+	ret.Value_JS = input
 	return ret
 }

@@ -47,6 +47,144 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: ReferrerPolicy
+type ReferrerPolicy int
+
+const (
+	EmptyString0ReferrerPolicy ReferrerPolicy = iota
+	NoReferrerReferrerPolicy
+	NoReferrerWhenDowngradeReferrerPolicy
+	SameOriginReferrerPolicy
+	OriginReferrerPolicy
+	StrictOriginReferrerPolicy
+	OriginWhenCrossOriginReferrerPolicy
+	StrictOriginWhenCrossOriginReferrerPolicy
+	UnsafeUrlReferrerPolicy
+)
+
+var referrerPolicyToWasmTable = []string{
+	"", "no-referrer", "no-referrer-when-downgrade", "same-origin", "origin", "strict-origin", "origin-when-cross-origin", "strict-origin-when-cross-origin", "unsafe-url",
+}
+
+var referrerPolicyFromWasmTable = map[string]ReferrerPolicy{
+	"": EmptyString0ReferrerPolicy, "no-referrer": NoReferrerReferrerPolicy, "no-referrer-when-downgrade": NoReferrerWhenDowngradeReferrerPolicy, "same-origin": SameOriginReferrerPolicy, "origin": OriginReferrerPolicy, "strict-origin": StrictOriginReferrerPolicy, "origin-when-cross-origin": OriginWhenCrossOriginReferrerPolicy, "strict-origin-when-cross-origin": StrictOriginWhenCrossOriginReferrerPolicy, "unsafe-url": UnsafeUrlReferrerPolicy,
+}
+
+// JSValue is converting this enum into a java object
+func (this *ReferrerPolicy) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ReferrerPolicy) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(referrerPolicyToWasmTable) {
+		return referrerPolicyToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ReferrerPolicyFromJS is converting a javascript value into
+// a ReferrerPolicy enum value.
+func ReferrerPolicyFromJS(value js.Value) ReferrerPolicy {
+	key := value.String()
+	conv, ok := referrerPolicyFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: RequestCache
+type RequestCache int
+
+const (
+	DefaultRequestCache RequestCache = iota
+	NoStoreRequestCache
+	ReloadRequestCache
+	NoCacheRequestCache
+	ForceCacheRequestCache
+	OnlyIfCachedRequestCache
+)
+
+var requestCacheToWasmTable = []string{
+	"default", "no-store", "reload", "no-cache", "force-cache", "only-if-cached",
+}
+
+var requestCacheFromWasmTable = map[string]RequestCache{
+	"default": DefaultRequestCache, "no-store": NoStoreRequestCache, "reload": ReloadRequestCache, "no-cache": NoCacheRequestCache, "force-cache": ForceCacheRequestCache, "only-if-cached": OnlyIfCachedRequestCache,
+}
+
+// JSValue is converting this enum into a java object
+func (this *RequestCache) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this RequestCache) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(requestCacheToWasmTable) {
+		return requestCacheToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// RequestCacheFromJS is converting a javascript value into
+// a RequestCache enum value.
+func RequestCacheFromJS(value js.Value) RequestCache {
+	key := value.String()
+	conv, ok := requestCacheFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: RequestCredentials
+type RequestCredentials int
+
+const (
+	OmitRequestCredentials RequestCredentials = iota
+	SameOriginRequestCredentials
+	IncludeRequestCredentials
+)
+
+var requestCredentialsToWasmTable = []string{
+	"omit", "same-origin", "include",
+}
+
+var requestCredentialsFromWasmTable = map[string]RequestCredentials{
+	"omit": OmitRequestCredentials, "same-origin": SameOriginRequestCredentials, "include": IncludeRequestCredentials,
+}
+
+// JSValue is converting this enum into a java object
+func (this *RequestCredentials) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this RequestCredentials) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(requestCredentialsToWasmTable) {
+		return requestCredentialsToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// RequestCredentialsFromJS is converting a javascript value into
+// a RequestCredentials enum value.
+func RequestCredentialsFromJS(value js.Value) RequestCredentials {
+	key := value.String()
+	conv, ok := requestCredentialsFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: RequestDestination
 type RequestDestination int
 
@@ -149,95 +287,6 @@ func RequestModeFromJS(value js.Value) RequestMode {
 	return conv
 }
 
-// enum: RequestCredentials
-type RequestCredentials int
-
-const (
-	OmitRequestCredentials RequestCredentials = iota
-	SameOriginRequestCredentials
-	IncludeRequestCredentials
-)
-
-var requestCredentialsToWasmTable = []string{
-	"omit", "same-origin", "include",
-}
-
-var requestCredentialsFromWasmTable = map[string]RequestCredentials{
-	"omit": OmitRequestCredentials, "same-origin": SameOriginRequestCredentials, "include": IncludeRequestCredentials,
-}
-
-// JSValue is converting this enum into a java object
-func (this *RequestCredentials) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this RequestCredentials) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(requestCredentialsToWasmTable) {
-		return requestCredentialsToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// RequestCredentialsFromJS is converting a javascript value into
-// a RequestCredentials enum value.
-func RequestCredentialsFromJS(value js.Value) RequestCredentials {
-	key := value.String()
-	conv, ok := requestCredentialsFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: RequestCache
-type RequestCache int
-
-const (
-	DefaultRequestCache RequestCache = iota
-	NoStoreRequestCache
-	ReloadRequestCache
-	NoCacheRequestCache
-	ForceCacheRequestCache
-	OnlyIfCachedRequestCache
-)
-
-var requestCacheToWasmTable = []string{
-	"default", "no-store", "reload", "no-cache", "force-cache", "only-if-cached",
-}
-
-var requestCacheFromWasmTable = map[string]RequestCache{
-	"default": DefaultRequestCache, "no-store": NoStoreRequestCache, "reload": ReloadRequestCache, "no-cache": NoCacheRequestCache, "force-cache": ForceCacheRequestCache, "only-if-cached": OnlyIfCachedRequestCache,
-}
-
-// JSValue is converting this enum into a java object
-func (this *RequestCache) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this RequestCache) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(requestCacheToWasmTable) {
-		return requestCacheToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// RequestCacheFromJS is converting a javascript value into
-// a RequestCache enum value.
-func RequestCacheFromJS(value js.Value) RequestCache {
-	key := value.String()
-	conv, ok := requestCacheFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // enum: RequestRedirect
 type RequestRedirect int
 
@@ -327,55 +376,6 @@ func ResponseTypeFromJS(value js.Value) ResponseType {
 	return conv
 }
 
-// enum: ReferrerPolicy
-type ReferrerPolicy int
-
-const (
-	EmptyString0ReferrerPolicy ReferrerPolicy = iota
-	NoReferrerReferrerPolicy
-	NoReferrerWhenDowngradeReferrerPolicy
-	SameOriginReferrerPolicy
-	OriginReferrerPolicy
-	StrictOriginReferrerPolicy
-	OriginWhenCrossOriginReferrerPolicy
-	StrictOriginWhenCrossOriginReferrerPolicy
-	UnsafeUrlReferrerPolicy
-)
-
-var referrerPolicyToWasmTable = []string{
-	"", "no-referrer", "no-referrer-when-downgrade", "same-origin", "origin", "strict-origin", "origin-when-cross-origin", "strict-origin-when-cross-origin", "unsafe-url",
-}
-
-var referrerPolicyFromWasmTable = map[string]ReferrerPolicy{
-	"": EmptyString0ReferrerPolicy, "no-referrer": NoReferrerReferrerPolicy, "no-referrer-when-downgrade": NoReferrerWhenDowngradeReferrerPolicy, "same-origin": SameOriginReferrerPolicy, "origin": OriginReferrerPolicy, "strict-origin": StrictOriginReferrerPolicy, "origin-when-cross-origin": OriginWhenCrossOriginReferrerPolicy, "strict-origin-when-cross-origin": StrictOriginWhenCrossOriginReferrerPolicy, "unsafe-url": UnsafeUrlReferrerPolicy,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ReferrerPolicy) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ReferrerPolicy) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(referrerPolicyToWasmTable) {
-		return referrerPolicyToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ReferrerPolicyFromJS is converting a javascript value into
-// a ReferrerPolicy enum value.
-func ReferrerPolicyFromJS(value js.Value) ReferrerPolicy {
-	key := value.String()
-	conv, ok := referrerPolicyFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // dictionary: RequestInit
 type RequestInit struct {
 	Method         *patch.ByteString
@@ -402,9 +402,9 @@ func (_this *RequestInit) JSValue() js.Value {
 	value1 := js.Global().Get("Array").New(len(_this.Headers))
 	for __idx1, __seq_in1 := range _this.Headers {
 		__seq_out1 := js.Global().Get("Array").New(len(__seq_in1))
-		for __idx200, __seq_in200 := range __seq_in1 {
-			__seq_out200 := __seq_in200.JSValue()
-			__seq_out1.SetIndex(__idx200, __seq_out200)
+		for __idx2, __seq_in2 := range __seq_in1 {
+			__seq_out2 := __seq_in2.JSValue()
+			__seq_out1.SetIndex(__idx2, __seq_out2)
 		}
 		value1.SetIndex(__idx1, __seq_out1)
 	}
@@ -462,15 +462,15 @@ func RequestInitFromJS(value js.Wrapper) *RequestInit {
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 []*patch.ByteString
 		__seq_in1 := input.Get("headers").Index(__idx1)
-		__length200 := __seq_in1.Length()
-		__array200 := make([]*patch.ByteString, __length200, __length200)
-		for __idx200 := 0; __idx200 < __length200; __idx200++ {
-			var __seq_out200 *patch.ByteString
-			__seq_in200 := __seq_in1.Index(__idx200)
-			__seq_out200 = patch.ByteStringFromJS(__seq_in200)
-			__array200[__idx200] = __seq_out200
+		__length2 := __seq_in1.Length()
+		__array2 := make([]*patch.ByteString, __length2, __length2)
+		for __idx2 := 0; __idx2 < __length2; __idx2++ {
+			var __seq_out2 *patch.ByteString
+			__seq_in2 := __seq_in1.Index(__idx2)
+			__seq_out2 = patch.ByteStringFromJS(__seq_in2)
+			__array2[__idx2] = __seq_out2
 		}
-		__seq_out1 = __array200
+		__seq_out1 = __array2
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
@@ -522,9 +522,9 @@ func (_this *ResponseInit) JSValue() js.Value {
 	value2 := js.Global().Get("Array").New(len(_this.Headers))
 	for __idx2, __seq_in2 := range _this.Headers {
 		__seq_out2 := js.Global().Get("Array").New(len(__seq_in2))
-		for __idx300, __seq_in300 := range __seq_in2 {
-			__seq_out300 := __seq_in300.JSValue()
-			__seq_out2.SetIndex(__idx300, __seq_out300)
+		for __idx3, __seq_in3 := range __seq_in2 {
+			__seq_out3 := __seq_in3.JSValue()
+			__seq_out2.SetIndex(__idx3, __seq_out3)
 		}
 		value2.SetIndex(__idx2, __seq_out2)
 	}
@@ -552,15 +552,15 @@ func ResponseInitFromJS(value js.Wrapper) *ResponseInit {
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 []*patch.ByteString
 		__seq_in2 := input.Get("headers").Index(__idx2)
-		__length300 := __seq_in2.Length()
-		__array300 := make([]*patch.ByteString, __length300, __length300)
-		for __idx300 := 0; __idx300 < __length300; __idx300++ {
-			var __seq_out300 *patch.ByteString
-			__seq_in300 := __seq_in2.Index(__idx300)
-			__seq_out300 = patch.ByteStringFromJS(__seq_in300)
-			__array300[__idx300] = __seq_out300
+		__length3 := __seq_in2.Length()
+		__array3 := make([]*patch.ByteString, __length3, __length3)
+		for __idx3 := 0; __idx3 < __length3; __idx3++ {
+			var __seq_out3 *patch.ByteString
+			__seq_in3 := __seq_in2.Index(__idx3)
+			__seq_out3 = patch.ByteStringFromJS(__seq_in3)
+			__array3[__idx3] = __seq_out3
 		}
-		__seq_out2 = __array300
+		__seq_out2 = __array3
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
@@ -599,9 +599,9 @@ func NewHeaders(init [][]*patch.ByteString) (_result *Headers) {
 		_p0 := js.Global().Get("Array").New(len(init))
 		for __idx0, __seq_in0 := range init {
 			__seq_out0 := js.Global().Get("Array").New(len(__seq_in0))
-			for __idx100, __seq_in100 := range __seq_in0 {
-				__seq_out100 := __seq_in100.JSValue()
-				__seq_out0.SetIndex(__idx100, __seq_out100)
+			for __idx1, __seq_in1 := range __seq_in0 {
+				__seq_out1 := __seq_in1.JSValue()
+				__seq_out0.SetIndex(__idx1, __seq_out1)
 			}
 			_p0.SetIndex(__idx0, __seq_out0)
 		}

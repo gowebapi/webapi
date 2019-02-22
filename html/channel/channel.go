@@ -94,6 +94,64 @@ func BinaryTypeFromJS(value js.Value) BinaryType {
 	return conv
 }
 
+// dictionary: CloseEventInit
+type CloseEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	WasClean   bool
+	Code       int
+	Reason     string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CloseEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.WasClean
+	out.Set("wasClean", value3)
+	value4 := _this.Code
+	out.Set("code", value4)
+	value5 := _this.Reason
+	out.Set("reason", value5)
+	return out
+}
+
+// CloseEventInitFromJS is allocating a new
+// CloseEventInit object and copy all values from
+// input javascript object
+func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
+	input := value.JSValue()
+	var out CloseEventInit
+	var (
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 bool   // javascript: boolean {wasClean WasClean wasClean}
+		value4 int    // javascript: unsigned short {code Code code}
+		value5 string // javascript: USVString {reason Reason reason}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("wasClean")).Bool()
+	out.WasClean = value3
+	value4 = (input.Get("code")).Int()
+	out.Code = value4
+	value5 = (input.Get("reason")).String()
+	out.Reason = value5
+	return &out
+}
+
 // dictionary: MessageEventInit
 type MessageEventInit struct {
 	Bubbles     bool
@@ -178,64 +236,6 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 	return &out
 }
 
-// dictionary: CloseEventInit
-type CloseEventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-	WasClean   bool
-	Code       int
-	Reason     string
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *CloseEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
-	value3 := _this.WasClean
-	out.Set("wasClean", value3)
-	value4 := _this.Code
-	out.Set("code", value4)
-	value5 := _this.Reason
-	out.Set("reason", value5)
-	return out
-}
-
-// CloseEventInitFromJS is allocating a new
-// CloseEventInit object and copy all values from
-// input javascript object
-func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
-	input := value.JSValue()
-	var out CloseEventInit
-	var (
-		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool   // javascript: boolean {composed Composed composed}
-		value3 bool   // javascript: boolean {wasClean WasClean wasClean}
-		value4 int    // javascript: unsigned short {code Code code}
-		value5 string // javascript: USVString {reason Reason reason}
-	)
-	value0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
-	out.Composed = value2
-	value3 = (input.Get("wasClean")).Bool()
-	out.WasClean = value3
-	value4 = (input.Get("code")).Int()
-	out.Code = value4
-	value5 = (input.Get("reason")).String()
-	out.Reason = value5
-	return &out
-}
-
 // dictionary: PostMessageOptions
 type PostMessageOptions struct {
 	Transfer []*javascript.Object
@@ -274,6 +274,238 @@ func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
 	value0 = __array0
 	out.Transfer = value0
 	return &out
+}
+
+// interface: BroadcastChannel
+type BroadcastChannel struct {
+	domcore.EventTarget
+}
+
+// BroadcastChannelFromJS is casting a js.Wrapper into BroadcastChannel.
+func BroadcastChannelFromJS(value js.Wrapper) *BroadcastChannel {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BroadcastChannel{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewBroadcastChannel(name string) (_result *BroadcastChannel) {
+	_klass := js.Global().Get("BroadcastChannel")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *BroadcastChannel // javascript: BroadcastChannel _what_return_name
+	)
+	_converted = BroadcastChannelFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *BroadcastChannel) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BroadcastChannel) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BroadcastChannel) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+func (_this *BroadcastChannel) PostMessage(message interface{}) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *BroadcastChannel) Close() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+// interface: CloseEvent
+type CloseEvent struct {
+	domcore.Event
+}
+
+// CloseEventFromJS is casting a js.Wrapper into CloseEvent.
+func CloseEventFromJS(value js.Wrapper) *CloseEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CloseEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewCloseEvent(_type string, eventInitDict *CloseEventInit) (_result *CloseEvent) {
+	_klass := js.Global().Get("CloseEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *CloseEvent // javascript: CloseEvent _what_return_name
+	)
+	_converted = CloseEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// WasClean returning attribute 'wasClean' with
+// type bool (idl: boolean).
+func (_this *CloseEvent) WasClean() bool {
+	var ret bool
+	value := _this.Value_JS.Get("wasClean")
+	ret = (value).Bool()
+	return ret
+}
+
+// Code returning attribute 'code' with
+// type int (idl: unsigned short).
+func (_this *CloseEvent) Code() int {
+	var ret int
+	value := _this.Value_JS.Get("code")
+	ret = (value).Int()
+	return ret
+}
+
+// Reason returning attribute 'reason' with
+// type string (idl: USVString).
+func (_this *CloseEvent) Reason() string {
+	var ret string
+	value := _this.Value_JS.Get("reason")
+	ret = (value).String()
+	return ret
+}
+
+// interface: MessageChannel
+type MessageChannel struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *MessageChannel) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// MessageChannelFromJS is casting a js.Wrapper into MessageChannel.
+func MessageChannelFromJS(value js.Wrapper) *MessageChannel {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MessageChannel{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewMessageChannel() (_result *MessageChannel) {
+	_klass := js.Global().Get("MessageChannel")
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *MessageChannel // javascript: MessageChannel _what_return_name
+	)
+	_converted = MessageChannelFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Port1 returning attribute 'port1' with
+// type MessagePort (idl: MessagePort).
+func (_this *MessageChannel) Port1() *MessagePort {
+	var ret *MessagePort
+	value := _this.Value_JS.Get("port1")
+	ret = MessagePortFromJS(value)
+	return ret
+}
+
+// Port2 returning attribute 'port2' with
+// type MessagePort (idl: MessagePort).
+func (_this *MessageChannel) Port2() *MessagePort {
+	var ret *MessagePort
+	value := _this.Value_JS.Get("port2")
+	ret = MessagePortFromJS(value)
+	return ret
 }
 
 // interface: MessageEvent
@@ -413,6 +645,124 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 	return
 }
 
+// interface: MessagePort
+type MessagePort struct {
+	domcore.EventTarget
+}
+
+// MessagePortFromJS is casting a js.Wrapper into MessagePort.
+func MessagePortFromJS(value js.Wrapper) *MessagePort {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MessagePort{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MessagePort) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MessagePort) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+func (_this *MessagePort) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	_p1 := js.Global().Get("Array").New(len(transfer))
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
+	}
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *MessagePort) PostMessage2(message interface{}, options *PostMessageOptions) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *MessagePort) Start() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("start", _args[0:_end]...)
+	return
+}
+
+func (_this *MessagePort) Close() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
 // interface: WebSocket
 type WebSocket struct {
 	domcore.EventTarget
@@ -498,13 +848,13 @@ func (_this *WebSocket) Onopen() domcore.EventHandlerFunc {
 // SetOnopen setting attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnopen(value *domcore.EventHandler) {
-	var __callback3 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback3 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback3 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback3
+	input := __callback0
 	_this.Value_JS.Set("onopen", input)
 }
 
@@ -522,13 +872,13 @@ func (_this *WebSocket) Onerror() domcore.EventHandlerFunc {
 // SetOnerror setting attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnerror(value *domcore.EventHandler) {
-	var __callback4 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback4 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback4 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback4
+	input := __callback0
 	_this.Value_JS.Set("onerror", input)
 }
 
@@ -546,13 +896,13 @@ func (_this *WebSocket) Onclose() domcore.EventHandlerFunc {
 // SetOnclose setting attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnclose(value *domcore.EventHandler) {
-	var __callback5 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback5 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback5 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback5
+	input := __callback0
 	_this.Value_JS.Set("onclose", input)
 }
 
@@ -588,13 +938,13 @@ func (_this *WebSocket) Onmessage() domcore.EventHandlerFunc {
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WebSocket) SetOnmessage(value *domcore.EventHandler) {
-	var __callback8 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback8 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback8 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback8
+	input := __callback0
 	_this.Value_JS.Set("onmessage", input)
 }
 
@@ -678,355 +1028,5 @@ func (_this *WebSocket) Send4(data *Union) {
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("send", _args[0:_end]...)
-	return
-}
-
-// interface: CloseEvent
-type CloseEvent struct {
-	domcore.Event
-}
-
-// CloseEventFromJS is casting a js.Wrapper into CloseEvent.
-func CloseEventFromJS(value js.Wrapper) *CloseEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CloseEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewCloseEvent(_type string, eventInitDict *CloseEventInit) (_result *CloseEvent) {
-	_klass := js.Global().Get("CloseEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *CloseEvent // javascript: CloseEvent _what_return_name
-	)
-	_converted = CloseEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// WasClean returning attribute 'wasClean' with
-// type bool (idl: boolean).
-func (_this *CloseEvent) WasClean() bool {
-	var ret bool
-	value := _this.Value_JS.Get("wasClean")
-	ret = (value).Bool()
-	return ret
-}
-
-// Code returning attribute 'code' with
-// type int (idl: unsigned short).
-func (_this *CloseEvent) Code() int {
-	var ret int
-	value := _this.Value_JS.Get("code")
-	ret = (value).Int()
-	return ret
-}
-
-// Reason returning attribute 'reason' with
-// type string (idl: USVString).
-func (_this *CloseEvent) Reason() string {
-	var ret string
-	value := _this.Value_JS.Get("reason")
-	ret = (value).String()
-	return ret
-}
-
-// interface: MessageChannel
-type MessageChannel struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MessageChannel) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MessageChannelFromJS is casting a js.Wrapper into MessageChannel.
-func MessageChannelFromJS(value js.Wrapper) *MessageChannel {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MessageChannel{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewMessageChannel() (_result *MessageChannel) {
-	_klass := js.Global().Get("MessageChannel")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *MessageChannel // javascript: MessageChannel _what_return_name
-	)
-	_converted = MessageChannelFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Port1 returning attribute 'port1' with
-// type MessagePort (idl: MessagePort).
-func (_this *MessageChannel) Port1() *MessagePort {
-	var ret *MessagePort
-	value := _this.Value_JS.Get("port1")
-	ret = MessagePortFromJS(value)
-	return ret
-}
-
-// Port2 returning attribute 'port2' with
-// type MessagePort (idl: MessagePort).
-func (_this *MessageChannel) Port2() *MessagePort {
-	var ret *MessagePort
-	value := _this.Value_JS.Get("port2")
-	ret = MessagePortFromJS(value)
-	return ret
-}
-
-// interface: MessagePort
-type MessagePort struct {
-	domcore.EventTarget
-}
-
-// MessagePortFromJS is casting a js.Wrapper into MessagePort.
-func MessagePortFromJS(value js.Wrapper) *MessagePort {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MessagePort{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *MessagePort) PostMessage(message interface{}, transfer []*javascript.Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx1, __seq_in1 := range transfer {
-		__seq_out1 := __seq_in1.JSValue()
-		_p1.SetIndex(__idx1, __seq_out1)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) PostMessage2(message interface{}, options *PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) Start() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("start", _args[0:_end]...)
-	return
-}
-
-func (_this *MessagePort) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: BroadcastChannel
-type BroadcastChannel struct {
-	domcore.EventTarget
-}
-
-// BroadcastChannelFromJS is casting a js.Wrapper into BroadcastChannel.
-func BroadcastChannelFromJS(value js.Wrapper) *BroadcastChannel {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &BroadcastChannel{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewBroadcastChannel(name string) (_result *BroadcastChannel) {
-	_klass := js.Global().Get("BroadcastChannel")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *BroadcastChannel // javascript: BroadcastChannel _what_return_name
-	)
-	_converted = BroadcastChannelFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *BroadcastChannel) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessage(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *BroadcastChannel) PostMessage(message interface{}) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *BroadcastChannel) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
 	return
 }

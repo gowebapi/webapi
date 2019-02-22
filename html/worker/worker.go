@@ -110,6 +110,160 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	return &out
 }
 
+// interface: DedicatedWorkerGlobalScope
+type DedicatedWorkerGlobalScope struct {
+	WorkerGlobalScope
+}
+
+// DedicatedWorkerGlobalScopeFromJS is casting a js.Wrapper into DedicatedWorkerGlobalScope.
+func DedicatedWorkerGlobalScopeFromJS(value js.Wrapper) *DedicatedWorkerGlobalScope {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DedicatedWorkerGlobalScope{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *DedicatedWorkerGlobalScope) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+func (_this *DedicatedWorkerGlobalScope) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	_p1 := js.Global().Get("Array").New(len(transfer))
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
+	}
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *DedicatedWorkerGlobalScope) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *DedicatedWorkerGlobalScope) Close() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlevent.FrameRequestCallback) (_result uint) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("requestAnimationFrame", _args[0:_end]...)
+	var (
+		_converted uint // javascript: unsigned long _what_return_name
+	)
+	_converted = (uint)((_returned).Int())
+	_result = _converted
+	return
+}
+
+func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := handle
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("cancelAnimationFrame", _args[0:_end]...)
+	return
+}
+
 // interface: ServiceWorkerGlobalScope
 type ServiceWorkerGlobalScope struct {
 	WorkerGlobalScope
@@ -158,13 +312,13 @@ func (_this *ServiceWorkerGlobalScope) Oninstall() domcore.EventHandlerFunc {
 // SetOninstall setting attribute 'oninstall' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) SetOninstall(value *domcore.EventHandler) {
-	var __callback2 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback2 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback2 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback2
+	input := __callback0
 	_this.Value_JS.Set("oninstall", input)
 }
 
@@ -182,13 +336,13 @@ func (_this *ServiceWorkerGlobalScope) Onactivate() domcore.EventHandlerFunc {
 // SetOnactivate setting attribute 'onactivate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) SetOnactivate(value *domcore.EventHandler) {
-	var __callback3 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback3 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback3 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback3
+	input := __callback0
 	_this.Value_JS.Set("onactivate", input)
 }
 
@@ -206,13 +360,13 @@ func (_this *ServiceWorkerGlobalScope) Onfetch() domcore.EventHandlerFunc {
 // SetOnfetch setting attribute 'onfetch' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) SetOnfetch(value *domcore.EventHandler) {
-	var __callback4 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback4 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback4 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback4
+	input := __callback0
 	_this.Value_JS.Set("onfetch", input)
 }
 
@@ -230,13 +384,13 @@ func (_this *ServiceWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
 // SetOnmessage setting attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
-	var __callback5 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback5 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback5 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback5
+	input := __callback0
 	_this.Value_JS.Set("onmessage", input)
 }
 
@@ -254,13 +408,13 @@ func (_this *ServiceWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc
 // SetOnmessageerror setting attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback6 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback6 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback6 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback6
+	input := __callback0
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
@@ -275,6 +429,292 @@ func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promis
 	)
 	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
+	return
+}
+
+// interface: SharedWorker
+type SharedWorker struct {
+	domcore.EventTarget
+}
+
+// SharedWorkerFromJS is casting a js.Wrapper into SharedWorker.
+func SharedWorkerFromJS(value js.Wrapper) *SharedWorker {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SharedWorker{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewSharedWorker(scriptURL string, options *Union) (_result *SharedWorker) {
+	_klass := js.Global().Get("SharedWorker")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := scriptURL
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *SharedWorker // javascript: SharedWorker _what_return_name
+	)
+	_converted = SharedWorkerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Port returning attribute 'port' with
+// type channel.MessagePort (idl: MessagePort).
+func (_this *SharedWorker) Port() *channel.MessagePort {
+	var ret *channel.MessagePort
+	value := _this.Value_JS.Get("port")
+	ret = channel.MessagePortFromJS(value)
+	return ret
+}
+
+// Onerror returning attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SharedWorker) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnerror setting attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SharedWorker) SetOnerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onerror", input)
+}
+
+// interface: SharedWorkerGlobalScope
+type SharedWorkerGlobalScope struct {
+	WorkerGlobalScope
+}
+
+// SharedWorkerGlobalScopeFromJS is casting a js.Wrapper into SharedWorkerGlobalScope.
+func SharedWorkerGlobalScopeFromJS(value js.Wrapper) *SharedWorkerGlobalScope {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SharedWorkerGlobalScope{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *SharedWorkerGlobalScope) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// Onconnect returning attribute 'onconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onconnect")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnconnect setting attribute 'onconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SharedWorkerGlobalScope) SetOnconnect(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onconnect", input)
+}
+
+func (_this *SharedWorkerGlobalScope) Close() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+// interface: Worker
+type Worker struct {
+	domcore.EventTarget
+}
+
+// WorkerFromJS is casting a js.Wrapper into Worker.
+func WorkerFromJS(value js.Wrapper) *Worker {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Worker{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
+	_klass := js.Global().Get("Worker")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := scriptURL
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *Worker // javascript: Worker _what_return_name
+	)
+	_converted = WorkerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Onmessage returning attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) Onmessage() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessage")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessage setting attribute 'onmessage' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) SetOnmessage(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessage", input)
+}
+
+// Onmessageerror returning attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) Onmessageerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onmessageerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnmessageerror setting attribute 'onmessageerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) SetOnmessageerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onmessageerror", input)
+}
+
+// Onerror returning attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnerror setting attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Worker) SetOnerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onerror", input)
+}
+
+func (_this *Worker) Terminate() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("terminate", _args[0:_end]...)
+	return
+}
+
+func (_this *Worker) PostMessage(message interface{}, transfer []*javascript.Object) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	_p1 := js.Global().Get("Array").New(len(transfer))
+	for __idx1, __seq_in1 := range transfer {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
+	}
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *Worker) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := message
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("postMessage", _args[0:_end]...)
 	return
 }
 
@@ -335,13 +775,13 @@ func (_this *WorkerGlobalScope) Onerror() htmlevent.OnErrorEventHandlerFunc {
 // SetOnerror setting attribute 'onerror' with
 // type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnerror(value *htmlevent.OnErrorEventHandler) {
-	var __callback3 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback3 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback3 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback3
+	input := __callback0
 	_this.Value_JS.Set("onerror", input)
 }
 
@@ -359,13 +799,13 @@ func (_this *WorkerGlobalScope) Onlanguagechange() domcore.EventHandlerFunc {
 // SetOnlanguagechange setting attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnlanguagechange(value *domcore.EventHandler) {
-	var __callback4 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback4 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback4 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback4
+	input := __callback0
 	_this.Value_JS.Set("onlanguagechange", input)
 }
 
@@ -383,13 +823,13 @@ func (_this *WorkerGlobalScope) Onoffline() domcore.EventHandlerFunc {
 // SetOnoffline setting attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnoffline(value *domcore.EventHandler) {
-	var __callback5 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback5 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback5 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback5
+	input := __callback0
 	_this.Value_JS.Set("onoffline", input)
 }
 
@@ -407,13 +847,13 @@ func (_this *WorkerGlobalScope) Ononline() domcore.EventHandlerFunc {
 // SetOnonline setting attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnonline(value *domcore.EventHandler) {
-	var __callback6 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback6 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback6 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback6
+	input := __callback0
 	_this.Value_JS.Set("ononline", input)
 }
 
@@ -431,13 +871,13 @@ func (_this *WorkerGlobalScope) Onrejectionhandled() domcore.EventHandlerFunc {
 // SetOnrejectionhandled setting attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *domcore.EventHandler) {
-	var __callback7 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback7 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback7 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback7
+	input := __callback0
 	_this.Value_JS.Set("onrejectionhandled", input)
 }
 
@@ -455,13 +895,13 @@ func (_this *WorkerGlobalScope) Onunhandledrejection() domcore.EventHandlerFunc 
 // SetOnunhandledrejection setting attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *domcore.EventHandler) {
-	var __callback8 js.Value
+	var __callback0 js.Value
 	if value != nil {
-		__callback8 = (*value).Value
+		__callback0 = (*value).Value
 	} else {
-		__callback8 = js.Null()
+		__callback0 = js.Null()
 	}
-	input := __callback8
+	input := __callback0
 	_this.Value_JS.Set("onunhandledrejection", input)
 }
 
@@ -710,444 +1150,106 @@ func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_r
 	return
 }
 
-// interface: DedicatedWorkerGlobalScope
-type DedicatedWorkerGlobalScope struct {
-	WorkerGlobalScope
+// interface: WorkerLocation
+type WorkerLocation struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
 }
 
-// DedicatedWorkerGlobalScopeFromJS is casting a js.Wrapper into DedicatedWorkerGlobalScope.
-func DedicatedWorkerGlobalScopeFromJS(value js.Wrapper) *DedicatedWorkerGlobalScope {
+func (_this *WorkerLocation) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// WorkerLocationFromJS is casting a js.Wrapper into WorkerLocation.
+func WorkerLocationFromJS(value js.Wrapper) *WorkerLocation {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &DedicatedWorkerGlobalScope{}
+	ret := &WorkerLocation{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *DedicatedWorkerGlobalScope) Name() string {
+// Href returning attribute 'href' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Href() string {
 	var ret string
-	value := _this.Value_JS.Get("name")
+	value := _this.Value_JS.Get("href")
 	ret = (value).String()
 	return ret
 }
 
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-func (_this *DedicatedWorkerGlobalScope) PostMessage(message interface{}, transfer []*javascript.Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx1, __seq_in1 := range transfer {
-		__seq_out1 := __seq_in1.JSValue()
-		_p1.SetIndex(__idx1, __seq_out1)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlevent.FrameRequestCallback) (_result uint) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("requestAnimationFrame", _args[0:_end]...)
-	var (
-		_converted uint // javascript: unsigned long _what_return_name
-	)
-	_converted = (uint)((_returned).Int())
-	_result = _converted
-	return
-}
-
-func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := handle
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("cancelAnimationFrame", _args[0:_end]...)
-	return
-}
-
-// interface: SharedWorkerGlobalScope
-type SharedWorkerGlobalScope struct {
-	WorkerGlobalScope
-}
-
-// SharedWorkerGlobalScopeFromJS is casting a js.Wrapper into SharedWorkerGlobalScope.
-func SharedWorkerGlobalScopeFromJS(value js.Wrapper) *SharedWorkerGlobalScope {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SharedWorkerGlobalScope{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *SharedWorkerGlobalScope) Name() string {
+// Origin returning attribute 'origin' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Origin() string {
 	var ret string
-	value := _this.Value_JS.Get("name")
+	value := _this.Value_JS.Get("origin")
 	ret = (value).String()
 	return ret
 }
 
-// Onconnect returning attribute 'onconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onconnect")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
+// Protocol returning attribute 'protocol' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Protocol() string {
+	var ret string
+	value := _this.Value_JS.Get("protocol")
+	ret = (value).String()
 	return ret
 }
 
-// SetOnconnect setting attribute 'onconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) SetOnconnect(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onconnect", input)
-}
-
-func (_this *SharedWorkerGlobalScope) Close() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("close", _args[0:_end]...)
-	return
-}
-
-// interface: Worker
-type Worker struct {
-	domcore.EventTarget
-}
-
-// WorkerFromJS is casting a js.Wrapper into Worker.
-func WorkerFromJS(value js.Wrapper) *Worker {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Worker{}
-	ret.Value_JS = input
+// Host returning attribute 'host' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Host() string {
+	var ret string
+	value := _this.Value_JS.Get("host")
+	ret = (value).String()
 	return ret
 }
 
-func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
-	_klass := js.Global().Get("Worker")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scriptURL
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Worker // javascript: Worker _what_return_name
-	)
-	_converted = WorkerFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessage() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
+// Hostname returning attribute 'hostname' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Hostname() string {
+	var ret string
+	value := _this.Value_JS.Get("hostname")
+	ret = (value).String()
 	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessageerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnerror(value *domcore.EventHandler) {
-	var __callback2 js.Value
-	if value != nil {
-		__callback2 = (*value).Value
-	} else {
-		__callback2 = js.Null()
-	}
-	input := __callback2
-	_this.Value_JS.Set("onerror", input)
-}
-
-func (_this *Worker) Terminate() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("terminate", _args[0:_end]...)
-	return
-}
-
-func (_this *Worker) PostMessage(message interface{}, transfer []*javascript.Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	_p1 := js.Global().Get("Array").New(len(transfer))
-	for __idx1, __seq_in1 := range transfer {
-		__seq_out1 := __seq_in1.JSValue()
-		_p1.SetIndex(__idx1, __seq_out1)
-	}
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-func (_this *Worker) PostMessage2(message interface{}, options *channel.PostMessageOptions) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
-	return
-}
-
-// interface: SharedWorker
-type SharedWorker struct {
-	domcore.EventTarget
-}
-
-// SharedWorkerFromJS is casting a js.Wrapper into SharedWorker.
-func SharedWorkerFromJS(value js.Wrapper) *SharedWorker {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SharedWorker{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewSharedWorker(scriptURL string, options *Union) (_result *SharedWorker) {
-	_klass := js.Global().Get("SharedWorker")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := scriptURL
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *SharedWorker // javascript: SharedWorker _what_return_name
-	)
-	_converted = SharedWorkerFromJS(_returned)
-	_result = _converted
-	return
 }
 
 // Port returning attribute 'port' with
-// type channel.MessagePort (idl: MessagePort).
-func (_this *SharedWorker) Port() *channel.MessagePort {
-	var ret *channel.MessagePort
+// type string (idl: USVString).
+func (_this *WorkerLocation) Port() string {
+	var ret string
 	value := _this.Value_JS.Get("port")
-	ret = channel.MessagePortFromJS(value)
+	ret = (value).String()
 	return ret
 }
 
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) Onerror() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
+// Pathname returning attribute 'pathname' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Pathname() string {
+	var ret string
+	value := _this.Value_JS.Get("pathname")
+	ret = (value).String()
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) SetOnerror(value *domcore.EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onerror", input)
+// Search returning attribute 'search' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Search() string {
+	var ret string
+	value := _this.Value_JS.Get("search")
+	ret = (value).String()
+	return ret
+}
+
+// Hash returning attribute 'hash' with
+// type string (idl: USVString).
+func (_this *WorkerLocation) Hash() string {
+	var ret string
+	value := _this.Value_JS.Get("hash")
+	ret = (value).String()
+	return ret
 }
 
 // interface: WorkerNavigator
@@ -1318,106 +1420,4 @@ func (_this *WorkerNavigator) TaintEnabled() (_result bool) {
 	_converted = (_returned).Bool()
 	_result = _converted
 	return
-}
-
-// interface: WorkerLocation
-type WorkerLocation struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *WorkerLocation) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// WorkerLocationFromJS is casting a js.Wrapper into WorkerLocation.
-func WorkerLocationFromJS(value js.Wrapper) *WorkerLocation {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WorkerLocation{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Href() string {
-	var ret string
-	value := _this.Value_JS.Get("href")
-	ret = (value).String()
-	return ret
-}
-
-// Origin returning attribute 'origin' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Origin() string {
-	var ret string
-	value := _this.Value_JS.Get("origin")
-	ret = (value).String()
-	return ret
-}
-
-// Protocol returning attribute 'protocol' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Protocol() string {
-	var ret string
-	value := _this.Value_JS.Get("protocol")
-	ret = (value).String()
-	return ret
-}
-
-// Host returning attribute 'host' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Host() string {
-	var ret string
-	value := _this.Value_JS.Get("host")
-	ret = (value).String()
-	return ret
-}
-
-// Hostname returning attribute 'hostname' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Hostname() string {
-	var ret string
-	value := _this.Value_JS.Get("hostname")
-	ret = (value).String()
-	return ret
-}
-
-// Port returning attribute 'port' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Port() string {
-	var ret string
-	value := _this.Value_JS.Get("port")
-	ret = (value).String()
-	return ret
-}
-
-// Pathname returning attribute 'pathname' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Pathname() string {
-	var ret string
-	value := _this.Value_JS.Get("pathname")
-	ret = (value).String()
-	return ret
-}
-
-// Search returning attribute 'search' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Search() string {
-	var ret string
-	value := _this.Value_JS.Get("search")
-	ret = (value).String()
-	return ret
-}
-
-// Hash returning attribute 'hash' with
-// type string (idl: USVString).
-func (_this *WorkerLocation) Hash() string {
-	var ret string
-	value := _this.Value_JS.Get("hash")
-	ret = (value).String()
-	return ret
 }

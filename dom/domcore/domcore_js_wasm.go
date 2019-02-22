@@ -124,43 +124,43 @@ func EventHandlerFromJS(_value js.Value) EventHandlerFunc {
 	}
 }
 
-// dictionary: EventInit
-type EventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
+// dictionary: AddEventListenerOptions
+type AddEventListenerOptions struct {
+	Capture bool
+	Passive bool
+	Once    bool
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *EventInit) JSValue() js.Value {
+func (_this *AddEventListenerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
+	value0 := _this.Capture
+	out.Set("capture", value0)
+	value1 := _this.Passive
+	out.Set("passive", value1)
+	value2 := _this.Once
+	out.Set("once", value2)
 	return out
 }
 
-// EventInitFromJS is allocating a new
-// EventInit object and copy all values from
+// AddEventListenerOptionsFromJS is allocating a new
+// AddEventListenerOptions object and copy all values from
 // input javascript object
-func EventInitFromJS(value js.Wrapper) *EventInit {
+func AddEventListenerOptionsFromJS(value js.Wrapper) *AddEventListenerOptions {
 	input := value.JSValue()
-	var out EventInit
+	var out AddEventListenerOptions
 	var (
-		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool // javascript: boolean {composed Composed composed}
+		value0 bool // javascript: boolean {capture Capture capture}
+		value1 bool // javascript: boolean {passive Passive passive}
+		value2 bool // javascript: boolean {once Once once}
 	)
-	value0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
-	out.Composed = value2
+	value0 = (input.Get("capture")).Bool()
+	out.Capture = value0
+	value1 = (input.Get("passive")).Bool()
+	out.Passive = value1
+	value2 = (input.Get("once")).Bool()
+	out.Once = value2
 	return &out
 }
 
@@ -210,6 +210,46 @@ func CustomEventInitFromJS(value js.Wrapper) *CustomEventInit {
 	return &out
 }
 
+// dictionary: EventInit
+type EventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	return out
+}
+
+// EventInitFromJS is allocating a new
+// EventInit object and copy all values from
+// input javascript object
+func EventInitFromJS(value js.Wrapper) *EventInit {
+	input := value.JSValue()
+	var out EventInit
+	var (
+		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool // javascript: boolean {composed Composed composed}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	return &out
+}
+
 // dictionary: EventListenerOptions
 type EventListenerOptions struct {
 	Capture bool
@@ -238,44 +278,302 @@ func EventListenerOptionsFromJS(value js.Wrapper) *EventListenerOptions {
 	return &out
 }
 
-// dictionary: AddEventListenerOptions
-type AddEventListenerOptions struct {
-	Capture bool
-	Passive bool
-	Once    bool
+// interface: AbortController
+type AbortController struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *AddEventListenerOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Capture
-	out.Set("capture", value0)
-	value1 := _this.Passive
-	out.Set("passive", value1)
-	value2 := _this.Once
-	out.Set("once", value2)
-	return out
+func (_this *AbortController) JSValue() js.Value {
+	return _this.Value_JS
 }
 
-// AddEventListenerOptionsFromJS is allocating a new
-// AddEventListenerOptions object and copy all values from
-// input javascript object
-func AddEventListenerOptionsFromJS(value js.Wrapper) *AddEventListenerOptions {
+// AbortControllerFromJS is casting a js.Wrapper into AbortController.
+func AbortControllerFromJS(value js.Wrapper) *AbortController {
 	input := value.JSValue()
-	var out AddEventListenerOptions
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &AbortController{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewAbortController() (_result *AbortController) {
+	_klass := js.Global().Get("AbortController")
 	var (
-		value0 bool // javascript: boolean {capture Capture capture}
-		value1 bool // javascript: boolean {passive Passive passive}
-		value2 bool // javascript: boolean {once Once once}
+		_args [0]interface{}
+		_end  int
 	)
-	value0 = (input.Get("capture")).Bool()
-	out.Capture = value0
-	value1 = (input.Get("passive")).Bool()
-	out.Passive = value1
-	value2 = (input.Get("once")).Bool()
-	out.Once = value2
-	return &out
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *AbortController // javascript: AbortController _what_return_name
+	)
+	_converted = AbortControllerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Signal returning attribute 'signal' with
+// type AbortSignal (idl: AbortSignal).
+func (_this *AbortController) Signal() *AbortSignal {
+	var ret *AbortSignal
+	value := _this.Value_JS.Get("signal")
+	ret = AbortSignalFromJS(value)
+	return ret
+}
+
+func (_this *AbortController) Abort() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("abort", _args[0:_end]...)
+	return
+}
+
+// interface: AbortSignal
+type AbortSignal struct {
+	EventTarget
+}
+
+// AbortSignalFromJS is casting a js.Wrapper into AbortSignal.
+func AbortSignalFromJS(value js.Wrapper) *AbortSignal {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &AbortSignal{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Aborted returning attribute 'aborted' with
+// type bool (idl: boolean).
+func (_this *AbortSignal) Aborted() bool {
+	var ret bool
+	value := _this.Value_JS.Get("aborted")
+	ret = (value).Bool()
+	return ret
+}
+
+// Onabort returning attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
+func (_this *AbortSignal) Onabort() EventHandlerFunc {
+	var ret EventHandlerFunc
+	value := _this.Value_JS.Get("onabort")
+	if value.Type() != js.TypeNull {
+		ret = EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnabort setting attribute 'onabort' with
+// type EventHandler (idl: EventHandlerNonNull).
+func (_this *AbortSignal) SetOnabort(value *EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onabort", input)
+}
+
+// interface: CustomEvent
+type CustomEvent struct {
+	Event
+}
+
+// CustomEventFromJS is casting a js.Wrapper into CustomEvent.
+func CustomEventFromJS(value js.Wrapper) *CustomEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CustomEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewCustomEvent(_type string, eventInitDict *CustomEventInit) (_result *CustomEvent) {
+	_klass := js.Global().Get("CustomEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *CustomEvent // javascript: CustomEvent _what_return_name
+	)
+	_converted = CustomEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Detail returning attribute 'detail' with
+// type Any (idl: any).
+func (_this *CustomEvent) Detail() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("detail")
+	ret = value
+	return ret
+}
+
+func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail interface{}) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if bubbles != nil {
+		_p1 := bubbles
+		_args[1] = _p1
+		_end++
+	}
+	if cancelable != nil {
+		_p2 := cancelable
+		_args[2] = _p2
+		_end++
+	}
+	if detail != nil {
+		_p3 := detail
+		_args[3] = _p3
+		_end++
+	}
+	_this.Value_JS.Call("initCustomEvent", _args[0:_end]...)
+	return
+}
+
+// interface: DOMException
+type DOMException struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMException) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMExceptionFromJS is casting a js.Wrapper into DOMException.
+func DOMExceptionFromJS(value js.Wrapper) *DOMException {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMException{}
+	ret.Value_JS = input
+	return ret
+}
+
+const INDEXSIZEERR_DOMException int = 1
+const DOMSTRINGSIZEERR_DOMException int = 2
+const HIERARCHYREQUESTERR_DOMException int = 3
+const WRONGDOCUMENTERR_DOMException int = 4
+const INVALIDCHARACTERERR_DOMException int = 5
+const NODATAALLOWEDERR_DOMException int = 6
+const NOMODIFICATIONALLOWEDERR_DOMException int = 7
+const NOTFOUNDERR_DOMException int = 8
+const NOTSUPPORTEDERR_DOMException int = 9
+const INUSEATTRIBUTEERR_DOMException int = 10
+const INVALIDSTATEERR_DOMException int = 11
+const SYNTAXERR_DOMException int = 12
+const INVALIDMODIFICATIONERR_DOMException int = 13
+const NAMESPACEERR_DOMException int = 14
+const INVALIDACCESSERR_DOMException int = 15
+const VALIDATIONERR_DOMException int = 16
+const TYPEMISMATCHERR_DOMException int = 17
+const SECURITYERR_DOMException int = 18
+const NETWORKERR_DOMException int = 19
+const ABORTERR_DOMException int = 20
+const URLMISMATCHERR_DOMException int = 21
+const QUOTAEXCEEDEDERR_DOMException int = 22
+const TIMEOUTERR_DOMException int = 23
+const INVALIDNODETYPEERR_DOMException int = 24
+const DATACLONEERR_DOMException int = 25
+
+func NewDOMException(message *string, name *string) (_result *DOMException) {
+	_klass := js.Global().Get("DOMException")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	if message != nil {
+		_p0 := message
+		_args[0] = _p0
+		_end++
+	}
+	if name != nil {
+		_p1 := name
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *DOMException // javascript: DOMException _what_return_name
+	)
+	_converted = DOMExceptionFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *DOMException) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// Message returning attribute 'message' with
+// type string (idl: DOMString).
+func (_this *DOMException) Message() string {
+	var ret string
+	value := _this.Value_JS.Get("message")
+	ret = (value).String()
+	return ret
+}
+
+// Code returning attribute 'code' with
+// type int (idl: unsigned short).
+func (_this *DOMException) Code() int {
+	var ret int
+	value := _this.Value_JS.Get("code")
+	ret = (value).Int()
+	return ret
+}
+
+// interface: DOMMatrix
+type DOMMatrix struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMMatrix) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
+func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMMatrix{}
+	ret.Value_JS = input
+	return ret
 }
 
 // interface: DOMMatrix2DInit
@@ -299,25 +597,262 @@ func DOMMatrix2DInitFromJS(value js.Wrapper) *DOMMatrix2DInit {
 	return ret
 }
 
-// interface: DOMMatrix
-type DOMMatrix struct {
+// interface: DOMStringList
+type DOMStringList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *DOMMatrix) JSValue() js.Value {
+func (_this *DOMStringList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
-func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
+// DOMStringListFromJS is casting a js.Wrapper into DOMStringList.
+func DOMStringListFromJS(value js.Wrapper) *DOMStringList {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &DOMMatrix{}
+	ret := &DOMStringList{}
 	ret.Value_JS = input
 	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *DOMStringList) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+func (_this *DOMStringList) Item(index uint) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
+func (_this *DOMStringList) Contains(string string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := string
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// interface: DOMStringMap
+type DOMStringMap struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMStringMap) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMStringMapFromJS is casting a js.Wrapper into DOMStringMap.
+func DOMStringMapFromJS(value js.Wrapper) *DOMStringMap {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMStringMap{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: DOMTokenList
+type DOMTokenList struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMTokenList) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMTokenListFromJS is casting a js.Wrapper into DOMTokenList.
+func DOMTokenListFromJS(value js.Wrapper) *DOMTokenList {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMTokenList{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *DOMTokenList) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// Value returning attribute 'value' with
+// type string (idl: DOMString).
+func (_this *DOMTokenList) Value() string {
+	var ret string
+	value := _this.Value_JS.Get("value")
+	ret = (value).String()
+	return ret
+}
+
+// SetValue setting attribute 'value' with
+// type string (idl: DOMString).
+func (_this *DOMTokenList) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+func (_this *DOMTokenList) Item(index uint) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Contains(token string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := token
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Add(tokens ...string) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(tokens))
+		_end  int
+	)
+	for _, __in := range tokens {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("add", _args[0:_end]...)
+	return
+}
+
+func (_this *DOMTokenList) Remove(tokens ...string) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(tokens))
+		_end  int
+	)
+	for _, __in := range tokens {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := token
+	_args[0] = _p0
+	_end++
+	if force != nil {
+		_p1 := force
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("toggle", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := token
+	_args[0] = _p0
+	_end++
+	_p1 := newToken
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("replace", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Supports(token string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := token
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("supports", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
 }
 
 // interface: Event
@@ -577,174 +1112,6 @@ func (_this *Event) InitEvent(_type string, bubbles *bool, cancelable *bool) {
 	return
 }
 
-// interface: CustomEvent
-type CustomEvent struct {
-	Event
-}
-
-// CustomEventFromJS is casting a js.Wrapper into CustomEvent.
-func CustomEventFromJS(value js.Wrapper) *CustomEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CustomEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewCustomEvent(_type string, eventInitDict *CustomEventInit) (_result *CustomEvent) {
-	_klass := js.Global().Get("CustomEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *CustomEvent // javascript: CustomEvent _what_return_name
-	)
-	_converted = CustomEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Detail returning attribute 'detail' with
-// type Any (idl: any).
-func (_this *CustomEvent) Detail() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("detail")
-	ret = value
-	return ret
-}
-
-func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelable *bool, detail interface{}) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	if detail != nil {
-		_p3 := detail
-		_args[3] = _p3
-		_end++
-	}
-	_this.Value_JS.Call("initCustomEvent", _args[0:_end]...)
-	return
-}
-
-// interface: EventTarget
-type EventTarget struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *EventTarget) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// EventTargetFromJS is casting a js.Wrapper into EventTarget.
-func EventTargetFromJS(value js.Wrapper) *EventTarget {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &EventTarget{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewEventTarget() (_result *EventTarget) {
-	_klass := js.Global().Get("EventTarget")
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *EventTarget // javascript: EventTarget _what_return_name
-	)
-	_converted = EventTargetFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *EventTarget) AddEventListener(_type string, callback *EventListenerValue, options *Union) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := callback.JSValue()
-	_args[1] = _p1
-	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("addEventListener", _args[0:_end]...)
-	return
-}
-
-func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListenerValue, options *Union) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	_p1 := callback.JSValue()
-	_args[1] = _p1
-	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("removeEventListener", _args[0:_end]...)
-	return
-}
-
-func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := event.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("dispatchEvent", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
 // EventListener is a callback interface.
 type EventListener interface {
 	HandleEvent(event *Event)
@@ -851,462 +1218,95 @@ func (_this *EventListenerValue) HandleEvent(event *Event) {
 	return
 }
 
-// interface: AbortController
-type AbortController struct {
+// interface: EventTarget
+type EventTarget struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *AbortController) JSValue() js.Value {
+func (_this *EventTarget) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AbortControllerFromJS is casting a js.Wrapper into AbortController.
-func AbortControllerFromJS(value js.Wrapper) *AbortController {
+// EventTargetFromJS is casting a js.Wrapper into EventTarget.
+func EventTargetFromJS(value js.Wrapper) *EventTarget {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &AbortController{}
+	ret := &EventTarget{}
 	ret.Value_JS = input
 	return ret
 }
 
-func NewAbortController() (_result *AbortController) {
-	_klass := js.Global().Get("AbortController")
+func NewEventTarget() (_result *EventTarget) {
+	_klass := js.Global().Get("EventTarget")
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _klass.New(_args[0:_end]...)
 	var (
-		_converted *AbortController // javascript: AbortController _what_return_name
+		_converted *EventTarget // javascript: EventTarget _what_return_name
 	)
-	_converted = AbortControllerFromJS(_returned)
+	_converted = EventTargetFromJS(_returned)
 	_result = _converted
 	return
 }
 
-// Signal returning attribute 'signal' with
-// type AbortSignal (idl: AbortSignal).
-func (_this *AbortController) Signal() *AbortSignal {
-	var ret *AbortSignal
-	value := _this.Value_JS.Get("signal")
-	ret = AbortSignalFromJS(value)
-	return ret
-}
-
-func (_this *AbortController) Abort() {
+func (_this *EventTarget) AddEventListener(_type string, callback *EventListenerValue, options *Union) {
 	var (
-		_args [0]interface{}
+		_args [3]interface{}
 		_end  int
 	)
-	_this.Value_JS.Call("abort", _args[0:_end]...)
-	return
-}
-
-// interface: AbortSignal
-type AbortSignal struct {
-	EventTarget
-}
-
-// AbortSignalFromJS is casting a js.Wrapper into AbortSignal.
-func AbortSignalFromJS(value js.Wrapper) *AbortSignal {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AbortSignal{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Aborted returning attribute 'aborted' with
-// type bool (idl: boolean).
-func (_this *AbortSignal) Aborted() bool {
-	var ret bool
-	value := _this.Value_JS.Get("aborted")
-	ret = (value).Bool()
-	return ret
-}
-
-// Onabort returning attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) Onabort() EventHandlerFunc {
-	var ret EventHandlerFunc
-	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
-		ret = EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) SetOnabort(value *EventHandler) {
-	var __callback1 js.Value
-	if value != nil {
-		__callback1 = (*value).Value
-	} else {
-		__callback1 = js.Null()
-	}
-	input := __callback1
-	_this.Value_JS.Set("onabort", input)
-}
-
-// interface: DOMTokenList
-type DOMTokenList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMTokenList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMTokenListFromJS is casting a js.Wrapper into DOMTokenList.
-func DOMTokenListFromJS(value js.Wrapper) *DOMTokenList {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMTokenList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *DOMTokenList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *DOMTokenList) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *DOMTokenList) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-func (_this *DOMTokenList) Item(index uint) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
+	_p0 := _type
 	_args[0] = _p0
 	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Contains(token string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Add(tokens ...string) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(tokens))
-		_end  int
-	)
-	for _, __in := range tokens {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("add", _args[0:_end]...)
-	return
-}
-
-func (_this *DOMTokenList) Remove(tokens ...string) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(tokens))
-		_end  int
-	)
-	for _, __in := range tokens {
-		__out := __in
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	if force != nil {
-		_p1 := force
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("toggle", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Replace(token string, newToken string) (_result bool) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_p1 := newToken
+	_p1 := callback.JSValue()
 	_args[1] = _p1
 	_end++
-	_returned := _this.Value_JS.Call("replace", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *DOMTokenList) Supports(token string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := token
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("supports", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-// interface: DOMException
-type DOMException struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMException) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMExceptionFromJS is casting a js.Wrapper into DOMException.
-func DOMExceptionFromJS(value js.Wrapper) *DOMException {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMException{}
-	ret.Value_JS = input
-	return ret
-}
-
-const INDEXSIZEERR_DOMException int = 1
-const DOMSTRINGSIZEERR_DOMException int = 2
-const HIERARCHYREQUESTERR_DOMException int = 3
-const WRONGDOCUMENTERR_DOMException int = 4
-const INVALIDCHARACTERERR_DOMException int = 5
-const NODATAALLOWEDERR_DOMException int = 6
-const NOMODIFICATIONALLOWEDERR_DOMException int = 7
-const NOTFOUNDERR_DOMException int = 8
-const NOTSUPPORTEDERR_DOMException int = 9
-const INUSEATTRIBUTEERR_DOMException int = 10
-const INVALIDSTATEERR_DOMException int = 11
-const SYNTAXERR_DOMException int = 12
-const INVALIDMODIFICATIONERR_DOMException int = 13
-const NAMESPACEERR_DOMException int = 14
-const INVALIDACCESSERR_DOMException int = 15
-const VALIDATIONERR_DOMException int = 16
-const TYPEMISMATCHERR_DOMException int = 17
-const SECURITYERR_DOMException int = 18
-const NETWORKERR_DOMException int = 19
-const ABORTERR_DOMException int = 20
-const URLMISMATCHERR_DOMException int = 21
-const QUOTAEXCEEDEDERR_DOMException int = 22
-const TIMEOUTERR_DOMException int = 23
-const INVALIDNODETYPEERR_DOMException int = 24
-const DATACLONEERR_DOMException int = 25
-
-func NewDOMException(message *string, name *string) (_result *DOMException) {
-	_klass := js.Global().Get("DOMException")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	if message != nil {
-		_p0 := message
-		_args[0] = _p0
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
 		_end++
 	}
-	if name != nil {
-		_p1 := name
-		_args[1] = _p1
+	_this.Value_JS.Call("addEventListener", _args[0:_end]...)
+	return
+}
+
+func (_this *EventTarget) RemoveEventListener(_type string, callback *EventListenerValue, options *Union) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := callback.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
 		_end++
 	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *DOMException // javascript: DOMException _what_return_name
-	)
-	_converted = DOMExceptionFromJS(_returned)
-	_result = _converted
+	_this.Value_JS.Call("removeEventListener", _args[0:_end]...)
 	return
 }
 
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *DOMException) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Message returning attribute 'message' with
-// type string (idl: DOMString).
-func (_this *DOMException) Message() string {
-	var ret string
-	value := _this.Value_JS.Get("message")
-	ret = (value).String()
-	return ret
-}
-
-// Code returning attribute 'code' with
-// type int (idl: unsigned short).
-func (_this *DOMException) Code() int {
-	var ret int
-	value := _this.Value_JS.Get("code")
-	ret = (value).Int()
-	return ret
-}
-
-// interface: DOMStringList
-type DOMStringList struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMStringList) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMStringListFromJS is casting a js.Wrapper into DOMStringList.
-func DOMStringListFromJS(value js.Wrapper) *DOMStringList {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMStringList{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *DOMStringList) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *DOMStringList) Item(index uint) (_result *string) {
+func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := index
+	_p0 := event.JSValue()
 	_args[0] = _p0
 	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *DOMStringList) Contains(string string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := string
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
+	_returned := _this.Value_JS.Call("dispatchEvent", _args[0:_end]...)
 	var (
 		_converted bool // javascript: boolean _what_return_name
 	)
 	_converted = (_returned).Bool()
 	_result = _converted
 	return
-}
-
-// interface: DOMStringMap
-type DOMStringMap struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMStringMap) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMStringMapFromJS is casting a js.Wrapper into DOMStringMap.
-func DOMStringMapFromJS(value js.Wrapper) *DOMStringMap {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMStringMap{}
-	ret.Value_JS = input
-	return ret
 }

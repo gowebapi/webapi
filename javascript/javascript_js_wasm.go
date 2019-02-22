@@ -37,27 +37,6 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: object
-type Object struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Object) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ObjectFromJS is casting a js.Wrapper into Object.
-func ObjectFromJS(value js.Wrapper) *Object {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Object{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: ArrayBuffer
 type ArrayBuffer struct {
 	// Value_JS holds a reference to a javascript value
@@ -75,111 +54,6 @@ func ArrayBufferFromJS(value js.Wrapper) *ArrayBuffer {
 		return nil
 	}
 	ret := &ArrayBuffer{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Int8Array
-type Int8Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Int8Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Int8ArrayFromJS is casting a js.Wrapper into Int8Array.
-func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Int8Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Int16Array
-type Int16Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Int16Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Int16ArrayFromJS is casting a js.Wrapper into Int16Array.
-func Int16ArrayFromJS(value js.Wrapper) *Int16Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Int16Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Uint8Array
-type Uint8Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint8Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint8ArrayFromJS is casting a js.Wrapper into Uint8Array.
-func Uint8ArrayFromJS(value js.Wrapper) *Uint8Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint8Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Uint16Array
-type Uint16Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint16Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint16ArrayFromJS is casting a js.Wrapper into Uint16Array.
-func Uint16ArrayFromJS(value js.Wrapper) *Uint16Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint16Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Float64Array
-type Float64Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Float64Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Float64ArrayFromJS is casting a js.Wrapper into Float64Array.
-func Float64ArrayFromJS(value js.Wrapper) *Float64Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Float64Array{}
 	ret.Value_JS = input
 	return ret
 }
@@ -205,48 +79,6 @@ func DataViewFromJS(value js.Wrapper) *DataView {
 	return ret
 }
 
-// interface: Uint32Array
-type Uint32Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Uint32Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Uint32ArrayFromJS is casting a js.Wrapper into Uint32Array.
-func Uint32ArrayFromJS(value js.Wrapper) *Uint32Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Uint32Array{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: Int32Array
-type Int32Array struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Int32Array) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// Int32ArrayFromJS is casting a js.Wrapper into Int32Array.
-func Int32ArrayFromJS(value js.Wrapper) *Int32Array {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Int32Array{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: Float32Array
 type Float32Array struct {
 	// Value_JS holds a reference to a javascript value
@@ -264,6 +96,27 @@ func Float32ArrayFromJS(value js.Wrapper) *Float32Array {
 		return nil
 	}
 	ret := &Float32Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Float64Array
+type Float64Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Float64Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Float64ArrayFromJS is casting a js.Wrapper into Float64Array.
+func Float64ArrayFromJS(value js.Wrapper) *Float64Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Float64Array{}
 	ret.Value_JS = input
 	return ret
 }
@@ -289,6 +142,90 @@ func FrozenArrayFromJS(value js.Wrapper) *FrozenArray {
 	return ret
 }
 
+// interface: Int16Array
+type Int16Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Int16Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Int16ArrayFromJS is casting a js.Wrapper into Int16Array.
+func Int16ArrayFromJS(value js.Wrapper) *Int16Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Int16Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Int32Array
+type Int32Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Int32Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Int32ArrayFromJS is casting a js.Wrapper into Int32Array.
+func Int32ArrayFromJS(value js.Wrapper) *Int32Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Int32Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Int8Array
+type Int8Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Int8Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Int8ArrayFromJS is casting a js.Wrapper into Int8Array.
+func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Int8Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: object
+type Object struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Object) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ObjectFromJS is casting a js.Wrapper into Object.
+func ObjectFromJS(value js.Wrapper) *Object {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Object{}
+	ret.Value_JS = input
+	return ret
+}
+
 // interface: Promise
 type Promise struct {
 	// Value_JS holds a reference to a javascript value
@@ -306,6 +243,69 @@ func PromiseFromJS(value js.Wrapper) *Promise {
 		return nil
 	}
 	ret := &Promise{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Uint16Array
+type Uint16Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Uint16Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Uint16ArrayFromJS is casting a js.Wrapper into Uint16Array.
+func Uint16ArrayFromJS(value js.Wrapper) *Uint16Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Uint16Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Uint32Array
+type Uint32Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Uint32Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Uint32ArrayFromJS is casting a js.Wrapper into Uint32Array.
+func Uint32ArrayFromJS(value js.Wrapper) *Uint32Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Uint32Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Uint8Array
+type Uint8Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Uint8Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// Uint8ArrayFromJS is casting a js.Wrapper into Uint8Array.
+func Uint8ArrayFromJS(value js.Wrapper) *Uint8Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Uint8Array{}
 	ret.Value_JS = input
 	return ret
 }

@@ -6,11 +6,14 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // domcore.DOMTokenList
+// domcore.EventHandler
 // domcore.EventTarget
+// javascript.Promise
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -41,6 +44,49 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// enum: FullscreenNavigationUI
+type FullscreenNavigationUI int
+
+const (
+	AutoFullscreenNavigationUI FullscreenNavigationUI = iota
+	ShowFullscreenNavigationUI
+	HideFullscreenNavigationUI
+)
+
+var fullscreenNavigationUIToWasmTable = []string{
+	"auto", "show", "hide",
+}
+
+var fullscreenNavigationUIFromWasmTable = map[string]FullscreenNavigationUI{
+	"auto": AutoFullscreenNavigationUI, "show": ShowFullscreenNavigationUI, "hide": HideFullscreenNavigationUI,
+}
+
+// JSValue is converting this enum into a java object
+func (this *FullscreenNavigationUI) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this FullscreenNavigationUI) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(fullscreenNavigationUIToWasmTable) {
+		return fullscreenNavigationUIToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// FullscreenNavigationUIFromJS is converting a javascript value into
+// a FullscreenNavigationUI enum value.
+func FullscreenNavigationUIFromJS(value js.Value) FullscreenNavigationUI {
+	key := value.String()
+	conv, ok := fullscreenNavigationUIFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
 }
 
 // enum: ShadowRootMode
@@ -83,6 +129,34 @@ func ShadowRootModeFromJS(value js.Value) ShadowRootMode {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// dictionary: FullscreenOptions
+type FullscreenOptions struct {
+	NavigationUI FullscreenNavigationUI
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FullscreenOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.NavigationUI.JSValue()
+	out.Set("navigationUI", value0)
+	return out
+}
+
+// FullscreenOptionsFromJS is allocating a new
+// FullscreenOptions object and copy all values from
+// input javascript object
+func FullscreenOptionsFromJS(value js.Wrapper) *FullscreenOptions {
+	input := value.JSValue()
+	var out FullscreenOptions
+	var (
+		value0 FullscreenNavigationUI // javascript: FullscreenNavigationUI {navigationUI NavigationUI navigationUI}
+	)
+	value0 = FullscreenNavigationUIFromJS(input.Get("navigationUI"))
+	out.NavigationUI = value0
+	return &out
 }
 
 // dictionary: GetRootNodeOptions
@@ -141,620 +215,326 @@ func ShadowRootInitFromJS(value js.Wrapper) *ShadowRootInit {
 	return &out
 }
 
-// interface: NodeList
-type NodeList struct {
+// interface: AbstractRange
+type AbstractRange struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *NodeList) JSValue() js.Value {
+func (_this *AbstractRange) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeListFromJS is casting a js.Wrapper into NodeList.
-func NodeListFromJS(value js.Wrapper) *NodeList {
+// AbstractRangeFromJS is casting a js.Wrapper into AbstractRange.
+func AbstractRangeFromJS(value js.Wrapper) *AbstractRange {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &NodeList{}
+	ret := &AbstractRange{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Length returning attribute 'length' with
+// StartContainer returning attribute 'startContainer' with
+// type Node (idl: Node).
+func (_this *AbstractRange) StartContainer() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("startContainer")
+	ret = NodeFromJS(value)
+	return ret
+}
+
+// StartOffset returning attribute 'startOffset' with
 // type uint (idl: unsigned long).
-func (_this *NodeList) Length() uint {
+func (_this *AbstractRange) StartOffset() uint {
 	var ret uint
-	value := _this.Value_JS.Get("length")
+	value := _this.Value_JS.Get("startOffset")
 	ret = (uint)((value).Int())
 	return ret
 }
 
-func (_this *NodeList) Item(index uint) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: HTMLCollection
-type HTMLCollection struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *HTMLCollection) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// HTMLCollectionFromJS is casting a js.Wrapper into HTMLCollection.
-func HTMLCollectionFromJS(value js.Wrapper) *HTMLCollection {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &HTMLCollection{}
-	ret.Value_JS = input
+// EndContainer returning attribute 'endContainer' with
+// type Node (idl: Node).
+func (_this *AbstractRange) EndContainer() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("endContainer")
+	ret = NodeFromJS(value)
 	return ret
 }
 
-// Length returning attribute 'length' with
+// EndOffset returning attribute 'endOffset' with
 // type uint (idl: unsigned long).
-func (_this *HTMLCollection) Length() uint {
+func (_this *AbstractRange) EndOffset() uint {
 	var ret uint
-	value := _this.Value_JS.Get("length")
+	value := _this.Value_JS.Get("endOffset")
 	ret = (uint)((value).Int())
 	return ret
 }
 
-func (_this *HTMLCollection) Item(index uint) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
-	var (
-		_converted *Element // javascript: Element _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = ElementFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-// interface: Node
-type Node struct {
-	domcore.EventTarget
-}
-
-// NodeFromJS is casting a js.Wrapper into Node.
-func NodeFromJS(value js.Wrapper) *Node {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Node{}
-	ret.Value_JS = input
-	return ret
-}
-
-const ELEMENTNODE_Node int = 1
-const ATTRIBUTENODE_Node int = 2
-const TEXTNODE_Node int = 3
-const CDATASECTIONNODE_Node int = 4
-const ENTITYREFERENCENODE_Node int = 5
-const ENTITYNODE_Node int = 6
-const PROCESSINGINSTRUCTIONNODE_Node int = 7
-const COMMENTNODE_Node int = 8
-const DOCUMENTNODE_Node int = 9
-const DOCUMENTTYPENODE_Node int = 10
-const DOCUMENTFRAGMENTNODE_Node int = 11
-const NOTATIONNODE_Node int = 12
-const DOCUMENTPOSITIONDISCONNECTED_Node int = 0x01
-const DOCUMENTPOSITIONPRECEDING_Node int = 0x02
-const DOCUMENTPOSITIONFOLLOWING_Node int = 0x04
-const DOCUMENTPOSITIONCONTAINS_Node int = 0x08
-const DOCUMENTPOSITIONCONTAINEDBY_Node int = 0x10
-const DOCUMENTPOSITIONIMPLEMENTATIONSPECIFIC_Node int = 0x20
-
-// NodeType returning attribute 'nodeType' with
-// type int (idl: unsigned short).
-func (_this *Node) NodeType() int {
-	var ret int
-	value := _this.Value_JS.Get("nodeType")
-	ret = (value).Int()
-	return ret
-}
-
-// NodeName returning attribute 'nodeName' with
-// type string (idl: DOMString).
-func (_this *Node) NodeName() string {
-	var ret string
-	value := _this.Value_JS.Get("nodeName")
-	ret = (value).String()
-	return ret
-}
-
-// BaseURI returning attribute 'baseURI' with
-// type string (idl: USVString).
-func (_this *Node) BaseURI() string {
-	var ret string
-	value := _this.Value_JS.Get("baseURI")
-	ret = (value).String()
-	return ret
-}
-
-// IsConnected returning attribute 'isConnected' with
+// Collapsed returning attribute 'collapsed' with
 // type bool (idl: boolean).
-func (_this *Node) IsConnected() bool {
+func (_this *AbstractRange) Collapsed() bool {
 	var ret bool
-	value := _this.Value_JS.Get("isConnected")
+	value := _this.Value_JS.Get("collapsed")
 	ret = (value).Bool()
 	return ret
 }
 
-// OwnerDocument returning attribute 'ownerDocument' with
-// type js.Value (idl: <rawjs>).
-func (_this *Node) OwnerDocument() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("ownerDocument")
-	ret = value
-	return ret
-}
-
-// ParentNode returning attribute 'parentNode' with
-// type Node (idl: Node).
-func (_this *Node) ParentNode() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("parentNode")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// ParentElement returning attribute 'parentElement' with
-// type Element (idl: Element).
-func (_this *Node) ParentElement() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("parentElement")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// ChildNodes returning attribute 'childNodes' with
-// type NodeList (idl: NodeList).
-func (_this *Node) ChildNodes() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("childNodes")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// FirstChild returning attribute 'firstChild' with
-// type Node (idl: Node).
-func (_this *Node) FirstChild() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("firstChild")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// LastChild returning attribute 'lastChild' with
-// type Node (idl: Node).
-func (_this *Node) LastChild() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("lastChild")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// PreviousSibling returning attribute 'previousSibling' with
-// type Node (idl: Node).
-func (_this *Node) PreviousSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("previousSibling")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// NextSibling returning attribute 'nextSibling' with
-// type Node (idl: Node).
-func (_this *Node) NextSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("nextSibling")
-	if value.Type() != js.TypeNull {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// NodeValue returning attribute 'nodeValue' with
-// type string (idl: DOMString).
-func (_this *Node) NodeValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("nodeValue")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetNodeValue setting attribute 'nodeValue' with
-// type string (idl: DOMString).
-func (_this *Node) SetNodeValue(value *string) {
-	input := value
-	_this.Value_JS.Set("nodeValue", input)
-}
-
-// TextContent returning attribute 'textContent' with
-// type string (idl: DOMString).
-func (_this *Node) TextContent() *string {
-	var ret *string
-	value := _this.Value_JS.Get("textContent")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// SetTextContent setting attribute 'textContent' with
-// type string (idl: DOMString).
-func (_this *Node) SetTextContent(value *string) {
-	input := value
-	_this.Value_JS.Set("textContent", input)
-}
-
-func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if options != nil {
-		_p0 := options.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("getRootNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) HasChildNodes() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("hasChildNodes", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) Normalize() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("normalize", _args[0:_end]...)
-	return
-}
-
-func (_this *Node) CloneNode(deep *bool) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if deep != nil {
-		_p0 := deep
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _this.Value_JS.Call("cloneNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := otherNode.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isEqualNode", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := otherNode.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isSameNode", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := other.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("compareDocumentPosition", _args[0:_end]...)
-	var (
-		_converted int // javascript: unsigned short _what_return_name
-	)
-	_converted = (_returned).Int()
-	_result = _converted
-	return
-}
-
-func (_this *Node) Contains(other *Node) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := other.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("lookupPrefix", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := prefix
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("lookupNamespaceURI", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := namespace
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("isDefaultNamespace", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := child.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("insertBefore", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) AppendChild(node *Node) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("appendChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := child.JSValue()
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("replaceChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Node) RemoveChild(child *Node) (_result *Node) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := child.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("removeChild", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	_converted = NodeFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: DocumentType
-type DocumentType struct {
+// interface: Attr
+type Attr struct {
 	Node
 }
 
-// DocumentTypeFromJS is casting a js.Wrapper into DocumentType.
-func DocumentTypeFromJS(value js.Wrapper) *DocumentType {
+// AttrFromJS is casting a js.Wrapper into Attr.
+func AttrFromJS(value js.Wrapper) *Attr {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &DocumentType{}
+	ret := &Attr{}
 	ret.Value_JS = input
+	return ret
+}
+
+// NamespaceURI returning attribute 'namespaceURI' with
+// type string (idl: DOMString).
+func (_this *Attr) NamespaceURI() *string {
+	var ret *string
+	value := _this.Value_JS.Get("namespaceURI")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// Prefix returning attribute 'prefix' with
+// type string (idl: DOMString).
+func (_this *Attr) Prefix() *string {
+	var ret *string
+	value := _this.Value_JS.Get("prefix")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// LocalName returning attribute 'localName' with
+// type string (idl: DOMString).
+func (_this *Attr) LocalName() string {
+	var ret string
+	value := _this.Value_JS.Get("localName")
+	ret = (value).String()
 	return ret
 }
 
 // Name returning attribute 'name' with
 // type string (idl: DOMString).
-func (_this *DocumentType) Name() string {
+func (_this *Attr) Name() string {
 	var ret string
 	value := _this.Value_JS.Get("name")
 	ret = (value).String()
 	return ret
 }
 
-// PublicId returning attribute 'publicId' with
+// Value returning attribute 'value' with
 // type string (idl: DOMString).
-func (_this *DocumentType) PublicId() string {
+func (_this *Attr) Value() string {
 	var ret string
-	value := _this.Value_JS.Get("publicId")
+	value := _this.Value_JS.Get("value")
 	ret = (value).String()
 	return ret
 }
 
-// SystemId returning attribute 'systemId' with
+// SetValue setting attribute 'value' with
 // type string (idl: DOMString).
-func (_this *DocumentType) SystemId() string {
+func (_this *Attr) SetValue(value string) {
+	input := value
+	_this.Value_JS.Set("value", input)
+}
+
+// OwnerElement returning attribute 'ownerElement' with
+// type Element (idl: Element).
+func (_this *Attr) OwnerElement() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("ownerElement")
+	if value.Type() != js.TypeNull {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// Specified returning attribute 'specified' with
+// type bool (idl: boolean).
+func (_this *Attr) Specified() bool {
+	var ret bool
+	value := _this.Value_JS.Get("specified")
+	ret = (value).Bool()
+	return ret
+}
+
+// interface: CDATASection
+type CDATASection struct {
+	Text
+}
+
+// CDATASectionFromJS is casting a js.Wrapper into CDATASection.
+func CDATASectionFromJS(value js.Wrapper) *CDATASection {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CDATASection{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: CharacterData
+type CharacterData struct {
+	Node
+}
+
+// CharacterDataFromJS is casting a js.Wrapper into CharacterData.
+func CharacterDataFromJS(value js.Wrapper) *CharacterData {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CharacterData{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Data returning attribute 'data' with
+// type string (idl: DOMString).
+func (_this *CharacterData) Data() string {
 	var ret string
-	value := _this.Value_JS.Get("systemId")
+	value := _this.Value_JS.Get("data")
 	ret = (value).String()
 	return ret
 }
 
-func (_this *DocumentType) Before(nodes ...*Union) {
+// SetData setting attribute 'data' with
+// type string (idl: DOMString).
+func (_this *CharacterData) SetData(value string) {
+	input := value
+	_this.Value_JS.Set("data", input)
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *CharacterData) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// PreviousElementSibling returning attribute 'previousElementSibling' with
+// type Element (idl: Element).
+func (_this *CharacterData) PreviousElementSibling() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("previousElementSibling")
+	if value.Type() != js.TypeNull {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// NextElementSibling returning attribute 'nextElementSibling' with
+// type Element (idl: Element).
+func (_this *CharacterData) NextElementSibling() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("nextElementSibling")
+	if value.Type() != js.TypeNull {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+func (_this *CharacterData) SubstringData(offset uint, count uint) (_result string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := offset
+	_args[0] = _p0
+	_end++
+	_p1 := count
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("substringData", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *CharacterData) AppendData(data string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := data
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("appendData", _args[0:_end]...)
+	return
+}
+
+func (_this *CharacterData) InsertData(offset uint, data string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := offset
+	_args[0] = _p0
+	_end++
+	_p1 := data
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("insertData", _args[0:_end]...)
+	return
+}
+
+func (_this *CharacterData) DeleteData(offset uint, count uint) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := offset
+	_args[0] = _p0
+	_end++
+	_p1 := count
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("deleteData", _args[0:_end]...)
+	return
+}
+
+func (_this *CharacterData) ReplaceData(offset uint, count uint, data string) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := offset
+	_args[0] = _p0
+	_end++
+	_p1 := count
+	_args[1] = _p1
+	_end++
+	_p2 := data
+	_args[2] = _p2
+	_end++
+	_this.Value_JS.Call("replaceData", _args[0:_end]...)
+	return
+}
+
+func (_this *CharacterData) Before(nodes ...*Union) {
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -768,7 +548,7 @@ func (_this *DocumentType) Before(nodes ...*Union) {
 	return
 }
 
-func (_this *DocumentType) After(nodes ...*Union) {
+func (_this *CharacterData) After(nodes ...*Union) {
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -782,7 +562,7 @@ func (_this *DocumentType) After(nodes ...*Union) {
 	return
 }
 
-func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
+func (_this *CharacterData) ReplaceWith(nodes ...*Union) {
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
 		_end  int
@@ -796,12 +576,48 @@ func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
 	return
 }
 
-func (_this *DocumentType) Remove() {
+func (_this *CharacterData) Remove() {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+// interface: Comment
+type Comment struct {
+	CharacterData
+}
+
+// CommentFromJS is casting a js.Wrapper into Comment.
+func CommentFromJS(value js.Wrapper) *Comment {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Comment{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewComment(data *string) (_result *Comment) {
+	_klass := js.Global().Get("Comment")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if data != nil {
+		_p0 := data
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *Comment // javascript: Comment _what_return_name
+	)
+	_converted = CommentFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -959,38 +775,98 @@ func (_this *DocumentFragment) QuerySelectorAll(selectors string) (_result *Node
 	return
 }
 
-// interface: ShadowRoot
-type ShadowRoot struct {
-	DocumentFragment
+// interface: DocumentType
+type DocumentType struct {
+	Node
 }
 
-// ShadowRootFromJS is casting a js.Wrapper into ShadowRoot.
-func ShadowRootFromJS(value js.Wrapper) *ShadowRoot {
+// DocumentTypeFromJS is casting a js.Wrapper into DocumentType.
+func DocumentTypeFromJS(value js.Wrapper) *DocumentType {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &ShadowRoot{}
+	ret := &DocumentType{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Mode returning attribute 'mode' with
-// type ShadowRootMode (idl: ShadowRootMode).
-func (_this *ShadowRoot) Mode() ShadowRootMode {
-	var ret ShadowRootMode
-	value := _this.Value_JS.Get("mode")
-	ret = ShadowRootModeFromJS(value)
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *DocumentType) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
 	return ret
 }
 
-// Host returning attribute 'host' with
-// type Element (idl: Element).
-func (_this *ShadowRoot) Host() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("host")
-	ret = ElementFromJS(value)
+// PublicId returning attribute 'publicId' with
+// type string (idl: DOMString).
+func (_this *DocumentType) PublicId() string {
+	var ret string
+	value := _this.Value_JS.Get("publicId")
+	ret = (value).String()
 	return ret
+}
+
+// SystemId returning attribute 'systemId' with
+// type string (idl: DOMString).
+func (_this *DocumentType) SystemId() string {
+	var ret string
+	value := _this.Value_JS.Get("systemId")
+	ret = (value).String()
+	return ret
+}
+
+func (_this *DocumentType) Before(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("before", _args[0:_end]...)
+	return
+}
+
+func (_this *DocumentType) After(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("after", _args[0:_end]...)
+	return
+}
+
+func (_this *DocumentType) ReplaceWith(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
+	return
+}
+
+func (_this *DocumentType) Remove() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
 }
 
 // interface: Element
@@ -1126,6 +1002,54 @@ func (_this *Element) ShadowRoot() *ShadowRoot {
 		ret = ShadowRootFromJS(value)
 	}
 	return ret
+}
+
+// Onfullscreenchange returning attribute 'onfullscreenchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Element) Onfullscreenchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onfullscreenchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnfullscreenchange setting attribute 'onfullscreenchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Element) SetOnfullscreenchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onfullscreenchange", input)
+}
+
+// Onfullscreenerror returning attribute 'onfullscreenerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Element) Onfullscreenerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onfullscreenerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnfullscreenerror setting attribute 'onfullscreenerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Element) SetOnfullscreenerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onfullscreenerror", input)
 }
 
 // Children returning attribute 'children' with
@@ -1654,6 +1578,25 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	return
 }
 
+func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("requestFullscreen", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Element) Prepend(nodes ...*Union) {
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
@@ -1766,6 +1709,74 @@ func (_this *Element) Remove() {
 		_end  int
 	)
 	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+// interface: HTMLCollection
+type HTMLCollection struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *HTMLCollection) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// HTMLCollectionFromJS is casting a js.Wrapper into HTMLCollection.
+func HTMLCollectionFromJS(value js.Wrapper) *HTMLCollection {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HTMLCollection{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *HTMLCollection) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+func (_this *HTMLCollection) Item(index uint) (_result *Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = ElementFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = ElementFromJS(_returned)
+	}
+	_result = _converted
 	return
 }
 
@@ -1934,379 +1945,745 @@ func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string
 	return
 }
 
-// interface: Attr
-type Attr struct {
-	Node
+// interface: Node
+type Node struct {
+	domcore.EventTarget
 }
 
-// AttrFromJS is casting a js.Wrapper into Attr.
-func AttrFromJS(value js.Wrapper) *Attr {
+// NodeFromJS is casting a js.Wrapper into Node.
+func NodeFromJS(value js.Wrapper) *Node {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &Attr{}
+	ret := &Node{}
 	ret.Value_JS = input
 	return ret
 }
 
-// NamespaceURI returning attribute 'namespaceURI' with
+const ELEMENTNODE_Node int = 1
+const ATTRIBUTENODE_Node int = 2
+const TEXTNODE_Node int = 3
+const CDATASECTIONNODE_Node int = 4
+const ENTITYREFERENCENODE_Node int = 5
+const ENTITYNODE_Node int = 6
+const PROCESSINGINSTRUCTIONNODE_Node int = 7
+const COMMENTNODE_Node int = 8
+const DOCUMENTNODE_Node int = 9
+const DOCUMENTTYPENODE_Node int = 10
+const DOCUMENTFRAGMENTNODE_Node int = 11
+const NOTATIONNODE_Node int = 12
+const DOCUMENTPOSITIONDISCONNECTED_Node int = 0x01
+const DOCUMENTPOSITIONPRECEDING_Node int = 0x02
+const DOCUMENTPOSITIONFOLLOWING_Node int = 0x04
+const DOCUMENTPOSITIONCONTAINS_Node int = 0x08
+const DOCUMENTPOSITIONCONTAINEDBY_Node int = 0x10
+const DOCUMENTPOSITIONIMPLEMENTATIONSPECIFIC_Node int = 0x20
+
+// NodeType returning attribute 'nodeType' with
+// type int (idl: unsigned short).
+func (_this *Node) NodeType() int {
+	var ret int
+	value := _this.Value_JS.Get("nodeType")
+	ret = (value).Int()
+	return ret
+}
+
+// NodeName returning attribute 'nodeName' with
 // type string (idl: DOMString).
-func (_this *Attr) NamespaceURI() *string {
-	var ret *string
-	value := _this.Value_JS.Get("namespaceURI")
+func (_this *Node) NodeName() string {
+	var ret string
+	value := _this.Value_JS.Get("nodeName")
+	ret = (value).String()
+	return ret
+}
+
+// BaseURI returning attribute 'baseURI' with
+// type string (idl: USVString).
+func (_this *Node) BaseURI() string {
+	var ret string
+	value := _this.Value_JS.Get("baseURI")
+	ret = (value).String()
+	return ret
+}
+
+// IsConnected returning attribute 'isConnected' with
+// type bool (idl: boolean).
+func (_this *Node) IsConnected() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isConnected")
+	ret = (value).Bool()
+	return ret
+}
+
+// OwnerDocument returning attribute 'ownerDocument' with
+// type js.Value (idl: <rawjs>).
+func (_this *Node) OwnerDocument() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("ownerDocument")
+	ret = value
+	return ret
+}
+
+// ParentNode returning attribute 'parentNode' with
+// type Node (idl: Node).
+func (_this *Node) ParentNode() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("parentNode")
 	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
+		ret = NodeFromJS(value)
 	}
 	return ret
 }
 
-// Prefix returning attribute 'prefix' with
-// type string (idl: DOMString).
-func (_this *Attr) Prefix() *string {
-	var ret *string
-	value := _this.Value_JS.Get("prefix")
-	if value.Type() != js.TypeNull {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// LocalName returning attribute 'localName' with
-// type string (idl: DOMString).
-func (_this *Attr) LocalName() string {
-	var ret string
-	value := _this.Value_JS.Get("localName")
-	ret = (value).String()
-	return ret
-}
-
-// Name returning attribute 'name' with
-// type string (idl: DOMString).
-func (_this *Attr) Name() string {
-	var ret string
-	value := _this.Value_JS.Get("name")
-	ret = (value).String()
-	return ret
-}
-
-// Value returning attribute 'value' with
-// type string (idl: DOMString).
-func (_this *Attr) Value() string {
-	var ret string
-	value := _this.Value_JS.Get("value")
-	ret = (value).String()
-	return ret
-}
-
-// SetValue setting attribute 'value' with
-// type string (idl: DOMString).
-func (_this *Attr) SetValue(value string) {
-	input := value
-	_this.Value_JS.Set("value", input)
-}
-
-// OwnerElement returning attribute 'ownerElement' with
+// ParentElement returning attribute 'parentElement' with
 // type Element (idl: Element).
-func (_this *Attr) OwnerElement() *Element {
+func (_this *Node) ParentElement() *Element {
 	var ret *Element
-	value := _this.Value_JS.Get("ownerElement")
+	value := _this.Value_JS.Get("parentElement")
 	if value.Type() != js.TypeNull {
 		ret = ElementFromJS(value)
 	}
 	return ret
 }
 
-// Specified returning attribute 'specified' with
-// type bool (idl: boolean).
-func (_this *Attr) Specified() bool {
-	var ret bool
-	value := _this.Value_JS.Get("specified")
-	ret = (value).Bool()
+// ChildNodes returning attribute 'childNodes' with
+// type NodeList (idl: NodeList).
+func (_this *Node) ChildNodes() *NodeList {
+	var ret *NodeList
+	value := _this.Value_JS.Get("childNodes")
+	ret = NodeListFromJS(value)
 	return ret
 }
 
-// interface: CharacterData
-type CharacterData struct {
-	Node
+// FirstChild returning attribute 'firstChild' with
+// type Node (idl: Node).
+func (_this *Node) FirstChild() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("firstChild")
+	if value.Type() != js.TypeNull {
+		ret = NodeFromJS(value)
+	}
+	return ret
 }
 
-// CharacterDataFromJS is casting a js.Wrapper into CharacterData.
-func CharacterDataFromJS(value js.Wrapper) *CharacterData {
+// LastChild returning attribute 'lastChild' with
+// type Node (idl: Node).
+func (_this *Node) LastChild() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("lastChild")
+	if value.Type() != js.TypeNull {
+		ret = NodeFromJS(value)
+	}
+	return ret
+}
+
+// PreviousSibling returning attribute 'previousSibling' with
+// type Node (idl: Node).
+func (_this *Node) PreviousSibling() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("previousSibling")
+	if value.Type() != js.TypeNull {
+		ret = NodeFromJS(value)
+	}
+	return ret
+}
+
+// NextSibling returning attribute 'nextSibling' with
+// type Node (idl: Node).
+func (_this *Node) NextSibling() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("nextSibling")
+	if value.Type() != js.TypeNull {
+		ret = NodeFromJS(value)
+	}
+	return ret
+}
+
+// NodeValue returning attribute 'nodeValue' with
+// type string (idl: DOMString).
+func (_this *Node) NodeValue() *string {
+	var ret *string
+	value := _this.Value_JS.Get("nodeValue")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetNodeValue setting attribute 'nodeValue' with
+// type string (idl: DOMString).
+func (_this *Node) SetNodeValue(value *string) {
+	input := value
+	_this.Value_JS.Set("nodeValue", input)
+}
+
+// TextContent returning attribute 'textContent' with
+// type string (idl: DOMString).
+func (_this *Node) TextContent() *string {
+	var ret *string
+	value := _this.Value_JS.Get("textContent")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetTextContent setting attribute 'textContent' with
+// type string (idl: DOMString).
+func (_this *Node) SetTextContent(value *string) {
+	input := value
+	_this.Value_JS.Set("textContent", input)
+}
+
+func (_this *Node) GetRootNode(options *GetRootNodeOptions) (_result *Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getRootNode", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Node) HasChildNodes() (_result bool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("hasChildNodes", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Node) Normalize() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("normalize", _args[0:_end]...)
+	return
+}
+
+func (_this *Node) CloneNode(deep *bool) (_result *Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if deep != nil {
+		_p0 := deep
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("cloneNode", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Node) IsEqualNode(otherNode *Node) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := otherNode.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("isEqualNode", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Node) IsSameNode(otherNode *Node) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := otherNode.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("isSameNode", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Node) CompareDocumentPosition(other *Node) (_result int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := other.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("compareDocumentPosition", _args[0:_end]...)
+	var (
+		_converted int // javascript: unsigned short _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func (_this *Node) Contains(other *Node) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := other.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("contains", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := namespace
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("lookupPrefix", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := prefix
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("lookupNamespaceURI", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := namespace
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("isDefaultNamespace", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Node) InsertBefore(node *Node, child *Node) (_result *Node) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := node.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := child.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("insertBefore", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Node) AppendChild(node *Node) (_result *Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := node.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("appendChild", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Node) ReplaceChild(node *Node, child *Node) (_result *Node) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := node.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := child.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("replaceChild", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Node) RemoveChild(child *Node) (_result *Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := child.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("removeChild", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	_converted = NodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+const FILTERACCEPT_NodeFilter int = 1
+const FILTERREJECT_NodeFilter int = 2
+const FILTERSKIP_NodeFilter int = 3
+const SHOWALL_NodeFilter uint = 0xFFFFFFFF
+const SHOWELEMENT_NodeFilter uint = 0x1
+const SHOWATTRIBUTE_NodeFilter uint = 0x2
+const SHOWTEXT_NodeFilter uint = 0x4
+const SHOWCDATASECTION_NodeFilter uint = 0x8
+const SHOWENTITYREFERENCE_NodeFilter uint = 0x10
+const SHOWENTITY_NodeFilter uint = 0x20
+const SHOWPROCESSINGINSTRUCTION_NodeFilter uint = 0x40
+const SHOWCOMMENT_NodeFilter uint = 0x80
+const SHOWDOCUMENT_NodeFilter uint = 0x100
+const SHOWDOCUMENTTYPE_NodeFilter uint = 0x200
+const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
+const SHOWNOTATION_NodeFilter uint = 0x800
+
+// NodeFilter is a callback interface.
+type NodeFilter interface {
+	AcceptNode(node *Node) (_result int)
+}
+
+// NodeFilterValue is javascript reference value for callback interface NodeFilter.
+// This is holding the underlaying javascript object.
+type NodeFilterValue struct {
+	// Value is the underlying javascript object or function.
+	Value js.Value
+	// Functions is the underlying function objects that is allocated for the interface callback
+	Functions [1]js.Func
+	// Go interface to invoke
+	impl      NodeFilter
+	function  func(node *Node) (_result int)
+	useInvoke bool
+}
+
+// JSValue is returning the javascript object that implements this callback interface
+func (t *NodeFilterValue) JSValue() js.Value {
+	return t.Value
+}
+
+// Release is releasing all resources that is allocated.
+func (t *NodeFilterValue) Release() {
+	for i := range t.Functions {
+		if t.Functions[i].Type() != js.TypeUndefined {
+			t.Functions[i].Release()
+		}
+	}
+}
+
+// NewNodeFilter is allocating a new javascript object that
+// implements NodeFilter.
+func NewNodeFilter(callback NodeFilter) *NodeFilterValue {
+	ret := &NodeFilterValue{impl: callback}
+	ret.Value = js.Global().Get("Object").New()
+	ret.Functions[0] = ret.allocateAcceptNode()
+	ret.Value.Set("acceptNode", ret.Functions[0])
+	return ret
+}
+
+// NewNodeFilterFunc is allocating a new javascript
+// function is implements
+// NodeFilter interface.
+func NewNodeFilterFunc(f func(node *Node) (_result int)) *NodeFilterValue {
+	// single function will result in javascript function type, not an object
+	ret := &NodeFilterValue{function: f}
+	ret.Functions[0] = ret.allocateAcceptNode()
+	ret.Value = ret.Functions[0].Value
+	return ret
+}
+
+// NodeFilterFromJS is taking an javascript object that reference to a
+// callback interface and return a corresponding interface that can be used
+// to invoke on that element.
+func NodeFilterFromJS(value js.Wrapper) *NodeFilterValue {
+	input := value.JSValue()
+	if input.Type() == js.TypeObject {
+		return &NodeFilterValue{Value: input}
+	}
+	if input.Type() == js.TypeFunction {
+		return &NodeFilterValue{Value: input, useInvoke: true}
+	}
+	panic("unsupported type")
+}
+
+func (t *NodeFilterValue) allocateAcceptNode() js.Func {
+	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Node // javascript: Node node
+		)
+		_p0 = NodeFromJS(args[0])
+		var _returned int
+		if t.function != nil {
+			_returned = t.function(_p0)
+		} else {
+			_returned = t.impl.AcceptNode(_p0)
+		}
+		_converted := _returned
+		return _converted
+	})
+}
+
+func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
+	if _this.function != nil {
+		return _this.function(node)
+	}
+	if _this.impl != nil {
+		return _this.impl.AcceptNode(node)
+	}
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := node.JSValue()
+	_args[0] = _p0
+	_end++
+	var _returned js.Value
+	if _this.useInvoke {
+		// invoke a javascript function
+		_returned = _this.Value.Invoke(_args[0:_end]...)
+	} else {
+		_returned = _this.Value.Call("acceptNode", _args[0:_end]...)
+	}
+	var (
+		_converted int // javascript: unsigned short _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+// interface: NodeIterator
+type NodeIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *NodeIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// NodeIteratorFromJS is casting a js.Wrapper into NodeIterator.
+func NodeIteratorFromJS(value js.Wrapper) *NodeIterator {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &CharacterData{}
+	ret := &NodeIterator{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Data returning attribute 'data' with
-// type string (idl: DOMString).
-func (_this *CharacterData) Data() string {
-	var ret string
-	value := _this.Value_JS.Get("data")
-	ret = (value).String()
+// Root returning attribute 'root' with
+// type Node (idl: Node).
+func (_this *NodeIterator) Root() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("root")
+	ret = NodeFromJS(value)
 	return ret
 }
 
-// SetData setting attribute 'data' with
-// type string (idl: DOMString).
-func (_this *CharacterData) SetData(value string) {
-	input := value
-	_this.Value_JS.Set("data", input)
+// ReferenceNode returning attribute 'referenceNode' with
+// type Node (idl: Node).
+func (_this *NodeIterator) ReferenceNode() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("referenceNode")
+	ret = NodeFromJS(value)
+	return ret
+}
+
+// PointerBeforeReferenceNode returning attribute 'pointerBeforeReferenceNode' with
+// type bool (idl: boolean).
+func (_this *NodeIterator) PointerBeforeReferenceNode() bool {
+	var ret bool
+	value := _this.Value_JS.Get("pointerBeforeReferenceNode")
+	ret = (value).Bool()
+	return ret
+}
+
+// WhatToShow returning attribute 'whatToShow' with
+// type uint (idl: unsigned long).
+func (_this *NodeIterator) WhatToShow() uint {
+	var ret uint
+	value := _this.Value_JS.Get("whatToShow")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// Filter returning attribute 'filter' with
+// type NodeFilter (idl: NodeFilter).
+func (_this *NodeIterator) Filter() NodeFilter {
+	var ret NodeFilter
+	value := _this.Value_JS.Get("filter")
+	if value.Type() != js.TypeNull {
+		ret = NodeFilterFromJS(value)
+	}
+	return ret
+}
+
+func (_this *NodeIterator) NextNode() (_result *Node) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("nextNode", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = NodeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *NodeIterator) PreviousNode() (_result *Node) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("previousNode", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = NodeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *NodeIterator) Detach() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("detach", _args[0:_end]...)
+	return
+}
+
+// interface: NodeList
+type NodeList struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *NodeList) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// NodeListFromJS is casting a js.Wrapper into NodeList.
+func NodeListFromJS(value js.Wrapper) *NodeList {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &NodeList{}
+	ret.Value_JS = input
+	return ret
 }
 
 // Length returning attribute 'length' with
 // type uint (idl: unsigned long).
-func (_this *CharacterData) Length() uint {
+func (_this *NodeList) Length() uint {
 	var ret uint
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
 }
 
-// PreviousElementSibling returning attribute 'previousElementSibling' with
-// type Element (idl: Element).
-func (_this *CharacterData) PreviousElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// NextElementSibling returning attribute 'nextElementSibling' with
-// type Element (idl: Element).
-func (_this *CharacterData) NextElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-func (_this *CharacterData) SubstringData(offset uint, count uint) (_result string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("substringData", _args[0:_end]...)
-	var (
-		_converted string // javascript: DOMString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
-func (_this *CharacterData) AppendData(data string) {
+func (_this *NodeList) Item(index uint) (_result *Node) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := data
+	_p0 := index
 	_args[0] = _p0
 	_end++
-	_this.Value_JS.Call("appendData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) InsertData(offset uint, data string) {
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
 	var (
-		_args [2]interface{}
-		_end  int
+		_converted *Node // javascript: Node _what_return_name
 	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := data
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("insertData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) DeleteData(offset uint, count uint) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("deleteData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) ReplaceData(offset uint, count uint, data string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_p1 := count
-	_args[1] = _p1
-	_end++
-	_p2 := data
-	_args[2] = _p2
-	_end++
-	_this.Value_JS.Call("replaceData", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) Before(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
+	if _returned.Type() != js.TypeNull {
+		_converted = NodeFromJS(_returned)
 	}
-	_this.Value_JS.Call("before", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) After(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("after", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) ReplaceWith(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
-	return
-}
-
-func (_this *CharacterData) Remove() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
-// interface: Text
-type Text struct {
-	CharacterData
-}
-
-// TextFromJS is casting a js.Wrapper into Text.
-func TextFromJS(value js.Wrapper) *Text {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Text{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewText(data *string) (_result *Text) {
-	_klass := js.Global().Get("Text")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if data != nil {
-		_p0 := data
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Text // javascript: Text _what_return_name
-	)
-	_converted = TextFromJS(_returned)
 	_result = _converted
 	return
-}
-
-// WholeText returning attribute 'wholeText' with
-// type string (idl: DOMString).
-func (_this *Text) WholeText() string {
-	var ret string
-	value := _this.Value_JS.Get("wholeText")
-	ret = (value).String()
-	return ret
-}
-
-// AssignedSlot returning attribute 'assignedSlot' with
-// type js.Value (idl: <rawjs>).
-func (_this *Text) AssignedSlot() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("assignedSlot")
-	ret = value
-	return ret
-}
-
-func (_this *Text) SplitText(offset uint) (_result *Text) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := offset
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("splitText", _args[0:_end]...)
-	var (
-		_converted *Text // javascript: Text _what_return_name
-	)
-	_converted = TextFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: CDATASection
-type CDATASection struct {
-	Text
-}
-
-// CDATASectionFromJS is casting a js.Wrapper into CDATASection.
-func CDATASectionFromJS(value js.Wrapper) *CDATASection {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CDATASection{}
-	ret.Value_JS = input
-	return ret
 }
 
 // interface: ProcessingInstruction
@@ -2331,124 +2708,6 @@ func (_this *ProcessingInstruction) Target() string {
 	var ret string
 	value := _this.Value_JS.Get("target")
 	ret = (value).String()
-	return ret
-}
-
-// interface: Comment
-type Comment struct {
-	CharacterData
-}
-
-// CommentFromJS is casting a js.Wrapper into Comment.
-func CommentFromJS(value js.Wrapper) *Comment {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Comment{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewComment(data *string) (_result *Comment) {
-	_klass := js.Global().Get("Comment")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if data != nil {
-		_p0 := data
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *Comment // javascript: Comment _what_return_name
-	)
-	_converted = CommentFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: AbstractRange
-type AbstractRange struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *AbstractRange) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// AbstractRangeFromJS is casting a js.Wrapper into AbstractRange.
-func AbstractRangeFromJS(value js.Wrapper) *AbstractRange {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &AbstractRange{}
-	ret.Value_JS = input
-	return ret
-}
-
-// StartContainer returning attribute 'startContainer' with
-// type Node (idl: Node).
-func (_this *AbstractRange) StartContainer() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("startContainer")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// StartOffset returning attribute 'startOffset' with
-// type uint (idl: unsigned long).
-func (_this *AbstractRange) StartOffset() uint {
-	var ret uint
-	value := _this.Value_JS.Get("startOffset")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// EndContainer returning attribute 'endContainer' with
-// type Node (idl: Node).
-func (_this *AbstractRange) EndContainer() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("endContainer")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// EndOffset returning attribute 'endOffset' with
-// type uint (idl: unsigned long).
-func (_this *AbstractRange) EndOffset() uint {
-	var ret uint
-	value := _this.Value_JS.Get("endOffset")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Collapsed returning attribute 'collapsed' with
-// type bool (idl: boolean).
-func (_this *AbstractRange) Collapsed() bool {
-	var ret bool
-	value := _this.Value_JS.Get("collapsed")
-	ret = (value).Bool()
-	return ret
-}
-
-// interface: StaticRange
-type StaticRange struct {
-	AbstractRange
-}
-
-// StaticRangeFromJS is casting a js.Wrapper into StaticRange.
-func StaticRangeFromJS(value js.Wrapper) *StaticRange {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &StaticRange{}
-	ret.Value_JS = input
 	return ret
 }
 
@@ -2774,112 +3033,135 @@ func (_this *Range) IntersectsNode(node *Node) (_result bool) {
 	return
 }
 
-// interface: NodeIterator
-type NodeIterator struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
+// interface: ShadowRoot
+type ShadowRoot struct {
+	DocumentFragment
 }
 
-func (_this *NodeIterator) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// NodeIteratorFromJS is casting a js.Wrapper into NodeIterator.
-func NodeIteratorFromJS(value js.Wrapper) *NodeIterator {
+// ShadowRootFromJS is casting a js.Wrapper into ShadowRoot.
+func ShadowRootFromJS(value js.Wrapper) *ShadowRoot {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &NodeIterator{}
+	ret := &ShadowRoot{}
 	ret.Value_JS = input
 	return ret
 }
 
-// Root returning attribute 'root' with
-// type Node (idl: Node).
-func (_this *NodeIterator) Root() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("root")
-	ret = NodeFromJS(value)
+// Mode returning attribute 'mode' with
+// type ShadowRootMode (idl: ShadowRootMode).
+func (_this *ShadowRoot) Mode() ShadowRootMode {
+	var ret ShadowRootMode
+	value := _this.Value_JS.Get("mode")
+	ret = ShadowRootModeFromJS(value)
 	return ret
 }
 
-// ReferenceNode returning attribute 'referenceNode' with
-// type Node (idl: Node).
-func (_this *NodeIterator) ReferenceNode() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("referenceNode")
-	ret = NodeFromJS(value)
+// Host returning attribute 'host' with
+// type Element (idl: Element).
+func (_this *ShadowRoot) Host() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("host")
+	ret = ElementFromJS(value)
 	return ret
 }
 
-// PointerBeforeReferenceNode returning attribute 'pointerBeforeReferenceNode' with
-// type bool (idl: boolean).
-func (_this *NodeIterator) PointerBeforeReferenceNode() bool {
-	var ret bool
-	value := _this.Value_JS.Get("pointerBeforeReferenceNode")
-	ret = (value).Bool()
-	return ret
-}
-
-// WhatToShow returning attribute 'whatToShow' with
-// type uint (idl: unsigned long).
-func (_this *NodeIterator) WhatToShow() uint {
-	var ret uint
-	value := _this.Value_JS.Get("whatToShow")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-// Filter returning attribute 'filter' with
-// type NodeFilter (idl: NodeFilter).
-func (_this *NodeIterator) Filter() NodeFilter {
-	var ret NodeFilter
-	value := _this.Value_JS.Get("filter")
+// FullscreenElement returning attribute 'fullscreenElement' with
+// type Element (idl: Element).
+func (_this *ShadowRoot) FullscreenElement() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("fullscreenElement")
 	if value.Type() != js.TypeNull {
-		ret = NodeFilterFromJS(value)
+		ret = ElementFromJS(value)
 	}
 	return ret
 }
 
-func (_this *NodeIterator) NextNode() (_result *Node) {
+// interface: StaticRange
+type StaticRange struct {
+	AbstractRange
+}
+
+// StaticRangeFromJS is casting a js.Wrapper into StaticRange.
+func StaticRangeFromJS(value js.Wrapper) *StaticRange {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &StaticRange{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: Text
+type Text struct {
+	CharacterData
+}
+
+// TextFromJS is casting a js.Wrapper into Text.
+func TextFromJS(value js.Wrapper) *Text {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Text{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewText(data *string) (_result *Text) {
+	_klass := js.Global().Get("Text")
 	var (
-		_args [0]interface{}
+		_args [1]interface{}
 		_end  int
 	)
-	_returned := _this.Value_JS.Call("nextNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
+	if data != nil {
+		_p0 := data
+		_args[0] = _p0
+		_end++
 	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *Text // javascript: Text _what_return_name
+	)
+	_converted = TextFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *NodeIterator) PreviousNode() (_result *Node) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("previousNode", _args[0:_end]...)
-	var (
-		_converted *Node // javascript: Node _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = NodeFromJS(_returned)
-	}
-	_result = _converted
-	return
+// WholeText returning attribute 'wholeText' with
+// type string (idl: DOMString).
+func (_this *Text) WholeText() string {
+	var ret string
+	value := _this.Value_JS.Get("wholeText")
+	ret = (value).String()
+	return ret
 }
 
-func (_this *NodeIterator) Detach() {
+// AssignedSlot returning attribute 'assignedSlot' with
+// type js.Value (idl: <rawjs>).
+func (_this *Text) AssignedSlot() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("assignedSlot")
+	ret = value
+	return ret
+}
+
+func (_this *Text) SplitText(offset uint) (_result *Text) {
 	var (
-		_args [0]interface{}
+		_args [1]interface{}
 		_end  int
 	)
-	_this.Value_JS.Call("detach", _args[0:_end]...)
+	_p0 := offset
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("splitText", _args[0:_end]...)
+	var (
+		_converted *Text // javascript: Text _what_return_name
+	)
+	_converted = TextFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -3057,136 +3339,6 @@ func (_this *TreeWalker) NextNode() (_result *Node) {
 	if _returned.Type() != js.TypeNull {
 		_converted = NodeFromJS(_returned)
 	}
-	_result = _converted
-	return
-}
-
-const FILTERACCEPT_NodeFilter int = 1
-const FILTERREJECT_NodeFilter int = 2
-const FILTERSKIP_NodeFilter int = 3
-const SHOWALL_NodeFilter uint = 0xFFFFFFFF
-const SHOWELEMENT_NodeFilter uint = 0x1
-const SHOWATTRIBUTE_NodeFilter uint = 0x2
-const SHOWTEXT_NodeFilter uint = 0x4
-const SHOWCDATASECTION_NodeFilter uint = 0x8
-const SHOWENTITYREFERENCE_NodeFilter uint = 0x10
-const SHOWENTITY_NodeFilter uint = 0x20
-const SHOWPROCESSINGINSTRUCTION_NodeFilter uint = 0x40
-const SHOWCOMMENT_NodeFilter uint = 0x80
-const SHOWDOCUMENT_NodeFilter uint = 0x100
-const SHOWDOCUMENTTYPE_NodeFilter uint = 0x200
-const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
-const SHOWNOTATION_NodeFilter uint = 0x800
-
-// NodeFilter is a callback interface.
-type NodeFilter interface {
-	AcceptNode(node *Node) (_result int)
-}
-
-// NodeFilterValue is javascript reference value for callback interface NodeFilter.
-// This is holding the underlaying javascript object.
-type NodeFilterValue struct {
-	// Value is the underlying javascript object or function.
-	Value js.Value
-	// Functions is the underlying function objects that is allocated for the interface callback
-	Functions [1]js.Func
-	// Go interface to invoke
-	impl      NodeFilter
-	function  func(node *Node) (_result int)
-	useInvoke bool
-}
-
-// JSValue is returning the javascript object that implements this callback interface
-func (t *NodeFilterValue) JSValue() js.Value {
-	return t.Value
-}
-
-// Release is releasing all resources that is allocated.
-func (t *NodeFilterValue) Release() {
-	for i := range t.Functions {
-		if t.Functions[i].Type() != js.TypeUndefined {
-			t.Functions[i].Release()
-		}
-	}
-}
-
-// NewNodeFilter is allocating a new javascript object that
-// implements NodeFilter.
-func NewNodeFilter(callback NodeFilter) *NodeFilterValue {
-	ret := &NodeFilterValue{impl: callback}
-	ret.Value = js.Global().Get("Object").New()
-	ret.Functions[0] = ret.allocateAcceptNode()
-	ret.Value.Set("acceptNode", ret.Functions[0])
-	return ret
-}
-
-// NewNodeFilterFunc is allocating a new javascript
-// function is implements
-// NodeFilter interface.
-func NewNodeFilterFunc(f func(node *Node) (_result int)) *NodeFilterValue {
-	// single function will result in javascript function type, not an object
-	ret := &NodeFilterValue{function: f}
-	ret.Functions[0] = ret.allocateAcceptNode()
-	ret.Value = ret.Functions[0].Value
-	return ret
-}
-
-// NodeFilterFromJS is taking an javascript object that reference to a
-// callback interface and return a corresponding interface that can be used
-// to invoke on that element.
-func NodeFilterFromJS(value js.Wrapper) *NodeFilterValue {
-	input := value.JSValue()
-	if input.Type() == js.TypeObject {
-		return &NodeFilterValue{Value: input}
-	}
-	if input.Type() == js.TypeFunction {
-		return &NodeFilterValue{Value: input, useInvoke: true}
-	}
-	panic("unsupported type")
-}
-
-func (t *NodeFilterValue) allocateAcceptNode() js.Func {
-	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 *Node // javascript: Node node
-		)
-		_p0 = NodeFromJS(args[0])
-		var _returned int
-		if t.function != nil {
-			_returned = t.function(_p0)
-		} else {
-			_returned = t.impl.AcceptNode(_p0)
-		}
-		_converted := _returned
-		return _converted
-	})
-}
-
-func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
-	if _this.function != nil {
-		return _this.function(node)
-	}
-	if _this.impl != nil {
-		return _this.impl.AcceptNode(node)
-	}
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := node.JSValue()
-	_args[0] = _p0
-	_end++
-	var _returned js.Value
-	if _this.useInvoke {
-		// invoke a javascript function
-		_returned = _this.Value.Invoke(_args[0:_end]...)
-	} else {
-		_returned = _this.Value.Call("acceptNode", _args[0:_end]...)
-	}
-	var (
-		_converted int // javascript: unsigned short _what_return_name
-	)
-	_converted = (_returned).Int()
 	_result = _converted
 	return
 }
