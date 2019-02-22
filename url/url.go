@@ -8,10 +8,12 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/html/media"
 )
 
 // using following types:
 // fileapi.Blob
+// media.MediaSource
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -95,6 +97,25 @@ func RevokeObjectURL(url string) {
 	_args[0] = _p0
 	_end++
 	_method.Invoke(_args[0:_end]...)
+	return
+}
+
+func CreateObjectURL2(mediaSource *media.MediaSource) (_result string) {
+	_klass := js.Global().Get("URL")
+	_method := _klass.Get("createObjectURL")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := mediaSource.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
 	return
 }
 

@@ -58,27 +58,6 @@ func ByteStringFromJS(value js.Wrapper) *ByteString {
 	return ret
 }
 
-// interface: MediaSource
-type MediaSource struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MediaSource) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MediaSourceFromJS is casting a js.Wrapper into MediaSource.
-func MediaSourceFromJS(value js.Wrapper) *MediaSource {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MediaSource{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: MediaStream
 type MediaStream struct {
 	// Value_JS holds a reference to a javascript value

@@ -49,6 +49,48 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// enum: AppendMode
+type AppendMode int
+
+const (
+	SegmentsAppendMode AppendMode = iota
+	SequenceAppendMode
+)
+
+var appendModeToWasmTable = []string{
+	"segments", "sequence",
+}
+
+var appendModeFromWasmTable = map[string]AppendMode{
+	"segments": SegmentsAppendMode, "sequence": SequenceAppendMode,
+}
+
+// JSValue is converting this enum into a java object
+func (this *AppendMode) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this AppendMode) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(appendModeToWasmTable) {
+		return appendModeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// AppendModeFromJS is converting a javascript value into
+// a AppendMode enum value.
+func AppendModeFromJS(value js.Value) AppendMode {
+	key := value.String()
+	conv, ok := appendModeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: CanPlayTypeResult
 type CanPlayTypeResult int
 
@@ -86,6 +128,91 @@ func (this CanPlayTypeResult) Value() string {
 func CanPlayTypeResultFromJS(value js.Value) CanPlayTypeResult {
 	key := value.String()
 	conv, ok := canPlayTypeResultFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: EndOfStreamError
+type EndOfStreamError int
+
+const (
+	NetworkEndOfStreamError EndOfStreamError = iota
+	DecodeEndOfStreamError
+)
+
+var endOfStreamErrorToWasmTable = []string{
+	"network", "decode",
+}
+
+var endOfStreamErrorFromWasmTable = map[string]EndOfStreamError{
+	"network": NetworkEndOfStreamError, "decode": DecodeEndOfStreamError,
+}
+
+// JSValue is converting this enum into a java object
+func (this *EndOfStreamError) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this EndOfStreamError) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(endOfStreamErrorToWasmTable) {
+		return endOfStreamErrorToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// EndOfStreamErrorFromJS is converting a javascript value into
+// a EndOfStreamError enum value.
+func EndOfStreamErrorFromJS(value js.Value) EndOfStreamError {
+	key := value.String()
+	conv, ok := endOfStreamErrorFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: ReadyState
+type ReadyState int
+
+const (
+	ClosedReadyState ReadyState = iota
+	OpenReadyState
+	EndedReadyState
+)
+
+var readyStateToWasmTable = []string{
+	"closed", "open", "ended",
+}
+
+var readyStateFromWasmTable = map[string]ReadyState{
+	"closed": ClosedReadyState, "open": OpenReadyState, "ended": EndedReadyState,
+}
+
+// JSValue is converting this enum into a java object
+func (this *ReadyState) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ReadyState) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(readyStateToWasmTable) {
+		return readyStateToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ReadyStateFromJS is converting a javascript value into
+// a ReadyState enum value.
+func ReadyStateFromJS(value js.Value) ReadyState {
+	key := value.String()
+	conv, ok := readyStateFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -251,6 +378,17 @@ func (_this *AudioTrack) Enabled() bool {
 func (_this *AudioTrack) SetEnabled(value bool) {
 	input := value
 	_this.Value_JS.Set("enabled", input)
+}
+
+// SourceBuffer returning attribute 'sourceBuffer' with
+// type SourceBuffer (idl: SourceBuffer).
+func (_this *AudioTrack) SourceBuffer() *SourceBuffer {
+	var ret *SourceBuffer
+	value := _this.Value_JS.Get("sourceBuffer")
+	if value.Type() != js.TypeNull {
+		ret = SourceBufferFromJS(value)
+	}
+	return ret
 }
 
 // interface: AudioTrackList
@@ -1115,6 +1253,592 @@ func (_this *MediaError) Message() string {
 	return ret
 }
 
+// interface: MediaSource
+type MediaSource struct {
+	domcore.EventTarget
+}
+
+// MediaSourceFromJS is casting a js.Wrapper into MediaSource.
+func MediaSourceFromJS(value js.Wrapper) *MediaSource {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MediaSource{}
+	ret.Value_JS = input
+	return ret
+}
+
+func IsTypeSupported(_type string) (_result bool) {
+	_klass := js.Global().Get("MediaSource")
+	_method := _klass.Get("isTypeSupported")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func NewMediaSource() (_result *MediaSource) {
+	_klass := js.Global().Get("MediaSource")
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *MediaSource // javascript: MediaSource _what_return_name
+	)
+	_converted = MediaSourceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// SourceBuffers returning attribute 'sourceBuffers' with
+// type SourceBufferList (idl: SourceBufferList).
+func (_this *MediaSource) SourceBuffers() *SourceBufferList {
+	var ret *SourceBufferList
+	value := _this.Value_JS.Get("sourceBuffers")
+	ret = SourceBufferListFromJS(value)
+	return ret
+}
+
+// ActiveSourceBuffers returning attribute 'activeSourceBuffers' with
+// type SourceBufferList (idl: SourceBufferList).
+func (_this *MediaSource) ActiveSourceBuffers() *SourceBufferList {
+	var ret *SourceBufferList
+	value := _this.Value_JS.Get("activeSourceBuffers")
+	ret = SourceBufferListFromJS(value)
+	return ret
+}
+
+// ReadyState returning attribute 'readyState' with
+// type ReadyState (idl: ReadyState).
+func (_this *MediaSource) ReadyState() ReadyState {
+	var ret ReadyState
+	value := _this.Value_JS.Get("readyState")
+	ret = ReadyStateFromJS(value)
+	return ret
+}
+
+// Duration returning attribute 'duration' with
+// type float64 (idl: unrestricted double).
+func (_this *MediaSource) Duration() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("duration")
+	ret = (value).Float()
+	return ret
+}
+
+// SetDuration setting attribute 'duration' with
+// type float64 (idl: unrestricted double).
+func (_this *MediaSource) SetDuration(value float64) {
+	input := value
+	_this.Value_JS.Set("duration", input)
+}
+
+// Onsourceopen returning attribute 'onsourceopen' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) Onsourceopen() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsourceopen")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsourceopen setting attribute 'onsourceopen' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) SetOnsourceopen(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsourceopen", input)
+}
+
+// Onsourceended returning attribute 'onsourceended' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) Onsourceended() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsourceended")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsourceended setting attribute 'onsourceended' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) SetOnsourceended(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsourceended", input)
+}
+
+// Onsourceclose returning attribute 'onsourceclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) Onsourceclose() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsourceclose")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsourceclose setting attribute 'onsourceclose' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *MediaSource) SetOnsourceclose(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsourceclose", input)
+}
+
+func (_this *MediaSource) AddSourceBuffer(_type string) (_result *SourceBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("addSourceBuffer", _args[0:_end]...)
+	var (
+		_converted *SourceBuffer // javascript: SourceBuffer _what_return_name
+	)
+	_converted = SourceBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *MediaSource) RemoveSourceBuffer(sourceBuffer *SourceBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := sourceBuffer.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("removeSourceBuffer", _args[0:_end]...)
+	return
+}
+
+func (_this *MediaSource) EndOfStream(_error *EndOfStreamError) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if _error != nil {
+		_p0 := _error.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("endOfStream", _args[0:_end]...)
+	return
+}
+
+func (_this *MediaSource) SetLiveSeekableRange(start float64, end float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := start
+	_args[0] = _p0
+	_end++
+	_p1 := end
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("setLiveSeekableRange", _args[0:_end]...)
+	return
+}
+
+func (_this *MediaSource) ClearLiveSeekableRange() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("clearLiveSeekableRange", _args[0:_end]...)
+	return
+}
+
+// interface: SourceBuffer
+type SourceBuffer struct {
+	domcore.EventTarget
+}
+
+// SourceBufferFromJS is casting a js.Wrapper into SourceBuffer.
+func SourceBufferFromJS(value js.Wrapper) *SourceBuffer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SourceBuffer{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Mode returning attribute 'mode' with
+// type AppendMode (idl: AppendMode).
+func (_this *SourceBuffer) Mode() AppendMode {
+	var ret AppendMode
+	value := _this.Value_JS.Get("mode")
+	ret = AppendModeFromJS(value)
+	return ret
+}
+
+// SetMode setting attribute 'mode' with
+// type AppendMode (idl: AppendMode).
+func (_this *SourceBuffer) SetMode(value AppendMode) {
+	input := value.JSValue()
+	_this.Value_JS.Set("mode", input)
+}
+
+// Updating returning attribute 'updating' with
+// type bool (idl: boolean).
+func (_this *SourceBuffer) Updating() bool {
+	var ret bool
+	value := _this.Value_JS.Get("updating")
+	ret = (value).Bool()
+	return ret
+}
+
+// Buffered returning attribute 'buffered' with
+// type html.TimeRanges (idl: TimeRanges).
+func (_this *SourceBuffer) Buffered() *html.TimeRanges {
+	var ret *html.TimeRanges
+	value := _this.Value_JS.Get("buffered")
+	ret = html.TimeRangesFromJS(value)
+	return ret
+}
+
+// TimestampOffset returning attribute 'timestampOffset' with
+// type float64 (idl: double).
+func (_this *SourceBuffer) TimestampOffset() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("timestampOffset")
+	ret = (value).Float()
+	return ret
+}
+
+// SetTimestampOffset setting attribute 'timestampOffset' with
+// type float64 (idl: double).
+func (_this *SourceBuffer) SetTimestampOffset(value float64) {
+	input := value
+	_this.Value_JS.Set("timestampOffset", input)
+}
+
+// AudioTracks returning attribute 'audioTracks' with
+// type AudioTrackList (idl: AudioTrackList).
+func (_this *SourceBuffer) AudioTracks() *AudioTrackList {
+	var ret *AudioTrackList
+	value := _this.Value_JS.Get("audioTracks")
+	ret = AudioTrackListFromJS(value)
+	return ret
+}
+
+// VideoTracks returning attribute 'videoTracks' with
+// type VideoTrackList (idl: VideoTrackList).
+func (_this *SourceBuffer) VideoTracks() *VideoTrackList {
+	var ret *VideoTrackList
+	value := _this.Value_JS.Get("videoTracks")
+	ret = VideoTrackListFromJS(value)
+	return ret
+}
+
+// TextTracks returning attribute 'textTracks' with
+// type TextTrackList (idl: TextTrackList).
+func (_this *SourceBuffer) TextTracks() *TextTrackList {
+	var ret *TextTrackList
+	value := _this.Value_JS.Get("textTracks")
+	ret = TextTrackListFromJS(value)
+	return ret
+}
+
+// AppendWindowStart returning attribute 'appendWindowStart' with
+// type float64 (idl: double).
+func (_this *SourceBuffer) AppendWindowStart() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("appendWindowStart")
+	ret = (value).Float()
+	return ret
+}
+
+// SetAppendWindowStart setting attribute 'appendWindowStart' with
+// type float64 (idl: double).
+func (_this *SourceBuffer) SetAppendWindowStart(value float64) {
+	input := value
+	_this.Value_JS.Set("appendWindowStart", input)
+}
+
+// AppendWindowEnd returning attribute 'appendWindowEnd' with
+// type float64 (idl: unrestricted double).
+func (_this *SourceBuffer) AppendWindowEnd() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("appendWindowEnd")
+	ret = (value).Float()
+	return ret
+}
+
+// SetAppendWindowEnd setting attribute 'appendWindowEnd' with
+// type float64 (idl: unrestricted double).
+func (_this *SourceBuffer) SetAppendWindowEnd(value float64) {
+	input := value
+	_this.Value_JS.Set("appendWindowEnd", input)
+}
+
+// Onupdatestart returning attribute 'onupdatestart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) Onupdatestart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onupdatestart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnupdatestart setting attribute 'onupdatestart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) SetOnupdatestart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onupdatestart", input)
+}
+
+// Onupdate returning attribute 'onupdate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) Onupdate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onupdate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnupdate setting attribute 'onupdate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) SetOnupdate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onupdate", input)
+}
+
+// Onupdateend returning attribute 'onupdateend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) Onupdateend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onupdateend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnupdateend setting attribute 'onupdateend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) SetOnupdateend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onupdateend", input)
+}
+
+// Onerror returning attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) Onerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnerror setting attribute 'onerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) SetOnerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onerror", input)
+}
+
+// Onabort returning attribute 'onabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) Onabort() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onabort")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnabort setting attribute 'onabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBuffer) SetOnabort(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onabort", input)
+}
+
+func (_this *SourceBuffer) AppendBuffer(data *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := data.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("appendBuffer", _args[0:_end]...)
+	return
+}
+
+func (_this *SourceBuffer) Abort() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("abort", _args[0:_end]...)
+	return
+}
+
+func (_this *SourceBuffer) Remove(start float64, end float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := start
+	_args[0] = _p0
+	_end++
+	_p1 := end
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+// interface: SourceBufferList
+type SourceBufferList struct {
+	domcore.EventTarget
+}
+
+// SourceBufferListFromJS is casting a js.Wrapper into SourceBufferList.
+func SourceBufferListFromJS(value js.Wrapper) *SourceBufferList {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SourceBufferList{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Length returning attribute 'length' with
+// type uint (idl: unsigned long).
+func (_this *SourceBufferList) Length() uint {
+	var ret uint
+	value := _this.Value_JS.Get("length")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// Onaddsourcebuffer returning attribute 'onaddsourcebuffer' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBufferList) Onaddsourcebuffer() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onaddsourcebuffer")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnaddsourcebuffer setting attribute 'onaddsourcebuffer' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBufferList) SetOnaddsourcebuffer(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onaddsourcebuffer", input)
+}
+
+// Onremovesourcebuffer returning attribute 'onremovesourcebuffer' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBufferList) Onremovesourcebuffer() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onremovesourcebuffer")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnremovesourcebuffer setting attribute 'onremovesourcebuffer' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *SourceBufferList) SetOnremovesourcebuffer(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onremovesourcebuffer", input)
+}
+
 // interface: TextTrack
 type TextTrack struct {
 	domcore.EventTarget
@@ -1236,6 +1960,17 @@ func (_this *TextTrack) SetOncuechange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("oncuechange", input)
+}
+
+// SourceBuffer returning attribute 'sourceBuffer' with
+// type SourceBuffer (idl: SourceBuffer).
+func (_this *TextTrack) SourceBuffer() *SourceBuffer {
+	var ret *SourceBuffer
+	value := _this.Value_JS.Get("sourceBuffer")
+	if value.Type() != js.TypeNull {
+		ret = SourceBufferFromJS(value)
+	}
+	return ret
 }
 
 func (_this *TextTrack) AddCue(cue *TextTrackCue) {
@@ -1637,6 +2372,17 @@ func (_this *VideoTrack) Selected() bool {
 func (_this *VideoTrack) SetSelected(value bool) {
 	input := value
 	_this.Value_JS.Set("selected", input)
+}
+
+// SourceBuffer returning attribute 'sourceBuffer' with
+// type SourceBuffer (idl: SourceBuffer).
+func (_this *VideoTrack) SourceBuffer() *SourceBuffer {
+	var ret *SourceBuffer
+	value := _this.Value_JS.Get("sourceBuffer")
+	if value.Type() != js.TypeNull {
+		ret = SourceBufferFromJS(value)
+	}
+	return ret
 }
 
 // interface: VideoTrackList
