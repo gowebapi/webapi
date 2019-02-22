@@ -557,48 +557,6 @@ func (_this *DOMException) Code() int {
 	return ret
 }
 
-// interface: DOMMatrix
-type DOMMatrix struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMMatrix) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
-func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMMatrix{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: DOMMatrix2DInit
-type DOMMatrix2DInit struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *DOMMatrix2DInit) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// DOMMatrix2DInitFromJS is casting a js.Wrapper into DOMMatrix2DInit.
-func DOMMatrix2DInitFromJS(value js.Wrapper) *DOMMatrix2DInit {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &DOMMatrix2DInit{}
-	ret.Value_JS = input
-	return ret
-}
-
 // interface: DOMStringList
 type DOMStringList struct {
 	// Value_JS holds a reference to a javascript value

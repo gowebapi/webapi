@@ -60,6 +60,27 @@ func ByteStringFromJS(value js.Wrapper) *ByteString {
 	return ret
 }
 
+// interface: CSSPseudoElement
+type CSSPseudoElement struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSPseudoElement) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSPseudoElementFromJS is casting a js.Wrapper into CSSPseudoElement.
+func CSSPseudoElementFromJS(value js.Wrapper) *CSSPseudoElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSPseudoElement{}
+	ret.Value_JS = input
+	return ret
+}
+
 // interface: MediaStream
 type MediaStream struct {
 	// Value_JS holds a reference to a javascript value
@@ -81,6 +102,27 @@ func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 	return ret
 }
 
+// interface: OverconstrainedError
+type OverconstrainedError struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *OverconstrainedError) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// OverconstrainedErrorFromJS is casting a js.Wrapper into OverconstrainedError.
+func OverconstrainedErrorFromJS(value js.Wrapper) *OverconstrainedError {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &OverconstrainedError{}
+	ret.Value_JS = input
+	return ret
+}
+
 // interface: ReadableStream
 type ReadableStream struct {
 	// Value_JS holds a reference to a javascript value
@@ -98,6 +140,27 @@ func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
 		return nil
 	}
 	ret := &ReadableStream{}
+	ret.Value_JS = input
+	return ret
+}
+
+// interface: SVGElement
+type SVGElement struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *SVGElement) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// SVGElementFromJS is casting a js.Wrapper into SVGElement.
+func SVGElementFromJS(value js.Wrapper) *SVGElement {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SVGElement{}
 	ret.Value_JS = input
 	return ret
 }

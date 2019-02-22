@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/fileapi"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
@@ -15,10 +16,10 @@ import (
 
 // using following types:
 // dom.Element
-// domcore.DOMMatrix
-// domcore.DOMMatrix2DInit
 // domcore.EventTarget
 // fileapi.BlobCallback
+// geometry.DOMMatrix
+// geometry.DOMMatrix2DInit
 // html.HTMLElement
 // html.ImageEncodeOptions
 // html.OffscreenRenderingContextId
@@ -675,7 +676,7 @@ func CanvasPatternFromJS(value js.Wrapper) *CanvasPattern {
 	return ret
 }
 
-func (_this *CanvasPattern) SetTransform(transform *domcore.DOMMatrix2DInit) {
+func (_this *CanvasPattern) SetTransform(transform *geometry.DOMMatrix2DInit) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1140,16 +1141,16 @@ func (_this *CanvasRenderingContext2D) Transform(a float64, b float64, c float64
 	return
 }
 
-func (_this *CanvasRenderingContext2D) GetTransform() (_result *domcore.DOMMatrix) {
+func (_this *CanvasRenderingContext2D) GetTransform() (_result *geometry.DOMMatrix) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getTransform", _args[0:_end]...)
 	var (
-		_converted *domcore.DOMMatrix // javascript: DOMMatrix _what_return_name
+		_converted *geometry.DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
-	_converted = domcore.DOMMatrixFromJS(_returned)
+	_converted = geometry.DOMMatrixFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1181,7 +1182,7 @@ func (_this *CanvasRenderingContext2D) SetTransform(a float64, b float64, c floa
 	return
 }
 
-func (_this *CanvasRenderingContext2D) SetTransform2(transform *domcore.DOMMatrix2DInit) {
+func (_this *CanvasRenderingContext2D) SetTransform2(transform *geometry.DOMMatrix2DInit) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2932,16 +2933,16 @@ func (_this *OffscreenCanvasRenderingContext2D) Transform(a float64, b float64, 
 	return
 }
 
-func (_this *OffscreenCanvasRenderingContext2D) GetTransform() (_result *domcore.DOMMatrix) {
+func (_this *OffscreenCanvasRenderingContext2D) GetTransform() (_result *geometry.DOMMatrix) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getTransform", _args[0:_end]...)
 	var (
-		_converted *domcore.DOMMatrix // javascript: DOMMatrix _what_return_name
+		_converted *geometry.DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
-	_converted = domcore.DOMMatrixFromJS(_returned)
+	_converted = geometry.DOMMatrixFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2973,7 +2974,7 @@ func (_this *OffscreenCanvasRenderingContext2D) SetTransform(a float64, b float6
 	return
 }
 
-func (_this *OffscreenCanvasRenderingContext2D) SetTransform2(transform *domcore.DOMMatrix2DInit) {
+func (_this *OffscreenCanvasRenderingContext2D) SetTransform2(transform *geometry.DOMMatrix2DInit) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3842,7 +3843,7 @@ func NewPath2D(path *Union) (_result *Path2D) {
 	return
 }
 
-func (_this *Path2D) AddPath(path *Path2D, transform *domcore.DOMMatrix2DInit) {
+func (_this *Path2D) AddPath(path *Path2D, transform *geometry.DOMMatrix2DInit) {
 	var (
 		_args [2]interface{}
 		_end  int
