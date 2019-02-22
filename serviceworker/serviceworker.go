@@ -10,7 +10,7 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/channel"
-	"github.com/gowebapi/webapi/html/htmlevent"
+	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -22,7 +22,7 @@ import (
 // domcore.VisibilityState
 // fetch.Request
 // fetch.Response
-// htmlevent.WorkerType
+// htmlcommon.WorkerType
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
@@ -533,7 +533,7 @@ func MultiCacheQueryOptionsFromJS(value js.Wrapper) *MultiCacheQueryOptions {
 // dictionary: RegistrationOptions
 type RegistrationOptions struct {
 	Scope          string
-	Type           htmlevent.WorkerType
+	Type           htmlcommon.WorkerType
 	UpdateViaCache ServiceWorkerUpdateViaCache
 }
 
@@ -558,12 +558,12 @@ func RegistrationOptionsFromJS(value js.Wrapper) *RegistrationOptions {
 	var out RegistrationOptions
 	var (
 		value0 string                      // javascript: USVString {scope Scope scope}
-		value1 htmlevent.WorkerType        // javascript: WorkerType {type Type _type}
+		value1 htmlcommon.WorkerType       // javascript: WorkerType {type Type _type}
 		value2 ServiceWorkerUpdateViaCache // javascript: ServiceWorkerUpdateViaCache {updateViaCache UpdateViaCache updateViaCache}
 	)
 	value0 = (input.Get("scope")).String()
 	out.Scope = value0
-	value1 = htmlevent.WorkerTypeFromJS(input.Get("type"))
+	value1 = htmlcommon.WorkerTypeFromJS(input.Get("type"))
 	out.Type = value1
 	value2 = ServiceWorkerUpdateViaCacheFromJS(input.Get("updateViaCache"))
 	out.UpdateViaCache = value2

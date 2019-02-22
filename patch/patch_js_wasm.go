@@ -37,26 +37,6 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// dictionary: MouseEventInit
-type MouseEventInit struct {
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *MouseEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	return out
-}
-
-// MouseEventInitFromJS is allocating a new
-// MouseEventInit object and copy all values from
-// input javascript object
-func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
-	var out MouseEventInit
-	var ()
-	return &out
-}
-
 // interface: ByteString
 type ByteString struct {
 	// Value_JS holds a reference to a javascript value
@@ -137,27 +117,6 @@ func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 		return nil
 	}
 	ret := &MediaStream{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: MouseEvent
-type MouseEvent struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *MouseEvent) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// MouseEventFromJS is casting a js.Wrapper into MouseEvent.
-func MouseEventFromJS(value js.Wrapper) *MouseEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &MouseEvent{}
 	ret.Value_JS = input
 	return ret
 }

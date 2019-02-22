@@ -7,18 +7,22 @@ package draganddrop
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/dom"
+	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/patch"
 )
 
 // using following types:
 // dom.Element
+// domcore.EventTarget
 // fileapi.File
 // fileapi.FileList
+// htmlevent.MouseEvent
 // javascript.FrozenArray
-// patch.MouseEvent
+// webapi.Window
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -92,15 +96,93 @@ func FunctionStringCallbackFromJS(_value js.Value) FunctionStringCallbackFunc {
 
 // dictionary: DragEventInit
 type DragEventInit struct {
-	DataTransfer *DataTransfer
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+	ScreenX            int
+	ScreenY            int
+	ClientX            int
+	ClientY            int
+	Button             int
+	Buttons            int
+	RelatedTarget      *domcore.EventTarget
+	DataTransfer       *DataTransfer
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
 func (_this *DragEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.DataTransfer.JSValue()
-	out.Set("dataTransfer", value0)
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.CtrlKey
+	out.Set("ctrlKey", value5)
+	value6 := _this.ShiftKey
+	out.Set("shiftKey", value6)
+	value7 := _this.AltKey
+	out.Set("altKey", value7)
+	value8 := _this.MetaKey
+	out.Set("metaKey", value8)
+	value9 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value9)
+	value10 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value10)
+	value11 := _this.ModifierFn
+	out.Set("modifierFn", value11)
+	value12 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value12)
+	value13 := _this.ModifierHyper
+	out.Set("modifierHyper", value13)
+	value14 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value14)
+	value15 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value15)
+	value16 := _this.ModifierSuper
+	out.Set("modifierSuper", value16)
+	value17 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value17)
+	value18 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value18)
+	value19 := _this.ScreenX
+	out.Set("screenX", value19)
+	value20 := _this.ScreenY
+	out.Set("screenY", value20)
+	value21 := _this.ClientX
+	out.Set("clientX", value21)
+	value22 := _this.ClientY
+	out.Set("clientY", value22)
+	value23 := _this.Button
+	out.Set("button", value23)
+	value24 := _this.Buttons
+	out.Set("buttons", value24)
+	value25 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value25)
+	value26 := _this.DataTransfer.JSValue()
+	out.Set("dataTransfer", value26)
 	return out
 }
 
@@ -111,12 +193,94 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	input := value.JSValue()
 	var out DragEventInit
 	var (
-		value0 *DataTransfer // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
+		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                 // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                 // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window       // javascript: Window {view View view}
+		value4  int                  // javascript: long {detail Detail detail}
+		value5  bool                 // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value6  bool                 // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value7  bool                 // javascript: boolean {altKey AltKey altKey}
+		value8  bool                 // javascript: boolean {metaKey MetaKey metaKey}
+		value9  bool                 // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value10 bool                 // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value11 bool                 // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value12 bool                 // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value13 bool                 // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value14 bool                 // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value15 bool                 // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value19 int                  // javascript: long {screenX ScreenX screenX}
+		value20 int                  // javascript: long {screenY ScreenY screenY}
+		value21 int                  // javascript: long {clientX ClientX clientX}
+		value22 int                  // javascript: long {clientY ClientY clientY}
+		value23 int                  // javascript: short {button Button button}
+		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value26 *DataTransfer        // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
 	)
-	if input.Get("dataTransfer").Type() != js.TypeNull {
-		value0 = DataTransferFromJS(input.Get("dataTransfer"))
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
-	out.DataTransfer = value0
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value5
+	value6 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value6
+	value7 = (input.Get("altKey")).Bool()
+	out.AltKey = value7
+	value8 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value8
+	value9 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value9
+	value10 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value10
+	value11 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value11
+	value12 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value12
+	value13 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value13
+	value14 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value14
+	value15 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value15
+	value16 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value16
+	value17 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value17
+	value18 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value18
+	value19 = (input.Get("screenX")).Int()
+	out.ScreenX = value19
+	value20 = (input.Get("screenY")).Int()
+	out.ScreenY = value20
+	value21 = (input.Get("clientX")).Int()
+	out.ClientX = value21
+	value22 = (input.Get("clientY")).Int()
+	out.ClientY = value22
+	value23 = (input.Get("button")).Int()
+	out.Button = value23
+	value24 = (input.Get("buttons")).Int()
+	out.Buttons = value24
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value25
+	if input.Get("dataTransfer").Type() != js.TypeNull {
+		value26 = DataTransferFromJS(input.Get("dataTransfer"))
+	}
+	out.DataTransfer = value26
 	return &out
 }
 
@@ -447,7 +611,7 @@ func (_this *DataTransferItemList) Clear() {
 
 // interface: DragEvent
 type DragEvent struct {
-	patch.MouseEvent
+	htmlevent.MouseEvent
 }
 
 // DragEventFromJS is casting a js.Wrapper into DragEvent.

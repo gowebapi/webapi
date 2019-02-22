@@ -7,6 +7,7 @@ package htmlevent
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
@@ -14,8 +15,10 @@ import (
 
 // using following types:
 // domcore.Event
+// domcore.EventTarget
 // javascript.Promise
 // patch.FormData
+// webapi.Window
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -48,215 +51,64 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// enum: WorkerType
-type WorkerType int
-
-const (
-	ClassicWorkerType WorkerType = iota
-	ModuleWorkerType
-)
-
-var workerTypeToWasmTable = []string{
-	"classic", "module",
+// dictionary: CompositionEventInit
+type CompositionEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	View       *webapi.Window
+	Detail     int
+	Data       string
 }
 
-var workerTypeFromWasmTable = map[string]WorkerType{
-	"classic": ClassicWorkerType, "module": ModuleWorkerType,
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CompositionEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.Data
+	out.Set("data", value5)
+	return out
 }
 
-// JSValue is converting this enum into a java object
-func (this *WorkerType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this WorkerType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(workerTypeToWasmTable) {
-		return workerTypeToWasmTable[idx]
+// CompositionEventInitFromJS is allocating a new
+// CompositionEventInit object and copy all values from
+// input javascript object
+func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
+	input := value.JSValue()
+	var out CompositionEventInit
+	var (
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window // javascript: Window {view View view}
+		value4 int            // javascript: long {detail Detail detail}
+		value5 string         // javascript: DOMString {data Data data}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
-	panic("unknown input value")
-}
-
-// WorkerTypeFromJS is converting a javascript value into
-// a WorkerType enum value.
-func WorkerTypeFromJS(value js.Value) WorkerType {
-	key := value.String()
-	conv, ok := workerTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// callback: FrameRequestCallback
-type FrameRequestCallbackFunc func(time float64)
-
-// FrameRequestCallback is a javascript function type.
-//
-// Call Release() when done to release resouces
-// allocated to this type.
-type FrameRequestCallback js.Func
-
-func FrameRequestCallbackToJS(callback FrameRequestCallbackFunc) *FrameRequestCallback {
-	if callback == nil {
-		return nil
-	}
-	ret := FrameRequestCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 float64 // javascript: double time
-		)
-		_p0 = (args[0]).Float()
-		callback(_p0)
-		// returning no return value
-		return nil
-	}))
-	return &ret
-}
-
-func FrameRequestCallbackFromJS(_value js.Value) FrameRequestCallbackFunc {
-	return func(time float64) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := time
-		_args[0] = _p0
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
-// callback: OnBeforeUnloadEventHandlerNonNull
-type OnBeforeUnloadEventHandlerFunc func(event *domcore.Event) *string
-
-// OnBeforeUnloadEventHandler is a javascript function type.
-//
-// Call Release() when done to release resouces
-// allocated to this type.
-type OnBeforeUnloadEventHandler js.Func
-
-func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandlerFunc) *OnBeforeUnloadEventHandler {
-	if callback == nil {
-		return nil
-	}
-	ret := OnBeforeUnloadEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 *domcore.Event // javascript: Event event
-		)
-		_p0 = domcore.EventFromJS(args[0])
-		_returned := callback(_p0)
-		_converted := _returned
-		return _converted
-	}))
-	return &ret
-}
-
-func OnBeforeUnloadEventHandlerFromJS(_value js.Value) OnBeforeUnloadEventHandlerFunc {
-	return func(event *domcore.Event) (_result *string) {
-		var (
-			_args [1]interface{}
-			_end  int
-		)
-		_p0 := event.JSValue()
-		_args[0] = _p0
-		_end++
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted *string // javascript: DOMString
-		)
-		if _returned.Type() != js.TypeNull {
-			__tmp := (_returned).String()
-			_converted = &__tmp
-		}
-		_result = _converted
-		return
-	}
-}
-
-// callback: OnErrorEventHandlerNonNull
-type OnErrorEventHandlerFunc func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) interface{}
-
-// OnErrorEventHandler is a javascript function type.
-//
-// Call Release() when done to release resouces
-// allocated to this type.
-type OnErrorEventHandler js.Func
-
-func OnErrorEventHandlerToJS(callback OnErrorEventHandlerFunc) *OnErrorEventHandler {
-	if callback == nil {
-		return nil
-	}
-	ret := OnErrorEventHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 *Union   // javascript: Union event
-			_p1 *string  // javascript: DOMString source
-			_p2 *uint    // javascript: unsigned long lineno
-			_p3 *uint    // javascript: unsigned long colno
-			_p4 js.Value // javascript: any _error
-		)
-		_p0 = UnionFromJS(args[0])
-		if len(args) > 1 {
-			__tmp := (args[1]).String()
-			_p1 = &__tmp
-		}
-		if len(args) > 2 {
-			__tmp := (uint)((args[2]).Int())
-			_p2 = &__tmp
-		}
-		if len(args) > 3 {
-			__tmp := (uint)((args[3]).Int())
-			_p3 = &__tmp
-		}
-		if len(args) > 4 {
-			_p4 = args[4]
-		}
-		_returned := callback(_p0, _p1, _p2, _p3, _p4)
-		_converted := _returned
-		return _converted
-	}))
-	return &ret
-}
-
-func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
-	return func(event *Union, source *string, lineno *uint, colno *uint, _error js.Value) (_result interface{}) {
-		var (
-			_args [5]interface{}
-			_end  int
-		)
-		_p0 := event.JSValue()
-		_args[0] = _p0
-		_end++
-		if source != nil {
-			_p1 := source
-			_args[1] = _p1
-			_end++
-		}
-		if lineno != nil {
-			_p2 := lineno
-			_args[2] = _p2
-			_end++
-		}
-		if colno != nil {
-			_p3 := colno
-			_args[3] = _p3
-			_end++
-		}
-		if _error.Type() != js.TypeUndefined {
-			_p4 := _error
-			_args[4] = _p4
-			_end++
-		}
-		_returned := _value.Invoke(_args[0:_end]...)
-		var (
-			_converted js.Value // javascript: any
-		)
-		_converted = _returned
-		_result = _converted
-		return
-	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("data")).String()
+	out.Data = value5
+	return &out
 }
 
 // dictionary: ErrorEventInit
@@ -326,6 +178,206 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 	out.Colno = value6
 	value7 = input.Get("error")
 	out.Error = value7
+	return &out
+}
+
+// dictionary: EventModifierInit
+type EventModifierInit struct {
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EventModifierInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.CtrlKey
+	out.Set("ctrlKey", value5)
+	value6 := _this.ShiftKey
+	out.Set("shiftKey", value6)
+	value7 := _this.AltKey
+	out.Set("altKey", value7)
+	value8 := _this.MetaKey
+	out.Set("metaKey", value8)
+	value9 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value9)
+	value10 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value10)
+	value11 := _this.ModifierFn
+	out.Set("modifierFn", value11)
+	value12 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value12)
+	value13 := _this.ModifierHyper
+	out.Set("modifierHyper", value13)
+	value14 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value14)
+	value15 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value15)
+	value16 := _this.ModifierSuper
+	out.Set("modifierSuper", value16)
+	value17 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value17)
+	value18 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value18)
+	return out
+}
+
+// EventModifierInitFromJS is allocating a new
+// EventModifierInit object and copy all values from
+// input javascript object
+func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
+	input := value.JSValue()
+	var out EventModifierInit
+	var (
+		value0  bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool           // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window // javascript: Window {view View view}
+		value4  int            // javascript: long {detail Detail detail}
+		value5  bool           // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value6  bool           // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value7  bool           // javascript: boolean {altKey AltKey altKey}
+		value8  bool           // javascript: boolean {metaKey MetaKey metaKey}
+		value9  bool           // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value10 bool           // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value11 bool           // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value12 bool           // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value13 bool           // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value14 bool           // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value15 bool           // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value16 bool           // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value17 bool           // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value18 bool           // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value5
+	value6 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value6
+	value7 = (input.Get("altKey")).Bool()
+	out.AltKey = value7
+	value8 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value8
+	value9 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value9
+	value10 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value10
+	value11 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value11
+	value12 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value12
+	value13 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value13
+	value14 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value14
+	value15 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value15
+	value16 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value16
+	value17 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value17
+	value18 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value18
+	return &out
+}
+
+// dictionary: FocusEventInit
+type FocusEventInit struct {
+	Bubbles       bool
+	Cancelable    bool
+	Composed      bool
+	View          *webapi.Window
+	Detail        int
+	RelatedTarget *domcore.EventTarget
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FocusEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value5)
+	return out
+}
+
+// FocusEventInitFromJS is allocating a new
+// FocusEventInit object and copy all values from
+// input javascript object
+func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
+	input := value.JSValue()
+	var out FocusEventInit
+	var (
+		value0 bool                 // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                 // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                 // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window       // javascript: Window {view View view}
+		value4 int                  // javascript: long {detail Detail detail}
+		value5 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value5 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value5
 	return &out
 }
 
@@ -424,6 +476,431 @@ func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
 	out.OldURL = value3
 	value4 = (input.Get("newURL")).String()
 	out.NewURL = value4
+	return &out
+}
+
+// dictionary: InputEventInit
+type InputEventInit struct {
+	Bubbles     bool
+	Cancelable  bool
+	Composed    bool
+	View        *webapi.Window
+	Detail      int
+	Data        *string
+	IsComposing bool
+	InputType   string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *InputEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.Data
+	out.Set("data", value5)
+	value6 := _this.IsComposing
+	out.Set("isComposing", value6)
+	value7 := _this.InputType
+	out.Set("inputType", value7)
+	return out
+}
+
+// InputEventInitFromJS is allocating a new
+// InputEventInit object and copy all values from
+// input javascript object
+func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
+	input := value.JSValue()
+	var out InputEventInit
+	var (
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window // javascript: Window {view View view}
+		value4 int            // javascript: long {detail Detail detail}
+		value5 *string        // javascript: DOMString {data Data data}
+		value6 bool           // javascript: boolean {isComposing IsComposing isComposing}
+		value7 string         // javascript: DOMString {inputType InputType inputType}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	if input.Get("data").Type() != js.TypeNull {
+		__tmp := (input.Get("data")).String()
+		value5 = &__tmp
+	}
+	out.Data = value5
+	value6 = (input.Get("isComposing")).Bool()
+	out.IsComposing = value6
+	value7 = (input.Get("inputType")).String()
+	out.InputType = value7
+	return &out
+}
+
+// dictionary: KeyboardEventInit
+type KeyboardEventInit struct {
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+	Key                string
+	Code               string
+	Location           uint
+	Repeat             bool
+	IsComposing        bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *KeyboardEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.CtrlKey
+	out.Set("ctrlKey", value5)
+	value6 := _this.ShiftKey
+	out.Set("shiftKey", value6)
+	value7 := _this.AltKey
+	out.Set("altKey", value7)
+	value8 := _this.MetaKey
+	out.Set("metaKey", value8)
+	value9 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value9)
+	value10 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value10)
+	value11 := _this.ModifierFn
+	out.Set("modifierFn", value11)
+	value12 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value12)
+	value13 := _this.ModifierHyper
+	out.Set("modifierHyper", value13)
+	value14 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value14)
+	value15 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value15)
+	value16 := _this.ModifierSuper
+	out.Set("modifierSuper", value16)
+	value17 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value17)
+	value18 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value18)
+	value19 := _this.Key
+	out.Set("key", value19)
+	value20 := _this.Code
+	out.Set("code", value20)
+	value21 := _this.Location
+	out.Set("location", value21)
+	value22 := _this.Repeat
+	out.Set("repeat", value22)
+	value23 := _this.IsComposing
+	out.Set("isComposing", value23)
+	return out
+}
+
+// KeyboardEventInitFromJS is allocating a new
+// KeyboardEventInit object and copy all values from
+// input javascript object
+func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
+	input := value.JSValue()
+	var out KeyboardEventInit
+	var (
+		value0  bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool           // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window // javascript: Window {view View view}
+		value4  int            // javascript: long {detail Detail detail}
+		value5  bool           // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value6  bool           // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value7  bool           // javascript: boolean {altKey AltKey altKey}
+		value8  bool           // javascript: boolean {metaKey MetaKey metaKey}
+		value9  bool           // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value10 bool           // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value11 bool           // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value12 bool           // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value13 bool           // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value14 bool           // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value15 bool           // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value16 bool           // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value17 bool           // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value18 bool           // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value19 string         // javascript: DOMString {key Key key}
+		value20 string         // javascript: DOMString {code Code code}
+		value21 uint           // javascript: unsigned long {location Location location}
+		value22 bool           // javascript: boolean {repeat Repeat repeat}
+		value23 bool           // javascript: boolean {isComposing IsComposing isComposing}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value5
+	value6 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value6
+	value7 = (input.Get("altKey")).Bool()
+	out.AltKey = value7
+	value8 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value8
+	value9 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value9
+	value10 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value10
+	value11 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value11
+	value12 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value12
+	value13 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value13
+	value14 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value14
+	value15 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value15
+	value16 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value16
+	value17 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value17
+	value18 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value18
+	value19 = (input.Get("key")).String()
+	out.Key = value19
+	value20 = (input.Get("code")).String()
+	out.Code = value20
+	value21 = (uint)((input.Get("location")).Int())
+	out.Location = value21
+	value22 = (input.Get("repeat")).Bool()
+	out.Repeat = value22
+	value23 = (input.Get("isComposing")).Bool()
+	out.IsComposing = value23
+	return &out
+}
+
+// dictionary: MouseEventInit
+type MouseEventInit struct {
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+	ScreenX            int
+	ScreenY            int
+	ClientX            int
+	ClientY            int
+	Button             int
+	Buttons            int
+	RelatedTarget      *domcore.EventTarget
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MouseEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.CtrlKey
+	out.Set("ctrlKey", value5)
+	value6 := _this.ShiftKey
+	out.Set("shiftKey", value6)
+	value7 := _this.AltKey
+	out.Set("altKey", value7)
+	value8 := _this.MetaKey
+	out.Set("metaKey", value8)
+	value9 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value9)
+	value10 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value10)
+	value11 := _this.ModifierFn
+	out.Set("modifierFn", value11)
+	value12 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value12)
+	value13 := _this.ModifierHyper
+	out.Set("modifierHyper", value13)
+	value14 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value14)
+	value15 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value15)
+	value16 := _this.ModifierSuper
+	out.Set("modifierSuper", value16)
+	value17 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value17)
+	value18 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value18)
+	value19 := _this.ScreenX
+	out.Set("screenX", value19)
+	value20 := _this.ScreenY
+	out.Set("screenY", value20)
+	value21 := _this.ClientX
+	out.Set("clientX", value21)
+	value22 := _this.ClientY
+	out.Set("clientY", value22)
+	value23 := _this.Button
+	out.Set("button", value23)
+	value24 := _this.Buttons
+	out.Set("buttons", value24)
+	value25 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value25)
+	return out
+}
+
+// MouseEventInitFromJS is allocating a new
+// MouseEventInit object and copy all values from
+// input javascript object
+func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
+	input := value.JSValue()
+	var out MouseEventInit
+	var (
+		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                 // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                 // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window       // javascript: Window {view View view}
+		value4  int                  // javascript: long {detail Detail detail}
+		value5  bool                 // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value6  bool                 // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value7  bool                 // javascript: boolean {altKey AltKey altKey}
+		value8  bool                 // javascript: boolean {metaKey MetaKey metaKey}
+		value9  bool                 // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value10 bool                 // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value11 bool                 // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value12 bool                 // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value13 bool                 // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value14 bool                 // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value15 bool                 // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value19 int                  // javascript: long {screenX ScreenX screenX}
+		value20 int                  // javascript: long {screenY ScreenY screenY}
+		value21 int                  // javascript: long {clientX ClientX clientX}
+		value22 int                  // javascript: long {clientY ClientY clientY}
+		value23 int                  // javascript: short {button Button button}
+		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value5
+	value6 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value6
+	value7 = (input.Get("altKey")).Bool()
+	out.AltKey = value7
+	value8 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value8
+	value9 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value9
+	value10 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value10
+	value11 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value11
+	value12 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value12
+	value13 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value13
+	value14 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value14
+	value15 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value15
+	value16 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value16
+	value17 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value17
+	value18 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value18
+	value19 = (input.Get("screenX")).Int()
+	out.ScreenX = value19
+	value20 = (input.Get("screenY")).Int()
+	out.ScreenY = value20
+	value21 = (input.Get("clientX")).Int()
+	out.ClientX = value21
+	value22 = (input.Get("clientY")).Int()
+	out.ClientY = value22
+	value23 = (input.Get("button")).Int()
+	out.Button = value23
+	value24 = (input.Get("buttons")).Int()
+	out.Buttons = value24
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value25
 	return &out
 }
 
@@ -619,36 +1096,312 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 	return &out
 }
 
-// interface: BeforeUnloadEvent
-type BeforeUnloadEvent struct {
-	domcore.Event
+// dictionary: UIEventInit
+type UIEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	View       *webapi.Window
+	Detail     int
 }
 
-// BeforeUnloadEventFromJS is casting a js.Wrapper into BeforeUnloadEvent.
-func BeforeUnloadEventFromJS(value js.Wrapper) *BeforeUnloadEvent {
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *UIEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	return out
+}
+
+// UIEventInitFromJS is allocating a new
+// UIEventInit object and copy all values from
+// input javascript object
+func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
+	input := value.JSValue()
+	var out UIEventInit
+	var (
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window // javascript: Window {view View view}
+		value4 int            // javascript: long {detail Detail detail}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	return &out
+}
+
+// dictionary: WheelEventInit
+type WheelEventInit struct {
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+	ScreenX            int
+	ScreenY            int
+	ClientX            int
+	ClientY            int
+	Button             int
+	Buttons            int
+	RelatedTarget      *domcore.EventTarget
+	DeltaX             float64
+	DeltaY             float64
+	DeltaZ             float64
+	DeltaMode          uint
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *WheelEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.CtrlKey
+	out.Set("ctrlKey", value5)
+	value6 := _this.ShiftKey
+	out.Set("shiftKey", value6)
+	value7 := _this.AltKey
+	out.Set("altKey", value7)
+	value8 := _this.MetaKey
+	out.Set("metaKey", value8)
+	value9 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value9)
+	value10 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value10)
+	value11 := _this.ModifierFn
+	out.Set("modifierFn", value11)
+	value12 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value12)
+	value13 := _this.ModifierHyper
+	out.Set("modifierHyper", value13)
+	value14 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value14)
+	value15 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value15)
+	value16 := _this.ModifierSuper
+	out.Set("modifierSuper", value16)
+	value17 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value17)
+	value18 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value18)
+	value19 := _this.ScreenX
+	out.Set("screenX", value19)
+	value20 := _this.ScreenY
+	out.Set("screenY", value20)
+	value21 := _this.ClientX
+	out.Set("clientX", value21)
+	value22 := _this.ClientY
+	out.Set("clientY", value22)
+	value23 := _this.Button
+	out.Set("button", value23)
+	value24 := _this.Buttons
+	out.Set("buttons", value24)
+	value25 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value25)
+	value26 := _this.DeltaX
+	out.Set("deltaX", value26)
+	value27 := _this.DeltaY
+	out.Set("deltaY", value27)
+	value28 := _this.DeltaZ
+	out.Set("deltaZ", value28)
+	value29 := _this.DeltaMode
+	out.Set("deltaMode", value29)
+	return out
+}
+
+// WheelEventInitFromJS is allocating a new
+// WheelEventInit object and copy all values from
+// input javascript object
+func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
+	input := value.JSValue()
+	var out WheelEventInit
+	var (
+		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                 // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                 // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window       // javascript: Window {view View view}
+		value4  int                  // javascript: long {detail Detail detail}
+		value5  bool                 // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value6  bool                 // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value7  bool                 // javascript: boolean {altKey AltKey altKey}
+		value8  bool                 // javascript: boolean {metaKey MetaKey metaKey}
+		value9  bool                 // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value10 bool                 // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value11 bool                 // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value12 bool                 // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value13 bool                 // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value14 bool                 // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value15 bool                 // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value19 int                  // javascript: long {screenX ScreenX screenX}
+		value20 int                  // javascript: long {screenY ScreenY screenY}
+		value21 int                  // javascript: long {clientX ClientX clientX}
+		value22 int                  // javascript: long {clientY ClientY clientY}
+		value23 int                  // javascript: short {button Button button}
+		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value26 float64              // javascript: double {deltaX DeltaX deltaX}
+		value27 float64              // javascript: double {deltaY DeltaY deltaY}
+		value28 float64              // javascript: double {deltaZ DeltaZ deltaZ}
+		value29 uint                 // javascript: unsigned long {deltaMode DeltaMode deltaMode}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	value5 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value5
+	value6 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value6
+	value7 = (input.Get("altKey")).Bool()
+	out.AltKey = value7
+	value8 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value8
+	value9 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value9
+	value10 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value10
+	value11 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value11
+	value12 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value12
+	value13 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value13
+	value14 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value14
+	value15 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value15
+	value16 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value16
+	value17 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value17
+	value18 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value18
+	value19 = (input.Get("screenX")).Int()
+	out.ScreenX = value19
+	value20 = (input.Get("screenY")).Int()
+	out.ScreenY = value20
+	value21 = (input.Get("clientX")).Int()
+	out.ClientX = value21
+	value22 = (input.Get("clientY")).Int()
+	out.ClientY = value22
+	value23 = (input.Get("button")).Int()
+	out.Button = value23
+	value24 = (input.Get("buttons")).Int()
+	out.Buttons = value24
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value25
+	value26 = (input.Get("deltaX")).Float()
+	out.DeltaX = value26
+	value27 = (input.Get("deltaY")).Float()
+	out.DeltaY = value27
+	value28 = (input.Get("deltaZ")).Float()
+	out.DeltaZ = value28
+	value29 = (uint)((input.Get("deltaMode")).Int())
+	out.DeltaMode = value29
+	return &out
+}
+
+// interface: CompositionEvent
+type CompositionEvent struct {
+	UIEvent
+}
+
+// CompositionEventFromJS is casting a js.Wrapper into CompositionEvent.
+func CompositionEventFromJS(value js.Wrapper) *CompositionEvent {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &BeforeUnloadEvent{}
+	ret := &CompositionEvent{}
 	ret.Value_JS = input
 	return ret
 }
 
-// ReturnValue returning attribute 'returnValue' with
-// type string (idl: DOMString).
-func (_this *BeforeUnloadEvent) ReturnValue() string {
-	var ret string
-	value := _this.Value_JS.Get("returnValue")
-	ret = (value).String()
-	return ret
+func NewCompositionEvent(_type string, eventInitDict *CompositionEventInit) (_result *CompositionEvent) {
+	_klass := js.Global().Get("CompositionEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *CompositionEvent // javascript: CompositionEvent _what_return_name
+	)
+	_converted = CompositionEventFromJS(_returned)
+	_result = _converted
+	return
 }
 
-// SetReturnValue setting attribute 'returnValue' with
+// Data returning attribute 'data' with
 // type string (idl: DOMString).
-func (_this *BeforeUnloadEvent) SetReturnValue(value string) {
-	input := value
-	_this.Value_JS.Set("returnValue", input)
+func (_this *CompositionEvent) Data() string {
+	var ret string
+	value := _this.Value_JS.Get("data")
+	ret = (value).String()
+	return ret
 }
 
 // interface: ErrorEvent
@@ -732,6 +1485,56 @@ func (_this *ErrorEvent) Error() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("error")
 	ret = value
+	return ret
+}
+
+// interface: FocusEvent
+type FocusEvent struct {
+	UIEvent
+}
+
+// FocusEventFromJS is casting a js.Wrapper into FocusEvent.
+func FocusEventFromJS(value js.Wrapper) *FocusEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &FocusEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewFocusEvent(_type string, eventInitDict *FocusEventInit) (_result *FocusEvent) {
+	_klass := js.Global().Get("FocusEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *FocusEvent // javascript: FocusEvent _what_return_name
+	)
+	_converted = FocusEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// RelatedTarget returning attribute 'relatedTarget' with
+// type domcore.EventTarget (idl: EventTarget).
+func (_this *FocusEvent) RelatedTarget() *domcore.EventTarget {
+	var ret *domcore.EventTarget
+	value := _this.Value_JS.Get("relatedTarget")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventTargetFromJS(value)
+	}
 	return ret
 }
 
@@ -838,6 +1641,392 @@ func (_this *HashChangeEvent) NewURL() string {
 	value := _this.Value_JS.Get("newURL")
 	ret = (value).String()
 	return ret
+}
+
+// interface: InputEvent
+type InputEvent struct {
+	UIEvent
+}
+
+// InputEventFromJS is casting a js.Wrapper into InputEvent.
+func InputEventFromJS(value js.Wrapper) *InputEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &InputEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewInputEvent(_type string, eventInitDict *InputEventInit) (_result *InputEvent) {
+	_klass := js.Global().Get("InputEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *InputEvent // javascript: InputEvent _what_return_name
+	)
+	_converted = InputEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Data returning attribute 'data' with
+// type string (idl: DOMString).
+func (_this *InputEvent) Data() *string {
+	var ret *string
+	value := _this.Value_JS.Get("data")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// IsComposing returning attribute 'isComposing' with
+// type bool (idl: boolean).
+func (_this *InputEvent) IsComposing() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isComposing")
+	ret = (value).Bool()
+	return ret
+}
+
+// InputType returning attribute 'inputType' with
+// type string (idl: DOMString).
+func (_this *InputEvent) InputType() string {
+	var ret string
+	value := _this.Value_JS.Get("inputType")
+	ret = (value).String()
+	return ret
+}
+
+// interface: KeyboardEvent
+type KeyboardEvent struct {
+	UIEvent
+}
+
+// KeyboardEventFromJS is casting a js.Wrapper into KeyboardEvent.
+func KeyboardEventFromJS(value js.Wrapper) *KeyboardEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &KeyboardEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+const DOMKEYLOCATIONSTANDARD_KeyboardEvent uint = 0x00
+const DOMKEYLOCATIONLEFT_KeyboardEvent uint = 0x01
+const DOMKEYLOCATIONRIGHT_KeyboardEvent uint = 0x02
+const DOMKEYLOCATIONNUMPAD_KeyboardEvent uint = 0x03
+
+func NewKeyboardEvent(_type string, eventInitDict *KeyboardEventInit) (_result *KeyboardEvent) {
+	_klass := js.Global().Get("KeyboardEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *KeyboardEvent // javascript: KeyboardEvent _what_return_name
+	)
+	_converted = KeyboardEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Key returning attribute 'key' with
+// type string (idl: DOMString).
+func (_this *KeyboardEvent) Key() string {
+	var ret string
+	value := _this.Value_JS.Get("key")
+	ret = (value).String()
+	return ret
+}
+
+// Code returning attribute 'code' with
+// type string (idl: DOMString).
+func (_this *KeyboardEvent) Code() string {
+	var ret string
+	value := _this.Value_JS.Get("code")
+	ret = (value).String()
+	return ret
+}
+
+// Location returning attribute 'location' with
+// type uint (idl: unsigned long).
+func (_this *KeyboardEvent) Location() uint {
+	var ret uint
+	value := _this.Value_JS.Get("location")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// CtrlKey returning attribute 'ctrlKey' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) CtrlKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("ctrlKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// ShiftKey returning attribute 'shiftKey' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) ShiftKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("shiftKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// AltKey returning attribute 'altKey' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) AltKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("altKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// MetaKey returning attribute 'metaKey' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) MetaKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("metaKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// Repeat returning attribute 'repeat' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) Repeat() bool {
+	var ret bool
+	value := _this.Value_JS.Get("repeat")
+	ret = (value).Bool()
+	return ret
+}
+
+// IsComposing returning attribute 'isComposing' with
+// type bool (idl: boolean).
+func (_this *KeyboardEvent) IsComposing() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isComposing")
+	ret = (value).Bool()
+	return ret
+}
+
+// CharCode returning attribute 'charCode' with
+// type uint (idl: unsigned long).
+func (_this *KeyboardEvent) CharCode() uint {
+	var ret uint
+	value := _this.Value_JS.Get("charCode")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// KeyCode returning attribute 'keyCode' with
+// type uint (idl: unsigned long).
+func (_this *KeyboardEvent) KeyCode() uint {
+	var ret uint
+	value := _this.Value_JS.Get("keyCode")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+func (_this *KeyboardEvent) GetModifierState(keyArg string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := keyArg
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getModifierState", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// interface: MouseEvent
+type MouseEvent struct {
+	UIEvent
+}
+
+// MouseEventFromJS is casting a js.Wrapper into MouseEvent.
+func MouseEventFromJS(value js.Wrapper) *MouseEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MouseEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewMouseEvent(_type string, eventInitDict *MouseEventInit) (_result *MouseEvent) {
+	_klass := js.Global().Get("MouseEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *MouseEvent // javascript: MouseEvent _what_return_name
+	)
+	_converted = MouseEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// ScreenX returning attribute 'screenX' with
+// type int (idl: long).
+func (_this *MouseEvent) ScreenX() int {
+	var ret int
+	value := _this.Value_JS.Get("screenX")
+	ret = (value).Int()
+	return ret
+}
+
+// ScreenY returning attribute 'screenY' with
+// type int (idl: long).
+func (_this *MouseEvent) ScreenY() int {
+	var ret int
+	value := _this.Value_JS.Get("screenY")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientX returning attribute 'clientX' with
+// type int (idl: long).
+func (_this *MouseEvent) ClientX() int {
+	var ret int
+	value := _this.Value_JS.Get("clientX")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientY returning attribute 'clientY' with
+// type int (idl: long).
+func (_this *MouseEvent) ClientY() int {
+	var ret int
+	value := _this.Value_JS.Get("clientY")
+	ret = (value).Int()
+	return ret
+}
+
+// CtrlKey returning attribute 'ctrlKey' with
+// type bool (idl: boolean).
+func (_this *MouseEvent) CtrlKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("ctrlKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// ShiftKey returning attribute 'shiftKey' with
+// type bool (idl: boolean).
+func (_this *MouseEvent) ShiftKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("shiftKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// AltKey returning attribute 'altKey' with
+// type bool (idl: boolean).
+func (_this *MouseEvent) AltKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("altKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// MetaKey returning attribute 'metaKey' with
+// type bool (idl: boolean).
+func (_this *MouseEvent) MetaKey() bool {
+	var ret bool
+	value := _this.Value_JS.Get("metaKey")
+	ret = (value).Bool()
+	return ret
+}
+
+// Button returning attribute 'button' with
+// type int (idl: short).
+func (_this *MouseEvent) Button() int {
+	var ret int
+	value := _this.Value_JS.Get("button")
+	ret = (value).Int()
+	return ret
+}
+
+// Buttons returning attribute 'buttons' with
+// type int (idl: unsigned short).
+func (_this *MouseEvent) Buttons() int {
+	var ret int
+	value := _this.Value_JS.Get("buttons")
+	ret = (value).Int()
+	return ret
+}
+
+// RelatedTarget returning attribute 'relatedTarget' with
+// type domcore.EventTarget (idl: EventTarget).
+func (_this *MouseEvent) RelatedTarget() *domcore.EventTarget {
+	var ret *domcore.EventTarget
+	value := _this.Value_JS.Get("relatedTarget")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventTargetFromJS(value)
+	}
+	return ret
+}
+
+func (_this *MouseEvent) GetModifierState(keyArg string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := keyArg
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getModifierState", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
 }
 
 // interface: PageTransitionEvent
@@ -1038,5 +2227,152 @@ func (_this *TrackEvent) Track() *Union {
 	if value.Type() != js.TypeNull {
 		ret = UnionFromJS(value)
 	}
+	return ret
+}
+
+// interface: UIEvent
+type UIEvent struct {
+	domcore.Event
+}
+
+// UIEventFromJS is casting a js.Wrapper into UIEvent.
+func UIEventFromJS(value js.Wrapper) *UIEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &UIEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewUIEvent(_type string, eventInitDict *UIEventInit) (_result *UIEvent) {
+	_klass := js.Global().Get("UIEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *UIEvent // javascript: UIEvent _what_return_name
+	)
+	_converted = UIEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// View returning attribute 'view' with
+// type webapi.Window (idl: Window).
+func (_this *UIEvent) View() *webapi.Window {
+	var ret *webapi.Window
+	value := _this.Value_JS.Get("view")
+	if value.Type() != js.TypeNull {
+		ret = webapi.WindowFromJS(value)
+	}
+	return ret
+}
+
+// Detail returning attribute 'detail' with
+// type int (idl: long).
+func (_this *UIEvent) Detail() int {
+	var ret int
+	value := _this.Value_JS.Get("detail")
+	ret = (value).Int()
+	return ret
+}
+
+// Which returning attribute 'which' with
+// type uint (idl: unsigned long).
+func (_this *UIEvent) Which() uint {
+	var ret uint
+	value := _this.Value_JS.Get("which")
+	ret = (uint)((value).Int())
+	return ret
+}
+
+// interface: WheelEvent
+type WheelEvent struct {
+	MouseEvent
+}
+
+// WheelEventFromJS is casting a js.Wrapper into WheelEvent.
+func WheelEventFromJS(value js.Wrapper) *WheelEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &WheelEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+const DOMDELTAPIXEL_WheelEvent uint = 0x00
+const DOMDELTALINE_WheelEvent uint = 0x01
+const DOMDELTAPAGE_WheelEvent uint = 0x02
+
+func NewWheelEvent(_type string, eventInitDict *WheelEventInit) (_result *WheelEvent) {
+	_klass := js.Global().Get("WheelEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *WheelEvent // javascript: WheelEvent _what_return_name
+	)
+	_converted = WheelEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// DeltaX returning attribute 'deltaX' with
+// type float64 (idl: double).
+func (_this *WheelEvent) DeltaX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("deltaX")
+	ret = (value).Float()
+	return ret
+}
+
+// DeltaY returning attribute 'deltaY' with
+// type float64 (idl: double).
+func (_this *WheelEvent) DeltaY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("deltaY")
+	ret = (value).Float()
+	return ret
+}
+
+// DeltaZ returning attribute 'deltaZ' with
+// type float64 (idl: double).
+func (_this *WheelEvent) DeltaZ() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("deltaZ")
+	ret = (value).Float()
+	return ret
+}
+
+// DeltaMode returning attribute 'deltaMode' with
+// type uint (idl: unsigned long).
+func (_this *WheelEvent) DeltaMode() uint {
+	var ret uint
+	value := _this.Value_JS.Get("deltaMode")
+	ret = (uint)((value).Int())
 	return ret
 }

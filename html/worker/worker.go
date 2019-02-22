@@ -11,7 +11,7 @@ import (
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
-	"github.com/gowebapi/webapi/html/htmlevent"
+	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
@@ -26,9 +26,9 @@ import (
 // domcore.EventTarget
 // fetch.RequestCredentials
 // fetch.RequestInit
-// htmlevent.FrameRequestCallback
-// htmlevent.OnErrorEventHandler
-// htmlevent.WorkerType
+// htmlcommon.FrameRequestCallback
+// htmlcommon.OnErrorEventHandler
+// htmlcommon.WorkerType
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
@@ -72,7 +72,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // dictionary: WorkerOptions
 type WorkerOptions struct {
-	Type        htmlevent.WorkerType
+	Type        htmlcommon.WorkerType
 	Credentials fetch.RequestCredentials
 	Name        string
 }
@@ -97,11 +97,11 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	input := value.JSValue()
 	var out WorkerOptions
 	var (
-		value0 htmlevent.WorkerType     // javascript: WorkerType {type Type _type}
+		value0 htmlcommon.WorkerType    // javascript: WorkerType {type Type _type}
 		value1 fetch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
 		value2 string                   // javascript: DOMString {name Name name}
 	)
-	value0 = htmlevent.WorkerTypeFromJS(input.Get("type"))
+	value0 = htmlcommon.WorkerTypeFromJS(input.Get("type"))
 	out.Type = value0
 	value1 = fetch.RequestCredentialsFromJS(input.Get("credentials"))
 	out.Credentials = value1
@@ -228,7 +228,7 @@ func (_this *DedicatedWorkerGlobalScope) Close() {
 	return
 }
 
-func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlevent.FrameRequestCallback) (_result uint) {
+func (_this *DedicatedWorkerGlobalScope) RequestAnimationFrame(callback *htmlcommon.FrameRequestCallback) (_result uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -762,19 +762,19 @@ func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 }
 
 // Onerror returning attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onerror() htmlevent.OnErrorEventHandlerFunc {
-	var ret htmlevent.OnErrorEventHandlerFunc
+// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *WorkerGlobalScope) Onerror() htmlcommon.OnErrorEventHandlerFunc {
+	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnErrorEventHandlerFromJS(value)
+		ret = htmlcommon.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnerror setting attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnerror(value *htmlevent.OnErrorEventHandler) {
+// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *WorkerGlobalScope) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value

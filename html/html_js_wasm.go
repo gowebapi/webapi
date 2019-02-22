@@ -8,7 +8,7 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fileapi"
-	"github.com/gowebapi/webapi/html/htmlevent"
+	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -22,8 +22,8 @@ import (
 // domcore.DOMTokenList
 // domcore.EventHandler
 // fileapi.FileList
-// htmlevent.OnBeforeUnloadEventHandler
-// htmlevent.OnErrorEventHandler
+// htmlcommon.OnBeforeUnloadEventHandler
+// htmlcommon.OnErrorEventHandler
 // javascript.Object
 // javascript.Promise
 
@@ -1286,19 +1286,19 @@ func (_this *HTMLBodyElement) SetOnbeforeprint(value *domcore.EventHandler) {
 }
 
 // Onbeforeunload returning attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
-	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
+// type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLBodyElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
+	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
+		ret = htmlcommon.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLBodyElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
+// type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUnloadEventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -2887,19 +2887,19 @@ func (_this *HTMLElement) SetOnended(value *domcore.EventHandler) {
 }
 
 // Onerror returning attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) Onerror() htmlevent.OnErrorEventHandlerFunc {
-	var ret htmlevent.OnErrorEventHandlerFunc
+// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *HTMLElement) Onerror() htmlcommon.OnErrorEventHandlerFunc {
+	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnErrorEventHandlerFromJS(value)
+		ret = htmlcommon.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnerror setting attribute 'onerror' with
-// type htmlevent.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *HTMLElement) SetOnerror(value *htmlevent.OnErrorEventHandler) {
+// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
+func (_this *HTMLElement) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
@@ -4637,19 +4637,19 @@ func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *domcore.EventHandler) 
 }
 
 // Onbeforeunload returning attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) Onbeforeunload() htmlevent.OnBeforeUnloadEventHandlerFunc {
-	var ret htmlevent.OnBeforeUnloadEventHandlerFunc
+// type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLFrameSetElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
+	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull {
-		ret = htmlevent.OnBeforeUnloadEventHandlerFromJS(value)
+		ret = htmlcommon.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
 }
 
 // SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type htmlevent.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *htmlevent.OnBeforeUnloadEventHandler) {
+// type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
+func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUnloadEventHandler) {
 	var __callback0 js.Value
 	if value != nil {
 		__callback0 = (*value).Value
