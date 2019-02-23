@@ -8,19 +8,30 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/media/capabilities"
+	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/encrypted"
+	"github.com/gowebapi/webapi/media/session"
 	"github.com/gowebapi/webapi/serviceworker"
 )
 
 // using following types:
+// capabilities.MediaCapabilities
 // dom.Node
 // dom.NodeList
 // domcore.DOMStringList
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// encrypted.MediaKeySystemConfiguration
 // javascript.FrozenArray
 // javascript.Promise
 // serviceworker.ServiceWorkerContainer
+// session.MediaSession
+// streams.MediaDevices
+// streams.MediaStreamConstraints
+// streams.NavigatorUserMediaErrorCallback
+// streams.NavigatorUserMediaSuccessCallback
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -1308,6 +1319,33 @@ func NavigatorFromJS(value js.Wrapper) *Navigator {
 	return ret
 }
 
+// MediaCapabilities returning attribute 'mediaCapabilities' with
+// type capabilities.MediaCapabilities (idl: MediaCapabilities).
+func (_this *Navigator) MediaCapabilities() *capabilities.MediaCapabilities {
+	var ret *capabilities.MediaCapabilities
+	value := _this.Value_JS.Get("mediaCapabilities")
+	ret = capabilities.MediaCapabilitiesFromJS(value)
+	return ret
+}
+
+// MediaDevices returning attribute 'mediaDevices' with
+// type streams.MediaDevices (idl: MediaDevices).
+func (_this *Navigator) MediaDevices() *streams.MediaDevices {
+	var ret *streams.MediaDevices
+	value := _this.Value_JS.Get("mediaDevices")
+	ret = streams.MediaDevicesFromJS(value)
+	return ret
+}
+
+// MediaSession returning attribute 'mediaSession' with
+// type session.MediaSession (idl: MediaSession).
+func (_this *Navigator) MediaSession() *session.MediaSession {
+	var ret *session.MediaSession
+	value := _this.Value_JS.Get("mediaSession")
+	ret = session.MediaSessionFromJS(value)
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
@@ -1468,6 +1506,62 @@ func (_this *Navigator) HardwareConcurrency() int {
 	value := _this.Value_JS.Get("hardwareConcurrency")
 	ret = (value).Int()
 	return ret
+}
+
+func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedConfigurations []*encrypted.MediaKeySystemConfiguration) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := keySystem
+	_args[0] = _p0
+	_end++
+	_p1 := js.Global().Get("Array").New(len(supportedConfigurations))
+	for __idx1, __seq_in1 := range supportedConfigurations {
+		__seq_out1 := __seq_in1.JSValue()
+		_p1.SetIndex(__idx1, __seq_out1)
+	}
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("requestMediaKeySystemAccess", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) GetUserMedia(constraints *streams.MediaStreamConstraints, successCallback *streams.NavigatorUserMediaSuccessCallback, errorCallback *streams.NavigatorUserMediaErrorCallback) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := constraints.JSValue()
+	_args[0] = _p0
+	_end++
+
+	var __callback1 js.Value
+	if successCallback != nil {
+		__callback1 = (*successCallback).Value
+	} else {
+		__callback1 = js.Null()
+	}
+	_p1 := __callback1
+	_args[1] = _p1
+	_end++
+
+	var __callback2 js.Value
+	if errorCallback != nil {
+		__callback2 = (*errorCallback).Value
+	} else {
+		__callback2 = js.Null()
+	}
+	_p2 := __callback2
+	_args[2] = _p2
+	_end++
+	_this.Value_JS.Call("getUserMedia", _args[0:_end]...)
+	return
 }
 
 func (_this *Navigator) TaintEnabled() (_result bool) {

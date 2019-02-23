@@ -13,6 +13,7 @@ import (
 	"github.com/gowebapi/webapi/fileapi"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/media/capture/streams"
 	"github.com/gowebapi/webapi/patch"
 )
 
@@ -27,6 +28,7 @@ import (
 // html.OffscreenRenderingContextId
 // javascript.Promise
 // patch.Uint8ClampedArray
+// streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -2195,6 +2197,25 @@ func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *Offscreen
 		_converted *OffscreenCanvas // javascript: OffscreenCanvas _what_return_name
 	)
 	_converted = OffscreenCanvasFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_result *streams.MediaStream) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if frameRequestRate != nil {
+		_p0 := frameRequestRate
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("captureStream", _args[0:_end]...)
+	var (
+		_converted *streams.MediaStream // javascript: MediaStream _what_return_name
+	)
+	_converted = streams.MediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }

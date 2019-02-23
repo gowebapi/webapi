@@ -1848,50 +1848,6 @@ func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *ja
 	return
 }
 
-func (_this *Element) Animate(keyframes *javascript.Object, options *Union) (_result *webanimations.Animation) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := keyframes.JSValue()
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _this.Value_JS.Call("animate", _args[0:_end]...)
-	var (
-		_converted *webanimations.Animation // javascript: Animation _what_return_name
-	)
-	_converted = webanimations.AnimationFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *Element) GetAnimations() (_result []*webanimations.Animation) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
-	var (
-		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*webanimations.Animation, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *webanimations.Animation
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
 func (_this *Element) GetBoxQuads(options *view.BoxQuadOptions) (_result []*geometry.DOMQuad) {
 	var (
 		_args [1]interface{}
@@ -2106,6 +2062,50 @@ func (_this *Element) Remove() {
 		_end  int
 	)
 	_this.Value_JS.Call("remove", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) Animate(keyframes *javascript.Object, options *Union) (_result *webanimations.Animation) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := keyframes.JSValue()
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("animate", _args[0:_end]...)
+	var (
+		_converted *webanimations.Animation // javascript: Animation _what_return_name
+	)
+	_converted = webanimations.AnimationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) GetAnimations() (_result []*webanimations.Animation) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
+	var (
+		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *webanimations.Animation
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
 	return
 }
 

@@ -606,26 +606,6 @@ func (_this *Document) DocumentElement() *dom.Element {
 	return ret
 }
 
-// RootElement returning attribute 'rootElement' with
-// type svg.SVGSVGElement (idl: SVGSVGElement).
-func (_this *Document) RootElement() *svg.SVGSVGElement {
-	var ret *svg.SVGSVGElement
-	value := _this.Value_JS.Get("rootElement")
-	if value.Type() != js.TypeNull {
-		ret = svg.SVGSVGElementFromJS(value)
-	}
-	return ret
-}
-
-// Timeline returning attribute 'timeline' with
-// type webanimations.DocumentTimeline (idl: DocumentTimeline).
-func (_this *Document) Timeline() *webanimations.DocumentTimeline {
-	var ret *webanimations.DocumentTimeline
-	value := _this.Value_JS.Get("timeline")
-	ret = webanimations.DocumentTimelineFromJS(value)
-	return ret
-}
-
 // NamedFlows returning attribute 'namedFlows' with
 // type regions.NamedFlowMap (idl: NamedFlowMap).
 func (_this *Document) NamedFlows() *regions.NamedFlowMap {
@@ -1117,6 +1097,26 @@ func (_this *Document) SetOnvisibilitychange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onvisibilitychange", input)
+}
+
+// RootElement returning attribute 'rootElement' with
+// type svg.SVGSVGElement (idl: SVGSVGElement).
+func (_this *Document) RootElement() *svg.SVGSVGElement {
+	var ret *svg.SVGSVGElement
+	value := _this.Value_JS.Get("rootElement")
+	if value.Type() != js.TypeNull {
+		ret = svg.SVGSVGElementFromJS(value)
+	}
+	return ret
+}
+
+// Timeline returning attribute 'timeline' with
+// type webanimations.DocumentTimeline (idl: DocumentTimeline).
+func (_this *Document) Timeline() *webanimations.DocumentTimeline {
+	var ret *webanimations.DocumentTimeline
+	value := _this.Value_JS.Get("timeline")
+	ret = webanimations.DocumentTimelineFromJS(value)
+	return ret
 }
 
 // StyleSheets returning attribute 'styleSheets' with
@@ -3302,28 +3302,6 @@ func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter
 	return
 }
 
-func (_this *Document) GetAnimations() (_result []*webanimations.Animation) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
-	var (
-		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*webanimations.Animation, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *webanimations.Animation
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
 func (_this *Document) ElementFromPoint(x float64, y float64) (_result *dom.Element) {
 	var (
 		_args [2]interface{}
@@ -3663,6 +3641,28 @@ func (_this *Document) ReleaseEvents() {
 		_end  int
 	)
 	_this.Value_JS.Call("releaseEvents", _args[0:_end]...)
+	return
+}
+
+func (_this *Document) GetAnimations() (_result []*webanimations.Animation) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
+	var (
+		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *webanimations.Animation
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
 	return
 }
 

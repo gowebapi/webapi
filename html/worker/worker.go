@@ -13,6 +13,7 @@ import (
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/webidl"
@@ -20,6 +21,7 @@ import (
 
 // using following types:
 // canvas.ImageBitmapOptions
+// capabilities.MediaCapabilities
 // channel.MessagePort
 // channel.PostMessageOptions
 // domcore.EventHandler
@@ -1270,6 +1272,15 @@ func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
 	}
 	ret := &WorkerNavigator{}
 	ret.Value_JS = input
+	return ret
+}
+
+// MediaCapabilities returning attribute 'mediaCapabilities' with
+// type capabilities.MediaCapabilities (idl: MediaCapabilities).
+func (_this *WorkerNavigator) MediaCapabilities() *capabilities.MediaCapabilities {
+	var ret *capabilities.MediaCapabilities
+	value := _this.Value_JS.Get("mediaCapabilities")
+	ret = capabilities.MediaCapabilitiesFromJS(value)
 	return ret
 }
 

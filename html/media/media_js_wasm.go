@@ -8,15 +8,19 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/encrypted"
 )
 
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
+// encrypted.MediaKeys
 // html.HTMLElement
 // html.TimeRanges
 // javascript.Object
 // javascript.Promise
+// streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -890,6 +894,65 @@ func (_this *HTMLMediaElement) TextTracks() *TextTrackList {
 	return ret
 }
 
+// MediaKeys returning attribute 'mediaKeys' with
+// type encrypted.MediaKeys (idl: MediaKeys).
+func (_this *HTMLMediaElement) MediaKeys() *encrypted.MediaKeys {
+	var ret *encrypted.MediaKeys
+	value := _this.Value_JS.Get("mediaKeys")
+	if value.Type() != js.TypeNull {
+		ret = encrypted.MediaKeysFromJS(value)
+	}
+	return ret
+}
+
+// Onencrypted returning attribute 'onencrypted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMediaElement) Onencrypted() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onencrypted")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnencrypted setting attribute 'onencrypted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMediaElement) SetOnencrypted(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onencrypted", input)
+}
+
+// Onwaitingforkey returning attribute 'onwaitingforkey' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMediaElement) Onwaitingforkey() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onwaitingforkey")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnwaitingforkey setting attribute 'onwaitingforkey' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLMediaElement) SetOnwaitingforkey(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onwaitingforkey", input)
+}
+
 func (_this *HTMLMediaElement) Load() {
 	var (
 		_args [0]interface{}
@@ -988,6 +1051,37 @@ func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, l
 		_converted *TextTrack // javascript: TextTrack _what_return_name
 	)
 	_converted = TextTrackFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLMediaElement) SetMediaKeys(mediaKeys *encrypted.MediaKeys) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := mediaKeys.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("setMediaKeys", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLMediaElement) CaptureStream() (_result *streams.MediaStream) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("captureStream", _args[0:_end]...)
+	var (
+		_converted *streams.MediaStream // javascript: MediaStream _what_return_name
+	)
+	_converted = streams.MediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }

@@ -9,9 +9,12 @@ import js "github.com/gowebapi/webapi/core/failjs"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
+	"github.com/gowebapi/webapi/media/capabilities"
 )
 
 // using following types:
+// capabilities.ScreenColorGamut
+// capabilities.ScreenLuminance
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventListener
@@ -674,4 +677,48 @@ func (_this *Screen) PixelDepth() uint {
 	value := _this.Value_JS.Get("pixelDepth")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+// ColorGamut returning attribute 'colorGamut' with
+// type capabilities.ScreenColorGamut (idl: ScreenColorGamut).
+func (_this *Screen) ColorGamut() capabilities.ScreenColorGamut {
+	var ret capabilities.ScreenColorGamut
+	value := _this.Value_JS.Get("colorGamut")
+	ret = capabilities.ScreenColorGamutFromJS(value)
+	return ret
+}
+
+// Luminance returning attribute 'luminance' with
+// type capabilities.ScreenLuminance (idl: ScreenLuminance).
+func (_this *Screen) Luminance() *capabilities.ScreenLuminance {
+	var ret *capabilities.ScreenLuminance
+	value := _this.Value_JS.Get("luminance")
+	if value.Type() != js.TypeNull {
+		ret = capabilities.ScreenLuminanceFromJS(value)
+	}
+	return ret
+}
+
+// Onchange returning attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Screen) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnchange setting attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Screen) SetOnchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onchange", input)
 }
