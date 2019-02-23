@@ -22,6 +22,8 @@ import (
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
+	"github.com/gowebapi/webapi/svg"
+	"github.com/gowebapi/webapi/webanimations"
 	"github.com/gowebapi/webapi/webidl"
 )
 
@@ -77,12 +79,15 @@ import (
 // pseudo.CSSPseudoElementList
 // regions.NamedFlowMap
 // serviceworker.CacheStorage
+// svg.SVGSVGElement
 // view.BoxQuadOptions
 // view.CaretPosition
 // view.ConvertCoordinateOptions
 // view.MediaQueryList
 // view.Screen
 // view.ScrollToOptions
+// webanimations.Animation
+// webanimations.DocumentTimeline
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -598,6 +603,26 @@ func (_this *Document) DocumentElement() *dom.Element {
 	if value.Type() != js.TypeNull {
 		ret = dom.ElementFromJS(value)
 	}
+	return ret
+}
+
+// RootElement returning attribute 'rootElement' with
+// type svg.SVGSVGElement (idl: SVGSVGElement).
+func (_this *Document) RootElement() *svg.SVGSVGElement {
+	var ret *svg.SVGSVGElement
+	value := _this.Value_JS.Get("rootElement")
+	if value.Type() != js.TypeNull {
+		ret = svg.SVGSVGElementFromJS(value)
+	}
+	return ret
+}
+
+// Timeline returning attribute 'timeline' with
+// type webanimations.DocumentTimeline (idl: DocumentTimeline).
+func (_this *Document) Timeline() *webanimations.DocumentTimeline {
+	var ret *webanimations.DocumentTimeline
+	value := _this.Value_JS.Get("timeline")
+	ret = webanimations.DocumentTimelineFromJS(value)
 	return ret
 }
 
@@ -3273,6 +3298,28 @@ func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter
 		_converted *dom.TreeWalker // javascript: TreeWalker _what_return_name
 	)
 	_converted = dom.TreeWalkerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) GetAnimations() (_result []*webanimations.Animation) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
+	var (
+		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *webanimations.Animation
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
 	_result = _converted
 	return
 }

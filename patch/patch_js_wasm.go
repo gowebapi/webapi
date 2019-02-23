@@ -4,14 +4,7 @@ package patch
 
 import "syscall/js"
 
-import (
-	"github.com/gowebapi/webapi/css/ccsom"
-	"github.com/gowebapi/webapi/css/typedom"
-)
-
 // using following types:
-// ccsom.CSSStyleDeclaration
-// typedom.StylePropertyMap
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -124,87 +117,6 @@ func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
 		return nil
 	}
 	ret := &ReadableStream{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: SVGElement
-type SVGElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGElementFromJS is casting a js.Wrapper into SVGElement.
-func SVGElementFromJS(value js.Wrapper) *SVGElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *SVGElement) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
-	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
-	return ret
-}
-
-// AttributeStyleMap returning attribute 'attributeStyleMap' with
-// type typedom.StylePropertyMap (idl: StylePropertyMap).
-func (_this *SVGElement) AttributeStyleMap() *typedom.StylePropertyMap {
-	var ret *typedom.StylePropertyMap
-	value := _this.Value_JS.Get("attributeStyleMap")
-	ret = typedom.StylePropertyMapFromJS(value)
-	return ret
-}
-
-// interface: SVGImageElement
-type SVGImageElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGImageElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
-func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGImageElement{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: SVGScriptElement
-type SVGScriptElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *SVGScriptElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
-func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &SVGScriptElement{}
 	ret.Value_JS = input
 	return ret
 }
