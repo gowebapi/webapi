@@ -7,8 +7,12 @@ package webapi
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom/view"
+	"github.com/gowebapi/webapi/css/pseudo"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/html/canvas"
@@ -22,6 +26,8 @@ import (
 
 // using following types:
 // canvas.ImageBitmapOptions
+// ccsom.CSSStyleDeclaration
+// ccsom.StyleSheetList
 // dom.Attr
 // dom.CDATASection
 // dom.Comment
@@ -43,6 +49,11 @@ import (
 // domcore.EventTarget
 // domcore.VisibilityState
 // fetch.RequestInit
+// geometry.DOMPoint
+// geometry.DOMPointInit
+// geometry.DOMQuad
+// geometry.DOMQuadInit
+// geometry.DOMRectReadOnly
 // html.HTMLAllCollection
 // html.HTMLElement
 // html.HTMLFormElement
@@ -62,7 +73,14 @@ import (
 // javascript.Object
 // javascript.Promise
 // patch.ByteString
+// pseudo.CSSPseudoElementList
 // serviceworker.CacheStorage
+// view.BoxQuadOptions
+// view.CaretPosition
+// view.ConvertCoordinateOptions
+// view.MediaQueryList
+// view.Screen
+// view.ScrollToOptions
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -581,6 +599,17 @@ func (_this *Document) DocumentElement() *dom.Element {
 	return ret
 }
 
+// ScrollingElement returning attribute 'scrollingElement' with
+// type dom.Element (idl: Element).
+func (_this *Document) ScrollingElement() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("scrollingElement")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
 // FullscreenEnabled returning attribute 'fullscreenEnabled' with
 // type bool (idl: boolean).
 func (_this *Document) FullscreenEnabled() bool {
@@ -1052,6 +1081,15 @@ func (_this *Document) SetOnvisibilitychange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onvisibilitychange", input)
+}
+
+// StyleSheets returning attribute 'styleSheets' with
+// type ccsom.StyleSheetList (idl: StyleSheetList).
+func (_this *Document) StyleSheets() *ccsom.StyleSheetList {
+	var ret *ccsom.StyleSheetList
+	value := _this.Value_JS.Get("styleSheets")
+	ret = ccsom.StyleSheetListFromJS(value)
+	return ret
 }
 
 // FullscreenElement returning attribute 'fullscreenElement' with
@@ -3036,6 +3074,78 @@ func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter
 	return
 }
 
+func (_this *Document) ElementFromPoint(x float64, y float64) (_result *dom.Element) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("elementFromPoint", _args[0:_end]...)
+	var (
+		_converted *dom.Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = dom.ElementFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Document) ElementsFromPoint(x float64, y float64) (_result []*dom.Element) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("elementsFromPoint", _args[0:_end]...)
+	var (
+		_converted []*dom.Element // javascript: sequence<Element> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*dom.Element, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.Element
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.ElementFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+func (_this *Document) CaretPositionFromPoint(x float64, y float64) (_result *view.CaretPosition) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("caretPositionFromPoint", _args[0:_end]...)
+	var (
+		_converted *view.CaretPosition // javascript: CaretPosition _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = view.CaretPositionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *Document) ExitFullscreen() (_result *javascript.Promise) {
 	var (
 		_args [0]interface{}
@@ -3303,6 +3413,108 @@ func (_this *Document) ReleaseEvents() {
 		_end  int
 	)
 	_this.Value_JS.Call("releaseEvents", _args[0:_end]...)
+	return
+}
+
+func (_this *Document) GetBoxQuads(options *view.BoxQuadOptions) (_result []*geometry.DOMQuad) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getBoxQuads", _args[0:_end]...)
+	var (
+		_converted []*geometry.DOMQuad // javascript: sequence<DOMQuad> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*geometry.DOMQuad, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *geometry.DOMQuad
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = geometry.DOMQuadFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+func (_this *Document) ConvertQuadFromNode(quad *geometry.DOMQuadInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := quad.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertQuadFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) ConvertRectFromNode(rect *geometry.DOMRectReadOnly, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := rect.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertRectFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) ConvertPointFromNode(point *geometry.DOMPointInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMPoint) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := point.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertPointFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMPoint // javascript: DOMPoint _what_return_name
+	)
+	_converted = geometry.DOMPointFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -4866,6 +5078,132 @@ func (_this *Window) ApplicationCache() *htmlmisc.ApplicationCache {
 	var ret *htmlmisc.ApplicationCache
 	value := _this.Value_JS.Get("applicationCache")
 	ret = htmlmisc.ApplicationCacheFromJS(value)
+	return ret
+}
+
+// Screen returning attribute 'screen' with
+// type view.Screen (idl: Screen).
+func (_this *Window) Screen() *view.Screen {
+	var ret *view.Screen
+	value := _this.Value_JS.Get("screen")
+	ret = view.ScreenFromJS(value)
+	return ret
+}
+
+// InnerWidth returning attribute 'innerWidth' with
+// type int (idl: long).
+func (_this *Window) InnerWidth() int {
+	var ret int
+	value := _this.Value_JS.Get("innerWidth")
+	ret = (value).Int()
+	return ret
+}
+
+// InnerHeight returning attribute 'innerHeight' with
+// type int (idl: long).
+func (_this *Window) InnerHeight() int {
+	var ret int
+	value := _this.Value_JS.Get("innerHeight")
+	ret = (value).Int()
+	return ret
+}
+
+// ScrollX returning attribute 'scrollX' with
+// type float64 (idl: double).
+func (_this *Window) ScrollX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("scrollX")
+	ret = (value).Float()
+	return ret
+}
+
+// PageXOffset returning attribute 'pageXOffset' with
+// type float64 (idl: double).
+func (_this *Window) PageXOffset() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("pageXOffset")
+	ret = (value).Float()
+	return ret
+}
+
+// ScrollY returning attribute 'scrollY' with
+// type float64 (idl: double).
+func (_this *Window) ScrollY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("scrollY")
+	ret = (value).Float()
+	return ret
+}
+
+// PageYOffset returning attribute 'pageYOffset' with
+// type float64 (idl: double).
+func (_this *Window) PageYOffset() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("pageYOffset")
+	ret = (value).Float()
+	return ret
+}
+
+// ScreenX returning attribute 'screenX' with
+// type int (idl: long).
+func (_this *Window) ScreenX() int {
+	var ret int
+	value := _this.Value_JS.Get("screenX")
+	ret = (value).Int()
+	return ret
+}
+
+// ScreenLeft returning attribute 'screenLeft' with
+// type int (idl: long).
+func (_this *Window) ScreenLeft() int {
+	var ret int
+	value := _this.Value_JS.Get("screenLeft")
+	ret = (value).Int()
+	return ret
+}
+
+// ScreenY returning attribute 'screenY' with
+// type int (idl: long).
+func (_this *Window) ScreenY() int {
+	var ret int
+	value := _this.Value_JS.Get("screenY")
+	ret = (value).Int()
+	return ret
+}
+
+// ScreenTop returning attribute 'screenTop' with
+// type int (idl: long).
+func (_this *Window) ScreenTop() int {
+	var ret int
+	value := _this.Value_JS.Get("screenTop")
+	ret = (value).Int()
+	return ret
+}
+
+// OuterWidth returning attribute 'outerWidth' with
+// type int (idl: long).
+func (_this *Window) OuterWidth() int {
+	var ret int
+	value := _this.Value_JS.Get("outerWidth")
+	ret = (value).Int()
+	return ret
+}
+
+// OuterHeight returning attribute 'outerHeight' with
+// type int (idl: long).
+func (_this *Window) OuterHeight() int {
+	var ret int
+	value := _this.Value_JS.Get("outerHeight")
+	ret = (value).Int()
+	return ret
+}
+
+// DevicePixelRatio returning attribute 'devicePixelRatio' with
+// type float64 (idl: double).
+func (_this *Window) DevicePixelRatio() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("devicePixelRatio")
+	ret = (value).Float()
 	return ret
 }
 
@@ -7000,6 +7338,212 @@ func (_this *Window) PostMessage2(message interface{}, options *WindowPostMessag
 		_end++
 	}
 	_this.Value_JS.Call("postMessage", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) GetPseudoElements(elt *dom.Element, _type string) (_result *pseudo.CSSPseudoElementList) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := elt.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := _type
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("getPseudoElements", _args[0:_end]...)
+	var (
+		_converted *pseudo.CSSPseudoElementList // javascript: CSSPseudoElementList _what_return_name
+	)
+	_converted = pseudo.CSSPseudoElementListFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) MatchMedia(query string) (_result *view.MediaQueryList) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := query
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("matchMedia", _args[0:_end]...)
+	var (
+		_converted *view.MediaQueryList // javascript: MediaQueryList _what_return_name
+	)
+	_converted = view.MediaQueryListFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) MoveTo(x int, y int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("moveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) MoveBy(x int, y int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("moveBy", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ResizeTo(x int, y int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("resizeTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ResizeBy(x int, y int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("resizeBy", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) Scroll(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scroll", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) Scroll2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scroll", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ScrollTo(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scrollTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ScrollTo2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scrollTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ScrollBy(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scrollBy", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) ScrollBy2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scrollBy", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_result *ccsom.CSSStyleDeclaration) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := elt.JSValue()
+	_args[0] = _p0
+	_end++
+	if pseudoElt != nil {
+		_p1 := pseudoElt
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getComputedStyle", _args[0:_end]...)
+	var (
+		_converted *ccsom.CSSStyleDeclaration // javascript: CSSStyleDeclaration _what_return_name
+	)
+	_converted = ccsom.CSSStyleDeclarationFromJS(_returned)
+	_result = _converted
 	return
 }
 

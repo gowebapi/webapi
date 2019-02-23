@@ -7,6 +7,7 @@ package html
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fileapi"
@@ -15,6 +16,8 @@ import (
 )
 
 // using following types:
+// ccsom.CSSStyleDeclaration
+// ccsom.CSSStyleSheet
 // dom.DocumentFragment
 // dom.Element
 // dom.HTMLCollection
@@ -2334,6 +2337,62 @@ func (_this *HTMLElement) InnerText() string {
 func (_this *HTMLElement) SetInnerText(value string) {
 	input := value
 	_this.Value_JS.Set("innerText", input)
+}
+
+// OffsetParent returning attribute 'offsetParent' with
+// type dom.Element (idl: Element).
+func (_this *HTMLElement) OffsetParent() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("offsetParent")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
+// OffsetTop returning attribute 'offsetTop' with
+// type int (idl: long).
+func (_this *HTMLElement) OffsetTop() int {
+	var ret int
+	value := _this.Value_JS.Get("offsetTop")
+	ret = (value).Int()
+	return ret
+}
+
+// OffsetLeft returning attribute 'offsetLeft' with
+// type int (idl: long).
+func (_this *HTMLElement) OffsetLeft() int {
+	var ret int
+	value := _this.Value_JS.Get("offsetLeft")
+	ret = (value).Int()
+	return ret
+}
+
+// OffsetWidth returning attribute 'offsetWidth' with
+// type int (idl: long).
+func (_this *HTMLElement) OffsetWidth() int {
+	var ret int
+	value := _this.Value_JS.Get("offsetWidth")
+	ret = (value).Int()
+	return ret
+}
+
+// OffsetHeight returning attribute 'offsetHeight' with
+// type int (idl: long).
+func (_this *HTMLElement) OffsetHeight() int {
+	var ret int
+	value := _this.Value_JS.Get("offsetHeight")
+	ret = (value).Int()
+	return ret
+}
+
+// Style returning attribute 'style' with
+// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *HTMLElement) Style() *ccsom.CSSStyleDeclaration {
+	var ret *ccsom.CSSStyleDeclaration
+	value := _this.Value_JS.Get("style")
+	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	return ret
 }
 
 // Onabort returning attribute 'onabort' with
@@ -5381,6 +5440,24 @@ func (_this *HTMLImageElement) SetDecoding(value string) {
 	_this.Value_JS.Set("decoding", input)
 }
 
+// X returning attribute 'x' with
+// type int (idl: long).
+func (_this *HTMLImageElement) X() int {
+	var ret int
+	value := _this.Value_JS.Get("x")
+	ret = (value).Int()
+	return ret
+}
+
+// Y returning attribute 'y' with
+// type int (idl: long).
+func (_this *HTMLImageElement) Y() int {
+	var ret int
+	value := _this.Value_JS.Get("y")
+	ret = (value).Int()
+	return ret
+}
+
 // Name returning attribute 'name' with
 // type string (idl: DOMString).
 func (_this *HTMLImageElement) Name() string {
@@ -6740,6 +6817,17 @@ func (_this *HTMLLinkElement) Target() string {
 func (_this *HTMLLinkElement) SetTarget(value string) {
 	input := value
 	_this.Value_JS.Set("target", input)
+}
+
+// Sheet returning attribute 'sheet' with
+// type ccsom.CSSStyleSheet (idl: CSSStyleSheet).
+func (_this *HTMLLinkElement) Sheet() *ccsom.CSSStyleSheet {
+	var ret *ccsom.CSSStyleSheet
+	value := _this.Value_JS.Get("sheet")
+	if value.Type() != js.TypeNull {
+		ret = ccsom.CSSStyleSheetFromJS(value)
+	}
+	return ret
 }
 
 // interface: HTMLMapElement
@@ -8931,6 +9019,17 @@ func (_this *HTMLStyleElement) Type() string {
 func (_this *HTMLStyleElement) SetType(value string) {
 	input := value
 	_this.Value_JS.Set("type", input)
+}
+
+// Sheet returning attribute 'sheet' with
+// type ccsom.CSSStyleSheet (idl: CSSStyleSheet).
+func (_this *HTMLStyleElement) Sheet() *ccsom.CSSStyleSheet {
+	var ret *ccsom.CSSStyleSheet
+	value := _this.Value_JS.Get("sheet")
+	if value.Type() != js.TypeNull {
+		ret = ccsom.CSSStyleSheetFromJS(value)
+	}
+	return ret
 }
 
 // interface: HTMLTableCaptionElement

@@ -4,7 +4,12 @@ package patch
 
 import "syscall/js"
 
+import (
+	"github.com/gowebapi/webapi/css/ccsom"
+)
+
 // using following types:
+// ccsom.CSSStyleDeclaration
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -54,27 +59,6 @@ func ByteStringFromJS(value js.Wrapper) *ByteString {
 		return nil
 	}
 	ret := &ByteString{}
-	ret.Value_JS = input
-	return ret
-}
-
-// interface: CSSPseudoElement
-type CSSPseudoElement struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *CSSPseudoElement) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CSSPseudoElementFromJS is casting a js.Wrapper into CSSPseudoElement.
-func CSSPseudoElementFromJS(value js.Wrapper) *CSSPseudoElement {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &CSSPseudoElement{}
 	ret.Value_JS = input
 	return ret
 }
@@ -160,6 +144,15 @@ func SVGElementFromJS(value js.Wrapper) *SVGElement {
 	}
 	ret := &SVGElement{}
 	ret.Value_JS = input
+	return ret
+}
+
+// Style returning attribute 'style' with
+// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *SVGElement) Style() *ccsom.CSSStyleDeclaration {
+	var ret *ccsom.CSSStyleDeclaration
+	value := _this.Value_JS.Get("style")
+	ret = ccsom.CSSStyleDeclarationFromJS(value)
 	return ret
 }
 

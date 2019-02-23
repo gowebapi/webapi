@@ -113,13 +113,13 @@ type DragEventInit struct {
 	ModifierSuper      bool
 	ModifierSymbol     bool
 	ModifierSymbolLock bool
-	ScreenX            int
-	ScreenY            int
-	ClientX            int
-	ClientY            int
 	Button             int
 	Buttons            int
 	RelatedTarget      *domcore.EventTarget
+	ScreenX            float64
+	ScreenY            float64
+	ClientX            float64
+	ClientY            float64
 	DataTransfer       *DataTransfer
 }
 
@@ -165,20 +165,20 @@ func (_this *DragEventInit) JSValue() js.Value {
 	out.Set("modifierSymbol", value17)
 	value18 := _this.ModifierSymbolLock
 	out.Set("modifierSymbolLock", value18)
-	value19 := _this.ScreenX
-	out.Set("screenX", value19)
-	value20 := _this.ScreenY
-	out.Set("screenY", value20)
-	value21 := _this.ClientX
-	out.Set("clientX", value21)
-	value22 := _this.ClientY
-	out.Set("clientY", value22)
-	value23 := _this.Button
-	out.Set("button", value23)
-	value24 := _this.Buttons
-	out.Set("buttons", value24)
-	value25 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value25)
+	value19 := _this.Button
+	out.Set("button", value19)
+	value20 := _this.Buttons
+	out.Set("buttons", value20)
+	value21 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value21)
+	value22 := _this.ScreenX
+	out.Set("screenX", value22)
+	value23 := _this.ScreenY
+	out.Set("screenY", value23)
+	value24 := _this.ClientX
+	out.Set("clientX", value24)
+	value25 := _this.ClientY
+	out.Set("clientY", value25)
 	value26 := _this.DataTransfer.JSValue()
 	out.Set("dataTransfer", value26)
 	return out
@@ -210,13 +210,13 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
 		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
 		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 int                  // javascript: long {screenX ScreenX screenX}
-		value20 int                  // javascript: long {screenY ScreenY screenY}
-		value21 int                  // javascript: long {clientX ClientX clientX}
-		value22 int                  // javascript: long {clientY ClientY clientY}
-		value23 int                  // javascript: short {button Button button}
-		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
-		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value19 int                  // javascript: short {button Button button}
+		value20 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value21 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value22 float64              // javascript: double {screenX ScreenX screenX}
+		value23 float64              // javascript: double {screenY ScreenY screenY}
+		value24 float64              // javascript: double {clientX ClientX clientX}
+		value25 float64              // javascript: double {clientY ClientY clientY}
 		value26 *DataTransfer        // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
 	)
 	value0 = (input.Get("bubbles")).Bool()
@@ -259,22 +259,22 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	out.ModifierSymbol = value17
 	value18 = (input.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value18
-	value19 = (input.Get("screenX")).Int()
-	out.ScreenX = value19
-	value20 = (input.Get("screenY")).Int()
-	out.ScreenY = value20
-	value21 = (input.Get("clientX")).Int()
-	out.ClientX = value21
-	value22 = (input.Get("clientY")).Int()
-	out.ClientY = value22
-	value23 = (input.Get("button")).Int()
-	out.Button = value23
-	value24 = (input.Get("buttons")).Int()
-	out.Buttons = value24
+	value19 = (input.Get("button")).Int()
+	out.Button = value19
+	value20 = (input.Get("buttons")).Int()
+	out.Buttons = value20
 	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+		value21 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
-	out.RelatedTarget = value25
+	out.RelatedTarget = value21
+	value22 = (input.Get("screenX")).Float()
+	out.ScreenX = value22
+	value23 = (input.Get("screenY")).Float()
+	out.ScreenY = value23
+	value24 = (input.Get("clientX")).Float()
+	out.ClientX = value24
+	value25 = (input.Get("clientY")).Float()
+	out.ClientY = value25
 	if input.Get("dataTransfer").Type() != js.TypeNull {
 		value26 = DataTransferFromJS(input.Get("dataTransfer"))
 	}

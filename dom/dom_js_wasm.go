@@ -5,15 +5,30 @@ package dom
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
+// ccsom.CSSStyleSheet
+// ccsom.StyleSheetList
 // domcore.DOMTokenList
 // domcore.EventHandler
 // domcore.EventTarget
+// geometry.DOMPoint
+// geometry.DOMPointInit
+// geometry.DOMQuad
+// geometry.DOMQuadInit
+// geometry.DOMRect
+// geometry.DOMRectList
+// geometry.DOMRectReadOnly
 // javascript.Promise
+// view.BoxQuadOptions
+// view.ConvertCoordinateOptions
+// view.ScrollToOptions
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -1004,6 +1019,92 @@ func (_this *Element) ShadowRoot() *ShadowRoot {
 	return ret
 }
 
+// ScrollTop returning attribute 'scrollTop' with
+// type float64 (idl: unrestricted double).
+func (_this *Element) ScrollTop() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("scrollTop")
+	ret = (value).Float()
+	return ret
+}
+
+// SetScrollTop setting attribute 'scrollTop' with
+// type float64 (idl: unrestricted double).
+func (_this *Element) SetScrollTop(value float64) {
+	input := value
+	_this.Value_JS.Set("scrollTop", input)
+}
+
+// ScrollLeft returning attribute 'scrollLeft' with
+// type float64 (idl: unrestricted double).
+func (_this *Element) ScrollLeft() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("scrollLeft")
+	ret = (value).Float()
+	return ret
+}
+
+// SetScrollLeft setting attribute 'scrollLeft' with
+// type float64 (idl: unrestricted double).
+func (_this *Element) SetScrollLeft(value float64) {
+	input := value
+	_this.Value_JS.Set("scrollLeft", input)
+}
+
+// ScrollWidth returning attribute 'scrollWidth' with
+// type int (idl: long).
+func (_this *Element) ScrollWidth() int {
+	var ret int
+	value := _this.Value_JS.Get("scrollWidth")
+	ret = (value).Int()
+	return ret
+}
+
+// ScrollHeight returning attribute 'scrollHeight' with
+// type int (idl: long).
+func (_this *Element) ScrollHeight() int {
+	var ret int
+	value := _this.Value_JS.Get("scrollHeight")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientTop returning attribute 'clientTop' with
+// type int (idl: long).
+func (_this *Element) ClientTop() int {
+	var ret int
+	value := _this.Value_JS.Get("clientTop")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientLeft returning attribute 'clientLeft' with
+// type int (idl: long).
+func (_this *Element) ClientLeft() int {
+	var ret int
+	value := _this.Value_JS.Get("clientLeft")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientWidth returning attribute 'clientWidth' with
+// type int (idl: long).
+func (_this *Element) ClientWidth() int {
+	var ret int
+	value := _this.Value_JS.Get("clientWidth")
+	ret = (value).Int()
+	return ret
+}
+
+// ClientHeight returning attribute 'clientHeight' with
+// type int (idl: long).
+func (_this *Element) ClientHeight() int {
+	var ret int
+	value := _this.Value_JS.Get("clientHeight")
+	ret = (value).Int()
+	return ret
+}
+
 // Onfullscreenchange returning attribute 'onfullscreenchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Element) Onfullscreenchange() domcore.EventHandlerFunc {
@@ -1578,6 +1679,135 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	return
 }
 
+func (_this *Element) GetClientRects() (_result *geometry.DOMRectList) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getClientRects", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMRectList // javascript: DOMRectList _what_return_name
+	)
+	_converted = geometry.DOMRectListFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) GetBoundingClientRect() (_result *geometry.DOMRect) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getBoundingClientRect", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMRect // javascript: DOMRect _what_return_name
+	)
+	_converted = geometry.DOMRectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) ScrollIntoView(arg *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if arg != nil {
+		_p0 := arg.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scrollIntoView", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) Scroll(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scroll", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) Scroll2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scroll", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ScrollTo(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scrollTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ScrollTo2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scrollTo", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ScrollBy(options *view.ScrollToOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_this.Value_JS.Call("scrollBy", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ScrollBy2(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("scrollBy", _args[0:_end]...)
+	return
+}
+
 func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *javascript.Promise) {
 	var (
 		_args [1]interface{}
@@ -1593,6 +1823,108 @@ func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *ja
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
 	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) GetBoxQuads(options *view.BoxQuadOptions) (_result []*geometry.DOMQuad) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getBoxQuads", _args[0:_end]...)
+	var (
+		_converted []*geometry.DOMQuad // javascript: sequence<DOMQuad> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*geometry.DOMQuad, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *geometry.DOMQuad
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = geometry.DOMQuadFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+func (_this *Element) ConvertQuadFromNode(quad *geometry.DOMQuadInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := quad.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertQuadFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) ConvertRectFromNode(rect *geometry.DOMRectReadOnly, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := rect.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertRectFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Element) ConvertPointFromNode(point *geometry.DOMPointInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMPoint) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := point.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertPointFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMPoint // javascript: DOMPoint _what_return_name
+	)
+	_converted = geometry.DOMPointFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2711,6 +3043,17 @@ func (_this *ProcessingInstruction) Target() string {
 	return ret
 }
 
+// Sheet returning attribute 'sheet' with
+// type ccsom.CSSStyleSheet (idl: CSSStyleSheet).
+func (_this *ProcessingInstruction) Sheet() *ccsom.CSSStyleSheet {
+	var ret *ccsom.CSSStyleSheet
+	value := _this.Value_JS.Get("sheet")
+	if value.Type() != js.TypeNull {
+		ret = ccsom.CSSStyleSheetFromJS(value)
+	}
+	return ret
+}
+
 // interface: Range
 type Range struct {
 	AbstractRange
@@ -3033,6 +3376,34 @@ func (_this *Range) IntersectsNode(node *Node) (_result bool) {
 	return
 }
 
+func (_this *Range) GetClientRects() (_result *geometry.DOMRectList) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getClientRects", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMRectList // javascript: DOMRectList _what_return_name
+	)
+	_converted = geometry.DOMRectListFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Range) GetBoundingClientRect() (_result *geometry.DOMRect) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getBoundingClientRect", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMRect // javascript: DOMRect _what_return_name
+	)
+	_converted = geometry.DOMRectFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: ShadowRoot
 type ShadowRoot struct {
 	DocumentFragment
@@ -3064,6 +3435,15 @@ func (_this *ShadowRoot) Host() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("host")
 	ret = ElementFromJS(value)
+	return ret
+}
+
+// StyleSheets returning attribute 'styleSheets' with
+// type ccsom.StyleSheetList (idl: StyleSheetList).
+func (_this *ShadowRoot) StyleSheets() *ccsom.StyleSheetList {
+	var ret *ccsom.StyleSheetList
+	value := _this.Value_JS.Get("styleSheets")
+	ret = ccsom.StyleSheetListFromJS(value)
 	return ret
 }
 
@@ -3161,6 +3541,108 @@ func (_this *Text) SplitText(offset uint) (_result *Text) {
 		_converted *Text // javascript: Text _what_return_name
 	)
 	_converted = TextFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Text) GetBoxQuads(options *view.BoxQuadOptions) (_result []*geometry.DOMQuad) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getBoxQuads", _args[0:_end]...)
+	var (
+		_converted []*geometry.DOMQuad // javascript: sequence<DOMQuad> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*geometry.DOMQuad, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *geometry.DOMQuad
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = geometry.DOMQuadFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+func (_this *Text) ConvertQuadFromNode(quad *geometry.DOMQuadInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := quad.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertQuadFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Text) ConvertRectFromNode(rect *geometry.DOMRectReadOnly, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMQuad) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := rect.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertRectFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMQuad // javascript: DOMQuad _what_return_name
+	)
+	_converted = geometry.DOMQuadFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Text) ConvertPointFromNode(point *geometry.DOMPointInit, from *Union, options *view.ConvertCoordinateOptions) (_result *geometry.DOMPoint) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := point.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := from.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("convertPointFromNode", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMPoint // javascript: DOMPoint _what_return_name
+	)
+	_converted = geometry.DOMPointFromJS(_returned)
 	_result = _converted
 	return
 }

@@ -743,13 +743,13 @@ type MouseEventInit struct {
 	ModifierSuper      bool
 	ModifierSymbol     bool
 	ModifierSymbolLock bool
-	ScreenX            int
-	ScreenY            int
-	ClientX            int
-	ClientY            int
 	Button             int
 	Buttons            int
 	RelatedTarget      *domcore.EventTarget
+	ScreenX            float64
+	ScreenY            float64
+	ClientX            float64
+	ClientY            float64
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -794,20 +794,20 @@ func (_this *MouseEventInit) JSValue() js.Value {
 	out.Set("modifierSymbol", value17)
 	value18 := _this.ModifierSymbolLock
 	out.Set("modifierSymbolLock", value18)
-	value19 := _this.ScreenX
-	out.Set("screenX", value19)
-	value20 := _this.ScreenY
-	out.Set("screenY", value20)
-	value21 := _this.ClientX
-	out.Set("clientX", value21)
-	value22 := _this.ClientY
-	out.Set("clientY", value22)
-	value23 := _this.Button
-	out.Set("button", value23)
-	value24 := _this.Buttons
-	out.Set("buttons", value24)
-	value25 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value25)
+	value19 := _this.Button
+	out.Set("button", value19)
+	value20 := _this.Buttons
+	out.Set("buttons", value20)
+	value21 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value21)
+	value22 := _this.ScreenX
+	out.Set("screenX", value22)
+	value23 := _this.ScreenY
+	out.Set("screenY", value23)
+	value24 := _this.ClientX
+	out.Set("clientX", value24)
+	value25 := _this.ClientY
+	out.Set("clientY", value25)
 	return out
 }
 
@@ -837,13 +837,13 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
 		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
 		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 int                  // javascript: long {screenX ScreenX screenX}
-		value20 int                  // javascript: long {screenY ScreenY screenY}
-		value21 int                  // javascript: long {clientX ClientX clientX}
-		value22 int                  // javascript: long {clientY ClientY clientY}
-		value23 int                  // javascript: short {button Button button}
-		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
-		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value19 int                  // javascript: short {button Button button}
+		value20 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value21 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value22 float64              // javascript: double {screenX ScreenX screenX}
+		value23 float64              // javascript: double {screenY ScreenY screenY}
+		value24 float64              // javascript: double {clientX ClientX clientX}
+		value25 float64              // javascript: double {clientY ClientY clientY}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -885,22 +885,22 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	out.ModifierSymbol = value17
 	value18 = (input.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value18
-	value19 = (input.Get("screenX")).Int()
-	out.ScreenX = value19
-	value20 = (input.Get("screenY")).Int()
-	out.ScreenY = value20
-	value21 = (input.Get("clientX")).Int()
-	out.ClientX = value21
-	value22 = (input.Get("clientY")).Int()
-	out.ClientY = value22
-	value23 = (input.Get("button")).Int()
-	out.Button = value23
-	value24 = (input.Get("buttons")).Int()
-	out.Buttons = value24
+	value19 = (input.Get("button")).Int()
+	out.Button = value19
+	value20 = (input.Get("buttons")).Int()
+	out.Buttons = value20
 	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+		value21 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
-	out.RelatedTarget = value25
+	out.RelatedTarget = value21
+	value22 = (input.Get("screenX")).Float()
+	out.ScreenX = value22
+	value23 = (input.Get("screenY")).Float()
+	out.ScreenY = value23
+	value24 = (input.Get("clientX")).Float()
+	out.ClientX = value24
+	value25 = (input.Get("clientY")).Float()
+	out.ClientY = value25
 	return &out
 }
 
@@ -1171,13 +1171,13 @@ type WheelEventInit struct {
 	ModifierSuper      bool
 	ModifierSymbol     bool
 	ModifierSymbolLock bool
-	ScreenX            int
-	ScreenY            int
-	ClientX            int
-	ClientY            int
 	Button             int
 	Buttons            int
 	RelatedTarget      *domcore.EventTarget
+	ScreenX            float64
+	ScreenY            float64
+	ClientX            float64
+	ClientY            float64
 	DeltaX             float64
 	DeltaY             float64
 	DeltaZ             float64
@@ -1226,20 +1226,20 @@ func (_this *WheelEventInit) JSValue() js.Value {
 	out.Set("modifierSymbol", value17)
 	value18 := _this.ModifierSymbolLock
 	out.Set("modifierSymbolLock", value18)
-	value19 := _this.ScreenX
-	out.Set("screenX", value19)
-	value20 := _this.ScreenY
-	out.Set("screenY", value20)
-	value21 := _this.ClientX
-	out.Set("clientX", value21)
-	value22 := _this.ClientY
-	out.Set("clientY", value22)
-	value23 := _this.Button
-	out.Set("button", value23)
-	value24 := _this.Buttons
-	out.Set("buttons", value24)
-	value25 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value25)
+	value19 := _this.Button
+	out.Set("button", value19)
+	value20 := _this.Buttons
+	out.Set("buttons", value20)
+	value21 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value21)
+	value22 := _this.ScreenX
+	out.Set("screenX", value22)
+	value23 := _this.ScreenY
+	out.Set("screenY", value23)
+	value24 := _this.ClientX
+	out.Set("clientX", value24)
+	value25 := _this.ClientY
+	out.Set("clientY", value25)
 	value26 := _this.DeltaX
 	out.Set("deltaX", value26)
 	value27 := _this.DeltaY
@@ -1277,13 +1277,13 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
 		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
 		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 int                  // javascript: long {screenX ScreenX screenX}
-		value20 int                  // javascript: long {screenY ScreenY screenY}
-		value21 int                  // javascript: long {clientX ClientX clientX}
-		value22 int                  // javascript: long {clientY ClientY clientY}
-		value23 int                  // javascript: short {button Button button}
-		value24 int                  // javascript: unsigned short {buttons Buttons buttons}
-		value25 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value19 int                  // javascript: short {button Button button}
+		value20 int                  // javascript: unsigned short {buttons Buttons buttons}
+		value21 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value22 float64              // javascript: double {screenX ScreenX screenX}
+		value23 float64              // javascript: double {screenY ScreenY screenY}
+		value24 float64              // javascript: double {clientX ClientX clientX}
+		value25 float64              // javascript: double {clientY ClientY clientY}
 		value26 float64              // javascript: double {deltaX DeltaX deltaX}
 		value27 float64              // javascript: double {deltaY DeltaY deltaY}
 		value28 float64              // javascript: double {deltaZ DeltaZ deltaZ}
@@ -1329,22 +1329,22 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	out.ModifierSymbol = value17
 	value18 = (input.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value18
-	value19 = (input.Get("screenX")).Int()
-	out.ScreenX = value19
-	value20 = (input.Get("screenY")).Int()
-	out.ScreenY = value20
-	value21 = (input.Get("clientX")).Int()
-	out.ClientX = value21
-	value22 = (input.Get("clientY")).Int()
-	out.ClientY = value22
-	value23 = (input.Get("button")).Int()
-	out.Button = value23
-	value24 = (input.Get("buttons")).Int()
-	out.Buttons = value24
+	value19 = (input.Get("button")).Int()
+	out.Button = value19
+	value20 = (input.Get("buttons")).Int()
+	out.Buttons = value20
 	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value25 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+		value21 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
-	out.RelatedTarget = value25
+	out.RelatedTarget = value21
+	value22 = (input.Get("screenX")).Float()
+	out.ScreenX = value22
+	value23 = (input.Get("screenY")).Float()
+	out.ScreenY = value23
+	value24 = (input.Get("clientX")).Float()
+	out.ClientX = value24
+	value25 = (input.Get("clientY")).Float()
+	out.ClientY = value25
 	value26 = (input.Get("deltaX")).Float()
 	out.DeltaX = value26
 	value27 = (input.Get("deltaY")).Float()
@@ -1911,42 +1911,6 @@ func NewMouseEvent(_type string, eventInitDict *MouseEventInit) (_result *MouseE
 	return
 }
 
-// ScreenX returning attribute 'screenX' with
-// type int (idl: long).
-func (_this *MouseEvent) ScreenX() int {
-	var ret int
-	value := _this.Value_JS.Get("screenX")
-	ret = (value).Int()
-	return ret
-}
-
-// ScreenY returning attribute 'screenY' with
-// type int (idl: long).
-func (_this *MouseEvent) ScreenY() int {
-	var ret int
-	value := _this.Value_JS.Get("screenY")
-	ret = (value).Int()
-	return ret
-}
-
-// ClientX returning attribute 'clientX' with
-// type int (idl: long).
-func (_this *MouseEvent) ClientX() int {
-	var ret int
-	value := _this.Value_JS.Get("clientX")
-	ret = (value).Int()
-	return ret
-}
-
-// ClientY returning attribute 'clientY' with
-// type int (idl: long).
-func (_this *MouseEvent) ClientY() int {
-	var ret int
-	value := _this.Value_JS.Get("clientY")
-	ret = (value).Int()
-	return ret
-}
-
 // CtrlKey returning attribute 'ctrlKey' with
 // type bool (idl: boolean).
 func (_this *MouseEvent) CtrlKey() bool {
@@ -2009,6 +1973,96 @@ func (_this *MouseEvent) RelatedTarget() *domcore.EventTarget {
 	if value.Type() != js.TypeNull {
 		ret = domcore.EventTargetFromJS(value)
 	}
+	return ret
+}
+
+// ScreenX returning attribute 'screenX' with
+// type float64 (idl: double).
+func (_this *MouseEvent) ScreenX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("screenX")
+	ret = (value).Float()
+	return ret
+}
+
+// ScreenY returning attribute 'screenY' with
+// type float64 (idl: double).
+func (_this *MouseEvent) ScreenY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("screenY")
+	ret = (value).Float()
+	return ret
+}
+
+// PageX returning attribute 'pageX' with
+// type float64 (idl: double).
+func (_this *MouseEvent) PageX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("pageX")
+	ret = (value).Float()
+	return ret
+}
+
+// PageY returning attribute 'pageY' with
+// type float64 (idl: double).
+func (_this *MouseEvent) PageY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("pageY")
+	ret = (value).Float()
+	return ret
+}
+
+// ClientX returning attribute 'clientX' with
+// type float64 (idl: double).
+func (_this *MouseEvent) ClientX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("clientX")
+	ret = (value).Float()
+	return ret
+}
+
+// ClientY returning attribute 'clientY' with
+// type float64 (idl: double).
+func (_this *MouseEvent) ClientY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("clientY")
+	ret = (value).Float()
+	return ret
+}
+
+// X returning attribute 'x' with
+// type float64 (idl: double).
+func (_this *MouseEvent) X() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("x")
+	ret = (value).Float()
+	return ret
+}
+
+// Y returning attribute 'y' with
+// type float64 (idl: double).
+func (_this *MouseEvent) Y() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("y")
+	ret = (value).Float()
+	return ret
+}
+
+// OffsetX returning attribute 'offsetX' with
+// type float64 (idl: double).
+func (_this *MouseEvent) OffsetX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("offsetX")
+	ret = (value).Float()
+	return ret
+}
+
+// OffsetY returning attribute 'offsetY' with
+// type float64 (idl: double).
+func (_this *MouseEvent) OffsetY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("offsetY")
+	ret = (value).Float()
 	return ret
 }
 
