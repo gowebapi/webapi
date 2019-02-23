@@ -5,18 +5,30 @@ package htmlmisc
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/clipboard"
+	"github.com/gowebapi/webapi/communication/netinfo"
+	"github.com/gowebapi/webapi/crypto/credential"
+	"github.com/gowebapi/webapi/device/gamepad"
+	"github.com/gowebapi/webapi/device/keyboard/lock"
+	"github.com/gowebapi/webapi/device/wakelock"
+	"github.com/gowebapi/webapi/device/webxr"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/media/capture/streams"
 	"github.com/gowebapi/webapi/media/encrypted"
 	"github.com/gowebapi/webapi/media/session"
 	"github.com/gowebapi/webapi/serviceworker"
+	"github.com/gowebapi/webapi/share"
+	"github.com/gowebapi/webapi/storage"
 )
 
 // using following types:
 // capabilities.MediaCapabilities
+// clipboard.Clipboard
+// credential.CredentialsContainer
 // dom.Node
 // dom.NodeList
 // domcore.DOMStringList
@@ -24,14 +36,22 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // encrypted.MediaKeySystemConfiguration
+// gamepad.Gamepad
 // javascript.FrozenArray
 // javascript.Promise
+// lock.Keyboard
+// netinfo.NetworkInformation
+// permissions.Permissions
 // serviceworker.ServiceWorkerContainer
 // session.MediaSession
+// share.ShareData
+// storage.StorageManager
 // streams.MediaDevices
 // streams.MediaStreamConstraints
 // streams.NavigatorUserMediaErrorCallback
 // streams.NavigatorUserMediaSuccessCallback
+// wakelock.WakeLockType
+// webxr.XR
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -1319,6 +1339,33 @@ func NavigatorFromJS(value js.Wrapper) *Navigator {
 	return ret
 }
 
+// Clipboard returning attribute 'clipboard' with
+// type clipboard.Clipboard (idl: Clipboard).
+func (_this *Navigator) Clipboard() *clipboard.Clipboard {
+	var ret *clipboard.Clipboard
+	value := _this.Value_JS.Get("clipboard")
+	ret = clipboard.ClipboardFromJS(value)
+	return ret
+}
+
+// Credentials returning attribute 'credentials' with
+// type credential.CredentialsContainer (idl: CredentialsContainer).
+func (_this *Navigator) Credentials() *credential.CredentialsContainer {
+	var ret *credential.CredentialsContainer
+	value := _this.Value_JS.Get("credentials")
+	ret = credential.CredentialsContainerFromJS(value)
+	return ret
+}
+
+// Keyboard returning attribute 'keyboard' with
+// type lock.Keyboard (idl: Keyboard).
+func (_this *Navigator) Keyboard() *lock.Keyboard {
+	var ret *lock.Keyboard
+	value := _this.Value_JS.Get("keyboard")
+	ret = lock.KeyboardFromJS(value)
+	return ret
+}
+
 // MediaCapabilities returning attribute 'mediaCapabilities' with
 // type capabilities.MediaCapabilities (idl: MediaCapabilities).
 func (_this *Navigator) MediaCapabilities() *capabilities.MediaCapabilities {
@@ -1346,12 +1393,39 @@ func (_this *Navigator) MediaSession() *session.MediaSession {
 	return ret
 }
 
+// Permissions returning attribute 'permissions' with
+// type permissions.Permissions (idl: Permissions).
+func (_this *Navigator) Permissions() *permissions.Permissions {
+	var ret *permissions.Permissions
+	value := _this.Value_JS.Get("permissions")
+	ret = permissions.PermissionsFromJS(value)
+	return ret
+}
+
+// MaxTouchPoints returning attribute 'maxTouchPoints' with
+// type int (idl: long).
+func (_this *Navigator) MaxTouchPoints() int {
+	var ret int
+	value := _this.Value_JS.Get("maxTouchPoints")
+	ret = (value).Int()
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
 	var ret *serviceworker.ServiceWorkerContainer
 	value := _this.Value_JS.Get("serviceWorker")
 	ret = serviceworker.ServiceWorkerContainerFromJS(value)
+	return ret
+}
+
+// Xr returning attribute 'xr' with
+// type webxr.XR (idl: XR).
+func (_this *Navigator) Xr() *webxr.XR {
+	var ret *webxr.XR
+	value := _this.Value_JS.Get("xr")
+	ret = webxr.XRFromJS(value)
 	return ret
 }
 
@@ -1508,6 +1582,69 @@ func (_this *Navigator) HardwareConcurrency() int {
 	return ret
 }
 
+// Connection returning attribute 'connection' with
+// type netinfo.NetworkInformation (idl: NetworkInformation).
+func (_this *Navigator) Connection() *netinfo.NetworkInformation {
+	var ret *netinfo.NetworkInformation
+	value := _this.Value_JS.Get("connection")
+	ret = netinfo.NetworkInformationFromJS(value)
+	return ret
+}
+
+// Storage returning attribute 'storage' with
+// type storage.StorageManager (idl: StorageManager).
+func (_this *Navigator) Storage() *storage.StorageManager {
+	var ret *storage.StorageManager
+	value := _this.Value_JS.Get("storage")
+	ret = storage.StorageManagerFromJS(value)
+	return ret
+}
+
+// Webdriver returning attribute 'webdriver' with
+// type bool (idl: boolean).
+func (_this *Navigator) Webdriver() bool {
+	var ret bool
+	value := _this.Value_JS.Get("webdriver")
+	ret = (value).Bool()
+	return ret
+}
+
+func (_this *Navigator) GetBattery() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getBattery", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) SendBeacon(url string, data *Union) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := url
+	_args[0] = _p0
+	_end++
+	if data != nil {
+		_p1 := data.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("sendBeacon", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
 func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedConfigurations []*encrypted.MediaKeySystemConfiguration) (_result *javascript.Promise) {
 	var (
 		_args [2]interface{}
@@ -1528,6 +1665,28 @@ func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedC
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
 	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) GetGamepads() (_result []*gamepad.Gamepad) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getGamepads", _args[0:_end]...)
+	var (
+		_converted []*gamepad.Gamepad // javascript: sequence<Gamepad> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*gamepad.Gamepad, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *gamepad.Gamepad
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = gamepad.GamepadFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
 	_result = _converted
 	return
 }
@@ -1561,6 +1720,59 @@ func (_this *Navigator) GetUserMedia(constraints *streams.MediaStreamConstraints
 	_args[2] = _p2
 	_end++
 	_this.Value_JS.Call("getUserMedia", _args[0:_end]...)
+	return
+}
+
+func (_this *Navigator) Vibrate(pattern *Union) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := pattern.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("vibrate", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) GetWakeLock(_type wakelock.WakeLockType) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := _type.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getWakeLock", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if data != nil {
+		_p0 := data.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("share", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
 	return
 }
 

@@ -5,15 +5,22 @@ package worker
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/communication/netinfo"
+	"github.com/gowebapi/webapi/crypto"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/fetch"
+	"github.com/gowebapi/webapi/fetch/corsrfc1918"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
+	"github.com/gowebapi/webapi/indexeddb"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
+	"github.com/gowebapi/webapi/storage"
+	"github.com/gowebapi/webapi/unknown/cookie"
 	"github.com/gowebapi/webapi/webidl"
 )
 
@@ -22,6 +29,9 @@ import (
 // capabilities.MediaCapabilities
 // channel.MessagePort
 // channel.PostMessageOptions
+// cookie.CookieStore
+// corsrfc1918.AddressSpace
+// crypto.Crypto
 // domcore.EventHandler
 // domcore.EventTarget
 // fetch.RequestCredentials
@@ -29,14 +39,18 @@ import (
 // htmlcommon.FrameRequestCallback
 // htmlcommon.OnErrorEventHandler
 // htmlcommon.WorkerType
+// indexeddb.IDBFactory
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
+// netinfo.NetworkInformation
 // patch.ByteString
+// permissions.Permissions
 // serviceworker.CacheStorage
 // serviceworker.Clients
 // serviceworker.ServiceWorkerContainer
 // serviceworker.ServiceWorkerRegistration
+// storage.StorageManager
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -416,6 +430,159 @@ func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHan
 	}
 	input := __callback0
 	_this.Value_JS.Set("onmessageerror", input)
+}
+
+// Onbackgroundfetchsuccess returning attribute 'onbackgroundfetchsuccess' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchsuccess() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbackgroundfetchsuccess")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbackgroundfetchsuccess setting attribute 'onbackgroundfetchsuccess' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchsuccess(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbackgroundfetchsuccess", input)
+}
+
+// Onbackgroundfetchfail returning attribute 'onbackgroundfetchfail' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchfail() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbackgroundfetchfail")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbackgroundfetchfail setting attribute 'onbackgroundfetchfail' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchfail(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbackgroundfetchfail", input)
+}
+
+// Onbackgroundfetchabort returning attribute 'onbackgroundfetchabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchabort() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbackgroundfetchabort")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbackgroundfetchabort setting attribute 'onbackgroundfetchabort' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchabort(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbackgroundfetchabort", input)
+}
+
+// Onbackgroundfetchclick returning attribute 'onbackgroundfetchclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchclick() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbackgroundfetchclick")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbackgroundfetchclick setting attribute 'onbackgroundfetchclick' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchclick(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbackgroundfetchclick", input)
+}
+
+// Onsync returning attribute 'onsync' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsync")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsync setting attribute 'onsync' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsync", input)
+}
+
+// CookieStore returning attribute 'cookieStore' with
+// type cookie.CookieStore (idl: CookieStore).
+func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
+	var ret *cookie.CookieStore
+	value := _this.Value_JS.Get("cookieStore")
+	ret = cookie.CookieStoreFromJS(value)
+	return ret
+}
+
+// Oncookiechange returning attribute 'oncookiechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncookiechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncookiechange setting attribute 'oncookiechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOncookiechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncookiechange", input)
 }
 
 func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promise) {
@@ -905,6 +1072,15 @@ func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *domcore.EventHand
 	_this.Value_JS.Set("onunhandledrejection", input)
 }
 
+// AddressSpace returning attribute 'addressSpace' with
+// type corsrfc1918.AddressSpace (idl: AddressSpace).
+func (_this *WorkerGlobalScope) AddressSpace() corsrfc1918.AddressSpace {
+	var ret corsrfc1918.AddressSpace
+	value := _this.Value_JS.Get("addressSpace")
+	ret = corsrfc1918.AddressSpaceFromJS(value)
+	return ret
+}
+
 // Origin returning attribute 'origin' with
 // type string (idl: USVString).
 func (_this *WorkerGlobalScope) Origin() string {
@@ -914,12 +1090,39 @@ func (_this *WorkerGlobalScope) Origin() string {
 	return ret
 }
 
+// IsSecureContext returning attribute 'isSecureContext' with
+// type bool (idl: boolean).
+func (_this *WorkerGlobalScope) IsSecureContext() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isSecureContext")
+	ret = (value).Bool()
+	return ret
+}
+
 // Caches returning attribute 'caches' with
 // type serviceworker.CacheStorage (idl: CacheStorage).
 func (_this *WorkerGlobalScope) Caches() *serviceworker.CacheStorage {
 	var ret *serviceworker.CacheStorage
 	value := _this.Value_JS.Get("caches")
 	ret = serviceworker.CacheStorageFromJS(value)
+	return ret
+}
+
+// IndexedDB returning attribute 'indexedDB' with
+// type indexeddb.IDBFactory (idl: IDBFactory).
+func (_this *WorkerGlobalScope) IndexedDB() *indexeddb.IDBFactory {
+	var ret *indexeddb.IDBFactory
+	value := _this.Value_JS.Get("indexedDB")
+	ret = indexeddb.IDBFactoryFromJS(value)
+	return ret
+}
+
+// Crypto returning attribute 'crypto' with
+// type crypto.Crypto (idl: Crypto).
+func (_this *WorkerGlobalScope) Crypto() *crypto.Crypto {
+	var ret *crypto.Crypto
+	value := _this.Value_JS.Get("crypto")
+	ret = crypto.CryptoFromJS(value)
 	return ret
 }
 
@@ -1282,6 +1485,15 @@ func (_this *WorkerNavigator) MediaCapabilities() *capabilities.MediaCapabilitie
 	return ret
 }
 
+// Permissions returning attribute 'permissions' with
+// type permissions.Permissions (idl: Permissions).
+func (_this *WorkerNavigator) Permissions() *permissions.Permissions {
+	var ret *permissions.Permissions
+	value := _this.Value_JS.Get("permissions")
+	ret = permissions.PermissionsFromJS(value)
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *WorkerNavigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
@@ -1414,6 +1626,24 @@ func (_this *WorkerNavigator) HardwareConcurrency() int {
 	var ret int
 	value := _this.Value_JS.Get("hardwareConcurrency")
 	ret = (value).Int()
+	return ret
+}
+
+// Connection returning attribute 'connection' with
+// type netinfo.NetworkInformation (idl: NetworkInformation).
+func (_this *WorkerNavigator) Connection() *netinfo.NetworkInformation {
+	var ret *netinfo.NetworkInformation
+	value := _this.Value_JS.Get("connection")
+	ret = netinfo.NetworkInformationFromJS(value)
+	return ret
+}
+
+// Storage returning attribute 'storage' with
+// type storage.StorageManager (idl: StorageManager).
+func (_this *WorkerNavigator) Storage() *storage.StorageManager {
+	var ret *storage.StorageManager
+	value := _this.Value_JS.Get("storage")
+	ret = storage.StorageManagerFromJS(value)
 	return ret
 }
 

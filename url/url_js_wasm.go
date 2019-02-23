@@ -5,12 +5,12 @@ package url
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/media"
 )
 
 // using following types:
-// fileapi.Blob
+// file.Blob
 // media.MediaSource
 
 // ReleasableApiResource is used to release underlaying
@@ -65,7 +65,7 @@ func URLFromJS(value js.Wrapper) *URL {
 	return ret
 }
 
-func CreateObjectURL(blob *fileapi.Blob) (_result string) {
+func CreateObjectURL(blob *file.Blob) (_result string) {
 	_klass := js.Global().Get("URL")
 	_method := _klass.Get("createObjectURL")
 	var (

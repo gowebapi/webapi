@@ -8,6 +8,8 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/depth"
+	"github.com/gowebapi/webapi/media/capture/screen"
+	"github.com/gowebapi/webapi/media/mediatype"
 	"github.com/gowebapi/webapi/patch"
 )
 
@@ -19,7 +21,10 @@ import (
 // domcore.EventTarget
 // javascript.Object
 // javascript.Promise
+// mediatype.MediaSettingsRange
+// mediatype.Point2D
 // patch.OverconstrainedError
+// screen.DisplayMediaStreamConstraints
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -587,6 +592,20 @@ type MediaTrackCapabilities struct {
 	ChannelCount                       *ULongRange
 	DeviceId                           string
 	GroupId                            string
+	WhiteBalanceMode                   []string
+	ExposureMode                       []string
+	FocusMode                          []string
+	ExposureCompensation               *mediatype.MediaSettingsRange
+	ExposureTime                       *mediatype.MediaSettingsRange
+	ColorTemperature                   *mediatype.MediaSettingsRange
+	Iso                                *mediatype.MediaSettingsRange
+	Brightness                         *mediatype.MediaSettingsRange
+	Contrast                           *mediatype.MediaSettingsRange
+	Saturation                         *mediatype.MediaSettingsRange
+	Sharpness                          *mediatype.MediaSettingsRange
+	FocusDistance                      *mediatype.MediaSettingsRange
+	Zoom                               *mediatype.MediaSettingsRange
+	Torch                              bool
 	VideoKind                          string
 	FocalLengthX                       *Union
 	FocalLengthY                       *Union
@@ -655,26 +674,66 @@ func (_this *MediaTrackCapabilities) JSValue() js.Value {
 	out.Set("deviceId", value14)
 	value15 := _this.GroupId
 	out.Set("groupId", value15)
-	value16 := _this.VideoKind
-	out.Set("videoKind", value16)
-	value17 := _this.FocalLengthX.JSValue()
-	out.Set("focalLengthX", value17)
-	value18 := _this.FocalLengthY.JSValue()
-	out.Set("focalLengthY", value18)
-	value19 := _this.PrincipalPointX.JSValue()
-	out.Set("principalPointX", value19)
-	value20 := _this.PrincipalPointY.JSValue()
-	out.Set("principalPointY", value20)
-	value21 := _this.DeprojectionDistortionCoefficients
-	out.Set("deprojectionDistortionCoefficients", value21)
-	value22 := _this.ProjectionDistortionCoefficients
-	out.Set("projectionDistortionCoefficients", value22)
-	value23 := _this.DepthNear.JSValue()
-	out.Set("depthNear", value23)
-	value24 := _this.DepthFar.JSValue()
-	out.Set("depthFar", value24)
-	value25 := _this.DepthToVideoTransform
-	out.Set("depthToVideoTransform", value25)
+	value16 := js.Global().Get("Array").New(len(_this.WhiteBalanceMode))
+	for __idx16, __seq_in16 := range _this.WhiteBalanceMode {
+		__seq_out16 := __seq_in16
+		value16.SetIndex(__idx16, __seq_out16)
+	}
+	out.Set("whiteBalanceMode", value16)
+	value17 := js.Global().Get("Array").New(len(_this.ExposureMode))
+	for __idx17, __seq_in17 := range _this.ExposureMode {
+		__seq_out17 := __seq_in17
+		value17.SetIndex(__idx17, __seq_out17)
+	}
+	out.Set("exposureMode", value17)
+	value18 := js.Global().Get("Array").New(len(_this.FocusMode))
+	for __idx18, __seq_in18 := range _this.FocusMode {
+		__seq_out18 := __seq_in18
+		value18.SetIndex(__idx18, __seq_out18)
+	}
+	out.Set("focusMode", value18)
+	value19 := _this.ExposureCompensation.JSValue()
+	out.Set("exposureCompensation", value19)
+	value20 := _this.ExposureTime.JSValue()
+	out.Set("exposureTime", value20)
+	value21 := _this.ColorTemperature.JSValue()
+	out.Set("colorTemperature", value21)
+	value22 := _this.Iso.JSValue()
+	out.Set("iso", value22)
+	value23 := _this.Brightness.JSValue()
+	out.Set("brightness", value23)
+	value24 := _this.Contrast.JSValue()
+	out.Set("contrast", value24)
+	value25 := _this.Saturation.JSValue()
+	out.Set("saturation", value25)
+	value26 := _this.Sharpness.JSValue()
+	out.Set("sharpness", value26)
+	value27 := _this.FocusDistance.JSValue()
+	out.Set("focusDistance", value27)
+	value28 := _this.Zoom.JSValue()
+	out.Set("zoom", value28)
+	value29 := _this.Torch
+	out.Set("torch", value29)
+	value30 := _this.VideoKind
+	out.Set("videoKind", value30)
+	value31 := _this.FocalLengthX.JSValue()
+	out.Set("focalLengthX", value31)
+	value32 := _this.FocalLengthY.JSValue()
+	out.Set("focalLengthY", value32)
+	value33 := _this.PrincipalPointX.JSValue()
+	out.Set("principalPointX", value33)
+	value34 := _this.PrincipalPointY.JSValue()
+	out.Set("principalPointY", value34)
+	value35 := _this.DeprojectionDistortionCoefficients
+	out.Set("deprojectionDistortionCoefficients", value35)
+	value36 := _this.ProjectionDistortionCoefficients
+	out.Set("projectionDistortionCoefficients", value36)
+	value37 := _this.DepthNear.JSValue()
+	out.Set("depthNear", value37)
+	value38 := _this.DepthFar.JSValue()
+	out.Set("depthFar", value38)
+	value39 := _this.DepthToVideoTransform
+	out.Set("depthToVideoTransform", value39)
 	return out
 }
 
@@ -685,32 +744,46 @@ func MediaTrackCapabilitiesFromJS(value js.Wrapper) *MediaTrackCapabilities {
 	input := value.JSValue()
 	var out MediaTrackCapabilities
 	var (
-		value0  *ULongRange  // javascript: ULongRange {width Width width}
-		value1  *ULongRange  // javascript: ULongRange {height Height height}
-		value2  *DoubleRange // javascript: DoubleRange {aspectRatio AspectRatio aspectRatio}
-		value3  *DoubleRange // javascript: DoubleRange {frameRate FrameRate frameRate}
-		value4  []string     // javascript: sequence<DOMString> {facingMode FacingMode facingMode}
-		value5  []string     // javascript: sequence<DOMString> {resizeMode ResizeMode resizeMode}
-		value6  *DoubleRange // javascript: DoubleRange {volume Volume volume}
-		value7  *ULongRange  // javascript: ULongRange {sampleRate SampleRate sampleRate}
-		value8  *ULongRange  // javascript: ULongRange {sampleSize SampleSize sampleSize}
-		value9  []bool       // javascript: sequence<boolean> {echoCancellation EchoCancellation echoCancellation}
-		value10 []bool       // javascript: sequence<boolean> {autoGainControl AutoGainControl autoGainControl}
-		value11 []bool       // javascript: sequence<boolean> {noiseSuppression NoiseSuppression noiseSuppression}
-		value12 *DoubleRange // javascript: DoubleRange {latency Latency latency}
-		value13 *ULongRange  // javascript: ULongRange {channelCount ChannelCount channelCount}
-		value14 string       // javascript: DOMString {deviceId DeviceId deviceId}
-		value15 string       // javascript: DOMString {groupId GroupId groupId}
-		value16 string       // javascript: DOMString {videoKind VideoKind videoKind}
-		value17 *Union       // javascript: Union {focalLengthX FocalLengthX focalLengthX}
-		value18 *Union       // javascript: Union {focalLengthY FocalLengthY focalLengthY}
-		value19 *Union       // javascript: Union {principalPointX PrincipalPointX principalPointX}
-		value20 *Union       // javascript: Union {principalPointY PrincipalPointY principalPointY}
-		value21 bool         // javascript: boolean {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
-		value22 bool         // javascript: boolean {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
-		value23 *Union       // javascript: Union {depthNear DepthNear depthNear}
-		value24 *Union       // javascript: Union {depthFar DepthFar depthFar}
-		value25 bool         // javascript: boolean {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value0  *ULongRange                   // javascript: ULongRange {width Width width}
+		value1  *ULongRange                   // javascript: ULongRange {height Height height}
+		value2  *DoubleRange                  // javascript: DoubleRange {aspectRatio AspectRatio aspectRatio}
+		value3  *DoubleRange                  // javascript: DoubleRange {frameRate FrameRate frameRate}
+		value4  []string                      // javascript: sequence<DOMString> {facingMode FacingMode facingMode}
+		value5  []string                      // javascript: sequence<DOMString> {resizeMode ResizeMode resizeMode}
+		value6  *DoubleRange                  // javascript: DoubleRange {volume Volume volume}
+		value7  *ULongRange                   // javascript: ULongRange {sampleRate SampleRate sampleRate}
+		value8  *ULongRange                   // javascript: ULongRange {sampleSize SampleSize sampleSize}
+		value9  []bool                        // javascript: sequence<boolean> {echoCancellation EchoCancellation echoCancellation}
+		value10 []bool                        // javascript: sequence<boolean> {autoGainControl AutoGainControl autoGainControl}
+		value11 []bool                        // javascript: sequence<boolean> {noiseSuppression NoiseSuppression noiseSuppression}
+		value12 *DoubleRange                  // javascript: DoubleRange {latency Latency latency}
+		value13 *ULongRange                   // javascript: ULongRange {channelCount ChannelCount channelCount}
+		value14 string                        // javascript: DOMString {deviceId DeviceId deviceId}
+		value15 string                        // javascript: DOMString {groupId GroupId groupId}
+		value16 []string                      // javascript: sequence<DOMString> {whiteBalanceMode WhiteBalanceMode whiteBalanceMode}
+		value17 []string                      // javascript: sequence<DOMString> {exposureMode ExposureMode exposureMode}
+		value18 []string                      // javascript: sequence<DOMString> {focusMode FocusMode focusMode}
+		value19 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {exposureCompensation ExposureCompensation exposureCompensation}
+		value20 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {exposureTime ExposureTime exposureTime}
+		value21 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {colorTemperature ColorTemperature colorTemperature}
+		value22 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {iso Iso iso}
+		value23 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {brightness Brightness brightness}
+		value24 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {contrast Contrast contrast}
+		value25 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {saturation Saturation saturation}
+		value26 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {sharpness Sharpness sharpness}
+		value27 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {focusDistance FocusDistance focusDistance}
+		value28 *mediatype.MediaSettingsRange // javascript: MediaSettingsRange {zoom Zoom zoom}
+		value29 bool                          // javascript: boolean {torch Torch torch}
+		value30 string                        // javascript: DOMString {videoKind VideoKind videoKind}
+		value31 *Union                        // javascript: Union {focalLengthX FocalLengthX focalLengthX}
+		value32 *Union                        // javascript: Union {focalLengthY FocalLengthY focalLengthY}
+		value33 *Union                        // javascript: Union {principalPointX PrincipalPointX principalPointX}
+		value34 *Union                        // javascript: Union {principalPointY PrincipalPointY principalPointY}
+		value35 bool                          // javascript: boolean {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
+		value36 bool                          // javascript: boolean {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
+		value37 *Union                        // javascript: Union {depthNear DepthNear depthNear}
+		value38 *Union                        // javascript: Union {depthFar DepthFar depthFar}
+		value39 bool                          // javascript: boolean {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
 	)
 	value0 = ULongRangeFromJS(input.Get("width"))
 	out.Width = value0
@@ -784,26 +857,78 @@ func MediaTrackCapabilitiesFromJS(value js.Wrapper) *MediaTrackCapabilities {
 	out.DeviceId = value14
 	value15 = (input.Get("groupId")).String()
 	out.GroupId = value15
-	value16 = (input.Get("videoKind")).String()
-	out.VideoKind = value16
-	value17 = UnionFromJS(input.Get("focalLengthX"))
-	out.FocalLengthX = value17
-	value18 = UnionFromJS(input.Get("focalLengthY"))
-	out.FocalLengthY = value18
-	value19 = UnionFromJS(input.Get("principalPointX"))
-	out.PrincipalPointX = value19
-	value20 = UnionFromJS(input.Get("principalPointY"))
-	out.PrincipalPointY = value20
-	value21 = (input.Get("deprojectionDistortionCoefficients")).Bool()
-	out.DeprojectionDistortionCoefficients = value21
-	value22 = (input.Get("projectionDistortionCoefficients")).Bool()
-	out.ProjectionDistortionCoefficients = value22
-	value23 = UnionFromJS(input.Get("depthNear"))
-	out.DepthNear = value23
-	value24 = UnionFromJS(input.Get("depthFar"))
-	out.DepthFar = value24
-	value25 = (input.Get("depthToVideoTransform")).Bool()
-	out.DepthToVideoTransform = value25
+	__length16 := input.Get("whiteBalanceMode").Length()
+	__array16 := make([]string, __length16, __length16)
+	for __idx16 := 0; __idx16 < __length16; __idx16++ {
+		var __seq_out16 string
+		__seq_in16 := input.Get("whiteBalanceMode").Index(__idx16)
+		__seq_out16 = (__seq_in16).String()
+		__array16[__idx16] = __seq_out16
+	}
+	value16 = __array16
+	out.WhiteBalanceMode = value16
+	__length17 := input.Get("exposureMode").Length()
+	__array17 := make([]string, __length17, __length17)
+	for __idx17 := 0; __idx17 < __length17; __idx17++ {
+		var __seq_out17 string
+		__seq_in17 := input.Get("exposureMode").Index(__idx17)
+		__seq_out17 = (__seq_in17).String()
+		__array17[__idx17] = __seq_out17
+	}
+	value17 = __array17
+	out.ExposureMode = value17
+	__length18 := input.Get("focusMode").Length()
+	__array18 := make([]string, __length18, __length18)
+	for __idx18 := 0; __idx18 < __length18; __idx18++ {
+		var __seq_out18 string
+		__seq_in18 := input.Get("focusMode").Index(__idx18)
+		__seq_out18 = (__seq_in18).String()
+		__array18[__idx18] = __seq_out18
+	}
+	value18 = __array18
+	out.FocusMode = value18
+	value19 = mediatype.MediaSettingsRangeFromJS(input.Get("exposureCompensation"))
+	out.ExposureCompensation = value19
+	value20 = mediatype.MediaSettingsRangeFromJS(input.Get("exposureTime"))
+	out.ExposureTime = value20
+	value21 = mediatype.MediaSettingsRangeFromJS(input.Get("colorTemperature"))
+	out.ColorTemperature = value21
+	value22 = mediatype.MediaSettingsRangeFromJS(input.Get("iso"))
+	out.Iso = value22
+	value23 = mediatype.MediaSettingsRangeFromJS(input.Get("brightness"))
+	out.Brightness = value23
+	value24 = mediatype.MediaSettingsRangeFromJS(input.Get("contrast"))
+	out.Contrast = value24
+	value25 = mediatype.MediaSettingsRangeFromJS(input.Get("saturation"))
+	out.Saturation = value25
+	value26 = mediatype.MediaSettingsRangeFromJS(input.Get("sharpness"))
+	out.Sharpness = value26
+	value27 = mediatype.MediaSettingsRangeFromJS(input.Get("focusDistance"))
+	out.FocusDistance = value27
+	value28 = mediatype.MediaSettingsRangeFromJS(input.Get("zoom"))
+	out.Zoom = value28
+	value29 = (input.Get("torch")).Bool()
+	out.Torch = value29
+	value30 = (input.Get("videoKind")).String()
+	out.VideoKind = value30
+	value31 = UnionFromJS(input.Get("focalLengthX"))
+	out.FocalLengthX = value31
+	value32 = UnionFromJS(input.Get("focalLengthY"))
+	out.FocalLengthY = value32
+	value33 = UnionFromJS(input.Get("principalPointX"))
+	out.PrincipalPointX = value33
+	value34 = UnionFromJS(input.Get("principalPointY"))
+	out.PrincipalPointY = value34
+	value35 = (input.Get("deprojectionDistortionCoefficients")).Bool()
+	out.DeprojectionDistortionCoefficients = value35
+	value36 = (input.Get("projectionDistortionCoefficients")).Bool()
+	out.ProjectionDistortionCoefficients = value36
+	value37 = UnionFromJS(input.Get("depthNear"))
+	out.DepthNear = value37
+	value38 = UnionFromJS(input.Get("depthFar"))
+	out.DepthFar = value38
+	value39 = (input.Get("depthToVideoTransform")).Bool()
+	out.DepthToVideoTransform = value39
 	return &out
 }
 
@@ -825,6 +950,21 @@ type MediaTrackConstraintSet struct {
 	ChannelCount                       *Union
 	DeviceId                           *Union
 	GroupId                            *Union
+	WhiteBalanceMode                   *Union
+	ExposureMode                       *Union
+	FocusMode                          *Union
+	PointsOfInterest                   *Union
+	ExposureCompensation               *Union
+	ExposureTime                       *Union
+	ColorTemperature                   *Union
+	Iso                                *Union
+	Brightness                         *Union
+	Contrast                           *Union
+	Saturation                         *Union
+	Sharpness                          *Union
+	FocusDistance                      *Union
+	Zoom                               *Union
+	Torch                              *Union
 	VideoKind                          *Union
 	FocalLengthX                       *Union
 	FocalLengthY                       *Union
@@ -835,6 +975,9 @@ type MediaTrackConstraintSet struct {
 	DepthNear                          *Union
 	DepthFar                           *Union
 	DepthToVideoTransform              *Union
+	DisplaySurface                     *Union
+	LogicalSurface                     *Union
+	Cursor                             *Union
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -873,26 +1016,62 @@ func (_this *MediaTrackConstraintSet) JSValue() js.Value {
 	out.Set("deviceId", value14)
 	value15 := _this.GroupId.JSValue()
 	out.Set("groupId", value15)
-	value16 := _this.VideoKind.JSValue()
-	out.Set("videoKind", value16)
-	value17 := _this.FocalLengthX.JSValue()
-	out.Set("focalLengthX", value17)
-	value18 := _this.FocalLengthY.JSValue()
-	out.Set("focalLengthY", value18)
-	value19 := _this.PrincipalPointX.JSValue()
-	out.Set("principalPointX", value19)
-	value20 := _this.PrincipalPointY.JSValue()
-	out.Set("principalPointY", value20)
-	value21 := _this.DeprojectionDistortionCoefficients.JSValue()
-	out.Set("deprojectionDistortionCoefficients", value21)
-	value22 := _this.ProjectionDistortionCoefficients.JSValue()
-	out.Set("projectionDistortionCoefficients", value22)
-	value23 := _this.DepthNear.JSValue()
-	out.Set("depthNear", value23)
-	value24 := _this.DepthFar.JSValue()
-	out.Set("depthFar", value24)
-	value25 := _this.DepthToVideoTransform.JSValue()
-	out.Set("depthToVideoTransform", value25)
+	value16 := _this.WhiteBalanceMode.JSValue()
+	out.Set("whiteBalanceMode", value16)
+	value17 := _this.ExposureMode.JSValue()
+	out.Set("exposureMode", value17)
+	value18 := _this.FocusMode.JSValue()
+	out.Set("focusMode", value18)
+	value19 := _this.PointsOfInterest.JSValue()
+	out.Set("pointsOfInterest", value19)
+	value20 := _this.ExposureCompensation.JSValue()
+	out.Set("exposureCompensation", value20)
+	value21 := _this.ExposureTime.JSValue()
+	out.Set("exposureTime", value21)
+	value22 := _this.ColorTemperature.JSValue()
+	out.Set("colorTemperature", value22)
+	value23 := _this.Iso.JSValue()
+	out.Set("iso", value23)
+	value24 := _this.Brightness.JSValue()
+	out.Set("brightness", value24)
+	value25 := _this.Contrast.JSValue()
+	out.Set("contrast", value25)
+	value26 := _this.Saturation.JSValue()
+	out.Set("saturation", value26)
+	value27 := _this.Sharpness.JSValue()
+	out.Set("sharpness", value27)
+	value28 := _this.FocusDistance.JSValue()
+	out.Set("focusDistance", value28)
+	value29 := _this.Zoom.JSValue()
+	out.Set("zoom", value29)
+	value30 := _this.Torch.JSValue()
+	out.Set("torch", value30)
+	value31 := _this.VideoKind.JSValue()
+	out.Set("videoKind", value31)
+	value32 := _this.FocalLengthX.JSValue()
+	out.Set("focalLengthX", value32)
+	value33 := _this.FocalLengthY.JSValue()
+	out.Set("focalLengthY", value33)
+	value34 := _this.PrincipalPointX.JSValue()
+	out.Set("principalPointX", value34)
+	value35 := _this.PrincipalPointY.JSValue()
+	out.Set("principalPointY", value35)
+	value36 := _this.DeprojectionDistortionCoefficients.JSValue()
+	out.Set("deprojectionDistortionCoefficients", value36)
+	value37 := _this.ProjectionDistortionCoefficients.JSValue()
+	out.Set("projectionDistortionCoefficients", value37)
+	value38 := _this.DepthNear.JSValue()
+	out.Set("depthNear", value38)
+	value39 := _this.DepthFar.JSValue()
+	out.Set("depthFar", value39)
+	value40 := _this.DepthToVideoTransform.JSValue()
+	out.Set("depthToVideoTransform", value40)
+	value41 := _this.DisplaySurface.JSValue()
+	out.Set("displaySurface", value41)
+	value42 := _this.LogicalSurface.JSValue()
+	out.Set("logicalSurface", value42)
+	value43 := _this.Cursor.JSValue()
+	out.Set("cursor", value43)
 	return out
 }
 
@@ -919,16 +1098,34 @@ func MediaTrackConstraintSetFromJS(value js.Wrapper) *MediaTrackConstraintSet {
 		value13 *Union // javascript: Union {channelCount ChannelCount channelCount}
 		value14 *Union // javascript: Union {deviceId DeviceId deviceId}
 		value15 *Union // javascript: Union {groupId GroupId groupId}
-		value16 *Union // javascript: Union {videoKind VideoKind videoKind}
-		value17 *Union // javascript: Union {focalLengthX FocalLengthX focalLengthX}
-		value18 *Union // javascript: Union {focalLengthY FocalLengthY focalLengthY}
-		value19 *Union // javascript: Union {principalPointX PrincipalPointX principalPointX}
-		value20 *Union // javascript: Union {principalPointY PrincipalPointY principalPointY}
-		value21 *Union // javascript: Union {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
-		value22 *Union // javascript: Union {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
-		value23 *Union // javascript: Union {depthNear DepthNear depthNear}
-		value24 *Union // javascript: Union {depthFar DepthFar depthFar}
-		value25 *Union // javascript: Union {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value16 *Union // javascript: Union {whiteBalanceMode WhiteBalanceMode whiteBalanceMode}
+		value17 *Union // javascript: Union {exposureMode ExposureMode exposureMode}
+		value18 *Union // javascript: Union {focusMode FocusMode focusMode}
+		value19 *Union // javascript: Union {pointsOfInterest PointsOfInterest pointsOfInterest}
+		value20 *Union // javascript: Union {exposureCompensation ExposureCompensation exposureCompensation}
+		value21 *Union // javascript: Union {exposureTime ExposureTime exposureTime}
+		value22 *Union // javascript: Union {colorTemperature ColorTemperature colorTemperature}
+		value23 *Union // javascript: Union {iso Iso iso}
+		value24 *Union // javascript: Union {brightness Brightness brightness}
+		value25 *Union // javascript: Union {contrast Contrast contrast}
+		value26 *Union // javascript: Union {saturation Saturation saturation}
+		value27 *Union // javascript: Union {sharpness Sharpness sharpness}
+		value28 *Union // javascript: Union {focusDistance FocusDistance focusDistance}
+		value29 *Union // javascript: Union {zoom Zoom zoom}
+		value30 *Union // javascript: Union {torch Torch torch}
+		value31 *Union // javascript: Union {videoKind VideoKind videoKind}
+		value32 *Union // javascript: Union {focalLengthX FocalLengthX focalLengthX}
+		value33 *Union // javascript: Union {focalLengthY FocalLengthY focalLengthY}
+		value34 *Union // javascript: Union {principalPointX PrincipalPointX principalPointX}
+		value35 *Union // javascript: Union {principalPointY PrincipalPointY principalPointY}
+		value36 *Union // javascript: Union {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
+		value37 *Union // javascript: Union {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
+		value38 *Union // javascript: Union {depthNear DepthNear depthNear}
+		value39 *Union // javascript: Union {depthFar DepthFar depthFar}
+		value40 *Union // javascript: Union {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value41 *Union // javascript: Union {displaySurface DisplaySurface displaySurface}
+		value42 *Union // javascript: Union {logicalSurface LogicalSurface logicalSurface}
+		value43 *Union // javascript: Union {cursor Cursor cursor}
 	)
 	value0 = UnionFromJS(input.Get("width"))
 	out.Width = value0
@@ -962,26 +1159,62 @@ func MediaTrackConstraintSetFromJS(value js.Wrapper) *MediaTrackConstraintSet {
 	out.DeviceId = value14
 	value15 = UnionFromJS(input.Get("groupId"))
 	out.GroupId = value15
-	value16 = UnionFromJS(input.Get("videoKind"))
-	out.VideoKind = value16
-	value17 = UnionFromJS(input.Get("focalLengthX"))
-	out.FocalLengthX = value17
-	value18 = UnionFromJS(input.Get("focalLengthY"))
-	out.FocalLengthY = value18
-	value19 = UnionFromJS(input.Get("principalPointX"))
-	out.PrincipalPointX = value19
-	value20 = UnionFromJS(input.Get("principalPointY"))
-	out.PrincipalPointY = value20
-	value21 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
-	out.DeprojectionDistortionCoefficients = value21
-	value22 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
-	out.ProjectionDistortionCoefficients = value22
-	value23 = UnionFromJS(input.Get("depthNear"))
-	out.DepthNear = value23
-	value24 = UnionFromJS(input.Get("depthFar"))
-	out.DepthFar = value24
-	value25 = UnionFromJS(input.Get("depthToVideoTransform"))
-	out.DepthToVideoTransform = value25
+	value16 = UnionFromJS(input.Get("whiteBalanceMode"))
+	out.WhiteBalanceMode = value16
+	value17 = UnionFromJS(input.Get("exposureMode"))
+	out.ExposureMode = value17
+	value18 = UnionFromJS(input.Get("focusMode"))
+	out.FocusMode = value18
+	value19 = UnionFromJS(input.Get("pointsOfInterest"))
+	out.PointsOfInterest = value19
+	value20 = UnionFromJS(input.Get("exposureCompensation"))
+	out.ExposureCompensation = value20
+	value21 = UnionFromJS(input.Get("exposureTime"))
+	out.ExposureTime = value21
+	value22 = UnionFromJS(input.Get("colorTemperature"))
+	out.ColorTemperature = value22
+	value23 = UnionFromJS(input.Get("iso"))
+	out.Iso = value23
+	value24 = UnionFromJS(input.Get("brightness"))
+	out.Brightness = value24
+	value25 = UnionFromJS(input.Get("contrast"))
+	out.Contrast = value25
+	value26 = UnionFromJS(input.Get("saturation"))
+	out.Saturation = value26
+	value27 = UnionFromJS(input.Get("sharpness"))
+	out.Sharpness = value27
+	value28 = UnionFromJS(input.Get("focusDistance"))
+	out.FocusDistance = value28
+	value29 = UnionFromJS(input.Get("zoom"))
+	out.Zoom = value29
+	value30 = UnionFromJS(input.Get("torch"))
+	out.Torch = value30
+	value31 = UnionFromJS(input.Get("videoKind"))
+	out.VideoKind = value31
+	value32 = UnionFromJS(input.Get("focalLengthX"))
+	out.FocalLengthX = value32
+	value33 = UnionFromJS(input.Get("focalLengthY"))
+	out.FocalLengthY = value33
+	value34 = UnionFromJS(input.Get("principalPointX"))
+	out.PrincipalPointX = value34
+	value35 = UnionFromJS(input.Get("principalPointY"))
+	out.PrincipalPointY = value35
+	value36 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
+	out.DeprojectionDistortionCoefficients = value36
+	value37 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
+	out.ProjectionDistortionCoefficients = value37
+	value38 = UnionFromJS(input.Get("depthNear"))
+	out.DepthNear = value38
+	value39 = UnionFromJS(input.Get("depthFar"))
+	out.DepthFar = value39
+	value40 = UnionFromJS(input.Get("depthToVideoTransform"))
+	out.DepthToVideoTransform = value40
+	value41 = UnionFromJS(input.Get("displaySurface"))
+	out.DisplaySurface = value41
+	value42 = UnionFromJS(input.Get("logicalSurface"))
+	out.LogicalSurface = value42
+	value43 = UnionFromJS(input.Get("cursor"))
+	out.Cursor = value43
 	return &out
 }
 
@@ -1003,6 +1236,21 @@ type MediaTrackConstraints struct {
 	ChannelCount                       *Union
 	DeviceId                           *Union
 	GroupId                            *Union
+	WhiteBalanceMode                   *Union
+	ExposureMode                       *Union
+	FocusMode                          *Union
+	PointsOfInterest                   *Union
+	ExposureCompensation               *Union
+	ExposureTime                       *Union
+	ColorTemperature                   *Union
+	Iso                                *Union
+	Brightness                         *Union
+	Contrast                           *Union
+	Saturation                         *Union
+	Sharpness                          *Union
+	FocusDistance                      *Union
+	Zoom                               *Union
+	Torch                              *Union
 	VideoKind                          *Union
 	FocalLengthX                       *Union
 	FocalLengthY                       *Union
@@ -1013,6 +1261,9 @@ type MediaTrackConstraints struct {
 	DepthNear                          *Union
 	DepthFar                           *Union
 	DepthToVideoTransform              *Union
+	DisplaySurface                     *Union
+	LogicalSurface                     *Union
+	Cursor                             *Union
 	Advanced                           []*MediaTrackConstraintSet
 }
 
@@ -1052,32 +1303,68 @@ func (_this *MediaTrackConstraints) JSValue() js.Value {
 	out.Set("deviceId", value14)
 	value15 := _this.GroupId.JSValue()
 	out.Set("groupId", value15)
-	value16 := _this.VideoKind.JSValue()
-	out.Set("videoKind", value16)
-	value17 := _this.FocalLengthX.JSValue()
-	out.Set("focalLengthX", value17)
-	value18 := _this.FocalLengthY.JSValue()
-	out.Set("focalLengthY", value18)
-	value19 := _this.PrincipalPointX.JSValue()
-	out.Set("principalPointX", value19)
-	value20 := _this.PrincipalPointY.JSValue()
-	out.Set("principalPointY", value20)
-	value21 := _this.DeprojectionDistortionCoefficients.JSValue()
-	out.Set("deprojectionDistortionCoefficients", value21)
-	value22 := _this.ProjectionDistortionCoefficients.JSValue()
-	out.Set("projectionDistortionCoefficients", value22)
-	value23 := _this.DepthNear.JSValue()
-	out.Set("depthNear", value23)
-	value24 := _this.DepthFar.JSValue()
-	out.Set("depthFar", value24)
-	value25 := _this.DepthToVideoTransform.JSValue()
-	out.Set("depthToVideoTransform", value25)
-	value26 := js.Global().Get("Array").New(len(_this.Advanced))
-	for __idx26, __seq_in26 := range _this.Advanced {
-		__seq_out26 := __seq_in26.JSValue()
-		value26.SetIndex(__idx26, __seq_out26)
+	value16 := _this.WhiteBalanceMode.JSValue()
+	out.Set("whiteBalanceMode", value16)
+	value17 := _this.ExposureMode.JSValue()
+	out.Set("exposureMode", value17)
+	value18 := _this.FocusMode.JSValue()
+	out.Set("focusMode", value18)
+	value19 := _this.PointsOfInterest.JSValue()
+	out.Set("pointsOfInterest", value19)
+	value20 := _this.ExposureCompensation.JSValue()
+	out.Set("exposureCompensation", value20)
+	value21 := _this.ExposureTime.JSValue()
+	out.Set("exposureTime", value21)
+	value22 := _this.ColorTemperature.JSValue()
+	out.Set("colorTemperature", value22)
+	value23 := _this.Iso.JSValue()
+	out.Set("iso", value23)
+	value24 := _this.Brightness.JSValue()
+	out.Set("brightness", value24)
+	value25 := _this.Contrast.JSValue()
+	out.Set("contrast", value25)
+	value26 := _this.Saturation.JSValue()
+	out.Set("saturation", value26)
+	value27 := _this.Sharpness.JSValue()
+	out.Set("sharpness", value27)
+	value28 := _this.FocusDistance.JSValue()
+	out.Set("focusDistance", value28)
+	value29 := _this.Zoom.JSValue()
+	out.Set("zoom", value29)
+	value30 := _this.Torch.JSValue()
+	out.Set("torch", value30)
+	value31 := _this.VideoKind.JSValue()
+	out.Set("videoKind", value31)
+	value32 := _this.FocalLengthX.JSValue()
+	out.Set("focalLengthX", value32)
+	value33 := _this.FocalLengthY.JSValue()
+	out.Set("focalLengthY", value33)
+	value34 := _this.PrincipalPointX.JSValue()
+	out.Set("principalPointX", value34)
+	value35 := _this.PrincipalPointY.JSValue()
+	out.Set("principalPointY", value35)
+	value36 := _this.DeprojectionDistortionCoefficients.JSValue()
+	out.Set("deprojectionDistortionCoefficients", value36)
+	value37 := _this.ProjectionDistortionCoefficients.JSValue()
+	out.Set("projectionDistortionCoefficients", value37)
+	value38 := _this.DepthNear.JSValue()
+	out.Set("depthNear", value38)
+	value39 := _this.DepthFar.JSValue()
+	out.Set("depthFar", value39)
+	value40 := _this.DepthToVideoTransform.JSValue()
+	out.Set("depthToVideoTransform", value40)
+	value41 := _this.DisplaySurface.JSValue()
+	out.Set("displaySurface", value41)
+	value42 := _this.LogicalSurface.JSValue()
+	out.Set("logicalSurface", value42)
+	value43 := _this.Cursor.JSValue()
+	out.Set("cursor", value43)
+	value44 := js.Global().Get("Array").New(len(_this.Advanced))
+	for __idx44, __seq_in44 := range _this.Advanced {
+		__seq_out44 := __seq_in44.JSValue()
+		value44.SetIndex(__idx44, __seq_out44)
 	}
-	out.Set("advanced", value26)
+	out.Set("advanced", value44)
 	return out
 }
 
@@ -1104,17 +1391,35 @@ func MediaTrackConstraintsFromJS(value js.Wrapper) *MediaTrackConstraints {
 		value13 *Union                     // javascript: Union {channelCount ChannelCount channelCount}
 		value14 *Union                     // javascript: Union {deviceId DeviceId deviceId}
 		value15 *Union                     // javascript: Union {groupId GroupId groupId}
-		value16 *Union                     // javascript: Union {videoKind VideoKind videoKind}
-		value17 *Union                     // javascript: Union {focalLengthX FocalLengthX focalLengthX}
-		value18 *Union                     // javascript: Union {focalLengthY FocalLengthY focalLengthY}
-		value19 *Union                     // javascript: Union {principalPointX PrincipalPointX principalPointX}
-		value20 *Union                     // javascript: Union {principalPointY PrincipalPointY principalPointY}
-		value21 *Union                     // javascript: Union {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
-		value22 *Union                     // javascript: Union {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
-		value23 *Union                     // javascript: Union {depthNear DepthNear depthNear}
-		value24 *Union                     // javascript: Union {depthFar DepthFar depthFar}
-		value25 *Union                     // javascript: Union {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
-		value26 []*MediaTrackConstraintSet // javascript: sequence<MediaTrackConstraintSet> {advanced Advanced advanced}
+		value16 *Union                     // javascript: Union {whiteBalanceMode WhiteBalanceMode whiteBalanceMode}
+		value17 *Union                     // javascript: Union {exposureMode ExposureMode exposureMode}
+		value18 *Union                     // javascript: Union {focusMode FocusMode focusMode}
+		value19 *Union                     // javascript: Union {pointsOfInterest PointsOfInterest pointsOfInterest}
+		value20 *Union                     // javascript: Union {exposureCompensation ExposureCompensation exposureCompensation}
+		value21 *Union                     // javascript: Union {exposureTime ExposureTime exposureTime}
+		value22 *Union                     // javascript: Union {colorTemperature ColorTemperature colorTemperature}
+		value23 *Union                     // javascript: Union {iso Iso iso}
+		value24 *Union                     // javascript: Union {brightness Brightness brightness}
+		value25 *Union                     // javascript: Union {contrast Contrast contrast}
+		value26 *Union                     // javascript: Union {saturation Saturation saturation}
+		value27 *Union                     // javascript: Union {sharpness Sharpness sharpness}
+		value28 *Union                     // javascript: Union {focusDistance FocusDistance focusDistance}
+		value29 *Union                     // javascript: Union {zoom Zoom zoom}
+		value30 *Union                     // javascript: Union {torch Torch torch}
+		value31 *Union                     // javascript: Union {videoKind VideoKind videoKind}
+		value32 *Union                     // javascript: Union {focalLengthX FocalLengthX focalLengthX}
+		value33 *Union                     // javascript: Union {focalLengthY FocalLengthY focalLengthY}
+		value34 *Union                     // javascript: Union {principalPointX PrincipalPointX principalPointX}
+		value35 *Union                     // javascript: Union {principalPointY PrincipalPointY principalPointY}
+		value36 *Union                     // javascript: Union {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
+		value37 *Union                     // javascript: Union {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
+		value38 *Union                     // javascript: Union {depthNear DepthNear depthNear}
+		value39 *Union                     // javascript: Union {depthFar DepthFar depthFar}
+		value40 *Union                     // javascript: Union {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value41 *Union                     // javascript: Union {displaySurface DisplaySurface displaySurface}
+		value42 *Union                     // javascript: Union {logicalSurface LogicalSurface logicalSurface}
+		value43 *Union                     // javascript: Union {cursor Cursor cursor}
+		value44 []*MediaTrackConstraintSet // javascript: sequence<MediaTrackConstraintSet> {advanced Advanced advanced}
 	)
 	value0 = UnionFromJS(input.Get("width"))
 	out.Width = value0
@@ -1148,36 +1453,72 @@ func MediaTrackConstraintsFromJS(value js.Wrapper) *MediaTrackConstraints {
 	out.DeviceId = value14
 	value15 = UnionFromJS(input.Get("groupId"))
 	out.GroupId = value15
-	value16 = UnionFromJS(input.Get("videoKind"))
-	out.VideoKind = value16
-	value17 = UnionFromJS(input.Get("focalLengthX"))
-	out.FocalLengthX = value17
-	value18 = UnionFromJS(input.Get("focalLengthY"))
-	out.FocalLengthY = value18
-	value19 = UnionFromJS(input.Get("principalPointX"))
-	out.PrincipalPointX = value19
-	value20 = UnionFromJS(input.Get("principalPointY"))
-	out.PrincipalPointY = value20
-	value21 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
-	out.DeprojectionDistortionCoefficients = value21
-	value22 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
-	out.ProjectionDistortionCoefficients = value22
-	value23 = UnionFromJS(input.Get("depthNear"))
-	out.DepthNear = value23
-	value24 = UnionFromJS(input.Get("depthFar"))
-	out.DepthFar = value24
-	value25 = UnionFromJS(input.Get("depthToVideoTransform"))
-	out.DepthToVideoTransform = value25
-	__length26 := input.Get("advanced").Length()
-	__array26 := make([]*MediaTrackConstraintSet, __length26, __length26)
-	for __idx26 := 0; __idx26 < __length26; __idx26++ {
-		var __seq_out26 *MediaTrackConstraintSet
-		__seq_in26 := input.Get("advanced").Index(__idx26)
-		__seq_out26 = MediaTrackConstraintSetFromJS(__seq_in26)
-		__array26[__idx26] = __seq_out26
+	value16 = UnionFromJS(input.Get("whiteBalanceMode"))
+	out.WhiteBalanceMode = value16
+	value17 = UnionFromJS(input.Get("exposureMode"))
+	out.ExposureMode = value17
+	value18 = UnionFromJS(input.Get("focusMode"))
+	out.FocusMode = value18
+	value19 = UnionFromJS(input.Get("pointsOfInterest"))
+	out.PointsOfInterest = value19
+	value20 = UnionFromJS(input.Get("exposureCompensation"))
+	out.ExposureCompensation = value20
+	value21 = UnionFromJS(input.Get("exposureTime"))
+	out.ExposureTime = value21
+	value22 = UnionFromJS(input.Get("colorTemperature"))
+	out.ColorTemperature = value22
+	value23 = UnionFromJS(input.Get("iso"))
+	out.Iso = value23
+	value24 = UnionFromJS(input.Get("brightness"))
+	out.Brightness = value24
+	value25 = UnionFromJS(input.Get("contrast"))
+	out.Contrast = value25
+	value26 = UnionFromJS(input.Get("saturation"))
+	out.Saturation = value26
+	value27 = UnionFromJS(input.Get("sharpness"))
+	out.Sharpness = value27
+	value28 = UnionFromJS(input.Get("focusDistance"))
+	out.FocusDistance = value28
+	value29 = UnionFromJS(input.Get("zoom"))
+	out.Zoom = value29
+	value30 = UnionFromJS(input.Get("torch"))
+	out.Torch = value30
+	value31 = UnionFromJS(input.Get("videoKind"))
+	out.VideoKind = value31
+	value32 = UnionFromJS(input.Get("focalLengthX"))
+	out.FocalLengthX = value32
+	value33 = UnionFromJS(input.Get("focalLengthY"))
+	out.FocalLengthY = value33
+	value34 = UnionFromJS(input.Get("principalPointX"))
+	out.PrincipalPointX = value34
+	value35 = UnionFromJS(input.Get("principalPointY"))
+	out.PrincipalPointY = value35
+	value36 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
+	out.DeprojectionDistortionCoefficients = value36
+	value37 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
+	out.ProjectionDistortionCoefficients = value37
+	value38 = UnionFromJS(input.Get("depthNear"))
+	out.DepthNear = value38
+	value39 = UnionFromJS(input.Get("depthFar"))
+	out.DepthFar = value39
+	value40 = UnionFromJS(input.Get("depthToVideoTransform"))
+	out.DepthToVideoTransform = value40
+	value41 = UnionFromJS(input.Get("displaySurface"))
+	out.DisplaySurface = value41
+	value42 = UnionFromJS(input.Get("logicalSurface"))
+	out.LogicalSurface = value42
+	value43 = UnionFromJS(input.Get("cursor"))
+	out.Cursor = value43
+	__length44 := input.Get("advanced").Length()
+	__array44 := make([]*MediaTrackConstraintSet, __length44, __length44)
+	for __idx44 := 0; __idx44 < __length44; __idx44++ {
+		var __seq_out44 *MediaTrackConstraintSet
+		__seq_in44 := input.Get("advanced").Index(__idx44)
+		__seq_out44 = MediaTrackConstraintSetFromJS(__seq_in44)
+		__array44[__idx44] = __seq_out44
 	}
-	value26 = __array26
-	out.Advanced = value26
+	value44 = __array44
+	out.Advanced = value44
 	return &out
 }
 
@@ -1199,6 +1540,21 @@ type MediaTrackSettings struct {
 	ChannelCount                       int
 	DeviceId                           string
 	GroupId                            string
+	WhiteBalanceMode                   string
+	ExposureMode                       string
+	FocusMode                          string
+	PointsOfInterest                   []*mediatype.Point2D
+	ExposureCompensation               float64
+	ExposureTime                       float64
+	ColorTemperature                   float64
+	Iso                                float64
+	Brightness                         float64
+	Contrast                           float64
+	Saturation                         float64
+	Sharpness                          float64
+	FocusDistance                      float64
+	Zoom                               float64
+	Torch                              bool
 	VideoKind                          string
 	FocalLengthX                       float64
 	FocalLengthY                       float64
@@ -1209,6 +1565,9 @@ type MediaTrackSettings struct {
 	DepthNear                          float64
 	DepthFar                           float64
 	DepthToVideoTransform              *depth.Transformation
+	DisplaySurface                     string
+	LogicalSurface                     bool
+	Cursor                             string
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1247,26 +1606,66 @@ func (_this *MediaTrackSettings) JSValue() js.Value {
 	out.Set("deviceId", value14)
 	value15 := _this.GroupId
 	out.Set("groupId", value15)
-	value16 := _this.VideoKind
-	out.Set("videoKind", value16)
-	value17 := _this.FocalLengthX
-	out.Set("focalLengthX", value17)
-	value18 := _this.FocalLengthY
-	out.Set("focalLengthY", value18)
-	value19 := _this.PrincipalPointX
-	out.Set("principalPointX", value19)
-	value20 := _this.PrincipalPointY
-	out.Set("principalPointY", value20)
-	value21 := _this.DeprojectionDistortionCoefficients.JSValue()
-	out.Set("deprojectionDistortionCoefficients", value21)
-	value22 := _this.ProjectionDistortionCoefficients.JSValue()
-	out.Set("projectionDistortionCoefficients", value22)
-	value23 := _this.DepthNear
-	out.Set("depthNear", value23)
-	value24 := _this.DepthFar
-	out.Set("depthFar", value24)
-	value25 := _this.DepthToVideoTransform.JSValue()
-	out.Set("depthToVideoTransform", value25)
+	value16 := _this.WhiteBalanceMode
+	out.Set("whiteBalanceMode", value16)
+	value17 := _this.ExposureMode
+	out.Set("exposureMode", value17)
+	value18 := _this.FocusMode
+	out.Set("focusMode", value18)
+	value19 := js.Global().Get("Array").New(len(_this.PointsOfInterest))
+	for __idx19, __seq_in19 := range _this.PointsOfInterest {
+		__seq_out19 := __seq_in19.JSValue()
+		value19.SetIndex(__idx19, __seq_out19)
+	}
+	out.Set("pointsOfInterest", value19)
+	value20 := _this.ExposureCompensation
+	out.Set("exposureCompensation", value20)
+	value21 := _this.ExposureTime
+	out.Set("exposureTime", value21)
+	value22 := _this.ColorTemperature
+	out.Set("colorTemperature", value22)
+	value23 := _this.Iso
+	out.Set("iso", value23)
+	value24 := _this.Brightness
+	out.Set("brightness", value24)
+	value25 := _this.Contrast
+	out.Set("contrast", value25)
+	value26 := _this.Saturation
+	out.Set("saturation", value26)
+	value27 := _this.Sharpness
+	out.Set("sharpness", value27)
+	value28 := _this.FocusDistance
+	out.Set("focusDistance", value28)
+	value29 := _this.Zoom
+	out.Set("zoom", value29)
+	value30 := _this.Torch
+	out.Set("torch", value30)
+	value31 := _this.VideoKind
+	out.Set("videoKind", value31)
+	value32 := _this.FocalLengthX
+	out.Set("focalLengthX", value32)
+	value33 := _this.FocalLengthY
+	out.Set("focalLengthY", value33)
+	value34 := _this.PrincipalPointX
+	out.Set("principalPointX", value34)
+	value35 := _this.PrincipalPointY
+	out.Set("principalPointY", value35)
+	value36 := _this.DeprojectionDistortionCoefficients.JSValue()
+	out.Set("deprojectionDistortionCoefficients", value36)
+	value37 := _this.ProjectionDistortionCoefficients.JSValue()
+	out.Set("projectionDistortionCoefficients", value37)
+	value38 := _this.DepthNear
+	out.Set("depthNear", value38)
+	value39 := _this.DepthFar
+	out.Set("depthFar", value39)
+	value40 := _this.DepthToVideoTransform.JSValue()
+	out.Set("depthToVideoTransform", value40)
+	value41 := _this.DisplaySurface
+	out.Set("displaySurface", value41)
+	value42 := _this.LogicalSurface
+	out.Set("logicalSurface", value42)
+	value43 := _this.Cursor
+	out.Set("cursor", value43)
 	return out
 }
 
@@ -1293,16 +1692,34 @@ func MediaTrackSettingsFromJS(value js.Wrapper) *MediaTrackSettings {
 		value13 int                           // javascript: long {channelCount ChannelCount channelCount}
 		value14 string                        // javascript: DOMString {deviceId DeviceId deviceId}
 		value15 string                        // javascript: DOMString {groupId GroupId groupId}
-		value16 string                        // javascript: DOMString {videoKind VideoKind videoKind}
-		value17 float64                       // javascript: double {focalLengthX FocalLengthX focalLengthX}
-		value18 float64                       // javascript: double {focalLengthY FocalLengthY focalLengthY}
-		value19 float64                       // javascript: double {principalPointX PrincipalPointX principalPointX}
-		value20 float64                       // javascript: double {principalPointY PrincipalPointY principalPointY}
-		value21 *depth.DistortionCoefficients // javascript: DistortionCoefficients {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
-		value22 *depth.DistortionCoefficients // javascript: DistortionCoefficients {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
-		value23 float64                       // javascript: double {depthNear DepthNear depthNear}
-		value24 float64                       // javascript: double {depthFar DepthFar depthFar}
-		value25 *depth.Transformation         // javascript: Transformation {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value16 string                        // javascript: DOMString {whiteBalanceMode WhiteBalanceMode whiteBalanceMode}
+		value17 string                        // javascript: DOMString {exposureMode ExposureMode exposureMode}
+		value18 string                        // javascript: DOMString {focusMode FocusMode focusMode}
+		value19 []*mediatype.Point2D          // javascript: sequence<Point2D> {pointsOfInterest PointsOfInterest pointsOfInterest}
+		value20 float64                       // javascript: double {exposureCompensation ExposureCompensation exposureCompensation}
+		value21 float64                       // javascript: double {exposureTime ExposureTime exposureTime}
+		value22 float64                       // javascript: double {colorTemperature ColorTemperature colorTemperature}
+		value23 float64                       // javascript: double {iso Iso iso}
+		value24 float64                       // javascript: double {brightness Brightness brightness}
+		value25 float64                       // javascript: double {contrast Contrast contrast}
+		value26 float64                       // javascript: double {saturation Saturation saturation}
+		value27 float64                       // javascript: double {sharpness Sharpness sharpness}
+		value28 float64                       // javascript: double {focusDistance FocusDistance focusDistance}
+		value29 float64                       // javascript: double {zoom Zoom zoom}
+		value30 bool                          // javascript: boolean {torch Torch torch}
+		value31 string                        // javascript: DOMString {videoKind VideoKind videoKind}
+		value32 float64                       // javascript: double {focalLengthX FocalLengthX focalLengthX}
+		value33 float64                       // javascript: double {focalLengthY FocalLengthY focalLengthY}
+		value34 float64                       // javascript: double {principalPointX PrincipalPointX principalPointX}
+		value35 float64                       // javascript: double {principalPointY PrincipalPointY principalPointY}
+		value36 *depth.DistortionCoefficients // javascript: DistortionCoefficients {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
+		value37 *depth.DistortionCoefficients // javascript: DistortionCoefficients {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
+		value38 float64                       // javascript: double {depthNear DepthNear depthNear}
+		value39 float64                       // javascript: double {depthFar DepthFar depthFar}
+		value40 *depth.Transformation         // javascript: Transformation {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value41 string                        // javascript: DOMString {displaySurface DisplaySurface displaySurface}
+		value42 bool                          // javascript: boolean {logicalSurface LogicalSurface logicalSurface}
+		value43 string                        // javascript: DOMString {cursor Cursor cursor}
 	)
 	value0 = (input.Get("width")).Int()
 	out.Width = value0
@@ -1336,26 +1753,70 @@ func MediaTrackSettingsFromJS(value js.Wrapper) *MediaTrackSettings {
 	out.DeviceId = value14
 	value15 = (input.Get("groupId")).String()
 	out.GroupId = value15
-	value16 = (input.Get("videoKind")).String()
-	out.VideoKind = value16
-	value17 = (input.Get("focalLengthX")).Float()
-	out.FocalLengthX = value17
-	value18 = (input.Get("focalLengthY")).Float()
-	out.FocalLengthY = value18
-	value19 = (input.Get("principalPointX")).Float()
-	out.PrincipalPointX = value19
-	value20 = (input.Get("principalPointY")).Float()
-	out.PrincipalPointY = value20
-	value21 = depth.DistortionCoefficientsFromJS(input.Get("deprojectionDistortionCoefficients"))
-	out.DeprojectionDistortionCoefficients = value21
-	value22 = depth.DistortionCoefficientsFromJS(input.Get("projectionDistortionCoefficients"))
-	out.ProjectionDistortionCoefficients = value22
-	value23 = (input.Get("depthNear")).Float()
-	out.DepthNear = value23
-	value24 = (input.Get("depthFar")).Float()
-	out.DepthFar = value24
-	value25 = depth.TransformationFromJS(input.Get("depthToVideoTransform"))
-	out.DepthToVideoTransform = value25
+	value16 = (input.Get("whiteBalanceMode")).String()
+	out.WhiteBalanceMode = value16
+	value17 = (input.Get("exposureMode")).String()
+	out.ExposureMode = value17
+	value18 = (input.Get("focusMode")).String()
+	out.FocusMode = value18
+	__length19 := input.Get("pointsOfInterest").Length()
+	__array19 := make([]*mediatype.Point2D, __length19, __length19)
+	for __idx19 := 0; __idx19 < __length19; __idx19++ {
+		var __seq_out19 *mediatype.Point2D
+		__seq_in19 := input.Get("pointsOfInterest").Index(__idx19)
+		__seq_out19 = mediatype.Point2DFromJS(__seq_in19)
+		__array19[__idx19] = __seq_out19
+	}
+	value19 = __array19
+	out.PointsOfInterest = value19
+	value20 = (input.Get("exposureCompensation")).Float()
+	out.ExposureCompensation = value20
+	value21 = (input.Get("exposureTime")).Float()
+	out.ExposureTime = value21
+	value22 = (input.Get("colorTemperature")).Float()
+	out.ColorTemperature = value22
+	value23 = (input.Get("iso")).Float()
+	out.Iso = value23
+	value24 = (input.Get("brightness")).Float()
+	out.Brightness = value24
+	value25 = (input.Get("contrast")).Float()
+	out.Contrast = value25
+	value26 = (input.Get("saturation")).Float()
+	out.Saturation = value26
+	value27 = (input.Get("sharpness")).Float()
+	out.Sharpness = value27
+	value28 = (input.Get("focusDistance")).Float()
+	out.FocusDistance = value28
+	value29 = (input.Get("zoom")).Float()
+	out.Zoom = value29
+	value30 = (input.Get("torch")).Bool()
+	out.Torch = value30
+	value31 = (input.Get("videoKind")).String()
+	out.VideoKind = value31
+	value32 = (input.Get("focalLengthX")).Float()
+	out.FocalLengthX = value32
+	value33 = (input.Get("focalLengthY")).Float()
+	out.FocalLengthY = value33
+	value34 = (input.Get("principalPointX")).Float()
+	out.PrincipalPointX = value34
+	value35 = (input.Get("principalPointY")).Float()
+	out.PrincipalPointY = value35
+	value36 = depth.DistortionCoefficientsFromJS(input.Get("deprojectionDistortionCoefficients"))
+	out.DeprojectionDistortionCoefficients = value36
+	value37 = depth.DistortionCoefficientsFromJS(input.Get("projectionDistortionCoefficients"))
+	out.ProjectionDistortionCoefficients = value37
+	value38 = (input.Get("depthNear")).Float()
+	out.DepthNear = value38
+	value39 = (input.Get("depthFar")).Float()
+	out.DepthFar = value39
+	value40 = depth.TransformationFromJS(input.Get("depthToVideoTransform"))
+	out.DepthToVideoTransform = value40
+	value41 = (input.Get("displaySurface")).String()
+	out.DisplaySurface = value41
+	value42 = (input.Get("logicalSurface")).Bool()
+	out.LogicalSurface = value42
+	value43 = (input.Get("cursor")).String()
+	out.Cursor = value43
 	return &out
 }
 
@@ -1377,6 +1838,21 @@ type MediaTrackSupportedConstraints struct {
 	ChannelCount                       bool
 	DeviceId                           bool
 	GroupId                            bool
+	WhiteBalanceMode                   bool
+	ExposureMode                       bool
+	FocusMode                          bool
+	PointsOfInterest                   bool
+	ExposureCompensation               bool
+	ExposureTime                       bool
+	ColorTemperature                   bool
+	Iso                                bool
+	Brightness                         bool
+	Contrast                           bool
+	Saturation                         bool
+	Sharpness                          bool
+	FocusDistance                      bool
+	Zoom                               bool
+	Torch                              bool
 	VideoKind                          bool
 	FocalLengthX                       bool
 	FocalLengthY                       bool
@@ -1387,6 +1863,9 @@ type MediaTrackSupportedConstraints struct {
 	DepthNear                          bool
 	DepthFar                           bool
 	DepthToVideoTransform              bool
+	DisplaySurface                     bool
+	LogicalSurface                     bool
+	Cursor                             bool
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1425,26 +1904,62 @@ func (_this *MediaTrackSupportedConstraints) JSValue() js.Value {
 	out.Set("deviceId", value14)
 	value15 := _this.GroupId
 	out.Set("groupId", value15)
-	value16 := _this.VideoKind
-	out.Set("videoKind", value16)
-	value17 := _this.FocalLengthX
-	out.Set("focalLengthX", value17)
-	value18 := _this.FocalLengthY
-	out.Set("focalLengthY", value18)
-	value19 := _this.PrincipalPointX
-	out.Set("principalPointX", value19)
-	value20 := _this.PrincipalPointY
-	out.Set("principalPointY", value20)
-	value21 := _this.DeprojectionDistortionCoefficients
-	out.Set("deprojectionDistortionCoefficients", value21)
-	value22 := _this.ProjectionDistortionCoefficients
-	out.Set("projectionDistortionCoefficients", value22)
-	value23 := _this.DepthNear
-	out.Set("depthNear", value23)
-	value24 := _this.DepthFar
-	out.Set("depthFar", value24)
-	value25 := _this.DepthToVideoTransform
-	out.Set("depthToVideoTransform", value25)
+	value16 := _this.WhiteBalanceMode
+	out.Set("whiteBalanceMode", value16)
+	value17 := _this.ExposureMode
+	out.Set("exposureMode", value17)
+	value18 := _this.FocusMode
+	out.Set("focusMode", value18)
+	value19 := _this.PointsOfInterest
+	out.Set("pointsOfInterest", value19)
+	value20 := _this.ExposureCompensation
+	out.Set("exposureCompensation", value20)
+	value21 := _this.ExposureTime
+	out.Set("exposureTime", value21)
+	value22 := _this.ColorTemperature
+	out.Set("colorTemperature", value22)
+	value23 := _this.Iso
+	out.Set("iso", value23)
+	value24 := _this.Brightness
+	out.Set("brightness", value24)
+	value25 := _this.Contrast
+	out.Set("contrast", value25)
+	value26 := _this.Saturation
+	out.Set("saturation", value26)
+	value27 := _this.Sharpness
+	out.Set("sharpness", value27)
+	value28 := _this.FocusDistance
+	out.Set("focusDistance", value28)
+	value29 := _this.Zoom
+	out.Set("zoom", value29)
+	value30 := _this.Torch
+	out.Set("torch", value30)
+	value31 := _this.VideoKind
+	out.Set("videoKind", value31)
+	value32 := _this.FocalLengthX
+	out.Set("focalLengthX", value32)
+	value33 := _this.FocalLengthY
+	out.Set("focalLengthY", value33)
+	value34 := _this.PrincipalPointX
+	out.Set("principalPointX", value34)
+	value35 := _this.PrincipalPointY
+	out.Set("principalPointY", value35)
+	value36 := _this.DeprojectionDistortionCoefficients
+	out.Set("deprojectionDistortionCoefficients", value36)
+	value37 := _this.ProjectionDistortionCoefficients
+	out.Set("projectionDistortionCoefficients", value37)
+	value38 := _this.DepthNear
+	out.Set("depthNear", value38)
+	value39 := _this.DepthFar
+	out.Set("depthFar", value39)
+	value40 := _this.DepthToVideoTransform
+	out.Set("depthToVideoTransform", value40)
+	value41 := _this.DisplaySurface
+	out.Set("displaySurface", value41)
+	value42 := _this.LogicalSurface
+	out.Set("logicalSurface", value42)
+	value43 := _this.Cursor
+	out.Set("cursor", value43)
 	return out
 }
 
@@ -1471,16 +1986,34 @@ func MediaTrackSupportedConstraintsFromJS(value js.Wrapper) *MediaTrackSupported
 		value13 bool // javascript: boolean {channelCount ChannelCount channelCount}
 		value14 bool // javascript: boolean {deviceId DeviceId deviceId}
 		value15 bool // javascript: boolean {groupId GroupId groupId}
-		value16 bool // javascript: boolean {videoKind VideoKind videoKind}
-		value17 bool // javascript: boolean {focalLengthX FocalLengthX focalLengthX}
-		value18 bool // javascript: boolean {focalLengthY FocalLengthY focalLengthY}
-		value19 bool // javascript: boolean {principalPointX PrincipalPointX principalPointX}
-		value20 bool // javascript: boolean {principalPointY PrincipalPointY principalPointY}
-		value21 bool // javascript: boolean {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
-		value22 bool // javascript: boolean {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
-		value23 bool // javascript: boolean {depthNear DepthNear depthNear}
-		value24 bool // javascript: boolean {depthFar DepthFar depthFar}
-		value25 bool // javascript: boolean {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value16 bool // javascript: boolean {whiteBalanceMode WhiteBalanceMode whiteBalanceMode}
+		value17 bool // javascript: boolean {exposureMode ExposureMode exposureMode}
+		value18 bool // javascript: boolean {focusMode FocusMode focusMode}
+		value19 bool // javascript: boolean {pointsOfInterest PointsOfInterest pointsOfInterest}
+		value20 bool // javascript: boolean {exposureCompensation ExposureCompensation exposureCompensation}
+		value21 bool // javascript: boolean {exposureTime ExposureTime exposureTime}
+		value22 bool // javascript: boolean {colorTemperature ColorTemperature colorTemperature}
+		value23 bool // javascript: boolean {iso Iso iso}
+		value24 bool // javascript: boolean {brightness Brightness brightness}
+		value25 bool // javascript: boolean {contrast Contrast contrast}
+		value26 bool // javascript: boolean {saturation Saturation saturation}
+		value27 bool // javascript: boolean {sharpness Sharpness sharpness}
+		value28 bool // javascript: boolean {focusDistance FocusDistance focusDistance}
+		value29 bool // javascript: boolean {zoom Zoom zoom}
+		value30 bool // javascript: boolean {torch Torch torch}
+		value31 bool // javascript: boolean {videoKind VideoKind videoKind}
+		value32 bool // javascript: boolean {focalLengthX FocalLengthX focalLengthX}
+		value33 bool // javascript: boolean {focalLengthY FocalLengthY focalLengthY}
+		value34 bool // javascript: boolean {principalPointX PrincipalPointX principalPointX}
+		value35 bool // javascript: boolean {principalPointY PrincipalPointY principalPointY}
+		value36 bool // javascript: boolean {deprojectionDistortionCoefficients DeprojectionDistortionCoefficients deprojectionDistortionCoefficients}
+		value37 bool // javascript: boolean {projectionDistortionCoefficients ProjectionDistortionCoefficients projectionDistortionCoefficients}
+		value38 bool // javascript: boolean {depthNear DepthNear depthNear}
+		value39 bool // javascript: boolean {depthFar DepthFar depthFar}
+		value40 bool // javascript: boolean {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
+		value41 bool // javascript: boolean {displaySurface DisplaySurface displaySurface}
+		value42 bool // javascript: boolean {logicalSurface LogicalSurface logicalSurface}
+		value43 bool // javascript: boolean {cursor Cursor cursor}
 	)
 	value0 = (input.Get("width")).Bool()
 	out.Width = value0
@@ -1514,26 +2047,62 @@ func MediaTrackSupportedConstraintsFromJS(value js.Wrapper) *MediaTrackSupported
 	out.DeviceId = value14
 	value15 = (input.Get("groupId")).Bool()
 	out.GroupId = value15
-	value16 = (input.Get("videoKind")).Bool()
-	out.VideoKind = value16
-	value17 = (input.Get("focalLengthX")).Bool()
-	out.FocalLengthX = value17
-	value18 = (input.Get("focalLengthY")).Bool()
-	out.FocalLengthY = value18
-	value19 = (input.Get("principalPointX")).Bool()
-	out.PrincipalPointX = value19
-	value20 = (input.Get("principalPointY")).Bool()
-	out.PrincipalPointY = value20
-	value21 = (input.Get("deprojectionDistortionCoefficients")).Bool()
-	out.DeprojectionDistortionCoefficients = value21
-	value22 = (input.Get("projectionDistortionCoefficients")).Bool()
-	out.ProjectionDistortionCoefficients = value22
-	value23 = (input.Get("depthNear")).Bool()
-	out.DepthNear = value23
-	value24 = (input.Get("depthFar")).Bool()
-	out.DepthFar = value24
-	value25 = (input.Get("depthToVideoTransform")).Bool()
-	out.DepthToVideoTransform = value25
+	value16 = (input.Get("whiteBalanceMode")).Bool()
+	out.WhiteBalanceMode = value16
+	value17 = (input.Get("exposureMode")).Bool()
+	out.ExposureMode = value17
+	value18 = (input.Get("focusMode")).Bool()
+	out.FocusMode = value18
+	value19 = (input.Get("pointsOfInterest")).Bool()
+	out.PointsOfInterest = value19
+	value20 = (input.Get("exposureCompensation")).Bool()
+	out.ExposureCompensation = value20
+	value21 = (input.Get("exposureTime")).Bool()
+	out.ExposureTime = value21
+	value22 = (input.Get("colorTemperature")).Bool()
+	out.ColorTemperature = value22
+	value23 = (input.Get("iso")).Bool()
+	out.Iso = value23
+	value24 = (input.Get("brightness")).Bool()
+	out.Brightness = value24
+	value25 = (input.Get("contrast")).Bool()
+	out.Contrast = value25
+	value26 = (input.Get("saturation")).Bool()
+	out.Saturation = value26
+	value27 = (input.Get("sharpness")).Bool()
+	out.Sharpness = value27
+	value28 = (input.Get("focusDistance")).Bool()
+	out.FocusDistance = value28
+	value29 = (input.Get("zoom")).Bool()
+	out.Zoom = value29
+	value30 = (input.Get("torch")).Bool()
+	out.Torch = value30
+	value31 = (input.Get("videoKind")).Bool()
+	out.VideoKind = value31
+	value32 = (input.Get("focalLengthX")).Bool()
+	out.FocalLengthX = value32
+	value33 = (input.Get("focalLengthY")).Bool()
+	out.FocalLengthY = value33
+	value34 = (input.Get("principalPointX")).Bool()
+	out.PrincipalPointX = value34
+	value35 = (input.Get("principalPointY")).Bool()
+	out.PrincipalPointY = value35
+	value36 = (input.Get("deprojectionDistortionCoefficients")).Bool()
+	out.DeprojectionDistortionCoefficients = value36
+	value37 = (input.Get("projectionDistortionCoefficients")).Bool()
+	out.ProjectionDistortionCoefficients = value37
+	value38 = (input.Get("depthNear")).Bool()
+	out.DepthNear = value38
+	value39 = (input.Get("depthFar")).Bool()
+	out.DepthFar = value39
+	value40 = (input.Get("depthToVideoTransform")).Bool()
+	out.DepthToVideoTransform = value40
+	value41 = (input.Get("displaySurface")).Bool()
+	out.DisplaySurface = value41
+	value42 = (input.Get("logicalSurface")).Bool()
+	out.LogicalSurface = value42
+	value43 = (input.Get("cursor")).Bool()
+	out.Cursor = value43
 	return &out
 }
 
@@ -1925,6 +2494,25 @@ func (_this *MediaDevices) GetUserMedia(constraints *MediaStreamConstraints) (_r
 		_end++
 	}
 	_returned := _this.Value_JS.Call("getUserMedia", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *MediaDevices) GetDisplayMedia(constraints *screen.DisplayMediaStreamConstraints) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if constraints != nil {
+		_p0 := constraints.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("getDisplayMedia", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
@@ -2331,6 +2919,22 @@ func (_this *MediaStreamTrack) SetOnoverconstrained(value *domcore.EventHandler)
 	}
 	input := __callback0
 	_this.Value_JS.Set("onoverconstrained", input)
+}
+
+// ContentHint returning attribute 'contentHint' with
+// type string (idl: DOMString).
+func (_this *MediaStreamTrack) ContentHint() string {
+	var ret string
+	value := _this.Value_JS.Get("contentHint")
+	ret = (value).String()
+	return ret
+}
+
+// SetContentHint setting attribute 'contentHint' with
+// type string (idl: DOMString).
+func (_this *MediaStreamTrack) SetContentHint(value string) {
+	input := value
+	_this.Value_JS.Set("contentHint", input)
 }
 
 func (_this *MediaStreamTrack) Clone() (_result *MediaStreamTrack) {

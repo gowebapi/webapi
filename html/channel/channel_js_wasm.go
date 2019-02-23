@@ -6,7 +6,7 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -14,7 +14,7 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
-// fileapi.Blob
+// file.Blob
 // javascript.ArrayBuffer
 // javascript.FrozenArray
 // javascript.Object
@@ -993,7 +993,7 @@ func (_this *WebSocket) Send(data string) {
 	return
 }
 
-func (_this *WebSocket) Send2(data *fileapi.Blob) {
+func (_this *WebSocket) Send2(data *file.Blob) {
 	var (
 		_args [1]interface{}
 		_end  int

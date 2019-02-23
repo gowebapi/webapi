@@ -10,6 +10,7 @@ import (
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/streams"
 	"github.com/gowebapi/webapi/media/encrypted"
+	"github.com/gowebapi/webapi/media/remoteplayback"
 )
 
 // using following types:
@@ -20,6 +21,7 @@ import (
 // html.TimeRanges
 // javascript.Object
 // javascript.Promise
+// remoteplayback.RemotePlayback
 // streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
@@ -894,6 +896,15 @@ func (_this *HTMLMediaElement) TextTracks() *TextTrackList {
 	return ret
 }
 
+// SinkId returning attribute 'sinkId' with
+// type string (idl: DOMString).
+func (_this *HTMLMediaElement) SinkId() string {
+	var ret string
+	value := _this.Value_JS.Get("sinkId")
+	ret = (value).String()
+	return ret
+}
+
 // MediaKeys returning attribute 'mediaKeys' with
 // type encrypted.MediaKeys (idl: MediaKeys).
 func (_this *HTMLMediaElement) MediaKeys() *encrypted.MediaKeys {
@@ -951,6 +962,31 @@ func (_this *HTMLMediaElement) SetOnwaitingforkey(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onwaitingforkey", input)
+}
+
+// Remote returning attribute 'remote' with
+// type remoteplayback.RemotePlayback (idl: RemotePlayback).
+func (_this *HTMLMediaElement) Remote() *remoteplayback.RemotePlayback {
+	var ret *remoteplayback.RemotePlayback
+	value := _this.Value_JS.Get("remote")
+	ret = remoteplayback.RemotePlaybackFromJS(value)
+	return ret
+}
+
+// DisableRemotePlayback returning attribute 'disableRemotePlayback' with
+// type bool (idl: boolean).
+func (_this *HTMLMediaElement) DisableRemotePlayback() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disableRemotePlayback")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisableRemotePlayback setting attribute 'disableRemotePlayback' with
+// type bool (idl: boolean).
+func (_this *HTMLMediaElement) SetDisableRemotePlayback(value bool) {
+	input := value
+	_this.Value_JS.Set("disableRemotePlayback", input)
 }
 
 func (_this *HTMLMediaElement) Load() {
@@ -1051,6 +1087,23 @@ func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, l
 		_converted *TextTrack // javascript: TextTrack _what_return_name
 	)
 	_converted = TextTrackFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLMediaElement) SetSinkId(sinkId string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := sinkId
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("setSinkId", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1301,6 +1354,100 @@ func (_this *HTMLVideoElement) PlaysInline() bool {
 func (_this *HTMLVideoElement) SetPlaysInline(value bool) {
 	input := value
 	_this.Value_JS.Set("playsInline", input)
+}
+
+// Onenterpictureinpicture returning attribute 'onenterpictureinpicture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLVideoElement) Onenterpictureinpicture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onenterpictureinpicture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnenterpictureinpicture setting attribute 'onenterpictureinpicture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLVideoElement) SetOnenterpictureinpicture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onenterpictureinpicture", input)
+}
+
+// Onleavepictureinpicture returning attribute 'onleavepictureinpicture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLVideoElement) Onleavepictureinpicture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onleavepictureinpicture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnleavepictureinpicture setting attribute 'onleavepictureinpicture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLVideoElement) SetOnleavepictureinpicture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onleavepictureinpicture", input)
+}
+
+// AutoPictureInPicture returning attribute 'autoPictureInPicture' with
+// type bool (idl: boolean).
+func (_this *HTMLVideoElement) AutoPictureInPicture() bool {
+	var ret bool
+	value := _this.Value_JS.Get("autoPictureInPicture")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetAutoPictureInPicture setting attribute 'autoPictureInPicture' with
+// type bool (idl: boolean).
+func (_this *HTMLVideoElement) SetAutoPictureInPicture(value bool) {
+	input := value
+	_this.Value_JS.Set("autoPictureInPicture", input)
+}
+
+// DisablePictureInPicture returning attribute 'disablePictureInPicture' with
+// type bool (idl: boolean).
+func (_this *HTMLVideoElement) DisablePictureInPicture() bool {
+	var ret bool
+	value := _this.Value_JS.Get("disablePictureInPicture")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetDisablePictureInPicture setting attribute 'disablePictureInPicture' with
+// type bool (idl: boolean).
+func (_this *HTMLVideoElement) SetDisablePictureInPicture(value bool) {
+	input := value
+	_this.Value_JS.Set("disablePictureInPicture", input)
+}
+
+func (_this *HTMLVideoElement) RequestPictureInPicture() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("requestPictureInPicture", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: MediaError

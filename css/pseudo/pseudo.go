@@ -7,12 +7,12 @@ package pseudo
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/webanimations"
 )
 
 // using following types:
@@ -26,7 +26,7 @@ import (
 // javascript.Object
 // view.BoxQuadOptions
 // view.ConvertCoordinateOptions
-// webanimations.Animation
+// webani.Animation
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -209,7 +209,7 @@ func (_this *CSSPseudoElement) ConvertPointFromNode(point *geometry.DOMPointInit
 	return
 }
 
-func (_this *CSSPseudoElement) Animate(keyframes *javascript.Object, options *Union) (_result *webanimations.Animation) {
+func (_this *CSSPseudoElement) Animate(keyframes *javascript.Object, options *Union) (_result *webani.Animation) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -224,28 +224,28 @@ func (_this *CSSPseudoElement) Animate(keyframes *javascript.Object, options *Un
 	}
 	_returned := _this.Value_JS.Call("animate", _args[0:_end]...)
 	var (
-		_converted *webanimations.Animation // javascript: Animation _what_return_name
+		_converted *webani.Animation // javascript: Animation _what_return_name
 	)
-	_converted = webanimations.AnimationFromJS(_returned)
+	_converted = webani.AnimationFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CSSPseudoElement) GetAnimations() (_result []*webanimations.Animation) {
+func (_this *CSSPseudoElement) GetAnimations() (_result []*webani.Animation) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
 	var (
-		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+		_converted []*webani.Animation // javascript: sequence<Animation> _what_return_name
 	)
 	__length0 := _returned.Length()
-	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	__array0 := make([]*webani.Animation, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *webanimations.Animation
+		var __seq_out0 *webani.Animation
 		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__seq_out0 = webani.AnimationFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0

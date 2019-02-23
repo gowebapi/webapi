@@ -9,7 +9,7 @@ import (
 	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -25,9 +25,10 @@ import (
 // domcore.DOMStringMap
 // domcore.DOMTokenList
 // domcore.EventHandler
-// fileapi.FileList
+// file.FileList
 // htmlcommon.OnBeforeUnloadEventHandler
 // htmlcommon.OnErrorEventHandler
+// javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
 // typedom.StylePropertyMap
@@ -1144,6 +1145,30 @@ func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
 	ret := &HTMLBodyElement{}
 	ret.Value_JS = input
 	return ret
+}
+
+// Onorientationchange returning attribute 'onorientationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) Onorientationchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onorientationchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnorientationchange setting attribute 'onorientationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLBodyElement) SetOnorientationchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onorientationchange", input)
 }
 
 // Text returning attribute 'text' with
@@ -3916,6 +3941,342 @@ func (_this *HTMLElement) SetOnwaiting(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onwaiting", input)
 }
 
+// Ongotpointercapture returning attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ongotpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ongotpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOngotpointercapture setting attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOngotpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ongotpointercapture", input)
+}
+
+// Onlostpointercapture returning attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onlostpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onlostpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnlostpointercapture setting attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnlostpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onlostpointercapture", input)
+}
+
+// Onpointerdown returning attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerdown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerdown")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerdown setting attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerdown(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerdown", input)
+}
+
+// Onpointermove returning attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointermove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointermove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointermove setting attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointermove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointermove", input)
+}
+
+// Onpointerup returning attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerup")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerup setting attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerup(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerup", input)
+}
+
+// Onpointercancel returning attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointercancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointercancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointercancel setting attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointercancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointercancel", input)
+}
+
+// Onpointerover returning attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerover")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerover setting attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerover(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerover", input)
+}
+
+// Onpointerout returning attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerout() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerout")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerout setting attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerout(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerout", input)
+}
+
+// Onpointerenter returning attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerenter")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerenter setting attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerenter", input)
+}
+
+// Onpointerleave returning attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpointerleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerleave")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerleave setting attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpointerleave(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerleave", input)
+}
+
+// Ontouchstart returning attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontouchstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchstart setting attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntouchstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchstart", input)
+}
+
+// Ontouchend returning attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontouchend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchend setting attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntouchend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchend", input)
+}
+
+// Ontouchmove returning attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontouchmove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchmove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchmove setting attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntouchmove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchmove", input)
+}
+
+// Ontouchcancel returning attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Ontouchcancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchcancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchcancel setting attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOntouchcancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchcancel", input)
+}
+
 // Onanimationstart returning attribute 'onanimationstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onanimationstart() domcore.EventHandlerFunc {
@@ -4106,6 +4467,54 @@ func (_this *HTMLElement) SetOntransitioncancel(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("ontransitioncancel", input)
+}
+
+// Onselectstart returning attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onselectstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectstart setting attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnselectstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectstart", input)
+}
+
+// Onselectionchange returning attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onselectionchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectionchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectionchange setting attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnselectionchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectionchange", input)
 }
 
 // Oncopy returning attribute 'oncopy' with
@@ -5941,19 +6350,19 @@ func (_this *HTMLInputElement) Form() *HTMLFormElement {
 }
 
 // Files returning attribute 'files' with
-// type fileapi.FileList (idl: FileList).
-func (_this *HTMLInputElement) Files() *fileapi.FileList {
-	var ret *fileapi.FileList
+// type file.FileList (idl: FileList).
+func (_this *HTMLInputElement) Files() *file.FileList {
+	var ret *file.FileList
 	value := _this.Value_JS.Get("files")
 	if value.Type() != js.TypeNull {
-		ret = fileapi.FileListFromJS(value)
+		ret = file.FileListFromJS(value)
 	}
 	return ret
 }
 
 // SetFiles setting attribute 'files' with
-// type fileapi.FileList (idl: FileList).
-func (_this *HTMLInputElement) SetFiles(value *fileapi.FileList) {
+// type file.FileList (idl: FileList).
+func (_this *HTMLInputElement) SetFiles(value *file.FileList) {
 	input := value.JSValue()
 	_this.Value_JS.Set("files", input)
 }
@@ -6480,6 +6889,47 @@ func (_this *HTMLInputElement) SelectionDirection() *string {
 func (_this *HTMLInputElement) SetSelectionDirection(value *string) {
 	input := value
 	_this.Value_JS.Set("selectionDirection", input)
+}
+
+// Webkitdirectory returning attribute 'webkitdirectory' with
+// type bool (idl: boolean).
+func (_this *HTMLInputElement) Webkitdirectory() bool {
+	var ret bool
+	value := _this.Value_JS.Get("webkitdirectory")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetWebkitdirectory setting attribute 'webkitdirectory' with
+// type bool (idl: boolean).
+func (_this *HTMLInputElement) SetWebkitdirectory(value bool) {
+	input := value
+	_this.Value_JS.Set("webkitdirectory", input)
+}
+
+// WebkitEntries returning attribute 'webkitEntries' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *HTMLInputElement) WebkitEntries() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("webkitEntries")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// Capture returning attribute 'capture' with
+// type string (idl: DOMString).
+func (_this *HTMLInputElement) Capture() string {
+	var ret string
+	value := _this.Value_JS.Get("capture")
+	ret = (value).String()
+	return ret
+}
+
+// SetCapture setting attribute 'capture' with
+// type string (idl: DOMString).
+func (_this *HTMLInputElement) SetCapture(value string) {
+	input := value
+	_this.Value_JS.Set("capture", input)
 }
 
 // Align returning attribute 'align' with

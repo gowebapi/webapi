@@ -5,30 +5,44 @@ package webapi
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/backgroundtask"
+	"github.com/gowebapi/webapi/crypto"
+	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/pseudo"
 	"github.com/gowebapi/webapi/css/regions"
+	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/fetch"
+	"github.com/gowebapi/webapi/fetch/corsrfc1918"
+	"github.com/gowebapi/webapi/graphics/fontmetrics"
+	"github.com/gowebapi/webapi/graphics/svg"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/html/htmlmisc"
+	"github.com/gowebapi/webapi/html/selection"
+	"github.com/gowebapi/webapi/indexeddb"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/media/speech"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
-	"github.com/gowebapi/webapi/svg"
-	"github.com/gowebapi/webapi/webanimations"
+	"github.com/gowebapi/webapi/unknown/cookie"
 	"github.com/gowebapi/webapi/webidl"
 )
 
 // using following types:
+// backgroundtask.IdleRequestCallback
+// backgroundtask.IdleRequestOptions
 // canvas.ImageBitmapOptions
 // ccsom.CSSStyleDeclaration
 // ccsom.StyleSheetList
+// cookie.CookieStore
+// corsrfc1918.AddressSpace
+// crypto.Crypto
 // dom.Attr
 // dom.CDATASection
 // dom.Comment
@@ -50,6 +64,7 @@ import (
 // domcore.EventTarget
 // domcore.VisibilityState
 // fetch.RequestInit
+// fontmetrics.FontMetrics
 // geometry.DOMPoint
 // geometry.DOMPointInit
 // geometry.DOMQuad
@@ -71,21 +86,25 @@ import (
 // htmlmisc.Location
 // htmlmisc.Navigator
 // htmlmisc.Storage
+// indexeddb.IDBFactory
 // javascript.Object
 // javascript.Promise
 // patch.ByteString
 // pseudo.CSSPseudoElementList
 // regions.NamedFlowMap
+// selection.Selection
 // serviceworker.CacheStorage
+// speech.SpeechSynthesis
 // svg.SVGSVGElement
+// typedom.StylePropertyMapReadOnly
 // view.BoxQuadOptions
 // view.CaretPosition
 // view.ConvertCoordinateOptions
 // view.MediaQueryList
 // view.Screen
 // view.ScrollToOptions
-// webanimations.Animation
-// webanimations.DocumentTimeline
+// webani.Animation
+// webani.DocumentTimeline
 // webidl.VoidFunction
 
 // ReleasableApiResource is used to release underlaying
@@ -604,6 +623,15 @@ func (_this *Document) DocumentElement() *dom.Element {
 	return ret
 }
 
+// AddressSpace returning attribute 'addressSpace' with
+// type corsrfc1918.AddressSpace (idl: AddressSpace).
+func (_this *Document) AddressSpace() corsrfc1918.AddressSpace {
+	var ret corsrfc1918.AddressSpace
+	value := _this.Value_JS.Get("addressSpace")
+	ret = corsrfc1918.AddressSpaceFromJS(value)
+	return ret
+}
+
 // NamedFlows returning attribute 'namedFlows' with
 // type regions.NamedFlowMap (idl: NamedFlowMap).
 func (_this *Document) NamedFlows() *regions.NamedFlowMap {
@@ -1097,6 +1125,63 @@ func (_this *Document) SetOnvisibilitychange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onvisibilitychange", input)
 }
 
+// PictureInPictureEnabled returning attribute 'pictureInPictureEnabled' with
+// type bool (idl: boolean).
+func (_this *Document) PictureInPictureEnabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("pictureInPictureEnabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// Onpointerlockchange returning attribute 'onpointerlockchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerlockchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerlockchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerlockchange setting attribute 'onpointerlockchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerlockchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerlockchange", input)
+}
+
+// Onpointerlockerror returning attribute 'onpointerlockerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerlockerror() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerlockerror")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerlockerror setting attribute 'onpointerlockerror' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerlockerror(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerlockerror", input)
+}
+
 // RootElement returning attribute 'rootElement' with
 // type svg.SVGSVGElement (idl: SVGSVGElement).
 func (_this *Document) RootElement() *svg.SVGSVGElement {
@@ -1109,11 +1194,11 @@ func (_this *Document) RootElement() *svg.SVGSVGElement {
 }
 
 // Timeline returning attribute 'timeline' with
-// type webanimations.DocumentTimeline (idl: DocumentTimeline).
-func (_this *Document) Timeline() *webanimations.DocumentTimeline {
-	var ret *webanimations.DocumentTimeline
+// type webani.DocumentTimeline (idl: DocumentTimeline).
+func (_this *Document) Timeline() *webani.DocumentTimeline {
+	var ret *webani.DocumentTimeline
 	value := _this.Value_JS.Get("timeline")
-	ret = webanimations.DocumentTimelineFromJS(value)
+	ret = webani.DocumentTimelineFromJS(value)
 	return ret
 }
 
@@ -1131,6 +1216,28 @@ func (_this *Document) StyleSheets() *ccsom.StyleSheetList {
 func (_this *Document) FullscreenElement() *dom.Element {
 	var ret *dom.Element
 	value := _this.Value_JS.Get("fullscreenElement")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
+// PictureInPictureElement returning attribute 'pictureInPictureElement' with
+// type dom.Element (idl: Element).
+func (_this *Document) PictureInPictureElement() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("pictureInPictureElement")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
+// PointerLockElement returning attribute 'pointerLockElement' with
+// type dom.Element (idl: Element).
+func (_this *Document) PointerLockElement() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("pointerLockElement")
 	if value.Type() != js.TypeNull {
 		ret = dom.ElementFromJS(value)
 	}
@@ -2689,6 +2796,342 @@ func (_this *Document) SetOnwaiting(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onwaiting", input)
 }
 
+// Ongotpointercapture returning attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ongotpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ongotpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOngotpointercapture setting attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOngotpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ongotpointercapture", input)
+}
+
+// Onlostpointercapture returning attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onlostpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onlostpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnlostpointercapture setting attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnlostpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onlostpointercapture", input)
+}
+
+// Onpointerdown returning attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerdown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerdown")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerdown setting attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerdown(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerdown", input)
+}
+
+// Onpointermove returning attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointermove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointermove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointermove setting attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointermove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointermove", input)
+}
+
+// Onpointerup returning attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerup")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerup setting attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerup(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerup", input)
+}
+
+// Onpointercancel returning attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointercancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointercancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointercancel setting attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointercancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointercancel", input)
+}
+
+// Onpointerover returning attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerover")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerover setting attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerover(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerover", input)
+}
+
+// Onpointerout returning attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerout() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerout")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerout setting attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerout(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerout", input)
+}
+
+// Onpointerenter returning attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerenter")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerenter setting attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerenter", input)
+}
+
+// Onpointerleave returning attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onpointerleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerleave")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerleave setting attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnpointerleave(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerleave", input)
+}
+
+// Ontouchstart returning attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontouchstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchstart setting attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntouchstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchstart", input)
+}
+
+// Ontouchend returning attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontouchend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchend setting attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntouchend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchend", input)
+}
+
+// Ontouchmove returning attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontouchmove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchmove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchmove setting attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntouchmove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchmove", input)
+}
+
+// Ontouchcancel returning attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontouchcancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchcancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchcancel setting attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntouchcancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchcancel", input)
+}
+
 // Onanimationstart returning attribute 'onanimationstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Document) Onanimationstart() domcore.EventHandlerFunc {
@@ -2879,6 +3322,54 @@ func (_this *Document) SetOntransitioncancel(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("ontransitioncancel", input)
+}
+
+// Onselectstart returning attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onselectstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectstart setting attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnselectstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectstart", input)
+}
+
+// Onselectionchange returning attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onselectionchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectionchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectionchange setting attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnselectionchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectionchange", input)
 }
 
 // Oncopy returning attribute 'oncopy' with
@@ -3300,6 +3791,15 @@ func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter
 	return
 }
 
+func (_this *Document) LayoutNow() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("layoutNow", _args[0:_end]...)
+	return
+}
+
 func (_this *Document) ElementFromPoint(x float64, y float64) (_result *dom.Element) {
 	var (
 		_args [2]interface{}
@@ -3368,6 +3868,43 @@ func (_this *Document) CaretPositionFromPoint(x float64, y float64) (_result *vi
 	if _returned.Type() != js.TypeNull {
 		_converted = view.CaretPositionFromJS(_returned)
 	}
+	_result = _converted
+	return
+}
+
+func (_this *Document) MeasureElement(element *dom.Element) (_result *fontmetrics.FontMetrics) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := element.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("measureElement", _args[0:_end]...)
+	var (
+		_converted *fontmetrics.FontMetrics // javascript: FontMetrics _what_return_name
+	)
+	_converted = fontmetrics.FontMetricsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) MeasureText(text string, styleMap *typedom.StylePropertyMapReadOnly) (_result *fontmetrics.FontMetrics) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := text
+	_args[0] = _p0
+	_end++
+	_p1 := styleMap.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("measureText", _args[0:_end]...)
+	var (
+		_converted *fontmetrics.FontMetrics // javascript: FontMetrics _what_return_name
+	)
+	_converted = fontmetrics.FontMetricsFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -3642,21 +4179,60 @@ func (_this *Document) ReleaseEvents() {
 	return
 }
 
-func (_this *Document) GetAnimations() (_result []*webanimations.Animation) {
+func (_this *Document) ExitPictureInPicture() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("exitPictureInPicture", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) ExitPointerLock() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("exitPointerLock", _args[0:_end]...)
+	return
+}
+
+func (_this *Document) GetSelection() (_result *selection.Selection) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getSelection", _args[0:_end]...)
+	var (
+		_converted *selection.Selection // javascript: Selection _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = selection.SelectionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Document) GetAnimations() (_result []*webani.Animation) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
 	var (
-		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+		_converted []*webani.Animation // javascript: sequence<Animation> _what_return_name
 	)
 	__length0 := _returned.Length()
-	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	__array0 := make([]*webani.Animation, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *webanimations.Animation
+		var __seq_out0 *webani.Animation
 		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__seq_out0 = webani.AnimationFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
@@ -4352,6 +4928,22 @@ func (_this *HTMLIFrameElement) ContentWindow() *Window {
 		ret = WindowFromJS(value)
 	}
 	return ret
+}
+
+// Csp returning attribute 'csp' with
+// type string (idl: DOMString).
+func (_this *HTMLIFrameElement) Csp() string {
+	var ret string
+	value := _this.Value_JS.Get("csp")
+	ret = (value).String()
+	return ret
+}
+
+// SetCsp setting attribute 'csp' with
+// type string (idl: DOMString).
+func (_this *HTMLIFrameElement) SetCsp(value string) {
+	input := value
+	_this.Value_JS.Set("csp", input)
 }
 
 // Align returning attribute 'align' with
@@ -5329,6 +5921,96 @@ func (_this *Window) ApplicationCache() *htmlmisc.ApplicationCache {
 	return ret
 }
 
+// Onappinstalled returning attribute 'onappinstalled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onappinstalled() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onappinstalled")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnappinstalled setting attribute 'onappinstalled' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnappinstalled(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onappinstalled", input)
+}
+
+// Onbeforeinstallprompt returning attribute 'onbeforeinstallprompt' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onbeforeinstallprompt() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onbeforeinstallprompt")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnbeforeinstallprompt setting attribute 'onbeforeinstallprompt' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnbeforeinstallprompt(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onbeforeinstallprompt", input)
+}
+
+// Orientation returning attribute 'orientation' with
+// type int (idl: short).
+func (_this *Window) Orientation() int {
+	var ret int
+	value := _this.Value_JS.Get("orientation")
+	ret = (value).Int()
+	return ret
+}
+
+// Onorientationchange returning attribute 'onorientationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onorientationchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onorientationchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnorientationchange setting attribute 'onorientationchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnorientationchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onorientationchange", input)
+}
+
+// CookieStore returning attribute 'cookieStore' with
+// type cookie.CookieStore (idl: CookieStore).
+func (_this *Window) CookieStore() *cookie.CookieStore {
+	var ret *cookie.CookieStore
+	value := _this.Value_JS.Get("cookieStore")
+	ret = cookie.CookieStoreFromJS(value)
+	return ret
+}
+
 // Screen returning attribute 'screen' with
 // type view.Screen (idl: Screen).
 func (_this *Window) Screen() *view.Screen {
@@ -5470,6 +6152,15 @@ func (_this *Window) External() *htmlmisc.External {
 	var ret *htmlmisc.External
 	value := _this.Value_JS.Get("external")
 	ret = htmlmisc.ExternalFromJS(value)
+	return ret
+}
+
+// SpeechSynthesis returning attribute 'speechSynthesis' with
+// type speech.SpeechSynthesis (idl: SpeechSynthesis).
+func (_this *Window) SpeechSynthesis() *speech.SpeechSynthesis {
+	var ret *speech.SpeechSynthesis
+	value := _this.Value_JS.Get("speechSynthesis")
+	ret = speech.SpeechSynthesisFromJS(value)
 	return ret
 }
 
@@ -6985,6 +7676,342 @@ func (_this *Window) SetOnwaiting(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onwaiting", input)
 }
 
+// Ongotpointercapture returning attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ongotpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ongotpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOngotpointercapture setting attribute 'ongotpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOngotpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ongotpointercapture", input)
+}
+
+// Onlostpointercapture returning attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onlostpointercapture() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onlostpointercapture")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnlostpointercapture setting attribute 'onlostpointercapture' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnlostpointercapture(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onlostpointercapture", input)
+}
+
+// Onpointerdown returning attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerdown() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerdown")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerdown setting attribute 'onpointerdown' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerdown(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerdown", input)
+}
+
+// Onpointermove returning attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointermove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointermove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointermove setting attribute 'onpointermove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointermove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointermove", input)
+}
+
+// Onpointerup returning attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerup() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerup")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerup setting attribute 'onpointerup' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerup(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerup", input)
+}
+
+// Onpointercancel returning attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointercancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointercancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointercancel setting attribute 'onpointercancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointercancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointercancel", input)
+}
+
+// Onpointerover returning attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerover() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerover")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerover setting attribute 'onpointerover' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerover(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerover", input)
+}
+
+// Onpointerout returning attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerout() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerout")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerout setting attribute 'onpointerout' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerout(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerout", input)
+}
+
+// Onpointerenter returning attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerenter")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerenter setting attribute 'onpointerenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerenter", input)
+}
+
+// Onpointerleave returning attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onpointerleave() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpointerleave")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpointerleave setting attribute 'onpointerleave' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnpointerleave(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpointerleave", input)
+}
+
+// Ontouchstart returning attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontouchstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchstart setting attribute 'ontouchstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntouchstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchstart", input)
+}
+
+// Ontouchend returning attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontouchend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchend setting attribute 'ontouchend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntouchend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchend", input)
+}
+
+// Ontouchmove returning attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontouchmove() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchmove")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchmove setting attribute 'ontouchmove' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntouchmove(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchmove", input)
+}
+
+// Ontouchcancel returning attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontouchcancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontouchcancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntouchcancel setting attribute 'ontouchcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntouchcancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontouchcancel", input)
+}
+
 // Onanimationstart returning attribute 'onanimationstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onanimationstart() domcore.EventHandlerFunc {
@@ -7175,6 +8202,54 @@ func (_this *Window) SetOntransitioncancel(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("ontransitioncancel", input)
+}
+
+// Onselectstart returning attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onselectstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectstart setting attribute 'onselectstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnselectstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectstart", input)
+}
+
+// Onselectionchange returning attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onselectionchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onselectionchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnselectionchange setting attribute 'onselectionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnselectionchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onselectionchange", input)
 }
 
 // Onafterprint returning attribute 'onafterprint' with
@@ -7570,12 +8645,39 @@ func (_this *Window) Origin() string {
 	return ret
 }
 
+// IsSecureContext returning attribute 'isSecureContext' with
+// type bool (idl: boolean).
+func (_this *Window) IsSecureContext() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isSecureContext")
+	ret = (value).Bool()
+	return ret
+}
+
 // Caches returning attribute 'caches' with
 // type serviceworker.CacheStorage (idl: CacheStorage).
 func (_this *Window) Caches() *serviceworker.CacheStorage {
 	var ret *serviceworker.CacheStorage
 	value := _this.Value_JS.Get("caches")
 	ret = serviceworker.CacheStorageFromJS(value)
+	return ret
+}
+
+// IndexedDB returning attribute 'indexedDB' with
+// type indexeddb.IDBFactory (idl: IDBFactory).
+func (_this *Window) IndexedDB() *indexeddb.IDBFactory {
+	var ret *indexeddb.IDBFactory
+	value := _this.Value_JS.Get("indexedDB")
+	ret = indexeddb.IDBFactoryFromJS(value)
+	return ret
+}
+
+// Crypto returning attribute 'crypto' with
+// type crypto.Crypto (idl: Crypto).
+func (_this *Window) Crypto() *crypto.Crypto {
+	var ret *crypto.Crypto
+	value := _this.Value_JS.Get("crypto")
+	ret = crypto.CryptoFromJS(value)
 	return ret
 }
 
@@ -8002,6 +9104,63 @@ func (_this *Window) ReleaseEvents() {
 		_end  int
 	)
 	_this.Value_JS.Call("releaseEvents", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) RequestIdleCallback(callback *backgroundtask.IdleRequestCallback, options *backgroundtask.IdleRequestOptions) (_result uint) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("requestIdleCallback", _args[0:_end]...)
+	var (
+		_converted uint // javascript: unsigned long _what_return_name
+	)
+	_converted = (uint)((_returned).Int())
+	_result = _converted
+	return
+}
+
+func (_this *Window) CancelIdleCallback(handle uint) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := handle
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("cancelIdleCallback", _args[0:_end]...)
+	return
+}
+
+func (_this *Window) GetSelection() (_result *selection.Selection) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getSelection", _args[0:_end]...)
+	var (
+		_converted *selection.Selection // javascript: Selection _what_return_name
+	)
+	if _returned.Type() != js.TypeNull {
+		_converted = selection.SelectionFromJS(_returned)
+	}
+	_result = _converted
 	return
 }
 

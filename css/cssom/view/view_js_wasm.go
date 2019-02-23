@@ -8,6 +8,7 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/media/capabilities"
+	"github.com/gowebapi/webapi/media/orientation"
 )
 
 // using following types:
@@ -18,6 +19,7 @@ import (
 // domcore.EventListener
 // domcore.EventTarget
 // geometry.DOMRect
+// orientation.ScreenOrientation
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -719,4 +721,13 @@ func (_this *Screen) SetOnchange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onchange", input)
+}
+
+// Orientation returning attribute 'orientation' with
+// type orientation.ScreenOrientation (idl: ScreenOrientation).
+func (_this *Screen) Orientation() *orientation.ScreenOrientation {
+	var ret *orientation.ScreenOrientation
+	value := _this.Value_JS.Get("orientation")
+	ret = orientation.ScreenOrientationFromJS(value)
+	return ret
 }

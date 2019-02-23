@@ -7,13 +7,13 @@ package dom
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
+	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/webanimations"
 )
 
 // using following types:
@@ -35,7 +35,7 @@ import (
 // view.BoxQuadOptions
 // view.ConvertCoordinateOptions
 // view.ScrollToOptions
-// webanimations.Animation
+// webani.Animation
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -66,6 +66,48 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// enum: FragmentFilter
+type FragmentFilter int
+
+const (
+	DirectFragmentsOnlyFragmentFilter FragmentFilter = iota
+	FragmentHierarchyFragmentFilter
+)
+
+var fragmentFilterToWasmTable = []string{
+	"direct-fragments-only", "fragment-hierarchy",
+}
+
+var fragmentFilterFromWasmTable = map[string]FragmentFilter{
+	"direct-fragments-only": DirectFragmentsOnlyFragmentFilter, "fragment-hierarchy": FragmentHierarchyFragmentFilter,
+}
+
+// JSValue is converting this enum into a java object
+func (this *FragmentFilter) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this FragmentFilter) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(fragmentFilterToWasmTable) {
+		return fragmentFilterToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// FragmentFilterFromJS is converting a javascript value into
+// a FragmentFilter enum value.
+func FragmentFilterFromJS(value js.Value) FragmentFilter {
+	key := value.String()
+	conv, ok := fragmentFilterFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
 }
 
 // enum: FullscreenNavigationUI
@@ -1231,6 +1273,899 @@ func (_this *Element) AssignedSlot() js.Value {
 	return ret
 }
 
+// Role returning attribute 'role' with
+// type string (idl: DOMString).
+func (_this *Element) Role() *string {
+	var ret *string
+	value := _this.Value_JS.Get("role")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetRole setting attribute 'role' with
+// type string (idl: DOMString).
+func (_this *Element) SetRole(value *string) {
+	input := value
+	_this.Value_JS.Set("role", input)
+}
+
+// AriaActiveDescendant returning attribute 'ariaActiveDescendant' with
+// type string (idl: DOMString).
+func (_this *Element) AriaActiveDescendant() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaActiveDescendant")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaActiveDescendant setting attribute 'ariaActiveDescendant' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaActiveDescendant(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaActiveDescendant", input)
+}
+
+// AriaAtomic returning attribute 'ariaAtomic' with
+// type string (idl: DOMString).
+func (_this *Element) AriaAtomic() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaAtomic")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaAtomic setting attribute 'ariaAtomic' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaAtomic(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaAtomic", input)
+}
+
+// AriaAutoComplete returning attribute 'ariaAutoComplete' with
+// type string (idl: DOMString).
+func (_this *Element) AriaAutoComplete() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaAutoComplete")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaAutoComplete setting attribute 'ariaAutoComplete' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaAutoComplete(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaAutoComplete", input)
+}
+
+// AriaBusy returning attribute 'ariaBusy' with
+// type string (idl: DOMString).
+func (_this *Element) AriaBusy() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaBusy")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaBusy setting attribute 'ariaBusy' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaBusy(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaBusy", input)
+}
+
+// AriaChecked returning attribute 'ariaChecked' with
+// type string (idl: DOMString).
+func (_this *Element) AriaChecked() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaChecked")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaChecked setting attribute 'ariaChecked' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaChecked(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaChecked", input)
+}
+
+// AriaColCount returning attribute 'ariaColCount' with
+// type string (idl: DOMString).
+func (_this *Element) AriaColCount() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaColCount")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaColCount setting attribute 'ariaColCount' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaColCount(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaColCount", input)
+}
+
+// AriaColIndex returning attribute 'ariaColIndex' with
+// type string (idl: DOMString).
+func (_this *Element) AriaColIndex() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaColIndex")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaColIndex setting attribute 'ariaColIndex' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaColIndex(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaColIndex", input)
+}
+
+// AriaColSpan returning attribute 'ariaColSpan' with
+// type string (idl: DOMString).
+func (_this *Element) AriaColSpan() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaColSpan")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaColSpan setting attribute 'ariaColSpan' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaColSpan(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaColSpan", input)
+}
+
+// AriaControls returning attribute 'ariaControls' with
+// type string (idl: DOMString).
+func (_this *Element) AriaControls() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaControls")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaControls setting attribute 'ariaControls' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaControls(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaControls", input)
+}
+
+// AriaCurrent returning attribute 'ariaCurrent' with
+// type string (idl: DOMString).
+func (_this *Element) AriaCurrent() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaCurrent")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaCurrent setting attribute 'ariaCurrent' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaCurrent(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaCurrent", input)
+}
+
+// AriaDescribedBy returning attribute 'ariaDescribedBy' with
+// type string (idl: DOMString).
+func (_this *Element) AriaDescribedBy() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaDescribedBy")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaDescribedBy setting attribute 'ariaDescribedBy' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaDescribedBy(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaDescribedBy", input)
+}
+
+// AriaDetails returning attribute 'ariaDetails' with
+// type string (idl: DOMString).
+func (_this *Element) AriaDetails() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaDetails")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaDetails setting attribute 'ariaDetails' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaDetails(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaDetails", input)
+}
+
+// AriaDisabled returning attribute 'ariaDisabled' with
+// type string (idl: DOMString).
+func (_this *Element) AriaDisabled() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaDisabled")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaDisabled setting attribute 'ariaDisabled' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaDisabled(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaDisabled", input)
+}
+
+// AriaErrorMessage returning attribute 'ariaErrorMessage' with
+// type string (idl: DOMString).
+func (_this *Element) AriaErrorMessage() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaErrorMessage")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaErrorMessage setting attribute 'ariaErrorMessage' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaErrorMessage(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaErrorMessage", input)
+}
+
+// AriaExpanded returning attribute 'ariaExpanded' with
+// type string (idl: DOMString).
+func (_this *Element) AriaExpanded() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaExpanded")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaExpanded setting attribute 'ariaExpanded' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaExpanded(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaExpanded", input)
+}
+
+// AriaFlowTo returning attribute 'ariaFlowTo' with
+// type string (idl: DOMString).
+func (_this *Element) AriaFlowTo() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaFlowTo")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaFlowTo setting attribute 'ariaFlowTo' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaFlowTo(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaFlowTo", input)
+}
+
+// AriaHasPopup returning attribute 'ariaHasPopup' with
+// type string (idl: DOMString).
+func (_this *Element) AriaHasPopup() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaHasPopup")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaHasPopup setting attribute 'ariaHasPopup' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaHasPopup(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaHasPopup", input)
+}
+
+// AriaHidden returning attribute 'ariaHidden' with
+// type string (idl: DOMString).
+func (_this *Element) AriaHidden() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaHidden")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaHidden setting attribute 'ariaHidden' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaHidden(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaHidden", input)
+}
+
+// AriaInvalid returning attribute 'ariaInvalid' with
+// type string (idl: DOMString).
+func (_this *Element) AriaInvalid() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaInvalid")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaInvalid setting attribute 'ariaInvalid' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaInvalid(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaInvalid", input)
+}
+
+// AriaKeyShortcuts returning attribute 'ariaKeyShortcuts' with
+// type string (idl: DOMString).
+func (_this *Element) AriaKeyShortcuts() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaKeyShortcuts")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaKeyShortcuts setting attribute 'ariaKeyShortcuts' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaKeyShortcuts(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaKeyShortcuts", input)
+}
+
+// AriaLabel returning attribute 'ariaLabel' with
+// type string (idl: DOMString).
+func (_this *Element) AriaLabel() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaLabel")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaLabel setting attribute 'ariaLabel' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaLabel(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaLabel", input)
+}
+
+// AriaLabelledBy returning attribute 'ariaLabelledBy' with
+// type string (idl: DOMString).
+func (_this *Element) AriaLabelledBy() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaLabelledBy")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaLabelledBy setting attribute 'ariaLabelledBy' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaLabelledBy(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaLabelledBy", input)
+}
+
+// AriaLevel returning attribute 'ariaLevel' with
+// type string (idl: DOMString).
+func (_this *Element) AriaLevel() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaLevel")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaLevel setting attribute 'ariaLevel' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaLevel(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaLevel", input)
+}
+
+// AriaLive returning attribute 'ariaLive' with
+// type string (idl: DOMString).
+func (_this *Element) AriaLive() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaLive")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaLive setting attribute 'ariaLive' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaLive(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaLive", input)
+}
+
+// AriaModal returning attribute 'ariaModal' with
+// type string (idl: DOMString).
+func (_this *Element) AriaModal() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaModal")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaModal setting attribute 'ariaModal' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaModal(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaModal", input)
+}
+
+// AriaMultiLine returning attribute 'ariaMultiLine' with
+// type string (idl: DOMString).
+func (_this *Element) AriaMultiLine() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaMultiLine")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaMultiLine setting attribute 'ariaMultiLine' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaMultiLine(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaMultiLine", input)
+}
+
+// AriaMultiSelectable returning attribute 'ariaMultiSelectable' with
+// type string (idl: DOMString).
+func (_this *Element) AriaMultiSelectable() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaMultiSelectable")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaMultiSelectable setting attribute 'ariaMultiSelectable' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaMultiSelectable(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaMultiSelectable", input)
+}
+
+// AriaOrientation returning attribute 'ariaOrientation' with
+// type string (idl: DOMString).
+func (_this *Element) AriaOrientation() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaOrientation")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaOrientation setting attribute 'ariaOrientation' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaOrientation(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaOrientation", input)
+}
+
+// AriaOwns returning attribute 'ariaOwns' with
+// type string (idl: DOMString).
+func (_this *Element) AriaOwns() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaOwns")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaOwns setting attribute 'ariaOwns' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaOwns(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaOwns", input)
+}
+
+// AriaPlaceholder returning attribute 'ariaPlaceholder' with
+// type string (idl: DOMString).
+func (_this *Element) AriaPlaceholder() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaPlaceholder")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaPlaceholder setting attribute 'ariaPlaceholder' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaPlaceholder(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaPlaceholder", input)
+}
+
+// AriaPosInSet returning attribute 'ariaPosInSet' with
+// type string (idl: DOMString).
+func (_this *Element) AriaPosInSet() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaPosInSet")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaPosInSet setting attribute 'ariaPosInSet' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaPosInSet(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaPosInSet", input)
+}
+
+// AriaPressed returning attribute 'ariaPressed' with
+// type string (idl: DOMString).
+func (_this *Element) AriaPressed() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaPressed")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaPressed setting attribute 'ariaPressed' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaPressed(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaPressed", input)
+}
+
+// AriaReadOnly returning attribute 'ariaReadOnly' with
+// type string (idl: DOMString).
+func (_this *Element) AriaReadOnly() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaReadOnly")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaReadOnly setting attribute 'ariaReadOnly' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaReadOnly(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaReadOnly", input)
+}
+
+// AriaRelevant returning attribute 'ariaRelevant' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRelevant() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRelevant")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRelevant setting attribute 'ariaRelevant' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRelevant(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRelevant", input)
+}
+
+// AriaRequired returning attribute 'ariaRequired' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRequired() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRequired")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRequired setting attribute 'ariaRequired' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRequired(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRequired", input)
+}
+
+// AriaRoleDescription returning attribute 'ariaRoleDescription' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRoleDescription() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRoleDescription")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRoleDescription setting attribute 'ariaRoleDescription' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRoleDescription(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRoleDescription", input)
+}
+
+// AriaRowCount returning attribute 'ariaRowCount' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRowCount() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRowCount")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRowCount setting attribute 'ariaRowCount' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRowCount(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRowCount", input)
+}
+
+// AriaRowIndex returning attribute 'ariaRowIndex' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRowIndex() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRowIndex")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRowIndex setting attribute 'ariaRowIndex' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRowIndex(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRowIndex", input)
+}
+
+// AriaRowSpan returning attribute 'ariaRowSpan' with
+// type string (idl: DOMString).
+func (_this *Element) AriaRowSpan() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaRowSpan")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaRowSpan setting attribute 'ariaRowSpan' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaRowSpan(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaRowSpan", input)
+}
+
+// AriaSelected returning attribute 'ariaSelected' with
+// type string (idl: DOMString).
+func (_this *Element) AriaSelected() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaSelected")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaSelected setting attribute 'ariaSelected' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaSelected(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaSelected", input)
+}
+
+// AriaSetSize returning attribute 'ariaSetSize' with
+// type string (idl: DOMString).
+func (_this *Element) AriaSetSize() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaSetSize")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaSetSize setting attribute 'ariaSetSize' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaSetSize(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaSetSize", input)
+}
+
+// AriaSort returning attribute 'ariaSort' with
+// type string (idl: DOMString).
+func (_this *Element) AriaSort() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaSort")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaSort setting attribute 'ariaSort' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaSort(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaSort", input)
+}
+
+// AriaValueMax returning attribute 'ariaValueMax' with
+// type string (idl: DOMString).
+func (_this *Element) AriaValueMax() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaValueMax")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaValueMax setting attribute 'ariaValueMax' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaValueMax(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaValueMax", input)
+}
+
+// AriaValueMin returning attribute 'ariaValueMin' with
+// type string (idl: DOMString).
+func (_this *Element) AriaValueMin() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaValueMin")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaValueMin setting attribute 'ariaValueMin' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaValueMin(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaValueMin", input)
+}
+
+// AriaValueNow returning attribute 'ariaValueNow' with
+// type string (idl: DOMString).
+func (_this *Element) AriaValueNow() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaValueNow")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaValueNow setting attribute 'ariaValueNow' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaValueNow(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaValueNow", input)
+}
+
+// AriaValueText returning attribute 'ariaValueText' with
+// type string (idl: DOMString).
+func (_this *Element) AriaValueText() *string {
+	var ret *string
+	value := _this.Value_JS.Get("ariaValueText")
+	if value.Type() != js.TypeNull {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SetAriaValueText setting attribute 'ariaValueText' with
+// type string (idl: DOMString).
+func (_this *Element) SetAriaValueText(value *string) {
+	input := value
+	_this.Value_JS.Set("ariaValueText", input)
+}
+
 func (_this *Element) HasAttributes() (_result bool) {
 	var (
 		_args [0]interface{}
@@ -1686,6 +2621,23 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	return
 }
 
+func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := filter.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getFragmentInformation", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Element) ComputedStyleMap() (_result *typedom.StylePropertyMapReadOnly) {
 	var (
 		_args [0]interface{}
@@ -1845,6 +2797,56 @@ func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *ja
 	)
 	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
+	return
+}
+
+func (_this *Element) SetPointerCapture(pointerId int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := pointerId
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("setPointerCapture", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ReleasePointerCapture(pointerId int) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := pointerId
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("releasePointerCapture", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) HasPointerCapture(pointerId int) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := pointerId
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("hasPointerCapture", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Element) RequestPointerLock() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("requestPointerLock", _args[0:_end]...)
 	return
 }
 
@@ -2065,7 +3067,7 @@ func (_this *Element) Remove() {
 	return
 }
 
-func (_this *Element) Animate(keyframes *javascript.Object, options *Union) (_result *webanimations.Animation) {
+func (_this *Element) Animate(keyframes *javascript.Object, options *Union) (_result *webani.Animation) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2080,28 +3082,28 @@ func (_this *Element) Animate(keyframes *javascript.Object, options *Union) (_re
 	}
 	_returned := _this.Value_JS.Call("animate", _args[0:_end]...)
 	var (
-		_converted *webanimations.Animation // javascript: Animation _what_return_name
+		_converted *webani.Animation // javascript: Animation _what_return_name
 	)
-	_converted = webanimations.AnimationFromJS(_returned)
+	_converted = webani.AnimationFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Element) GetAnimations() (_result []*webanimations.Animation) {
+func (_this *Element) GetAnimations() (_result []*webani.Animation) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getAnimations", _args[0:_end]...)
 	var (
-		_converted []*webanimations.Animation // javascript: sequence<Animation> _what_return_name
+		_converted []*webani.Animation // javascript: sequence<Animation> _what_return_name
 	)
 	__length0 := _returned.Length()
-	__array0 := make([]*webanimations.Animation, __length0, __length0)
+	__array0 := make([]*webani.Animation, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *webanimations.Animation
+		var __seq_out0 *webani.Animation
 		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = webanimations.AnimationFromJS(__seq_in0)
+		__seq_out0 = webani.AnimationFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	_converted = __array0
@@ -3517,6 +4519,28 @@ func (_this *ShadowRoot) StyleSheets() *ccsom.StyleSheetList {
 func (_this *ShadowRoot) FullscreenElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("fullscreenElement")
+	if value.Type() != js.TypeNull {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// PictureInPictureElement returning attribute 'pictureInPictureElement' with
+// type Element (idl: Element).
+func (_this *ShadowRoot) PictureInPictureElement() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("pictureInPictureElement")
+	if value.Type() != js.TypeNull {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// PointerLockElement returning attribute 'pointerLockElement' with
+// type Element (idl: Element).
+func (_this *ShadowRoot) PointerLockElement() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("pointerLockElement")
 	if value.Type() != js.TypeNull {
 		ret = ElementFromJS(value)
 	}

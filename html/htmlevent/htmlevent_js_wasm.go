@@ -6,14 +6,20 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi"
+	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/device/inputcapabilities"
+	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/html/datatransfer"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/xhr"
 )
 
 // using following types:
+// datatransfer.DataTransfer
+// dom.StaticRange
 // domcore.Event
 // domcore.EventTarget
+// inputcapabilities.InputDeviceCapabilities
 // javascript.Promise
 // webapi.Window
 // xhr.FormData
@@ -51,12 +57,13 @@ func UnionFromJS(value js.Value) *Union {
 
 // dictionary: CompositionEventInit
 type CompositionEventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-	View       *webapi.Window
-	Detail     int
-	Data       string
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
+	Data               string
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -73,8 +80,10 @@ func (_this *CompositionEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.Data
-	out.Set("data", value5)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.Data
+	out.Set("data", value6)
 	return out
 }
 
@@ -85,12 +94,13 @@ func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
 	input := value.JSValue()
 	var out CompositionEventInit
 	var (
-		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool           // javascript: boolean {composed Composed composed}
-		value3 *webapi.Window // javascript: Window {view View view}
-		value4 int            // javascript: long {detail Detail detail}
-		value5 string         // javascript: DOMString {data Data data}
+		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                                       // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window                             // javascript: Window {view View view}
+		value4 int                                        // javascript: long {detail Detail detail}
+		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6 string                                     // javascript: DOMString {data Data data}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -104,8 +114,222 @@ func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	value5 = (input.Get("data")).String()
-	out.Data = value5
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
+	value6 = (input.Get("data")).String()
+	out.Data = value6
+	return &out
+}
+
+// dictionary: DragEventInit
+type DragEventInit struct {
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
+	CtrlKey            bool
+	ShiftKey           bool
+	AltKey             bool
+	MetaKey            bool
+	ModifierAltGraph   bool
+	ModifierCapsLock   bool
+	ModifierFn         bool
+	ModifierFnLock     bool
+	ModifierHyper      bool
+	ModifierNumLock    bool
+	ModifierScrollLock bool
+	ModifierSuper      bool
+	ModifierSymbol     bool
+	ModifierSymbolLock bool
+	Button             int
+	Buttons            int
+	RelatedTarget      *domcore.EventTarget
+	ScreenX            float64
+	ScreenY            float64
+	ClientX            float64
+	ClientY            float64
+	MovementX          int
+	MovementY          int
+	DataTransfer       *datatransfer.DataTransfer
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DragEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.View.JSValue()
+	out.Set("view", value3)
+	value4 := _this.Detail
+	out.Set("detail", value4)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.CtrlKey
+	out.Set("ctrlKey", value6)
+	value7 := _this.ShiftKey
+	out.Set("shiftKey", value7)
+	value8 := _this.AltKey
+	out.Set("altKey", value8)
+	value9 := _this.MetaKey
+	out.Set("metaKey", value9)
+	value10 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value10)
+	value11 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value11)
+	value12 := _this.ModifierFn
+	out.Set("modifierFn", value12)
+	value13 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value13)
+	value14 := _this.ModifierHyper
+	out.Set("modifierHyper", value14)
+	value15 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value15)
+	value16 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value16)
+	value17 := _this.ModifierSuper
+	out.Set("modifierSuper", value17)
+	value18 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value18)
+	value19 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value19)
+	value20 := _this.Button
+	out.Set("button", value20)
+	value21 := _this.Buttons
+	out.Set("buttons", value21)
+	value22 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value22)
+	value23 := _this.ScreenX
+	out.Set("screenX", value23)
+	value24 := _this.ScreenY
+	out.Set("screenY", value24)
+	value25 := _this.ClientX
+	out.Set("clientX", value25)
+	value26 := _this.ClientY
+	out.Set("clientY", value26)
+	value27 := _this.MovementX
+	out.Set("movementX", value27)
+	value28 := _this.MovementY
+	out.Set("movementY", value28)
+	value29 := _this.DataTransfer.JSValue()
+	out.Set("dataTransfer", value29)
+	return out
+}
+
+// DragEventInitFromJS is allocating a new
+// DragEventInit object and copy all values from
+// input javascript object
+func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
+	input := value.JSValue()
+	var out DragEventInit
+	var (
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value7  bool                                       // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value8  bool                                       // javascript: boolean {altKey AltKey altKey}
+		value9  bool                                       // javascript: boolean {metaKey MetaKey metaKey}
+		value10 bool                                       // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value11 bool                                       // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value12 bool                                       // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value13 bool                                       // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value14 bool                                       // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value15 bool                                       // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value16 bool                                       // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value17 bool                                       // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value20 int                                        // javascript: short {button Button button}
+		value21 int                                        // javascript: unsigned short {buttons Buttons buttons}
+		value22 *domcore.EventTarget                       // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value23 float64                                    // javascript: double {screenX ScreenX screenX}
+		value24 float64                                    // javascript: double {screenY ScreenY screenY}
+		value25 float64                                    // javascript: double {clientX ClientX clientX}
+		value26 float64                                    // javascript: double {clientY ClientY clientY}
+		value27 int                                        // javascript: long {movementX MovementX movementX}
+		value28 int                                        // javascript: long {movementY MovementY movementY}
+		value29 *datatransfer.DataTransfer                 // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	if input.Get("view").Type() != js.TypeNull {
+		value3 = webapi.WindowFromJS(input.Get("view"))
+	}
+	out.View = value3
+	value4 = (input.Get("detail")).Int()
+	out.Detail = value4
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
+	value6 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value6
+	value7 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value7
+	value8 = (input.Get("altKey")).Bool()
+	out.AltKey = value8
+	value9 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value9
+	value10 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value10
+	value11 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value11
+	value12 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value12
+	value13 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value13
+	value14 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value14
+	value15 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value15
+	value16 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value16
+	value17 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value17
+	value18 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value18
+	value19 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value19
+	value20 = (input.Get("button")).Int()
+	out.Button = value20
+	value21 = (input.Get("buttons")).Int()
+	out.Buttons = value21
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value22
+	value23 = (input.Get("screenX")).Float()
+	out.ScreenX = value23
+	value24 = (input.Get("screenY")).Float()
+	out.ScreenY = value24
+	value25 = (input.Get("clientX")).Float()
+	out.ClientX = value25
+	value26 = (input.Get("clientY")).Float()
+	out.ClientY = value26
+	value27 = (input.Get("movementX")).Int()
+	out.MovementX = value27
+	value28 = (input.Get("movementY")).Int()
+	out.MovementY = value28
+	if input.Get("dataTransfer").Type() != js.TypeNull {
+		value29 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
+	}
+	out.DataTransfer = value29
 	return &out
 }
 
@@ -186,6 +410,7 @@ type EventModifierInit struct {
 	Composed           bool
 	View               *webapi.Window
 	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 	CtrlKey            bool
 	ShiftKey           bool
 	AltKey             bool
@@ -216,34 +441,36 @@ func (_this *EventModifierInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.CtrlKey
-	out.Set("ctrlKey", value5)
-	value6 := _this.ShiftKey
-	out.Set("shiftKey", value6)
-	value7 := _this.AltKey
-	out.Set("altKey", value7)
-	value8 := _this.MetaKey
-	out.Set("metaKey", value8)
-	value9 := _this.ModifierAltGraph
-	out.Set("modifierAltGraph", value9)
-	value10 := _this.ModifierCapsLock
-	out.Set("modifierCapsLock", value10)
-	value11 := _this.ModifierFn
-	out.Set("modifierFn", value11)
-	value12 := _this.ModifierFnLock
-	out.Set("modifierFnLock", value12)
-	value13 := _this.ModifierHyper
-	out.Set("modifierHyper", value13)
-	value14 := _this.ModifierNumLock
-	out.Set("modifierNumLock", value14)
-	value15 := _this.ModifierScrollLock
-	out.Set("modifierScrollLock", value15)
-	value16 := _this.ModifierSuper
-	out.Set("modifierSuper", value16)
-	value17 := _this.ModifierSymbol
-	out.Set("modifierSymbol", value17)
-	value18 := _this.ModifierSymbolLock
-	out.Set("modifierSymbolLock", value18)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.CtrlKey
+	out.Set("ctrlKey", value6)
+	value7 := _this.ShiftKey
+	out.Set("shiftKey", value7)
+	value8 := _this.AltKey
+	out.Set("altKey", value8)
+	value9 := _this.MetaKey
+	out.Set("metaKey", value9)
+	value10 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value10)
+	value11 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value11)
+	value12 := _this.ModifierFn
+	out.Set("modifierFn", value12)
+	value13 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value13)
+	value14 := _this.ModifierHyper
+	out.Set("modifierHyper", value14)
+	value15 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value15)
+	value16 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value16)
+	value17 := _this.ModifierSuper
+	out.Set("modifierSuper", value17)
+	value18 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value18)
+	value19 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value19)
 	return out
 }
 
@@ -254,25 +481,26 @@ func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
 	input := value.JSValue()
 	var out EventModifierInit
 	var (
-		value0  bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1  bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2  bool           // javascript: boolean {composed Composed composed}
-		value3  *webapi.Window // javascript: Window {view View view}
-		value4  int            // javascript: long {detail Detail detail}
-		value5  bool           // javascript: boolean {ctrlKey CtrlKey ctrlKey}
-		value6  bool           // javascript: boolean {shiftKey ShiftKey shiftKey}
-		value7  bool           // javascript: boolean {altKey AltKey altKey}
-		value8  bool           // javascript: boolean {metaKey MetaKey metaKey}
-		value9  bool           // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
-		value10 bool           // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
-		value11 bool           // javascript: boolean {modifierFn ModifierFn modifierFn}
-		value12 bool           // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
-		value13 bool           // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
-		value14 bool           // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
-		value15 bool           // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
-		value16 bool           // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
-		value17 bool           // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
-		value18 bool           // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value7  bool                                       // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value8  bool                                       // javascript: boolean {altKey AltKey altKey}
+		value9  bool                                       // javascript: boolean {metaKey MetaKey metaKey}
+		value10 bool                                       // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value11 bool                                       // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value12 bool                                       // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value13 bool                                       // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value14 bool                                       // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value15 bool                                       // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value16 bool                                       // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value17 bool                                       // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -286,45 +514,50 @@ func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	value5 = (input.Get("ctrlKey")).Bool()
-	out.CtrlKey = value5
-	value6 = (input.Get("shiftKey")).Bool()
-	out.ShiftKey = value6
-	value7 = (input.Get("altKey")).Bool()
-	out.AltKey = value7
-	value8 = (input.Get("metaKey")).Bool()
-	out.MetaKey = value8
-	value9 = (input.Get("modifierAltGraph")).Bool()
-	out.ModifierAltGraph = value9
-	value10 = (input.Get("modifierCapsLock")).Bool()
-	out.ModifierCapsLock = value10
-	value11 = (input.Get("modifierFn")).Bool()
-	out.ModifierFn = value11
-	value12 = (input.Get("modifierFnLock")).Bool()
-	out.ModifierFnLock = value12
-	value13 = (input.Get("modifierHyper")).Bool()
-	out.ModifierHyper = value13
-	value14 = (input.Get("modifierNumLock")).Bool()
-	out.ModifierNumLock = value14
-	value15 = (input.Get("modifierScrollLock")).Bool()
-	out.ModifierScrollLock = value15
-	value16 = (input.Get("modifierSuper")).Bool()
-	out.ModifierSuper = value16
-	value17 = (input.Get("modifierSymbol")).Bool()
-	out.ModifierSymbol = value17
-	value18 = (input.Get("modifierSymbolLock")).Bool()
-	out.ModifierSymbolLock = value18
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
+	value6 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value6
+	value7 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value7
+	value8 = (input.Get("altKey")).Bool()
+	out.AltKey = value8
+	value9 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value9
+	value10 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value10
+	value11 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value11
+	value12 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value12
+	value13 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value13
+	value14 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value14
+	value15 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value15
+	value16 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value16
+	value17 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value17
+	value18 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value18
+	value19 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value19
 	return &out
 }
 
 // dictionary: FocusEventInit
 type FocusEventInit struct {
-	Bubbles       bool
-	Cancelable    bool
-	Composed      bool
-	View          *webapi.Window
-	Detail        int
-	RelatedTarget *domcore.EventTarget
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
+	RelatedTarget      *domcore.EventTarget
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -341,8 +574,10 @@ func (_this *FocusEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value5)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value6)
 	return out
 }
 
@@ -353,12 +588,13 @@ func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
 	input := value.JSValue()
 	var out FocusEventInit
 	var (
-		value0 bool                 // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool                 // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool                 // javascript: boolean {composed Composed composed}
-		value3 *webapi.Window       // javascript: Window {view View view}
-		value4 int                  // javascript: long {detail Detail detail}
-		value5 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                                       // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window                             // javascript: Window {view View view}
+		value4 int                                        // javascript: long {detail Detail detail}
+		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6 *domcore.EventTarget                       // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -372,10 +608,14 @@ func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value5 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
-	out.RelatedTarget = value5
+	out.SourceCapabilities = value5
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value6 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value6
 	return &out
 }
 
@@ -479,14 +719,17 @@ func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
 
 // dictionary: InputEventInit
 type InputEventInit struct {
-	Bubbles     bool
-	Cancelable  bool
-	Composed    bool
-	View        *webapi.Window
-	Detail      int
-	Data        *string
-	IsComposing bool
-	InputType   string
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
+	Data               *string
+	IsComposing        bool
+	InputType          string
+	DataTransfer       *datatransfer.DataTransfer
+	TargetRanges       []*dom.StaticRange
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -503,12 +746,22 @@ func (_this *InputEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.Data
-	out.Set("data", value5)
-	value6 := _this.IsComposing
-	out.Set("isComposing", value6)
-	value7 := _this.InputType
-	out.Set("inputType", value7)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.Data
+	out.Set("data", value6)
+	value7 := _this.IsComposing
+	out.Set("isComposing", value7)
+	value8 := _this.InputType
+	out.Set("inputType", value8)
+	value9 := _this.DataTransfer.JSValue()
+	out.Set("dataTransfer", value9)
+	value10 := js.Global().Get("Array").New(len(_this.TargetRanges))
+	for __idx10, __seq_in10 := range _this.TargetRanges {
+		__seq_out10 := __seq_in10.JSValue()
+		value10.SetIndex(__idx10, __seq_out10)
+	}
+	out.Set("targetRanges", value10)
 	return out
 }
 
@@ -519,14 +772,17 @@ func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
 	input := value.JSValue()
 	var out InputEventInit
 	var (
-		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool           // javascript: boolean {composed Composed composed}
-		value3 *webapi.Window // javascript: Window {view View view}
-		value4 int            // javascript: long {detail Detail detail}
-		value5 *string        // javascript: DOMString {data Data data}
-		value6 bool           // javascript: boolean {isComposing IsComposing isComposing}
-		value7 string         // javascript: DOMString {inputType InputType inputType}
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  *string                                    // javascript: DOMString {data Data data}
+		value7  bool                                       // javascript: boolean {isComposing IsComposing isComposing}
+		value8  string                                     // javascript: DOMString {inputType InputType inputType}
+		value9  *datatransfer.DataTransfer                 // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
+		value10 []*dom.StaticRange                         // javascript: sequence<StaticRange> {targetRanges TargetRanges targetRanges}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -540,15 +796,33 @@ func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
 	if input.Get("data").Type() != js.TypeNull {
 		__tmp := (input.Get("data")).String()
-		value5 = &__tmp
+		value6 = &__tmp
 	}
-	out.Data = value5
-	value6 = (input.Get("isComposing")).Bool()
-	out.IsComposing = value6
-	value7 = (input.Get("inputType")).String()
-	out.InputType = value7
+	out.Data = value6
+	value7 = (input.Get("isComposing")).Bool()
+	out.IsComposing = value7
+	value8 = (input.Get("inputType")).String()
+	out.InputType = value8
+	if input.Get("dataTransfer").Type() != js.TypeNull {
+		value9 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
+	}
+	out.DataTransfer = value9
+	__length10 := input.Get("targetRanges").Length()
+	__array10 := make([]*dom.StaticRange, __length10, __length10)
+	for __idx10 := 0; __idx10 < __length10; __idx10++ {
+		var __seq_out10 *dom.StaticRange
+		__seq_in10 := input.Get("targetRanges").Index(__idx10)
+		__seq_out10 = dom.StaticRangeFromJS(__seq_in10)
+		__array10[__idx10] = __seq_out10
+	}
+	value10 = __array10
+	out.TargetRanges = value10
 	return &out
 }
 
@@ -559,6 +833,7 @@ type KeyboardEventInit struct {
 	Composed           bool
 	View               *webapi.Window
 	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 	CtrlKey            bool
 	ShiftKey           bool
 	AltKey             bool
@@ -594,44 +869,46 @@ func (_this *KeyboardEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.CtrlKey
-	out.Set("ctrlKey", value5)
-	value6 := _this.ShiftKey
-	out.Set("shiftKey", value6)
-	value7 := _this.AltKey
-	out.Set("altKey", value7)
-	value8 := _this.MetaKey
-	out.Set("metaKey", value8)
-	value9 := _this.ModifierAltGraph
-	out.Set("modifierAltGraph", value9)
-	value10 := _this.ModifierCapsLock
-	out.Set("modifierCapsLock", value10)
-	value11 := _this.ModifierFn
-	out.Set("modifierFn", value11)
-	value12 := _this.ModifierFnLock
-	out.Set("modifierFnLock", value12)
-	value13 := _this.ModifierHyper
-	out.Set("modifierHyper", value13)
-	value14 := _this.ModifierNumLock
-	out.Set("modifierNumLock", value14)
-	value15 := _this.ModifierScrollLock
-	out.Set("modifierScrollLock", value15)
-	value16 := _this.ModifierSuper
-	out.Set("modifierSuper", value16)
-	value17 := _this.ModifierSymbol
-	out.Set("modifierSymbol", value17)
-	value18 := _this.ModifierSymbolLock
-	out.Set("modifierSymbolLock", value18)
-	value19 := _this.Key
-	out.Set("key", value19)
-	value20 := _this.Code
-	out.Set("code", value20)
-	value21 := _this.Location
-	out.Set("location", value21)
-	value22 := _this.Repeat
-	out.Set("repeat", value22)
-	value23 := _this.IsComposing
-	out.Set("isComposing", value23)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.CtrlKey
+	out.Set("ctrlKey", value6)
+	value7 := _this.ShiftKey
+	out.Set("shiftKey", value7)
+	value8 := _this.AltKey
+	out.Set("altKey", value8)
+	value9 := _this.MetaKey
+	out.Set("metaKey", value9)
+	value10 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value10)
+	value11 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value11)
+	value12 := _this.ModifierFn
+	out.Set("modifierFn", value12)
+	value13 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value13)
+	value14 := _this.ModifierHyper
+	out.Set("modifierHyper", value14)
+	value15 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value15)
+	value16 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value16)
+	value17 := _this.ModifierSuper
+	out.Set("modifierSuper", value17)
+	value18 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value18)
+	value19 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value19)
+	value20 := _this.Key
+	out.Set("key", value20)
+	value21 := _this.Code
+	out.Set("code", value21)
+	value22 := _this.Location
+	out.Set("location", value22)
+	value23 := _this.Repeat
+	out.Set("repeat", value23)
+	value24 := _this.IsComposing
+	out.Set("isComposing", value24)
 	return out
 }
 
@@ -642,30 +919,31 @@ func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
 	input := value.JSValue()
 	var out KeyboardEventInit
 	var (
-		value0  bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1  bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2  bool           // javascript: boolean {composed Composed composed}
-		value3  *webapi.Window // javascript: Window {view View view}
-		value4  int            // javascript: long {detail Detail detail}
-		value5  bool           // javascript: boolean {ctrlKey CtrlKey ctrlKey}
-		value6  bool           // javascript: boolean {shiftKey ShiftKey shiftKey}
-		value7  bool           // javascript: boolean {altKey AltKey altKey}
-		value8  bool           // javascript: boolean {metaKey MetaKey metaKey}
-		value9  bool           // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
-		value10 bool           // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
-		value11 bool           // javascript: boolean {modifierFn ModifierFn modifierFn}
-		value12 bool           // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
-		value13 bool           // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
-		value14 bool           // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
-		value15 bool           // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
-		value16 bool           // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
-		value17 bool           // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
-		value18 bool           // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 string         // javascript: DOMString {key Key key}
-		value20 string         // javascript: DOMString {code Code code}
-		value21 uint           // javascript: unsigned long {location Location location}
-		value22 bool           // javascript: boolean {repeat Repeat repeat}
-		value23 bool           // javascript: boolean {isComposing IsComposing isComposing}
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value7  bool                                       // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value8  bool                                       // javascript: boolean {altKey AltKey altKey}
+		value9  bool                                       // javascript: boolean {metaKey MetaKey metaKey}
+		value10 bool                                       // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value11 bool                                       // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value12 bool                                       // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value13 bool                                       // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value14 bool                                       // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value15 bool                                       // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value16 bool                                       // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value17 bool                                       // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value20 string                                     // javascript: DOMString {key Key key}
+		value21 string                                     // javascript: DOMString {code Code code}
+		value22 uint                                       // javascript: unsigned long {location Location location}
+		value23 bool                                       // javascript: boolean {repeat Repeat repeat}
+		value24 bool                                       // javascript: boolean {isComposing IsComposing isComposing}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -679,44 +957,48 @@ func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	value5 = (input.Get("ctrlKey")).Bool()
-	out.CtrlKey = value5
-	value6 = (input.Get("shiftKey")).Bool()
-	out.ShiftKey = value6
-	value7 = (input.Get("altKey")).Bool()
-	out.AltKey = value7
-	value8 = (input.Get("metaKey")).Bool()
-	out.MetaKey = value8
-	value9 = (input.Get("modifierAltGraph")).Bool()
-	out.ModifierAltGraph = value9
-	value10 = (input.Get("modifierCapsLock")).Bool()
-	out.ModifierCapsLock = value10
-	value11 = (input.Get("modifierFn")).Bool()
-	out.ModifierFn = value11
-	value12 = (input.Get("modifierFnLock")).Bool()
-	out.ModifierFnLock = value12
-	value13 = (input.Get("modifierHyper")).Bool()
-	out.ModifierHyper = value13
-	value14 = (input.Get("modifierNumLock")).Bool()
-	out.ModifierNumLock = value14
-	value15 = (input.Get("modifierScrollLock")).Bool()
-	out.ModifierScrollLock = value15
-	value16 = (input.Get("modifierSuper")).Bool()
-	out.ModifierSuper = value16
-	value17 = (input.Get("modifierSymbol")).Bool()
-	out.ModifierSymbol = value17
-	value18 = (input.Get("modifierSymbolLock")).Bool()
-	out.ModifierSymbolLock = value18
-	value19 = (input.Get("key")).String()
-	out.Key = value19
-	value20 = (input.Get("code")).String()
-	out.Code = value20
-	value21 = (uint)((input.Get("location")).Int())
-	out.Location = value21
-	value22 = (input.Get("repeat")).Bool()
-	out.Repeat = value22
-	value23 = (input.Get("isComposing")).Bool()
-	out.IsComposing = value23
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
+	value6 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value6
+	value7 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value7
+	value8 = (input.Get("altKey")).Bool()
+	out.AltKey = value8
+	value9 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value9
+	value10 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value10
+	value11 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value11
+	value12 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value12
+	value13 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value13
+	value14 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value14
+	value15 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value15
+	value16 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value16
+	value17 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value17
+	value18 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value18
+	value19 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value19
+	value20 = (input.Get("key")).String()
+	out.Key = value20
+	value21 = (input.Get("code")).String()
+	out.Code = value21
+	value22 = (uint)((input.Get("location")).Int())
+	out.Location = value22
+	value23 = (input.Get("repeat")).Bool()
+	out.Repeat = value23
+	value24 = (input.Get("isComposing")).Bool()
+	out.IsComposing = value24
 	return &out
 }
 
@@ -727,6 +1009,7 @@ type MouseEventInit struct {
 	Composed           bool
 	View               *webapi.Window
 	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 	CtrlKey            bool
 	ShiftKey           bool
 	AltKey             bool
@@ -748,6 +1031,8 @@ type MouseEventInit struct {
 	ScreenY            float64
 	ClientX            float64
 	ClientY            float64
+	MovementX          int
+	MovementY          int
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -764,48 +1049,54 @@ func (_this *MouseEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.CtrlKey
-	out.Set("ctrlKey", value5)
-	value6 := _this.ShiftKey
-	out.Set("shiftKey", value6)
-	value7 := _this.AltKey
-	out.Set("altKey", value7)
-	value8 := _this.MetaKey
-	out.Set("metaKey", value8)
-	value9 := _this.ModifierAltGraph
-	out.Set("modifierAltGraph", value9)
-	value10 := _this.ModifierCapsLock
-	out.Set("modifierCapsLock", value10)
-	value11 := _this.ModifierFn
-	out.Set("modifierFn", value11)
-	value12 := _this.ModifierFnLock
-	out.Set("modifierFnLock", value12)
-	value13 := _this.ModifierHyper
-	out.Set("modifierHyper", value13)
-	value14 := _this.ModifierNumLock
-	out.Set("modifierNumLock", value14)
-	value15 := _this.ModifierScrollLock
-	out.Set("modifierScrollLock", value15)
-	value16 := _this.ModifierSuper
-	out.Set("modifierSuper", value16)
-	value17 := _this.ModifierSymbol
-	out.Set("modifierSymbol", value17)
-	value18 := _this.ModifierSymbolLock
-	out.Set("modifierSymbolLock", value18)
-	value19 := _this.Button
-	out.Set("button", value19)
-	value20 := _this.Buttons
-	out.Set("buttons", value20)
-	value21 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value21)
-	value22 := _this.ScreenX
-	out.Set("screenX", value22)
-	value23 := _this.ScreenY
-	out.Set("screenY", value23)
-	value24 := _this.ClientX
-	out.Set("clientX", value24)
-	value25 := _this.ClientY
-	out.Set("clientY", value25)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.CtrlKey
+	out.Set("ctrlKey", value6)
+	value7 := _this.ShiftKey
+	out.Set("shiftKey", value7)
+	value8 := _this.AltKey
+	out.Set("altKey", value8)
+	value9 := _this.MetaKey
+	out.Set("metaKey", value9)
+	value10 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value10)
+	value11 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value11)
+	value12 := _this.ModifierFn
+	out.Set("modifierFn", value12)
+	value13 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value13)
+	value14 := _this.ModifierHyper
+	out.Set("modifierHyper", value14)
+	value15 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value15)
+	value16 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value16)
+	value17 := _this.ModifierSuper
+	out.Set("modifierSuper", value17)
+	value18 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value18)
+	value19 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value19)
+	value20 := _this.Button
+	out.Set("button", value20)
+	value21 := _this.Buttons
+	out.Set("buttons", value21)
+	value22 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value22)
+	value23 := _this.ScreenX
+	out.Set("screenX", value23)
+	value24 := _this.ScreenY
+	out.Set("screenY", value24)
+	value25 := _this.ClientX
+	out.Set("clientX", value25)
+	value26 := _this.ClientY
+	out.Set("clientY", value26)
+	value27 := _this.MovementX
+	out.Set("movementX", value27)
+	value28 := _this.MovementY
+	out.Set("movementY", value28)
 	return out
 }
 
@@ -816,32 +1107,35 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	input := value.JSValue()
 	var out MouseEventInit
 	var (
-		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
-		value1  bool                 // javascript: boolean {cancelable Cancelable cancelable}
-		value2  bool                 // javascript: boolean {composed Composed composed}
-		value3  *webapi.Window       // javascript: Window {view View view}
-		value4  int                  // javascript: long {detail Detail detail}
-		value5  bool                 // javascript: boolean {ctrlKey CtrlKey ctrlKey}
-		value6  bool                 // javascript: boolean {shiftKey ShiftKey shiftKey}
-		value7  bool                 // javascript: boolean {altKey AltKey altKey}
-		value8  bool                 // javascript: boolean {metaKey MetaKey metaKey}
-		value9  bool                 // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
-		value10 bool                 // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
-		value11 bool                 // javascript: boolean {modifierFn ModifierFn modifierFn}
-		value12 bool                 // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
-		value13 bool                 // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
-		value14 bool                 // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
-		value15 bool                 // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
-		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
-		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
-		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 int                  // javascript: short {button Button button}
-		value20 int                  // javascript: unsigned short {buttons Buttons buttons}
-		value21 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
-		value22 float64              // javascript: double {screenX ScreenX screenX}
-		value23 float64              // javascript: double {screenY ScreenY screenY}
-		value24 float64              // javascript: double {clientX ClientX clientX}
-		value25 float64              // javascript: double {clientY ClientY clientY}
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value7  bool                                       // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value8  bool                                       // javascript: boolean {altKey AltKey altKey}
+		value9  bool                                       // javascript: boolean {metaKey MetaKey metaKey}
+		value10 bool                                       // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value11 bool                                       // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value12 bool                                       // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value13 bool                                       // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value14 bool                                       // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value15 bool                                       // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value16 bool                                       // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value17 bool                                       // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value20 int                                        // javascript: short {button Button button}
+		value21 int                                        // javascript: unsigned short {buttons Buttons buttons}
+		value22 *domcore.EventTarget                       // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value23 float64                                    // javascript: double {screenX ScreenX screenX}
+		value24 float64                                    // javascript: double {screenY ScreenY screenY}
+		value25 float64                                    // javascript: double {clientX ClientX clientX}
+		value26 float64                                    // javascript: double {clientY ClientY clientY}
+		value27 int                                        // javascript: long {movementX MovementX movementX}
+		value28 int                                        // javascript: long {movementY MovementY movementY}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -855,50 +1149,58 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	value5 = (input.Get("ctrlKey")).Bool()
-	out.CtrlKey = value5
-	value6 = (input.Get("shiftKey")).Bool()
-	out.ShiftKey = value6
-	value7 = (input.Get("altKey")).Bool()
-	out.AltKey = value7
-	value8 = (input.Get("metaKey")).Bool()
-	out.MetaKey = value8
-	value9 = (input.Get("modifierAltGraph")).Bool()
-	out.ModifierAltGraph = value9
-	value10 = (input.Get("modifierCapsLock")).Bool()
-	out.ModifierCapsLock = value10
-	value11 = (input.Get("modifierFn")).Bool()
-	out.ModifierFn = value11
-	value12 = (input.Get("modifierFnLock")).Bool()
-	out.ModifierFnLock = value12
-	value13 = (input.Get("modifierHyper")).Bool()
-	out.ModifierHyper = value13
-	value14 = (input.Get("modifierNumLock")).Bool()
-	out.ModifierNumLock = value14
-	value15 = (input.Get("modifierScrollLock")).Bool()
-	out.ModifierScrollLock = value15
-	value16 = (input.Get("modifierSuper")).Bool()
-	out.ModifierSuper = value16
-	value17 = (input.Get("modifierSymbol")).Bool()
-	out.ModifierSymbol = value17
-	value18 = (input.Get("modifierSymbolLock")).Bool()
-	out.ModifierSymbolLock = value18
-	value19 = (input.Get("button")).Int()
-	out.Button = value19
-	value20 = (input.Get("buttons")).Int()
-	out.Buttons = value20
-	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value21 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
-	out.RelatedTarget = value21
-	value22 = (input.Get("screenX")).Float()
-	out.ScreenX = value22
-	value23 = (input.Get("screenY")).Float()
-	out.ScreenY = value23
-	value24 = (input.Get("clientX")).Float()
-	out.ClientX = value24
-	value25 = (input.Get("clientY")).Float()
-	out.ClientY = value25
+	out.SourceCapabilities = value5
+	value6 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value6
+	value7 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value7
+	value8 = (input.Get("altKey")).Bool()
+	out.AltKey = value8
+	value9 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value9
+	value10 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value10
+	value11 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value11
+	value12 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value12
+	value13 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value13
+	value14 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value14
+	value15 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value15
+	value16 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value16
+	value17 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value17
+	value18 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value18
+	value19 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value19
+	value20 = (input.Get("button")).Int()
+	out.Button = value20
+	value21 = (input.Get("buttons")).Int()
+	out.Buttons = value21
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value22
+	value23 = (input.Get("screenX")).Float()
+	out.ScreenX = value23
+	value24 = (input.Get("screenY")).Float()
+	out.ScreenY = value24
+	value25 = (input.Get("clientX")).Float()
+	out.ClientX = value25
+	value26 = (input.Get("clientY")).Float()
+	out.ClientY = value26
+	value27 = (input.Get("movementX")).Int()
+	out.MovementX = value27
+	value28 = (input.Get("movementY")).Int()
+	out.MovementY = value28
 	return &out
 }
 
@@ -1096,11 +1398,12 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 
 // dictionary: UIEventInit
 type UIEventInit struct {
-	Bubbles    bool
-	Cancelable bool
-	Composed   bool
-	View       *webapi.Window
-	Detail     int
+	Bubbles            bool
+	Cancelable         bool
+	Composed           bool
+	View               *webapi.Window
+	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1117,6 +1420,8 @@ func (_this *UIEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
 	return out
 }
 
@@ -1127,11 +1432,12 @@ func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
 	input := value.JSValue()
 	var out UIEventInit
 	var (
-		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool           // javascript: boolean {composed Composed composed}
-		value3 *webapi.Window // javascript: Window {view View view}
-		value4 int            // javascript: long {detail Detail detail}
+		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                                       // javascript: boolean {composed Composed composed}
+		value3 *webapi.Window                             // javascript: Window {view View view}
+		value4 int                                        // javascript: long {detail Detail detail}
+		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -1145,6 +1451,10 @@ func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	}
+	out.SourceCapabilities = value5
 	return &out
 }
 
@@ -1155,6 +1465,7 @@ type WheelEventInit struct {
 	Composed           bool
 	View               *webapi.Window
 	Detail             int
+	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 	CtrlKey            bool
 	ShiftKey           bool
 	AltKey             bool
@@ -1176,6 +1487,8 @@ type WheelEventInit struct {
 	ScreenY            float64
 	ClientX            float64
 	ClientY            float64
+	MovementX          int
+	MovementY          int
 	DeltaX             float64
 	DeltaY             float64
 	DeltaZ             float64
@@ -1196,56 +1509,62 @@ func (_this *WheelEventInit) JSValue() js.Value {
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
-	value5 := _this.CtrlKey
-	out.Set("ctrlKey", value5)
-	value6 := _this.ShiftKey
-	out.Set("shiftKey", value6)
-	value7 := _this.AltKey
-	out.Set("altKey", value7)
-	value8 := _this.MetaKey
-	out.Set("metaKey", value8)
-	value9 := _this.ModifierAltGraph
-	out.Set("modifierAltGraph", value9)
-	value10 := _this.ModifierCapsLock
-	out.Set("modifierCapsLock", value10)
-	value11 := _this.ModifierFn
-	out.Set("modifierFn", value11)
-	value12 := _this.ModifierFnLock
-	out.Set("modifierFnLock", value12)
-	value13 := _this.ModifierHyper
-	out.Set("modifierHyper", value13)
-	value14 := _this.ModifierNumLock
-	out.Set("modifierNumLock", value14)
-	value15 := _this.ModifierScrollLock
-	out.Set("modifierScrollLock", value15)
-	value16 := _this.ModifierSuper
-	out.Set("modifierSuper", value16)
-	value17 := _this.ModifierSymbol
-	out.Set("modifierSymbol", value17)
-	value18 := _this.ModifierSymbolLock
-	out.Set("modifierSymbolLock", value18)
-	value19 := _this.Button
-	out.Set("button", value19)
-	value20 := _this.Buttons
-	out.Set("buttons", value20)
-	value21 := _this.RelatedTarget.JSValue()
-	out.Set("relatedTarget", value21)
-	value22 := _this.ScreenX
-	out.Set("screenX", value22)
-	value23 := _this.ScreenY
-	out.Set("screenY", value23)
-	value24 := _this.ClientX
-	out.Set("clientX", value24)
-	value25 := _this.ClientY
-	out.Set("clientY", value25)
-	value26 := _this.DeltaX
-	out.Set("deltaX", value26)
-	value27 := _this.DeltaY
-	out.Set("deltaY", value27)
-	value28 := _this.DeltaZ
-	out.Set("deltaZ", value28)
-	value29 := _this.DeltaMode
-	out.Set("deltaMode", value29)
+	value5 := _this.SourceCapabilities.JSValue()
+	out.Set("sourceCapabilities", value5)
+	value6 := _this.CtrlKey
+	out.Set("ctrlKey", value6)
+	value7 := _this.ShiftKey
+	out.Set("shiftKey", value7)
+	value8 := _this.AltKey
+	out.Set("altKey", value8)
+	value9 := _this.MetaKey
+	out.Set("metaKey", value9)
+	value10 := _this.ModifierAltGraph
+	out.Set("modifierAltGraph", value10)
+	value11 := _this.ModifierCapsLock
+	out.Set("modifierCapsLock", value11)
+	value12 := _this.ModifierFn
+	out.Set("modifierFn", value12)
+	value13 := _this.ModifierFnLock
+	out.Set("modifierFnLock", value13)
+	value14 := _this.ModifierHyper
+	out.Set("modifierHyper", value14)
+	value15 := _this.ModifierNumLock
+	out.Set("modifierNumLock", value15)
+	value16 := _this.ModifierScrollLock
+	out.Set("modifierScrollLock", value16)
+	value17 := _this.ModifierSuper
+	out.Set("modifierSuper", value17)
+	value18 := _this.ModifierSymbol
+	out.Set("modifierSymbol", value18)
+	value19 := _this.ModifierSymbolLock
+	out.Set("modifierSymbolLock", value19)
+	value20 := _this.Button
+	out.Set("button", value20)
+	value21 := _this.Buttons
+	out.Set("buttons", value21)
+	value22 := _this.RelatedTarget.JSValue()
+	out.Set("relatedTarget", value22)
+	value23 := _this.ScreenX
+	out.Set("screenX", value23)
+	value24 := _this.ScreenY
+	out.Set("screenY", value24)
+	value25 := _this.ClientX
+	out.Set("clientX", value25)
+	value26 := _this.ClientY
+	out.Set("clientY", value26)
+	value27 := _this.MovementX
+	out.Set("movementX", value27)
+	value28 := _this.MovementY
+	out.Set("movementY", value28)
+	value29 := _this.DeltaX
+	out.Set("deltaX", value29)
+	value30 := _this.DeltaY
+	out.Set("deltaY", value30)
+	value31 := _this.DeltaZ
+	out.Set("deltaZ", value31)
+	value32 := _this.DeltaMode
+	out.Set("deltaMode", value32)
 	return out
 }
 
@@ -1256,36 +1575,39 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	input := value.JSValue()
 	var out WheelEventInit
 	var (
-		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
-		value1  bool                 // javascript: boolean {cancelable Cancelable cancelable}
-		value2  bool                 // javascript: boolean {composed Composed composed}
-		value3  *webapi.Window       // javascript: Window {view View view}
-		value4  int                  // javascript: long {detail Detail detail}
-		value5  bool                 // javascript: boolean {ctrlKey CtrlKey ctrlKey}
-		value6  bool                 // javascript: boolean {shiftKey ShiftKey shiftKey}
-		value7  bool                 // javascript: boolean {altKey AltKey altKey}
-		value8  bool                 // javascript: boolean {metaKey MetaKey metaKey}
-		value9  bool                 // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
-		value10 bool                 // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
-		value11 bool                 // javascript: boolean {modifierFn ModifierFn modifierFn}
-		value12 bool                 // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
-		value13 bool                 // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
-		value14 bool                 // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
-		value15 bool                 // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
-		value16 bool                 // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
-		value17 bool                 // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
-		value18 bool                 // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
-		value19 int                  // javascript: short {button Button button}
-		value20 int                  // javascript: unsigned short {buttons Buttons buttons}
-		value21 *domcore.EventTarget // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
-		value22 float64              // javascript: double {screenX ScreenX screenX}
-		value23 float64              // javascript: double {screenY ScreenY screenY}
-		value24 float64              // javascript: double {clientX ClientX clientX}
-		value25 float64              // javascript: double {clientY ClientY clientY}
-		value26 float64              // javascript: double {deltaX DeltaX deltaX}
-		value27 float64              // javascript: double {deltaY DeltaY deltaY}
-		value28 float64              // javascript: double {deltaZ DeltaZ deltaZ}
-		value29 uint                 // javascript: unsigned long {deltaMode DeltaMode deltaMode}
+		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
+		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
+		value2  bool                                       // javascript: boolean {composed Composed composed}
+		value3  *webapi.Window                             // javascript: Window {view View view}
+		value4  int                                        // javascript: long {detail Detail detail}
+		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
+		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
+		value7  bool                                       // javascript: boolean {shiftKey ShiftKey shiftKey}
+		value8  bool                                       // javascript: boolean {altKey AltKey altKey}
+		value9  bool                                       // javascript: boolean {metaKey MetaKey metaKey}
+		value10 bool                                       // javascript: boolean {modifierAltGraph ModifierAltGraph modifierAltGraph}
+		value11 bool                                       // javascript: boolean {modifierCapsLock ModifierCapsLock modifierCapsLock}
+		value12 bool                                       // javascript: boolean {modifierFn ModifierFn modifierFn}
+		value13 bool                                       // javascript: boolean {modifierFnLock ModifierFnLock modifierFnLock}
+		value14 bool                                       // javascript: boolean {modifierHyper ModifierHyper modifierHyper}
+		value15 bool                                       // javascript: boolean {modifierNumLock ModifierNumLock modifierNumLock}
+		value16 bool                                       // javascript: boolean {modifierScrollLock ModifierScrollLock modifierScrollLock}
+		value17 bool                                       // javascript: boolean {modifierSuper ModifierSuper modifierSuper}
+		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
+		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
+		value20 int                                        // javascript: short {button Button button}
+		value21 int                                        // javascript: unsigned short {buttons Buttons buttons}
+		value22 *domcore.EventTarget                       // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
+		value23 float64                                    // javascript: double {screenX ScreenX screenX}
+		value24 float64                                    // javascript: double {screenY ScreenY screenY}
+		value25 float64                                    // javascript: double {clientX ClientX clientX}
+		value26 float64                                    // javascript: double {clientY ClientY clientY}
+		value27 int                                        // javascript: long {movementX MovementX movementX}
+		value28 int                                        // javascript: long {movementY MovementY movementY}
+		value29 float64                                    // javascript: double {deltaX DeltaX deltaX}
+		value30 float64                                    // javascript: double {deltaY DeltaY deltaY}
+		value31 float64                                    // javascript: double {deltaZ DeltaZ deltaZ}
+		value32 uint                                       // javascript: unsigned long {deltaMode DeltaMode deltaMode}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -1299,58 +1621,66 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	value5 = (input.Get("ctrlKey")).Bool()
-	out.CtrlKey = value5
-	value6 = (input.Get("shiftKey")).Bool()
-	out.ShiftKey = value6
-	value7 = (input.Get("altKey")).Bool()
-	out.AltKey = value7
-	value8 = (input.Get("metaKey")).Bool()
-	out.MetaKey = value8
-	value9 = (input.Get("modifierAltGraph")).Bool()
-	out.ModifierAltGraph = value9
-	value10 = (input.Get("modifierCapsLock")).Bool()
-	out.ModifierCapsLock = value10
-	value11 = (input.Get("modifierFn")).Bool()
-	out.ModifierFn = value11
-	value12 = (input.Get("modifierFnLock")).Bool()
-	out.ModifierFnLock = value12
-	value13 = (input.Get("modifierHyper")).Bool()
-	out.ModifierHyper = value13
-	value14 = (input.Get("modifierNumLock")).Bool()
-	out.ModifierNumLock = value14
-	value15 = (input.Get("modifierScrollLock")).Bool()
-	out.ModifierScrollLock = value15
-	value16 = (input.Get("modifierSuper")).Bool()
-	out.ModifierSuper = value16
-	value17 = (input.Get("modifierSymbol")).Bool()
-	out.ModifierSymbol = value17
-	value18 = (input.Get("modifierSymbolLock")).Bool()
-	out.ModifierSymbolLock = value18
-	value19 = (input.Get("button")).Int()
-	out.Button = value19
-	value20 = (input.Get("buttons")).Int()
-	out.Buttons = value20
-	if input.Get("relatedTarget").Type() != js.TypeNull {
-		value21 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
-	out.RelatedTarget = value21
-	value22 = (input.Get("screenX")).Float()
-	out.ScreenX = value22
-	value23 = (input.Get("screenY")).Float()
-	out.ScreenY = value23
-	value24 = (input.Get("clientX")).Float()
-	out.ClientX = value24
-	value25 = (input.Get("clientY")).Float()
-	out.ClientY = value25
-	value26 = (input.Get("deltaX")).Float()
-	out.DeltaX = value26
-	value27 = (input.Get("deltaY")).Float()
-	out.DeltaY = value27
-	value28 = (input.Get("deltaZ")).Float()
-	out.DeltaZ = value28
-	value29 = (uint)((input.Get("deltaMode")).Int())
-	out.DeltaMode = value29
+	out.SourceCapabilities = value5
+	value6 = (input.Get("ctrlKey")).Bool()
+	out.CtrlKey = value6
+	value7 = (input.Get("shiftKey")).Bool()
+	out.ShiftKey = value7
+	value8 = (input.Get("altKey")).Bool()
+	out.AltKey = value8
+	value9 = (input.Get("metaKey")).Bool()
+	out.MetaKey = value9
+	value10 = (input.Get("modifierAltGraph")).Bool()
+	out.ModifierAltGraph = value10
+	value11 = (input.Get("modifierCapsLock")).Bool()
+	out.ModifierCapsLock = value11
+	value12 = (input.Get("modifierFn")).Bool()
+	out.ModifierFn = value12
+	value13 = (input.Get("modifierFnLock")).Bool()
+	out.ModifierFnLock = value13
+	value14 = (input.Get("modifierHyper")).Bool()
+	out.ModifierHyper = value14
+	value15 = (input.Get("modifierNumLock")).Bool()
+	out.ModifierNumLock = value15
+	value16 = (input.Get("modifierScrollLock")).Bool()
+	out.ModifierScrollLock = value16
+	value17 = (input.Get("modifierSuper")).Bool()
+	out.ModifierSuper = value17
+	value18 = (input.Get("modifierSymbol")).Bool()
+	out.ModifierSymbol = value18
+	value19 = (input.Get("modifierSymbolLock")).Bool()
+	out.ModifierSymbolLock = value19
+	value20 = (input.Get("button")).Int()
+	out.Button = value20
+	value21 = (input.Get("buttons")).Int()
+	out.Buttons = value21
+	if input.Get("relatedTarget").Type() != js.TypeNull {
+		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	}
+	out.RelatedTarget = value22
+	value23 = (input.Get("screenX")).Float()
+	out.ScreenX = value23
+	value24 = (input.Get("screenY")).Float()
+	out.ScreenY = value24
+	value25 = (input.Get("clientX")).Float()
+	out.ClientX = value25
+	value26 = (input.Get("clientY")).Float()
+	out.ClientY = value26
+	value27 = (input.Get("movementX")).Int()
+	out.MovementX = value27
+	value28 = (input.Get("movementY")).Int()
+	out.MovementY = value28
+	value29 = (input.Get("deltaX")).Float()
+	out.DeltaX = value29
+	value30 = (input.Get("deltaY")).Float()
+	out.DeltaY = value30
+	value31 = (input.Get("deltaZ")).Float()
+	out.DeltaZ = value31
+	value32 = (uint)((input.Get("deltaMode")).Int())
+	out.DeltaMode = value32
 	return &out
 }
 
@@ -1399,6 +1729,56 @@ func (_this *CompositionEvent) Data() string {
 	var ret string
 	value := _this.Value_JS.Get("data")
 	ret = (value).String()
+	return ret
+}
+
+// interface: DragEvent
+type DragEvent struct {
+	MouseEvent
+}
+
+// DragEventFromJS is casting a js.Wrapper into DragEvent.
+func DragEventFromJS(value js.Wrapper) *DragEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DragEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewDragEvent(_type string, eventInitDict *DragEventInit) (_result *DragEvent) {
+	_klass := js.Global().Get("DragEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *DragEvent // javascript: DragEvent _what_return_name
+	)
+	_converted = DragEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// DataTransfer returning attribute 'dataTransfer' with
+// type datatransfer.DataTransfer (idl: DataTransfer).
+func (_this *DragEvent) DataTransfer() *datatransfer.DataTransfer {
+	var ret *datatransfer.DataTransfer
+	value := _this.Value_JS.Get("dataTransfer")
+	if value.Type() != js.TypeNull {
+		ret = datatransfer.DataTransferFromJS(value)
+	}
 	return ret
 }
 
@@ -1708,6 +2088,39 @@ func (_this *InputEvent) InputType() string {
 	value := _this.Value_JS.Get("inputType")
 	ret = (value).String()
 	return ret
+}
+
+// DataTransfer returning attribute 'dataTransfer' with
+// type datatransfer.DataTransfer (idl: DataTransfer).
+func (_this *InputEvent) DataTransfer() *datatransfer.DataTransfer {
+	var ret *datatransfer.DataTransfer
+	value := _this.Value_JS.Get("dataTransfer")
+	if value.Type() != js.TypeNull {
+		ret = datatransfer.DataTransferFromJS(value)
+	}
+	return ret
+}
+
+func (_this *InputEvent) GetTargetRanges() (_result []*dom.StaticRange) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getTargetRanges", _args[0:_end]...)
+	var (
+		_converted []*dom.StaticRange // javascript: sequence<StaticRange> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*dom.StaticRange, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *dom.StaticRange
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = dom.StaticRangeFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
 }
 
 // interface: KeyboardEvent
@@ -2064,6 +2477,24 @@ func (_this *MouseEvent) OffsetY() float64 {
 	return ret
 }
 
+// MovementX returning attribute 'movementX' with
+// type int (idl: long).
+func (_this *MouseEvent) MovementX() int {
+	var ret int
+	value := _this.Value_JS.Get("movementX")
+	ret = (value).Int()
+	return ret
+}
+
+// MovementY returning attribute 'movementY' with
+// type int (idl: long).
+func (_this *MouseEvent) MovementY() int {
+	var ret int
+	value := _this.Value_JS.Get("movementY")
+	ret = (value).Int()
+	return ret
+}
+
 func (_this *MouseEvent) GetModifierState(keyArg string) (_result bool) {
 	var (
 		_args [1]interface{}
@@ -2338,6 +2769,17 @@ func (_this *UIEvent) Detail() int {
 	var ret int
 	value := _this.Value_JS.Get("detail")
 	ret = (value).Int()
+	return ret
+}
+
+// SourceCapabilities returning attribute 'sourceCapabilities' with
+// type inputcapabilities.InputDeviceCapabilities (idl: InputDeviceCapabilities).
+func (_this *UIEvent) SourceCapabilities() *inputcapabilities.InputDeviceCapabilities {
+	var ret *inputcapabilities.InputDeviceCapabilities
+	value := _this.Value_JS.Get("sourceCapabilities")
+	if value.Type() != js.TypeNull {
+		ret = inputcapabilities.InputDeviceCapabilitiesFromJS(value)
+	}
 	return ret
 }
 

@@ -5,6 +5,7 @@ package serviceworker
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/appmanifest"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/channel"
@@ -13,6 +14,7 @@ import (
 )
 
 // using following types:
+// appmanifest.ImageResource
 // channel.MessagePort
 // domcore.Event
 // domcore.EventHandler
@@ -54,6 +56,95 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// enum: BackgroundFetchFailureReason
+type BackgroundFetchFailureReason int
+
+const (
+	EmptyString0BackgroundFetchFailureReason BackgroundFetchFailureReason = iota
+	AbortedBackgroundFetchFailureReason
+	BadStatusBackgroundFetchFailureReason
+	FetchErrorBackgroundFetchFailureReason
+	QuotaExceededBackgroundFetchFailureReason
+	DownloadTotalExceededBackgroundFetchFailureReason
+)
+
+var backgroundFetchFailureReasonToWasmTable = []string{
+	"", "aborted", "bad-status", "fetch-error", "quota-exceeded", "download-total-exceeded",
+}
+
+var backgroundFetchFailureReasonFromWasmTable = map[string]BackgroundFetchFailureReason{
+	"": EmptyString0BackgroundFetchFailureReason, "aborted": AbortedBackgroundFetchFailureReason, "bad-status": BadStatusBackgroundFetchFailureReason, "fetch-error": FetchErrorBackgroundFetchFailureReason, "quota-exceeded": QuotaExceededBackgroundFetchFailureReason, "download-total-exceeded": DownloadTotalExceededBackgroundFetchFailureReason,
+}
+
+// JSValue is converting this enum into a java object
+func (this *BackgroundFetchFailureReason) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this BackgroundFetchFailureReason) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(backgroundFetchFailureReasonToWasmTable) {
+		return backgroundFetchFailureReasonToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// BackgroundFetchFailureReasonFromJS is converting a javascript value into
+// a BackgroundFetchFailureReason enum value.
+func BackgroundFetchFailureReasonFromJS(value js.Value) BackgroundFetchFailureReason {
+	key := value.String()
+	conv, ok := backgroundFetchFailureReasonFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: BackgroundFetchResult
+type BackgroundFetchResult int
+
+const (
+	EmptyString0BackgroundFetchResult BackgroundFetchResult = iota
+	SuccessBackgroundFetchResult
+	FailureBackgroundFetchResult
+)
+
+var backgroundFetchResultToWasmTable = []string{
+	"", "success", "failure",
+}
+
+var backgroundFetchResultFromWasmTable = map[string]BackgroundFetchResult{
+	"": EmptyString0BackgroundFetchResult, "success": SuccessBackgroundFetchResult, "failure": FailureBackgroundFetchResult,
+}
+
+// JSValue is converting this enum into a java object
+func (this *BackgroundFetchResult) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this BackgroundFetchResult) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(backgroundFetchResultToWasmTable) {
+		return backgroundFetchResultToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// BackgroundFetchResultFromJS is converting a javascript value into
+// a BackgroundFetchResult enum value.
+func BackgroundFetchResultFromJS(value js.Value) BackgroundFetchResult {
+	key := value.String()
+	conv, ok := backgroundFetchResultFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
 }
 
 // enum: ClientType
@@ -230,6 +321,150 @@ func ServiceWorkerUpdateViaCacheFromJS(value js.Value) ServiceWorkerUpdateViaCac
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// dictionary: BackgroundFetchEventInit
+type BackgroundFetchEventInit struct {
+	Bubbles      bool
+	Cancelable   bool
+	Composed     bool
+	Registration *BackgroundFetchRegistration
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BackgroundFetchEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Registration.JSValue()
+	out.Set("registration", value3)
+	return out
+}
+
+// BackgroundFetchEventInitFromJS is allocating a new
+// BackgroundFetchEventInit object and copy all values from
+// input javascript object
+func BackgroundFetchEventInitFromJS(value js.Wrapper) *BackgroundFetchEventInit {
+	input := value.JSValue()
+	var out BackgroundFetchEventInit
+	var (
+		value0 bool                         // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool                         // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool                         // javascript: boolean {composed Composed composed}
+		value3 *BackgroundFetchRegistration // javascript: BackgroundFetchRegistration {registration Registration registration}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = BackgroundFetchRegistrationFromJS(input.Get("registration"))
+	out.Registration = value3
+	return &out
+}
+
+// dictionary: BackgroundFetchOptions
+type BackgroundFetchOptions struct {
+	Icons         []*appmanifest.ImageResource
+	Title         string
+	DownloadTotal int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BackgroundFetchOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Icons))
+	for __idx0, __seq_in0 := range _this.Icons {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("icons", value0)
+	value1 := _this.Title
+	out.Set("title", value1)
+	value2 := _this.DownloadTotal
+	out.Set("downloadTotal", value2)
+	return out
+}
+
+// BackgroundFetchOptionsFromJS is allocating a new
+// BackgroundFetchOptions object and copy all values from
+// input javascript object
+func BackgroundFetchOptionsFromJS(value js.Wrapper) *BackgroundFetchOptions {
+	input := value.JSValue()
+	var out BackgroundFetchOptions
+	var (
+		value0 []*appmanifest.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
+		value1 string                       // javascript: DOMString {title Title title}
+		value2 int                          // javascript: unsigned long long {downloadTotal DownloadTotal downloadTotal}
+	)
+	__length0 := input.Get("icons").Length()
+	__array0 := make([]*appmanifest.ImageResource, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *appmanifest.ImageResource
+		__seq_in0 := input.Get("icons").Index(__idx0)
+		__seq_out0 = appmanifest.ImageResourceFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Icons = value0
+	value1 = (input.Get("title")).String()
+	out.Title = value1
+	value2 = (input.Get("downloadTotal")).Int()
+	out.DownloadTotal = value2
+	return &out
+}
+
+// dictionary: BackgroundFetchUIOptions
+type BackgroundFetchUIOptions struct {
+	Icons []*appmanifest.ImageResource
+	Title string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BackgroundFetchUIOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Icons))
+	for __idx0, __seq_in0 := range _this.Icons {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("icons", value0)
+	value1 := _this.Title
+	out.Set("title", value1)
+	return out
+}
+
+// BackgroundFetchUIOptionsFromJS is allocating a new
+// BackgroundFetchUIOptions object and copy all values from
+// input javascript object
+func BackgroundFetchUIOptionsFromJS(value js.Wrapper) *BackgroundFetchUIOptions {
+	input := value.JSValue()
+	var out BackgroundFetchUIOptions
+	var (
+		value0 []*appmanifest.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
+		value1 string                       // javascript: DOMString {title Title title}
+	)
+	__length0 := input.Get("icons").Length()
+	__array0 := make([]*appmanifest.ImageResource, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *appmanifest.ImageResource
+		__seq_in0 := input.Get("icons").Index(__idx0)
+		__seq_out0 = appmanifest.ImageResourceFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Icons = value0
+	value1 = (input.Get("title")).String()
+	out.Title = value1
+	return &out
 }
 
 // dictionary: CacheQueryOptions
@@ -566,6 +801,448 @@ func RegistrationOptionsFromJS(value js.Wrapper) *RegistrationOptions {
 	value2 = ServiceWorkerUpdateViaCacheFromJS(input.Get("updateViaCache"))
 	out.UpdateViaCache = value2
 	return &out
+}
+
+// dictionary: SyncEventInit
+type SyncEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Tag        string
+	LastChance bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *SyncEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Tag
+	out.Set("tag", value3)
+	value4 := _this.LastChance
+	out.Set("lastChance", value4)
+	return out
+}
+
+// SyncEventInitFromJS is allocating a new
+// SyncEventInit object and copy all values from
+// input javascript object
+func SyncEventInitFromJS(value js.Wrapper) *SyncEventInit {
+	input := value.JSValue()
+	var out SyncEventInit
+	var (
+		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool   // javascript: boolean {composed Composed composed}
+		value3 string // javascript: DOMString {tag Tag tag}
+		value4 bool   // javascript: boolean {lastChance LastChance lastChance}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = (input.Get("tag")).String()
+	out.Tag = value3
+	value4 = (input.Get("lastChance")).Bool()
+	out.LastChance = value4
+	return &out
+}
+
+// interface: BackgroundFetchEvent
+type BackgroundFetchEvent struct {
+	ExtendableEvent
+}
+
+// BackgroundFetchEventFromJS is casting a js.Wrapper into BackgroundFetchEvent.
+func BackgroundFetchEventFromJS(value js.Wrapper) *BackgroundFetchEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BackgroundFetchEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewBackgroundFetchEvent(_type string, init *BackgroundFetchEventInit) (_result *BackgroundFetchEvent) {
+	_klass := js.Global().Get("BackgroundFetchEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := init.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *BackgroundFetchEvent // javascript: BackgroundFetchEvent _what_return_name
+	)
+	_converted = BackgroundFetchEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Registration returning attribute 'registration' with
+// type BackgroundFetchRegistration (idl: BackgroundFetchRegistration).
+func (_this *BackgroundFetchEvent) Registration() *BackgroundFetchRegistration {
+	var ret *BackgroundFetchRegistration
+	value := _this.Value_JS.Get("registration")
+	ret = BackgroundFetchRegistrationFromJS(value)
+	return ret
+}
+
+// interface: BackgroundFetchManager
+type BackgroundFetchManager struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *BackgroundFetchManager) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// BackgroundFetchManagerFromJS is casting a js.Wrapper into BackgroundFetchManager.
+func BackgroundFetchManagerFromJS(value js.Wrapper) *BackgroundFetchManager {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BackgroundFetchManager{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *BackgroundFetchManager) Fetch(id string, requests *Union, options *BackgroundFetchOptions) (_result *javascript.Promise) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := id
+	_args[0] = _p0
+	_end++
+	_p1 := requests.JSValue()
+	_args[1] = _p1
+	_end++
+	if options != nil {
+		_p2 := options.JSValue()
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *BackgroundFetchManager) Get(id string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := id
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *BackgroundFetchManager) GetIds() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getIds", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: BackgroundFetchRecord
+type BackgroundFetchRecord struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *BackgroundFetchRecord) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// BackgroundFetchRecordFromJS is casting a js.Wrapper into BackgroundFetchRecord.
+func BackgroundFetchRecordFromJS(value js.Wrapper) *BackgroundFetchRecord {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BackgroundFetchRecord{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Request returning attribute 'request' with
+// type fetch.Request (idl: Request).
+func (_this *BackgroundFetchRecord) Request() *fetch.Request {
+	var ret *fetch.Request
+	value := _this.Value_JS.Get("request")
+	ret = fetch.RequestFromJS(value)
+	return ret
+}
+
+// ResponseReady returning attribute 'responseReady' with
+// type javascript.Promise (idl: Promise).
+func (_this *BackgroundFetchRecord) ResponseReady() *javascript.Promise {
+	var ret *javascript.Promise
+	value := _this.Value_JS.Get("responseReady")
+	ret = javascript.PromiseFromJS(value)
+	return ret
+}
+
+// interface: BackgroundFetchRegistration
+type BackgroundFetchRegistration struct {
+	domcore.EventTarget
+}
+
+// BackgroundFetchRegistrationFromJS is casting a js.Wrapper into BackgroundFetchRegistration.
+func BackgroundFetchRegistrationFromJS(value js.Wrapper) *BackgroundFetchRegistration {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BackgroundFetchRegistration{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Id returning attribute 'id' with
+// type string (idl: DOMString).
+func (_this *BackgroundFetchRegistration) Id() string {
+	var ret string
+	value := _this.Value_JS.Get("id")
+	ret = (value).String()
+	return ret
+}
+
+// UploadTotal returning attribute 'uploadTotal' with
+// type int (idl: unsigned long long).
+func (_this *BackgroundFetchRegistration) UploadTotal() int {
+	var ret int
+	value := _this.Value_JS.Get("uploadTotal")
+	ret = (value).Int()
+	return ret
+}
+
+// Uploaded returning attribute 'uploaded' with
+// type int (idl: unsigned long long).
+func (_this *BackgroundFetchRegistration) Uploaded() int {
+	var ret int
+	value := _this.Value_JS.Get("uploaded")
+	ret = (value).Int()
+	return ret
+}
+
+// DownloadTotal returning attribute 'downloadTotal' with
+// type int (idl: unsigned long long).
+func (_this *BackgroundFetchRegistration) DownloadTotal() int {
+	var ret int
+	value := _this.Value_JS.Get("downloadTotal")
+	ret = (value).Int()
+	return ret
+}
+
+// Downloaded returning attribute 'downloaded' with
+// type int (idl: unsigned long long).
+func (_this *BackgroundFetchRegistration) Downloaded() int {
+	var ret int
+	value := _this.Value_JS.Get("downloaded")
+	ret = (value).Int()
+	return ret
+}
+
+// Result returning attribute 'result' with
+// type BackgroundFetchResult (idl: BackgroundFetchResult).
+func (_this *BackgroundFetchRegistration) Result() BackgroundFetchResult {
+	var ret BackgroundFetchResult
+	value := _this.Value_JS.Get("result")
+	ret = BackgroundFetchResultFromJS(value)
+	return ret
+}
+
+// FailureReason returning attribute 'failureReason' with
+// type BackgroundFetchFailureReason (idl: BackgroundFetchFailureReason).
+func (_this *BackgroundFetchRegistration) FailureReason() BackgroundFetchFailureReason {
+	var ret BackgroundFetchFailureReason
+	value := _this.Value_JS.Get("failureReason")
+	ret = BackgroundFetchFailureReasonFromJS(value)
+	return ret
+}
+
+// RecordsAvailable returning attribute 'recordsAvailable' with
+// type bool (idl: boolean).
+func (_this *BackgroundFetchRegistration) RecordsAvailable() bool {
+	var ret bool
+	value := _this.Value_JS.Get("recordsAvailable")
+	ret = (value).Bool()
+	return ret
+}
+
+// Onprogress returning attribute 'onprogress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BackgroundFetchRegistration) Onprogress() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onprogress")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnprogress setting attribute 'onprogress' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *BackgroundFetchRegistration) SetOnprogress(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onprogress", input)
+}
+
+func (_this *BackgroundFetchRegistration) Abort() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("abort", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *BackgroundFetchRegistration) Match(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := request.JSValue()
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("match", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *BackgroundFetchRegistration) MatchAll(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	if request != nil {
+		_p0 := request.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: BackgroundFetchUpdateUIEvent
+type BackgroundFetchUpdateUIEvent struct {
+	BackgroundFetchEvent
+}
+
+// BackgroundFetchUpdateUIEventFromJS is casting a js.Wrapper into BackgroundFetchUpdateUIEvent.
+func BackgroundFetchUpdateUIEventFromJS(value js.Wrapper) *BackgroundFetchUpdateUIEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &BackgroundFetchUpdateUIEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewBackgroundFetchUpdateUIEvent(_type string, init *BackgroundFetchEventInit) (_result *BackgroundFetchUpdateUIEvent) {
+	_klass := js.Global().Get("BackgroundFetchUpdateUIEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := init.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *BackgroundFetchUpdateUIEvent // javascript: BackgroundFetchUpdateUIEvent _what_return_name
+	)
+	_converted = BackgroundFetchUpdateUIEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *BackgroundFetchUpdateUIEvent) UpdateUI(options *BackgroundFetchUIOptions) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("updateUI", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: Cache
@@ -1583,6 +2260,24 @@ func (_this *ServiceWorkerRegistration) SetOnupdatefound(value *domcore.EventHan
 	_this.Value_JS.Set("onupdatefound", input)
 }
 
+// BackgroundFetch returning attribute 'backgroundFetch' with
+// type BackgroundFetchManager (idl: BackgroundFetchManager).
+func (_this *ServiceWorkerRegistration) BackgroundFetch() *BackgroundFetchManager {
+	var ret *BackgroundFetchManager
+	value := _this.Value_JS.Get("backgroundFetch")
+	ret = BackgroundFetchManagerFromJS(value)
+	return ret
+}
+
+// Sync returning attribute 'sync' with
+// type SyncManager (idl: SyncManager).
+func (_this *ServiceWorkerRegistration) Sync() *SyncManager {
+	var ret *SyncManager
+	value := _this.Value_JS.Get("sync")
+	ret = SyncManagerFromJS(value)
+	return ret
+}
+
 func (_this *ServiceWorkerRegistration) Update() (_result *javascript.Promise) {
 	var (
 		_args [0]interface{}
@@ -1603,6 +2298,113 @@ func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.Promis
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("unregister", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: SyncEvent
+type SyncEvent struct {
+	ExtendableEvent
+}
+
+// SyncEventFromJS is casting a js.Wrapper into SyncEvent.
+func SyncEventFromJS(value js.Wrapper) *SyncEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SyncEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewSyncEvent(_type string, init *SyncEventInit) (_result *SyncEvent) {
+	_klass := js.Global().Get("SyncEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := init.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *SyncEvent // javascript: SyncEvent _what_return_name
+	)
+	_converted = SyncEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Tag returning attribute 'tag' with
+// type string (idl: DOMString).
+func (_this *SyncEvent) Tag() string {
+	var ret string
+	value := _this.Value_JS.Get("tag")
+	ret = (value).String()
+	return ret
+}
+
+// LastChance returning attribute 'lastChance' with
+// type bool (idl: boolean).
+func (_this *SyncEvent) LastChance() bool {
+	var ret bool
+	value := _this.Value_JS.Get("lastChance")
+	ret = (value).Bool()
+	return ret
+}
+
+// interface: SyncManager
+type SyncManager struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *SyncManager) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// SyncManagerFromJS is casting a js.Wrapper into SyncManager.
+func SyncManagerFromJS(value js.Wrapper) *SyncManager {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &SyncManager{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *SyncManager) Register(tag string) (_result *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := tag
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("register", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *SyncManager) GetTags() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getTags", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)

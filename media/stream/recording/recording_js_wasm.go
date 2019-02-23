@@ -6,7 +6,7 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/media/capture/streams"
 )
 
@@ -15,7 +15,7 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
-// fileapi.Blob
+// file.Blob
 // streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
@@ -94,7 +94,7 @@ func RecordingStateFromJS(value js.Value) RecordingState {
 
 // dictionary: BlobEventInit
 type BlobEventInit struct {
-	Data     *fileapi.Blob
+	Data     *file.Blob
 	Timecode float64
 }
 
@@ -116,10 +116,10 @@ func BlobEventInitFromJS(value js.Wrapper) *BlobEventInit {
 	input := value.JSValue()
 	var out BlobEventInit
 	var (
-		value0 *fileapi.Blob // javascript: Blob {data Data data}
-		value1 float64       // javascript: double {timecode Timecode timecode}
+		value0 *file.Blob // javascript: Blob {data Data data}
+		value1 float64    // javascript: double {timecode Timecode timecode}
 	)
-	value0 = fileapi.BlobFromJS(input.Get("data"))
+	value0 = file.BlobFromJS(input.Get("data"))
 	out.Data = value0
 	value1 = (input.Get("timecode")).Float()
 	out.Timecode = value1
@@ -256,11 +256,11 @@ func NewBlobEvent(_type string, eventInitDict *BlobEventInit) (_result *BlobEven
 }
 
 // Data returning attribute 'data' with
-// type fileapi.Blob (idl: Blob).
-func (_this *BlobEvent) Data() *fileapi.Blob {
-	var ret *fileapi.Blob
+// type file.Blob (idl: Blob).
+func (_this *BlobEvent) Data() *file.Blob {
+	var ret *file.Blob
 	value := _this.Value_JS.Get("data")
-	ret = fileapi.BlobFromJS(value)
+	ret = file.BlobFromJS(value)
 	return ret
 }
 
