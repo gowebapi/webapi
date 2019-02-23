@@ -10,6 +10,7 @@ import (
 	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/pseudo"
+	"github.com/gowebapi/webapi/css/regions"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
@@ -74,6 +75,7 @@ import (
 // javascript.Promise
 // patch.ByteString
 // pseudo.CSSPseudoElementList
+// regions.NamedFlowMap
 // serviceworker.CacheStorage
 // view.BoxQuadOptions
 // view.CaretPosition
@@ -596,6 +598,15 @@ func (_this *Document) DocumentElement() *dom.Element {
 	if value.Type() != js.TypeNull {
 		ret = dom.ElementFromJS(value)
 	}
+	return ret
+}
+
+// NamedFlows returning attribute 'namedFlows' with
+// type regions.NamedFlowMap (idl: NamedFlowMap).
+func (_this *Document) NamedFlows() *regions.NamedFlowMap {
+	var ret *regions.NamedFlowMap
+	value := _this.Value_JS.Get("namedFlows")
+	ret = regions.NamedFlowMapFromJS(value)
 	return ret
 }
 
@@ -2653,6 +2664,198 @@ func (_this *Document) SetOnwaiting(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onwaiting", input)
+}
+
+// Onanimationstart returning attribute 'onanimationstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onanimationstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationstart setting attribute 'onanimationstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnanimationstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationstart", input)
+}
+
+// Onanimationiteration returning attribute 'onanimationiteration' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onanimationiteration() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationiteration")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationiteration setting attribute 'onanimationiteration' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnanimationiteration(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationiteration", input)
+}
+
+// Onanimationend returning attribute 'onanimationend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onanimationend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationend setting attribute 'onanimationend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnanimationend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationend", input)
+}
+
+// Onanimationcancel returning attribute 'onanimationcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Onanimationcancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationcancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationcancel setting attribute 'onanimationcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOnanimationcancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationcancel", input)
+}
+
+// Ontransitionrun returning attribute 'ontransitionrun' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontransitionrun() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionrun")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionrun setting attribute 'ontransitionrun' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntransitionrun(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionrun", input)
+}
+
+// Ontransitionstart returning attribute 'ontransitionstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontransitionstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionstart setting attribute 'ontransitionstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntransitionstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionstart", input)
+}
+
+// Ontransitionend returning attribute 'ontransitionend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontransitionend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionend setting attribute 'ontransitionend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntransitionend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionend", input)
+}
+
+// Ontransitioncancel returning attribute 'ontransitioncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) Ontransitioncancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitioncancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitioncancel setting attribute 'ontransitioncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Document) SetOntransitioncancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitioncancel", input)
 }
 
 // Oncopy returning attribute 'oncopy' with
@@ -6735,6 +6938,198 @@ func (_this *Window) SetOnwaiting(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onwaiting", input)
+}
+
+// Onanimationstart returning attribute 'onanimationstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onanimationstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationstart setting attribute 'onanimationstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnanimationstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationstart", input)
+}
+
+// Onanimationiteration returning attribute 'onanimationiteration' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onanimationiteration() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationiteration")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationiteration setting attribute 'onanimationiteration' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnanimationiteration(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationiteration", input)
+}
+
+// Onanimationend returning attribute 'onanimationend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onanimationend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationend setting attribute 'onanimationend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnanimationend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationend", input)
+}
+
+// Onanimationcancel returning attribute 'onanimationcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onanimationcancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onanimationcancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnanimationcancel setting attribute 'onanimationcancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnanimationcancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onanimationcancel", input)
+}
+
+// Ontransitionrun returning attribute 'ontransitionrun' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontransitionrun() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionrun")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionrun setting attribute 'ontransitionrun' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntransitionrun(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionrun", input)
+}
+
+// Ontransitionstart returning attribute 'ontransitionstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontransitionstart() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionstart")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionstart setting attribute 'ontransitionstart' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntransitionstart(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionstart", input)
+}
+
+// Ontransitionend returning attribute 'ontransitionend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontransitionend() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitionend")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitionend setting attribute 'ontransitionend' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntransitionend(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitionend", input)
+}
+
+// Ontransitioncancel returning attribute 'ontransitioncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ontransitioncancel() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ontransitioncancel")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOntransitioncancel setting attribute 'ontransitioncancel' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOntransitioncancel(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ontransitioncancel", input)
 }
 
 // Onafterprint returning attribute 'onafterprint' with

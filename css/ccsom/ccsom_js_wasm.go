@@ -4,7 +4,12 @@ package ccsom
 
 import "syscall/js"
 
+import (
+	"github.com/gowebapi/webapi/css/typedom"
+)
+
 // using following types:
+// typedom.StylePropertyMap
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -277,6 +282,13 @@ const FONTFACERULE_CSSRule int = 5
 const PAGERULE_CSSRule int = 6
 const MARGINRULE_CSSRule int = 9
 const NAMESPACERULE_CSSRule int = 10
+const KEYFRAMESRULE_CSSRule int = 7
+const KEYFRAMERULE_CSSRule int = 8
+const SUPPORTSRULE_CSSRule int = 12
+const COUNTERSTYLERULE_CSSRule int = 11
+const VIEWPORTRULE_CSSRule int = 15
+const FONTFEATUREVALUESRULE_CSSRule int = 14
+const FONTPALETTEVALUESRULE_CSSRule int = 15
 
 // Type returning attribute 'type' with
 // type int (idl: unsigned short).
@@ -573,6 +585,15 @@ func (_this *CSSStyleRule) Style() *CSSStyleDeclaration {
 	var ret *CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
 	ret = CSSStyleDeclarationFromJS(value)
+	return ret
+}
+
+// StyleMap returning attribute 'styleMap' with
+// type typedom.StylePropertyMap (idl: StylePropertyMap).
+func (_this *CSSStyleRule) StyleMap() *typedom.StylePropertyMap {
+	var ret *typedom.StylePropertyMap
+	value := _this.Value_JS.Get("styleMap")
+	ret = typedom.StylePropertyMapFromJS(value)
 	return ret
 }
 

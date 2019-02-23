@@ -8,10 +8,12 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/typedom"
 )
 
 // using following types:
 // ccsom.CSSStyleDeclaration
+// typedom.StylePropertyMap
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -155,6 +157,15 @@ func (_this *SVGElement) Style() *ccsom.CSSStyleDeclaration {
 	var ret *ccsom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
 	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	return ret
+}
+
+// AttributeStyleMap returning attribute 'attributeStyleMap' with
+// type typedom.StylePropertyMap (idl: StylePropertyMap).
+func (_this *SVGElement) AttributeStyleMap() *typedom.StylePropertyMap {
+	var ret *typedom.StylePropertyMap
+	value := _this.Value_JS.Get("attributeStyleMap")
+	ret = typedom.StylePropertyMapFromJS(value)
 	return ret
 }
 

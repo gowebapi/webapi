@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/css/ccsom"
 	"github.com/gowebapi/webapi/css/cssom/view"
+	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
@@ -26,6 +27,7 @@ import (
 // geometry.DOMRectList
 // geometry.DOMRectReadOnly
 // javascript.Promise
+// typedom.StylePropertyMapReadOnly
 // view.BoxQuadOptions
 // view.ConvertCoordinateOptions
 // view.ScrollToOptions
@@ -1676,6 +1678,20 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	_args[1] = _p1
 	_end++
 	_this.Value_JS.Call("insertAdjacentText", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ComputedStyleMap() (_result *typedom.StylePropertyMapReadOnly) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("computedStyleMap", _args[0:_end]...)
+	var (
+		_converted *typedom.StylePropertyMapReadOnly // javascript: StylePropertyMapReadOnly _what_return_name
+	)
+	_converted = typedom.StylePropertyMapReadOnlyFromJS(_returned)
+	_result = _converted
 	return
 }
 
