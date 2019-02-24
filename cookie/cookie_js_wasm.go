@@ -7,15 +7,14 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/serviceworker"
 )
 
 // using following types:
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// domcore.ExtendableEvent
 // javascript.Promise
-// serviceworker.ExtendableEvent
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -864,7 +863,7 @@ func (_this *CookieStore) GetChangeSubscriptions() (_result *javascript.Promise)
 
 // interface: ExtendableCookieChangeEvent
 type ExtendableCookieChangeEvent struct {
-	serviceworker.ExtendableEvent
+	domcore.ExtendableEvent
 }
 
 // ExtendableCookieChangeEventFromJS is casting a js.Wrapper into ExtendableCookieChangeEvent.

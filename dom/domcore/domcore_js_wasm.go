@@ -4,7 +4,12 @@ package domcore
 
 import "syscall/js"
 
+import (
+	"github.com/gowebapi/webapi/javascript"
+)
+
 // using following types:
+// javascript.Promise
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -275,6 +280,46 @@ func EventListenerOptionsFromJS(value js.Wrapper) *EventListenerOptions {
 	)
 	value0 = (input.Get("capture")).Bool()
 	out.Capture = value0
+	return &out
+}
+
+// dictionary: ExtendableEventInit
+type ExtendableEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ExtendableEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	return out
+}
+
+// ExtendableEventInitFromJS is allocating a new
+// ExtendableEventInit object and copy all values from
+// input javascript object
+func ExtendableEventInitFromJS(value js.Wrapper) *ExtendableEventInit {
+	input := value.JSValue()
+	var out ExtendableEventInit
+	var (
+		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool // javascript: boolean {composed Composed composed}
+	)
+	value0 = (input.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (input.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (input.Get("composed")).Bool()
+	out.Composed = value2
 	return &out
 }
 
@@ -1266,5 +1311,56 @@ func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
 	)
 	_converted = (_returned).Bool()
 	_result = _converted
+	return
+}
+
+// interface: ExtendableEvent
+type ExtendableEvent struct {
+	Event
+}
+
+// ExtendableEventFromJS is casting a js.Wrapper into ExtendableEvent.
+func ExtendableEventFromJS(value js.Wrapper) *ExtendableEvent {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ExtendableEvent{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewExtendableEvent(_type string, eventInitDict *ExtendableEventInit) (_result *ExtendableEvent) {
+	_klass := js.Global().Get("ExtendableEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	if eventInitDict != nil {
+		_p1 := eventInitDict.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *ExtendableEvent // javascript: ExtendableEvent _what_return_name
+	)
+	_converted = ExtendableEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *ExtendableEvent) WaitUntil(f *javascript.Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := f.JSValue()
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("waitUntil", _args[0:_end]...)
 	return
 }
