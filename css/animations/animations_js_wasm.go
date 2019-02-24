@@ -5,14 +5,14 @@ package animations
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
 // using following types:
-// ccsom.CSSRule
-// ccsom.CSSRuleList
-// ccsom.CSSStyleDeclaration
+// cssom.CSSRule
+// cssom.CSSRuleList
+// cssom.CSSStyleDeclaration
 // domcore.Event
 
 // ReleasableApiResource is used to release underlaying
@@ -172,7 +172,7 @@ func (_this *AnimationEvent) PseudoElement() string {
 
 // interface: CSSKeyframeRule
 type CSSKeyframeRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSKeyframeRuleFromJS is casting a js.Wrapper into CSSKeyframeRule.
@@ -203,17 +203,17 @@ func (_this *CSSKeyframeRule) SetKeyText(value string) {
 }
 
 // Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *CSSKeyframeRule) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *CSSKeyframeRule) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	ret = cssom.CSSStyleDeclarationFromJS(value)
 	return ret
 }
 
 // interface: CSSKeyframesRule
 type CSSKeyframesRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSKeyframesRuleFromJS is casting a js.Wrapper into CSSKeyframesRule.
@@ -244,11 +244,11 @@ func (_this *CSSKeyframesRule) SetName(value string) {
 }
 
 // CssRules returning attribute 'cssRules' with
-// type ccsom.CSSRuleList (idl: CSSRuleList).
-func (_this *CSSKeyframesRule) CssRules() *ccsom.CSSRuleList {
-	var ret *ccsom.CSSRuleList
+// type cssom.CSSRuleList (idl: CSSRuleList).
+func (_this *CSSKeyframesRule) CssRules() *cssom.CSSRuleList {
+	var ret *cssom.CSSRuleList
 	value := _this.Value_JS.Get("cssRules")
-	ret = ccsom.CSSRuleListFromJS(value)
+	ret = cssom.CSSRuleListFromJS(value)
 	return ret
 }
 

@@ -8,6 +8,7 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/communication/netinfo"
+	"github.com/gowebapi/webapi/cookie"
 	"github.com/gowebapi/webapi/crypto"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
@@ -22,7 +23,6 @@ import (
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/storage"
-	"github.com/gowebapi/webapi/unknown/cookie"
 	"github.com/gowebapi/webapi/webidl"
 )
 

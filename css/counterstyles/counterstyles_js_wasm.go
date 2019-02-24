@@ -5,11 +5,11 @@ package counterstyles
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 )
 
 // using following types:
-// ccsom.CSSRule
+// cssom.CSSRule
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -44,7 +44,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // interface: CSSCounterStyleRule
 type CSSCounterStyleRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSCounterStyleRuleFromJS is casting a js.Wrapper into CSSCounterStyleRule.

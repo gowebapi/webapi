@@ -6,16 +6,16 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/mediatype"
 )
 
 // using following types:
 // javascript.FrozenArray
 // javascript.Promise
+// local.MediaStreamTrack
 // mediatype.MediaSettingsRange
 // mediatype.Point2D
-// streams.MediaStreamTrack
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -259,7 +259,7 @@ func ImageCaptureFromJS(value js.Wrapper) *ImageCapture {
 	return ret
 }
 
-func NewImageCapture(videoTrack *streams.MediaStreamTrack) (_result *ImageCapture) {
+func NewImageCapture(videoTrack *local.MediaStreamTrack) (_result *ImageCapture) {
 	_klass := js.Global().Get("ImageCapture")
 	var (
 		_args [1]interface{}
@@ -278,11 +278,11 @@ func NewImageCapture(videoTrack *streams.MediaStreamTrack) (_result *ImageCaptur
 }
 
 // Track returning attribute 'track' with
-// type streams.MediaStreamTrack (idl: MediaStreamTrack).
-func (_this *ImageCapture) Track() *streams.MediaStreamTrack {
-	var ret *streams.MediaStreamTrack
+// type local.MediaStreamTrack (idl: MediaStreamTrack).
+func (_this *ImageCapture) Track() *local.MediaStreamTrack {
+	var ret *local.MediaStreamTrack
 	value := _this.Value_JS.Get("track")
-	ret = streams.MediaStreamTrackFromJS(value)
+	ret = local.MediaStreamTrackFromJS(value)
 	return ret
 }
 

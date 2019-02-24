@@ -6,9 +6,10 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/backgroundtask"
+	"github.com/gowebapi/webapi/cookie"
 	"github.com/gowebapi/webapi/crypto"
 	"github.com/gowebapi/webapi/css/animations/webani"
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/pseudo"
 	"github.com/gowebapi/webapi/css/regions"
@@ -30,7 +31,6 @@ import (
 	"github.com/gowebapi/webapi/media/speech"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/serviceworker"
-	"github.com/gowebapi/webapi/unknown/cookie"
 	"github.com/gowebapi/webapi/webidl"
 )
 
@@ -38,11 +38,11 @@ import (
 // backgroundtask.IdleRequestCallback
 // backgroundtask.IdleRequestOptions
 // canvas.ImageBitmapOptions
-// ccsom.CSSStyleDeclaration
-// ccsom.StyleSheetList
 // cookie.CookieStore
 // corsrfc1918.AddressSpace
 // crypto.Crypto
+// cssom.CSSStyleDeclaration
+// cssom.StyleSheetList
 // dom.Attr
 // dom.CDATASection
 // dom.Comment
@@ -1203,11 +1203,11 @@ func (_this *Document) Timeline() *webani.DocumentTimeline {
 }
 
 // StyleSheets returning attribute 'styleSheets' with
-// type ccsom.StyleSheetList (idl: StyleSheetList).
-func (_this *Document) StyleSheets() *ccsom.StyleSheetList {
-	var ret *ccsom.StyleSheetList
+// type cssom.StyleSheetList (idl: StyleSheetList).
+func (_this *Document) StyleSheets() *cssom.StyleSheetList {
+	var ret *cssom.StyleSheetList
 	value := _this.Value_JS.Get("styleSheets")
-	ret = ccsom.StyleSheetListFromJS(value)
+	ret = cssom.StyleSheetListFromJS(value)
 	return ret
 }
 
@@ -9067,7 +9067,7 @@ func (_this *Window) ScrollBy2(x float64, y float64) {
 	return
 }
 
-func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_result *ccsom.CSSStyleDeclaration) {
+func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_result *cssom.CSSStyleDeclaration) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -9082,9 +9082,9 @@ func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_res
 	}
 	_returned := _this.Value_JS.Call("getComputedStyle", _args[0:_end]...)
 	var (
-		_converted *ccsom.CSSStyleDeclaration // javascript: CSSStyleDeclaration _what_return_name
+		_converted *cssom.CSSStyleDeclaration // javascript: CSSStyleDeclaration _what_return_name
 	)
-	_converted = ccsom.CSSStyleDeclarationFromJS(_returned)
+	_converted = cssom.CSSStyleDeclarationFromJS(_returned)
 	_result = _converted
 	return
 }

@@ -9,7 +9,7 @@ import js "github.com/gowebapi/webapi/core/failjs"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 )
 
 // using following types:
@@ -18,7 +18,7 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // file.Blob
-// streams.MediaStream
+// local.MediaStream
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -310,7 +310,7 @@ func IsTypeSupported(_type string) (_result bool) {
 	return
 }
 
-func NewMediaRecorder(stream *streams.MediaStream, options *MediaRecorderOptions) (_result *MediaRecorder) {
+func NewMediaRecorder(stream *local.MediaStream, options *MediaRecorderOptions) (_result *MediaRecorder) {
 	_klass := js.Global().Get("MediaRecorder")
 	var (
 		_args [2]interface{}
@@ -334,11 +334,11 @@ func NewMediaRecorder(stream *streams.MediaStream, options *MediaRecorderOptions
 }
 
 // Stream returning attribute 'stream' with
-// type streams.MediaStream (idl: MediaStream).
-func (_this *MediaRecorder) Stream() *streams.MediaStream {
-	var ret *streams.MediaStream
+// type local.MediaStream (idl: MediaStream).
+func (_this *MediaRecorder) Stream() *local.MediaStream {
+	var ret *local.MediaStream
 	value := _this.Value_JS.Get("stream")
-	ret = streams.MediaStreamFromJS(value)
+	ret = local.MediaStreamFromJS(value)
 	return ret
 }
 

@@ -5,12 +5,12 @@ package conditional
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 )
 
 // using following types:
-// ccsom.CSSGroupingRule
-// ccsom.MediaList
+// cssom.CSSGroupingRule
+// cssom.MediaList
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -45,7 +45,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // interface: CSSConditionRule
 type CSSConditionRule struct {
-	ccsom.CSSGroupingRule
+	cssom.CSSGroupingRule
 }
 
 // CSSConditionRuleFromJS is casting a js.Wrapper into CSSConditionRule.
@@ -92,11 +92,11 @@ func CSSMediaRuleFromJS(value js.Wrapper) *CSSMediaRule {
 }
 
 // Media returning attribute 'media' with
-// type ccsom.MediaList (idl: MediaList).
-func (_this *CSSMediaRule) Media() *ccsom.MediaList {
-	var ret *ccsom.MediaList
+// type cssom.MediaList (idl: MediaList).
+func (_this *CSSMediaRule) Media() *cssom.MediaList {
+	var ret *cssom.MediaList
 	value := _this.Value_JS.Get("media")
-	ret = ccsom.MediaListFromJS(value)
+	ret = cssom.MediaListFromJS(value)
 	return ret
 }
 

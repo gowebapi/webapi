@@ -10,25 +10,25 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
-	"github.com/gowebapi/webapi/fileapi"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/patch"
 )
 
 // using following types:
 // dom.Element
 // domcore.EventTarget
-// fileapi.BlobCallback
+// file.BlobCallback
 // geometry.DOMMatrix
 // geometry.DOMMatrix2DInit
 // html.HTMLElement
 // html.ImageEncodeOptions
 // html.OffscreenRenderingContextId
 // javascript.Promise
+// local.MediaStream
 // patch.Uint8ClampedArray
-// streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -2158,7 +2158,7 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality interface{}) (_
 	return
 }
 
-func (_this *HTMLCanvasElement) ToBlob(callback *fileapi.BlobCallback, _type *string, quality interface{}) {
+func (_this *HTMLCanvasElement) ToBlob(callback *file.BlobCallback, _type *string, quality interface{}) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2201,7 +2201,7 @@ func (_this *HTMLCanvasElement) TransferControlToOffscreen() (_result *Offscreen
 	return
 }
 
-func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_result *streams.MediaStream) {
+func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_result *local.MediaStream) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2213,9 +2213,9 @@ func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_resul
 	}
 	_returned := _this.Value_JS.Call("captureStream", _args[0:_end]...)
 	var (
-		_converted *streams.MediaStream // javascript: MediaStream _what_return_name
+		_converted *local.MediaStream // javascript: MediaStream _what_return_name
 	)
-	_converted = streams.MediaStreamFromJS(_returned)
+	_converted = local.MediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }

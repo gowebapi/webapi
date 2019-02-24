@@ -7,12 +7,12 @@ package fonts
 import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 )
 
 // using following types:
-// ccsom.CSSRule
-// ccsom.CSSStyleDeclaration
+// cssom.CSSRule
+// cssom.CSSStyleDeclaration
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -47,7 +47,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // interface: CSSFontFaceRule
 type CSSFontFaceRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSFontFaceRuleFromJS is casting a js.Wrapper into CSSFontFaceRule.
@@ -62,11 +62,11 @@ func CSSFontFaceRuleFromJS(value js.Wrapper) *CSSFontFaceRule {
 }
 
 // Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *CSSFontFaceRule) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *CSSFontFaceRule) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	ret = cssom.CSSStyleDeclarationFromJS(value)
 	return ret
 }
 
@@ -108,7 +108,7 @@ func (_this *CSSFontFeatureValuesMap) Set(featureValueName string, values *Union
 
 // interface: CSSFontFeatureValuesRule
 type CSSFontFeatureValuesRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSFontFeatureValuesRuleFromJS is casting a js.Wrapper into CSSFontFeatureValuesRule.
@@ -194,7 +194,7 @@ func (_this *CSSFontFeatureValuesRule) Styleset() *CSSFontFeatureValuesMap {
 
 // interface: CSSFontPaletteValuesRule
 type CSSFontPaletteValuesRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSFontPaletteValuesRuleFromJS is casting a js.Wrapper into CSSFontPaletteValuesRule.

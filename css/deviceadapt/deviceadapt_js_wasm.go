@@ -5,12 +5,12 @@ package deviceadapt
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 )
 
 // using following types:
-// ccsom.CSSRule
-// ccsom.CSSStyleDeclaration
+// cssom.CSSRule
+// cssom.CSSStyleDeclaration
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -45,7 +45,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // interface: CSSViewportRule
 type CSSViewportRule struct {
-	ccsom.CSSRule
+	cssom.CSSRule
 }
 
 // CSSViewportRuleFromJS is casting a js.Wrapper into CSSViewportRule.
@@ -60,10 +60,10 @@ func CSSViewportRuleFromJS(value js.Wrapper) *CSSViewportRule {
 }
 
 // Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *CSSViewportRule) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *CSSViewportRule) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	ret = cssom.CSSStyleDeclarationFromJS(value)
 	return ret
 }

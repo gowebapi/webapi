@@ -88,6 +88,47 @@ func EndingTypeFromJS(value js.Value) EndingType {
 	return conv
 }
 
+// callback: BlobCallback
+type BlobCallbackFunc func(blob *Blob)
+
+// BlobCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type BlobCallback js.Func
+
+func BlobCallbackToJS(callback BlobCallbackFunc) *BlobCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := BlobCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Blob // javascript: Blob blob
+		)
+		if args[0].Type() != js.TypeNull {
+			_p0 = BlobFromJS(args[0])
+		}
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func BlobCallbackFromJS(_value js.Value) BlobCallbackFunc {
+	return func(blob *Blob) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := blob.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // dictionary: BlobPropertyBag
 type BlobPropertyBag struct {
 	Type    string

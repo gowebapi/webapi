@@ -8,7 +8,7 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/css/animations/webani"
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -18,8 +18,8 @@ import (
 )
 
 // using following types:
-// ccsom.CSSStyleDeclaration
-// ccsom.CSSStyleSheet
+// cssom.CSSStyleDeclaration
+// cssom.CSSStyleSheet
 // dom.Element
 // dom.NodeList
 // dom.ShadowRoot
@@ -1168,11 +1168,11 @@ func (_this *SVGElement) ViewportElement() *SVGElement {
 }
 
 // Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *SVGElement) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *SVGElement) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	ret = cssom.CSSStyleDeclarationFromJS(value)
 	return ret
 }
 
@@ -6241,12 +6241,12 @@ func (_this *SVGStyleElement) SetTitle(value string) {
 }
 
 // Sheet returning attribute 'sheet' with
-// type ccsom.CSSStyleSheet (idl: CSSStyleSheet).
-func (_this *SVGStyleElement) Sheet() *ccsom.CSSStyleSheet {
-	var ret *ccsom.CSSStyleSheet
+// type cssom.CSSStyleSheet (idl: CSSStyleSheet).
+func (_this *SVGStyleElement) Sheet() *cssom.CSSStyleSheet {
+	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
 	if value.Type() != js.TypeNull {
-		ret = ccsom.CSSStyleSheetFromJS(value)
+		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
 }

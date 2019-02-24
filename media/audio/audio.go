@@ -11,7 +11,7 @@ import (
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/media"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/webidl"
 	"github.com/gowebapi/webapi/worklets"
 )
@@ -27,9 +27,9 @@ import (
 // javascript.Object
 // javascript.Promise
 // javascript.Uint8Array
+// local.MediaStream
+// local.MediaStreamTrack
 // media.HTMLMediaElement
-// streams.MediaStream
-// streams.MediaStreamTrack
 // webidl.VoidFunction
 // worklets.Worklet
 // worklets.WorkletGlobalScope
@@ -1479,7 +1479,7 @@ func MediaElementAudioSourceOptionsFromJS(value js.Wrapper) *MediaElementAudioSo
 
 // dictionary: MediaStreamAudioSourceOptions
 type MediaStreamAudioSourceOptions struct {
-	MediaStream *streams.MediaStream
+	MediaStream *local.MediaStream
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1498,16 +1498,16 @@ func MediaStreamAudioSourceOptionsFromJS(value js.Wrapper) *MediaStreamAudioSour
 	input := value.JSValue()
 	var out MediaStreamAudioSourceOptions
 	var (
-		value0 *streams.MediaStream // javascript: MediaStream {mediaStream MediaStream mediaStream}
+		value0 *local.MediaStream // javascript: MediaStream {mediaStream MediaStream mediaStream}
 	)
-	value0 = streams.MediaStreamFromJS(input.Get("mediaStream"))
+	value0 = local.MediaStreamFromJS(input.Get("mediaStream"))
 	out.MediaStream = value0
 	return &out
 }
 
 // dictionary: MediaStreamTrackAudioSourceOptions
 type MediaStreamTrackAudioSourceOptions struct {
-	MediaStreamTrack *streams.MediaStreamTrack
+	MediaStreamTrack *local.MediaStreamTrack
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1526,9 +1526,9 @@ func MediaStreamTrackAudioSourceOptionsFromJS(value js.Wrapper) *MediaStreamTrac
 	input := value.JSValue()
 	var out MediaStreamTrackAudioSourceOptions
 	var (
-		value0 *streams.MediaStreamTrack // javascript: MediaStreamTrack {mediaStreamTrack MediaStreamTrack mediaStreamTrack}
+		value0 *local.MediaStreamTrack // javascript: MediaStreamTrack {mediaStreamTrack MediaStreamTrack mediaStreamTrack}
 	)
-	value0 = streams.MediaStreamTrackFromJS(input.Get("mediaStreamTrack"))
+	value0 = local.MediaStreamTrackFromJS(input.Get("mediaStreamTrack"))
 	out.MediaStreamTrack = value0
 	return &out
 }
@@ -2499,7 +2499,7 @@ func (_this *AudioContext) CreateMediaElementSource(mediaElement *media.HTMLMedi
 	return
 }
 
-func (_this *AudioContext) CreateMediaStreamSource(mediaStream *streams.MediaStream) (_result *MediaStreamAudioSourceNode) {
+func (_this *AudioContext) CreateMediaStreamSource(mediaStream *local.MediaStream) (_result *MediaStreamAudioSourceNode) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2516,7 +2516,7 @@ func (_this *AudioContext) CreateMediaStreamSource(mediaStream *streams.MediaStr
 	return
 }
 
-func (_this *AudioContext) CreateMediaStreamTrackSource(mediaStreamTrack *streams.MediaStreamTrack) (_result *MediaStreamTrackAudioSourceNode) {
+func (_this *AudioContext) CreateMediaStreamTrackSource(mediaStreamTrack *local.MediaStreamTrack) (_result *MediaStreamTrackAudioSourceNode) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -4616,11 +4616,11 @@ func NewMediaStreamAudioDestinationNode(context *AudioContext, options *AudioNod
 }
 
 // Stream returning attribute 'stream' with
-// type streams.MediaStream (idl: MediaStream).
-func (_this *MediaStreamAudioDestinationNode) Stream() *streams.MediaStream {
-	var ret *streams.MediaStream
+// type local.MediaStream (idl: MediaStream).
+func (_this *MediaStreamAudioDestinationNode) Stream() *local.MediaStream {
+	var ret *local.MediaStream
 	value := _this.Value_JS.Get("stream")
-	ret = streams.MediaStreamFromJS(value)
+	ret = local.MediaStreamFromJS(value)
 	return ret
 }
 
@@ -4662,11 +4662,11 @@ func NewMediaStreamAudioSourceNode(context *AudioContext, options *MediaStreamAu
 }
 
 // MediaStream returning attribute 'mediaStream' with
-// type streams.MediaStream (idl: MediaStream).
-func (_this *MediaStreamAudioSourceNode) MediaStream() *streams.MediaStream {
-	var ret *streams.MediaStream
+// type local.MediaStream (idl: MediaStream).
+func (_this *MediaStreamAudioSourceNode) MediaStream() *local.MediaStream {
+	var ret *local.MediaStream
 	value := _this.Value_JS.Get("mediaStream")
-	ret = streams.MediaStreamFromJS(value)
+	ret = local.MediaStreamFromJS(value)
 	return ret
 }
 

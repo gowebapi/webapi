@@ -17,7 +17,7 @@ import (
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/encrypted"
 	"github.com/gowebapi/webapi/media/session"
 	"github.com/gowebapi/webapi/serviceworker"
@@ -39,6 +39,10 @@ import (
 // gamepad.Gamepad
 // javascript.FrozenArray
 // javascript.Promise
+// local.MediaDevices
+// local.MediaStreamConstraints
+// local.NavigatorUserMediaErrorCallback
+// local.NavigatorUserMediaSuccessCallback
 // lock.Keyboard
 // netinfo.NetworkInformation
 // permissions.Permissions
@@ -46,10 +50,6 @@ import (
 // session.MediaSession
 // share.ShareData
 // storage.StorageManager
-// streams.MediaDevices
-// streams.MediaStreamConstraints
-// streams.NavigatorUserMediaErrorCallback
-// streams.NavigatorUserMediaSuccessCallback
 // wakelock.WakeLockType
 // webxr.XR
 
@@ -1376,11 +1376,11 @@ func (_this *Navigator) MediaCapabilities() *capabilities.MediaCapabilities {
 }
 
 // MediaDevices returning attribute 'mediaDevices' with
-// type streams.MediaDevices (idl: MediaDevices).
-func (_this *Navigator) MediaDevices() *streams.MediaDevices {
-	var ret *streams.MediaDevices
+// type local.MediaDevices (idl: MediaDevices).
+func (_this *Navigator) MediaDevices() *local.MediaDevices {
+	var ret *local.MediaDevices
 	value := _this.Value_JS.Get("mediaDevices")
-	ret = streams.MediaDevicesFromJS(value)
+	ret = local.MediaDevicesFromJS(value)
 	return ret
 }
 
@@ -1691,7 +1691,7 @@ func (_this *Navigator) GetGamepads() (_result []*gamepad.Gamepad) {
 	return
 }
 
-func (_this *Navigator) GetUserMedia(constraints *streams.MediaStreamConstraints, successCallback *streams.NavigatorUserMediaSuccessCallback, errorCallback *streams.NavigatorUserMediaErrorCallback) {
+func (_this *Navigator) GetUserMedia(constraints *local.MediaStreamConstraints, successCallback *local.NavigatorUserMediaSuccessCallback, errorCallback *local.NavigatorUserMediaErrorCallback) {
 	var (
 		_args [3]interface{}
 		_end  int

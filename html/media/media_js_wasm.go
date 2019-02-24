@@ -8,7 +8,7 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/media/capture/streams"
+	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/encrypted"
 	"github.com/gowebapi/webapi/media/remoteplayback"
 )
@@ -21,8 +21,8 @@ import (
 // html.TimeRanges
 // javascript.Object
 // javascript.Promise
+// local.MediaStream
 // remoteplayback.RemotePlayback
-// streams.MediaStream
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -1125,16 +1125,16 @@ func (_this *HTMLMediaElement) SetMediaKeys(mediaKeys *encrypted.MediaKeys) (_re
 	return
 }
 
-func (_this *HTMLMediaElement) CaptureStream() (_result *streams.MediaStream) {
+func (_this *HTMLMediaElement) CaptureStream() (_result *local.MediaStream) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("captureStream", _args[0:_end]...)
 	var (
-		_converted *streams.MediaStream // javascript: MediaStream _what_return_name
+		_converted *local.MediaStream // javascript: MediaStream _what_return_name
 	)
-	_converted = streams.MediaStreamFromJS(_returned)
+	_converted = local.MediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }

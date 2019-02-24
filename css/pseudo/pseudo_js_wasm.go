@@ -6,7 +6,7 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/css/animations/webani"
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/geometry"
@@ -14,7 +14,7 @@ import (
 )
 
 // using following types:
-// ccsom.CSSStyleDeclaration
+// cssom.CSSStyleDeclaration
 // dom.Element
 // geometry.DOMPoint
 // geometry.DOMPointInit
@@ -97,11 +97,11 @@ func (_this *CSSPseudoElement) Element() *dom.Element {
 }
 
 // Style returning attribute 'style' with
-// type ccsom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *CSSPseudoElement) Style() *ccsom.CSSStyleDeclaration {
-	var ret *ccsom.CSSStyleDeclaration
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *CSSPseudoElement) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
 	value := _this.Value_JS.Get("style")
-	ret = ccsom.CSSStyleDeclarationFromJS(value)
+	ret = cssom.CSSStyleDeclarationFromJS(value)
 	return ret
 }
 

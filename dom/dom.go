@@ -8,7 +8,7 @@ import js "github.com/gowebapi/webapi/core/failjs"
 
 import (
 	"github.com/gowebapi/webapi/css/animations/webani"
-	"github.com/gowebapi/webapi/css/ccsom"
+	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -17,8 +17,8 @@ import (
 )
 
 // using following types:
-// ccsom.CSSStyleSheet
-// ccsom.StyleSheetList
+// cssom.CSSStyleSheet
+// cssom.StyleSheetList
 // domcore.DOMTokenList
 // domcore.EventHandler
 // domcore.EventTarget
@@ -4111,12 +4111,12 @@ func (_this *ProcessingInstruction) Target() string {
 }
 
 // Sheet returning attribute 'sheet' with
-// type ccsom.CSSStyleSheet (idl: CSSStyleSheet).
-func (_this *ProcessingInstruction) Sheet() *ccsom.CSSStyleSheet {
-	var ret *ccsom.CSSStyleSheet
+// type cssom.CSSStyleSheet (idl: CSSStyleSheet).
+func (_this *ProcessingInstruction) Sheet() *cssom.CSSStyleSheet {
+	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
 	if value.Type() != js.TypeNull {
-		ret = ccsom.CSSStyleSheetFromJS(value)
+		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
 }
@@ -4506,11 +4506,11 @@ func (_this *ShadowRoot) Host() *Element {
 }
 
 // StyleSheets returning attribute 'styleSheets' with
-// type ccsom.StyleSheetList (idl: StyleSheetList).
-func (_this *ShadowRoot) StyleSheets() *ccsom.StyleSheetList {
-	var ret *ccsom.StyleSheetList
+// type cssom.StyleSheetList (idl: StyleSheetList).
+func (_this *ShadowRoot) StyleSheets() *cssom.StyleSheetList {
+	var ret *cssom.StyleSheetList
 	value := _this.Value_JS.Get("styleSheets")
-	ret = ccsom.StyleSheetListFromJS(value)
+	ret = cssom.StyleSheetListFromJS(value)
 	return ret
 }
 
