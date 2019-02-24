@@ -1066,6 +1066,38 @@ func (_this *Element) ShadowRoot() *ShadowRoot {
 	return ret
 }
 
+// InnerHTML returning attribute 'innerHTML' with
+// type string (idl: DOMString).
+func (_this *Element) InnerHTML() string {
+	var ret string
+	value := _this.Value_JS.Get("innerHTML")
+	ret = (value).String()
+	return ret
+}
+
+// SetInnerHTML setting attribute 'innerHTML' with
+// type string (idl: DOMString).
+func (_this *Element) SetInnerHTML(value string) {
+	input := value
+	_this.Value_JS.Set("innerHTML", input)
+}
+
+// OuterHTML returning attribute 'outerHTML' with
+// type string (idl: DOMString).
+func (_this *Element) OuterHTML() string {
+	var ret string
+	value := _this.Value_JS.Get("outerHTML")
+	ret = (value).String()
+	return ret
+}
+
+// SetOuterHTML setting attribute 'outerHTML' with
+// type string (idl: DOMString).
+func (_this *Element) SetOuterHTML(value string) {
+	input := value
+	_this.Value_JS.Set("outerHTML", input)
+}
+
 // ScrollTop returning attribute 'scrollTop' with
 // type float64 (idl: unrestricted double).
 func (_this *Element) ScrollTop() float64 {
@@ -2633,6 +2665,21 @@ func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *ja
 	)
 	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
+	return
+}
+
+func (_this *Element) InsertAdjacentHTML(position string, text string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := position
+	_args[0] = _p0
+	_end++
+	_p1 := text
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("insertAdjacentHTML", _args[0:_end]...)
 	return
 }
 
@@ -4437,6 +4484,23 @@ func (_this *Range) IntersectsNode(node *Node) (_result bool) {
 		_converted bool // javascript: boolean _what_return_name
 	)
 	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Range) CreateContextualFragment(fragment string) (_result *DocumentFragment) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := fragment
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("createContextualFragment", _args[0:_end]...)
+	var (
+		_converted *DocumentFragment // javascript: DocumentFragment _what_return_name
+	)
+	_converted = DocumentFragmentFromJS(_returned)
 	_result = _converted
 	return
 }

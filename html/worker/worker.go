@@ -554,6 +554,39 @@ func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onsync", input)
 }
 
+// CookieStore returning attribute 'cookieStore' with
+// type cookie.CookieStore (idl: CookieStore).
+func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
+	var ret *cookie.CookieStore
+	value := _this.Value_JS.Get("cookieStore")
+	ret = cookie.CookieStoreFromJS(value)
+	return ret
+}
+
+// Oncookiechange returning attribute 'oncookiechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncookiechange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncookiechange setting attribute 'oncookiechange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOncookiechange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncookiechange", input)
+}
+
 // Oncanmakepayment returning attribute 'oncanmakepayment' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) Oncanmakepayment() domcore.EventHandlerFunc {
@@ -600,39 +633,6 @@ func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventH
 	}
 	input := __callback0
 	_this.Value_JS.Set("onpaymentrequest", input)
-}
-
-// CookieStore returning attribute 'cookieStore' with
-// type cookie.CookieStore (idl: CookieStore).
-func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
-	var ret *cookie.CookieStore
-	value := _this.Value_JS.Get("cookieStore")
-	ret = cookie.CookieStoreFromJS(value)
-	return ret
-}
-
-// Oncookiechange returning attribute 'oncookiechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncookiechange")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncookiechange setting attribute 'oncookiechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOncookiechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncookiechange", input)
 }
 
 func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promise) {
