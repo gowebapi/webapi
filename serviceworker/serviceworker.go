@@ -13,6 +13,7 @@ import (
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/payment"
 )
 
 // using following types:
@@ -28,6 +29,7 @@ import (
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
+// payment.PaymentManager
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -2186,6 +2188,15 @@ func (_this *ServiceWorkerRegistration) Sync() *SyncManager {
 	var ret *SyncManager
 	value := _this.Value_JS.Get("sync")
 	ret = SyncManagerFromJS(value)
+	return ret
+}
+
+// PaymentManager returning attribute 'paymentManager' with
+// type payment.PaymentManager (idl: PaymentManager).
+func (_this *ServiceWorkerRegistration) PaymentManager() *payment.PaymentManager {
+	var ret *payment.PaymentManager
+	value := _this.Value_JS.Get("paymentManager")
+	ret = payment.PaymentManagerFromJS(value)
 	return ret
 }
 

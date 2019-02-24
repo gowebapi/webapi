@@ -552,6 +552,54 @@ func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onsync", input)
 }
 
+// Oncanmakepayment returning attribute 'oncanmakepayment' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Oncanmakepayment() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncanmakepayment")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncanmakepayment setting attribute 'oncanmakepayment' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOncanmakepayment(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncanmakepayment", input)
+}
+
+// Onpaymentrequest returning attribute 'onpaymentrequest' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onpaymentrequest() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpaymentrequest")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpaymentrequest setting attribute 'onpaymentrequest' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpaymentrequest", input)
+}
+
 // CookieStore returning attribute 'cookieStore' with
 // type cookie.CookieStore (idl: CookieStore).
 func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
