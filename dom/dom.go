@@ -2653,6 +2653,21 @@ func (_this *Element) InsertAdjacentText(where string, data string) {
 	return
 }
 
+func (_this *Element) InsertAdjacentHTML(position string, text string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := position
+	_args[0] = _p0
+	_end++
+	_p1 := text
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("insertAdjacentHTML", _args[0:_end]...)
+	return
+}
+
 func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *javascript.Promise) {
 	var (
 		_args [1]interface{}
@@ -2667,21 +2682,6 @@ func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *ja
 	)
 	_converted = javascript.PromiseFromJS(_returned)
 	_result = _converted
-	return
-}
-
-func (_this *Element) InsertAdjacentHTML(position string, text string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := position
-	_args[0] = _p0
-	_end++
-	_p1 := text
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("insertAdjacentHTML", _args[0:_end]...)
 	return
 }
 

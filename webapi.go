@@ -625,6 +625,17 @@ func (_this *Document) DocumentElement() *dom.Element {
 	return ret
 }
 
+// RootElement returning attribute 'rootElement' with
+// type svg.SVGSVGElement (idl: SVGSVGElement).
+func (_this *Document) RootElement() *svg.SVGSVGElement {
+	var ret *svg.SVGSVGElement
+	value := _this.Value_JS.Get("rootElement")
+	if value.Type() != js.TypeNull {
+		ret = svg.SVGSVGElementFromJS(value)
+	}
+	return ret
+}
+
 // AddressSpace returning attribute 'addressSpace' with
 // type corsrfc1918.AddressSpace (idl: AddressSpace).
 func (_this *Document) AddressSpace() corsrfc1918.AddressSpace {
@@ -1182,17 +1193,6 @@ func (_this *Document) SetOnpointerlockerror(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onpointerlockerror", input)
-}
-
-// RootElement returning attribute 'rootElement' with
-// type svg.SVGSVGElement (idl: SVGSVGElement).
-func (_this *Document) RootElement() *svg.SVGSVGElement {
-	var ret *svg.SVGSVGElement
-	value := _this.Value_JS.Get("rootElement")
-	if value.Type() != js.TypeNull {
-		ret = svg.SVGSVGElementFromJS(value)
-	}
-	return ret
 }
 
 // Timeline returning attribute 'timeline' with

@@ -2173,21 +2173,21 @@ func (_this *ServiceWorkerRegistration) SetOnupdatefound(value *domcore.EventHan
 	_this.Value_JS.Set("onupdatefound", input)
 }
 
-// BackgroundFetch returning attribute 'backgroundFetch' with
-// type BackgroundFetchManager (idl: BackgroundFetchManager).
-func (_this *ServiceWorkerRegistration) BackgroundFetch() *BackgroundFetchManager {
-	var ret *BackgroundFetchManager
-	value := _this.Value_JS.Get("backgroundFetch")
-	ret = BackgroundFetchManagerFromJS(value)
-	return ret
-}
-
 // Sync returning attribute 'sync' with
 // type SyncManager (idl: SyncManager).
 func (_this *ServiceWorkerRegistration) Sync() *SyncManager {
 	var ret *SyncManager
 	value := _this.Value_JS.Get("sync")
 	ret = SyncManagerFromJS(value)
+	return ret
+}
+
+// BackgroundFetch returning attribute 'backgroundFetch' with
+// type BackgroundFetchManager (idl: BackgroundFetchManager).
+func (_this *ServiceWorkerRegistration) BackgroundFetch() *BackgroundFetchManager {
+	var ret *BackgroundFetchManager
+	value := _this.Value_JS.Get("backgroundFetch")
+	ret = BackgroundFetchManagerFromJS(value)
 	return ret
 }
 

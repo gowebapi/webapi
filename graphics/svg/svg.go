@@ -1167,24 +1167,6 @@ func (_this *SVGElement) ViewportElement() *SVGElement {
 	return ret
 }
 
-// Style returning attribute 'style' with
-// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
-func (_this *SVGElement) Style() *cssom.CSSStyleDeclaration {
-	var ret *cssom.CSSStyleDeclaration
-	value := _this.Value_JS.Get("style")
-	ret = cssom.CSSStyleDeclarationFromJS(value)
-	return ret
-}
-
-// AttributeStyleMap returning attribute 'attributeStyleMap' with
-// type typedom.StylePropertyMap (idl: StylePropertyMap).
-func (_this *SVGElement) AttributeStyleMap() *typedom.StylePropertyMap {
-	var ret *typedom.StylePropertyMap
-	value := _this.Value_JS.Get("attributeStyleMap")
-	ret = typedom.StylePropertyMapFromJS(value)
-	return ret
-}
-
 // Onabort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *SVGElement) Onabort() domcore.EventHandlerFunc {
@@ -3406,6 +3388,24 @@ func (_this *SVGElement) TabIndex() int {
 func (_this *SVGElement) SetTabIndex(value int) {
 	input := value
 	_this.Value_JS.Set("tabIndex", input)
+}
+
+// Style returning attribute 'style' with
+// type cssom.CSSStyleDeclaration (idl: CSSStyleDeclaration).
+func (_this *SVGElement) Style() *cssom.CSSStyleDeclaration {
+	var ret *cssom.CSSStyleDeclaration
+	value := _this.Value_JS.Get("style")
+	ret = cssom.CSSStyleDeclarationFromJS(value)
+	return ret
+}
+
+// AttributeStyleMap returning attribute 'attributeStyleMap' with
+// type typedom.StylePropertyMap (idl: StylePropertyMap).
+func (_this *SVGElement) AttributeStyleMap() *typedom.StylePropertyMap {
+	var ret *typedom.StylePropertyMap
+	value := _this.Value_JS.Get("attributeStyleMap")
+	ret = typedom.StylePropertyMapFromJS(value)
+	return ret
 }
 
 func (_this *SVGElement) Focus(options *html.FocusOptions) {

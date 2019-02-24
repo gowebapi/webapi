@@ -434,6 +434,30 @@ func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHan
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
+// Onsync returning attribute 'onsync' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsync")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnsync setting attribute 'onsync' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onsync", input)
+}
+
 // Onbackgroundfetchsuccess returning attribute 'onbackgroundfetchsuccess' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchsuccess() domcore.EventHandlerFunc {
@@ -528,30 +552,6 @@ func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchclick(value *domcore.
 	}
 	input := __callback0
 	_this.Value_JS.Set("onbackgroundfetchclick", input)
-}
-
-// Onsync returning attribute 'onsync' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onsync")
-	if value.Type() != js.TypeNull {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnsync setting attribute 'onsync' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsync", input)
 }
 
 // CookieStore returning attribute 'cookieStore' with
