@@ -218,6 +218,15 @@ func (_this *Gamepad) Buttons() *javascript.FrozenArray {
 	return ret
 }
 
+// DisplayId returning attribute 'displayId' with
+// type uint (idl: unsigned long).
+func (_this *Gamepad) DisplayId() uint {
+	var ret uint
+	value := _this.Value_JS.Get("displayId")
+	ret = (uint)((value).Int())
+	return ret
+}
+
 // interface: GamepadButton
 type GamepadButton struct {
 	// Value_JS holds a reference to a javascript value

@@ -6166,6 +6166,222 @@ func (_this *Window) SpeechSynthesis() *speech.SpeechSynthesis {
 	return ret
 }
 
+// Onvrdisplayconnect returning attribute 'onvrdisplayconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplayconnect() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplayconnect")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplayconnect setting attribute 'onvrdisplayconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplayconnect(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplayconnect", input)
+}
+
+// Onvrdisplaydisconnect returning attribute 'onvrdisplaydisconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplaydisconnect() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplaydisconnect")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplaydisconnect setting attribute 'onvrdisplaydisconnect' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplaydisconnect(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplaydisconnect", input)
+}
+
+// Onvrdisplayactivate returning attribute 'onvrdisplayactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplayactivate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplayactivate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplayactivate setting attribute 'onvrdisplayactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplayactivate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplayactivate", input)
+}
+
+// Onvrdisplaydeactivate returning attribute 'onvrdisplaydeactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplaydeactivate() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplaydeactivate")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplaydeactivate setting attribute 'onvrdisplaydeactivate' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplaydeactivate(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplaydeactivate", input)
+}
+
+// Onvrdisplayblur returning attribute 'onvrdisplayblur' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplayblur() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplayblur")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplayblur setting attribute 'onvrdisplayblur' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplayblur(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplayblur", input)
+}
+
+// Onvrdisplayfocus returning attribute 'onvrdisplayfocus' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplayfocus() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplayfocus")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplayfocus setting attribute 'onvrdisplayfocus' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplayfocus(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplayfocus", input)
+}
+
+// Onvrdisplaypresentchange returning attribute 'onvrdisplaypresentchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplaypresentchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplaypresentchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplaypresentchange setting attribute 'onvrdisplaypresentchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplaypresentchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplaypresentchange", input)
+}
+
+// Onvrdisplaypointerrestricted returning attribute 'onvrdisplaypointerrestricted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplaypointerrestricted() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplaypointerrestricted")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplaypointerrestricted setting attribute 'onvrdisplaypointerrestricted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplaypointerrestricted(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplaypointerrestricted", input)
+}
+
+// Onvrdisplaypointerunrestricted returning attribute 'onvrdisplaypointerunrestricted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Onvrdisplaypointerunrestricted() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onvrdisplaypointerunrestricted")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnvrdisplaypointerunrestricted setting attribute 'onvrdisplaypointerunrestricted' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOnvrdisplaypointerunrestricted(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onvrdisplaypointerunrestricted", input)
+}
+
 // Onabort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Window) Onabort() domcore.EventHandlerFunc {

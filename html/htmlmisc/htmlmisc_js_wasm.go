@@ -1420,6 +1420,15 @@ func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
 	return ret
 }
 
+// ActiveVRDisplays returning attribute 'activeVRDisplays' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *Navigator) ActiveVRDisplays() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("activeVRDisplays")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
 // Xr returning attribute 'xr' with
 // type webxr.XR (idl: XR).
 func (_this *Navigator) Xr() *webxr.XR {
@@ -1768,6 +1777,20 @@ func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.Promis
 		_end++
 	}
 	_returned := _this.Value_JS.Call("share", _args[0:_end]...)
+	var (
+		_converted *javascript.Promise // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) GetVRDisplays() (_result *javascript.Promise) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getVRDisplays", _args[0:_end]...)
 	var (
 		_converted *javascript.Promise // javascript: Promise _what_return_name
 	)
