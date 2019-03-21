@@ -1363,6 +1363,15 @@ func (_this *SVGFEImageElement) CrossOrigin() *svg.SVGAnimatedString {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type svg.SVGAnimatedString (idl: SVGAnimatedString).
+func (_this *SVGFEImageElement) Href() *svg.SVGAnimatedString {
+	var ret *svg.SVGAnimatedString
+	value := _this.Value_JS.Get("href")
+	ret = svg.SVGAnimatedStringFromJS(value)
+	return ret
+}
+
 // X returning attribute 'x' with
 // type svg.SVGAnimatedLength (idl: SVGAnimatedLength).
 func (_this *SVGFEImageElement) X() *svg.SVGAnimatedLength {
@@ -1404,15 +1413,6 @@ func (_this *SVGFEImageElement) Height() *svg.SVGAnimatedLength {
 func (_this *SVGFEImageElement) Result() *svg.SVGAnimatedString {
 	var ret *svg.SVGAnimatedString
 	value := _this.Value_JS.Get("result")
-	ret = svg.SVGAnimatedStringFromJS(value)
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type svg.SVGAnimatedString (idl: SVGAnimatedString).
-func (_this *SVGFEImageElement) Href() *svg.SVGAnimatedString {
-	var ret *svg.SVGAnimatedString
-	value := _this.Value_JS.Get("href")
 	ret = svg.SVGAnimatedStringFromJS(value)
 	return ret
 }

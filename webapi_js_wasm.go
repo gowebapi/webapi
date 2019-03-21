@@ -1202,6 +1202,46 @@ func (_this *Document) Timeline() *webani.DocumentTimeline {
 	return ret
 }
 
+// Children returning attribute 'children' with
+// type dom.HTMLCollection (idl: HTMLCollection).
+func (_this *Document) Children() *dom.HTMLCollection {
+	var ret *dom.HTMLCollection
+	value := _this.Value_JS.Get("children")
+	ret = dom.HTMLCollectionFromJS(value)
+	return ret
+}
+
+// FirstElementChild returning attribute 'firstElementChild' with
+// type dom.Element (idl: Element).
+func (_this *Document) FirstElementChild() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("firstElementChild")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
+// LastElementChild returning attribute 'lastElementChild' with
+// type dom.Element (idl: Element).
+func (_this *Document) LastElementChild() *dom.Element {
+	var ret *dom.Element
+	value := _this.Value_JS.Get("lastElementChild")
+	if value.Type() != js.TypeNull {
+		ret = dom.ElementFromJS(value)
+	}
+	return ret
+}
+
+// ChildElementCount returning attribute 'childElementCount' with
+// type uint (idl: unsigned long).
+func (_this *Document) ChildElementCount() uint {
+	var ret uint
+	value := _this.Value_JS.Get("childElementCount")
+	ret = (uint)((value).Int())
+	return ret
+}
+
 // StyleSheets returning attribute 'styleSheets' with
 // type cssom.StyleSheetList (idl: StyleSheetList).
 func (_this *Document) StyleSheets() *cssom.StyleSheetList {
@@ -1241,46 +1281,6 @@ func (_this *Document) PointerLockElement() *dom.Element {
 	if value.Type() != js.TypeNull {
 		ret = dom.ElementFromJS(value)
 	}
-	return ret
-}
-
-// Children returning attribute 'children' with
-// type dom.HTMLCollection (idl: HTMLCollection).
-func (_this *Document) Children() *dom.HTMLCollection {
-	var ret *dom.HTMLCollection
-	value := _this.Value_JS.Get("children")
-	ret = dom.HTMLCollectionFromJS(value)
-	return ret
-}
-
-// FirstElementChild returning attribute 'firstElementChild' with
-// type dom.Element (idl: Element).
-func (_this *Document) FirstElementChild() *dom.Element {
-	var ret *dom.Element
-	value := _this.Value_JS.Get("firstElementChild")
-	if value.Type() != js.TypeNull {
-		ret = dom.ElementFromJS(value)
-	}
-	return ret
-}
-
-// LastElementChild returning attribute 'lastElementChild' with
-// type dom.Element (idl: Element).
-func (_this *Document) LastElementChild() *dom.Element {
-	var ret *dom.Element
-	value := _this.Value_JS.Get("lastElementChild")
-	if value.Type() != js.TypeNull {
-		ret = dom.ElementFromJS(value)
-	}
-	return ret
-}
-
-// ChildElementCount returning attribute 'childElementCount' with
-// type uint (idl: unsigned long).
-func (_this *Document) ChildElementCount() uint {
-	var ret uint
-	value := _this.Value_JS.Get("childElementCount")
-	ret = (uint)((value).Int())
 	return ret
 }
 
@@ -8681,20 +8681,20 @@ func (_this *Window) Crypto() *crypto.Crypto {
 	return ret
 }
 
-// SessionStorage returning attribute 'sessionStorage' with
-// type htmlmisc.Storage (idl: Storage).
-func (_this *Window) SessionStorage() *htmlmisc.Storage {
-	var ret *htmlmisc.Storage
-	value := _this.Value_JS.Get("sessionStorage")
-	ret = htmlmisc.StorageFromJS(value)
-	return ret
-}
-
 // LocalStorage returning attribute 'localStorage' with
 // type htmlmisc.Storage (idl: Storage).
 func (_this *Window) LocalStorage() *htmlmisc.Storage {
 	var ret *htmlmisc.Storage
 	value := _this.Value_JS.Get("localStorage")
+	ret = htmlmisc.StorageFromJS(value)
+	return ret
+}
+
+// SessionStorage returning attribute 'sessionStorage' with
+// type htmlmisc.Storage (idl: Storage).
+func (_this *Window) SessionStorage() *htmlmisc.Storage {
+	var ret *htmlmisc.Storage
+	value := _this.Value_JS.Get("sessionStorage")
 	ret = htmlmisc.StorageFromJS(value)
 	return ret
 }

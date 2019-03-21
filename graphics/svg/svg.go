@@ -4707,6 +4707,15 @@ func (_this *SVGPatternElement) Height() *SVGAnimatedLength {
 	return ret
 }
 
+// Href returning attribute 'href' with
+// type SVGAnimatedString (idl: SVGAnimatedString).
+func (_this *SVGPatternElement) Href() *SVGAnimatedString {
+	var ret *SVGAnimatedString
+	value := _this.Value_JS.Get("href")
+	ret = SVGAnimatedStringFromJS(value)
+	return ret
+}
+
 // ViewBox returning attribute 'viewBox' with
 // type SVGAnimatedRect (idl: SVGAnimatedRect).
 func (_this *SVGPatternElement) ViewBox() *SVGAnimatedRect {
@@ -4722,15 +4731,6 @@ func (_this *SVGPatternElement) PreserveAspectRatio() *SVGAnimatedPreserveAspect
 	var ret *SVGAnimatedPreserveAspectRatio
 	value := _this.Value_JS.Get("preserveAspectRatio")
 	ret = SVGAnimatedPreserveAspectRatioFromJS(value)
-	return ret
-}
-
-// Href returning attribute 'href' with
-// type SVGAnimatedString (idl: SVGAnimatedString).
-func (_this *SVGPatternElement) Href() *SVGAnimatedString {
-	var ret *SVGAnimatedString
-	value := _this.Value_JS.Get("href")
-	ret = SVGAnimatedStringFromJS(value)
 	return ret
 }
 
@@ -7150,6 +7150,22 @@ const SVGZOOMANDPANUNKNOWN_SVGViewElement int = 0
 const SVGZOOMANDPANDISABLE_SVGViewElement int = 1
 const SVGZOOMANDPANMAGNIFY_SVGViewElement int = 2
 
+// ZoomAndPan returning attribute 'zoomAndPan' with
+// type int (idl: unsigned short).
+func (_this *SVGViewElement) ZoomAndPan() int {
+	var ret int
+	value := _this.Value_JS.Get("zoomAndPan")
+	ret = (value).Int()
+	return ret
+}
+
+// SetZoomAndPan setting attribute 'zoomAndPan' with
+// type int (idl: unsigned short).
+func (_this *SVGViewElement) SetZoomAndPan(value int) {
+	input := value
+	_this.Value_JS.Set("zoomAndPan", input)
+}
+
 // ViewBox returning attribute 'viewBox' with
 // type SVGAnimatedRect (idl: SVGAnimatedRect).
 func (_this *SVGViewElement) ViewBox() *SVGAnimatedRect {
@@ -7166,22 +7182,6 @@ func (_this *SVGViewElement) PreserveAspectRatio() *SVGAnimatedPreserveAspectRat
 	value := _this.Value_JS.Get("preserveAspectRatio")
 	ret = SVGAnimatedPreserveAspectRatioFromJS(value)
 	return ret
-}
-
-// ZoomAndPan returning attribute 'zoomAndPan' with
-// type int (idl: unsigned short).
-func (_this *SVGViewElement) ZoomAndPan() int {
-	var ret int
-	value := _this.Value_JS.Get("zoomAndPan")
-	ret = (value).Int()
-	return ret
-}
-
-// SetZoomAndPan setting attribute 'zoomAndPan' with
-// type int (idl: unsigned short).
-func (_this *SVGViewElement) SetZoomAndPan(value int) {
-	input := value
-	_this.Value_JS.Set("zoomAndPan", input)
 }
 
 // interface: ShadowAnimation
