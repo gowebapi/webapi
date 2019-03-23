@@ -4,7 +4,7 @@
 
 package corsrfc1918
 
-import js "github.com/gowebapi/webapi/core/failjs"
+import js "github.com/gowebapi/webapi/core/js"
 
 // using following types:
 

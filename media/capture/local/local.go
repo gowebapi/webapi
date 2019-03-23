@@ -4,7 +4,7 @@
 
 package local
 
-import js "github.com/gowebapi/webapi/core/failjs"
+import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
