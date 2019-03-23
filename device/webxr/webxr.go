@@ -24,7 +24,7 @@ import (
 // javascript.Float32Array
 // javascript.FrozenArray
 // javascript.Promise
-// webgl.WebGLFramebuffer
+// webgl.Framebuffer
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -2068,11 +2068,11 @@ func (_this *XRWebGLLayer) Alpha() bool {
 }
 
 // Framebuffer returning attribute 'framebuffer' with
-// type webgl.WebGLFramebuffer (idl: WebGLFramebuffer).
-func (_this *XRWebGLLayer) Framebuffer() *webgl.WebGLFramebuffer {
-	var ret *webgl.WebGLFramebuffer
+// type webgl.Framebuffer (idl: WebGLFramebuffer).
+func (_this *XRWebGLLayer) Framebuffer() *webgl.Framebuffer {
+	var ret *webgl.Framebuffer
 	value := _this.Value_JS.Get("framebuffer")
-	ret = webgl.WebGLFramebufferFromJS(value)
+	ret = webgl.FramebufferFromJS(value)
 	return ret
 }
 

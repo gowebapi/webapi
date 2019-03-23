@@ -48,10 +48,10 @@ func UnionFromJS(value js.Value) *Union {
 }
 
 // enum: WebGLPowerPreference
-type WebGLPowerPreference int
+type PowerPreference int
 
 const (
-	DefaultWebGLPowerPreference WebGLPowerPreference = iota
+	DefaultWebGLPowerPreference PowerPreference = iota
 	LowPowerWebGLPowerPreference
 	HighPerformanceWebGLPowerPreference
 )
@@ -60,18 +60,18 @@ var webGLPowerPreferenceToWasmTable = []string{
 	"default", "low-power", "high-performance",
 }
 
-var webGLPowerPreferenceFromWasmTable = map[string]WebGLPowerPreference{
+var webGLPowerPreferenceFromWasmTable = map[string]PowerPreference{
 	"default": DefaultWebGLPowerPreference, "low-power": LowPowerWebGLPowerPreference, "high-performance": HighPerformanceWebGLPowerPreference,
 }
 
 // JSValue is converting this enum into a java object
-func (this *WebGLPowerPreference) JSValue() js.Value {
+func (this *PowerPreference) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
 
 // Value is converting this into javascript defined
 // string value
-func (this WebGLPowerPreference) Value() string {
+func (this PowerPreference) Value() string {
 	idx := int(this)
 	if idx >= 0 && idx < len(webGLPowerPreferenceToWasmTable) {
 		return webGLPowerPreferenceToWasmTable[idx]
@@ -79,9 +79,9 @@ func (this WebGLPowerPreference) Value() string {
 	panic("unknown input value")
 }
 
-// WebGLPowerPreferenceFromJS is converting a javascript value into
-// a WebGLPowerPreference enum value.
-func WebGLPowerPreferenceFromJS(value js.Value) WebGLPowerPreference {
+// PowerPreferenceFromJS is converting a javascript value into
+// a PowerPreference enum value.
+func PowerPreferenceFromJS(value js.Value) PowerPreference {
 	key := value.String()
 	conv, ok := webGLPowerPreferenceFromWasmTable[key]
 	if !ok {
@@ -91,21 +91,21 @@ func WebGLPowerPreferenceFromJS(value js.Value) WebGLPowerPreference {
 }
 
 // dictionary: WebGLContextAttributes
-type WebGLContextAttributes struct {
+type ContextAttributes struct {
 	Alpha                        bool
 	Depth                        bool
 	Stencil                      bool
 	Antialias                    bool
 	PremultipliedAlpha           bool
 	PreserveDrawingBuffer        bool
-	PowerPreference              WebGLPowerPreference
+	PowerPreference              PowerPreference
 	FailIfMajorPerformanceCaveat bool
 	XrCompatible                 bool
 }
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *WebGLContextAttributes) JSValue() js.Value {
+func (_this *ContextAttributes) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Alpha
 	out.Set("alpha", value0)
@@ -128,22 +128,22 @@ func (_this *WebGLContextAttributes) JSValue() js.Value {
 	return out
 }
 
-// WebGLContextAttributesFromJS is allocating a new
-// WebGLContextAttributes object and copy all values from
+// ContextAttributesFromJS is allocating a new
+// ContextAttributes object and copy all values from
 // input javascript object
-func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
+func ContextAttributesFromJS(value js.Wrapper) *ContextAttributes {
 	input := value.JSValue()
-	var out WebGLContextAttributes
+	var out ContextAttributes
 	var (
-		value0 bool                 // javascript: boolean {alpha Alpha alpha}
-		value1 bool                 // javascript: boolean {depth Depth depth}
-		value2 bool                 // javascript: boolean {stencil Stencil stencil}
-		value3 bool                 // javascript: boolean {antialias Antialias antialias}
-		value4 bool                 // javascript: boolean {premultipliedAlpha PremultipliedAlpha premultipliedAlpha}
-		value5 bool                 // javascript: boolean {preserveDrawingBuffer PreserveDrawingBuffer preserveDrawingBuffer}
-		value6 WebGLPowerPreference // javascript: WebGLPowerPreference {powerPreference PowerPreference powerPreference}
-		value7 bool                 // javascript: boolean {failIfMajorPerformanceCaveat FailIfMajorPerformanceCaveat failIfMajorPerformanceCaveat}
-		value8 bool                 // javascript: boolean {xrCompatible XrCompatible xrCompatible}
+		value0 bool            // javascript: boolean {alpha Alpha alpha}
+		value1 bool            // javascript: boolean {depth Depth depth}
+		value2 bool            // javascript: boolean {stencil Stencil stencil}
+		value3 bool            // javascript: boolean {antialias Antialias antialias}
+		value4 bool            // javascript: boolean {premultipliedAlpha PremultipliedAlpha premultipliedAlpha}
+		value5 bool            // javascript: boolean {preserveDrawingBuffer PreserveDrawingBuffer preserveDrawingBuffer}
+		value6 PowerPreference // javascript: WebGLPowerPreference {powerPreference PowerPreference powerPreference}
+		value7 bool            // javascript: boolean {failIfMajorPerformanceCaveat FailIfMajorPerformanceCaveat failIfMajorPerformanceCaveat}
+		value8 bool            // javascript: boolean {xrCompatible XrCompatible xrCompatible}
 	)
 	value0 = (input.Get("alpha")).Bool()
 	out.Alpha = value0
@@ -157,7 +157,7 @@ func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
 	out.PremultipliedAlpha = value4
 	value5 = (input.Get("preserveDrawingBuffer")).Bool()
 	out.PreserveDrawingBuffer = value5
-	value6 = WebGLPowerPreferenceFromJS(input.Get("powerPreference"))
+	value6 = PowerPreferenceFromJS(input.Get("powerPreference"))
 	out.PowerPreference = value6
 	value7 = (input.Get("failIfMajorPerformanceCaveat")).Bool()
 	out.FailIfMajorPerformanceCaveat = value7
@@ -167,7 +167,7 @@ func WebGLContextAttributesFromJS(value js.Wrapper) *WebGLContextAttributes {
 }
 
 // dictionary: WebGLContextEventInit
-type WebGLContextEventInit struct {
+type ContextEventInit struct {
 	Bubbles       bool
 	Cancelable    bool
 	Composed      bool
@@ -176,7 +176,7 @@ type WebGLContextEventInit struct {
 
 // JSValue is allocating a new javasript object and copy
 // all values
-func (_this *WebGLContextEventInit) JSValue() js.Value {
+func (_this *ContextEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Bubbles
 	out.Set("bubbles", value0)
@@ -189,12 +189,12 @@ func (_this *WebGLContextEventInit) JSValue() js.Value {
 	return out
 }
 
-// WebGLContextEventInitFromJS is allocating a new
-// WebGLContextEventInit object and copy all values from
+// ContextEventInitFromJS is allocating a new
+// ContextEventInit object and copy all values from
 // input javascript object
-func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
+func ContextEventInitFromJS(value js.Wrapper) *ContextEventInit {
 	input := value.JSValue()
-	var out WebGLContextEventInit
+	var out ContextEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
 		value1 bool   // javascript: boolean {cancelable Cancelable cancelable}
@@ -213,29 +213,29 @@ func WebGLContextEventInitFromJS(value js.Wrapper) *WebGLContextEventInit {
 }
 
 // interface: WebGLActiveInfo
-type WebGLActiveInfo struct {
+type ActiveInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *WebGLActiveInfo) JSValue() js.Value {
+func (_this *ActiveInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLActiveInfoFromJS is casting a js.Wrapper into WebGLActiveInfo.
-func WebGLActiveInfoFromJS(value js.Wrapper) *WebGLActiveInfo {
+// ActiveInfoFromJS is casting a js.Wrapper into ActiveInfo.
+func ActiveInfoFromJS(value js.Wrapper) *ActiveInfo {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLActiveInfo{}
+	ret := &ActiveInfo{}
 	ret.Value_JS = input
 	return ret
 }
 
 // Size returning attribute 'size' with
 // type int (idl: long).
-func (_this *WebGLActiveInfo) Size() int {
+func (_this *ActiveInfo) Size() int {
 	var ret int
 	value := _this.Value_JS.Get("size")
 	ret = (value).Int()
@@ -244,7 +244,7 @@ func (_this *WebGLActiveInfo) Size() int {
 
 // Type returning attribute 'type' with
 // type uint (idl: unsigned long).
-func (_this *WebGLActiveInfo) Type() uint {
+func (_this *ActiveInfo) Type() uint {
 	var ret uint
 	value := _this.Value_JS.Get("type")
 	ret = (uint)((value).Int())
@@ -253,7 +253,7 @@ func (_this *WebGLActiveInfo) Type() uint {
 
 // Name returning attribute 'name' with
 // type string (idl: DOMString).
-func (_this *WebGLActiveInfo) Name() string {
+func (_this *ActiveInfo) Name() string {
 	var ret string
 	value := _this.Value_JS.Get("name")
 	ret = (value).String()
@@ -261,38 +261,38 @@ func (_this *WebGLActiveInfo) Name() string {
 }
 
 // interface: WebGLBuffer
-type WebGLBuffer struct {
-	WebGLObject
+type Buffer struct {
+	Object
 }
 
-// WebGLBufferFromJS is casting a js.Wrapper into WebGLBuffer.
-func WebGLBufferFromJS(value js.Wrapper) *WebGLBuffer {
+// BufferFromJS is casting a js.Wrapper into Buffer.
+func BufferFromJS(value js.Wrapper) *Buffer {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLBuffer{}
+	ret := &Buffer{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLContextEvent
-type WebGLContextEvent struct {
+type ContextEvent struct {
 	domcore.Event
 }
 
-// WebGLContextEventFromJS is casting a js.Wrapper into WebGLContextEvent.
-func WebGLContextEventFromJS(value js.Wrapper) *WebGLContextEvent {
+// ContextEventFromJS is casting a js.Wrapper into ContextEvent.
+func ContextEventFromJS(value js.Wrapper) *ContextEvent {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLContextEvent{}
+	ret := &ContextEvent{}
 	ret.Value_JS = input
 	return ret
 }
 
-func NewWebGLContextEvent(_type string, eventInit *WebGLContextEventInit) (_result *WebGLContextEvent) {
+func NewWebGLContextEvent(_type string, eventInit *ContextEventInit) (_result *ContextEvent) {
 	_klass := js.Global().Get("WebGLContextEvent")
 	var (
 		_args [2]interface{}
@@ -308,16 +308,16 @@ func NewWebGLContextEvent(_type string, eventInit *WebGLContextEventInit) (_resu
 	}
 	_returned := _klass.New(_args[0:_end]...)
 	var (
-		_converted *WebGLContextEvent // javascript: WebGLContextEvent _what_return_name
+		_converted *ContextEvent // javascript: WebGLContextEvent _what_return_name
 	)
-	_converted = WebGLContextEventFromJS(_returned)
+	_converted = ContextEventFromJS(_returned)
 	_result = _converted
 	return
 }
 
 // StatusMessage returning attribute 'statusMessage' with
 // type string (idl: DOMString).
-func (_this *WebGLContextEvent) StatusMessage() string {
+func (_this *ContextEvent) StatusMessage() string {
 	var ret string
 	value := _this.Value_JS.Get("statusMessage")
 	ret = (value).String()
@@ -325,395 +325,395 @@ func (_this *WebGLContextEvent) StatusMessage() string {
 }
 
 // interface: WebGLFramebuffer
-type WebGLFramebuffer struct {
-	WebGLObject
+type Framebuffer struct {
+	Object
 }
 
-// WebGLFramebufferFromJS is casting a js.Wrapper into WebGLFramebuffer.
-func WebGLFramebufferFromJS(value js.Wrapper) *WebGLFramebuffer {
+// FramebufferFromJS is casting a js.Wrapper into Framebuffer.
+func FramebufferFromJS(value js.Wrapper) *Framebuffer {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLFramebuffer{}
+	ret := &Framebuffer{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLObject
-type WebGLObject struct {
+type Object struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *WebGLObject) JSValue() js.Value {
+func (_this *Object) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLObjectFromJS is casting a js.Wrapper into WebGLObject.
-func WebGLObjectFromJS(value js.Wrapper) *WebGLObject {
+// ObjectFromJS is casting a js.Wrapper into Object.
+func ObjectFromJS(value js.Wrapper) *Object {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLObject{}
+	ret := &Object{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLProgram
-type WebGLProgram struct {
-	WebGLObject
+type Program struct {
+	Object
 }
 
-// WebGLProgramFromJS is casting a js.Wrapper into WebGLProgram.
-func WebGLProgramFromJS(value js.Wrapper) *WebGLProgram {
+// ProgramFromJS is casting a js.Wrapper into Program.
+func ProgramFromJS(value js.Wrapper) *Program {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLProgram{}
+	ret := &Program{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLRenderbuffer
-type WebGLRenderbuffer struct {
-	WebGLObject
+type Renderbuffer struct {
+	Object
 }
 
-// WebGLRenderbufferFromJS is casting a js.Wrapper into WebGLRenderbuffer.
-func WebGLRenderbufferFromJS(value js.Wrapper) *WebGLRenderbuffer {
+// RenderbufferFromJS is casting a js.Wrapper into Renderbuffer.
+func RenderbufferFromJS(value js.Wrapper) *Renderbuffer {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLRenderbuffer{}
+	ret := &Renderbuffer{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLRenderingContext
-type WebGLRenderingContext struct {
+type RenderingContext struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *WebGLRenderingContext) JSValue() js.Value {
+func (_this *RenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLRenderingContextFromJS is casting a js.Wrapper into WebGLRenderingContext.
-func WebGLRenderingContextFromJS(value js.Wrapper) *WebGLRenderingContext {
+// RenderingContextFromJS is casting a js.Wrapper into RenderingContext.
+func RenderingContextFromJS(value js.Wrapper) *RenderingContext {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLRenderingContext{}
+	ret := &RenderingContext{}
 	ret.Value_JS = input
 	return ret
 }
 
-const DEPTHBUFFERBIT_WebGLRenderingContext uint = 0x00000100
-const STENCILBUFFERBIT_WebGLRenderingContext uint = 0x00000400
-const COLORBUFFERBIT_WebGLRenderingContext uint = 0x00004000
-const POINTS_WebGLRenderingContext uint = 0x0000
-const LINES_WebGLRenderingContext uint = 0x0001
-const LINELOOP_WebGLRenderingContext uint = 0x0002
-const LINESTRIP_WebGLRenderingContext uint = 0x0003
-const TRIANGLES_WebGLRenderingContext uint = 0x0004
-const TRIANGLESTRIP_WebGLRenderingContext uint = 0x0005
-const TRIANGLEFAN_WebGLRenderingContext uint = 0x0006
-const ZERO_WebGLRenderingContext uint = 0
-const ONE_WebGLRenderingContext uint = 1
-const SRCCOLOR_WebGLRenderingContext uint = 0x0300
-const ONEMINUSSRCCOLOR_WebGLRenderingContext uint = 0x0301
-const SRCALPHA_WebGLRenderingContext uint = 0x0302
-const ONEMINUSSRCALPHA_WebGLRenderingContext uint = 0x0303
-const DSTALPHA_WebGLRenderingContext uint = 0x0304
-const ONEMINUSDSTALPHA_WebGLRenderingContext uint = 0x0305
-const DSTCOLOR_WebGLRenderingContext uint = 0x0306
-const ONEMINUSDSTCOLOR_WebGLRenderingContext uint = 0x0307
-const SRCALPHASATURATE_WebGLRenderingContext uint = 0x0308
-const FUNCADD_WebGLRenderingContext uint = 0x8006
-const BLENDEQUATION_WebGLRenderingContext uint = 0x8009
-const BLENDEQUATIONRGB_WebGLRenderingContext uint = 0x8009
-const BLENDEQUATIONALPHA_WebGLRenderingContext uint = 0x883D
-const FUNCSUBTRACT_WebGLRenderingContext uint = 0x800A
-const FUNCREVERSESUBTRACT_WebGLRenderingContext uint = 0x800B
-const BLENDDSTRGB_WebGLRenderingContext uint = 0x80C8
-const BLENDSRCRGB_WebGLRenderingContext uint = 0x80C9
-const BLENDDSTALPHA_WebGLRenderingContext uint = 0x80CA
-const BLENDSRCALPHA_WebGLRenderingContext uint = 0x80CB
-const CONSTANTCOLOR_WebGLRenderingContext uint = 0x8001
-const ONEMINUSCONSTANTCOLOR_WebGLRenderingContext uint = 0x8002
-const CONSTANTALPHA_WebGLRenderingContext uint = 0x8003
-const ONEMINUSCONSTANTALPHA_WebGLRenderingContext uint = 0x8004
-const BLENDCOLOR_WebGLRenderingContext uint = 0x8005
-const ARRAYBUFFER_WebGLRenderingContext uint = 0x8892
-const ELEMENTARRAYBUFFER_WebGLRenderingContext uint = 0x8893
-const ARRAYBUFFERBINDING_WebGLRenderingContext uint = 0x8894
-const ELEMENTARRAYBUFFERBINDING_WebGLRenderingContext uint = 0x8895
-const STREAMDRAW_WebGLRenderingContext uint = 0x88E0
-const STATICDRAW_WebGLRenderingContext uint = 0x88E4
-const DYNAMICDRAW_WebGLRenderingContext uint = 0x88E8
-const BUFFERSIZE_WebGLRenderingContext uint = 0x8764
-const BUFFERUSAGE_WebGLRenderingContext uint = 0x8765
-const CURRENTVERTEXATTRIB_WebGLRenderingContext uint = 0x8626
-const FRONT_WebGLRenderingContext uint = 0x0404
-const BACK_WebGLRenderingContext uint = 0x0405
-const FRONTANDBACK_WebGLRenderingContext uint = 0x0408
-const CULLFACE_WebGLRenderingContext uint = 0x0B44
-const BLEND_WebGLRenderingContext uint = 0x0BE2
-const DITHER_WebGLRenderingContext uint = 0x0BD0
-const STENCILTEST_WebGLRenderingContext uint = 0x0B90
-const DEPTHTEST_WebGLRenderingContext uint = 0x0B71
-const SCISSORTEST_WebGLRenderingContext uint = 0x0C11
-const POLYGONOFFSETFILL_WebGLRenderingContext uint = 0x8037
-const SAMPLEALPHATOCOVERAGE_WebGLRenderingContext uint = 0x809E
-const SAMPLECOVERAGE_WebGLRenderingContext uint = 0x80A0
-const NOERROR_WebGLRenderingContext uint = 0
-const INVALIDENUM_WebGLRenderingContext uint = 0x0500
-const INVALIDVALUE_WebGLRenderingContext uint = 0x0501
-const INVALIDOPERATION_WebGLRenderingContext uint = 0x0502
-const OUTOFMEMORY_WebGLRenderingContext uint = 0x0505
-const CW_WebGLRenderingContext uint = 0x0900
-const CCW_WebGLRenderingContext uint = 0x0901
-const LINEWIDTH_WebGLRenderingContext uint = 0x0B21
-const ALIASEDPOINTSIZERANGE_WebGLRenderingContext uint = 0x846D
-const ALIASEDLINEWIDTHRANGE_WebGLRenderingContext uint = 0x846E
-const CULLFACEMODE_WebGLRenderingContext uint = 0x0B45
-const FRONTFACE_WebGLRenderingContext uint = 0x0B46
-const DEPTHRANGE_WebGLRenderingContext uint = 0x0B70
-const DEPTHWRITEMASK_WebGLRenderingContext uint = 0x0B72
-const DEPTHCLEARVALUE_WebGLRenderingContext uint = 0x0B73
-const DEPTHFUNC_WebGLRenderingContext uint = 0x0B74
-const STENCILCLEARVALUE_WebGLRenderingContext uint = 0x0B91
-const STENCILFUNC_WebGLRenderingContext uint = 0x0B92
-const STENCILFAIL_WebGLRenderingContext uint = 0x0B94
-const STENCILPASSDEPTHFAIL_WebGLRenderingContext uint = 0x0B95
-const STENCILPASSDEPTHPASS_WebGLRenderingContext uint = 0x0B96
-const STENCILREF_WebGLRenderingContext uint = 0x0B97
-const STENCILVALUEMASK_WebGLRenderingContext uint = 0x0B93
-const STENCILWRITEMASK_WebGLRenderingContext uint = 0x0B98
-const STENCILBACKFUNC_WebGLRenderingContext uint = 0x8800
-const STENCILBACKFAIL_WebGLRenderingContext uint = 0x8801
-const STENCILBACKPASSDEPTHFAIL_WebGLRenderingContext uint = 0x8802
-const STENCILBACKPASSDEPTHPASS_WebGLRenderingContext uint = 0x8803
-const STENCILBACKREF_WebGLRenderingContext uint = 0x8CA3
-const STENCILBACKVALUEMASK_WebGLRenderingContext uint = 0x8CA4
-const STENCILBACKWRITEMASK_WebGLRenderingContext uint = 0x8CA5
-const VIEWPORT_WebGLRenderingContext uint = 0x0BA2
-const SCISSORBOX_WebGLRenderingContext uint = 0x0C10
-const COLORCLEARVALUE_WebGLRenderingContext uint = 0x0C22
-const COLORWRITEMASK_WebGLRenderingContext uint = 0x0C23
-const UNPACKALIGNMENT_WebGLRenderingContext uint = 0x0CF5
-const PACKALIGNMENT_WebGLRenderingContext uint = 0x0D05
-const MAXTEXTURESIZE_WebGLRenderingContext uint = 0x0D33
-const MAXVIEWPORTDIMS_WebGLRenderingContext uint = 0x0D3A
-const SUBPIXELBITS_WebGLRenderingContext uint = 0x0D50
-const REDBITS_WebGLRenderingContext uint = 0x0D52
-const GREENBITS_WebGLRenderingContext uint = 0x0D53
-const BLUEBITS_WebGLRenderingContext uint = 0x0D54
-const ALPHABITS_WebGLRenderingContext uint = 0x0D55
-const DEPTHBITS_WebGLRenderingContext uint = 0x0D56
-const STENCILBITS_WebGLRenderingContext uint = 0x0D57
-const POLYGONOFFSETUNITS_WebGLRenderingContext uint = 0x2A00
-const POLYGONOFFSETFACTOR_WebGLRenderingContext uint = 0x8038
-const TEXTUREBINDING2D_WebGLRenderingContext uint = 0x8069
-const SAMPLEBUFFERS_WebGLRenderingContext uint = 0x80A8
-const SAMPLES_WebGLRenderingContext uint = 0x80A9
-const SAMPLECOVERAGEVALUE_WebGLRenderingContext uint = 0x80AA
-const SAMPLECOVERAGEINVERT_WebGLRenderingContext uint = 0x80AB
-const COMPRESSEDTEXTUREFORMATS_WebGLRenderingContext uint = 0x86A3
-const DONTCARE_WebGLRenderingContext uint = 0x1100
-const FASTEST_WebGLRenderingContext uint = 0x1101
-const NICEST_WebGLRenderingContext uint = 0x1102
-const GENERATEMIPMAPHINT_WebGLRenderingContext uint = 0x8192
-const BYTE_WebGLRenderingContext uint = 0x1400
-const UNSIGNEDBYTE_WebGLRenderingContext uint = 0x1401
-const SHORT_WebGLRenderingContext uint = 0x1402
-const UNSIGNEDSHORT_WebGLRenderingContext uint = 0x1403
-const INT_WebGLRenderingContext uint = 0x1404
-const UNSIGNEDINT_WebGLRenderingContext uint = 0x1405
-const FLOAT_WebGLRenderingContext uint = 0x1406
-const DEPTHCOMPONENT_WebGLRenderingContext uint = 0x1902
-const ALPHA_WebGLRenderingContext uint = 0x1906
-const RGB_WebGLRenderingContext uint = 0x1907
-const RGBA_WebGLRenderingContext uint = 0x1908
-const LUMINANCE_WebGLRenderingContext uint = 0x1909
-const LUMINANCEALPHA_WebGLRenderingContext uint = 0x190A
-const UNSIGNEDSHORT4444_WebGLRenderingContext uint = 0x8033
-const UNSIGNEDSHORT5551_WebGLRenderingContext uint = 0x8034
-const UNSIGNEDSHORT565_WebGLRenderingContext uint = 0x8363
-const FRAGMENTSHADER_WebGLRenderingContext uint = 0x8B30
-const VERTEXSHADER_WebGLRenderingContext uint = 0x8B31
-const MAXVERTEXATTRIBS_WebGLRenderingContext uint = 0x8869
-const MAXVERTEXUNIFORMVECTORS_WebGLRenderingContext uint = 0x8DFB
-const MAXVARYINGVECTORS_WebGLRenderingContext uint = 0x8DFC
-const MAXCOMBINEDTEXTUREIMAGEUNITS_WebGLRenderingContext uint = 0x8B4D
-const MAXVERTEXTEXTUREIMAGEUNITS_WebGLRenderingContext uint = 0x8B4C
-const MAXTEXTUREIMAGEUNITS_WebGLRenderingContext uint = 0x8872
-const MAXFRAGMENTUNIFORMVECTORS_WebGLRenderingContext uint = 0x8DFD
-const SHADERTYPE_WebGLRenderingContext uint = 0x8B4F
-const DELETESTATUS_WebGLRenderingContext uint = 0x8B80
-const LINKSTATUS_WebGLRenderingContext uint = 0x8B82
-const VALIDATESTATUS_WebGLRenderingContext uint = 0x8B83
-const ATTACHEDSHADERS_WebGLRenderingContext uint = 0x8B85
-const ACTIVEUNIFORMS_WebGLRenderingContext uint = 0x8B86
-const ACTIVEATTRIBUTES_WebGLRenderingContext uint = 0x8B89
-const SHADINGLANGUAGEVERSION_WebGLRenderingContext uint = 0x8B8C
-const CURRENTPROGRAM_WebGLRenderingContext uint = 0x8B8D
-const NEVER_WebGLRenderingContext uint = 0x0200
-const LESS_WebGLRenderingContext uint = 0x0201
-const EQUAL_WebGLRenderingContext uint = 0x0202
-const LEQUAL_WebGLRenderingContext uint = 0x0203
-const GREATER_WebGLRenderingContext uint = 0x0204
-const NOTEQUAL_WebGLRenderingContext uint = 0x0205
-const GEQUAL_WebGLRenderingContext uint = 0x0206
-const ALWAYS_WebGLRenderingContext uint = 0x0207
-const KEEP_WebGLRenderingContext uint = 0x1E00
-const REPLACE_WebGLRenderingContext uint = 0x1E01
-const INCR_WebGLRenderingContext uint = 0x1E02
-const DECR_WebGLRenderingContext uint = 0x1E03
-const INVERT_WebGLRenderingContext uint = 0x150A
-const INCRWRAP_WebGLRenderingContext uint = 0x8507
-const DECRWRAP_WebGLRenderingContext uint = 0x8508
-const VENDOR_WebGLRenderingContext uint = 0x1F00
-const RENDERER_WebGLRenderingContext uint = 0x1F01
-const VERSION_WebGLRenderingContext uint = 0x1F02
-const NEAREST_WebGLRenderingContext uint = 0x2600
-const LINEAR_WebGLRenderingContext uint = 0x2601
-const NEARESTMIPMAPNEAREST_WebGLRenderingContext uint = 0x2700
-const LINEARMIPMAPNEAREST_WebGLRenderingContext uint = 0x2701
-const NEARESTMIPMAPLINEAR_WebGLRenderingContext uint = 0x2702
-const LINEARMIPMAPLINEAR_WebGLRenderingContext uint = 0x2703
-const TEXTUREMAGFILTER_WebGLRenderingContext uint = 0x2800
-const TEXTUREMINFILTER_WebGLRenderingContext uint = 0x2801
-const TEXTUREWRAPS_WebGLRenderingContext uint = 0x2802
-const TEXTUREWRAPT_WebGLRenderingContext uint = 0x2803
-const TEXTURE2D_WebGLRenderingContext uint = 0x0DE1
-const TEXTURE_WebGLRenderingContext uint = 0x1702
-const TEXTURECUBEMAP_WebGLRenderingContext uint = 0x8513
-const TEXTUREBINDINGCUBEMAP_WebGLRenderingContext uint = 0x8514
-const TEXTURECUBEMAPPOSITIVEX_WebGLRenderingContext uint = 0x8515
-const TEXTURECUBEMAPNEGATIVEX_WebGLRenderingContext uint = 0x8516
-const TEXTURECUBEMAPPOSITIVEY_WebGLRenderingContext uint = 0x8517
-const TEXTURECUBEMAPNEGATIVEY_WebGLRenderingContext uint = 0x8518
-const TEXTURECUBEMAPPOSITIVEZ_WebGLRenderingContext uint = 0x8519
-const TEXTURECUBEMAPNEGATIVEZ_WebGLRenderingContext uint = 0x851A
-const MAXCUBEMAPTEXTURESIZE_WebGLRenderingContext uint = 0x851C
-const TEXTURE0_WebGLRenderingContext uint = 0x84C0
-const TEXTURE1_WebGLRenderingContext uint = 0x84C1
-const TEXTURE2_WebGLRenderingContext uint = 0x84C2
-const TEXTURE3_WebGLRenderingContext uint = 0x84C3
-const TEXTURE4_WebGLRenderingContext uint = 0x84C4
-const TEXTURE5_WebGLRenderingContext uint = 0x84C5
-const TEXTURE6_WebGLRenderingContext uint = 0x84C6
-const TEXTURE7_WebGLRenderingContext uint = 0x84C7
-const TEXTURE8_WebGLRenderingContext uint = 0x84C8
-const TEXTURE9_WebGLRenderingContext uint = 0x84C9
-const TEXTURE10_WebGLRenderingContext uint = 0x84CA
-const TEXTURE11_WebGLRenderingContext uint = 0x84CB
-const TEXTURE12_WebGLRenderingContext uint = 0x84CC
-const TEXTURE13_WebGLRenderingContext uint = 0x84CD
-const TEXTURE14_WebGLRenderingContext uint = 0x84CE
-const TEXTURE15_WebGLRenderingContext uint = 0x84CF
-const TEXTURE16_WebGLRenderingContext uint = 0x84D0
-const TEXTURE17_WebGLRenderingContext uint = 0x84D1
-const TEXTURE18_WebGLRenderingContext uint = 0x84D2
-const TEXTURE19_WebGLRenderingContext uint = 0x84D3
-const TEXTURE20_WebGLRenderingContext uint = 0x84D4
-const TEXTURE21_WebGLRenderingContext uint = 0x84D5
-const TEXTURE22_WebGLRenderingContext uint = 0x84D6
-const TEXTURE23_WebGLRenderingContext uint = 0x84D7
-const TEXTURE24_WebGLRenderingContext uint = 0x84D8
-const TEXTURE25_WebGLRenderingContext uint = 0x84D9
-const TEXTURE26_WebGLRenderingContext uint = 0x84DA
-const TEXTURE27_WebGLRenderingContext uint = 0x84DB
-const TEXTURE28_WebGLRenderingContext uint = 0x84DC
-const TEXTURE29_WebGLRenderingContext uint = 0x84DD
-const TEXTURE30_WebGLRenderingContext uint = 0x84DE
-const TEXTURE31_WebGLRenderingContext uint = 0x84DF
-const ACTIVETEXTURE_WebGLRenderingContext uint = 0x84E0
-const REPEAT_WebGLRenderingContext uint = 0x2901
-const CLAMPTOEDGE_WebGLRenderingContext uint = 0x812F
-const MIRROREDREPEAT_WebGLRenderingContext uint = 0x8370
-const FLOATVEC2_WebGLRenderingContext uint = 0x8B50
-const FLOATVEC3_WebGLRenderingContext uint = 0x8B51
-const FLOATVEC4_WebGLRenderingContext uint = 0x8B52
-const INTVEC2_WebGLRenderingContext uint = 0x8B53
-const INTVEC3_WebGLRenderingContext uint = 0x8B54
-const INTVEC4_WebGLRenderingContext uint = 0x8B55
-const BOOL_WebGLRenderingContext uint = 0x8B56
-const BOOLVEC2_WebGLRenderingContext uint = 0x8B57
-const BOOLVEC3_WebGLRenderingContext uint = 0x8B58
-const BOOLVEC4_WebGLRenderingContext uint = 0x8B59
-const FLOATMAT2_WebGLRenderingContext uint = 0x8B5A
-const FLOATMAT3_WebGLRenderingContext uint = 0x8B5B
-const FLOATMAT4_WebGLRenderingContext uint = 0x8B5C
-const SAMPLER2D_WebGLRenderingContext uint = 0x8B5E
-const SAMPLERCUBE_WebGLRenderingContext uint = 0x8B60
-const VERTEXATTRIBARRAYENABLED_WebGLRenderingContext uint = 0x8622
-const VERTEXATTRIBARRAYSIZE_WebGLRenderingContext uint = 0x8623
-const VERTEXATTRIBARRAYSTRIDE_WebGLRenderingContext uint = 0x8624
-const VERTEXATTRIBARRAYTYPE_WebGLRenderingContext uint = 0x8625
-const VERTEXATTRIBARRAYNORMALIZED_WebGLRenderingContext uint = 0x886A
-const VERTEXATTRIBARRAYPOINTER_WebGLRenderingContext uint = 0x8645
-const VERTEXATTRIBARRAYBUFFERBINDING_WebGLRenderingContext uint = 0x889F
-const IMPLEMENTATIONCOLORREADTYPE_WebGLRenderingContext uint = 0x8B9A
-const IMPLEMENTATIONCOLORREADFORMAT_WebGLRenderingContext uint = 0x8B9B
-const COMPILESTATUS_WebGLRenderingContext uint = 0x8B81
-const LOWFLOAT_WebGLRenderingContext uint = 0x8DF0
-const MEDIUMFLOAT_WebGLRenderingContext uint = 0x8DF1
-const HIGHFLOAT_WebGLRenderingContext uint = 0x8DF2
-const LOWINT_WebGLRenderingContext uint = 0x8DF3
-const MEDIUMINT_WebGLRenderingContext uint = 0x8DF4
-const HIGHINT_WebGLRenderingContext uint = 0x8DF5
-const FRAMEBUFFER_WebGLRenderingContext uint = 0x8D40
-const RENDERBUFFER_WebGLRenderingContext uint = 0x8D41
-const RGBA4_WebGLRenderingContext uint = 0x8056
-const RGB5A1_WebGLRenderingContext uint = 0x8057
-const RGB565_WebGLRenderingContext uint = 0x8D62
-const DEPTHCOMPONENT16_WebGLRenderingContext uint = 0x81A5
-const STENCILINDEX8_WebGLRenderingContext uint = 0x8D48
-const DEPTHSTENCIL_WebGLRenderingContext uint = 0x84F9
-const RENDERBUFFERWIDTH_WebGLRenderingContext uint = 0x8D42
-const RENDERBUFFERHEIGHT_WebGLRenderingContext uint = 0x8D43
-const RENDERBUFFERINTERNALFORMAT_WebGLRenderingContext uint = 0x8D44
-const RENDERBUFFERREDSIZE_WebGLRenderingContext uint = 0x8D50
-const RENDERBUFFERGREENSIZE_WebGLRenderingContext uint = 0x8D51
-const RENDERBUFFERBLUESIZE_WebGLRenderingContext uint = 0x8D52
-const RENDERBUFFERALPHASIZE_WebGLRenderingContext uint = 0x8D53
-const RENDERBUFFERDEPTHSIZE_WebGLRenderingContext uint = 0x8D54
-const RENDERBUFFERSTENCILSIZE_WebGLRenderingContext uint = 0x8D55
-const FRAMEBUFFERATTACHMENTOBJECTTYPE_WebGLRenderingContext uint = 0x8CD0
-const FRAMEBUFFERATTACHMENTOBJECTNAME_WebGLRenderingContext uint = 0x8CD1
-const FRAMEBUFFERATTACHMENTTEXTURELEVEL_WebGLRenderingContext uint = 0x8CD2
-const FRAMEBUFFERATTACHMENTTEXTURECUBEMAPFACE_WebGLRenderingContext uint = 0x8CD3
-const COLORATTACHMENT0_WebGLRenderingContext uint = 0x8CE0
-const DEPTHATTACHMENT_WebGLRenderingContext uint = 0x8D00
-const STENCILATTACHMENT_WebGLRenderingContext uint = 0x8D20
-const DEPTHSTENCILATTACHMENT_WebGLRenderingContext uint = 0x821A
-const NONE_WebGLRenderingContext uint = 0
-const FRAMEBUFFERCOMPLETE_WebGLRenderingContext uint = 0x8CD5
-const FRAMEBUFFERINCOMPLETEATTACHMENT_WebGLRenderingContext uint = 0x8CD6
-const FRAMEBUFFERINCOMPLETEMISSINGATTACHMENT_WebGLRenderingContext uint = 0x8CD7
-const FRAMEBUFFERINCOMPLETEDIMENSIONS_WebGLRenderingContext uint = 0x8CD9
-const FRAMEBUFFERUNSUPPORTED_WebGLRenderingContext uint = 0x8CDD
-const FRAMEBUFFERBINDING_WebGLRenderingContext uint = 0x8CA6
-const RENDERBUFFERBINDING_WebGLRenderingContext uint = 0x8CA7
-const MAXRENDERBUFFERSIZE_WebGLRenderingContext uint = 0x84E8
-const INVALIDFRAMEBUFFEROPERATION_WebGLRenderingContext uint = 0x0506
-const UNPACKFLIPYWEBGL_WebGLRenderingContext uint = 0x9240
-const UNPACKPREMULTIPLYALPHAWEBGL_WebGLRenderingContext uint = 0x9241
-const CONTEXTLOSTWEBGL_WebGLRenderingContext uint = 0x9242
-const UNPACKCOLORSPACECONVERSIONWEBGL_WebGLRenderingContext uint = 0x9243
-const BROWSERDEFAULTWEBGL_WebGLRenderingContext uint = 0x9244
+const DEPTH_BUFFER_BIT uint = 0x00000100
+const STENCIL_BUFFER_BIT uint = 0x00000400
+const COLOR_BUFFER_BIT uint = 0x00004000
+const POINTS uint = 0x0000
+const LINES uint = 0x0001
+const LINE_LOOP uint = 0x0002
+const LINE_STRIP uint = 0x0003
+const TRIANGLES uint = 0x0004
+const TRIANGLE_STRIP uint = 0x0005
+const TRIANGLE_FAN uint = 0x0006
+const ZERO uint = 0
+const ONE uint = 1
+const SRC_COLOR uint = 0x0300
+const ONE_MINUS_SRC_COLOR uint = 0x0301
+const SRC_ALPHA uint = 0x0302
+const ONE_MINUS_SRC_ALPHA uint = 0x0303
+const DST_ALPHA uint = 0x0304
+const ONE_MINUS_DST_ALPHA uint = 0x0305
+const DST_COLOR uint = 0x0306
+const ONE_MINUS_DST_COLOR uint = 0x0307
+const SRC_ALPHA_SATURATE uint = 0x0308
+const FUNC_ADD uint = 0x8006
+const BLEND_EQUATION uint = 0x8009
+const BLEND_EQUATION_RGB uint = 0x8009
+const BLEND_EQUATION_ALPHA uint = 0x883D
+const FUNC_SUBTRACT uint = 0x800A
+const FUNC_REVERSE_SUBTRACT uint = 0x800B
+const BLEND_DST_RGB uint = 0x80C8
+const BLEND_SRC_RGB uint = 0x80C9
+const BLEND_DST_ALPHA uint = 0x80CA
+const BLEND_SRC_ALPHA uint = 0x80CB
+const CONSTANT_COLOR uint = 0x8001
+const ONE_MINUS_CONSTANT_COLOR uint = 0x8002
+const CONSTANT_ALPHA uint = 0x8003
+const ONE_MINUS_CONSTANT_ALPHA uint = 0x8004
+const BLEND_COLOR uint = 0x8005
+const ARRAY_BUFFER uint = 0x8892
+const ELEMENT_ARRAY_BUFFER uint = 0x8893
+const ARRAY_BUFFER_BINDING uint = 0x8894
+const ELEMENT_ARRAY_BUFFER_BINDING uint = 0x8895
+const STREAM_DRAW uint = 0x88E0
+const STATIC_DRAW uint = 0x88E4
+const DYNAMIC_DRAW uint = 0x88E8
+const BUFFER_SIZE uint = 0x8764
+const BUFFER_USAGE uint = 0x8765
+const CURRENT_VERTEX_ATTRIB uint = 0x8626
+const FRONT uint = 0x0404
+const BACK uint = 0x0405
+const FRONT_AND_BACK uint = 0x0408
+const CULL_FACE uint = 0x0B44
+const BLEND uint = 0x0BE2
+const DITHER uint = 0x0BD0
+const STENCIL_TEST uint = 0x0B90
+const DEPTH_TEST uint = 0x0B71
+const SCISSOR_TEST uint = 0x0C11
+const POLYGON_OFFSET_FILL uint = 0x8037
+const SAMPLE_ALPHA_TO_COVERAGE uint = 0x809E
+const SAMPLE_COVERAGE uint = 0x80A0
+const NO_ERROR uint = 0
+const INVALID_ENUM uint = 0x0500
+const INVALID_VALUE uint = 0x0501
+const INVALID_OPERATION uint = 0x0502
+const OUT_OF_MEMORY uint = 0x0505
+const CW uint = 0x0900
+const CCW uint = 0x0901
+const LINE_WIDTH uint = 0x0B21
+const ALIASED_POINT_SIZE_RANGE uint = 0x846D
+const ALIASED_LINE_WIDTH_RANGE uint = 0x846E
+const CULL_FACE_MODE uint = 0x0B45
+const FRONT_FACE uint = 0x0B46
+const DEPTH_RANGE uint = 0x0B70
+const DEPTH_WRITEMASK uint = 0x0B72
+const DEPTH_CLEAR_VALUE uint = 0x0B73
+const DEPTH_FUNC uint = 0x0B74
+const STENCIL_CLEAR_VALUE uint = 0x0B91
+const STENCIL_FUNC uint = 0x0B92
+const STENCIL_FAIL uint = 0x0B94
+const STENCIL_PASS_DEPTH_FAIL uint = 0x0B95
+const STENCIL_PASS_DEPTH_PASS uint = 0x0B96
+const STENCIL_REF uint = 0x0B97
+const STENCIL_VALUE_MASK uint = 0x0B93
+const STENCIL_WRITEMASK uint = 0x0B98
+const STENCIL_BACK_FUNC uint = 0x8800
+const STENCIL_BACK_FAIL uint = 0x8801
+const STENCIL_BACK_PASS_DEPTH_FAIL uint = 0x8802
+const STENCIL_BACK_PASS_DEPTH_PASS uint = 0x8803
+const STENCIL_BACK_REF uint = 0x8CA3
+const STENCIL_BACK_VALUE_MASK uint = 0x8CA4
+const STENCIL_BACK_WRITEMASK uint = 0x8CA5
+const VIEWPORT uint = 0x0BA2
+const SCISSOR_BOX uint = 0x0C10
+const COLOR_CLEAR_VALUE uint = 0x0C22
+const COLOR_WRITEMASK uint = 0x0C23
+const UNPACK_ALIGNMENT uint = 0x0CF5
+const PACK_ALIGNMENT uint = 0x0D05
+const MAX_TEXTURE_SIZE uint = 0x0D33
+const MAX_VIEWPORT_DIMS uint = 0x0D3A
+const SUBPIXEL_BITS uint = 0x0D50
+const RED_BITS uint = 0x0D52
+const GREEN_BITS uint = 0x0D53
+const BLUE_BITS uint = 0x0D54
+const ALPHA_BITS uint = 0x0D55
+const DEPTH_BITS uint = 0x0D56
+const STENCIL_BITS uint = 0x0D57
+const POLYGON_OFFSET_UNITS uint = 0x2A00
+const POLYGON_OFFSET_FACTOR uint = 0x8038
+const TEXTURE_BINDING_2D uint = 0x8069
+const SAMPLE_BUFFERS uint = 0x80A8
+const SAMPLES uint = 0x80A9
+const SAMPLE_COVERAGE_VALUE uint = 0x80AA
+const SAMPLE_COVERAGE_INVERT uint = 0x80AB
+const COMPRESSED_TEXTURE_FORMATS uint = 0x86A3
+const DONT_CARE uint = 0x1100
+const FASTEST uint = 0x1101
+const NICEST uint = 0x1102
+const GENERATE_MIPMAP_HINT uint = 0x8192
+const BYTE uint = 0x1400
+const UNSIGNED_BYTE uint = 0x1401
+const SHORT uint = 0x1402
+const UNSIGNED_SHORT uint = 0x1403
+const INT uint = 0x1404
+const UNSIGNED_INT uint = 0x1405
+const FLOAT uint = 0x1406
+const DEPTH_COMPONENT uint = 0x1902
+const ALPHA uint = 0x1906
+const RGB uint = 0x1907
+const RGBA uint = 0x1908
+const LUMINANCE uint = 0x1909
+const LUMINANCE_ALPHA uint = 0x190A
+const UNSIGNED_SHORT_4_4_4_4 uint = 0x8033
+const UNSIGNED_SHORT_5_5_5_1 uint = 0x8034
+const UNSIGNED_SHORT_5_6_5 uint = 0x8363
+const FRAGMENT_SHADER uint = 0x8B30
+const VERTEX_SHADER uint = 0x8B31
+const MAX_VERTEX_ATTRIBS uint = 0x8869
+const MAX_VERTEX_UNIFORM_VECTORS uint = 0x8DFB
+const MAX_VARYING_VECTORS uint = 0x8DFC
+const MAX_COMBINED_TEXTURE_IMAGE_UNITS uint = 0x8B4D
+const MAX_VERTEX_TEXTURE_IMAGE_UNITS uint = 0x8B4C
+const MAX_TEXTURE_IMAGE_UNITS uint = 0x8872
+const MAX_FRAGMENT_UNIFORM_VECTORS uint = 0x8DFD
+const SHADER_TYPE uint = 0x8B4F
+const DELETE_STATUS uint = 0x8B80
+const LINK_STATUS uint = 0x8B82
+const VALIDATE_STATUS uint = 0x8B83
+const ATTACHED_SHADERS uint = 0x8B85
+const ACTIVE_UNIFORMS uint = 0x8B86
+const ACTIVE_ATTRIBUTES uint = 0x8B89
+const SHADING_LANGUAGE_VERSION uint = 0x8B8C
+const CURRENT_PROGRAM uint = 0x8B8D
+const NEVER uint = 0x0200
+const LESS uint = 0x0201
+const EQUAL uint = 0x0202
+const LEQUAL uint = 0x0203
+const GREATER uint = 0x0204
+const NOTEQUAL uint = 0x0205
+const GEQUAL uint = 0x0206
+const ALWAYS uint = 0x0207
+const KEEP uint = 0x1E00
+const REPLACE uint = 0x1E01
+const INCR uint = 0x1E02
+const DECR uint = 0x1E03
+const INVERT uint = 0x150A
+const INCR_WRAP uint = 0x8507
+const DECR_WRAP uint = 0x8508
+const VENDOR uint = 0x1F00
+const RENDERER uint = 0x1F01
+const VERSION uint = 0x1F02
+const NEAREST uint = 0x2600
+const LINEAR uint = 0x2601
+const NEAREST_MIPMAP_NEAREST uint = 0x2700
+const LINEAR_MIPMAP_NEAREST uint = 0x2701
+const NEAREST_MIPMAP_LINEAR uint = 0x2702
+const LINEAR_MIPMAP_LINEAR uint = 0x2703
+const TEXTURE_MAG_FILTER uint = 0x2800
+const TEXTURE_MIN_FILTER uint = 0x2801
+const TEXTURE_WRAP_S uint = 0x2802
+const TEXTURE_WRAP_T uint = 0x2803
+const TEXTURE_2D uint = 0x0DE1
+const TEXTURE uint = 0x1702
+const TEXTURE_CUBE_MAP uint = 0x8513
+const TEXTURE_BINDING_CUBE_MAP uint = 0x8514
+const TEXTURE_CUBE_MAP_POSITIVE_X uint = 0x8515
+const TEXTURE_CUBE_MAP_NEGATIVE_X uint = 0x8516
+const TEXTURE_CUBE_MAP_POSITIVE_Y uint = 0x8517
+const TEXTURE_CUBE_MAP_NEGATIVE_Y uint = 0x8518
+const TEXTURE_CUBE_MAP_POSITIVE_Z uint = 0x8519
+const TEXTURE_CUBE_MAP_NEGATIVE_Z uint = 0x851A
+const MAX_CUBE_MAP_TEXTURE_SIZE uint = 0x851C
+const TEXTURE0 uint = 0x84C0
+const TEXTURE1 uint = 0x84C1
+const TEXTURE2 uint = 0x84C2
+const TEXTURE3 uint = 0x84C3
+const TEXTURE4 uint = 0x84C4
+const TEXTURE5 uint = 0x84C5
+const TEXTURE6 uint = 0x84C6
+const TEXTURE7 uint = 0x84C7
+const TEXTURE8 uint = 0x84C8
+const TEXTURE9 uint = 0x84C9
+const TEXTURE10 uint = 0x84CA
+const TEXTURE11 uint = 0x84CB
+const TEXTURE12 uint = 0x84CC
+const TEXTURE13 uint = 0x84CD
+const TEXTURE14 uint = 0x84CE
+const TEXTURE15 uint = 0x84CF
+const TEXTURE16 uint = 0x84D0
+const TEXTURE17 uint = 0x84D1
+const TEXTURE18 uint = 0x84D2
+const TEXTURE19 uint = 0x84D3
+const TEXTURE20 uint = 0x84D4
+const TEXTURE21 uint = 0x84D5
+const TEXTURE22 uint = 0x84D6
+const TEXTURE23 uint = 0x84D7
+const TEXTURE24 uint = 0x84D8
+const TEXTURE25 uint = 0x84D9
+const TEXTURE26 uint = 0x84DA
+const TEXTURE27 uint = 0x84DB
+const TEXTURE28 uint = 0x84DC
+const TEXTURE29 uint = 0x84DD
+const TEXTURE30 uint = 0x84DE
+const TEXTURE31 uint = 0x84DF
+const ACTIVE_TEXTURE uint = 0x84E0
+const REPEAT uint = 0x2901
+const CLAMP_TO_EDGE uint = 0x812F
+const MIRRORED_REPEAT uint = 0x8370
+const FLOAT_VEC2 uint = 0x8B50
+const FLOAT_VEC3 uint = 0x8B51
+const FLOAT_VEC4 uint = 0x8B52
+const INT_VEC2 uint = 0x8B53
+const INT_VEC3 uint = 0x8B54
+const INT_VEC4 uint = 0x8B55
+const BOOL uint = 0x8B56
+const BOOL_VEC2 uint = 0x8B57
+const BOOL_VEC3 uint = 0x8B58
+const BOOL_VEC4 uint = 0x8B59
+const FLOAT_MAT2 uint = 0x8B5A
+const FLOAT_MAT3 uint = 0x8B5B
+const FLOAT_MAT4 uint = 0x8B5C
+const SAMPLER_2D uint = 0x8B5E
+const SAMPLER_CUBE uint = 0x8B60
+const VERTEX_ATTRIB_ARRAY_ENABLED uint = 0x8622
+const VERTEX_ATTRIB_ARRAY_SIZE uint = 0x8623
+const VERTEX_ATTRIB_ARRAY_STRIDE uint = 0x8624
+const VERTEX_ATTRIB_ARRAY_TYPE uint = 0x8625
+const VERTEX_ATTRIB_ARRAY_NORMALIZED uint = 0x886A
+const VERTEX_ATTRIB_ARRAY_POINTER uint = 0x8645
+const VERTEX_ATTRIB_ARRAY_BUFFER_BINDING uint = 0x889F
+const IMPLEMENTATION_COLOR_READ_TYPE uint = 0x8B9A
+const IMPLEMENTATION_COLOR_READ_FORMAT uint = 0x8B9B
+const COMPILE_STATUS uint = 0x8B81
+const LOW_FLOAT uint = 0x8DF0
+const MEDIUM_FLOAT uint = 0x8DF1
+const HIGH_FLOAT uint = 0x8DF2
+const LOW_INT uint = 0x8DF3
+const MEDIUM_INT uint = 0x8DF4
+const HIGH_INT uint = 0x8DF5
+const FRAMEBUFFER uint = 0x8D40
+const RENDERBUFFER uint = 0x8D41
+const RGBA4 uint = 0x8056
+const RGB5_A1 uint = 0x8057
+const RGB565 uint = 0x8D62
+const DEPTH_COMPONENT16 uint = 0x81A5
+const STENCIL_INDEX8 uint = 0x8D48
+const DEPTH_STENCIL uint = 0x84F9
+const RENDERBUFFER_WIDTH uint = 0x8D42
+const RENDERBUFFER_HEIGHT uint = 0x8D43
+const RENDERBUFFER_INTERNAL_FORMAT uint = 0x8D44
+const RENDERBUFFER_RED_SIZE uint = 0x8D50
+const RENDERBUFFER_GREEN_SIZE uint = 0x8D51
+const RENDERBUFFER_BLUE_SIZE uint = 0x8D52
+const RENDERBUFFER_ALPHA_SIZE uint = 0x8D53
+const RENDERBUFFER_DEPTH_SIZE uint = 0x8D54
+const RENDERBUFFER_STENCIL_SIZE uint = 0x8D55
+const FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE uint = 0x8CD0
+const FRAMEBUFFER_ATTACHMENT_OBJECT_NAME uint = 0x8CD1
+const FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL uint = 0x8CD2
+const FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE uint = 0x8CD3
+const COLOR_ATTACHMENT0 uint = 0x8CE0
+const DEPTH_ATTACHMENT uint = 0x8D00
+const STENCIL_ATTACHMENT uint = 0x8D20
+const DEPTH_STENCIL_ATTACHMENT uint = 0x821A
+const NONE uint = 0
+const FRAMEBUFFER_COMPLETE uint = 0x8CD5
+const FRAMEBUFFER_INCOMPLETE_ATTACHMENT uint = 0x8CD6
+const FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT uint = 0x8CD7
+const FRAMEBUFFER_INCOMPLETE_DIMENSIONS uint = 0x8CD9
+const FRAMEBUFFER_UNSUPPORTED uint = 0x8CDD
+const FRAMEBUFFER_BINDING uint = 0x8CA6
+const RENDERBUFFER_BINDING uint = 0x8CA7
+const MAX_RENDERBUFFER_SIZE uint = 0x84E8
+const INVALID_FRAMEBUFFER_OPERATION uint = 0x0506
+const UNPACK_FLIP_Y_WEBGL uint = 0x9240
+const UNPACK_PREMULTIPLY_ALPHA_WEBGL uint = 0x9241
+const CONTEXT_LOST_WEBGL uint = 0x9242
+const UNPACK_COLORSPACE_CONVERSION_WEBGL uint = 0x9243
+const BROWSER_DEFAULT_WEBGL uint = 0x9244
 
 // Canvas returning attribute 'canvas' with
 // type Union (idl: Union).
-func (_this *WebGLRenderingContext) Canvas() *Union {
+func (_this *RenderingContext) Canvas() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("canvas")
 	ret = UnionFromJS(value)
@@ -722,7 +722,7 @@ func (_this *WebGLRenderingContext) Canvas() *Union {
 
 // DrawingBufferWidth returning attribute 'drawingBufferWidth' with
 // type int (idl: long).
-func (_this *WebGLRenderingContext) DrawingBufferWidth() int {
+func (_this *RenderingContext) DrawingBufferWidth() int {
 	var ret int
 	value := _this.Value_JS.Get("drawingBufferWidth")
 	ret = (value).Int()
@@ -731,30 +731,30 @@ func (_this *WebGLRenderingContext) DrawingBufferWidth() int {
 
 // DrawingBufferHeight returning attribute 'drawingBufferHeight' with
 // type int (idl: long).
-func (_this *WebGLRenderingContext) DrawingBufferHeight() int {
+func (_this *RenderingContext) DrawingBufferHeight() int {
 	var ret int
 	value := _this.Value_JS.Get("drawingBufferHeight")
 	ret = (value).Int()
 	return ret
 }
 
-func (_this *WebGLRenderingContext) GetContextAttributes() (_result *WebGLContextAttributes) {
+func (_this *RenderingContext) GetContextAttributes() (_result *ContextAttributes) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getContextAttributes", _args[0:_end]...)
 	var (
-		_converted *WebGLContextAttributes // javascript: WebGLContextAttributes _what_return_name
+		_converted *ContextAttributes // javascript: WebGLContextAttributes _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLContextAttributesFromJS(_returned)
+		_converted = ContextAttributesFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) IsContextLost() (_result bool) {
+func (_this *RenderingContext) IsContextLost() (_result bool) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -768,7 +768,7 @@ func (_this *WebGLRenderingContext) IsContextLost() (_result bool) {
 	return
 }
 
-func (_this *WebGLRenderingContext) GetSupportedExtensions() (_result []string) {
+func (_this *RenderingContext) GetSupportedExtensions() (_result []string) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -792,7 +792,7 @@ func (_this *WebGLRenderingContext) GetSupportedExtensions() (_result []string) 
 	return
 }
 
-func (_this *WebGLRenderingContext) GetExtension(name string) (_result *javascript.Object) {
+func (_this *RenderingContext) GetExtension(name string) (_result *javascript.Object) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -811,7 +811,7 @@ func (_this *WebGLRenderingContext) GetExtension(name string) (_result *javascri
 	return
 }
 
-func (_this *WebGLRenderingContext) ActiveTexture(texture uint) {
+func (_this *RenderingContext) ActiveTexture(texture uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -823,7 +823,7 @@ func (_this *WebGLRenderingContext) ActiveTexture(texture uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) AttachShader(program *WebGLProgram, shader *WebGLShader) {
+func (_this *RenderingContext) AttachShader(program *Program, shader *Shader) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -838,7 +838,7 @@ func (_this *WebGLRenderingContext) AttachShader(program *WebGLProgram, shader *
 	return
 }
 
-func (_this *WebGLRenderingContext) BindAttribLocation(program *WebGLProgram, index uint, name string) {
+func (_this *RenderingContext) BindAttribLocation(program *Program, index uint, name string) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -856,7 +856,7 @@ func (_this *WebGLRenderingContext) BindAttribLocation(program *WebGLProgram, in
 	return
 }
 
-func (_this *WebGLRenderingContext) BindBuffer(target uint, buffer *WebGLBuffer) {
+func (_this *RenderingContext) BindBuffer(target uint, buffer *Buffer) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -871,7 +871,7 @@ func (_this *WebGLRenderingContext) BindBuffer(target uint, buffer *WebGLBuffer)
 	return
 }
 
-func (_this *WebGLRenderingContext) BindFramebuffer(target uint, framebuffer *WebGLFramebuffer) {
+func (_this *RenderingContext) BindFramebuffer(target uint, framebuffer *Framebuffer) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -886,7 +886,7 @@ func (_this *WebGLRenderingContext) BindFramebuffer(target uint, framebuffer *We
 	return
 }
 
-func (_this *WebGLRenderingContext) BindRenderbuffer(target uint, renderbuffer *WebGLRenderbuffer) {
+func (_this *RenderingContext) BindRenderbuffer(target uint, renderbuffer *Renderbuffer) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -901,7 +901,7 @@ func (_this *WebGLRenderingContext) BindRenderbuffer(target uint, renderbuffer *
 	return
 }
 
-func (_this *WebGLRenderingContext) BindTexture(target uint, texture *WebGLTexture) {
+func (_this *RenderingContext) BindTexture(target uint, texture *Texture) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -916,7 +916,7 @@ func (_this *WebGLRenderingContext) BindTexture(target uint, texture *WebGLTextu
 	return
 }
 
-func (_this *WebGLRenderingContext) BlendColor(red float32, green float32, blue float32, alpha float32) {
+func (_this *RenderingContext) BlendColor(red float32, green float32, blue float32, alpha float32) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -937,7 +937,7 @@ func (_this *WebGLRenderingContext) BlendColor(red float32, green float32, blue 
 	return
 }
 
-func (_this *WebGLRenderingContext) BlendEquation(mode uint) {
+func (_this *RenderingContext) BlendEquation(mode uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -949,7 +949,7 @@ func (_this *WebGLRenderingContext) BlendEquation(mode uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) BlendEquationSeparate(modeRGB uint, modeAlpha uint) {
+func (_this *RenderingContext) BlendEquationSeparate(modeRGB uint, modeAlpha uint) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -964,7 +964,7 @@ func (_this *WebGLRenderingContext) BlendEquationSeparate(modeRGB uint, modeAlph
 	return
 }
 
-func (_this *WebGLRenderingContext) BlendFunc(sfactor uint, dfactor uint) {
+func (_this *RenderingContext) BlendFunc(sfactor uint, dfactor uint) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -979,7 +979,7 @@ func (_this *WebGLRenderingContext) BlendFunc(sfactor uint, dfactor uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) BlendFuncSeparate(srcRGB uint, dstRGB uint, srcAlpha uint, dstAlpha uint) {
+func (_this *RenderingContext) BlendFuncSeparate(srcRGB uint, dstRGB uint, srcAlpha uint, dstAlpha uint) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1000,7 +1000,7 @@ func (_this *WebGLRenderingContext) BlendFuncSeparate(srcRGB uint, dstRGB uint, 
 	return
 }
 
-func (_this *WebGLRenderingContext) BufferData(target uint, size int, usage uint) {
+func (_this *RenderingContext) BufferData(target uint, size int, usage uint) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1018,7 +1018,7 @@ func (_this *WebGLRenderingContext) BufferData(target uint, size int, usage uint
 	return
 }
 
-func (_this *WebGLRenderingContext) BufferData2(target uint, data *Union, usage uint) {
+func (_this *RenderingContext) BufferData2(target uint, data *Union, usage uint) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1036,7 +1036,7 @@ func (_this *WebGLRenderingContext) BufferData2(target uint, data *Union, usage 
 	return
 }
 
-func (_this *WebGLRenderingContext) BufferSubData(target uint, offset int, data *Union) {
+func (_this *RenderingContext) BufferSubData(target uint, offset int, data *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1054,7 +1054,7 @@ func (_this *WebGLRenderingContext) BufferSubData(target uint, offset int, data 
 	return
 }
 
-func (_this *WebGLRenderingContext) CheckFramebufferStatus(target uint) (_result uint) {
+func (_this *RenderingContext) CheckFramebufferStatus(target uint) (_result uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1071,7 +1071,7 @@ func (_this *WebGLRenderingContext) CheckFramebufferStatus(target uint) (_result
 	return
 }
 
-func (_this *WebGLRenderingContext) Clear(mask uint) {
+func (_this *RenderingContext) Clear(mask uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1083,7 +1083,7 @@ func (_this *WebGLRenderingContext) Clear(mask uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) ClearColor(red float32, green float32, blue float32, alpha float32) {
+func (_this *RenderingContext) ClearColor(red float32, green float32, blue float32, alpha float32) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1104,7 +1104,7 @@ func (_this *WebGLRenderingContext) ClearColor(red float32, green float32, blue 
 	return
 }
 
-func (_this *WebGLRenderingContext) ClearDepth(depth float32) {
+func (_this *RenderingContext) ClearDepth(depth float32) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1116,7 +1116,7 @@ func (_this *WebGLRenderingContext) ClearDepth(depth float32) {
 	return
 }
 
-func (_this *WebGLRenderingContext) ClearStencil(s int) {
+func (_this *RenderingContext) ClearStencil(s int) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1128,7 +1128,7 @@ func (_this *WebGLRenderingContext) ClearStencil(s int) {
 	return
 }
 
-func (_this *WebGLRenderingContext) ColorMask(red bool, green bool, blue bool, alpha bool) {
+func (_this *RenderingContext) ColorMask(red bool, green bool, blue bool, alpha bool) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1149,7 +1149,7 @@ func (_this *WebGLRenderingContext) ColorMask(red bool, green bool, blue bool, a
 	return
 }
 
-func (_this *WebGLRenderingContext) CompileShader(shader *WebGLShader) {
+func (_this *RenderingContext) CompileShader(shader *Shader) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1161,7 +1161,7 @@ func (_this *WebGLRenderingContext) CompileShader(shader *WebGLShader) {
 	return
 }
 
-func (_this *WebGLRenderingContext) CompressedTexImage2D(target uint, level int, internalformat uint, width int, height int, border int, data *Union) {
+func (_this *RenderingContext) CompressedTexImage2D(target uint, level int, internalformat uint, width int, height int, border int, data *Union) {
 	var (
 		_args [7]interface{}
 		_end  int
@@ -1191,7 +1191,7 @@ func (_this *WebGLRenderingContext) CompressedTexImage2D(target uint, level int,
 	return
 }
 
-func (_this *WebGLRenderingContext) CompressedTexSubImage2D(target uint, level int, xoffset int, yoffset int, width int, height int, format uint, data *Union) {
+func (_this *RenderingContext) CompressedTexSubImage2D(target uint, level int, xoffset int, yoffset int, width int, height int, format uint, data *Union) {
 	var (
 		_args [8]interface{}
 		_end  int
@@ -1224,7 +1224,7 @@ func (_this *WebGLRenderingContext) CompressedTexSubImage2D(target uint, level i
 	return
 }
 
-func (_this *WebGLRenderingContext) CopyTexImage2D(target uint, level int, internalformat uint, x int, y int, width int, height int, border int) {
+func (_this *RenderingContext) CopyTexImage2D(target uint, level int, internalformat uint, x int, y int, width int, height int, border int) {
 	var (
 		_args [8]interface{}
 		_end  int
@@ -1257,7 +1257,7 @@ func (_this *WebGLRenderingContext) CopyTexImage2D(target uint, level int, inter
 	return
 }
 
-func (_this *WebGLRenderingContext) CopyTexSubImage2D(target uint, level int, xoffset int, yoffset int, x int, y int, width int, height int) {
+func (_this *RenderingContext) CopyTexSubImage2D(target uint, level int, xoffset int, yoffset int, x int, y int, width int, height int) {
 	var (
 		_args [8]interface{}
 		_end  int
@@ -1290,71 +1290,71 @@ func (_this *WebGLRenderingContext) CopyTexSubImage2D(target uint, level int, xo
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateBuffer() (_result *WebGLBuffer) {
+func (_this *RenderingContext) CreateBuffer() (_result *Buffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createBuffer", _args[0:_end]...)
 	var (
-		_converted *WebGLBuffer // javascript: WebGLBuffer _what_return_name
+		_converted *Buffer // javascript: WebGLBuffer _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLBufferFromJS(_returned)
+		_converted = BufferFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateFramebuffer() (_result *WebGLFramebuffer) {
+func (_this *RenderingContext) CreateFramebuffer() (_result *Framebuffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createFramebuffer", _args[0:_end]...)
 	var (
-		_converted *WebGLFramebuffer // javascript: WebGLFramebuffer _what_return_name
+		_converted *Framebuffer // javascript: WebGLFramebuffer _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLFramebufferFromJS(_returned)
+		_converted = FramebufferFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateProgram() (_result *WebGLProgram) {
+func (_this *RenderingContext) CreateProgram() (_result *Program) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createProgram", _args[0:_end]...)
 	var (
-		_converted *WebGLProgram // javascript: WebGLProgram _what_return_name
+		_converted *Program // javascript: WebGLProgram _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLProgramFromJS(_returned)
+		_converted = ProgramFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateRenderbuffer() (_result *WebGLRenderbuffer) {
+func (_this *RenderingContext) CreateRenderbuffer() (_result *Renderbuffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createRenderbuffer", _args[0:_end]...)
 	var (
-		_converted *WebGLRenderbuffer // javascript: WebGLRenderbuffer _what_return_name
+		_converted *Renderbuffer // javascript: WebGLRenderbuffer _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLRenderbufferFromJS(_returned)
+		_converted = RenderbufferFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateShader(_type uint) (_result *WebGLShader) {
+func (_this *RenderingContext) CreateShader(_type uint) (_result *Shader) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1364,32 +1364,32 @@ func (_this *WebGLRenderingContext) CreateShader(_type uint) (_result *WebGLShad
 	_end++
 	_returned := _this.Value_JS.Call("createShader", _args[0:_end]...)
 	var (
-		_converted *WebGLShader // javascript: WebGLShader _what_return_name
+		_converted *Shader // javascript: WebGLShader _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLShaderFromJS(_returned)
+		_converted = ShaderFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CreateTexture() (_result *WebGLTexture) {
+func (_this *RenderingContext) CreateTexture() (_result *Texture) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createTexture", _args[0:_end]...)
 	var (
-		_converted *WebGLTexture // javascript: WebGLTexture _what_return_name
+		_converted *Texture // javascript: WebGLTexture _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLTextureFromJS(_returned)
+		_converted = TextureFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) CullFace(mode uint) {
+func (_this *RenderingContext) CullFace(mode uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1401,7 +1401,7 @@ func (_this *WebGLRenderingContext) CullFace(mode uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteBuffer(buffer *WebGLBuffer) {
+func (_this *RenderingContext) DeleteBuffer(buffer *Buffer) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1413,7 +1413,7 @@ func (_this *WebGLRenderingContext) DeleteBuffer(buffer *WebGLBuffer) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteFramebuffer(framebuffer *WebGLFramebuffer) {
+func (_this *RenderingContext) DeleteFramebuffer(framebuffer *Framebuffer) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1425,7 +1425,7 @@ func (_this *WebGLRenderingContext) DeleteFramebuffer(framebuffer *WebGLFramebuf
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteProgram(program *WebGLProgram) {
+func (_this *RenderingContext) DeleteProgram(program *Program) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1437,7 +1437,7 @@ func (_this *WebGLRenderingContext) DeleteProgram(program *WebGLProgram) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteRenderbuffer(renderbuffer *WebGLRenderbuffer) {
+func (_this *RenderingContext) DeleteRenderbuffer(renderbuffer *Renderbuffer) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1449,7 +1449,7 @@ func (_this *WebGLRenderingContext) DeleteRenderbuffer(renderbuffer *WebGLRender
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteShader(shader *WebGLShader) {
+func (_this *RenderingContext) DeleteShader(shader *Shader) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1461,7 +1461,7 @@ func (_this *WebGLRenderingContext) DeleteShader(shader *WebGLShader) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DeleteTexture(texture *WebGLTexture) {
+func (_this *RenderingContext) DeleteTexture(texture *Texture) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1473,7 +1473,7 @@ func (_this *WebGLRenderingContext) DeleteTexture(texture *WebGLTexture) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DepthFunc(_func uint) {
+func (_this *RenderingContext) DepthFunc(_func uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1485,7 +1485,7 @@ func (_this *WebGLRenderingContext) DepthFunc(_func uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DepthMask(flag bool) {
+func (_this *RenderingContext) DepthMask(flag bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1497,7 +1497,7 @@ func (_this *WebGLRenderingContext) DepthMask(flag bool) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DepthRange(zNear float32, zFar float32) {
+func (_this *RenderingContext) DepthRange(zNear float32, zFar float32) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1512,7 +1512,7 @@ func (_this *WebGLRenderingContext) DepthRange(zNear float32, zFar float32) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DetachShader(program *WebGLProgram, shader *WebGLShader) {
+func (_this *RenderingContext) DetachShader(program *Program, shader *Shader) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1527,7 +1527,7 @@ func (_this *WebGLRenderingContext) DetachShader(program *WebGLProgram, shader *
 	return
 }
 
-func (_this *WebGLRenderingContext) Disable(cap uint) {
+func (_this *RenderingContext) Disable(cap uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1539,7 +1539,7 @@ func (_this *WebGLRenderingContext) Disable(cap uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DisableVertexAttribArray(index uint) {
+func (_this *RenderingContext) DisableVertexAttribArray(index uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1551,7 +1551,7 @@ func (_this *WebGLRenderingContext) DisableVertexAttribArray(index uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) DrawArrays(mode uint, first int, count int) {
+func (_this *RenderingContext) DrawArrays(mode uint, first int, count int) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1569,7 +1569,7 @@ func (_this *WebGLRenderingContext) DrawArrays(mode uint, first int, count int) 
 	return
 }
 
-func (_this *WebGLRenderingContext) DrawElements(mode uint, count int, _type uint, offset int) {
+func (_this *RenderingContext) DrawElements(mode uint, count int, _type uint, offset int) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1590,7 +1590,7 @@ func (_this *WebGLRenderingContext) DrawElements(mode uint, count int, _type uin
 	return
 }
 
-func (_this *WebGLRenderingContext) Enable(cap uint) {
+func (_this *RenderingContext) Enable(cap uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1602,7 +1602,7 @@ func (_this *WebGLRenderingContext) Enable(cap uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) EnableVertexAttribArray(index uint) {
+func (_this *RenderingContext) EnableVertexAttribArray(index uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1614,7 +1614,7 @@ func (_this *WebGLRenderingContext) EnableVertexAttribArray(index uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) Finish() {
+func (_this *RenderingContext) Finish() {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -1623,7 +1623,7 @@ func (_this *WebGLRenderingContext) Finish() {
 	return
 }
 
-func (_this *WebGLRenderingContext) Flush() {
+func (_this *RenderingContext) Flush() {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -1632,7 +1632,7 @@ func (_this *WebGLRenderingContext) Flush() {
 	return
 }
 
-func (_this *WebGLRenderingContext) FramebufferRenderbuffer(target uint, attachment uint, renderbuffertarget uint, renderbuffer *WebGLRenderbuffer) {
+func (_this *RenderingContext) FramebufferRenderbuffer(target uint, attachment uint, renderbuffertarget uint, renderbuffer *Renderbuffer) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1653,7 +1653,7 @@ func (_this *WebGLRenderingContext) FramebufferRenderbuffer(target uint, attachm
 	return
 }
 
-func (_this *WebGLRenderingContext) FramebufferTexture2D(target uint, attachment uint, textarget uint, texture *WebGLTexture, level int) {
+func (_this *RenderingContext) FramebufferTexture2D(target uint, attachment uint, textarget uint, texture *Texture, level int) {
 	var (
 		_args [5]interface{}
 		_end  int
@@ -1677,7 +1677,7 @@ func (_this *WebGLRenderingContext) FramebufferTexture2D(target uint, attachment
 	return
 }
 
-func (_this *WebGLRenderingContext) FrontFace(mode uint) {
+func (_this *RenderingContext) FrontFace(mode uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1689,7 +1689,7 @@ func (_this *WebGLRenderingContext) FrontFace(mode uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) GenerateMipmap(target uint) {
+func (_this *RenderingContext) GenerateMipmap(target uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1701,7 +1701,7 @@ func (_this *WebGLRenderingContext) GenerateMipmap(target uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) GetActiveAttrib(program *WebGLProgram, index uint) (_result *WebGLActiveInfo) {
+func (_this *RenderingContext) GetActiveAttrib(program *Program, index uint) (_result *ActiveInfo) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1714,16 +1714,16 @@ func (_this *WebGLRenderingContext) GetActiveAttrib(program *WebGLProgram, index
 	_end++
 	_returned := _this.Value_JS.Call("getActiveAttrib", _args[0:_end]...)
 	var (
-		_converted *WebGLActiveInfo // javascript: WebGLActiveInfo _what_return_name
+		_converted *ActiveInfo // javascript: WebGLActiveInfo _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLActiveInfoFromJS(_returned)
+		_converted = ActiveInfoFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) GetActiveUniform(program *WebGLProgram, index uint) (_result *WebGLActiveInfo) {
+func (_this *RenderingContext) GetActiveUniform(program *Program, index uint) (_result *ActiveInfo) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1736,16 +1736,16 @@ func (_this *WebGLRenderingContext) GetActiveUniform(program *WebGLProgram, inde
 	_end++
 	_returned := _this.Value_JS.Call("getActiveUniform", _args[0:_end]...)
 	var (
-		_converted *WebGLActiveInfo // javascript: WebGLActiveInfo _what_return_name
+		_converted *ActiveInfo // javascript: WebGLActiveInfo _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLActiveInfoFromJS(_returned)
+		_converted = ActiveInfoFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_result []*WebGLShader) {
+func (_this *RenderingContext) GetAttachedShaders(program *Program) (_result []*Shader) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1755,15 +1755,15 @@ func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_
 	_end++
 	_returned := _this.Value_JS.Call("getAttachedShaders", _args[0:_end]...)
 	var (
-		_converted []*WebGLShader // javascript: sequence<WebGLShader> _what_return_name
+		_converted []*Shader // javascript: sequence<WebGLShader> _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
 		__length0 := _returned.Length()
-		__array0 := make([]*WebGLShader, __length0, __length0)
+		__array0 := make([]*Shader, __length0, __length0)
 		for __idx0 := 0; __idx0 < __length0; __idx0++ {
-			var __seq_out0 *WebGLShader
+			var __seq_out0 *Shader
 			__seq_in0 := _returned.Index(__idx0)
-			__seq_out0 = WebGLShaderFromJS(__seq_in0)
+			__seq_out0 = ShaderFromJS(__seq_in0)
 			__array0[__idx0] = __seq_out0
 		}
 		_converted = __array0
@@ -1772,7 +1772,7 @@ func (_this *WebGLRenderingContext) GetAttachedShaders(program *WebGLProgram) (_
 	return
 }
 
-func (_this *WebGLRenderingContext) GetAttribLocation(program *WebGLProgram, name string) (_result int) {
+func (_this *RenderingContext) GetAttribLocation(program *Program, name string) (_result int) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1792,7 +1792,7 @@ func (_this *WebGLRenderingContext) GetAttribLocation(program *WebGLProgram, nam
 	return
 }
 
-func (_this *WebGLRenderingContext) GetBufferParameter(target uint, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetBufferParameter(target uint, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1812,7 +1812,7 @@ func (_this *WebGLRenderingContext) GetBufferParameter(target uint, pname uint) 
 	return
 }
 
-func (_this *WebGLRenderingContext) GetParameter(pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetParameter(pname uint) (_result js.Value) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1829,7 +1829,7 @@ func (_this *WebGLRenderingContext) GetParameter(pname uint) (_result js.Value) 
 	return
 }
 
-func (_this *WebGLRenderingContext) GetError() (_result uint) {
+func (_this *RenderingContext) GetError() (_result uint) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -1843,7 +1843,7 @@ func (_this *WebGLRenderingContext) GetError() (_result uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) GetFramebufferAttachmentParameter(target uint, attachment uint, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetFramebufferAttachmentParameter(target uint, attachment uint, pname uint) (_result js.Value) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1866,7 +1866,7 @@ func (_this *WebGLRenderingContext) GetFramebufferAttachmentParameter(target uin
 	return
 }
 
-func (_this *WebGLRenderingContext) GetProgramParameter(program *WebGLProgram, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetProgramParameter(program *Program, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1886,7 +1886,7 @@ func (_this *WebGLRenderingContext) GetProgramParameter(program *WebGLProgram, p
 	return
 }
 
-func (_this *WebGLRenderingContext) GetProgramInfoLog(program *WebGLProgram) (_result *string) {
+func (_this *RenderingContext) GetProgramInfoLog(program *Program) (_result *string) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1906,7 +1906,7 @@ func (_this *WebGLRenderingContext) GetProgramInfoLog(program *WebGLProgram) (_r
 	return
 }
 
-func (_this *WebGLRenderingContext) GetRenderbufferParameter(target uint, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetRenderbufferParameter(target uint, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1926,7 +1926,7 @@ func (_this *WebGLRenderingContext) GetRenderbufferParameter(target uint, pname 
 	return
 }
 
-func (_this *WebGLRenderingContext) GetShaderParameter(shader *WebGLShader, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetShaderParameter(shader *Shader, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1946,7 +1946,7 @@ func (_this *WebGLRenderingContext) GetShaderParameter(shader *WebGLShader, pnam
 	return
 }
 
-func (_this *WebGLRenderingContext) GetShaderPrecisionFormat(shadertype uint, precisiontype uint) (_result *WebGLShaderPrecisionFormat) {
+func (_this *RenderingContext) GetShaderPrecisionFormat(shadertype uint, precisiontype uint) (_result *ShaderPrecisionFormat) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1959,16 +1959,16 @@ func (_this *WebGLRenderingContext) GetShaderPrecisionFormat(shadertype uint, pr
 	_end++
 	_returned := _this.Value_JS.Call("getShaderPrecisionFormat", _args[0:_end]...)
 	var (
-		_converted *WebGLShaderPrecisionFormat // javascript: WebGLShaderPrecisionFormat _what_return_name
+		_converted *ShaderPrecisionFormat // javascript: WebGLShaderPrecisionFormat _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLShaderPrecisionFormatFromJS(_returned)
+		_converted = ShaderPrecisionFormatFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) GetShaderInfoLog(shader *WebGLShader) (_result *string) {
+func (_this *RenderingContext) GetShaderInfoLog(shader *Shader) (_result *string) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1988,7 +1988,7 @@ func (_this *WebGLRenderingContext) GetShaderInfoLog(shader *WebGLShader) (_resu
 	return
 }
 
-func (_this *WebGLRenderingContext) GetShaderSource(shader *WebGLShader) (_result *string) {
+func (_this *RenderingContext) GetShaderSource(shader *Shader) (_result *string) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2008,7 +2008,7 @@ func (_this *WebGLRenderingContext) GetShaderSource(shader *WebGLShader) (_resul
 	return
 }
 
-func (_this *WebGLRenderingContext) GetTexParameter(target uint, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetTexParameter(target uint, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2028,7 +2028,7 @@ func (_this *WebGLRenderingContext) GetTexParameter(target uint, pname uint) (_r
 	return
 }
 
-func (_this *WebGLRenderingContext) GetUniform(program *WebGLProgram, location *WebGLUniformLocation) (_result js.Value) {
+func (_this *RenderingContext) GetUniform(program *Program, location *UniformLocation) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2048,7 +2048,7 @@ func (_this *WebGLRenderingContext) GetUniform(program *WebGLProgram, location *
 	return
 }
 
-func (_this *WebGLRenderingContext) GetUniformLocation(program *WebGLProgram, name string) (_result *WebGLUniformLocation) {
+func (_this *RenderingContext) GetUniformLocation(program *Program, name string) (_result *UniformLocation) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2061,16 +2061,16 @@ func (_this *WebGLRenderingContext) GetUniformLocation(program *WebGLProgram, na
 	_end++
 	_returned := _this.Value_JS.Call("getUniformLocation", _args[0:_end]...)
 	var (
-		_converted *WebGLUniformLocation // javascript: WebGLUniformLocation _what_return_name
+		_converted *UniformLocation // javascript: WebGLUniformLocation _what_return_name
 	)
 	if _returned.Type() != js.TypeNull {
-		_converted = WebGLUniformLocationFromJS(_returned)
+		_converted = UniformLocationFromJS(_returned)
 	}
 	_result = _converted
 	return
 }
 
-func (_this *WebGLRenderingContext) GetVertexAttrib(index uint, pname uint) (_result js.Value) {
+func (_this *RenderingContext) GetVertexAttrib(index uint, pname uint) (_result js.Value) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2090,7 +2090,7 @@ func (_this *WebGLRenderingContext) GetVertexAttrib(index uint, pname uint) (_re
 	return
 }
 
-func (_this *WebGLRenderingContext) GetVertexAttribOffset(index uint, pname uint) (_result int) {
+func (_this *RenderingContext) GetVertexAttribOffset(index uint, pname uint) (_result int) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2110,7 +2110,7 @@ func (_this *WebGLRenderingContext) GetVertexAttribOffset(index uint, pname uint
 	return
 }
 
-func (_this *WebGLRenderingContext) Hint(target uint, mode uint) {
+func (_this *RenderingContext) Hint(target uint, mode uint) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2125,7 +2125,7 @@ func (_this *WebGLRenderingContext) Hint(target uint, mode uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) IsBuffer(buffer *WebGLBuffer) (_result bool) {
+func (_this *RenderingContext) IsBuffer(buffer *Buffer) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2142,7 +2142,7 @@ func (_this *WebGLRenderingContext) IsBuffer(buffer *WebGLBuffer) (_result bool)
 	return
 }
 
-func (_this *WebGLRenderingContext) IsEnabled(cap uint) (_result bool) {
+func (_this *RenderingContext) IsEnabled(cap uint) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2159,7 +2159,7 @@ func (_this *WebGLRenderingContext) IsEnabled(cap uint) (_result bool) {
 	return
 }
 
-func (_this *WebGLRenderingContext) IsFramebuffer(framebuffer *WebGLFramebuffer) (_result bool) {
+func (_this *RenderingContext) IsFramebuffer(framebuffer *Framebuffer) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2176,7 +2176,7 @@ func (_this *WebGLRenderingContext) IsFramebuffer(framebuffer *WebGLFramebuffer)
 	return
 }
 
-func (_this *WebGLRenderingContext) IsProgram(program *WebGLProgram) (_result bool) {
+func (_this *RenderingContext) IsProgram(program *Program) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2193,7 +2193,7 @@ func (_this *WebGLRenderingContext) IsProgram(program *WebGLProgram) (_result bo
 	return
 }
 
-func (_this *WebGLRenderingContext) IsRenderbuffer(renderbuffer *WebGLRenderbuffer) (_result bool) {
+func (_this *RenderingContext) IsRenderbuffer(renderbuffer *Renderbuffer) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2210,7 +2210,7 @@ func (_this *WebGLRenderingContext) IsRenderbuffer(renderbuffer *WebGLRenderbuff
 	return
 }
 
-func (_this *WebGLRenderingContext) IsShader(shader *WebGLShader) (_result bool) {
+func (_this *RenderingContext) IsShader(shader *Shader) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2227,7 +2227,7 @@ func (_this *WebGLRenderingContext) IsShader(shader *WebGLShader) (_result bool)
 	return
 }
 
-func (_this *WebGLRenderingContext) IsTexture(texture *WebGLTexture) (_result bool) {
+func (_this *RenderingContext) IsTexture(texture *Texture) (_result bool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2244,7 +2244,7 @@ func (_this *WebGLRenderingContext) IsTexture(texture *WebGLTexture) (_result bo
 	return
 }
 
-func (_this *WebGLRenderingContext) LineWidth(width float32) {
+func (_this *RenderingContext) LineWidth(width float32) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2256,7 +2256,7 @@ func (_this *WebGLRenderingContext) LineWidth(width float32) {
 	return
 }
 
-func (_this *WebGLRenderingContext) LinkProgram(program *WebGLProgram) {
+func (_this *RenderingContext) LinkProgram(program *Program) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2268,7 +2268,7 @@ func (_this *WebGLRenderingContext) LinkProgram(program *WebGLProgram) {
 	return
 }
 
-func (_this *WebGLRenderingContext) PixelStorei(pname uint, param int) {
+func (_this *RenderingContext) PixelStorei(pname uint, param int) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2283,7 +2283,7 @@ func (_this *WebGLRenderingContext) PixelStorei(pname uint, param int) {
 	return
 }
 
-func (_this *WebGLRenderingContext) PolygonOffset(factor float32, units float32) {
+func (_this *RenderingContext) PolygonOffset(factor float32, units float32) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2298,7 +2298,7 @@ func (_this *WebGLRenderingContext) PolygonOffset(factor float32, units float32)
 	return
 }
 
-func (_this *WebGLRenderingContext) ReadPixels(x int, y int, width int, height int, format uint, _type uint, pixels *Union) {
+func (_this *RenderingContext) ReadPixels(x int, y int, width int, height int, format uint, _type uint, pixels *Union) {
 	var (
 		_args [7]interface{}
 		_end  int
@@ -2328,7 +2328,7 @@ func (_this *WebGLRenderingContext) ReadPixels(x int, y int, width int, height i
 	return
 }
 
-func (_this *WebGLRenderingContext) RenderbufferStorage(target uint, internalformat uint, width int, height int) {
+func (_this *RenderingContext) RenderbufferStorage(target uint, internalformat uint, width int, height int) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2349,7 +2349,7 @@ func (_this *WebGLRenderingContext) RenderbufferStorage(target uint, internalfor
 	return
 }
 
-func (_this *WebGLRenderingContext) SampleCoverage(value float32, invert bool) {
+func (_this *RenderingContext) SampleCoverage(value float32, invert bool) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2364,7 +2364,7 @@ func (_this *WebGLRenderingContext) SampleCoverage(value float32, invert bool) {
 	return
 }
 
-func (_this *WebGLRenderingContext) Scissor(x int, y int, width int, height int) {
+func (_this *RenderingContext) Scissor(x int, y int, width int, height int) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2385,7 +2385,7 @@ func (_this *WebGLRenderingContext) Scissor(x int, y int, width int, height int)
 	return
 }
 
-func (_this *WebGLRenderingContext) ShaderSource(shader *WebGLShader, source string) {
+func (_this *RenderingContext) ShaderSource(shader *Shader, source string) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2400,7 +2400,7 @@ func (_this *WebGLRenderingContext) ShaderSource(shader *WebGLShader, source str
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilFunc(_func uint, ref int, mask uint) {
+func (_this *RenderingContext) StencilFunc(_func uint, ref int, mask uint) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2418,7 +2418,7 @@ func (_this *WebGLRenderingContext) StencilFunc(_func uint, ref int, mask uint) 
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilFuncSeparate(face uint, _func uint, ref int, mask uint) {
+func (_this *RenderingContext) StencilFuncSeparate(face uint, _func uint, ref int, mask uint) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2439,7 +2439,7 @@ func (_this *WebGLRenderingContext) StencilFuncSeparate(face uint, _func uint, r
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilMask(mask uint) {
+func (_this *RenderingContext) StencilMask(mask uint) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2451,7 +2451,7 @@ func (_this *WebGLRenderingContext) StencilMask(mask uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilMaskSeparate(face uint, mask uint) {
+func (_this *RenderingContext) StencilMaskSeparate(face uint, mask uint) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2466,7 +2466,7 @@ func (_this *WebGLRenderingContext) StencilMaskSeparate(face uint, mask uint) {
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilOp(fail uint, zfail uint, zpass uint) {
+func (_this *RenderingContext) StencilOp(fail uint, zfail uint, zpass uint) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2484,7 +2484,7 @@ func (_this *WebGLRenderingContext) StencilOp(fail uint, zfail uint, zpass uint)
 	return
 }
 
-func (_this *WebGLRenderingContext) StencilOpSeparate(face uint, fail uint, zfail uint, zpass uint) {
+func (_this *RenderingContext) StencilOpSeparate(face uint, fail uint, zfail uint, zpass uint) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2505,7 +2505,7 @@ func (_this *WebGLRenderingContext) StencilOpSeparate(face uint, fail uint, zfai
 	return
 }
 
-func (_this *WebGLRenderingContext) TexImage2D(target uint, level int, internalformat int, width int, height int, border int, format uint, _type uint, pixels *Union) {
+func (_this *RenderingContext) TexImage2D(target uint, level int, internalformat int, width int, height int, border int, format uint, _type uint, pixels *Union) {
 	var (
 		_args [9]interface{}
 		_end  int
@@ -2541,7 +2541,7 @@ func (_this *WebGLRenderingContext) TexImage2D(target uint, level int, internalf
 	return
 }
 
-func (_this *WebGLRenderingContext) TexImage2D2(target uint, level int, internalformat int, format uint, _type uint, source *Union) {
+func (_this *RenderingContext) TexImage2D2(target uint, level int, internalformat int, format uint, _type uint, source *Union) {
 	var (
 		_args [6]interface{}
 		_end  int
@@ -2568,7 +2568,7 @@ func (_this *WebGLRenderingContext) TexImage2D2(target uint, level int, internal
 	return
 }
 
-func (_this *WebGLRenderingContext) TexParameterf(target uint, pname uint, param float32) {
+func (_this *RenderingContext) TexParameterf(target uint, pname uint, param float32) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2586,7 +2586,7 @@ func (_this *WebGLRenderingContext) TexParameterf(target uint, pname uint, param
 	return
 }
 
-func (_this *WebGLRenderingContext) TexParameteri(target uint, pname uint, param int) {
+func (_this *RenderingContext) TexParameteri(target uint, pname uint, param int) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2604,7 +2604,7 @@ func (_this *WebGLRenderingContext) TexParameteri(target uint, pname uint, param
 	return
 }
 
-func (_this *WebGLRenderingContext) TexSubImage2D(target uint, level int, xoffset int, yoffset int, width int, height int, format uint, _type uint, pixels *Union) {
+func (_this *RenderingContext) TexSubImage2D(target uint, level int, xoffset int, yoffset int, width int, height int, format uint, _type uint, pixels *Union) {
 	var (
 		_args [9]interface{}
 		_end  int
@@ -2640,7 +2640,7 @@ func (_this *WebGLRenderingContext) TexSubImage2D(target uint, level int, xoffse
 	return
 }
 
-func (_this *WebGLRenderingContext) TexSubImage2D2(target uint, level int, xoffset int, yoffset int, format uint, _type uint, source *Union) {
+func (_this *RenderingContext) TexSubImage2D2(target uint, level int, xoffset int, yoffset int, format uint, _type uint, source *Union) {
 	var (
 		_args [7]interface{}
 		_end  int
@@ -2670,7 +2670,7 @@ func (_this *WebGLRenderingContext) TexSubImage2D2(target uint, level int, xoffs
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform1f(location *WebGLUniformLocation, x float32) {
+func (_this *RenderingContext) Uniform1f(location *UniformLocation, x float32) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2685,7 +2685,7 @@ func (_this *WebGLRenderingContext) Uniform1f(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform2f(location *WebGLUniformLocation, x float32, y float32) {
+func (_this *RenderingContext) Uniform2f(location *UniformLocation, x float32, y float32) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2703,7 +2703,7 @@ func (_this *WebGLRenderingContext) Uniform2f(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform3f(location *WebGLUniformLocation, x float32, y float32, z float32) {
+func (_this *RenderingContext) Uniform3f(location *UniformLocation, x float32, y float32, z float32) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2724,7 +2724,7 @@ func (_this *WebGLRenderingContext) Uniform3f(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform4f(location *WebGLUniformLocation, x float32, y float32, z float32, w float32) {
+func (_this *RenderingContext) Uniform4f(location *UniformLocation, x float32, y float32, z float32, w float32) {
 	var (
 		_args [5]interface{}
 		_end  int
@@ -2748,7 +2748,7 @@ func (_this *WebGLRenderingContext) Uniform4f(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform1i(location *WebGLUniformLocation, x int) {
+func (_this *RenderingContext) Uniform1i(location *UniformLocation, x int) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2763,7 +2763,7 @@ func (_this *WebGLRenderingContext) Uniform1i(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform2i(location *WebGLUniformLocation, x int, y int) {
+func (_this *RenderingContext) Uniform2i(location *UniformLocation, x int, y int) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2781,7 +2781,7 @@ func (_this *WebGLRenderingContext) Uniform2i(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform3i(location *WebGLUniformLocation, x int, y int, z int) {
+func (_this *RenderingContext) Uniform3i(location *UniformLocation, x int, y int, z int) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -2802,7 +2802,7 @@ func (_this *WebGLRenderingContext) Uniform3i(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform4i(location *WebGLUniformLocation, x int, y int, z int, w int) {
+func (_this *RenderingContext) Uniform4i(location *UniformLocation, x int, y int, z int, w int) {
 	var (
 		_args [5]interface{}
 		_end  int
@@ -2826,7 +2826,7 @@ func (_this *WebGLRenderingContext) Uniform4i(location *WebGLUniformLocation, x 
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform1fv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform1fv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2841,7 +2841,7 @@ func (_this *WebGLRenderingContext) Uniform1fv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform2fv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform2fv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2856,7 +2856,7 @@ func (_this *WebGLRenderingContext) Uniform2fv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform3fv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform3fv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2871,7 +2871,7 @@ func (_this *WebGLRenderingContext) Uniform3fv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform4fv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform4fv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2886,7 +2886,7 @@ func (_this *WebGLRenderingContext) Uniform4fv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform1iv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform1iv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2901,7 +2901,7 @@ func (_this *WebGLRenderingContext) Uniform1iv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform2iv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform2iv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2916,7 +2916,7 @@ func (_this *WebGLRenderingContext) Uniform2iv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform3iv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform3iv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2931,7 +2931,7 @@ func (_this *WebGLRenderingContext) Uniform3iv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) Uniform4iv(location *WebGLUniformLocation, v *Union) {
+func (_this *RenderingContext) Uniform4iv(location *UniformLocation, v *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2946,7 +2946,7 @@ func (_this *WebGLRenderingContext) Uniform4iv(location *WebGLUniformLocation, v
 	return
 }
 
-func (_this *WebGLRenderingContext) UniformMatrix2fv(location *WebGLUniformLocation, transpose bool, value *Union) {
+func (_this *RenderingContext) UniformMatrix2fv(location *UniformLocation, transpose bool, value *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2964,7 +2964,7 @@ func (_this *WebGLRenderingContext) UniformMatrix2fv(location *WebGLUniformLocat
 	return
 }
 
-func (_this *WebGLRenderingContext) UniformMatrix3fv(location *WebGLUniformLocation, transpose bool, value *Union) {
+func (_this *RenderingContext) UniformMatrix3fv(location *UniformLocation, transpose bool, value *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -2982,7 +2982,7 @@ func (_this *WebGLRenderingContext) UniformMatrix3fv(location *WebGLUniformLocat
 	return
 }
 
-func (_this *WebGLRenderingContext) UniformMatrix4fv(location *WebGLUniformLocation, transpose bool, value *Union) {
+func (_this *RenderingContext) UniformMatrix4fv(location *UniformLocation, transpose bool, value *Union) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -3000,7 +3000,7 @@ func (_this *WebGLRenderingContext) UniformMatrix4fv(location *WebGLUniformLocat
 	return
 }
 
-func (_this *WebGLRenderingContext) UseProgram(program *WebGLProgram) {
+func (_this *RenderingContext) UseProgram(program *Program) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3012,7 +3012,7 @@ func (_this *WebGLRenderingContext) UseProgram(program *WebGLProgram) {
 	return
 }
 
-func (_this *WebGLRenderingContext) ValidateProgram(program *WebGLProgram) {
+func (_this *RenderingContext) ValidateProgram(program *Program) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3024,7 +3024,7 @@ func (_this *WebGLRenderingContext) ValidateProgram(program *WebGLProgram) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib1f(index uint, x float32) {
+func (_this *RenderingContext) VertexAttrib1f(index uint, x float32) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3039,7 +3039,7 @@ func (_this *WebGLRenderingContext) VertexAttrib1f(index uint, x float32) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib2f(index uint, x float32, y float32) {
+func (_this *RenderingContext) VertexAttrib2f(index uint, x float32, y float32) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -3057,7 +3057,7 @@ func (_this *WebGLRenderingContext) VertexAttrib2f(index uint, x float32, y floa
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib3f(index uint, x float32, y float32, z float32) {
+func (_this *RenderingContext) VertexAttrib3f(index uint, x float32, y float32, z float32) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -3078,7 +3078,7 @@ func (_this *WebGLRenderingContext) VertexAttrib3f(index uint, x float32, y floa
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib4f(index uint, x float32, y float32, z float32, w float32) {
+func (_this *RenderingContext) VertexAttrib4f(index uint, x float32, y float32, z float32, w float32) {
 	var (
 		_args [5]interface{}
 		_end  int
@@ -3102,7 +3102,7 @@ func (_this *WebGLRenderingContext) VertexAttrib4f(index uint, x float32, y floa
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib1fv(index uint, values *Union) {
+func (_this *RenderingContext) VertexAttrib1fv(index uint, values *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3117,7 +3117,7 @@ func (_this *WebGLRenderingContext) VertexAttrib1fv(index uint, values *Union) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib2fv(index uint, values *Union) {
+func (_this *RenderingContext) VertexAttrib2fv(index uint, values *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3132,7 +3132,7 @@ func (_this *WebGLRenderingContext) VertexAttrib2fv(index uint, values *Union) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib3fv(index uint, values *Union) {
+func (_this *RenderingContext) VertexAttrib3fv(index uint, values *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3147,7 +3147,7 @@ func (_this *WebGLRenderingContext) VertexAttrib3fv(index uint, values *Union) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttrib4fv(index uint, values *Union) {
+func (_this *RenderingContext) VertexAttrib4fv(index uint, values *Union) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -3162,7 +3162,7 @@ func (_this *WebGLRenderingContext) VertexAttrib4fv(index uint, values *Union) {
 	return
 }
 
-func (_this *WebGLRenderingContext) VertexAttribPointer(index uint, size int, _type uint, normalized bool, stride int, offset int) {
+func (_this *RenderingContext) VertexAttribPointer(index uint, size int, _type uint, normalized bool, stride int, offset int) {
 	var (
 		_args [6]interface{}
 		_end  int
@@ -3189,7 +3189,7 @@ func (_this *WebGLRenderingContext) VertexAttribPointer(index uint, size int, _t
 	return
 }
 
-func (_this *WebGLRenderingContext) Viewport(x int, y int, width int, height int) {
+func (_this *RenderingContext) Viewport(x int, y int, width int, height int) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -3210,7 +3210,7 @@ func (_this *WebGLRenderingContext) Viewport(x int, y int, width int, height int
 	return
 }
 
-func (_this *WebGLRenderingContext) MakeXRCompatible() (_result *javascript.Promise) {
+func (_this *RenderingContext) MakeXRCompatible() (_result *javascript.Promise) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -3225,45 +3225,45 @@ func (_this *WebGLRenderingContext) MakeXRCompatible() (_result *javascript.Prom
 }
 
 // interface: WebGLShader
-type WebGLShader struct {
-	WebGLObject
+type Shader struct {
+	Object
 }
 
-// WebGLShaderFromJS is casting a js.Wrapper into WebGLShader.
-func WebGLShaderFromJS(value js.Wrapper) *WebGLShader {
+// ShaderFromJS is casting a js.Wrapper into Shader.
+func ShaderFromJS(value js.Wrapper) *Shader {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLShader{}
+	ret := &Shader{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLShaderPrecisionFormat
-type WebGLShaderPrecisionFormat struct {
+type ShaderPrecisionFormat struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *WebGLShaderPrecisionFormat) JSValue() js.Value {
+func (_this *ShaderPrecisionFormat) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLShaderPrecisionFormatFromJS is casting a js.Wrapper into WebGLShaderPrecisionFormat.
-func WebGLShaderPrecisionFormatFromJS(value js.Wrapper) *WebGLShaderPrecisionFormat {
+// ShaderPrecisionFormatFromJS is casting a js.Wrapper into ShaderPrecisionFormat.
+func ShaderPrecisionFormatFromJS(value js.Wrapper) *ShaderPrecisionFormat {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLShaderPrecisionFormat{}
+	ret := &ShaderPrecisionFormat{}
 	ret.Value_JS = input
 	return ret
 }
 
 // RangeMin returning attribute 'rangeMin' with
 // type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) RangeMin() int {
+func (_this *ShaderPrecisionFormat) RangeMin() int {
 	var ret int
 	value := _this.Value_JS.Get("rangeMin")
 	ret = (value).Int()
@@ -3272,7 +3272,7 @@ func (_this *WebGLShaderPrecisionFormat) RangeMin() int {
 
 // RangeMax returning attribute 'rangeMax' with
 // type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) RangeMax() int {
+func (_this *ShaderPrecisionFormat) RangeMax() int {
 	var ret int
 	value := _this.Value_JS.Get("rangeMax")
 	ret = (value).Int()
@@ -3281,7 +3281,7 @@ func (_this *WebGLShaderPrecisionFormat) RangeMax() int {
 
 // Precision returning attribute 'precision' with
 // type int (idl: long).
-func (_this *WebGLShaderPrecisionFormat) Precision() int {
+func (_this *ShaderPrecisionFormat) Precision() int {
 	var ret int
 	value := _this.Value_JS.Get("precision")
 	ret = (value).Int()
@@ -3289,38 +3289,38 @@ func (_this *WebGLShaderPrecisionFormat) Precision() int {
 }
 
 // interface: WebGLTexture
-type WebGLTexture struct {
-	WebGLObject
+type Texture struct {
+	Object
 }
 
-// WebGLTextureFromJS is casting a js.Wrapper into WebGLTexture.
-func WebGLTextureFromJS(value js.Wrapper) *WebGLTexture {
+// TextureFromJS is casting a js.Wrapper into Texture.
+func TextureFromJS(value js.Wrapper) *Texture {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLTexture{}
+	ret := &Texture{}
 	ret.Value_JS = input
 	return ret
 }
 
 // interface: WebGLUniformLocation
-type WebGLUniformLocation struct {
+type UniformLocation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
-func (_this *WebGLUniformLocation) JSValue() js.Value {
+func (_this *UniformLocation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WebGLUniformLocationFromJS is casting a js.Wrapper into WebGLUniformLocation.
-func WebGLUniformLocationFromJS(value js.Wrapper) *WebGLUniformLocation {
+// UniformLocationFromJS is casting a js.Wrapper into UniformLocation.
+func UniformLocationFromJS(value js.Wrapper) *UniformLocation {
 	input := value.JSValue()
 	if input.Type() == js.TypeNull {
 		return nil
 	}
-	ret := &WebGLUniformLocation{}
+	ret := &UniformLocation{}
 	ret.Value_JS = input
 	return ret
 }
