@@ -2139,10 +2139,12 @@ func KeyboardEventFromJS(value js.Wrapper) *KeyboardEvent {
 	return ret
 }
 
-const DOMKEYLOCATIONSTANDARD_KeyboardEvent uint = 0x00
-const DOMKEYLOCATIONLEFT_KeyboardEvent uint = 0x01
-const DOMKEYLOCATIONRIGHT_KeyboardEvent uint = 0x02
-const DOMKEYLOCATIONNUMPAD_KeyboardEvent uint = 0x03
+const (
+	DOM_KEY_LOCATION_STANDARD uint = 0x00
+	DOM_KEY_LOCATION_LEFT     uint = 0x01
+	DOM_KEY_LOCATION_RIGHT    uint = 0x02
+	DOM_KEY_LOCATION_NUMPAD   uint = 0x03
+)
 
 func NewKeyboardEvent(_type string, eventInitDict *KeyboardEventInit) (_result *KeyboardEvent) {
 	_klass := js.Global().Get("KeyboardEvent")
@@ -2808,9 +2810,11 @@ func WheelEventFromJS(value js.Wrapper) *WheelEvent {
 	return ret
 }
 
-const DOMDELTAPIXEL_WheelEvent uint = 0x00
-const DOMDELTALINE_WheelEvent uint = 0x01
-const DOMDELTAPAGE_WheelEvent uint = 0x02
+const (
+	DOM_DELTA_PIXEL uint = 0x00
+	DOM_DELTA_LINE  uint = 0x01
+	DOM_DELTA_PAGE  uint = 0x02
+)
 
 func NewWheelEvent(_type string, eventInitDict *WheelEventInit) (_result *WheelEvent) {
 	_klass := js.Global().Get("WheelEvent")

@@ -424,11 +424,13 @@ func XMLHttpRequestFromJS(value js.Wrapper) *XMLHttpRequest {
 	return ret
 }
 
-const UNSENT_XMLHttpRequest int = 0
-const OPENED_XMLHttpRequest int = 1
-const HEADERSRECEIVED_XMLHttpRequest int = 2
-const LOADING_XMLHttpRequest int = 3
-const DONE_XMLHttpRequest int = 4
+const (
+	UNSENT           int = 0
+	OPENED           int = 1
+	HEADERS_RECEIVED int = 2
+	LOADING          int = 3
+	DONE             int = 4
+)
 
 func NewXMLHttpRequest() (_result *XMLHttpRequest) {
 	_klass := js.Global().Get("XMLHttpRequest")

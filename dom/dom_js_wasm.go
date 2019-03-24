@@ -3405,24 +3405,26 @@ func NodeFromJS(value js.Wrapper) *Node {
 	return ret
 }
 
-const ELEMENTNODE_Node int = 1
-const ATTRIBUTENODE_Node int = 2
-const TEXTNODE_Node int = 3
-const CDATASECTIONNODE_Node int = 4
-const ENTITYREFERENCENODE_Node int = 5
-const ENTITYNODE_Node int = 6
-const PROCESSINGINSTRUCTIONNODE_Node int = 7
-const COMMENTNODE_Node int = 8
-const DOCUMENTNODE_Node int = 9
-const DOCUMENTTYPENODE_Node int = 10
-const DOCUMENTFRAGMENTNODE_Node int = 11
-const NOTATIONNODE_Node int = 12
-const DOCUMENTPOSITIONDISCONNECTED_Node int = 0x01
-const DOCUMENTPOSITIONPRECEDING_Node int = 0x02
-const DOCUMENTPOSITIONFOLLOWING_Node int = 0x04
-const DOCUMENTPOSITIONCONTAINS_Node int = 0x08
-const DOCUMENTPOSITIONCONTAINEDBY_Node int = 0x10
-const DOCUMENTPOSITIONIMPLEMENTATIONSPECIFIC_Node int = 0x20
+const (
+	ELEMENT_NODE                              int = 1
+	ATTRIBUTE_NODE                            int = 2
+	TEXT_NODE                                 int = 3
+	CDATA_SECTION_NODE                        int = 4
+	ENTITY_REFERENCE_NODE                     int = 5
+	ENTITY_NODE                               int = 6
+	PROCESSING_INSTRUCTION_NODE               int = 7
+	COMMENT_NODE                              int = 8
+	DOCUMENT_NODE                             int = 9
+	DOCUMENT_TYPE_NODE                        int = 10
+	DOCUMENT_FRAGMENT_NODE                    int = 11
+	NOTATION_NODE                             int = 12
+	DOCUMENT_POSITION_DISCONNECTED            int = 0x01
+	DOCUMENT_POSITION_PRECEDING               int = 0x02
+	DOCUMENT_POSITION_FOLLOWING               int = 0x04
+	DOCUMENT_POSITION_CONTAINS                int = 0x08
+	DOCUMENT_POSITION_CONTAINED_BY            int = 0x10
+	DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC int = 0x20
+)
 
 // NodeType returning attribute 'nodeType' with
 // type int (idl: unsigned short).
@@ -3842,22 +3844,24 @@ func (_this *Node) RemoveChild(child *Node) (_result *Node) {
 	return
 }
 
-const FILTERACCEPT_NodeFilter int = 1
-const FILTERREJECT_NodeFilter int = 2
-const FILTERSKIP_NodeFilter int = 3
-const SHOWALL_NodeFilter uint = 0xFFFFFFFF
-const SHOWELEMENT_NodeFilter uint = 0x1
-const SHOWATTRIBUTE_NodeFilter uint = 0x2
-const SHOWTEXT_NodeFilter uint = 0x4
-const SHOWCDATASECTION_NodeFilter uint = 0x8
-const SHOWENTITYREFERENCE_NodeFilter uint = 0x10
-const SHOWENTITY_NodeFilter uint = 0x20
-const SHOWPROCESSINGINSTRUCTION_NodeFilter uint = 0x40
-const SHOWCOMMENT_NodeFilter uint = 0x80
-const SHOWDOCUMENT_NodeFilter uint = 0x100
-const SHOWDOCUMENTTYPE_NodeFilter uint = 0x200
-const SHOWDOCUMENTFRAGMENT_NodeFilter uint = 0x400
-const SHOWNOTATION_NodeFilter uint = 0x800
+const (
+	FILTER_ACCEPT               int  = 1
+	FILTER_REJECT               int  = 2
+	FILTER_SKIP                 int  = 3
+	SHOW_ALL                    uint = 0xFFFFFFFF
+	SHOW_ELEMENT                uint = 0x1
+	SHOW_ATTRIBUTE              uint = 0x2
+	SHOW_TEXT                   uint = 0x4
+	SHOW_CDATA_SECTION          uint = 0x8
+	SHOW_ENTITY_REFERENCE       uint = 0x10
+	SHOW_ENTITY                 uint = 0x20
+	SHOW_PROCESSING_INSTRUCTION uint = 0x40
+	SHOW_COMMENT                uint = 0x80
+	SHOW_DOCUMENT               uint = 0x100
+	SHOW_DOCUMENT_TYPE          uint = 0x200
+	SHOW_DOCUMENT_FRAGMENT      uint = 0x400
+	SHOW_NOTATION               uint = 0x800
+)
 
 // NodeFilter is a callback interface.
 type NodeFilter interface {
@@ -4182,10 +4186,12 @@ func RangeFromJS(value js.Wrapper) *Range {
 	return ret
 }
 
-const STARTTOSTART_Range int = 0
-const STARTTOEND_Range int = 1
-const ENDTOEND_Range int = 2
-const ENDTOSTART_Range int = 3
+const (
+	START_TO_START int = 0
+	START_TO_END   int = 1
+	END_TO_END     int = 2
+	END_TO_START   int = 3
+)
 
 func NewRange() (_result *Range) {
 	_klass := js.Global().Get("Range")

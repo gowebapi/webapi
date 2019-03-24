@@ -317,12 +317,14 @@ func ApplicationCacheFromJS(value js.Wrapper) *ApplicationCache {
 	return ret
 }
 
-const UNCACHED_ApplicationCache int = 0
-const IDLE_ApplicationCache int = 1
-const CHECKING_ApplicationCache int = 2
-const DOWNLOADING_ApplicationCache int = 3
-const UPDATEREADY_ApplicationCache int = 4
-const OBSOLETE_ApplicationCache int = 5
+const (
+	UNCACHED    int = 0
+	IDLE        int = 1
+	CHECKING    int = 2
+	DOWNLOADING int = 3
+	UPDATEREADY int = 4
+	OBSOLETE    int = 5
+)
 
 // Status returning attribute 'status' with
 // type int (idl: unsigned short).
@@ -692,9 +694,11 @@ func EventSourceFromJS(value js.Wrapper) *EventSource {
 	return ret
 }
 
-const CONNECTING_EventSource int = 0
-const OPEN_EventSource int = 1
-const CLOSED_EventSource int = 2
+const (
+	CONNECTING int = 0
+	OPEN       int = 1
+	CLOSED     int = 2
+)
 
 func NewEventSource(url string, eventSourceInitDict *EventSourceInit) (_result *EventSource) {
 	_klass := js.Global().Get("EventSource")

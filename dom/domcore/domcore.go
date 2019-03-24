@@ -524,31 +524,33 @@ func DOMExceptionFromJS(value js.Wrapper) *DOMException {
 	return ret
 }
 
-const INDEXSIZEERR_DOMException int = 1
-const DOMSTRINGSIZEERR_DOMException int = 2
-const HIERARCHYREQUESTERR_DOMException int = 3
-const WRONGDOCUMENTERR_DOMException int = 4
-const INVALIDCHARACTERERR_DOMException int = 5
-const NODATAALLOWEDERR_DOMException int = 6
-const NOMODIFICATIONALLOWEDERR_DOMException int = 7
-const NOTFOUNDERR_DOMException int = 8
-const NOTSUPPORTEDERR_DOMException int = 9
-const INUSEATTRIBUTEERR_DOMException int = 10
-const INVALIDSTATEERR_DOMException int = 11
-const SYNTAXERR_DOMException int = 12
-const INVALIDMODIFICATIONERR_DOMException int = 13
-const NAMESPACEERR_DOMException int = 14
-const INVALIDACCESSERR_DOMException int = 15
-const VALIDATIONERR_DOMException int = 16
-const TYPEMISMATCHERR_DOMException int = 17
-const SECURITYERR_DOMException int = 18
-const NETWORKERR_DOMException int = 19
-const ABORTERR_DOMException int = 20
-const URLMISMATCHERR_DOMException int = 21
-const QUOTAEXCEEDEDERR_DOMException int = 22
-const TIMEOUTERR_DOMException int = 23
-const INVALIDNODETYPEERR_DOMException int = 24
-const DATACLONEERR_DOMException int = 25
+const (
+	INDEX_SIZE_ERR              int = 1
+	DOMSTRING_SIZE_ERR          int = 2
+	HIERARCHY_REQUEST_ERR       int = 3
+	WRONG_DOCUMENT_ERR          int = 4
+	INVALID_CHARACTER_ERR       int = 5
+	NO_DATA_ALLOWED_ERR         int = 6
+	NO_MODIFICATION_ALLOWED_ERR int = 7
+	NOT_FOUND_ERR               int = 8
+	NOT_SUPPORTED_ERR           int = 9
+	INUSE_ATTRIBUTE_ERR         int = 10
+	INVALID_STATE_ERR           int = 11
+	SYNTAX_ERR                  int = 12
+	INVALID_MODIFICATION_ERR    int = 13
+	NAMESPACE_ERR               int = 14
+	INVALID_ACCESS_ERR          int = 15
+	VALIDATION_ERR              int = 16
+	TYPE_MISMATCH_ERR           int = 17
+	SECURITY_ERR                int = 18
+	NETWORK_ERR                 int = 19
+	ABORT_ERR                   int = 20
+	URL_MISMATCH_ERR            int = 21
+	QUOTA_EXCEEDED_ERR          int = 22
+	TIMEOUT_ERR                 int = 23
+	INVALID_NODE_TYPE_ERR       int = 24
+	DATA_CLONE_ERR              int = 25
+)
 
 func NewDOMException(message *string, name *string) (_result *DOMException) {
 	_klass := js.Global().Get("DOMException")
@@ -881,10 +883,12 @@ func EventFromJS(value js.Wrapper) *Event {
 	return ret
 }
 
-const NONE_Event int = 0
-const CAPTURINGPHASE_Event int = 1
-const ATTARGET_Event int = 2
-const BUBBLINGPHASE_Event int = 3
+const (
+	NONE            int = 0
+	CAPTURING_PHASE int = 1
+	AT_TARGET       int = 2
+	BUBBLING_PHASE  int = 3
+)
 
 func NewEvent(_type string, eventInitDict *EventInit) (_result *Event) {
 	_klass := js.Global().Get("Event")

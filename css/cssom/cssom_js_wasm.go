@@ -274,21 +274,23 @@ func CSSRuleFromJS(value js.Wrapper) *CSSRule {
 	return ret
 }
 
-const STYLERULE_CSSRule int = 1
-const CHARSETRULE_CSSRule int = 2
-const IMPORTRULE_CSSRule int = 3
-const MEDIARULE_CSSRule int = 4
-const FONTFACERULE_CSSRule int = 5
-const PAGERULE_CSSRule int = 6
-const MARGINRULE_CSSRule int = 9
-const NAMESPACERULE_CSSRule int = 10
-const KEYFRAMESRULE_CSSRule int = 7
-const KEYFRAMERULE_CSSRule int = 8
-const SUPPORTSRULE_CSSRule int = 12
-const COUNTERSTYLERULE_CSSRule int = 11
-const VIEWPORTRULE_CSSRule int = 15
-const FONTFEATUREVALUESRULE_CSSRule int = 14
-const FONTPALETTEVALUESRULE_CSSRule int = 15
+const (
+	STYLE_RULE               int = 1
+	CHARSET_RULE             int = 2
+	IMPORT_RULE              int = 3
+	MEDIA_RULE               int = 4
+	FONT_FACE_RULE           int = 5
+	PAGE_RULE                int = 6
+	MARGIN_RULE              int = 9
+	NAMESPACE_RULE           int = 10
+	KEYFRAMES_RULE           int = 7
+	KEYFRAME_RULE            int = 8
+	SUPPORTS_RULE            int = 12
+	COUNTER_STYLE_RULE       int = 11
+	VIEWPORT_RULE            int = 15
+	FONT_FEATURE_VALUES_RULE int = 14
+	FONT_PALETTE_VALUES_RULE int = 15
+)
 
 // Type returning attribute 'type' with
 // type int (idl: unsigned short).

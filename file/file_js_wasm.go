@@ -438,9 +438,11 @@ func FileReaderFromJS(value js.Wrapper) *FileReader {
 	return ret
 }
 
-const EMPTY_FileReader int = 0
-const LOADING_FileReader int = 1
-const DONE_FileReader int = 2
+const (
+	EMPTY   int = 0
+	LOADING int = 1
+	DONE    int = 2
+)
 
 func NewFileReader() (_result *FileReader) {
 	_klass := js.Global().Get("FileReader")

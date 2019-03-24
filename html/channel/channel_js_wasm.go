@@ -777,10 +777,12 @@ func WebSocketFromJS(value js.Wrapper) *WebSocket {
 	return ret
 }
 
-const CONNECTING int = 0
-const OPEN int = 1
-const CLOSING int = 2
-const CLOSED int = 3
+const (
+	CONNECTING int = 0
+	OPEN       int = 1
+	CLOSING    int = 2
+	CLOSED     int = 3
+)
 
 func NewWebSocket(url string, protocols *Union) (_result *WebSocket) {
 	_klass := js.Global().Get("WebSocket")

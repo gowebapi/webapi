@@ -545,15 +545,17 @@ func HTMLMediaElementFromJS(value js.Wrapper) *HTMLMediaElement {
 	return ret
 }
 
-const NETWORKEMPTY_HTMLMediaElement int = 0
-const NETWORKIDLE_HTMLMediaElement int = 1
-const NETWORKLOADING_HTMLMediaElement int = 2
-const NETWORKNOSOURCE_HTMLMediaElement int = 3
-const HAVENOTHING_HTMLMediaElement int = 0
-const HAVEMETADATA_HTMLMediaElement int = 1
-const HAVECURRENTDATA_HTMLMediaElement int = 2
-const HAVEFUTUREDATA_HTMLMediaElement int = 3
-const HAVEENOUGHDATA_HTMLMediaElement int = 4
+const (
+	NETWORK_EMPTY     int = 0
+	NETWORK_IDLE      int = 1
+	NETWORK_LOADING   int = 2
+	NETWORK_NO_SOURCE int = 3
+	HAVE_NOTHING      int = 0
+	HAVE_METADATA     int = 1
+	HAVE_CURRENT_DATA int = 2
+	HAVE_FUTURE_DATA  int = 3
+	HAVE_ENOUGH_DATA  int = 4
+)
 
 // Error returning attribute 'error' with
 // type MediaError (idl: MediaError).
@@ -1155,10 +1157,12 @@ func HTMLTrackElementFromJS(value js.Wrapper) *HTMLTrackElement {
 	return ret
 }
 
-const NONE_HTMLTrackElement int = 0
-const LOADING_HTMLTrackElement int = 1
-const LOADED_HTMLTrackElement int = 2
-const ERROR_HTMLTrackElement int = 3
+const (
+	NONE    int = 0
+	LOADING int = 1
+	LOADED  int = 2
+	ERROR   int = 3
+)
 
 // Kind returning attribute 'kind' with
 // type string (idl: DOMString).
@@ -1471,10 +1475,12 @@ func MediaErrorFromJS(value js.Wrapper) *MediaError {
 	return ret
 }
 
-const MEDIAERRABORTED_MediaError int = 1
-const MEDIAERRNETWORK_MediaError int = 2
-const MEDIAERRDECODE_MediaError int = 3
-const MEDIAERRSRCNOTSUPPORTED_MediaError int = 4
+const (
+	MEDIA_ERR_ABORTED           int = 1
+	MEDIA_ERR_NETWORK           int = 2
+	MEDIA_ERR_DECODE            int = 3
+	MEDIA_ERR_SRC_NOT_SUPPORTED int = 4
+)
 
 // Code returning attribute 'code' with
 // type int (idl: unsigned short).

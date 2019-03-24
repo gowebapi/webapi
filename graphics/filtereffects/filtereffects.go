@@ -68,12 +68,14 @@ func SVGComponentTransferFunctionElementFromJS(value js.Wrapper) *SVGComponentTr
 	return ret
 }
 
-const SVGFECOMPONENTTRANSFERTYPEUNKNOWN_SVGComponentTransferFunctionElement int = 0
-const SVGFECOMPONENTTRANSFERTYPEIDENTITY_SVGComponentTransferFunctionElement int = 1
-const SVGFECOMPONENTTRANSFERTYPETABLE_SVGComponentTransferFunctionElement int = 2
-const SVGFECOMPONENTTRANSFERTYPEDISCRETE_SVGComponentTransferFunctionElement int = 3
-const SVGFECOMPONENTTRANSFERTYPELINEAR_SVGComponentTransferFunctionElement int = 4
-const SVGFECOMPONENTTRANSFERTYPEGAMMA_SVGComponentTransferFunctionElement int = 5
+const (
+	SVG_FECOMPONENTTRANSFER_TYPE_UNKNOWN  int = 0
+	SVG_FECOMPONENTTRANSFER_TYPE_IDENTITY int = 1
+	SVG_FECOMPONENTTRANSFER_TYPE_TABLE    int = 2
+	SVG_FECOMPONENTTRANSFER_TYPE_DISCRETE int = 3
+	SVG_FECOMPONENTTRANSFER_TYPE_LINEAR   int = 4
+	SVG_FECOMPONENTTRANSFER_TYPE_GAMMA    int = 5
+)
 
 // Type returning attribute 'type' with
 // type svg.SVGAnimatedEnumeration (idl: SVGAnimatedEnumeration).
@@ -154,23 +156,25 @@ func SVGFEBlendElementFromJS(value js.Wrapper) *SVGFEBlendElement {
 	return ret
 }
 
-const SVGFEBLENDMODEUNKNOWN_SVGFEBlendElement int = 0
-const SVGFEBLENDMODENORMAL_SVGFEBlendElement int = 1
-const SVGFEBLENDMODEMULTIPLY_SVGFEBlendElement int = 2
-const SVGFEBLENDMODESCREEN_SVGFEBlendElement int = 3
-const SVGFEBLENDMODEDARKEN_SVGFEBlendElement int = 4
-const SVGFEBLENDMODELIGHTEN_SVGFEBlendElement int = 5
-const SVGFEBLENDMODEOVERLAY_SVGFEBlendElement int = 6
-const SVGFEBLENDMODECOLORDODGE_SVGFEBlendElement int = 7
-const SVGFEBLENDMODECOLORBURN_SVGFEBlendElement int = 8
-const SVGFEBLENDMODEHARDLIGHT_SVGFEBlendElement int = 9
-const SVGFEBLENDMODESOFTLIGHT_SVGFEBlendElement int = 10
-const SVGFEBLENDMODEDIFFERENCE_SVGFEBlendElement int = 11
-const SVGFEBLENDMODEEXCLUSION_SVGFEBlendElement int = 12
-const SVGFEBLENDMODEHUE_SVGFEBlendElement int = 13
-const SVGFEBLENDMODESATURATION_SVGFEBlendElement int = 14
-const SVGFEBLENDMODECOLOR_SVGFEBlendElement int = 15
-const SVGFEBLENDMODELUMINOSITY_SVGFEBlendElement int = 16
+const (
+	SVG_FEBLEND_MODE_UNKNOWN     int = 0
+	SVG_FEBLEND_MODE_NORMAL      int = 1
+	SVG_FEBLEND_MODE_MULTIPLY    int = 2
+	SVG_FEBLEND_MODE_SCREEN      int = 3
+	SVG_FEBLEND_MODE_DARKEN      int = 4
+	SVG_FEBLEND_MODE_LIGHTEN     int = 5
+	SVG_FEBLEND_MODE_OVERLAY     int = 6
+	SVG_FEBLEND_MODE_COLOR_DODGE int = 7
+	SVG_FEBLEND_MODE_COLOR_BURN  int = 8
+	SVG_FEBLEND_MODE_HARD_LIGHT  int = 9
+	SVG_FEBLEND_MODE_SOFT_LIGHT  int = 10
+	SVG_FEBLEND_MODE_DIFFERENCE  int = 11
+	SVG_FEBLEND_MODE_EXCLUSION   int = 12
+	SVG_FEBLEND_MODE_HUE         int = 13
+	SVG_FEBLEND_MODE_SATURATION  int = 14
+	SVG_FEBLEND_MODE_COLOR       int = 15
+	SVG_FEBLEND_MODE_LUMINOSITY  int = 16
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -260,11 +264,13 @@ func SVGFEColorMatrixElementFromJS(value js.Wrapper) *SVGFEColorMatrixElement {
 	return ret
 }
 
-const SVGFECOLORMATRIXTYPEUNKNOWN_SVGFEColorMatrixElement int = 0
-const SVGFECOLORMATRIXTYPEMATRIX_SVGFEColorMatrixElement int = 1
-const SVGFECOLORMATRIXTYPESATURATE_SVGFEColorMatrixElement int = 2
-const SVGFECOLORMATRIXTYPEHUEROTATE_SVGFEColorMatrixElement int = 3
-const SVGFECOLORMATRIXTYPELUMINANCETOALPHA_SVGFEColorMatrixElement int = 4
+const (
+	SVG_FECOLORMATRIX_TYPE_UNKNOWN          int = 0
+	SVG_FECOLORMATRIX_TYPE_MATRIX           int = 1
+	SVG_FECOLORMATRIX_TYPE_SATURATE         int = 2
+	SVG_FECOLORMATRIX_TYPE_HUEROTATE        int = 3
+	SVG_FECOLORMATRIX_TYPE_LUMINANCETOALPHA int = 4
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -424,13 +430,15 @@ func SVGFECompositeElementFromJS(value js.Wrapper) *SVGFECompositeElement {
 	return ret
 }
 
-const SVGFECOMPOSITEOPERATORUNKNOWN_SVGFECompositeElement int = 0
-const SVGFECOMPOSITEOPERATOROVER_SVGFECompositeElement int = 1
-const SVGFECOMPOSITEOPERATORIN_SVGFECompositeElement int = 2
-const SVGFECOMPOSITEOPERATOROUT_SVGFECompositeElement int = 3
-const SVGFECOMPOSITEOPERATORATOP_SVGFECompositeElement int = 4
-const SVGFECOMPOSITEOPERATORXOR_SVGFECompositeElement int = 5
-const SVGFECOMPOSITEOPERATORARITHMETIC_SVGFECompositeElement int = 6
+const (
+	SVG_FECOMPOSITE_OPERATOR_UNKNOWN    int = 0
+	SVG_FECOMPOSITE_OPERATOR_OVER       int = 1
+	SVG_FECOMPOSITE_OPERATOR_IN         int = 2
+	SVG_FECOMPOSITE_OPERATOR_OUT        int = 3
+	SVG_FECOMPOSITE_OPERATOR_ATOP       int = 4
+	SVG_FECOMPOSITE_OPERATOR_XOR        int = 5
+	SVG_FECOMPOSITE_OPERATOR_ARITHMETIC int = 6
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -556,10 +564,12 @@ func SVGFEConvolveMatrixElementFromJS(value js.Wrapper) *SVGFEConvolveMatrixElem
 	return ret
 }
 
-const SVGEDGEMODEUNKNOWN_SVGFEConvolveMatrixElement int = 0
-const SVGEDGEMODEDUPLICATE_SVGFEConvolveMatrixElement int = 1
-const SVGEDGEMODEWRAP_SVGFEConvolveMatrixElement int = 2
-const SVGEDGEMODENONE_SVGFEConvolveMatrixElement int = 3
+const (
+	SVG_EDGEMODE_UNKNOWN_CME   int = 0
+	SVG_EDGEMODE_DUPLICATE_CME int = 1
+	SVG_EDGEMODE_WRAP_CME      int = 2
+	SVG_EDGEMODE_NONE_CME      int = 3
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -836,11 +846,13 @@ func SVGFEDisplacementMapElementFromJS(value js.Wrapper) *SVGFEDisplacementMapEl
 	return ret
 }
 
-const SVGCHANNELUNKNOWN_SVGFEDisplacementMapElement int = 0
-const SVGCHANNELR_SVGFEDisplacementMapElement int = 1
-const SVGCHANNELG_SVGFEDisplacementMapElement int = 2
-const SVGCHANNELB_SVGFEDisplacementMapElement int = 3
-const SVGCHANNELA_SVGFEDisplacementMapElement int = 4
+const (
+	SVG_CHANNEL_UNKNOWN int = 0
+	SVG_CHANNEL_R       int = 1
+	SVG_CHANNEL_G       int = 2
+	SVG_CHANNEL_B       int = 3
+	SVG_CHANNEL_A       int = 4
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -1228,10 +1240,12 @@ func SVGFEGaussianBlurElementFromJS(value js.Wrapper) *SVGFEGaussianBlurElement 
 	return ret
 }
 
-const SVGEDGEMODEUNKNOWN_SVGFEGaussianBlurElement int = 0
-const SVGEDGEMODEDUPLICATE_SVGFEGaussianBlurElement int = 1
-const SVGEDGEMODEWRAP_SVGFEGaussianBlurElement int = 2
-const SVGEDGEMODENONE_SVGFEGaussianBlurElement int = 3
+const (
+	SVG_EDGEMODE_UNKNOWN_GBE   int = 0
+	SVG_EDGEMODE_DUPLICATE_GBE int = 1
+	SVG_EDGEMODE_WRAP_GBE      int = 2
+	SVG_EDGEMODE_NONE_GBE      int = 3
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -1519,9 +1533,11 @@ func SVGFEMorphologyElementFromJS(value js.Wrapper) *SVGFEMorphologyElement {
 	return ret
 }
 
-const SVGMORPHOLOGYOPERATORUNKNOWN_SVGFEMorphologyElement int = 0
-const SVGMORPHOLOGYOPERATORERODE_SVGFEMorphologyElement int = 1
-const SVGMORPHOLOGYOPERATORDILATE_SVGFEMorphologyElement int = 2
+const (
+	SVG_MORPHOLOGY_OPERATOR_UNKNOWN int = 0
+	SVG_MORPHOLOGY_OPERATOR_ERODE   int = 1
+	SVG_MORPHOLOGY_OPERATOR_DILATE  int = 2
+)
 
 // In1 returning attribute 'in1' with
 // type svg.SVGAnimatedString (idl: SVGAnimatedString).
@@ -2024,12 +2040,14 @@ func SVGFETurbulenceElementFromJS(value js.Wrapper) *SVGFETurbulenceElement {
 	return ret
 }
 
-const SVGTURBULENCETYPEUNKNOWN_SVGFETurbulenceElement int = 0
-const SVGTURBULENCETYPEFRACTALNOISE_SVGFETurbulenceElement int = 1
-const SVGTURBULENCETYPETURBULENCE_SVGFETurbulenceElement int = 2
-const SVGSTITCHTYPEUNKNOWN_SVGFETurbulenceElement int = 0
-const SVGSTITCHTYPESTITCH_SVGFETurbulenceElement int = 1
-const SVGSTITCHTYPENOSTITCH_SVGFETurbulenceElement int = 2
+const (
+	SVG_TURBULENCE_TYPE_UNKNOWN      int = 0
+	SVG_TURBULENCE_TYPE_FRACTALNOISE int = 1
+	SVG_TURBULENCE_TYPE_TURBULENCE   int = 2
+	SVG_STITCHTYPE_UNKNOWN           int = 0
+	SVG_STITCHTYPE_STITCH            int = 1
+	SVG_STITCHTYPE_NOSTITCH          int = 2
+)
 
 // BaseFrequencyX returning attribute 'baseFrequencyX' with
 // type svg.SVGAnimatedNumber (idl: SVGAnimatedNumber).

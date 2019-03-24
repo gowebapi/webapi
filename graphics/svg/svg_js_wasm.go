@@ -450,11 +450,13 @@ func SVGAngleFromJS(value js.Wrapper) *SVGAngle {
 	return ret
 }
 
-const SVGANGLETYPEUNKNOWN_SVGAngle int = 0
-const SVGANGLETYPEUNSPECIFIED_SVGAngle int = 1
-const SVGANGLETYPEDEG_SVGAngle int = 2
-const SVGANGLETYPERAD_SVGAngle int = 3
-const SVGANGLETYPEGRAD_SVGAngle int = 4
+const (
+	SVG_ANGLETYPE_UNKNOWN     int = 0
+	SVG_ANGLETYPE_UNSPECIFIED int = 1
+	SVG_ANGLETYPE_DEG         int = 2
+	SVG_ANGLETYPE_RAD         int = 3
+	SVG_ANGLETYPE_GRAD        int = 4
+)
 
 // UnitType returning attribute 'unitType' with
 // type int (idl: unsigned short).
@@ -3659,10 +3661,12 @@ func SVGGradientElementFromJS(value js.Wrapper) *SVGGradientElement {
 	return ret
 }
 
-const SVGSPREADMETHODUNKNOWN_SVGGradientElement int = 0
-const SVGSPREADMETHODPAD_SVGGradientElement int = 1
-const SVGSPREADMETHODREFLECT_SVGGradientElement int = 2
-const SVGSPREADMETHODREPEAT_SVGGradientElement int = 3
+const (
+	SVG_SPREADMETHOD_UNKNOWN int = 0
+	SVG_SPREADMETHOD_PAD     int = 1
+	SVG_SPREADMETHOD_REFLECT int = 2
+	SVG_SPREADMETHOD_REPEAT  int = 3
+)
 
 // GradientUnits returning attribute 'gradientUnits' with
 // type SVGAnimatedEnumeration (idl: SVGAnimatedEnumeration).
@@ -3904,17 +3908,19 @@ func SVGLengthFromJS(value js.Wrapper) *SVGLength {
 	return ret
 }
 
-const SVGLENGTHTYPEUNKNOWN_SVGLength int = 0
-const SVGLENGTHTYPENUMBER_SVGLength int = 1
-const SVGLENGTHTYPEPERCENTAGE_SVGLength int = 2
-const SVGLENGTHTYPEEMS_SVGLength int = 3
-const SVGLENGTHTYPEEXS_SVGLength int = 4
-const SVGLENGTHTYPEPX_SVGLength int = 5
-const SVGLENGTHTYPECM_SVGLength int = 6
-const SVGLENGTHTYPEMM_SVGLength int = 7
-const SVGLENGTHTYPEIN_SVGLength int = 8
-const SVGLENGTHTYPEPT_SVGLength int = 9
-const SVGLENGTHTYPEPC_SVGLength int = 10
+const (
+	SVG_LENGTHTYPE_UNKNOWN    int = 0
+	SVG_LENGTHTYPE_NUMBER     int = 1
+	SVG_LENGTHTYPE_PERCENTAGE int = 2
+	SVG_LENGTHTYPE_EMS        int = 3
+	SVG_LENGTHTYPE_EXS        int = 4
+	SVG_LENGTHTYPE_PX         int = 5
+	SVG_LENGTHTYPE_CM         int = 6
+	SVG_LENGTHTYPE_MM         int = 7
+	SVG_LENGTHTYPE_IN         int = 8
+	SVG_LENGTHTYPE_PT         int = 9
+	SVG_LENGTHTYPE_PC         int = 10
+)
 
 // UnitType returning attribute 'unitType' with
 // type int (idl: unsigned short).
@@ -4276,12 +4282,14 @@ func SVGMarkerElementFromJS(value js.Wrapper) *SVGMarkerElement {
 	return ret
 }
 
-const SVGMARKERUNITSUNKNOWN_SVGMarkerElement int = 0
-const SVGMARKERUNITSUSERSPACEONUSE_SVGMarkerElement int = 1
-const SVGMARKERUNITSSTROKEWIDTH_SVGMarkerElement int = 2
-const SVGMARKERORIENTUNKNOWN_SVGMarkerElement int = 0
-const SVGMARKERORIENTAUTO_SVGMarkerElement int = 1
-const SVGMARKERORIENTANGLE_SVGMarkerElement int = 2
+const (
+	SVG_MARKERUNITS_UNKNOWN        int = 0
+	SVG_MARKERUNITS_USERSPACEONUSE int = 1
+	SVG_MARKERUNITS_STROKEWIDTH    int = 2
+	SVG_MARKER_ORIENT_UNKNOWN      int = 0
+	SVG_MARKER_ORIENT_AUTO         int = 1
+	SVG_MARKER_ORIENT_ANGLE        int = 2
+)
 
 // RefX returning attribute 'refX' with
 // type SVGAnimatedLength (idl: SVGAnimatedLength).
@@ -4977,20 +4985,22 @@ func SVGPreserveAspectRatioFromJS(value js.Wrapper) *SVGPreserveAspectRatio {
 	return ret
 }
 
-const SVGPRESERVEASPECTRATIOUNKNOWN_SVGPreserveAspectRatio int = 0
-const SVGPRESERVEASPECTRATIONONE_SVGPreserveAspectRatio int = 1
-const SVGPRESERVEASPECTRATIOXMINYMIN_SVGPreserveAspectRatio int = 2
-const SVGPRESERVEASPECTRATIOXMIDYMIN_SVGPreserveAspectRatio int = 3
-const SVGPRESERVEASPECTRATIOXMAXYMIN_SVGPreserveAspectRatio int = 4
-const SVGPRESERVEASPECTRATIOXMINYMID_SVGPreserveAspectRatio int = 5
-const SVGPRESERVEASPECTRATIOXMIDYMID_SVGPreserveAspectRatio int = 6
-const SVGPRESERVEASPECTRATIOXMAXYMID_SVGPreserveAspectRatio int = 7
-const SVGPRESERVEASPECTRATIOXMINYMAX_SVGPreserveAspectRatio int = 8
-const SVGPRESERVEASPECTRATIOXMIDYMAX_SVGPreserveAspectRatio int = 9
-const SVGPRESERVEASPECTRATIOXMAXYMAX_SVGPreserveAspectRatio int = 10
-const SVGMEETORSLICEUNKNOWN_SVGPreserveAspectRatio int = 0
-const SVGMEETORSLICEMEET_SVGPreserveAspectRatio int = 1
-const SVGMEETORSLICESLICE_SVGPreserveAspectRatio int = 2
+const (
+	SVG_PRESERVEASPECTRATIO_UNKNOWN  int = 0
+	SVG_PRESERVEASPECTRATIO_NONE     int = 1
+	SVG_PRESERVEASPECTRATIO_XMINYMIN int = 2
+	SVG_PRESERVEASPECTRATIO_XMIDYMIN int = 3
+	SVG_PRESERVEASPECTRATIO_XMAXYMIN int = 4
+	SVG_PRESERVEASPECTRATIO_XMINYMID int = 5
+	SVG_PRESERVEASPECTRATIO_XMIDYMID int = 6
+	SVG_PRESERVEASPECTRATIO_XMAXYMID int = 7
+	SVG_PRESERVEASPECTRATIO_XMINYMAX int = 8
+	SVG_PRESERVEASPECTRATIO_XMIDYMAX int = 9
+	SVG_PRESERVEASPECTRATIO_XMAXYMAX int = 10
+	SVG_MEETORSLICE_UNKNOWN          int = 0
+	SVG_MEETORSLICE_MEET             int = 1
+	SVG_MEETORSLICE_SLICE            int = 2
+)
 
 // Align returning attribute 'align' with
 // type int (idl: unsigned short).
@@ -5180,9 +5190,11 @@ func SVGSVGElementFromJS(value js.Wrapper) *SVGSVGElement {
 	return ret
 }
 
-const SVGZOOMANDPANUNKNOWN_SVGSVGElement int = 0
-const SVGZOOMANDPANDISABLE_SVGSVGElement int = 1
-const SVGZOOMANDPANMAGNIFY_SVGSVGElement int = 2
+const (
+	SVG_ZOOMANDPAN_UNKNOWN int = 0
+	SVG_ZOOMANDPAN_DISABLE int = 1
+	SVG_ZOOMANDPAN_MAGNIFY int = 2
+)
 
 // X returning attribute 'x' with
 // type SVGAnimatedLength (idl: SVGAnimatedLength).
@@ -6331,9 +6343,11 @@ func SVGTextContentElementFromJS(value js.Wrapper) *SVGTextContentElement {
 	return ret
 }
 
-const LENGTHADJUSTUNKNOWN_SVGTextContentElement int = 0
-const LENGTHADJUSTSPACING_SVGTextContentElement int = 1
-const LENGTHADJUSTSPACINGANDGLYPHS_SVGTextContentElement int = 2
+const (
+	LENGTHADJUST_UNKNOWN          int = 0
+	LENGTHADJUST_SPACING          int = 1
+	LENGTHADJUST_SPACINGANDGLYPHS int = 2
+)
 
 // TextLength returning attribute 'textLength' with
 // type SVGAnimatedLength (idl: SVGAnimatedLength).
@@ -6535,12 +6549,14 @@ func SVGTextPathElementFromJS(value js.Wrapper) *SVGTextPathElement {
 	return ret
 }
 
-const TEXTPATHMETHODTYPEUNKNOWN_SVGTextPathElement int = 0
-const TEXTPATHMETHODTYPEALIGN_SVGTextPathElement int = 1
-const TEXTPATHMETHODTYPESTRETCH_SVGTextPathElement int = 2
-const TEXTPATHSPACINGTYPEUNKNOWN_SVGTextPathElement int = 0
-const TEXTPATHSPACINGTYPEAUTO_SVGTextPathElement int = 1
-const TEXTPATHSPACINGTYPEEXACT_SVGTextPathElement int = 2
+const (
+	TEXTPATH_METHODTYPE_UNKNOWN  int = 0
+	TEXTPATH_METHODTYPE_ALIGN    int = 1
+	TEXTPATH_METHODTYPE_STRETCH  int = 2
+	TEXTPATH_SPACINGTYPE_UNKNOWN int = 0
+	TEXTPATH_SPACINGTYPE_AUTO    int = 1
+	TEXTPATH_SPACINGTYPE_EXACT   int = 2
+)
 
 // StartOffset returning attribute 'startOffset' with
 // type SVGAnimatedLength (idl: SVGAnimatedLength).
@@ -6676,13 +6692,15 @@ func SVGTransformFromJS(value js.Wrapper) *SVGTransform {
 	return ret
 }
 
-const SVGTRANSFORMUNKNOWN_SVGTransform int = 0
-const SVGTRANSFORMMATRIX_SVGTransform int = 1
-const SVGTRANSFORMTRANSLATE_SVGTransform int = 2
-const SVGTRANSFORMSCALE_SVGTransform int = 3
-const SVGTRANSFORMROTATE_SVGTransform int = 4
-const SVGTRANSFORMSKEWX_SVGTransform int = 5
-const SVGTRANSFORMSKEWY_SVGTransform int = 6
+const (
+	SVG_TRANSFORM_UNKNOWN   int = 0
+	SVG_TRANSFORM_MATRIX    int = 1
+	SVG_TRANSFORM_TRANSLATE int = 2
+	SVG_TRANSFORM_SCALE     int = 3
+	SVG_TRANSFORM_ROTATE    int = 4
+	SVG_TRANSFORM_SKEWX     int = 5
+	SVG_TRANSFORM_SKEWY     int = 6
+)
 
 // Type returning attribute 'type' with
 // type int (idl: unsigned short).
@@ -7009,9 +7027,11 @@ func SVGUnitTypesFromJS(value js.Wrapper) *SVGUnitTypes {
 	return ret
 }
 
-const SVGUNITTYPEUNKNOWN_SVGUnitTypes int = 0
-const SVGUNITTYPEUSERSPACEONUSE_SVGUnitTypes int = 1
-const SVGUNITTYPEOBJECTBOUNDINGBOX_SVGUnitTypes int = 2
+const (
+	SVG_UNIT_TYPE_UNKNOWN           int = 0
+	SVG_UNIT_TYPE_USERSPACEONUSE    int = 1
+	SVG_UNIT_TYPE_OBJECTBOUNDINGBOX int = 2
+)
 
 // interface: SVGUnknownElement
 type SVGUnknownElement struct {
@@ -7144,9 +7164,11 @@ func SVGViewElementFromJS(value js.Wrapper) *SVGViewElement {
 	return ret
 }
 
-const SVGZOOMANDPANUNKNOWN_SVGViewElement int = 0
-const SVGZOOMANDPANDISABLE_SVGViewElement int = 1
-const SVGZOOMANDPANMAGNIFY_SVGViewElement int = 2
+const (
+	SVG_ZOOMANDPAN_UNKNOWN_VE int = 0
+	SVG_ZOOMANDPAN_DISABLE_VE int = 1
+	SVG_ZOOMANDPAN_MAGNIFY_VE int = 2
+)
 
 // ZoomAndPan returning attribute 'zoomAndPan' with
 // type int (idl: unsigned short).
