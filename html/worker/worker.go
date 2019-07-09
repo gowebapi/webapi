@@ -10,6 +10,7 @@ import (
 	"github.com/gowebapi/webapi/communication/netinfo"
 	"github.com/gowebapi/webapi/cookie"
 	"github.com/gowebapi/webapi/crypto"
+	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/fetch"
@@ -53,6 +54,7 @@ import (
 // serviceworker.ServiceWorkerContainer
 // serviceworker.ServiceWorkerRegistration
 // storage.StorageManager
+// usb.USB
 // webidl.VoidFunction
 
 // source idl files:
@@ -1531,6 +1533,15 @@ func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
 	}
 	ret := &WorkerNavigator{}
 	ret.Value_JS = input
+	return ret
+}
+
+// Usb returning attribute 'usb' with
+// type usb.USB (idl: USB).
+func (_this *WorkerNavigator) Usb() *usb.USB {
+	var ret *usb.USB
+	value := _this.Value_JS.Get("usb")
+	ret = usb.USBFromJS(value)
 	return ret
 }
 

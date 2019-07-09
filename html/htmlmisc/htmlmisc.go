@@ -12,6 +12,7 @@ import (
 	"github.com/gowebapi/webapi/crypto/credential"
 	"github.com/gowebapi/webapi/device/gamepad"
 	"github.com/gowebapi/webapi/device/keyboard/lock"
+	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/device/wakelock"
 	"github.com/gowebapi/webapi/device/webxr"
 	"github.com/gowebapi/webapi/dom"
@@ -52,6 +53,7 @@ import (
 // session.MediaSession
 // share.ShareData
 // storage.StorageManager
+// usb.USB
 // wakelock.WakeLockType
 // webxr.XR
 
@@ -1348,6 +1350,15 @@ func NavigatorFromJS(value js.Wrapper) *Navigator {
 	}
 	ret := &Navigator{}
 	ret.Value_JS = input
+	return ret
+}
+
+// Usb returning attribute 'usb' with
+// type usb.USB (idl: USB).
+func (_this *Navigator) Usb() *usb.USB {
+	var ret *usb.USB
+	value := _this.Value_JS.Get("usb")
+	ret = usb.USBFromJS(value)
 	return ret
 }
 
