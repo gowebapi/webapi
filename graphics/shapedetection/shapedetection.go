@@ -16,6 +16,12 @@ import (
 // javascript.FrozenArray
 // javascript.Promise
 
+// source idl files:
+// shape-detection-api.idl
+
+// transform files:
+// shape-detection-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

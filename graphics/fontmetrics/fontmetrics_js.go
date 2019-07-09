@@ -11,6 +11,12 @@ import (
 // using following types:
 // javascript.FrozenArray
 
+// source idl files:
+// font-metrics-api.idl
+
+// transform files:
+// font-metrics-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

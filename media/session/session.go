@@ -13,6 +13,12 @@ import (
 // using following types:
 // javascript.FrozenArray
 
+// source idl files:
+// mediasession.idl
+
+// transform files:
+// mediasession.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

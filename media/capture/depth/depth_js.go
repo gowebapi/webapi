@@ -11,6 +11,12 @@ import (
 // using following types:
 // javascript.Float32Array
 
+// source idl files:
+// mediacapture-depth.idl
+
+// transform files:
+// mediacapture-depth.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

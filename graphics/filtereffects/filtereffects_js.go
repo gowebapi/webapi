@@ -19,6 +19,12 @@ import (
 // svg.SVGAnimatedString
 // svg.SVGElement
 
+// source idl files:
+// filter-effects.idl
+
+// transform files:
+// filter-effects.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

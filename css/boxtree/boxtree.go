@@ -15,6 +15,12 @@ import (
 // dom.Node
 // javascript.FrozenArray
 
+// source idl files:
+// box-tree-api.idl
+
+// transform files:
+// box-tree-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

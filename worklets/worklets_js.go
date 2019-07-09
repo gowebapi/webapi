@@ -13,6 +13,12 @@ import (
 // fetch.RequestCredentials
 // javascript.Promise
 
+// source idl files:
+// worklets.idl
+
+// transform files:
+// worklets.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

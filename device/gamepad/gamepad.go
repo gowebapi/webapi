@@ -15,6 +15,12 @@ import (
 // domcore.Event
 // javascript.FrozenArray
 
+// source idl files:
+// gamepad.idl
+
+// transform files:
+// gamepad.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -13,6 +13,12 @@ import (
 // domcore.AbortSignal
 // javascript.Promise
 
+// source idl files:
+// credential-management.idl
+
+// transform files:
+// credential-management.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

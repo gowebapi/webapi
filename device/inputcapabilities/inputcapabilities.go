@@ -8,6 +8,12 @@ import js "github.com/gowebapi/webapi/core/js"
 
 // using following types:
 
+// source idl files:
+// InputDeviceCapabilities.idl
+
+// transform files:
+// InputDeviceCapabilities.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

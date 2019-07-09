@@ -8,6 +8,12 @@ import js "github.com/gowebapi/webapi/core/js"
 
 // using following types:
 
+// source idl files:
+// cors-rfc1918.idl
+
+// transform files:
+// cors-rfc1918.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

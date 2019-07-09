@@ -16,6 +16,12 @@ import (
 // dom.Range
 // domcore.EventTarget
 
+// source idl files:
+// css-regions.idl
+
+// transform files:
+// css-regions.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -6,6 +6,12 @@ import "syscall/js"
 
 // using following types:
 
+// source idl files:
+// javascript.idl
+
+// transform files:
+// javascript.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

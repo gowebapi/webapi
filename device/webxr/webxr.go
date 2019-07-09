@@ -26,6 +26,12 @@ import (
 // javascript.Promise
 // webgl.Framebuffer
 
+// source idl files:
+// webxr.idl
+
+// transform files:
+// webxr.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

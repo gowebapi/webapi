@@ -18,6 +18,12 @@ import (
 // geometry.DOMRectReadOnly
 // javascript.FrozenArray
 
+// source idl files:
+// intersection-observer.idl
+
+// transform files:
+// intersection-observer.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

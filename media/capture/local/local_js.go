@@ -26,6 +26,12 @@ import (
 // patch.OverconstrainedError
 // screen.DisplayMediaStreamConstraints
 
+// source idl files:
+// mediacapture-streams.idl
+
+// transform files:
+// mediacapture-streams.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

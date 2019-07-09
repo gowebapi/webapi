@@ -18,6 +18,12 @@ import (
 // javascript.FrozenArray
 // javascript.Promise
 
+// source idl files:
+// css-font-loading.idl
+
+// transform files:
+// css-font-loading.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

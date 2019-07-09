@@ -12,6 +12,12 @@ import (
 // geometry.DOMMatrix
 // geometry.DOMMatrixReadOnly
 
+// source idl files:
+// css-typed-om.idl
+
+// transform files:
+// css-typed-om.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

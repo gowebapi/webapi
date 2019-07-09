@@ -14,6 +14,12 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 
+// source idl files:
+// battery-status.idl
+
+// transform files:
+// battery-status.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

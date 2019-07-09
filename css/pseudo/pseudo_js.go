@@ -26,6 +26,12 @@ import (
 // view.ConvertCoordinateOptions
 // webani.Animation
 
+// source idl files:
+// css-pseudo.idl
+
+// transform files:
+// css-pseudo.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

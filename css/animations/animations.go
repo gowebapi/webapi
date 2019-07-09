@@ -17,6 +17,12 @@ import (
 // cssom.CSSStyleDeclaration
 // domcore.Event
 
+// source idl files:
+// css-animations.idl
+
+// transform files:
+// css-animations.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

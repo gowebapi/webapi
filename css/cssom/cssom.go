@@ -13,6 +13,12 @@ import (
 // using following types:
 // typedom.StylePropertyMap
 
+// source idl files:
+// cssom.idl
+
+// transform files:
+// cssom.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

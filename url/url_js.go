@@ -13,6 +13,12 @@ import (
 // file.Blob
 // media.MediaSource
 
+// source idl files:
+// url.idl
+
+// transform files:
+// url.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

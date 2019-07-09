@@ -16,6 +16,12 @@ import (
 // domcore.EventTarget
 // javascript.Promise
 
+// source idl files:
+// remote-playback.idl
+
+// transform files:
+// remote-playback.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

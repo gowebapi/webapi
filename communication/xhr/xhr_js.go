@@ -21,6 +21,12 @@ import (
 // patch.ByteString
 // webapi.Document
 
+// source idl files:
+// xhr.idl
+
+// transform files:
+// xhr.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

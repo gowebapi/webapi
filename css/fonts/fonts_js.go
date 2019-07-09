@@ -12,6 +12,12 @@ import (
 // cssom.CSSRule
 // cssom.CSSStyleDeclaration
 
+// source idl files:
+// css-fonts.idl
+
+// transform files:
+// css-fonts.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

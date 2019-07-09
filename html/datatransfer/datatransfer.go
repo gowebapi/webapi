@@ -22,6 +22,12 @@ import (
 // file.FileList
 // javascript.FrozenArray
 
+// source idl files:
+// html.idl
+
+// transform files:
+// html.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

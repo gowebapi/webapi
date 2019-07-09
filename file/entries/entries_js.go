@@ -13,6 +13,12 @@ import (
 // domcore.DOMException
 // file.File
 
+// source idl files:
+// entries-api.idl
+
+// transform files:
+// entries-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

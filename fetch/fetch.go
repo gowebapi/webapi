@@ -18,6 +18,14 @@ import (
 // patch.ByteString
 // patch.ReadableStream
 
+// source idl files:
+// fetch.idl
+// referrer-policy.idl
+
+// transform files:
+// fetch.go.md
+// referrer-policy.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -13,6 +13,12 @@ import (
 // using following types:
 // javascript.Promise
 
+// source idl files:
+// keyboard-lock.idl
+
+// transform files:
+// keyboard-lock.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

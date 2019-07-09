@@ -14,6 +14,12 @@ import (
 // domcore.EventTarget
 // javascript.Promise
 
+// source idl files:
+// screen-orientation.idl
+
+// transform files:
+// screen-orientation.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

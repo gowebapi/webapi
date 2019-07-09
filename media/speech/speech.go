@@ -15,6 +15,12 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 
+// source idl files:
+// speech-api.idl
+
+// transform files:
+// speech-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

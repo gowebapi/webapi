@@ -13,6 +13,12 @@ import (
 // using following types:
 // domcore.Event
 
+// source idl files:
+// css-transitions.idl
+
+// transform files:
+// css-transitions.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

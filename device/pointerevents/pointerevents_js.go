@@ -17,6 +17,12 @@ import (
 // inputcapabilities.InputDeviceCapabilities
 // webapi.Window
 
+// source idl files:
+// pointerevents.idl
+
+// transform files:
+// pointerevents.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

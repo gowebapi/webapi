@@ -13,6 +13,12 @@ import (
 // dom.DocumentFragment
 // media.TextTrackCue
 
+// source idl files:
+// webvtt.idl
+
+// transform files:
+// webvtt.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

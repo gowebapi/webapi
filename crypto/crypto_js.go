@@ -12,6 +12,12 @@ import (
 // javascript.Object
 // javascript.Promise
 
+// source idl files:
+// WebCryptoAPI.idl
+
+// transform files:
+// WebCryptoAPI.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

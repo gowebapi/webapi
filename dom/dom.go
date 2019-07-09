@@ -37,6 +37,16 @@ import (
 // view.ScrollToOptions
 // webani.Animation
 
+// source idl files:
+// box-tree-api.idl
+// dom.idl
+// fullscreen.idl
+
+// transform files:
+// box-tree-api.go.md
+// dom.go.md
+// fullscreen.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

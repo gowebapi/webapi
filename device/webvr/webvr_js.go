@@ -17,6 +17,12 @@ import (
 // javascript.Float32Array
 // javascript.Promise
 
+// source idl files:
+// webvr.idl
+
+// transform files:
+// webvr.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

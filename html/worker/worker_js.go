@@ -53,6 +53,14 @@ import (
 // storage.StorageManager
 // webidl.VoidFunction
 
+// source idl files:
+// html.idl
+// service-workers.idl
+
+// transform files:
+// html.go.md
+// service-workers.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

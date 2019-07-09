@@ -29,6 +29,16 @@ import (
 // javascript.Promise
 // payment.PaymentManager
 
+// source idl files:
+// BackgroundSync.idl
+// background-fetch.idl
+// service-workers.idl
+
+// transform files:
+// BackgroundSync.go.md
+// background-fetch.go.md
+// service-workers.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

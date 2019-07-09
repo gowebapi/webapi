@@ -16,6 +16,12 @@ import (
 // webani.AnimationTimeline
 // webani.FillMode
 
+// source idl files:
+// scroll-animations.idl
+
+// transform files:
+// scroll-animations.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

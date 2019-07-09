@@ -13,6 +13,12 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 
+// source idl files:
+// picture-in-picture.idl
+
+// transform files:
+// picture-in-picture.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

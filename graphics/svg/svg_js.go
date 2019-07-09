@@ -37,6 +37,12 @@ import (
 // typedom.StylePropertyMap
 // webani.Animation
 
+// source idl files:
+// SVG.idl
+
+// transform files:
+// SVG.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

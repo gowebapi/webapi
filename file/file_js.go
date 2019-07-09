@@ -15,6 +15,14 @@ import (
 // domcore.EventTarget
 // javascript.ArrayBuffer
 
+// source idl files:
+// fileapi.idl
+// html.idl
+
+// transform files:
+// fileapi.go.md
+// html.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

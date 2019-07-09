@@ -14,6 +14,12 @@ import (
 // dom.Node
 // dom.Range
 
+// source idl files:
+// selection-api.idl
+
+// transform files:
+// selection-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

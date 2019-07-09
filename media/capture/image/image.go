@@ -19,6 +19,12 @@ import (
 // mediatype.MediaSettingsRange
 // mediatype.Point2D
 
+// source idl files:
+// image-capture.idl
+
+// transform files:
+// image-capture.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

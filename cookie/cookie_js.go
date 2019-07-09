@@ -16,6 +16,12 @@ import (
 // domcore.ExtendableEvent
 // javascript.Promise
 
+// source idl files:
+// cookie-store.idl
+
+// transform files:
+// cookie-store.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

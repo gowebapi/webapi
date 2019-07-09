@@ -18,6 +18,12 @@ import (
 // file.Blob
 // local.MediaStream
 
+// source idl files:
+// mediastream-recording.idl
+
+// transform files:
+// mediastream-recording.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

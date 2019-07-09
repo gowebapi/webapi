@@ -32,6 +32,12 @@ import (
 // worklets.Worklet
 // worklets.WorkletGlobalScope
 
+// source idl files:
+// webaudio.idl
+
+// transform files:
+// webaudio.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -16,6 +16,12 @@ import (
 // domcore.EventTarget
 // javascript.Promise
 
+// source idl files:
+// clipboard-apis.idl
+
+// transform files:
+// clipboard-apis.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

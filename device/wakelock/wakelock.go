@@ -14,6 +14,12 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 
+// source idl files:
+// wake-lock.idl
+
+// transform files:
+// wake-lock.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

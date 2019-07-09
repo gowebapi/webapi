@@ -15,6 +15,12 @@ import (
 // javascript.Float64Array
 // javascript.Object
 
+// source idl files:
+// geometry.idl
+
+// transform files:
+// geometry.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

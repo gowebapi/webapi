@@ -13,6 +13,12 @@ import (
 // using following types:
 // domcore.Event
 
+// source idl files:
+// CSP.idl
+
+// transform files:
+// CSP.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

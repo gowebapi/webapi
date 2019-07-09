@@ -11,6 +11,12 @@ import (
 // using following types:
 // cssom.CSSRule
 
+// source idl files:
+// css-counter-styles.idl
+
+// transform files:
+// css-counter-styles.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

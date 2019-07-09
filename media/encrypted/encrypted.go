@@ -18,6 +18,12 @@ import (
 // javascript.ArrayBuffer
 // javascript.Promise
 
+// source idl files:
+// encrypted-media.idl
+
+// transform files:
+// encrypted-media.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -26,6 +26,12 @@ import (
 // webgl.Texture
 // webgl.UniformLocation
 
+// source idl files:
+// webgl2.idl
+
+// transform files:
+// webgl2.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

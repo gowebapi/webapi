@@ -13,6 +13,12 @@ import (
 // dom.Node
 // webapi.Document
 
+// source idl files:
+// DOM-Parsing.idl
+
+// transform files:
+// DOM-Parsing.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

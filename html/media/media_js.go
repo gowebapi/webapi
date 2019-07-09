@@ -24,6 +24,14 @@ import (
 // local.MediaStream
 // remoteplayback.RemotePlayback
 
+// source idl files:
+// html.idl
+// media-source.idl
+
+// transform files:
+// html.go.md
+// media-source.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

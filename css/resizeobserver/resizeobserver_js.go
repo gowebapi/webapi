@@ -13,6 +13,12 @@ import (
 // dom.Element
 // geometry.DOMRectReadOnly
 
+// source idl files:
+// ResizeObserver.idl
+
+// transform files:
+// ResizeObserver.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

@@ -14,6 +14,12 @@ import (
 // svg.SVGAnimatedTransformList
 // svg.SVGElement
 
+// source idl files:
+// css-masking.idl
+
+// transform files:
+// css-masking.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

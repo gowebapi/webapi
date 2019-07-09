@@ -12,6 +12,12 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 
+// source idl files:
+// netinfo.idl
+
+// transform files:
+// netinfo.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

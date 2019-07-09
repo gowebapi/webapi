@@ -26,6 +26,12 @@ import (
 // webidl.VoidFunction
 // worklets.WorkletGlobalScope
 
+// source idl files:
+// css-paint-api.idl
+
+// transform files:
+// css-paint-api.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

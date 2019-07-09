@@ -16,6 +16,12 @@ import (
 // encrypted.MediaKeysRequirement
 // javascript.Promise
 
+// source idl files:
+// media-capabilities.idl
+
+// transform files:
+// media-capabilities.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

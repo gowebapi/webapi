@@ -109,6 +109,16 @@ import (
 // webani.DocumentTimeline
 // webidl.VoidFunction
 
+// source idl files:
+// dom.addition.idl
+// dom.idl
+// html.idl
+
+// transform files:
+// dom.go.md
+// dom.go.md
+// html.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

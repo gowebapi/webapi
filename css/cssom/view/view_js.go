@@ -21,6 +21,12 @@ import (
 // geometry.DOMRect
 // orientation.ScreenOrientation
 
+// source idl files:
+// cssom-view.idl
+
+// transform files:
+// cssom-view.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

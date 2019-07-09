@@ -15,6 +15,12 @@ import (
 // canvas.HTMLCanvasElement
 // local.MediaStreamTrack
 
+// source idl files:
+// mediacapture-fromelement.idl
+
+// transform files:
+// mediacapture-fromelement.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

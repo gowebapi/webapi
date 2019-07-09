@@ -19,6 +19,12 @@ import (
 // request.PaymentDetailsModifier
 // request.PaymentMethodData
 
+// source idl files:
+// payment-handler.idl
+
+// transform files:
+// payment-handler.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

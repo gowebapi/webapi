@@ -24,6 +24,14 @@ import (
 // webapi.Window
 // xhr.FormData
 
+// source idl files:
+// html.idl
+// uievents.idl
+
+// transform files:
+// html.go.md
+// uievents.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {

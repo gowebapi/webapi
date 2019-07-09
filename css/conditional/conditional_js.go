@@ -12,6 +12,12 @@ import (
 // cssom.CSSGroupingRule
 // cssom.MediaList
 
+// source idl files:
+// css-conditional.idl
+
+// transform files:
+// css-conditional.go.md
+
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
 type ReleasableApiResource interface {
