@@ -1884,6 +1884,20 @@ func (_this *DOMMatrixReadOnly) ToJSON() (_result *javascript.Object) {
 	return
 }
 
+func (_this *DOMMatrixReadOnly) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
 // interface: DOMPoint
 type DOMPoint struct {
 	DOMPointReadOnly

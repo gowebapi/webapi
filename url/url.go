@@ -473,3 +473,17 @@ func (_this *URLSearchParams) Sort() {
 	_this.Value_JS.Call("sort", _args[0:_end]...)
 	return
 }
+
+func (_this *URLSearchParams) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}

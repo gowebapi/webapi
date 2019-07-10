@@ -1459,6 +1459,20 @@ func ParseAll(property string, cssText string) (_result []*CSSStyleValue) {
 	return
 }
 
+func (_this *CSSStyleValue) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
 // interface: CSSTransformComponent
 type CSSTransformComponent struct {
 	// Value_JS holds a reference to a javascript value
@@ -1506,6 +1520,20 @@ func (_this *CSSTransformComponent) ToMatrix() (_result *geometry.DOMMatrix) {
 		_converted *geometry.DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
 	_converted = geometry.DOMMatrixFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSTransformComponent) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
 	_result = _converted
 	return
 }
