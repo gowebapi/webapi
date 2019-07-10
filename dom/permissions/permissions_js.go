@@ -205,7 +205,7 @@ func (_this *PermissionStatus) State() PermissionState {
 func (_this *PermissionStatus) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

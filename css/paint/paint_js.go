@@ -476,7 +476,7 @@ func (_this *PaintRenderingContext2D) CreatePattern(image *Union, repetition str
 	var (
 		_converted *canvas.CanvasPattern // javascript: CanvasPattern _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = canvas.CanvasPatternFromJS(_returned)
 	}
 	_result = _converted

@@ -160,7 +160,7 @@ func IntersectionObserverEntryInitFromJS(value js.Wrapper) *IntersectionObserver
 	)
 	value0 = (input.Get("time")).Float()
 	out.Time = value0
-	if input.Get("rootBounds").Type() != js.TypeNull {
+	if input.Get("rootBounds").Type() != js.TypeNull && input.Get("rootBounds").Type() != js.TypeUndefined {
 		value1 = geometry.DOMRectInitFromJS(input.Get("rootBounds"))
 	}
 	out.RootBounds = value1
@@ -208,7 +208,7 @@ func IntersectionObserverInitFromJS(value js.Wrapper) *IntersectionObserverInit 
 		value1 string       // javascript: DOMString {rootMargin RootMargin rootMargin}
 		value2 *Union       // javascript: Union {threshold Threshold threshold}
 	)
-	if input.Get("root").Type() != js.TypeNull {
+	if input.Get("root").Type() != js.TypeNull && input.Get("root").Type() != js.TypeUndefined {
 		value0 = dom.ElementFromJS(input.Get("root"))
 	}
 	out.Root = value0
@@ -275,7 +275,7 @@ func NewIntersectionObserver(callback *IntersectionObserverCallback, options *In
 func (_this *IntersectionObserver) Root() *dom.Element {
 	var ret *dom.Element
 	value := _this.Value_JS.Get("root")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = dom.ElementFromJS(value)
 	}
 	return ret
@@ -407,7 +407,7 @@ func (_this *IntersectionObserverEntry) Time() float64 {
 func (_this *IntersectionObserverEntry) RootBounds() *geometry.DOMRectReadOnly {
 	var ret *geometry.DOMRectReadOnly
 	value := _this.Value_JS.Get("rootBounds")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = geometry.DOMRectReadOnlyFromJS(value)
 	}
 	return ret

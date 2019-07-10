@@ -1163,7 +1163,7 @@ func (_this *SVGElement) ClassName() *SVGAnimatedString {
 func (_this *SVGElement) OwnerSVGElement() *SVGSVGElement {
 	var ret *SVGSVGElement
 	value := _this.Value_JS.Get("ownerSVGElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGSVGElementFromJS(value)
 	}
 	return ret
@@ -1174,7 +1174,7 @@ func (_this *SVGElement) OwnerSVGElement() *SVGSVGElement {
 func (_this *SVGElement) ViewportElement() *SVGElement {
 	var ret *SVGElement
 	value := _this.Value_JS.Get("viewportElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGElementFromJS(value)
 	}
 	return ret
@@ -1185,7 +1185,7 @@ func (_this *SVGElement) ViewportElement() *SVGElement {
 func (_this *SVGElement) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1209,7 +1209,7 @@ func (_this *SVGElement) SetOnabort(value *domcore.EventHandler) {
 func (_this *SVGElement) Onauxclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onauxclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1233,7 +1233,7 @@ func (_this *SVGElement) SetOnauxclick(value *domcore.EventHandler) {
 func (_this *SVGElement) Onblur() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1257,7 +1257,7 @@ func (_this *SVGElement) SetOnblur(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1281,7 +1281,7 @@ func (_this *SVGElement) SetOncancel(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncanplay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplay")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1305,7 +1305,7 @@ func (_this *SVGElement) SetOncanplay(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncanplaythrough() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplaythrough")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1329,7 +1329,7 @@ func (_this *SVGElement) SetOncanplaythrough(value *domcore.EventHandler) {
 func (_this *SVGElement) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1353,7 +1353,7 @@ func (_this *SVGElement) SetOnchange(value *domcore.EventHandler) {
 func (_this *SVGElement) Onclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1377,7 +1377,7 @@ func (_this *SVGElement) SetOnclick(value *domcore.EventHandler) {
 func (_this *SVGElement) Onclose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1401,7 +1401,7 @@ func (_this *SVGElement) SetOnclose(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncontextmenu() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontextmenu")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1425,7 +1425,7 @@ func (_this *SVGElement) SetOncontextmenu(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncuechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1449,7 +1449,7 @@ func (_this *SVGElement) SetOncuechange(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondblclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondblclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1473,7 +1473,7 @@ func (_this *SVGElement) SetOndblclick(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondrag() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrag")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1497,7 +1497,7 @@ func (_this *SVGElement) SetOndrag(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1521,7 +1521,7 @@ func (_this *SVGElement) SetOndragend(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1545,7 +1545,7 @@ func (_this *SVGElement) SetOndragenter(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragexit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragexit")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1569,7 +1569,7 @@ func (_this *SVGElement) SetOndragexit(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1593,7 +1593,7 @@ func (_this *SVGElement) SetOndragleave(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1617,7 +1617,7 @@ func (_this *SVGElement) SetOndragover(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondragstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1641,7 +1641,7 @@ func (_this *SVGElement) SetOndragstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondrop() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrop")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1665,7 +1665,7 @@ func (_this *SVGElement) SetOndrop(value *domcore.EventHandler) {
 func (_this *SVGElement) Ondurationchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondurationchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1689,7 +1689,7 @@ func (_this *SVGElement) SetOndurationchange(value *domcore.EventHandler) {
 func (_this *SVGElement) Onemptied() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onemptied")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1713,7 +1713,7 @@ func (_this *SVGElement) SetOnemptied(value *domcore.EventHandler) {
 func (_this *SVGElement) Onended() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1737,7 +1737,7 @@ func (_this *SVGElement) SetOnended(value *domcore.EventHandler) {
 func (_this *SVGElement) Onerror() htmlcommon.OnErrorEventHandlerFunc {
 	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
@@ -1761,7 +1761,7 @@ func (_this *SVGElement) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
 func (_this *SVGElement) Onfocus() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1785,7 +1785,7 @@ func (_this *SVGElement) SetOnfocus(value *domcore.EventHandler) {
 func (_this *SVGElement) Onformdata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onformdata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1809,7 +1809,7 @@ func (_this *SVGElement) SetOnformdata(value *domcore.EventHandler) {
 func (_this *SVGElement) Oninput() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninput")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1833,7 +1833,7 @@ func (_this *SVGElement) SetOninput(value *domcore.EventHandler) {
 func (_this *SVGElement) Oninvalid() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninvalid")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1857,7 +1857,7 @@ func (_this *SVGElement) SetOninvalid(value *domcore.EventHandler) {
 func (_this *SVGElement) Onkeydown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeydown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1881,7 +1881,7 @@ func (_this *SVGElement) SetOnkeydown(value *domcore.EventHandler) {
 func (_this *SVGElement) Onkeypress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeypress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1905,7 +1905,7 @@ func (_this *SVGElement) SetOnkeypress(value *domcore.EventHandler) {
 func (_this *SVGElement) Onkeyup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeyup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1929,7 +1929,7 @@ func (_this *SVGElement) SetOnkeyup(value *domcore.EventHandler) {
 func (_this *SVGElement) Onload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1953,7 +1953,7 @@ func (_this *SVGElement) SetOnload(value *domcore.EventHandler) {
 func (_this *SVGElement) Onloadeddata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadeddata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1977,7 +1977,7 @@ func (_this *SVGElement) SetOnloadeddata(value *domcore.EventHandler) {
 func (_this *SVGElement) Onloadedmetadata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadedmetadata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2001,7 +2001,7 @@ func (_this *SVGElement) SetOnloadedmetadata(value *domcore.EventHandler) {
 func (_this *SVGElement) Onloadend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2025,7 +2025,7 @@ func (_this *SVGElement) SetOnloadend(value *domcore.EventHandler) {
 func (_this *SVGElement) Onloadstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2049,7 +2049,7 @@ func (_this *SVGElement) SetOnloadstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmousedown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousedown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2073,7 +2073,7 @@ func (_this *SVGElement) SetOnmousedown(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmouseenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2097,7 +2097,7 @@ func (_this *SVGElement) SetOnmouseenter(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmouseleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2121,7 +2121,7 @@ func (_this *SVGElement) SetOnmouseleave(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmousemove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousemove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2145,7 +2145,7 @@ func (_this *SVGElement) SetOnmousemove(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmouseout() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseout")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2169,7 +2169,7 @@ func (_this *SVGElement) SetOnmouseout(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmouseover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2193,7 +2193,7 @@ func (_this *SVGElement) SetOnmouseover(value *domcore.EventHandler) {
 func (_this *SVGElement) Onmouseup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2217,7 +2217,7 @@ func (_this *SVGElement) SetOnmouseup(value *domcore.EventHandler) {
 func (_this *SVGElement) Onwheel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwheel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2241,7 +2241,7 @@ func (_this *SVGElement) SetOnwheel(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2265,7 +2265,7 @@ func (_this *SVGElement) SetOnpause(value *domcore.EventHandler) {
 func (_this *SVGElement) Onplay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplay")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2289,7 +2289,7 @@ func (_this *SVGElement) SetOnplay(value *domcore.EventHandler) {
 func (_this *SVGElement) Onplaying() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplaying")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2313,7 +2313,7 @@ func (_this *SVGElement) SetOnplaying(value *domcore.EventHandler) {
 func (_this *SVGElement) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2337,7 +2337,7 @@ func (_this *SVGElement) SetOnprogress(value *domcore.EventHandler) {
 func (_this *SVGElement) Onratechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onratechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2361,7 +2361,7 @@ func (_this *SVGElement) SetOnratechange(value *domcore.EventHandler) {
 func (_this *SVGElement) Onreset() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2385,7 +2385,7 @@ func (_this *SVGElement) SetOnreset(value *domcore.EventHandler) {
 func (_this *SVGElement) Onresize() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2409,7 +2409,7 @@ func (_this *SVGElement) SetOnresize(value *domcore.EventHandler) {
 func (_this *SVGElement) Onscroll() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onscroll")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2433,7 +2433,7 @@ func (_this *SVGElement) SetOnscroll(value *domcore.EventHandler) {
 func (_this *SVGElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2457,7 +2457,7 @@ func (_this *SVGElement) SetOnsecuritypolicyviolation(value *domcore.EventHandle
 func (_this *SVGElement) Onseeked() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeked")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2481,7 +2481,7 @@ func (_this *SVGElement) SetOnseeked(value *domcore.EventHandler) {
 func (_this *SVGElement) Onseeking() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeking")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2505,7 +2505,7 @@ func (_this *SVGElement) SetOnseeking(value *domcore.EventHandler) {
 func (_this *SVGElement) Onselect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2529,7 +2529,7 @@ func (_this *SVGElement) SetOnselect(value *domcore.EventHandler) {
 func (_this *SVGElement) Onstalled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstalled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2553,7 +2553,7 @@ func (_this *SVGElement) SetOnstalled(value *domcore.EventHandler) {
 func (_this *SVGElement) Onsubmit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsubmit")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2577,7 +2577,7 @@ func (_this *SVGElement) SetOnsubmit(value *domcore.EventHandler) {
 func (_this *SVGElement) Onsuspend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuspend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2601,7 +2601,7 @@ func (_this *SVGElement) SetOnsuspend(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontimeupdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeupdate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2625,7 +2625,7 @@ func (_this *SVGElement) SetOntimeupdate(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontoggle() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontoggle")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2649,7 +2649,7 @@ func (_this *SVGElement) SetOntoggle(value *domcore.EventHandler) {
 func (_this *SVGElement) Onvolumechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvolumechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2673,7 +2673,7 @@ func (_this *SVGElement) SetOnvolumechange(value *domcore.EventHandler) {
 func (_this *SVGElement) Onwaiting() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaiting")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2697,7 +2697,7 @@ func (_this *SVGElement) SetOnwaiting(value *domcore.EventHandler) {
 func (_this *SVGElement) Ongotpointercapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongotpointercapture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2721,7 +2721,7 @@ func (_this *SVGElement) SetOngotpointercapture(value *domcore.EventHandler) {
 func (_this *SVGElement) Onlostpointercapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlostpointercapture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2745,7 +2745,7 @@ func (_this *SVGElement) SetOnlostpointercapture(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerdown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerdown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2769,7 +2769,7 @@ func (_this *SVGElement) SetOnpointerdown(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointermove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointermove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2793,7 +2793,7 @@ func (_this *SVGElement) SetOnpointermove(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2817,7 +2817,7 @@ func (_this *SVGElement) SetOnpointerup(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointercancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointercancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2841,7 +2841,7 @@ func (_this *SVGElement) SetOnpointercancel(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2865,7 +2865,7 @@ func (_this *SVGElement) SetOnpointerover(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerout() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerout")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2889,7 +2889,7 @@ func (_this *SVGElement) SetOnpointerout(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2913,7 +2913,7 @@ func (_this *SVGElement) SetOnpointerenter(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpointerleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2937,7 +2937,7 @@ func (_this *SVGElement) SetOnpointerleave(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontouchstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2961,7 +2961,7 @@ func (_this *SVGElement) SetOntouchstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontouchend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2985,7 +2985,7 @@ func (_this *SVGElement) SetOntouchend(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontouchmove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchmove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3009,7 +3009,7 @@ func (_this *SVGElement) SetOntouchmove(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontouchcancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchcancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3033,7 +3033,7 @@ func (_this *SVGElement) SetOntouchcancel(value *domcore.EventHandler) {
 func (_this *SVGElement) Onanimationstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3057,7 +3057,7 @@ func (_this *SVGElement) SetOnanimationstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Onanimationiteration() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationiteration")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3081,7 +3081,7 @@ func (_this *SVGElement) SetOnanimationiteration(value *domcore.EventHandler) {
 func (_this *SVGElement) Onanimationend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3105,7 +3105,7 @@ func (_this *SVGElement) SetOnanimationend(value *domcore.EventHandler) {
 func (_this *SVGElement) Onanimationcancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationcancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3129,7 +3129,7 @@ func (_this *SVGElement) SetOnanimationcancel(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontransitionrun() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionrun")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3153,7 +3153,7 @@ func (_this *SVGElement) SetOntransitionrun(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontransitionstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3177,7 +3177,7 @@ func (_this *SVGElement) SetOntransitionstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontransitionend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3201,7 +3201,7 @@ func (_this *SVGElement) SetOntransitionend(value *domcore.EventHandler) {
 func (_this *SVGElement) Ontransitioncancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitioncancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3225,7 +3225,7 @@ func (_this *SVGElement) SetOntransitioncancel(value *domcore.EventHandler) {
 func (_this *SVGElement) Onselectstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3249,7 +3249,7 @@ func (_this *SVGElement) SetOnselectstart(value *domcore.EventHandler) {
 func (_this *SVGElement) Onselectionchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectionchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3273,7 +3273,7 @@ func (_this *SVGElement) SetOnselectionchange(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncopy() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncopy")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3297,7 +3297,7 @@ func (_this *SVGElement) SetOncopy(value *domcore.EventHandler) {
 func (_this *SVGElement) Oncut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncut")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3321,7 +3321,7 @@ func (_this *SVGElement) SetOncut(value *domcore.EventHandler) {
 func (_this *SVGElement) Onpaste() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaste")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3345,7 +3345,7 @@ func (_this *SVGElement) SetOnpaste(value *domcore.EventHandler) {
 func (_this *SVGElement) CorrespondingElement() *SVGElement {
 	var ret *SVGElement
 	value := _this.Value_JS.Get("correspondingElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGElementFromJS(value)
 	}
 	return ret
@@ -3356,7 +3356,7 @@ func (_this *SVGElement) CorrespondingElement() *SVGElement {
 func (_this *SVGElement) CorrespondingUseElement() *SVGUseElement {
 	var ret *SVGUseElement
 	value := _this.Value_JS.Get("correspondingUseElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGUseElementFromJS(value)
 	}
 	return ret
@@ -3788,7 +3788,7 @@ func (_this *SVGGraphicsElement) GetCTM() (_result *geometry.DOMMatrix) {
 	var (
 		_converted *geometry.DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = geometry.DOMMatrixFromJS(_returned)
 	}
 	_result = _converted
@@ -3804,7 +3804,7 @@ func (_this *SVGGraphicsElement) GetScreenCTM() (_result *geometry.DOMMatrix) {
 	var (
 		_converted *geometry.DOMMatrix // javascript: DOMMatrix _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = geometry.DOMMatrixFromJS(_returned)
 	}
 	_result = _converted
@@ -3877,7 +3877,7 @@ func (_this *SVGImageElement) PreserveAspectRatio() *SVGAnimatedPreserveAspectRa
 func (_this *SVGImageElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -5309,7 +5309,7 @@ func (_this *SVGSVGElement) SetZoomAndPan(value int) {
 func (_this *SVGSVGElement) Onafterprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5333,7 +5333,7 @@ func (_this *SVGSVGElement) SetOnafterprint(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onbeforeprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5357,7 +5357,7 @@ func (_this *SVGSVGElement) SetOnbeforeprint(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
 	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
@@ -5381,7 +5381,7 @@ func (_this *SVGSVGElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUnloadEv
 func (_this *SVGSVGElement) Onhashchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5405,7 +5405,7 @@ func (_this *SVGSVGElement) SetOnhashchange(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onlanguagechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5429,7 +5429,7 @@ func (_this *SVGSVGElement) SetOnlanguagechange(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5453,7 +5453,7 @@ func (_this *SVGSVGElement) SetOnmessage(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5477,7 +5477,7 @@ func (_this *SVGSVGElement) SetOnmessageerror(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onoffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5501,7 +5501,7 @@ func (_this *SVGSVGElement) SetOnoffline(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Ononline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5525,7 +5525,7 @@ func (_this *SVGSVGElement) SetOnonline(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onpagehide() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5549,7 +5549,7 @@ func (_this *SVGSVGElement) SetOnpagehide(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onpageshow() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5573,7 +5573,7 @@ func (_this *SVGSVGElement) SetOnpageshow(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onpopstate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5597,7 +5597,7 @@ func (_this *SVGSVGElement) SetOnpopstate(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onrejectionhandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5621,7 +5621,7 @@ func (_this *SVGSVGElement) SetOnrejectionhandled(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onstorage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5645,7 +5645,7 @@ func (_this *SVGSVGElement) SetOnstorage(value *domcore.EventHandler) {
 func (_this *SVGSVGElement) Onunhandledrejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5669,7 +5669,7 @@ func (_this *SVGSVGElement) SetOnunhandledrejection(value *domcore.EventHandler)
 func (_this *SVGSVGElement) Onunload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5995,7 +5995,7 @@ func (_this *SVGScriptElement) SetType(value string) {
 func (_this *SVGScriptElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -6268,7 +6268,7 @@ func (_this *SVGStyleElement) SetTitle(value string) {
 func (_this *SVGStyleElement) Sheet() *cssom.CSSStyleSheet {
 	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -7012,7 +7012,7 @@ func (_this *SVGTransformList) Consolidate() (_result *SVGTransform) {
 	var (
 		_converted *SVGTransform // javascript: SVGTransform _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = SVGTransformFromJS(_returned)
 	}
 	_result = _converted
@@ -7119,7 +7119,7 @@ func (_this *SVGUseElement) Height() *SVGAnimatedLength {
 func (_this *SVGUseElement) InstanceRoot() *SVGElement {
 	var ret *SVGElement
 	value := _this.Value_JS.Get("instanceRoot")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGElementFromJS(value)
 	}
 	return ret
@@ -7130,7 +7130,7 @@ func (_this *SVGUseElement) InstanceRoot() *SVGElement {
 func (_this *SVGUseElement) AnimatedInstanceRoot() *SVGElement {
 	var ret *SVGElement
 	value := _this.Value_JS.Get("animatedInstanceRoot")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SVGElementFromJS(value)
 	}
 	return ret

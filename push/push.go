@@ -505,7 +505,7 @@ func SubscriptionJSONFromJS(value js.Wrapper) *SubscriptionJSON {
 	)
 	value0 = (input.Get("endpoint")).String()
 	out.Endpoint = value0
-	if input.Get("expirationTime").Type() != js.TypeNull {
+	if input.Get("expirationTime").Type() != js.TypeNull && input.Get("expirationTime").Type() != js.TypeUndefined {
 		__tmp := (input.Get("expirationTime")).Int()
 		value1 = &__tmp
 	}
@@ -542,7 +542,7 @@ func SubscriptionOptionsInitFromJS(value js.Wrapper) *SubscriptionOptionsInit {
 	)
 	value0 = (input.Get("userVisibleOnly")).Bool()
 	out.UserVisibleOnly = value0
-	if input.Get("applicationServerKey").Type() != js.TypeNull {
+	if input.Get("applicationServerKey").Type() != js.TypeNull && input.Get("applicationServerKey").Type() != js.TypeUndefined {
 		value1 = UnionFromJS(input.Get("applicationServerKey"))
 	}
 	out.ApplicationServerKey = value1
@@ -593,7 +593,7 @@ func NewPushEvent(_type string, eventInitDict *EventInit) (_result *Event) {
 func (_this *Event) Data() *MessageData {
 	var ret *MessageData
 	value := _this.Value_JS.Get("data")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = MessageDataFromJS(value)
 	}
 	return ret
@@ -1109,7 +1109,7 @@ func (_this *Subscription) Endpoint() string {
 func (_this *Subscription) ExpirationTime() *int {
 	var ret *int
 	value := _this.Value_JS.Get("expirationTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Int()
 		ret = &__tmp
 	}
@@ -1137,7 +1137,7 @@ func (_this *Subscription) GetKey(name EncryptionKeyName) (_result *javascript.A
 	var (
 		_converted *javascript.ArrayBuffer // javascript: ArrayBuffer _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = javascript.ArrayBufferFromJS(_returned)
 	}
 	_result = _converted
@@ -1216,7 +1216,7 @@ func NewPushSubscriptionChangeEvent(_type string, eventInitDict *SubscriptionCha
 func (_this *SubscriptionChangeEvent) NewSubscription() *Subscription {
 	var ret *Subscription
 	value := _this.Value_JS.Get("newSubscription")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SubscriptionFromJS(value)
 	}
 	return ret
@@ -1227,7 +1227,7 @@ func (_this *SubscriptionChangeEvent) NewSubscription() *Subscription {
 func (_this *SubscriptionChangeEvent) OldSubscription() *Subscription {
 	var ret *Subscription
 	value := _this.Value_JS.Get("oldSubscription")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SubscriptionFromJS(value)
 	}
 	return ret
@@ -1268,7 +1268,7 @@ func (_this *SubscriptionOptions) UserVisibleOnly() bool {
 func (_this *SubscriptionOptions) ApplicationServerKey() *javascript.ArrayBuffer {
 	var ret *javascript.ArrayBuffer
 	value := _this.Value_JS.Get("applicationServerKey")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.ArrayBufferFromJS(value)
 	}
 	return ret

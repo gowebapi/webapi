@@ -390,7 +390,7 @@ func MediaEncryptedEventInitFromJS(value js.Wrapper) *MediaEncryptedEventInit {
 	out.Composed = value2
 	value3 = (input.Get("initDataType")).String()
 	out.InitDataType = value3
-	if input.Get("initData").Type() != js.TypeNull {
+	if input.Get("initData").Type() != js.TypeNull && input.Get("initData").Type() != js.TypeUndefined {
 		value4 = javascript.ArrayBufferFromJS(input.Get("initData"))
 	}
 	out.InitData = value4
@@ -648,7 +648,7 @@ func (_this *MediaEncryptedEvent) InitDataType() string {
 func (_this *MediaEncryptedEvent) InitData() *javascript.ArrayBuffer {
 	var ret *javascript.ArrayBuffer
 	value := _this.Value_JS.Get("initData")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.ArrayBufferFromJS(value)
 	}
 	return ret
@@ -766,7 +766,7 @@ func (_this *MediaKeySession) KeyStatuses() *MediaKeyStatusMap {
 func (_this *MediaKeySession) Onkeystatuseschange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeystatuseschange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -790,7 +790,7 @@ func (_this *MediaKeySession) SetOnkeystatuseschange(value *domcore.EventHandler
 func (_this *MediaKeySession) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

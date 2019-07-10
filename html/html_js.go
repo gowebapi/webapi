@@ -289,7 +289,7 @@ func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted
@@ -310,7 +310,7 @@ func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted
@@ -1168,7 +1168,7 @@ func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
 func (_this *HTMLBodyElement) Onorientationchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onorientationchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1288,7 +1288,7 @@ func (_this *HTMLBodyElement) SetBackground(value string) {
 func (_this *HTMLBodyElement) Onafterprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1312,7 +1312,7 @@ func (_this *HTMLBodyElement) SetOnafterprint(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onbeforeprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1336,7 +1336,7 @@ func (_this *HTMLBodyElement) SetOnbeforeprint(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
 	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
@@ -1360,7 +1360,7 @@ func (_this *HTMLBodyElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUnload
 func (_this *HTMLBodyElement) Onhashchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1384,7 +1384,7 @@ func (_this *HTMLBodyElement) SetOnhashchange(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onlanguagechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1408,7 +1408,7 @@ func (_this *HTMLBodyElement) SetOnlanguagechange(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1432,7 +1432,7 @@ func (_this *HTMLBodyElement) SetOnmessage(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1456,7 +1456,7 @@ func (_this *HTMLBodyElement) SetOnmessageerror(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onoffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1480,7 +1480,7 @@ func (_this *HTMLBodyElement) SetOnoffline(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Ononline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1504,7 +1504,7 @@ func (_this *HTMLBodyElement) SetOnonline(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onpagehide() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1528,7 +1528,7 @@ func (_this *HTMLBodyElement) SetOnpagehide(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onpageshow() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1552,7 +1552,7 @@ func (_this *HTMLBodyElement) SetOnpageshow(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onpopstate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1576,7 +1576,7 @@ func (_this *HTMLBodyElement) SetOnpopstate(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onrejectionhandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1600,7 +1600,7 @@ func (_this *HTMLBodyElement) SetOnrejectionhandled(value *domcore.EventHandler)
 func (_this *HTMLBodyElement) Onstorage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1624,7 +1624,7 @@ func (_this *HTMLBodyElement) SetOnstorage(value *domcore.EventHandler) {
 func (_this *HTMLBodyElement) Onunhandledrejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1648,7 +1648,7 @@ func (_this *HTMLBodyElement) SetOnunhandledrejection(value *domcore.EventHandle
 func (_this *HTMLBodyElement) Onunload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1720,7 +1720,7 @@ func (_this *HTMLButtonElement) SetDisabled(value bool) {
 func (_this *HTMLButtonElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -2385,7 +2385,7 @@ func (_this *HTMLElement) SetInnerText(value string) {
 func (_this *HTMLElement) OffsetParent() *dom.Element {
 	var ret *dom.Element
 	value := _this.Value_JS.Get("offsetParent")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = dom.ElementFromJS(value)
 	}
 	return ret
@@ -2548,7 +2548,7 @@ func (_this *HTMLElement) SetInputMode(value string) {
 func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncopy")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2572,7 +2572,7 @@ func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncut")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2596,7 +2596,7 @@ func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaste")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2620,7 +2620,7 @@ func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2644,7 +2644,7 @@ func (_this *HTMLElement) SetOnabort(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onauxclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onauxclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2668,7 +2668,7 @@ func (_this *HTMLElement) SetOnauxclick(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onblur() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2692,7 +2692,7 @@ func (_this *HTMLElement) SetOnblur(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2716,7 +2716,7 @@ func (_this *HTMLElement) SetOncancel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncanplay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplay")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2740,7 +2740,7 @@ func (_this *HTMLElement) SetOncanplay(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncanplaythrough() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplaythrough")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2764,7 +2764,7 @@ func (_this *HTMLElement) SetOncanplaythrough(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2788,7 +2788,7 @@ func (_this *HTMLElement) SetOnchange(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2812,7 +2812,7 @@ func (_this *HTMLElement) SetOnclick(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onclose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2836,7 +2836,7 @@ func (_this *HTMLElement) SetOnclose(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncontextmenu() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontextmenu")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2860,7 +2860,7 @@ func (_this *HTMLElement) SetOncontextmenu(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oncuechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2884,7 +2884,7 @@ func (_this *HTMLElement) SetOncuechange(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondblclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondblclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2908,7 +2908,7 @@ func (_this *HTMLElement) SetOndblclick(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondrag() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrag")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2932,7 +2932,7 @@ func (_this *HTMLElement) SetOndrag(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2956,7 +2956,7 @@ func (_this *HTMLElement) SetOndragend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2980,7 +2980,7 @@ func (_this *HTMLElement) SetOndragenter(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragexit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragexit")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3004,7 +3004,7 @@ func (_this *HTMLElement) SetOndragexit(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3028,7 +3028,7 @@ func (_this *HTMLElement) SetOndragleave(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3052,7 +3052,7 @@ func (_this *HTMLElement) SetOndragover(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondragstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3076,7 +3076,7 @@ func (_this *HTMLElement) SetOndragstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondrop() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrop")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3100,7 +3100,7 @@ func (_this *HTMLElement) SetOndrop(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ondurationchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondurationchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3124,7 +3124,7 @@ func (_this *HTMLElement) SetOndurationchange(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onemptied() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onemptied")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3148,7 +3148,7 @@ func (_this *HTMLElement) SetOnemptied(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onended() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3172,7 +3172,7 @@ func (_this *HTMLElement) SetOnended(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onerror() htmlcommon.OnErrorEventHandlerFunc {
 	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
@@ -3196,7 +3196,7 @@ func (_this *HTMLElement) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
 func (_this *HTMLElement) Onfocus() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3220,7 +3220,7 @@ func (_this *HTMLElement) SetOnfocus(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onformdata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onformdata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3244,7 +3244,7 @@ func (_this *HTMLElement) SetOnformdata(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oninput() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninput")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3268,7 +3268,7 @@ func (_this *HTMLElement) SetOninput(value *domcore.EventHandler) {
 func (_this *HTMLElement) Oninvalid() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninvalid")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3292,7 +3292,7 @@ func (_this *HTMLElement) SetOninvalid(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onkeydown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeydown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3316,7 +3316,7 @@ func (_this *HTMLElement) SetOnkeydown(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onkeypress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeypress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3340,7 +3340,7 @@ func (_this *HTMLElement) SetOnkeypress(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onkeyup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeyup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3364,7 +3364,7 @@ func (_this *HTMLElement) SetOnkeyup(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3388,7 +3388,7 @@ func (_this *HTMLElement) SetOnload(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onloadeddata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadeddata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3412,7 +3412,7 @@ func (_this *HTMLElement) SetOnloadeddata(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onloadedmetadata() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadedmetadata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3436,7 +3436,7 @@ func (_this *HTMLElement) SetOnloadedmetadata(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onloadend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3460,7 +3460,7 @@ func (_this *HTMLElement) SetOnloadend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onloadstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3484,7 +3484,7 @@ func (_this *HTMLElement) SetOnloadstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmousedown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousedown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3508,7 +3508,7 @@ func (_this *HTMLElement) SetOnmousedown(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmouseenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3532,7 +3532,7 @@ func (_this *HTMLElement) SetOnmouseenter(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmouseleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3556,7 +3556,7 @@ func (_this *HTMLElement) SetOnmouseleave(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmousemove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousemove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3580,7 +3580,7 @@ func (_this *HTMLElement) SetOnmousemove(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmouseout() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseout")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3604,7 +3604,7 @@ func (_this *HTMLElement) SetOnmouseout(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmouseover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3628,7 +3628,7 @@ func (_this *HTMLElement) SetOnmouseover(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onmouseup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3652,7 +3652,7 @@ func (_this *HTMLElement) SetOnmouseup(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onwheel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwheel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3676,7 +3676,7 @@ func (_this *HTMLElement) SetOnwheel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3700,7 +3700,7 @@ func (_this *HTMLElement) SetOnpause(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onplay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplay")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3724,7 +3724,7 @@ func (_this *HTMLElement) SetOnplay(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onplaying() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplaying")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3748,7 +3748,7 @@ func (_this *HTMLElement) SetOnplaying(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3772,7 +3772,7 @@ func (_this *HTMLElement) SetOnprogress(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onratechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onratechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3796,7 +3796,7 @@ func (_this *HTMLElement) SetOnratechange(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onreset() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3820,7 +3820,7 @@ func (_this *HTMLElement) SetOnreset(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onresize() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3844,7 +3844,7 @@ func (_this *HTMLElement) SetOnresize(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onscroll() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onscroll")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3868,7 +3868,7 @@ func (_this *HTMLElement) SetOnscroll(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3892,7 +3892,7 @@ func (_this *HTMLElement) SetOnsecuritypolicyviolation(value *domcore.EventHandl
 func (_this *HTMLElement) Onseeked() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeked")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3916,7 +3916,7 @@ func (_this *HTMLElement) SetOnseeked(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onseeking() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeking")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3940,7 +3940,7 @@ func (_this *HTMLElement) SetOnseeking(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onselect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3964,7 +3964,7 @@ func (_this *HTMLElement) SetOnselect(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onstalled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstalled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3988,7 +3988,7 @@ func (_this *HTMLElement) SetOnstalled(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onsubmit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsubmit")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4012,7 +4012,7 @@ func (_this *HTMLElement) SetOnsubmit(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onsuspend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuspend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4036,7 +4036,7 @@ func (_this *HTMLElement) SetOnsuspend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontimeupdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeupdate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4060,7 +4060,7 @@ func (_this *HTMLElement) SetOntimeupdate(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontoggle() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontoggle")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4084,7 +4084,7 @@ func (_this *HTMLElement) SetOntoggle(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onvolumechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvolumechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4108,7 +4108,7 @@ func (_this *HTMLElement) SetOnvolumechange(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onwaiting() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaiting")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4132,7 +4132,7 @@ func (_this *HTMLElement) SetOnwaiting(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ongotpointercapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongotpointercapture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4156,7 +4156,7 @@ func (_this *HTMLElement) SetOngotpointercapture(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onlostpointercapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlostpointercapture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4180,7 +4180,7 @@ func (_this *HTMLElement) SetOnlostpointercapture(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerdown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerdown")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4204,7 +4204,7 @@ func (_this *HTMLElement) SetOnpointerdown(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointermove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointermove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4228,7 +4228,7 @@ func (_this *HTMLElement) SetOnpointermove(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerup() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4252,7 +4252,7 @@ func (_this *HTMLElement) SetOnpointerup(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointercancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointercancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4276,7 +4276,7 @@ func (_this *HTMLElement) SetOnpointercancel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerover() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerover")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4300,7 +4300,7 @@ func (_this *HTMLElement) SetOnpointerover(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerout() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerout")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4324,7 +4324,7 @@ func (_this *HTMLElement) SetOnpointerout(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4348,7 +4348,7 @@ func (_this *HTMLElement) SetOnpointerenter(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onpointerleave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerleave")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4372,7 +4372,7 @@ func (_this *HTMLElement) SetOnpointerleave(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontouchstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4396,7 +4396,7 @@ func (_this *HTMLElement) SetOntouchstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontouchend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4420,7 +4420,7 @@ func (_this *HTMLElement) SetOntouchend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontouchmove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchmove")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4444,7 +4444,7 @@ func (_this *HTMLElement) SetOntouchmove(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontouchcancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchcancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4468,7 +4468,7 @@ func (_this *HTMLElement) SetOntouchcancel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onanimationstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4492,7 +4492,7 @@ func (_this *HTMLElement) SetOnanimationstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onanimationiteration() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationiteration")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4516,7 +4516,7 @@ func (_this *HTMLElement) SetOnanimationiteration(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onanimationend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4540,7 +4540,7 @@ func (_this *HTMLElement) SetOnanimationend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onanimationcancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationcancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4564,7 +4564,7 @@ func (_this *HTMLElement) SetOnanimationcancel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontransitionrun() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionrun")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4588,7 +4588,7 @@ func (_this *HTMLElement) SetOntransitionrun(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontransitionstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4612,7 +4612,7 @@ func (_this *HTMLElement) SetOntransitionstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontransitionend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4636,7 +4636,7 @@ func (_this *HTMLElement) SetOntransitionend(value *domcore.EventHandler) {
 func (_this *HTMLElement) Ontransitioncancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitioncancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4660,7 +4660,7 @@ func (_this *HTMLElement) SetOntransitioncancel(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onselectstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4684,7 +4684,7 @@ func (_this *HTMLElement) SetOnselectstart(value *domcore.EventHandler) {
 func (_this *HTMLElement) Onselectionchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectionchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4772,7 +4772,7 @@ func (_this *HTMLFieldSetElement) SetDisabled(value bool) {
 func (_this *HTMLFieldSetElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -4971,7 +4971,7 @@ func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted
@@ -5280,7 +5280,7 @@ func (_this *HTMLFrameSetElement) SetRows(value string) {
 func (_this *HTMLFrameSetElement) Onafterprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5304,7 +5304,7 @@ func (_this *HTMLFrameSetElement) SetOnafterprint(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onbeforeprint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5328,7 +5328,7 @@ func (_this *HTMLFrameSetElement) SetOnbeforeprint(value *domcore.EventHandler) 
 func (_this *HTMLFrameSetElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
 	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnBeforeUnloadEventHandlerFromJS(value)
 	}
 	return ret
@@ -5352,7 +5352,7 @@ func (_this *HTMLFrameSetElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUn
 func (_this *HTMLFrameSetElement) Onhashchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5376,7 +5376,7 @@ func (_this *HTMLFrameSetElement) SetOnhashchange(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onlanguagechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5400,7 +5400,7 @@ func (_this *HTMLFrameSetElement) SetOnlanguagechange(value *domcore.EventHandle
 func (_this *HTMLFrameSetElement) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5424,7 +5424,7 @@ func (_this *HTMLFrameSetElement) SetOnmessage(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5448,7 +5448,7 @@ func (_this *HTMLFrameSetElement) SetOnmessageerror(value *domcore.EventHandler)
 func (_this *HTMLFrameSetElement) Onoffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5472,7 +5472,7 @@ func (_this *HTMLFrameSetElement) SetOnoffline(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Ononline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5496,7 +5496,7 @@ func (_this *HTMLFrameSetElement) SetOnonline(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onpagehide() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5520,7 +5520,7 @@ func (_this *HTMLFrameSetElement) SetOnpagehide(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onpageshow() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5544,7 +5544,7 @@ func (_this *HTMLFrameSetElement) SetOnpageshow(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onpopstate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5568,7 +5568,7 @@ func (_this *HTMLFrameSetElement) SetOnpopstate(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onrejectionhandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5592,7 +5592,7 @@ func (_this *HTMLFrameSetElement) SetOnrejectionhandled(value *domcore.EventHand
 func (_this *HTMLFrameSetElement) Onstorage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5616,7 +5616,7 @@ func (_this *HTMLFrameSetElement) SetOnstorage(value *domcore.EventHandler) {
 func (_this *HTMLFrameSetElement) Onunhandledrejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5640,7 +5640,7 @@ func (_this *HTMLFrameSetElement) SetOnunhandledrejection(value *domcore.EventHa
 func (_this *HTMLFrameSetElement) Onunload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5920,7 +5920,7 @@ func (_this *HTMLImageElement) SetSizes(value string) {
 func (_this *HTMLImageElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -6359,7 +6359,7 @@ func (_this *HTMLInputElement) SetDisabled(value bool) {
 func (_this *HTMLInputElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -6370,7 +6370,7 @@ func (_this *HTMLInputElement) Form() *HTMLFormElement {
 func (_this *HTMLInputElement) Files() *file.FileList {
 	var ret *file.FileList
 	value := _this.Value_JS.Get("files")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = file.FileListFromJS(value)
 	}
 	return ret
@@ -6500,7 +6500,7 @@ func (_this *HTMLInputElement) SetIndeterminate(value bool) {
 func (_this *HTMLInputElement) List() *HTMLElement {
 	var ret *HTMLElement
 	value := _this.Value_JS.Get("list")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLElementFromJS(value)
 	}
 	return ret
@@ -6767,7 +6767,7 @@ func (_this *HTMLInputElement) SetValue(value string) {
 func (_this *HTMLInputElement) ValueAsDate() *javascript.Object {
 	var ret *javascript.Object
 	value := _this.Value_JS.Get("valueAsDate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.ObjectFromJS(value)
 	}
 	return ret
@@ -6844,7 +6844,7 @@ func (_this *HTMLInputElement) ValidationMessage() string {
 func (_this *HTMLInputElement) Labels() *dom.NodeList {
 	var ret *dom.NodeList
 	value := _this.Value_JS.Get("labels")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = dom.NodeListFromJS(value)
 	}
 	return ret
@@ -6855,7 +6855,7 @@ func (_this *HTMLInputElement) Labels() *dom.NodeList {
 func (_this *HTMLInputElement) SelectionStart() *uint {
 	var ret *uint
 	value := _this.Value_JS.Get("selectionStart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (uint)((value).Int())
 		ret = &__tmp
 	}
@@ -6874,7 +6874,7 @@ func (_this *HTMLInputElement) SetSelectionStart(value *uint) {
 func (_this *HTMLInputElement) SelectionEnd() *uint {
 	var ret *uint
 	value := _this.Value_JS.Get("selectionEnd")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (uint)((value).Int())
 		ret = &__tmp
 	}
@@ -6893,7 +6893,7 @@ func (_this *HTMLInputElement) SetSelectionEnd(value *uint) {
 func (_this *HTMLInputElement) SelectionDirection() *string {
 	var ret *string
 	value := _this.Value_JS.Get("selectionDirection")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -7181,7 +7181,7 @@ func HTMLLabelElementFromJS(value js.Wrapper) *HTMLLabelElement {
 func (_this *HTMLLabelElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -7208,7 +7208,7 @@ func (_this *HTMLLabelElement) SetHtmlFor(value string) {
 func (_this *HTMLLabelElement) Control() *HTMLElement {
 	var ret *HTMLElement
 	value := _this.Value_JS.Get("control")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLElementFromJS(value)
 	}
 	return ret
@@ -7235,7 +7235,7 @@ func HTMLLegendElementFromJS(value js.Wrapper) *HTMLLegendElement {
 func (_this *HTMLLegendElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -7294,7 +7294,7 @@ func (_this *HTMLLinkElement) SetHref(value string) {
 func (_this *HTMLLinkElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -7491,7 +7491,7 @@ func (_this *HTMLLinkElement) SetTarget(value string) {
 func (_this *HTMLLinkElement) Sheet() *cssom.CSSStyleSheet {
 	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -7735,7 +7735,7 @@ func (_this *HTMLMarqueeElement) SetWidth(value string) {
 func (_this *HTMLMarqueeElement) Onbounce() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbounce")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -7759,7 +7759,7 @@ func (_this *HTMLMarqueeElement) SetOnbounce(value *domcore.EventHandler) {
 func (_this *HTMLMarqueeElement) Onfinish() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfinish")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -7783,7 +7783,7 @@ func (_this *HTMLMarqueeElement) SetOnfinish(value *domcore.EventHandler) {
 func (_this *HTMLMarqueeElement) Onstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -8266,7 +8266,7 @@ func (_this *HTMLOptionElement) SetDisabled(value bool) {
 func (_this *HTMLOptionElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -8468,7 +8468,7 @@ func (_this *HTMLOutputElement) HtmlFor() *domcore.DOMTokenList {
 func (_this *HTMLOutputElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -8966,7 +8966,7 @@ func (_this *HTMLScriptElement) SetDefer(value bool) {
 func (_this *HTMLScriptElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -9145,7 +9145,7 @@ func (_this *HTMLSelectElement) SetDisabled(value bool) {
 func (_this *HTMLSelectElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret
@@ -9338,7 +9338,7 @@ func (_this *HTMLSelectElement) Item(index uint) (_result *dom.Element) {
 	var (
 		_converted *dom.Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = dom.ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -9357,7 +9357,7 @@ func (_this *HTMLSelectElement) NamedItem(name string) (_result *HTMLOptionEleme
 	var (
 		_converted *HTMLOptionElement // javascript: HTMLOptionElement _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = HTMLOptionElementFromJS(_returned)
 	}
 	_result = _converted
@@ -9693,7 +9693,7 @@ func (_this *HTMLStyleElement) SetType(value string) {
 func (_this *HTMLStyleElement) Sheet() *cssom.CSSStyleSheet {
 	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -10113,7 +10113,7 @@ func HTMLTableElementFromJS(value js.Wrapper) *HTMLTableElement {
 func (_this *HTMLTableElement) Caption() *HTMLTableCaptionElement {
 	var ret *HTMLTableCaptionElement
 	value := _this.Value_JS.Get("caption")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLTableCaptionElementFromJS(value)
 	}
 	return ret
@@ -10131,7 +10131,7 @@ func (_this *HTMLTableElement) SetCaption(value *HTMLTableCaptionElement) {
 func (_this *HTMLTableElement) THead() *HTMLTableSectionElement {
 	var ret *HTMLTableSectionElement
 	value := _this.Value_JS.Get("tHead")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLTableSectionElementFromJS(value)
 	}
 	return ret
@@ -10149,7 +10149,7 @@ func (_this *HTMLTableElement) SetTHead(value *HTMLTableSectionElement) {
 func (_this *HTMLTableElement) TFoot() *HTMLTableSectionElement {
 	var ret *HTMLTableSectionElement
 	value := _this.Value_JS.Get("tFoot")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLTableSectionElementFromJS(value)
 	}
 	return ret
@@ -10838,7 +10838,7 @@ func (_this *HTMLTextAreaElement) SetDisabled(value bool) {
 func (_this *HTMLTextAreaElement) Form() *HTMLFormElement {
 	var ret *HTMLFormElement
 	value := _this.Value_JS.Get("form")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = HTMLFormElementFromJS(value)
 	}
 	return ret

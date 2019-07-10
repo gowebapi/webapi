@@ -223,7 +223,7 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 	out.Origin = value4
 	value5 = (input.Get("lastEventId")).String()
 	out.LastEventId = value5
-	if input.Get("source").Type() != js.TypeNull {
+	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
 		value6 = UnionFromJS(input.Get("source"))
 	}
 	out.Source = value6
@@ -328,7 +328,7 @@ func (_this *BroadcastChannel) Name() string {
 func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -352,7 +352,7 @@ func (_this *BroadcastChannel) SetOnmessage(value *domcore.EventHandler) {
 func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -583,7 +583,7 @@ func (_this *MessageEvent) LastEventId() string {
 func (_this *MessageEvent) Source() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("source")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -670,7 +670,7 @@ func MessagePortFromJS(value js.Wrapper) *MessagePort {
 func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -694,7 +694,7 @@ func (_this *MessagePort) SetOnmessage(value *domcore.EventHandler) {
 func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -845,7 +845,7 @@ func (_this *WebSocket) BufferedAmount() int {
 func (_this *WebSocket) Onopen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -869,7 +869,7 @@ func (_this *WebSocket) SetOnopen(value *domcore.EventHandler) {
 func (_this *WebSocket) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -893,7 +893,7 @@ func (_this *WebSocket) SetOnerror(value *domcore.EventHandler) {
 func (_this *WebSocket) Onclose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -935,7 +935,7 @@ func (_this *WebSocket) Protocol() string {
 func (_this *WebSocket) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

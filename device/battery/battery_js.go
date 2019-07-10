@@ -188,7 +188,7 @@ func (_this *BatteryManager) Level() float64 {
 func (_this *BatteryManager) Onchargingchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchargingchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -212,7 +212,7 @@ func (_this *BatteryManager) SetOnchargingchange(value *domcore.EventHandler) {
 func (_this *BatteryManager) Onchargingtimechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchargingtimechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -236,7 +236,7 @@ func (_this *BatteryManager) SetOnchargingtimechange(value *domcore.EventHandler
 func (_this *BatteryManager) Ondischargingtimechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondischargingtimechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -260,7 +260,7 @@ func (_this *BatteryManager) SetOndischargingtimechange(value *domcore.EventHand
 func (_this *BatteryManager) Onlevelchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlevelchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

@@ -713,7 +713,7 @@ func (_this *FederatedCredential) Provider() string {
 func (_this *FederatedCredential) Protocol() *string {
 	var ret *string
 	value := _this.Value_JS.Get("protocol")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}

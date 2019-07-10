@@ -181,7 +181,7 @@ func ScrollTimelineOptionsFromJS(value js.Wrapper) *ScrollTimelineOptions {
 		value4 *Union          // javascript: Union {timeRange TimeRange timeRange}
 		value5 webani.FillMode // javascript: FillMode {fill Fill fill}
 	)
-	if input.Get("scrollSource").Type() != js.TypeNull {
+	if input.Get("scrollSource").Type() != js.TypeNull && input.Get("scrollSource").Type() != js.TypeUndefined {
 		value0 = dom.ElementFromJS(input.Get("scrollSource"))
 	}
 	out.ScrollSource = value0

@@ -694,7 +694,7 @@ func (_this *DetectedFace) BoundingBox() *geometry.DOMRectReadOnly {
 func (_this *DetectedFace) Landmarks() *javascript.FrozenArray {
 	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("landmarks")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.FrozenArrayFromJS(value)
 	}
 	return ret

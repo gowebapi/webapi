@@ -405,7 +405,7 @@ func (_this *URLSearchParams) Get(name string) (_result *string) {
 	var (
 		_converted *string // javascript: USVString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}

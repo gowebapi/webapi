@@ -924,7 +924,7 @@ func PaymentMethodChangeEventInitFromJS(value js.Wrapper) *PaymentMethodChangeEv
 	out.Composed = value2
 	value3 = (input.Get("methodName")).String()
 	out.MethodName = value3
-	if input.Get("methodDetails").Type() != js.TypeNull {
+	if input.Get("methodDetails").Type() != js.TypeNull && input.Get("methodDetails").Type() != js.TypeUndefined {
 		value4 = javascript.ObjectFromJS(input.Get("methodDetails"))
 	}
 	out.MethodDetails = value4
@@ -1402,7 +1402,7 @@ func (_this *PaymentMethodChangeEvent) MethodName() string {
 func (_this *PaymentMethodChangeEvent) MethodDetails() *javascript.Object {
 	var ret *javascript.Object
 	value := _this.Value_JS.Get("methodDetails")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.ObjectFromJS(value)
 	}
 	return ret
@@ -1468,7 +1468,7 @@ func (_this *PaymentRequest) Id() string {
 func (_this *PaymentRequest) ShippingAddress() *PaymentAddress {
 	var ret *PaymentAddress
 	value := _this.Value_JS.Get("shippingAddress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = PaymentAddressFromJS(value)
 	}
 	return ret
@@ -1479,7 +1479,7 @@ func (_this *PaymentRequest) ShippingAddress() *PaymentAddress {
 func (_this *PaymentRequest) ShippingOption() *string {
 	var ret *string
 	value := _this.Value_JS.Get("shippingOption")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1491,7 +1491,7 @@ func (_this *PaymentRequest) ShippingOption() *string {
 func (_this *PaymentRequest) ShippingType() *PaymentShippingType {
 	var ret *PaymentShippingType
 	value := _this.Value_JS.Get("shippingType")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := PaymentShippingTypeFromJS(value)
 		ret = &__tmp
 	}
@@ -1503,7 +1503,7 @@ func (_this *PaymentRequest) ShippingType() *PaymentShippingType {
 func (_this *PaymentRequest) Onmerchantvalidation() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmerchantvalidation")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1527,7 +1527,7 @@ func (_this *PaymentRequest) SetOnmerchantvalidation(value *domcore.EventHandler
 func (_this *PaymentRequest) Onshippingaddresschange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onshippingaddresschange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1551,7 +1551,7 @@ func (_this *PaymentRequest) SetOnshippingaddresschange(value *domcore.EventHand
 func (_this *PaymentRequest) Onshippingoptionchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onshippingoptionchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1575,7 +1575,7 @@ func (_this *PaymentRequest) SetOnshippingoptionchange(value *domcore.EventHandl
 func (_this *PaymentRequest) Onpaymentmethodchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaymentmethodchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1740,7 +1740,7 @@ func (_this *PaymentResponse) Details() *javascript.Object {
 func (_this *PaymentResponse) ShippingAddress() *PaymentAddress {
 	var ret *PaymentAddress
 	value := _this.Value_JS.Get("shippingAddress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = PaymentAddressFromJS(value)
 	}
 	return ret
@@ -1751,7 +1751,7 @@ func (_this *PaymentResponse) ShippingAddress() *PaymentAddress {
 func (_this *PaymentResponse) ShippingOption() *string {
 	var ret *string
 	value := _this.Value_JS.Get("shippingOption")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1763,7 +1763,7 @@ func (_this *PaymentResponse) ShippingOption() *string {
 func (_this *PaymentResponse) PayerName() *string {
 	var ret *string
 	value := _this.Value_JS.Get("payerName")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1775,7 +1775,7 @@ func (_this *PaymentResponse) PayerName() *string {
 func (_this *PaymentResponse) PayerEmail() *string {
 	var ret *string
 	value := _this.Value_JS.Get("payerEmail")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1787,7 +1787,7 @@ func (_this *PaymentResponse) PayerEmail() *string {
 func (_this *PaymentResponse) PayerPhone() *string {
 	var ret *string
 	value := _this.Value_JS.Get("payerPhone")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1799,7 +1799,7 @@ func (_this *PaymentResponse) PayerPhone() *string {
 func (_this *PaymentResponse) Onpayerdetailchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpayerdetailchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

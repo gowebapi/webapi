@@ -318,12 +318,12 @@ func AnimationPlaybackEventInitFromJS(value js.Wrapper) *AnimationPlaybackEventI
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("currentTime").Type() != js.TypeNull {
+	if input.Get("currentTime").Type() != js.TypeNull && input.Get("currentTime").Type() != js.TypeUndefined {
 		__tmp := (input.Get("currentTime")).Float()
 		value3 = &__tmp
 	}
 	out.CurrentTime = value3
-	if input.Get("timelineTime").Type() != js.TypeNull {
+	if input.Get("timelineTime").Type() != js.TypeNull && input.Get("timelineTime").Type() != js.TypeUndefined {
 		__tmp := (input.Get("timelineTime")).Float()
 		value4 = &__tmp
 	}
@@ -422,17 +422,17 @@ func ComputedEffectTimingFromJS(value js.Wrapper) *ComputedEffectTiming {
 	out.EndTime = value8
 	value9 = (input.Get("activeDuration")).Float()
 	out.ActiveDuration = value9
-	if input.Get("localTime").Type() != js.TypeNull {
+	if input.Get("localTime").Type() != js.TypeNull && input.Get("localTime").Type() != js.TypeUndefined {
 		__tmp := (input.Get("localTime")).Float()
 		value10 = &__tmp
 	}
 	out.LocalTime = value10
-	if input.Get("progress").Type() != js.TypeNull {
+	if input.Get("progress").Type() != js.TypeNull && input.Get("progress").Type() != js.TypeUndefined {
 		__tmp := (input.Get("progress")).Float()
 		value11 = &__tmp
 	}
 	out.Progress = value11
-	if input.Get("currentIteration").Type() != js.TypeNull {
+	if input.Get("currentIteration").Type() != js.TypeNull && input.Get("currentIteration").Type() != js.TypeUndefined {
 		__tmp := (input.Get("currentIteration")).Float()
 		value12 = &__tmp
 	}
@@ -840,7 +840,7 @@ func (_this *Animation) SetId(value string) {
 func (_this *Animation) Effect() *AnimationEffect {
 	var ret *AnimationEffect
 	value := _this.Value_JS.Get("effect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = AnimationEffectFromJS(value)
 	}
 	return ret
@@ -858,7 +858,7 @@ func (_this *Animation) SetEffect(value *AnimationEffect) {
 func (_this *Animation) Timeline() *AnimationTimeline {
 	var ret *AnimationTimeline
 	value := _this.Value_JS.Get("timeline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = AnimationTimelineFromJS(value)
 	}
 	return ret
@@ -876,7 +876,7 @@ func (_this *Animation) SetTimeline(value *AnimationTimeline) {
 func (_this *Animation) StartTime() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("startTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -895,7 +895,7 @@ func (_this *Animation) SetStartTime(value *float64) {
 func (_this *Animation) CurrentTime() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("currentTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -966,7 +966,7 @@ func (_this *Animation) Finished() *javascript.Promise {
 func (_this *Animation) Onfinish() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfinish")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -990,7 +990,7 @@ func (_this *Animation) SetOnfinish(value *domcore.EventHandler) {
 func (_this *Animation) Oncancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1173,7 +1173,7 @@ func NewAnimationPlaybackEvent(_type string, eventInitDict *AnimationPlaybackEve
 func (_this *AnimationPlaybackEvent) CurrentTime() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("currentTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -1185,7 +1185,7 @@ func (_this *AnimationPlaybackEvent) CurrentTime() *float64 {
 func (_this *AnimationPlaybackEvent) TimelineTime() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("timelineTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -1218,7 +1218,7 @@ func AnimationTimelineFromJS(value js.Wrapper) *AnimationTimeline {
 func (_this *AnimationTimeline) CurrentTime() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("currentTime")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -1300,7 +1300,7 @@ func NewKeyframeEffect(source *KeyframeEffect) (_result *KeyframeEffect) {
 func (_this *KeyframeEffect) Target() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("target")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret

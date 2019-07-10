@@ -696,7 +696,7 @@ func (_this *SpeechRecognition) SetServiceURI(value string) {
 func (_this *SpeechRecognition) Onaudiostart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudiostart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -720,7 +720,7 @@ func (_this *SpeechRecognition) SetOnaudiostart(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onsoundstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsoundstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -744,7 +744,7 @@ func (_this *SpeechRecognition) SetOnsoundstart(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onspeechstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onspeechstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -768,7 +768,7 @@ func (_this *SpeechRecognition) SetOnspeechstart(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onspeechend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onspeechend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -792,7 +792,7 @@ func (_this *SpeechRecognition) SetOnspeechend(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onsoundend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsoundend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -816,7 +816,7 @@ func (_this *SpeechRecognition) SetOnsoundend(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onaudioend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudioend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -840,7 +840,7 @@ func (_this *SpeechRecognition) SetOnaudioend(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onresult() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresult")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -864,7 +864,7 @@ func (_this *SpeechRecognition) SetOnresult(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onnomatch() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnomatch")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -888,7 +888,7 @@ func (_this *SpeechRecognition) SetOnnomatch(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -912,7 +912,7 @@ func (_this *SpeechRecognition) SetOnerror(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -936,7 +936,7 @@ func (_this *SpeechRecognition) SetOnstart(value *domcore.EventHandler) {
 func (_this *SpeechRecognition) Onend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1300,7 +1300,7 @@ func (_this *SpeechSynthesis) Paused() bool {
 func (_this *SpeechSynthesis) Onvoiceschanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvoiceschanged")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1572,7 +1572,7 @@ func (_this *SpeechSynthesisUtterance) SetLang(value string) {
 func (_this *SpeechSynthesisUtterance) Voice() *SpeechSynthesisVoice {
 	var ret *SpeechSynthesisVoice
 	value := _this.Value_JS.Get("voice")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SpeechSynthesisVoiceFromJS(value)
 	}
 	return ret
@@ -1638,7 +1638,7 @@ func (_this *SpeechSynthesisUtterance) SetPitch(value float32) {
 func (_this *SpeechSynthesisUtterance) Onstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1662,7 +1662,7 @@ func (_this *SpeechSynthesisUtterance) SetOnstart(value *domcore.EventHandler) {
 func (_this *SpeechSynthesisUtterance) Onend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1686,7 +1686,7 @@ func (_this *SpeechSynthesisUtterance) SetOnend(value *domcore.EventHandler) {
 func (_this *SpeechSynthesisUtterance) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1710,7 +1710,7 @@ func (_this *SpeechSynthesisUtterance) SetOnerror(value *domcore.EventHandler) {
 func (_this *SpeechSynthesisUtterance) Onpause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1734,7 +1734,7 @@ func (_this *SpeechSynthesisUtterance) SetOnpause(value *domcore.EventHandler) {
 func (_this *SpeechSynthesisUtterance) Onresume() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresume")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1758,7 +1758,7 @@ func (_this *SpeechSynthesisUtterance) SetOnresume(value *domcore.EventHandler) 
 func (_this *SpeechSynthesisUtterance) Onmark() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmark")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1782,7 +1782,7 @@ func (_this *SpeechSynthesisUtterance) SetOnmark(value *domcore.EventHandler) {
 func (_this *SpeechSynthesisUtterance) Onboundary() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onboundary")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

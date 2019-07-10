@@ -251,13 +251,13 @@ func PointerEventInitFromJS(value js.Wrapper) *PointerEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -293,7 +293,7 @@ func PointerEventInitFromJS(value js.Wrapper) *PointerEventInit {
 	out.Button = value20
 	value21 = (input.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull {
+	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
 		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22

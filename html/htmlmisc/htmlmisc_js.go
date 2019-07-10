@@ -291,24 +291,24 @@ func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("key").Type() != js.TypeNull {
+	if input.Get("key").Type() != js.TypeNull && input.Get("key").Type() != js.TypeUndefined {
 		__tmp := (input.Get("key")).String()
 		value3 = &__tmp
 	}
 	out.Key = value3
-	if input.Get("oldValue").Type() != js.TypeNull {
+	if input.Get("oldValue").Type() != js.TypeNull && input.Get("oldValue").Type() != js.TypeUndefined {
 		__tmp := (input.Get("oldValue")).String()
 		value4 = &__tmp
 	}
 	out.OldValue = value4
-	if input.Get("newValue").Type() != js.TypeNull {
+	if input.Get("newValue").Type() != js.TypeNull && input.Get("newValue").Type() != js.TypeUndefined {
 		__tmp := (input.Get("newValue")).String()
 		value5 = &__tmp
 	}
 	out.NewValue = value5
 	value6 = (input.Get("url")).String()
 	out.Url = value6
-	if input.Get("storageArea").Type() != js.TypeNull {
+	if input.Get("storageArea").Type() != js.TypeNull && input.Get("storageArea").Type() != js.TypeUndefined {
 		value7 = StorageFromJS(input.Get("storageArea"))
 	}
 	out.StorageArea = value7
@@ -354,7 +354,7 @@ func (_this *ApplicationCache) Status() int {
 func (_this *ApplicationCache) Onchecking() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchecking")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -378,7 +378,7 @@ func (_this *ApplicationCache) SetOnchecking(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -402,7 +402,7 @@ func (_this *ApplicationCache) SetOnerror(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Onnoupdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnoupdate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -426,7 +426,7 @@ func (_this *ApplicationCache) SetOnnoupdate(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Ondownloading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondownloading")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -450,7 +450,7 @@ func (_this *ApplicationCache) SetOndownloading(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -474,7 +474,7 @@ func (_this *ApplicationCache) SetOnprogress(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Onupdateready() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdateready")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -498,7 +498,7 @@ func (_this *ApplicationCache) SetOnupdateready(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Oncached() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncached")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -522,7 +522,7 @@ func (_this *ApplicationCache) SetOncached(value *domcore.EventHandler) {
 func (_this *ApplicationCache) Onobsolete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onobsolete")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -769,7 +769,7 @@ func (_this *EventSource) ReadyState() int {
 func (_this *EventSource) Onopen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -793,7 +793,7 @@ func (_this *EventSource) SetOnopen(value *domcore.EventHandler) {
 func (_this *EventSource) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -817,7 +817,7 @@ func (_this *EventSource) SetOnmessage(value *domcore.EventHandler) {
 func (_this *EventSource) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1315,7 +1315,7 @@ func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = MimeTypeFromJS(_returned)
 	}
 	_result = _converted
@@ -1334,7 +1334,7 @@ func (_this *MimeTypeArray) NamedItem(name string) (_result *MimeType) {
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = MimeTypeFromJS(_returned)
 	}
 	_result = _converted
@@ -1961,7 +1961,7 @@ func (_this *Plugin) Item(index uint) (_result *MimeType) {
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = MimeTypeFromJS(_returned)
 	}
 	_result = _converted
@@ -1980,7 +1980,7 @@ func (_this *Plugin) NamedItem(name string) (_result *MimeType) {
 	var (
 		_converted *MimeType // javascript: MimeType _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = MimeTypeFromJS(_returned)
 	}
 	_result = _converted
@@ -2043,7 +2043,7 @@ func (_this *PluginArray) Item(index uint) (_result *Plugin) {
 	var (
 		_converted *Plugin // javascript: Plugin _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = PluginFromJS(_returned)
 	}
 	_result = _converted
@@ -2062,7 +2062,7 @@ func (_this *PluginArray) NamedItem(name string) (_result *Plugin) {
 	var (
 		_converted *Plugin // javascript: Plugin _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = PluginFromJS(_returned)
 	}
 	_result = _converted
@@ -2143,7 +2143,7 @@ func (_this *Storage) Key(index uint) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2163,7 +2163,7 @@ func (_this *Storage) GetItem(key string) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2251,7 +2251,7 @@ func NewStorageEvent(_type string, eventInitDict *StorageEventInit) (_result *St
 func (_this *StorageEvent) Key() *string {
 	var ret *string
 	value := _this.Value_JS.Get("key")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2263,7 +2263,7 @@ func (_this *StorageEvent) Key() *string {
 func (_this *StorageEvent) OldValue() *string {
 	var ret *string
 	value := _this.Value_JS.Get("oldValue")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2275,7 +2275,7 @@ func (_this *StorageEvent) OldValue() *string {
 func (_this *StorageEvent) NewValue() *string {
 	var ret *string
 	value := _this.Value_JS.Get("newValue")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2296,7 +2296,7 @@ func (_this *StorageEvent) Url() string {
 func (_this *StorageEvent) StorageArea() *Storage {
 	var ret *Storage
 	value := _this.Value_JS.Get("storageArea")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = StorageFromJS(value)
 	}
 	return ret

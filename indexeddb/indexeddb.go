@@ -372,7 +372,7 @@ func IDBObjectStoreParametersFromJS(value js.Wrapper) *IDBObjectStoreParameters 
 		value0 *Union // javascript: Union {keyPath KeyPath keyPath}
 		value1 bool   // javascript: boolean {autoIncrement AutoIncrement autoIncrement}
 	)
-	if input.Get("keyPath").Type() != js.TypeNull {
+	if input.Get("keyPath").Type() != js.TypeNull && input.Get("keyPath").Type() != js.TypeUndefined {
 		value0 = UnionFromJS(input.Get("keyPath"))
 	}
 	out.KeyPath = value0
@@ -428,7 +428,7 @@ func IDBVersionChangeEventInitFromJS(value js.Wrapper) *IDBVersionChangeEventIni
 	out.Composed = value2
 	value3 = (input.Get("oldVersion")).Int()
 	out.OldVersion = value3
-	if input.Get("newVersion").Type() != js.TypeNull {
+	if input.Get("newVersion").Type() != js.TypeNull && input.Get("newVersion").Type() != js.TypeUndefined {
 		__tmp := (input.Get("newVersion")).Int()
 		value4 = &__tmp
 	}
@@ -638,7 +638,7 @@ func (_this *IDBDatabase) ObjectStoreNames() *domcore.DOMStringList {
 func (_this *IDBDatabase) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -662,7 +662,7 @@ func (_this *IDBDatabase) SetOnabort(value *domcore.EventHandler) {
 func (_this *IDBDatabase) Onclose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -686,7 +686,7 @@ func (_this *IDBDatabase) SetOnclose(value *domcore.EventHandler) {
 func (_this *IDBDatabase) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -710,7 +710,7 @@ func (_this *IDBDatabase) SetOnerror(value *domcore.EventHandler) {
 func (_this *IDBDatabase) Onversionchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onversionchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1655,7 +1655,7 @@ func IDBOpenDBRequestFromJS(value js.Wrapper) *IDBOpenDBRequest {
 func (_this *IDBOpenDBRequest) Onblocked() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblocked")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1679,7 +1679,7 @@ func (_this *IDBOpenDBRequest) SetOnblocked(value *domcore.EventHandler) {
 func (_this *IDBOpenDBRequest) Onupgradeneeded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupgradeneeded")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1728,7 +1728,7 @@ func (_this *IDBRequest) Result() js.Value {
 func (_this *IDBRequest) Error() *domcore.DOMException {
 	var ret *domcore.DOMException
 	value := _this.Value_JS.Get("error")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.DOMExceptionFromJS(value)
 	}
 	return ret
@@ -1739,7 +1739,7 @@ func (_this *IDBRequest) Error() *domcore.DOMException {
 func (_this *IDBRequest) Source() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("source")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -1750,7 +1750,7 @@ func (_this *IDBRequest) Source() *Union {
 func (_this *IDBRequest) Transaction() *IDBTransaction {
 	var ret *IDBTransaction
 	value := _this.Value_JS.Get("transaction")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = IDBTransactionFromJS(value)
 	}
 	return ret
@@ -1770,7 +1770,7 @@ func (_this *IDBRequest) ReadyState() IDBRequestReadyState {
 func (_this *IDBRequest) Onsuccess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuccess")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1794,7 +1794,7 @@ func (_this *IDBRequest) SetOnsuccess(value *domcore.EventHandler) {
 func (_this *IDBRequest) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1870,7 +1870,7 @@ func (_this *IDBTransaction) Error() *domcore.DOMException {
 func (_this *IDBTransaction) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1894,7 +1894,7 @@ func (_this *IDBTransaction) SetOnabort(value *domcore.EventHandler) {
 func (_this *IDBTransaction) Oncomplete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncomplete")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1918,7 +1918,7 @@ func (_this *IDBTransaction) SetOncomplete(value *domcore.EventHandler) {
 func (_this *IDBTransaction) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2025,7 +2025,7 @@ func (_this *IDBVersionChangeEvent) OldVersion() int {
 func (_this *IDBVersionChangeEvent) NewVersion() *int {
 	var ret *int
 	value := _this.Value_JS.Get("newVersion")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Int()
 		ret = &__tmp
 	}

@@ -1603,7 +1603,7 @@ func USBFromJS(value js.Wrapper) *USB {
 func (_this *USB) Onconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1627,7 +1627,7 @@ func (_this *USB) SetOnconnect(value *domcore.EventHandler) {
 func (_this *USB) Ondisconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondisconnect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1760,7 +1760,7 @@ func (_this *USBAlternateInterface) InterfaceProtocol() int {
 func (_this *USBAlternateInterface) InterfaceName() *string {
 	var ret *string
 	value := _this.Value_JS.Get("interfaceName")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1832,7 +1832,7 @@ func (_this *USBConfiguration) ConfigurationValue() int {
 func (_this *USBConfiguration) ConfigurationName() *string {
 	var ret *string
 	value := _this.Value_JS.Get("configurationName")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2019,7 +2019,7 @@ func (_this *USBDevice) DeviceVersionSubminor() int {
 func (_this *USBDevice) ManufacturerName() *string {
 	var ret *string
 	value := _this.Value_JS.Get("manufacturerName")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2031,7 +2031,7 @@ func (_this *USBDevice) ManufacturerName() *string {
 func (_this *USBDevice) ProductName() *string {
 	var ret *string
 	value := _this.Value_JS.Get("productName")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2043,7 +2043,7 @@ func (_this *USBDevice) ProductName() *string {
 func (_this *USBDevice) SerialNumber() *string {
 	var ret *string
 	value := _this.Value_JS.Get("serialNumber")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2055,7 +2055,7 @@ func (_this *USBDevice) SerialNumber() *string {
 func (_this *USBDevice) Configuration() *USBConfiguration {
 	var ret *USBConfiguration
 	value := _this.Value_JS.Get("configuration")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = USBConfigurationFromJS(value)
 	}
 	return ret
@@ -2475,7 +2475,7 @@ func NewUSBInTransferResult(status USBTransferStatus, data *javascript.DataView)
 func (_this *USBInTransferResult) Data() *javascript.DataView {
 	var ret *javascript.DataView
 	value := _this.Value_JS.Get("data")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.DataViewFromJS(value)
 	}
 	return ret
@@ -2617,7 +2617,7 @@ func NewUSBIsochronousInTransferPacket(status USBTransferStatus, data *javascrip
 func (_this *USBIsochronousInTransferPacket) Data() *javascript.DataView {
 	var ret *javascript.DataView
 	value := _this.Value_JS.Get("data")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.DataViewFromJS(value)
 	}
 	return ret
@@ -2685,7 +2685,7 @@ func NewUSBIsochronousInTransferResult(packets []*USBIsochronousInTransferPacket
 func (_this *USBIsochronousInTransferResult) Data() *javascript.DataView {
 	var ret *javascript.DataView
 	value := _this.Value_JS.Get("data")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.DataViewFromJS(value)
 	}
 	return ret

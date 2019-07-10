@@ -166,7 +166,7 @@ func (_this *RemotePlayback) State() RemotePlaybackState {
 func (_this *RemotePlayback) Onconnecting() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnecting")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -190,7 +190,7 @@ func (_this *RemotePlayback) SetOnconnecting(value *domcore.EventHandler) {
 func (_this *RemotePlayback) Onconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -214,7 +214,7 @@ func (_this *RemotePlayback) SetOnconnect(value *domcore.EventHandler) {
 func (_this *RemotePlayback) Ondisconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondisconnect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

@@ -2522,7 +2522,7 @@ func (_this *DOMRectList) Item(index uint) (_result *DOMRect) {
 	var (
 		_converted *DOMRect // javascript: DOMRect _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = DOMRectFromJS(_returned)
 	}
 	_result = _converted

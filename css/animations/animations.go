@@ -296,7 +296,7 @@ func (_this *CSSKeyframesRule) FindRule(_select string) (_result *CSSKeyframeRul
 	var (
 		_converted *CSSKeyframeRule // javascript: CSSKeyframeRule _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = CSSKeyframeRuleFromJS(_returned)
 	}
 	_result = _converted

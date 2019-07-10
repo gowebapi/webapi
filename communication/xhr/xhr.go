@@ -270,7 +270,7 @@ func NewXMLHttpRequest() (_result *XMLHttpRequest) {
 func (_this *XMLHttpRequest) Onreadystatechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreadystatechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -405,7 +405,7 @@ func (_this *XMLHttpRequest) ResponseText() string {
 func (_this *XMLHttpRequest) ResponseXML() *webapi.Document {
 	var ret *webapi.Document
 	value := _this.Value_JS.Get("responseXML")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = webapi.DocumentFromJS(value)
 	}
 	return ret
@@ -504,7 +504,7 @@ func (_this *XMLHttpRequest) GetResponseHeader(name *patch.ByteString) (_result 
 	var (
 		_converted *patch.ByteString // javascript: ByteString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = patch.ByteStringFromJS(_returned)
 	}
 	_result = _converted
@@ -558,7 +558,7 @@ func XMLHttpRequestEventTargetFromJS(value js.Wrapper) *XMLHttpRequestEventTarge
 func (_this *XMLHttpRequestEventTarget) Onloadstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -582,7 +582,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnloadstart(value *domcore.EventHandl
 func (_this *XMLHttpRequestEventTarget) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -606,7 +606,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnprogress(value *domcore.EventHandle
 func (_this *XMLHttpRequestEventTarget) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -630,7 +630,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnabort(value *domcore.EventHandler) 
 func (_this *XMLHttpRequestEventTarget) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -654,7 +654,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnerror(value *domcore.EventHandler) 
 func (_this *XMLHttpRequestEventTarget) Onload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -678,7 +678,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnload(value *domcore.EventHandler) {
 func (_this *XMLHttpRequestEventTarget) Ontimeout() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeout")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -702,7 +702,7 @@ func (_this *XMLHttpRequestEventTarget) SetOntimeout(value *domcore.EventHandler
 func (_this *XMLHttpRequestEventTarget) Onloadend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

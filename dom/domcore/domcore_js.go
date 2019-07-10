@@ -421,7 +421,7 @@ func (_this *AbortSignal) Aborted() bool {
 func (_this *AbortSignal) Onabort() EventHandlerFunc {
 	var ret EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = EventHandlerFromJS(value)
 	}
 	return ret
@@ -658,7 +658,7 @@ func (_this *DOMStringList) Item(index uint) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -767,7 +767,7 @@ func (_this *DOMTokenList) Item(index uint) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -944,7 +944,7 @@ func (_this *Event) Type() string {
 func (_this *Event) Target() *EventTarget {
 	var ret *EventTarget
 	value := _this.Value_JS.Get("target")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = EventTargetFromJS(value)
 	}
 	return ret
@@ -955,7 +955,7 @@ func (_this *Event) Target() *EventTarget {
 func (_this *Event) SrcElement() *EventTarget {
 	var ret *EventTarget
 	value := _this.Value_JS.Get("srcElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = EventTargetFromJS(value)
 	}
 	return ret
@@ -966,7 +966,7 @@ func (_this *Event) SrcElement() *EventTarget {
 func (_this *Event) CurrentTarget() *EventTarget {
 	var ret *EventTarget
 	value := _this.Value_JS.Get("currentTarget")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = EventTargetFromJS(value)
 	}
 	return ret

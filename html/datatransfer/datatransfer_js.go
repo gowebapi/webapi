@@ -364,7 +364,7 @@ func (_this *DataTransferItem) GetAsFile() (_result *file.File) {
 	var (
 		_converted *file.File // javascript: File _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = file.FileFromJS(_returned)
 	}
 	_result = _converted
@@ -380,7 +380,7 @@ func (_this *DataTransferItem) WebkitGetAsEntry() (_result *entries.FileSystemEn
 	var (
 		_converted *entries.FileSystemEntry // javascript: FileSystemEntry _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = entries.FileSystemEntryFromJS(_returned)
 	}
 	_result = _converted
@@ -432,7 +432,7 @@ func (_this *DataTransferItemList) Add(data string, _type string) (_result *Data
 	var (
 		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = DataTransferItemFromJS(_returned)
 	}
 	_result = _converted
@@ -451,7 +451,7 @@ func (_this *DataTransferItemList) Add2(data *file.File) (_result *DataTransferI
 	var (
 		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = DataTransferItemFromJS(_returned)
 	}
 	_result = _converted

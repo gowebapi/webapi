@@ -737,7 +737,7 @@ func XRRenderStateInitFromJS(value js.Wrapper) *XRRenderStateInit {
 	out.DepthNear = value0
 	value1 = (input.Get("depthFar")).Float()
 	out.DepthFar = value1
-	if input.Get("baseLayer").Type() != js.TypeNull {
+	if input.Get("baseLayer").Type() != js.TypeNull && input.Get("baseLayer").Type() != js.TypeUndefined {
 		value2 = XRLayerFromJS(input.Get("baseLayer"))
 	}
 	out.BaseLayer = value2
@@ -773,7 +773,7 @@ func XRSessionCreationOptionsFromJS(value js.Wrapper) *XRSessionCreationOptions 
 	)
 	value0 = XRSessionModeFromJS(input.Get("mode"))
 	out.Mode = value0
-	if input.Get("outputContext").Type() != js.TypeNull {
+	if input.Get("outputContext").Type() != js.TypeNull && input.Get("outputContext").Type() != js.TypeUndefined {
 		value1 = XRPresentationContextFromJS(input.Get("outputContext"))
 	}
 	out.OutputContext = value1
@@ -1109,7 +1109,7 @@ func XRFromJS(value js.Wrapper) *XR {
 func (_this *XR) Ondevicechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondevicechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1231,7 +1231,7 @@ func (_this *XRFrame) GetViewerPose(referenceSpace *XRReferenceSpace) (_result *
 	var (
 		_converted *XRViewerPose // javascript: XRViewerPose _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = XRViewerPoseFromJS(_returned)
 	}
 	_result = _converted
@@ -1253,7 +1253,7 @@ func (_this *XRFrame) GetPose(space *XRSpace, relativeTo *XRSpace) (_result *XRP
 	var (
 		_converted *XRPose // javascript: XRPose _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = XRPoseFromJS(_returned)
 	}
 	_result = _converted
@@ -1313,7 +1313,7 @@ func (_this *XRInputSource) TargetRaySpace() *XRSpace {
 func (_this *XRInputSource) GripSpace() *XRSpace {
 	var ret *XRSpace
 	value := _this.Value_JS.Get("gripSpace")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = XRSpaceFromJS(value)
 	}
 	return ret
@@ -1567,7 +1567,7 @@ func (_this *XRReferenceSpace) SetOriginOffset(value *XRRigidTransform) {
 func (_this *XRReferenceSpace) Onreset() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1637,7 +1637,7 @@ func (_this *XRReferenceSpaceEvent) ReferenceSpace() *XRReferenceSpace {
 func (_this *XRReferenceSpaceEvent) Transform() *XRRigidTransform {
 	var ret *XRRigidTransform
 	value := _this.Value_JS.Get("transform")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = XRRigidTransformFromJS(value)
 	}
 	return ret
@@ -1687,7 +1687,7 @@ func (_this *XRRenderState) DepthFar() float64 {
 func (_this *XRRenderState) BaseLayer() *XRLayer {
 	var ret *XRLayer
 	value := _this.Value_JS.Get("baseLayer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = XRLayerFromJS(value)
 	}
 	return ret
@@ -1796,7 +1796,7 @@ func (_this *XRSession) Mode() XRSessionMode {
 func (_this *XRSession) OutputContext() *XRPresentationContext {
 	var ret *XRPresentationContext
 	value := _this.Value_JS.Get("outputContext")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = XRPresentationContextFromJS(value)
 	}
 	return ret
@@ -1834,7 +1834,7 @@ func (_this *XRSession) ViewerSpace() *XRSpace {
 func (_this *XRSession) Onblur() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1858,7 +1858,7 @@ func (_this *XRSession) SetOnblur(value *domcore.EventHandler) {
 func (_this *XRSession) Onfocus() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1882,7 +1882,7 @@ func (_this *XRSession) SetOnfocus(value *domcore.EventHandler) {
 func (_this *XRSession) Onend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1906,7 +1906,7 @@ func (_this *XRSession) SetOnend(value *domcore.EventHandler) {
 func (_this *XRSession) Onselect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1930,7 +1930,7 @@ func (_this *XRSession) SetOnselect(value *domcore.EventHandler) {
 func (_this *XRSession) Oninputsourceschange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninputsourceschange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1954,7 +1954,7 @@ func (_this *XRSession) SetOninputsourceschange(value *domcore.EventHandler) {
 func (_this *XRSession) Onselectstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1978,7 +1978,7 @@ func (_this *XRSession) SetOnselectstart(value *domcore.EventHandler) {
 func (_this *XRSession) Onselectend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2479,7 +2479,7 @@ func (_this *XRWebGLLayer) GetViewport(view *XRView) (_result *XRViewport) {
 	var (
 		_converted *XRViewport // javascript: XRViewport _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = XRViewportFromJS(_returned)
 	}
 	_result = _converted

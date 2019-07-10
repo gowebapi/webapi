@@ -528,14 +528,14 @@ func CookieListItemFromJS(value js.Wrapper) *CookieListItem {
 	out.Name = value0
 	value1 = (input.Get("value")).String()
 	out.Value = value1
-	if input.Get("domain").Type() != js.TypeNull {
+	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
 		__tmp := (input.Get("domain")).String()
 		value2 = &__tmp
 	}
 	out.Domain = value2
 	value3 = (input.Get("path")).String()
 	out.Path = value3
-	if input.Get("expires").Type() != js.TypeNull {
+	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
 		__tmp := (input.Get("expires")).Int()
 		value4 = &__tmp
 	}
@@ -580,7 +580,7 @@ func CookieStoreDeleteOptionsFromJS(value js.Wrapper) *CookieStoreDeleteOptions 
 	)
 	value0 = (input.Get("name")).String()
 	out.Name = value0
-	if input.Get("domain").Type() != js.TypeNull {
+	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
 		__tmp := (input.Get("domain")).String()
 		value1 = &__tmp
 	}
@@ -677,12 +677,12 @@ func CookieStoreSetExtraOptionsFromJS(value js.Wrapper) *CookieStoreSetExtraOpti
 		value5 string         // javascript: USVString {name Name name}
 		value6 string         // javascript: USVString {value Value value}
 	)
-	if input.Get("expires").Type() != js.TypeNull {
+	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
 		__tmp := (input.Get("expires")).Int()
 		value0 = &__tmp
 	}
 	out.Expires = value0
-	if input.Get("domain").Type() != js.TypeNull {
+	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
 		__tmp := (input.Get("domain")).String()
 		value1 = &__tmp
 	}
@@ -739,12 +739,12 @@ func CookieStoreSetOptionsFromJS(value js.Wrapper) *CookieStoreSetOptions {
 		value3 bool           // javascript: boolean {secure Secure secure}
 		value4 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
 	)
-	if input.Get("expires").Type() != js.TypeNull {
+	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
 		__tmp := (input.Get("expires")).Int()
 		value0 = &__tmp
 	}
 	out.Expires = value0
-	if input.Get("domain").Type() != js.TypeNull {
+	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
 		__tmp := (input.Get("domain")).String()
 		value1 = &__tmp
 	}
@@ -928,7 +928,7 @@ func CookieStoreFromJS(value js.Wrapper) *CookieStore {
 func (_this *CookieStore) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

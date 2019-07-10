@@ -400,7 +400,7 @@ func MediaSessionFromJS(value js.Wrapper) *MediaSession {
 func (_this *MediaSession) Metadata() *MediaMetadata {
 	var ret *MediaMetadata
 	value := _this.Value_JS.Get("metadata")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = MediaMetadataFromJS(value)
 	}
 	return ret

@@ -1870,7 +1870,7 @@ func (_this *CSSVariableReferenceValue) SetVariable(value string) {
 func (_this *CSSVariableReferenceValue) Fallback() *CSSUnparsedValue {
 	var ret *CSSUnparsedValue
 	value := _this.Value_JS.Get("fallback")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSUnparsedValueFromJS(value)
 	}
 	return ret

@@ -776,7 +776,7 @@ func (_this *LayoutConstraints) AvailableBlockSize() float64 {
 func (_this *LayoutConstraints) FixedInlineSize() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("fixedInlineSize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -788,7 +788,7 @@ func (_this *LayoutConstraints) FixedInlineSize() *float64 {
 func (_this *LayoutConstraints) FixedBlockSize() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("fixedBlockSize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -818,7 +818,7 @@ func (_this *LayoutConstraints) PercentageBlockSize() float64 {
 func (_this *LayoutConstraints) BlockFragmentationOffset() *float64 {
 	var ret *float64
 	value := _this.Value_JS.Get("blockFragmentationOffset")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).Float()
 		ret = &__tmp
 	}
@@ -1003,7 +1003,7 @@ func (_this *LayoutFragment) Data() js.Value {
 func (_this *LayoutFragment) BreakToken() *ChildBreakToken {
 	var ret *ChildBreakToken
 	value := _this.Value_JS.Get("breakToken")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ChildBreakTokenFromJS(value)
 	}
 	return ret

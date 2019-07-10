@@ -2326,7 +2326,7 @@ func OverconstrainedErrorEventInitFromJS(value js.Wrapper) *OverconstrainedError
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("error").Type() != js.TypeNull {
+	if input.Get("error").Type() != js.TypeNull && input.Get("error").Type() != js.TypeUndefined {
 		value3 = patch.OverconstrainedErrorFromJS(input.Get("error"))
 	}
 	out.Error = value3
@@ -2413,7 +2413,7 @@ func ConstrainablePatternFromJS(value js.Wrapper) *ConstrainablePattern {
 func (_this *ConstrainablePattern) Onoverconstrained() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoverconstrained")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2615,7 +2615,7 @@ func MediaDevicesFromJS(value js.Wrapper) *MediaDevices {
 func (_this *MediaDevices) Ondevicechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondevicechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2761,7 +2761,7 @@ func (_this *MediaStream) Active() bool {
 func (_this *MediaStream) Onaddtrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2785,7 +2785,7 @@ func (_this *MediaStream) SetOnaddtrack(value *domcore.EventHandler) {
 func (_this *MediaStream) Onremovetrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2882,7 +2882,7 @@ func (_this *MediaStream) GetTrackById(trackId string) (_result *MediaStreamTrac
 	var (
 		_converted *MediaStreamTrack // javascript: MediaStreamTrack _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = MediaStreamTrackFromJS(_returned)
 	}
 	_result = _converted
@@ -3000,7 +3000,7 @@ func (_this *MediaStreamTrack) Muted() bool {
 func (_this *MediaStreamTrack) Onmute() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmute")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3024,7 +3024,7 @@ func (_this *MediaStreamTrack) SetOnmute(value *domcore.EventHandler) {
 func (_this *MediaStreamTrack) Onunmute() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunmute")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3057,7 +3057,7 @@ func (_this *MediaStreamTrack) ReadyState() MediaStreamTrackState {
 func (_this *MediaStreamTrack) Onended() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3081,7 +3081,7 @@ func (_this *MediaStreamTrack) SetOnended(value *domcore.EventHandler) {
 func (_this *MediaStreamTrack) Onoverconstrained() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoverconstrained")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3288,7 +3288,7 @@ func NewOverconstrainedErrorEvent(_type string, eventInitDict *OverconstrainedEr
 func (_this *OverconstrainedErrorEvent) Error() *patch.OverconstrainedError {
 	var ret *patch.OverconstrainedError
 	value := _this.Value_JS.Get("error")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = patch.OverconstrainedErrorFromJS(value)
 	}
 	return ret

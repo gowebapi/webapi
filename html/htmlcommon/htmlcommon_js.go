@@ -167,7 +167,7 @@ func OnBeforeUnloadEventHandlerFromJS(_value js.Value) OnBeforeUnloadEventHandle
 		var (
 			_converted *string // javascript: DOMString
 		)
-		if _returned.Type() != js.TypeNull {
+		if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 			__tmp := (_returned).String()
 			_converted = &__tmp
 		}

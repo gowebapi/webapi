@@ -75,7 +75,7 @@ func SelectionFromJS(value js.Wrapper) *Selection {
 func (_this *Selection) AnchorNode() *dom.Node {
 	var ret *dom.Node
 	value := _this.Value_JS.Get("anchorNode")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = dom.NodeFromJS(value)
 	}
 	return ret
@@ -95,7 +95,7 @@ func (_this *Selection) AnchorOffset() uint {
 func (_this *Selection) FocusNode() *dom.Node {
 	var ret *dom.Node
 	value := _this.Value_JS.Get("focusNode")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = dom.NodeFromJS(value)
 	}
 	return ret

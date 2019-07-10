@@ -811,7 +811,7 @@ func AudioBufferSourceOptionsFromJS(value js.Wrapper) *AudioBufferSourceOptions 
 		value4 float64      // javascript: double {loopStart LoopStart loopStart}
 		value5 float32      // javascript: float {playbackRate PlaybackRate playbackRate}
 	)
-	if input.Get("buffer").Type() != js.TypeNull {
+	if input.Get("buffer").Type() != js.TypeNull && input.Get("buffer").Type() != js.TypeUndefined {
 		value0 = AudioBufferFromJS(input.Get("buffer"))
 	}
 	out.Buffer = value0
@@ -1065,7 +1065,7 @@ func AudioWorkletNodeOptionsFromJS(value js.Wrapper) *AudioWorkletNodeOptions {
 	}
 	value5 = __array5
 	out.OutputChannelCount = value5
-	if input.Get("processorOptions").Type() != js.TypeNull {
+	if input.Get("processorOptions").Type() != js.TypeNull && input.Get("processorOptions").Type() != js.TypeUndefined {
 		value6 = javascript.ObjectFromJS(input.Get("processorOptions"))
 	}
 	out.ProcessorOptions = value6
@@ -1307,7 +1307,7 @@ func ConvolverOptionsFromJS(value js.Wrapper) *ConvolverOptions {
 	out.ChannelCountMode = value1
 	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	if input.Get("buffer").Type() != js.TypeNull {
+	if input.Get("buffer").Type() != js.TypeNull && input.Get("buffer").Type() != js.TypeUndefined {
 		value3 = AudioBufferFromJS(input.Get("buffer"))
 	}
 	out.Buffer = value3
@@ -2356,7 +2356,7 @@ func NewAudioBufferSourceNode(context *BaseAudioContext, options *AudioBufferSou
 func (_this *AudioBufferSourceNode) Buffer() *AudioBuffer {
 	var ret *AudioBuffer
 	value := _this.Value_JS.Get("buffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = AudioBufferFromJS(value)
 	}
 	return ret
@@ -3360,7 +3360,7 @@ func AudioScheduledSourceNodeFromJS(value js.Wrapper) *AudioScheduledSourceNode 
 func (_this *AudioScheduledSourceNode) Onended() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3553,7 +3553,7 @@ func (_this *AudioWorkletNode) Port() *channel.MessagePort {
 func (_this *AudioWorkletNode) Onprocessorerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprocessorerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3697,7 +3697,7 @@ func (_this *BaseAudioContext) AudioWorklet() *AudioWorklet {
 func (_this *BaseAudioContext) Onstatechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -4344,7 +4344,7 @@ func NewConvolverNode(context *BaseAudioContext, options *ConvolverOptions) (_re
 func (_this *ConvolverNode) Buffer() *AudioBuffer {
 	var ret *AudioBuffer
 	value := _this.Value_JS.Get("buffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = AudioBufferFromJS(value)
 	}
 	return ret
@@ -4894,7 +4894,7 @@ func (_this *OfflineAudioContext) Length() uint {
 func (_this *OfflineAudioContext) Oncomplete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncomplete")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5470,7 +5470,7 @@ func ScriptProcessorNodeFromJS(value js.Wrapper) *ScriptProcessorNode {
 func (_this *ScriptProcessorNode) Onaudioprocess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudioprocess")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -5590,7 +5590,7 @@ func NewWaveShaperNode(context *BaseAudioContext, options *WaveShaperOptions) (_
 func (_this *WaveShaperNode) Curve() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("curve")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret

@@ -318,7 +318,7 @@ func LayerInitFromJS(value js.Wrapper) *LayerInit {
 		value1 js.Value // javascript: typed-array {leftBounds LeftBounds leftBounds}
 		value2 js.Value // javascript: typed-array {rightBounds RightBounds rightBounds}
 	)
-	if input.Get("source").Type() != js.TypeNull {
+	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
 		value0 = UnionFromJS(input.Get("source"))
 	}
 	out.Source = value0
@@ -377,7 +377,7 @@ func (_this *Display) Capabilities() *DisplayCapabilities {
 func (_this *Display) StageParameters() *StageParameters {
 	var ret *StageParameters
 	value := _this.Value_JS.Get("stageParameters")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = StageParametersFromJS(value)
 	}
 	return ret
@@ -709,7 +709,7 @@ func (_this *DisplayEvent) Display() *Display {
 func (_this *DisplayEvent) Reason() *DisplayEventReason {
 	var ret *DisplayEventReason
 	value := _this.Value_JS.Get("reason")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := DisplayEventReasonFromJS(value)
 		ret = &__tmp
 	}
@@ -946,7 +946,7 @@ func PoseFromJS(value js.Wrapper) *Pose {
 func (_this *Pose) Position() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("position")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
@@ -957,7 +957,7 @@ func (_this *Pose) Position() *javascript.Float32Array {
 func (_this *Pose) LinearVelocity() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("linearVelocity")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
@@ -968,7 +968,7 @@ func (_this *Pose) LinearVelocity() *javascript.Float32Array {
 func (_this *Pose) LinearAcceleration() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("linearAcceleration")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
@@ -979,7 +979,7 @@ func (_this *Pose) LinearAcceleration() *javascript.Float32Array {
 func (_this *Pose) Orientation() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("orientation")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
@@ -990,7 +990,7 @@ func (_this *Pose) Orientation() *javascript.Float32Array {
 func (_this *Pose) AngularVelocity() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("angularVelocity")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
@@ -1001,7 +1001,7 @@ func (_this *Pose) AngularVelocity() *javascript.Float32Array {
 func (_this *Pose) AngularAcceleration() *javascript.Float32Array {
 	var ret *javascript.Float32Array
 	value := _this.Value_JS.Get("angularAcceleration")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret

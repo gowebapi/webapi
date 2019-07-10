@@ -369,7 +369,7 @@ func (_this *MediaRecorder) State() RecordingState {
 func (_this *MediaRecorder) Onstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -393,7 +393,7 @@ func (_this *MediaRecorder) SetOnstart(value *domcore.EventHandler) {
 func (_this *MediaRecorder) Onstop() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstop")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -417,7 +417,7 @@ func (_this *MediaRecorder) SetOnstop(value *domcore.EventHandler) {
 func (_this *MediaRecorder) Ondataavailable() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondataavailable")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -441,7 +441,7 @@ func (_this *MediaRecorder) SetOndataavailable(value *domcore.EventHandler) {
 func (_this *MediaRecorder) Onpause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -465,7 +465,7 @@ func (_this *MediaRecorder) SetOnpause(value *domcore.EventHandler) {
 func (_this *MediaRecorder) Onresume() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresume")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -489,7 +489,7 @@ func (_this *MediaRecorder) SetOnresume(value *domcore.EventHandler) {
 func (_this *MediaRecorder) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

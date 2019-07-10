@@ -168,7 +168,7 @@ func (_this *DedicatedWorkerGlobalScope) Name() string {
 func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -192,7 +192,7 @@ func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *domcore.EventHandle
 func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -331,7 +331,7 @@ func (_this *ServiceWorkerGlobalScope) Registration() *serviceworker.ServiceWork
 func (_this *ServiceWorkerGlobalScope) Oninstall() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninstall")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -355,7 +355,7 @@ func (_this *ServiceWorkerGlobalScope) SetOninstall(value *domcore.EventHandler)
 func (_this *ServiceWorkerGlobalScope) Onactivate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onactivate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -379,7 +379,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnactivate(value *domcore.EventHandler
 func (_this *ServiceWorkerGlobalScope) Onfetch() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfetch")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -403,7 +403,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnfetch(value *domcore.EventHandler) {
 func (_this *ServiceWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -427,7 +427,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler)
 func (_this *ServiceWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -451,7 +451,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHan
 func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsync")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -475,7 +475,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
 func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchsuccess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchsuccess")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -499,7 +499,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchsuccess(value *domcor
 func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchfail() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchfail")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -523,7 +523,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchfail(value *domcore.E
 func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -547,7 +547,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchabort(value *domcore.
 func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchclick")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -580,7 +580,7 @@ func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
 func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncookiechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -604,7 +604,7 @@ func (_this *ServiceWorkerGlobalScope) SetOncookiechange(value *domcore.EventHan
 func (_this *ServiceWorkerGlobalScope) Oncanmakepayment() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanmakepayment")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -628,7 +628,7 @@ func (_this *ServiceWorkerGlobalScope) SetOncanmakepayment(value *domcore.EventH
 func (_this *ServiceWorkerGlobalScope) Onpaymentrequest() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaymentrequest")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -652,7 +652,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventH
 func (_this *ServiceWorkerGlobalScope) Onpush() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpush")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -676,7 +676,7 @@ func (_this *ServiceWorkerGlobalScope) SetOnpush(value *domcore.EventHandler) {
 func (_this *ServiceWorkerGlobalScope) Onpushsubscriptionchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpushsubscriptionchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -762,7 +762,7 @@ func (_this *SharedWorker) Port() *channel.MessagePort {
 func (_this *SharedWorker) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -811,7 +811,7 @@ func (_this *SharedWorkerGlobalScope) Name() string {
 func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -883,7 +883,7 @@ func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
 func (_this *Worker) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -907,7 +907,7 @@ func (_this *Worker) SetOnmessage(value *domcore.EventHandler) {
 func (_this *Worker) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -931,7 +931,7 @@ func (_this *Worker) SetOnmessageerror(value *domcore.EventHandler) {
 func (_this *Worker) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1043,7 +1043,7 @@ func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 func (_this *WorkerGlobalScope) Onerror() htmlcommon.OnErrorEventHandlerFunc {
 	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = htmlcommon.OnErrorEventHandlerFromJS(value)
 	}
 	return ret
@@ -1067,7 +1067,7 @@ func (_this *WorkerGlobalScope) SetOnerror(value *htmlcommon.OnErrorEventHandler
 func (_this *WorkerGlobalScope) Onlanguagechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1091,7 +1091,7 @@ func (_this *WorkerGlobalScope) SetOnlanguagechange(value *domcore.EventHandler)
 func (_this *WorkerGlobalScope) Onoffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1115,7 +1115,7 @@ func (_this *WorkerGlobalScope) SetOnoffline(value *domcore.EventHandler) {
 func (_this *WorkerGlobalScope) Ononline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1139,7 +1139,7 @@ func (_this *WorkerGlobalScope) SetOnonline(value *domcore.EventHandler) {
 func (_this *WorkerGlobalScope) Onrejectionhandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1163,7 +1163,7 @@ func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *domcore.EventHandle
 func (_this *WorkerGlobalScope) Onunhandledrejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

@@ -196,7 +196,7 @@ func (_this *NamedFlowMap) Get(flowName string) (_result *NamedFlow) {
 	var (
 		_converted *NamedFlow // javascript: NamedFlow _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NamedFlowFromJS(_returned)
 	}
 	_result = _converted
@@ -296,7 +296,7 @@ func (_this *Region) GetRegionFlowRanges() (_result []*dom.Range) {
 	var (
 		_converted []*dom.Range // javascript: sequence<Range> _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__length0 := _returned.Length()
 		__array0 := make([]*dom.Range, __length0, __length0)
 		for __idx0 := 0; __idx0 < __length0; __idx0++ {

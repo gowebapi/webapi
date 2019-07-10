@@ -118,13 +118,13 @@ func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -278,13 +278,13 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -320,7 +320,7 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	out.Button = value20
 	value21 = (input.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull {
+	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
 		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
@@ -336,7 +336,7 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 	out.MovementX = value27
 	value28 = (input.Get("movementY")).Int()
 	out.MovementY = value28
-	if input.Get("dataTransfer").Type() != js.TypeNull {
+	if input.Get("dataTransfer").Type() != js.TypeNull && input.Get("dataTransfer").Type() != js.TypeUndefined {
 		value29 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
 	}
 	out.DataTransfer = value29
@@ -518,13 +518,13 @@ func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -612,17 +612,17 @@ func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	if input.Get("relatedTarget").Type() != js.TypeNull {
+	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
 		value6 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value6
@@ -800,17 +800,17 @@ func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	if input.Get("data").Type() != js.TypeNull {
+	if input.Get("data").Type() != js.TypeNull && input.Get("data").Type() != js.TypeUndefined {
 		__tmp := (input.Get("data")).String()
 		value6 = &__tmp
 	}
@@ -819,7 +819,7 @@ func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
 	out.IsComposing = value7
 	value8 = (input.Get("inputType")).String()
 	out.InputType = value8
-	if input.Get("dataTransfer").Type() != js.TypeNull {
+	if input.Get("dataTransfer").Type() != js.TypeNull && input.Get("dataTransfer").Type() != js.TypeUndefined {
 		value9 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
 	}
 	out.DataTransfer = value9
@@ -961,13 +961,13 @@ func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -1153,13 +1153,13 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -1195,7 +1195,7 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 	out.Button = value20
 	value21 = (input.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull {
+	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
 		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
@@ -1399,7 +1399,7 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("track").Type() != js.TypeNull {
+	if input.Get("track").Type() != js.TypeNull && input.Get("track").Type() != js.TypeUndefined {
 		value3 = UnionFromJS(input.Get("track"))
 	}
 	out.Track = value3
@@ -1455,13 +1455,13 @@ func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -1625,13 +1625,13 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -1667,7 +1667,7 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	out.Button = value20
 	value21 = (input.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull {
+	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
 		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
@@ -1786,7 +1786,7 @@ func NewDragEvent(_type string, eventInitDict *DragEventInit) (_result *DragEven
 func (_this *DragEvent) DataTransfer() *datatransfer.DataTransfer {
 	var ret *datatransfer.DataTransfer
 	value := _this.Value_JS.Get("dataTransfer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = datatransfer.DataTransferFromJS(value)
 	}
 	return ret
@@ -1920,7 +1920,7 @@ func NewFocusEvent(_type string, eventInitDict *FocusEventInit) (_result *FocusE
 func (_this *FocusEvent) RelatedTarget() *domcore.EventTarget {
 	var ret *domcore.EventTarget
 	value := _this.Value_JS.Get("relatedTarget")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventTargetFromJS(value)
 	}
 	return ret
@@ -2075,7 +2075,7 @@ func NewInputEvent(_type string, eventInitDict *InputEventInit) (_result *InputE
 func (_this *InputEvent) Data() *string {
 	var ret *string
 	value := _this.Value_JS.Get("data")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2105,7 +2105,7 @@ func (_this *InputEvent) InputType() string {
 func (_this *InputEvent) DataTransfer() *datatransfer.DataTransfer {
 	var ret *datatransfer.DataTransfer
 	value := _this.Value_JS.Get("dataTransfer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = datatransfer.DataTransferFromJS(value)
 	}
 	return ret
@@ -2393,7 +2393,7 @@ func (_this *MouseEvent) Buttons() int {
 func (_this *MouseEvent) RelatedTarget() *domcore.EventTarget {
 	var ret *domcore.EventTarget
 	value := _this.Value_JS.Get("relatedTarget")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventTargetFromJS(value)
 	}
 	return ret
@@ -2719,7 +2719,7 @@ func NewTrackEvent(_type string, eventInitDict *TrackEventInit) (_result *TrackE
 func (_this *TrackEvent) Track() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("track")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -2769,7 +2769,7 @@ func NewUIEvent(_type string, eventInitDict *UIEventInit) (_result *UIEvent) {
 func (_this *UIEvent) View() *webapi.Window {
 	var ret *webapi.Window
 	value := _this.Value_JS.Get("view")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = webapi.WindowFromJS(value)
 	}
 	return ret
@@ -2789,7 +2789,7 @@ func (_this *UIEvent) Detail() int {
 func (_this *UIEvent) SourceCapabilities() *inputcapabilities.InputDeviceCapabilities {
 	var ret *inputcapabilities.InputDeviceCapabilities
 	value := _this.Value_JS.Get("sourceCapabilities")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = inputcapabilities.InputDeviceCapabilitiesFromJS(value)
 	}
 	return ret

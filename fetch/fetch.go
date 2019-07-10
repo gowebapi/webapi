@@ -572,7 +572,7 @@ func RequestInitFromJS(value js.Wrapper) *RequestInit {
 	}
 	value1 = __array1
 	out.Headers = value1
-	if input.Get("body").Type() != js.TypeNull {
+	if input.Get("body").Type() != js.TypeNull && input.Get("body").Type() != js.TypeUndefined {
 		value2 = UnionFromJS(input.Get("body"))
 	}
 	out.Body = value2
@@ -592,7 +592,7 @@ func RequestInitFromJS(value js.Wrapper) *RequestInit {
 	out.Integrity = value9
 	value10 = (input.Get("keepalive")).Bool()
 	out.Keepalive = value10
-	if input.Get("signal").Type() != js.TypeNull {
+	if input.Get("signal").Type() != js.TypeNull && input.Get("signal").Type() != js.TypeUndefined {
 		value11 = domcore.AbortSignalFromJS(input.Get("signal"))
 	}
 	out.Signal = value11
@@ -753,7 +753,7 @@ func (_this *Headers) Get(name *patch.ByteString) (_result *patch.ByteString) {
 	var (
 		_converted *patch.ByteString // javascript: ByteString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = patch.ByteStringFromJS(_returned)
 	}
 	_result = _converted
@@ -1081,7 +1081,7 @@ func (_this *Request) Signal() *domcore.AbortSignal {
 func (_this *Request) Body() *patch.ReadableStream {
 	var ret *patch.ReadableStream
 	value := _this.Value_JS.Get("body")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = patch.ReadableStreamFromJS(value)
 	}
 	return ret
@@ -1343,7 +1343,7 @@ func (_this *Response) Trailer() *javascript.Promise {
 func (_this *Response) Body() *patch.ReadableStream {
 	var ret *patch.ReadableStream
 	value := _this.Value_JS.Get("body")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = patch.ReadableStreamFromJS(value)
 	}
 	return ret

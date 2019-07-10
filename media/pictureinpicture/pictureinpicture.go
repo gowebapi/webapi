@@ -265,7 +265,7 @@ func (_this *PictureInPictureWindow) Height() int {
 func (_this *PictureInPictureWindow) Onresize() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

@@ -464,7 +464,7 @@ func (_this *CaretPosition) GetClientRect() (_result *geometry.DOMRect) {
 	var (
 		_converted *geometry.DOMRect // javascript: DOMRect _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = geometry.DOMRectFromJS(_returned)
 	}
 	_result = _converted
@@ -510,7 +510,7 @@ func (_this *MediaQueryList) Matches() bool {
 func (_this *MediaQueryList) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -699,7 +699,7 @@ func (_this *Screen) ColorGamut() capabilities.ScreenColorGamut {
 func (_this *Screen) Luminance() *capabilities.ScreenLuminance {
 	var ret *capabilities.ScreenLuminance
 	value := _this.Value_JS.Get("luminance")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = capabilities.ScreenLuminanceFromJS(value)
 	}
 	return ret
@@ -710,7 +710,7 @@ func (_this *Screen) Luminance() *capabilities.ScreenLuminance {
 func (_this *Screen) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

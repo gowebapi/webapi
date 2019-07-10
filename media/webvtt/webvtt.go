@@ -355,7 +355,7 @@ func NewVTTCue(startTime float64, endTime float64, text string) (_result *VTTCue
 func (_this *VTTCue) Region() *VTTRegion {
 	var ret *VTTRegion
 	value := _this.Value_JS.Get("region")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = VTTRegionFromJS(value)
 	}
 	return ret

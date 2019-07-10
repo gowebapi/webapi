@@ -2031,7 +2031,7 @@ func (_this *CanvasRenderingContext2D) CreatePattern(image *Union, repetition st
 	var (
 		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = CanvasPatternFromJS(_returned)
 	}
 	_result = _converted
@@ -2214,7 +2214,7 @@ func (_this *HTMLCanvasElement) GetContext(contextId string, options interface{}
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted
@@ -2557,7 +2557,7 @@ func (_this *OffscreenCanvas) GetContext(contextId html.OffscreenRenderingContex
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted
@@ -3180,7 +3180,7 @@ func (_this *OffscreenCanvasRenderingContext2D) CreatePattern(image *Union, repe
 	var (
 		_converted *CanvasPattern // javascript: CanvasPattern _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = CanvasPatternFromJS(_returned)
 	}
 	_result = _converted

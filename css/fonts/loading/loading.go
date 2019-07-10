@@ -706,7 +706,7 @@ func NewFontFaceSet(initialFaces []*FontFace) (_result *FontFaceSet) {
 func (_this *FontFaceSet) Onloading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloading")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -730,7 +730,7 @@ func (_this *FontFaceSet) SetOnloading(value *domcore.EventHandler) {
 func (_this *FontFaceSet) Onloadingdone() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadingdone")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -754,7 +754,7 @@ func (_this *FontFaceSet) SetOnloadingdone(value *domcore.EventHandler) {
 func (_this *FontFaceSet) Onloadingerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadingerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

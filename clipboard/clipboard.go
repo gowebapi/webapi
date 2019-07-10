@@ -98,7 +98,7 @@ func ClipboardEventInitFromJS(value js.Wrapper) *ClipboardEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("clipboardData").Type() != js.TypeNull {
+	if input.Get("clipboardData").Type() != js.TypeNull && input.Get("clipboardData").Type() != js.TypeUndefined {
 		value3 = datatransfer.DataTransferFromJS(input.Get("clipboardData"))
 	}
 	out.ClipboardData = value3
@@ -227,7 +227,7 @@ func NewClipboardEvent(_type string, eventInitDict *ClipboardEventInit) (_result
 func (_this *ClipboardEvent) ClipboardData() *datatransfer.DataTransfer {
 	var ret *datatransfer.DataTransfer
 	value := _this.Value_JS.Get("clipboardData")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = datatransfer.DataTransferFromJS(value)
 	}
 	return ret

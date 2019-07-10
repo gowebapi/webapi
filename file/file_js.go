@@ -116,7 +116,7 @@ func BlobCallbackToJS(callback BlobCallbackFunc) *BlobCallback {
 		var (
 			_p0 *Blob // javascript: Blob blob
 		)
-		if args[0].Type() != js.TypeNull {
+		if args[0].Type() != js.TypeNull && args[0].Type() != js.TypeUndefined {
 			_p0 = BlobFromJS(args[0])
 		}
 		callback(_p0)
@@ -504,7 +504,7 @@ func (_this *FileList) Item(index uint) (_result *File) {
 	var (
 		_converted *File // javascript: File _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = FileFromJS(_returned)
 	}
 	_result = _converted
@@ -562,7 +562,7 @@ func (_this *FileReader) ReadyState() int {
 func (_this *FileReader) Result() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("result")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -573,7 +573,7 @@ func (_this *FileReader) Result() *Union {
 func (_this *FileReader) Error() *domcore.DOMException {
 	var ret *domcore.DOMException
 	value := _this.Value_JS.Get("error")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.DOMExceptionFromJS(value)
 	}
 	return ret
@@ -584,7 +584,7 @@ func (_this *FileReader) Error() *domcore.DOMException {
 func (_this *FileReader) Onloadstart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -608,7 +608,7 @@ func (_this *FileReader) SetOnloadstart(value *domcore.EventHandler) {
 func (_this *FileReader) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -632,7 +632,7 @@ func (_this *FileReader) SetOnprogress(value *domcore.EventHandler) {
 func (_this *FileReader) Onload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -656,7 +656,7 @@ func (_this *FileReader) SetOnload(value *domcore.EventHandler) {
 func (_this *FileReader) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -680,7 +680,7 @@ func (_this *FileReader) SetOnabort(value *domcore.EventHandler) {
 func (_this *FileReader) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -704,7 +704,7 @@ func (_this *FileReader) SetOnerror(value *domcore.EventHandler) {
 func (_this *FileReader) Onloadend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

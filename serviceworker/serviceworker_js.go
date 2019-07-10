@@ -1024,7 +1024,7 @@ func ExtendableMessageEventInitFromJS(value js.Wrapper) *ExtendableMessageEventI
 	out.Origin = value4
 	value5 = (input.Get("lastEventId")).String()
 	out.LastEventId = value5
-	if input.Get("source").Type() != js.TypeNull {
+	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
 		value6 = UnionFromJS(input.Get("source"))
 	}
 	out.Source = value6
@@ -1486,7 +1486,7 @@ func (_this *BackgroundFetchRegistration) RecordsAvailable() bool {
 func (_this *BackgroundFetchRegistration) Onprogress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2059,7 +2059,7 @@ func (_this *ExtendableMessageEvent) LastEventId() string {
 func (_this *ExtendableMessageEvent) Source() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("source")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -2810,7 +2810,7 @@ func (_this *ServiceWorker) State() ServiceWorkerState {
 func (_this *ServiceWorker) Onstatechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2834,7 +2834,7 @@ func (_this *ServiceWorker) SetOnstatechange(value *domcore.EventHandler) {
 func (_this *ServiceWorker) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2895,7 +2895,7 @@ func ServiceWorkerContainerFromJS(value js.Wrapper) *ServiceWorkerContainer {
 func (_this *ServiceWorkerContainer) Controller() *ServiceWorker {
 	var ret *ServiceWorker
 	value := _this.Value_JS.Get("controller")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ServiceWorkerFromJS(value)
 	}
 	return ret
@@ -2915,7 +2915,7 @@ func (_this *ServiceWorkerContainer) Ready() *javascript.Promise {
 func (_this *ServiceWorkerContainer) Oncontrollerchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontrollerchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2939,7 +2939,7 @@ func (_this *ServiceWorkerContainer) SetOncontrollerchange(value *domcore.EventH
 func (_this *ServiceWorkerContainer) Onmessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2963,7 +2963,7 @@ func (_this *ServiceWorkerContainer) SetOnmessage(value *domcore.EventHandler) {
 func (_this *ServiceWorkerContainer) Onmessageerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -3067,7 +3067,7 @@ func ServiceWorkerRegistrationFromJS(value js.Wrapper) *ServiceWorkerRegistratio
 func (_this *ServiceWorkerRegistration) Installing() *ServiceWorker {
 	var ret *ServiceWorker
 	value := _this.Value_JS.Get("installing")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ServiceWorkerFromJS(value)
 	}
 	return ret
@@ -3078,7 +3078,7 @@ func (_this *ServiceWorkerRegistration) Installing() *ServiceWorker {
 func (_this *ServiceWorkerRegistration) Waiting() *ServiceWorker {
 	var ret *ServiceWorker
 	value := _this.Value_JS.Get("waiting")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ServiceWorkerFromJS(value)
 	}
 	return ret
@@ -3089,7 +3089,7 @@ func (_this *ServiceWorkerRegistration) Waiting() *ServiceWorker {
 func (_this *ServiceWorkerRegistration) Active() *ServiceWorker {
 	var ret *ServiceWorker
 	value := _this.Value_JS.Get("active")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ServiceWorkerFromJS(value)
 	}
 	return ret
@@ -3118,7 +3118,7 @@ func (_this *ServiceWorkerRegistration) UpdateViaCache() ServiceWorkerUpdateViaC
 func (_this *ServiceWorkerRegistration) Onupdatefound() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdatefound")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret

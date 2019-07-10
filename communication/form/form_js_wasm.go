@@ -232,7 +232,7 @@ func (_this *FormData) Get(name string) (_result *Union) {
 	var (
 		_converted *Union // javascript: Union _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UnionFromJS(_returned)
 	}
 	_result = _converted

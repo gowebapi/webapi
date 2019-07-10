@@ -401,7 +401,7 @@ func (_this *AudioTrack) SetEnabled(value bool) {
 func (_this *AudioTrack) SourceBuffer() *SourceBuffer {
 	var ret *SourceBuffer
 	value := _this.Value_JS.Get("sourceBuffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SourceBufferFromJS(value)
 	}
 	return ret
@@ -437,7 +437,7 @@ func (_this *AudioTrackList) Length() uint {
 func (_this *AudioTrackList) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -461,7 +461,7 @@ func (_this *AudioTrackList) SetOnchange(value *domcore.EventHandler) {
 func (_this *AudioTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -485,7 +485,7 @@ func (_this *AudioTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 func (_this *AudioTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -516,7 +516,7 @@ func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
 	var (
 		_converted *AudioTrack // javascript: AudioTrack _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AudioTrackFromJS(_returned)
 	}
 	_result = _converted
@@ -572,7 +572,7 @@ const (
 func (_this *HTMLMediaElement) Error() *MediaError {
 	var ret *MediaError
 	value := _this.Value_JS.Get("error")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = MediaErrorFromJS(value)
 	}
 	return ret
@@ -599,7 +599,7 @@ func (_this *HTMLMediaElement) SetSrc(value string) {
 func (_this *HTMLMediaElement) SrcObject() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("srcObject")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -626,7 +626,7 @@ func (_this *HTMLMediaElement) CurrentSrc() string {
 func (_this *HTMLMediaElement) CrossOrigin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("crossOrigin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -922,7 +922,7 @@ func (_this *HTMLMediaElement) SinkId() string {
 func (_this *HTMLMediaElement) MediaKeys() *encrypted.MediaKeys {
 	var ret *encrypted.MediaKeys
 	value := _this.Value_JS.Get("mediaKeys")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = encrypted.MediaKeysFromJS(value)
 	}
 	return ret
@@ -933,7 +933,7 @@ func (_this *HTMLMediaElement) MediaKeys() *encrypted.MediaKeys {
 func (_this *HTMLMediaElement) Onencrypted() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onencrypted")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -957,7 +957,7 @@ func (_this *HTMLMediaElement) SetOnencrypted(value *domcore.EventHandler) {
 func (_this *HTMLMediaElement) Onwaitingforkey() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaitingforkey")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1375,7 +1375,7 @@ func (_this *HTMLVideoElement) SetPlaysInline(value bool) {
 func (_this *HTMLVideoElement) Onenterpictureinpicture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onenterpictureinpicture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1399,7 +1399,7 @@ func (_this *HTMLVideoElement) SetOnenterpictureinpicture(value *domcore.EventHa
 func (_this *HTMLVideoElement) Onleavepictureinpicture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onleavepictureinpicture")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1608,7 +1608,7 @@ func (_this *MediaSource) SetDuration(value float64) {
 func (_this *MediaSource) Onsourceopen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceopen")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1632,7 +1632,7 @@ func (_this *MediaSource) SetOnsourceopen(value *domcore.EventHandler) {
 func (_this *MediaSource) Onsourceended() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceended")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1656,7 +1656,7 @@ func (_this *MediaSource) SetOnsourceended(value *domcore.EventHandler) {
 func (_this *MediaSource) Onsourceclose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceclose")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1872,7 +1872,7 @@ func (_this *SourceBuffer) SetAppendWindowEnd(value float64) {
 func (_this *SourceBuffer) Onupdatestart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdatestart")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1896,7 +1896,7 @@ func (_this *SourceBuffer) SetOnupdatestart(value *domcore.EventHandler) {
 func (_this *SourceBuffer) Onupdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdate")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1920,7 +1920,7 @@ func (_this *SourceBuffer) SetOnupdate(value *domcore.EventHandler) {
 func (_this *SourceBuffer) Onupdateend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdateend")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1944,7 +1944,7 @@ func (_this *SourceBuffer) SetOnupdateend(value *domcore.EventHandler) {
 func (_this *SourceBuffer) Onerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1968,7 +1968,7 @@ func (_this *SourceBuffer) SetOnerror(value *domcore.EventHandler) {
 func (_this *SourceBuffer) Onabort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2053,7 +2053,7 @@ func (_this *SourceBufferList) Length() uint {
 func (_this *SourceBufferList) Onaddsourcebuffer() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddsourcebuffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2077,7 +2077,7 @@ func (_this *SourceBufferList) SetOnaddsourcebuffer(value *domcore.EventHandler)
 func (_this *SourceBufferList) Onremovesourcebuffer() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovesourcebuffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2178,7 +2178,7 @@ func (_this *TextTrack) SetMode(value TextTrackMode) {
 func (_this *TextTrack) Cues() *TextTrackCueList {
 	var ret *TextTrackCueList
 	value := _this.Value_JS.Get("cues")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = TextTrackCueListFromJS(value)
 	}
 	return ret
@@ -2189,7 +2189,7 @@ func (_this *TextTrack) Cues() *TextTrackCueList {
 func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 	var ret *TextTrackCueList
 	value := _this.Value_JS.Get("activeCues")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = TextTrackCueListFromJS(value)
 	}
 	return ret
@@ -2200,7 +2200,7 @@ func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 func (_this *TextTrack) Oncuechange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2224,7 +2224,7 @@ func (_this *TextTrack) SetOncuechange(value *domcore.EventHandler) {
 func (_this *TextTrack) SourceBuffer() *SourceBuffer {
 	var ret *SourceBuffer
 	value := _this.Value_JS.Get("sourceBuffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SourceBufferFromJS(value)
 	}
 	return ret
@@ -2275,7 +2275,7 @@ func TextTrackCueFromJS(value js.Wrapper) *TextTrackCue {
 func (_this *TextTrackCue) Track() *TextTrack {
 	var ret *TextTrack
 	value := _this.Value_JS.Get("track")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = TextTrackFromJS(value)
 	}
 	return ret
@@ -2350,7 +2350,7 @@ func (_this *TextTrackCue) SetPauseOnExit(value bool) {
 func (_this *TextTrackCue) Onenter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onenter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2374,7 +2374,7 @@ func (_this *TextTrackCue) SetOnenter(value *domcore.EventHandler) {
 func (_this *TextTrackCue) Onexit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onexit")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2435,7 +2435,7 @@ func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
 	var (
 		_converted *TextTrackCue // javascript: TextTrackCue _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = TextTrackCueFromJS(_returned)
 	}
 	_result = _converted
@@ -2472,7 +2472,7 @@ func (_this *TextTrackList) Length() uint {
 func (_this *TextTrackList) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2496,7 +2496,7 @@ func (_this *TextTrackList) SetOnchange(value *domcore.EventHandler) {
 func (_this *TextTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2520,7 +2520,7 @@ func (_this *TextTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 func (_this *TextTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2551,7 +2551,7 @@ func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
 	var (
 		_converted *TextTrack // javascript: TextTrack _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = TextTrackFromJS(_returned)
 	}
 	_result = _converted
@@ -2636,7 +2636,7 @@ func (_this *VideoTrack) SetSelected(value bool) {
 func (_this *VideoTrack) SourceBuffer() *SourceBuffer {
 	var ret *SourceBuffer
 	value := _this.Value_JS.Get("sourceBuffer")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = SourceBufferFromJS(value)
 	}
 	return ret
@@ -2681,7 +2681,7 @@ func (_this *VideoTrackList) SelectedIndex() int {
 func (_this *VideoTrackList) Onchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2705,7 +2705,7 @@ func (_this *VideoTrackList) SetOnchange(value *domcore.EventHandler) {
 func (_this *VideoTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2729,7 +2729,7 @@ func (_this *VideoTrackList) SetOnaddtrack(value *domcore.EventHandler) {
 func (_this *VideoTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -2760,7 +2760,7 @@ func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {
 	var (
 		_converted *VideoTrack // javascript: VideoTrack _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = VideoTrackFromJS(_returned)
 	}
 	_result = _converted

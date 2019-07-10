@@ -328,7 +328,7 @@ func (_this *CSSRule) SetCssText(value string) {
 func (_this *CSSRule) ParentRule() *CSSRule {
 	var ret *CSSRule
 	value := _this.Value_JS.Get("parentRule")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSRuleFromJS(value)
 	}
 	return ret
@@ -339,7 +339,7 @@ func (_this *CSSRule) ParentRule() *CSSRule {
 func (_this *CSSRule) ParentStyleSheet() *CSSStyleSheet {
 	var ret *CSSStyleSheet
 	value := _this.Value_JS.Get("parentStyleSheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -387,7 +387,7 @@ func (_this *CSSRuleList) Item(index uint) (_result *CSSRule) {
 	var (
 		_converted *CSSRule // javascript: CSSRule _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = CSSRuleFromJS(_returned)
 	}
 	_result = _converted
@@ -445,7 +445,7 @@ func (_this *CSSStyleDeclaration) Length() uint {
 func (_this *CSSStyleDeclaration) ParentRule() *CSSRule {
 	var ret *CSSRule
 	value := _this.Value_JS.Get("parentRule")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSRuleFromJS(value)
 	}
 	return ret
@@ -626,7 +626,7 @@ func CSSStyleSheetFromJS(value js.Wrapper) *CSSStyleSheet {
 func (_this *CSSStyleSheet) OwnerRule() *CSSRule {
 	var ret *CSSRule
 	value := _this.Value_JS.Get("ownerRule")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSRuleFromJS(value)
 	}
 	return ret
@@ -738,7 +738,7 @@ func (_this *MediaList) Item(index uint) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -805,7 +805,7 @@ func (_this *StyleSheet) Type() string {
 func (_this *StyleSheet) Href() *string {
 	var ret *string
 	value := _this.Value_JS.Get("href")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -817,7 +817,7 @@ func (_this *StyleSheet) Href() *string {
 func (_this *StyleSheet) OwnerNode() *Union {
 	var ret *Union
 	value := _this.Value_JS.Get("ownerNode")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = UnionFromJS(value)
 	}
 	return ret
@@ -828,7 +828,7 @@ func (_this *StyleSheet) OwnerNode() *Union {
 func (_this *StyleSheet) ParentStyleSheet() *CSSStyleSheet {
 	var ret *CSSStyleSheet
 	value := _this.Value_JS.Get("parentStyleSheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -839,7 +839,7 @@ func (_this *StyleSheet) ParentStyleSheet() *CSSStyleSheet {
 func (_this *StyleSheet) Title() *string {
 	var ret *string
 	value := _this.Value_JS.Get("title")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -913,7 +913,7 @@ func (_this *StyleSheetList) Item(index uint) (_result *CSSStyleSheet) {
 	var (
 		_converted *CSSStyleSheet // javascript: CSSStyleSheet _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = CSSStyleSheetFromJS(_returned)
 	}
 	_result = _converted

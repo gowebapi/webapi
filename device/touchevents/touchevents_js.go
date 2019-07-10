@@ -225,13 +225,13 @@ func TouchEventInitFromJS(value js.Wrapper) *TouchEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull {
+	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
 		value3 = webapi.WindowFromJS(input.Get("view"))
 	}
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull {
+	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
 		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
@@ -726,7 +726,7 @@ func (_this *TouchList) Item(index uint) (_result *Touch) {
 	var (
 		_converted *Touch // javascript: Touch _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = TouchFromJS(_returned)
 	}
 	_result = _converted

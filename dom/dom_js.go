@@ -456,7 +456,7 @@ func AttrFromJS(value js.Wrapper) *Attr {
 func (_this *Attr) NamespaceURI() *string {
 	var ret *string
 	value := _this.Value_JS.Get("namespaceURI")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -468,7 +468,7 @@ func (_this *Attr) NamespaceURI() *string {
 func (_this *Attr) Prefix() *string {
 	var ret *string
 	value := _this.Value_JS.Get("prefix")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -514,7 +514,7 @@ func (_this *Attr) SetValue(value string) {
 func (_this *Attr) OwnerElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("ownerElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -591,7 +591,7 @@ func (_this *CharacterData) Length() uint {
 func (_this *CharacterData) PreviousElementSibling() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -602,7 +602,7 @@ func (_this *CharacterData) PreviousElementSibling() *Element {
 func (_this *CharacterData) NextElementSibling() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -855,7 +855,7 @@ func (_this *DeadFragmentInformation) IsOverflowed() bool {
 func (_this *DeadFragmentInformation) Children() *javascript.FrozenArray {
 	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("children")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = javascript.FrozenArrayFromJS(value)
 	}
 	return ret
@@ -866,7 +866,7 @@ func (_this *DeadFragmentInformation) Children() *javascript.FrozenArray {
 func (_this *DeadFragmentInformation) NextSibling() *DeadFragmentInformation {
 	var ret *DeadFragmentInformation
 	value := _this.Value_JS.Get("nextSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = DeadFragmentInformationFromJS(value)
 	}
 	return ret
@@ -877,7 +877,7 @@ func (_this *DeadFragmentInformation) NextSibling() *DeadFragmentInformation {
 func (_this *DeadFragmentInformation) PreviousSibling() *DeadFragmentInformation {
 	var ret *DeadFragmentInformation
 	value := _this.Value_JS.Get("previousSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = DeadFragmentInformationFromJS(value)
 	}
 	return ret
@@ -888,7 +888,7 @@ func (_this *DeadFragmentInformation) PreviousSibling() *DeadFragmentInformation
 func (_this *DeadFragmentInformation) NextInBox() *DeadFragmentInformation {
 	var ret *DeadFragmentInformation
 	value := _this.Value_JS.Get("nextInBox")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = DeadFragmentInformationFromJS(value)
 	}
 	return ret
@@ -899,7 +899,7 @@ func (_this *DeadFragmentInformation) NextInBox() *DeadFragmentInformation {
 func (_this *DeadFragmentInformation) PreviousInBox() *DeadFragmentInformation {
 	var ret *DeadFragmentInformation
 	value := _this.Value_JS.Get("previousInBox")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = DeadFragmentInformationFromJS(value)
 	}
 	return ret
@@ -950,7 +950,7 @@ func (_this *DocumentFragment) Children() *HTMLCollection {
 func (_this *DocumentFragment) FirstElementChild() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("firstElementChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -961,7 +961,7 @@ func (_this *DocumentFragment) FirstElementChild() *Element {
 func (_this *DocumentFragment) LastElementChild() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("lastElementChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -988,7 +988,7 @@ func (_this *DocumentFragment) GetElementById(elementId string) (_result *Elemen
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -1035,7 +1035,7 @@ func (_this *DocumentFragment) QuerySelector(selectors string) (_result *Element
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -1174,7 +1174,7 @@ func ElementFromJS(value js.Wrapper) *Element {
 func (_this *Element) NamespaceURI() *string {
 	var ret *string
 	value := _this.Value_JS.Get("namespaceURI")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1186,7 +1186,7 @@ func (_this *Element) NamespaceURI() *string {
 func (_this *Element) Prefix() *string {
 	var ret *string
 	value := _this.Value_JS.Get("prefix")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1282,7 +1282,7 @@ func (_this *Element) Attributes() *NamedNodeMap {
 func (_this *Element) ShadowRoot() *ShadowRoot {
 	var ret *ShadowRoot
 	value := _this.Value_JS.Get("shadowRoot")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ShadowRootFromJS(value)
 	}
 	return ret
@@ -1411,7 +1411,7 @@ func (_this *Element) ClientHeight() int {
 func (_this *Element) Onfullscreenchange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfullscreenchange")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1435,7 +1435,7 @@ func (_this *Element) SetOnfullscreenchange(value *domcore.EventHandler) {
 func (_this *Element) Onfullscreenerror() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfullscreenerror")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
@@ -1468,7 +1468,7 @@ func (_this *Element) AssignedSlot() js.Value {
 func (_this *Element) PreviousElementSibling() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -1479,7 +1479,7 @@ func (_this *Element) PreviousElementSibling() *Element {
 func (_this *Element) NextElementSibling() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -1499,7 +1499,7 @@ func (_this *Element) Children() *HTMLCollection {
 func (_this *Element) FirstElementChild() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("firstElementChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -1510,7 +1510,7 @@ func (_this *Element) FirstElementChild() *Element {
 func (_this *Element) LastElementChild() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("lastElementChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -1530,7 +1530,7 @@ func (_this *Element) ChildElementCount() uint {
 func (_this *Element) Role() *string {
 	var ret *string
 	value := _this.Value_JS.Get("role")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1549,7 +1549,7 @@ func (_this *Element) SetRole(value *string) {
 func (_this *Element) AriaActiveDescendant() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaActiveDescendant")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1568,7 +1568,7 @@ func (_this *Element) SetAriaActiveDescendant(value *string) {
 func (_this *Element) AriaAtomic() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaAtomic")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1587,7 +1587,7 @@ func (_this *Element) SetAriaAtomic(value *string) {
 func (_this *Element) AriaAutoComplete() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaAutoComplete")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1606,7 +1606,7 @@ func (_this *Element) SetAriaAutoComplete(value *string) {
 func (_this *Element) AriaBusy() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaBusy")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1625,7 +1625,7 @@ func (_this *Element) SetAriaBusy(value *string) {
 func (_this *Element) AriaChecked() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaChecked")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1644,7 +1644,7 @@ func (_this *Element) SetAriaChecked(value *string) {
 func (_this *Element) AriaColCount() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaColCount")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1663,7 +1663,7 @@ func (_this *Element) SetAriaColCount(value *string) {
 func (_this *Element) AriaColIndex() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaColIndex")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1682,7 +1682,7 @@ func (_this *Element) SetAriaColIndex(value *string) {
 func (_this *Element) AriaColSpan() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaColSpan")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1701,7 +1701,7 @@ func (_this *Element) SetAriaColSpan(value *string) {
 func (_this *Element) AriaControls() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaControls")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1720,7 +1720,7 @@ func (_this *Element) SetAriaControls(value *string) {
 func (_this *Element) AriaCurrent() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaCurrent")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1739,7 +1739,7 @@ func (_this *Element) SetAriaCurrent(value *string) {
 func (_this *Element) AriaDescribedBy() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaDescribedBy")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1758,7 +1758,7 @@ func (_this *Element) SetAriaDescribedBy(value *string) {
 func (_this *Element) AriaDetails() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaDetails")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1777,7 +1777,7 @@ func (_this *Element) SetAriaDetails(value *string) {
 func (_this *Element) AriaDisabled() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaDisabled")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1796,7 +1796,7 @@ func (_this *Element) SetAriaDisabled(value *string) {
 func (_this *Element) AriaErrorMessage() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaErrorMessage")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1815,7 +1815,7 @@ func (_this *Element) SetAriaErrorMessage(value *string) {
 func (_this *Element) AriaExpanded() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaExpanded")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1834,7 +1834,7 @@ func (_this *Element) SetAriaExpanded(value *string) {
 func (_this *Element) AriaFlowTo() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaFlowTo")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1853,7 +1853,7 @@ func (_this *Element) SetAriaFlowTo(value *string) {
 func (_this *Element) AriaHasPopup() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaHasPopup")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1872,7 +1872,7 @@ func (_this *Element) SetAriaHasPopup(value *string) {
 func (_this *Element) AriaHidden() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaHidden")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1891,7 +1891,7 @@ func (_this *Element) SetAriaHidden(value *string) {
 func (_this *Element) AriaInvalid() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaInvalid")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1910,7 +1910,7 @@ func (_this *Element) SetAriaInvalid(value *string) {
 func (_this *Element) AriaKeyShortcuts() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaKeyShortcuts")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1929,7 +1929,7 @@ func (_this *Element) SetAriaKeyShortcuts(value *string) {
 func (_this *Element) AriaLabel() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaLabel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1948,7 +1948,7 @@ func (_this *Element) SetAriaLabel(value *string) {
 func (_this *Element) AriaLabelledBy() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaLabelledBy")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1967,7 +1967,7 @@ func (_this *Element) SetAriaLabelledBy(value *string) {
 func (_this *Element) AriaLevel() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaLevel")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -1986,7 +1986,7 @@ func (_this *Element) SetAriaLevel(value *string) {
 func (_this *Element) AriaLive() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaLive")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2005,7 +2005,7 @@ func (_this *Element) SetAriaLive(value *string) {
 func (_this *Element) AriaModal() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaModal")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2024,7 +2024,7 @@ func (_this *Element) SetAriaModal(value *string) {
 func (_this *Element) AriaMultiLine() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaMultiLine")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2043,7 +2043,7 @@ func (_this *Element) SetAriaMultiLine(value *string) {
 func (_this *Element) AriaMultiSelectable() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaMultiSelectable")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2062,7 +2062,7 @@ func (_this *Element) SetAriaMultiSelectable(value *string) {
 func (_this *Element) AriaOrientation() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaOrientation")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2081,7 +2081,7 @@ func (_this *Element) SetAriaOrientation(value *string) {
 func (_this *Element) AriaOwns() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaOwns")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2100,7 +2100,7 @@ func (_this *Element) SetAriaOwns(value *string) {
 func (_this *Element) AriaPlaceholder() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaPlaceholder")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2119,7 +2119,7 @@ func (_this *Element) SetAriaPlaceholder(value *string) {
 func (_this *Element) AriaPosInSet() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaPosInSet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2138,7 +2138,7 @@ func (_this *Element) SetAriaPosInSet(value *string) {
 func (_this *Element) AriaPressed() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaPressed")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2157,7 +2157,7 @@ func (_this *Element) SetAriaPressed(value *string) {
 func (_this *Element) AriaReadOnly() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaReadOnly")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2176,7 +2176,7 @@ func (_this *Element) SetAriaReadOnly(value *string) {
 func (_this *Element) AriaRelevant() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRelevant")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2195,7 +2195,7 @@ func (_this *Element) SetAriaRelevant(value *string) {
 func (_this *Element) AriaRequired() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRequired")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2214,7 +2214,7 @@ func (_this *Element) SetAriaRequired(value *string) {
 func (_this *Element) AriaRoleDescription() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRoleDescription")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2233,7 +2233,7 @@ func (_this *Element) SetAriaRoleDescription(value *string) {
 func (_this *Element) AriaRowCount() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRowCount")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2252,7 +2252,7 @@ func (_this *Element) SetAriaRowCount(value *string) {
 func (_this *Element) AriaRowIndex() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRowIndex")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2271,7 +2271,7 @@ func (_this *Element) SetAriaRowIndex(value *string) {
 func (_this *Element) AriaRowSpan() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaRowSpan")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2290,7 +2290,7 @@ func (_this *Element) SetAriaRowSpan(value *string) {
 func (_this *Element) AriaSelected() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaSelected")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2309,7 +2309,7 @@ func (_this *Element) SetAriaSelected(value *string) {
 func (_this *Element) AriaSetSize() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaSetSize")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2328,7 +2328,7 @@ func (_this *Element) SetAriaSetSize(value *string) {
 func (_this *Element) AriaSort() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaSort")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2347,7 +2347,7 @@ func (_this *Element) SetAriaSort(value *string) {
 func (_this *Element) AriaValueMax() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaValueMax")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2366,7 +2366,7 @@ func (_this *Element) SetAriaValueMax(value *string) {
 func (_this *Element) AriaValueMin() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaValueMin")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2385,7 +2385,7 @@ func (_this *Element) SetAriaValueMin(value *string) {
 func (_this *Element) AriaValueNow() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaValueNow")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2404,7 +2404,7 @@ func (_this *Element) SetAriaValueNow(value *string) {
 func (_this *Element) AriaValueText() *string {
 	var ret *string
 	value := _this.Value_JS.Get("ariaValueText")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -2466,7 +2466,7 @@ func (_this *Element) GetAttribute(qualifiedName string) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2489,7 +2489,7 @@ func (_this *Element) GetAttributeNS(namespace *string, localName string) (_resu
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2628,7 +2628,7 @@ func (_this *Element) GetAttributeNode(qualifiedName string) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -2650,7 +2650,7 @@ func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -2669,7 +2669,7 @@ func (_this *Element) SetAttributeNode(attr *Attr) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -2688,7 +2688,7 @@ func (_this *Element) SetAttributeNodeNS(attr *Attr) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -2741,7 +2741,7 @@ func (_this *Element) Closest(selectors string) (_result *Element) {
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -2851,7 +2851,7 @@ func (_this *Element) InsertAdjacentElement(where string, element *Element) (_re
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -3310,7 +3310,7 @@ func (_this *Element) QuerySelector(selectors string) (_result *Element) {
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -3420,7 +3420,7 @@ func (_this *HTMLCollection) Item(index uint) (_result *Element) {
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -3439,7 +3439,7 @@ func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
 	var (
 		_converted *Element // javascript: Element _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ElementFromJS(_returned)
 	}
 	_result = _converted
@@ -3488,7 +3488,7 @@ func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -3507,7 +3507,7 @@ func (_this *NamedNodeMap) GetNamedItem(qualifiedName string) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -3529,7 +3529,7 @@ func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -3548,7 +3548,7 @@ func (_this *NamedNodeMap) SetNamedItem(attr *Attr) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -3567,7 +3567,7 @@ func (_this *NamedNodeMap) SetNamedItemNS(attr *Attr) (_result *Attr) {
 	var (
 		_converted *Attr // javascript: Attr _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = AttrFromJS(_returned)
 	}
 	_result = _converted
@@ -3698,7 +3698,7 @@ func (_this *Node) OwnerDocument() js.Value {
 func (_this *Node) ParentNode() *Node {
 	var ret *Node
 	value := _this.Value_JS.Get("parentNode")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFromJS(value)
 	}
 	return ret
@@ -3709,7 +3709,7 @@ func (_this *Node) ParentNode() *Node {
 func (_this *Node) ParentElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("parentElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -3729,7 +3729,7 @@ func (_this *Node) ChildNodes() *NodeList {
 func (_this *Node) FirstChild() *Node {
 	var ret *Node
 	value := _this.Value_JS.Get("firstChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFromJS(value)
 	}
 	return ret
@@ -3740,7 +3740,7 @@ func (_this *Node) FirstChild() *Node {
 func (_this *Node) LastChild() *Node {
 	var ret *Node
 	value := _this.Value_JS.Get("lastChild")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFromJS(value)
 	}
 	return ret
@@ -3751,7 +3751,7 @@ func (_this *Node) LastChild() *Node {
 func (_this *Node) PreviousSibling() *Node {
 	var ret *Node
 	value := _this.Value_JS.Get("previousSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFromJS(value)
 	}
 	return ret
@@ -3762,7 +3762,7 @@ func (_this *Node) PreviousSibling() *Node {
 func (_this *Node) NextSibling() *Node {
 	var ret *Node
 	value := _this.Value_JS.Get("nextSibling")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFromJS(value)
 	}
 	return ret
@@ -3773,7 +3773,7 @@ func (_this *Node) NextSibling() *Node {
 func (_this *Node) NodeValue() *string {
 	var ret *string
 	value := _this.Value_JS.Get("nodeValue")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -3792,7 +3792,7 @@ func (_this *Node) SetNodeValue(value *string) {
 func (_this *Node) TextContent() *string {
 	var ret *string
 	value := _this.Value_JS.Get("textContent")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		__tmp := (value).String()
 		ret = &__tmp
 	}
@@ -3947,7 +3947,7 @@ func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -3967,7 +3967,7 @@ func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -4260,7 +4260,7 @@ func (_this *NodeIterator) WhatToShow() uint {
 func (_this *NodeIterator) Filter() NodeFilter {
 	var ret NodeFilter
 	value := _this.Value_JS.Get("filter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFilterFromJS(value)
 	}
 	return ret
@@ -4275,7 +4275,7 @@ func (_this *NodeIterator) NextNode() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -4291,7 +4291,7 @@ func (_this *NodeIterator) PreviousNode() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -4349,7 +4349,7 @@ func (_this *NodeList) Item(index uint) (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -4386,7 +4386,7 @@ func (_this *ProcessingInstruction) Target() string {
 func (_this *ProcessingInstruction) Sheet() *cssom.CSSStyleSheet {
 	var ret *cssom.CSSStyleSheet
 	value := _this.Value_JS.Get("sheet")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
@@ -4928,7 +4928,7 @@ func (_this *ShadowRoot) StyleSheets() *cssom.StyleSheetList {
 func (_this *ShadowRoot) FullscreenElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("fullscreenElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -4939,7 +4939,7 @@ func (_this *ShadowRoot) FullscreenElement() *Element {
 func (_this *ShadowRoot) PictureInPictureElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("pictureInPictureElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -4950,7 +4950,7 @@ func (_this *ShadowRoot) PictureInPictureElement() *Element {
 func (_this *ShadowRoot) PointerLockElement() *Element {
 	var ret *Element
 	value := _this.Value_JS.Get("pointerLockElement")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = ElementFromJS(value)
 	}
 	return ret
@@ -5189,7 +5189,7 @@ func (_this *TreeWalker) WhatToShow() uint {
 func (_this *TreeWalker) Filter() NodeFilter {
 	var ret NodeFilter
 	value := _this.Value_JS.Get("filter")
-	if value.Type() != js.TypeNull {
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = NodeFilterFromJS(value)
 	}
 	return ret
@@ -5220,7 +5220,7 @@ func (_this *TreeWalker) ParentNode() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5236,7 +5236,7 @@ func (_this *TreeWalker) FirstChild() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5252,7 +5252,7 @@ func (_this *TreeWalker) LastChild() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5268,7 +5268,7 @@ func (_this *TreeWalker) PreviousSibling() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5284,7 +5284,7 @@ func (_this *TreeWalker) NextSibling() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5300,7 +5300,7 @@ func (_this *TreeWalker) PreviousNode() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted
@@ -5316,7 +5316,7 @@ func (_this *TreeWalker) NextNode() (_result *Node) {
 	var (
 		_converted *Node // javascript: Node _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
 	_result = _converted

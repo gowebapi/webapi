@@ -755,7 +755,7 @@ func (_this *RenderingContext) GetContextAttributes() (_result *ContextAttribute
 	var (
 		_converted *ContextAttributes // javascript: WebGLContextAttributes _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ContextAttributesFromJS(_returned)
 	}
 	_result = _converted
@@ -785,7 +785,7 @@ func (_this *RenderingContext) GetSupportedExtensions() (_result []string) {
 	var (
 		_converted []string // javascript: sequence<DOMString> _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__length0 := _returned.Length()
 		__array0 := make([]string, __length0, __length0)
 		for __idx0 := 0; __idx0 < __length0; __idx0++ {
@@ -812,7 +812,7 @@ func (_this *RenderingContext) GetExtension(name string) (_result *javascript.Ob
 	var (
 		_converted *javascript.Object // javascript: object _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = javascript.ObjectFromJS(_returned)
 	}
 	_result = _converted
@@ -1307,7 +1307,7 @@ func (_this *RenderingContext) CreateBuffer() (_result *Buffer) {
 	var (
 		_converted *Buffer // javascript: WebGLBuffer _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = BufferFromJS(_returned)
 	}
 	_result = _converted
@@ -1323,7 +1323,7 @@ func (_this *RenderingContext) CreateFramebuffer() (_result *Framebuffer) {
 	var (
 		_converted *Framebuffer // javascript: WebGLFramebuffer _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = FramebufferFromJS(_returned)
 	}
 	_result = _converted
@@ -1339,7 +1339,7 @@ func (_this *RenderingContext) CreateProgram() (_result *Program) {
 	var (
 		_converted *Program // javascript: WebGLProgram _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ProgramFromJS(_returned)
 	}
 	_result = _converted
@@ -1355,7 +1355,7 @@ func (_this *RenderingContext) CreateRenderbuffer() (_result *Renderbuffer) {
 	var (
 		_converted *Renderbuffer // javascript: WebGLRenderbuffer _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = RenderbufferFromJS(_returned)
 	}
 	_result = _converted
@@ -1374,7 +1374,7 @@ func (_this *RenderingContext) CreateShader(_type uint) (_result *Shader) {
 	var (
 		_converted *Shader // javascript: WebGLShader _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ShaderFromJS(_returned)
 	}
 	_result = _converted
@@ -1390,7 +1390,7 @@ func (_this *RenderingContext) CreateTexture() (_result *Texture) {
 	var (
 		_converted *Texture // javascript: WebGLTexture _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = TextureFromJS(_returned)
 	}
 	_result = _converted
@@ -1724,7 +1724,7 @@ func (_this *RenderingContext) GetActiveAttrib(program *Program, index uint) (_r
 	var (
 		_converted *ActiveInfo // javascript: WebGLActiveInfo _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ActiveInfoFromJS(_returned)
 	}
 	_result = _converted
@@ -1746,7 +1746,7 @@ func (_this *RenderingContext) GetActiveUniform(program *Program, index uint) (_
 	var (
 		_converted *ActiveInfo // javascript: WebGLActiveInfo _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ActiveInfoFromJS(_returned)
 	}
 	_result = _converted
@@ -1765,7 +1765,7 @@ func (_this *RenderingContext) GetAttachedShaders(program *Program) (_result []*
 	var (
 		_converted []*Shader // javascript: sequence<WebGLShader> _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__length0 := _returned.Length()
 		__array0 := make([]*Shader, __length0, __length0)
 		for __idx0 := 0; __idx0 < __length0; __idx0++ {
@@ -1906,7 +1906,7 @@ func (_this *RenderingContext) GetProgramInfoLog(program *Program) (_result *str
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -1969,7 +1969,7 @@ func (_this *RenderingContext) GetShaderPrecisionFormat(shadertype uint, precisi
 	var (
 		_converted *ShaderPrecisionFormat // javascript: WebGLShaderPrecisionFormat _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = ShaderPrecisionFormatFromJS(_returned)
 	}
 	_result = _converted
@@ -1988,7 +1988,7 @@ func (_this *RenderingContext) GetShaderInfoLog(shader *Shader) (_result *string
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2008,7 +2008,7 @@ func (_this *RenderingContext) GetShaderSource(shader *Shader) (_result *string)
 	var (
 		_converted *string // javascript: DOMString _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		__tmp := (_returned).String()
 		_converted = &__tmp
 	}
@@ -2071,7 +2071,7 @@ func (_this *RenderingContext) GetUniformLocation(program *Program, name string)
 	var (
 		_converted *UniformLocation // javascript: WebGLUniformLocation _what_return_name
 	)
-	if _returned.Type() != js.TypeNull {
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = UniformLocationFromJS(_returned)
 	}
 	_result = _converted
