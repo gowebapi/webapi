@@ -705,6 +705,11 @@ func (_this *MediaList) MediaText() string {
 	return ret
 }
 
+// ToString is an alias for MediaText.
+func (_this *MediaList) ToString() string {
+	return _this.MediaText()
+}
+
 // SetMediaText setting attribute 'mediaText' with
 // type string (idl: DOMString).
 func (_this *MediaList) SetMediaText(value string) {

@@ -275,6 +275,11 @@ func (_this *SVGAElement) Href() string {
 	return ret
 }
 
+// ToString is an alias for Href.
+func (_this *SVGAElement) ToString() string {
+	return _this.Href()
+}
+
 // SetHref setting attribute 'href' with
 // type string (idl: USVString).
 func (_this *SVGAElement) SetHref(value string) {

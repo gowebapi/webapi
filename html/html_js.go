@@ -559,6 +559,11 @@ func (_this *HTMLAnchorElement) Href() string {
 	return ret
 }
 
+// ToString is an alias for Href.
+func (_this *HTMLAnchorElement) ToString() string {
+	return _this.Href()
+}
+
 // SetHref setting attribute 'href' with
 // type string (idl: USVString).
 func (_this *HTMLAnchorElement) SetHref(value string) {
@@ -895,6 +900,11 @@ func (_this *HTMLAreaElement) Href() string {
 	value := _this.Value_JS.Get("href")
 	ret = (value).String()
 	return ret
+}
+
+// ToString is an alias for Href.
+func (_this *HTMLAreaElement) ToString() string {
+	return _this.Href()
 }
 
 // SetHref setting attribute 'href' with

@@ -1043,6 +1043,11 @@ func (_this *Location) Href() string {
 	return ret
 }
 
+// ToString is an alias for Href.
+func (_this *Location) ToString() string {
+	return _this.Href()
+}
+
 // SetHref setting attribute 'href' with
 // type string (idl: USVString).
 func (_this *Location) SetHref(value string) {

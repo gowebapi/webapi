@@ -745,6 +745,11 @@ func (_this *DOMTokenList) Value() string {
 	return ret
 }
 
+// ToString is an alias for Value.
+func (_this *DOMTokenList) ToString() string {
+	return _this.Value()
+}
+
 // SetValue setting attribute 'value' with
 // type string (idl: DOMString).
 func (_this *DOMTokenList) SetValue(value string) {

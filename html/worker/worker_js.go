@@ -1491,6 +1491,11 @@ func (_this *WorkerLocation) Href() string {
 	return ret
 }
 
+// ToString is an alias for Href.
+func (_this *WorkerLocation) ToString() string {
+	return _this.Href()
+}
+
 // Origin returning attribute 'origin' with
 // type string (idl: USVString).
 func (_this *WorkerLocation) Origin() string {

@@ -328,3 +328,17 @@ func (_this *Selection) ContainsNode(node *dom.Node, allowPartialContainment *bo
 	_result = _converted
 	return
 }
+
+func (_this *Selection) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
