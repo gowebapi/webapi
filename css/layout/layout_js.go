@@ -13,16 +13,18 @@ import (
 
 // using following types:
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
 // typedom.StylePropertyMapReadOnly
 // webidl.VoidFunction
 // worklets.WorkletGlobalScope
 
 // source idl files:
 // css-layout-api.idl
+// promises.idl
 
 // transform files:
 // css-layout-api.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -142,6 +144,162 @@ func BreakTypeFromJS(value js.Value) BreakType {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseIntrinsicSizesOnFulfilledFunc func(value *IntrinsicSizes)
+
+// PromiseIntrinsicSizesOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseIntrinsicSizesOnFulfilled js.Func
+
+func PromiseIntrinsicSizesOnFulfilledToJS(callback PromiseIntrinsicSizesOnFulfilledFunc) *PromiseIntrinsicSizesOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseIntrinsicSizesOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *IntrinsicSizes // javascript: IntrinsicSizes value
+		)
+		_p0 = IntrinsicSizesFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseIntrinsicSizesOnFulfilledFromJS(_value js.Value) PromiseIntrinsicSizesOnFulfilledFunc {
+	return func(value *IntrinsicSizes) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseIntrinsicSizesOnRejectedFunc func(reason js.Value)
+
+// PromiseIntrinsicSizesOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseIntrinsicSizesOnRejected js.Func
+
+func PromiseIntrinsicSizesOnRejectedToJS(callback PromiseIntrinsicSizesOnRejectedFunc) *PromiseIntrinsicSizesOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseIntrinsicSizesOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseIntrinsicSizesOnRejectedFromJS(_value js.Value) PromiseIntrinsicSizesOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseLayoutFragmentOnFulfilledFunc func(value *LayoutFragment)
+
+// PromiseLayoutFragmentOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseLayoutFragmentOnFulfilled js.Func
+
+func PromiseLayoutFragmentOnFulfilledToJS(callback PromiseLayoutFragmentOnFulfilledFunc) *PromiseLayoutFragmentOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseLayoutFragmentOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *LayoutFragment // javascript: LayoutFragment value
+		)
+		_p0 = LayoutFragmentFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseLayoutFragmentOnFulfilledFromJS(_value js.Value) PromiseLayoutFragmentOnFulfilledFunc {
+	return func(value *LayoutFragment) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseLayoutFragmentOnRejectedFunc func(reason js.Value)
+
+// PromiseLayoutFragmentOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseLayoutFragmentOnRejected js.Func
+
+func PromiseLayoutFragmentOnRejectedToJS(callback PromiseLayoutFragmentOnRejectedFunc) *PromiseLayoutFragmentOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseLayoutFragmentOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseLayoutFragmentOnRejectedFromJS(_value js.Value) PromiseLayoutFragmentOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: BreakTokenOptions
@@ -540,21 +698,21 @@ func (_this *LayoutChild) StyleMap() *typedom.StylePropertyMapReadOnly {
 	return ret
 }
 
-func (_this *LayoutChild) IntrinsicSizes() (_result *javascript.Promise) {
+func (_this *LayoutChild) IntrinsicSizes() (_result *PromiseIntrinsicSizes) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("intrinsicSizes", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseIntrinsicSizes // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseIntrinsicSizesFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *LayoutChild) LayoutNextFragment(constraints *LayoutConstraintsOptions, breakToken *ChildBreakToken) (_result *javascript.Promise) {
+func (_this *LayoutChild) LayoutNextFragment(constraints *LayoutConstraintsOptions, breakToken *ChildBreakToken) (_result *PromiseLayoutFragment) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -567,9 +725,9 @@ func (_this *LayoutChild) LayoutNextFragment(constraints *LayoutConstraintsOptio
 	_end++
 	_returned := _this.Value_JS.Call("layoutNextFragment", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseLayoutFragment // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseLayoutFragmentFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -886,5 +1044,215 @@ func (_this *LayoutWorkletGlobalScope) RegisterLayout(name string, layoutCtor *w
 	_args[1] = _p1
 	_end++
 	_this.Value_JS.Call("registerLayout", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromiseIntrinsicSizes struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseIntrinsicSizes) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseIntrinsicSizesFromJS is casting a js.Wrapper into PromiseIntrinsicSizes.
+func PromiseIntrinsicSizesFromJS(value js.Wrapper) *PromiseIntrinsicSizes {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseIntrinsicSizes{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseIntrinsicSizes) Then(onFulfilled *PromiseIntrinsicSizesOnFulfilled, onRejected *PromiseIntrinsicSizesOnRejected) (_result *PromiseIntrinsicSizes) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseIntrinsicSizes // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntrinsicSizesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseIntrinsicSizes) Catch(onRejected *PromiseIntrinsicSizesOnRejected) (_result *PromiseIntrinsicSizes) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseIntrinsicSizes // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntrinsicSizesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseIntrinsicSizes) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseIntrinsicSizes) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseIntrinsicSizes // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntrinsicSizesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseLayoutFragment struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseLayoutFragment) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseLayoutFragmentFromJS is casting a js.Wrapper into PromiseLayoutFragment.
+func PromiseLayoutFragmentFromJS(value js.Wrapper) *PromiseLayoutFragment {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseLayoutFragment{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseLayoutFragment) Then(onFulfilled *PromiseLayoutFragmentOnFulfilled, onRejected *PromiseLayoutFragmentOnRejected) (_result *PromiseLayoutFragment) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseLayoutFragment // javascript: Promise _what_return_name
+	)
+	_converted = PromiseLayoutFragmentFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseLayoutFragment) Catch(onRejected *PromiseLayoutFragmentOnRejected) (_result *PromiseLayoutFragment) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseLayoutFragment // javascript: Promise _what_return_name
+	)
+	_converted = PromiseLayoutFragmentFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseLayoutFragment) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseLayoutFragment) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseLayoutFragment // javascript: Promise _what_return_name
+	)
+	_converted = PromiseLayoutFragmentFromJS(_returned)
+	_result = _converted
 	return
 }

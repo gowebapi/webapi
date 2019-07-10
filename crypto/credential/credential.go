@@ -13,13 +13,16 @@ import (
 
 // using following types:
 // domcore.AbortSignal
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 
 // source idl files:
 // credential-management.idl
+// promises.idl
 
 // transform files:
 // credential-management.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -93,6 +96,162 @@ func CredentialMediationRequirementFromJS(value js.Value) CredentialMediationReq
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseCredentialOnFulfilledFunc func(value *Credential)
+
+// PromiseCredentialOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseCredentialOnFulfilled js.Func
+
+func PromiseCredentialOnFulfilledToJS(callback PromiseCredentialOnFulfilledFunc) *PromiseCredentialOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseCredentialOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Credential // javascript: Credential value
+		)
+		_p0 = CredentialFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseCredentialOnFulfilledFromJS(_value js.Value) PromiseCredentialOnFulfilledFunc {
+	return func(value *Credential) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseCredentialOnRejectedFunc func(reason js.Value)
+
+// PromiseCredentialOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseCredentialOnRejected js.Func
+
+func PromiseCredentialOnRejectedToJS(callback PromiseCredentialOnRejectedFunc) *PromiseCredentialOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseCredentialOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseCredentialOnRejectedFromJS(_value js.Value) PromiseCredentialOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseNilCredentialOnFulfilledFunc func(value *Credential)
+
+// PromiseNilCredentialOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilCredentialOnFulfilled js.Func
+
+func PromiseNilCredentialOnFulfilledToJS(callback PromiseNilCredentialOnFulfilledFunc) *PromiseNilCredentialOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilCredentialOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Credential // javascript: Credential value
+		)
+		_p0 = CredentialFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilCredentialOnFulfilledFromJS(_value js.Value) PromiseNilCredentialOnFulfilledFunc {
+	return func(value *Credential) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseNilCredentialOnRejectedFunc func(reason js.Value)
+
+// PromiseNilCredentialOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilCredentialOnRejected js.Func
+
+func PromiseNilCredentialOnRejectedToJS(callback PromiseNilCredentialOnRejectedFunc) *PromiseNilCredentialOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilCredentialOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilCredentialOnRejectedFromJS(_value js.Value) PromiseNilCredentialOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: CredentialCreationOptions
@@ -437,7 +596,7 @@ func CredentialsContainerFromJS(value js.Wrapper) *CredentialsContainer {
 	return ret
 }
 
-func (_this *CredentialsContainer) Get(options *CredentialRequestOptions) (_result *javascript.Promise) {
+func (_this *CredentialsContainer) Get(options *CredentialRequestOptions) (_result *PromiseNilCredential) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -449,14 +608,14 @@ func (_this *CredentialsContainer) Get(options *CredentialRequestOptions) (_resu
 	}
 	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilCredential // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilCredentialFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CredentialsContainer) Store(credential *Credential) (_result *javascript.Promise) {
+func (_this *CredentialsContainer) Store(credential *Credential) (_result *PromiseCredential) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -466,14 +625,14 @@ func (_this *CredentialsContainer) Store(credential *Credential) (_result *javas
 	_end++
 	_returned := _this.Value_JS.Call("store", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseCredential // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseCredentialFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CredentialsContainer) Create(options *CredentialCreationOptions) (_result *javascript.Promise) {
+func (_this *CredentialsContainer) Create(options *CredentialCreationOptions) (_result *PromiseNilCredential) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -485,23 +644,23 @@ func (_this *CredentialsContainer) Create(options *CredentialCreationOptions) (_
 	}
 	_returned := _this.Value_JS.Call("create", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilCredential // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilCredentialFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CredentialsContainer) PreventSilentAccess() (_result *javascript.Promise) {
+func (_this *CredentialsContainer) PreventSilentAccess() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("preventSilentAccess", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -638,4 +797,214 @@ func (_this *PasswordCredential) IconURL() string {
 	value := _this.Value_JS.Get("iconURL")
 	ret = (value).String()
 	return ret
+}
+
+// interface: Promise
+type PromiseCredential struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseCredential) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseCredentialFromJS is casting a js.Wrapper into PromiseCredential.
+func PromiseCredentialFromJS(value js.Wrapper) *PromiseCredential {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseCredential{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseCredential) Then(onFulfilled *PromiseCredentialOnFulfilled, onRejected *PromiseCredentialOnRejected) (_result *PromiseCredential) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseCredential) Catch(onRejected *PromiseCredentialOnRejected) (_result *PromiseCredential) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseCredential) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseCredential) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseNilCredential struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseNilCredential) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseNilCredentialFromJS is casting a js.Wrapper into PromiseNilCredential.
+func PromiseNilCredentialFromJS(value js.Wrapper) *PromiseNilCredential {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseNilCredential{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseNilCredential) Then(onFulfilled *PromiseNilCredentialOnFulfilled, onRejected *PromiseNilCredentialOnRejected) (_result *PromiseNilCredential) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilCredential) Catch(onRejected *PromiseNilCredentialOnRejected) (_result *PromiseNilCredential) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilCredential) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseNilCredential) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCredential // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCredentialFromJS(_returned)
+	_result = _converted
+	return
 }

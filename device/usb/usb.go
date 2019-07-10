@@ -18,13 +18,16 @@ import (
 // domcore.EventTarget
 // javascript.DataView
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 // permissions.PermissionStatus
 
 // source idl files:
+// promises.idl
 // webusb.idl
 
 // transform files:
+// promises.go.md
 // webusb.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -273,6 +276,486 @@ func USBTransferStatusFromJS(value js.Value) USBTransferStatus {
 	return conv
 }
 
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceUSBDeviceOnFulfilledFunc func(value []*USBDevice)
+
+// PromiseSequenceUSBDeviceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceUSBDeviceOnFulfilled js.Func
+
+func PromiseSequenceUSBDeviceOnFulfilledToJS(callback PromiseSequenceUSBDeviceOnFulfilledFunc) *PromiseSequenceUSBDeviceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceUSBDeviceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*USBDevice // javascript: sequence<USBDevice> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*USBDevice, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *USBDevice
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = USBDeviceFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceUSBDeviceOnFulfilledFromJS(_value js.Value) PromiseSequenceUSBDeviceOnFulfilledFunc {
+	return func(value []*USBDevice) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceUSBDeviceOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceUSBDeviceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceUSBDeviceOnRejected js.Func
+
+func PromiseSequenceUSBDeviceOnRejectedToJS(callback PromiseSequenceUSBDeviceOnRejectedFunc) *PromiseSequenceUSBDeviceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceUSBDeviceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceUSBDeviceOnRejectedFromJS(_value js.Value) PromiseSequenceUSBDeviceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseUSBDeviceOnFulfilledFunc func(value *USBDevice)
+
+// PromiseUSBDeviceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBDeviceOnFulfilled js.Func
+
+func PromiseUSBDeviceOnFulfilledToJS(callback PromiseUSBDeviceOnFulfilledFunc) *PromiseUSBDeviceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBDeviceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *USBDevice // javascript: USBDevice value
+		)
+		_p0 = USBDeviceFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBDeviceOnFulfilledFromJS(_value js.Value) PromiseUSBDeviceOnFulfilledFunc {
+	return func(value *USBDevice) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseUSBDeviceOnRejectedFunc func(reason js.Value)
+
+// PromiseUSBDeviceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBDeviceOnRejected js.Func
+
+func PromiseUSBDeviceOnRejectedToJS(callback PromiseUSBDeviceOnRejectedFunc) *PromiseUSBDeviceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBDeviceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBDeviceOnRejectedFromJS(_value js.Value) PromiseUSBDeviceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseUSBInTransferResultOnFulfilledFunc func(value *USBInTransferResult)
+
+// PromiseUSBInTransferResultOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBInTransferResultOnFulfilled js.Func
+
+func PromiseUSBInTransferResultOnFulfilledToJS(callback PromiseUSBInTransferResultOnFulfilledFunc) *PromiseUSBInTransferResultOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBInTransferResultOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *USBInTransferResult // javascript: USBInTransferResult value
+		)
+		_p0 = USBInTransferResultFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBInTransferResultOnFulfilledFromJS(_value js.Value) PromiseUSBInTransferResultOnFulfilledFunc {
+	return func(value *USBInTransferResult) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseUSBInTransferResultOnRejectedFunc func(reason js.Value)
+
+// PromiseUSBInTransferResultOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBInTransferResultOnRejected js.Func
+
+func PromiseUSBInTransferResultOnRejectedToJS(callback PromiseUSBInTransferResultOnRejectedFunc) *PromiseUSBInTransferResultOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBInTransferResultOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBInTransferResultOnRejectedFromJS(_value js.Value) PromiseUSBInTransferResultOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseUSBIsochronousInTransferResultOnFulfilledFunc func(value *USBIsochronousInTransferResult)
+
+// PromiseUSBIsochronousInTransferResultOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBIsochronousInTransferResultOnFulfilled js.Func
+
+func PromiseUSBIsochronousInTransferResultOnFulfilledToJS(callback PromiseUSBIsochronousInTransferResultOnFulfilledFunc) *PromiseUSBIsochronousInTransferResultOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBIsochronousInTransferResultOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *USBIsochronousInTransferResult // javascript: USBIsochronousInTransferResult value
+		)
+		_p0 = USBIsochronousInTransferResultFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBIsochronousInTransferResultOnFulfilledFromJS(_value js.Value) PromiseUSBIsochronousInTransferResultOnFulfilledFunc {
+	return func(value *USBIsochronousInTransferResult) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseUSBIsochronousInTransferResultOnRejectedFunc func(reason js.Value)
+
+// PromiseUSBIsochronousInTransferResultOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBIsochronousInTransferResultOnRejected js.Func
+
+func PromiseUSBIsochronousInTransferResultOnRejectedToJS(callback PromiseUSBIsochronousInTransferResultOnRejectedFunc) *PromiseUSBIsochronousInTransferResultOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBIsochronousInTransferResultOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBIsochronousInTransferResultOnRejectedFromJS(_value js.Value) PromiseUSBIsochronousInTransferResultOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseUSBIsochronousOutTransferResultOnFulfilledFunc func(value *USBIsochronousOutTransferResult)
+
+// PromiseUSBIsochronousOutTransferResultOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBIsochronousOutTransferResultOnFulfilled js.Func
+
+func PromiseUSBIsochronousOutTransferResultOnFulfilledToJS(callback PromiseUSBIsochronousOutTransferResultOnFulfilledFunc) *PromiseUSBIsochronousOutTransferResultOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBIsochronousOutTransferResultOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *USBIsochronousOutTransferResult // javascript: USBIsochronousOutTransferResult value
+		)
+		_p0 = USBIsochronousOutTransferResultFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBIsochronousOutTransferResultOnFulfilledFromJS(_value js.Value) PromiseUSBIsochronousOutTransferResultOnFulfilledFunc {
+	return func(value *USBIsochronousOutTransferResult) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseUSBIsochronousOutTransferResultOnRejectedFunc func(reason js.Value)
+
+// PromiseUSBIsochronousOutTransferResultOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBIsochronousOutTransferResultOnRejected js.Func
+
+func PromiseUSBIsochronousOutTransferResultOnRejectedToJS(callback PromiseUSBIsochronousOutTransferResultOnRejectedFunc) *PromiseUSBIsochronousOutTransferResultOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBIsochronousOutTransferResultOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBIsochronousOutTransferResultOnRejectedFromJS(_value js.Value) PromiseUSBIsochronousOutTransferResultOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseUSBOutTransferResultOnFulfilledFunc func(value *USBOutTransferResult)
+
+// PromiseUSBOutTransferResultOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBOutTransferResultOnFulfilled js.Func
+
+func PromiseUSBOutTransferResultOnFulfilledToJS(callback PromiseUSBOutTransferResultOnFulfilledFunc) *PromiseUSBOutTransferResultOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBOutTransferResultOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *USBOutTransferResult // javascript: USBOutTransferResult value
+		)
+		_p0 = USBOutTransferResultFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBOutTransferResultOnFulfilledFromJS(_value js.Value) PromiseUSBOutTransferResultOnFulfilledFunc {
+	return func(value *USBOutTransferResult) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseUSBOutTransferResultOnRejectedFunc func(reason js.Value)
+
+// PromiseUSBOutTransferResultOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseUSBOutTransferResultOnRejected js.Func
+
+func PromiseUSBOutTransferResultOnRejectedToJS(callback PromiseUSBOutTransferResultOnRejectedFunc) *PromiseUSBOutTransferResultOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseUSBOutTransferResultOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseUSBOutTransferResultOnRejectedFromJS(_value js.Value) PromiseUSBOutTransferResultOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // dictionary: USBConnectionEventInit
 type USBConnectionEventInit struct {
 	Bubbles    bool
@@ -469,6 +952,636 @@ func USBDeviceRequestOptionsFromJS(value js.Wrapper) *USBDeviceRequestOptions {
 	return &out
 }
 
+// interface: Promise
+type PromiseSequenceUSBDevice struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceUSBDevice) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceUSBDeviceFromJS is casting a js.Wrapper into PromiseSequenceUSBDevice.
+func PromiseSequenceUSBDeviceFromJS(value js.Wrapper) *PromiseSequenceUSBDevice {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceUSBDevice{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceUSBDevice) Then(onFulfilled *PromiseSequenceUSBDeviceOnFulfilled, onRejected *PromiseSequenceUSBDeviceOnRejected) (_result *PromiseSequenceUSBDevice) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceUSBDevice) Catch(onRejected *PromiseSequenceUSBDeviceOnRejected) (_result *PromiseSequenceUSBDevice) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceUSBDevice) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceUSBDevice) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseUSBDevice struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseUSBDevice) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseUSBDeviceFromJS is casting a js.Wrapper into PromiseUSBDevice.
+func PromiseUSBDeviceFromJS(value js.Wrapper) *PromiseUSBDevice {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseUSBDevice{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseUSBDevice) Then(onFulfilled *PromiseUSBDeviceOnFulfilled, onRejected *PromiseUSBDeviceOnRejected) (_result *PromiseUSBDevice) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBDevice) Catch(onRejected *PromiseUSBDeviceOnRejected) (_result *PromiseUSBDevice) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBDevice) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseUSBDevice) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBDevice // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBDeviceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseUSBInTransferResult struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseUSBInTransferResult) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseUSBInTransferResultFromJS is casting a js.Wrapper into PromiseUSBInTransferResult.
+func PromiseUSBInTransferResultFromJS(value js.Wrapper) *PromiseUSBInTransferResult {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseUSBInTransferResult{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseUSBInTransferResult) Then(onFulfilled *PromiseUSBInTransferResultOnFulfilled, onRejected *PromiseUSBInTransferResultOnRejected) (_result *PromiseUSBInTransferResult) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBInTransferResult) Catch(onRejected *PromiseUSBInTransferResultOnRejected) (_result *PromiseUSBInTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBInTransferResult) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseUSBInTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseUSBIsochronousInTransferResult struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseUSBIsochronousInTransferResult) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseUSBIsochronousInTransferResultFromJS is casting a js.Wrapper into PromiseUSBIsochronousInTransferResult.
+func PromiseUSBIsochronousInTransferResultFromJS(value js.Wrapper) *PromiseUSBIsochronousInTransferResult {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseUSBIsochronousInTransferResult{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseUSBIsochronousInTransferResult) Then(onFulfilled *PromiseUSBIsochronousInTransferResultOnFulfilled, onRejected *PromiseUSBIsochronousInTransferResultOnRejected) (_result *PromiseUSBIsochronousInTransferResult) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBIsochronousInTransferResult) Catch(onRejected *PromiseUSBIsochronousInTransferResultOnRejected) (_result *PromiseUSBIsochronousInTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBIsochronousInTransferResult) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseUSBIsochronousInTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousInTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousInTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseUSBIsochronousOutTransferResult struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseUSBIsochronousOutTransferResult) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseUSBIsochronousOutTransferResultFromJS is casting a js.Wrapper into PromiseUSBIsochronousOutTransferResult.
+func PromiseUSBIsochronousOutTransferResultFromJS(value js.Wrapper) *PromiseUSBIsochronousOutTransferResult {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseUSBIsochronousOutTransferResult{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseUSBIsochronousOutTransferResult) Then(onFulfilled *PromiseUSBIsochronousOutTransferResultOnFulfilled, onRejected *PromiseUSBIsochronousOutTransferResultOnRejected) (_result *PromiseUSBIsochronousOutTransferResult) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBIsochronousOutTransferResult) Catch(onRejected *PromiseUSBIsochronousOutTransferResultOnRejected) (_result *PromiseUSBIsochronousOutTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBIsochronousOutTransferResult) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseUSBIsochronousOutTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBIsochronousOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBIsochronousOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseUSBOutTransferResult struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseUSBOutTransferResult) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseUSBOutTransferResultFromJS is casting a js.Wrapper into PromiseUSBOutTransferResult.
+func PromiseUSBOutTransferResultFromJS(value js.Wrapper) *PromiseUSBOutTransferResult {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseUSBOutTransferResult{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseUSBOutTransferResult) Then(onFulfilled *PromiseUSBOutTransferResultOnFulfilled, onRejected *PromiseUSBOutTransferResultOnRejected) (_result *PromiseUSBOutTransferResult) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBOutTransferResult) Catch(onRejected *PromiseUSBOutTransferResultOnRejected) (_result *PromiseUSBOutTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseUSBOutTransferResult) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseUSBOutTransferResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseUSBOutTransferResult // javascript: Promise _what_return_name
+	)
+	_converted = PromiseUSBOutTransferResultFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: USB
 type USB struct {
 	domcore.EventTarget
@@ -533,21 +1646,21 @@ func (_this *USB) SetOndisconnect(value *domcore.EventHandler) {
 	_this.Value_JS.Set("ondisconnect", input)
 }
 
-func (_this *USB) GetDevices() (_result *javascript.Promise) {
+func (_this *USB) GetDevices() (_result *PromiseSequenceUSBDevice) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getDevices", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceUSBDevice // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceUSBDeviceFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USB) RequestDevice(options *USBDeviceRequestOptions) (_result *javascript.Promise) {
+func (_this *USB) RequestDevice(options *USBDeviceRequestOptions) (_result *PromiseUSBDevice) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -557,9 +1670,9 @@ func (_this *USB) RequestDevice(options *USBDeviceRequestOptions) (_result *java
 	_end++
 	_returned := _this.Value_JS.Call("requestDevice", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBDevice // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBDeviceFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -966,35 +2079,35 @@ func (_this *USBDevice) Opened() bool {
 	return ret
 }
 
-func (_this *USBDevice) Open() (_result *javascript.Promise) {
+func (_this *USBDevice) Open() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("open", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) Close() (_result *javascript.Promise) {
+func (_this *USBDevice) Close() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("close", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) SelectConfiguration(configurationValue int) (_result *javascript.Promise) {
+func (_this *USBDevice) SelectConfiguration(configurationValue int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1004,14 +2117,14 @@ func (_this *USBDevice) SelectConfiguration(configurationValue int) (_result *ja
 	_end++
 	_returned := _this.Value_JS.Call("selectConfiguration", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) ClaimInterface(interfaceNumber int) (_result *javascript.Promise) {
+func (_this *USBDevice) ClaimInterface(interfaceNumber int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1021,14 +2134,14 @@ func (_this *USBDevice) ClaimInterface(interfaceNumber int) (_result *javascript
 	_end++
 	_returned := _this.Value_JS.Call("claimInterface", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) ReleaseInterface(interfaceNumber int) (_result *javascript.Promise) {
+func (_this *USBDevice) ReleaseInterface(interfaceNumber int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1038,14 +2151,14 @@ func (_this *USBDevice) ReleaseInterface(interfaceNumber int) (_result *javascri
 	_end++
 	_returned := _this.Value_JS.Call("releaseInterface", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) SelectAlternateInterface(interfaceNumber int, alternateSetting int) (_result *javascript.Promise) {
+func (_this *USBDevice) SelectAlternateInterface(interfaceNumber int, alternateSetting int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1058,14 +2171,14 @@ func (_this *USBDevice) SelectAlternateInterface(interfaceNumber int, alternateS
 	_end++
 	_returned := _this.Value_JS.Call("selectAlternateInterface", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) ControlTransferIn(setup *USBControlTransferParameters, length int) (_result *javascript.Promise) {
+func (_this *USBDevice) ControlTransferIn(setup *USBControlTransferParameters, length int) (_result *PromiseUSBInTransferResult) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1078,14 +2191,14 @@ func (_this *USBDevice) ControlTransferIn(setup *USBControlTransferParameters, l
 	_end++
 	_returned := _this.Value_JS.Call("controlTransferIn", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBInTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBInTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) ControlTransferOut(setup *USBControlTransferParameters, data *Union) (_result *javascript.Promise) {
+func (_this *USBDevice) ControlTransferOut(setup *USBControlTransferParameters, data *Union) (_result *PromiseUSBOutTransferResult) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1100,14 +2213,14 @@ func (_this *USBDevice) ControlTransferOut(setup *USBControlTransferParameters, 
 	}
 	_returned := _this.Value_JS.Call("controlTransferOut", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBOutTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBOutTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) ClearHalt(direction USBDirection, endpointNumber int) (_result *javascript.Promise) {
+func (_this *USBDevice) ClearHalt(direction USBDirection, endpointNumber int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1120,14 +2233,14 @@ func (_this *USBDevice) ClearHalt(direction USBDirection, endpointNumber int) (_
 	_end++
 	_returned := _this.Value_JS.Call("clearHalt", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) TransferIn(endpointNumber int, length uint) (_result *javascript.Promise) {
+func (_this *USBDevice) TransferIn(endpointNumber int, length uint) (_result *PromiseUSBInTransferResult) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1140,14 +2253,14 @@ func (_this *USBDevice) TransferIn(endpointNumber int, length uint) (_result *ja
 	_end++
 	_returned := _this.Value_JS.Call("transferIn", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBInTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBInTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) TransferOut(endpointNumber int, data *Union) (_result *javascript.Promise) {
+func (_this *USBDevice) TransferOut(endpointNumber int, data *Union) (_result *PromiseUSBOutTransferResult) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1160,14 +2273,14 @@ func (_this *USBDevice) TransferOut(endpointNumber int, data *Union) (_result *j
 	_end++
 	_returned := _this.Value_JS.Call("transferOut", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBOutTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBOutTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) IsochronousTransferIn(endpointNumber int, packetLengths []uint) (_result *javascript.Promise) {
+func (_this *USBDevice) IsochronousTransferIn(endpointNumber int, packetLengths []uint) (_result *PromiseUSBIsochronousInTransferResult) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1184,14 +2297,14 @@ func (_this *USBDevice) IsochronousTransferIn(endpointNumber int, packetLengths 
 	_end++
 	_returned := _this.Value_JS.Call("isochronousTransferIn", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBIsochronousInTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBIsochronousInTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) IsochronousTransferOut(endpointNumber int, data *Union, packetLengths []uint) (_result *javascript.Promise) {
+func (_this *USBDevice) IsochronousTransferOut(endpointNumber int, data *Union, packetLengths []uint) (_result *PromiseUSBIsochronousOutTransferResult) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1211,23 +2324,23 @@ func (_this *USBDevice) IsochronousTransferOut(endpointNumber int, data *Union, 
 	_end++
 	_returned := _this.Value_JS.Call("isochronousTransferOut", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseUSBIsochronousOutTransferResult // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseUSBIsochronousOutTransferResultFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *USBDevice) Reset() (_result *javascript.Promise) {
+func (_this *USBDevice) Reset() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("reset", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

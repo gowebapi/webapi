@@ -14,7 +14,7 @@ import (
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
-// javascript.Promise
+// javascript.PromiseVoid
 
 // source idl files:
 // screen-orientation.idl
@@ -203,7 +203,7 @@ func (_this *ScreenOrientation) SetOnchange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onchange", input)
 }
 
-func (_this *ScreenOrientation) Lock(orientation OrientationLockType) (_result *javascript.Promise) {
+func (_this *ScreenOrientation) Lock(orientation OrientationLockType) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -213,9 +213,9 @@ func (_this *ScreenOrientation) Lock(orientation OrientationLockType) (_result *
 	_end++
 	_returned := _this.Value_JS.Call("lock", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

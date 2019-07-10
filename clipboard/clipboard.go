@@ -14,9 +14,11 @@ import (
 
 // using following types:
 // datatransfer.DataTransfer
+// datatransfer.PromiseDataTransfer
 // domcore.Event
 // domcore.EventTarget
-// javascript.Promise
+// javascript.PromiseString
+// javascript.PromiseVoid
 
 // source idl files:
 // clipboard-apis.idl
@@ -119,35 +121,35 @@ func ClipboardFromJS(value js.Wrapper) *Clipboard {
 	return ret
 }
 
-func (_this *Clipboard) Read() (_result *javascript.Promise) {
+func (_this *Clipboard) Read() (_result *datatransfer.PromiseDataTransfer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("read", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *datatransfer.PromiseDataTransfer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = datatransfer.PromiseDataTransferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Clipboard) ReadText() (_result *javascript.Promise) {
+func (_this *Clipboard) ReadText() (_result *javascript.PromiseString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("readText", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseStringFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Clipboard) Write(data *datatransfer.DataTransfer) (_result *javascript.Promise) {
+func (_this *Clipboard) Write(data *datatransfer.DataTransfer) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -157,14 +159,14 @@ func (_this *Clipboard) Write(data *datatransfer.DataTransfer) (_result *javascr
 	_end++
 	_returned := _this.Value_JS.Call("write", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Clipboard) WriteText(data string) (_result *javascript.Promise) {
+func (_this *Clipboard) WriteText(data string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -174,9 +176,9 @@ func (_this *Clipboard) WriteText(data string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("writeText", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

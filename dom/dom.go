@@ -29,8 +29,10 @@ import (
 // geometry.DOMRect
 // geometry.DOMRectList
 // geometry.DOMRectReadOnly
+// javascript.FrozenArray
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 // typedom.StylePropertyMapReadOnly
 // view.BoxQuadOptions
 // view.ConvertCoordinateOptions
@@ -41,11 +43,13 @@ import (
 // box-tree-api.idl
 // dom.idl
 // fullscreen.idl
+// promises.idl
 
 // transform files:
 // box-tree-api.go.md
 // dom.go.md
 // fullscreen.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -203,6 +207,84 @@ func ShadowRootModeFromJS(value js.Value) ShadowRootMode {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseDeadFragmentInformationOnFulfilledFunc func(value *DeadFragmentInformation)
+
+// PromiseDeadFragmentInformationOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDeadFragmentInformationOnFulfilled js.Func
+
+func PromiseDeadFragmentInformationOnFulfilledToJS(callback PromiseDeadFragmentInformationOnFulfilledFunc) *PromiseDeadFragmentInformationOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDeadFragmentInformationOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *DeadFragmentInformation // javascript: DeadFragmentInformation value
+		)
+		_p0 = DeadFragmentInformationFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDeadFragmentInformationOnFulfilledFromJS(_value js.Value) PromiseDeadFragmentInformationOnFulfilledFunc {
+	return func(value *DeadFragmentInformation) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseDeadFragmentInformationOnRejectedFunc func(reason js.Value)
+
+// PromiseDeadFragmentInformationOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDeadFragmentInformationOnRejected js.Func
+
+func PromiseDeadFragmentInformationOnRejectedToJS(callback PromiseDeadFragmentInformationOnRejectedFunc) *PromiseDeadFragmentInformationOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDeadFragmentInformationOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDeadFragmentInformationOnRejectedFromJS(_value js.Value) PromiseDeadFragmentInformationOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: FullscreenOptions
@@ -693,6 +775,136 @@ func NewComment(data *string) (_result *Comment) {
 	_converted = CommentFromJS(_returned)
 	_result = _converted
 	return
+}
+
+// interface: DeadFragmentInformation
+type DeadFragmentInformation struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DeadFragmentInformation) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DeadFragmentInformationFromJS is casting a js.Wrapper into DeadFragmentInformation.
+func DeadFragmentInformationFromJS(value js.Wrapper) *DeadFragmentInformation {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DeadFragmentInformation{}
+	ret.Value_JS = input
+	return ret
+}
+
+// Node returning attribute 'node' with
+// type Node (idl: Node).
+func (_this *DeadFragmentInformation) Node() *Node {
+	var ret *Node
+	value := _this.Value_JS.Get("node")
+	ret = NodeFromJS(value)
+	return ret
+}
+
+// Width returning attribute 'width' with
+// type float64 (idl: double).
+func (_this *DeadFragmentInformation) Width() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("width")
+	ret = (value).Float()
+	return ret
+}
+
+// Height returning attribute 'height' with
+// type float64 (idl: double).
+func (_this *DeadFragmentInformation) Height() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("height")
+	ret = (value).Float()
+	return ret
+}
+
+// Top returning attribute 'top' with
+// type float64 (idl: double).
+func (_this *DeadFragmentInformation) Top() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("top")
+	ret = (value).Float()
+	return ret
+}
+
+// Left returning attribute 'left' with
+// type float64 (idl: double).
+func (_this *DeadFragmentInformation) Left() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("left")
+	ret = (value).Float()
+	return ret
+}
+
+// IsOverflowed returning attribute 'isOverflowed' with
+// type bool (idl: boolean).
+func (_this *DeadFragmentInformation) IsOverflowed() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isOverflowed")
+	ret = (value).Bool()
+	return ret
+}
+
+// Children returning attribute 'children' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *DeadFragmentInformation) Children() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("children")
+	if value.Type() != js.TypeNull {
+		ret = javascript.FrozenArrayFromJS(value)
+	}
+	return ret
+}
+
+// NextSibling returning attribute 'nextSibling' with
+// type DeadFragmentInformation (idl: DeadFragmentInformation).
+func (_this *DeadFragmentInformation) NextSibling() *DeadFragmentInformation {
+	var ret *DeadFragmentInformation
+	value := _this.Value_JS.Get("nextSibling")
+	if value.Type() != js.TypeNull {
+		ret = DeadFragmentInformationFromJS(value)
+	}
+	return ret
+}
+
+// PreviousSibling returning attribute 'previousSibling' with
+// type DeadFragmentInformation (idl: DeadFragmentInformation).
+func (_this *DeadFragmentInformation) PreviousSibling() *DeadFragmentInformation {
+	var ret *DeadFragmentInformation
+	value := _this.Value_JS.Get("previousSibling")
+	if value.Type() != js.TypeNull {
+		ret = DeadFragmentInformationFromJS(value)
+	}
+	return ret
+}
+
+// NextInBox returning attribute 'nextInBox' with
+// type DeadFragmentInformation (idl: DeadFragmentInformation).
+func (_this *DeadFragmentInformation) NextInBox() *DeadFragmentInformation {
+	var ret *DeadFragmentInformation
+	value := _this.Value_JS.Get("nextInBox")
+	if value.Type() != js.TypeNull {
+		ret = DeadFragmentInformationFromJS(value)
+	}
+	return ret
+}
+
+// PreviousInBox returning attribute 'previousInBox' with
+// type DeadFragmentInformation (idl: DeadFragmentInformation).
+func (_this *DeadFragmentInformation) PreviousInBox() *DeadFragmentInformation {
+	var ret *DeadFragmentInformation
+	value := _this.Value_JS.Get("previousInBox")
+	if value.Type() != js.TypeNull {
+		ret = DeadFragmentInformationFromJS(value)
+	}
+	return ret
 }
 
 // interface: DocumentFragment
@@ -2678,7 +2890,7 @@ func (_this *Element) InsertAdjacentHTML(position string, text string) {
 	return
 }
 
-func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *javascript.Promise) {
+func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *PromiseDeadFragmentInformation) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2688,9 +2900,9 @@ func (_this *Element) GetFragmentInformation(filter FragmentFilter) (_result *ja
 	_end++
 	_returned := _this.Value_JS.Call("getFragmentInformation", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseDeadFragmentInformation // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseDeadFragmentInformationFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2838,7 +3050,7 @@ func (_this *Element) ScrollBy2(x float64, y float64) {
 	return
 }
 
-func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *javascript.Promise) {
+func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2850,9 +3062,9 @@ func (_this *Element) RequestFullscreen(options *FullscreenOptions) (_result *ja
 	}
 	_returned := _this.Value_JS.Call("requestFullscreen", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -4180,6 +4392,111 @@ func (_this *ProcessingInstruction) Sheet() *cssom.CSSStyleSheet {
 		ret = cssom.CSSStyleSheetFromJS(value)
 	}
 	return ret
+}
+
+// interface: Promise
+type PromiseDeadFragmentInformation struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseDeadFragmentInformation) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseDeadFragmentInformationFromJS is casting a js.Wrapper into PromiseDeadFragmentInformation.
+func PromiseDeadFragmentInformationFromJS(value js.Wrapper) *PromiseDeadFragmentInformation {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseDeadFragmentInformation{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseDeadFragmentInformation) Then(onFulfilled *PromiseDeadFragmentInformationOnFulfilled, onRejected *PromiseDeadFragmentInformationOnRejected) (_result *PromiseDeadFragmentInformation) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseDeadFragmentInformation // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDeadFragmentInformationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDeadFragmentInformation) Catch(onRejected *PromiseDeadFragmentInformationOnRejected) (_result *PromiseDeadFragmentInformation) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseDeadFragmentInformation // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDeadFragmentInformationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDeadFragmentInformation) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseDeadFragmentInformation) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseDeadFragmentInformation // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDeadFragmentInformationFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: Range

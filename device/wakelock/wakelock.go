@@ -8,16 +8,20 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
+// javascript.PromiseFinally
 
 // source idl files:
+// promises.idl
 // wake-lock.idl
 
 // transform files:
+// promises.go.md
 // wake-lock.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -91,6 +95,189 @@ func WakeLockTypeFromJS(value js.Value) WakeLockType {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseWakeLockOnFulfilledFunc func(value *WakeLock)
+
+// PromiseWakeLockOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseWakeLockOnFulfilled js.Func
+
+func PromiseWakeLockOnFulfilledToJS(callback PromiseWakeLockOnFulfilledFunc) *PromiseWakeLockOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseWakeLockOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *WakeLock // javascript: WakeLock value
+		)
+		_p0 = WakeLockFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseWakeLockOnFulfilledFromJS(_value js.Value) PromiseWakeLockOnFulfilledFunc {
+	return func(value *WakeLock) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseWakeLockOnRejectedFunc func(reason js.Value)
+
+// PromiseWakeLockOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseWakeLockOnRejected js.Func
+
+func PromiseWakeLockOnRejectedToJS(callback PromiseWakeLockOnRejectedFunc) *PromiseWakeLockOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseWakeLockOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseWakeLockOnRejectedFromJS(_value js.Value) PromiseWakeLockOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// interface: Promise
+type PromiseWakeLock struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseWakeLock) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseWakeLockFromJS is casting a js.Wrapper into PromiseWakeLock.
+func PromiseWakeLockFromJS(value js.Wrapper) *PromiseWakeLock {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseWakeLock{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseWakeLock) Then(onFulfilled *PromiseWakeLockOnFulfilled, onRejected *PromiseWakeLockOnRejected) (_result *PromiseWakeLock) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWakeLockFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseWakeLock) Catch(onRejected *PromiseWakeLockOnRejected) (_result *PromiseWakeLock) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWakeLockFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseWakeLock) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseWakeLock) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWakeLockFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: WakeLock

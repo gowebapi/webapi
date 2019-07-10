@@ -10,6 +10,7 @@ import (
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/encrypted"
+	"github.com/gowebapi/webapi/media/pictureinpicture"
 	"github.com/gowebapi/webapi/media/remoteplayback"
 )
 
@@ -20,8 +21,9 @@ import (
 // html.HTMLElement
 // html.TimeRanges
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseVoid
 // local.MediaStream
+// pictureinpicture.PromisePictureInPictureWindow
 // remoteplayback.RemotePlayback
 
 // source idl files:
@@ -1051,16 +1053,16 @@ func (_this *HTMLMediaElement) GetStartDate() (_result *javascript.Object) {
 	return
 }
 
-func (_this *HTMLMediaElement) Play() (_result *javascript.Promise) {
+func (_this *HTMLMediaElement) Play() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("play", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1101,7 +1103,7 @@ func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, l
 	return
 }
 
-func (_this *HTMLMediaElement) SetSinkId(sinkId string) (_result *javascript.Promise) {
+func (_this *HTMLMediaElement) SetSinkId(sinkId string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1111,14 +1113,14 @@ func (_this *HTMLMediaElement) SetSinkId(sinkId string) (_result *javascript.Pro
 	_end++
 	_returned := _this.Value_JS.Call("setSinkId", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *HTMLMediaElement) SetMediaKeys(mediaKeys *encrypted.MediaKeys) (_result *javascript.Promise) {
+func (_this *HTMLMediaElement) SetMediaKeys(mediaKeys *encrypted.MediaKeys) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1128,9 +1130,9 @@ func (_this *HTMLMediaElement) SetMediaKeys(mediaKeys *encrypted.MediaKeys) (_re
 	_end++
 	_returned := _this.Value_JS.Call("setMediaKeys", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1448,16 +1450,16 @@ func (_this *HTMLVideoElement) SetDisablePictureInPicture(value bool) {
 	_this.Value_JS.Set("disablePictureInPicture", input)
 }
 
-func (_this *HTMLVideoElement) RequestPictureInPicture() (_result *javascript.Promise) {
+func (_this *HTMLVideoElement) RequestPictureInPicture() (_result *pictureinpicture.PromisePictureInPictureWindow) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("requestPictureInPicture", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *pictureinpicture.PromisePictureInPictureWindow // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = pictureinpicture.PromisePictureInPictureWindowFromJS(_returned)
 	_result = _converted
 	return
 }

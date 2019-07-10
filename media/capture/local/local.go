@@ -22,7 +22,8 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 // mediatype.MediaSettingsRange
 // mediatype.Point2D
 // patch.OverconstrainedError
@@ -30,9 +31,11 @@ import (
 
 // source idl files:
 // mediacapture-streams.idl
+// promises.idl
 
 // transform files:
 // mediacapture-streams.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -221,6 +224,174 @@ func NavigatorUserMediaSuccessCallbackFromJS(_value js.Value) NavigatorUserMedia
 			_end  int
 		)
 		_p0 := stream.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseMediaStreamOnFulfilledFunc func(value *MediaStream)
+
+// PromiseMediaStreamOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaStreamOnFulfilled js.Func
+
+func PromiseMediaStreamOnFulfilledToJS(callback PromiseMediaStreamOnFulfilledFunc) *PromiseMediaStreamOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaStreamOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *MediaStream // javascript: MediaStream value
+		)
+		_p0 = MediaStreamFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaStreamOnFulfilledFromJS(_value js.Value) PromiseMediaStreamOnFulfilledFunc {
+	return func(value *MediaStream) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseMediaStreamOnRejectedFunc func(reason js.Value)
+
+// PromiseMediaStreamOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaStreamOnRejected js.Func
+
+func PromiseMediaStreamOnRejectedToJS(callback PromiseMediaStreamOnRejectedFunc) *PromiseMediaStreamOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaStreamOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaStreamOnRejectedFromJS(_value js.Value) PromiseMediaStreamOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceMediaDeviceInfoOnFulfilledFunc func(value []*MediaDeviceInfo)
+
+// PromiseSequenceMediaDeviceInfoOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceMediaDeviceInfoOnFulfilled js.Func
+
+func PromiseSequenceMediaDeviceInfoOnFulfilledToJS(callback PromiseSequenceMediaDeviceInfoOnFulfilledFunc) *PromiseSequenceMediaDeviceInfoOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceMediaDeviceInfoOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*MediaDeviceInfo // javascript: sequence<MediaDeviceInfo> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*MediaDeviceInfo, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *MediaDeviceInfo
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = MediaDeviceInfoFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceMediaDeviceInfoOnFulfilledFromJS(_value js.Value) PromiseSequenceMediaDeviceInfoOnFulfilledFunc {
+	return func(value []*MediaDeviceInfo) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceMediaDeviceInfoOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceMediaDeviceInfoOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceMediaDeviceInfoOnRejected js.Func
+
+func PromiseSequenceMediaDeviceInfoOnRejectedToJS(callback PromiseSequenceMediaDeviceInfoOnRejectedFunc) *PromiseSequenceMediaDeviceInfoOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceMediaDeviceInfoOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceMediaDeviceInfoOnRejectedFromJS(_value js.Value) PromiseSequenceMediaDeviceInfoOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
 		_args[0] = _p0
 		_end++
 		_value.Invoke(_args[0:_end]...)
@@ -2303,7 +2474,7 @@ func (_this *ConstrainablePattern) GetSettings() (_result *Settings) {
 	return
 }
 
-func (_this *ConstrainablePattern) ApplyConstraints(constraints *Constraints) (_result *javascript.Promise) {
+func (_this *ConstrainablePattern) ApplyConstraints(constraints *Constraints) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2315,9 +2486,9 @@ func (_this *ConstrainablePattern) ApplyConstraints(constraints *Constraints) (_
 	}
 	_returned := _this.Value_JS.Call("applyConstraints", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2463,16 +2634,16 @@ func (_this *MediaDevices) SetOndevicechange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("ondevicechange", input)
 }
 
-func (_this *MediaDevices) EnumerateDevices() (_result *javascript.Promise) {
+func (_this *MediaDevices) EnumerateDevices() (_result *PromiseSequenceMediaDeviceInfo) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("enumerateDevices", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceMediaDeviceInfo // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceMediaDeviceInfoFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2491,7 +2662,7 @@ func (_this *MediaDevices) GetSupportedConstraints() (_result *MediaTrackSupport
 	return
 }
 
-func (_this *MediaDevices) GetUserMedia(constraints *MediaStreamConstraints) (_result *javascript.Promise) {
+func (_this *MediaDevices) GetUserMedia(constraints *MediaStreamConstraints) (_result *PromiseMediaStream) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2503,14 +2674,14 @@ func (_this *MediaDevices) GetUserMedia(constraints *MediaStreamConstraints) (_r
 	}
 	_returned := _this.Value_JS.Call("getUserMedia", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseMediaStream // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseMediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaDevices) GetDisplayMedia(constraints *screen.DisplayMediaStreamConstraints) (_result *javascript.Promise) {
+func (_this *MediaDevices) GetDisplayMedia(constraints *screen.DisplayMediaStreamConstraints) (_result *PromiseMediaStream) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2522,9 +2693,9 @@ func (_this *MediaDevices) GetDisplayMedia(constraints *screen.DisplayMediaStrea
 	}
 	_returned := _this.Value_JS.Call("getDisplayMedia", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseMediaStream // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseMediaStreamFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -3010,7 +3181,7 @@ func (_this *MediaStreamTrack) GetSettings() (_result *MediaTrackSettings) {
 	return
 }
 
-func (_this *MediaStreamTrack) ApplyConstraints(constraints *MediaTrackConstraints) (_result *javascript.Promise) {
+func (_this *MediaStreamTrack) ApplyConstraints(constraints *MediaTrackConstraints) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -3022,9 +3193,9 @@ func (_this *MediaStreamTrack) ApplyConstraints(constraints *MediaTrackConstrain
 	}
 	_returned := _this.Value_JS.Call("applyConstraints", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -3121,4 +3292,214 @@ func (_this *OverconstrainedErrorEvent) Error() *patch.OverconstrainedError {
 		ret = patch.OverconstrainedErrorFromJS(value)
 	}
 	return ret
+}
+
+// interface: Promise
+type PromiseMediaStream struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseMediaStream) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseMediaStreamFromJS is casting a js.Wrapper into PromiseMediaStream.
+func PromiseMediaStreamFromJS(value js.Wrapper) *PromiseMediaStream {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseMediaStream{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseMediaStream) Then(onFulfilled *PromiseMediaStreamOnFulfilled, onRejected *PromiseMediaStreamOnRejected) (_result *PromiseMediaStream) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaStream // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaStreamFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaStream) Catch(onRejected *PromiseMediaStreamOnRejected) (_result *PromiseMediaStream) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaStream // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaStreamFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaStream) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseMediaStream) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaStream // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaStreamFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceMediaDeviceInfo struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceMediaDeviceInfo) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceMediaDeviceInfoFromJS is casting a js.Wrapper into PromiseSequenceMediaDeviceInfo.
+func PromiseSequenceMediaDeviceInfoFromJS(value js.Wrapper) *PromiseSequenceMediaDeviceInfo {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceMediaDeviceInfo{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceMediaDeviceInfo) Then(onFulfilled *PromiseSequenceMediaDeviceInfoOnFulfilled, onRejected *PromiseSequenceMediaDeviceInfoOnRejected) (_result *PromiseSequenceMediaDeviceInfo) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceMediaDeviceInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceMediaDeviceInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceMediaDeviceInfo) Catch(onRejected *PromiseSequenceMediaDeviceInfoOnRejected) (_result *PromiseSequenceMediaDeviceInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceMediaDeviceInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceMediaDeviceInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceMediaDeviceInfo) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceMediaDeviceInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceMediaDeviceInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceMediaDeviceInfoFromJS(_returned)
+	_result = _converted
+	return
 }

@@ -9,8 +9,6 @@ import js "github.com/gowebapi/webapi/core/js"
 import (
 	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/dom/domcore"
-	"github.com/gowebapi/webapi/file"
-	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/patch"
 )
 
@@ -18,8 +16,6 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
-// file.Blob
-// html.HTMLFormElement
 // patch.ByteString
 // webapi.Document
 
@@ -162,190 +158,6 @@ func ProgressEventInitFromJS(value js.Wrapper) *ProgressEventInit {
 	value5 = (input.Get("total")).Int()
 	out.Total = value5
 	return &out
-}
-
-// interface: FormData
-type FormData struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *FormData) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// FormDataFromJS is casting a js.Wrapper into FormData.
-func FormDataFromJS(value js.Wrapper) *FormData {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &FormData{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewFormData(form *html.HTMLFormElement) (_result *FormData) {
-	_klass := js.Global().Get("FormData")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	if form != nil {
-		_p0 := form.JSValue()
-		_args[0] = _p0
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *FormData // javascript: FormData _what_return_name
-	)
-	_converted = FormDataFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *FormData) Append(name string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("append", _args[0:_end]...)
-	return
-}
-
-func (_this *FormData) Append2(name string, blobValue *file.Blob, filename *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_p1 := blobValue.JSValue()
-	_args[1] = _p1
-	_end++
-	if filename != nil {
-		_p2 := filename
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("append", _args[0:_end]...)
-	return
-}
-
-func (_this *FormData) Delete(name string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("delete", _args[0:_end]...)
-	return
-}
-
-func (_this *FormData) Get(name string) (_result *Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
-	var (
-		_converted *Union // javascript: Union _what_return_name
-	)
-	if _returned.Type() != js.TypeNull {
-		_converted = UnionFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *FormData) GetAll(name string) (_result []*Union) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getAll", _args[0:_end]...)
-	var (
-		_converted []*Union // javascript: sequence<Union> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*Union, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *Union
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = UnionFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-func (_this *FormData) Has(name string) (_result bool) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("has", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
-}
-
-func (_this *FormData) Set(name string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("set", _args[0:_end]...)
-	return
-}
-
-func (_this *FormData) Set2(name string, blobValue *file.Blob, filename *string) {
-	var (
-		_args [3]interface{}
-		_end  int
-	)
-	_p0 := name
-	_args[0] = _p0
-	_end++
-	_p1 := blobValue.JSValue()
-	_args[1] = _p1
-	_end++
-	if filename != nil {
-		_p2 := filename
-		_args[2] = _p2
-		_end++
-	}
-	_this.Value_JS.Call("set", _args[0:_end]...)
-	return
 }
 
 // interface: ProgressEvent

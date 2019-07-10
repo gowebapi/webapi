@@ -21,13 +21,16 @@ import (
 // geometry.DOMPointReadOnly
 // javascript.Float32Array
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 // webgl.Framebuffer
 
 // source idl files:
+// promises.idl
 // webxr.idl
 
 // transform files:
+// promises.go.md
 // webxr.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -359,6 +362,162 @@ func XRTargetRayModeFromJS(value js.Value) XRTargetRayMode {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseXRReferenceSpaceOnFulfilledFunc func(value *XRReferenceSpace)
+
+// PromiseXRReferenceSpaceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseXRReferenceSpaceOnFulfilled js.Func
+
+func PromiseXRReferenceSpaceOnFulfilledToJS(callback PromiseXRReferenceSpaceOnFulfilledFunc) *PromiseXRReferenceSpaceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseXRReferenceSpaceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *XRReferenceSpace // javascript: XRReferenceSpace value
+		)
+		_p0 = XRReferenceSpaceFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseXRReferenceSpaceOnFulfilledFromJS(_value js.Value) PromiseXRReferenceSpaceOnFulfilledFunc {
+	return func(value *XRReferenceSpace) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseXRReferenceSpaceOnRejectedFunc func(reason js.Value)
+
+// PromiseXRReferenceSpaceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseXRReferenceSpaceOnRejected js.Func
+
+func PromiseXRReferenceSpaceOnRejectedToJS(callback PromiseXRReferenceSpaceOnRejectedFunc) *PromiseXRReferenceSpaceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseXRReferenceSpaceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseXRReferenceSpaceOnRejectedFromJS(_value js.Value) PromiseXRReferenceSpaceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseXRSessionOnFulfilledFunc func(value *XRSession)
+
+// PromiseXRSessionOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseXRSessionOnFulfilled js.Func
+
+func PromiseXRSessionOnFulfilledToJS(callback PromiseXRSessionOnFulfilledFunc) *PromiseXRSessionOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseXRSessionOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *XRSession // javascript: XRSession value
+		)
+		_p0 = XRSessionFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseXRSessionOnFulfilledFromJS(_value js.Value) PromiseXRSessionOnFulfilledFunc {
+	return func(value *XRSession) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseXRSessionOnRejectedFunc func(reason js.Value)
+
+// PromiseXRSessionOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseXRSessionOnRejected js.Func
+
+func PromiseXRSessionOnRejectedToJS(callback PromiseXRSessionOnRejectedFunc) *PromiseXRSessionOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseXRSessionOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseXRSessionOnRejectedFromJS(_value js.Value) PromiseXRSessionOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // callback: XRFrameRequestCallback
@@ -719,6 +878,216 @@ func XRWebGLLayerInitFromJS(value js.Wrapper) *XRWebGLLayerInit {
 	return &out
 }
 
+// interface: Promise
+type PromiseXRReferenceSpace struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseXRReferenceSpace) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseXRReferenceSpaceFromJS is casting a js.Wrapper into PromiseXRReferenceSpace.
+func PromiseXRReferenceSpaceFromJS(value js.Wrapper) *PromiseXRReferenceSpace {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseXRReferenceSpace{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseXRReferenceSpace) Then(onFulfilled *PromiseXRReferenceSpaceOnFulfilled, onRejected *PromiseXRReferenceSpaceOnRejected) (_result *PromiseXRReferenceSpace) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseXRReferenceSpace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRReferenceSpaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseXRReferenceSpace) Catch(onRejected *PromiseXRReferenceSpaceOnRejected) (_result *PromiseXRReferenceSpace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseXRReferenceSpace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRReferenceSpaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseXRReferenceSpace) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseXRReferenceSpace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseXRReferenceSpace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRReferenceSpaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseXRSession struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseXRSession) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseXRSessionFromJS is casting a js.Wrapper into PromiseXRSession.
+func PromiseXRSessionFromJS(value js.Wrapper) *PromiseXRSession {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseXRSession{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseXRSession) Then(onFulfilled *PromiseXRSessionOnFulfilled, onRejected *PromiseXRSessionOnRejected) (_result *PromiseXRSession) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseXRSession // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRSessionFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseXRSession) Catch(onRejected *PromiseXRSessionOnRejected) (_result *PromiseXRSession) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseXRSession // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRSessionFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseXRSession) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseXRSession) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseXRSession // javascript: Promise _what_return_name
+	)
+	_converted = PromiseXRSessionFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: XR
 type XR struct {
 	domcore.EventTarget
@@ -759,7 +1128,7 @@ func (_this *XR) SetOndevicechange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("ondevicechange", input)
 }
 
-func (_this *XR) SupportsSessionMode(mode XRSessionMode) (_result *javascript.Promise) {
+func (_this *XR) SupportsSessionMode(mode XRSessionMode) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -769,14 +1138,14 @@ func (_this *XR) SupportsSessionMode(mode XRSessionMode) (_result *javascript.Pr
 	_end++
 	_returned := _this.Value_JS.Call("supportsSessionMode", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *XR) RequestSession(parameters *XRSessionCreationOptions) (_result *javascript.Promise) {
+func (_this *XR) RequestSession(parameters *XRSessionCreationOptions) (_result *PromiseXRSession) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -788,9 +1157,9 @@ func (_this *XR) RequestSession(parameters *XRSessionCreationOptions) (_result *
 	}
 	_returned := _this.Value_JS.Call("requestSession", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseXRSession // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseXRSessionFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1642,7 +2011,7 @@ func (_this *XRSession) UpdateRenderState(state *XRRenderStateInit) {
 	return
 }
 
-func (_this *XRSession) RequestReferenceSpace(options *XRReferenceSpaceOptions) (_result *javascript.Promise) {
+func (_this *XRSession) RequestReferenceSpace(options *XRReferenceSpaceOptions) (_result *PromiseXRReferenceSpace) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1652,9 +2021,9 @@ func (_this *XRSession) RequestReferenceSpace(options *XRReferenceSpaceOptions) 
 	_end++
 	_returned := _this.Value_JS.Call("requestReferenceSpace", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseXRReferenceSpace // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseXRReferenceSpaceFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1709,16 +2078,16 @@ func (_this *XRSession) CancelAnimationFrame(handle int) {
 	return
 }
 
-func (_this *XRSession) End() (_result *javascript.Promise) {
+func (_this *XRSession) End() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("end", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

@@ -15,13 +15,15 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
-// javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
 // IndexedDB.idl
+// promises.idl
 
 // transform files:
 // IndexedDB.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -181,6 +183,96 @@ func IDBTransactionModeFromJS(value js.Value) IDBTransactionMode {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceIDBDatabaseInfoOnFulfilledFunc func(value []*IDBDatabaseInfo)
+
+// PromiseSequenceIDBDatabaseInfoOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceIDBDatabaseInfoOnFulfilled js.Func
+
+func PromiseSequenceIDBDatabaseInfoOnFulfilledToJS(callback PromiseSequenceIDBDatabaseInfoOnFulfilledFunc) *PromiseSequenceIDBDatabaseInfoOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceIDBDatabaseInfoOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*IDBDatabaseInfo // javascript: sequence<IDBDatabaseInfo> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*IDBDatabaseInfo, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *IDBDatabaseInfo
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = IDBDatabaseInfoFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceIDBDatabaseInfoOnFulfilledFromJS(_value js.Value) PromiseSequenceIDBDatabaseInfoOnFulfilledFunc {
+	return func(value []*IDBDatabaseInfo) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceIDBDatabaseInfoOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceIDBDatabaseInfoOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceIDBDatabaseInfoOnRejected js.Func
+
+func PromiseSequenceIDBDatabaseInfoOnRejectedToJS(callback PromiseSequenceIDBDatabaseInfoOnRejectedFunc) *PromiseSequenceIDBDatabaseInfoOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceIDBDatabaseInfoOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceIDBDatabaseInfoOnRejectedFromJS(_value js.Value) PromiseSequenceIDBDatabaseInfoOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: IDBDatabaseInfo
@@ -760,16 +852,16 @@ func (_this *IDBFactory) DeleteDatabase(name string) (_result *IDBOpenDBRequest)
 	return
 }
 
-func (_this *IDBFactory) Databases() (_result *javascript.Promise) {
+func (_this *IDBFactory) Databases() (_result *PromiseSequenceIDBDatabaseInfo) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("databases", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceIDBDatabaseInfo // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceIDBDatabaseInfoFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1936,4 +2028,109 @@ func (_this *IDBVersionChangeEvent) NewVersion() *int {
 		ret = &__tmp
 	}
 	return ret
+}
+
+// interface: Promise
+type PromiseSequenceIDBDatabaseInfo struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceIDBDatabaseInfo) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceIDBDatabaseInfoFromJS is casting a js.Wrapper into PromiseSequenceIDBDatabaseInfo.
+func PromiseSequenceIDBDatabaseInfoFromJS(value js.Wrapper) *PromiseSequenceIDBDatabaseInfo {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceIDBDatabaseInfo{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceIDBDatabaseInfo) Then(onFulfilled *PromiseSequenceIDBDatabaseInfoOnFulfilled, onRejected *PromiseSequenceIDBDatabaseInfoOnRejected) (_result *PromiseSequenceIDBDatabaseInfo) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIDBDatabaseInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIDBDatabaseInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceIDBDatabaseInfo) Catch(onRejected *PromiseSequenceIDBDatabaseInfoOnRejected) (_result *PromiseSequenceIDBDatabaseInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIDBDatabaseInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIDBDatabaseInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceIDBDatabaseInfo) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceIDBDatabaseInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIDBDatabaseInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIDBDatabaseInfoFromJS(_returned)
+	_result = _converted
+	return
 }

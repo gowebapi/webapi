@@ -15,13 +15,15 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
 // notifications.idl
+// promises.idl
 
 // transform files:
 // notifications.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -172,6 +174,84 @@ func PermissionCallbackFromJS(_value js.Value) PermissionCallbackFunc {
 			_end  int
 		)
 		_p0 := permission.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePermissionModeOnFulfilledFunc func(value PermissionMode)
+
+// PromisePermissionModeOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePermissionModeOnFulfilled js.Func
+
+func PromisePermissionModeOnFulfilledToJS(callback PromisePermissionModeOnFulfilledFunc) *PromisePermissionModeOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePermissionModeOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 PermissionMode // javascript: NotificationPermission value
+		)
+		_p0 = PermissionModeFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePermissionModeOnFulfilledFromJS(_value js.Value) PromisePermissionModeOnFulfilledFunc {
+	return func(value PermissionMode) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePermissionModeOnRejectedFunc func(reason js.Value)
+
+// PromisePermissionModeOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePermissionModeOnRejected js.Func
+
+func PromisePermissionModeOnRejectedToJS(callback PromisePermissionModeOnRejectedFunc) *PromisePermissionModeOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePermissionModeOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePermissionModeOnRejectedFromJS(_value js.Value) PromisePermissionModeOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
 		_args[0] = _p0
 		_end++
 		_value.Invoke(_args[0:_end]...)
@@ -367,7 +447,7 @@ func MaxActions() uint {
 	return ret
 }
 
-func RequestPermission(deprecatedCallback *PermissionCallback) (_result *javascript.Promise) {
+func RequestPermission(deprecatedCallback *PermissionCallback) (_result *PromisePermissionMode) {
 	_klass := js.Global().Get("Notification")
 	_method := _klass.Get("requestPermission")
 	var (
@@ -388,9 +468,9 @@ func RequestPermission(deprecatedCallback *PermissionCallback) (_result *javascr
 	}
 	_returned := _method.Invoke(_args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromisePermissionMode // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromisePermissionModeFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -655,5 +735,110 @@ func (_this *Notification) Close() {
 		_end  int
 	)
 	_this.Value_JS.Call("close", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromisePermissionMode struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePermissionMode) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePermissionModeFromJS is casting a js.Wrapper into PromisePermissionMode.
+func PromisePermissionModeFromJS(value js.Wrapper) *PromisePermissionMode {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePermissionMode{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePermissionMode) Then(onFulfilled *PromisePermissionModeOnFulfilled, onRejected *PromisePermissionModeOnRejected) (_result *PromisePermissionMode) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionMode // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionModeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePermissionMode) Catch(onRejected *PromisePermissionModeOnRejected) (_result *PromisePermissionMode) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionMode // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionModeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePermissionMode) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePermissionMode) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionMode // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionModeFromJS(_returned)
+	_result = _converted
 	return
 }

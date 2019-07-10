@@ -10,10 +10,12 @@ import (
 	"github.com/gowebapi/webapi/clipboard"
 	"github.com/gowebapi/webapi/communication/netinfo"
 	"github.com/gowebapi/webapi/crypto/credential"
+	"github.com/gowebapi/webapi/device/battery"
 	"github.com/gowebapi/webapi/device/gamepad"
 	"github.com/gowebapi/webapi/device/keyboard/lock"
 	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/device/wakelock"
+	"github.com/gowebapi/webapi/device/webvr"
 	"github.com/gowebapi/webapi/device/webxr"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -29,6 +31,7 @@ import (
 )
 
 // using following types:
+// battery.PromiseBatteryManager
 // capabilities.MediaCapabilities
 // clipboard.Clipboard
 // credential.CredentialsContainer
@@ -39,9 +42,10 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // encrypted.MediaKeySystemConfiguration
+// encrypted.PromiseMediaKeySystemAccess
 // gamepad.Gamepad
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseVoid
 // local.MediaDevices
 // local.MediaStreamConstraints
 // local.NavigatorUserMediaErrorCallback
@@ -54,7 +58,9 @@ import (
 // share.ShareData
 // storage.StorageManager
 // usb.USB
+// wakelock.PromiseWakeLock
 // wakelock.WakeLockType
+// webvr.PromiseSequenceDisplay
 // webxr.XR
 
 // source idl files:
@@ -659,7 +665,7 @@ func (_this *CustomElementRegistry) Get(name string) (_result js.Value) {
 	return
 }
 
-func (_this *CustomElementRegistry) WhenDefined(name string) (_result *javascript.Promise) {
+func (_this *CustomElementRegistry) WhenDefined(name string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -669,9 +675,9 @@ func (_this *CustomElementRegistry) WhenDefined(name string) (_result *javascrip
 	_end++
 	_returned := _this.Value_JS.Call("whenDefined", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1353,15 +1359,6 @@ func NavigatorFromJS(value js.Wrapper) *Navigator {
 	return ret
 }
 
-// Usb returning attribute 'usb' with
-// type usb.USB (idl: USB).
-func (_this *Navigator) Usb() *usb.USB {
-	var ret *usb.USB
-	value := _this.Value_JS.Get("usb")
-	ret = usb.USBFromJS(value)
-	return ret
-}
-
 // Clipboard returning attribute 'clipboard' with
 // type clipboard.Clipboard (idl: Clipboard).
 func (_this *Navigator) Clipboard() *clipboard.Clipboard {
@@ -1440,6 +1437,15 @@ func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
 	var ret *serviceworker.ServiceWorkerContainer
 	value := _this.Value_JS.Get("serviceWorker")
 	ret = serviceworker.ServiceWorkerContainerFromJS(value)
+	return ret
+}
+
+// Usb returning attribute 'usb' with
+// type usb.USB (idl: USB).
+func (_this *Navigator) Usb() *usb.USB {
+	var ret *usb.USB
+	value := _this.Value_JS.Get("usb")
+	ret = usb.USBFromJS(value)
 	return ret
 }
 
@@ -1641,16 +1647,16 @@ func (_this *Navigator) Webdriver() bool {
 	return ret
 }
 
-func (_this *Navigator) GetBattery() (_result *javascript.Promise) {
+func (_this *Navigator) GetBattery() (_result *battery.PromiseBatteryManager) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getBattery", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *battery.PromiseBatteryManager // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = battery.PromiseBatteryManagerFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1677,7 +1683,7 @@ func (_this *Navigator) SendBeacon(url string, data *Union) (_result bool) {
 	return
 }
 
-func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedConfigurations []*encrypted.MediaKeySystemConfiguration) (_result *javascript.Promise) {
+func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedConfigurations []*encrypted.MediaKeySystemConfiguration) (_result *encrypted.PromiseMediaKeySystemAccess) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1694,9 +1700,9 @@ func (_this *Navigator) RequestMediaKeySystemAccess(keySystem string, supportedC
 	_end++
 	_returned := _this.Value_JS.Call("requestMediaKeySystemAccess", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *encrypted.PromiseMediaKeySystemAccess // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = encrypted.PromiseMediaKeySystemAccessFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1772,7 +1778,7 @@ func (_this *Navigator) Vibrate(pattern *Union) (_result bool) {
 	return
 }
 
-func (_this *Navigator) GetWakeLock(_type wakelock.WakeLockType) (_result *javascript.Promise) {
+func (_this *Navigator) GetWakeLock(_type wakelock.WakeLockType) (_result *wakelock.PromiseWakeLock) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1782,14 +1788,14 @@ func (_this *Navigator) GetWakeLock(_type wakelock.WakeLockType) (_result *javas
 	_end++
 	_returned := _this.Value_JS.Call("getWakeLock", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *wakelock.PromiseWakeLock // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = wakelock.PromiseWakeLockFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.Promise) {
+func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1801,23 +1807,23 @@ func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.Promis
 	}
 	_returned := _this.Value_JS.Call("share", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Navigator) GetVRDisplays() (_result *javascript.Promise) {
+func (_this *Navigator) GetVRDisplays() (_result *webvr.PromiseSequenceDisplay) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getVRDisplays", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *webvr.PromiseSequenceDisplay // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = webvr.PromiseSequenceDisplayFromJS(_returned)
 	_result = _converted
 	return
 }

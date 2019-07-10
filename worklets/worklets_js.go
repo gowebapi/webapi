@@ -11,7 +11,7 @@ import (
 
 // using following types:
 // fetch.RequestCredentials
-// javascript.Promise
+// javascript.PromiseVoid
 
 // source idl files:
 // worklets.idl
@@ -99,7 +99,7 @@ func WorkletFromJS(value js.Wrapper) *Worklet {
 	return ret
 }
 
-func (_this *Worklet) AddModule(moduleURL string, options *WorkletOptions) (_result *javascript.Promise) {
+func (_this *Worklet) AddModule(moduleURL string, options *WorkletOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -114,9 +114,9 @@ func (_this *Worklet) AddModule(moduleURL string, options *WorkletOptions) (_res
 	}
 	_returned := _this.Value_JS.Call("addModule", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

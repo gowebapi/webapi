@@ -12,31 +12,41 @@ import (
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/payment"
+	"github.com/gowebapi/webapi/serviceworker/client"
 )
 
 // using following types:
 // appmanifest.ImageResource
 // channel.MessagePort
+// client.ClientType
+// client.PromiseNilWindowClient
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.ExtendableEvent
-// domcore.VisibilityState
+// fetch.PromiseResponse
 // fetch.Request
 // fetch.Response
 // htmlcommon.WorkerType
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
+// javascript.PromiseBool
+// javascript.PromiseFinally
+// javascript.PromiseFrozenArray
+// javascript.PromiseSequenceString
+// javascript.PromiseVoid
 // payment.PaymentManager
 
 // source idl files:
 // BackgroundSync.idl
 // background-fetch.idl
+// promises.idl
 // service-workers.idl
 
 // transform files:
 // BackgroundSync.go.md
 // background-fetch.go.md
+// promises.go.md
 // service-workers.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -159,94 +169,6 @@ func BackgroundFetchResultFromJS(value js.Value) BackgroundFetchResult {
 	return conv
 }
 
-// enum: ClientType
-type ClientType int
-
-const (
-	WindowClientType ClientType = iota
-	WorkerClientType
-	SharedworkerClientType
-	AllClientType
-)
-
-var clientTypeToWasmTable = []string{
-	"window", "worker", "sharedworker", "all",
-}
-
-var clientTypeFromWasmTable = map[string]ClientType{
-	"window": WindowClientType, "worker": WorkerClientType, "sharedworker": SharedworkerClientType, "all": AllClientType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *ClientType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this ClientType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(clientTypeToWasmTable) {
-		return clientTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// ClientTypeFromJS is converting a javascript value into
-// a ClientType enum value.
-func ClientTypeFromJS(value js.Value) ClientType {
-	key := value.String()
-	conv, ok := clientTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
-// enum: FrameType
-type FrameType int
-
-const (
-	AuxiliaryFrameType FrameType = iota
-	TopLevelFrameType
-	NestedFrameType
-	NoneFrameType
-)
-
-var frameTypeToWasmTable = []string{
-	"auxiliary", "top-level", "nested", "none",
-}
-
-var frameTypeFromWasmTable = map[string]FrameType{
-	"auxiliary": AuxiliaryFrameType, "top-level": TopLevelFrameType, "nested": NestedFrameType, "none": NoneFrameType,
-}
-
-// JSValue is converting this enum into a java object
-func (this *FrameType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this FrameType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(frameTypeToWasmTable) {
-		return frameTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// FrameTypeFromJS is converting a javascript value into
-// a FrameType enum value.
-func FrameTypeFromJS(value js.Value) FrameType {
-	key := value.String()
-	conv, ok := frameTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // enum: ServiceWorkerState
 type ServiceWorkerState int
 
@@ -333,6 +255,486 @@ func ServiceWorkerUpdateViaCacheFromJS(value js.Value) ServiceWorkerUpdateViaCac
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseBackgroundFetchRecordOnFulfilledFunc func(value *BackgroundFetchRecord)
+
+// PromiseBackgroundFetchRecordOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBackgroundFetchRecordOnFulfilled js.Func
+
+func PromiseBackgroundFetchRecordOnFulfilledToJS(callback PromiseBackgroundFetchRecordOnFulfilledFunc) *PromiseBackgroundFetchRecordOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBackgroundFetchRecordOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *BackgroundFetchRecord // javascript: BackgroundFetchRecord value
+		)
+		_p0 = BackgroundFetchRecordFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBackgroundFetchRecordOnFulfilledFromJS(_value js.Value) PromiseBackgroundFetchRecordOnFulfilledFunc {
+	return func(value *BackgroundFetchRecord) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseBackgroundFetchRecordOnRejectedFunc func(reason js.Value)
+
+// PromiseBackgroundFetchRecordOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBackgroundFetchRecordOnRejected js.Func
+
+func PromiseBackgroundFetchRecordOnRejectedToJS(callback PromiseBackgroundFetchRecordOnRejectedFunc) *PromiseBackgroundFetchRecordOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBackgroundFetchRecordOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBackgroundFetchRecordOnRejectedFromJS(_value js.Value) PromiseBackgroundFetchRecordOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseBackgroundFetchRegistrationOnFulfilledFunc func(value *BackgroundFetchRegistration)
+
+// PromiseBackgroundFetchRegistrationOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBackgroundFetchRegistrationOnFulfilled js.Func
+
+func PromiseBackgroundFetchRegistrationOnFulfilledToJS(callback PromiseBackgroundFetchRegistrationOnFulfilledFunc) *PromiseBackgroundFetchRegistrationOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBackgroundFetchRegistrationOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *BackgroundFetchRegistration // javascript: BackgroundFetchRegistration value
+		)
+		_p0 = BackgroundFetchRegistrationFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBackgroundFetchRegistrationOnFulfilledFromJS(_value js.Value) PromiseBackgroundFetchRegistrationOnFulfilledFunc {
+	return func(value *BackgroundFetchRegistration) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseBackgroundFetchRegistrationOnRejectedFunc func(reason js.Value)
+
+// PromiseBackgroundFetchRegistrationOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBackgroundFetchRegistrationOnRejected js.Func
+
+func PromiseBackgroundFetchRegistrationOnRejectedToJS(callback PromiseBackgroundFetchRegistrationOnRejectedFunc) *PromiseBackgroundFetchRegistrationOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBackgroundFetchRegistrationOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBackgroundFetchRegistrationOnRejectedFromJS(_value js.Value) PromiseBackgroundFetchRegistrationOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseCacheOnFulfilledFunc func(value *Cache)
+
+// PromiseCacheOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseCacheOnFulfilled js.Func
+
+func PromiseCacheOnFulfilledToJS(callback PromiseCacheOnFulfilledFunc) *PromiseCacheOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseCacheOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Cache // javascript: Cache value
+		)
+		_p0 = CacheFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseCacheOnFulfilledFromJS(_value js.Value) PromiseCacheOnFulfilledFunc {
+	return func(value *Cache) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseCacheOnRejectedFunc func(reason js.Value)
+
+// PromiseCacheOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseCacheOnRejected js.Func
+
+func PromiseCacheOnRejectedToJS(callback PromiseCacheOnRejectedFunc) *PromiseCacheOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseCacheOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseCacheOnRejectedFromJS(_value js.Value) PromiseCacheOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseNilBackgroundFetchRegistrationOnFulfilledFunc func(value *BackgroundFetchRegistration)
+
+// PromiseNilBackgroundFetchRegistrationOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilBackgroundFetchRegistrationOnFulfilled js.Func
+
+func PromiseNilBackgroundFetchRegistrationOnFulfilledToJS(callback PromiseNilBackgroundFetchRegistrationOnFulfilledFunc) *PromiseNilBackgroundFetchRegistrationOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilBackgroundFetchRegistrationOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *BackgroundFetchRegistration // javascript: BackgroundFetchRegistration value
+		)
+		_p0 = BackgroundFetchRegistrationFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilBackgroundFetchRegistrationOnFulfilledFromJS(_value js.Value) PromiseNilBackgroundFetchRegistrationOnFulfilledFunc {
+	return func(value *BackgroundFetchRegistration) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseNilBackgroundFetchRegistrationOnRejectedFunc func(reason js.Value)
+
+// PromiseNilBackgroundFetchRegistrationOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilBackgroundFetchRegistrationOnRejected js.Func
+
+func PromiseNilBackgroundFetchRegistrationOnRejectedToJS(callback PromiseNilBackgroundFetchRegistrationOnRejectedFunc) *PromiseNilBackgroundFetchRegistrationOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilBackgroundFetchRegistrationOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilBackgroundFetchRegistrationOnRejectedFromJS(_value js.Value) PromiseNilBackgroundFetchRegistrationOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceBackgroundFetchRecordOnFulfilledFunc func(value []*BackgroundFetchRecord)
+
+// PromiseSequenceBackgroundFetchRecordOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceBackgroundFetchRecordOnFulfilled js.Func
+
+func PromiseSequenceBackgroundFetchRecordOnFulfilledToJS(callback PromiseSequenceBackgroundFetchRecordOnFulfilledFunc) *PromiseSequenceBackgroundFetchRecordOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceBackgroundFetchRecordOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*BackgroundFetchRecord // javascript: sequence<BackgroundFetchRecord> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*BackgroundFetchRecord, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *BackgroundFetchRecord
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = BackgroundFetchRecordFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceBackgroundFetchRecordOnFulfilledFromJS(_value js.Value) PromiseSequenceBackgroundFetchRecordOnFulfilledFunc {
+	return func(value []*BackgroundFetchRecord) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceBackgroundFetchRecordOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceBackgroundFetchRecordOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceBackgroundFetchRecordOnRejected js.Func
+
+func PromiseSequenceBackgroundFetchRecordOnRejectedToJS(callback PromiseSequenceBackgroundFetchRecordOnRejectedFunc) *PromiseSequenceBackgroundFetchRecordOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceBackgroundFetchRecordOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceBackgroundFetchRecordOnRejectedFromJS(_value js.Value) PromiseSequenceBackgroundFetchRecordOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseServiceWorkerRegistrationOnFulfilledFunc func(value *ServiceWorkerRegistration)
+
+// PromiseServiceWorkerRegistrationOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseServiceWorkerRegistrationOnFulfilled js.Func
+
+func PromiseServiceWorkerRegistrationOnFulfilledToJS(callback PromiseServiceWorkerRegistrationOnFulfilledFunc) *PromiseServiceWorkerRegistrationOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseServiceWorkerRegistrationOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *ServiceWorkerRegistration // javascript: ServiceWorkerRegistration value
+		)
+		_p0 = ServiceWorkerRegistrationFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseServiceWorkerRegistrationOnFulfilledFromJS(_value js.Value) PromiseServiceWorkerRegistrationOnFulfilledFunc {
+	return func(value *ServiceWorkerRegistration) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseServiceWorkerRegistrationOnRejectedFunc func(reason js.Value)
+
+// PromiseServiceWorkerRegistrationOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseServiceWorkerRegistrationOnRejected js.Func
+
+func PromiseServiceWorkerRegistrationOnRejectedToJS(callback PromiseServiceWorkerRegistrationOnRejectedFunc) *PromiseServiceWorkerRegistrationOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseServiceWorkerRegistrationOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseServiceWorkerRegistrationOnRejectedFromJS(_value js.Value) PromiseServiceWorkerRegistrationOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: BackgroundFetchEventInit
@@ -522,7 +924,7 @@ func CacheQueryOptionsFromJS(value js.Wrapper) *CacheQueryOptions {
 // dictionary: ClientQueryOptions
 type ClientQueryOptions struct {
 	IncludeUncontrolled bool
-	Type                ClientType
+	Type                client.ClientType
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -543,12 +945,12 @@ func ClientQueryOptionsFromJS(value js.Wrapper) *ClientQueryOptions {
 	input := value.JSValue()
 	var out ClientQueryOptions
 	var (
-		value0 bool       // javascript: boolean {includeUncontrolled IncludeUncontrolled includeUncontrolled}
-		value1 ClientType // javascript: ClientType {type Type _type}
+		value0 bool              // javascript: boolean {includeUncontrolled IncludeUncontrolled includeUncontrolled}
+		value1 client.ClientType // javascript: ClientType {type Type _type}
 	)
 	value0 = (input.Get("includeUncontrolled")).Bool()
 	out.IncludeUncontrolled = value0
-	value1 = ClientTypeFromJS(input.Get("type"))
+	value1 = client.ClientTypeFromJS(input.Get("type"))
 	out.Type = value1
 	return &out
 }
@@ -894,7 +1296,7 @@ func BackgroundFetchManagerFromJS(value js.Wrapper) *BackgroundFetchManager {
 	return ret
 }
 
-func (_this *BackgroundFetchManager) Fetch(id string, requests *Union, options *BackgroundFetchOptions) (_result *javascript.Promise) {
+func (_this *BackgroundFetchManager) Fetch(id string, requests *Union, options *BackgroundFetchOptions) (_result *PromiseBackgroundFetchRegistration) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -912,14 +1314,14 @@ func (_this *BackgroundFetchManager) Fetch(id string, requests *Union, options *
 	}
 	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseBackgroundFetchRegistration // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseBackgroundFetchRegistrationFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *BackgroundFetchManager) Get(id string) (_result *javascript.Promise) {
+func (_this *BackgroundFetchManager) Get(id string) (_result *PromiseNilBackgroundFetchRegistration) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -929,23 +1331,23 @@ func (_this *BackgroundFetchManager) Get(id string) (_result *javascript.Promise
 	_end++
 	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilBackgroundFetchRegistration // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilBackgroundFetchRegistrationFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *BackgroundFetchManager) GetIds() (_result *javascript.Promise) {
+func (_this *BackgroundFetchManager) GetIds() (_result *javascript.PromiseSequenceString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getIds", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseSequenceString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseSequenceStringFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1101,21 +1503,21 @@ func (_this *BackgroundFetchRegistration) SetOnprogress(value *domcore.EventHand
 	_this.Value_JS.Set("onprogress", input)
 }
 
-func (_this *BackgroundFetchRegistration) Abort() (_result *javascript.Promise) {
+func (_this *BackgroundFetchRegistration) Abort() (_result *javascript.PromiseBool) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("abort", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *BackgroundFetchRegistration) Match(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+func (_this *BackgroundFetchRegistration) Match(request *Union, options *CacheQueryOptions) (_result *PromiseBackgroundFetchRecord) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1130,14 +1532,14 @@ func (_this *BackgroundFetchRegistration) Match(request *Union, options *CacheQu
 	}
 	_returned := _this.Value_JS.Call("match", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseBackgroundFetchRecord // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseBackgroundFetchRecordFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *BackgroundFetchRegistration) MatchAll(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+func (_this *BackgroundFetchRegistration) MatchAll(request *Union, options *CacheQueryOptions) (_result *PromiseSequenceBackgroundFetchRecord) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1154,9 +1556,9 @@ func (_this *BackgroundFetchRegistration) MatchAll(request *Union, options *Cach
 	}
 	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceBackgroundFetchRecord // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceBackgroundFetchRecordFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1198,7 +1600,7 @@ func NewBackgroundFetchUpdateUIEvent(_type string, init *BackgroundFetchEventIni
 	return
 }
 
-func (_this *BackgroundFetchUpdateUIEvent) UpdateUI(options *BackgroundFetchUIOptions) (_result *javascript.Promise) {
+func (_this *BackgroundFetchUpdateUIEvent) UpdateUI(options *BackgroundFetchUIOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1210,9 +1612,9 @@ func (_this *BackgroundFetchUpdateUIEvent) UpdateUI(options *BackgroundFetchUIOp
 	}
 	_returned := _this.Value_JS.Call("updateUI", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1260,7 +1662,7 @@ func (_this *Cache) Match(request *Union, options *CacheQueryOptions) (_result *
 	return
 }
 
-func (_this *Cache) MatchAll(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+func (_this *Cache) MatchAll(request *Union, options *CacheQueryOptions) (_result *javascript.PromiseFrozenArray) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1277,14 +1679,14 @@ func (_this *Cache) MatchAll(request *Union, options *CacheQueryOptions) (_resul
 	}
 	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseFrozenArray // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseFrozenArrayFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Cache) Add(request *Union) (_result *javascript.Promise) {
+func (_this *Cache) Add(request *Union) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1294,14 +1696,14 @@ func (_this *Cache) Add(request *Union) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("add", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Cache) AddAll(requests []*Union) (_result *javascript.Promise) {
+func (_this *Cache) AddAll(requests []*Union) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1315,14 +1717,14 @@ func (_this *Cache) AddAll(requests []*Union) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("addAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Cache) Put(request *Union, response *fetch.Response) (_result *javascript.Promise) {
+func (_this *Cache) Put(request *Union, response *fetch.Response) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1335,14 +1737,14 @@ func (_this *Cache) Put(request *Union, response *fetch.Response) (_result *java
 	_end++
 	_returned := _this.Value_JS.Call("put", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Cache) Delete(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+func (_this *Cache) Delete(request *Union, options *CacheQueryOptions) (_result *javascript.PromiseBool) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1357,14 +1759,14 @@ func (_this *Cache) Delete(request *Union, options *CacheQueryOptions) (_result 
 	}
 	_returned := _this.Value_JS.Call("delete", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Cache) Keys(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
+func (_this *Cache) Keys(request *Union, options *CacheQueryOptions) (_result *javascript.PromiseFrozenArray) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1381,9 +1783,9 @@ func (_this *Cache) Keys(request *Union, options *CacheQueryOptions) (_result *j
 	}
 	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseFrozenArray // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseFrozenArrayFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1431,7 +1833,7 @@ func (_this *CacheStorage) Match(request *Union, options *MultiCacheQueryOptions
 	return
 }
 
-func (_this *CacheStorage) Has(cacheName string) (_result *javascript.Promise) {
+func (_this *CacheStorage) Has(cacheName string) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1441,14 +1843,14 @@ func (_this *CacheStorage) Has(cacheName string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("has", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CacheStorage) Open(cacheName string) (_result *javascript.Promise) {
+func (_this *CacheStorage) Open(cacheName string) (_result *PromiseCache) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1458,14 +1860,14 @@ func (_this *CacheStorage) Open(cacheName string) (_result *javascript.Promise) 
 	_end++
 	_returned := _this.Value_JS.Call("open", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseCache // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseCacheFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CacheStorage) Delete(cacheName string) (_result *javascript.Promise) {
+func (_this *CacheStorage) Delete(cacheName string) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1475,102 +1877,24 @@ func (_this *CacheStorage) Delete(cacheName string) (_result *javascript.Promise
 	_end++
 	_returned := _this.Value_JS.Call("delete", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CacheStorage) Keys() (_result *javascript.Promise) {
+func (_this *CacheStorage) Keys() (_result *javascript.PromiseSequenceString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseSequenceString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseSequenceStringFromJS(_returned)
 	_result = _converted
-	return
-}
-
-// interface: Client
-type Client struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Client) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// ClientFromJS is casting a js.Wrapper into Client.
-func ClientFromJS(value js.Wrapper) *Client {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Client{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *Client) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// FrameType returning attribute 'frameType' with
-// type FrameType (idl: FrameType).
-func (_this *Client) FrameType() FrameType {
-	var ret FrameType
-	value := _this.Value_JS.Get("frameType")
-	ret = FrameTypeFromJS(value)
-	return ret
-}
-
-// Id returning attribute 'id' with
-// type string (idl: DOMString).
-func (_this *Client) Id() string {
-	var ret string
-	value := _this.Value_JS.Get("id")
-	ret = (value).String()
-	return ret
-}
-
-// Type returning attribute 'type' with
-// type ClientType (idl: ClientType).
-func (_this *Client) Type() ClientType {
-	var ret ClientType
-	value := _this.Value_JS.Get("type")
-	ret = ClientTypeFromJS(value)
-	return ret
-}
-
-func (_this *Client) PostMessage(message interface{}, transfer []*javascript.Object) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := message
-	_args[0] = _p0
-	_end++
-	if transfer != nil {
-		_p1 := js.Global().Get("Array").New(len(transfer))
-		for __idx1, __seq_in1 := range transfer {
-			__seq_out1 := __seq_in1.JSValue()
-			_p1.SetIndex(__idx1, __seq_out1)
-		}
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("postMessage", _args[0:_end]...)
 	return
 }
 
@@ -1612,7 +1936,7 @@ func (_this *Clients) Get(id string) (_result *javascript.Promise) {
 	return
 }
 
-func (_this *Clients) MatchAll(options *ClientQueryOptions) (_result *javascript.Promise) {
+func (_this *Clients) MatchAll(options *ClientQueryOptions) (_result *javascript.PromiseFrozenArray) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1624,14 +1948,14 @@ func (_this *Clients) MatchAll(options *ClientQueryOptions) (_result *javascript
 	}
 	_returned := _this.Value_JS.Call("matchAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseFrozenArray // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseFrozenArrayFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Clients) OpenWindow(url string) (_result *javascript.Promise) {
+func (_this *Clients) OpenWindow(url string) (_result *client.PromiseNilWindowClient) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1641,23 +1965,23 @@ func (_this *Clients) OpenWindow(url string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("openWindow", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *client.PromiseNilWindowClient // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = client.PromiseNilWindowClientFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Clients) Claim() (_result *javascript.Promise) {
+func (_this *Clients) Claim() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("claim", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1803,7 +2127,7 @@ func (_this *FetchEvent) ClientId() string {
 	return ret
 }
 
-func (_this *FetchEvent) RespondWith(r *javascript.Promise) {
+func (_this *FetchEvent) RespondWith(r *fetch.PromiseResponse) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1812,6 +2136,636 @@ func (_this *FetchEvent) RespondWith(r *javascript.Promise) {
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("respondWith", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromiseBackgroundFetchRecord struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseBackgroundFetchRecord) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseBackgroundFetchRecord.
+func PromiseBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseBackgroundFetchRecord {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseBackgroundFetchRecord{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseBackgroundFetchRecord) Then(onFulfilled *PromiseBackgroundFetchRecordOnFulfilled, onRejected *PromiseBackgroundFetchRecordOnRejected) (_result *PromiseBackgroundFetchRecord) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBackgroundFetchRecord) Catch(onRejected *PromiseBackgroundFetchRecordOnRejected) (_result *PromiseBackgroundFetchRecord) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBackgroundFetchRecord) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseBackgroundFetchRecord) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseBackgroundFetchRegistration struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseBackgroundFetchRegistration) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseBackgroundFetchRegistration.
+func PromiseBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseBackgroundFetchRegistration {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseBackgroundFetchRegistration{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseBackgroundFetchRegistration) Then(onFulfilled *PromiseBackgroundFetchRegistrationOnFulfilled, onRejected *PromiseBackgroundFetchRegistrationOnRejected) (_result *PromiseBackgroundFetchRegistration) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBackgroundFetchRegistration) Catch(onRejected *PromiseBackgroundFetchRegistrationOnRejected) (_result *PromiseBackgroundFetchRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBackgroundFetchRegistration) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseBackgroundFetchRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseCache struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseCache) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseCacheFromJS is casting a js.Wrapper into PromiseCache.
+func PromiseCacheFromJS(value js.Wrapper) *PromiseCache {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseCache{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseCache) Then(onFulfilled *PromiseCacheOnFulfilled, onRejected *PromiseCacheOnRejected) (_result *PromiseCache) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseCache // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCacheFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseCache) Catch(onRejected *PromiseCacheOnRejected) (_result *PromiseCache) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseCache // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCacheFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseCache) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseCache) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseCache // javascript: Promise _what_return_name
+	)
+	_converted = PromiseCacheFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseNilBackgroundFetchRegistration struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseNilBackgroundFetchRegistration) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseNilBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseNilBackgroundFetchRegistration.
+func PromiseNilBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseNilBackgroundFetchRegistration {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseNilBackgroundFetchRegistration{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseNilBackgroundFetchRegistration) Then(onFulfilled *PromiseNilBackgroundFetchRegistrationOnFulfilled, onRejected *PromiseNilBackgroundFetchRegistrationOnRejected) (_result *PromiseNilBackgroundFetchRegistration) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseNilBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilBackgroundFetchRegistration) Catch(onRejected *PromiseNilBackgroundFetchRegistrationOnRejected) (_result *PromiseNilBackgroundFetchRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseNilBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilBackgroundFetchRegistration) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseNilBackgroundFetchRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseNilBackgroundFetchRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilBackgroundFetchRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceBackgroundFetchRecord struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceBackgroundFetchRecord) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseSequenceBackgroundFetchRecord.
+func PromiseSequenceBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseSequenceBackgroundFetchRecord {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceBackgroundFetchRecord{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceBackgroundFetchRecord) Then(onFulfilled *PromiseSequenceBackgroundFetchRecordOnFulfilled, onRejected *PromiseSequenceBackgroundFetchRecordOnRejected) (_result *PromiseSequenceBackgroundFetchRecord) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceBackgroundFetchRecord) Catch(onRejected *PromiseSequenceBackgroundFetchRecordOnRejected) (_result *PromiseSequenceBackgroundFetchRecord) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceBackgroundFetchRecord) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceBackgroundFetchRecord) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBackgroundFetchRecord // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBackgroundFetchRecordFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseServiceWorkerRegistration struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseServiceWorkerRegistration) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseServiceWorkerRegistrationFromJS is casting a js.Wrapper into PromiseServiceWorkerRegistration.
+func PromiseServiceWorkerRegistrationFromJS(value js.Wrapper) *PromiseServiceWorkerRegistration {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseServiceWorkerRegistration{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseServiceWorkerRegistration) Then(onFulfilled *PromiseServiceWorkerRegistrationOnFulfilled, onRejected *PromiseServiceWorkerRegistrationOnRejected) (_result *PromiseServiceWorkerRegistration) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseServiceWorkerRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseServiceWorkerRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseServiceWorkerRegistration) Catch(onRejected *PromiseServiceWorkerRegistrationOnRejected) (_result *PromiseServiceWorkerRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseServiceWorkerRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseServiceWorkerRegistrationFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseServiceWorkerRegistration) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseServiceWorkerRegistration) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseServiceWorkerRegistration // javascript: Promise _what_return_name
+	)
+	_converted = PromiseServiceWorkerRegistrationFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -2026,7 +2980,7 @@ func (_this *ServiceWorkerContainer) SetOnmessageerror(value *domcore.EventHandl
 	_this.Value_JS.Set("onmessageerror", input)
 }
 
-func (_this *ServiceWorkerContainer) Register(scriptURL string, options *RegistrationOptions) (_result *javascript.Promise) {
+func (_this *ServiceWorkerContainer) Register(scriptURL string, options *RegistrationOptions) (_result *PromiseServiceWorkerRegistration) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -2041,9 +2995,9 @@ func (_this *ServiceWorkerContainer) Register(scriptURL string, options *Registr
 	}
 	_returned := _this.Value_JS.Call("register", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseServiceWorkerRegistration // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseServiceWorkerRegistrationFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2067,16 +3021,16 @@ func (_this *ServiceWorkerContainer) GetRegistration(clientURL *string) (_result
 	return
 }
 
-func (_this *ServiceWorkerContainer) GetRegistrations() (_result *javascript.Promise) {
+func (_this *ServiceWorkerContainer) GetRegistrations() (_result *javascript.PromiseFrozenArray) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getRegistrations", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseFrozenArray // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseFrozenArrayFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2208,30 +3162,30 @@ func (_this *ServiceWorkerRegistration) PaymentManager() *payment.PaymentManager
 	return ret
 }
 
-func (_this *ServiceWorkerRegistration) Update() (_result *javascript.Promise) {
+func (_this *ServiceWorkerRegistration) Update() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("update", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.Promise) {
+func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.PromiseBool) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("unregister", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -2312,7 +3266,7 @@ func SyncManagerFromJS(value js.Wrapper) *SyncManager {
 	return ret
 }
 
-func (_this *SyncManager) Register(tag string) (_result *javascript.Promise) {
+func (_this *SyncManager) Register(tag string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2322,97 +3276,23 @@ func (_this *SyncManager) Register(tag string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("register", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SyncManager) GetTags() (_result *javascript.Promise) {
+func (_this *SyncManager) GetTags() (_result *javascript.PromiseSequenceString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getTags", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseSequenceString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// interface: WindowClient
-type WindowClient struct {
-	Client
-}
-
-// WindowClientFromJS is casting a js.Wrapper into WindowClient.
-func WindowClientFromJS(value js.Wrapper) *WindowClient {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &WindowClient{}
-	ret.Value_JS = input
-	return ret
-}
-
-// VisibilityState returning attribute 'visibilityState' with
-// type domcore.VisibilityState (idl: VisibilityState).
-func (_this *WindowClient) VisibilityState() domcore.VisibilityState {
-	var ret domcore.VisibilityState
-	value := _this.Value_JS.Get("visibilityState")
-	ret = domcore.VisibilityStateFromJS(value)
-	return ret
-}
-
-// Focused returning attribute 'focused' with
-// type bool (idl: boolean).
-func (_this *WindowClient) Focused() bool {
-	var ret bool
-	value := _this.Value_JS.Get("focused")
-	ret = (value).Bool()
-	return ret
-}
-
-// AncestorOrigins returning attribute 'ancestorOrigins' with
-// type javascript.FrozenArray (idl: FrozenArray).
-func (_this *WindowClient) AncestorOrigins() *javascript.FrozenArray {
-	var ret *javascript.FrozenArray
-	value := _this.Value_JS.Get("ancestorOrigins")
-	ret = javascript.FrozenArrayFromJS(value)
-	return ret
-}
-
-func (_this *WindowClient) Focus() (_result *javascript.Promise) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("focus", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *WindowClient) Navigate(url string) (_result *javascript.Promise) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := url
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("navigate", _args[0:_end]...)
-	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
-	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseSequenceStringFromJS(_returned)
 	_result = _converted
 	return
 }

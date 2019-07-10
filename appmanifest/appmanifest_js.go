@@ -12,13 +12,15 @@ import (
 // using following types:
 // domcore.Event
 // domcore.EventInit
-// javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
 // appmanifest.idl
+// promises.idl
 
 // transform files:
 // appmanifest.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -91,6 +93,84 @@ func AppBannerPromptOutcomeFromJS(value js.Value) AppBannerPromptOutcome {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePromptResponseObjectOnFulfilledFunc func(value *PromptResponseObject)
+
+// PromisePromptResponseObjectOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePromptResponseObjectOnFulfilled js.Func
+
+func PromisePromptResponseObjectOnFulfilledToJS(callback PromisePromptResponseObjectOnFulfilledFunc) *PromisePromptResponseObjectOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePromptResponseObjectOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PromptResponseObject // javascript: PromptResponseObject value
+		)
+		_p0 = PromptResponseObjectFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePromptResponseObjectOnFulfilledFromJS(_value js.Value) PromisePromptResponseObjectOnFulfilledFunc {
+	return func(value *PromptResponseObject) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePromptResponseObjectOnRejectedFunc func(reason js.Value)
+
+// PromisePromptResponseObjectOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePromptResponseObjectOnRejected js.Func
+
+func PromisePromptResponseObjectOnRejectedToJS(callback PromisePromptResponseObjectOnRejectedFunc) *PromisePromptResponseObjectOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePromptResponseObjectOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePromptResponseObjectOnRejectedFromJS(_value js.Value) PromisePromptResponseObjectOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: ImageResource
@@ -212,16 +292,121 @@ func NewBeforeInstallPromptEvent(_type string, eventInitDict *domcore.EventInit)
 	return
 }
 
-func (_this *BeforeInstallPromptEvent) Prompt() (_result *javascript.Promise) {
+func (_this *BeforeInstallPromptEvent) Prompt() (_result *PromisePromptResponseObject) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("prompt", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromisePromptResponseObject // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromisePromptResponseObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromisePromptResponseObject struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePromptResponseObject) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePromptResponseObjectFromJS is casting a js.Wrapper into PromisePromptResponseObject.
+func PromisePromptResponseObjectFromJS(value js.Wrapper) *PromisePromptResponseObject {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePromptResponseObject{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePromptResponseObject) Then(onFulfilled *PromisePromptResponseObjectOnFulfilled, onRejected *PromisePromptResponseObjectOnRejected) (_result *PromisePromptResponseObject) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePromptResponseObject // javascript: Promise _what_return_name
+	)
+	_converted = PromisePromptResponseObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePromptResponseObject) Catch(onRejected *PromisePromptResponseObjectOnRejected) (_result *PromisePromptResponseObject) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePromptResponseObject // javascript: Promise _what_return_name
+	)
+	_converted = PromisePromptResponseObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePromptResponseObject) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePromptResponseObject) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePromptResponseObject // javascript: Promise _what_return_name
+	)
+	_converted = PromisePromptResponseObjectFromJS(_returned)
 	_result = _converted
 	return
 }

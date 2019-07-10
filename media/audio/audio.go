@@ -25,7 +25,8 @@ import (
 // javascript.ArrayBuffer
 // javascript.Float32Array
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 // javascript.Uint8Array
 // local.MediaStream
 // local.MediaStreamTrack
@@ -35,9 +36,11 @@ import (
 // worklets.WorkletGlobalScope
 
 // source idl files:
+// promises.idl
 // webaudio.idl
 
 // transform files:
+// promises.go.md
 // webaudio.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -576,6 +579,84 @@ func DecodeSuccessCallbackFromJS(_value js.Value) DecodeSuccessCallbackFunc {
 			_end  int
 		)
 		_p0 := decodedData.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseAudioBufferOnFulfilledFunc func(value *AudioBuffer)
+
+// PromiseAudioBufferOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseAudioBufferOnFulfilled js.Func
+
+func PromiseAudioBufferOnFulfilledToJS(callback PromiseAudioBufferOnFulfilledFunc) *PromiseAudioBufferOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseAudioBufferOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *AudioBuffer // javascript: AudioBuffer value
+		)
+		_p0 = AudioBufferFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseAudioBufferOnFulfilledFromJS(_value js.Value) PromiseAudioBufferOnFulfilledFunc {
+	return func(value *AudioBuffer) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseAudioBufferOnRejectedFunc func(reason js.Value)
+
+// PromiseAudioBufferOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseAudioBufferOnRejected js.Func
+
+func PromiseAudioBufferOnRejectedToJS(callback PromiseAudioBufferOnRejectedFunc) *PromiseAudioBufferOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseAudioBufferOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseAudioBufferOnRejectedFromJS(_value js.Value) PromiseAudioBufferOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
 		_args[0] = _p0
 		_end++
 		_value.Invoke(_args[0:_end]...)
@@ -2446,44 +2527,44 @@ func (_this *AudioContext) GetOutputTimestamp() (_result *AudioTimestamp) {
 	return
 }
 
-func (_this *AudioContext) Resume() (_result *javascript.Promise) {
+func (_this *AudioContext) Resume() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("resume", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *AudioContext) Suspend() (_result *javascript.Promise) {
+func (_this *AudioContext) Suspend() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("suspend", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *AudioContext) Close() (_result *javascript.Promise) {
+func (_this *AudioContext) Close() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("close", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -3943,7 +4024,7 @@ func (_this *BaseAudioContext) CreateWaveShaper() (_result *WaveShaperNode) {
 	return
 }
 
-func (_this *BaseAudioContext) DecodeAudioData(audioData *javascript.ArrayBuffer, successCallback *DecodeSuccessCallback, errorCallback *DecodeErrorCallback) (_result *javascript.Promise) {
+func (_this *BaseAudioContext) DecodeAudioData(audioData *javascript.ArrayBuffer, successCallback *DecodeSuccessCallback, errorCallback *DecodeErrorCallback) (_result *PromiseAudioBuffer) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -3977,9 +4058,9 @@ func (_this *BaseAudioContext) DecodeAudioData(audioData *javascript.ArrayBuffer
 	}
 	_returned := _this.Value_JS.Call("decodeAudioData", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseAudioBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseAudioBufferFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -4832,35 +4913,35 @@ func (_this *OfflineAudioContext) SetOncomplete(value *domcore.EventHandler) {
 	_this.Value_JS.Set("oncomplete", input)
 }
 
-func (_this *OfflineAudioContext) StartRendering() (_result *javascript.Promise) {
+func (_this *OfflineAudioContext) StartRendering() (_result *PromiseAudioBuffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("startRendering", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseAudioBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseAudioBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *OfflineAudioContext) Resume() (_result *javascript.Promise) {
+func (_this *OfflineAudioContext) Resume() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("resume", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *OfflineAudioContext) Suspend(suspendTime float64) (_result *javascript.Promise) {
+func (_this *OfflineAudioContext) Suspend(suspendTime float64) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -4870,9 +4951,9 @@ func (_this *OfflineAudioContext) Suspend(suspendTime float64) (_result *javascr
 	_end++
 	_returned := _this.Value_JS.Call("suspend", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -5259,6 +5340,111 @@ func NewPeriodicWave(context *BaseAudioContext, options *PeriodicWaveOptions) (_
 		_converted *PeriodicWave // javascript: PeriodicWave _what_return_name
 	)
 	_converted = PeriodicWaveFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseAudioBuffer struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseAudioBuffer) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseAudioBufferFromJS is casting a js.Wrapper into PromiseAudioBuffer.
+func PromiseAudioBufferFromJS(value js.Wrapper) *PromiseAudioBuffer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseAudioBuffer{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseAudioBuffer) Then(onFulfilled *PromiseAudioBufferOnFulfilled, onRejected *PromiseAudioBufferOnRejected) (_result *PromiseAudioBuffer) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseAudioBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseAudioBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseAudioBuffer) Catch(onRejected *PromiseAudioBufferOnRejected) (_result *PromiseAudioBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseAudioBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseAudioBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseAudioBuffer) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseAudioBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseAudioBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseAudioBufferFromJS(_returned)
 	_result = _converted
 	return
 }

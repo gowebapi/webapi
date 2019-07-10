@@ -8,18 +8,22 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// javascript.PromiseFinally
 
 // source idl files:
 // picture-in-picture.idl
+// promises.idl
 
 // transform files:
 // picture-in-picture.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -50,6 +54,84 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePictureInPictureWindowOnFulfilledFunc func(value *PictureInPictureWindow)
+
+// PromisePictureInPictureWindowOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePictureInPictureWindowOnFulfilled js.Func
+
+func PromisePictureInPictureWindowOnFulfilledToJS(callback PromisePictureInPictureWindowOnFulfilledFunc) *PromisePictureInPictureWindowOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePictureInPictureWindowOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PictureInPictureWindow // javascript: PictureInPictureWindow value
+		)
+		_p0 = PictureInPictureWindowFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePictureInPictureWindowOnFulfilledFromJS(_value js.Value) PromisePictureInPictureWindowOnFulfilledFunc {
+	return func(value *PictureInPictureWindow) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePictureInPictureWindowOnRejectedFunc func(reason js.Value)
+
+// PromisePictureInPictureWindowOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePictureInPictureWindowOnRejected js.Func
+
+func PromisePictureInPictureWindowOnRejectedToJS(callback PromisePictureInPictureWindowOnRejectedFunc) *PromisePictureInPictureWindowOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePictureInPictureWindowOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePictureInPictureWindowOnRejectedFromJS(_value js.Value) PromisePictureInPictureWindowOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: EnterPictureInPictureEventInit
@@ -200,4 +282,109 @@ func (_this *PictureInPictureWindow) SetOnresize(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onresize", input)
+}
+
+// interface: Promise
+type PromisePictureInPictureWindow struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePictureInPictureWindow) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePictureInPictureWindowFromJS is casting a js.Wrapper into PromisePictureInPictureWindow.
+func PromisePictureInPictureWindowFromJS(value js.Wrapper) *PromisePictureInPictureWindow {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePictureInPictureWindow{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePictureInPictureWindow) Then(onFulfilled *PromisePictureInPictureWindowOnFulfilled, onRejected *PromisePictureInPictureWindowOnRejected) (_result *PromisePictureInPictureWindow) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePictureInPictureWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromisePictureInPictureWindowFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePictureInPictureWindow) Catch(onRejected *PromisePictureInPictureWindowOnRejected) (_result *PromisePictureInPictureWindow) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePictureInPictureWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromisePictureInPictureWindowFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePictureInPictureWindow) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePictureInPictureWindow) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePictureInPictureWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromisePictureInPictureWindowFromJS(_returned)
+	_result = _converted
+	return
 }

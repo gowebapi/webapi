@@ -5,23 +5,29 @@ package image
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/file"
+	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/mediatype"
 )
 
 // using following types:
+// canvas.PromiseImageBitmap
+// file.PromiseBlob
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
 // local.MediaStreamTrack
 // mediatype.MediaSettingsRange
 // mediatype.Point2D
 
 // source idl files:
 // image-capture.idl
+// promises.idl
 
 // transform files:
 // image-capture.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -138,6 +144,162 @@ func RedEyeReductionFromJS(value js.Value) RedEyeReduction {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePhotoCapabilitiesOnFulfilledFunc func(value *PhotoCapabilities)
+
+// PromisePhotoCapabilitiesOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePhotoCapabilitiesOnFulfilled js.Func
+
+func PromisePhotoCapabilitiesOnFulfilledToJS(callback PromisePhotoCapabilitiesOnFulfilledFunc) *PromisePhotoCapabilitiesOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePhotoCapabilitiesOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PhotoCapabilities // javascript: PhotoCapabilities value
+		)
+		_p0 = PhotoCapabilitiesFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePhotoCapabilitiesOnFulfilledFromJS(_value js.Value) PromisePhotoCapabilitiesOnFulfilledFunc {
+	return func(value *PhotoCapabilities) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePhotoCapabilitiesOnRejectedFunc func(reason js.Value)
+
+// PromisePhotoCapabilitiesOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePhotoCapabilitiesOnRejected js.Func
+
+func PromisePhotoCapabilitiesOnRejectedToJS(callback PromisePhotoCapabilitiesOnRejectedFunc) *PromisePhotoCapabilitiesOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePhotoCapabilitiesOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePhotoCapabilitiesOnRejectedFromJS(_value js.Value) PromisePhotoCapabilitiesOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePhotoSettingsOnFulfilledFunc func(value *PhotoSettings)
+
+// PromisePhotoSettingsOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePhotoSettingsOnFulfilled js.Func
+
+func PromisePhotoSettingsOnFulfilledToJS(callback PromisePhotoSettingsOnFulfilledFunc) *PromisePhotoSettingsOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePhotoSettingsOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PhotoSettings // javascript: PhotoSettings value
+		)
+		_p0 = PhotoSettingsFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePhotoSettingsOnFulfilledFromJS(_value js.Value) PromisePhotoSettingsOnFulfilledFunc {
+	return func(value *PhotoSettings) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePhotoSettingsOnRejectedFunc func(reason js.Value)
+
+// PromisePhotoSettingsOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePhotoSettingsOnRejected js.Func
+
+func PromisePhotoSettingsOnRejectedToJS(callback PromisePhotoSettingsOnRejectedFunc) *PromisePhotoSettingsOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePhotoSettingsOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePhotoSettingsOnRejectedFromJS(_value js.Value) PromisePhotoSettingsOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: ConstrainPoint2DParameters
@@ -292,7 +454,7 @@ func (_this *ImageCapture) Track() *local.MediaStreamTrack {
 	return ret
 }
 
-func (_this *ImageCapture) TakePhoto(photoSettings *PhotoSettings) (_result *javascript.Promise) {
+func (_this *ImageCapture) TakePhoto(photoSettings *PhotoSettings) (_result *file.PromiseBlob) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -304,51 +466,51 @@ func (_this *ImageCapture) TakePhoto(photoSettings *PhotoSettings) (_result *jav
 	}
 	_returned := _this.Value_JS.Call("takePhoto", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *file.PromiseBlob // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = file.PromiseBlobFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *ImageCapture) GetPhotoCapabilities() (_result *javascript.Promise) {
+func (_this *ImageCapture) GetPhotoCapabilities() (_result *PromisePhotoCapabilities) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getPhotoCapabilities", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromisePhotoCapabilities // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromisePhotoCapabilitiesFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *ImageCapture) GetPhotoSettings() (_result *javascript.Promise) {
+func (_this *ImageCapture) GetPhotoSettings() (_result *PromisePhotoSettings) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getPhotoSettings", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromisePhotoSettings // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromisePhotoSettingsFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *ImageCapture) GrabFrame() (_result *javascript.Promise) {
+func (_this *ImageCapture) GrabFrame() (_result *canvas.PromiseImageBitmap) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("grabFrame", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *canvas.PromiseImageBitmap // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = canvas.PromiseImageBitmapFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -408,4 +570,214 @@ func (_this *PhotoCapabilities) FillLightMode() *javascript.FrozenArray {
 	value := _this.Value_JS.Get("fillLightMode")
 	ret = javascript.FrozenArrayFromJS(value)
 	return ret
+}
+
+// interface: Promise
+type PromisePhotoCapabilities struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePhotoCapabilities) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePhotoCapabilitiesFromJS is casting a js.Wrapper into PromisePhotoCapabilities.
+func PromisePhotoCapabilitiesFromJS(value js.Wrapper) *PromisePhotoCapabilities {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePhotoCapabilities{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePhotoCapabilities) Then(onFulfilled *PromisePhotoCapabilitiesOnFulfilled, onRejected *PromisePhotoCapabilitiesOnRejected) (_result *PromisePhotoCapabilities) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoCapabilities // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoCapabilitiesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePhotoCapabilities) Catch(onRejected *PromisePhotoCapabilitiesOnRejected) (_result *PromisePhotoCapabilities) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoCapabilities // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoCapabilitiesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePhotoCapabilities) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePhotoCapabilities) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoCapabilities // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoCapabilitiesFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromisePhotoSettings struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePhotoSettings) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePhotoSettingsFromJS is casting a js.Wrapper into PromisePhotoSettings.
+func PromisePhotoSettingsFromJS(value js.Wrapper) *PromisePhotoSettings {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePhotoSettings{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePhotoSettings) Then(onFulfilled *PromisePhotoSettingsOnFulfilled, onRejected *PromisePhotoSettingsOnRejected) (_result *PromisePhotoSettings) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoSettings // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoSettingsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePhotoSettings) Catch(onRejected *PromisePhotoSettingsOnRejected) (_result *PromisePhotoSettings) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoSettings // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoSettingsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePhotoSettings) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePhotoSettings) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePhotoSettings // javascript: Promise _what_return_name
+	)
+	_converted = PromisePhotoSettingsFromJS(_returned)
+	_result = _converted
+	return
 }

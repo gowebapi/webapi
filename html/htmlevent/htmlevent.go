@@ -8,7 +8,7 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi"
-	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/communication/form"
 	"github.com/gowebapi/webapi/device/inputcapabilities"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -21,10 +21,10 @@ import (
 // dom.StaticRange
 // domcore.Event
 // domcore.EventTarget
+// form.FormData
 // inputcapabilities.InputDeviceCapabilities
 // javascript.Promise
 // webapi.Window
-// xhr.FormData
 
 // source idl files:
 // html.idl
@@ -634,7 +634,7 @@ type FormDataEventInit struct {
 	Bubbles    bool
 	Cancelable bool
 	Composed   bool
-	FormData   *xhr.FormData
+	FormData   *form.FormData
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -659,10 +659,10 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	input := value.JSValue()
 	var out FormDataEventInit
 	var (
-		value0 bool          // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool          // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool          // javascript: boolean {composed Composed composed}
-		value3 *xhr.FormData // javascript: FormData {formData FormData formData}
+		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool           // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool           // javascript: boolean {composed Composed composed}
+		value3 *form.FormData // javascript: FormData {formData FormData formData}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -670,7 +670,7 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = xhr.FormDataFromJS(input.Get("formData"))
+	value3 = form.FormDataFromJS(input.Get("formData"))
 	out.FormData = value3
 	return &out
 }
@@ -1966,11 +1966,11 @@ func NewFormDataEvent(_type string, eventInitDict *FormDataEventInit) (_result *
 }
 
 // FormData returning attribute 'formData' with
-// type xhr.FormData (idl: FormData).
-func (_this *FormDataEvent) FormData() *xhr.FormData {
-	var ret *xhr.FormData
+// type form.FormData (idl: FormData).
+func (_this *FormDataEvent) FormData() *form.FormData {
+	var ret *form.FormData
 	value := _this.Value_JS.Get("formData")
-	ret = xhr.FormDataFromJS(value)
+	ret = form.FormDataFromJS(value)
 	return ret
 }
 

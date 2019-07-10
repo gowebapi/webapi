@@ -17,12 +17,15 @@ import (
 // domcore.EventTarget
 // htmlcommon.FrameRequestCallback
 // javascript.Float32Array
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 
 // source idl files:
+// promises.idl
 // webvr.idl
 
 // transform files:
+// promises.go.md
 // webvr.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -140,6 +143,96 @@ func EyeFromJS(value js.Value) Eye {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceDisplayOnFulfilledFunc func(value []*Display)
+
+// PromiseSequenceDisplayOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDisplayOnFulfilled js.Func
+
+func PromiseSequenceDisplayOnFulfilledToJS(callback PromiseSequenceDisplayOnFulfilledFunc) *PromiseSequenceDisplayOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDisplayOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*Display // javascript: sequence<VRDisplay> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*Display, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *Display
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = DisplayFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDisplayOnFulfilledFromJS(_value js.Value) PromiseSequenceDisplayOnFulfilledFunc {
+	return func(value []*Display) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceDisplayOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceDisplayOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDisplayOnRejected js.Func
+
+func PromiseSequenceDisplayOnRejectedToJS(callback PromiseSequenceDisplayOnRejectedFunc) *PromiseSequenceDisplayOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDisplayOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDisplayOnRejectedFromJS(_value js.Value) PromiseSequenceDisplayOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: VRDisplayEventInit
@@ -433,7 +526,7 @@ func (_this *Display) CancelAnimationFrame(handle int) {
 	return
 }
 
-func (_this *Display) RequestPresent(layers []*LayerInit) (_result *javascript.Promise) {
+func (_this *Display) RequestPresent(layers []*LayerInit) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -447,23 +540,23 @@ func (_this *Display) RequestPresent(layers []*LayerInit) (_result *javascript.P
 	_end++
 	_returned := _this.Value_JS.Call("requestPresent", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Display) ExitPresent() (_result *javascript.Promise) {
+func (_this *Display) ExitPresent() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("exitPresent", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -912,6 +1005,111 @@ func (_this *Pose) AngularAcceleration() *javascript.Float32Array {
 		ret = javascript.Float32ArrayFromJS(value)
 	}
 	return ret
+}
+
+// interface: Promise
+type PromiseSequenceDisplay struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceDisplay) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceDisplayFromJS is casting a js.Wrapper into PromiseSequenceDisplay.
+func PromiseSequenceDisplayFromJS(value js.Wrapper) *PromiseSequenceDisplay {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceDisplay{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceDisplay) Then(onFulfilled *PromiseSequenceDisplayOnFulfilled, onRejected *PromiseSequenceDisplayOnRejected) (_result *PromiseSequenceDisplay) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDisplay // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDisplayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDisplay) Catch(onRejected *PromiseSequenceDisplayOnRejected) (_result *PromiseSequenceDisplay) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDisplay // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDisplayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDisplay) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceDisplay) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDisplay // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDisplayFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: VRStageParameters

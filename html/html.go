@@ -32,7 +32,7 @@ import (
 // htmlcommon.OnErrorEventHandler
 // javascript.FrozenArray
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseVoid
 // typedom.StylePropertyMap
 
 // source idl files:
@@ -6188,16 +6188,16 @@ func (_this *HTMLImageElement) SetBorder(value string) {
 	_this.Value_JS.Set("border", input)
 }
 
-func (_this *HTMLImageElement) Decode() (_result *javascript.Promise) {
+func (_this *HTMLImageElement) Decode() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("decode", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

@@ -38,6 +38,7 @@ import (
 // backgroundtask.IdleRequestCallback
 // backgroundtask.IdleRequestOptions
 // canvas.ImageBitmapOptions
+// canvas.PromiseImageBitmap
 // cookie.CookieStore
 // corsrfc1918.AddressSpace
 // crypto.Crypto
@@ -63,6 +64,7 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.VisibilityState
+// fetch.PromiseResponse
 // fetch.RequestInit
 // fontmetrics.FontMetrics
 // geometry.DOMPoint
@@ -88,7 +90,7 @@ import (
 // htmlmisc.Storage
 // indexeddb.IDBFactory
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseVoid
 // patch.ByteString
 // pseudo.CSSPseudoElementList
 // regions.NamedFlowMap
@@ -3919,16 +3921,16 @@ func (_this *Document) MeasureText(text string, styleMap *typedom.StylePropertyM
 	return
 }
 
-func (_this *Document) ExitFullscreen() (_result *javascript.Promise) {
+func (_this *Document) ExitFullscreen() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("exitFullscreen", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -4189,16 +4191,16 @@ func (_this *Document) ReleaseEvents() {
 	return
 }
 
-func (_this *Document) ExitPictureInPicture() (_result *javascript.Promise) {
+func (_this *Document) ExitPictureInPicture() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("exitPictureInPicture", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -9525,7 +9527,7 @@ func (_this *Window) QueueMicrotask(callback *webidl.VoidFunction) {
 	return
 }
 
-func (_this *Window) CreateImageBitmap(image *Union, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
+func (_this *Window) CreateImageBitmap(image *Union, options *canvas.ImageBitmapOptions) (_result *canvas.PromiseImageBitmap) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -9540,14 +9542,14 @@ func (_this *Window) CreateImageBitmap(image *Union, options *canvas.ImageBitmap
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *canvas.PromiseImageBitmap // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = canvas.PromiseImageBitmapFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
+func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *canvas.ImageBitmapOptions) (_result *canvas.PromiseImageBitmap) {
 	var (
 		_args [6]interface{}
 		_end  int
@@ -9574,14 +9576,14 @@ func (_this *Window) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *canvas.PromiseImageBitmap // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = canvas.PromiseImageBitmapFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Window) Fetch(input *Union, init *fetch.RequestInit) (_result *javascript.Promise) {
+func (_this *Window) Fetch(input *Union, init *fetch.RequestInit) (_result *fetch.PromiseResponse) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -9596,9 +9598,9 @@ func (_this *Window) Fetch(input *Union, init *fetch.RequestInit) (_result *java
 	}
 	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *fetch.PromiseResponse // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = fetch.PromiseResponseFromJS(_returned)
 	_result = _converted
 	return
 }

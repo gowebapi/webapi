@@ -10,9 +10,11 @@ import js "github.com/gowebapi/webapi/core/js"
 
 // source idl files:
 // javascript.idl
+// promises.idl
 
 // transform files:
 // javascript.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -43,6 +45,669 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseArrayBufferOnFulfilledFunc func(value *ArrayBuffer)
+
+// PromiseArrayBufferOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseArrayBufferOnFulfilled js.Func
+
+func PromiseArrayBufferOnFulfilledToJS(callback PromiseArrayBufferOnFulfilledFunc) *PromiseArrayBufferOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseArrayBufferOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *ArrayBuffer // javascript: ArrayBuffer value
+		)
+		_p0 = ArrayBufferFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseArrayBufferOnFulfilledFromJS(_value js.Value) PromiseArrayBufferOnFulfilledFunc {
+	return func(value *ArrayBuffer) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseArrayBufferOnRejectedFunc func(reason js.Value)
+
+// PromiseArrayBufferOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseArrayBufferOnRejected js.Func
+
+func PromiseArrayBufferOnRejectedToJS(callback PromiseArrayBufferOnRejectedFunc) *PromiseArrayBufferOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseArrayBufferOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseArrayBufferOnRejectedFromJS(_value js.Value) PromiseArrayBufferOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseBoolOnFulfilledFunc func(value bool)
+
+// PromiseBoolOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBoolOnFulfilled js.Func
+
+func PromiseBoolOnFulfilledToJS(callback PromiseBoolOnFulfilledFunc) *PromiseBoolOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBoolOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 bool // javascript: boolean value
+		)
+		_p0 = (args[0]).Bool()
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBoolOnFulfilledFromJS(_value js.Value) PromiseBoolOnFulfilledFunc {
+	return func(value bool) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseBoolOnRejectedFunc func(reason js.Value)
+
+// PromiseBoolOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBoolOnRejected js.Func
+
+func PromiseBoolOnRejectedToJS(callback PromiseBoolOnRejectedFunc) *PromiseBoolOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBoolOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBoolOnRejectedFromJS(_value js.Value) PromiseBoolOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseFinally
+type PromiseFinallyFunc func()
+
+// PromiseFinally is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseFinally js.Func
+
+func PromiseFinallyToJS(callback PromiseFinallyFunc) *PromiseFinally {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseFinally(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var ()
+		callback()
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseFinallyFromJS(_value js.Value) PromiseFinallyFunc {
+	return func() {
+		var (
+			_args [0]interface{}
+			_end  int
+		)
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseFrozenArrayOnFulfilledFunc func(value *FrozenArray)
+
+// PromiseFrozenArrayOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseFrozenArrayOnFulfilled js.Func
+
+func PromiseFrozenArrayOnFulfilledToJS(callback PromiseFrozenArrayOnFulfilledFunc) *PromiseFrozenArrayOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseFrozenArrayOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *FrozenArray // javascript: FrozenArray value
+		)
+		_p0 = FrozenArrayFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseFrozenArrayOnFulfilledFromJS(_value js.Value) PromiseFrozenArrayOnFulfilledFunc {
+	return func(value *FrozenArray) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseFrozenArrayOnRejectedFunc func(reason js.Value)
+
+// PromiseFrozenArrayOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseFrozenArrayOnRejected js.Func
+
+func PromiseFrozenArrayOnRejectedToJS(callback PromiseFrozenArrayOnRejectedFunc) *PromiseFrozenArrayOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseFrozenArrayOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseFrozenArrayOnRejectedFromJS(_value js.Value) PromiseFrozenArrayOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseIntOnFulfilledFunc func(value int)
+
+// PromiseIntOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseIntOnFulfilled js.Func
+
+func PromiseIntOnFulfilledToJS(callback PromiseIntOnFulfilledFunc) *PromiseIntOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseIntOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 int // javascript: long value
+		)
+		_p0 = (args[0]).Int()
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseIntOnFulfilledFromJS(_value js.Value) PromiseIntOnFulfilledFunc {
+	return func(value int) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseIntOnRejectedFunc func(reason js.Value)
+
+// PromiseIntOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseIntOnRejected js.Func
+
+func PromiseIntOnRejectedToJS(callback PromiseIntOnRejectedFunc) *PromiseIntOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseIntOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseIntOnRejectedFromJS(_value js.Value) PromiseIntOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseOnFulfilled
+type PromiseOnFulfilledFunc func(value js.Value)
+
+// PromiseOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseOnFulfilled js.Func
+
+func PromiseOnFulfilledToJS(callback PromiseOnFulfilledFunc) *PromiseOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any value
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseOnFulfilledFromJS(_value js.Value) PromiseOnFulfilledFunc {
+	return func(value js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseOnRejected
+type PromiseOnRejectedFunc func(reason js.Value)
+
+// PromiseOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseOnRejected js.Func
+
+func PromiseOnRejectedToJS(callback PromiseOnRejectedFunc) *PromiseOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseOnRejectedFromJS(_value js.Value) PromiseOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceStringOnFulfilledFunc func(value []string)
+
+// PromiseSequenceStringOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceStringOnFulfilled js.Func
+
+func PromiseSequenceStringOnFulfilledToJS(callback PromiseSequenceStringOnFulfilledFunc) *PromiseSequenceStringOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceStringOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []string // javascript: sequence<DOMString> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]string, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 string
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = (__seq_in0).String()
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceStringOnFulfilledFromJS(_value js.Value) PromiseSequenceStringOnFulfilledFunc {
+	return func(value []string) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceStringOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceStringOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceStringOnRejected js.Func
+
+func PromiseSequenceStringOnRejectedToJS(callback PromiseSequenceStringOnRejectedFunc) *PromiseSequenceStringOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceStringOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceStringOnRejectedFromJS(_value js.Value) PromiseSequenceStringOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseStringOnFulfilledFunc func(value string)
+
+// PromiseStringOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseStringOnFulfilled js.Func
+
+func PromiseStringOnFulfilledToJS(callback PromiseStringOnFulfilledFunc) *PromiseStringOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseStringOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 string // javascript: DOMString value
+		)
+		_p0 = (args[0]).String()
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseStringOnFulfilledFromJS(_value js.Value) PromiseStringOnFulfilledFunc {
+	return func(value string) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseStringOnRejectedFunc func(reason js.Value)
+
+// PromiseStringOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseStringOnRejected js.Func
+
+func PromiseStringOnRejectedToJS(callback PromiseStringOnRejectedFunc) *PromiseStringOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseStringOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseStringOnRejectedFromJS(_value js.Value) PromiseStringOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseVoidOnFulfilled
+type PromiseVoidOnFulfilledFunc func()
+
+// PromiseVoidOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseVoidOnFulfilled js.Func
+
+func PromiseVoidOnFulfilledToJS(callback PromiseVoidOnFulfilledFunc) *PromiseVoidOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseVoidOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var ()
+		callback()
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseVoidOnFulfilledFromJS(_value js.Value) PromiseVoidOnFulfilledFunc {
+	return func() {
+		var (
+			_args [0]interface{}
+			_end  int
+		)
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseVoidOnRejected
+type PromiseVoidOnRejectedFunc func(reason js.Value)
+
+// PromiseVoidOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseVoidOnRejected js.Func
+
+func PromiseVoidOnRejectedToJS(callback PromiseVoidOnRejectedFunc) *PromiseVoidOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseVoidOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseVoidOnRejectedFromJS(_value js.Value) PromiseVoidOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // interface: ArrayBuffer
@@ -253,6 +918,825 @@ func PromiseFromJS(value js.Wrapper) *Promise {
 	ret := &Promise{}
 	ret.Value_JS = input
 	return ret
+}
+
+func (_this *Promise) Then(onFulfilled *PromiseOnFulfilled, onRejected *PromiseOnRejected) (_result *Promise) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *Promise // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Promise) Catch(onRejected *PromiseOnRejected) (_result *Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *Promise // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Promise) Finally(onFinally *PromiseFinally) (_result *Promise) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *Promise // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseArrayBuffer struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseArrayBuffer) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseArrayBufferFromJS is casting a js.Wrapper into PromiseArrayBuffer.
+func PromiseArrayBufferFromJS(value js.Wrapper) *PromiseArrayBuffer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseArrayBuffer{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseArrayBuffer) Then(onFulfilled *PromiseArrayBufferOnFulfilled, onRejected *PromiseArrayBufferOnRejected) (_result *PromiseArrayBuffer) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseArrayBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseArrayBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseArrayBuffer) Catch(onRejected *PromiseArrayBufferOnRejected) (_result *PromiseArrayBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseArrayBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseArrayBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseArrayBuffer) Finally(onFinally *PromiseFinally) (_result *PromiseArrayBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseArrayBuffer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseArrayBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseBool struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseBool) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseBoolFromJS is casting a js.Wrapper into PromiseBool.
+func PromiseBoolFromJS(value js.Wrapper) *PromiseBool {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseBool{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseBool) Then(onFulfilled *PromiseBoolOnFulfilled, onRejected *PromiseBoolOnRejected) (_result *PromiseBool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseBool // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBool) Catch(onRejected *PromiseBoolOnRejected) (_result *PromiseBool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseBool // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBool) Finally(onFinally *PromiseFinally) (_result *PromiseBool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseBool // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseFrozenArray struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseFrozenArray) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseFrozenArrayFromJS is casting a js.Wrapper into PromiseFrozenArray.
+func PromiseFrozenArrayFromJS(value js.Wrapper) *PromiseFrozenArray {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseFrozenArray{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseFrozenArray) Then(onFulfilled *PromiseFrozenArrayOnFulfilled, onRejected *PromiseFrozenArrayOnRejected) (_result *PromiseFrozenArray) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseFrozenArray // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFrozenArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseFrozenArray) Catch(onRejected *PromiseFrozenArrayOnRejected) (_result *PromiseFrozenArray) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseFrozenArray // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFrozenArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseFrozenArray) Finally(onFinally *PromiseFinally) (_result *PromiseFrozenArray) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseFrozenArray // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFrozenArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseInt struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseInt) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseIntFromJS is casting a js.Wrapper into PromiseInt.
+func PromiseIntFromJS(value js.Wrapper) *PromiseInt {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseInt{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseInt) Then(onFulfilled *PromiseIntOnFulfilled, onRejected *PromiseIntOnRejected) (_result *PromiseInt) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseInt // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseInt) Catch(onRejected *PromiseIntOnRejected) (_result *PromiseInt) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseInt // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseInt) Finally(onFinally *PromiseFinally) (_result *PromiseInt) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseInt // javascript: Promise _what_return_name
+	)
+	_converted = PromiseIntFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceString struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceString) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceStringFromJS is casting a js.Wrapper into PromiseSequenceString.
+func PromiseSequenceStringFromJS(value js.Wrapper) *PromiseSequenceString {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceString{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceString) Then(onFulfilled *PromiseSequenceStringOnFulfilled, onRejected *PromiseSequenceStringOnRejected) (_result *PromiseSequenceString) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceString) Catch(onRejected *PromiseSequenceStringOnRejected) (_result *PromiseSequenceString) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceString) Finally(onFinally *PromiseFinally) (_result *PromiseSequenceString) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseString struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseString) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseStringFromJS is casting a js.Wrapper into PromiseString.
+func PromiseStringFromJS(value js.Wrapper) *PromiseString {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseString{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseString) Then(onFulfilled *PromiseStringOnFulfilled, onRejected *PromiseStringOnRejected) (_result *PromiseString) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseString) Catch(onRejected *PromiseStringOnRejected) (_result *PromiseString) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseString) Finally(onFinally *PromiseFinally) (_result *PromiseString) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseString // javascript: Promise _what_return_name
+	)
+	_converted = PromiseStringFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: PromiseVoid
+type PromiseVoid struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseVoid) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseVoidFromJS is casting a js.Wrapper into PromiseVoid.
+func PromiseVoidFromJS(value js.Wrapper) *PromiseVoid {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseVoid{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseVoid) Then(onFulfilled *PromiseVoidOnFulfilled, onRejected *PromiseVoidOnRejected) (_result *PromiseVoid) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseVoid) Catch(onRejected *PromiseVoidOnRejected) (_result *PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseVoid) Finally(onFinally *PromiseFinally) (_result *PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: Uint16Array

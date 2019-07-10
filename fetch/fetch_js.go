@@ -5,23 +5,32 @@ package fetch
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/communication/form"
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 )
 
 // using following types:
 // domcore.AbortSignal
+// file.PromiseBlob
+// form.PromiseFormData
 // javascript.Promise
+// javascript.PromiseArrayBuffer
+// javascript.PromiseFinally
+// javascript.PromiseString
 // patch.ByteString
 // patch.ReadableStream
 
 // source idl files:
 // fetch.idl
+// promises.idl
 // referrer-policy.idl
 
 // transform files:
 // fetch.go.md
+// promises.go.md
 // referrer-policy.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -384,6 +393,84 @@ func ResponseTypeFromJS(value js.Value) ResponseType {
 	return conv
 }
 
+// callback: PromiseTemplateOnFulfilled
+type PromiseResponseOnFulfilledFunc func(value *Response)
+
+// PromiseResponseOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseResponseOnFulfilled js.Func
+
+func PromiseResponseOnFulfilledToJS(callback PromiseResponseOnFulfilledFunc) *PromiseResponseOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseResponseOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Response // javascript: Response value
+		)
+		_p0 = ResponseFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseResponseOnFulfilledFromJS(_value js.Value) PromiseResponseOnFulfilledFunc {
+	return func(value *Response) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseResponseOnRejectedFunc func(reason js.Value)
+
+// PromiseResponseOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseResponseOnRejected js.Func
+
+func PromiseResponseOnRejectedToJS(callback PromiseResponseOnRejectedFunc) *PromiseResponseOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseResponseOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseResponseOnRejectedFromJS(_value js.Value) PromiseResponseOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // dictionary: RequestInit
 type RequestInit struct {
 	Method         *patch.ByteString
@@ -703,6 +790,111 @@ func (_this *Headers) Set(name *patch.ByteString, value *patch.ByteString) {
 	return
 }
 
+// interface: Promise
+type PromiseResponse struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseResponse) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseResponseFromJS is casting a js.Wrapper into PromiseResponse.
+func PromiseResponseFromJS(value js.Wrapper) *PromiseResponse {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseResponse{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseResponse) Then(onFulfilled *PromiseResponseOnFulfilled, onRejected *PromiseResponseOnRejected) (_result *PromiseResponse) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseResponse) Catch(onRejected *PromiseResponseOnRejected) (_result *PromiseResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseResponse) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: Request
 type Request struct {
 	// Value_JS holds a reference to a javascript value
@@ -916,44 +1108,44 @@ func (_this *Request) Clone() (_result *Request) {
 	return
 }
 
-func (_this *Request) ArrayBuffer() (_result *javascript.Promise) {
+func (_this *Request) ArrayBuffer() (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("arrayBuffer", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Request) Blob() (_result *javascript.Promise) {
+func (_this *Request) Blob() (_result *file.PromiseBlob) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("blob", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *file.PromiseBlob // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = file.PromiseBlobFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Request) FormData() (_result *javascript.Promise) {
+func (_this *Request) FormData() (_result *form.PromiseFormData) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("formData", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *form.PromiseFormData // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = form.PromiseFormDataFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -972,16 +1164,16 @@ func (_this *Request) Json() (_result *javascript.Promise) {
 	return
 }
 
-func (_this *Request) Text() (_result *javascript.Promise) {
+func (_this *Request) Text() (_result *javascript.PromiseString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("text", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseStringFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1178,44 +1370,44 @@ func (_this *Response) Clone() (_result *Response) {
 	return
 }
 
-func (_this *Response) ArrayBuffer() (_result *javascript.Promise) {
+func (_this *Response) ArrayBuffer() (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("arrayBuffer", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Response) Blob() (_result *javascript.Promise) {
+func (_this *Response) Blob() (_result *file.PromiseBlob) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("blob", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *file.PromiseBlob // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = file.PromiseBlobFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *Response) FormData() (_result *javascript.Promise) {
+func (_this *Response) FormData() (_result *form.PromiseFormData) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("formData", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *form.PromiseFormData // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = form.PromiseFormDataFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1234,16 +1426,16 @@ func (_this *Response) Json() (_result *javascript.Promise) {
 	return
 }
 
-func (_this *Response) Text() (_result *javascript.Promise) {
+func (_this *Response) Text() (_result *javascript.PromiseString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("text", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseStringFromJS(_returned)
 	_result = _converted
 	return
 }

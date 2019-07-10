@@ -15,12 +15,17 @@ import (
 // domcore.EventTarget
 // javascript.ArrayBuffer
 // javascript.Promise
+// javascript.PromiseBool
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 
 // source idl files:
 // encrypted-media.idl
+// promises.idl
 
 // transform files:
 // encrypted-media.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -180,6 +185,162 @@ func MediaKeysRequirementFromJS(value js.Value) MediaKeysRequirement {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseMediaKeySystemAccessOnFulfilledFunc func(value *MediaKeySystemAccess)
+
+// PromiseMediaKeySystemAccessOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaKeySystemAccessOnFulfilled js.Func
+
+func PromiseMediaKeySystemAccessOnFulfilledToJS(callback PromiseMediaKeySystemAccessOnFulfilledFunc) *PromiseMediaKeySystemAccessOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaKeySystemAccessOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *MediaKeySystemAccess // javascript: MediaKeySystemAccess value
+		)
+		_p0 = MediaKeySystemAccessFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaKeySystemAccessOnFulfilledFromJS(_value js.Value) PromiseMediaKeySystemAccessOnFulfilledFunc {
+	return func(value *MediaKeySystemAccess) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseMediaKeySystemAccessOnRejectedFunc func(reason js.Value)
+
+// PromiseMediaKeySystemAccessOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaKeySystemAccessOnRejected js.Func
+
+func PromiseMediaKeySystemAccessOnRejectedToJS(callback PromiseMediaKeySystemAccessOnRejectedFunc) *PromiseMediaKeySystemAccessOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaKeySystemAccessOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaKeySystemAccessOnRejectedFromJS(_value js.Value) PromiseMediaKeySystemAccessOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseMediaKeysOnFulfilledFunc func(value *MediaKeys)
+
+// PromiseMediaKeysOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaKeysOnFulfilled js.Func
+
+func PromiseMediaKeysOnFulfilledToJS(callback PromiseMediaKeysOnFulfilledFunc) *PromiseMediaKeysOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaKeysOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *MediaKeys // javascript: MediaKeys value
+		)
+		_p0 = MediaKeysFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaKeysOnFulfilledFromJS(_value js.Value) PromiseMediaKeysOnFulfilledFunc {
+	return func(value *MediaKeys) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseMediaKeysOnRejectedFunc func(reason js.Value)
+
+// PromiseMediaKeysOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaKeysOnRejected js.Func
+
+func PromiseMediaKeysOnRejectedToJS(callback PromiseMediaKeysOnRejectedFunc) *PromiseMediaKeysOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaKeysOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaKeysOnRejectedFromJS(_value js.Value) PromiseMediaKeysOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: MediaEncryptedEventInit
@@ -648,7 +809,7 @@ func (_this *MediaKeySession) SetOnmessage(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onmessage", input)
 }
 
-func (_this *MediaKeySession) GenerateRequest(initDataType string, initData *Union) (_result *javascript.Promise) {
+func (_this *MediaKeySession) GenerateRequest(initDataType string, initData *Union) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -661,14 +822,14 @@ func (_this *MediaKeySession) GenerateRequest(initDataType string, initData *Uni
 	_end++
 	_returned := _this.Value_JS.Call("generateRequest", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaKeySession) Load(sessionId string) (_result *javascript.Promise) {
+func (_this *MediaKeySession) Load(sessionId string) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -678,14 +839,14 @@ func (_this *MediaKeySession) Load(sessionId string) (_result *javascript.Promis
 	_end++
 	_returned := _this.Value_JS.Call("load", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaKeySession) Update(response *Union) (_result *javascript.Promise) {
+func (_this *MediaKeySession) Update(response *Union) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -695,37 +856,37 @@ func (_this *MediaKeySession) Update(response *Union) (_result *javascript.Promi
 	_end++
 	_returned := _this.Value_JS.Call("update", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaKeySession) Close() (_result *javascript.Promise) {
+func (_this *MediaKeySession) Close() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("close", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaKeySession) Remove() (_result *javascript.Promise) {
+func (_this *MediaKeySession) Remove() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("remove", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -838,16 +999,16 @@ func (_this *MediaKeySystemAccess) GetConfiguration() (_result *MediaKeySystemCo
 	return
 }
 
-func (_this *MediaKeySystemAccess) CreateMediaKeys() (_result *javascript.Promise) {
+func (_this *MediaKeySystemAccess) CreateMediaKeys() (_result *PromiseMediaKeys) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("createMediaKeys", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseMediaKeys // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseMediaKeysFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -892,7 +1053,7 @@ func (_this *MediaKeys) CreateSession(sessionType *MediaKeySessionType) (_result
 	return
 }
 
-func (_this *MediaKeys) SetServerCertificate(serverCertificate *Union) (_result *javascript.Promise) {
+func (_this *MediaKeys) SetServerCertificate(serverCertificate *Union) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -902,9 +1063,219 @@ func (_this *MediaKeys) SetServerCertificate(serverCertificate *Union) (_result 
 	_end++
 	_returned := _this.Value_JS.Call("setServerCertificate", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseMediaKeySystemAccess struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseMediaKeySystemAccess) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseMediaKeySystemAccessFromJS is casting a js.Wrapper into PromiseMediaKeySystemAccess.
+func PromiseMediaKeySystemAccessFromJS(value js.Wrapper) *PromiseMediaKeySystemAccess {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseMediaKeySystemAccess{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseMediaKeySystemAccess) Then(onFulfilled *PromiseMediaKeySystemAccessOnFulfilled, onRejected *PromiseMediaKeySystemAccessOnRejected) (_result *PromiseMediaKeySystemAccess) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeySystemAccess // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeySystemAccessFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaKeySystemAccess) Catch(onRejected *PromiseMediaKeySystemAccessOnRejected) (_result *PromiseMediaKeySystemAccess) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeySystemAccess // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeySystemAccessFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaKeySystemAccess) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseMediaKeySystemAccess) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeySystemAccess // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeySystemAccessFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseMediaKeys struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseMediaKeys) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseMediaKeysFromJS is casting a js.Wrapper into PromiseMediaKeys.
+func PromiseMediaKeysFromJS(value js.Wrapper) *PromiseMediaKeys {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseMediaKeys{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseMediaKeys) Then(onFulfilled *PromiseMediaKeysOnFulfilled, onRejected *PromiseMediaKeysOnRejected) (_result *PromiseMediaKeys) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeys // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeysFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaKeys) Catch(onRejected *PromiseMediaKeysOnRejected) (_result *PromiseMediaKeys) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeys // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeysFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaKeys) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseMediaKeys) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaKeys // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaKeysFromJS(_returned)
 	_result = _converted
 	return
 }

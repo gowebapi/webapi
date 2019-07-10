@@ -19,12 +19,15 @@ import (
 // file.File
 // file.FileList
 // javascript.FrozenArray
+// javascript.PromiseFinally
 
 // source idl files:
 // html.idl
+// promises.idl
 
 // transform files:
 // html.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -55,6 +58,84 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseDataTransferOnFulfilledFunc func(value *DataTransfer)
+
+// PromiseDataTransferOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDataTransferOnFulfilled js.Func
+
+func PromiseDataTransferOnFulfilledToJS(callback PromiseDataTransferOnFulfilledFunc) *PromiseDataTransferOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDataTransferOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *DataTransfer // javascript: DataTransfer value
+		)
+		_p0 = DataTransferFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDataTransferOnFulfilledFromJS(_value js.Value) PromiseDataTransferOnFulfilledFunc {
+	return func(value *DataTransfer) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseDataTransferOnRejectedFunc func(reason js.Value)
+
+// PromiseDataTransferOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDataTransferOnRejected js.Func
+
+func PromiseDataTransferOnRejectedToJS(callback PromiseDataTransferOnRejectedFunc) *PromiseDataTransferOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDataTransferOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDataTransferOnRejectedFromJS(_value js.Value) PromiseDataTransferOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // interface: DataTransfer
@@ -395,5 +476,110 @@ func (_this *DataTransferItemList) Clear() {
 		_end  int
 	)
 	_this.Value_JS.Call("clear", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromiseDataTransfer struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseDataTransfer) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseDataTransferFromJS is casting a js.Wrapper into PromiseDataTransfer.
+func PromiseDataTransferFromJS(value js.Wrapper) *PromiseDataTransfer {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseDataTransfer{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseDataTransfer) Then(onFulfilled *PromiseDataTransferOnFulfilled, onRejected *PromiseDataTransferOnRejected) (_result *PromiseDataTransfer) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseDataTransfer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataTransferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDataTransfer) Catch(onRejected *PromiseDataTransferOnRejected) (_result *PromiseDataTransfer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseDataTransfer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataTransferFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDataTransfer) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseDataTransfer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseDataTransfer // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataTransferFromJS(_returned)
+	_result = _converted
 	return
 }

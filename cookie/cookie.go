@@ -16,13 +16,16 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.ExtendableEvent
-// javascript.Promise
+// javascript.PromiseFinally
+// javascript.PromiseVoid
 
 // source idl files:
 // cookie-store.idl
+// promises.idl
 
 // transform files:
 // cookie-store.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -138,6 +141,264 @@ func CookieSameSiteFromJS(value js.Value) CookieSameSite {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseNilCookieListItemOnFulfilledFunc func(value *CookieListItem)
+
+// PromiseNilCookieListItemOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilCookieListItemOnFulfilled js.Func
+
+func PromiseNilCookieListItemOnFulfilledToJS(callback PromiseNilCookieListItemOnFulfilledFunc) *PromiseNilCookieListItemOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilCookieListItemOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *CookieListItem // javascript: CookieListItem value
+		)
+		_p0 = CookieListItemFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilCookieListItemOnFulfilledFromJS(_value js.Value) PromiseNilCookieListItemOnFulfilledFunc {
+	return func(value *CookieListItem) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseNilCookieListItemOnRejectedFunc func(reason js.Value)
+
+// PromiseNilCookieListItemOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilCookieListItemOnRejected js.Func
+
+func PromiseNilCookieListItemOnRejectedToJS(callback PromiseNilCookieListItemOnRejectedFunc) *PromiseNilCookieListItemOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilCookieListItemOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilCookieListItemOnRejectedFromJS(_value js.Value) PromiseNilCookieListItemOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceCookieListItemOnFulfilledFunc func(value []*CookieListItem)
+
+// PromiseSequenceCookieListItemOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceCookieListItemOnFulfilled js.Func
+
+func PromiseSequenceCookieListItemOnFulfilledToJS(callback PromiseSequenceCookieListItemOnFulfilledFunc) *PromiseSequenceCookieListItemOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceCookieListItemOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*CookieListItem // javascript: sequence<CookieListItem> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*CookieListItem, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *CookieListItem
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = CookieListItemFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceCookieListItemOnFulfilledFromJS(_value js.Value) PromiseSequenceCookieListItemOnFulfilledFunc {
+	return func(value []*CookieListItem) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceCookieListItemOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceCookieListItemOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceCookieListItemOnRejected js.Func
+
+func PromiseSequenceCookieListItemOnRejectedToJS(callback PromiseSequenceCookieListItemOnRejectedFunc) *PromiseSequenceCookieListItemOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceCookieListItemOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceCookieListItemOnRejectedFromJS(_value js.Value) PromiseSequenceCookieListItemOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceCookieStoreGetOptionsOnFulfilledFunc func(value []*CookieStoreGetOptions)
+
+// PromiseSequenceCookieStoreGetOptionsOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceCookieStoreGetOptionsOnFulfilled js.Func
+
+func PromiseSequenceCookieStoreGetOptionsOnFulfilledToJS(callback PromiseSequenceCookieStoreGetOptionsOnFulfilledFunc) *PromiseSequenceCookieStoreGetOptionsOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceCookieStoreGetOptionsOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*CookieStoreGetOptions // javascript: sequence<CookieStoreGetOptions> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*CookieStoreGetOptions, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *CookieStoreGetOptions
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = CookieStoreGetOptionsFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceCookieStoreGetOptionsOnFulfilledFromJS(_value js.Value) PromiseSequenceCookieStoreGetOptionsOnFulfilledFunc {
+	return func(value []*CookieStoreGetOptions) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceCookieStoreGetOptionsOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceCookieStoreGetOptionsOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceCookieStoreGetOptionsOnRejected js.Func
+
+func PromiseSequenceCookieStoreGetOptionsOnRejectedToJS(callback PromiseSequenceCookieStoreGetOptionsOnRejectedFunc) *PromiseSequenceCookieStoreGetOptionsOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceCookieStoreGetOptionsOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceCookieStoreGetOptionsOnRejectedFromJS(_value js.Value) PromiseSequenceCookieStoreGetOptionsOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: CookieChangeEventInit
@@ -686,7 +947,7 @@ func (_this *CookieStore) SetOnchange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onchange", input)
 }
 
-func (_this *CookieStore) Get(name string) (_result *javascript.Promise) {
+func (_this *CookieStore) Get(name string) (_result *PromiseNilCookieListItem) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -696,14 +957,14 @@ func (_this *CookieStore) Get(name string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilCookieListItem // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilCookieListItemFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) Get2(options *CookieStoreGetOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) Get2(options *CookieStoreGetOptions) (_result *PromiseNilCookieListItem) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -715,14 +976,14 @@ func (_this *CookieStore) Get2(options *CookieStoreGetOptions) (_result *javascr
 	}
 	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilCookieListItem // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilCookieListItemFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) GetAll(name string) (_result *javascript.Promise) {
+func (_this *CookieStore) GetAll(name string) (_result *PromiseSequenceCookieListItem) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -732,14 +993,14 @@ func (_this *CookieStore) GetAll(name string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("getAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceCookieListItem // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceCookieListItemFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) GetAll2(options *CookieStoreGetOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) GetAll2(options *CookieStoreGetOptions) (_result *PromiseSequenceCookieListItem) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -751,14 +1012,14 @@ func (_this *CookieStore) GetAll2(options *CookieStoreGetOptions) (_result *java
 	}
 	_returned := _this.Value_JS.Call("getAll", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceCookieListItem // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceCookieListItemFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) Set(name string, value string, options *CookieStoreSetOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) Set(name string, value string, options *CookieStoreSetOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -776,14 +1037,14 @@ func (_this *CookieStore) Set(name string, value string, options *CookieStoreSet
 	}
 	_returned := _this.Value_JS.Call("set", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) Set2(options *CookieStoreSetExtraOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) Set2(options *CookieStoreSetExtraOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -793,14 +1054,14 @@ func (_this *CookieStore) Set2(options *CookieStoreSetExtraOptions) (_result *ja
 	_end++
 	_returned := _this.Value_JS.Call("set", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) Delete(name string) (_result *javascript.Promise) {
+func (_this *CookieStore) Delete(name string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -810,14 +1071,14 @@ func (_this *CookieStore) Delete(name string) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("delete", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) Delete2(options *CookieStoreDeleteOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) Delete2(options *CookieStoreDeleteOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -827,14 +1088,14 @@ func (_this *CookieStore) Delete2(options *CookieStoreDeleteOptions) (_result *j
 	_end++
 	_returned := _this.Value_JS.Call("delete", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOptions) (_result *javascript.Promise) {
+func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -848,23 +1109,23 @@ func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOpti
 	_end++
 	_returned := _this.Value_JS.Call("subscribeToChanges", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *CookieStore) GetChangeSubscriptions() (_result *javascript.Promise) {
+func (_this *CookieStore) GetChangeSubscriptions() (_result *PromiseSequenceCookieStoreGetOptions) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getChangeSubscriptions", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceCookieStoreGetOptions // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceCookieStoreGetOptionsFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -940,4 +1201,319 @@ func (_this *ExtendableCookieChangeEvent) Deleted() []*CookieListItem {
 	}
 	ret = __array0
 	return ret
+}
+
+// interface: Promise
+type PromiseNilCookieListItem struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseNilCookieListItem) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseNilCookieListItemFromJS is casting a js.Wrapper into PromiseNilCookieListItem.
+func PromiseNilCookieListItemFromJS(value js.Wrapper) *PromiseNilCookieListItem {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseNilCookieListItem{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseNilCookieListItem) Then(onFulfilled *PromiseNilCookieListItemOnFulfilled, onRejected *PromiseNilCookieListItemOnRejected) (_result *PromiseNilCookieListItem) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilCookieListItem) Catch(onRejected *PromiseNilCookieListItemOnRejected) (_result *PromiseNilCookieListItem) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilCookieListItem) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseNilCookieListItem) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseNilCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceCookieListItem struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceCookieListItem) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceCookieListItemFromJS is casting a js.Wrapper into PromiseSequenceCookieListItem.
+func PromiseSequenceCookieListItemFromJS(value js.Wrapper) *PromiseSequenceCookieListItem {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceCookieListItem{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceCookieListItem) Then(onFulfilled *PromiseSequenceCookieListItemOnFulfilled, onRejected *PromiseSequenceCookieListItemOnRejected) (_result *PromiseSequenceCookieListItem) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceCookieListItem) Catch(onRejected *PromiseSequenceCookieListItemOnRejected) (_result *PromiseSequenceCookieListItem) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceCookieListItem) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceCookieListItem) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieListItem // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieListItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceCookieStoreGetOptions struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceCookieStoreGetOptions) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceCookieStoreGetOptionsFromJS is casting a js.Wrapper into PromiseSequenceCookieStoreGetOptions.
+func PromiseSequenceCookieStoreGetOptionsFromJS(value js.Wrapper) *PromiseSequenceCookieStoreGetOptions {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceCookieStoreGetOptions{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceCookieStoreGetOptions) Then(onFulfilled *PromiseSequenceCookieStoreGetOptionsOnFulfilled, onRejected *PromiseSequenceCookieStoreGetOptionsOnRejected) (_result *PromiseSequenceCookieStoreGetOptions) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieStoreGetOptions // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieStoreGetOptionsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceCookieStoreGetOptions) Catch(onRejected *PromiseSequenceCookieStoreGetOptionsOnRejected) (_result *PromiseSequenceCookieStoreGetOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieStoreGetOptions // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieStoreGetOptionsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceCookieStoreGetOptions) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceCookieStoreGetOptions) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceCookieStoreGetOptions // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceCookieStoreGetOptionsFromJS(_returned)
+	_result = _converted
+	return
 }

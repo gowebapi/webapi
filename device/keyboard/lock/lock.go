@@ -11,7 +11,7 @@ import (
 )
 
 // using following types:
-// javascript.Promise
+// javascript.PromiseVoid
 
 // source idl files:
 // keyboard-lock.idl
@@ -71,7 +71,7 @@ func KeyboardFromJS(value js.Wrapper) *Keyboard {
 	return ret
 }
 
-func (_this *Keyboard) Lock(keyCodes []string) (_result *javascript.Promise) {
+func (_this *Keyboard) Lock(keyCodes []string) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -87,9 +87,9 @@ func (_this *Keyboard) Lock(keyCodes []string) (_result *javascript.Promise) {
 	}
 	_returned := _this.Value_JS.Call("lock", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

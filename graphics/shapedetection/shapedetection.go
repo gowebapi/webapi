@@ -14,12 +14,14 @@ import (
 // using following types:
 // geometry.DOMRectReadOnly
 // javascript.FrozenArray
-// javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
+// promises.idl
 // shape-detection-api.idl
 
 // transform files:
+// promises.go.md
 // shape-detection-api.go.md
 
 // ReleasableApiResource is used to release underlaying
@@ -148,6 +150,276 @@ func LandmarkTypeFromJS(value js.Value) LandmarkType {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceBarcodeFormatOnFulfilledFunc func(value []BarcodeFormat)
+
+// PromiseSequenceBarcodeFormatOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceBarcodeFormatOnFulfilled js.Func
+
+func PromiseSequenceBarcodeFormatOnFulfilledToJS(callback PromiseSequenceBarcodeFormatOnFulfilledFunc) *PromiseSequenceBarcodeFormatOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceBarcodeFormatOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []BarcodeFormat // javascript: sequence<BarcodeFormat> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]BarcodeFormat, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 BarcodeFormat
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = BarcodeFormatFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceBarcodeFormatOnFulfilledFromJS(_value js.Value) PromiseSequenceBarcodeFormatOnFulfilledFunc {
+	return func(value []BarcodeFormat) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceBarcodeFormatOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceBarcodeFormatOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceBarcodeFormatOnRejected js.Func
+
+func PromiseSequenceBarcodeFormatOnRejectedToJS(callback PromiseSequenceBarcodeFormatOnRejectedFunc) *PromiseSequenceBarcodeFormatOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceBarcodeFormatOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceBarcodeFormatOnRejectedFromJS(_value js.Value) PromiseSequenceBarcodeFormatOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceDetectedBarcodeOnFulfilledFunc func(value []*DetectedBarcode)
+
+// PromiseSequenceDetectedBarcodeOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDetectedBarcodeOnFulfilled js.Func
+
+func PromiseSequenceDetectedBarcodeOnFulfilledToJS(callback PromiseSequenceDetectedBarcodeOnFulfilledFunc) *PromiseSequenceDetectedBarcodeOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDetectedBarcodeOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*DetectedBarcode // javascript: sequence<DetectedBarcode> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*DetectedBarcode, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *DetectedBarcode
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = DetectedBarcodeFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDetectedBarcodeOnFulfilledFromJS(_value js.Value) PromiseSequenceDetectedBarcodeOnFulfilledFunc {
+	return func(value []*DetectedBarcode) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceDetectedBarcodeOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceDetectedBarcodeOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDetectedBarcodeOnRejected js.Func
+
+func PromiseSequenceDetectedBarcodeOnRejectedToJS(callback PromiseSequenceDetectedBarcodeOnRejectedFunc) *PromiseSequenceDetectedBarcodeOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDetectedBarcodeOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDetectedBarcodeOnRejectedFromJS(_value js.Value) PromiseSequenceDetectedBarcodeOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceDetectedFaceOnFulfilledFunc func(value []*DetectedFace)
+
+// PromiseSequenceDetectedFaceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDetectedFaceOnFulfilled js.Func
+
+func PromiseSequenceDetectedFaceOnFulfilledToJS(callback PromiseSequenceDetectedFaceOnFulfilledFunc) *PromiseSequenceDetectedFaceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDetectedFaceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*DetectedFace // javascript: sequence<DetectedFace> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*DetectedFace, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *DetectedFace
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = DetectedFaceFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDetectedFaceOnFulfilledFromJS(_value js.Value) PromiseSequenceDetectedFaceOnFulfilledFunc {
+	return func(value []*DetectedFace) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceDetectedFaceOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceDetectedFaceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceDetectedFaceOnRejected js.Func
+
+func PromiseSequenceDetectedFaceOnRejectedToJS(callback PromiseSequenceDetectedFaceOnRejectedFunc) *PromiseSequenceDetectedFaceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceDetectedFaceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceDetectedFaceOnRejectedFromJS(_value js.Value) PromiseSequenceDetectedFaceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: BarcodeDetectorOptions
@@ -279,7 +551,7 @@ func BarcodeDetectorFromJS(value js.Wrapper) *BarcodeDetector {
 	return ret
 }
 
-func GetSupportedFormats() (_result *javascript.Promise) {
+func GetSupportedFormats() (_result *PromiseSequenceBarcodeFormat) {
 	_klass := js.Global().Get("BarcodeDetector")
 	_method := _klass.Get("getSupportedFormats")
 	var (
@@ -288,9 +560,9 @@ func GetSupportedFormats() (_result *javascript.Promise) {
 	)
 	_returned := _method.Invoke(_args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceBarcodeFormat // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceBarcodeFormatFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -315,7 +587,7 @@ func NewBarcodeDetector(barcodeDetectorOptions *BarcodeDetectorOptions) (_result
 	return
 }
 
-func (_this *BarcodeDetector) Detect(image *Union) (_result *javascript.Promise) {
+func (_this *BarcodeDetector) Detect(image *Union) (_result *PromiseSequenceDetectedBarcode) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -325,9 +597,9 @@ func (_this *BarcodeDetector) Detect(image *Union) (_result *javascript.Promise)
 	_end++
 	_returned := _this.Value_JS.Call("detect", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceDetectedBarcode // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceDetectedBarcodeFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -471,7 +743,7 @@ func NewFaceDetector(faceDetectorOptions *FaceDetectorOptions) (_result *FaceDet
 	return
 }
 
-func (_this *FaceDetector) Detect(image *Union) (_result *javascript.Promise) {
+func (_this *FaceDetector) Detect(image *Union) (_result *PromiseSequenceDetectedFace) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -481,9 +753,324 @@ func (_this *FaceDetector) Detect(image *Union) (_result *javascript.Promise) {
 	_end++
 	_returned := _this.Value_JS.Call("detect", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceDetectedFace // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceDetectedFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceBarcodeFormat struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceBarcodeFormat) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceBarcodeFormatFromJS is casting a js.Wrapper into PromiseSequenceBarcodeFormat.
+func PromiseSequenceBarcodeFormatFromJS(value js.Wrapper) *PromiseSequenceBarcodeFormat {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceBarcodeFormat{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceBarcodeFormat) Then(onFulfilled *PromiseSequenceBarcodeFormatOnFulfilled, onRejected *PromiseSequenceBarcodeFormatOnRejected) (_result *PromiseSequenceBarcodeFormat) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBarcodeFormat // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBarcodeFormatFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceBarcodeFormat) Catch(onRejected *PromiseSequenceBarcodeFormatOnRejected) (_result *PromiseSequenceBarcodeFormat) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBarcodeFormat // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBarcodeFormatFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceBarcodeFormat) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceBarcodeFormat) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceBarcodeFormat // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceBarcodeFormatFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceDetectedBarcode struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceDetectedBarcode) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceDetectedBarcodeFromJS is casting a js.Wrapper into PromiseSequenceDetectedBarcode.
+func PromiseSequenceDetectedBarcodeFromJS(value js.Wrapper) *PromiseSequenceDetectedBarcode {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceDetectedBarcode{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceDetectedBarcode) Then(onFulfilled *PromiseSequenceDetectedBarcodeOnFulfilled, onRejected *PromiseSequenceDetectedBarcodeOnRejected) (_result *PromiseSequenceDetectedBarcode) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedBarcode // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedBarcodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDetectedBarcode) Catch(onRejected *PromiseSequenceDetectedBarcodeOnRejected) (_result *PromiseSequenceDetectedBarcode) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedBarcode // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedBarcodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDetectedBarcode) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceDetectedBarcode) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedBarcode // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedBarcodeFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceDetectedFace struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceDetectedFace) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceDetectedFaceFromJS is casting a js.Wrapper into PromiseSequenceDetectedFace.
+func PromiseSequenceDetectedFaceFromJS(value js.Wrapper) *PromiseSequenceDetectedFace {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceDetectedFace{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceDetectedFace) Then(onFulfilled *PromiseSequenceDetectedFaceOnFulfilled, onRejected *PromiseSequenceDetectedFaceOnRejected) (_result *PromiseSequenceDetectedFace) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDetectedFace) Catch(onRejected *PromiseSequenceDetectedFaceOnRejected) (_result *PromiseSequenceDetectedFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceDetectedFace) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceDetectedFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceDetectedFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceDetectedFaceFromJS(_returned)
 	_result = _converted
 	return
 }

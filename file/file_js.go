@@ -14,14 +14,17 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.ArrayBuffer
+// javascript.PromiseFinally
 
 // source idl files:
 // fileapi.idl
 // html.idl
+// promises.idl
 
 // transform files:
 // fileapi.go.md
 // html.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -130,6 +133,84 @@ func BlobCallbackFromJS(_value js.Value) BlobCallbackFunc {
 			_end  int
 		)
 		_p0 := blob.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseBlobOnFulfilledFunc func(value *Blob)
+
+// PromiseBlobOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBlobOnFulfilled js.Func
+
+func PromiseBlobOnFulfilledToJS(callback PromiseBlobOnFulfilledFunc) *PromiseBlobOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBlobOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Blob // javascript: Blob value
+		)
+		_p0 = BlobFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBlobOnFulfilledFromJS(_value js.Value) PromiseBlobOnFulfilledFunc {
+	return func(value *Blob) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseBlobOnRejectedFunc func(reason js.Value)
+
+// PromiseBlobOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBlobOnRejected js.Func
+
+func PromiseBlobOnRejectedToJS(callback PromiseBlobOnRejectedFunc) *PromiseBlobOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBlobOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBlobOnRejectedFromJS(_value js.Value) PromiseBlobOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
 		_args[0] = _p0
 		_end++
 		_value.Invoke(_args[0:_end]...)
@@ -809,6 +890,111 @@ func (_this *FileReaderSync) ReadAsDataURL(blob *Blob) (_result string) {
 		_converted string // javascript: DOMString _what_return_name
 	)
 	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseBlob struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseBlob) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseBlobFromJS is casting a js.Wrapper into PromiseBlob.
+func PromiseBlobFromJS(value js.Wrapper) *PromiseBlob {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseBlob{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseBlob) Then(onFulfilled *PromiseBlobOnFulfilled, onRejected *PromiseBlobOnRejected) (_result *PromiseBlob) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseBlob // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBlobFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBlob) Catch(onRejected *PromiseBlobOnRejected) (_result *PromiseBlob) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseBlob // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBlobFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBlob) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseBlob) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseBlob // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBlobFromJS(_returned)
 	_result = _converted
 	return
 }

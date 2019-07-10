@@ -19,20 +19,23 @@ import (
 // dom.Element
 // domcore.EventTarget
 // file.BlobCallback
+// file.PromiseBlob
 // geometry.DOMMatrix
 // geometry.DOMMatrix2DInit
 // html.HTMLElement
 // html.ImageEncodeOptions
 // html.OffscreenRenderingContextId
-// javascript.Promise
+// javascript.PromiseFinally
 // local.MediaStream
 // patch.Uint8ClampedArray
 
 // source idl files:
 // html.idl
+// promises.idl
 
 // transform files:
 // html.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -539,6 +542,84 @@ func ResizeQualityFromJS(value js.Value) ResizeQuality {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseImageBitmapOnFulfilledFunc func(value *ImageBitmap)
+
+// PromiseImageBitmapOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseImageBitmapOnFulfilled js.Func
+
+func PromiseImageBitmapOnFulfilledToJS(callback PromiseImageBitmapOnFulfilledFunc) *PromiseImageBitmapOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseImageBitmapOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *ImageBitmap // javascript: ImageBitmap value
+		)
+		_p0 = ImageBitmapFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseImageBitmapOnFulfilledFromJS(_value js.Value) PromiseImageBitmapOnFulfilledFunc {
+	return func(value *ImageBitmap) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseImageBitmapOnRejectedFunc func(reason js.Value)
+
+// PromiseImageBitmapOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseImageBitmapOnRejected js.Func
+
+func PromiseImageBitmapOnRejectedToJS(callback PromiseImageBitmapOnRejectedFunc) *PromiseImageBitmapOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseImageBitmapOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseImageBitmapOnRejectedFromJS(_value js.Value) PromiseImageBitmapOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: CanvasRenderingContext2DSettings
@@ -2495,7 +2576,7 @@ func (_this *OffscreenCanvas) TransferToImageBitmap() (_result *ImageBitmap) {
 	return
 }
 
-func (_this *OffscreenCanvas) ConvertToBlob(options *html.ImageEncodeOptions) (_result *javascript.Promise) {
+func (_this *OffscreenCanvas) ConvertToBlob(options *html.ImageEncodeOptions) (_result *file.PromiseBlob) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -2507,9 +2588,9 @@ func (_this *OffscreenCanvas) ConvertToBlob(options *html.ImageEncodeOptions) (_
 	}
 	_returned := _this.Value_JS.Call("convertToBlob", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *file.PromiseBlob // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = file.PromiseBlobFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -4080,6 +4161,111 @@ func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY floa
 		_end++
 	}
 	_this.Value_JS.Call("ellipse", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromiseImageBitmap struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseImageBitmap) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseImageBitmapFromJS is casting a js.Wrapper into PromiseImageBitmap.
+func PromiseImageBitmapFromJS(value js.Wrapper) *PromiseImageBitmap {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseImageBitmap{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseImageBitmap) Then(onFulfilled *PromiseImageBitmapOnFulfilled, onRejected *PromiseImageBitmapOnRejected) (_result *PromiseImageBitmap) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseImageBitmap // javascript: Promise _what_return_name
+	)
+	_converted = PromiseImageBitmapFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseImageBitmap) Catch(onRejected *PromiseImageBitmapOnRejected) (_result *PromiseImageBitmap) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseImageBitmap // javascript: Promise _what_return_name
+	)
+	_converted = PromiseImageBitmapFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseImageBitmap) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseImageBitmap) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseImageBitmap // javascript: Promise _what_return_name
+	)
+	_converted = PromiseImageBitmapFromJS(_returned)
+	_result = _converted
 	return
 }
 

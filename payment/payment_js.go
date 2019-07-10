@@ -8,22 +8,30 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/payment/request"
+	"github.com/gowebapi/webapi/serviceworker/client"
 )
 
 // using following types:
+// client.PromiseNilWindowClient
 // domcore.ExtendableEvent
 // javascript.FrozenArray
 // javascript.Object
 // javascript.Promise
+// javascript.PromiseBool
+// javascript.PromiseFinally
+// javascript.PromiseSequenceString
+// javascript.PromiseVoid
 // request.PaymentCurrencyAmount
 // request.PaymentDetailsModifier
 // request.PaymentMethodData
 
 // source idl files:
 // payment-handler.idl
+// promises.idl
 
 // transform files:
 // payment-handler.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -54,6 +62,162 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseNilPaymentMethodChangeResponseOnFulfilledFunc func(value *PaymentMethodChangeResponse)
+
+// PromiseNilPaymentMethodChangeResponseOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilPaymentMethodChangeResponseOnFulfilled js.Func
+
+func PromiseNilPaymentMethodChangeResponseOnFulfilledToJS(callback PromiseNilPaymentMethodChangeResponseOnFulfilledFunc) *PromiseNilPaymentMethodChangeResponseOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilPaymentMethodChangeResponseOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PaymentMethodChangeResponse // javascript: PaymentMethodChangeResponse value
+		)
+		_p0 = PaymentMethodChangeResponseFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilPaymentMethodChangeResponseOnFulfilledFromJS(_value js.Value) PromiseNilPaymentMethodChangeResponseOnFulfilledFunc {
+	return func(value *PaymentMethodChangeResponse) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseNilPaymentMethodChangeResponseOnRejectedFunc func(reason js.Value)
+
+// PromiseNilPaymentMethodChangeResponseOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseNilPaymentMethodChangeResponseOnRejected js.Func
+
+func PromiseNilPaymentMethodChangeResponseOnRejectedToJS(callback PromiseNilPaymentMethodChangeResponseOnRejectedFunc) *PromiseNilPaymentMethodChangeResponseOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseNilPaymentMethodChangeResponseOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseNilPaymentMethodChangeResponseOnRejectedFromJS(_value js.Value) PromiseNilPaymentMethodChangeResponseOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromisePaymentHandlerResponseOnFulfilledFunc func(value *PaymentHandlerResponse)
+
+// PromisePaymentHandlerResponseOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePaymentHandlerResponseOnFulfilled js.Func
+
+func PromisePaymentHandlerResponseOnFulfilledToJS(callback PromisePaymentHandlerResponseOnFulfilledFunc) *PromisePaymentHandlerResponseOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePaymentHandlerResponseOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *PaymentHandlerResponse // javascript: PaymentHandlerResponse value
+		)
+		_p0 = PaymentHandlerResponseFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePaymentHandlerResponseOnFulfilledFromJS(_value js.Value) PromisePaymentHandlerResponseOnFulfilledFunc {
+	return func(value *PaymentHandlerResponse) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePaymentHandlerResponseOnRejectedFunc func(reason js.Value)
+
+// PromisePaymentHandlerResponseOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePaymentHandlerResponseOnRejected js.Func
+
+func PromisePaymentHandlerResponseOnRejectedToJS(callback PromisePaymentHandlerResponseOnRejectedFunc) *PromisePaymentHandlerResponseOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePaymentHandlerResponseOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePaymentHandlerResponseOnRejectedFromJS(_value js.Value) PromisePaymentHandlerResponseOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: CanMakePaymentEventInit
@@ -474,7 +638,7 @@ func (_this *CanMakePaymentEvent) MethodData() *javascript.FrozenArray {
 	return ret
 }
 
-func (_this *CanMakePaymentEvent) RespondWith(canMakePaymentResponse *javascript.Promise) {
+func (_this *CanMakePaymentEvent) RespondWith(canMakePaymentResponse *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -507,7 +671,7 @@ func PaymentInstrumentsFromJS(value js.Wrapper) *PaymentInstruments {
 	return ret
 }
 
-func (_this *PaymentInstruments) Delete(instrumentKey string) (_result *javascript.Promise) {
+func (_this *PaymentInstruments) Delete(instrumentKey string) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -517,9 +681,9 @@ func (_this *PaymentInstruments) Delete(instrumentKey string) (_result *javascri
 	_end++
 	_returned := _this.Value_JS.Call("delete", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -541,21 +705,21 @@ func (_this *PaymentInstruments) Get(instrumentKey string) (_result *javascript.
 	return
 }
 
-func (_this *PaymentInstruments) Keys() (_result *javascript.Promise) {
+func (_this *PaymentInstruments) Keys() (_result *javascript.PromiseSequenceString) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseSequenceString // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseSequenceStringFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PaymentInstruments) Has(instrumentKey string) (_result *javascript.Promise) {
+func (_this *PaymentInstruments) Has(instrumentKey string) (_result *javascript.PromiseBool) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -565,14 +729,14 @@ func (_this *PaymentInstruments) Has(instrumentKey string) (_result *javascript.
 	_end++
 	_returned := _this.Value_JS.Call("has", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PaymentInstruments) Set(instrumentKey string, details *PaymentInstrument) (_result *javascript.Promise) {
+func (_this *PaymentInstruments) Set(instrumentKey string, details *PaymentInstrument) (_result *javascript.PromiseVoid) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -585,23 +749,23 @@ func (_this *PaymentInstruments) Set(instrumentKey string, details *PaymentInstr
 	_end++
 	_returned := _this.Value_JS.Call("set", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PaymentInstruments) Clear() (_result *javascript.Promise) {
+func (_this *PaymentInstruments) Clear() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("clear", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -761,7 +925,7 @@ func (_this *PaymentRequestEvent) RequestBillingAddress() bool {
 	return ret
 }
 
-func (_this *PaymentRequestEvent) OpenWindow(url string) (_result *javascript.Promise) {
+func (_this *PaymentRequestEvent) OpenWindow(url string) (_result *client.PromiseNilWindowClient) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -771,14 +935,14 @@ func (_this *PaymentRequestEvent) OpenWindow(url string) (_result *javascript.Pr
 	_end++
 	_returned := _this.Value_JS.Call("openWindow", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *client.PromiseNilWindowClient // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = client.PromiseNilWindowClientFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PaymentRequestEvent) ChangePaymentMethod(methodName string, methodDetails *javascript.Object) (_result *javascript.Promise) {
+func (_this *PaymentRequestEvent) ChangePaymentMethod(methodName string, methodDetails *javascript.Object) (_result *PromiseNilPaymentMethodChangeResponse) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -793,14 +957,14 @@ func (_this *PaymentRequestEvent) ChangePaymentMethod(methodName string, methodD
 	}
 	_returned := _this.Value_JS.Call("changePaymentMethod", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseNilPaymentMethodChangeResponse // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseNilPaymentMethodChangeResponseFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PaymentRequestEvent) RespondWith(handlerResponsePromise *javascript.Promise) {
+func (_this *PaymentRequestEvent) RespondWith(handlerResponsePromise *PromisePaymentHandlerResponse) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -809,5 +973,215 @@ func (_this *PaymentRequestEvent) RespondWith(handlerResponsePromise *javascript
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("respondWith", _args[0:_end]...)
+	return
+}
+
+// interface: Promise
+type PromiseNilPaymentMethodChangeResponse struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseNilPaymentMethodChangeResponse) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseNilPaymentMethodChangeResponseFromJS is casting a js.Wrapper into PromiseNilPaymentMethodChangeResponse.
+func PromiseNilPaymentMethodChangeResponseFromJS(value js.Wrapper) *PromiseNilPaymentMethodChangeResponse {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseNilPaymentMethodChangeResponse{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseNilPaymentMethodChangeResponse) Then(onFulfilled *PromiseNilPaymentMethodChangeResponseOnFulfilled, onRejected *PromiseNilPaymentMethodChangeResponseOnRejected) (_result *PromiseNilPaymentMethodChangeResponse) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseNilPaymentMethodChangeResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilPaymentMethodChangeResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilPaymentMethodChangeResponse) Catch(onRejected *PromiseNilPaymentMethodChangeResponseOnRejected) (_result *PromiseNilPaymentMethodChangeResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseNilPaymentMethodChangeResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilPaymentMethodChangeResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseNilPaymentMethodChangeResponse) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseNilPaymentMethodChangeResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseNilPaymentMethodChangeResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromiseNilPaymentMethodChangeResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromisePaymentHandlerResponse struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromisePaymentHandlerResponse) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromisePaymentHandlerResponseFromJS is casting a js.Wrapper into PromisePaymentHandlerResponse.
+func PromisePaymentHandlerResponseFromJS(value js.Wrapper) *PromisePaymentHandlerResponse {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromisePaymentHandlerResponse{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromisePaymentHandlerResponse) Then(onFulfilled *PromisePaymentHandlerResponseOnFulfilled, onRejected *PromisePaymentHandlerResponseOnRejected) (_result *PromisePaymentHandlerResponse) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePaymentHandlerResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromisePaymentHandlerResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePaymentHandlerResponse) Catch(onRejected *PromisePaymentHandlerResponseOnRejected) (_result *PromisePaymentHandlerResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePaymentHandlerResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromisePaymentHandlerResponseFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePaymentHandlerResponse) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePaymentHandlerResponse) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePaymentHandlerResponse // javascript: Promise _what_return_name
+	)
+	_converted = PromisePaymentHandlerResponseFromJS(_returned)
+	_result = _converted
 	return
 }

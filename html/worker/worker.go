@@ -29,6 +29,7 @@ import (
 
 // using following types:
 // canvas.ImageBitmapOptions
+// canvas.PromiseImageBitmap
 // capabilities.MediaCapabilities
 // channel.MessagePort
 // channel.PostMessageOptions
@@ -37,6 +38,7 @@ import (
 // crypto.Crypto
 // domcore.EventHandler
 // domcore.EventTarget
+// fetch.PromiseResponse
 // fetch.RequestCredentials
 // fetch.RequestInit
 // htmlcommon.FrameRequestCallback
@@ -45,7 +47,7 @@ import (
 // indexeddb.IDBFactory
 // javascript.FrozenArray
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseVoid
 // netinfo.NetworkInformation
 // patch.ByteString
 // permissions.Permissions
@@ -645,16 +647,16 @@ func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventH
 	_this.Value_JS.Set("onpaymentrequest", input)
 }
 
-func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promise) {
+func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("skipWaiting", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1335,7 +1337,7 @@ func (_this *WorkerGlobalScope) QueueMicrotask(callback *webidl.VoidFunction) {
 	return
 }
 
-func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
+func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *canvas.ImageBitmapOptions) (_result *canvas.PromiseImageBitmap) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1350,14 +1352,14 @@ func (_this *WorkerGlobalScope) CreateImageBitmap(image *Union, options *canvas.
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *canvas.PromiseImageBitmap // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = canvas.PromiseImageBitmapFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *canvas.ImageBitmapOptions) (_result *javascript.Promise) {
+func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int, sw int, sh int, options *canvas.ImageBitmapOptions) (_result *canvas.PromiseImageBitmap) {
 	var (
 		_args [6]interface{}
 		_end  int
@@ -1384,14 +1386,14 @@ func (_this *WorkerGlobalScope) CreateImageBitmap2(image *Union, sx int, sy int,
 	}
 	_returned := _this.Value_JS.Call("createImageBitmap", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *canvas.PromiseImageBitmap // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = canvas.PromiseImageBitmapFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_result *javascript.Promise) {
+func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_result *fetch.PromiseResponse) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1406,9 +1408,9 @@ func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_r
 	}
 	_returned := _this.Value_JS.Call("fetch", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *fetch.PromiseResponse // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = fetch.PromiseResponseFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1536,15 +1538,6 @@ func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
 	return ret
 }
 
-// Usb returning attribute 'usb' with
-// type usb.USB (idl: USB).
-func (_this *WorkerNavigator) Usb() *usb.USB {
-	var ret *usb.USB
-	value := _this.Value_JS.Get("usb")
-	ret = usb.USBFromJS(value)
-	return ret
-}
-
 // MediaCapabilities returning attribute 'mediaCapabilities' with
 // type capabilities.MediaCapabilities (idl: MediaCapabilities).
 func (_this *WorkerNavigator) MediaCapabilities() *capabilities.MediaCapabilities {
@@ -1569,6 +1562,15 @@ func (_this *WorkerNavigator) ServiceWorker() *serviceworker.ServiceWorkerContai
 	var ret *serviceworker.ServiceWorkerContainer
 	value := _this.Value_JS.Get("serviceWorker")
 	ret = serviceworker.ServiceWorkerContainerFromJS(value)
+	return ret
+}
+
+// Usb returning attribute 'usb' with
+// type usb.USB (idl: USB).
+func (_this *WorkerNavigator) Usb() *usb.USB {
+	var ret *usb.USB
+	value := _this.Value_JS.Get("usb")
+	ret = usb.USBFromJS(value)
 	return ret
 }
 

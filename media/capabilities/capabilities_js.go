@@ -12,13 +12,15 @@ import (
 // using following types:
 // encrypted.MediaKeySystemAccess
 // encrypted.MediaKeysRequirement
-// javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
 // media-capabilities.idl
+// promises.idl
 
 // transform files:
 // media-capabilities.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -176,6 +178,162 @@ func ScreenColorGamutFromJS(value js.Value) ScreenColorGamut {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseMediaCapabilitiesDecodingInfoOnFulfilledFunc func(value *MediaCapabilitiesDecodingInfo)
+
+// PromiseMediaCapabilitiesDecodingInfoOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaCapabilitiesDecodingInfoOnFulfilled js.Func
+
+func PromiseMediaCapabilitiesDecodingInfoOnFulfilledToJS(callback PromiseMediaCapabilitiesDecodingInfoOnFulfilledFunc) *PromiseMediaCapabilitiesDecodingInfoOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaCapabilitiesDecodingInfoOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *MediaCapabilitiesDecodingInfo // javascript: MediaCapabilitiesDecodingInfo value
+		)
+		_p0 = MediaCapabilitiesDecodingInfoFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaCapabilitiesDecodingInfoOnFulfilledFromJS(_value js.Value) PromiseMediaCapabilitiesDecodingInfoOnFulfilledFunc {
+	return func(value *MediaCapabilitiesDecodingInfo) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseMediaCapabilitiesDecodingInfoOnRejectedFunc func(reason js.Value)
+
+// PromiseMediaCapabilitiesDecodingInfoOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaCapabilitiesDecodingInfoOnRejected js.Func
+
+func PromiseMediaCapabilitiesDecodingInfoOnRejectedToJS(callback PromiseMediaCapabilitiesDecodingInfoOnRejectedFunc) *PromiseMediaCapabilitiesDecodingInfoOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaCapabilitiesDecodingInfoOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaCapabilitiesDecodingInfoOnRejectedFromJS(_value js.Value) PromiseMediaCapabilitiesDecodingInfoOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseMediaCapabilitiesInfoOnFulfilledFunc func(value *MediaCapabilitiesInfo)
+
+// PromiseMediaCapabilitiesInfoOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaCapabilitiesInfoOnFulfilled js.Func
+
+func PromiseMediaCapabilitiesInfoOnFulfilledToJS(callback PromiseMediaCapabilitiesInfoOnFulfilledFunc) *PromiseMediaCapabilitiesInfoOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaCapabilitiesInfoOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *MediaCapabilitiesInfo // javascript: MediaCapabilitiesInfo value
+		)
+		_p0 = MediaCapabilitiesInfoFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaCapabilitiesInfoOnFulfilledFromJS(_value js.Value) PromiseMediaCapabilitiesInfoOnFulfilledFunc {
+	return func(value *MediaCapabilitiesInfo) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseMediaCapabilitiesInfoOnRejectedFunc func(reason js.Value)
+
+// PromiseMediaCapabilitiesInfoOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseMediaCapabilitiesInfoOnRejected js.Func
+
+func PromiseMediaCapabilitiesInfoOnRejectedToJS(callback PromiseMediaCapabilitiesInfoOnRejectedFunc) *PromiseMediaCapabilitiesInfoOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseMediaCapabilitiesInfoOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseMediaCapabilitiesInfoOnRejectedFromJS(_value js.Value) PromiseMediaCapabilitiesInfoOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: AudioConfiguration
@@ -579,7 +737,7 @@ func MediaCapabilitiesFromJS(value js.Wrapper) *MediaCapabilities {
 	return ret
 }
 
-func (_this *MediaCapabilities) DecodingInfo(configuration *MediaDecodingConfiguration) (_result *javascript.Promise) {
+func (_this *MediaCapabilities) DecodingInfo(configuration *MediaDecodingConfiguration) (_result *PromiseMediaCapabilitiesDecodingInfo) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -589,14 +747,14 @@ func (_this *MediaCapabilities) DecodingInfo(configuration *MediaDecodingConfigu
 	_end++
 	_returned := _this.Value_JS.Call("decodingInfo", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseMediaCapabilitiesDecodingInfo // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseMediaCapabilitiesDecodingInfoFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *MediaCapabilities) EncodingInfo(configuration *MediaEncodingConfiguration) (_result *javascript.Promise) {
+func (_this *MediaCapabilities) EncodingInfo(configuration *MediaEncodingConfiguration) (_result *PromiseMediaCapabilitiesInfo) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -606,9 +764,219 @@ func (_this *MediaCapabilities) EncodingInfo(configuration *MediaEncodingConfigu
 	_end++
 	_returned := _this.Value_JS.Call("encodingInfo", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseMediaCapabilitiesInfo // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseMediaCapabilitiesInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseMediaCapabilitiesDecodingInfo struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseMediaCapabilitiesDecodingInfo) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseMediaCapabilitiesDecodingInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesDecodingInfo.
+func PromiseMediaCapabilitiesDecodingInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesDecodingInfo {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseMediaCapabilitiesDecodingInfo{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseMediaCapabilitiesDecodingInfo) Then(onFulfilled *PromiseMediaCapabilitiesDecodingInfoOnFulfilled, onRejected *PromiseMediaCapabilitiesDecodingInfoOnRejected) (_result *PromiseMediaCapabilitiesDecodingInfo) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesDecodingInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesDecodingInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaCapabilitiesDecodingInfo) Catch(onRejected *PromiseMediaCapabilitiesDecodingInfoOnRejected) (_result *PromiseMediaCapabilitiesDecodingInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesDecodingInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesDecodingInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaCapabilitiesDecodingInfo) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseMediaCapabilitiesDecodingInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesDecodingInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesDecodingInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseMediaCapabilitiesInfo struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseMediaCapabilitiesInfo) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseMediaCapabilitiesInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesInfo.
+func PromiseMediaCapabilitiesInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesInfo {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseMediaCapabilitiesInfo{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseMediaCapabilitiesInfo) Then(onFulfilled *PromiseMediaCapabilitiesInfoOnFulfilled, onRejected *PromiseMediaCapabilitiesInfoOnRejected) (_result *PromiseMediaCapabilitiesInfo) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaCapabilitiesInfo) Catch(onRejected *PromiseMediaCapabilitiesInfoOnRejected) (_result *PromiseMediaCapabilitiesInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseMediaCapabilitiesInfo) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseMediaCapabilitiesInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseMediaCapabilitiesInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseMediaCapabilitiesInfoFromJS(_returned)
 	_result = _converted
 	return
 }

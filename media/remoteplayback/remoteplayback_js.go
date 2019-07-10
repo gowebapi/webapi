@@ -12,7 +12,8 @@ import (
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
-// javascript.Promise
+// javascript.PromiseInt
+// javascript.PromiseVoid
 
 // source idl files:
 // remote-playback.idl
@@ -230,7 +231,7 @@ func (_this *RemotePlayback) SetOndisconnect(value *domcore.EventHandler) {
 	_this.Value_JS.Set("ondisconnect", input)
 }
 
-func (_this *RemotePlayback) WatchAvailability(callback *RemotePlaybackAvailabilityCallback) (_result *javascript.Promise) {
+func (_this *RemotePlayback) WatchAvailability(callback *RemotePlaybackAvailabilityCallback) (_result *javascript.PromiseInt) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -247,14 +248,14 @@ func (_this *RemotePlayback) WatchAvailability(callback *RemotePlaybackAvailabil
 	_end++
 	_returned := _this.Value_JS.Call("watchAvailability", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseInt // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseIntFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *RemotePlayback) CancelWatchAvailability(id *int) (_result *javascript.Promise) {
+func (_this *RemotePlayback) CancelWatchAvailability(id *int) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -266,23 +267,23 @@ func (_this *RemotePlayback) CancelWatchAvailability(id *int) (_result *javascri
 	}
 	_returned := _this.Value_JS.Call("cancelWatchAvailability", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *RemotePlayback) Prompt() (_result *javascript.Promise) {
+func (_this *RemotePlayback) Prompt() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("prompt", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

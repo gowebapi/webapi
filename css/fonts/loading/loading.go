@@ -17,12 +17,15 @@ import (
 // domcore.EventTarget
 // javascript.FrozenArray
 // javascript.Promise
+// javascript.PromiseFinally
 
 // source idl files:
 // css-font-loading.idl
+// promises.idl
 
 // transform files:
 // css-font-loading.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -139,6 +142,174 @@ func FontFaceSetLoadStatusFromJS(value js.Value) FontFaceSetLoadStatus {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseFontFaceOnFulfilledFunc func(value *FontFace)
+
+// PromiseFontFaceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseFontFaceOnFulfilled js.Func
+
+func PromiseFontFaceOnFulfilledToJS(callback PromiseFontFaceOnFulfilledFunc) *PromiseFontFaceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseFontFaceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *FontFace // javascript: FontFace value
+		)
+		_p0 = FontFaceFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseFontFaceOnFulfilledFromJS(_value js.Value) PromiseFontFaceOnFulfilledFunc {
+	return func(value *FontFace) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseFontFaceOnRejectedFunc func(reason js.Value)
+
+// PromiseFontFaceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseFontFaceOnRejected js.Func
+
+func PromiseFontFaceOnRejectedToJS(callback PromiseFontFaceOnRejectedFunc) *PromiseFontFaceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseFontFaceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseFontFaceOnRejectedFromJS(_value js.Value) PromiseFontFaceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceFontFaceOnFulfilledFunc func(value []*FontFace)
+
+// PromiseSequenceFontFaceOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceFontFaceOnFulfilled js.Func
+
+func PromiseSequenceFontFaceOnFulfilledToJS(callback PromiseSequenceFontFaceOnFulfilledFunc) *PromiseSequenceFontFaceOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceFontFaceOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*FontFace // javascript: sequence<FontFace> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*FontFace, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *FontFace
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = FontFaceFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceFontFaceOnFulfilledFromJS(_value js.Value) PromiseSequenceFontFaceOnFulfilledFunc {
+	return func(value []*FontFace) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceFontFaceOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceFontFaceOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceFontFaceOnRejected js.Func
+
+func PromiseSequenceFontFaceOnRejectedToJS(callback PromiseSequenceFontFaceOnRejectedFunc) *PromiseSequenceFontFaceOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceFontFaceOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceFontFaceOnRejectedFromJS(_value js.Value) PromiseSequenceFontFaceOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // dictionary: FontFaceDescriptors
@@ -478,16 +649,16 @@ func (_this *FontFace) Loaded() *javascript.Promise {
 	return ret
 }
 
-func (_this *FontFace) Load() (_result *javascript.Promise) {
+func (_this *FontFace) Load() (_result *PromiseFontFace) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("load", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseFontFace // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseFontFaceFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -663,7 +834,7 @@ func (_this *FontFaceSet) Clear() {
 	return
 }
 
-func (_this *FontFaceSet) Load(font string, text *string) (_result *javascript.Promise) {
+func (_this *FontFaceSet) Load(font string, text *string) (_result *PromiseSequenceFontFace) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -678,9 +849,9 @@ func (_this *FontFaceSet) Load(font string, text *string) (_result *javascript.P
 	}
 	_returned := _this.Value_JS.Call("load", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseSequenceFontFace // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseSequenceFontFaceFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -783,4 +954,214 @@ func (_this *FontFaceSource) Fonts() *FontFaceSet {
 	value := _this.Value_JS.Get("fonts")
 	ret = FontFaceSetFromJS(value)
 	return ret
+}
+
+// interface: Promise
+type PromiseFontFace struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseFontFace) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseFontFaceFromJS is casting a js.Wrapper into PromiseFontFace.
+func PromiseFontFaceFromJS(value js.Wrapper) *PromiseFontFace {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseFontFace{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseFontFace) Then(onFulfilled *PromiseFontFaceOnFulfilled, onRejected *PromiseFontFaceOnRejected) (_result *PromiseFontFace) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFontFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseFontFace) Catch(onRejected *PromiseFontFaceOnRejected) (_result *PromiseFontFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFontFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseFontFace) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseFontFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseFontFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseSequenceFontFace struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseSequenceFontFace) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseSequenceFontFaceFromJS is casting a js.Wrapper into PromiseSequenceFontFace.
+func PromiseSequenceFontFaceFromJS(value js.Wrapper) *PromiseSequenceFontFace {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseSequenceFontFace{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseSequenceFontFace) Then(onFulfilled *PromiseSequenceFontFaceOnFulfilled, onRejected *PromiseSequenceFontFaceOnRejected) (_result *PromiseSequenceFontFace) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceFontFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceFontFace) Catch(onRejected *PromiseSequenceFontFaceOnRejected) (_result *PromiseSequenceFontFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceFontFaceFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceFontFace) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceFontFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceFontFace // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceFontFaceFromJS(_returned)
+	_result = _converted
+	return
 }

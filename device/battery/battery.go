@@ -8,17 +8,21 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // domcore.EventHandler
 // domcore.EventTarget
+// javascript.PromiseFinally
 
 // source idl files:
 // battery-status.idl
+// promises.idl
 
 // transform files:
 // battery-status.go.md
+// promises.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -49,6 +53,84 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseBatteryManagerOnFulfilledFunc func(value *BatteryManager)
+
+// PromiseBatteryManagerOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBatteryManagerOnFulfilled js.Func
+
+func PromiseBatteryManagerOnFulfilledToJS(callback PromiseBatteryManagerOnFulfilledFunc) *PromiseBatteryManagerOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBatteryManagerOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *BatteryManager // javascript: BatteryManager value
+		)
+		_p0 = BatteryManagerFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBatteryManagerOnFulfilledFromJS(_value js.Value) PromiseBatteryManagerOnFulfilledFunc {
+	return func(value *BatteryManager) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseBatteryManagerOnRejectedFunc func(reason js.Value)
+
+// PromiseBatteryManagerOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseBatteryManagerOnRejected js.Func
+
+func PromiseBatteryManagerOnRejectedToJS(callback PromiseBatteryManagerOnRejectedFunc) *PromiseBatteryManagerOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseBatteryManagerOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseBatteryManagerOnRejectedFromJS(_value js.Value) PromiseBatteryManagerOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // interface: BatteryManager
@@ -197,4 +279,109 @@ func (_this *BatteryManager) SetOnlevelchange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onlevelchange", input)
+}
+
+// interface: Promise
+type PromiseBatteryManager struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseBatteryManager) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseBatteryManagerFromJS is casting a js.Wrapper into PromiseBatteryManager.
+func PromiseBatteryManagerFromJS(value js.Wrapper) *PromiseBatteryManager {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseBatteryManager{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseBatteryManager) Then(onFulfilled *PromiseBatteryManagerOnFulfilled, onRejected *PromiseBatteryManagerOnRejected) (_result *PromiseBatteryManager) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseBatteryManager // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBatteryManagerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBatteryManager) Catch(onRejected *PromiseBatteryManagerOnRejected) (_result *PromiseBatteryManager) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseBatteryManager // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBatteryManagerFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseBatteryManager) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseBatteryManager) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseBatteryManager // javascript: Promise _what_return_name
+	)
+	_converted = PromiseBatteryManagerFromJS(_returned)
+	_result = _converted
+	return
 }

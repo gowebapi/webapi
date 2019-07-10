@@ -11,7 +11,7 @@ import (
 
 // using following types:
 // javascript.Object
-// javascript.Promise
+// javascript.PromiseVoid
 // webgl.ActiveInfo
 // webgl.Buffer
 // webgl.ContextAttributes
@@ -3159,16 +3159,16 @@ func (_this *RenderingContext) Viewport(x int, y int, width int, height int) {
 	return
 }
 
-func (_this *RenderingContext) MakeXRCompatible() (_result *javascript.Promise) {
+func (_this *RenderingContext) MakeXRCompatible() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("makeXRCompatible", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
