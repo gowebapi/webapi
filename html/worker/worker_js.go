@@ -645,6 +645,54 @@ func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventH
 	_this.Value_JS.Set("onpaymentrequest", input)
 }
 
+// Onpush returning attribute 'onpush' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onpush() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpush")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpush setting attribute 'onpush' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnpush(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpush", input)
+}
+
+// Onpushsubscriptionchange returning attribute 'onpushsubscriptionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) Onpushsubscriptionchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpushsubscriptionchange")
+	if value.Type() != js.TypeNull {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpushsubscriptionchange setting attribute 'onpushsubscriptionchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) SetOnpushsubscriptionchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpushsubscriptionchange", input)
+}
+
 func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}

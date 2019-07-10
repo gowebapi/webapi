@@ -14,6 +14,7 @@ import (
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/payment"
+	"github.com/gowebapi/webapi/push"
 	"github.com/gowebapi/webapi/serviceworker/client"
 )
 
@@ -38,6 +39,7 @@ import (
 // javascript.PromiseSequenceString
 // javascript.PromiseVoid
 // payment.PaymentManager
+// push.Manager
 
 // source idl files:
 // BackgroundSync.idl
@@ -3161,6 +3163,15 @@ func (_this *ServiceWorkerRegistration) PaymentManager() *payment.PaymentManager
 	var ret *payment.PaymentManager
 	value := _this.Value_JS.Get("paymentManager")
 	ret = payment.PaymentManagerFromJS(value)
+	return ret
+}
+
+// PushManager returning attribute 'pushManager' with
+// type push.Manager (idl: PushManager).
+func (_this *ServiceWorkerRegistration) PushManager() *push.Manager {
+	var ret *push.Manager
+	value := _this.Value_JS.Get("pushManager")
+	ret = push.ManagerFromJS(value)
 	return ret
 }
 
