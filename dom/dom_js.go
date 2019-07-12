@@ -5155,20 +5155,6 @@ func (_this *Range) IntersectsNode(node *Node) (_result bool) {
 	return
 }
 
-func (_this *Range) ToString() (_result string) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
-	var (
-		_converted string // javascript: DOMString _what_return_name
-	)
-	_converted = (_returned).String()
-	_result = _converted
-	return
-}
-
 func (_this *Range) CreateContextualFragment(fragment string) (_result *DocumentFragment) {
 	var (
 		_args [1]interface{}
@@ -5210,6 +5196,20 @@ func (_this *Range) GetBoundingClientRect() (_result *geometry.DOMRect) {
 		_converted *geometry.DOMRect // javascript: DOMRect _what_return_name
 	)
 	_converted = geometry.DOMRectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Range) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: USVString _what_return_name
+	)
+	_converted = (_returned).String()
 	_result = _converted
 	return
 }

@@ -2323,7 +2323,7 @@ func (_this *CSSStyleValue) ToString() (_result string) {
 	)
 	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
 	var (
-		_converted string // javascript: DOMString _what_return_name
+		_converted string // javascript: USVString _what_return_name
 	)
 	_converted = (_returned).String()
 	_result = _converted
@@ -2388,7 +2388,7 @@ func (_this *CSSTransformComponent) ToString() (_result string) {
 	)
 	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
 	var (
-		_converted string // javascript: DOMString _what_return_name
+		_converted string // javascript: USVString _what_return_name
 	)
 	_converted = (_returned).String()
 	_result = _converted
