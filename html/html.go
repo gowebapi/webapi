@@ -2447,176 +2447,6 @@ func (_this *HTMLElement) AttributeStyleMap() *typedom.StylePropertyMap {
 	return ret
 }
 
-// Dataset returning attribute 'dataset' with
-// type domcore.DOMStringMap (idl: DOMStringMap).
-func (_this *HTMLElement) Dataset() *domcore.DOMStringMap {
-	var ret *domcore.DOMStringMap
-	value := _this.Value_JS.Get("dataset")
-	ret = domcore.DOMStringMapFromJS(value)
-	return ret
-}
-
-// Nonce returning attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) Nonce() string {
-	var ret string
-	value := _this.Value_JS.Get("nonce")
-	ret = (value).String()
-	return ret
-}
-
-// SetNonce setting attribute 'nonce' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetNonce(value string) {
-	input := value
-	_this.Value_JS.Set("nonce", input)
-}
-
-// TabIndex returning attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) TabIndex() int {
-	var ret int
-	value := _this.Value_JS.Get("tabIndex")
-	ret = (value).Int()
-	return ret
-}
-
-// SetTabIndex setting attribute 'tabIndex' with
-// type int (idl: long).
-func (_this *HTMLElement) SetTabIndex(value int) {
-	input := value
-	_this.Value_JS.Set("tabIndex", input)
-}
-
-// ContentEditable returning attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) ContentEditable() string {
-	var ret string
-	value := _this.Value_JS.Get("contentEditable")
-	ret = (value).String()
-	return ret
-}
-
-// SetContentEditable setting attribute 'contentEditable' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetContentEditable(value string) {
-	input := value
-	_this.Value_JS.Set("contentEditable", input)
-}
-
-// EnterKeyHint returning attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) EnterKeyHint() string {
-	var ret string
-	value := _this.Value_JS.Get("enterKeyHint")
-	ret = (value).String()
-	return ret
-}
-
-// SetEnterKeyHint setting attribute 'enterKeyHint' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetEnterKeyHint(value string) {
-	input := value
-	_this.Value_JS.Set("enterKeyHint", input)
-}
-
-// IsContentEditable returning attribute 'isContentEditable' with
-// type bool (idl: boolean).
-func (_this *HTMLElement) IsContentEditable() bool {
-	var ret bool
-	value := _this.Value_JS.Get("isContentEditable")
-	ret = (value).Bool()
-	return ret
-}
-
-// InputMode returning attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) InputMode() string {
-	var ret string
-	value := _this.Value_JS.Get("inputMode")
-	ret = (value).String()
-	return ret
-}
-
-// SetInputMode setting attribute 'inputMode' with
-// type string (idl: DOMString).
-func (_this *HTMLElement) SetInputMode(value string) {
-	input := value
-	_this.Value_JS.Set("inputMode", input)
-}
-
-// Oncopy returning attribute 'oncopy' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncopy")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncopy setting attribute 'oncopy' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncopy", input)
-}
-
-// Oncut returning attribute 'oncut' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncut")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOncut setting attribute 'oncut' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncut", input)
-}
-
-// Onpaste returning attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpaste")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// SetOnpaste setting attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpaste", input)
-}
-
 // Onabort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *HTMLElement) Onabort() domcore.EventHandlerFunc {
@@ -4703,6 +4533,176 @@ func (_this *HTMLElement) SetOnselectionchange(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onselectionchange", input)
+}
+
+// Oncopy returning attribute 'oncopy' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncopy() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncopy")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncopy setting attribute 'oncopy' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncopy(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncopy", input)
+}
+
+// Oncut returning attribute 'oncut' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Oncut() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncut")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOncut setting attribute 'oncut' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOncut(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("oncut", input)
+}
+
+// Onpaste returning attribute 'onpaste' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) Onpaste() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpaste")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnpaste setting attribute 'onpaste' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *HTMLElement) SetOnpaste(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onpaste", input)
+}
+
+// ContentEditable returning attribute 'contentEditable' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) ContentEditable() string {
+	var ret string
+	value := _this.Value_JS.Get("contentEditable")
+	ret = (value).String()
+	return ret
+}
+
+// SetContentEditable setting attribute 'contentEditable' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetContentEditable(value string) {
+	input := value
+	_this.Value_JS.Set("contentEditable", input)
+}
+
+// EnterKeyHint returning attribute 'enterKeyHint' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) EnterKeyHint() string {
+	var ret string
+	value := _this.Value_JS.Get("enterKeyHint")
+	ret = (value).String()
+	return ret
+}
+
+// SetEnterKeyHint setting attribute 'enterKeyHint' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetEnterKeyHint(value string) {
+	input := value
+	_this.Value_JS.Set("enterKeyHint", input)
+}
+
+// IsContentEditable returning attribute 'isContentEditable' with
+// type bool (idl: boolean).
+func (_this *HTMLElement) IsContentEditable() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isContentEditable")
+	ret = (value).Bool()
+	return ret
+}
+
+// InputMode returning attribute 'inputMode' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) InputMode() string {
+	var ret string
+	value := _this.Value_JS.Get("inputMode")
+	ret = (value).String()
+	return ret
+}
+
+// SetInputMode setting attribute 'inputMode' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetInputMode(value string) {
+	input := value
+	_this.Value_JS.Set("inputMode", input)
+}
+
+// Dataset returning attribute 'dataset' with
+// type domcore.DOMStringMap (idl: DOMStringMap).
+func (_this *HTMLElement) Dataset() *domcore.DOMStringMap {
+	var ret *domcore.DOMStringMap
+	value := _this.Value_JS.Get("dataset")
+	ret = domcore.DOMStringMapFromJS(value)
+	return ret
+}
+
+// Nonce returning attribute 'nonce' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) Nonce() string {
+	var ret string
+	value := _this.Value_JS.Get("nonce")
+	ret = (value).String()
+	return ret
+}
+
+// SetNonce setting attribute 'nonce' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetNonce(value string) {
+	input := value
+	_this.Value_JS.Set("nonce", input)
+}
+
+// TabIndex returning attribute 'tabIndex' with
+// type int (idl: long).
+func (_this *HTMLElement) TabIndex() int {
+	var ret int
+	value := _this.Value_JS.Get("tabIndex")
+	ret = (value).Int()
+	return ret
+}
+
+// SetTabIndex setting attribute 'tabIndex' with
+// type int (idl: long).
+func (_this *HTMLElement) SetTabIndex(value int) {
+	input := value
+	_this.Value_JS.Set("tabIndex", input)
 }
 
 func (_this *HTMLElement) Click() {

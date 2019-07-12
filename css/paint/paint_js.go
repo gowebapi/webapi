@@ -114,6 +114,38 @@ func (_this *PaintRenderingContext2D) SetGlobalCompositeOperation(value string) 
 	_this.Value_JS.Set("globalCompositeOperation", input)
 }
 
+// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
+func (_this *PaintRenderingContext2D) ImageSmoothingEnabled() bool {
+	var ret bool
+	value := _this.Value_JS.Get("imageSmoothingEnabled")
+	ret = (value).Bool()
+	return ret
+}
+
+// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
+// type bool (idl: boolean).
+func (_this *PaintRenderingContext2D) SetImageSmoothingEnabled(value bool) {
+	input := value
+	_this.Value_JS.Set("imageSmoothingEnabled", input)
+}
+
+// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
+// type canvas.ImageSmoothingQuality (idl: ImageSmoothingQuality).
+func (_this *PaintRenderingContext2D) ImageSmoothingQuality() canvas.ImageSmoothingQuality {
+	var ret canvas.ImageSmoothingQuality
+	value := _this.Value_JS.Get("imageSmoothingQuality")
+	ret = canvas.ImageSmoothingQualityFromJS(value)
+	return ret
+}
+
+// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
+// type canvas.ImageSmoothingQuality (idl: ImageSmoothingQuality).
+func (_this *PaintRenderingContext2D) SetImageSmoothingQuality(value canvas.ImageSmoothingQuality) {
+	input := value.JSValue()
+	_this.Value_JS.Set("imageSmoothingQuality", input)
+}
+
 // StrokeStyle returning attribute 'strokeStyle' with
 // type Union (idl: Union).
 func (_this *PaintRenderingContext2D) StrokeStyle() *Union {
@@ -144,6 +176,70 @@ func (_this *PaintRenderingContext2D) FillStyle() *Union {
 func (_this *PaintRenderingContext2D) SetFillStyle(value *Union) {
 	input := value.JSValue()
 	_this.Value_JS.Set("fillStyle", input)
+}
+
+// ShadowOffsetX returning attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) ShadowOffsetX() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("shadowOffsetX")
+	ret = (value).Float()
+	return ret
+}
+
+// SetShadowOffsetX setting attribute 'shadowOffsetX' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) SetShadowOffsetX(value float64) {
+	input := value
+	_this.Value_JS.Set("shadowOffsetX", input)
+}
+
+// ShadowOffsetY returning attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) ShadowOffsetY() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("shadowOffsetY")
+	ret = (value).Float()
+	return ret
+}
+
+// SetShadowOffsetY setting attribute 'shadowOffsetY' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) SetShadowOffsetY(value float64) {
+	input := value
+	_this.Value_JS.Set("shadowOffsetY", input)
+}
+
+// ShadowBlur returning attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) ShadowBlur() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("shadowBlur")
+	ret = (value).Float()
+	return ret
+}
+
+// SetShadowBlur setting attribute 'shadowBlur' with
+// type float64 (idl: unrestricted double).
+func (_this *PaintRenderingContext2D) SetShadowBlur(value float64) {
+	input := value
+	_this.Value_JS.Set("shadowBlur", input)
+}
+
+// ShadowColor returning attribute 'shadowColor' with
+// type string (idl: DOMString).
+func (_this *PaintRenderingContext2D) ShadowColor() string {
+	var ret string
+	value := _this.Value_JS.Get("shadowColor")
+	ret = (value).String()
+	return ret
+}
+
+// SetShadowColor setting attribute 'shadowColor' with
+// type string (idl: DOMString).
+func (_this *PaintRenderingContext2D) SetShadowColor(value string) {
+	input := value
+	_this.Value_JS.Set("shadowColor", input)
 }
 
 // LineWidth returning attribute 'lineWidth' with
@@ -226,165 +322,6 @@ func (_this *PaintRenderingContext2D) SetLineDashOffset(value float64) {
 	_this.Value_JS.Set("lineDashOffset", input)
 }
 
-// ShadowOffsetX returning attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) ShadowOffsetX() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetX")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetX setting attribute 'shadowOffsetX' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) SetShadowOffsetX(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetX", input)
-}
-
-// ShadowOffsetY returning attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) ShadowOffsetY() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowOffsetY")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowOffsetY setting attribute 'shadowOffsetY' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) SetShadowOffsetY(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowOffsetY", input)
-}
-
-// ShadowBlur returning attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) ShadowBlur() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("shadowBlur")
-	ret = (value).Float()
-	return ret
-}
-
-// SetShadowBlur setting attribute 'shadowBlur' with
-// type float64 (idl: unrestricted double).
-func (_this *PaintRenderingContext2D) SetShadowBlur(value float64) {
-	input := value
-	_this.Value_JS.Set("shadowBlur", input)
-}
-
-// ShadowColor returning attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *PaintRenderingContext2D) ShadowColor() string {
-	var ret string
-	value := _this.Value_JS.Get("shadowColor")
-	ret = (value).String()
-	return ret
-}
-
-// SetShadowColor setting attribute 'shadowColor' with
-// type string (idl: DOMString).
-func (_this *PaintRenderingContext2D) SetShadowColor(value string) {
-	input := value
-	_this.Value_JS.Set("shadowColor", input)
-}
-
-// ImageSmoothingEnabled returning attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *PaintRenderingContext2D) ImageSmoothingEnabled() bool {
-	var ret bool
-	value := _this.Value_JS.Get("imageSmoothingEnabled")
-	ret = (value).Bool()
-	return ret
-}
-
-// SetImageSmoothingEnabled setting attribute 'imageSmoothingEnabled' with
-// type bool (idl: boolean).
-func (_this *PaintRenderingContext2D) SetImageSmoothingEnabled(value bool) {
-	input := value
-	_this.Value_JS.Set("imageSmoothingEnabled", input)
-}
-
-// ImageSmoothingQuality returning attribute 'imageSmoothingQuality' with
-// type canvas.ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *PaintRenderingContext2D) ImageSmoothingQuality() canvas.ImageSmoothingQuality {
-	var ret canvas.ImageSmoothingQuality
-	value := _this.Value_JS.Get("imageSmoothingQuality")
-	ret = canvas.ImageSmoothingQualityFromJS(value)
-	return ret
-}
-
-// SetImageSmoothingQuality setting attribute 'imageSmoothingQuality' with
-// type canvas.ImageSmoothingQuality (idl: ImageSmoothingQuality).
-func (_this *PaintRenderingContext2D) SetImageSmoothingQuality(value canvas.ImageSmoothingQuality) {
-	input := value.JSValue()
-	_this.Value_JS.Set("imageSmoothingQuality", input)
-}
-
-func (_this *PaintRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("clearRect", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("fillRect", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("strokeRect", _args[0:_end]...)
-	return
-}
-
 func (_this *PaintRenderingContext2D) Save() {
 	var (
 		_args [0]interface{}
@@ -400,308 +337,6 @@ func (_this *PaintRenderingContext2D) Restore() {
 		_end  int
 	)
 	_this.Value_JS.Call("restore", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *canvas.CanvasGradient) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := x1
-	_args[2] = _p2
-	_end++
-	_p3 := y1
-	_args[3] = _p3
-	_end++
-	_returned := _this.Value_JS.Call("createLinearGradient", _args[0:_end]...)
-	var (
-		_converted *canvas.CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = canvas.CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *PaintRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *canvas.CanvasGradient) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x0
-	_args[0] = _p0
-	_end++
-	_p1 := y0
-	_args[1] = _p1
-	_end++
-	_p2 := r0
-	_args[2] = _p2
-	_end++
-	_p3 := x1
-	_args[3] = _p3
-	_end++
-	_p4 := y1
-	_args[4] = _p4
-	_end++
-	_p5 := r1
-	_args[5] = _p5
-	_end++
-	_returned := _this.Value_JS.Call("createRadialGradient", _args[0:_end]...)
-	var (
-		_converted *canvas.CanvasGradient // javascript: CanvasGradient _what_return_name
-	)
-	_converted = canvas.CanvasGradientFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *PaintRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *canvas.CanvasPattern) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := image.JSValue()
-	_args[0] = _p0
-	_end++
-	_p1 := repetition
-	_args[1] = _p1
-	_end++
-	_returned := _this.Value_JS.Call("createPattern", _args[0:_end]...)
-	var (
-		_converted *canvas.CanvasPattern // javascript: CanvasPattern _what_return_name
-	)
-	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
-		_converted = canvas.CanvasPatternFromJS(_returned)
-	}
-	_result = _converted
-	return
-}
-
-func (_this *PaintRenderingContext2D) ClosePath() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("closePath", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) MoveTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("moveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) LineTo(x float64, y float64) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("lineTo", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := cpx
-	_args[0] = _p0
-	_end++
-	_p1 := cpy
-	_args[1] = _p1
-	_end++
-	_p2 := x
-	_args[2] = _p2
-	_end++
-	_p3 := y
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := cp1x
-	_args[0] = _p0
-	_end++
-	_p1 := cp1y
-	_args[1] = _p1
-	_end++
-	_p2 := cp2x
-	_args[2] = _p2
-	_end++
-	_p3 := cp2y
-	_args[3] = _p3
-	_end++
-	_p4 := x
-	_args[4] = _p4
-	_end++
-	_p5 := y
-	_args[5] = _p5
-	_end++
-	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
-	var (
-		_args [5]interface{}
-		_end  int
-	)
-	_p0 := x1
-	_args[0] = _p0
-	_end++
-	_p1 := y1
-	_args[1] = _p1
-	_end++
-	_p2 := x2
-	_args[2] = _p2
-	_end++
-	_p3 := y2
-	_args[3] = _p3
-	_end++
-	_p4 := radius
-	_args[4] = _p4
-	_end++
-	_this.Value_JS.Call("arcTo", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
-	var (
-		_args [4]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := w
-	_args[2] = _p2
-	_end++
-	_p3 := h
-	_args[3] = _p3
-	_end++
-	_this.Value_JS.Call("rect", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [6]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radius
-	_args[2] = _p2
-	_end++
-	_p3 := startAngle
-	_args[3] = _p3
-	_end++
-	_p4 := endAngle
-	_args[4] = _p4
-	_end++
-	if anticlockwise != nil {
-		_p5 := anticlockwise
-		_args[5] = _p5
-		_end++
-	}
-	_this.Value_JS.Call("arc", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := x
-	_args[0] = _p0
-	_end++
-	_p1 := y
-	_args[1] = _p1
-	_end++
-	_p2 := radiusX
-	_args[2] = _p2
-	_end++
-	_p3 := radiusY
-	_args[3] = _p3
-	_end++
-	_p4 := rotation
-	_args[4] = _p4
-	_end++
-	_p5 := startAngle
-	_args[5] = _p5
-	_end++
-	_p6 := endAngle
-	_args[6] = _p6
-	_end++
-	if anticlockwise != nil {
-		_p7 := anticlockwise
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("ellipse", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) SetLineDash(segments js.Value) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := segments
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("setLineDash", _args[0:_end]...)
-	return
-}
-
-func (_this *PaintRenderingContext2D) GetLineDash() (_result js.Value) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("getLineDash", _args[0:_end]...)
-	var (
-		_converted js.Value // javascript: typed-array _what_return_name
-	)
-	_converted = _returned
-	_result = _converted
 	return
 }
 
@@ -835,6 +470,149 @@ func (_this *PaintRenderingContext2D) ResetTransform() {
 		_end  int
 	)
 	_this.Value_JS.Call("resetTransform", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) CreateLinearGradient(x0 float64, y0 float64, x1 float64, y1 float64) (_result *canvas.CanvasGradient) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x0
+	_args[0] = _p0
+	_end++
+	_p1 := y0
+	_args[1] = _p1
+	_end++
+	_p2 := x1
+	_args[2] = _p2
+	_end++
+	_p3 := y1
+	_args[3] = _p3
+	_end++
+	_returned := _this.Value_JS.Call("createLinearGradient", _args[0:_end]...)
+	var (
+		_converted *canvas.CanvasGradient // javascript: CanvasGradient _what_return_name
+	)
+	_converted = canvas.CanvasGradientFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PaintRenderingContext2D) CreateRadialGradient(x0 float64, y0 float64, r0 float64, x1 float64, y1 float64, r1 float64) (_result *canvas.CanvasGradient) {
+	var (
+		_args [6]interface{}
+		_end  int
+	)
+	_p0 := x0
+	_args[0] = _p0
+	_end++
+	_p1 := y0
+	_args[1] = _p1
+	_end++
+	_p2 := r0
+	_args[2] = _p2
+	_end++
+	_p3 := x1
+	_args[3] = _p3
+	_end++
+	_p4 := y1
+	_args[4] = _p4
+	_end++
+	_p5 := r1
+	_args[5] = _p5
+	_end++
+	_returned := _this.Value_JS.Call("createRadialGradient", _args[0:_end]...)
+	var (
+		_converted *canvas.CanvasGradient // javascript: CanvasGradient _what_return_name
+	)
+	_converted = canvas.CanvasGradientFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PaintRenderingContext2D) CreatePattern(image *Union, repetition string) (_result *canvas.CanvasPattern) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := image.JSValue()
+	_args[0] = _p0
+	_end++
+	_p1 := repetition
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("createPattern", _args[0:_end]...)
+	var (
+		_converted *canvas.CanvasPattern // javascript: CanvasPattern _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = canvas.CanvasPatternFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *PaintRenderingContext2D) ClearRect(x float64, y float64, w float64, h float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := w
+	_args[2] = _p2
+	_end++
+	_p3 := h
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("clearRect", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) FillRect(x float64, y float64, w float64, h float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := w
+	_args[2] = _p2
+	_end++
+	_p3 := h
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("fillRect", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) StrokeRect(x float64, y float64, w float64, h float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := w
+	_args[2] = _p2
+	_end++
+	_p3 := h
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("strokeRect", _args[0:_end]...)
 	return
 }
 
@@ -1101,6 +879,228 @@ func (_this *PaintRenderingContext2D) DrawImage3(image *Union, sx float64, sy fl
 	_args[8] = _p8
 	_end++
 	_this.Value_JS.Call("drawImage", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) SetLineDash(segments js.Value) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := segments
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("setLineDash", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) GetLineDash() (_result js.Value) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getLineDash", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: typed-array _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *PaintRenderingContext2D) ClosePath() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("closePath", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) MoveTo(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("moveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) LineTo(x float64, y float64) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("lineTo", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) QuadraticCurveTo(cpx float64, cpy float64, x float64, y float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := cpx
+	_args[0] = _p0
+	_end++
+	_p1 := cpy
+	_args[1] = _p1
+	_end++
+	_p2 := x
+	_args[2] = _p2
+	_end++
+	_p3 := y
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("quadraticCurveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) BezierCurveTo(cp1x float64, cp1y float64, cp2x float64, cp2y float64, x float64, y float64) {
+	var (
+		_args [6]interface{}
+		_end  int
+	)
+	_p0 := cp1x
+	_args[0] = _p0
+	_end++
+	_p1 := cp1y
+	_args[1] = _p1
+	_end++
+	_p2 := cp2x
+	_args[2] = _p2
+	_end++
+	_p3 := cp2y
+	_args[3] = _p3
+	_end++
+	_p4 := x
+	_args[4] = _p4
+	_end++
+	_p5 := y
+	_args[5] = _p5
+	_end++
+	_this.Value_JS.Call("bezierCurveTo", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) ArcTo(x1 float64, y1 float64, x2 float64, y2 float64, radius float64) {
+	var (
+		_args [5]interface{}
+		_end  int
+	)
+	_p0 := x1
+	_args[0] = _p0
+	_end++
+	_p1 := y1
+	_args[1] = _p1
+	_end++
+	_p2 := x2
+	_args[2] = _p2
+	_end++
+	_p3 := y2
+	_args[3] = _p3
+	_end++
+	_p4 := radius
+	_args[4] = _p4
+	_end++
+	_this.Value_JS.Call("arcTo", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) Rect(x float64, y float64, w float64, h float64) {
+	var (
+		_args [4]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := w
+	_args[2] = _p2
+	_end++
+	_p3 := h
+	_args[3] = _p3
+	_end++
+	_this.Value_JS.Call("rect", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) Arc(x float64, y float64, radius float64, startAngle float64, endAngle float64, anticlockwise *bool) {
+	var (
+		_args [6]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := radius
+	_args[2] = _p2
+	_end++
+	_p3 := startAngle
+	_args[3] = _p3
+	_end++
+	_p4 := endAngle
+	_args[4] = _p4
+	_end++
+	if anticlockwise != nil {
+		_p5 := anticlockwise
+		_args[5] = _p5
+		_end++
+	}
+	_this.Value_JS.Call("arc", _args[0:_end]...)
+	return
+}
+
+func (_this *PaintRenderingContext2D) Ellipse(x float64, y float64, radiusX float64, radiusY float64, rotation float64, startAngle float64, endAngle float64, anticlockwise *bool) {
+	var (
+		_args [8]interface{}
+		_end  int
+	)
+	_p0 := x
+	_args[0] = _p0
+	_end++
+	_p1 := y
+	_args[1] = _p1
+	_end++
+	_p2 := radiusX
+	_args[2] = _p2
+	_end++
+	_p3 := radiusY
+	_args[3] = _p3
+	_end++
+	_p4 := rotation
+	_args[4] = _p4
+	_end++
+	_p5 := startAngle
+	_args[5] = _p5
+	_end++
+	_p6 := endAngle
+	_args[6] = _p6
+	_end++
+	if anticlockwise != nil {
+		_p7 := anticlockwise
+		_args[7] = _p7
+		_end++
+	}
+	_this.Value_JS.Call("ellipse", _args[0:_end]...)
 	return
 }
 

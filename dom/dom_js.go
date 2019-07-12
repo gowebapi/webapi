@@ -1454,37 +1454,6 @@ func (_this *Element) SetOnfullscreenerror(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onfullscreenerror", input)
 }
 
-// AssignedSlot returning attribute 'assignedSlot' with
-// type js.Value (idl: <rawjs>).
-func (_this *Element) AssignedSlot() js.Value {
-	var ret js.Value
-	value := _this.Value_JS.Get("assignedSlot")
-	ret = value
-	return ret
-}
-
-// PreviousElementSibling returning attribute 'previousElementSibling' with
-// type Element (idl: Element).
-func (_this *Element) PreviousElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("previousElementSibling")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
-// NextElementSibling returning attribute 'nextElementSibling' with
-// type Element (idl: Element).
-func (_this *Element) NextElementSibling() *Element {
-	var ret *Element
-	value := _this.Value_JS.Get("nextElementSibling")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = ElementFromJS(value)
-	}
-	return ret
-}
-
 // Children returning attribute 'children' with
 // type HTMLCollection (idl: HTMLCollection).
 func (_this *Element) Children() *HTMLCollection {
@@ -1522,6 +1491,37 @@ func (_this *Element) ChildElementCount() uint {
 	var ret uint
 	value := _this.Value_JS.Get("childElementCount")
 	ret = (uint)((value).Int())
+	return ret
+}
+
+// PreviousElementSibling returning attribute 'previousElementSibling' with
+// type Element (idl: Element).
+func (_this *Element) PreviousElementSibling() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("previousElementSibling")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// NextElementSibling returning attribute 'nextElementSibling' with
+// type Element (idl: Element).
+func (_this *Element) NextElementSibling() *Element {
+	var ret *Element
+	value := _this.Value_JS.Get("nextElementSibling")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = ElementFromJS(value)
+	}
+	return ret
+}
+
+// AssignedSlot returning attribute 'assignedSlot' with
+// type js.Value (idl: <rawjs>).
+func (_this *Element) AssignedSlot() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("assignedSlot")
+	ret = value
 	return ret
 }
 
@@ -3219,57 +3219,6 @@ func (_this *Element) ConvertPointFromNode(point *geometry.DOMPointInit, from *U
 	return
 }
 
-func (_this *Element) Before(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("before", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) After(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("after", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) ReplaceWith(nodes ...*Union) {
-	var (
-		_args []interface{} = make([]interface{}, 0+len(nodes))
-		_end  int
-	)
-	for _, __in := range nodes {
-		__out := __in.JSValue()
-		_args[_end] = __out
-		_end++
-	}
-	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
-	return
-}
-
-func (_this *Element) Remove() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("remove", _args[0:_end]...)
-	return
-}
-
 func (_this *Element) Prepend(nodes ...*Union) {
 	var (
 		_args []interface{} = make([]interface{}, 0+len(nodes))
@@ -3331,6 +3280,57 @@ func (_this *Element) QuerySelectorAll(selectors string) (_result *NodeList) {
 	)
 	_converted = NodeListFromJS(_returned)
 	_result = _converted
+	return
+}
+
+func (_this *Element) Before(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("before", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) After(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("after", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) ReplaceWith(nodes ...*Union) {
+	var (
+		_args []interface{} = make([]interface{}, 0+len(nodes))
+		_end  int
+	)
+	for _, __in := range nodes {
+		__out := __in.JSValue()
+		_args[_end] = __out
+		_end++
+	}
+	_this.Value_JS.Call("replaceWith", _args[0:_end]...)
+	return
+}
+
+func (_this *Element) Remove() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("remove", _args[0:_end]...)
 	return
 }
 
