@@ -146,6 +146,53 @@ func MediaKeySessionTypeFromJS(value js.Value) MediaKeySessionType {
 	return conv
 }
 
+// enum: MediaKeyStatus
+type MediaKeyStatus int
+
+const (
+	UsableMediaKeyStatus MediaKeyStatus = iota
+	ExpiredMediaKeyStatus
+	ReleasedMediaKeyStatus
+	OutputRestrictedMediaKeyStatus
+	OutputDownscaledMediaKeyStatus
+	StatusPendingMediaKeyStatus
+	InternalErrorMediaKeyStatus
+)
+
+var mediaKeyStatusToWasmTable = []string{
+	"usable", "expired", "released", "output-restricted", "output-downscaled", "status-pending", "internal-error",
+}
+
+var mediaKeyStatusFromWasmTable = map[string]MediaKeyStatus{
+	"usable": UsableMediaKeyStatus, "expired": ExpiredMediaKeyStatus, "released": ReleasedMediaKeyStatus, "output-restricted": OutputRestrictedMediaKeyStatus, "output-downscaled": OutputDownscaledMediaKeyStatus, "status-pending": StatusPendingMediaKeyStatus, "internal-error": InternalErrorMediaKeyStatus,
+}
+
+// JSValue is converting this enum into a java object
+func (this *MediaKeyStatus) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this MediaKeyStatus) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(mediaKeyStatusToWasmTable) {
+		return mediaKeyStatusToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// MediaKeyStatusFromJS is converting a javascript value into
+// a MediaKeyStatus enum value.
+func MediaKeyStatusFromJS(value js.Value) MediaKeyStatus {
+	key := value.String()
+	conv, ok := mediaKeyStatusFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: MediaKeysRequirement
 type MediaKeysRequirement int
 
@@ -187,6 +234,55 @@ func MediaKeysRequirementFromJS(value js.Value) MediaKeysRequirement {
 		panic("unable to convert '" + key + "'")
 	}
 	return conv
+}
+
+// callback: MediaKeyStatusMapForEach
+type MediaKeyStatusMapForEachFunc func(currentValue MediaKeyStatus, currentIndex int, listObj *MediaKeyStatusMap)
+
+// MediaKeyStatusMapForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type MediaKeyStatusMapForEach js.Func
+
+func MediaKeyStatusMapForEachToJS(callback MediaKeyStatusMapForEachFunc) *MediaKeyStatusMapForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := MediaKeyStatusMapForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 MediaKeyStatus     // javascript: MediaKeyStatus currentValue
+			_p1 int                // javascript: long currentIndex
+			_p2 *MediaKeyStatusMap // javascript: MediaKeyStatusMap listObj
+		)
+		_p0 = MediaKeyStatusFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = MediaKeyStatusMapFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func MediaKeyStatusMapForEachFromJS(_value js.Value) MediaKeyStatusMapForEachFunc {
+	return func(currentValue MediaKeyStatus, currentIndex int, listObj *MediaKeyStatusMap) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
 }
 
 // callback: PromiseTemplateOnFulfilled
@@ -448,6 +544,120 @@ func MediaKeyMessageEventInitFromJS(value js.Wrapper) *MediaKeyMessageEventInit 
 	out.MessageType = value3
 	value4 = javascript.ArrayBufferFromJS(input.Get("message"))
 	out.Message = value4
+	return &out
+}
+
+// dictionary: MediaKeyStatusMapEntryIteratorValue
+type MediaKeyStatusMapEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MediaKeyStatusMapEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// MediaKeyStatusMapEntryIteratorValueFromJS is allocating a new
+// MediaKeyStatusMapEntryIteratorValue object and copy all values from
+// input javascript object
+func MediaKeyStatusMapEntryIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapEntryIteratorValue {
+	input := value.JSValue()
+	var out MediaKeyStatusMapEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: MediaKeyStatusMapKeyIteratorValue
+type MediaKeyStatusMapKeyIteratorValue struct {
+	Value MediaKeyStatus
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MediaKeyStatusMapKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// MediaKeyStatusMapKeyIteratorValueFromJS is allocating a new
+// MediaKeyStatusMapKeyIteratorValue object and copy all values from
+// input javascript object
+func MediaKeyStatusMapKeyIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapKeyIteratorValue {
+	input := value.JSValue()
+	var out MediaKeyStatusMapKeyIteratorValue
+	var (
+		value0 MediaKeyStatus // javascript: MediaKeyStatus {value Value value}
+		value1 bool           // javascript: boolean {done Done done}
+	)
+	value0 = MediaKeyStatusFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: MediaKeyStatusMapValueIteratorValue
+type MediaKeyStatusMapValueIteratorValue struct {
+	Value MediaKeyStatus
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MediaKeyStatusMapValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// MediaKeyStatusMapValueIteratorValueFromJS is allocating a new
+// MediaKeyStatusMapValueIteratorValue object and copy all values from
+// input javascript object
+func MediaKeyStatusMapValueIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapValueIteratorValue {
+	input := value.JSValue()
+	var out MediaKeyStatusMapValueIteratorValue
+	var (
+		value0 MediaKeyStatus // javascript: MediaKeyStatus {value Value value}
+		value1 bool           // javascript: boolean {done Done done}
+	)
+	value0 = MediaKeyStatusFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -953,6 +1163,177 @@ func (_this *MediaKeyStatusMap) Get(keyId *Union) (_result js.Value) {
 		_converted js.Value // javascript: any _what_return_name
 	)
 	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *MediaKeyStatusMap) Entries() (_result *MediaKeyStatusMapEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapEntryIterator // javascript: MediaKeyStatusMapEntryIterator _what_return_name
+	)
+	_converted = MediaKeyStatusMapEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *MediaKeyStatusMap) ForEach(callback *MediaKeyStatusMapForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *MediaKeyStatusMap) Keys() (_result *MediaKeyStatusMapKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapKeyIterator // javascript: MediaKeyStatusMapKeyIterator _what_return_name
+	)
+	_converted = MediaKeyStatusMapKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *MediaKeyStatusMap) Values() (_result *MediaKeyStatusMapValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapValueIterator // javascript: MediaKeyStatusMapValueIterator _what_return_name
+	)
+	_converted = MediaKeyStatusMapValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: MediaKeyStatusMapEntryIterator
+type MediaKeyStatusMapEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *MediaKeyStatusMapEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// MediaKeyStatusMapEntryIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapEntryIterator.
+func MediaKeyStatusMapEntryIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MediaKeyStatusMapEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *MediaKeyStatusMapEntryIterator) Next() (_result *MediaKeyStatusMapEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapEntryIteratorValue // javascript: MediaKeyStatusMapEntryIteratorValue _what_return_name
+	)
+	_converted = MediaKeyStatusMapEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: MediaKeyStatusMapKeyIterator
+type MediaKeyStatusMapKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *MediaKeyStatusMapKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// MediaKeyStatusMapKeyIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapKeyIterator.
+func MediaKeyStatusMapKeyIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MediaKeyStatusMapKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *MediaKeyStatusMapKeyIterator) Next() (_result *MediaKeyStatusMapKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapKeyIteratorValue // javascript: MediaKeyStatusMapKeyIteratorValue _what_return_name
+	)
+	_converted = MediaKeyStatusMapKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: MediaKeyStatusMapValueIterator
+type MediaKeyStatusMapValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *MediaKeyStatusMapValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// MediaKeyStatusMapValueIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapValueIterator.
+func MediaKeyStatusMapValueIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &MediaKeyStatusMapValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *MediaKeyStatusMapValueIterator) Next() (_result *MediaKeyStatusMapValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *MediaKeyStatusMapValueIteratorValue // javascript: MediaKeyStatusMapValueIteratorValue _what_return_name
+	)
+	_converted = MediaKeyStatusMapValueIteratorValueFromJS(_returned)
 	_result = _converted
 	return
 }

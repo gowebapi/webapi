@@ -101,6 +101,55 @@ func VisibilityStateFromJS(value js.Value) VisibilityState {
 	return conv
 }
 
+// callback: DOMTokenListForEach
+type DOMTokenListForEachFunc func(currentValue string, currentIndex int, listObj *DOMTokenList)
+
+// DOMTokenListForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type DOMTokenListForEach js.Func
+
+func DOMTokenListForEachToJS(callback DOMTokenListForEachFunc) *DOMTokenListForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := DOMTokenListForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 string        // javascript: DOMString currentValue
+			_p1 int           // javascript: long currentIndex
+			_p2 *DOMTokenList // javascript: DOMTokenList listObj
+		)
+		_p0 = (args[0]).String()
+		_p1 = (args[1]).Int()
+		_p2 = DOMTokenListFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func DOMTokenListForEachFromJS(_value js.Value) DOMTokenListForEachFunc {
+	return func(currentValue string, currentIndex int, listObj *DOMTokenList) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: EventHandlerNonNull
 type EventHandlerFunc func(event *Event) interface{}
 
@@ -228,6 +277,120 @@ func CustomEventInitFromJS(value js.Wrapper) *CustomEventInit {
 	out.Composed = value2
 	value3 = input.Get("detail")
 	out.Detail = value3
+	return &out
+}
+
+// dictionary: DOMTokenListEntryIteratorValue
+type DOMTokenListEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DOMTokenListEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// DOMTokenListEntryIteratorValueFromJS is allocating a new
+// DOMTokenListEntryIteratorValue object and copy all values from
+// input javascript object
+func DOMTokenListEntryIteratorValueFromJS(value js.Wrapper) *DOMTokenListEntryIteratorValue {
+	input := value.JSValue()
+	var out DOMTokenListEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: DOMTokenListKeyIteratorValue
+type DOMTokenListKeyIteratorValue struct {
+	Value uint
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DOMTokenListKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// DOMTokenListKeyIteratorValueFromJS is allocating a new
+// DOMTokenListKeyIteratorValue object and copy all values from
+// input javascript object
+func DOMTokenListKeyIteratorValueFromJS(value js.Wrapper) *DOMTokenListKeyIteratorValue {
+	input := value.JSValue()
+	var out DOMTokenListKeyIteratorValue
+	var (
+		value0 uint // javascript: unsigned long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (uint)((input.Get("value")).Int())
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: DOMTokenListValueIteratorValue
+type DOMTokenListValueIteratorValue struct {
+	Value string
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DOMTokenListValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// DOMTokenListValueIteratorValueFromJS is allocating a new
+// DOMTokenListValueIteratorValue object and copy all values from
+// input javascript object
+func DOMTokenListValueIteratorValueFromJS(value js.Wrapper) *DOMTokenListValueIteratorValue {
+	input := value.JSValue()
+	var out DOMTokenListValueIteratorValue
+	var (
+		value0 string // javascript: DOMString {value Value value}
+		value1 bool   // javascript: boolean {done Done done}
+	)
+	value0 = (input.Get("value")).String()
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -877,6 +1040,177 @@ func (_this *DOMTokenList) Supports(token string) (_result bool) {
 		_converted bool // javascript: boolean _what_return_name
 	)
 	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Entries() (_result *DOMTokenListEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListEntryIterator // javascript: DOMTokenListEntryIterator _what_return_name
+	)
+	_converted = DOMTokenListEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) ForEach(callback *DOMTokenListForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *DOMTokenList) Keys() (_result *DOMTokenListKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListKeyIterator // javascript: DOMTokenListKeyIterator _what_return_name
+	)
+	_converted = DOMTokenListKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *DOMTokenList) Values() (_result *DOMTokenListValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListValueIterator // javascript: DOMTokenListValueIterator _what_return_name
+	)
+	_converted = DOMTokenListValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: DOMTokenListEntryIterator
+type DOMTokenListEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMTokenListEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMTokenListEntryIteratorFromJS is casting a js.Wrapper into DOMTokenListEntryIterator.
+func DOMTokenListEntryIteratorFromJS(value js.Wrapper) *DOMTokenListEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMTokenListEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *DOMTokenListEntryIterator) Next() (_result *DOMTokenListEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListEntryIteratorValue // javascript: DOMTokenListEntryIteratorValue _what_return_name
+	)
+	_converted = DOMTokenListEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: DOMTokenListKeyIterator
+type DOMTokenListKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMTokenListKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMTokenListKeyIteratorFromJS is casting a js.Wrapper into DOMTokenListKeyIterator.
+func DOMTokenListKeyIteratorFromJS(value js.Wrapper) *DOMTokenListKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMTokenListKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *DOMTokenListKeyIterator) Next() (_result *DOMTokenListKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListKeyIteratorValue // javascript: DOMTokenListKeyIteratorValue _what_return_name
+	)
+	_converted = DOMTokenListKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: DOMTokenListValueIterator
+type DOMTokenListValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *DOMTokenListValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// DOMTokenListValueIteratorFromJS is casting a js.Wrapper into DOMTokenListValueIterator.
+func DOMTokenListValueIteratorFromJS(value js.Wrapper) *DOMTokenListValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &DOMTokenListValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *DOMTokenListValueIterator) Next() (_result *DOMTokenListValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *DOMTokenListValueIteratorValue // javascript: DOMTokenListValueIteratorValue _what_return_name
+	)
+	_converted = DOMTokenListValueIteratorValueFromJS(_returned)
 	_result = _converted
 	return
 }

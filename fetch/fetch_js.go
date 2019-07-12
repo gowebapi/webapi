@@ -393,6 +393,55 @@ func ResponseTypeFromJS(value js.Value) ResponseType {
 	return conv
 }
 
+// callback: HeadersForEach
+type HeadersForEachFunc func(currentValue *patch.ByteString, currentIndex int, listObj *Headers)
+
+// HeadersForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type HeadersForEach js.Func
+
+func HeadersForEachToJS(callback HeadersForEachFunc) *HeadersForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := HeadersForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *patch.ByteString // javascript: ByteString currentValue
+			_p1 int               // javascript: long currentIndex
+			_p2 *Headers          // javascript: Headers listObj
+		)
+		_p0 = patch.ByteStringFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = HeadersFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func HeadersForEachFromJS(_value js.Value) HeadersForEachFunc {
+	return func(currentValue *patch.ByteString, currentIndex int, listObj *Headers) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: PromiseTemplateOnFulfilled
 type PromiseResponseOnFulfilledFunc func(value *Response)
 
@@ -469,6 +518,120 @@ func PromiseResponseOnRejectedFromJS(_value js.Value) PromiseResponseOnRejectedF
 		_value.Invoke(_args[0:_end]...)
 		return
 	}
+}
+
+// dictionary: HeadersEntryIteratorValue
+type HeadersEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HeadersEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// HeadersEntryIteratorValueFromJS is allocating a new
+// HeadersEntryIteratorValue object and copy all values from
+// input javascript object
+func HeadersEntryIteratorValueFromJS(value js.Wrapper) *HeadersEntryIteratorValue {
+	input := value.JSValue()
+	var out HeadersEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: HeadersKeyIteratorValue
+type HeadersKeyIteratorValue struct {
+	Value *patch.ByteString
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HeadersKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// HeadersKeyIteratorValueFromJS is allocating a new
+// HeadersKeyIteratorValue object and copy all values from
+// input javascript object
+func HeadersKeyIteratorValueFromJS(value js.Wrapper) *HeadersKeyIteratorValue {
+	input := value.JSValue()
+	var out HeadersKeyIteratorValue
+	var (
+		value0 *patch.ByteString // javascript: ByteString {value Value value}
+		value1 bool              // javascript: boolean {done Done done}
+	)
+	value0 = patch.ByteStringFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: HeadersValueIteratorValue
+type HeadersValueIteratorValue struct {
+	Value *patch.ByteString
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HeadersValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// HeadersValueIteratorValueFromJS is allocating a new
+// HeadersValueIteratorValue object and copy all values from
+// input javascript object
+func HeadersValueIteratorValueFromJS(value js.Wrapper) *HeadersValueIteratorValue {
+	input := value.JSValue()
+	var out HeadersValueIteratorValue
+	var (
+		value0 *patch.ByteString // javascript: ByteString {value Value value}
+		value1 bool              // javascript: boolean {done Done done}
+	)
+	value0 = patch.ByteStringFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
 }
 
 // dictionary: RequestInit
@@ -787,6 +950,177 @@ func (_this *Headers) Set(name *patch.ByteString, value *patch.ByteString) {
 	_args[1] = _p1
 	_end++
 	_this.Value_JS.Call("set", _args[0:_end]...)
+	return
+}
+
+func (_this *Headers) Entries() (_result *HeadersEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *HeadersEntryIterator // javascript: HeadersEntryIterator _what_return_name
+	)
+	_converted = HeadersEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Headers) ForEach(callback *HeadersForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *Headers) Keys() (_result *HeadersKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *HeadersKeyIterator // javascript: HeadersKeyIterator _what_return_name
+	)
+	_converted = HeadersKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Headers) Values() (_result *HeadersValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *HeadersValueIterator // javascript: HeadersValueIterator _what_return_name
+	)
+	_converted = HeadersValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: HeadersEntryIterator
+type HeadersEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *HeadersEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// HeadersEntryIteratorFromJS is casting a js.Wrapper into HeadersEntryIterator.
+func HeadersEntryIteratorFromJS(value js.Wrapper) *HeadersEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HeadersEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *HeadersEntryIterator) Next() (_result *HeadersEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *HeadersEntryIteratorValue // javascript: HeadersEntryIteratorValue _what_return_name
+	)
+	_converted = HeadersEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: HeadersKeyIterator
+type HeadersKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *HeadersKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// HeadersKeyIteratorFromJS is casting a js.Wrapper into HeadersKeyIterator.
+func HeadersKeyIteratorFromJS(value js.Wrapper) *HeadersKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HeadersKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *HeadersKeyIterator) Next() (_result *HeadersKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *HeadersKeyIteratorValue // javascript: HeadersKeyIteratorValue _what_return_name
+	)
+	_converted = HeadersKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: HeadersValueIterator
+type HeadersValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *HeadersValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// HeadersValueIteratorFromJS is casting a js.Wrapper into HeadersValueIterator.
+func HeadersValueIteratorFromJS(value js.Wrapper) *HeadersValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &HeadersValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *HeadersValueIterator) Next() (_result *HeadersValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *HeadersValueIteratorValue // javascript: HeadersValueIteratorValue _what_return_name
+	)
+	_converted = HeadersValueIteratorValueFromJS(_returned)
+	_result = _converted
 	return
 }
 

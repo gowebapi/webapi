@@ -207,6 +207,55 @@ func ShadowRootModeFromJS(value js.Value) ShadowRootMode {
 	return conv
 }
 
+// callback: NodeListForEach
+type NodeListForEachFunc func(currentValue *Node, currentIndex int, listObj *NodeList)
+
+// NodeListForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type NodeListForEach js.Func
+
+func NodeListForEachToJS(callback NodeListForEachFunc) *NodeListForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := NodeListForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Node     // javascript: Node currentValue
+			_p1 int       // javascript: long currentIndex
+			_p2 *NodeList // javascript: NodeList listObj
+		)
+		_p0 = NodeFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = NodeListFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func NodeListForEachFromJS(_value js.Value) NodeListForEachFunc {
+	return func(currentValue *Node, currentIndex int, listObj *NodeList) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: PromiseTemplateOnFulfilled
 type PromiseDeadFragmentInformationOnFulfilledFunc func(value *DeadFragmentInformation)
 
@@ -338,6 +387,120 @@ func GetRootNodeOptionsFromJS(value js.Wrapper) *GetRootNodeOptions {
 	)
 	value0 = (input.Get("composed")).Bool()
 	out.Composed = value0
+	return &out
+}
+
+// dictionary: NodeListEntryIteratorValue
+type NodeListEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *NodeListEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// NodeListEntryIteratorValueFromJS is allocating a new
+// NodeListEntryIteratorValue object and copy all values from
+// input javascript object
+func NodeListEntryIteratorValueFromJS(value js.Wrapper) *NodeListEntryIteratorValue {
+	input := value.JSValue()
+	var out NodeListEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: NodeListKeyIteratorValue
+type NodeListKeyIteratorValue struct {
+	Value uint
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *NodeListKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// NodeListKeyIteratorValueFromJS is allocating a new
+// NodeListKeyIteratorValue object and copy all values from
+// input javascript object
+func NodeListKeyIteratorValueFromJS(value js.Wrapper) *NodeListKeyIteratorValue {
+	input := value.JSValue()
+	var out NodeListKeyIteratorValue
+	var (
+		value0 uint // javascript: unsigned long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (uint)((input.Get("value")).Int())
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: NodeListValueIteratorValue
+type NodeListValueIteratorValue struct {
+	Value *Node
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *NodeListValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// NodeListValueIteratorValueFromJS is allocating a new
+// NodeListValueIteratorValue object and copy all values from
+// input javascript object
+func NodeListValueIteratorValueFromJS(value js.Wrapper) *NodeListValueIteratorValue {
+	input := value.JSValue()
+	var out NodeListValueIteratorValue
+	var (
+		value0 *Node // javascript: Node {value Value value}
+		value1 bool  // javascript: boolean {done Done done}
+	)
+	value0 = NodeFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -4352,6 +4515,177 @@ func (_this *NodeList) Item(index uint) (_result *Node) {
 	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = NodeFromJS(_returned)
 	}
+	_result = _converted
+	return
+}
+
+func (_this *NodeList) Entries() (_result *NodeListEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *NodeListEntryIterator // javascript: NodeListEntryIterator _what_return_name
+	)
+	_converted = NodeListEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *NodeList) ForEach(callback *NodeListForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *NodeList) Keys() (_result *NodeListKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *NodeListKeyIterator // javascript: NodeListKeyIterator _what_return_name
+	)
+	_converted = NodeListKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *NodeList) Values() (_result *NodeListValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *NodeListValueIterator // javascript: NodeListValueIterator _what_return_name
+	)
+	_converted = NodeListValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: NodeListEntryIterator
+type NodeListEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *NodeListEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// NodeListEntryIteratorFromJS is casting a js.Wrapper into NodeListEntryIterator.
+func NodeListEntryIteratorFromJS(value js.Wrapper) *NodeListEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &NodeListEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *NodeListEntryIterator) Next() (_result *NodeListEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *NodeListEntryIteratorValue // javascript: NodeListEntryIteratorValue _what_return_name
+	)
+	_converted = NodeListEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: NodeListKeyIterator
+type NodeListKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *NodeListKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// NodeListKeyIteratorFromJS is casting a js.Wrapper into NodeListKeyIterator.
+func NodeListKeyIteratorFromJS(value js.Wrapper) *NodeListKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &NodeListKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *NodeListKeyIterator) Next() (_result *NodeListKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *NodeListKeyIteratorValue // javascript: NodeListKeyIteratorValue _what_return_name
+	)
+	_converted = NodeListKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: NodeListValueIterator
+type NodeListValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *NodeListValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// NodeListValueIteratorFromJS is casting a js.Wrapper into NodeListValueIterator.
+func NodeListValueIteratorFromJS(value js.Wrapper) *NodeListValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &NodeListValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *NodeListValueIterator) Next() (_result *NodeListValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *NodeListValueIteratorValue // javascript: NodeListValueIteratorValue _what_return_name
+	)
+	_converted = NodeListValueIteratorValueFromJS(_returned)
 	_result = _converted
 	return
 }

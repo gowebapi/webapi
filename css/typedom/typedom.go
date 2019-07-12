@@ -145,6 +145,214 @@ func CSSNumericBaseTypeFromJS(value js.Value) CSSNumericBaseType {
 	return conv
 }
 
+// callback: CSSNumericArrayForEach
+type CSSNumericArrayForEachFunc func(currentValue *CSSNumericValue, currentIndex int, listObj *CSSNumericArray)
+
+// CSSNumericArrayForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type CSSNumericArrayForEach js.Func
+
+func CSSNumericArrayForEachToJS(callback CSSNumericArrayForEachFunc) *CSSNumericArrayForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := CSSNumericArrayForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *CSSNumericValue // javascript: CSSNumericValue currentValue
+			_p1 int              // javascript: long currentIndex
+			_p2 *CSSNumericArray // javascript: CSSNumericArray listObj
+		)
+		_p0 = CSSNumericValueFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = CSSNumericArrayFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func CSSNumericArrayForEachFromJS(_value js.Value) CSSNumericArrayForEachFunc {
+	return func(currentValue *CSSNumericValue, currentIndex int, listObj *CSSNumericArray) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: CSSTransformValueForEach
+type CSSTransformValueForEachFunc func(currentValue *CSSTransformComponent, currentIndex int, listObj *CSSTransformValue)
+
+// CSSTransformValueForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type CSSTransformValueForEach js.Func
+
+func CSSTransformValueForEachToJS(callback CSSTransformValueForEachFunc) *CSSTransformValueForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := CSSTransformValueForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *CSSTransformComponent // javascript: CSSTransformComponent currentValue
+			_p1 int                    // javascript: long currentIndex
+			_p2 *CSSTransformValue     // javascript: CSSTransformValue listObj
+		)
+		_p0 = CSSTransformComponentFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = CSSTransformValueFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func CSSTransformValueForEachFromJS(_value js.Value) CSSTransformValueForEachFunc {
+	return func(currentValue *CSSTransformComponent, currentIndex int, listObj *CSSTransformValue) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: CSSUnparsedValueForEach
+type CSSUnparsedValueForEachFunc func(currentValue *Union, currentIndex int, listObj *CSSUnparsedValue)
+
+// CSSUnparsedValueForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type CSSUnparsedValueForEach js.Func
+
+func CSSUnparsedValueForEachToJS(callback CSSUnparsedValueForEachFunc) *CSSUnparsedValueForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := CSSUnparsedValueForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Union            // javascript: Union currentValue
+			_p1 int               // javascript: long currentIndex
+			_p2 *CSSUnparsedValue // javascript: CSSUnparsedValue listObj
+		)
+		_p0 = UnionFromJS(args[0])
+		_p1 = (args[1]).Int()
+		_p2 = CSSUnparsedValueFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func CSSUnparsedValueForEachFromJS(_value js.Value) CSSUnparsedValueForEachFunc {
+	return func(currentValue *Union, currentIndex int, listObj *CSSUnparsedValue) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: StylePropertyMapReadOnlyForEach
+type StylePropertyMapReadOnlyForEachFunc func(currentValue []*CSSStyleValue, currentIndex int, listObj *StylePropertyMapReadOnly)
+
+// StylePropertyMapReadOnlyForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type StylePropertyMapReadOnlyForEach js.Func
+
+func StylePropertyMapReadOnlyForEachToJS(callback StylePropertyMapReadOnlyForEachFunc) *StylePropertyMapReadOnlyForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := StylePropertyMapReadOnlyForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*CSSStyleValue          // javascript: sequence<CSSStyleValue> currentValue
+			_p1 int                       // javascript: long currentIndex
+			_p2 *StylePropertyMapReadOnly // javascript: StylePropertyMapReadOnly listObj
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*CSSStyleValue, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *CSSStyleValue
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = CSSStyleValueFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		_p1 = (args[1]).Int()
+		_p2 = StylePropertyMapReadOnlyFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func StylePropertyMapReadOnlyForEachFromJS(_value js.Value) StylePropertyMapReadOnlyForEachFunc {
+	return func(currentValue []*CSSStyleValue, currentIndex int, listObj *StylePropertyMapReadOnly) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(currentValue))
+		for __idx0, __seq_in0 := range currentValue {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_p1 := currentIndex
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // dictionary: CSSMatrixComponentOptions
 type CSSMatrixComponentOptions struct {
 	Is2D bool
@@ -170,6 +378,120 @@ func CSSMatrixComponentOptionsFromJS(value js.Wrapper) *CSSMatrixComponentOption
 	)
 	value0 = (input.Get("is2D")).Bool()
 	out.Is2D = value0
+	return &out
+}
+
+// dictionary: CSSNumericArrayEntryIteratorValue
+type CSSNumericArrayEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSNumericArrayEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSNumericArrayEntryIteratorValueFromJS is allocating a new
+// CSSNumericArrayEntryIteratorValue object and copy all values from
+// input javascript object
+func CSSNumericArrayEntryIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayEntryIteratorValue {
+	input := value.JSValue()
+	var out CSSNumericArrayEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSNumericArrayKeyIteratorValue
+type CSSNumericArrayKeyIteratorValue struct {
+	Value uint
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSNumericArrayKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSNumericArrayKeyIteratorValueFromJS is allocating a new
+// CSSNumericArrayKeyIteratorValue object and copy all values from
+// input javascript object
+func CSSNumericArrayKeyIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayKeyIteratorValue {
+	input := value.JSValue()
+	var out CSSNumericArrayKeyIteratorValue
+	var (
+		value0 uint // javascript: unsigned long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (uint)((input.Get("value")).Int())
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSNumericArrayValueIteratorValue
+type CSSNumericArrayValueIteratorValue struct {
+	Value *CSSNumericValue
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSNumericArrayValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSNumericArrayValueIteratorValueFromJS is allocating a new
+// CSSNumericArrayValueIteratorValue object and copy all values from
+// input javascript object
+func CSSNumericArrayValueIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayValueIteratorValue {
+	input := value.JSValue()
+	var out CSSNumericArrayValueIteratorValue
+	var (
+		value0 *CSSNumericValue // javascript: CSSNumericValue {value Value value}
+		value1 bool             // javascript: boolean {done Done done}
+	)
+	value0 = CSSNumericValueFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -240,6 +562,372 @@ func CSSNumericTypeFromJS(value js.Wrapper) *CSSNumericType {
 	out.Percent = value6
 	value7 = CSSNumericBaseTypeFromJS(input.Get("percentHint"))
 	out.PercentHint = value7
+	return &out
+}
+
+// dictionary: CSSTransformValueEntryIteratorValue
+type CSSTransformValueEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSTransformValueEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSTransformValueEntryIteratorValueFromJS is allocating a new
+// CSSTransformValueEntryIteratorValue object and copy all values from
+// input javascript object
+func CSSTransformValueEntryIteratorValueFromJS(value js.Wrapper) *CSSTransformValueEntryIteratorValue {
+	input := value.JSValue()
+	var out CSSTransformValueEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSTransformValueKeyIteratorValue
+type CSSTransformValueKeyIteratorValue struct {
+	Value uint
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSTransformValueKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSTransformValueKeyIteratorValueFromJS is allocating a new
+// CSSTransformValueKeyIteratorValue object and copy all values from
+// input javascript object
+func CSSTransformValueKeyIteratorValueFromJS(value js.Wrapper) *CSSTransformValueKeyIteratorValue {
+	input := value.JSValue()
+	var out CSSTransformValueKeyIteratorValue
+	var (
+		value0 uint // javascript: unsigned long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (uint)((input.Get("value")).Int())
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSTransformValueValueIteratorValue
+type CSSTransformValueValueIteratorValue struct {
+	Value *CSSTransformComponent
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSTransformValueValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSTransformValueValueIteratorValueFromJS is allocating a new
+// CSSTransformValueValueIteratorValue object and copy all values from
+// input javascript object
+func CSSTransformValueValueIteratorValueFromJS(value js.Wrapper) *CSSTransformValueValueIteratorValue {
+	input := value.JSValue()
+	var out CSSTransformValueValueIteratorValue
+	var (
+		value0 *CSSTransformComponent // javascript: CSSTransformComponent {value Value value}
+		value1 bool                   // javascript: boolean {done Done done}
+	)
+	value0 = CSSTransformComponentFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSUnparsedValueEntryIteratorValue
+type CSSUnparsedValueEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSUnparsedValueEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSUnparsedValueEntryIteratorValueFromJS is allocating a new
+// CSSUnparsedValueEntryIteratorValue object and copy all values from
+// input javascript object
+func CSSUnparsedValueEntryIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueEntryIteratorValue {
+	input := value.JSValue()
+	var out CSSUnparsedValueEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSUnparsedValueKeyIteratorValue
+type CSSUnparsedValueKeyIteratorValue struct {
+	Value uint
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSUnparsedValueKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSUnparsedValueKeyIteratorValueFromJS is allocating a new
+// CSSUnparsedValueKeyIteratorValue object and copy all values from
+// input javascript object
+func CSSUnparsedValueKeyIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueKeyIteratorValue {
+	input := value.JSValue()
+	var out CSSUnparsedValueKeyIteratorValue
+	var (
+		value0 uint // javascript: unsigned long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (uint)((input.Get("value")).Int())
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: CSSUnparsedValueValueIteratorValue
+type CSSUnparsedValueValueIteratorValue struct {
+	Value *Union
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CSSUnparsedValueValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// CSSUnparsedValueValueIteratorValueFromJS is allocating a new
+// CSSUnparsedValueValueIteratorValue object and copy all values from
+// input javascript object
+func CSSUnparsedValueValueIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueValueIteratorValue {
+	input := value.JSValue()
+	var out CSSUnparsedValueValueIteratorValue
+	var (
+		value0 *Union // javascript: Union {value Value value}
+		value1 bool   // javascript: boolean {done Done done}
+	)
+	value0 = UnionFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: StylePropertyMapReadOnlyEntryIteratorValue
+type StylePropertyMapReadOnlyEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *StylePropertyMapReadOnlyEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// StylePropertyMapReadOnlyEntryIteratorValueFromJS is allocating a new
+// StylePropertyMapReadOnlyEntryIteratorValue object and copy all values from
+// input javascript object
+func StylePropertyMapReadOnlyEntryIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyEntryIteratorValue {
+	input := value.JSValue()
+	var out StylePropertyMapReadOnlyEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: StylePropertyMapReadOnlyKeyIteratorValue
+type StylePropertyMapReadOnlyKeyIteratorValue struct {
+	Value []*CSSStyleValue
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *StylePropertyMapReadOnlyKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// StylePropertyMapReadOnlyKeyIteratorValueFromJS is allocating a new
+// StylePropertyMapReadOnlyKeyIteratorValue object and copy all values from
+// input javascript object
+func StylePropertyMapReadOnlyKeyIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyKeyIteratorValue {
+	input := value.JSValue()
+	var out StylePropertyMapReadOnlyKeyIteratorValue
+	var (
+		value0 []*CSSStyleValue // javascript: sequence<CSSStyleValue> {value Value value}
+		value1 bool             // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]*CSSStyleValue, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *CSSStyleValue
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = CSSStyleValueFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: StylePropertyMapReadOnlyValueIteratorValue
+type StylePropertyMapReadOnlyValueIteratorValue struct {
+	Value []*CSSStyleValue
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *StylePropertyMapReadOnlyValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// StylePropertyMapReadOnlyValueIteratorValueFromJS is allocating a new
+// StylePropertyMapReadOnlyValueIteratorValue object and copy all values from
+// input javascript object
+func StylePropertyMapReadOnlyValueIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyValueIteratorValue {
+	input := value.JSValue()
+	var out StylePropertyMapReadOnlyValueIteratorValue
+	var (
+		value0 []*CSSStyleValue // javascript: sequence<CSSStyleValue> {value Value value}
+		value1 bool             // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]*CSSStyleValue, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *CSSStyleValue
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = CSSStyleValueFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -750,6 +1438,177 @@ func (_this *CSSNumericArray) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *CSSNumericArray) Entries() (_result *CSSNumericArrayEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayEntryIterator // javascript: CSSNumericArrayEntryIterator _what_return_name
+	)
+	_converted = CSSNumericArrayEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSNumericArray) ForEach(callback *CSSNumericArrayForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *CSSNumericArray) Keys() (_result *CSSNumericArrayKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayKeyIterator // javascript: CSSNumericArrayKeyIterator _what_return_name
+	)
+	_converted = CSSNumericArrayKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSNumericArray) Values() (_result *CSSNumericArrayValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayValueIterator // javascript: CSSNumericArrayValueIterator _what_return_name
+	)
+	_converted = CSSNumericArrayValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSNumericArrayEntryIterator
+type CSSNumericArrayEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSNumericArrayEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSNumericArrayEntryIteratorFromJS is casting a js.Wrapper into CSSNumericArrayEntryIterator.
+func CSSNumericArrayEntryIteratorFromJS(value js.Wrapper) *CSSNumericArrayEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSNumericArrayEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSNumericArrayEntryIterator) Next() (_result *CSSNumericArrayEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayEntryIteratorValue // javascript: CSSNumericArrayEntryIteratorValue _what_return_name
+	)
+	_converted = CSSNumericArrayEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSNumericArrayKeyIterator
+type CSSNumericArrayKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSNumericArrayKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSNumericArrayKeyIteratorFromJS is casting a js.Wrapper into CSSNumericArrayKeyIterator.
+func CSSNumericArrayKeyIteratorFromJS(value js.Wrapper) *CSSNumericArrayKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSNumericArrayKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSNumericArrayKeyIterator) Next() (_result *CSSNumericArrayKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayKeyIteratorValue // javascript: CSSNumericArrayKeyIteratorValue _what_return_name
+	)
+	_converted = CSSNumericArrayKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSNumericArrayValueIterator
+type CSSNumericArrayValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSNumericArrayValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSNumericArrayValueIteratorFromJS is casting a js.Wrapper into CSSNumericArrayValueIterator.
+func CSSNumericArrayValueIteratorFromJS(value js.Wrapper) *CSSNumericArrayValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSNumericArrayValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSNumericArrayValueIterator) Next() (_result *CSSNumericArrayValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSNumericArrayValueIteratorValue // javascript: CSSNumericArrayValueIteratorValue _what_return_name
+	)
+	_converted = CSSNumericArrayValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: CSSNumericValue
@@ -1608,6 +2467,177 @@ func (_this *CSSTransformValue) ToMatrix() (_result *geometry.DOMMatrix) {
 	return
 }
 
+func (_this *CSSTransformValue) Entries() (_result *CSSTransformValueEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueEntryIterator // javascript: CSSTransformValueEntryIterator _what_return_name
+	)
+	_converted = CSSTransformValueEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSTransformValue) ForEach(callback *CSSTransformValueForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *CSSTransformValue) Keys() (_result *CSSTransformValueKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueKeyIterator // javascript: CSSTransformValueKeyIterator _what_return_name
+	)
+	_converted = CSSTransformValueKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSTransformValue) Values() (_result *CSSTransformValueValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueValueIterator // javascript: CSSTransformValueValueIterator _what_return_name
+	)
+	_converted = CSSTransformValueValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSTransformValueEntryIterator
+type CSSTransformValueEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSTransformValueEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSTransformValueEntryIteratorFromJS is casting a js.Wrapper into CSSTransformValueEntryIterator.
+func CSSTransformValueEntryIteratorFromJS(value js.Wrapper) *CSSTransformValueEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSTransformValueEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSTransformValueEntryIterator) Next() (_result *CSSTransformValueEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueEntryIteratorValue // javascript: CSSTransformValueEntryIteratorValue _what_return_name
+	)
+	_converted = CSSTransformValueEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSTransformValueKeyIterator
+type CSSTransformValueKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSTransformValueKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSTransformValueKeyIteratorFromJS is casting a js.Wrapper into CSSTransformValueKeyIterator.
+func CSSTransformValueKeyIteratorFromJS(value js.Wrapper) *CSSTransformValueKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSTransformValueKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSTransformValueKeyIterator) Next() (_result *CSSTransformValueKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueKeyIteratorValue // javascript: CSSTransformValueKeyIteratorValue _what_return_name
+	)
+	_converted = CSSTransformValueKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSTransformValueValueIterator
+type CSSTransformValueValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSTransformValueValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSTransformValueValueIteratorFromJS is casting a js.Wrapper into CSSTransformValueValueIterator.
+func CSSTransformValueValueIteratorFromJS(value js.Wrapper) *CSSTransformValueValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSTransformValueValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSTransformValueValueIterator) Next() (_result *CSSTransformValueValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSTransformValueValueIteratorValue // javascript: CSSTransformValueValueIteratorValue _what_return_name
+	)
+	_converted = CSSTransformValueValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: CSSTranslate
 type CSSTranslate struct {
 	CSSTransformComponent
@@ -1805,6 +2835,177 @@ func (_this *CSSUnparsedValue) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *CSSUnparsedValue) Entries() (_result *CSSUnparsedValueEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueEntryIterator // javascript: CSSUnparsedValueEntryIterator _what_return_name
+	)
+	_converted = CSSUnparsedValueEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSUnparsedValue) ForEach(callback *CSSUnparsedValueForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *CSSUnparsedValue) Keys() (_result *CSSUnparsedValueKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueKeyIterator // javascript: CSSUnparsedValueKeyIterator _what_return_name
+	)
+	_converted = CSSUnparsedValueKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSUnparsedValue) Values() (_result *CSSUnparsedValueValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueValueIterator // javascript: CSSUnparsedValueValueIterator _what_return_name
+	)
+	_converted = CSSUnparsedValueValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSUnparsedValueEntryIterator
+type CSSUnparsedValueEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSUnparsedValueEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSUnparsedValueEntryIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueEntryIterator.
+func CSSUnparsedValueEntryIteratorFromJS(value js.Wrapper) *CSSUnparsedValueEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSUnparsedValueEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSUnparsedValueEntryIterator) Next() (_result *CSSUnparsedValueEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueEntryIteratorValue // javascript: CSSUnparsedValueEntryIteratorValue _what_return_name
+	)
+	_converted = CSSUnparsedValueEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSUnparsedValueKeyIterator
+type CSSUnparsedValueKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSUnparsedValueKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSUnparsedValueKeyIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueKeyIterator.
+func CSSUnparsedValueKeyIteratorFromJS(value js.Wrapper) *CSSUnparsedValueKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSUnparsedValueKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSUnparsedValueKeyIterator) Next() (_result *CSSUnparsedValueKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueKeyIteratorValue // javascript: CSSUnparsedValueKeyIteratorValue _what_return_name
+	)
+	_converted = CSSUnparsedValueKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: CSSUnparsedValueValueIterator
+type CSSUnparsedValueValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *CSSUnparsedValueValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// CSSUnparsedValueValueIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueValueIterator.
+func CSSUnparsedValueValueIteratorFromJS(value js.Wrapper) *CSSUnparsedValueValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &CSSUnparsedValueValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *CSSUnparsedValueValueIterator) Next() (_result *CSSUnparsedValueValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *CSSUnparsedValueValueIteratorValue // javascript: CSSUnparsedValueValueIteratorValue _what_return_name
+	)
+	_converted = CSSUnparsedValueValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: CSSVariableReferenceValue
@@ -2034,6 +3235,177 @@ func (_this *StylePropertyMapReadOnly) Has(property string) (_result bool) {
 		_converted bool // javascript: boolean _what_return_name
 	)
 	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *StylePropertyMapReadOnly) Entries() (_result *StylePropertyMapReadOnlyEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyEntryIterator // javascript: StylePropertyMapReadOnlyEntryIterator _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *StylePropertyMapReadOnly) ForEach(callback *StylePropertyMapReadOnlyForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *StylePropertyMapReadOnly) Keys() (_result *StylePropertyMapReadOnlyKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyKeyIterator // javascript: StylePropertyMapReadOnlyKeyIterator _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *StylePropertyMapReadOnly) Values() (_result *StylePropertyMapReadOnlyValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyValueIterator // javascript: StylePropertyMapReadOnlyValueIterator _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: StylePropertyMapReadOnlyEntryIterator
+type StylePropertyMapReadOnlyEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *StylePropertyMapReadOnlyEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// StylePropertyMapReadOnlyEntryIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyEntryIterator.
+func StylePropertyMapReadOnlyEntryIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &StylePropertyMapReadOnlyEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *StylePropertyMapReadOnlyEntryIterator) Next() (_result *StylePropertyMapReadOnlyEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyEntryIteratorValue // javascript: StylePropertyMapReadOnlyEntryIteratorValue _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: StylePropertyMapReadOnlyKeyIterator
+type StylePropertyMapReadOnlyKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *StylePropertyMapReadOnlyKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// StylePropertyMapReadOnlyKeyIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyKeyIterator.
+func StylePropertyMapReadOnlyKeyIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &StylePropertyMapReadOnlyKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *StylePropertyMapReadOnlyKeyIterator) Next() (_result *StylePropertyMapReadOnlyKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyKeyIteratorValue // javascript: StylePropertyMapReadOnlyKeyIteratorValue _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: StylePropertyMapReadOnlyValueIterator
+type StylePropertyMapReadOnlyValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *StylePropertyMapReadOnlyValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// StylePropertyMapReadOnlyValueIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyValueIterator.
+func StylePropertyMapReadOnlyValueIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &StylePropertyMapReadOnlyValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *StylePropertyMapReadOnlyValueIterator) Next() (_result *StylePropertyMapReadOnlyValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *StylePropertyMapReadOnlyValueIteratorValue // javascript: StylePropertyMapReadOnlyValueIteratorValue _what_return_name
+	)
+	_converted = StylePropertyMapReadOnlyValueIteratorValueFromJS(_returned)
 	_result = _converted
 	return
 }
