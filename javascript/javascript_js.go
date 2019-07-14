@@ -45,6 +45,369 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// callback: ArrayCompareFunction
+type ArrayCompareFunctionFunc func(a js.Value, b js.Value) int
+
+// ArrayCompareFunction is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayCompareFunction js.Func
+
+func ArrayCompareFunctionToJS(callback ArrayCompareFunctionFunc) *ArrayCompareFunction {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayCompareFunction(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any a
+			_p1 js.Value // javascript: any b
+		)
+		_p0 = args[0]
+		_p1 = args[1]
+		_returned := callback(_p0, _p1)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayCompareFunctionFromJS(_value js.Value) ArrayCompareFunctionFunc {
+	return func(a js.Value, b js.Value) (_result int) {
+		var (
+			_args [2]interface{}
+			_end  int
+		)
+		_p0 := a
+		_args[0] = _p0
+		_end++
+		_p1 := b
+		_args[1] = _p1
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted int // javascript: long
+		)
+		_converted = (_returned).Int()
+		_result = _converted
+		return
+	}
+}
+
+// callback: ArrayForEachCallback
+type ArrayForEachCallbackFunc func(value js.Value, index int, array *Array)
+
+// ArrayForEachCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayForEachCallback js.Func
+
+func ArrayForEachCallbackToJS(callback ArrayForEachCallbackFunc) *ArrayForEachCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayForEachCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any value
+			_p1 int      // javascript: long index
+			_p2 *Array   // javascript: Array array
+		)
+		_p0 = args[0]
+		_p1 = (args[1]).Int()
+		_p2 = ArrayFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func ArrayForEachCallbackFromJS(_value js.Value) ArrayForEachCallbackFunc {
+	return func(value js.Value, index int, array *Array) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_p1 := index
+		_args[1] = _p1
+		_end++
+		_p2 := array.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: ArrayMapCallback
+type ArrayMapCallbackFunc func(value js.Value, index int, array *Array) interface{}
+
+// ArrayMapCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayMapCallback js.Func
+
+func ArrayMapCallbackToJS(callback ArrayMapCallbackFunc) *ArrayMapCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayMapCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any value
+			_p1 int      // javascript: long index
+			_p2 *Array   // javascript: Array array
+		)
+		_p0 = args[0]
+		_p1 = (args[1]).Int()
+		_p2 = ArrayFromJS(args[2])
+		_returned := callback(_p0, _p1, _p2)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayMapCallbackFromJS(_value js.Value) ArrayMapCallbackFunc {
+	return func(value js.Value, index int, array *Array) (_result interface{}) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_p1 := index
+		_args[1] = _p1
+		_end++
+		_p2 := array.JSValue()
+		_args[2] = _p2
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted js.Value // javascript: any
+		)
+		_converted = _returned
+		_result = _converted
+		return
+	}
+}
+
+// callback: ArrayMapFn
+type ArrayMapFnFunc func(value js.Value) interface{}
+
+// ArrayMapFn is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayMapFn js.Func
+
+func ArrayMapFnToJS(callback ArrayMapFnFunc) *ArrayMapFn {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayMapFn(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any value
+		)
+		_p0 = args[0]
+		_returned := callback(_p0)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayMapFnFromJS(_value js.Value) ArrayMapFnFunc {
+	return func(value js.Value) (_result interface{}) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted js.Value // javascript: any
+		)
+		_converted = _returned
+		_result = _converted
+		return
+	}
+}
+
+// callback: ArrayReduceCallback
+type ArrayReduceCallbackFunc func(accumulator js.Value, currentValue js.Value, currentIndex int, array *Array) interface{}
+
+// ArrayReduceCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayReduceCallback js.Func
+
+func ArrayReduceCallbackToJS(callback ArrayReduceCallbackFunc) *ArrayReduceCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayReduceCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any accumulator
+			_p1 js.Value // javascript: any currentValue
+			_p2 int      // javascript: long currentIndex
+			_p3 *Array   // javascript: Array array
+		)
+		_p0 = args[0]
+		_p1 = args[1]
+		_p2 = (args[2]).Int()
+		_p3 = ArrayFromJS(args[3])
+		_returned := callback(_p0, _p1, _p2, _p3)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayReduceCallbackFromJS(_value js.Value) ArrayReduceCallbackFunc {
+	return func(accumulator js.Value, currentValue js.Value, currentIndex int, array *Array) (_result interface{}) {
+		var (
+			_args [4]interface{}
+			_end  int
+		)
+		_p0 := accumulator
+		_args[0] = _p0
+		_end++
+		_p1 := currentValue
+		_args[1] = _p1
+		_end++
+		_p2 := currentIndex
+		_args[2] = _p2
+		_end++
+		_p3 := array.JSValue()
+		_args[3] = _p3
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted js.Value // javascript: any
+		)
+		_converted = _returned
+		_result = _converted
+		return
+	}
+}
+
+// callback: ArrayTestCallback
+type ArrayTestCallbackFunc func(element js.Value, index int, array *Array) bool
+
+// ArrayTestCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayTestCallback js.Func
+
+func ArrayTestCallbackToJS(callback ArrayTestCallbackFunc) *ArrayTestCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayTestCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any element
+			_p1 int      // javascript: long index
+			_p2 *Array   // javascript: Array array
+		)
+		_p0 = args[0]
+		_p1 = (args[1]).Int()
+		_p2 = ArrayFromJS(args[2])
+		_returned := callback(_p0, _p1, _p2)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayTestCallbackFromJS(_value js.Value) ArrayTestCallbackFunc {
+	return func(element js.Value, index int, array *Array) (_result bool) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := element
+		_args[0] = _p0
+		_end++
+		_p1 := index
+		_args[1] = _p1
+		_end++
+		_p2 := array.JSValue()
+		_args[2] = _p2
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted bool // javascript: boolean
+		)
+		_converted = (_returned).Bool()
+		_result = _converted
+		return
+	}
+}
+
+// callback: ArrayValueCallback
+type ArrayValueCallbackFunc func(value js.Value, index int, array *Array) interface{}
+
+// ArrayValueCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type ArrayValueCallback js.Func
+
+func ArrayValueCallbackToJS(callback ArrayValueCallbackFunc) *ArrayValueCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := ArrayValueCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any value
+			_p1 int      // javascript: long index
+			_p2 *Array   // javascript: Array array
+		)
+		_p0 = args[0]
+		_p1 = (args[1]).Int()
+		_p2 = ArrayFromJS(args[2])
+		_returned := callback(_p0, _p1, _p2)
+		_converted := _returned
+		return _converted
+	}))
+	return &ret
+}
+
+func ArrayValueCallbackFromJS(_value js.Value) ArrayValueCallbackFunc {
+	return func(value js.Value, index int, array *Array) (_result interface{}) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := value
+		_args[0] = _p0
+		_end++
+		_p1 := index
+		_args[1] = _p1
+		_end++
+		_p2 := array.JSValue()
+		_args[2] = _p2
+		_end++
+		_returned := _value.Invoke(_args[0:_end]...)
+		var (
+			_converted js.Value // javascript: any
+		)
+		_converted = _returned
+		_result = _converted
+		return
+	}
+}
+
 // callback: PromiseTemplateOnFulfilled
 type PromiseArrayBufferOnFulfilledFunc func(value *ArrayBuffer)
 
@@ -708,6 +1071,913 @@ func PromiseVoidOnRejectedFromJS(_value js.Value) PromiseVoidOnRejectedFunc {
 	}
 }
 
+// dictionary: ArrayEntryValue
+type ArrayEntryValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ArrayEntryValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// ArrayEntryValueFromJS is allocating a new
+// ArrayEntryValue object and copy all values from
+// input javascript object
+func ArrayEntryValueFromJS(value js.Wrapper) *ArrayEntryValue {
+	input := value.JSValue()
+	var out ArrayEntryValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: ArrayKeyValue
+type ArrayKeyValue struct {
+	Value int
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ArrayKeyValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// ArrayKeyValueFromJS is allocating a new
+// ArrayKeyValue object and copy all values from
+// input javascript object
+func ArrayKeyValueFromJS(value js.Wrapper) *ArrayKeyValue {
+	input := value.JSValue()
+	var out ArrayKeyValue
+	var (
+		value0 int  // javascript: long {value Value value}
+		value1 bool // javascript: boolean {done Done done}
+	)
+	value0 = (input.Get("value")).Int()
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: ArrayValueIteratorValue
+type ArrayValueIteratorValue struct {
+	Value js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ArrayValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// ArrayValueIteratorValueFromJS is allocating a new
+// ArrayValueIteratorValue object and copy all values from
+// input javascript object
+func ArrayValueIteratorValueFromJS(value js.Wrapper) *ArrayValueIteratorValue {
+	input := value.JSValue()
+	var out ArrayValueIteratorValue
+	var (
+		value0 js.Value // javascript: any {value Value value}
+		value1 bool     // javascript: boolean {done Done done}
+	)
+	value0 = input.Get("value")
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// interface: Array
+type Array struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *Array) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ArrayFromJS is casting a js.Wrapper into Array.
+func ArrayFromJS(value js.Wrapper) *Array {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &Array{}
+	ret.Value_JS = input
+	return ret
+}
+
+func From(arrayLike interface{}, mapFn *ArrayMapFn, thisArg interface{}) (_result *Array) {
+	_klass := js.Global().Get("Array")
+	_method := _klass.Get("from")
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := arrayLike
+	_args[0] = _p0
+	_end++
+	if mapFn != nil {
+
+		var __callback1 js.Value
+		if mapFn != nil {
+			__callback1 = (*mapFn).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	if thisArg != nil {
+		_p2 := thisArg
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func IsArray(value interface{}) (_result bool) {
+	_klass := js.Global().Get("Array")
+	_method := _klass.Get("isArray")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func NewArray(elements ...interface{}) (_result *Array) {
+	_klass := js.Global().Get("Array")
+	var (
+		_args []interface{} = make([]interface{}, 0+len(elements))
+		_end  int
+	)
+	for _, __in := range elements {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Length returning attribute 'length' with
+// type int (idl: long).
+func (_this *Array) Length() int {
+	var ret int
+	value := _this.Value_JS.Get("length")
+	ret = (value).Int()
+	return ret
+}
+
+func (_this *Array) Concat(arrayOrValues interface{}) (_result *Array) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := arrayOrValues
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("concat", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) CopyWithin(target int, start *int, end *int) (_result *Array) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := target
+	_args[0] = _p0
+	_end++
+	if start != nil {
+		_p1 := start
+		_args[1] = _p1
+		_end++
+	}
+	if end != nil {
+		_p2 := end
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("copyWithin", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Entries() (_result *ArrayEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *ArrayEntryIterator // javascript: ArrayEntryIterator _what_return_name
+	)
+	_converted = ArrayEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Every(callback *ArrayTestCallback, thisArg interface{}) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("every", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Fill(value interface{}, start *int, end *int) (_result *Array) {
+	var (
+		_args [3]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	if start != nil {
+		_p1 := start
+		_args[1] = _p1
+		_end++
+	}
+	if end != nil {
+		_p2 := end
+		_args[2] = _p2
+		_end++
+	}
+	_returned := _this.Value_JS.Call("fill", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Filter(callback *ArrayTestCallback, thisArg interface{}) (_result *Array) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("filter", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Find(callback *ArrayTestCallback, thisArg interface{}) (_result js.Value) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("find", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) FindIndex(callback *ArrayTestCallback, thisArg interface{}) (_result int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("findIndex", _args[0:_end]...)
+	var (
+		_converted int // javascript: long _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Flat(depth *int) (_result *Array) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if depth != nil {
+		_p0 := depth
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("flat", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) FlatMap(callback *ArrayValueCallback, thisArg interface{}) (_result *Array) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("flatMap", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) ForEach(callback *ArrayForEachCallback, thisArg interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *Array) Includes(valueToFind interface{}, fromIndex int) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := valueToFind
+	_args[0] = _p0
+	_end++
+	_p1 := fromIndex
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("includes", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Array) IndexOf(value interface{}, fromIndex int) (_result int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_p1 := fromIndex
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("indexOf", _args[0:_end]...)
+	var (
+		_converted int // javascript: long _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Join(separator *string) (_result string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if separator != nil {
+		_p0 := separator
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("join", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Keys() (_result *ArrayKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *ArrayKeyIterator // javascript: ArrayKeyIterator _what_return_name
+	)
+	_converted = ArrayKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) LastIndexOf(searchElement interface{}, fromIndex *int) (_result int) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := searchElement
+	_args[0] = _p0
+	_end++
+	if fromIndex != nil {
+		_p1 := fromIndex
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("lastIndexOf", _args[0:_end]...)
+	var (
+		_converted int // javascript: long _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Map(callback *ArrayMapCallback, thisArg interface{}) (_result *Array) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("map", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Pop() (_result js.Value) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("pop", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) Push(element1 interface{}, elementN ...interface{}) (_result int) {
+	var (
+		_args []interface{} = make([]interface{}, 1+len(elementN))
+		_end  int
+	)
+	_p0 := element1
+	_args[0] = _p0
+	_end++
+	for _, __in := range elementN {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_returned := _this.Value_JS.Call("push", _args[0:_end]...)
+	var (
+		_converted int // javascript: long _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Reduce(callback *ArrayReduceCallback, initailValue interface{}) (_result js.Value) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_p1 := initailValue
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("reduce", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) ReduceRight(callback *ArrayReduceCallback, initailValue interface{}) (_result js.Value) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_p1 := initailValue
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("reduceRight", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) Reverse() (_result *Array) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("reverse", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Shift() (_result js.Value) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("shift", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) Slice(begin *int, end *int) (_result *Array) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	if begin != nil {
+		_p0 := begin
+		_args[0] = _p0
+		_end++
+	}
+	if end != nil {
+		_p1 := end
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("slice", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Some(callback *ArrayTestCallback, thisArg interface{}) (_result bool) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if thisArg != nil {
+		_p1 := thisArg
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("some", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Sort(compare *ArrayCompareFunction) (_result *Array) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if compare != nil {
+
+		var __callback0 js.Value
+		if compare != nil {
+			__callback0 = (*compare).Value
+		} else {
+			__callback0 = js.Null()
+		}
+		_p0 := __callback0
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("sort", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Splice(start int, deleteCount int, itemsToAddAfterStart ...interface{}) (_result *Array) {
+	var (
+		_args []interface{} = make([]interface{}, 2+len(itemsToAddAfterStart))
+		_end  int
+	)
+	_p0 := start
+	_args[0] = _p0
+	_end++
+	_p1 := deleteCount
+	_args[1] = _p1
+	_end++
+	for _, __in := range itemsToAddAfterStart {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_returned := _this.Value_JS.Call("splice", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) ToLocaleString(locales *string) (_result string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if locales != nil {
+		_p0 := locales
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("toLocaleString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *Array) ToString() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toString", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *Array) Unshift(element1 interface{}, elementN ...interface{}) (_result *Array) {
+	var (
+		_args []interface{} = make([]interface{}, 1+len(elementN))
+		_end  int
+	)
+	_p0 := element1
+	_args[0] = _p0
+	_end++
+	for _, __in := range elementN {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_returned := _this.Value_JS.Call("unshift", _args[0:_end]...)
+	var (
+		_converted *Array // javascript: Array _what_return_name
+	)
+	_converted = ArrayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Array) Values() (_result *ArrayValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *ArrayValueIterator // javascript: ArrayValueIterator _what_return_name
+	)
+	_converted = ArrayValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: ArrayBuffer
 type ArrayBuffer struct {
 	// Value_JS holds a reference to a javascript value
@@ -727,6 +1997,111 @@ func ArrayBufferFromJS(value js.Wrapper) *ArrayBuffer {
 	ret := &ArrayBuffer{}
 	ret.Value_JS = input
 	return ret
+}
+
+// interface: ArrayEntryIterator
+type ArrayEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ArrayEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ArrayEntryIteratorFromJS is casting a js.Wrapper into ArrayEntryIterator.
+func ArrayEntryIteratorFromJS(value js.Wrapper) *ArrayEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ArrayEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *ArrayEntryIterator) Next() (_result *ArrayEntryValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *ArrayEntryValue // javascript: ArrayEntryValue _what_return_name
+	)
+	_converted = ArrayEntryValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: ArrayKeyIterator
+type ArrayKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ArrayKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ArrayKeyIteratorFromJS is casting a js.Wrapper into ArrayKeyIterator.
+func ArrayKeyIteratorFromJS(value js.Wrapper) *ArrayKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ArrayKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *ArrayKeyIterator) Next() (_result *ArrayKeyValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *ArrayKeyValue // javascript: ArrayKeyValue _what_return_name
+	)
+	_converted = ArrayKeyValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: ArrayValueIterator
+type ArrayValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *ArrayValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// ArrayValueIteratorFromJS is casting a js.Wrapper into ArrayValueIterator.
+func ArrayValueIteratorFromJS(value js.Wrapper) *ArrayValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &ArrayValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *ArrayValueIterator) Next() (_result *ArrayValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *ArrayValueIteratorValue // javascript: ArrayValueIteratorValue _what_return_name
+	)
+	_converted = ArrayValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: DataView
@@ -874,6 +2249,249 @@ func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
 	ret := &Int8Array{}
 	ret.Value_JS = input
 	return ret
+}
+
+// interface: JavaScriptFunction
+type JavaScriptFunction struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *JavaScriptFunction) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// JavaScriptFunctionFromJS is casting a js.Wrapper into JavaScriptFunction.
+func JavaScriptFunctionFromJS(value js.Wrapper) *JavaScriptFunction {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &JavaScriptFunction{}
+	ret.Value_JS = input
+	return ret
+}
+
+func NewJavaScriptFunction(argumentAndFunctionBody ...string) (_result *JavaScriptFunction) {
+	_klass := js.Global().Get("JavaScriptFunction")
+	var (
+		_args []interface{} = make([]interface{}, 0+len(argumentAndFunctionBody))
+		_end  int
+	)
+	for _, __in := range argumentAndFunctionBody {
+		__out := __in
+		_args[_end] = __out
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *JavaScriptFunction // javascript: JavaScriptFunction _what_return_name
+	)
+	_converted = JavaScriptFunctionFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Length returning attribute 'length' with
+// type int (idl: long).
+func (_this *JavaScriptFunction) Length() int {
+	var ret int
+	value := _this.Value_JS.Get("length")
+	ret = (value).Int()
+	return ret
+}
+
+// Name returning attribute 'name' with
+// type string (idl: DOMString).
+func (_this *JavaScriptFunction) Name() string {
+	var ret string
+	value := _this.Value_JS.Get("name")
+	ret = (value).String()
+	return ret
+}
+
+// GlobalThis returning attribute 'globalThis' with
+// type Any (idl: any).
+func GlobalThis() js.Value {
+	var ret js.Value
+	_klass := js.Global()
+	value := _klass.Get("globalThis")
+	ret = value
+	return ret
+}
+
+func Eval(code string) (_result js.Value) {
+	_klass := js.Global()
+	_method := _klass.Get("eval")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := code
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func IsFinite(value float64) (_result bool) {
+	_klass := js.Global()
+	_method := _klass.Get("isFinite")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func IsNaN(value float64) (_result bool) {
+	_klass := js.Global()
+	_method := _klass.Get("isNaN")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+func ParseFloat(value interface{}) (_result float64) {
+	_klass := js.Global()
+	_method := _klass.Get("parseFloat")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted float64 // javascript: double _what_return_name
+	)
+	_converted = (_returned).Float()
+	_result = _converted
+	return
+}
+
+func ParseInt(value interface{}, radix int) (_result int) {
+	_klass := js.Global()
+	_method := _klass.Get("parseInt")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := value
+	_args[0] = _p0
+	_end++
+	_p1 := radix
+	_args[1] = _p1
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted int // javascript: long _what_return_name
+	)
+	_converted = (_returned).Int()
+	_result = _converted
+	return
+}
+
+func DecodeURI(encodedURI string) (_result string) {
+	_klass := js.Global()
+	_method := _klass.Get("decodeURI")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := encodedURI
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func DecodeURIComponent(encodedURI string) (_result string) {
+	_klass := js.Global()
+	_method := _klass.Get("decodeURIComponent")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := encodedURI
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func EncodeURI(uri string) (_result string) {
+	_klass := js.Global()
+	_method := _klass.Get("encodeURI")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := uri
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func EncodeURIComponent(uri string) (_result string) {
+	_klass := js.Global()
+	_method := _klass.Get("encodeURIComponent")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := uri
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
 }
 
 // interface: object
