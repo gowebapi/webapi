@@ -508,6 +508,55 @@ func PanningModelTypeFromJS(value js.Value) PanningModelType {
 	return conv
 }
 
+// callback: AudioParamMapForEach
+type AudioParamMapForEachFunc func(currentValue *AudioParam, currentKey string, listObj *AudioParamMap)
+
+// AudioParamMapForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type AudioParamMapForEach js.Func
+
+func AudioParamMapForEachToJS(callback AudioParamMapForEachFunc) *AudioParamMapForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := AudioParamMapForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *AudioParam    // javascript: AudioParam currentValue
+			_p1 string         // javascript: DOMString currentKey
+			_p2 *AudioParamMap // javascript: AudioParamMap listObj
+		)
+		_p0 = AudioParamFromJS(args[0])
+		_p1 = (args[1]).String()
+		_p2 = AudioParamMapFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func AudioParamMapForEachFromJS(_value js.Value) AudioParamMapForEachFunc {
+	return func(currentValue *AudioParam, currentKey string, listObj *AudioParamMap) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentKey
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: DecodeErrorCallback
 type DecodeErrorCallbackFunc func(_error *domcore.DOMException)
 
@@ -899,6 +948,120 @@ func AudioNodeOptionsFromJS(value js.Wrapper) *AudioNodeOptions {
 	out.ChannelCountMode = value1
 	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
+	return &out
+}
+
+// dictionary: AudioParamMapEntryIteratorValue
+type AudioParamMapEntryIteratorValue struct {
+	Value []js.Value
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AudioParamMapEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// AudioParamMapEntryIteratorValueFromJS is allocating a new
+// AudioParamMapEntryIteratorValue object and copy all values from
+// input javascript object
+func AudioParamMapEntryIteratorValueFromJS(value js.Wrapper) *AudioParamMapEntryIteratorValue {
+	input := value.JSValue()
+	var out AudioParamMapEntryIteratorValue
+	var (
+		value0 []js.Value // javascript: sequence<any> {value Value value}
+		value1 bool       // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]js.Value, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 js.Value
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = __seq_in0
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: AudioParamMapKeyIteratorValue
+type AudioParamMapKeyIteratorValue struct {
+	Value string
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AudioParamMapKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// AudioParamMapKeyIteratorValueFromJS is allocating a new
+// AudioParamMapKeyIteratorValue object and copy all values from
+// input javascript object
+func AudioParamMapKeyIteratorValueFromJS(value js.Wrapper) *AudioParamMapKeyIteratorValue {
+	input := value.JSValue()
+	var out AudioParamMapKeyIteratorValue
+	var (
+		value0 string // javascript: DOMString {value Value value}
+		value1 bool   // javascript: boolean {done Done done}
+	)
+	value0 = (input.Get("value")).String()
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: AudioParamMapValueIteratorValue
+type AudioParamMapValueIteratorValue struct {
+	Value *AudioParam
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AudioParamMapValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// AudioParamMapValueIteratorValueFromJS is allocating a new
+// AudioParamMapValueIteratorValue object and copy all values from
+// input javascript object
+func AudioParamMapValueIteratorValueFromJS(value js.Wrapper) *AudioParamMapValueIteratorValue {
+	input := value.JSValue()
+	var out AudioParamMapValueIteratorValue
+	var (
+		value0 *AudioParam // javascript: AudioParam {value Value value}
+		value1 bool        // javascript: boolean {done Done done}
+	)
+	value0 = AudioParamFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -3273,6 +3436,222 @@ func AudioParamMapFromJS(value js.Wrapper) *AudioParamMap {
 	ret := &AudioParamMap{}
 	ret.Value_JS = input
 	return ret
+}
+
+// Size returning attribute 'size' with
+// type int (idl: long).
+func (_this *AudioParamMap) Size() int {
+	var ret int
+	value := _this.Value_JS.Get("size")
+	ret = (value).Int()
+	return ret
+}
+
+func (_this *AudioParamMap) Entries() (_result *AudioParamMapEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapEntryIterator // javascript: AudioParamMapEntryIterator _what_return_name
+	)
+	_converted = AudioParamMapEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *AudioParamMap) ForEach(callback *AudioParamMapForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *AudioParamMap) Keys() (_result *AudioParamMapKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapKeyIterator // javascript: AudioParamMapKeyIterator _what_return_name
+	)
+	_converted = AudioParamMapKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *AudioParamMap) Values() (_result *AudioParamMapValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapValueIterator // javascript: AudioParamMapValueIterator _what_return_name
+	)
+	_converted = AudioParamMapValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *AudioParamMap) Get(key string) (_result *AudioParam) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
+	var (
+		_converted *AudioParam // javascript: AudioParam _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = AudioParamFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *AudioParamMap) Has(key string) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("has", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// interface: AudioParamMapEntryIterator
+type AudioParamMapEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *AudioParamMapEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// AudioParamMapEntryIteratorFromJS is casting a js.Wrapper into AudioParamMapEntryIterator.
+func AudioParamMapEntryIteratorFromJS(value js.Wrapper) *AudioParamMapEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &AudioParamMapEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *AudioParamMapEntryIterator) Next() (_result *AudioParamMapEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapEntryIteratorValue // javascript: AudioParamMapEntryIteratorValue _what_return_name
+	)
+	_converted = AudioParamMapEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: AudioParamMapKeyIterator
+type AudioParamMapKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *AudioParamMapKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// AudioParamMapKeyIteratorFromJS is casting a js.Wrapper into AudioParamMapKeyIterator.
+func AudioParamMapKeyIteratorFromJS(value js.Wrapper) *AudioParamMapKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &AudioParamMapKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *AudioParamMapKeyIterator) Next() (_result *AudioParamMapKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapKeyIteratorValue // javascript: AudioParamMapKeyIteratorValue _what_return_name
+	)
+	_converted = AudioParamMapKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: AudioParamMapValueIterator
+type AudioParamMapValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *AudioParamMapValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// AudioParamMapValueIteratorFromJS is casting a js.Wrapper into AudioParamMapValueIterator.
+func AudioParamMapValueIteratorFromJS(value js.Wrapper) *AudioParamMapValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &AudioParamMapValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *AudioParamMapValueIterator) Next() (_result *AudioParamMapValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *AudioParamMapValueIteratorValue // javascript: AudioParamMapValueIteratorValue _what_return_name
+	)
+	_converted = AudioParamMapValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: AudioProcessingEvent

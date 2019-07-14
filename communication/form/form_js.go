@@ -229,7 +229,7 @@ func FormDataEntryIteratorValueFromJS(value js.Wrapper) *FormDataEntryIteratorVa
 
 // dictionary: FormDataKeyIteratorValue
 type FormDataKeyIteratorValue struct {
-	Value *Union
+	Value string
 	Done  bool
 }
 
@@ -237,7 +237,7 @@ type FormDataKeyIteratorValue struct {
 // all values
 func (_this *FormDataKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Value.JSValue()
+	value0 := _this.Value
 	out.Set("value", value0)
 	value1 := _this.Done
 	out.Set("done", value1)
@@ -251,10 +251,10 @@ func FormDataKeyIteratorValueFromJS(value js.Wrapper) *FormDataKeyIteratorValue 
 	input := value.JSValue()
 	var out FormDataKeyIteratorValue
 	var (
-		value0 *Union // javascript: Union {value Value value}
+		value0 string // javascript: USVString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = UnionFromJS(input.Get("value"))
+	value0 = (input.Get("value")).String()
 	out.Value = value0
 	value1 = (input.Get("done")).Bool()
 	out.Done = value1

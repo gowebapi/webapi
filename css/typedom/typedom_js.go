@@ -839,7 +839,7 @@ func StylePropertyMapReadOnlyEntryIteratorValueFromJS(value js.Wrapper) *StylePr
 
 // dictionary: StylePropertyMapReadOnlyKeyIteratorValue
 type StylePropertyMapReadOnlyKeyIteratorValue struct {
-	Value []*CSSStyleValue
+	Value string
 	Done  bool
 }
 
@@ -847,11 +847,7 @@ type StylePropertyMapReadOnlyKeyIteratorValue struct {
 // all values
 func (_this *StylePropertyMapReadOnlyKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := js.Global().Get("Array").New(len(_this.Value))
-	for __idx0, __seq_in0 := range _this.Value {
-		__seq_out0 := __seq_in0.JSValue()
-		value0.SetIndex(__idx0, __seq_out0)
-	}
+	value0 := _this.Value
 	out.Set("value", value0)
 	value1 := _this.Done
 	out.Set("done", value1)
@@ -865,18 +861,10 @@ func StylePropertyMapReadOnlyKeyIteratorValueFromJS(value js.Wrapper) *StyleProp
 	input := value.JSValue()
 	var out StylePropertyMapReadOnlyKeyIteratorValue
 	var (
-		value0 []*CSSStyleValue // javascript: sequence<CSSStyleValue> {value Value value}
-		value1 bool             // javascript: boolean {done Done done}
+		value0 string // javascript: USVString {value Value value}
+		value1 bool   // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
-	__array0 := make([]*CSSStyleValue, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *CSSStyleValue
-		__seq_in0 := input.Get("value").Index(__idx0)
-		__seq_out0 = CSSStyleValueFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	value0 = __array0
+	value0 = (input.Get("value")).String()
 	out.Value = value0
 	value1 = (input.Get("done")).Bool()
 	out.Done = value1

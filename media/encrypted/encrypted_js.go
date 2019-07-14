@@ -593,7 +593,7 @@ func MediaKeyStatusMapEntryIteratorValueFromJS(value js.Wrapper) *MediaKeyStatus
 
 // dictionary: MediaKeyStatusMapKeyIteratorValue
 type MediaKeyStatusMapKeyIteratorValue struct {
-	Value MediaKeyStatus
+	Value *Union
 	Done  bool
 }
 
@@ -615,10 +615,10 @@ func MediaKeyStatusMapKeyIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMa
 	input := value.JSValue()
 	var out MediaKeyStatusMapKeyIteratorValue
 	var (
-		value0 MediaKeyStatus // javascript: MediaKeyStatus {value Value value}
-		value1 bool           // javascript: boolean {done Done done}
+		value0 *Union // javascript: Union {value Value value}
+		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = MediaKeyStatusFromJS(input.Get("value"))
+	value0 = UnionFromJS(input.Get("value"))
 	out.Value = value0
 	value1 = (input.Get("done")).Bool()
 	out.Done = value1

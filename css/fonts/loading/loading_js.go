@@ -142,6 +142,55 @@ func FontFaceSetLoadStatusFromJS(value js.Value) FontFaceSetLoadStatus {
 	return conv
 }
 
+// callback: FontFaceSetForEach
+type FontFaceSetForEachFunc func(currentValue *FontFace, currentValueAgain *FontFace, listObj *FontFaceSet)
+
+// FontFaceSetForEach is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type FontFaceSetForEach js.Func
+
+func FontFaceSetForEachToJS(callback FontFaceSetForEachFunc) *FontFaceSetForEach {
+	if callback == nil {
+		return nil
+	}
+	ret := FontFaceSetForEach(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *FontFace    // javascript: FontFace currentValue
+			_p1 *FontFace    // javascript: FontFace currentValueAgain
+			_p2 *FontFaceSet // javascript: FontFaceSet listObj
+		)
+		_p0 = FontFaceFromJS(args[0])
+		_p1 = FontFaceFromJS(args[1])
+		_p2 = FontFaceSetFromJS(args[2])
+		callback(_p0, _p1, _p2)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func FontFaceSetForEachFromJS(_value js.Value) FontFaceSetForEachFunc {
+	return func(currentValue *FontFace, currentValueAgain *FontFace, listObj *FontFaceSet) {
+		var (
+			_args [3]interface{}
+			_end  int
+		)
+		_p0 := currentValue.JSValue()
+		_args[0] = _p0
+		_end++
+		_p1 := currentValueAgain.JSValue()
+		_args[1] = _p1
+		_end++
+		_p2 := listObj.JSValue()
+		_args[2] = _p2
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: PromiseTemplateOnFulfilled
 type PromiseFontFaceOnFulfilledFunc func(value *FontFace)
 
@@ -380,6 +429,86 @@ func FontFaceDescriptorsFromJS(value js.Wrapper) *FontFaceDescriptors {
 	return &out
 }
 
+// dictionary: FontFaceSetEntryIteratorValue
+type FontFaceSetEntryIteratorValue struct {
+	Value []*FontFace
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FontFaceSetEntryIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Value))
+	for __idx0, __seq_in0 := range _this.Value {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// FontFaceSetEntryIteratorValueFromJS is allocating a new
+// FontFaceSetEntryIteratorValue object and copy all values from
+// input javascript object
+func FontFaceSetEntryIteratorValueFromJS(value js.Wrapper) *FontFaceSetEntryIteratorValue {
+	input := value.JSValue()
+	var out FontFaceSetEntryIteratorValue
+	var (
+		value0 []*FontFace // javascript: sequence<FontFace> {value Value value}
+		value1 bool        // javascript: boolean {done Done done}
+	)
+	__length0 := input.Get("value").Length()
+	__array0 := make([]*FontFace, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *FontFace
+		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_out0 = FontFaceFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
+// dictionary: FontFaceSetKeyIteratorValue
+type FontFaceSetKeyIteratorValue struct {
+	Value *FontFace
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FontFaceSetKeyIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// FontFaceSetKeyIteratorValueFromJS is allocating a new
+// FontFaceSetKeyIteratorValue object and copy all values from
+// input javascript object
+func FontFaceSetKeyIteratorValueFromJS(value js.Wrapper) *FontFaceSetKeyIteratorValue {
+	input := value.JSValue()
+	var out FontFaceSetKeyIteratorValue
+	var (
+		value0 *FontFace // javascript: FontFace {value Value value}
+		value1 bool      // javascript: boolean {done Done done}
+	)
+	value0 = FontFaceFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
+	return &out
+}
+
 // dictionary: FontFaceSetLoadEventInit
 type FontFaceSetLoadEventInit struct {
 	Bubbles    bool
@@ -435,6 +564,40 @@ func FontFaceSetLoadEventInitFromJS(value js.Wrapper) *FontFaceSetLoadEventInit 
 	}
 	value3 = __array3
 	out.Fontfaces = value3
+	return &out
+}
+
+// dictionary: FontFaceSetValueIteratorValue
+type FontFaceSetValueIteratorValue struct {
+	Value *FontFace
+	Done  bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *FontFaceSetValueIteratorValue) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Value.JSValue()
+	out.Set("value", value0)
+	value1 := _this.Done
+	out.Set("done", value1)
+	return out
+}
+
+// FontFaceSetValueIteratorValueFromJS is allocating a new
+// FontFaceSetValueIteratorValue object and copy all values from
+// input javascript object
+func FontFaceSetValueIteratorValueFromJS(value js.Wrapper) *FontFaceSetValueIteratorValue {
+	input := value.JSValue()
+	var out FontFaceSetValueIteratorValue
+	var (
+		value0 *FontFace // javascript: FontFace {value Value value}
+		value1 bool      // javascript: boolean {done Done done}
+	)
+	value0 = FontFaceFromJS(input.Get("value"))
+	out.Value = value0
+	value1 = (input.Get("done")).Bool()
+	out.Done = value1
 	return &out
 }
 
@@ -789,6 +952,15 @@ func (_this *FontFaceSet) Status() FontFaceSetLoadStatus {
 	return ret
 }
 
+// Size returning attribute 'size' with
+// type int (idl: long).
+func (_this *FontFaceSet) Size() int {
+	var ret int
+	value := _this.Value_JS.Get("size")
+	ret = (value).Int()
+	return ret
+}
+
 func (_this *FontFaceSet) Add(font *FontFace) (_result *FontFaceSet) {
 	var (
 		_args [1]interface{}
@@ -876,6 +1048,178 @@ func (_this *FontFaceSet) Check(font string, text *string) (_result bool) {
 	return
 }
 
+func (_this *FontFaceSet) Entries() (_result *FontFaceSetEntryIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("entries", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetEntryIterator // javascript: FontFaceSetEntryIterator _what_return_name
+	)
+	_converted = FontFaceSetEntryIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *FontFaceSet) ForEach(callback *FontFaceSetForEach, optionalThisForCallbackArgument interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if optionalThisForCallbackArgument != nil {
+		_p1 := optionalThisForCallbackArgument
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("forEach", _args[0:_end]...)
+	return
+}
+
+func (_this *FontFaceSet) Keys() (_result *FontFaceSetKeyIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("keys", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetKeyIterator // javascript: FontFaceSetKeyIterator _what_return_name
+	)
+	_converted = FontFaceSetKeyIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *FontFaceSet) Values() (_result *FontFaceSetValueIterator) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("values", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetValueIterator // javascript: FontFaceSetValueIterator _what_return_name
+	)
+	_converted = FontFaceSetValueIteratorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *FontFaceSet) Get(key *FontFace) (_result *FontFace) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("get", _args[0:_end]...)
+	var (
+		_converted *FontFace // javascript: FontFace _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = FontFaceFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *FontFaceSet) Has(key *FontFace) (_result bool) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("has", _args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// interface: FontFaceSetEntryIterator
+type FontFaceSetEntryIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *FontFaceSetEntryIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// FontFaceSetEntryIteratorFromJS is casting a js.Wrapper into FontFaceSetEntryIterator.
+func FontFaceSetEntryIteratorFromJS(value js.Wrapper) *FontFaceSetEntryIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &FontFaceSetEntryIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *FontFaceSetEntryIterator) Next() (_result *FontFaceSetEntryIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetEntryIteratorValue // javascript: FontFaceSetEntryIteratorValue _what_return_name
+	)
+	_converted = FontFaceSetEntryIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: FontFaceSetKeyIterator
+type FontFaceSetKeyIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *FontFaceSetKeyIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// FontFaceSetKeyIteratorFromJS is casting a js.Wrapper into FontFaceSetKeyIterator.
+func FontFaceSetKeyIteratorFromJS(value js.Wrapper) *FontFaceSetKeyIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &FontFaceSetKeyIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *FontFaceSetKeyIterator) Next() (_result *FontFaceSetKeyIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetKeyIteratorValue // javascript: FontFaceSetKeyIteratorValue _what_return_name
+	)
+	_converted = FontFaceSetKeyIteratorValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: FontFaceSetLoadEvent
 type FontFaceSetLoadEvent struct {
 	domcore.Event
@@ -922,6 +1266,41 @@ func (_this *FontFaceSetLoadEvent) Fontfaces() *javascript.FrozenArray {
 	value := _this.Value_JS.Get("fontfaces")
 	ret = javascript.FrozenArrayFromJS(value)
 	return ret
+}
+
+// interface: FontFaceSetValueIterator
+type FontFaceSetValueIterator struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *FontFaceSetValueIterator) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// FontFaceSetValueIteratorFromJS is casting a js.Wrapper into FontFaceSetValueIterator.
+func FontFaceSetValueIteratorFromJS(value js.Wrapper) *FontFaceSetValueIterator {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &FontFaceSetValueIterator{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *FontFaceSetValueIterator) Next() (_result *FontFaceSetValueIteratorValue) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("next", _args[0:_end]...)
+	var (
+		_converted *FontFaceSetValueIteratorValue // javascript: FontFaceSetValueIteratorValue _what_return_name
+	)
+	_converted = FontFaceSetValueIteratorValueFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // interface: FontFaceSource
