@@ -17,6 +17,7 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
+	"github.com/gowebapi/webapi/featurepolicy"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/fetch/corsrfc1918"
 	"github.com/gowebapi/webapi/graphics/fontmetrics"
@@ -64,6 +65,7 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.VisibilityState
+// featurepolicy.FeaturePolicy
 // fetch.PromiseResponse
 // fetch.RequestInit
 // fontmetrics.FontMetrics
@@ -1103,6 +1105,15 @@ func (_this *Document) All() *html.HTMLAllCollection {
 	var ret *html.HTMLAllCollection
 	value := _this.Value_JS.Get("all")
 	ret = html.HTMLAllCollectionFromJS(value)
+	return ret
+}
+
+// FeaturePolicy returning attribute 'featurePolicy' with
+// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
+func (_this *Document) FeaturePolicy() *featurepolicy.FeaturePolicy {
+	var ret *featurepolicy.FeaturePolicy
+	value := _this.Value_JS.Get("featurePolicy")
+	ret = featurepolicy.FeaturePolicyFromJS(value)
 	return ret
 }
 
@@ -5069,6 +5080,15 @@ func (_this *HTMLIFrameElement) MarginWidth() string {
 func (_this *HTMLIFrameElement) SetMarginWidth(value string) {
 	input := value
 	_this.Value_JS.Set("marginWidth", input)
+}
+
+// FeaturePolicy returning attribute 'featurePolicy' with
+// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
+func (_this *HTMLIFrameElement) FeaturePolicy() *featurepolicy.FeaturePolicy {
+	var ret *featurepolicy.FeaturePolicy
+	value := _this.Value_JS.Get("featurePolicy")
+	ret = featurepolicy.FeaturePolicyFromJS(value)
+	return ret
 }
 
 func (_this *HTMLIFrameElement) GetSVGDocument() (_result *Document) {

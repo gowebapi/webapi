@@ -5,22 +5,34 @@ package credential
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/crypto/authentication"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
+// authentication.AttestationConveyancePreference
+// authentication.AuthenticationExtensionsClientInputs
+// authentication.AuthenticationExtensionsClientOutputs
+// authentication.Response
+// authentication.SelectionCriteria
+// authentication.Transport
+// authentication.UserVerificationRequirement
 // domcore.AbortSignal
+// javascript.ArrayBuffer
+// javascript.PromiseBool
 // javascript.PromiseFinally
 // javascript.PromiseVoid
 
 // source idl files:
 // credential-management.idl
 // promises.idl
+// webauthn.idl
 
 // transform files:
 // credential-management.go.md
 // promises.go.md
+// webauthn.go.md
 
 // ReleasableApiResource is used to release underlaying
 // allocated resources.
@@ -90,6 +102,47 @@ func (this CredentialMediationRequirement) Value() string {
 func CredentialMediationRequirementFromJS(value js.Value) CredentialMediationRequirement {
 	key := value.String()
 	conv, ok := credentialMediationRequirementFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: PublicKeyCredentialType
+type PublicKeyCredentialType int
+
+const (
+	PublicKeyPublicKeyCredentialType PublicKeyCredentialType = iota
+)
+
+var publicKeyCredentialTypeToWasmTable = []string{
+	"public-key",
+}
+
+var publicKeyCredentialTypeFromWasmTable = map[string]PublicKeyCredentialType{
+	"public-key": PublicKeyPublicKeyCredentialType,
+}
+
+// JSValue is converting this enum into a java object
+func (this *PublicKeyCredentialType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this PublicKeyCredentialType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(publicKeyCredentialTypeToWasmTable) {
+		return publicKeyCredentialTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// PublicKeyCredentialTypeFromJS is converting a javascript value into
+// a PublicKeyCredentialType enum value.
+func PublicKeyCredentialTypeFromJS(value js.Value) PublicKeyCredentialType {
+	key := value.String()
+	conv, ok := publicKeyCredentialTypeFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -257,6 +310,7 @@ type CredentialCreationOptions struct {
 	Signal    *domcore.AbortSignal
 	Password  *Union
 	Federated *FederatedCredentialInit
+	PublicKey *PublicKeyCredentialCreationOptions
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -269,6 +323,8 @@ func (_this *CredentialCreationOptions) JSValue() js.Value {
 	out.Set("password", value1)
 	value2 := _this.Federated.JSValue()
 	out.Set("federated", value2)
+	value3 := _this.PublicKey.JSValue()
+	out.Set("publicKey", value3)
 	return out
 }
 
@@ -279,9 +335,10 @@ func CredentialCreationOptionsFromJS(value js.Wrapper) *CredentialCreationOption
 	input := value.JSValue()
 	var out CredentialCreationOptions
 	var (
-		value0 *domcore.AbortSignal     // javascript: AbortSignal {signal Signal signal}
-		value1 *Union                   // javascript: Union {password Password password}
-		value2 *FederatedCredentialInit // javascript: FederatedCredentialInit {federated Federated federated}
+		value0 *domcore.AbortSignal                // javascript: AbortSignal {signal Signal signal}
+		value1 *Union                              // javascript: Union {password Password password}
+		value2 *FederatedCredentialInit            // javascript: FederatedCredentialInit {federated Federated federated}
+		value3 *PublicKeyCredentialCreationOptions // javascript: PublicKeyCredentialCreationOptions {publicKey PublicKey publicKey}
 	)
 	value0 = domcore.AbortSignalFromJS(input.Get("signal"))
 	out.Signal = value0
@@ -289,6 +346,8 @@ func CredentialCreationOptionsFromJS(value js.Wrapper) *CredentialCreationOption
 	out.Password = value1
 	value2 = FederatedCredentialInitFromJS(input.Get("federated"))
 	out.Federated = value2
+	value3 = PublicKeyCredentialCreationOptionsFromJS(input.Get("publicKey"))
+	out.PublicKey = value3
 	return &out
 }
 
@@ -326,6 +385,7 @@ type CredentialRequestOptions struct {
 	Signal    *domcore.AbortSignal
 	Password  bool
 	Federated *FederatedCredentialRequestOptions
+	PublicKey *PublicKeyCredentialRequestOptions
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -340,6 +400,8 @@ func (_this *CredentialRequestOptions) JSValue() js.Value {
 	out.Set("password", value2)
 	value3 := _this.Federated.JSValue()
 	out.Set("federated", value3)
+	value4 := _this.PublicKey.JSValue()
+	out.Set("publicKey", value4)
 	return out
 }
 
@@ -354,6 +416,7 @@ func CredentialRequestOptionsFromJS(value js.Wrapper) *CredentialRequestOptions 
 		value1 *domcore.AbortSignal               // javascript: AbortSignal {signal Signal signal}
 		value2 bool                               // javascript: boolean {password Password password}
 		value3 *FederatedCredentialRequestOptions // javascript: FederatedCredentialRequestOptions {federated Federated federated}
+		value4 *PublicKeyCredentialRequestOptions // javascript: PublicKeyCredentialRequestOptions {publicKey PublicKey publicKey}
 	)
 	value0 = CredentialMediationRequirementFromJS(input.Get("mediation"))
 	out.Mediation = value0
@@ -363,6 +426,8 @@ func CredentialRequestOptionsFromJS(value js.Wrapper) *CredentialRequestOptions 
 	out.Password = value2
 	value3 = FederatedCredentialRequestOptionsFromJS(input.Get("federated"))
 	out.Federated = value3
+	value4 = PublicKeyCredentialRequestOptionsFromJS(input.Get("publicKey"))
+	out.PublicKey = value4
 	return &out
 }
 
@@ -531,6 +596,382 @@ func PasswordCredentialDataFromJS(value js.Wrapper) *PasswordCredentialData {
 	out.Origin = value3
 	value4 = (input.Get("password")).String()
 	out.Password = value4
+	return &out
+}
+
+// dictionary: PublicKeyCredentialCreationOptions
+type PublicKeyCredentialCreationOptions struct {
+	Rp                     *PublicKeyCredentialRpEntity
+	User                   *PublicKeyCredentialUserEntity
+	Challenge              *Union
+	PubKeyCredParams       []*PublicKeyCredentialParameters
+	Timeout                uint
+	ExcludeCredentials     []*PublicKeyCredentialDescriptor
+	AuthenticatorSelection *authentication.SelectionCriteria
+	Attestation            authentication.AttestationConveyancePreference
+	Extensions             *authentication.AuthenticationExtensionsClientInputs
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialCreationOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Rp.JSValue()
+	out.Set("rp", value0)
+	value1 := _this.User.JSValue()
+	out.Set("user", value1)
+	value2 := _this.Challenge.JSValue()
+	out.Set("challenge", value2)
+	value3 := js.Global().Get("Array").New(len(_this.PubKeyCredParams))
+	for __idx3, __seq_in3 := range _this.PubKeyCredParams {
+		__seq_out3 := __seq_in3.JSValue()
+		value3.SetIndex(__idx3, __seq_out3)
+	}
+	out.Set("pubKeyCredParams", value3)
+	value4 := _this.Timeout
+	out.Set("timeout", value4)
+	value5 := js.Global().Get("Array").New(len(_this.ExcludeCredentials))
+	for __idx5, __seq_in5 := range _this.ExcludeCredentials {
+		__seq_out5 := __seq_in5.JSValue()
+		value5.SetIndex(__idx5, __seq_out5)
+	}
+	out.Set("excludeCredentials", value5)
+	value6 := _this.AuthenticatorSelection.JSValue()
+	out.Set("authenticatorSelection", value6)
+	value7 := _this.Attestation.JSValue()
+	out.Set("attestation", value7)
+	value8 := _this.Extensions.JSValue()
+	out.Set("extensions", value8)
+	return out
+}
+
+// PublicKeyCredentialCreationOptionsFromJS is allocating a new
+// PublicKeyCredentialCreationOptions object and copy all values from
+// input javascript object
+func PublicKeyCredentialCreationOptionsFromJS(value js.Wrapper) *PublicKeyCredentialCreationOptions {
+	input := value.JSValue()
+	var out PublicKeyCredentialCreationOptions
+	var (
+		value0 *PublicKeyCredentialRpEntity                         // javascript: PublicKeyCredentialRpEntity {rp Rp rp}
+		value1 *PublicKeyCredentialUserEntity                       // javascript: PublicKeyCredentialUserEntity {user User user}
+		value2 *Union                                               // javascript: Union {challenge Challenge challenge}
+		value3 []*PublicKeyCredentialParameters                     // javascript: sequence<PublicKeyCredentialParameters> {pubKeyCredParams PubKeyCredParams pubKeyCredParams}
+		value4 uint                                                 // javascript: unsigned long {timeout Timeout timeout}
+		value5 []*PublicKeyCredentialDescriptor                     // javascript: sequence<PublicKeyCredentialDescriptor> {excludeCredentials ExcludeCredentials excludeCredentials}
+		value6 *authentication.SelectionCriteria                    // javascript: AuthenticatorSelectionCriteria {authenticatorSelection AuthenticatorSelection authenticatorSelection}
+		value7 authentication.AttestationConveyancePreference       // javascript: AttestationConveyancePreference {attestation Attestation attestation}
+		value8 *authentication.AuthenticationExtensionsClientInputs // javascript: AuthenticationExtensionsClientInputs {extensions Extensions extensions}
+	)
+	value0 = PublicKeyCredentialRpEntityFromJS(input.Get("rp"))
+	out.Rp = value0
+	value1 = PublicKeyCredentialUserEntityFromJS(input.Get("user"))
+	out.User = value1
+	value2 = UnionFromJS(input.Get("challenge"))
+	out.Challenge = value2
+	__length3 := input.Get("pubKeyCredParams").Length()
+	__array3 := make([]*PublicKeyCredentialParameters, __length3, __length3)
+	for __idx3 := 0; __idx3 < __length3; __idx3++ {
+		var __seq_out3 *PublicKeyCredentialParameters
+		__seq_in3 := input.Get("pubKeyCredParams").Index(__idx3)
+		__seq_out3 = PublicKeyCredentialParametersFromJS(__seq_in3)
+		__array3[__idx3] = __seq_out3
+	}
+	value3 = __array3
+	out.PubKeyCredParams = value3
+	value4 = (uint)((input.Get("timeout")).Int())
+	out.Timeout = value4
+	__length5 := input.Get("excludeCredentials").Length()
+	__array5 := make([]*PublicKeyCredentialDescriptor, __length5, __length5)
+	for __idx5 := 0; __idx5 < __length5; __idx5++ {
+		var __seq_out5 *PublicKeyCredentialDescriptor
+		__seq_in5 := input.Get("excludeCredentials").Index(__idx5)
+		__seq_out5 = PublicKeyCredentialDescriptorFromJS(__seq_in5)
+		__array5[__idx5] = __seq_out5
+	}
+	value5 = __array5
+	out.ExcludeCredentials = value5
+	value6 = authentication.SelectionCriteriaFromJS(input.Get("authenticatorSelection"))
+	out.AuthenticatorSelection = value6
+	value7 = authentication.AttestationConveyancePreferenceFromJS(input.Get("attestation"))
+	out.Attestation = value7
+	value8 = authentication.AuthenticationExtensionsClientInputsFromJS(input.Get("extensions"))
+	out.Extensions = value8
+	return &out
+}
+
+// dictionary: PublicKeyCredentialDescriptor
+type PublicKeyCredentialDescriptor struct {
+	Type       PublicKeyCredentialType
+	Id         *Union
+	Transports []authentication.Transport
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Type.JSValue()
+	out.Set("type", value0)
+	value1 := _this.Id.JSValue()
+	out.Set("id", value1)
+	value2 := js.Global().Get("Array").New(len(_this.Transports))
+	for __idx2, __seq_in2 := range _this.Transports {
+		__seq_out2 := __seq_in2.JSValue()
+		value2.SetIndex(__idx2, __seq_out2)
+	}
+	out.Set("transports", value2)
+	return out
+}
+
+// PublicKeyCredentialDescriptorFromJS is allocating a new
+// PublicKeyCredentialDescriptor object and copy all values from
+// input javascript object
+func PublicKeyCredentialDescriptorFromJS(value js.Wrapper) *PublicKeyCredentialDescriptor {
+	input := value.JSValue()
+	var out PublicKeyCredentialDescriptor
+	var (
+		value0 PublicKeyCredentialType    // javascript: PublicKeyCredentialType {type Type _type}
+		value1 *Union                     // javascript: Union {id Id id}
+		value2 []authentication.Transport // javascript: sequence<AuthenticatorTransport> {transports Transports transports}
+	)
+	value0 = PublicKeyCredentialTypeFromJS(input.Get("type"))
+	out.Type = value0
+	value1 = UnionFromJS(input.Get("id"))
+	out.Id = value1
+	__length2 := input.Get("transports").Length()
+	__array2 := make([]authentication.Transport, __length2, __length2)
+	for __idx2 := 0; __idx2 < __length2; __idx2++ {
+		var __seq_out2 authentication.Transport
+		__seq_in2 := input.Get("transports").Index(__idx2)
+		__seq_out2 = authentication.TransportFromJS(__seq_in2)
+		__array2[__idx2] = __seq_out2
+	}
+	value2 = __array2
+	out.Transports = value2
+	return &out
+}
+
+// dictionary: PublicKeyCredentialEntity
+type PublicKeyCredentialEntity struct {
+	Name string
+	Icon string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialEntity) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Icon
+	out.Set("icon", value1)
+	return out
+}
+
+// PublicKeyCredentialEntityFromJS is allocating a new
+// PublicKeyCredentialEntity object and copy all values from
+// input javascript object
+func PublicKeyCredentialEntityFromJS(value js.Wrapper) *PublicKeyCredentialEntity {
+	input := value.JSValue()
+	var out PublicKeyCredentialEntity
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: USVString {icon Icon icon}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("icon")).String()
+	out.Icon = value1
+	return &out
+}
+
+// dictionary: PublicKeyCredentialParameters
+type PublicKeyCredentialParameters struct {
+	Type PublicKeyCredentialType
+	Alg  int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialParameters) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Type.JSValue()
+	out.Set("type", value0)
+	value1 := _this.Alg
+	out.Set("alg", value1)
+	return out
+}
+
+// PublicKeyCredentialParametersFromJS is allocating a new
+// PublicKeyCredentialParameters object and copy all values from
+// input javascript object
+func PublicKeyCredentialParametersFromJS(value js.Wrapper) *PublicKeyCredentialParameters {
+	input := value.JSValue()
+	var out PublicKeyCredentialParameters
+	var (
+		value0 PublicKeyCredentialType // javascript: PublicKeyCredentialType {type Type _type}
+		value1 int                     // javascript: long {alg Alg alg}
+	)
+	value0 = PublicKeyCredentialTypeFromJS(input.Get("type"))
+	out.Type = value0
+	value1 = (input.Get("alg")).Int()
+	out.Alg = value1
+	return &out
+}
+
+// dictionary: PublicKeyCredentialRequestOptions
+type PublicKeyCredentialRequestOptions struct {
+	Challenge        *Union
+	Timeout          uint
+	RpId             string
+	AllowCredentials []*PublicKeyCredentialDescriptor
+	UserVerification authentication.UserVerificationRequirement
+	Extensions       *authentication.AuthenticationExtensionsClientInputs
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialRequestOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Challenge.JSValue()
+	out.Set("challenge", value0)
+	value1 := _this.Timeout
+	out.Set("timeout", value1)
+	value2 := _this.RpId
+	out.Set("rpId", value2)
+	value3 := js.Global().Get("Array").New(len(_this.AllowCredentials))
+	for __idx3, __seq_in3 := range _this.AllowCredentials {
+		__seq_out3 := __seq_in3.JSValue()
+		value3.SetIndex(__idx3, __seq_out3)
+	}
+	out.Set("allowCredentials", value3)
+	value4 := _this.UserVerification.JSValue()
+	out.Set("userVerification", value4)
+	value5 := _this.Extensions.JSValue()
+	out.Set("extensions", value5)
+	return out
+}
+
+// PublicKeyCredentialRequestOptionsFromJS is allocating a new
+// PublicKeyCredentialRequestOptions object and copy all values from
+// input javascript object
+func PublicKeyCredentialRequestOptionsFromJS(value js.Wrapper) *PublicKeyCredentialRequestOptions {
+	input := value.JSValue()
+	var out PublicKeyCredentialRequestOptions
+	var (
+		value0 *Union                                               // javascript: Union {challenge Challenge challenge}
+		value1 uint                                                 // javascript: unsigned long {timeout Timeout timeout}
+		value2 string                                               // javascript: USVString {rpId RpId rpId}
+		value3 []*PublicKeyCredentialDescriptor                     // javascript: sequence<PublicKeyCredentialDescriptor> {allowCredentials AllowCredentials allowCredentials}
+		value4 authentication.UserVerificationRequirement           // javascript: UserVerificationRequirement {userVerification UserVerification userVerification}
+		value5 *authentication.AuthenticationExtensionsClientInputs // javascript: AuthenticationExtensionsClientInputs {extensions Extensions extensions}
+	)
+	value0 = UnionFromJS(input.Get("challenge"))
+	out.Challenge = value0
+	value1 = (uint)((input.Get("timeout")).Int())
+	out.Timeout = value1
+	value2 = (input.Get("rpId")).String()
+	out.RpId = value2
+	__length3 := input.Get("allowCredentials").Length()
+	__array3 := make([]*PublicKeyCredentialDescriptor, __length3, __length3)
+	for __idx3 := 0; __idx3 < __length3; __idx3++ {
+		var __seq_out3 *PublicKeyCredentialDescriptor
+		__seq_in3 := input.Get("allowCredentials").Index(__idx3)
+		__seq_out3 = PublicKeyCredentialDescriptorFromJS(__seq_in3)
+		__array3[__idx3] = __seq_out3
+	}
+	value3 = __array3
+	out.AllowCredentials = value3
+	value4 = authentication.UserVerificationRequirementFromJS(input.Get("userVerification"))
+	out.UserVerification = value4
+	value5 = authentication.AuthenticationExtensionsClientInputsFromJS(input.Get("extensions"))
+	out.Extensions = value5
+	return &out
+}
+
+// dictionary: PublicKeyCredentialRpEntity
+type PublicKeyCredentialRpEntity struct {
+	Name string
+	Icon string
+	Id   string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialRpEntity) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Icon
+	out.Set("icon", value1)
+	value2 := _this.Id
+	out.Set("id", value2)
+	return out
+}
+
+// PublicKeyCredentialRpEntityFromJS is allocating a new
+// PublicKeyCredentialRpEntity object and copy all values from
+// input javascript object
+func PublicKeyCredentialRpEntityFromJS(value js.Wrapper) *PublicKeyCredentialRpEntity {
+	input := value.JSValue()
+	var out PublicKeyCredentialRpEntity
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: USVString {icon Icon icon}
+		value2 string // javascript: DOMString {id Id id}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("icon")).String()
+	out.Icon = value1
+	value2 = (input.Get("id")).String()
+	out.Id = value2
+	return &out
+}
+
+// dictionary: PublicKeyCredentialUserEntity
+type PublicKeyCredentialUserEntity struct {
+	Name        string
+	Icon        string
+	Id          *Union
+	DisplayName string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PublicKeyCredentialUserEntity) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Icon
+	out.Set("icon", value1)
+	value2 := _this.Id.JSValue()
+	out.Set("id", value2)
+	value3 := _this.DisplayName
+	out.Set("displayName", value3)
+	return out
+}
+
+// PublicKeyCredentialUserEntityFromJS is allocating a new
+// PublicKeyCredentialUserEntity object and copy all values from
+// input javascript object
+func PublicKeyCredentialUserEntityFromJS(value js.Wrapper) *PublicKeyCredentialUserEntity {
+	input := value.JSValue()
+	var out PublicKeyCredentialUserEntity
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: USVString {icon Icon icon}
+		value2 *Union // javascript: Union {id Id id}
+		value3 string // javascript: DOMString {displayName DisplayName displayName}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("icon")).String()
+	out.Icon = value1
+	value2 = UnionFromJS(input.Get("id"))
+	out.Id = value2
+	value3 = (input.Get("displayName")).String()
+	out.DisplayName = value3
 	return &out
 }
 
@@ -1003,6 +1444,70 @@ func (_this *PromiseNilCredential) Finally(onFinally *javascript.PromiseFinally)
 		_converted *PromiseNilCredential // javascript: Promise _what_return_name
 	)
 	_converted = PromiseNilCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: PublicKeyCredential
+type PublicKeyCredential struct {
+	Credential
+}
+
+// PublicKeyCredentialFromJS is casting a js.Wrapper into PublicKeyCredential.
+func PublicKeyCredentialFromJS(value js.Wrapper) *PublicKeyCredential {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PublicKeyCredential{}
+	ret.Value_JS = input
+	return ret
+}
+
+func IsUserVerifyingPlatformAuthenticatorAvailable() (_result *javascript.PromiseBool) {
+	_klass := js.Global().Get("PublicKeyCredential")
+	_method := _klass.Get("isUserVerifyingPlatformAuthenticatorAvailable")
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// RawId returning attribute 'rawId' with
+// type javascript.ArrayBuffer (idl: ArrayBuffer).
+func (_this *PublicKeyCredential) RawId() *javascript.ArrayBuffer {
+	var ret *javascript.ArrayBuffer
+	value := _this.Value_JS.Get("rawId")
+	ret = javascript.ArrayBufferFromJS(value)
+	return ret
+}
+
+// Response returning attribute 'response' with
+// type authentication.Response (idl: AuthenticatorResponse).
+func (_this *PublicKeyCredential) Response() *authentication.Response {
+	var ret *authentication.Response
+	value := _this.Value_JS.Get("response")
+	ret = authentication.ResponseFromJS(value)
+	return ret
+}
+
+func (_this *PublicKeyCredential) GetClientExtensionResults() (_result *authentication.AuthenticationExtensionsClientOutputs) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getClientExtensionResults", _args[0:_end]...)
+	var (
+		_converted *authentication.AuthenticationExtensionsClientOutputs // javascript: AuthenticationExtensionsClientOutputs _what_return_name
+	)
+	_converted = authentication.AuthenticationExtensionsClientOutputsFromJS(_returned)
 	_result = _converted
 	return
 }

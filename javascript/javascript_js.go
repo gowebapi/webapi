@@ -564,6 +564,84 @@ func PromiseBoolOnRejectedFromJS(_value js.Value) PromiseBoolOnRejectedFunc {
 	}
 }
 
+// callback: PromiseTemplateOnFulfilled
+type PromiseDataViewOnFulfilledFunc func(value *DataView)
+
+// PromiseDataViewOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDataViewOnFulfilled js.Func
+
+func PromiseDataViewOnFulfilledToJS(callback PromiseDataViewOnFulfilledFunc) *PromiseDataViewOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDataViewOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *DataView // javascript: DataView value
+		)
+		_p0 = DataViewFromJS(args[0])
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDataViewOnFulfilledFromJS(_value js.Value) PromiseDataViewOnFulfilledFunc {
+	return func(value *DataView) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseDataViewOnRejectedFunc func(reason js.Value)
+
+// PromiseDataViewOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseDataViewOnRejected js.Func
+
+func PromiseDataViewOnRejectedToJS(callback PromiseDataViewOnRejectedFunc) *PromiseDataViewOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseDataViewOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseDataViewOnRejectedFromJS(_value js.Value) PromiseDataViewOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // callback: PromiseFinally
 type PromiseFinallyFunc func()
 
@@ -2858,6 +2936,111 @@ func (_this *PromiseBool) Finally(onFinally *PromiseFinally) (_result *PromiseBo
 		_converted *PromiseBool // javascript: Promise _what_return_name
 	)
 	_converted = PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// interface: Promise
+type PromiseDataView struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+func (_this *PromiseDataView) JSValue() js.Value {
+	return _this.Value_JS
+}
+
+// PromiseDataViewFromJS is casting a js.Wrapper into PromiseDataView.
+func PromiseDataViewFromJS(value js.Wrapper) *PromiseDataView {
+	input := value.JSValue()
+	if input.Type() == js.TypeNull {
+		return nil
+	}
+	ret := &PromiseDataView{}
+	ret.Value_JS = input
+	return ret
+}
+
+func (_this *PromiseDataView) Then(onFulfilled *PromiseDataViewOnFulfilled, onRejected *PromiseDataViewOnRejected) (_result *PromiseDataView) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseDataView // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataViewFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDataView) Catch(onRejected *PromiseDataViewOnRejected) (_result *PromiseDataView) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseDataView // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataViewFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseDataView) Finally(onFinally *PromiseFinally) (_result *PromiseDataView) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseDataView // javascript: Promise _what_return_name
+	)
+	_converted = PromiseDataViewFromJS(_returned)
 	_result = _converted
 	return
 }

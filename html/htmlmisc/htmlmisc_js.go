@@ -6,11 +6,12 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/clipboard"
+	"github.com/gowebapi/webapi/communication/bluetooth"
 	"github.com/gowebapi/webapi/communication/netinfo"
 	"github.com/gowebapi/webapi/crypto/credential"
 	"github.com/gowebapi/webapi/device/battery"
 	"github.com/gowebapi/webapi/device/gamepad"
-	"github.com/gowebapi/webapi/device/keyboard/lock"
+	"github.com/gowebapi/webapi/device/keyboard"
 	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/device/wakelock"
 	"github.com/gowebapi/webapi/device/webvr"
@@ -18,10 +19,12 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
+	"github.com/gowebapi/webapi/graphics/presentation"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/encrypted"
+	"github.com/gowebapi/webapi/media/midi"
 	"github.com/gowebapi/webapi/media/session"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/share"
@@ -30,6 +33,7 @@ import (
 
 // using following types:
 // battery.PromiseBatteryManager
+// bluetooth.Bluetooth
 // capabilities.MediaCapabilities
 // clipboard.Clipboard
 // credential.CredentialsContainer
@@ -44,13 +48,16 @@ import (
 // gamepad.Gamepad
 // javascript.FrozenArray
 // javascript.PromiseVoid
+// keyboard.Keyboard
 // local.MediaDevices
 // local.MediaStreamConstraints
 // local.NavigatorUserMediaErrorCallback
 // local.NavigatorUserMediaSuccessCallback
-// lock.Keyboard
+// midi.Options
+// midi.PromiseAccess
 // netinfo.NetworkInformation
 // permissions.Permissions
+// presentation.Presentation
 // serviceworker.ServiceWorkerContainer
 // session.MediaSession
 // share.ShareData
@@ -1419,11 +1426,11 @@ func (_this *Navigator) Credentials() *credential.CredentialsContainer {
 }
 
 // Keyboard returning attribute 'keyboard' with
-// type lock.Keyboard (idl: Keyboard).
-func (_this *Navigator) Keyboard() *lock.Keyboard {
-	var ret *lock.Keyboard
+// type keyboard.Keyboard (idl: Keyboard).
+func (_this *Navigator) Keyboard() *keyboard.Keyboard {
+	var ret *keyboard.Keyboard
 	value := _this.Value_JS.Get("keyboard")
-	ret = lock.KeyboardFromJS(value)
+	ret = keyboard.KeyboardFromJS(value)
 	return ret
 }
 
@@ -1472,12 +1479,30 @@ func (_this *Navigator) MaxTouchPoints() int {
 	return ret
 }
 
+// Presentation returning attribute 'presentation' with
+// type presentation.Presentation (idl: Presentation).
+func (_this *Navigator) Presentation() *presentation.Presentation {
+	var ret *presentation.Presentation
+	value := _this.Value_JS.Get("presentation")
+	ret = presentation.PresentationFromJS(value)
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
 	var ret *serviceworker.ServiceWorkerContainer
 	value := _this.Value_JS.Get("serviceWorker")
 	ret = serviceworker.ServiceWorkerContainerFromJS(value)
+	return ret
+}
+
+// Bluetooth returning attribute 'bluetooth' with
+// type bluetooth.Bluetooth (idl: Bluetooth).
+func (_this *Navigator) Bluetooth() *bluetooth.Bluetooth {
+	var ret *bluetooth.Bluetooth
+	value := _this.Value_JS.Get("bluetooth")
+	ret = bluetooth.BluetoothFromJS(value)
 	return ret
 }
 
@@ -1851,6 +1876,25 @@ func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.Promis
 		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
 	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) RequestMIDIAccess(options *midi.Options) (_result *midi.PromiseAccess) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("requestMIDIAccess", _args[0:_end]...)
+	var (
+		_converted *midi.PromiseAccess // javascript: Promise _what_return_name
+	)
+	_converted = midi.PromiseAccessFromJS(_returned)
 	_result = _converted
 	return
 }
