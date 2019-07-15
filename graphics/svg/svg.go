@@ -4058,6 +4058,38 @@ func (_this *SVGLengthList) NumberOfItems() uint {
 	return ret
 }
 
+func (_this *SVGLengthList) Index(index uint) (_result *SVGLength) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted *SVGLength // javascript: SVGLength _what_return_name
+	)
+	_converted = SVGLengthFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *SVGLengthList) SetIndex(index uint, newItem *SVGLength) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := newItem.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 func (_this *SVGLengthList) Clear() {
 	var (
 		_args [0]interface{}
@@ -4514,6 +4546,38 @@ func (_this *SVGNumberList) NumberOfItems() uint {
 	return ret
 }
 
+func (_this *SVGNumberList) Index(index uint) (_result *SVGNumber) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted *SVGNumber // javascript: SVGNumber _what_return_name
+	)
+	_converted = SVGNumberFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *SVGNumberList) SetIndex(index uint, newItem *SVGNumber) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := newItem.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 func (_this *SVGNumberList) Clear() {
 	var (
 		_args [0]interface{}
@@ -4790,6 +4854,38 @@ func (_this *SVGPointList) NumberOfItems() uint {
 	value := _this.Value_JS.Get("numberOfItems")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *SVGPointList) Index(index uint) (_result *geometry.DOMPoint) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted *geometry.DOMPoint // javascript: DOMPoint _what_return_name
+	)
+	_converted = geometry.DOMPointFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *SVGPointList) SetIndex(index uint, newItem *geometry.DOMPoint) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := newItem.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
 }
 
 func (_this *SVGPointList) Clear() {
@@ -6082,6 +6178,38 @@ func (_this *SVGStringList) NumberOfItems() uint {
 	return ret
 }
 
+func (_this *SVGStringList) Index(index uint) (_result string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *SVGStringList) SetIndex(index uint, newItem string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := newItem
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 func (_this *SVGStringList) Clear() {
 	var (
 		_args [0]interface{}
@@ -6865,6 +6993,38 @@ func (_this *SVGTransformList) NumberOfItems() uint {
 	value := _this.Value_JS.Get("numberOfItems")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *SVGTransformList) Index(index uint) (_result *SVGTransform) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted *SVGTransform // javascript: SVGTransform _what_return_name
+	)
+	_converted = SVGTransformFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *SVGTransformList) SetIndex(index uint, newItem *SVGTransform) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := newItem.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
 }
 
 func (_this *SVGTransformList) Clear() {

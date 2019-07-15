@@ -1290,6 +1290,38 @@ func (_this *Array) Length() int {
 	return ret
 }
 
+func (_this *Array) Index(index uint) (_result js.Value) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted js.Value // javascript: any _what_return_name
+	)
+	_converted = _returned
+	_result = _converted
+	return
+}
+
+func (_this *Array) SetIndex(index uint, value interface{}) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := value
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 func (_this *Array) Concat(arrayOrValues interface{}) (_result *Array) {
 	var (
 		_args [1]interface{}

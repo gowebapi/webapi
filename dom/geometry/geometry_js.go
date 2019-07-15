@@ -2508,6 +2508,25 @@ func (_this *DOMRectList) Length() uint {
 	return ret
 }
 
+func (_this *DOMRectList) Index(index uint) (_result *DOMRect) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *DOMRect // javascript: DOMRect _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = DOMRectFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *DOMRectList) Item(index uint) (_result *DOMRect) {
 	var (
 		_args [1]interface{}

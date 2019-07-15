@@ -419,6 +419,23 @@ func (_this *DataTransferItemList) Length() uint {
 	return ret
 }
 
+func (_this *DataTransferItemList) Index(index uint) (_result *DataTransferItem) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *DataTransferItem // javascript: DataTransferItem _what_return_name
+	)
+	_converted = DataTransferItemFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *DataTransferItemList) Add(data string, _type string) (_result *DataTransferItem) {
 	var (
 		_args [2]interface{}

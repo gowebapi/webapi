@@ -1426,6 +1426,23 @@ func (_this *CSSNumericArray) Length() uint {
 	return ret
 }
 
+func (_this *CSSNumericArray) Index(index uint) (_result *CSSNumericValue) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *CSSNumericValue // javascript: CSSNumericValue _what_return_name
+	)
+	_converted = CSSNumericValueFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *CSSNumericArray) Entries() (_result *CSSNumericArrayEntryIterator) {
 	var (
 		_args [0]interface{}
@@ -2439,6 +2456,43 @@ func (_this *CSSTransformValue) Is2D() bool {
 	return ret
 }
 
+func (_this *CSSTransformValue) Index(index uint) (_result *CSSTransformComponent) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *CSSTransformComponent // javascript: CSSTransformComponent _what_return_name
+	)
+	_converted = CSSTransformComponentFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSTransformValue) SetIndex(index uint, val *CSSTransformComponent) (_result *CSSTransformComponent) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := val.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *CSSTransformComponent // javascript: CSSTransformComponent _what_return_name
+	)
+	_converted = CSSTransformComponentFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *CSSTransformValue) ToMatrix() (_result *geometry.DOMMatrix) {
 	var (
 		_args [0]interface{}
@@ -2821,6 +2875,43 @@ func (_this *CSSUnparsedValue) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *CSSUnparsedValue) Index(index uint) (_result *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	_converted = UnionFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CSSUnparsedValue) SetIndex(index uint, val *Union) (_result *Union) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := val.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	_converted = UnionFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *CSSUnparsedValue) Entries() (_result *CSSUnparsedValueEntryIterator) {

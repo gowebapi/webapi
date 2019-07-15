@@ -506,6 +506,23 @@ func (_this *AudioTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onremovetrack", input)
 }
 
+func (_this *AudioTrackList) Index(index uint) (_result *AudioTrack) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *AudioTrack // javascript: AudioTrack _what_return_name
+	)
+	_converted = AudioTrackFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
 	var (
 		_args [1]interface{}
@@ -2098,6 +2115,23 @@ func (_this *SourceBufferList) SetOnremovesourcebuffer(value *domcore.EventHandl
 	_this.Value_JS.Set("onremovesourcebuffer", input)
 }
 
+func (_this *SourceBufferList) Index(index uint) (_result *SourceBuffer) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *SourceBuffer // javascript: SourceBuffer _what_return_name
+	)
+	_converted = SourceBufferFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // interface: TextTrack
 type TextTrack struct {
 	domcore.EventTarget
@@ -2425,6 +2459,23 @@ func (_this *TextTrackCueList) Length() uint {
 	return ret
 }
 
+func (_this *TextTrackCueList) Index(index uint) (_result *TextTrackCue) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *TextTrackCue // javascript: TextTrackCue _what_return_name
+	)
+	_converted = TextTrackCueFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
 	var (
 		_args [1]interface{}
@@ -2539,6 +2590,23 @@ func (_this *TextTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onremovetrack", input)
+}
+
+func (_this *TextTrackList) Index(index uint) (_result *TextTrack) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *TextTrack // javascript: TextTrack _what_return_name
+	)
+	_converted = TextTrackFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
@@ -2748,6 +2816,23 @@ func (_this *VideoTrackList) SetOnremovetrack(value *domcore.EventHandler) {
 	}
 	input := __callback0
 	_this.Value_JS.Set("onremovetrack", input)
+}
+
+func (_this *VideoTrackList) Index(index uint) (_result *VideoTrack) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *VideoTrack // javascript: VideoTrack _what_return_name
+	)
+	_converted = VideoTrackFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *VideoTrackList) GetTrackById(id string) (_result *VideoTrack) {

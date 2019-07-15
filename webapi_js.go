@@ -3456,6 +3456,23 @@ func (_this *Document) SetOnpaste(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onpaste", input)
 }
 
+func (_this *Document) Get(name string) (_result *javascript.Object) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Document) GetElementsByTagName(qualifiedName string) (_result *dom.HTMLCollection) {
 	var (
 		_args [1]interface{}
@@ -8925,6 +8942,23 @@ func (_this *Window) LocalStorage() *htmlmisc.Storage {
 	value := _this.Value_JS.Get("localStorage")
 	ret = htmlmisc.StorageFromJS(value)
 	return ret
+}
+
+func (_this *Window) Get(name string) (_result *javascript.Object) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *Window) Close() {

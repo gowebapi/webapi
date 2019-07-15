@@ -809,6 +809,26 @@ func (_this *DOMStringList) Length() uint {
 	return ret
 }
 
+func (_this *DOMStringList) Index(index uint) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
 func (_this *DOMStringList) Item(index uint) (_result *string) {
 	var (
 		_args [1]interface{}
@@ -867,6 +887,50 @@ func DOMStringMapFromJS(value js.Wrapper) *DOMStringMap {
 	return ret
 }
 
+func (_this *DOMStringMap) Get(name string) (_result string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
+func (_this *DOMStringMap) Set(name string, value string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_p1 := value
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
+func (_this *DOMStringMap) Delete(name string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 // interface: DOMTokenList
 type DOMTokenList struct {
 	// Value_JS holds a reference to a javascript value
@@ -916,6 +980,26 @@ func (_this *DOMTokenList) ToString() string {
 func (_this *DOMTokenList) SetValue(value string) {
 	input := value
 	_this.Value_JS.Set("value", input)
+}
+
+func (_this *DOMTokenList) Index(index uint) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
 }
 
 func (_this *DOMTokenList) Item(index uint) (_result *string) {

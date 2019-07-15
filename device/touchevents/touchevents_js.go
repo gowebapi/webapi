@@ -714,6 +714,25 @@ func (_this *TouchList) Length() uint {
 	return ret
 }
 
+func (_this *TouchList) Index(index uint) (_result *Touch) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Touch // javascript: Touch _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = TouchFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *TouchList) Item(index uint) (_result *Touch) {
 	var (
 		_args [1]interface{}

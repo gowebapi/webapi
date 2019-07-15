@@ -1303,6 +1303,44 @@ func (_this *MimeTypeArray) Length() uint {
 	return ret
 }
 
+func (_this *MimeTypeArray) Index(index uint) (_result *MimeType) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *MimeType // javascript: MimeType _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = MimeTypeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *MimeTypeArray) Get(name string) (_result *MimeType) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *MimeType // javascript: MimeType _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = MimeTypeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *MimeTypeArray) Item(index uint) (_result *MimeType) {
 	var (
 		_args [1]interface{}
@@ -1949,6 +1987,44 @@ func (_this *Plugin) Length() uint {
 	return ret
 }
 
+func (_this *Plugin) Index(index uint) (_result *MimeType) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *MimeType // javascript: MimeType _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = MimeTypeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Plugin) Get(name string) (_result *MimeType) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *MimeType // javascript: MimeType _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = MimeTypeFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *Plugin) Item(index uint) (_result *MimeType) {
 	var (
 		_args [1]interface{}
@@ -2015,6 +2091,44 @@ func (_this *PluginArray) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *PluginArray) Index(index uint) (_result *Plugin) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Plugin // javascript: Plugin _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = PluginFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *PluginArray) Get(name string) (_result *Plugin) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Plugin // javascript: Plugin _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = PluginFromJS(_returned)
+	}
+	_result = _converted
+	return
 }
 
 func (_this *PluginArray) Refresh(reload *bool) {
@@ -2129,6 +2243,53 @@ func (_this *Storage) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *Storage) Get(key string) (_result *string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
+	var (
+		_converted *string // javascript: DOMString _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		__tmp := (_returned).String()
+		_converted = &__tmp
+	}
+	_result = _converted
+	return
+}
+
+func (_this *Storage) Set(key string, value string) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := key
+	_args[0] = _p0
+	_end++
+	_p1 := value
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("setItem", _args[0:_end]...)
+	return
+}
+
+func (_this *Storage) Delete(key string) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := key
+	_args[0] = _p0
+	_end++
+	_this.Value_JS.Call("removeItem", _args[0:_end]...)
+	return
 }
 
 func (_this *Storage) Key(index uint) (_result *string) {

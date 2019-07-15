@@ -492,6 +492,25 @@ func (_this *FileList) Length() uint {
 	return ret
 }
 
+func (_this *FileList) Index(index uint) (_result *File) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *File // javascript: File _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = FileFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *FileList) Item(index uint) (_result *File) {
 	var (
 		_args [1]interface{}

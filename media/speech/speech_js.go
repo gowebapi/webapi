@@ -513,6 +513,23 @@ func (_this *SpeechGrammarList) Length() uint {
 	return ret
 }
 
+func (_this *SpeechGrammarList) Index(index uint) (_result *SpeechGrammar) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *SpeechGrammar // javascript: SpeechGrammar _what_return_name
+	)
+	_converted = SpeechGrammarFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *SpeechGrammarList) Item(index uint) (_result *SpeechGrammar) {
 	var (
 		_args [1]interface{}
@@ -1188,6 +1205,23 @@ func (_this *SpeechRecognitionResult) IsFinal() bool {
 	return ret
 }
 
+func (_this *SpeechRecognitionResult) Index(index uint) (_result *SpeechRecognitionAlternative) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *SpeechRecognitionAlternative // javascript: SpeechRecognitionAlternative _what_return_name
+	)
+	_converted = SpeechRecognitionAlternativeFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *SpeechRecognitionResult) Item(index uint) (_result *SpeechRecognitionAlternative) {
 	var (
 		_args [1]interface{}
@@ -1233,6 +1267,23 @@ func (_this *SpeechRecognitionResultList) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *SpeechRecognitionResultList) Index(index uint) (_result *SpeechRecognitionResult) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *SpeechRecognitionResult // javascript: SpeechRecognitionResult _what_return_name
+	)
+	_converted = SpeechRecognitionResultFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *SpeechRecognitionResultList) Item(index uint) (_result *SpeechRecognitionResult) {

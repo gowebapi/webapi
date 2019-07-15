@@ -3571,6 +3571,44 @@ func (_this *HTMLCollection) Length() uint {
 	return ret
 }
 
+func (_this *HTMLCollection) Index(index uint) (_result *Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = ElementFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *HTMLCollection) Get(name string) (_result *Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = ElementFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *HTMLCollection) Item(index uint) (_result *Element) {
 	var (
 		_args [1]interface{}
@@ -3637,6 +3675,44 @@ func (_this *NamedNodeMap) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *NamedNodeMap) Index(index uint) (_result *Attr) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Attr // javascript: Attr _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = AttrFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *NamedNodeMap) Get(qualifiedName string) (_result *Attr) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := qualifiedName
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("getNamedItem", _args[0:_end]...)
+	var (
+		_converted *Attr // javascript: Attr _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = AttrFromJS(_returned)
+	}
+	_result = _converted
+	return
 }
 
 func (_this *NamedNodeMap) Item(index uint) (_result *Attr) {
@@ -4498,6 +4574,25 @@ func (_this *NodeList) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *NodeList) Index(index uint) (_result *Node) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *Node // javascript: Node _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = NodeFromJS(_returned)
+	}
+	_result = _converted
+	return
 }
 
 func (_this *NodeList) Item(index uint) (_result *Node) {

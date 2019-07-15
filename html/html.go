@@ -279,6 +279,42 @@ func (_this *HTMLAllCollection) Length() uint {
 	return ret
 }
 
+func (_this *HTMLAllCollection) Index(index uint) (_result *dom.Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *dom.Element // javascript: Element _what_return_name
+	)
+	_converted = dom.ElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLAllCollection) Get(name string) (_result *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = UnionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *HTMLAllCollection) NamedItem(name string) (_result *Union) {
 	var (
 		_args [1]interface{}
@@ -4961,6 +4997,25 @@ func HTMLFormControlsCollectionFromJS(value js.Wrapper) *HTMLFormControlsCollect
 	return ret
 }
 
+func (_this *HTMLFormControlsCollection) Get2(name string) (_result *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("namedItem", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = UnionFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
 func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union) {
 	var (
 		_args [1]interface{}
@@ -5181,6 +5236,40 @@ func (_this *HTMLFormElement) Length() uint {
 	value := _this.Value_JS.Get("length")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+func (_this *HTMLFormElement) Index(index uint) (_result *dom.Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *dom.Element // javascript: Element _what_return_name
+	)
+	_converted = dom.ElementFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *HTMLFormElement) Get(name string) (_result *Union) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := name
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("", _args[0:_end]...)
+	var (
+		_converted *Union // javascript: Union _what_return_name
+	)
+	_converted = UnionFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *HTMLFormElement) Submit() {
@@ -8411,6 +8500,21 @@ func (_this *HTMLOptionsCollection) SetSelectedIndex(value int) {
 	_this.Value_JS.Set("selectedIndex", input)
 }
 
+func (_this *HTMLOptionsCollection) SetIndex(index uint, option *HTMLOptionElement) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := option.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
+}
+
 func (_this *HTMLOptionsCollection) Add(element *Union, before *Union) {
 	var (
 		_args [2]interface{}
@@ -9326,6 +9430,40 @@ func (_this *HTMLSelectElement) Labels() *dom.NodeList {
 	value := _this.Value_JS.Get("labels")
 	ret = dom.NodeListFromJS(value)
 	return ret
+}
+
+func (_this *HTMLSelectElement) Index(index uint) (_result *dom.Element) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("item", _args[0:_end]...)
+	var (
+		_converted *dom.Element // javascript: Element _what_return_name
+	)
+	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
+		_converted = dom.ElementFromJS(_returned)
+	}
+	_result = _converted
+	return
+}
+
+func (_this *HTMLSelectElement) SetIndex(index uint, option *HTMLOptionElement) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := index
+	_args[0] = _p0
+	_end++
+	_p1 := option.JSValue()
+	_args[1] = _p1
+	_end++
+	_this.Value_JS.Call("", _args[0:_end]...)
+	return
 }
 
 func (_this *HTMLSelectElement) Item(index uint) (_result *dom.Element) {
