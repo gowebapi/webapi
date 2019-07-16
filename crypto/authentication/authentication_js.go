@@ -121,6 +121,48 @@ func AttestationConveyancePreferenceFromJS(value js.Value) AttestationConveyance
 	return conv
 }
 
+// enum: TokenBindingStatus
+type TokenBindingStatus int
+
+const (
+	PresentTokenBindingStatus TokenBindingStatus = iota
+	SupportedTokenBindingStatus
+)
+
+var tokenBindingStatusToWasmTable = []string{
+	"present", "supported",
+}
+
+var tokenBindingStatusFromWasmTable = map[string]TokenBindingStatus{
+	"present": PresentTokenBindingStatus, "supported": SupportedTokenBindingStatus,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *TokenBindingStatus) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this TokenBindingStatus) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(tokenBindingStatusToWasmTable) {
+		return tokenBindingStatusToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// TokenBindingStatusFromJS is converting a javascript value into
+// a TokenBindingStatus enum value.
+func TokenBindingStatusFromJS(value js.Value) TokenBindingStatus {
+	key := value.String()
+	conv, ok := tokenBindingStatusFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: AuthenticatorTransport
 type Transport int
 
@@ -396,6 +438,86 @@ func AuthenticationExtensionsClientOutputsFromJS(value js.Wrapper) *Authenticati
 	return &out
 }
 
+// dictionary: authenticatorBiometricPerfBounds
+type AuthenticatorBiometricPerfBounds struct {
+	FAR float32
+	FRR float32
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AuthenticatorBiometricPerfBounds) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.FAR
+	out.Set("FAR", value0)
+	value1 := _this.FRR
+	out.Set("FRR", value1)
+	return out
+}
+
+// AuthenticatorBiometricPerfBoundsFromJS is allocating a new
+// AuthenticatorBiometricPerfBounds object and copy all values from
+// input javascript object
+func AuthenticatorBiometricPerfBoundsFromJS(value js.Wrapper) *AuthenticatorBiometricPerfBounds {
+	input := value.JSValue()
+	var out AuthenticatorBiometricPerfBounds
+	var (
+		value0 float32 // javascript: float {FAR FAR fAR}
+		value1 float32 // javascript: float {FRR FRR fRR}
+	)
+	value0 = (float32)((input.Get("FAR")).Float())
+	out.FAR = value0
+	value1 = (float32)((input.Get("FRR")).Float())
+	out.FRR = value1
+	return &out
+}
+
+// dictionary: CollectedClientData
+type CollectedClientData struct {
+	Type         string
+	Challenge    string
+	Origin       string
+	TokenBinding *TokenBinding
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CollectedClientData) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Type
+	out.Set("type", value0)
+	value1 := _this.Challenge
+	out.Set("challenge", value1)
+	value2 := _this.Origin
+	out.Set("origin", value2)
+	value3 := _this.TokenBinding.JSValue()
+	out.Set("tokenBinding", value3)
+	return out
+}
+
+// CollectedClientDataFromJS is allocating a new
+// CollectedClientData object and copy all values from
+// input javascript object
+func CollectedClientDataFromJS(value js.Wrapper) *CollectedClientData {
+	input := value.JSValue()
+	var out CollectedClientData
+	var (
+		value0 string        // javascript: DOMString {type Type _type}
+		value1 string        // javascript: DOMString {challenge Challenge challenge}
+		value2 string        // javascript: DOMString {origin Origin origin}
+		value3 *TokenBinding // javascript: TokenBinding {tokenBinding TokenBinding tokenBinding}
+	)
+	value0 = (input.Get("type")).String()
+	out.Type = value0
+	value1 = (input.Get("challenge")).String()
+	out.Challenge = value1
+	value2 = (input.Get("origin")).String()
+	out.Origin = value2
+	value3 = TokenBindingFromJS(input.Get("tokenBinding"))
+	out.TokenBinding = value3
+	return &out
+}
+
 // dictionary: AuthenticatorSelectionCriteria
 type SelectionCriteria struct {
 	AuthenticatorAttachment Attachment
@@ -433,6 +555,40 @@ func SelectionCriteriaFromJS(value js.Wrapper) *SelectionCriteria {
 	out.RequireResidentKey = value1
 	value2 = UserVerificationRequirementFromJS(input.Get("userVerification"))
 	out.UserVerification = value2
+	return &out
+}
+
+// dictionary: TokenBinding
+type TokenBinding struct {
+	Status TokenBindingStatus
+	Id     string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *TokenBinding) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Status.JSValue()
+	out.Set("status", value0)
+	value1 := _this.Id
+	out.Set("id", value1)
+	return out
+}
+
+// TokenBindingFromJS is allocating a new
+// TokenBinding object and copy all values from
+// input javascript object
+func TokenBindingFromJS(value js.Wrapper) *TokenBinding {
+	input := value.JSValue()
+	var out TokenBinding
+	var (
+		value0 TokenBindingStatus // javascript: TokenBindingStatus {status Status status}
+		value1 string             // javascript: DOMString {id Id id}
+	)
+	value0 = TokenBindingStatusFromJS(input.Get("status"))
+	out.Status = value0
+	value1 = (input.Get("id")).String()
+	out.Id = value1
 	return &out
 }
 

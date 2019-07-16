@@ -128,6 +128,50 @@ func CompositeOperationFromJS(value js.Value) CompositeOperation {
 	return conv
 }
 
+// enum: CompositeOperationOrAuto
+type CompositeOperationOrAuto int
+
+const (
+	ReplaceCompositeOperationOrAuto CompositeOperationOrAuto = iota
+	AddCompositeOperationOrAuto
+	AccumulateCompositeOperationOrAuto
+	AutoCompositeOperationOrAuto
+)
+
+var compositeOperationOrAutoToWasmTable = []string{
+	"replace", "add", "accumulate", "auto",
+}
+
+var compositeOperationOrAutoFromWasmTable = map[string]CompositeOperationOrAuto{
+	"replace": ReplaceCompositeOperationOrAuto, "add": AddCompositeOperationOrAuto, "accumulate": AccumulateCompositeOperationOrAuto, "auto": AutoCompositeOperationOrAuto,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *CompositeOperationOrAuto) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this CompositeOperationOrAuto) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(compositeOperationOrAutoToWasmTable) {
+		return compositeOperationOrAutoToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// CompositeOperationOrAutoFromJS is converting a javascript value into
+// a CompositeOperationOrAuto enum value.
+func CompositeOperationOrAutoFromJS(value js.Value) CompositeOperationOrAuto {
+	key := value.String()
+	conv, ok := compositeOperationOrAutoFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // enum: FillMode
 type FillMode int
 
@@ -314,6 +358,138 @@ func AnimationPlaybackEventInitFromJS(value js.Wrapper) *AnimationPlaybackEventI
 		value4 = &__tmp
 	}
 	out.TimelineTime = value4
+	return &out
+}
+
+// dictionary: BaseComputedKeyframe
+type BaseComputedKeyframe struct {
+	Offset         *float64
+	ComputedOffset float64
+	Easing         string
+	Composite      CompositeOperationOrAuto
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BaseComputedKeyframe) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Offset
+	out.Set("offset", value0)
+	value1 := _this.ComputedOffset
+	out.Set("computedOffset", value1)
+	value2 := _this.Easing
+	out.Set("easing", value2)
+	value3 := _this.Composite.JSValue()
+	out.Set("composite", value3)
+	return out
+}
+
+// BaseComputedKeyframeFromJS is allocating a new
+// BaseComputedKeyframe object and copy all values from
+// input javascript object
+func BaseComputedKeyframeFromJS(value js.Wrapper) *BaseComputedKeyframe {
+	input := value.JSValue()
+	var out BaseComputedKeyframe
+	var (
+		value0 *float64                 // javascript: double {offset Offset offset}
+		value1 float64                  // javascript: double {computedOffset ComputedOffset computedOffset}
+		value2 string                   // javascript: DOMString {easing Easing easing}
+		value3 CompositeOperationOrAuto // javascript: CompositeOperationOrAuto {composite Composite composite}
+	)
+	if input.Get("offset").Type() != js.TypeNull && input.Get("offset").Type() != js.TypeUndefined {
+		__tmp := (input.Get("offset")).Float()
+		value0 = &__tmp
+	}
+	out.Offset = value0
+	value1 = (input.Get("computedOffset")).Float()
+	out.ComputedOffset = value1
+	value2 = (input.Get("easing")).String()
+	out.Easing = value2
+	value3 = CompositeOperationOrAutoFromJS(input.Get("composite"))
+	out.Composite = value3
+	return &out
+}
+
+// dictionary: BaseKeyframe
+type BaseKeyframe struct {
+	Offset    *float64
+	Easing    string
+	Composite CompositeOperationOrAuto
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BaseKeyframe) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Offset
+	out.Set("offset", value0)
+	value1 := _this.Easing
+	out.Set("easing", value1)
+	value2 := _this.Composite.JSValue()
+	out.Set("composite", value2)
+	return out
+}
+
+// BaseKeyframeFromJS is allocating a new
+// BaseKeyframe object and copy all values from
+// input javascript object
+func BaseKeyframeFromJS(value js.Wrapper) *BaseKeyframe {
+	input := value.JSValue()
+	var out BaseKeyframe
+	var (
+		value0 *float64                 // javascript: double {offset Offset offset}
+		value1 string                   // javascript: DOMString {easing Easing easing}
+		value2 CompositeOperationOrAuto // javascript: CompositeOperationOrAuto {composite Composite composite}
+	)
+	if input.Get("offset").Type() != js.TypeNull && input.Get("offset").Type() != js.TypeUndefined {
+		__tmp := (input.Get("offset")).Float()
+		value0 = &__tmp
+	}
+	out.Offset = value0
+	value1 = (input.Get("easing")).String()
+	out.Easing = value1
+	value2 = CompositeOperationOrAutoFromJS(input.Get("composite"))
+	out.Composite = value2
+	return &out
+}
+
+// dictionary: BasePropertyIndexedKeyframe
+type BasePropertyIndexedKeyframe struct {
+	Offset    *Union
+	Easing    *Union
+	Composite *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *BasePropertyIndexedKeyframe) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Offset.JSValue()
+	out.Set("offset", value0)
+	value1 := _this.Easing.JSValue()
+	out.Set("easing", value1)
+	value2 := _this.Composite.JSValue()
+	out.Set("composite", value2)
+	return out
+}
+
+// BasePropertyIndexedKeyframeFromJS is allocating a new
+// BasePropertyIndexedKeyframe object and copy all values from
+// input javascript object
+func BasePropertyIndexedKeyframeFromJS(value js.Wrapper) *BasePropertyIndexedKeyframe {
+	input := value.JSValue()
+	var out BasePropertyIndexedKeyframe
+	var (
+		value0 *Union // javascript: Union {offset Offset offset}
+		value1 *Union // javascript: Union {easing Easing easing}
+		value2 *Union // javascript: Union {composite Composite composite}
+	)
+	value0 = UnionFromJS(input.Get("offset"))
+	out.Offset = value0
+	value1 = UnionFromJS(input.Get("easing"))
+	out.Easing = value1
+	value2 = UnionFromJS(input.Get("composite"))
+	out.Composite = value2
 	return &out
 }
 

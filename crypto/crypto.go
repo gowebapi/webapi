@@ -15,6 +15,7 @@ import (
 // javascript.Promise
 // javascript.PromiseArrayBuffer
 // javascript.PromiseFinally
+// javascript.Uint8Array
 
 // source idl files:
 // WebCryptoAPI.idl
@@ -254,6 +255,626 @@ func PromiseCryptoKeyOnRejectedFromJS(_value js.Value) PromiseCryptoKeyOnRejecte
 	}
 }
 
+// dictionary: AesCbcParams
+type AesCbcParams struct {
+	Name string
+	Iv   *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesCbcParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Iv.JSValue()
+	out.Set("iv", value1)
+	return out
+}
+
+// AesCbcParamsFromJS is allocating a new
+// AesCbcParams object and copy all values from
+// input javascript object
+func AesCbcParamsFromJS(value js.Wrapper) *AesCbcParams {
+	input := value.JSValue()
+	var out AesCbcParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {iv Iv iv}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("iv"))
+	out.Iv = value1
+	return &out
+}
+
+// dictionary: AesCtrParams
+type AesCtrParams struct {
+	Name    string
+	Counter *Union
+	Length  int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesCtrParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Counter.JSValue()
+	out.Set("counter", value1)
+	value2 := _this.Length
+	out.Set("length", value2)
+	return out
+}
+
+// AesCtrParamsFromJS is allocating a new
+// AesCtrParams object and copy all values from
+// input javascript object
+func AesCtrParamsFromJS(value js.Wrapper) *AesCtrParams {
+	input := value.JSValue()
+	var out AesCtrParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {counter Counter counter}
+		value2 int    // javascript: octet {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("counter"))
+	out.Counter = value1
+	value2 = (input.Get("length")).Int()
+	out.Length = value2
+	return &out
+}
+
+// dictionary: AesDerivedKeyParams
+type AesDerivedKeyParams struct {
+	Name   string
+	Length int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesDerivedKeyParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Length
+	out.Set("length", value1)
+	return out
+}
+
+// AesDerivedKeyParamsFromJS is allocating a new
+// AesDerivedKeyParams object and copy all values from
+// input javascript object
+func AesDerivedKeyParamsFromJS(value js.Wrapper) *AesDerivedKeyParams {
+	input := value.JSValue()
+	var out AesDerivedKeyParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 int    // javascript: unsigned short {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("length")).Int()
+	out.Length = value1
+	return &out
+}
+
+// dictionary: AesGcmParams
+type AesGcmParams struct {
+	Name           string
+	Iv             *Union
+	AdditionalData *Union
+	TagLength      int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesGcmParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Iv.JSValue()
+	out.Set("iv", value1)
+	value2 := _this.AdditionalData.JSValue()
+	out.Set("additionalData", value2)
+	value3 := _this.TagLength
+	out.Set("tagLength", value3)
+	return out
+}
+
+// AesGcmParamsFromJS is allocating a new
+// AesGcmParams object and copy all values from
+// input javascript object
+func AesGcmParamsFromJS(value js.Wrapper) *AesGcmParams {
+	input := value.JSValue()
+	var out AesGcmParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {iv Iv iv}
+		value2 *Union // javascript: Union {additionalData AdditionalData additionalData}
+		value3 int    // javascript: octet {tagLength TagLength tagLength}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("iv"))
+	out.Iv = value1
+	value2 = UnionFromJS(input.Get("additionalData"))
+	out.AdditionalData = value2
+	value3 = (input.Get("tagLength")).Int()
+	out.TagLength = value3
+	return &out
+}
+
+// dictionary: AesKeyAlgorithm
+type AesKeyAlgorithm struct {
+	Name   string
+	Length int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesKeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Length
+	out.Set("length", value1)
+	return out
+}
+
+// AesKeyAlgorithmFromJS is allocating a new
+// AesKeyAlgorithm object and copy all values from
+// input javascript object
+func AesKeyAlgorithmFromJS(value js.Wrapper) *AesKeyAlgorithm {
+	input := value.JSValue()
+	var out AesKeyAlgorithm
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 int    // javascript: unsigned short {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("length")).Int()
+	out.Length = value1
+	return &out
+}
+
+// dictionary: AesKeyGenParams
+type AesKeyGenParams struct {
+	Name   string
+	Length int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AesKeyGenParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Length
+	out.Set("length", value1)
+	return out
+}
+
+// AesKeyGenParamsFromJS is allocating a new
+// AesKeyGenParams object and copy all values from
+// input javascript object
+func AesKeyGenParamsFromJS(value js.Wrapper) *AesKeyGenParams {
+	input := value.JSValue()
+	var out AesKeyGenParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 int    // javascript: unsigned short {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("length")).Int()
+	out.Length = value1
+	return &out
+}
+
+// dictionary: Algorithm
+type Algorithm struct {
+	Name string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *Algorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	return out
+}
+
+// AlgorithmFromJS is allocating a new
+// Algorithm object and copy all values from
+// input javascript object
+func AlgorithmFromJS(value js.Wrapper) *Algorithm {
+	input := value.JSValue()
+	var out Algorithm
+	var (
+		value0 string // javascript: DOMString {name Name name}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	return &out
+}
+
+// dictionary: CryptoKeyPair
+type CryptoKeyPair struct {
+	PublicKey  *CryptoKey
+	PrivateKey *CryptoKey
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CryptoKeyPair) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.PublicKey.JSValue()
+	out.Set("publicKey", value0)
+	value1 := _this.PrivateKey.JSValue()
+	out.Set("privateKey", value1)
+	return out
+}
+
+// CryptoKeyPairFromJS is allocating a new
+// CryptoKeyPair object and copy all values from
+// input javascript object
+func CryptoKeyPairFromJS(value js.Wrapper) *CryptoKeyPair {
+	input := value.JSValue()
+	var out CryptoKeyPair
+	var (
+		value0 *CryptoKey // javascript: CryptoKey {publicKey PublicKey publicKey}
+		value1 *CryptoKey // javascript: CryptoKey {privateKey PrivateKey privateKey}
+	)
+	value0 = CryptoKeyFromJS(input.Get("publicKey"))
+	out.PublicKey = value0
+	value1 = CryptoKeyFromJS(input.Get("privateKey"))
+	out.PrivateKey = value1
+	return &out
+}
+
+// dictionary: EcKeyAlgorithm
+type EcKeyAlgorithm struct {
+	Name       string
+	NamedCurve string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EcKeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.NamedCurve
+	out.Set("namedCurve", value1)
+	return out
+}
+
+// EcKeyAlgorithmFromJS is allocating a new
+// EcKeyAlgorithm object and copy all values from
+// input javascript object
+func EcKeyAlgorithmFromJS(value js.Wrapper) *EcKeyAlgorithm {
+	input := value.JSValue()
+	var out EcKeyAlgorithm
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("namedCurve")).String()
+	out.NamedCurve = value1
+	return &out
+}
+
+// dictionary: EcKeyGenParams
+type EcKeyGenParams struct {
+	Name       string
+	NamedCurve string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EcKeyGenParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.NamedCurve
+	out.Set("namedCurve", value1)
+	return out
+}
+
+// EcKeyGenParamsFromJS is allocating a new
+// EcKeyGenParams object and copy all values from
+// input javascript object
+func EcKeyGenParamsFromJS(value js.Wrapper) *EcKeyGenParams {
+	input := value.JSValue()
+	var out EcKeyGenParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("namedCurve")).String()
+	out.NamedCurve = value1
+	return &out
+}
+
+// dictionary: EcKeyImportParams
+type EcKeyImportParams struct {
+	Name       string
+	NamedCurve string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EcKeyImportParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.NamedCurve
+	out.Set("namedCurve", value1)
+	return out
+}
+
+// EcKeyImportParamsFromJS is allocating a new
+// EcKeyImportParams object and copy all values from
+// input javascript object
+func EcKeyImportParamsFromJS(value js.Wrapper) *EcKeyImportParams {
+	input := value.JSValue()
+	var out EcKeyImportParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("namedCurve")).String()
+	out.NamedCurve = value1
+	return &out
+}
+
+// dictionary: EcdhKeyDeriveParams
+type EcdhKeyDeriveParams struct {
+	Name   string
+	Public *CryptoKey
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EcdhKeyDeriveParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Public.JSValue()
+	out.Set("public", value1)
+	return out
+}
+
+// EcdhKeyDeriveParamsFromJS is allocating a new
+// EcdhKeyDeriveParams object and copy all values from
+// input javascript object
+func EcdhKeyDeriveParamsFromJS(value js.Wrapper) *EcdhKeyDeriveParams {
+	input := value.JSValue()
+	var out EcdhKeyDeriveParams
+	var (
+		value0 string     // javascript: DOMString {name Name name}
+		value1 *CryptoKey // javascript: CryptoKey {public Public public}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = CryptoKeyFromJS(input.Get("public"))
+	out.Public = value1
+	return &out
+}
+
+// dictionary: EcdsaParams
+type EcdsaParams struct {
+	Name string
+	Hash *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *EcdsaParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	return out
+}
+
+// EcdsaParamsFromJS is allocating a new
+// EcdsaParams object and copy all values from
+// input javascript object
+func EcdsaParamsFromJS(value js.Wrapper) *EcdsaParams {
+	input := value.JSValue()
+	var out EcdsaParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {hash Hash hash}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("hash"))
+	out.Hash = value1
+	return &out
+}
+
+// dictionary: HkdfParams
+type HkdfParams struct {
+	Name string
+	Hash *Union
+	Salt *Union
+	Info *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HkdfParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	value2 := _this.Salt.JSValue()
+	out.Set("salt", value2)
+	value3 := _this.Info.JSValue()
+	out.Set("info", value3)
+	return out
+}
+
+// HkdfParamsFromJS is allocating a new
+// HkdfParams object and copy all values from
+// input javascript object
+func HkdfParamsFromJS(value js.Wrapper) *HkdfParams {
+	input := value.JSValue()
+	var out HkdfParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {hash Hash hash}
+		value2 *Union // javascript: Union {salt Salt salt}
+		value3 *Union // javascript: Union {info Info info}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("hash"))
+	out.Hash = value1
+	value2 = UnionFromJS(input.Get("salt"))
+	out.Salt = value2
+	value3 = UnionFromJS(input.Get("info"))
+	out.Info = value3
+	return &out
+}
+
+// dictionary: HmacImportParams
+type HmacImportParams struct {
+	Name   string
+	Hash   *Union
+	Length uint
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HmacImportParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	value2 := _this.Length
+	out.Set("length", value2)
+	return out
+}
+
+// HmacImportParamsFromJS is allocating a new
+// HmacImportParams object and copy all values from
+// input javascript object
+func HmacImportParamsFromJS(value js.Wrapper) *HmacImportParams {
+	input := value.JSValue()
+	var out HmacImportParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {hash Hash hash}
+		value2 uint   // javascript: unsigned long {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("hash"))
+	out.Hash = value1
+	value2 = (uint)((input.Get("length")).Int())
+	out.Length = value2
+	return &out
+}
+
+// dictionary: HmacKeyAlgorithm
+type HmacKeyAlgorithm struct {
+	Name   string
+	Hash   *KeyAlgorithm
+	Length uint
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HmacKeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	value2 := _this.Length
+	out.Set("length", value2)
+	return out
+}
+
+// HmacKeyAlgorithmFromJS is allocating a new
+// HmacKeyAlgorithm object and copy all values from
+// input javascript object
+func HmacKeyAlgorithmFromJS(value js.Wrapper) *HmacKeyAlgorithm {
+	input := value.JSValue()
+	var out HmacKeyAlgorithm
+	var (
+		value0 string        // javascript: DOMString {name Name name}
+		value1 *KeyAlgorithm // javascript: KeyAlgorithm {hash Hash hash}
+		value2 uint          // javascript: unsigned long {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = KeyAlgorithmFromJS(input.Get("hash"))
+	out.Hash = value1
+	value2 = (uint)((input.Get("length")).Int())
+	out.Length = value2
+	return &out
+}
+
+// dictionary: HmacKeyGenParams
+type HmacKeyGenParams struct {
+	Name   string
+	Hash   *Union
+	Length uint
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *HmacKeyGenParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	value2 := _this.Length
+	out.Set("length", value2)
+	return out
+}
+
+// HmacKeyGenParamsFromJS is allocating a new
+// HmacKeyGenParams object and copy all values from
+// input javascript object
+func HmacKeyGenParamsFromJS(value js.Wrapper) *HmacKeyGenParams {
+	input := value.JSValue()
+	var out HmacKeyGenParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {hash Hash hash}
+		value2 uint   // javascript: unsigned long {length Length length}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("hash"))
+	out.Hash = value1
+	value2 = (uint)((input.Get("length")).Int())
+	out.Length = value2
+	return &out
+}
+
 // dictionary: JsonWebKey
 type JsonWebKey struct {
 	Kty    string
@@ -408,6 +1029,320 @@ func JsonWebKeyFromJS(value js.Wrapper) *JsonWebKey {
 	return &out
 }
 
+// dictionary: KeyAlgorithm
+type KeyAlgorithm struct {
+	Name string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *KeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	return out
+}
+
+// KeyAlgorithmFromJS is allocating a new
+// KeyAlgorithm object and copy all values from
+// input javascript object
+func KeyAlgorithmFromJS(value js.Wrapper) *KeyAlgorithm {
+	input := value.JSValue()
+	var out KeyAlgorithm
+	var (
+		value0 string // javascript: DOMString {name Name name}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	return &out
+}
+
+// dictionary: Pbkdf2Params
+type Pbkdf2Params struct {
+	Name       string
+	Salt       *Union
+	Iterations uint
+	Hash       *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *Pbkdf2Params) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Salt.JSValue()
+	out.Set("salt", value1)
+	value2 := _this.Iterations
+	out.Set("iterations", value2)
+	value3 := _this.Hash.JSValue()
+	out.Set("hash", value3)
+	return out
+}
+
+// Pbkdf2ParamsFromJS is allocating a new
+// Pbkdf2Params object and copy all values from
+// input javascript object
+func Pbkdf2ParamsFromJS(value js.Wrapper) *Pbkdf2Params {
+	input := value.JSValue()
+	var out Pbkdf2Params
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {salt Salt salt}
+		value2 uint   // javascript: unsigned long {iterations Iterations iterations}
+		value3 *Union // javascript: Union {hash Hash hash}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("salt"))
+	out.Salt = value1
+	value2 = (uint)((input.Get("iterations")).Int())
+	out.Iterations = value2
+	value3 = UnionFromJS(input.Get("hash"))
+	out.Hash = value3
+	return &out
+}
+
+// dictionary: RsaHashedImportParams
+type RsaHashedImportParams struct {
+	Name string
+	Hash *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaHashedImportParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Hash.JSValue()
+	out.Set("hash", value1)
+	return out
+}
+
+// RsaHashedImportParamsFromJS is allocating a new
+// RsaHashedImportParams object and copy all values from
+// input javascript object
+func RsaHashedImportParamsFromJS(value js.Wrapper) *RsaHashedImportParams {
+	input := value.JSValue()
+	var out RsaHashedImportParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {hash Hash hash}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("hash"))
+	out.Hash = value1
+	return &out
+}
+
+// dictionary: RsaHashedKeyAlgorithm
+type RsaHashedKeyAlgorithm struct {
+	Name           string
+	ModulusLength  uint
+	PublicExponent *javascript.Uint8Array
+	Hash           *KeyAlgorithm
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaHashedKeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.ModulusLength
+	out.Set("modulusLength", value1)
+	value2 := _this.PublicExponent.JSValue()
+	out.Set("publicExponent", value2)
+	value3 := _this.Hash.JSValue()
+	out.Set("hash", value3)
+	return out
+}
+
+// RsaHashedKeyAlgorithmFromJS is allocating a new
+// RsaHashedKeyAlgorithm object and copy all values from
+// input javascript object
+func RsaHashedKeyAlgorithmFromJS(value js.Wrapper) *RsaHashedKeyAlgorithm {
+	input := value.JSValue()
+	var out RsaHashedKeyAlgorithm
+	var (
+		value0 string                 // javascript: DOMString {name Name name}
+		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
+		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
+		value3 *KeyAlgorithm          // javascript: KeyAlgorithm {hash Hash hash}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (uint)((input.Get("modulusLength")).Int())
+	out.ModulusLength = value1
+	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	out.PublicExponent = value2
+	value3 = KeyAlgorithmFromJS(input.Get("hash"))
+	out.Hash = value3
+	return &out
+}
+
+// dictionary: RsaHashedKeyGenParams
+type RsaHashedKeyGenParams struct {
+	Name           string
+	ModulusLength  uint
+	PublicExponent *javascript.Uint8Array
+	Hash           *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaHashedKeyGenParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.ModulusLength
+	out.Set("modulusLength", value1)
+	value2 := _this.PublicExponent.JSValue()
+	out.Set("publicExponent", value2)
+	value3 := _this.Hash.JSValue()
+	out.Set("hash", value3)
+	return out
+}
+
+// RsaHashedKeyGenParamsFromJS is allocating a new
+// RsaHashedKeyGenParams object and copy all values from
+// input javascript object
+func RsaHashedKeyGenParamsFromJS(value js.Wrapper) *RsaHashedKeyGenParams {
+	input := value.JSValue()
+	var out RsaHashedKeyGenParams
+	var (
+		value0 string                 // javascript: DOMString {name Name name}
+		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
+		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
+		value3 *Union                 // javascript: Union {hash Hash hash}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (uint)((input.Get("modulusLength")).Int())
+	out.ModulusLength = value1
+	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	out.PublicExponent = value2
+	value3 = UnionFromJS(input.Get("hash"))
+	out.Hash = value3
+	return &out
+}
+
+// dictionary: RsaKeyAlgorithm
+type RsaKeyAlgorithm struct {
+	Name           string
+	ModulusLength  uint
+	PublicExponent *javascript.Uint8Array
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaKeyAlgorithm) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.ModulusLength
+	out.Set("modulusLength", value1)
+	value2 := _this.PublicExponent.JSValue()
+	out.Set("publicExponent", value2)
+	return out
+}
+
+// RsaKeyAlgorithmFromJS is allocating a new
+// RsaKeyAlgorithm object and copy all values from
+// input javascript object
+func RsaKeyAlgorithmFromJS(value js.Wrapper) *RsaKeyAlgorithm {
+	input := value.JSValue()
+	var out RsaKeyAlgorithm
+	var (
+		value0 string                 // javascript: DOMString {name Name name}
+		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
+		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (uint)((input.Get("modulusLength")).Int())
+	out.ModulusLength = value1
+	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	out.PublicExponent = value2
+	return &out
+}
+
+// dictionary: RsaKeyGenParams
+type RsaKeyGenParams struct {
+	Name           string
+	ModulusLength  uint
+	PublicExponent *javascript.Uint8Array
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaKeyGenParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.ModulusLength
+	out.Set("modulusLength", value1)
+	value2 := _this.PublicExponent.JSValue()
+	out.Set("publicExponent", value2)
+	return out
+}
+
+// RsaKeyGenParamsFromJS is allocating a new
+// RsaKeyGenParams object and copy all values from
+// input javascript object
+func RsaKeyGenParamsFromJS(value js.Wrapper) *RsaKeyGenParams {
+	input := value.JSValue()
+	var out RsaKeyGenParams
+	var (
+		value0 string                 // javascript: DOMString {name Name name}
+		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
+		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (uint)((input.Get("modulusLength")).Int())
+	out.ModulusLength = value1
+	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	out.PublicExponent = value2
+	return &out
+}
+
+// dictionary: RsaOaepParams
+type RsaOaepParams struct {
+	Name  string
+	Label *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaOaepParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Label.JSValue()
+	out.Set("label", value1)
+	return out
+}
+
+// RsaOaepParamsFromJS is allocating a new
+// RsaOaepParams object and copy all values from
+// input javascript object
+func RsaOaepParamsFromJS(value js.Wrapper) *RsaOaepParams {
+	input := value.JSValue()
+	var out RsaOaepParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 *Union // javascript: Union {label Label label}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = UnionFromJS(input.Get("label"))
+	out.Label = value1
+	return &out
+}
+
 // dictionary: RsaOtherPrimesInfo
 type RsaOtherPrimesInfo struct {
 	R string
@@ -445,6 +1380,40 @@ func RsaOtherPrimesInfoFromJS(value js.Wrapper) *RsaOtherPrimesInfo {
 	out.D = value1
 	value2 = (input.Get("t")).String()
 	out.T = value2
+	return &out
+}
+
+// dictionary: RsaPssParams
+type RsaPssParams struct {
+	Name       string
+	SaltLength uint
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RsaPssParams) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.SaltLength
+	out.Set("saltLength", value1)
+	return out
+}
+
+// RsaPssParamsFromJS is allocating a new
+// RsaPssParams object and copy all values from
+// input javascript object
+func RsaPssParamsFromJS(value js.Wrapper) *RsaPssParams {
+	input := value.JSValue()
+	var out RsaPssParams
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 uint   // javascript: unsigned long {saltLength SaltLength saltLength}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (uint)((input.Get("saltLength")).Int())
+	out.SaltLength = value1
 	return &out
 }
 

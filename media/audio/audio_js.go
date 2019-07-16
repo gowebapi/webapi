@@ -935,6 +935,58 @@ func AudioNodeOptionsFromJS(value js.Wrapper) *AudioNodeOptions {
 	return &out
 }
 
+// dictionary: AudioParamDescriptor
+type AudioParamDescriptor struct {
+	Name           string
+	DefaultValue   float32
+	MinValue       float32
+	MaxValue       float32
+	AutomationRate AutomationRate
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AudioParamDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.DefaultValue
+	out.Set("defaultValue", value1)
+	value2 := _this.MinValue
+	out.Set("minValue", value2)
+	value3 := _this.MaxValue
+	out.Set("maxValue", value3)
+	value4 := _this.AutomationRate.JSValue()
+	out.Set("automationRate", value4)
+	return out
+}
+
+// AudioParamDescriptorFromJS is allocating a new
+// AudioParamDescriptor object and copy all values from
+// input javascript object
+func AudioParamDescriptorFromJS(value js.Wrapper) *AudioParamDescriptor {
+	input := value.JSValue()
+	var out AudioParamDescriptor
+	var (
+		value0 string         // javascript: DOMString {name Name name}
+		value1 float32        // javascript: float {defaultValue DefaultValue defaultValue}
+		value2 float32        // javascript: float {minValue MinValue minValue}
+		value3 float32        // javascript: float {maxValue MaxValue maxValue}
+		value4 AutomationRate // javascript: AutomationRate {automationRate AutomationRate automationRate}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (float32)((input.Get("defaultValue")).Float())
+	out.DefaultValue = value1
+	value2 = (float32)((input.Get("minValue")).Float())
+	out.MinValue = value2
+	value3 = (float32)((input.Get("maxValue")).Float())
+	out.MaxValue = value3
+	value4 = AutomationRateFromJS(input.Get("automationRate"))
+	out.AutomationRate = value4
+	return &out
+}
+
 // dictionary: AudioParamMapEntryIteratorValue
 type AudioParamMapEntryIteratorValue struct {
 	Value []js.Value
@@ -1810,6 +1862,46 @@ func OfflineAudioCompletionEventInitFromJS(value js.Wrapper) *OfflineAudioComple
 	out.Composed = value2
 	value3 = AudioBufferFromJS(input.Get("renderedBuffer"))
 	out.RenderedBuffer = value3
+	return &out
+}
+
+// dictionary: OfflineAudioContextOptions
+type OfflineAudioContextOptions struct {
+	NumberOfChannels uint
+	Length           uint
+	SampleRate       float32
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *OfflineAudioContextOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.NumberOfChannels
+	out.Set("numberOfChannels", value0)
+	value1 := _this.Length
+	out.Set("length", value1)
+	value2 := _this.SampleRate
+	out.Set("sampleRate", value2)
+	return out
+}
+
+// OfflineAudioContextOptionsFromJS is allocating a new
+// OfflineAudioContextOptions object and copy all values from
+// input javascript object
+func OfflineAudioContextOptionsFromJS(value js.Wrapper) *OfflineAudioContextOptions {
+	input := value.JSValue()
+	var out OfflineAudioContextOptions
+	var (
+		value0 uint    // javascript: unsigned long {numberOfChannels NumberOfChannels numberOfChannels}
+		value1 uint    // javascript: unsigned long {length Length length}
+		value2 float32 // javascript: float {sampleRate SampleRate sampleRate}
+	)
+	value0 = (uint)((input.Get("numberOfChannels")).Int())
+	out.NumberOfChannels = value0
+	value1 = (uint)((input.Get("length")).Int())
+	out.Length = value1
+	value2 = (float32)((input.Get("sampleRate")).Float())
+	out.SampleRate = value2
 	return &out
 }
 

@@ -91,6 +91,40 @@ func ClipboardEventInitFromJS(value js.Wrapper) *ClipboardEventInit {
 	return &out
 }
 
+// dictionary: ClipboardPermissionDescriptor
+type ClipboardPermissionDescriptor struct {
+	Name                string
+	AllowWithoutGesture bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ClipboardPermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.AllowWithoutGesture
+	out.Set("allowWithoutGesture", value1)
+	return out
+}
+
+// ClipboardPermissionDescriptorFromJS is allocating a new
+// ClipboardPermissionDescriptor object and copy all values from
+// input javascript object
+func ClipboardPermissionDescriptorFromJS(value js.Wrapper) *ClipboardPermissionDescriptor {
+	input := value.JSValue()
+	var out ClipboardPermissionDescriptor
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 bool   // javascript: boolean {allowWithoutGesture AllowWithoutGesture allowWithoutGesture}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("allowWithoutGesture")).Bool()
+	out.AllowWithoutGesture = value1
+	return &out
+}
+
 // class: Clipboard
 type Clipboard struct {
 	domcore.EventTarget

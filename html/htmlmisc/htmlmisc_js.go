@@ -229,6 +229,34 @@ func EventSourceInitFromJS(value js.Wrapper) *EventSourceInit {
 	return &out
 }
 
+// dictionary: ImageBitmapRenderingContextSettings
+type ImageBitmapRenderingContextSettings struct {
+	Alpha bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ImageBitmapRenderingContextSettings) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Alpha
+	out.Set("alpha", value0)
+	return out
+}
+
+// ImageBitmapRenderingContextSettingsFromJS is allocating a new
+// ImageBitmapRenderingContextSettings object and copy all values from
+// input javascript object
+func ImageBitmapRenderingContextSettingsFromJS(value js.Wrapper) *ImageBitmapRenderingContextSettings {
+	input := value.JSValue()
+	var out ImageBitmapRenderingContextSettings
+	var (
+		value0 bool // javascript: boolean {alpha Alpha alpha}
+	)
+	value0 = (input.Get("alpha")).Bool()
+	out.Alpha = value0
+	return &out
+}
+
 // dictionary: StorageEventInit
 type StorageEventInit struct {
 	Bubbles     bool

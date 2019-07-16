@@ -47,6 +47,34 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
+// dictionary: PaintRenderingContext2DSettings
+type PaintRenderingContext2DSettings struct {
+	Alpha bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PaintRenderingContext2DSettings) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Alpha
+	out.Set("alpha", value0)
+	return out
+}
+
+// PaintRenderingContext2DSettingsFromJS is allocating a new
+// PaintRenderingContext2DSettings object and copy all values from
+// input javascript object
+func PaintRenderingContext2DSettingsFromJS(value js.Wrapper) *PaintRenderingContext2DSettings {
+	input := value.JSValue()
+	var out PaintRenderingContext2DSettings
+	var (
+		value0 bool // javascript: boolean {alpha Alpha alpha}
+	)
+	value0 = (input.Get("alpha")).Bool()
+	out.Alpha = value0
+	return &out
+}
+
 // class: PaintRenderingContext2D
 type PaintRenderingContext2D struct {
 	// Value_JS holds a reference to a javascript value

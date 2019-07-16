@@ -243,6 +243,34 @@ func PromisePermissionModeOnRejectedFromJS(_value js.Value) PromisePermissionMod
 	}
 }
 
+// dictionary: GetNotificationOptions
+type GetNotificationOptions struct {
+	Tag string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *GetNotificationOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Tag
+	out.Set("tag", value0)
+	return out
+}
+
+// GetNotificationOptionsFromJS is allocating a new
+// GetNotificationOptions object and copy all values from
+// input javascript object
+func GetNotificationOptionsFromJS(value js.Wrapper) *GetNotificationOptions {
+	input := value.JSValue()
+	var out GetNotificationOptions
+	var (
+		value0 string // javascript: DOMString {tag Tag tag}
+	)
+	value0 = (input.Get("tag")).String()
+	out.Tag = value0
+	return &out
+}
+
 // dictionary: NotificationAction
 type NotificationAction struct {
 	Action string

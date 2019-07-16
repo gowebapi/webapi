@@ -30,11 +30,13 @@ import (
 // source idl files:
 // missingtypes.idl
 // promises.idl
+// webrtc-stats.idl
 // webrtc.idl
 
 // transform files:
 // missingtypes.go.md
 // promises.go.md
+// webrtc-stats.go.md
 // webrtc.go.md
 
 // workaround for compiler error
@@ -1057,6 +1059,63 @@ func SignalingStateFromJS(value js.Value) SignalingState {
 	return conv
 }
 
+// enum: RTCStatsType
+type StatsType int
+
+const (
+	CodecRTCStatsType StatsType = iota
+	InboundRtpRTCStatsType
+	OutboundRtpRTCStatsType
+	RemoteInboundRtpRTCStatsType
+	RemoteOutboundRtpRTCStatsType
+	CsrcRTCStatsType
+	PeerConnectionRTCStatsType
+	DataChannelRTCStatsType
+	StreamRTCStatsType
+	TrackRTCStatsType
+	SenderRTCStatsType
+	ReceiverRTCStatsType
+	TransportRTCStatsType
+	CandidatePairRTCStatsType
+	LocalCandidateRTCStatsType
+	RemoteCandidateRTCStatsType
+	CertificateRTCStatsType
+)
+
+var rTCStatsTypeToWasmTable = []string{
+	"codec", "inbound-rtp", "outbound-rtp", "remote-inbound-rtp", "remote-outbound-rtp", "csrc", "peer-connection", "data-channel", "stream", "track", "sender", "receiver", "transport", "candidate-pair", "local-candidate", "remote-candidate", "certificate",
+}
+
+var rTCStatsTypeFromWasmTable = map[string]StatsType{
+	"codec": CodecRTCStatsType, "inbound-rtp": InboundRtpRTCStatsType, "outbound-rtp": OutboundRtpRTCStatsType, "remote-inbound-rtp": RemoteInboundRtpRTCStatsType, "remote-outbound-rtp": RemoteOutboundRtpRTCStatsType, "csrc": CsrcRTCStatsType, "peer-connection": PeerConnectionRTCStatsType, "data-channel": DataChannelRTCStatsType, "stream": StreamRTCStatsType, "track": TrackRTCStatsType, "sender": SenderRTCStatsType, "receiver": ReceiverRTCStatsType, "transport": TransportRTCStatsType, "candidate-pair": CandidatePairRTCStatsType, "local-candidate": LocalCandidateRTCStatsType, "remote-candidate": RemoteCandidateRTCStatsType, "certificate": CertificateRTCStatsType,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *StatsType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this StatsType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(rTCStatsTypeToWasmTable) {
+		return rTCStatsTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// StatsTypeFromJS is converting a javascript value into
+// a StatsType enum value.
+func StatsTypeFromJS(value js.Value) StatsType {
+	key := value.String()
+	conv, ok := rTCStatsTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: RTCPeerConnectionErrorCallback
 type PeerConnectionErrorCallbackFunc func(_error *domcore.DOMException)
 
@@ -1443,6 +1502,34 @@ func AnswerOptionsFromJS(value js.Wrapper) *AnswerOptions {
 	)
 	value0 = (input.Get("voiceActivityDetection")).Bool()
 	out.VoiceActivityDetection = value0
+	return &out
+}
+
+// dictionary: RTCCertificateExpiration
+type CertificateExpiration struct {
+	Expires int
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *CertificateExpiration) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Expires
+	out.Set("expires", value0)
+	return out
+}
+
+// CertificateExpirationFromJS is allocating a new
+// CertificateExpiration object and copy all values from
+// input javascript object
+func CertificateExpirationFromJS(value js.Wrapper) *CertificateExpiration {
+	input := value.JSValue()
+	var out CertificateExpiration
+	var (
+		value0 int // javascript: unsigned long long {expires Expires expires}
+	)
+	value0 = (input.Get("expires")).Int()
+	out.Expires = value0
 	return &out
 }
 
@@ -2984,6 +3071,46 @@ func SessionDescriptionInitFromJS(value js.Wrapper) *SessionDescriptionInit {
 	out.Type = value0
 	value1 = (input.Get("sdp")).String()
 	out.Sdp = value1
+	return &out
+}
+
+// dictionary: RTCStats
+type Stats struct {
+	Timestamp float64
+	Type      StatsType
+	Id        string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *Stats) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Timestamp
+	out.Set("timestamp", value0)
+	value1 := _this.Type.JSValue()
+	out.Set("type", value1)
+	value2 := _this.Id
+	out.Set("id", value2)
+	return out
+}
+
+// StatsFromJS is allocating a new
+// Stats object and copy all values from
+// input javascript object
+func StatsFromJS(value js.Wrapper) *Stats {
+	input := value.JSValue()
+	var out Stats
+	var (
+		value0 float64   // javascript: double {timestamp Timestamp timestamp}
+		value1 StatsType // javascript: RTCStatsType {type Type _type}
+		value2 string    // javascript: DOMString {id Id id}
+	)
+	value0 = (input.Get("timestamp")).Float()
+	out.Timestamp = value0
+	value1 = StatsTypeFromJS(input.Get("type"))
+	out.Type = value1
+	value2 = (input.Get("id")).String()
+	out.Id = value2
 	return &out
 }
 

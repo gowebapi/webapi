@@ -90,6 +90,40 @@ func ReportingObserverCallbackFromJS(_value js.Value) ReportingObserverCallbackF
 	}
 }
 
+// dictionary: GenerateTestReportParameters
+type GenerateTestReportParameters struct {
+	Message string
+	Group   string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *GenerateTestReportParameters) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Message
+	out.Set("message", value0)
+	value1 := _this.Group
+	out.Set("group", value1)
+	return out
+}
+
+// GenerateTestReportParametersFromJS is allocating a new
+// GenerateTestReportParameters object and copy all values from
+// input javascript object
+func GenerateTestReportParametersFromJS(value js.Wrapper) *GenerateTestReportParameters {
+	input := value.JSValue()
+	var out GenerateTestReportParameters
+	var (
+		value0 string // javascript: DOMString {message Message message}
+		value1 string // javascript: DOMString {group Group group}
+	)
+	value0 = (input.Get("message")).String()
+	out.Message = value0
+	value1 = (input.Get("group")).String()
+	out.Group = value1
+	return &out
+}
+
 // dictionary: ReportingObserverOptions
 type ReportingObserverOptions struct {
 	Types    []string

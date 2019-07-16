@@ -908,6 +908,80 @@ func AdvertisingEventInitFromJS(value js.Wrapper) *AdvertisingEventInit {
 	return &out
 }
 
+// dictionary: AllowedBluetoothDevice
+type AllowedDevice struct {
+	DeviceId        string
+	MayUseGATT      bool
+	AllowedServices *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AllowedDevice) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.DeviceId
+	out.Set("deviceId", value0)
+	value1 := _this.MayUseGATT
+	out.Set("mayUseGATT", value1)
+	value2 := _this.AllowedServices.JSValue()
+	out.Set("allowedServices", value2)
+	return out
+}
+
+// AllowedDeviceFromJS is allocating a new
+// AllowedDevice object and copy all values from
+// input javascript object
+func AllowedDeviceFromJS(value js.Wrapper) *AllowedDevice {
+	input := value.JSValue()
+	var out AllowedDevice
+	var (
+		value0 string // javascript: DOMString {deviceId DeviceId deviceId}
+		value1 bool   // javascript: boolean {mayUseGATT MayUseGATT mayUseGATT}
+		value2 *Union // javascript: Union {allowedServices AllowedServices allowedServices}
+	)
+	value0 = (input.Get("deviceId")).String()
+	out.DeviceId = value0
+	value1 = (input.Get("mayUseGATT")).Bool()
+	out.MayUseGATT = value1
+	value2 = UnionFromJS(input.Get("allowedServices"))
+	out.AllowedServices = value2
+	return &out
+}
+
+// dictionary: BluetoothDataFilterInit
+type DataFilterInit struct {
+	DataPrefix *Union
+	Mask       *Union
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DataFilterInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.DataPrefix.JSValue()
+	out.Set("dataPrefix", value0)
+	value1 := _this.Mask.JSValue()
+	out.Set("mask", value1)
+	return out
+}
+
+// DataFilterInitFromJS is allocating a new
+// DataFilterInit object and copy all values from
+// input javascript object
+func DataFilterInitFromJS(value js.Wrapper) *DataFilterInit {
+	input := value.JSValue()
+	var out DataFilterInit
+	var (
+		value0 *Union // javascript: Union {dataPrefix DataPrefix dataPrefix}
+		value1 *Union // javascript: Union {mask Mask mask}
+	)
+	value0 = UnionFromJS(input.Get("dataPrefix"))
+	out.DataPrefix = value0
+	value1 = UnionFromJS(input.Get("mask"))
+	out.Mask = value1
+	return &out
+}
+
 // dictionary: BluetoothLEScanFilterInit
 type LEScanFilterInit struct {
 	Services         []*Union
@@ -1083,6 +1157,122 @@ func ManufacturerDataMapValueIteratorValueFromJS(value js.Wrapper) *Manufacturer
 	out.Value = value0
 	value1 = (input.Get("done")).Bool()
 	out.Done = value1
+	return &out
+}
+
+// dictionary: BluetoothPermissionData
+type PermissionData struct {
+	AllowedDevices []*AllowedDevice
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PermissionData) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.AllowedDevices))
+	for __idx0, __seq_in0 := range _this.AllowedDevices {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("allowedDevices", value0)
+	return out
+}
+
+// PermissionDataFromJS is allocating a new
+// PermissionData object and copy all values from
+// input javascript object
+func PermissionDataFromJS(value js.Wrapper) *PermissionData {
+	input := value.JSValue()
+	var out PermissionData
+	var (
+		value0 []*AllowedDevice // javascript: sequence<AllowedBluetoothDevice> {allowedDevices AllowedDevices allowedDevices}
+	)
+	__length0 := input.Get("allowedDevices").Length()
+	__array0 := make([]*AllowedDevice, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *AllowedDevice
+		__seq_in0 := input.Get("allowedDevices").Index(__idx0)
+		__seq_out0 = AllowedDeviceFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.AllowedDevices = value0
+	return &out
+}
+
+// dictionary: BluetoothPermissionDescriptor
+type PermissionDescriptor struct {
+	Name             string
+	DeviceId         string
+	Filters          []*LEScanFilterInit
+	OptionalServices []*Union
+	AcceptAllDevices bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.DeviceId
+	out.Set("deviceId", value1)
+	value2 := js.Global().Get("Array").New(len(_this.Filters))
+	for __idx2, __seq_in2 := range _this.Filters {
+		__seq_out2 := __seq_in2.JSValue()
+		value2.SetIndex(__idx2, __seq_out2)
+	}
+	out.Set("filters", value2)
+	value3 := js.Global().Get("Array").New(len(_this.OptionalServices))
+	for __idx3, __seq_in3 := range _this.OptionalServices {
+		__seq_out3 := __seq_in3.JSValue()
+		value3.SetIndex(__idx3, __seq_out3)
+	}
+	out.Set("optionalServices", value3)
+	value4 := _this.AcceptAllDevices
+	out.Set("acceptAllDevices", value4)
+	return out
+}
+
+// PermissionDescriptorFromJS is allocating a new
+// PermissionDescriptor object and copy all values from
+// input javascript object
+func PermissionDescriptorFromJS(value js.Wrapper) *PermissionDescriptor {
+	input := value.JSValue()
+	var out PermissionDescriptor
+	var (
+		value0 string              // javascript: DOMString {name Name name}
+		value1 string              // javascript: DOMString {deviceId DeviceId deviceId}
+		value2 []*LEScanFilterInit // javascript: sequence<BluetoothLEScanFilterInit> {filters Filters filters}
+		value3 []*Union            // javascript: sequence<Union> {optionalServices OptionalServices optionalServices}
+		value4 bool                // javascript: boolean {acceptAllDevices AcceptAllDevices acceptAllDevices}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("deviceId")).String()
+	out.DeviceId = value1
+	__length2 := input.Get("filters").Length()
+	__array2 := make([]*LEScanFilterInit, __length2, __length2)
+	for __idx2 := 0; __idx2 < __length2; __idx2++ {
+		var __seq_out2 *LEScanFilterInit
+		__seq_in2 := input.Get("filters").Index(__idx2)
+		__seq_out2 = LEScanFilterInitFromJS(__seq_in2)
+		__array2[__idx2] = __seq_out2
+	}
+	value2 = __array2
+	out.Filters = value2
+	__length3 := input.Get("optionalServices").Length()
+	__array3 := make([]*Union, __length3, __length3)
+	for __idx3 := 0; __idx3 < __length3; __idx3++ {
+		var __seq_out3 *Union
+		__seq_in3 := input.Get("optionalServices").Index(__idx3)
+		__seq_out3 = UnionFromJS(__seq_in3)
+		__array3[__idx3] = __seq_out3
+	}
+	value3 = __array3
+	out.OptionalServices = value3
+	value4 = (input.Get("acceptAllDevices")).Bool()
+	out.AcceptAllDevices = value4
 	return &out
 }
 

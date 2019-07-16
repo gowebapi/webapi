@@ -105,6 +105,57 @@ func LocalCoordinateSystemFromJS(value js.Value) LocalCoordinateSystem {
 	return conv
 }
 
+// enum: MockSensorType
+type MockSensorType int
+
+const (
+	AmbientLightMockSensorType MockSensorType = iota
+	AccelerometerMockSensorType
+	LinearAccelerationMockSensorType
+	GravityMockSensorType
+	GyroscopeMockSensorType
+	MagnetometerMockSensorType
+	UncalibratedMagnetometerMockSensorType
+	AbsoluteOrientationMockSensorType
+	RelativeOrientationMockSensorType
+	GeolocationMockSensorType
+	ProximityMockSensorType
+)
+
+var mockSensorTypeToWasmTable = []string{
+	"ambient-light", "accelerometer", "linear-acceleration", "gravity", "gyroscope", "magnetometer", "uncalibrated-magnetometer", "absolute-orientation", "relative-orientation", "geolocation", "proximity",
+}
+
+var mockSensorTypeFromWasmTable = map[string]MockSensorType{
+	"ambient-light": AmbientLightMockSensorType, "accelerometer": AccelerometerMockSensorType, "linear-acceleration": LinearAccelerationMockSensorType, "gravity": GravityMockSensorType, "gyroscope": GyroscopeMockSensorType, "magnetometer": MagnetometerMockSensorType, "uncalibrated-magnetometer": UncalibratedMagnetometerMockSensorType, "absolute-orientation": AbsoluteOrientationMockSensorType, "relative-orientation": RelativeOrientationMockSensorType, "geolocation": GeolocationMockSensorType, "proximity": ProximityMockSensorType,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *MockSensorType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this MockSensorType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(mockSensorTypeToWasmTable) {
+		return mockSensorTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// MockSensorTypeFromJS is converting a javascript value into
+// a MockSensorType enum value.
+func MockSensorTypeFromJS(value js.Value) MockSensorType {
+	key := value.String()
+	conv, ok := mockSensorTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: PositionCallback
 type PositionCallbackFunc func(position *Position)
 
@@ -261,6 +312,85 @@ func PromiseGeolocationSensorReadingOnRejectedFromJS(_value js.Value) PromiseGeo
 	}
 }
 
+// dictionary: AbsoluteOrientationReadingValues
+type AbsoluteOrientationReadingValues struct {
+	Quaternion *javascript.FrozenArray
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AbsoluteOrientationReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Quaternion.JSValue()
+	out.Set("quaternion", value0)
+	return out
+}
+
+// AbsoluteOrientationReadingValuesFromJS is allocating a new
+// AbsoluteOrientationReadingValues object and copy all values from
+// input javascript object
+func AbsoluteOrientationReadingValuesFromJS(value js.Wrapper) *AbsoluteOrientationReadingValues {
+	input := value.JSValue()
+	var out AbsoluteOrientationReadingValues
+	var (
+		value0 *javascript.FrozenArray // javascript: FrozenArray {quaternion Quaternion quaternion}
+	)
+	if input.Get("quaternion").Type() != js.TypeNull && input.Get("quaternion").Type() != js.TypeUndefined {
+		value0 = javascript.FrozenArrayFromJS(input.Get("quaternion"))
+	}
+	out.Quaternion = value0
+	return &out
+}
+
+// dictionary: AccelerometerReadingValues
+type AccelerometerReadingValues struct {
+	X *float64
+	Y *float64
+	Z *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AccelerometerReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	return out
+}
+
+// AccelerometerReadingValuesFromJS is allocating a new
+// AccelerometerReadingValues object and copy all values from
+// input javascript object
+func AccelerometerReadingValuesFromJS(value js.Wrapper) *AccelerometerReadingValues {
+	input := value.JSValue()
+	var out AccelerometerReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	return &out
+}
+
 // dictionary: AccelerometerSensorOptions
 type AccelerometerSensorOptions struct {
 	Frequency      float64
@@ -292,6 +422,37 @@ func AccelerometerSensorOptionsFromJS(value js.Wrapper) *AccelerometerSensorOpti
 	out.Frequency = value0
 	value1 = LocalCoordinateSystemFromJS(input.Get("referenceFrame"))
 	out.ReferenceFrame = value1
+	return &out
+}
+
+// dictionary: AmbientLightReadingValues
+type AmbientLightReadingValues struct {
+	Illuminance *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AmbientLightReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Illuminance
+	out.Set("illuminance", value0)
+	return out
+}
+
+// AmbientLightReadingValuesFromJS is allocating a new
+// AmbientLightReadingValues object and copy all values from
+// input javascript object
+func AmbientLightReadingValuesFromJS(value js.Wrapper) *AmbientLightReadingValues {
+	input := value.JSValue()
+	var out AmbientLightReadingValues
+	var (
+		value0 *float64 // javascript: double {illuminance Illuminance illuminance}
+	)
+	if input.Get("illuminance").Type() != js.TypeNull && input.Get("illuminance").Type() != js.TypeUndefined {
+		__tmp := (input.Get("illuminance")).Float()
+		value0 = &__tmp
+	}
+	out.Illuminance = value0
 	return &out
 }
 
@@ -536,6 +697,91 @@ func DeviceRotationRateInitFromJS(value js.Wrapper) *DeviceRotationRateInit {
 	return &out
 }
 
+// dictionary: GeolocationReadingValues
+type GeolocationReadingValues struct {
+	Latitude         *float64
+	Longitude        *float64
+	Altitude         *float64
+	Accuracy         *float64
+	AltitudeAccuracy *float64
+	Heading          *float64
+	Speed            *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *GeolocationReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Latitude
+	out.Set("latitude", value0)
+	value1 := _this.Longitude
+	out.Set("longitude", value1)
+	value2 := _this.Altitude
+	out.Set("altitude", value2)
+	value3 := _this.Accuracy
+	out.Set("accuracy", value3)
+	value4 := _this.AltitudeAccuracy
+	out.Set("altitudeAccuracy", value4)
+	value5 := _this.Heading
+	out.Set("heading", value5)
+	value6 := _this.Speed
+	out.Set("speed", value6)
+	return out
+}
+
+// GeolocationReadingValuesFromJS is allocating a new
+// GeolocationReadingValues object and copy all values from
+// input javascript object
+func GeolocationReadingValuesFromJS(value js.Wrapper) *GeolocationReadingValues {
+	input := value.JSValue()
+	var out GeolocationReadingValues
+	var (
+		value0 *float64 // javascript: double {latitude Latitude latitude}
+		value1 *float64 // javascript: double {longitude Longitude longitude}
+		value2 *float64 // javascript: double {altitude Altitude altitude}
+		value3 *float64 // javascript: double {accuracy Accuracy accuracy}
+		value4 *float64 // javascript: double {altitudeAccuracy AltitudeAccuracy altitudeAccuracy}
+		value5 *float64 // javascript: double {heading Heading heading}
+		value6 *float64 // javascript: double {speed Speed speed}
+	)
+	if input.Get("latitude").Type() != js.TypeNull && input.Get("latitude").Type() != js.TypeUndefined {
+		__tmp := (input.Get("latitude")).Float()
+		value0 = &__tmp
+	}
+	out.Latitude = value0
+	if input.Get("longitude").Type() != js.TypeNull && input.Get("longitude").Type() != js.TypeUndefined {
+		__tmp := (input.Get("longitude")).Float()
+		value1 = &__tmp
+	}
+	out.Longitude = value1
+	if input.Get("altitude").Type() != js.TypeNull && input.Get("altitude").Type() != js.TypeUndefined {
+		__tmp := (input.Get("altitude")).Float()
+		value2 = &__tmp
+	}
+	out.Altitude = value2
+	if input.Get("accuracy").Type() != js.TypeNull && input.Get("accuracy").Type() != js.TypeUndefined {
+		__tmp := (input.Get("accuracy")).Float()
+		value3 = &__tmp
+	}
+	out.Accuracy = value3
+	if input.Get("altitudeAccuracy").Type() != js.TypeNull && input.Get("altitudeAccuracy").Type() != js.TypeUndefined {
+		__tmp := (input.Get("altitudeAccuracy")).Float()
+		value4 = &__tmp
+	}
+	out.AltitudeAccuracy = value4
+	if input.Get("heading").Type() != js.TypeNull && input.Get("heading").Type() != js.TypeUndefined {
+		__tmp := (input.Get("heading")).Float()
+		value5 = &__tmp
+	}
+	out.Heading = value5
+	if input.Get("speed").Type() != js.TypeNull && input.Get("speed").Type() != js.TypeUndefined {
+		__tmp := (input.Get("speed")).Float()
+		value6 = &__tmp
+	}
+	out.Speed = value6
+	return &out
+}
+
 // dictionary: GeolocationSensorOptions
 type GeolocationSensorOptions struct {
 	Frequency float64
@@ -658,6 +904,104 @@ func GeolocationSensorReadingFromJS(value js.Wrapper) *GeolocationSensorReading 
 	return &out
 }
 
+// dictionary: GravityReadingValues
+type GravityReadingValues struct {
+	X *float64
+	Y *float64
+	Z *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *GravityReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	return out
+}
+
+// GravityReadingValuesFromJS is allocating a new
+// GravityReadingValues object and copy all values from
+// input javascript object
+func GravityReadingValuesFromJS(value js.Wrapper) *GravityReadingValues {
+	input := value.JSValue()
+	var out GravityReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	return &out
+}
+
+// dictionary: GyroscopeReadingValues
+type GyroscopeReadingValues struct {
+	X *float64
+	Y *float64
+	Z *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *GyroscopeReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	return out
+}
+
+// GyroscopeReadingValuesFromJS is allocating a new
+// GyroscopeReadingValues object and copy all values from
+// input javascript object
+func GyroscopeReadingValuesFromJS(value js.Wrapper) *GyroscopeReadingValues {
+	input := value.JSValue()
+	var out GyroscopeReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	return &out
+}
+
 // dictionary: GyroscopeSensorOptions
 type GyroscopeSensorOptions struct {
 	Frequency      float64
@@ -692,6 +1036,104 @@ func GyroscopeSensorOptionsFromJS(value js.Wrapper) *GyroscopeSensorOptions {
 	return &out
 }
 
+// dictionary: LinearAccelerationReadingValues
+type LinearAccelerationReadingValues struct {
+	X *float64
+	Y *float64
+	Z *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *LinearAccelerationReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	return out
+}
+
+// LinearAccelerationReadingValuesFromJS is allocating a new
+// LinearAccelerationReadingValues object and copy all values from
+// input javascript object
+func LinearAccelerationReadingValuesFromJS(value js.Wrapper) *LinearAccelerationReadingValues {
+	input := value.JSValue()
+	var out LinearAccelerationReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	return &out
+}
+
+// dictionary: MagnetometerReadingValues
+type MagnetometerReadingValues struct {
+	X *float64
+	Y *float64
+	Z *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MagnetometerReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	return out
+}
+
+// MagnetometerReadingValuesFromJS is allocating a new
+// MagnetometerReadingValues object and copy all values from
+// input javascript object
+func MagnetometerReadingValuesFromJS(value js.Wrapper) *MagnetometerReadingValues {
+	input := value.JSValue()
+	var out MagnetometerReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	return &out
+}
+
 // dictionary: MagnetometerSensorOptions
 type MagnetometerSensorOptions struct {
 	Frequency      float64
@@ -723,6 +1165,118 @@ func MagnetometerSensorOptionsFromJS(value js.Wrapper) *MagnetometerSensorOption
 	out.Frequency = value0
 	value1 = LocalCoordinateSystemFromJS(input.Get("referenceFrame"))
 	out.ReferenceFrame = value1
+	return &out
+}
+
+// dictionary: MockSensor
+type MockSensor struct {
+	MaxSamplingFrequency       float64
+	MinSamplingFrequency       float64
+	RequestedSamplingFrequency float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MockSensor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.MaxSamplingFrequency
+	out.Set("maxSamplingFrequency", value0)
+	value1 := _this.MinSamplingFrequency
+	out.Set("minSamplingFrequency", value1)
+	value2 := _this.RequestedSamplingFrequency
+	out.Set("requestedSamplingFrequency", value2)
+	return out
+}
+
+// MockSensorFromJS is allocating a new
+// MockSensor object and copy all values from
+// input javascript object
+func MockSensorFromJS(value js.Wrapper) *MockSensor {
+	input := value.JSValue()
+	var out MockSensor
+	var (
+		value0 float64 // javascript: double {maxSamplingFrequency MaxSamplingFrequency maxSamplingFrequency}
+		value1 float64 // javascript: double {minSamplingFrequency MinSamplingFrequency minSamplingFrequency}
+		value2 float64 // javascript: double {requestedSamplingFrequency RequestedSamplingFrequency requestedSamplingFrequency}
+	)
+	value0 = (input.Get("maxSamplingFrequency")).Float()
+	out.MaxSamplingFrequency = value0
+	value1 = (input.Get("minSamplingFrequency")).Float()
+	out.MinSamplingFrequency = value1
+	value2 = (input.Get("requestedSamplingFrequency")).Float()
+	out.RequestedSamplingFrequency = value2
+	return &out
+}
+
+// dictionary: MockSensorConfiguration
+type MockSensorConfiguration struct {
+	MockSensorType       MockSensorType
+	Connected            bool
+	MaxSamplingFrequency *float64
+	MinSamplingFrequency *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MockSensorConfiguration) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.MockSensorType.JSValue()
+	out.Set("mockSensorType", value0)
+	value1 := _this.Connected
+	out.Set("connected", value1)
+	value2 := _this.MaxSamplingFrequency
+	out.Set("maxSamplingFrequency", value2)
+	value3 := _this.MinSamplingFrequency
+	out.Set("minSamplingFrequency", value3)
+	return out
+}
+
+// MockSensorConfigurationFromJS is allocating a new
+// MockSensorConfiguration object and copy all values from
+// input javascript object
+func MockSensorConfigurationFromJS(value js.Wrapper) *MockSensorConfiguration {
+	input := value.JSValue()
+	var out MockSensorConfiguration
+	var (
+		value0 MockSensorType // javascript: MockSensorType {mockSensorType MockSensorType mockSensorType}
+		value1 bool           // javascript: boolean {connected Connected connected}
+		value2 *float64       // javascript: double {maxSamplingFrequency MaxSamplingFrequency maxSamplingFrequency}
+		value3 *float64       // javascript: double {minSamplingFrequency MinSamplingFrequency minSamplingFrequency}
+	)
+	value0 = MockSensorTypeFromJS(input.Get("mockSensorType"))
+	out.MockSensorType = value0
+	value1 = (input.Get("connected")).Bool()
+	out.Connected = value1
+	if input.Get("maxSamplingFrequency").Type() != js.TypeNull && input.Get("maxSamplingFrequency").Type() != js.TypeUndefined {
+		__tmp := (input.Get("maxSamplingFrequency")).Float()
+		value2 = &__tmp
+	}
+	out.MaxSamplingFrequency = value2
+	if input.Get("minSamplingFrequency").Type() != js.TypeNull && input.Get("minSamplingFrequency").Type() != js.TypeUndefined {
+		__tmp := (input.Get("minSamplingFrequency")).Float()
+		value3 = &__tmp
+	}
+	out.MinSamplingFrequency = value3
+	return &out
+}
+
+// dictionary: MockSensorReadingValues
+type MockSensorReadingValues struct {
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MockSensorReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	return out
+}
+
+// MockSensorReadingValuesFromJS is allocating a new
+// MockSensorReadingValues object and copy all values from
+// input javascript object
+func MockSensorReadingValuesFromJS(value js.Wrapper) *MockSensorReadingValues {
+	var out MockSensorReadingValues
+	var ()
 	return &out
 }
 
@@ -800,6 +1354,55 @@ func PositionOptionsFromJS(value js.Wrapper) *PositionOptions {
 	return &out
 }
 
+// dictionary: ProximityReadingValues
+type ProximityReadingValues struct {
+	Distance *float64
+	Max      *float64
+	Near     *bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *ProximityReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Distance
+	out.Set("distance", value0)
+	value1 := _this.Max
+	out.Set("max", value1)
+	value2 := _this.Near
+	out.Set("near", value2)
+	return out
+}
+
+// ProximityReadingValuesFromJS is allocating a new
+// ProximityReadingValues object and copy all values from
+// input javascript object
+func ProximityReadingValuesFromJS(value js.Wrapper) *ProximityReadingValues {
+	input := value.JSValue()
+	var out ProximityReadingValues
+	var (
+		value0 *float64 // javascript: double {distance Distance distance}
+		value1 *float64 // javascript: double {max Max max}
+		value2 *bool    // javascript: boolean {near Near near}
+	)
+	if input.Get("distance").Type() != js.TypeNull && input.Get("distance").Type() != js.TypeUndefined {
+		__tmp := (input.Get("distance")).Float()
+		value0 = &__tmp
+	}
+	out.Distance = value0
+	if input.Get("max").Type() != js.TypeNull && input.Get("max").Type() != js.TypeUndefined {
+		__tmp := (input.Get("max")).Float()
+		value1 = &__tmp
+	}
+	out.Max = value1
+	if input.Get("near").Type() != js.TypeNull && input.Get("near").Type() != js.TypeUndefined {
+		__tmp := (input.Get("near")).Bool()
+		value2 = &__tmp
+	}
+	out.Near = value2
+	return &out
+}
+
 // dictionary: ReadOptions
 type ReadOptions struct {
 	Frequency float64
@@ -833,6 +1436,36 @@ func ReadOptionsFromJS(value js.Wrapper) *ReadOptions {
 		value1 = domcore.AbortSignalFromJS(input.Get("signal"))
 	}
 	out.Signal = value1
+	return &out
+}
+
+// dictionary: RelativeOrientationReadingValues
+type RelativeOrientationReadingValues struct {
+	Quaternion *javascript.FrozenArray
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *RelativeOrientationReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Quaternion.JSValue()
+	out.Set("quaternion", value0)
+	return out
+}
+
+// RelativeOrientationReadingValuesFromJS is allocating a new
+// RelativeOrientationReadingValues object and copy all values from
+// input javascript object
+func RelativeOrientationReadingValuesFromJS(value js.Wrapper) *RelativeOrientationReadingValues {
+	input := value.JSValue()
+	var out RelativeOrientationReadingValues
+	var (
+		value0 *javascript.FrozenArray // javascript: FrozenArray {quaternion Quaternion quaternion}
+	)
+	if input.Get("quaternion").Type() != js.TypeNull && input.Get("quaternion").Type() != js.TypeUndefined {
+		value0 = javascript.FrozenArrayFromJS(input.Get("quaternion"))
+	}
+	out.Quaternion = value0
 	return &out
 }
 
@@ -907,6 +1540,82 @@ func SensorOptionsFromJS(value js.Wrapper) *SensorOptions {
 	)
 	value0 = (input.Get("frequency")).Float()
 	out.Frequency = value0
+	return &out
+}
+
+// dictionary: UncalibratedMagnetometerReadingValues
+type UncalibratedMagnetometerReadingValues struct {
+	X     *float64
+	Y     *float64
+	Z     *float64
+	XBias *float64
+	YBias *float64
+	ZBias *float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *UncalibratedMagnetometerReadingValues) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.X
+	out.Set("x", value0)
+	value1 := _this.Y
+	out.Set("y", value1)
+	value2 := _this.Z
+	out.Set("z", value2)
+	value3 := _this.XBias
+	out.Set("xBias", value3)
+	value4 := _this.YBias
+	out.Set("yBias", value4)
+	value5 := _this.ZBias
+	out.Set("zBias", value5)
+	return out
+}
+
+// UncalibratedMagnetometerReadingValuesFromJS is allocating a new
+// UncalibratedMagnetometerReadingValues object and copy all values from
+// input javascript object
+func UncalibratedMagnetometerReadingValuesFromJS(value js.Wrapper) *UncalibratedMagnetometerReadingValues {
+	input := value.JSValue()
+	var out UncalibratedMagnetometerReadingValues
+	var (
+		value0 *float64 // javascript: double {x X x}
+		value1 *float64 // javascript: double {y Y y}
+		value2 *float64 // javascript: double {z Z z}
+		value3 *float64 // javascript: double {xBias XBias xBias}
+		value4 *float64 // javascript: double {yBias YBias yBias}
+		value5 *float64 // javascript: double {zBias ZBias zBias}
+	)
+	if input.Get("x").Type() != js.TypeNull && input.Get("x").Type() != js.TypeUndefined {
+		__tmp := (input.Get("x")).Float()
+		value0 = &__tmp
+	}
+	out.X = value0
+	if input.Get("y").Type() != js.TypeNull && input.Get("y").Type() != js.TypeUndefined {
+		__tmp := (input.Get("y")).Float()
+		value1 = &__tmp
+	}
+	out.Y = value1
+	if input.Get("z").Type() != js.TypeNull && input.Get("z").Type() != js.TypeUndefined {
+		__tmp := (input.Get("z")).Float()
+		value2 = &__tmp
+	}
+	out.Z = value2
+	if input.Get("xBias").Type() != js.TypeNull && input.Get("xBias").Type() != js.TypeUndefined {
+		__tmp := (input.Get("xBias")).Float()
+		value3 = &__tmp
+	}
+	out.XBias = value3
+	if input.Get("yBias").Type() != js.TypeNull && input.Get("yBias").Type() != js.TypeUndefined {
+		__tmp := (input.Get("yBias")).Float()
+		value4 = &__tmp
+	}
+	out.YBias = value4
+	if input.Get("zBias").Type() != js.TypeNull && input.Get("zBias").Type() != js.TypeUndefined {
+		__tmp := (input.Get("zBias")).Float()
+		value5 = &__tmp
+	}
+	out.ZBias = value5
 	return &out
 }
 

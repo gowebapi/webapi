@@ -5,7 +5,7 @@ package serviceworker
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/appmanifest"
+	"github.com/gowebapi/webapi/appmanifest/appmenifestres"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/channel"
@@ -17,7 +17,7 @@ import (
 )
 
 // using following types:
-// appmanifest.ImageResource
+// appmenifestres.ImageResource
 // channel.MessagePort
 // client.ClientType
 // client.PromiseNilWindowClient
@@ -773,7 +773,7 @@ func BackgroundFetchEventInitFromJS(value js.Wrapper) *BackgroundFetchEventInit 
 
 // dictionary: BackgroundFetchOptions
 type BackgroundFetchOptions struct {
-	Icons         []*appmanifest.ImageResource
+	Icons         []*appmenifestres.ImageResource
 	Title         string
 	DownloadTotal int
 }
@@ -802,16 +802,16 @@ func BackgroundFetchOptionsFromJS(value js.Wrapper) *BackgroundFetchOptions {
 	input := value.JSValue()
 	var out BackgroundFetchOptions
 	var (
-		value0 []*appmanifest.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
-		value1 string                       // javascript: DOMString {title Title title}
-		value2 int                          // javascript: unsigned long long {downloadTotal DownloadTotal downloadTotal}
+		value0 []*appmenifestres.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
+		value1 string                          // javascript: DOMString {title Title title}
+		value2 int                             // javascript: unsigned long long {downloadTotal DownloadTotal downloadTotal}
 	)
 	__length0 := input.Get("icons").Length()
-	__array0 := make([]*appmanifest.ImageResource, __length0, __length0)
+	__array0 := make([]*appmenifestres.ImageResource, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *appmanifest.ImageResource
+		var __seq_out0 *appmenifestres.ImageResource
 		__seq_in0 := input.Get("icons").Index(__idx0)
-		__seq_out0 = appmanifest.ImageResourceFromJS(__seq_in0)
+		__seq_out0 = appmenifestres.ImageResourceFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
@@ -825,7 +825,7 @@ func BackgroundFetchOptionsFromJS(value js.Wrapper) *BackgroundFetchOptions {
 
 // dictionary: BackgroundFetchUIOptions
 type BackgroundFetchUIOptions struct {
-	Icons []*appmanifest.ImageResource
+	Icons []*appmenifestres.ImageResource
 	Title string
 }
 
@@ -851,15 +851,15 @@ func BackgroundFetchUIOptionsFromJS(value js.Wrapper) *BackgroundFetchUIOptions 
 	input := value.JSValue()
 	var out BackgroundFetchUIOptions
 	var (
-		value0 []*appmanifest.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
-		value1 string                       // javascript: DOMString {title Title title}
+		value0 []*appmenifestres.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
+		value1 string                          // javascript: DOMString {title Title title}
 	)
 	__length0 := input.Get("icons").Length()
-	__array0 := make([]*appmanifest.ImageResource, __length0, __length0)
+	__array0 := make([]*appmenifestres.ImageResource, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *appmanifest.ImageResource
+		var __seq_out0 *appmenifestres.ImageResource
 		__seq_in0 := input.Get("icons").Index(__idx0)
-		__seq_out0 = appmanifest.ImageResourceFromJS(__seq_in0)
+		__seq_out0 = appmenifestres.ImageResourceFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0

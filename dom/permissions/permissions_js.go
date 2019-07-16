@@ -161,6 +161,176 @@ func PromisePermissionStatusOnRejectedFromJS(_value js.Value) PromisePermissionS
 	}
 }
 
+// dictionary: DevicePermissionDescriptor
+type DevicePermissionDescriptor struct {
+	Name     string
+	DeviceId string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *DevicePermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.DeviceId
+	out.Set("deviceId", value1)
+	return out
+}
+
+// DevicePermissionDescriptorFromJS is allocating a new
+// DevicePermissionDescriptor object and copy all values from
+// input javascript object
+func DevicePermissionDescriptorFromJS(value js.Wrapper) *DevicePermissionDescriptor {
+	input := value.JSValue()
+	var out DevicePermissionDescriptor
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 string // javascript: DOMString {deviceId DeviceId deviceId}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("deviceId")).String()
+	out.DeviceId = value1
+	return &out
+}
+
+// dictionary: MidiPermissionDescriptor
+type MidiPermissionDescriptor struct {
+	Name  string
+	Sysex bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *MidiPermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Sysex
+	out.Set("sysex", value1)
+	return out
+}
+
+// MidiPermissionDescriptorFromJS is allocating a new
+// MidiPermissionDescriptor object and copy all values from
+// input javascript object
+func MidiPermissionDescriptorFromJS(value js.Wrapper) *MidiPermissionDescriptor {
+	input := value.JSValue()
+	var out MidiPermissionDescriptor
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 bool   // javascript: boolean {sysex Sysex sysex}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("sysex")).Bool()
+	out.Sysex = value1
+	return &out
+}
+
+// dictionary: PermissionDescriptor
+type PermissionDescriptor struct {
+	Name string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	return out
+}
+
+// PermissionDescriptorFromJS is allocating a new
+// PermissionDescriptor object and copy all values from
+// input javascript object
+func PermissionDescriptorFromJS(value js.Wrapper) *PermissionDescriptor {
+	input := value.JSValue()
+	var out PermissionDescriptor
+	var (
+		value0 string // javascript: DOMString {name Name name}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	return &out
+}
+
+// dictionary: PermissionSetParameters
+type PermissionSetParameters struct {
+	Descriptor *PermissionDescriptor
+	State      PermissionState
+	OneRealm   bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PermissionSetParameters) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Descriptor.JSValue()
+	out.Set("descriptor", value0)
+	value1 := _this.State.JSValue()
+	out.Set("state", value1)
+	value2 := _this.OneRealm
+	out.Set("oneRealm", value2)
+	return out
+}
+
+// PermissionSetParametersFromJS is allocating a new
+// PermissionSetParameters object and copy all values from
+// input javascript object
+func PermissionSetParametersFromJS(value js.Wrapper) *PermissionSetParameters {
+	input := value.JSValue()
+	var out PermissionSetParameters
+	var (
+		value0 *PermissionDescriptor // javascript: PermissionDescriptor {descriptor Descriptor descriptor}
+		value1 PermissionState       // javascript: PermissionState {state State state}
+		value2 bool                  // javascript: boolean {oneRealm OneRealm oneRealm}
+	)
+	value0 = PermissionDescriptorFromJS(input.Get("descriptor"))
+	out.Descriptor = value0
+	value1 = PermissionStateFromJS(input.Get("state"))
+	out.State = value1
+	value2 = (input.Get("oneRealm")).Bool()
+	out.OneRealm = value2
+	return &out
+}
+
+// dictionary: PushPermissionDescriptor
+type PushPermissionDescriptor struct {
+	Name            string
+	UserVisibleOnly bool
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *PushPermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.UserVisibleOnly
+	out.Set("userVisibleOnly", value1)
+	return out
+}
+
+// PushPermissionDescriptorFromJS is allocating a new
+// PushPermissionDescriptor object and copy all values from
+// input javascript object
+func PushPermissionDescriptorFromJS(value js.Wrapper) *PushPermissionDescriptor {
+	input := value.JSValue()
+	var out PushPermissionDescriptor
+	var (
+		value0 string // javascript: DOMString {name Name name}
+		value1 bool   // javascript: boolean {userVisibleOnly UserVisibleOnly userVisibleOnly}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	value1 = (input.Get("userVisibleOnly")).Bool()
+	out.UserVisibleOnly = value1
+	return &out
+}
+
 // class: PermissionStatus
 type PermissionStatus struct {
 	domcore.EventTarget

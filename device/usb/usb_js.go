@@ -740,6 +740,46 @@ func PromiseUSBOutTransferResultOnRejectedFromJS(_value js.Value) PromiseUSBOutT
 	}
 }
 
+// dictionary: AllowedUSBDevice
+type AllowedUSBDevice struct {
+	VendorId     int
+	ProductId    int
+	SerialNumber string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AllowedUSBDevice) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.VendorId
+	out.Set("vendorId", value0)
+	value1 := _this.ProductId
+	out.Set("productId", value1)
+	value2 := _this.SerialNumber
+	out.Set("serialNumber", value2)
+	return out
+}
+
+// AllowedUSBDeviceFromJS is allocating a new
+// AllowedUSBDevice object and copy all values from
+// input javascript object
+func AllowedUSBDeviceFromJS(value js.Wrapper) *AllowedUSBDevice {
+	input := value.JSValue()
+	var out AllowedUSBDevice
+	var (
+		value0 int    // javascript: octet {vendorId VendorId vendorId}
+		value1 int    // javascript: octet {productId ProductId productId}
+		value2 string // javascript: DOMString {serialNumber SerialNumber serialNumber}
+	)
+	value0 = (input.Get("vendorId")).Int()
+	out.VendorId = value0
+	value1 = (input.Get("productId")).Int()
+	out.ProductId = value1
+	value2 = (input.Get("serialNumber")).String()
+	out.SerialNumber = value2
+	return &out
+}
+
 // dictionary: USBConnectionEventInit
 type USBConnectionEventInit struct {
 	Bubbles    bool
@@ -933,6 +973,92 @@ func USBDeviceRequestOptionsFromJS(value js.Wrapper) *USBDeviceRequestOptions {
 	}
 	value0 = __array0
 	out.Filters = value0
+	return &out
+}
+
+// dictionary: USBPermissionDescriptor
+type USBPermissionDescriptor struct {
+	Name    string
+	Filters []*USBDeviceFilter
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *USBPermissionDescriptor) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := js.Global().Get("Array").New(len(_this.Filters))
+	for __idx1, __seq_in1 := range _this.Filters {
+		__seq_out1 := __seq_in1.JSValue()
+		value1.SetIndex(__idx1, __seq_out1)
+	}
+	out.Set("filters", value1)
+	return out
+}
+
+// USBPermissionDescriptorFromJS is allocating a new
+// USBPermissionDescriptor object and copy all values from
+// input javascript object
+func USBPermissionDescriptorFromJS(value js.Wrapper) *USBPermissionDescriptor {
+	input := value.JSValue()
+	var out USBPermissionDescriptor
+	var (
+		value0 string             // javascript: DOMString {name Name name}
+		value1 []*USBDeviceFilter // javascript: sequence<USBDeviceFilter> {filters Filters filters}
+	)
+	value0 = (input.Get("name")).String()
+	out.Name = value0
+	__length1 := input.Get("filters").Length()
+	__array1 := make([]*USBDeviceFilter, __length1, __length1)
+	for __idx1 := 0; __idx1 < __length1; __idx1++ {
+		var __seq_out1 *USBDeviceFilter
+		__seq_in1 := input.Get("filters").Index(__idx1)
+		__seq_out1 = USBDeviceFilterFromJS(__seq_in1)
+		__array1[__idx1] = __seq_out1
+	}
+	value1 = __array1
+	out.Filters = value1
+	return &out
+}
+
+// dictionary: USBPermissionStorage
+type USBPermissionStorage struct {
+	AllowedDevices []*AllowedUSBDevice
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *USBPermissionStorage) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.AllowedDevices))
+	for __idx0, __seq_in0 := range _this.AllowedDevices {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("allowedDevices", value0)
+	return out
+}
+
+// USBPermissionStorageFromJS is allocating a new
+// USBPermissionStorage object and copy all values from
+// input javascript object
+func USBPermissionStorageFromJS(value js.Wrapper) *USBPermissionStorage {
+	input := value.JSValue()
+	var out USBPermissionStorage
+	var (
+		value0 []*AllowedUSBDevice // javascript: sequence<AllowedUSBDevice> {allowedDevices AllowedDevices allowedDevices}
+	)
+	__length0 := input.Get("allowedDevices").Length()
+	__array0 := make([]*AllowedUSBDevice, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *AllowedUSBDevice
+		__seq_in0 := input.Get("allowedDevices").Index(__idx0)
+		__seq_out0 = AllowedUSBDeviceFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.AllowedDevices = value0
 	return &out
 }
 

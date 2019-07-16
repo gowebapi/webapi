@@ -132,6 +132,90 @@ func BreakTypeFromJS(value js.Value) BreakType {
 	return conv
 }
 
+// enum: ChildDisplayType
+type ChildDisplayType int
+
+const (
+	BlockChildDisplayType ChildDisplayType = iota
+	NormalChildDisplayType
+)
+
+var childDisplayTypeToWasmTable = []string{
+	"block", "normal",
+}
+
+var childDisplayTypeFromWasmTable = map[string]ChildDisplayType{
+	"block": BlockChildDisplayType, "normal": NormalChildDisplayType,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *ChildDisplayType) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ChildDisplayType) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(childDisplayTypeToWasmTable) {
+		return childDisplayTypeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ChildDisplayTypeFromJS is converting a javascript value into
+// a ChildDisplayType enum value.
+func ChildDisplayTypeFromJS(value js.Value) ChildDisplayType {
+	key := value.String()
+	conv, ok := childDisplayTypeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: LayoutSizingMode
+type LayoutSizingMode int
+
+const (
+	BlockLikeLayoutSizingMode LayoutSizingMode = iota
+	ManualLayoutSizingMode
+)
+
+var layoutSizingModeToWasmTable = []string{
+	"block-like", "manual",
+}
+
+var layoutSizingModeFromWasmTable = map[string]LayoutSizingMode{
+	"block-like": BlockLikeLayoutSizingMode, "manual": ManualLayoutSizingMode,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *LayoutSizingMode) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this LayoutSizingMode) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(layoutSizingModeToWasmTable) {
+		return layoutSizingModeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// LayoutSizingModeFromJS is converting a javascript value into
+// a LayoutSizingMode enum value.
+func LayoutSizingModeFromJS(value js.Value) LayoutSizingMode {
+	key := value.String()
+	conv, ok := layoutSizingModeFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
 // callback: PromiseTemplateOnFulfilled
 type PromiseIntrinsicSizesOnFulfilledFunc func(value *IntrinsicSizes)
 
@@ -404,6 +488,40 @@ func FragmentResultOptionsFromJS(value js.Wrapper) *FragmentResultOptions {
 	return &out
 }
 
+// dictionary: IntrinsicSizesResultOptions
+type IntrinsicSizesResultOptions struct {
+	MaxContentSize float64
+	MinContentSize float64
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *IntrinsicSizesResultOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.MaxContentSize
+	out.Set("maxContentSize", value0)
+	value1 := _this.MinContentSize
+	out.Set("minContentSize", value1)
+	return out
+}
+
+// IntrinsicSizesResultOptionsFromJS is allocating a new
+// IntrinsicSizesResultOptions object and copy all values from
+// input javascript object
+func IntrinsicSizesResultOptionsFromJS(value js.Wrapper) *IntrinsicSizesResultOptions {
+	input := value.JSValue()
+	var out IntrinsicSizesResultOptions
+	var (
+		value0 float64 // javascript: double {maxContentSize MaxContentSize maxContentSize}
+		value1 float64 // javascript: double {minContentSize MinContentSize minContentSize}
+	)
+	value0 = (input.Get("maxContentSize")).Float()
+	out.MaxContentSize = value0
+	value1 = (input.Get("minContentSize")).Float()
+	out.MinContentSize = value1
+	return &out
+}
+
 // dictionary: LayoutConstraintsOptions
 type LayoutConstraintsOptions struct {
 	AvailableInlineSize      float64
@@ -477,6 +595,40 @@ func LayoutConstraintsOptionsFromJS(value js.Wrapper) *LayoutConstraintsOptions 
 	out.BlockFragmentationType = value7
 	value8 = input.Get("data")
 	out.Data = value8
+	return &out
+}
+
+// dictionary: LayoutOptions
+type LayoutOptions struct {
+	ChildDisplay ChildDisplayType
+	Sizing       LayoutSizingMode
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *LayoutOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.ChildDisplay.JSValue()
+	out.Set("childDisplay", value0)
+	value1 := _this.Sizing.JSValue()
+	out.Set("sizing", value1)
+	return out
+}
+
+// LayoutOptionsFromJS is allocating a new
+// LayoutOptions object and copy all values from
+// input javascript object
+func LayoutOptionsFromJS(value js.Wrapper) *LayoutOptions {
+	input := value.JSValue()
+	var out LayoutOptions
+	var (
+		value0 ChildDisplayType // javascript: ChildDisplayType {childDisplay ChildDisplay childDisplay}
+		value1 LayoutSizingMode // javascript: LayoutSizingMode {sizing Sizing sizing}
+	)
+	value0 = ChildDisplayTypeFromJS(input.Get("childDisplay"))
+	out.ChildDisplay = value0
+	value1 = LayoutSizingModeFromJS(input.Get("sizing"))
+	out.Sizing = value1
 	return &out
 }
 

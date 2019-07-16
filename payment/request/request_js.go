@@ -369,6 +369,100 @@ func AddressErrorsFromJS(value js.Wrapper) *AddressErrors {
 	return &out
 }
 
+// dictionary: AddressInit
+type AddressInit struct {
+	Country           string
+	AddressLine       []string
+	Region            string
+	City              string
+	DependentLocality string
+	PostalCode        string
+	SortingCode       string
+	Organization      string
+	Recipient         string
+	Phone             string
+}
+
+// JSValue is allocating a new javasript object and copy
+// all values
+func (_this *AddressInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Country
+	out.Set("country", value0)
+	value1 := js.Global().Get("Array").New(len(_this.AddressLine))
+	for __idx1, __seq_in1 := range _this.AddressLine {
+		__seq_out1 := __seq_in1
+		value1.SetIndex(__idx1, __seq_out1)
+	}
+	out.Set("addressLine", value1)
+	value2 := _this.Region
+	out.Set("region", value2)
+	value3 := _this.City
+	out.Set("city", value3)
+	value4 := _this.DependentLocality
+	out.Set("dependentLocality", value4)
+	value5 := _this.PostalCode
+	out.Set("postalCode", value5)
+	value6 := _this.SortingCode
+	out.Set("sortingCode", value6)
+	value7 := _this.Organization
+	out.Set("organization", value7)
+	value8 := _this.Recipient
+	out.Set("recipient", value8)
+	value9 := _this.Phone
+	out.Set("phone", value9)
+	return out
+}
+
+// AddressInitFromJS is allocating a new
+// AddressInit object and copy all values from
+// input javascript object
+func AddressInitFromJS(value js.Wrapper) *AddressInit {
+	input := value.JSValue()
+	var out AddressInit
+	var (
+		value0 string   // javascript: DOMString {country Country country}
+		value1 []string // javascript: sequence<DOMString> {addressLine AddressLine addressLine}
+		value2 string   // javascript: DOMString {region Region region}
+		value3 string   // javascript: DOMString {city City city}
+		value4 string   // javascript: DOMString {dependentLocality DependentLocality dependentLocality}
+		value5 string   // javascript: DOMString {postalCode PostalCode postalCode}
+		value6 string   // javascript: DOMString {sortingCode SortingCode sortingCode}
+		value7 string   // javascript: DOMString {organization Organization organization}
+		value8 string   // javascript: DOMString {recipient Recipient recipient}
+		value9 string   // javascript: DOMString {phone Phone phone}
+	)
+	value0 = (input.Get("country")).String()
+	out.Country = value0
+	__length1 := input.Get("addressLine").Length()
+	__array1 := make([]string, __length1, __length1)
+	for __idx1 := 0; __idx1 < __length1; __idx1++ {
+		var __seq_out1 string
+		__seq_in1 := input.Get("addressLine").Index(__idx1)
+		__seq_out1 = (__seq_in1).String()
+		__array1[__idx1] = __seq_out1
+	}
+	value1 = __array1
+	out.AddressLine = value1
+	value2 = (input.Get("region")).String()
+	out.Region = value2
+	value3 = (input.Get("city")).String()
+	out.City = value3
+	value4 = (input.Get("dependentLocality")).String()
+	out.DependentLocality = value4
+	value5 = (input.Get("postalCode")).String()
+	out.PostalCode = value5
+	value6 = (input.Get("sortingCode")).String()
+	out.SortingCode = value6
+	value7 = (input.Get("organization")).String()
+	out.Organization = value7
+	value8 = (input.Get("recipient")).String()
+	out.Recipient = value8
+	value9 = (input.Get("phone")).String()
+	out.Phone = value9
+	return &out
+}
+
 // dictionary: MerchantValidationEventInit
 type MerchantValidationEventInit struct {
 	Bubbles       bool
