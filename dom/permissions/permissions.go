@@ -25,20 +25,6 @@ import (
 // permissions.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -73,7 +59,7 @@ var permissionStateFromWasmTable = map[string]PermissionState{
 	"granted": GrantedPermissionState, "denied": DeniedPermissionState, "prompt": PromptPermissionState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PermissionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -177,7 +163,7 @@ func PromisePermissionStatusOnRejectedFromJS(_value js.Value) PromisePermissionS
 	}
 }
 
-// interface: PermissionStatus
+// class: PermissionStatus
 type PermissionStatus struct {
 	domcore.EventTarget
 }
@@ -226,7 +212,7 @@ func (_this *PermissionStatus) SetOnchange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onchange", input)
 }
 
-// interface: Permissions
+// class: Permissions
 type Permissions struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -264,7 +250,7 @@ func (_this *Permissions) Query(permissionDesc *javascript.Object) (_result *Pro
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePermissionStatus struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

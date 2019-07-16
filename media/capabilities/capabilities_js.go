@@ -22,20 +22,6 @@ import (
 // media-capabilities.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var mediaDecodingTypeFromWasmTable = map[string]MediaDecodingType{
 	"file": FileMediaDecodingType, "media-source": MediaSourceMediaDecodingType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaDecodingType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -111,7 +97,7 @@ var mediaEncodingTypeFromWasmTable = map[string]MediaEncodingType{
 	"record": RecordMediaEncodingType, "transmission": TransmissionMediaEncodingType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaEncodingType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -154,7 +140,7 @@ var screenColorGamutFromWasmTable = map[string]ScreenColorGamut{
 	"srgb": SrgbScreenColorGamut, "p3": P3ScreenColorGamut, "rec2020": Rec2020ScreenColorGamut,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScreenColorGamut) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -716,7 +702,7 @@ func VideoConfigurationFromJS(value js.Wrapper) *VideoConfiguration {
 	return &out
 }
 
-// interface: MediaCapabilities
+// class: MediaCapabilities
 type MediaCapabilities struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -771,7 +757,7 @@ func (_this *MediaCapabilities) EncodingInfo(configuration *MediaEncodingConfigu
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseMediaCapabilitiesDecodingInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -876,7 +862,7 @@ func (_this *PromiseMediaCapabilitiesDecodingInfo) Finally(onFinally *javascript
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseMediaCapabilitiesInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -981,7 +967,7 @@ func (_this *PromiseMediaCapabilitiesInfo) Finally(onFinally *javascript.Promise
 	return
 }
 
-// interface: ScreenLuminance
+// class: ScreenLuminance
 type ScreenLuminance struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

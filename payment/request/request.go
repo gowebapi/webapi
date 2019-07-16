@@ -30,20 +30,6 @@ import (
 // payment-request.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -78,7 +64,7 @@ var paymentCompleteFromWasmTable = map[string]PaymentComplete{
 	"fail": FailPaymentComplete, "success": SuccessPaymentComplete, "unknown": UnknownPaymentComplete,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PaymentComplete) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -121,7 +107,7 @@ var paymentShippingTypeFromWasmTable = map[string]PaymentShippingType{
 	"shipping": ShippingPaymentShippingType, "delivery": DeliveryPaymentShippingType, "pickup": PickupPaymentShippingType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PaymentShippingType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -1157,7 +1143,7 @@ func PaymentValidationErrorsFromJS(value js.Wrapper) *PaymentValidationErrors {
 	return &out
 }
 
-// interface: MerchantValidationEvent
+// class: MerchantValidationEvent
 type MerchantValidationEvent struct {
 	domcore.Event
 }
@@ -1226,7 +1212,7 @@ func (_this *MerchantValidationEvent) Complete(merchantSessionPromise *javascrip
 	return
 }
 
-// interface: PaymentAddress
+// class: PaymentAddress
 type PaymentAddress struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1351,7 +1337,7 @@ func (_this *PaymentAddress) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: PaymentMethodChangeEvent
+// class: PaymentMethodChangeEvent
 type PaymentMethodChangeEvent struct {
 	PaymentRequestUpdateEvent
 }
@@ -1410,7 +1396,7 @@ func (_this *PaymentMethodChangeEvent) MethodDetails() *javascript.Object {
 	return ret
 }
 
-// interface: PaymentRequest
+// class: PaymentRequest
 type PaymentRequest struct {
 	domcore.EventTarget
 }
@@ -1643,7 +1629,7 @@ func (_this *PaymentRequest) CanMakePayment() (_result *javascript.PromiseBool) 
 	return
 }
 
-// interface: PaymentRequestUpdateEvent
+// class: PaymentRequestUpdateEvent
 type PaymentRequestUpdateEvent struct {
 	domcore.Event
 }
@@ -1694,7 +1680,7 @@ func (_this *PaymentRequestUpdateEvent) UpdateWith(detailsPromise *PromisePaymen
 	return
 }
 
-// interface: PaymentResponse
+// class: PaymentResponse
 type PaymentResponse struct {
 	domcore.EventTarget
 }
@@ -1872,7 +1858,7 @@ func (_this *PaymentResponse) Retry(errorFields *PaymentValidationErrors) (_resu
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePaymentDetailsUpdate struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1977,7 +1963,7 @@ func (_this *PromisePaymentDetailsUpdate) Finally(onFinally *javascript.PromiseF
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePaymentResponse struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -18,20 +18,6 @@ import (
 // transform files:
 // selection-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -49,7 +35,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: Selection
+// class: Selection
 type Selection struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

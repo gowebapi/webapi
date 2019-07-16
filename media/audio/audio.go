@@ -43,20 +43,6 @@ import (
 // promises.go.md
 // webaudio.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -91,7 +77,7 @@ var audioContextLatencyCategoryFromWasmTable = map[string]AudioContextLatencyCat
 	"balanced": BalancedAudioContextLatencyCategory, "interactive": InteractiveAudioContextLatencyCategory, "playback": PlaybackAudioContextLatencyCategory,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AudioContextLatencyCategory) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -134,7 +120,7 @@ var audioContextStateFromWasmTable = map[string]AudioContextState{
 	"suspended": SuspendedAudioContextState, "running": RunningAudioContextState, "closed": ClosedAudioContextState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AudioContextState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -176,7 +162,7 @@ var automationRateFromWasmTable = map[string]AutomationRate{
 	"a-rate": ARateAutomationRate, "k-rate": KRateAutomationRate,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AutomationRate) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -224,7 +210,7 @@ var biquadFilterTypeFromWasmTable = map[string]BiquadFilterType{
 	"lowpass": LowpassBiquadFilterType, "highpass": HighpassBiquadFilterType, "bandpass": BandpassBiquadFilterType, "lowshelf": LowshelfBiquadFilterType, "highshelf": HighshelfBiquadFilterType, "peaking": PeakingBiquadFilterType, "notch": NotchBiquadFilterType, "allpass": AllpassBiquadFilterType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BiquadFilterType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -267,7 +253,7 @@ var channelCountModeFromWasmTable = map[string]ChannelCountMode{
 	"max": MaxChannelCountMode, "clamped-max": ClampedMaxChannelCountMode, "explicit": ExplicitChannelCountMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ChannelCountMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -309,7 +295,7 @@ var channelInterpretationFromWasmTable = map[string]ChannelInterpretation{
 	"speakers": SpeakersChannelInterpretation, "discrete": DiscreteChannelInterpretation,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ChannelInterpretation) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -352,7 +338,7 @@ var distanceModelTypeFromWasmTable = map[string]DistanceModelType{
 	"linear": LinearDistanceModelType, "inverse": InverseDistanceModelType, "exponential": ExponentialDistanceModelType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DistanceModelType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -397,7 +383,7 @@ var oscillatorTypeFromWasmTable = map[string]OscillatorType{
 	"sine": SineOscillatorType, "square": SquareOscillatorType, "sawtooth": SawtoothOscillatorType, "triangle": TriangleOscillatorType, "custom": CustomOscillatorType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *OscillatorType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -440,7 +426,7 @@ var overSampleTypeFromWasmTable = map[string]OverSampleType{
 	"none": NoneOverSampleType, "2x": _2xOverSampleType, "4x": _4xOverSampleType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *OverSampleType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -482,7 +468,7 @@ var panningModelTypeFromWasmTable = map[string]PanningModelType{
 	"equalpower": EqualpowerPanningModelType, "HRTF": HRTFPanningModelType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PanningModelType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -2183,7 +2169,7 @@ func WaveShaperOptionsFromJS(value js.Wrapper) *WaveShaperOptions {
 	return &out
 }
 
-// interface: AnalyserNode
+// class: AnalyserNode
 type AnalyserNode struct {
 	AudioNode
 }
@@ -2343,7 +2329,7 @@ func (_this *AnalyserNode) GetByteTimeDomainData(array *javascript.Uint8Array) {
 	return
 }
 
-// interface: AudioBuffer
+// class: AudioBuffer
 type AudioBuffer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2475,7 +2461,7 @@ func (_this *AudioBuffer) CopyToChannel(source *javascript.Float32Array, channel
 	return
 }
 
-// interface: AudioBufferSourceNode
+// class: AudioBufferSourceNode
 type AudioBufferSourceNode struct {
 	AudioScheduledSourceNode
 }
@@ -2622,7 +2608,7 @@ func (_this *AudioBufferSourceNode) Start2(when *float64, offset *float64, durat
 	return
 }
 
-// interface: AudioContext
+// class: AudioContext
 type AudioContext struct {
 	BaseAudioContext
 }
@@ -2797,7 +2783,7 @@ func (_this *AudioContext) CreateMediaStreamDestination() (_result *MediaStreamA
 	return
 }
 
-// interface: AudioDestinationNode
+// class: AudioDestinationNode
 type AudioDestinationNode struct {
 	AudioNode
 }
@@ -2822,7 +2808,7 @@ func (_this *AudioDestinationNode) MaxChannelCount() uint {
 	return ret
 }
 
-// interface: AudioListener
+// class: AudioListener
 type AudioListener struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2969,7 +2955,7 @@ func (_this *AudioListener) SetOrientation(x float32, y float32, z float32, xUp 
 	return
 }
 
-// interface: AudioNode
+// class: AudioNode
 type AudioNode struct {
 	domcore.EventTarget
 }
@@ -3197,7 +3183,7 @@ func (_this *AudioNode) Disconnect7(destinationParam *AudioParam, output uint) {
 	return
 }
 
-// interface: AudioParam
+// class: AudioParam
 type AudioParam struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3417,7 +3403,7 @@ func (_this *AudioParam) CancelAndHoldAtTime(cancelTime float64) (_result *Audio
 	return
 }
 
-// interface: AudioParamMap
+// class: AudioParamMap
 type AudioParamMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3549,7 +3535,7 @@ func (_this *AudioParamMap) Has(key string) (_result bool) {
 	return
 }
 
-// interface: AudioParamMapEntryIterator
+// class: AudioParamMapEntryIterator
 type AudioParamMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3584,7 +3570,7 @@ func (_this *AudioParamMapEntryIterator) Next() (_result *AudioParamMapEntryIter
 	return
 }
 
-// interface: AudioParamMapKeyIterator
+// class: AudioParamMapKeyIterator
 type AudioParamMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3619,7 +3605,7 @@ func (_this *AudioParamMapKeyIterator) Next() (_result *AudioParamMapKeyIterator
 	return
 }
 
-// interface: AudioParamMapValueIterator
+// class: AudioParamMapValueIterator
 type AudioParamMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3654,7 +3640,7 @@ func (_this *AudioParamMapValueIterator) Next() (_result *AudioParamMapValueIter
 	return
 }
 
-// interface: AudioProcessingEvent
+// class: AudioProcessingEvent
 type AudioProcessingEvent struct {
 	domcore.Event
 }
@@ -3718,7 +3704,7 @@ func (_this *AudioProcessingEvent) OutputBuffer() *AudioBuffer {
 	return ret
 }
 
-// interface: AudioScheduledSourceNode
+// class: AudioScheduledSourceNode
 type AudioScheduledSourceNode struct {
 	AudioNode
 }
@@ -3786,7 +3772,7 @@ func (_this *AudioScheduledSourceNode) Stop(when *float64) {
 	return
 }
 
-// interface: AudioWorklet
+// class: AudioWorklet
 type AudioWorklet struct {
 	worklets.Worklet
 }
@@ -3802,7 +3788,7 @@ func AudioWorkletFromJS(value js.Wrapper) *AudioWorklet {
 	return ret
 }
 
-// interface: AudioWorkletGlobalScope
+// class: AudioWorkletGlobalScope
 type AudioWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }
@@ -3867,7 +3853,7 @@ func (_this *AudioWorkletGlobalScope) RegisterProcessor(name string, processorCt
 	return
 }
 
-// interface: AudioWorkletNode
+// class: AudioWorkletNode
 type AudioWorkletNode struct {
 	AudioNode
 }
@@ -3951,7 +3937,7 @@ func (_this *AudioWorkletNode) SetOnprocessorerror(value *domcore.EventHandler) 
 	_this.Value_JS.Set("onprocessorerror", input)
 }
 
-// interface: AudioWorkletProcessor
+// class: AudioWorkletProcessor
 type AudioWorkletProcessor struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4001,7 +3987,7 @@ func (_this *AudioWorkletProcessor) Port() *channel.MessagePort {
 	return ret
 }
 
-// interface: BaseAudioContext
+// class: BaseAudioContext
 type BaseAudioContext struct {
 	domcore.EventTarget
 }
@@ -4444,7 +4430,7 @@ func (_this *BaseAudioContext) DecodeAudioData(audioData *javascript.ArrayBuffer
 	return
 }
 
-// interface: BiquadFilterNode
+// class: BiquadFilterNode
 type BiquadFilterNode struct {
 	AudioNode
 }
@@ -4553,7 +4539,7 @@ func (_this *BiquadFilterNode) GetFrequencyResponse(frequencyHz *javascript.Floa
 	return
 }
 
-// interface: ChannelMergerNode
+// class: ChannelMergerNode
 type ChannelMergerNode struct {
 	AudioNode
 }
@@ -4592,7 +4578,7 @@ func NewChannelMergerNode(context *BaseAudioContext, options *ChannelMergerOptio
 	return
 }
 
-// interface: ChannelSplitterNode
+// class: ChannelSplitterNode
 type ChannelSplitterNode struct {
 	AudioNode
 }
@@ -4631,7 +4617,7 @@ func NewChannelSplitterNode(context *BaseAudioContext, options *ChannelSplitterO
 	return
 }
 
-// interface: ConstantSourceNode
+// class: ConstantSourceNode
 type ConstantSourceNode struct {
 	AudioScheduledSourceNode
 }
@@ -4679,7 +4665,7 @@ func (_this *ConstantSourceNode) Offset() *AudioParam {
 	return ret
 }
 
-// interface: ConvolverNode
+// class: ConvolverNode
 type ConvolverNode struct {
 	AudioNode
 }
@@ -4752,7 +4738,7 @@ func (_this *ConvolverNode) SetNormalize(value bool) {
 	_this.Value_JS.Set("normalize", input)
 }
 
-// interface: DelayNode
+// class: DelayNode
 type DelayNode struct {
 	AudioNode
 }
@@ -4800,7 +4786,7 @@ func (_this *DelayNode) DelayTime() *AudioParam {
 	return ret
 }
 
-// interface: DynamicsCompressorNode
+// class: DynamicsCompressorNode
 type DynamicsCompressorNode struct {
 	AudioNode
 }
@@ -4893,7 +4879,7 @@ func (_this *DynamicsCompressorNode) Release() *AudioParam {
 	return ret
 }
 
-// interface: GainNode
+// class: GainNode
 type GainNode struct {
 	AudioNode
 }
@@ -4941,7 +4927,7 @@ func (_this *GainNode) Gain() *AudioParam {
 	return ret
 }
 
-// interface: IIRFilterNode
+// class: IIRFilterNode
 type IIRFilterNode struct {
 	AudioNode
 }
@@ -4996,7 +4982,7 @@ func (_this *IIRFilterNode) GetFrequencyResponse(frequencyHz *javascript.Float32
 	return
 }
 
-// interface: MediaElementAudioSourceNode
+// class: MediaElementAudioSourceNode
 type MediaElementAudioSourceNode struct {
 	AudioNode
 }
@@ -5042,7 +5028,7 @@ func (_this *MediaElementAudioSourceNode) MediaElement() *media.HTMLMediaElement
 	return ret
 }
 
-// interface: MediaStreamAudioDestinationNode
+// class: MediaStreamAudioDestinationNode
 type MediaStreamAudioDestinationNode struct {
 	AudioNode
 }
@@ -5090,7 +5076,7 @@ func (_this *MediaStreamAudioDestinationNode) Stream() *local.MediaStream {
 	return ret
 }
 
-// interface: MediaStreamAudioSourceNode
+// class: MediaStreamAudioSourceNode
 type MediaStreamAudioSourceNode struct {
 	AudioNode
 }
@@ -5136,7 +5122,7 @@ func (_this *MediaStreamAudioSourceNode) MediaStream() *local.MediaStream {
 	return ret
 }
 
-// interface: MediaStreamTrackAudioSourceNode
+// class: MediaStreamTrackAudioSourceNode
 type MediaStreamTrackAudioSourceNode struct {
 	AudioNode
 }
@@ -5173,7 +5159,7 @@ func NewMediaStreamTrackAudioSourceNode(context *AudioContext, options *MediaStr
 	return
 }
 
-// interface: OfflineAudioCompletionEvent
+// class: OfflineAudioCompletionEvent
 type OfflineAudioCompletionEvent struct {
 	domcore.Event
 }
@@ -5219,7 +5205,7 @@ func (_this *OfflineAudioCompletionEvent) RenderedBuffer() *AudioBuffer {
 	return ret
 }
 
-// interface: OfflineAudioContext
+// class: OfflineAudioContext
 type OfflineAudioContext struct {
 	BaseAudioContext
 }
@@ -5337,7 +5323,7 @@ func (_this *OfflineAudioContext) Suspend(suspendTime float64) (_result *javascr
 	return
 }
 
-// interface: OscillatorNode
+// class: OscillatorNode
 type OscillatorNode struct {
 	AudioScheduledSourceNode
 }
@@ -5422,7 +5408,7 @@ func (_this *OscillatorNode) SetPeriodicWave(periodicWave *PeriodicWave) {
 	return
 }
 
-// interface: PannerNode
+// class: PannerNode
 type PannerNode struct {
 	AudioNode
 }
@@ -5679,7 +5665,7 @@ func (_this *PannerNode) SetOrientation(x float32, y float32, z float32) {
 	return
 }
 
-// interface: PeriodicWave
+// class: PeriodicWave
 type PeriodicWave struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5723,7 +5709,7 @@ func NewPeriodicWave(context *BaseAudioContext, options *PeriodicWaveOptions) (_
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseAudioBuffer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5828,7 +5814,7 @@ func (_this *PromiseAudioBuffer) Finally(onFinally *javascript.PromiseFinally) (
 	return
 }
 
-// interface: ScriptProcessorNode
+// class: ScriptProcessorNode
 type ScriptProcessorNode struct {
 	AudioNode
 }
@@ -5877,7 +5863,7 @@ func (_this *ScriptProcessorNode) BufferSize() int {
 	return ret
 }
 
-// interface: StereoPannerNode
+// class: StereoPannerNode
 type StereoPannerNode struct {
 	AudioNode
 }
@@ -5925,7 +5911,7 @@ func (_this *StereoPannerNode) Pan() *AudioParam {
 	return ret
 }
 
-// interface: WaveShaperNode
+// class: WaveShaperNode
 type WaveShaperNode struct {
 	AudioNode
 }

@@ -18,20 +18,6 @@ import (
 // transform files:
 // netinfo.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var connectionTypeFromWasmTable = map[string]ConnectionType{
 	"bluetooth": BluetoothConnectionType, "cellular": CellularConnectionType, "ethernet": EthernetConnectionType, "mixed": MixedConnectionType, "none": NoneConnectionType, "other": OtherConnectionType, "unknown": UnknownConnectionType, "wifi": WifiConnectionType, "wimax": WimaxConnectionType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ConnectionType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -116,7 +102,7 @@ var effectiveConnectionTypeFromWasmTable = map[string]EffectiveConnectionType{
 	"2g": _2gEffectiveConnectionType, "3g": _3gEffectiveConnectionType, "4g": _4gEffectiveConnectionType, "slow-2g": Slow2gEffectiveConnectionType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *EffectiveConnectionType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -142,7 +128,7 @@ func EffectiveConnectionTypeFromJS(value js.Value) EffectiveConnectionType {
 	return conv
 }
 
-// interface: NetworkInformation
+// class: NetworkInformation
 type NetworkInformation struct {
 	domcore.EventTarget
 }

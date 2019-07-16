@@ -20,20 +20,6 @@ import (
 // transform files:
 // css-device-adapt.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -51,7 +37,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: CSSViewportRule
+// class: CSSViewportRule
 type CSSViewportRule struct {
 	cssom.CSSRule
 }

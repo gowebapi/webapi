@@ -17,20 +17,6 @@ import (
 // transform files:
 // webappsec-feature-policy.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -48,7 +34,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: FeaturePolicy
+// class: FeaturePolicy
 type FeaturePolicy struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -160,7 +146,7 @@ func (_this *FeaturePolicy) GetAllowlistForFeature(feature string) (_result []st
 	return
 }
 
-// interface: FeaturePolicyViolationReportBody
+// class: FeaturePolicyViolationReportBody
 type ViolationReportBody struct {
 	reporting.ReportBody
 }

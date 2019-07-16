@@ -28,20 +28,6 @@ import (
 // html.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -75,7 +61,7 @@ var endingTypeFromWasmTable = map[string]EndingType{
 	"transparent": TransparentEndingType, "native": NativeEndingType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *EndingType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -294,7 +280,7 @@ func FilePropertyBagFromJS(value js.Wrapper) *FilePropertyBag {
 	return &out
 }
 
-// interface: Blob
+// class: Blob
 type Blob struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -391,7 +377,7 @@ func (_this *Blob) Slice(start *int, end *int, contentType *string) (_result *Bl
 	return
 }
 
-// interface: File
+// class: File
 type File struct {
 	Blob
 }
@@ -464,7 +450,7 @@ func (_this *File) WebkitRelativePath() string {
 	return ret
 }
 
-// interface: FileList
+// class: FileList
 type FileList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -532,7 +518,7 @@ func (_this *FileList) Item(index uint) (_result *File) {
 	return
 }
 
-// interface: FileReader
+// class: FileReader
 type FileReader struct {
 	domcore.EventTarget
 }
@@ -806,7 +792,7 @@ func (_this *FileReader) Abort() {
 	return
 }
 
-// interface: FileReaderSync
+// class: FileReaderSync
 type FileReaderSync struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -915,7 +901,7 @@ func (_this *FileReaderSync) ReadAsDataURL(blob *Blob) (_result string) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseBlob struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

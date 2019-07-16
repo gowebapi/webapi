@@ -25,20 +25,6 @@ import (
 // picture-in-picture.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -180,7 +166,7 @@ func EnterPictureInPictureEventInitFromJS(value js.Wrapper) *EnterPictureInPictu
 	return &out
 }
 
-// interface: EnterPictureInPictureEvent
+// class: EnterPictureInPictureEvent
 type EnterPictureInPictureEvent struct {
 	domcore.Event
 }
@@ -226,7 +212,7 @@ func (_this *EnterPictureInPictureEvent) PictureInPictureWindow() *PictureInPict
 	return ret
 }
 
-// interface: PictureInPictureWindow
+// class: PictureInPictureWindow
 type PictureInPictureWindow struct {
 	domcore.EventTarget
 }
@@ -284,7 +270,7 @@ func (_this *PictureInPictureWindow) SetOnresize(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onresize", input)
 }
 
-// interface: Promise
+// class: Promise
 type PromisePictureInPictureWindow struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

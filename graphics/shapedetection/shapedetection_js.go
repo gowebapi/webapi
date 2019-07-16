@@ -22,20 +22,6 @@ import (
 // promises.go.md
 // shape-detection-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -81,7 +67,7 @@ var barcodeFormatFromWasmTable = map[string]BarcodeFormat{
 	"aztec": AztecBarcodeFormat, "code_128": Code128BarcodeFormat, "code_39": Code39BarcodeFormat, "code_93": Code93BarcodeFormat, "codabar": CodabarBarcodeFormat, "data_matrix": DataMatrixBarcodeFormat, "ean_13": Ean13BarcodeFormat, "ean_8": Ean8BarcodeFormat, "itf": ItfBarcodeFormat, "pdf417": Pdf417BarcodeFormat, "qr_code": QrCodeBarcodeFormat, "unknown": UnknownBarcodeFormat, "upc_a": UpcABarcodeFormat, "upc_e": UpcEBarcodeFormat,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BarcodeFormat) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -124,7 +110,7 @@ var landmarkTypeFromWasmTable = map[string]LandmarkType{
 	"mouth": MouthLandmarkType, "eye": EyeLandmarkType, "nose": NoseLandmarkType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *LandmarkType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -528,7 +514,7 @@ func LandmarkFromJS(value js.Wrapper) *Landmark {
 	return &out
 }
 
-// interface: BarcodeDetector
+// class: BarcodeDetector
 type BarcodeDetector struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -602,7 +588,7 @@ func (_this *BarcodeDetector) Detect(image *Union) (_result *PromiseSequenceDete
 	return
 }
 
-// interface: DetectedBarcode
+// class: DetectedBarcode
 type DetectedBarcode struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -659,7 +645,7 @@ func (_this *DetectedBarcode) CornerPoints() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: DetectedFace
+// class: DetectedFace
 type DetectedFace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -700,7 +686,7 @@ func (_this *DetectedFace) Landmarks() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: FaceDetector
+// class: FaceDetector
 type FaceDetector struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -758,7 +744,7 @@ func (_this *FaceDetector) Detect(image *Union) (_result *PromiseSequenceDetecte
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceBarcodeFormat struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -863,7 +849,7 @@ func (_this *PromiseSequenceBarcodeFormat) Finally(onFinally *javascript.Promise
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceDetectedBarcode struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -968,7 +954,7 @@ func (_this *PromiseSequenceDetectedBarcode) Finally(onFinally *javascript.Promi
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceDetectedFace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

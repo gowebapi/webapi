@@ -39,20 +39,6 @@ import (
 // html.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -87,7 +73,7 @@ var canvasDirectionFromWasmTable = map[string]CanvasDirection{
 	"ltr": LtrCanvasDirection, "rtl": RtlCanvasDirection, "inherit": InheritCanvasDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -129,7 +115,7 @@ var canvasFillRuleFromWasmTable = map[string]CanvasFillRule{
 	"nonzero": NonzeroCanvasFillRule, "evenodd": EvenoddCanvasFillRule,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasFillRule) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -172,7 +158,7 @@ var canvasLineCapFromWasmTable = map[string]CanvasLineCap{
 	"butt": ButtCanvasLineCap, "round": RoundCanvasLineCap, "square": SquareCanvasLineCap,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasLineCap) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -215,7 +201,7 @@ var canvasLineJoinFromWasmTable = map[string]CanvasLineJoin{
 	"round": RoundCanvasLineJoin, "bevel": BevelCanvasLineJoin, "miter": MiterCanvasLineJoin,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasLineJoin) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -260,7 +246,7 @@ var canvasTextAlignFromWasmTable = map[string]CanvasTextAlign{
 	"start": StartCanvasTextAlign, "end": EndCanvasTextAlign, "left": LeftCanvasTextAlign, "right": RightCanvasTextAlign, "center": CenterCanvasTextAlign,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasTextAlign) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -306,7 +292,7 @@ var canvasTextBaselineFromWasmTable = map[string]CanvasTextBaseline{
 	"top": TopCanvasTextBaseline, "hanging": HangingCanvasTextBaseline, "middle": MiddleCanvasTextBaseline, "alphabetic": AlphabeticCanvasTextBaseline, "ideographic": IdeographicCanvasTextBaseline, "bottom": BottomCanvasTextBaseline,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanvasTextBaseline) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -348,7 +334,7 @@ var colorSpaceConversionFromWasmTable = map[string]ColorSpaceConversion{
 	"none": NoneColorSpaceConversion, "default": DefaultColorSpaceConversion,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ColorSpaceConversion) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -390,7 +376,7 @@ var imageOrientationFromWasmTable = map[string]ImageOrientation{
 	"none": NoneImageOrientation, "flipY": FlipYImageOrientation,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ImageOrientation) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -433,7 +419,7 @@ var imageSmoothingQualityFromWasmTable = map[string]ImageSmoothingQuality{
 	"low": LowImageSmoothingQuality, "medium": MediumImageSmoothingQuality, "high": HighImageSmoothingQuality,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ImageSmoothingQuality) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -476,7 +462,7 @@ var premultiplyAlphaFromWasmTable = map[string]PremultiplyAlpha{
 	"none": NonePremultiplyAlpha, "premultiply": PremultiplyPremultiplyAlpha, "default": DefaultPremultiplyAlpha,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PremultiplyAlpha) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -520,7 +506,7 @@ var resizeQualityFromWasmTable = map[string]ResizeQuality{
 	"pixelated": PixelatedResizeQuality, "low": LowResizeQuality, "medium": MediumResizeQuality, "high": HighResizeQuality,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ResizeQuality) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -710,7 +696,7 @@ func ImageBitmapOptionsFromJS(value js.Wrapper) *ImageBitmapOptions {
 	return &out
 }
 
-// interface: CanvasGradient
+// class: CanvasGradient
 type CanvasGradient struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -746,7 +732,7 @@ func (_this *CanvasGradient) AddColorStop(offset float64, color string) {
 	return
 }
 
-// interface: CanvasPattern
+// class: CanvasPattern
 type CanvasPattern struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -781,7 +767,7 @@ func (_this *CanvasPattern) SetTransform(transform *geometry.DOMMatrix2DInit) {
 	return
 }
 
-// interface: CanvasRenderingContext2D
+// class: CanvasRenderingContext2D
 type CanvasRenderingContext2D struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2149,7 +2135,7 @@ func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX flo
 	return
 }
 
-// interface: HTMLCanvasElement
+// class: HTMLCanvasElement
 type HTMLCanvasElement struct {
 	html.HTMLElement
 }
@@ -2307,7 +2293,7 @@ func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_resul
 	return
 }
 
-// interface: ImageBitmap
+// class: ImageBitmap
 type ImageBitmap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2355,7 +2341,7 @@ func (_this *ImageBitmap) Close() {
 	return
 }
 
-// interface: ImageBitmapRenderingContext
+// class: ImageBitmapRenderingContext
 type ImageBitmapRenderingContext struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2397,7 +2383,7 @@ func (_this *ImageBitmapRenderingContext) TransferFromImageBitmap(bitmap *ImageB
 	return
 }
 
-// interface: ImageData
+// class: ImageData
 type ImageData struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2471,7 +2457,7 @@ func (_this *ImageData) Data() *patch.Uint8ClampedArray {
 	return ret
 }
 
-// interface: OffscreenCanvas
+// class: OffscreenCanvas
 type OffscreenCanvas struct {
 	domcore.EventTarget
 }
@@ -2597,7 +2583,7 @@ func (_this *OffscreenCanvas) ConvertToBlob(options *html.ImageEncodeOptions) (_
 	return
 }
 
-// interface: OffscreenCanvasRenderingContext2D
+// class: OffscreenCanvasRenderingContext2D
 type OffscreenCanvasRenderingContext2D struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3912,7 +3898,7 @@ func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, ra
 	return
 }
 
-// interface: Path2D
+// class: Path2D
 type Path2D struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4166,7 +4152,7 @@ func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY floa
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseImageBitmap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4271,7 +4257,7 @@ func (_this *PromiseImageBitmap) Finally(onFinally *javascript.PromiseFinally) (
 	return
 }
 
-// interface: TextMetrics
+// class: TextMetrics
 type TextMetrics struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

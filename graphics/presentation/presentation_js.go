@@ -30,20 +30,6 @@ import (
 // presentation-api.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -78,7 +64,7 @@ var presentationConnectionCloseReasonFromWasmTable = map[string]ConnectionCloseR
 	"error": ReasonError, "closed": ReasonClosed, "wentaway": ReasonWentaway,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ConnectionCloseReason) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -122,7 +108,7 @@ var presentationConnectionStateFromWasmTable = map[string]ConnectionState{
 	"connecting": StateConnecting, "connected": StateConnected, "closed": StateClosed, "terminated": StateTerminated,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ConnectionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -402,7 +388,7 @@ func ConnectionCloseEventInitFromJS(value js.Wrapper) *ConnectionCloseEventInit 
 	return &out
 }
 
-// interface: PresentationAvailability
+// class: PresentationAvailability
 type Availability struct {
 	domcore.EventTarget
 }
@@ -451,7 +437,7 @@ func (_this *Availability) SetOnchange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onchange", input)
 }
 
-// interface: PresentationConnection
+// class: PresentationConnection
 type Connection struct {
 	domcore.EventTarget
 }
@@ -672,7 +658,7 @@ func (_this *Connection) Send4(data *Union) {
 	return
 }
 
-// interface: PresentationConnectionAvailableEvent
+// class: PresentationConnectionAvailableEvent
 type ConnectionAvailableEvent struct {
 	domcore.Event
 }
@@ -718,7 +704,7 @@ func (_this *ConnectionAvailableEvent) Connection() *Connection {
 	return ret
 }
 
-// interface: PresentationConnectionCloseEvent
+// class: PresentationConnectionCloseEvent
 type ConnectionCloseEvent struct {
 	domcore.Event
 }
@@ -773,7 +759,7 @@ func (_this *ConnectionCloseEvent) Message() string {
 	return ret
 }
 
-// interface: PresentationConnectionList
+// class: PresentationConnectionList
 type ConnectionList struct {
 	domcore.EventTarget
 }
@@ -822,7 +808,7 @@ func (_this *ConnectionList) SetOnconnectionavailable(value *domcore.EventHandle
 	_this.Value_JS.Set("onconnectionavailable", input)
 }
 
-// interface: Presentation
+// class: Presentation
 type Presentation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -872,7 +858,7 @@ func (_this *Presentation) Receiver() *Receiver {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseAvailability struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -977,7 +963,7 @@ func (_this *PromiseAvailability) Finally(onFinally *javascript.PromiseFinally) 
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseConnection struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1082,7 +1068,7 @@ func (_this *PromiseConnection) Finally(onFinally *javascript.PromiseFinally) (_
 	return
 }
 
-// interface: PresentationReceiver
+// class: PresentationReceiver
 type Receiver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1112,7 +1098,7 @@ func (_this *Receiver) ConnectionList() *javascript.Promise {
 	return ret
 }
 
-// interface: PresentationRequest
+// class: PresentationRequest
 type Request struct {
 	domcore.EventTarget
 }

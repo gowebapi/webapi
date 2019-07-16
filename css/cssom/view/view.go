@@ -29,20 +29,6 @@ import (
 // transform files:
 // cssom-view.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -78,7 +64,7 @@ var cSSBoxTypeFromWasmTable = map[string]CSSBoxType{
 	"margin": MarginCSSBoxType, "border": BorderCSSBoxType, "padding": PaddingCSSBoxType, "content": ContentCSSBoxType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CSSBoxType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -120,7 +106,7 @@ var scrollBehaviorFromWasmTable = map[string]ScrollBehavior{
 	"auto": AutoScrollBehavior, "smooth": SmoothScrollBehavior,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollBehavior) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -164,7 +150,7 @@ var scrollLogicalPositionFromWasmTable = map[string]ScrollLogicalPosition{
 	"start": StartScrollLogicalPosition, "center": CenterScrollLogicalPosition, "end": EndScrollLogicalPosition, "nearest": NearestScrollLogicalPosition,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollLogicalPosition) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -418,7 +404,7 @@ func ScrollToOptionsFromJS(value js.Wrapper) *ScrollToOptions {
 	return &out
 }
 
-// interface: CaretPosition
+// class: CaretPosition
 type CaretPosition struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -473,7 +459,7 @@ func (_this *CaretPosition) GetClientRect() (_result *geometry.DOMRect) {
 	return
 }
 
-// interface: MediaQueryList
+// class: MediaQueryList
 type MediaQueryList struct {
 	domcore.EventTarget
 }
@@ -555,7 +541,7 @@ func (_this *MediaQueryList) RemoveListener(listener *domcore.EventListenerValue
 	return
 }
 
-// interface: MediaQueryListEvent
+// class: MediaQueryListEvent
 type MediaQueryListEvent struct {
 	domcore.Event
 }
@@ -612,7 +598,7 @@ func (_this *MediaQueryListEvent) Matches() bool {
 	return ret
 }
 
-// interface: Screen
+// class: Screen
 type Screen struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

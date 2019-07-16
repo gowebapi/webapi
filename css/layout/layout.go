@@ -28,20 +28,6 @@ import (
 // css-layout-api.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -77,7 +63,7 @@ var blockFragmentationTypeFromWasmTable = map[string]BlockFragmentationType{
 	"none": NoneBlockFragmentationType, "page": PageBlockFragmentationType, "column": ColumnBlockFragmentationType, "region": RegionBlockFragmentationType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BlockFragmentationType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -122,7 +108,7 @@ var breakTypeFromWasmTable = map[string]BreakType{
 	"none": NoneBreakType, "line": LineBreakType, "column": ColumnBreakType, "page": PageBreakType, "region": RegionBreakType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BreakType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -496,7 +482,7 @@ func LayoutConstraintsOptionsFromJS(value js.Wrapper) *LayoutConstraintsOptions 
 	return &out
 }
 
-// interface: BreakToken
+// class: BreakToken
 type BreakToken struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -535,7 +521,7 @@ func (_this *BreakToken) Data() js.Value {
 	return ret
 }
 
-// interface: ChildBreakToken
+// class: ChildBreakToken
 type ChildBreakToken struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -574,7 +560,7 @@ func (_this *ChildBreakToken) Child() *LayoutChild {
 	return ret
 }
 
-// interface: FragmentResult
+// class: FragmentResult
 type FragmentResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -631,7 +617,7 @@ func (_this *FragmentResult) BlockSize() float64 {
 	return ret
 }
 
-// interface: IntrinsicSizes
+// class: IntrinsicSizes
 type IntrinsicSizes struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -670,7 +656,7 @@ func (_this *IntrinsicSizes) MaxContentSize() float64 {
 	return ret
 }
 
-// interface: LayoutChild
+// class: LayoutChild
 type LayoutChild struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -734,7 +720,7 @@ func (_this *LayoutChild) LayoutNextFragment(constraints *LayoutConstraintsOptio
 	return
 }
 
-// interface: LayoutConstraints
+// class: LayoutConstraints
 type LayoutConstraints struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -845,7 +831,7 @@ func (_this *LayoutConstraints) Data() js.Value {
 	return ret
 }
 
-// interface: LayoutEdges
+// class: LayoutEdges
 type LayoutEdges struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -920,7 +906,7 @@ func (_this *LayoutEdges) Block() float64 {
 	return ret
 }
 
-// interface: LayoutFragment
+// class: LayoutFragment
 type LayoutFragment struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1011,7 +997,7 @@ func (_this *LayoutFragment) BreakToken() *ChildBreakToken {
 	return ret
 }
 
-// interface: LayoutWorkletGlobalScope
+// class: LayoutWorkletGlobalScope
 type LayoutWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }
@@ -1049,7 +1035,7 @@ func (_this *LayoutWorkletGlobalScope) RegisterLayout(name string, layoutCtor *w
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseIntrinsicSizes struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1154,7 +1140,7 @@ func (_this *PromiseIntrinsicSizes) Finally(onFinally *javascript.PromiseFinally
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseLayoutFragment struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

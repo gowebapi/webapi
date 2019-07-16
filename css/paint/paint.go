@@ -32,20 +32,6 @@ import (
 // transform files:
 // css-paint-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -63,7 +49,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: PaintRenderingContext2D
+// class: PaintRenderingContext2D
 type PaintRenderingContext2D struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1106,7 +1092,7 @@ func (_this *PaintRenderingContext2D) Ellipse(x float64, y float64, radiusX floa
 	return
 }
 
-// interface: PaintSize
+// class: PaintSize
 type PaintSize struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1145,7 +1131,7 @@ func (_this *PaintSize) Height() float64 {
 	return ret
 }
 
-// interface: PaintWorkletGlobalScope
+// class: PaintWorkletGlobalScope
 type PaintWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }

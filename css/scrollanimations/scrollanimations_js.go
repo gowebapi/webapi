@@ -20,20 +20,6 @@ import (
 // transform files:
 // scroll-animations.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var scrollDirectionFromWasmTable = map[string]ScrollDirection{
 	"block": BlockScrollDirection, "inline": InlineScrollDirection, "horizontal": HorizontalScrollDirection, "vertical": VerticalScrollDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -110,7 +96,7 @@ var scrollTimelineAutoKeywordFromWasmTable = map[string]ScrollTimelineAutoKeywor
 	"auto": AutoScrollTimelineAutoKeyword,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollTimelineAutoKeyword) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -196,7 +182,7 @@ func ScrollTimelineOptionsFromJS(value js.Wrapper) *ScrollTimelineOptions {
 	return &out
 }
 
-// interface: ScrollTimeline
+// class: ScrollTimeline
 type ScrollTimeline struct {
 	webani.AnimationTimeline
 }

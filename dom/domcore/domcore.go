@@ -27,20 +27,6 @@ import (
 // page-visibility.go.md
 // service-workers.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -75,7 +61,7 @@ var visibilityStateFromWasmTable = map[string]VisibilityState{
 	"hidden": HiddenVisibilityState, "visible": VisibleVisibilityState, "prerender": PrerenderVisibilityState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *VisibilityState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -502,7 +488,7 @@ func ExtendableEventInitFromJS(value js.Wrapper) *ExtendableEventInit {
 	return &out
 }
 
-// interface: AbortController
+// class: AbortController
 type AbortController struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -556,7 +542,7 @@ func (_this *AbortController) Abort() {
 	return
 }
 
-// interface: AbortSignal
+// class: AbortSignal
 type AbortSignal struct {
 	EventTarget
 }
@@ -605,7 +591,7 @@ func (_this *AbortSignal) SetOnabort(value *EventHandler) {
 	_this.Value_JS.Set("onabort", input)
 }
 
-// interface: CustomEvent
+// class: CustomEvent
 type CustomEvent struct {
 	Event
 }
@@ -680,7 +666,7 @@ func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelabl
 	return
 }
 
-// interface: DOMException
+// class: DOMException
 type DOMException struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -781,7 +767,7 @@ func (_this *DOMException) Code() int {
 	return ret
 }
 
-// interface: DOMStringList
+// class: DOMStringList
 type DOMStringList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -868,7 +854,7 @@ func (_this *DOMStringList) Contains(string string) (_result bool) {
 	return
 }
 
-// interface: DOMStringMap
+// class: DOMStringMap
 type DOMStringMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -933,7 +919,7 @@ func (_this *DOMStringMap) Delete(name string) {
 	return
 }
 
-// interface: DOMTokenList
+// class: DOMTokenList
 type DOMTokenList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1194,7 +1180,7 @@ func (_this *DOMTokenList) Values() (_result *DOMTokenListValueIterator) {
 	return
 }
 
-// interface: DOMTokenListEntryIterator
+// class: DOMTokenListEntryIterator
 type DOMTokenListEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1229,7 +1215,7 @@ func (_this *DOMTokenListEntryIterator) Next() (_result *DOMTokenListEntryIterat
 	return
 }
 
-// interface: DOMTokenListKeyIterator
+// class: DOMTokenListKeyIterator
 type DOMTokenListKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1264,7 +1250,7 @@ func (_this *DOMTokenListKeyIterator) Next() (_result *DOMTokenListKeyIteratorVa
 	return
 }
 
-// interface: DOMTokenListValueIterator
+// class: DOMTokenListValueIterator
 type DOMTokenListValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1299,7 +1285,7 @@ func (_this *DOMTokenListValueIterator) Next() (_result *DOMTokenListValueIterat
 	return
 }
 
-// interface: Event
+// class: Event
 type Event struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1664,7 +1650,7 @@ func (_this *EventListenerValue) HandleEvent(event *Event) {
 	return
 }
 
-// interface: EventTarget
+// class: EventTarget
 type EventTarget struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1757,7 +1743,7 @@ func (_this *EventTarget) DispatchEvent(event *Event) (_result bool) {
 	return
 }
 
-// interface: ExtendableEvent
+// class: ExtendableEvent
 type ExtendableEvent struct {
 	Event
 }

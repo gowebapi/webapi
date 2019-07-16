@@ -76,20 +76,6 @@ import (
 // transform files:
 // html.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -123,7 +109,7 @@ var scrollRestorationFromWasmTable = map[string]ScrollRestoration{
 	"auto": AutoScrollRestoration, "manual": ManualScrollRestoration,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollRestoration) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -324,7 +310,7 @@ func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
 	return &out
 }
 
-// interface: ApplicationCache
+// class: ApplicationCache
 type ApplicationCache struct {
 	domcore.EventTarget
 }
@@ -577,7 +563,7 @@ func (_this *ApplicationCache) SwapCache() {
 	return
 }
 
-// interface: BarProp
+// class: BarProp
 type BarProp struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -607,7 +593,7 @@ func (_this *BarProp) Visible() bool {
 	return ret
 }
 
-// interface: CustomElementRegistry
+// class: CustomElementRegistry
 type CustomElementRegistry struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -701,7 +687,7 @@ func (_this *CustomElementRegistry) Upgrade(root *dom.Node) {
 	return
 }
 
-// interface: EventSource
+// class: EventSource
 type EventSource struct {
 	domcore.EventTarget
 }
@@ -854,7 +840,7 @@ func (_this *EventSource) Close() {
 	return
 }
 
-// interface: External
+// class: External
 type External struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -893,7 +879,7 @@ func (_this *External) IsSearchProviderInstalled() {
 	return
 }
 
-// interface: History
+// class: History
 type History struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1020,7 +1006,7 @@ func (_this *History) ReplaceState(data interface{}, title string, url *string) 
 	return
 }
 
-// interface: Location
+// class: Location
 type Location struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1225,7 +1211,7 @@ func (_this *Location) Reload() {
 	return
 }
 
-// interface: MimeType
+// class: MimeType
 type MimeType struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1282,7 +1268,7 @@ func (_this *MimeType) EnabledPlugin() *Plugin {
 	return ret
 }
 
-// interface: MimeTypeArray
+// class: MimeTypeArray
 type MimeTypeArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1388,7 +1374,7 @@ func (_this *MimeTypeArray) NamedItem(name string) (_result *MimeType) {
 	return
 }
 
-// interface: Navigator
+// class: Navigator
 type Navigator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1976,7 +1962,7 @@ func (_this *Navigator) JavaEnabled() (_result bool) {
 	return
 }
 
-// interface: Plugin
+// class: Plugin
 type Plugin struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2109,7 +2095,7 @@ func (_this *Plugin) NamedItem(name string) (_result *MimeType) {
 	return
 }
 
-// interface: PluginArray
+// class: PluginArray
 type PluginArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2229,7 +2215,7 @@ func (_this *PluginArray) NamedItem(name string) (_result *Plugin) {
 	return
 }
 
-// interface: RadioNodeList
+// class: RadioNodeList
 type RadioNodeList struct {
 	dom.NodeList
 }
@@ -2261,7 +2247,7 @@ func (_this *RadioNodeList) SetValue(value string) {
 	_this.Value_JS.Set("value", input)
 }
 
-// interface: Storage
+// class: Storage
 type Storage struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2414,7 +2400,7 @@ func (_this *Storage) Clear() {
 	return
 }
 
-// interface: StorageEvent
+// class: StorageEvent
 type StorageEvent struct {
 	domcore.Event
 }

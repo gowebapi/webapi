@@ -32,20 +32,6 @@ import (
 // transform files:
 // css-pseudo.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -63,7 +49,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: CSSPseudoElement
+// class: CSSPseudoElement
 type CSSPseudoElement struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -257,7 +243,7 @@ func (_this *CSSPseudoElement) GetAnimations() (_result []*webani.Animation) {
 	return
 }
 
-// interface: CSSPseudoElementList
+// class: CSSPseudoElementList
 type CSSPseudoElementList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

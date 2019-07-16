@@ -17,20 +17,6 @@ import (
 // transform files:
 // mediasession.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var mediaSessionActionFromWasmTable = map[string]MediaSessionAction{
 	"play": PlayMediaSessionAction, "pause": PauseMediaSessionAction, "seekbackward": SeekbackwardMediaSessionAction, "seekforward": SeekforwardMediaSessionAction, "previoustrack": PrevioustrackMediaSessionAction, "nexttrack": NexttrackMediaSessionAction, "skipad": SkipadMediaSessionAction,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaSessionAction) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -112,7 +98,7 @@ var mediaSessionPlaybackStateFromWasmTable = map[string]MediaSessionPlaybackStat
 	"none": NoneMediaSessionPlaybackState, "paused": PausedMediaSessionPlaybackState, "playing": PlayingMediaSessionPlaybackState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaSessionPlaybackState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -269,7 +255,7 @@ func MediaMetadataInitFromJS(value js.Wrapper) *MediaMetadataInit {
 	return &out
 }
 
-// interface: MediaMetadata
+// class: MediaMetadata
 type MediaMetadata struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -374,7 +360,7 @@ func (_this *MediaMetadata) SetArtwork(value *javascript.FrozenArray) {
 	_this.Value_JS.Set("artwork", input)
 }
 
-// interface: MediaSession
+// class: MediaSession
 type MediaSession struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

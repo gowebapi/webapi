@@ -23,20 +23,6 @@ import (
 // transform files:
 // encoding.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -150,7 +136,7 @@ func EncoderEncodeIntoResultFromJS(value js.Wrapper) *EncoderEncodeIntoResult {
 	return &out
 }
 
-// interface: TextDecoder
+// class: TextDecoder
 type Decoder struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -247,7 +233,7 @@ func (_this *Decoder) Decode(input *Union, options *DecodeOptions) (_result stri
 	return
 }
 
-// interface: TextDecoderStream
+// class: TextDecoderStream
 type DecoderStream struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -338,7 +324,7 @@ func (_this *DecoderStream) Writable() *missingtypes.WritableStream {
 	return ret
 }
 
-// interface: TextEncoder
+// class: TextEncoder
 type Encoder struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -422,7 +408,7 @@ func (_this *Encoder) EncodeInto(source string, destination *javascript.Uint8Arr
 	return
 }
 
-// interface: TextEncoderStream
+// class: TextEncoderStream
 type EncoderStream struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

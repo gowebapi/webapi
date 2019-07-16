@@ -27,20 +27,6 @@ import (
 // transform files:
 // filter-effects.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -58,7 +44,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: SVGComponentTransferFunctionElement
+// class: SVGComponentTransferFunctionElement
 type SVGComponentTransferFunctionElement struct {
 	svg.SVGElement
 }
@@ -146,7 +132,7 @@ func (_this *SVGComponentTransferFunctionElement) Offset() *svg.SVGAnimatedNumbe
 	return ret
 }
 
-// interface: SVGFEBlendElement
+// class: SVGFEBlendElement
 type SVGFEBlendElement struct {
 	svg.SVGElement
 }
@@ -254,7 +240,7 @@ func (_this *SVGFEBlendElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEColorMatrixElement
+// class: SVGFEColorMatrixElement
 type SVGFEColorMatrixElement struct {
 	svg.SVGElement
 }
@@ -350,7 +336,7 @@ func (_this *SVGFEColorMatrixElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEComponentTransferElement
+// class: SVGFEComponentTransferElement
 type SVGFEComponentTransferElement struct {
 	svg.SVGElement
 }
@@ -420,7 +406,7 @@ func (_this *SVGFEComponentTransferElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFECompositeElement
+// class: SVGFECompositeElement
 type SVGFECompositeElement struct {
 	svg.SVGElement
 }
@@ -554,7 +540,7 @@ func (_this *SVGFECompositeElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEConvolveMatrixElement
+// class: SVGFEConvolveMatrixElement
 type SVGFEConvolveMatrixElement struct {
 	svg.SVGElement
 }
@@ -730,7 +716,7 @@ func (_this *SVGFEConvolveMatrixElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEDiffuseLightingElement
+// class: SVGFEDiffuseLightingElement
 type SVGFEDiffuseLightingElement struct {
 	svg.SVGElement
 }
@@ -836,7 +822,7 @@ func (_this *SVGFEDiffuseLightingElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEDisplacementMapElement
+// class: SVGFEDisplacementMapElement
 type SVGFEDisplacementMapElement struct {
 	svg.SVGElement
 }
@@ -950,7 +936,7 @@ func (_this *SVGFEDisplacementMapElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEDistantLightElement
+// class: SVGFEDistantLightElement
 type SVGFEDistantLightElement struct {
 	svg.SVGElement
 }
@@ -984,7 +970,7 @@ func (_this *SVGFEDistantLightElement) Elevation() *svg.SVGAnimatedNumber {
 	return ret
 }
 
-// interface: SVGFEDropShadowElement
+// class: SVGFEDropShadowElement
 type SVGFEDropShadowElement struct {
 	svg.SVGElement
 }
@@ -1105,7 +1091,7 @@ func (_this *SVGFEDropShadowElement) SetStdDeviation(stdDeviationX float32, stdD
 	return
 }
 
-// interface: SVGFEFloodElement
+// class: SVGFEFloodElement
 type SVGFEFloodElement struct {
 	svg.SVGElement
 }
@@ -1166,7 +1152,7 @@ func (_this *SVGFEFloodElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEFuncAElement
+// class: SVGFEFuncAElement
 type SVGFEFuncAElement struct {
 	SVGComponentTransferFunctionElement
 }
@@ -1182,7 +1168,7 @@ func SVGFEFuncAElementFromJS(value js.Wrapper) *SVGFEFuncAElement {
 	return ret
 }
 
-// interface: SVGFEFuncBElement
+// class: SVGFEFuncBElement
 type SVGFEFuncBElement struct {
 	SVGComponentTransferFunctionElement
 }
@@ -1198,7 +1184,7 @@ func SVGFEFuncBElementFromJS(value js.Wrapper) *SVGFEFuncBElement {
 	return ret
 }
 
-// interface: SVGFEFuncGElement
+// class: SVGFEFuncGElement
 type SVGFEFuncGElement struct {
 	SVGComponentTransferFunctionElement
 }
@@ -1214,7 +1200,7 @@ func SVGFEFuncGElementFromJS(value js.Wrapper) *SVGFEFuncGElement {
 	return ret
 }
 
-// interface: SVGFEFuncRElement
+// class: SVGFEFuncRElement
 type SVGFEFuncRElement struct {
 	SVGComponentTransferFunctionElement
 }
@@ -1230,7 +1216,7 @@ func SVGFEFuncRElementFromJS(value js.Wrapper) *SVGFEFuncRElement {
 	return ret
 }
 
-// interface: SVGFEGaussianBlurElement
+// class: SVGFEGaussianBlurElement
 type SVGFEGaussianBlurElement struct {
 	svg.SVGElement
 }
@@ -1349,7 +1335,7 @@ func (_this *SVGFEGaussianBlurElement) SetStdDeviation(stdDeviationX float32, st
 	return
 }
 
-// interface: SVGFEImageElement
+// class: SVGFEImageElement
 type SVGFEImageElement struct {
 	svg.SVGElement
 }
@@ -1437,7 +1423,7 @@ func (_this *SVGFEImageElement) Href() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEMergeElement
+// class: SVGFEMergeElement
 type SVGFEMergeElement struct {
 	svg.SVGElement
 }
@@ -1498,7 +1484,7 @@ func (_this *SVGFEMergeElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEMergeNodeElement
+// class: SVGFEMergeNodeElement
 type SVGFEMergeNodeElement struct {
 	svg.SVGElement
 }
@@ -1523,7 +1509,7 @@ func (_this *SVGFEMergeNodeElement) In1() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEMorphologyElement
+// class: SVGFEMorphologyElement
 type SVGFEMorphologyElement struct {
 	svg.SVGElement
 }
@@ -1626,7 +1612,7 @@ func (_this *SVGFEMorphologyElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEOffsetElement
+// class: SVGFEOffsetElement
 type SVGFEOffsetElement struct {
 	svg.SVGElement
 }
@@ -1714,7 +1700,7 @@ func (_this *SVGFEOffsetElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFEPointLightElement
+// class: SVGFEPointLightElement
 type SVGFEPointLightElement struct {
 	svg.SVGElement
 }
@@ -1757,7 +1743,7 @@ func (_this *SVGFEPointLightElement) Z() *svg.SVGAnimatedNumber {
 	return ret
 }
 
-// interface: SVGFESpecularLightingElement
+// class: SVGFESpecularLightingElement
 type SVGFESpecularLightingElement struct {
 	svg.SVGElement
 }
@@ -1872,7 +1858,7 @@ func (_this *SVGFESpecularLightingElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFESpotLightElement
+// class: SVGFESpotLightElement
 type SVGFESpotLightElement struct {
 	svg.SVGElement
 }
@@ -1960,7 +1946,7 @@ func (_this *SVGFESpotLightElement) LimitingConeAngle() *svg.SVGAnimatedNumber {
 	return ret
 }
 
-// interface: SVGFETileElement
+// class: SVGFETileElement
 type SVGFETileElement struct {
 	svg.SVGElement
 }
@@ -2030,7 +2016,7 @@ func (_this *SVGFETileElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFETurbulenceElement
+// class: SVGFETurbulenceElement
 type SVGFETurbulenceElement struct {
 	svg.SVGElement
 }
@@ -2154,7 +2140,7 @@ func (_this *SVGFETurbulenceElement) Result() *svg.SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGFilterElement
+// class: SVGFilterElement
 type SVGFilterElement struct {
 	svg.SVGElement
 }

@@ -22,20 +22,6 @@ import (
 // transform files:
 // screen-orientation.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -75,7 +61,7 @@ var orientationLockTypeFromWasmTable = map[string]OrientationLockType{
 	"any": AnyOrientationLockType, "natural": NaturalOrientationLockType, "landscape": LandscapeOrientationLockType, "portrait": PortraitOrientationLockType, "portrait-primary": PortraitPrimaryOrientationLockType, "portrait-secondary": PortraitSecondaryOrientationLockType, "landscape-primary": LandscapePrimaryOrientationLockType, "landscape-secondary": LandscapeSecondaryOrientationLockType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *OrientationLockType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -119,7 +105,7 @@ var orientationTypeFromWasmTable = map[string]OrientationType{
 	"portrait-primary": PortraitPrimaryOrientationType, "portrait-secondary": PortraitSecondaryOrientationType, "landscape-primary": LandscapePrimaryOrientationType, "landscape-secondary": LandscapeSecondaryOrientationType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *OrientationType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -145,7 +131,7 @@ func OrientationTypeFromJS(value js.Value) OrientationType {
 	return conv
 }
 
-// interface: ScreenOrientation
+// class: ScreenOrientation
 type ScreenOrientation struct {
 	domcore.EventTarget
 }

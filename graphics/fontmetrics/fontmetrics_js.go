@@ -17,20 +17,6 @@ import (
 // transform files:
 // font-metrics-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -48,7 +34,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: Baseline
+// class: Baseline
 type Baseline struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -87,7 +73,7 @@ func (_this *Baseline) Value() float64 {
 	return ret
 }
 
-// interface: Font
+// class: Font
 type Font struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -126,7 +112,7 @@ func (_this *Font) GlyphsRendered() uint {
 	return ret
 }
 
-// interface: FontMetrics
+// class: FontMetrics
 type FontMetrics struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

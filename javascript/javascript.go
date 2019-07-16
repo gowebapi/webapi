@@ -16,20 +16,6 @@ import js "github.com/gowebapi/webapi/core/js"
 // javascript.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -1265,7 +1251,7 @@ func ArrayValueIteratorValueFromJS(value js.Wrapper) *ArrayValueIteratorValue {
 	return &out
 }
 
-// interface: Array
+// class: Array
 type Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2090,7 +2076,7 @@ func (_this *Array) Values() (_result *ArrayValueIterator) {
 	return
 }
 
-// interface: ArrayBuffer
+// class: ArrayBuffer
 type ArrayBuffer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2111,7 +2097,7 @@ func ArrayBufferFromJS(value js.Wrapper) *ArrayBuffer {
 	return ret
 }
 
-// interface: ArrayEntryIterator
+// class: ArrayEntryIterator
 type ArrayEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2146,7 +2132,7 @@ func (_this *ArrayEntryIterator) Next() (_result *ArrayEntryValue) {
 	return
 }
 
-// interface: ArrayKeyIterator
+// class: ArrayKeyIterator
 type ArrayKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2181,7 +2167,7 @@ func (_this *ArrayKeyIterator) Next() (_result *ArrayKeyValue) {
 	return
 }
 
-// interface: ArrayValueIterator
+// class: ArrayValueIterator
 type ArrayValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2216,7 +2202,7 @@ func (_this *ArrayValueIterator) Next() (_result *ArrayValueIteratorValue) {
 	return
 }
 
-// interface: DataView
+// class: DataView
 type DataView struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2237,7 +2223,7 @@ func DataViewFromJS(value js.Wrapper) *DataView {
 	return ret
 }
 
-// interface: Float32Array
+// class: Float32Array
 type Float32Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2258,7 +2244,7 @@ func Float32ArrayFromJS(value js.Wrapper) *Float32Array {
 	return ret
 }
 
-// interface: Float64Array
+// class: Float64Array
 type Float64Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2279,7 +2265,7 @@ func Float64ArrayFromJS(value js.Wrapper) *Float64Array {
 	return ret
 }
 
-// interface: FrozenArray
+// class: FrozenArray
 type FrozenArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2300,7 +2286,7 @@ func FrozenArrayFromJS(value js.Wrapper) *FrozenArray {
 	return ret
 }
 
-// interface: Int16Array
+// class: Int16Array
 type Int16Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2321,7 +2307,7 @@ func Int16ArrayFromJS(value js.Wrapper) *Int16Array {
 	return ret
 }
 
-// interface: Int32Array
+// class: Int32Array
 type Int32Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2342,7 +2328,7 @@ func Int32ArrayFromJS(value js.Wrapper) *Int32Array {
 	return ret
 }
 
-// interface: Int8Array
+// class: Int8Array
 type Int8Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2363,7 +2349,7 @@ func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
 	return ret
 }
 
-// interface: JavaScriptFunction
+// class: JavaScriptFunction
 type JavaScriptFunction struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2606,7 +2592,7 @@ func EncodeURIComponent(uri string) (_result string) {
 	return
 }
 
-// interface: object
+// class: object
 type Object struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2627,7 +2613,7 @@ func ObjectFromJS(value js.Wrapper) *Object {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type Promise struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2732,7 +2718,7 @@ func (_this *Promise) Finally(onFinally *PromiseFinally) (_result *Promise) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseArrayBuffer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2837,7 +2823,7 @@ func (_this *PromiseArrayBuffer) Finally(onFinally *PromiseFinally) (_result *Pr
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseBool struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2942,7 +2928,7 @@ func (_this *PromiseBool) Finally(onFinally *PromiseFinally) (_result *PromiseBo
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseDataView struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3047,7 +3033,7 @@ func (_this *PromiseDataView) Finally(onFinally *PromiseFinally) (_result *Promi
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseFrozenArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3152,7 +3138,7 @@ func (_this *PromiseFrozenArray) Finally(onFinally *PromiseFinally) (_result *Pr
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseInt struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3257,7 +3243,7 @@ func (_this *PromiseInt) Finally(onFinally *PromiseFinally) (_result *PromiseInt
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceString struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3362,7 +3348,7 @@ func (_this *PromiseSequenceString) Finally(onFinally *PromiseFinally) (_result 
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseString struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3467,7 +3453,7 @@ func (_this *PromiseString) Finally(onFinally *PromiseFinally) (_result *Promise
 	return
 }
 
-// interface: PromiseVoid
+// class: PromiseVoid
 type PromiseVoid struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3572,7 +3558,7 @@ func (_this *PromiseVoid) Finally(onFinally *PromiseFinally) (_result *PromiseVo
 	return
 }
 
-// interface: Uint16Array
+// class: Uint16Array
 type Uint16Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3593,7 +3579,7 @@ func Uint16ArrayFromJS(value js.Wrapper) *Uint16Array {
 	return ret
 }
 
-// interface: Uint32Array
+// class: Uint32Array
 type Uint32Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3614,7 +3600,7 @@ func Uint32ArrayFromJS(value js.Wrapper) *Uint32Array {
 	return ret
 }
 
-// interface: Uint8Array
+// class: Uint8Array
 type Uint8Array struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

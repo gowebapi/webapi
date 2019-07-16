@@ -19,20 +19,6 @@ import (
 // transform files:
 // DOM-Parsing.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var supportedTypeFromWasmTable = map[string]SupportedType{
 	"text/html": TextHtmlSupportedType, "text/xml": TextXmlSupportedType, "application/xml": ApplicationXmlSupportedType, "application/xhtml+xml": ApplicationXhtmlXmlSupportedType, "image/svg+xml": ImageSvgXmlSupportedType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SupportedType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -95,7 +81,7 @@ func SupportedTypeFromJS(value js.Value) SupportedType {
 	return conv
 }
 
-// interface: DOMParser
+// class: DOMParser
 type DOMParser struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -151,7 +137,7 @@ func (_this *DOMParser) ParseFromString(str string, _type SupportedType) (_resul
 	return
 }
 
-// interface: XMLSerializer
+// class: XMLSerializer
 type XMLSerializer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

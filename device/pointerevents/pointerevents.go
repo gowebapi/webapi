@@ -25,20 +25,6 @@ import (
 // transform files:
 // pointerevents.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -354,7 +340,7 @@ func PointerEventInitFromJS(value js.Wrapper) *PointerEventInit {
 	return &out
 }
 
-// interface: PointerEvent
+// class: PointerEvent
 type PointerEvent struct {
 	htmlevent.MouseEvent
 }

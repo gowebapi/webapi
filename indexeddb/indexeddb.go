@@ -27,20 +27,6 @@ import (
 // IndexedDB.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -76,7 +62,7 @@ var iDBCursorDirectionFromWasmTable = map[string]IDBCursorDirection{
 	"next": NextIDBCursorDirection, "nextunique": NextuniqueIDBCursorDirection, "prev": PrevIDBCursorDirection, "prevunique": PrevuniqueIDBCursorDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IDBCursorDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -118,7 +104,7 @@ var iDBRequestReadyStateFromWasmTable = map[string]IDBRequestReadyState{
 	"pending": PendingIDBRequestReadyState, "done": DoneIDBRequestReadyState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IDBRequestReadyState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -161,7 +147,7 @@ var iDBTransactionModeFromWasmTable = map[string]IDBTransactionMode{
 	"readonly": ReadonlyIDBTransactionMode, "readwrite": ReadwriteIDBTransactionMode, "versionchange": VersionchangeIDBTransactionMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IDBTransactionMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -436,7 +422,7 @@ func IDBVersionChangeEventInitFromJS(value js.Wrapper) *IDBVersionChangeEventIni
 	return &out
 }
 
-// interface: IDBCursor
+// class: IDBCursor
 type IDBCursor struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -565,7 +551,7 @@ func (_this *IDBCursor) Delete() (_result *IDBRequest) {
 	return
 }
 
-// interface: IDBCursorWithValue
+// class: IDBCursorWithValue
 type IDBCursorWithValue struct {
 	IDBCursor
 }
@@ -590,7 +576,7 @@ func (_this *IDBCursorWithValue) Value() js.Value {
 	return ret
 }
 
-// interface: IDBDatabase
+// class: IDBDatabase
 type IDBDatabase struct {
 	domcore.EventTarget
 }
@@ -794,7 +780,7 @@ func (_this *IDBDatabase) DeleteObjectStore(name string) {
 	return
 }
 
-// interface: IDBFactory
+// class: IDBFactory
 type IDBFactory struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -888,7 +874,7 @@ func (_this *IDBFactory) Cmp(first interface{}, second interface{}) (_result int
 	return
 }
 
-// interface: IDBIndex
+// class: IDBIndex
 type IDBIndex struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1110,7 +1096,7 @@ func (_this *IDBIndex) OpenKeyCursor(query interface{}, direction *IDBCursorDire
 	return
 }
 
-// interface: IDBKeyRange
+// class: IDBKeyRange
 type IDBKeyRange struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1283,7 +1269,7 @@ func (_this *IDBKeyRange) Includes(key interface{}) (_result bool) {
 	return
 }
 
-// interface: IDBObjectStore
+// class: IDBObjectStore
 type IDBObjectStore struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1634,7 +1620,7 @@ func (_this *IDBObjectStore) DeleteIndex(name string) {
 	return
 }
 
-// interface: IDBOpenDBRequest
+// class: IDBOpenDBRequest
 type IDBOpenDBRequest struct {
 	IDBRequest
 }
@@ -1698,7 +1684,7 @@ func (_this *IDBOpenDBRequest) SetOnupgradeneeded(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onupgradeneeded", input)
 }
 
-// interface: IDBRequest
+// class: IDBRequest
 type IDBRequest struct {
 	domcore.EventTarget
 }
@@ -1813,7 +1799,7 @@ func (_this *IDBRequest) SetOnerror(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onerror", input)
 }
 
-// interface: IDBTransaction
+// class: IDBTransaction
 type IDBTransaction struct {
 	domcore.EventTarget
 }
@@ -1972,7 +1958,7 @@ func (_this *IDBTransaction) Abort() {
 	return
 }
 
-// interface: IDBVersionChangeEvent
+// class: IDBVersionChangeEvent
 type IDBVersionChangeEvent struct {
 	domcore.Event
 }
@@ -2032,7 +2018,7 @@ func (_this *IDBVersionChangeEvent) NewVersion() *int {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceIDBDatabaseInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

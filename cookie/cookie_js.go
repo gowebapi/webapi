@@ -25,20 +25,6 @@ import (
 // cookie-store.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var cookieMatchTypeFromWasmTable = map[string]CookieMatchType{
 	"equals": EqualsCookieMatchType, "starts-with": StartsWithCookieMatchType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CookieMatchType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -115,7 +101,7 @@ var cookieSameSiteFromWasmTable = map[string]CookieSameSite{
 	"strict": StrictCookieSameSite, "lax": LaxCookieSameSite, "unrestricted": UnrestrictedCookieSameSite,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CookieSameSite) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -832,7 +818,7 @@ func ExtendableCookieChangeEventInitFromJS(value js.Wrapper) *ExtendableCookieCh
 	return &out
 }
 
-// interface: CookieChangeEvent
+// class: CookieChangeEvent
 type CookieChangeEvent struct {
 	domcore.Event
 }
@@ -905,7 +891,7 @@ func (_this *CookieChangeEvent) Deleted() []*CookieListItem {
 	return ret
 }
 
-// interface: CookieStore
+// class: CookieStore
 type CookieStore struct {
 	domcore.EventTarget
 }
@@ -1128,7 +1114,7 @@ func (_this *CookieStore) GetChangeSubscriptions() (_result *PromiseSequenceCook
 	return
 }
 
-// interface: ExtendableCookieChangeEvent
+// class: ExtendableCookieChangeEvent
 type ExtendableCookieChangeEvent struct {
 	domcore.ExtendableEvent
 }
@@ -1201,7 +1187,7 @@ func (_this *ExtendableCookieChangeEvent) Deleted() []*CookieListItem {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilCookieListItem struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1306,7 +1292,7 @@ func (_this *PromiseNilCookieListItem) Finally(onFinally *javascript.PromiseFina
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceCookieListItem struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1411,7 +1397,7 @@ func (_this *PromiseSequenceCookieListItem) Finally(onFinally *javascript.Promis
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceCookieStoreGetOptions struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

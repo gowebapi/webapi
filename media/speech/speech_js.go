@@ -19,20 +19,6 @@ import (
 // transform files:
 // speech-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var speechRecognitionErrorCodeFromWasmTable = map[string]SpeechRecognitionErrorC
 	"no-speech": NoSpeechSpeechRecognitionErrorCode, "aborted": AbortedSpeechRecognitionErrorCode, "audio-capture": AudioCaptureSpeechRecognitionErrorCode, "network": NetworkSpeechRecognitionErrorCode, "not-allowed": NotAllowedSpeechRecognitionErrorCode, "service-not-allowed": ServiceNotAllowedSpeechRecognitionErrorCode, "bad-grammar": BadGrammarSpeechRecognitionErrorCode, "language-not-supported": LanguageNotSupportedSpeechRecognitionErrorCode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SpeechRecognitionErrorCode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -124,7 +110,7 @@ var speechSynthesisErrorCodeFromWasmTable = map[string]SpeechSynthesisErrorCode{
 	"canceled": CanceledSpeechSynthesisErrorCode, "interrupted": InterruptedSpeechSynthesisErrorCode, "audio-busy": AudioBusySpeechSynthesisErrorCode, "audio-hardware": AudioHardwareSpeechSynthesisErrorCode, "network": NetworkSpeechSynthesisErrorCode, "synthesis-unavailable": SynthesisUnavailableSpeechSynthesisErrorCode, "synthesis-failed": SynthesisFailedSpeechSynthesisErrorCode, "language-unavailable": LanguageUnavailableSpeechSynthesisErrorCode, "voice-unavailable": VoiceUnavailableSpeechSynthesisErrorCode, "text-too-long": TextTooLongSpeechSynthesisErrorCode, "invalid-argument": InvalidArgumentSpeechSynthesisErrorCode, "not-allowed": NotAllowedSpeechSynthesisErrorCode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SpeechSynthesisErrorCode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -400,7 +386,7 @@ func SpeechSynthesisEventInitFromJS(value js.Wrapper) *SpeechSynthesisEventInit 
 	return &out
 }
 
-// interface: SpeechGrammar
+// class: SpeechGrammar
 type SpeechGrammar struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -468,7 +454,7 @@ func (_this *SpeechGrammar) SetWeight(value float32) {
 	_this.Value_JS.Set("weight", input)
 }
 
-// interface: SpeechGrammarList
+// class: SpeechGrammarList
 type SpeechGrammarList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -581,7 +567,7 @@ func (_this *SpeechGrammarList) AddFromString(string string, weight *float32) {
 	return
 }
 
-// interface: SpeechRecognition
+// class: SpeechRecognition
 type SpeechRecognition struct {
 	domcore.EventTarget
 }
@@ -999,7 +985,7 @@ func (_this *SpeechRecognition) Abort() {
 	return
 }
 
-// interface: SpeechRecognitionAlternative
+// class: SpeechRecognitionAlternative
 type SpeechRecognitionAlternative struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1038,7 +1024,7 @@ func (_this *SpeechRecognitionAlternative) Confidence() float32 {
 	return ret
 }
 
-// interface: SpeechRecognitionErrorEvent
+// class: SpeechRecognitionErrorEvent
 type SpeechRecognitionErrorEvent struct {
 	domcore.Event
 }
@@ -1093,7 +1079,7 @@ func (_this *SpeechRecognitionErrorEvent) Message() string {
 	return ret
 }
 
-// interface: SpeechRecognitionEvent
+// class: SpeechRecognitionEvent
 type SpeechRecognitionEvent struct {
 	domcore.Event
 }
@@ -1166,7 +1152,7 @@ func (_this *SpeechRecognitionEvent) Emma() js.Value {
 	return ret
 }
 
-// interface: SpeechRecognitionResult
+// class: SpeechRecognitionResult
 type SpeechRecognitionResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1239,7 +1225,7 @@ func (_this *SpeechRecognitionResult) Item(index uint) (_result *SpeechRecogniti
 	return
 }
 
-// interface: SpeechRecognitionResultList
+// class: SpeechRecognitionResultList
 type SpeechRecognitionResultList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1303,7 +1289,7 @@ func (_this *SpeechRecognitionResultList) Item(index uint) (_result *SpeechRecog
 	return
 }
 
-// interface: SpeechSynthesis
+// class: SpeechSynthesis
 type SpeechSynthesis struct {
 	domcore.EventTarget
 }
@@ -1431,7 +1417,7 @@ func (_this *SpeechSynthesis) GetVoices() (_result []*SpeechSynthesisVoice) {
 	return
 }
 
-// interface: SpeechSynthesisErrorEvent
+// class: SpeechSynthesisErrorEvent
 type SpeechSynthesisErrorEvent struct {
 	SpeechSynthesisEvent
 }
@@ -1477,7 +1463,7 @@ func (_this *SpeechSynthesisErrorEvent) Error() SpeechSynthesisErrorCode {
 	return ret
 }
 
-// interface: SpeechSynthesisEvent
+// class: SpeechSynthesisEvent
 type SpeechSynthesisEvent struct {
 	domcore.Event
 }
@@ -1550,7 +1536,7 @@ func (_this *SpeechSynthesisEvent) Name() string {
 	return ret
 }
 
-// interface: SpeechSynthesisUtterance
+// class: SpeechSynthesisUtterance
 type SpeechSynthesisUtterance struct {
 	domcore.EventTarget
 }
@@ -1852,7 +1838,7 @@ func (_this *SpeechSynthesisUtterance) SetOnboundary(value *domcore.EventHandler
 	_this.Value_JS.Set("onboundary", input)
 }
 
-// interface: SpeechSynthesisVoice
+// class: SpeechSynthesisVoice
 type SpeechSynthesisVoice struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

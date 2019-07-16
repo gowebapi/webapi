@@ -31,20 +31,6 @@ import (
 // promises.go.md
 // web-bluetooth.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -1322,7 +1308,7 @@ func ValueEventInitFromJS(value js.Wrapper) *ValueEventInit {
 	return &out
 }
 
-// interface: BluetoothAdvertisingEvent
+// class: BluetoothAdvertisingEvent
 type AdvertisingEvent struct {
 	domcore.Event
 }
@@ -1443,7 +1429,7 @@ func (_this *AdvertisingEvent) ServiceData() *ServiceDataMap {
 	return ret
 }
 
-// interface: Bluetooth
+// class: Bluetooth
 type Bluetooth struct {
 	domcore.EventTarget
 }
@@ -1671,7 +1657,7 @@ func (_this *Bluetooth) RequestDevice(options *RequestDeviceOptions) (_result *P
 	return
 }
 
-// interface: BluetoothCharacteristicProperties
+// class: BluetoothCharacteristicProperties
 type CharacteristicProperties struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1773,7 +1759,7 @@ func (_this *CharacteristicProperties) WritableAuxiliaries() bool {
 	return ret
 }
 
-// interface: BluetoothDevice
+// class: BluetoothDevice
 type Device struct {
 	domcore.EventTarget
 }
@@ -1997,7 +1983,7 @@ func (_this *Device) UnwatchAdvertisements() {
 	return
 }
 
-// interface: BluetoothManufacturerDataMap
+// class: BluetoothManufacturerDataMap
 type ManufacturerDataMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2129,7 +2115,7 @@ func (_this *ManufacturerDataMap) Has(key int) (_result bool) {
 	return
 }
 
-// interface: BluetoothManufacturerDataMapEntryIterator
+// class: BluetoothManufacturerDataMapEntryIterator
 type ManufacturerDataMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2164,7 +2150,7 @@ func (_this *ManufacturerDataMapEntryIterator) Next() (_result *ManufacturerData
 	return
 }
 
-// interface: BluetoothManufacturerDataMapKeyIterator
+// class: BluetoothManufacturerDataMapKeyIterator
 type ManufacturerDataMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2199,7 +2185,7 @@ func (_this *ManufacturerDataMapKeyIterator) Next() (_result *ManufacturerDataMa
 	return
 }
 
-// interface: BluetoothManufacturerDataMapValueIterator
+// class: BluetoothManufacturerDataMapValueIterator
 type ManufacturerDataMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2234,7 +2220,7 @@ func (_this *ManufacturerDataMapValueIterator) Next() (_result *ManufacturerData
 	return
 }
 
-// interface: BluetoothPermissionResult
+// class: BluetoothPermissionResult
 type PermissionResult struct {
 	permissions.PermissionStatus
 }
@@ -2266,7 +2252,7 @@ func (_this *PermissionResult) SetDevices(value *javascript.FrozenArray) {
 	_this.Value_JS.Set("devices", input)
 }
 
-// interface: Promise
+// class: Promise
 type PromiseDevice struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2371,7 +2357,7 @@ func (_this *PromiseDevice) Finally(onFinally *javascript.PromiseFinally) (_resu
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseRemoteGATTCharacteristic struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2476,7 +2462,7 @@ func (_this *PromiseRemoteGATTCharacteristic) Finally(onFinally *javascript.Prom
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseRemoteGATTDescriptor struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2581,7 +2567,7 @@ func (_this *PromiseRemoteGATTDescriptor) Finally(onFinally *javascript.PromiseF
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseRemoteGATTServer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2686,7 +2672,7 @@ func (_this *PromiseRemoteGATTServer) Finally(onFinally *javascript.PromiseFinal
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseRemoteGATTService struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2791,7 +2777,7 @@ func (_this *PromiseRemoteGATTService) Finally(onFinally *javascript.PromiseFina
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceRemoteGATTCharacteristic struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2896,7 +2882,7 @@ func (_this *PromiseSequenceRemoteGATTCharacteristic) Finally(onFinally *javascr
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceRemoteGATTDescriptor struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3001,7 +2987,7 @@ func (_this *PromiseSequenceRemoteGATTDescriptor) Finally(onFinally *javascript.
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceRemoteGATTService struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3106,7 +3092,7 @@ func (_this *PromiseSequenceRemoteGATTService) Finally(onFinally *javascript.Pro
 	return
 }
 
-// interface: BluetoothRemoteGATTCharacteristic
+// class: BluetoothRemoteGATTCharacteristic
 type RemoteGATTCharacteristic struct {
 	domcore.EventTarget
 }
@@ -3279,7 +3265,7 @@ func (_this *RemoteGATTCharacteristic) StopNotifications() (_result *PromiseRemo
 	return
 }
 
-// interface: BluetoothRemoteGATTDescriptor
+// class: BluetoothRemoteGATTDescriptor
 type RemoteGATTDescriptor struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3360,7 +3346,7 @@ func (_this *RemoteGATTDescriptor) WriteValue(value *Union) (_result *javascript
 	return
 }
 
-// interface: BluetoothRemoteGATTServer
+// class: BluetoothRemoteGATTServer
 type RemoteGATTServer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3458,7 +3444,7 @@ func (_this *RemoteGATTServer) GetPrimaryServices(service *Union) (_result *Prom
 	return
 }
 
-// interface: BluetoothRemoteGATTService
+// class: BluetoothRemoteGATTService
 type RemoteGATTService struct {
 	domcore.EventTarget
 }
@@ -3669,7 +3655,7 @@ func (_this *RemoteGATTService) GetIncludedServices(service *Union) (_result *Pr
 	return
 }
 
-// interface: BluetoothServiceDataMap
+// class: BluetoothServiceDataMap
 type ServiceDataMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3801,7 +3787,7 @@ func (_this *ServiceDataMap) Has(key string) (_result bool) {
 	return
 }
 
-// interface: BluetoothServiceDataMapEntryIterator
+// class: BluetoothServiceDataMapEntryIterator
 type ServiceDataMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3836,7 +3822,7 @@ func (_this *ServiceDataMapEntryIterator) Next() (_result *ServiceDataMapEntryIt
 	return
 }
 
-// interface: BluetoothServiceDataMapKeyIterator
+// class: BluetoothServiceDataMapKeyIterator
 type ServiceDataMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3871,7 +3857,7 @@ func (_this *ServiceDataMapKeyIterator) Next() (_result *ServiceDataMapKeyIterat
 	return
 }
 
-// interface: BluetoothServiceDataMapValueIterator
+// class: BluetoothServiceDataMapValueIterator
 type ServiceDataMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3982,7 +3968,7 @@ func CanonicalUUID(alias uint) (_result string) {
 	return
 }
 
-// interface: ValueEvent
+// class: ValueEvent
 type ValueEvent struct {
 	domcore.Event
 }

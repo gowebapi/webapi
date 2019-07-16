@@ -125,20 +125,6 @@ import (
 // dom.go.md
 // html.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -173,7 +159,7 @@ var documentReadyStateFromWasmTable = map[string]DocumentReadyState{
 	"loading": LoadingDocumentReadyState, "interactive": InteractiveDocumentReadyState, "complete": CompleteDocumentReadyState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DocumentReadyState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -405,7 +391,7 @@ func WindowPostMessageOptionsFromJS(value js.Wrapper) *WindowPostMessageOptions 
 	return &out
 }
 
-// interface: DOMImplementation
+// class: DOMImplementation
 type DOMImplementation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -507,7 +493,7 @@ func (_this *DOMImplementation) HasFeature() (_result bool) {
 	return
 }
 
-// interface: Document
+// class: Document
 type Document struct {
 	dom.Node
 }
@@ -4489,7 +4475,7 @@ func GetWindow() *Window {
 	return ret
 }
 
-// interface: HTMLEmbedElement
+// class: HTMLEmbedElement
 type HTMLEmbedElement struct {
 	html.HTMLElement
 }
@@ -4617,7 +4603,7 @@ func (_this *HTMLEmbedElement) GetSVGDocument() (_result *Document) {
 	return
 }
 
-// interface: HTMLFrameElement
+// class: HTMLFrameElement
 type HTMLFrameElement struct {
 	html.HTMLElement
 }
@@ -4783,7 +4769,7 @@ func (_this *HTMLFrameElement) SetMarginWidth(value string) {
 	_this.Value_JS.Set("marginWidth", input)
 }
 
-// interface: HTMLIFrameElement
+// class: HTMLIFrameElement
 type HTMLIFrameElement struct {
 	html.HTMLElement
 }
@@ -5111,7 +5097,7 @@ func (_this *HTMLIFrameElement) GetSVGDocument() (_result *Document) {
 	return
 }
 
-// interface: HTMLObjectElement
+// class: HTMLObjectElement
 type HTMLObjectElement struct {
 	html.HTMLElement
 }
@@ -5515,7 +5501,7 @@ func (_this *HTMLObjectElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: MutationObserver
+// class: MutationObserver
 type MutationObserver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5609,7 +5595,7 @@ func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
 	return
 }
 
-// interface: MutationRecord
+// class: MutationRecord
 type MutationRecord struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5724,7 +5710,7 @@ func (_this *MutationRecord) OldValue() *string {
 	return ret
 }
 
-// interface: Window
+// class: Window
 type Window struct {
 	domcore.EventTarget
 }
@@ -9708,7 +9694,7 @@ func (_this *Window) CancelAnimationFrame(handle uint) {
 	return
 }
 
-// interface: XMLDocument
+// class: XMLDocument
 type XMLDocument struct {
 	Document
 }

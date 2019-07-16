@@ -35,20 +35,6 @@ import (
 // promises.go.md
 // referrer-policy.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -89,7 +75,7 @@ var referrerPolicyFromWasmTable = map[string]ReferrerPolicy{
 	"": EmptyString0ReferrerPolicy, "no-referrer": NoReferrerReferrerPolicy, "no-referrer-when-downgrade": NoReferrerWhenDowngradeReferrerPolicy, "same-origin": SameOriginReferrerPolicy, "origin": OriginReferrerPolicy, "strict-origin": StrictOriginReferrerPolicy, "origin-when-cross-origin": OriginWhenCrossOriginReferrerPolicy, "strict-origin-when-cross-origin": StrictOriginWhenCrossOriginReferrerPolicy, "unsafe-url": UnsafeUrlReferrerPolicy,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ReferrerPolicy) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -135,7 +121,7 @@ var requestCacheFromWasmTable = map[string]RequestCache{
 	"default": DefaultRequestCache, "no-store": NoStoreRequestCache, "reload": ReloadRequestCache, "no-cache": NoCacheRequestCache, "force-cache": ForceCacheRequestCache, "only-if-cached": OnlyIfCachedRequestCache,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RequestCache) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -178,7 +164,7 @@ var requestCredentialsFromWasmTable = map[string]RequestCredentials{
 	"omit": OmitRequestCredentials, "same-origin": SameOriginRequestCredentials, "include": IncludeRequestCredentials,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RequestCredentials) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -236,7 +222,7 @@ var requestDestinationFromWasmTable = map[string]RequestDestination{
 	"": EmptyString0RequestDestination, "audio": AudioRequestDestination, "audioworklet": AudioworkletRequestDestination, "document": DocumentRequestDestination, "embed": EmbedRequestDestination, "font": FontRequestDestination, "image": ImageRequestDestination, "manifest": ManifestRequestDestination, "object": ObjectRequestDestination, "paintworklet": PaintworkletRequestDestination, "report": ReportRequestDestination, "script": ScriptRequestDestination, "sharedworker": SharedworkerRequestDestination, "style": StyleRequestDestination, "track": TrackRequestDestination, "video": VideoRequestDestination, "worker": WorkerRequestDestination, "xslt": XsltRequestDestination,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RequestDestination) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -280,7 +266,7 @@ var requestModeFromWasmTable = map[string]RequestMode{
 	"navigate": NavigateRequestMode, "same-origin": SameOriginRequestMode, "no-cors": NoCorsRequestMode, "cors": CorsRequestMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RequestMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -323,7 +309,7 @@ var requestRedirectFromWasmTable = map[string]RequestRedirect{
 	"follow": FollowRequestRedirect, "error": ErrorRequestRedirect, "manual": ManualRequestRedirect,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RequestRedirect) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -369,7 +355,7 @@ var responseTypeFromWasmTable = map[string]ResponseType{
 	"basic": BasicResponseType, "cors": CorsResponseType, "default": DefaultResponseType, "error": ErrorResponseType, "opaque": OpaqueResponseType, "opaqueredirect": OpaqueredirectResponseType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ResponseType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -828,7 +814,7 @@ func ResponseInitFromJS(value js.Wrapper) *ResponseInit {
 	return &out
 }
 
-// interface: Headers
+// class: Headers
 type Headers struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1021,7 +1007,7 @@ func (_this *Headers) Values() (_result *HeadersValueIterator) {
 	return
 }
 
-// interface: HeadersEntryIterator
+// class: HeadersEntryIterator
 type HeadersEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1056,7 +1042,7 @@ func (_this *HeadersEntryIterator) Next() (_result *HeadersEntryIteratorValue) {
 	return
 }
 
-// interface: HeadersKeyIterator
+// class: HeadersKeyIterator
 type HeadersKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1091,7 +1077,7 @@ func (_this *HeadersKeyIterator) Next() (_result *HeadersKeyIteratorValue) {
 	return
 }
 
-// interface: HeadersValueIterator
+// class: HeadersValueIterator
 type HeadersValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1126,7 +1112,7 @@ func (_this *HeadersValueIterator) Next() (_result *HeadersValueIteratorValue) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseResponse struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1231,7 +1217,7 @@ func (_this *PromiseResponse) Finally(onFinally *javascript.PromiseFinally) (_re
 	return
 }
 
-// interface: Request
+// class: Request
 type Request struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1514,7 +1500,7 @@ func (_this *Request) Text() (_result *javascript.PromiseString) {
 	return
 }
 
-// interface: Response
+// class: Response
 type Response struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

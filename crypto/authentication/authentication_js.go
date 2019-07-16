@@ -19,20 +19,6 @@ import (
 // transform files:
 // webauthn.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -66,7 +52,7 @@ var authenticatorAttachmentFromWasmTable = map[string]Attachment{
 	"platform": Platform, "cross-platform": CrossPlatform,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *Attachment) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -109,7 +95,7 @@ var attestationConveyancePreferenceFromWasmTable = map[string]AttestationConveya
 	"none": None, "indirect": Indirect, "direct": Direct,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AttestationConveyancePreference) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -153,7 +139,7 @@ var authenticatorTransportFromWasmTable = map[string]Transport{
 	"usb": TransportUsb, "nfc": TransportNfc, "ble": TransportBle, "internal": TransportInternal,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *Transport) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -196,7 +182,7 @@ var userVerificationRequirementFromWasmTable = map[string]UserVerificationRequir
 	"required": Required, "preferred": Preferred, "discouraged": Discouraged,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *UserVerificationRequirement) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -484,7 +470,7 @@ func TxAuthGenericArgFromJS(value js.Wrapper) *TxAuthGenericArg {
 	return &out
 }
 
-// interface: AuthenticatorAssertionResponse
+// class: AuthenticatorAssertionResponse
 type AssertionResponse struct {
 	Response
 }
@@ -529,7 +515,7 @@ func (_this *AssertionResponse) UserHandle() *javascript.ArrayBuffer {
 	return ret
 }
 
-// interface: AuthenticatorAttestationResponse
+// class: AuthenticatorAttestationResponse
 type AttestationResponse struct {
 	Response
 }
@@ -554,7 +540,7 @@ func (_this *AttestationResponse) AttestationObject() *javascript.ArrayBuffer {
 	return ret
 }
 
-// interface: AuthenticatorResponse
+// class: AuthenticatorResponse
 type Response struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

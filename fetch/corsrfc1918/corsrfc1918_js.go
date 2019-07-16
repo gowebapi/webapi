@@ -12,20 +12,6 @@ import "syscall/js"
 // transform files:
 // cors-rfc1918.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -60,7 +46,7 @@ var addressSpaceFromWasmTable = map[string]AddressSpace{
 	"local": LocalAddressSpace, "private": PrivateAddressSpace, "public": PublicAddressSpace,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AddressSpace) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }

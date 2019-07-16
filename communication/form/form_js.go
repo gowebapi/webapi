@@ -23,20 +23,6 @@ import (
 // promises.go.md
 // xhr.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -295,7 +281,7 @@ func FormDataValueIteratorValueFromJS(value js.Wrapper) *FormDataValueIteratorVa
 	return &out
 }
 
-// interface: FormData
+// class: FormData
 type FormData struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -545,7 +531,7 @@ func (_this *FormData) Values() (_result *FormDataValueIterator) {
 	return
 }
 
-// interface: FormDataEntryIterator
+// class: FormDataEntryIterator
 type FormDataEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -580,7 +566,7 @@ func (_this *FormDataEntryIterator) Next() (_result *FormDataEntryIteratorValue)
 	return
 }
 
-// interface: FormDataKeyIterator
+// class: FormDataKeyIterator
 type FormDataKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -615,7 +601,7 @@ func (_this *FormDataKeyIterator) Next() (_result *FormDataKeyIteratorValue) {
 	return
 }
 
-// interface: FormDataValueIterator
+// class: FormDataValueIterator
 type FormDataValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -650,7 +636,7 @@ func (_this *FormDataValueIterator) Next() (_result *FormDataValueIteratorValue)
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseFormData struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

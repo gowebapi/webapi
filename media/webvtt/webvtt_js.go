@@ -19,20 +19,6 @@ import (
 // transform files:
 // webvtt.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var alignSettingFromWasmTable = map[string]AlignSetting{
 	"start": StartAlignSetting, "center": CenterAlignSetting, "end": EndAlignSetting, "left": LeftAlignSetting, "right": RightAlignSetting,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AlignSetting) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -110,7 +96,7 @@ var autoKeywordFromWasmTable = map[string]AutoKeyword{
 	"auto": AutoAutoKeyword,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AutoKeyword) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -153,7 +139,7 @@ var directionSettingFromWasmTable = map[string]DirectionSetting{
 	"": EmptyString0DirectionSetting, "rl": RlDirectionSetting, "lr": LrDirectionSetting,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DirectionSetting) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -196,7 +182,7 @@ var lineAlignSettingFromWasmTable = map[string]LineAlignSetting{
 	"start": StartLineAlignSetting, "center": CenterLineAlignSetting, "end": EndLineAlignSetting,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *LineAlignSetting) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -240,7 +226,7 @@ var positionAlignSettingFromWasmTable = map[string]PositionAlignSetting{
 	"line-left": LineLeftPositionAlignSetting, "center": CenterPositionAlignSetting, "line-right": LineRightPositionAlignSetting, "auto": AutoPositionAlignSetting,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PositionAlignSetting) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -282,7 +268,7 @@ var scrollSettingFromWasmTable = map[string]ScrollSetting{
 	"": EmptyString0ScrollSetting, "up": UpScrollSetting,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ScrollSetting) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -308,7 +294,7 @@ func ScrollSettingFromJS(value js.Value) ScrollSetting {
 	return conv
 }
 
-// interface: VTTCue
+// class: VTTCue
 type VTTCue struct {
 	media.TextTrackCue
 }
@@ -524,7 +510,7 @@ func (_this *VTTCue) GetCueAsHTML() (_result *dom.DocumentFragment) {
 	return
 }
 
-// interface: VTTRegion
+// class: VTTRegion
 type VTTRegion struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

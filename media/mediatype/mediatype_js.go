@@ -12,20 +12,6 @@ import "syscall/js"
 // transform files:
 // image-capture.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -77,7 +63,7 @@ func Point2DFromJS(value js.Wrapper) *Point2D {
 	return &out
 }
 
-// interface: MediaSettingsRange
+// class: MediaSettingsRange
 type MediaSettingsRange struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

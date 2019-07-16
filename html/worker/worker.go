@@ -69,20 +69,6 @@ import (
 // html.go.md
 // service-workers.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -140,7 +126,7 @@ func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
 	return &out
 }
 
-// interface: DedicatedWorkerGlobalScope
+// class: DedicatedWorkerGlobalScope
 type DedicatedWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
@@ -294,7 +280,7 @@ func (_this *DedicatedWorkerGlobalScope) CancelAnimationFrame(handle uint) {
 	return
 }
 
-// interface: ServiceWorkerGlobalScope
+// class: ServiceWorkerGlobalScope
 type ServiceWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
@@ -711,7 +697,7 @@ func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.Promis
 	return
 }
 
-// interface: SharedWorker
+// class: SharedWorker
 type SharedWorker struct {
 	domcore.EventTarget
 }
@@ -783,7 +769,7 @@ func (_this *SharedWorker) SetOnerror(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onerror", input)
 }
 
-// interface: SharedWorkerGlobalScope
+// class: SharedWorkerGlobalScope
 type SharedWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
@@ -841,7 +827,7 @@ func (_this *SharedWorkerGlobalScope) Close() {
 	return
 }
 
-// interface: Worker
+// class: Worker
 type Worker struct {
 	domcore.EventTarget
 }
@@ -997,7 +983,7 @@ func (_this *Worker) PostMessage2(message interface{}, options *channel.PostMess
 	return
 }
 
-// interface: WorkerGlobalScope
+// class: WorkerGlobalScope
 type WorkerGlobalScope struct {
 	domcore.EventTarget
 }
@@ -1474,7 +1460,7 @@ func (_this *WorkerGlobalScope) Fetch(input *Union, init *fetch.RequestInit) (_r
 	return
 }
 
-// interface: WorkerLocation
+// class: WorkerLocation
 type WorkerLocation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1581,7 +1567,7 @@ func (_this *WorkerLocation) Hash() string {
 	return ret
 }
 
-// interface: WorkerNavigator
+// class: WorkerNavigator
 type WorkerNavigator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

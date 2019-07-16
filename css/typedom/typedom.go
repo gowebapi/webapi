@@ -20,20 +20,6 @@ import (
 // transform files:
 // css-typed-om.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var cSSMathOperatorFromWasmTable = map[string]CSSMathOperator{
 	"sum": SumCSSMathOperator, "product": ProductCSSMathOperator, "negate": NegateCSSMathOperator, "invert": InvertCSSMathOperator, "min": MinCSSMathOperator, "max": MaxCSSMathOperator, "clamp": ClampCSSMathOperator,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CSSMathOperator) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -119,7 +105,7 @@ var cSSNumericBaseTypeFromWasmTable = map[string]CSSNumericBaseType{
 	"length": LengthCSSNumericBaseType, "angle": AngleCSSNumericBaseType, "time": TimeCSSNumericBaseType, "frequency": FrequencyCSSNumericBaseType, "resolution": ResolutionCSSNumericBaseType, "flex": FlexCSSNumericBaseType, "percent": PercentCSSNumericBaseType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CSSNumericBaseType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -919,7 +905,7 @@ func StylePropertyMapReadOnlyValueIteratorValueFromJS(value js.Wrapper) *StylePr
 	return &out
 }
 
-// interface: CSSImageValue
+// class: CSSImageValue
 type CSSImageValue struct {
 	CSSStyleValue
 }
@@ -935,7 +921,7 @@ func CSSImageValueFromJS(value js.Wrapper) *CSSImageValue {
 	return ret
 }
 
-// interface: CSSKeywordValue
+// class: CSSKeywordValue
 type CSSKeywordValue struct {
 	CSSStyleValue
 }
@@ -985,7 +971,7 @@ func (_this *CSSKeywordValue) SetValue(value string) {
 	_this.Value_JS.Set("value", input)
 }
 
-// interface: CSSMathClamp
+// class: CSSMathClamp
 type CSSMathClamp struct {
 	CSSMathValue
 }
@@ -1052,7 +1038,7 @@ func (_this *CSSMathClamp) Max() *CSSNumericValue {
 	return ret
 }
 
-// interface: CSSMathInvert
+// class: CSSMathInvert
 type CSSMathInvert struct {
 	CSSMathValue
 }
@@ -1095,7 +1081,7 @@ func (_this *CSSMathInvert) Value() *CSSNumericValue {
 	return ret
 }
 
-// interface: CSSMathMax
+// class: CSSMathMax
 type CSSMathMax struct {
 	CSSMathValue
 }
@@ -1140,7 +1126,7 @@ func (_this *CSSMathMax) Values() *CSSNumericArray {
 	return ret
 }
 
-// interface: CSSMathMin
+// class: CSSMathMin
 type CSSMathMin struct {
 	CSSMathValue
 }
@@ -1185,7 +1171,7 @@ func (_this *CSSMathMin) Values() *CSSNumericArray {
 	return ret
 }
 
-// interface: CSSMathNegate
+// class: CSSMathNegate
 type CSSMathNegate struct {
 	CSSMathValue
 }
@@ -1228,7 +1214,7 @@ func (_this *CSSMathNegate) Value() *CSSNumericValue {
 	return ret
 }
 
-// interface: CSSMathProduct
+// class: CSSMathProduct
 type CSSMathProduct struct {
 	CSSMathValue
 }
@@ -1273,7 +1259,7 @@ func (_this *CSSMathProduct) Values() *CSSNumericArray {
 	return ret
 }
 
-// interface: CSSMathSum
+// class: CSSMathSum
 type CSSMathSum struct {
 	CSSMathValue
 }
@@ -1318,7 +1304,7 @@ func (_this *CSSMathSum) Values() *CSSNumericArray {
 	return ret
 }
 
-// interface: CSSMathValue
+// class: CSSMathValue
 type CSSMathValue struct {
 	CSSNumericValue
 }
@@ -1343,7 +1329,7 @@ func (_this *CSSMathValue) Operator() CSSMathOperator {
 	return ret
 }
 
-// interface: CSSMatrixComponent
+// class: CSSMatrixComponent
 type CSSMatrixComponent struct {
 	CSSTransformComponent
 }
@@ -1398,7 +1384,7 @@ func (_this *CSSMatrixComponent) SetMatrix(value *geometry.DOMMatrix) {
 	_this.Value_JS.Set("matrix", input)
 }
 
-// interface: CSSNumericArray
+// class: CSSNumericArray
 type CSSNumericArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1511,7 +1497,7 @@ func (_this *CSSNumericArray) Values() (_result *CSSNumericArrayValueIterator) {
 	return
 }
 
-// interface: CSSNumericArrayEntryIterator
+// class: CSSNumericArrayEntryIterator
 type CSSNumericArrayEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1546,7 +1532,7 @@ func (_this *CSSNumericArrayEntryIterator) Next() (_result *CSSNumericArrayEntry
 	return
 }
 
-// interface: CSSNumericArrayKeyIterator
+// class: CSSNumericArrayKeyIterator
 type CSSNumericArrayKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1581,7 +1567,7 @@ func (_this *CSSNumericArrayKeyIterator) Next() (_result *CSSNumericArrayKeyIter
 	return
 }
 
-// interface: CSSNumericArrayValueIterator
+// class: CSSNumericArrayValueIterator
 type CSSNumericArrayValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1616,7 +1602,7 @@ func (_this *CSSNumericArrayValueIterator) Next() (_result *CSSNumericArrayValue
 	return
 }
 
-// interface: CSSNumericValue
+// class: CSSNumericValue
 type CSSNumericValue struct {
 	CSSStyleValue
 }
@@ -1834,7 +1820,7 @@ func (_this *CSSNumericValue) Type() (_result *CSSNumericType) {
 	return
 }
 
-// interface: CSSPerspective
+// class: CSSPerspective
 type CSSPerspective struct {
 	CSSTransformComponent
 }
@@ -1884,7 +1870,7 @@ func (_this *CSSPerspective) SetLength(value *CSSNumericValue) {
 	_this.Value_JS.Set("length", input)
 }
 
-// interface: CSSRotate
+// class: CSSRotate
 type CSSRotate struct {
 	CSSTransformComponent
 }
@@ -1991,7 +1977,7 @@ func (_this *CSSRotate) SetAngle(value *CSSNumericValue) {
 	_this.Value_JS.Set("angle", input)
 }
 
-// interface: CSSScale
+// class: CSSScale
 type CSSScale struct {
 	CSSTransformComponent
 }
@@ -2081,7 +2067,7 @@ func (_this *CSSScale) SetZ(value *Union) {
 	_this.Value_JS.Set("z", input)
 }
 
-// interface: CSSSkew
+// class: CSSSkew
 type CSSSkew struct {
 	CSSTransformComponent
 }
@@ -2150,7 +2136,7 @@ func (_this *CSSSkew) SetAy(value *CSSNumericValue) {
 	_this.Value_JS.Set("ay", input)
 }
 
-// interface: CSSSkewX
+// class: CSSSkewX
 type CSSSkewX struct {
 	CSSTransformComponent
 }
@@ -2200,7 +2186,7 @@ func (_this *CSSSkewX) SetAx(value *CSSNumericValue) {
 	_this.Value_JS.Set("ax", input)
 }
 
-// interface: CSSSkewY
+// class: CSSSkewY
 type CSSSkewY struct {
 	CSSTransformComponent
 }
@@ -2250,7 +2236,7 @@ func (_this *CSSSkewY) SetAy(value *CSSNumericValue) {
 	_this.Value_JS.Set("ay", input)
 }
 
-// interface: CSSStyleValue
+// class: CSSStyleValue
 type CSSStyleValue struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2337,7 +2323,7 @@ func (_this *CSSStyleValue) ToString() (_result string) {
 	return
 }
 
-// interface: CSSTransformComponent
+// class: CSSTransformComponent
 type CSSTransformComponent struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2402,7 +2388,7 @@ func (_this *CSSTransformComponent) ToString() (_result string) {
 	return
 }
 
-// interface: CSSTransformValue
+// class: CSSTransformValue
 type CSSTransformValue struct {
 	CSSStyleValue
 }
@@ -2575,7 +2561,7 @@ func (_this *CSSTransformValue) Values() (_result *CSSTransformValueValueIterato
 	return
 }
 
-// interface: CSSTransformValueEntryIterator
+// class: CSSTransformValueEntryIterator
 type CSSTransformValueEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2610,7 +2596,7 @@ func (_this *CSSTransformValueEntryIterator) Next() (_result *CSSTransformValueE
 	return
 }
 
-// interface: CSSTransformValueKeyIterator
+// class: CSSTransformValueKeyIterator
 type CSSTransformValueKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2645,7 +2631,7 @@ func (_this *CSSTransformValueKeyIterator) Next() (_result *CSSTransformValueKey
 	return
 }
 
-// interface: CSSTransformValueValueIterator
+// class: CSSTransformValueValueIterator
 type CSSTransformValueValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2680,7 +2666,7 @@ func (_this *CSSTransformValueValueIterator) Next() (_result *CSSTransformValueV
 	return
 }
 
-// interface: CSSTranslate
+// class: CSSTranslate
 type CSSTranslate struct {
 	CSSTransformComponent
 }
@@ -2770,7 +2756,7 @@ func (_this *CSSTranslate) SetZ(value *CSSNumericValue) {
 	_this.Value_JS.Set("z", input)
 }
 
-// interface: CSSUnitValue
+// class: CSSUnitValue
 type CSSUnitValue struct {
 	CSSNumericValue
 }
@@ -2832,7 +2818,7 @@ func (_this *CSSUnitValue) Unit() string {
 	return ret
 }
 
-// interface: CSSUnparsedValue
+// class: CSSUnparsedValue
 type CSSUnparsedValue struct {
 	CSSStyleValue
 }
@@ -2982,7 +2968,7 @@ func (_this *CSSUnparsedValue) Values() (_result *CSSUnparsedValueValueIterator)
 	return
 }
 
-// interface: CSSUnparsedValueEntryIterator
+// class: CSSUnparsedValueEntryIterator
 type CSSUnparsedValueEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3017,7 +3003,7 @@ func (_this *CSSUnparsedValueEntryIterator) Next() (_result *CSSUnparsedValueEnt
 	return
 }
 
-// interface: CSSUnparsedValueKeyIterator
+// class: CSSUnparsedValueKeyIterator
 type CSSUnparsedValueKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3052,7 +3038,7 @@ func (_this *CSSUnparsedValueKeyIterator) Next() (_result *CSSUnparsedValueKeyIt
 	return
 }
 
-// interface: CSSUnparsedValueValueIterator
+// class: CSSUnparsedValueValueIterator
 type CSSUnparsedValueValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3087,7 +3073,7 @@ func (_this *CSSUnparsedValueValueIterator) Next() (_result *CSSUnparsedValueVal
 	return
 }
 
-// interface: CSSVariableReferenceValue
+// class: CSSVariableReferenceValue
 type CSSVariableReferenceValue struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3158,7 +3144,7 @@ func (_this *CSSVariableReferenceValue) Fallback() *CSSUnparsedValue {
 	return ret
 }
 
-// interface: StylePropertyMap
+// class: StylePropertyMap
 type StylePropertyMap struct {
 	StylePropertyMapReadOnly
 }
@@ -3229,7 +3215,7 @@ func (_this *StylePropertyMap) Clear() {
 	return
 }
 
-// interface: StylePropertyMapReadOnly
+// class: StylePropertyMapReadOnly
 type StylePropertyMapReadOnly struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3384,7 +3370,7 @@ func (_this *StylePropertyMapReadOnly) Values() (_result *StylePropertyMapReadOn
 	return
 }
 
-// interface: StylePropertyMapReadOnlyEntryIterator
+// class: StylePropertyMapReadOnlyEntryIterator
 type StylePropertyMapReadOnlyEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3419,7 +3405,7 @@ func (_this *StylePropertyMapReadOnlyEntryIterator) Next() (_result *StyleProper
 	return
 }
 
-// interface: StylePropertyMapReadOnlyKeyIterator
+// class: StylePropertyMapReadOnlyKeyIterator
 type StylePropertyMapReadOnlyKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3454,7 +3440,7 @@ func (_this *StylePropertyMapReadOnlyKeyIterator) Next() (_result *StyleProperty
 	return
 }
 
-// interface: StylePropertyMapReadOnlyValueIterator
+// class: StylePropertyMapReadOnlyValueIterator
 type StylePropertyMapReadOnlyValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

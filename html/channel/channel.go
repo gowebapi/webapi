@@ -27,20 +27,6 @@ import (
 // transform files:
 // html.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -74,7 +60,7 @@ var binaryTypeFromWasmTable = map[string]BinaryType{
 	"blob": Blob, "arraybuffer": Arraybuffer,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BinaryType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -282,7 +268,7 @@ func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
 	return &out
 }
 
-// interface: BroadcastChannel
+// class: BroadcastChannel
 type BroadcastChannel struct {
 	domcore.EventTarget
 }
@@ -394,7 +380,7 @@ func (_this *BroadcastChannel) Close() {
 	return
 }
 
-// interface: CloseEvent
+// class: CloseEvent
 type CloseEvent struct {
 	domcore.Event
 }
@@ -460,7 +446,7 @@ func (_this *CloseEvent) Reason() string {
 	return ret
 }
 
-// interface: MessageChannel
+// class: MessageChannel
 type MessageChannel struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -514,7 +500,7 @@ func (_this *MessageChannel) Port2() *MessagePort {
 	return ret
 }
 
-// interface: MessageEvent
+// class: MessageEvent
 type MessageEvent struct {
 	domcore.Event
 }
@@ -651,7 +637,7 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 	return
 }
 
-// interface: MessagePort
+// class: MessagePort
 type MessagePort struct {
 	domcore.EventTarget
 }
@@ -769,7 +755,7 @@ func (_this *MessagePort) Close() {
 	return
 }
 
-// interface: WebSocket
+// class: WebSocket
 type WebSocket struct {
 	domcore.EventTarget
 }

@@ -34,20 +34,6 @@ import (
 // html.go.md
 // uievents.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -1694,7 +1680,7 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 	return &out
 }
 
-// interface: CompositionEvent
+// class: CompositionEvent
 type CompositionEvent struct {
 	UIEvent
 }
@@ -1742,7 +1728,7 @@ func (_this *CompositionEvent) Data() string {
 	return ret
 }
 
-// interface: DragEvent
+// class: DragEvent
 type DragEvent struct {
 	MouseEvent
 }
@@ -1792,7 +1778,7 @@ func (_this *DragEvent) DataTransfer() *datatransfer.DataTransfer {
 	return ret
 }
 
-// interface: ErrorEvent
+// class: ErrorEvent
 type ErrorEvent struct {
 	domcore.Event
 }
@@ -1876,7 +1862,7 @@ func (_this *ErrorEvent) Error() js.Value {
 	return ret
 }
 
-// interface: FocusEvent
+// class: FocusEvent
 type FocusEvent struct {
 	UIEvent
 }
@@ -1926,7 +1912,7 @@ func (_this *FocusEvent) RelatedTarget() *domcore.EventTarget {
 	return ret
 }
 
-// interface: FormDataEvent
+// class: FormDataEvent
 type FormDataEvent struct {
 	domcore.Event
 }
@@ -1974,7 +1960,7 @@ func (_this *FormDataEvent) FormData() *form.FormData {
 	return ret
 }
 
-// interface: HashChangeEvent
+// class: HashChangeEvent
 type HashChangeEvent struct {
 	domcore.Event
 }
@@ -2031,7 +2017,7 @@ func (_this *HashChangeEvent) NewURL() string {
 	return ret
 }
 
-// interface: InputEvent
+// class: InputEvent
 type InputEvent struct {
 	UIEvent
 }
@@ -2133,7 +2119,7 @@ func (_this *InputEvent) GetTargetRanges() (_result []*dom.StaticRange) {
 	return
 }
 
-// interface: KeyboardEvent
+// class: KeyboardEvent
 type KeyboardEvent struct {
 	UIEvent
 }
@@ -2295,7 +2281,7 @@ func (_this *KeyboardEvent) GetModifierState(keyArg string) (_result bool) {
 	return
 }
 
-// interface: MouseEvent
+// class: MouseEvent
 type MouseEvent struct {
 	UIEvent
 }
@@ -2524,7 +2510,7 @@ func (_this *MouseEvent) GetModifierState(keyArg string) (_result bool) {
 	return
 }
 
-// interface: PageTransitionEvent
+// class: PageTransitionEvent
 type PageTransitionEvent struct {
 	domcore.Event
 }
@@ -2572,7 +2558,7 @@ func (_this *PageTransitionEvent) Persisted() bool {
 	return ret
 }
 
-// interface: PopStateEvent
+// class: PopStateEvent
 type PopStateEvent struct {
 	domcore.Event
 }
@@ -2620,7 +2606,7 @@ func (_this *PopStateEvent) State() js.Value {
 	return ret
 }
 
-// interface: PromiseRejectionEvent
+// class: PromiseRejectionEvent
 type PromiseRejectionEvent struct {
 	domcore.Event
 }
@@ -2675,7 +2661,7 @@ func (_this *PromiseRejectionEvent) Reason() js.Value {
 	return ret
 }
 
-// interface: TrackEvent
+// class: TrackEvent
 type TrackEvent struct {
 	domcore.Event
 }
@@ -2725,7 +2711,7 @@ func (_this *TrackEvent) Track() *Union {
 	return ret
 }
 
-// interface: UIEvent
+// class: UIEvent
 type UIEvent struct {
 	domcore.Event
 }
@@ -2804,7 +2790,7 @@ func (_this *UIEvent) Which() uint {
 	return ret
 }
 
-// interface: WheelEvent
+// class: WheelEvent
 type WheelEvent struct {
 	MouseEvent
 }

@@ -22,20 +22,6 @@ import (
 // WebCryptoAPI.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -71,7 +57,7 @@ var keyFormatFromWasmTable = map[string]KeyFormat{
 	"raw": RawKeyFormat, "spki": SpkiKeyFormat, "pkcs8": Pkcs8KeyFormat, "jwk": JwkKeyFormat,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *KeyFormat) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -114,7 +100,7 @@ var keyTypeFromWasmTable = map[string]KeyType{
 	"public": PublicKeyType, "private": PrivateKeyType, "secret": SecretKeyType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *KeyType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -162,7 +148,7 @@ var keyUsageFromWasmTable = map[string]KeyUsage{
 	"encrypt": EncryptKeyUsage, "decrypt": DecryptKeyUsage, "sign": SignKeyUsage, "verify": VerifyKeyUsage, "deriveKey": DeriveKeyKeyUsage, "deriveBits": DeriveBitsKeyUsage, "wrapKey": WrapKeyKeyUsage, "unwrapKey": UnwrapKeyKeyUsage,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *KeyUsage) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -460,7 +446,7 @@ func RsaOtherPrimesInfoFromJS(value js.Wrapper) *RsaOtherPrimesInfo {
 	return &out
 }
 
-// interface: Crypto
+// class: Crypto
 type Crypto struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -507,7 +493,7 @@ func (_this *Crypto) GetRandomValues(array *Union) (_result *Union) {
 	return
 }
 
-// interface: CryptoKey
+// class: CryptoKey
 type CryptoKey struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -564,7 +550,7 @@ func (_this *CryptoKey) Usages() *javascript.Object {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseCryptoKey struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -669,7 +655,7 @@ func (_this *PromiseCryptoKey) Finally(onFinally *javascript.PromiseFinally) (_r
 	return
 }
 
-// interface: SubtleCrypto
+// class: SubtleCrypto
 type SubtleCrypto struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

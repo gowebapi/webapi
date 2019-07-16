@@ -24,20 +24,6 @@ import (
 // transform files:
 // intersection-observer.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -219,7 +205,7 @@ func IntersectionObserverInitFromJS(value js.Wrapper) *IntersectionObserverInit 
 	return &out
 }
 
-// interface: IntersectionObserver
+// class: IntersectionObserver
 type IntersectionObserver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -354,7 +340,7 @@ func (_this *IntersectionObserver) TakeRecords() (_result []*IntersectionObserve
 	return
 }
 
-// interface: IntersectionObserverEntry
+// class: IntersectionObserverEntry
 type IntersectionObserverEntry struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -30,20 +30,6 @@ import (
 // promises.go.md
 // webusb.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -77,7 +63,7 @@ var uSBDirectionFromWasmTable = map[string]USBDirection{
 	"in": InUSBDirection, "out": OutUSBDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *USBDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -120,7 +106,7 @@ var uSBEndpointTypeFromWasmTable = map[string]USBEndpointType{
 	"bulk": BulkUSBEndpointType, "interrupt": InterruptUSBEndpointType, "isochronous": IsochronousUSBEndpointType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *USBEndpointType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -164,7 +150,7 @@ var uSBRecipientFromWasmTable = map[string]USBRecipient{
 	"device": DeviceUSBRecipient, "interface": InterfaceUSBRecipient, "endpoint": EndpointUSBRecipient, "other": OtherUSBRecipient,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *USBRecipient) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -207,7 +193,7 @@ var uSBRequestTypeFromWasmTable = map[string]USBRequestType{
 	"standard": StandardUSBRequestType, "class": ClassUSBRequestType, "vendor": VendorUSBRequestType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *USBRequestType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -250,7 +236,7 @@ var uSBTransferStatusFromWasmTable = map[string]USBTransferStatus{
 	"ok": OkUSBTransferStatus, "stall": StallUSBTransferStatus, "babble": BabbleUSBTransferStatus,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *USBTransferStatus) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -952,7 +938,7 @@ func USBDeviceRequestOptionsFromJS(value js.Wrapper) *USBDeviceRequestOptions {
 	return &out
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceUSBDevice struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1057,7 +1043,7 @@ func (_this *PromiseSequenceUSBDevice) Finally(onFinally *javascript.PromiseFina
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseUSBDevice struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1162,7 +1148,7 @@ func (_this *PromiseUSBDevice) Finally(onFinally *javascript.PromiseFinally) (_r
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseUSBInTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1267,7 +1253,7 @@ func (_this *PromiseUSBInTransferResult) Finally(onFinally *javascript.PromiseFi
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseUSBIsochronousInTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1372,7 +1358,7 @@ func (_this *PromiseUSBIsochronousInTransferResult) Finally(onFinally *javascrip
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseUSBIsochronousOutTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1477,7 +1463,7 @@ func (_this *PromiseUSBIsochronousOutTransferResult) Finally(onFinally *javascri
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseUSBOutTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1582,7 +1568,7 @@ func (_this *PromiseUSBOutTransferResult) Finally(onFinally *javascript.PromiseF
 	return
 }
 
-// interface: USB
+// class: USB
 type USB struct {
 	domcore.EventTarget
 }
@@ -1677,7 +1663,7 @@ func (_this *USB) RequestDevice(options *USBDeviceRequestOptions) (_result *Prom
 	return
 }
 
-// interface: USBAlternateInterface
+// class: USBAlternateInterface
 type USBAlternateInterface struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1776,7 +1762,7 @@ func (_this *USBAlternateInterface) Endpoints() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: USBConfiguration
+// class: USBConfiguration
 type USBConfiguration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1848,7 +1834,7 @@ func (_this *USBConfiguration) Interfaces() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: USBConnectionEvent
+// class: USBConnectionEvent
 type USBConnectionEvent struct {
 	domcore.Event
 }
@@ -1894,7 +1880,7 @@ func (_this *USBConnectionEvent) Device() *USBDevice {
 	return ret
 }
 
-// interface: USBDevice
+// class: USBDevice
 type USBDevice struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2345,7 +2331,7 @@ func (_this *USBDevice) Reset() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: USBEndpoint
+// class: USBEndpoint
 type USBEndpoint struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2426,7 +2412,7 @@ func (_this *USBEndpoint) PacketSize() uint {
 	return ret
 }
 
-// interface: USBInTransferResult
+// class: USBInTransferResult
 type USBInTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2490,7 +2476,7 @@ func (_this *USBInTransferResult) Status() USBTransferStatus {
 	return ret
 }
 
-// interface: USBInterface
+// class: USBInterface
 type USBInterface struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2568,7 +2554,7 @@ func (_this *USBInterface) Claimed() bool {
 	return ret
 }
 
-// interface: USBIsochronousInTransferPacket
+// class: USBIsochronousInTransferPacket
 type USBIsochronousInTransferPacket struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2632,7 +2618,7 @@ func (_this *USBIsochronousInTransferPacket) Status() USBTransferStatus {
 	return ret
 }
 
-// interface: USBIsochronousInTransferResult
+// class: USBIsochronousInTransferResult
 type USBIsochronousInTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2700,7 +2686,7 @@ func (_this *USBIsochronousInTransferResult) Packets() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: USBIsochronousOutTransferPacket
+// class: USBIsochronousOutTransferPacket
 type USBIsochronousOutTransferPacket struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2762,7 +2748,7 @@ func (_this *USBIsochronousOutTransferPacket) Status() USBTransferStatus {
 	return ret
 }
 
-// interface: USBIsochronousOutTransferResult
+// class: USBIsochronousOutTransferResult
 type USBIsochronousOutTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2814,7 +2800,7 @@ func (_this *USBIsochronousOutTransferResult) Packets() *javascript.FrozenArray 
 	return ret
 }
 
-// interface: USBOutTransferResult
+// class: USBOutTransferResult
 type USBOutTransferResult struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2876,7 +2862,7 @@ func (_this *USBOutTransferResult) Status() USBTransferStatus {
 	return ret
 }
 
-// interface: USBPermissionResult
+// class: USBPermissionResult
 type USBPermissionResult struct {
 	permissions.PermissionStatus
 }

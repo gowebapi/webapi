@@ -39,20 +39,6 @@ import (
 // promises.go.md
 // webrtc.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -87,7 +73,7 @@ var rTCBundlePolicyFromWasmTable = map[string]BundlePolicy{
 	"balanced": BalancedRTCBundlePolicy, "max-compat": MaxCompatRTCBundlePolicy, "max-bundle": MaxBundleRTCBundlePolicy,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BundlePolicy) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -131,7 +117,7 @@ var rTCDataChannelStateFromWasmTable = map[string]DataChannelState{
 	"connecting": ConnectingRTCDataChannelState, "open": OpenRTCDataChannelState, "closing": ClosingRTCDataChannelState, "closed": ClosedRTCDataChannelState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DataChannelState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -174,7 +160,7 @@ var rTCDegradationPreferenceFromWasmTable = map[string]DegradationPreference{
 	"maintain-framerate": MaintainFramerateRTCDegradationPreference, "maintain-resolution": MaintainResolutionRTCDegradationPreference, "balanced": BalancedRTCDegradationPreference,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DegradationPreference) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -219,7 +205,7 @@ var rTCDtlsTransportStateFromWasmTable = map[string]DtlsTransportState{
 	"new": NewRTCDtlsTransportState, "connecting": ConnectingRTCDtlsTransportState, "connected": ConnectedRTCDtlsTransportState, "closed": ClosedRTCDtlsTransportState, "failed": FailedRTCDtlsTransportState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DtlsTransportState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -261,7 +247,7 @@ var rTCDtxStatusFromWasmTable = map[string]DtxStatus{
 	"disabled": DisabledRTCDtxStatus, "enabled": EnabledRTCDtxStatus,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DtxStatus) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -305,7 +291,7 @@ var rTCIceCandidateTypeFromWasmTable = map[string]IceCandidateType{
 	"host": HostRTCIceCandidateType, "srflx": SrflxRTCIceCandidateType, "prflx": PrflxRTCIceCandidateType, "relay": RelayRTCIceCandidateType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceCandidateType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -347,7 +333,7 @@ var rTCIceComponentFromWasmTable = map[string]IceComponent{
 	"rtp": RtpRTCIceComponent, "rtcp": RtcpRTCIceComponent,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceComponent) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -394,7 +380,7 @@ var rTCIceConnectionStateFromWasmTable = map[string]IceConnectionState{
 	"closed": ClosedRTCIceConnectionState, "failed": FailedRTCIceConnectionState, "disconnected": DisconnectedRTCIceConnectionState, "new": NewRTCIceConnectionState, "checking": CheckingRTCIceConnectionState, "completed": CompletedRTCIceConnectionState, "connected": ConnectedRTCIceConnectionState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceConnectionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -436,7 +422,7 @@ var rTCIceCredentialTypeFromWasmTable = map[string]IceCredentialType{
 	"password": PasswordRTCIceCredentialType, "oauth": OauthRTCIceCredentialType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceCredentialType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -479,7 +465,7 @@ var rTCIceGathererStateFromWasmTable = map[string]IceGathererState{
 	"new": NewRTCIceGathererState, "gathering": GatheringRTCIceGathererState, "complete": CompleteRTCIceGathererState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceGathererState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -522,7 +508,7 @@ var rTCIceGatheringStateFromWasmTable = map[string]IceGatheringState{
 	"new": NewRTCIceGatheringState, "gathering": GatheringRTCIceGatheringState, "complete": CompleteRTCIceGatheringState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceGatheringState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -564,7 +550,7 @@ var rTCIceProtocolFromWasmTable = map[string]IceProtocol{
 	"udp": UdpRTCIceProtocol, "tcp": TcpRTCIceProtocol,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceProtocol) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -606,7 +592,7 @@ var rTCIceRoleFromWasmTable = map[string]IceRole{
 	"controlling": ControllingRTCIceRole, "controlled": ControlledRTCIceRole,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceRole) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -649,7 +635,7 @@ var rTCIceTcpCandidateTypeFromWasmTable = map[string]IceTcpCandidateType{
 	"active": ActiveRTCIceTcpCandidateType, "passive": PassiveRTCIceTcpCandidateType, "so": SoRTCIceTcpCandidateType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceTcpCandidateType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -691,7 +677,7 @@ var rTCIceTransportPolicyFromWasmTable = map[string]IceTransportPolicy{
 	"relay": RelayRTCIceTransportPolicy, "all": AllRTCIceTransportPolicy,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceTransportPolicy) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -738,7 +724,7 @@ var rTCIceTransportStateFromWasmTable = map[string]IceTransportState{
 	"new": NewRTCIceTransportState, "checking": CheckingRTCIceTransportState, "connected": ConnectedRTCIceTransportState, "completed": CompletedRTCIceTransportState, "disconnected": DisconnectedRTCIceTransportState, "failed": FailedRTCIceTransportState, "closed": ClosedRTCIceTransportState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IceTransportState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -784,7 +770,7 @@ var rTCPeerConnectionStateFromWasmTable = map[string]PeerConnectionState{
 	"closed": ClosedRTCPeerConnectionState, "failed": FailedRTCPeerConnectionState, "disconnected": DisconnectedRTCPeerConnectionState, "new": NewRTCPeerConnectionState, "connecting": ConnectingRTCPeerConnectionState, "connected": ConnectedRTCPeerConnectionState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PeerConnectionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -828,7 +814,7 @@ var rTCPriorityTypeFromWasmTable = map[string]PriorityType{
 	"very-low": VeryLowRTCPriorityType, "low": LowRTCPriorityType, "medium": MediumRTCPriorityType, "high": HighRTCPriorityType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PriorityType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -870,7 +856,7 @@ var rTCRtcpMuxPolicyFromWasmTable = map[string]RtcpMuxPolicy{
 	"negotiate": NegotiateRTCRtcpMuxPolicy, "require": RequireRTCRtcpMuxPolicy,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RtcpMuxPolicy) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -914,7 +900,7 @@ var rTCRtpTransceiverDirectionFromWasmTable = map[string]RtpTransceiverDirection
 	"sendrecv": SendrecvRTCRtpTransceiverDirection, "sendonly": SendonlyRTCRtpTransceiverDirection, "recvonly": RecvonlyRTCRtpTransceiverDirection, "inactive": InactiveRTCRtpTransceiverDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RtpTransceiverDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -957,7 +943,7 @@ var rTCSctpTransportStateFromWasmTable = map[string]SctpTransportState{
 	"connecting": ConnectingRTCSctpTransportState, "connected": ConnectedRTCSctpTransportState, "closed": ClosedRTCSctpTransportState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SctpTransportState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -1001,7 +987,7 @@ var rTCSdpTypeFromWasmTable = map[string]SdpType{
 	"offer": OfferRTCSdpType, "pranswer": PranswerRTCSdpType, "answer": AnswerRTCSdpType, "rollback": RollbackRTCSdpType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SdpType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -1047,7 +1033,7 @@ var rTCSignalingStateFromWasmTable = map[string]SignalingState{
 	"stable": StableRTCSignalingState, "have-local-offer": HaveLocalOfferRTCSignalingState, "have-remote-offer": HaveRemoteOfferRTCSignalingState, "have-local-pranswer": HaveLocalPranswerRTCSignalingState, "have-remote-pranswer": HaveRemotePranswerRTCSignalingState, "closed": ClosedRTCSignalingState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SignalingState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -3239,7 +3225,7 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 	return &out
 }
 
-// interface: RTCCertificate
+// class: RTCCertificate
 type Certificate struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3315,7 +3301,7 @@ func (_this *Certificate) GetFingerprints() (_result []*DtlsFingerprint) {
 	return
 }
 
-// interface: RTCDTMFSender
+// class: RTCDTMFSender
 type DTMFSender struct {
 	domcore.EventTarget
 }
@@ -3395,7 +3381,7 @@ func (_this *DTMFSender) InsertDTMF(tones string, duration *uint, interToneGap *
 	return
 }
 
-// interface: RTCDTMFToneChangeEvent
+// class: RTCDTMFToneChangeEvent
 type DTMFToneChangeEvent struct {
 	domcore.Event
 }
@@ -3441,7 +3427,7 @@ func (_this *DTMFToneChangeEvent) Tone() string {
 	return ret
 }
 
-// interface: RTCDataChannel
+// class: RTCDataChannel
 type DataChannel struct {
 	domcore.EventTarget
 }
@@ -3765,7 +3751,7 @@ func (_this *DataChannel) Send4(data *Union) {
 	return
 }
 
-// interface: RTCDataChannelEvent
+// class: RTCDataChannelEvent
 type DataChannelEvent struct {
 	domcore.Event
 }
@@ -3811,7 +3797,7 @@ func (_this *DataChannelEvent) Channel() *DataChannel {
 	return ret
 }
 
-// interface: RTCDtlsTransport
+// class: RTCDtlsTransport
 type DtlsTransport struct {
 	domcore.EventTarget
 }
@@ -3915,7 +3901,7 @@ func (_this *DtlsTransport) GetRemoteCertificates() (_result []*javascript.Array
 	return
 }
 
-// interface: RTCError
+// class: RTCError
 type Error struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3936,7 +3922,7 @@ func ErrorFromJS(value js.Wrapper) *Error {
 	return ret
 }
 
-// interface: RTCErrorEvent
+// class: RTCErrorEvent
 type ErrorEvent struct {
 	domcore.Event
 }
@@ -3984,7 +3970,7 @@ func (_this *ErrorEvent) Error() *Error {
 	return ret
 }
 
-// interface: RTCIceCandidate
+// class: RTCIceCandidate
 type IceCandidate struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4204,7 +4190,7 @@ func (_this *IceCandidate) ToJSON() (_result *IceCandidateInit) {
 	return
 }
 
-// interface: RTCIceTransport
+// class: RTCIceTransport
 type IceTransport struct {
 	domcore.EventTarget
 }
@@ -4420,7 +4406,7 @@ func (_this *IceTransport) GetRemoteParameters() (_result *IceParameters) {
 	return
 }
 
-// interface: RTCPeerConnection
+// class: RTCPeerConnection
 type PeerConnection struct {
 	domcore.EventTarget
 }
@@ -5335,7 +5321,7 @@ func (_this *PeerConnection) GetStats(selector *local.MediaStreamTrack) (_result
 	return
 }
 
-// interface: RTCPeerConnectionIceErrorEvent
+// class: RTCPeerConnectionIceErrorEvent
 type PeerConnectionIceErrorEvent struct {
 	domcore.Event
 }
@@ -5408,7 +5394,7 @@ func (_this *PeerConnectionIceErrorEvent) ErrorText() string {
 	return ret
 }
 
-// interface: RTCPeerConnectionIceEvent
+// class: RTCPeerConnectionIceEvent
 type PeerConnectionIceEvent struct {
 	domcore.Event
 }
@@ -5470,7 +5456,7 @@ func (_this *PeerConnectionIceEvent) Url() *string {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseCertificate struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5575,7 +5561,7 @@ func (_this *PromiseCertificate) Finally(onFinally *javascript.PromiseFinally) (
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSessionDescriptionInit struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5680,7 +5666,7 @@ func (_this *PromiseSessionDescriptionInit) Finally(onFinally *javascript.Promis
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseStatsReport struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5785,7 +5771,7 @@ func (_this *PromiseStatsReport) Finally(onFinally *javascript.PromiseFinally) (
 	return
 }
 
-// interface: RTCRtpReceiver
+// class: RTCRtpReceiver
 type RtpReceiver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5930,7 +5916,7 @@ func (_this *RtpReceiver) GetStats() (_result *PromiseStatsReport) {
 	return
 }
 
-// interface: RTCRtpSender
+// class: RTCRtpSender
 type RtpSender struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6092,7 +6078,7 @@ func (_this *RtpSender) GetStats() (_result *PromiseStatsReport) {
 	return
 }
 
-// interface: RTCRtpTransceiver
+// class: RTCRtpTransceiver
 type RtpTransceiver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6205,7 +6191,7 @@ func (_this *RtpTransceiver) SetCodecPreferences(codecs []*RtpCodecCapability) {
 	return
 }
 
-// interface: RTCSctpTransport
+// class: RTCSctpTransport
 type SctpTransport struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6289,7 +6275,7 @@ func (_this *SctpTransport) SetOnstatechange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onstatechange", input)
 }
 
-// interface: RTCSessionDescription
+// class: RTCSessionDescription
 type SessionDescription struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6360,7 +6346,7 @@ func (_this *SessionDescription) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: RTCStatsEvent
+// class: RTCStatsEvent
 type StatsEvent struct {
 	domcore.Event
 }
@@ -6406,7 +6392,7 @@ func (_this *StatsEvent) Report() *StatsReport {
 	return ret
 }
 
-// interface: RTCStatsReport
+// class: RTCStatsReport
 type StatsReport struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6538,7 +6524,7 @@ func (_this *StatsReport) Has(key string) (_result bool) {
 	return
 }
 
-// interface: RTCStatsReportEntryIterator
+// class: RTCStatsReportEntryIterator
 type StatsReportEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6573,7 +6559,7 @@ func (_this *StatsReportEntryIterator) Next() (_result *StatsReportEntryIterator
 	return
 }
 
-// interface: RTCStatsReportKeyIterator
+// class: RTCStatsReportKeyIterator
 type StatsReportKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6608,7 +6594,7 @@ func (_this *StatsReportKeyIterator) Next() (_result *StatsReportKeyIteratorValu
 	return
 }
 
-// interface: RTCStatsReportValueIterator
+// class: RTCStatsReportValueIterator
 type StatsReportValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6643,7 +6629,7 @@ func (_this *StatsReportValueIterator) Next() (_result *StatsReportValueIterator
 	return
 }
 
-// interface: RTCTrackEvent
+// class: RTCTrackEvent
 type TrackEvent struct {
 	domcore.Event
 }

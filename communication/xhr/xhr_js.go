@@ -23,20 +23,6 @@ import (
 // transform files:
 // xhr.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -74,7 +60,7 @@ var xMLHttpRequestResponseTypeFromWasmTable = map[string]XMLHttpRequestResponseT
 	"": EmptyString0XMLHttpRequestResponseType, "arraybuffer": ArraybufferXMLHttpRequestResponseType, "blob": BlobXMLHttpRequestResponseType, "document": DocumentXMLHttpRequestResponseType, "json": JsonXMLHttpRequestResponseType, "text": TextXMLHttpRequestResponseType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XMLHttpRequestResponseType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -158,7 +144,7 @@ func ProgressEventInitFromJS(value js.Wrapper) *ProgressEventInit {
 	return &out
 }
 
-// interface: ProgressEvent
+// class: ProgressEvent
 type ProgressEvent struct {
 	domcore.Event
 }
@@ -224,7 +210,7 @@ func (_this *ProgressEvent) Total() int {
 	return ret
 }
 
-// interface: XMLHttpRequest
+// class: XMLHttpRequest
 type XMLHttpRequest struct {
 	XMLHttpRequestEventTarget
 }
@@ -535,7 +521,7 @@ func (_this *XMLHttpRequest) OverrideMimeType(mime string) {
 	return
 }
 
-// interface: XMLHttpRequestEventTarget
+// class: XMLHttpRequestEventTarget
 type XMLHttpRequestEventTarget struct {
 	domcore.EventTarget
 }
@@ -719,7 +705,7 @@ func (_this *XMLHttpRequestEventTarget) SetOnloadend(value *domcore.EventHandler
 	_this.Value_JS.Set("onloadend", input)
 }
 
-// interface: XMLHttpRequestUpload
+// class: XMLHttpRequestUpload
 type XMLHttpRequestUpload struct {
 	XMLHttpRequestEventTarget
 }

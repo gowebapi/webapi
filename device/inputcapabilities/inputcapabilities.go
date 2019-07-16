@@ -14,20 +14,6 @@ import js "github.com/gowebapi/webapi/core/js"
 // transform files:
 // InputDeviceCapabilities.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -79,7 +65,7 @@ func InputDeviceCapabilitiesInitFromJS(value js.Wrapper) *InputDeviceCapabilitie
 	return &out
 }
 
-// interface: InputDeviceCapabilities
+// class: InputDeviceCapabilities
 type InputDeviceCapabilities struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

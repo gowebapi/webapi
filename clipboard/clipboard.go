@@ -26,20 +26,6 @@ import (
 // transform files:
 // clipboard-apis.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -105,7 +91,7 @@ func ClipboardEventInitFromJS(value js.Wrapper) *ClipboardEventInit {
 	return &out
 }
 
-// interface: Clipboard
+// class: Clipboard
 type Clipboard struct {
 	domcore.EventTarget
 }
@@ -183,7 +169,7 @@ func (_this *Clipboard) WriteText(data string) (_result *javascript.PromiseVoid)
 	return
 }
 
-// interface: ClipboardEvent
+// class: ClipboardEvent
 type ClipboardEvent struct {
 	domcore.Event
 }

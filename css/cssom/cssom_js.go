@@ -17,20 +17,6 @@ import (
 // transform files:
 // cssom.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -48,7 +34,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: CSSGroupingRule
+// class: CSSGroupingRule
 type CSSGroupingRule struct {
 	CSSRule
 }
@@ -107,7 +93,7 @@ func (_this *CSSGroupingRule) DeleteRule(index uint) {
 	return
 }
 
-// interface: CSSImportRule
+// class: CSSImportRule
 type CSSImportRule struct {
 	CSSRule
 }
@@ -150,7 +136,7 @@ func (_this *CSSImportRule) StyleSheet() *CSSStyleSheet {
 	return ret
 }
 
-// interface: CSSMarginRule
+// class: CSSMarginRule
 type CSSMarginRule struct {
 	CSSRule
 }
@@ -184,7 +170,7 @@ func (_this *CSSMarginRule) Style() *CSSStyleDeclaration {
 	return ret
 }
 
-// interface: CSSNamespaceRule
+// class: CSSNamespaceRule
 type CSSNamespaceRule struct {
 	CSSRule
 }
@@ -218,7 +204,7 @@ func (_this *CSSNamespaceRule) Prefix() string {
 	return ret
 }
 
-// interface: CSSPageRule
+// class: CSSPageRule
 type CSSPageRule struct {
 	CSSGroupingRule
 }
@@ -259,7 +245,7 @@ func (_this *CSSPageRule) Style() *CSSStyleDeclaration {
 	return ret
 }
 
-// interface: CSSRule
+// class: CSSRule
 type CSSRule struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -345,7 +331,7 @@ func (_this *CSSRule) ParentStyleSheet() *CSSStyleSheet {
 	return ret
 }
 
-// interface: CSSRuleList
+// class: CSSRuleList
 type CSSRuleList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -413,7 +399,7 @@ func (_this *CSSRuleList) Item(index uint) (_result *CSSRule) {
 	return
 }
 
-// interface: CSSStyleDeclaration
+// class: CSSStyleDeclaration
 type CSSStyleDeclaration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -591,7 +577,7 @@ func (_this *CSSStyleDeclaration) RemoveProperty(property string) (_result strin
 	return
 }
 
-// interface: CSSStyleRule
+// class: CSSStyleRule
 type CSSStyleRule struct {
 	CSSRule
 }
@@ -641,7 +627,7 @@ func (_this *CSSStyleRule) StyleMap() *typedom.StylePropertyMap {
 	return ret
 }
 
-// interface: CSSStyleSheet
+// class: CSSStyleSheet
 type CSSStyleSheet struct {
 	StyleSheet
 }
@@ -711,7 +697,7 @@ func (_this *CSSStyleSheet) DeleteRule(index uint) {
 	return
 }
 
-// interface: MediaList
+// class: MediaList
 type MediaList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -826,7 +812,7 @@ func (_this *MediaList) DeleteMedium(medium string) {
 	return
 }
 
-// interface: StyleSheet
+// class: StyleSheet
 type StyleSheet struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -927,7 +913,7 @@ func (_this *StyleSheet) SetDisabled(value bool) {
 	_this.Value_JS.Set("disabled", input)
 }
 
-// interface: StyleSheetList
+// class: StyleSheetList
 type StyleSheetList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

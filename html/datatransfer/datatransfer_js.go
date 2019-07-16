@@ -29,20 +29,6 @@ import (
 // html.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -138,7 +124,7 @@ func PromiseDataTransferOnRejectedFromJS(_value js.Value) PromiseDataTransferOnR
 	}
 }
 
-// interface: DataTransfer
+// class: DataTransfer
 type DataTransfer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -297,7 +283,7 @@ func (_this *DataTransfer) ClearData(format *string) {
 	return
 }
 
-// interface: DataTransferItem
+// class: DataTransferItem
 type DataTransferItem struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -387,7 +373,7 @@ func (_this *DataTransferItem) WebkitGetAsEntry() (_result *entries.FileSystemEn
 	return
 }
 
-// interface: DataTransferItemList
+// class: DataTransferItemList
 type DataTransferItemList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -496,7 +482,7 @@ func (_this *DataTransferItemList) Clear() {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseDataTransfer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -20,20 +20,6 @@ import (
 // promises.go.md
 // storage.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -163,7 +149,7 @@ func StorageEstimateFromJS(value js.Wrapper) *StorageEstimate {
 	return &out
 }
 
-// interface: Promise
+// class: Promise
 type PromiseStorageEstimate struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -268,7 +254,7 @@ func (_this *PromiseStorageEstimate) Finally(onFinally *javascript.PromiseFinall
 	return
 }
 
-// interface: StorageManager
+// class: StorageManager
 type StorageManager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

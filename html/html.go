@@ -41,20 +41,6 @@ import (
 // transform files:
 // html.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -89,7 +75,7 @@ var offscreenRenderingContextIdFromWasmTable = map[string]OffscreenRenderingCont
 	"2d": _2dOffscreenRenderingContextId, "webgl": WebglOffscreenRenderingContextId, "webgl2": Webgl2OffscreenRenderingContextId,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *OffscreenRenderingContextId) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -133,7 +119,7 @@ var selectionModeFromWasmTable = map[string]SelectionMode{
 	"select": SelectSelectionMode, "start": StartSelectionMode, "end": EndSelectionMode, "preserve": PreserveSelectionMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SelectionMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -249,7 +235,7 @@ func ImageEncodeOptionsFromJS(value js.Wrapper) *ImageEncodeOptions {
 	return &out
 }
 
-// interface: HTMLAllCollection
+// class: HTMLAllCollection
 type HTMLAllCollection struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -355,7 +341,7 @@ func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
 	return
 }
 
-// interface: HTMLAnchorElement
+// class: HTMLAnchorElement
 type HTMLAnchorElement struct {
 	HTMLElement
 }
@@ -762,7 +748,7 @@ func (_this *HTMLAnchorElement) SetHash(value string) {
 	_this.Value_JS.Set("hash", input)
 }
 
-// interface: HTMLAreaElement
+// class: HTMLAreaElement
 type HTMLAreaElement struct {
 	HTMLElement
 }
@@ -1105,7 +1091,7 @@ func (_this *HTMLAreaElement) SetHash(value string) {
 	_this.Value_JS.Set("hash", input)
 }
 
-// interface: HTMLBRElement
+// class: HTMLBRElement
 type HTMLBRElement struct {
 	HTMLElement
 }
@@ -1137,7 +1123,7 @@ func (_this *HTMLBRElement) SetClear(value string) {
 	_this.Value_JS.Set("clear", input)
 }
 
-// interface: HTMLBaseElement
+// class: HTMLBaseElement
 type HTMLBaseElement struct {
 	HTMLElement
 }
@@ -1185,7 +1171,7 @@ func (_this *HTMLBaseElement) SetTarget(value string) {
 	_this.Value_JS.Set("target", input)
 }
 
-// interface: HTMLBodyElement
+// class: HTMLBodyElement
 type HTMLBodyElement struct {
 	HTMLElement
 }
@@ -1705,7 +1691,7 @@ func (_this *HTMLBodyElement) SetOnunload(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onunload", input)
 }
 
-// interface: HTMLButtonElement
+// class: HTMLButtonElement
 type HTMLButtonElement struct {
 	HTMLElement
 }
@@ -1968,7 +1954,7 @@ func (_this *HTMLButtonElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLDListElement
+// class: HTMLDListElement
 type HTMLDListElement struct {
 	HTMLElement
 }
@@ -2000,7 +1986,7 @@ func (_this *HTMLDListElement) SetCompact(value bool) {
 	_this.Value_JS.Set("compact", input)
 }
 
-// interface: HTMLDataElement
+// class: HTMLDataElement
 type HTMLDataElement struct {
 	HTMLElement
 }
@@ -2032,7 +2018,7 @@ func (_this *HTMLDataElement) SetValue(value string) {
 	_this.Value_JS.Set("value", input)
 }
 
-// interface: HTMLDataListElement
+// class: HTMLDataListElement
 type HTMLDataListElement struct {
 	HTMLElement
 }
@@ -2057,7 +2043,7 @@ func (_this *HTMLDataListElement) Options() *dom.HTMLCollection {
 	return ret
 }
 
-// interface: HTMLDetailsElement
+// class: HTMLDetailsElement
 type HTMLDetailsElement struct {
 	HTMLElement
 }
@@ -2089,7 +2075,7 @@ func (_this *HTMLDetailsElement) SetOpen(value bool) {
 	_this.Value_JS.Set("open", input)
 }
 
-// interface: HTMLDialogElement
+// class: HTMLDialogElement
 type HTMLDialogElement struct {
 	HTMLElement
 }
@@ -2169,7 +2155,7 @@ func (_this *HTMLDialogElement) Close(returnValue *string) {
 	return
 }
 
-// interface: HTMLDirectoryElement
+// class: HTMLDirectoryElement
 type HTMLDirectoryElement struct {
 	HTMLElement
 }
@@ -2201,7 +2187,7 @@ func (_this *HTMLDirectoryElement) SetCompact(value bool) {
 	_this.Value_JS.Set("compact", input)
 }
 
-// interface: HTMLDivElement
+// class: HTMLDivElement
 type HTMLDivElement struct {
 	HTMLElement
 }
@@ -2233,7 +2219,7 @@ func (_this *HTMLDivElement) SetAlign(value string) {
 	_this.Value_JS.Set("align", input)
 }
 
-// interface: HTMLElement
+// class: HTMLElement
 type HTMLElement struct {
 	dom.Element
 }
@@ -4773,7 +4759,7 @@ func (_this *HTMLElement) Blur() {
 	return
 }
 
-// interface: HTMLFieldSetElement
+// class: HTMLFieldSetElement
 type HTMLFieldSetElement struct {
 	HTMLElement
 }
@@ -4917,7 +4903,7 @@ func (_this *HTMLFieldSetElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLFontElement
+// class: HTMLFontElement
 type HTMLFontElement struct {
 	HTMLElement
 }
@@ -4981,7 +4967,7 @@ func (_this *HTMLFontElement) SetSize(value string) {
 	_this.Value_JS.Set("size", input)
 }
 
-// interface: HTMLFormControlsCollection
+// class: HTMLFormControlsCollection
 type HTMLFormControlsCollection struct {
 	dom.HTMLCollection
 }
@@ -5035,7 +5021,7 @@ func (_this *HTMLFormControlsCollection) NamedItem2(name string) (_result *Union
 	return
 }
 
-// interface: HTMLFormElement
+// class: HTMLFormElement
 type HTMLFormElement struct {
 	HTMLElement
 }
@@ -5318,7 +5304,7 @@ func (_this *HTMLFormElement) ReportValidity() (_result bool) {
 	return
 }
 
-// interface: HTMLFrameSetElement
+// class: HTMLFrameSetElement
 type HTMLFrameSetElement struct {
 	HTMLElement
 }
@@ -5750,7 +5736,7 @@ func (_this *HTMLFrameSetElement) SetOnunload(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onunload", input)
 }
 
-// interface: HTMLHRElement
+// class: HTMLHRElement
 type HTMLHRElement struct {
 	HTMLElement
 }
@@ -5846,7 +5832,7 @@ func (_this *HTMLHRElement) SetWidth(value string) {
 	_this.Value_JS.Set("width", input)
 }
 
-// interface: HTMLHeadElement
+// class: HTMLHeadElement
 type HTMLHeadElement struct {
 	HTMLElement
 }
@@ -5862,7 +5848,7 @@ func HTMLHeadElementFromJS(value js.Wrapper) *HTMLHeadElement {
 	return ret
 }
 
-// interface: HTMLHeadingElement
+// class: HTMLHeadingElement
 type HTMLHeadingElement struct {
 	HTMLElement
 }
@@ -5894,7 +5880,7 @@ func (_this *HTMLHeadingElement) SetAlign(value string) {
 	_this.Value_JS.Set("align", input)
 }
 
-// interface: HTMLHtmlElement
+// class: HTMLHtmlElement
 type HTMLHtmlElement struct {
 	HTMLElement
 }
@@ -5926,7 +5912,7 @@ func (_this *HTMLHtmlElement) SetVersion(value string) {
 	_this.Value_JS.Set("version", input)
 }
 
-// interface: HTMLImageElement
+// class: HTMLImageElement
 type HTMLImageElement struct {
 	HTMLElement
 }
@@ -6301,7 +6287,7 @@ func (_this *HTMLImageElement) Decode() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: HTMLInputElement
+// class: HTMLInputElement
 type HTMLInputElement struct {
 	HTMLElement
 }
@@ -7203,7 +7189,7 @@ func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction
 	return
 }
 
-// interface: HTMLLIElement
+// class: HTMLLIElement
 type HTMLLIElement struct {
 	HTMLElement
 }
@@ -7251,7 +7237,7 @@ func (_this *HTMLLIElement) SetType(value string) {
 	_this.Value_JS.Set("type", input)
 }
 
-// interface: HTMLLabelElement
+// class: HTMLLabelElement
 type HTMLLabelElement struct {
 	HTMLElement
 }
@@ -7305,7 +7291,7 @@ func (_this *HTMLLabelElement) Control() *HTMLElement {
 	return ret
 }
 
-// interface: HTMLLegendElement
+// class: HTMLLegendElement
 type HTMLLegendElement struct {
 	HTMLElement
 }
@@ -7348,7 +7334,7 @@ func (_this *HTMLLegendElement) SetAlign(value string) {
 	_this.Value_JS.Set("align", input)
 }
 
-// interface: HTMLLinkElement
+// class: HTMLLinkElement
 type HTMLLinkElement struct {
 	HTMLElement
 }
@@ -7588,7 +7574,7 @@ func (_this *HTMLLinkElement) Sheet() *cssom.CSSStyleSheet {
 	return ret
 }
 
-// interface: HTMLMapElement
+// class: HTMLMapElement
 type HTMLMapElement struct {
 	HTMLElement
 }
@@ -7629,7 +7615,7 @@ func (_this *HTMLMapElement) Areas() *dom.HTMLCollection {
 	return ret
 }
 
-// interface: HTMLMarqueeElement
+// class: HTMLMarqueeElement
 type HTMLMarqueeElement struct {
 	HTMLElement
 }
@@ -7911,7 +7897,7 @@ func (_this *HTMLMarqueeElement) Stop() {
 	return
 }
 
-// interface: HTMLMenuElement
+// class: HTMLMenuElement
 type HTMLMenuElement struct {
 	HTMLElement
 }
@@ -7943,7 +7929,7 @@ func (_this *HTMLMenuElement) SetCompact(value bool) {
 	_this.Value_JS.Set("compact", input)
 }
 
-// interface: HTMLMetaElement
+// class: HTMLMetaElement
 type HTMLMetaElement struct {
 	HTMLElement
 }
@@ -8023,7 +8009,7 @@ func (_this *HTMLMetaElement) SetScheme(value string) {
 	_this.Value_JS.Set("scheme", input)
 }
 
-// interface: HTMLMeterElement
+// class: HTMLMeterElement
 type HTMLMeterElement struct {
 	HTMLElement
 }
@@ -8144,7 +8130,7 @@ func (_this *HTMLMeterElement) Labels() *dom.NodeList {
 	return ret
 }
 
-// interface: HTMLModElement
+// class: HTMLModElement
 type HTMLModElement struct {
 	HTMLElement
 }
@@ -8192,7 +8178,7 @@ func (_this *HTMLModElement) SetDateTime(value string) {
 	_this.Value_JS.Set("dateTime", input)
 }
 
-// interface: HTMLOListElement
+// class: HTMLOListElement
 type HTMLOListElement struct {
 	HTMLElement
 }
@@ -8272,7 +8258,7 @@ func (_this *HTMLOListElement) SetCompact(value bool) {
 	_this.Value_JS.Set("compact", input)
 }
 
-// interface: HTMLOptGroupElement
+// class: HTMLOptGroupElement
 type HTMLOptGroupElement struct {
 	HTMLElement
 }
@@ -8320,7 +8306,7 @@ func (_this *HTMLOptGroupElement) SetLabel(value string) {
 	_this.Value_JS.Set("label", input)
 }
 
-// interface: HTMLOptionElement
+// class: HTMLOptionElement
 type HTMLOptionElement struct {
 	HTMLElement
 }
@@ -8452,7 +8438,7 @@ func (_this *HTMLOptionElement) Index() int {
 	return ret
 }
 
-// interface: HTMLOptionsCollection
+// class: HTMLOptionsCollection
 type HTMLOptionsCollection struct {
 	dom.HTMLCollection
 }
@@ -8544,7 +8530,7 @@ func (_this *HTMLOptionsCollection) Remove(index int) {
 	return
 }
 
-// interface: HTMLOutputElement
+// class: HTMLOutputElement
 type HTMLOutputElement struct {
 	HTMLElement
 }
@@ -8713,7 +8699,7 @@ func (_this *HTMLOutputElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLParagraphElement
+// class: HTMLParagraphElement
 type HTMLParagraphElement struct {
 	HTMLElement
 }
@@ -8745,7 +8731,7 @@ func (_this *HTMLParagraphElement) SetAlign(value string) {
 	_this.Value_JS.Set("align", input)
 }
 
-// interface: HTMLParamElement
+// class: HTMLParamElement
 type HTMLParamElement struct {
 	HTMLElement
 }
@@ -8825,7 +8811,7 @@ func (_this *HTMLParamElement) SetValueType(value string) {
 	_this.Value_JS.Set("valueType", input)
 }
 
-// interface: HTMLPictureElement
+// class: HTMLPictureElement
 type HTMLPictureElement struct {
 	HTMLElement
 }
@@ -8841,7 +8827,7 @@ func HTMLPictureElementFromJS(value js.Wrapper) *HTMLPictureElement {
 	return ret
 }
 
-// interface: HTMLPreElement
+// class: HTMLPreElement
 type HTMLPreElement struct {
 	HTMLElement
 }
@@ -8873,7 +8859,7 @@ func (_this *HTMLPreElement) SetWidth(value int) {
 	_this.Value_JS.Set("width", input)
 }
 
-// interface: HTMLProgressElement
+// class: HTMLProgressElement
 type HTMLProgressElement struct {
 	HTMLElement
 }
@@ -8939,7 +8925,7 @@ func (_this *HTMLProgressElement) Labels() *dom.NodeList {
 	return ret
 }
 
-// interface: HTMLQuoteElement
+// class: HTMLQuoteElement
 type HTMLQuoteElement struct {
 	HTMLElement
 }
@@ -8971,7 +8957,7 @@ func (_this *HTMLQuoteElement) SetCite(value string) {
 	_this.Value_JS.Set("cite", input)
 }
 
-// interface: HTMLScriptElement
+// class: HTMLScriptElement
 type HTMLScriptElement struct {
 	HTMLElement
 }
@@ -9182,7 +9168,7 @@ func (_this *HTMLScriptElement) SetHtmlFor(value string) {
 	_this.Value_JS.Set("htmlFor", input)
 }
 
-// interface: HTMLSelectElement
+// class: HTMLSelectElement
 type HTMLSelectElement struct {
 	HTMLElement
 }
@@ -9582,7 +9568,7 @@ func (_this *HTMLSelectElement) SetCustomValidity(_error string) {
 	return
 }
 
-// interface: HTMLSlotElement
+// class: HTMLSlotElement
 type HTMLSlotElement struct {
 	HTMLElement
 }
@@ -9668,7 +9654,7 @@ func (_this *HTMLSlotElement) AssignedElements(options *AssignedNodesOptions) (_
 	return
 }
 
-// interface: HTMLSourceElement
+// class: HTMLSourceElement
 type HTMLSourceElement struct {
 	HTMLElement
 }
@@ -9764,7 +9750,7 @@ func (_this *HTMLSourceElement) SetMedia(value string) {
 	_this.Value_JS.Set("media", input)
 }
 
-// interface: HTMLSpanElement
+// class: HTMLSpanElement
 type HTMLSpanElement struct {
 	HTMLElement
 }
@@ -9780,7 +9766,7 @@ func HTMLSpanElementFromJS(value js.Wrapper) *HTMLSpanElement {
 	return ret
 }
 
-// interface: HTMLStyleElement
+// class: HTMLStyleElement
 type HTMLStyleElement struct {
 	HTMLElement
 }
@@ -9839,7 +9825,7 @@ func (_this *HTMLStyleElement) Sheet() *cssom.CSSStyleSheet {
 	return ret
 }
 
-// interface: HTMLTableCaptionElement
+// class: HTMLTableCaptionElement
 type HTMLTableCaptionElement struct {
 	HTMLElement
 }
@@ -9871,7 +9857,7 @@ func (_this *HTMLTableCaptionElement) SetAlign(value string) {
 	_this.Value_JS.Set("align", input)
 }
 
-// interface: HTMLTableCellElement
+// class: HTMLTableCellElement
 type HTMLTableCellElement struct {
 	HTMLElement
 }
@@ -10120,7 +10106,7 @@ func (_this *HTMLTableCellElement) SetBgColor(value string) {
 	_this.Value_JS.Set("bgColor", input)
 }
 
-// interface: HTMLTableColElement
+// class: HTMLTableColElement
 type HTMLTableColElement struct {
 	HTMLElement
 }
@@ -10232,7 +10218,7 @@ func (_this *HTMLTableColElement) SetWidth(value string) {
 	_this.Value_JS.Set("width", input)
 }
 
-// interface: HTMLTableElement
+// class: HTMLTableElement
 type HTMLTableElement struct {
 	HTMLElement
 }
@@ -10578,7 +10564,7 @@ func (_this *HTMLTableElement) DeleteRow(index int) {
 	return
 }
 
-// interface: HTMLTableRowElement
+// class: HTMLTableRowElement
 type HTMLTableRowElement struct {
 	HTMLElement
 }
@@ -10732,7 +10718,7 @@ func (_this *HTMLTableRowElement) DeleteCell(index int) {
 	return
 }
 
-// interface: HTMLTableSectionElement
+// class: HTMLTableSectionElement
 type HTMLTableSectionElement struct {
 	HTMLElement
 }
@@ -10852,7 +10838,7 @@ func (_this *HTMLTableSectionElement) DeleteRow(index int) {
 	return
 }
 
-// interface: HTMLTemplateElement
+// class: HTMLTemplateElement
 type HTMLTemplateElement struct {
 	HTMLElement
 }
@@ -10877,7 +10863,7 @@ func (_this *HTMLTemplateElement) Content() *dom.DocumentFragment {
 	return ret
 }
 
-// interface: HTMLTextAreaElement
+// class: HTMLTextAreaElement
 type HTMLTextAreaElement struct {
 	HTMLElement
 }
@@ -11350,7 +11336,7 @@ func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direct
 	return
 }
 
-// interface: HTMLTimeElement
+// class: HTMLTimeElement
 type HTMLTimeElement struct {
 	HTMLElement
 }
@@ -11382,7 +11368,7 @@ func (_this *HTMLTimeElement) SetDateTime(value string) {
 	_this.Value_JS.Set("dateTime", input)
 }
 
-// interface: HTMLTitleElement
+// class: HTMLTitleElement
 type HTMLTitleElement struct {
 	HTMLElement
 }
@@ -11414,7 +11400,7 @@ func (_this *HTMLTitleElement) SetText(value string) {
 	_this.Value_JS.Set("text", input)
 }
 
-// interface: HTMLUListElement
+// class: HTMLUListElement
 type HTMLUListElement struct {
 	HTMLElement
 }
@@ -11462,7 +11448,7 @@ func (_this *HTMLUListElement) SetType(value string) {
 	_this.Value_JS.Set("type", input)
 }
 
-// interface: HTMLUnknownElement
+// class: HTMLUnknownElement
 type HTMLUnknownElement struct {
 	HTMLElement
 }
@@ -11478,7 +11464,7 @@ func HTMLUnknownElementFromJS(value js.Wrapper) *HTMLUnknownElement {
 	return ret
 }
 
-// interface: TimeRanges
+// class: TimeRanges
 type TimeRanges struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -11542,7 +11528,7 @@ func (_this *TimeRanges) End(index uint) (_result float64) {
 	return
 }
 
-// interface: ValidityState
+// class: ValidityState
 type ValidityState struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

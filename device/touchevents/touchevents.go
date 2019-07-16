@@ -25,20 +25,6 @@ import (
 // transform files:
 // touch-events.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var touchTypeFromWasmTable = map[string]TouchType{
 	"direct": DirectTouchType, "stylus": StylusTouchType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *TouchType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -410,7 +396,7 @@ func TouchInitFromJS(value js.Wrapper) *TouchInit {
 	return &out
 }
 
-// interface: Touch
+// class: Touch
 type Touch struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -584,7 +570,7 @@ func (_this *Touch) TouchType() TouchType {
 	return ret
 }
 
-// interface: TouchEvent
+// class: TouchEvent
 type TouchEvent struct {
 	htmlevent.UIEvent
 }
@@ -686,7 +672,7 @@ func (_this *TouchEvent) ShiftKey() bool {
 	return ret
 }
 
-// interface: TouchList
+// class: TouchList
 type TouchList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

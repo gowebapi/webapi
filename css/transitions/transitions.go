@@ -19,20 +19,6 @@ import (
 // transform files:
 // css-transitions.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -108,7 +94,7 @@ func TransitionEventInitFromJS(value js.Wrapper) *TransitionEventInit {
 	return &out
 }
 
-// interface: TransitionEvent
+// class: TransitionEvent
 type TransitionEvent struct {
 	domcore.Event
 }

@@ -24,20 +24,6 @@ import (
 // transform files:
 // web-animations.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -73,7 +59,7 @@ var animationPlayStateFromWasmTable = map[string]AnimationPlayState{
 	"idle": IdleAnimationPlayState, "running": RunningAnimationPlayState, "paused": PausedAnimationPlayState, "finished": FinishedAnimationPlayState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AnimationPlayState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -116,7 +102,7 @@ var compositeOperationFromWasmTable = map[string]CompositeOperation{
 	"replace": ReplaceCompositeOperation, "add": AddCompositeOperation, "accumulate": AccumulateCompositeOperation,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CompositeOperation) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -161,7 +147,7 @@ var fillModeFromWasmTable = map[string]FillMode{
 	"none": NoneFillMode, "forwards": ForwardsFillMode, "backwards": BackwardsFillMode, "both": BothFillMode, "auto": AutoFillMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FillMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -203,7 +189,7 @@ var iterationCompositeOperationFromWasmTable = map[string]IterationCompositeOper
 	"replace": ReplaceIterationCompositeOperation, "accumulate": AccumulateIterationCompositeOperation,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *IterationCompositeOperation) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -247,7 +233,7 @@ var playbackDirectionFromWasmTable = map[string]PlaybackDirection{
 	"normal": NormalPlaybackDirection, "reverse": ReversePlaybackDirection, "alternate": AlternatePlaybackDirection, "alternate-reverse": AlternateReversePlaybackDirection,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PlaybackDirection) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -778,7 +764,7 @@ func OptionalEffectTimingFromJS(value js.Wrapper) *OptionalEffectTiming {
 	return &out
 }
 
-// interface: Animation
+// class: Animation
 type Animation struct {
 	domcore.EventTarget
 }
@@ -1066,7 +1052,7 @@ func (_this *Animation) Reverse() {
 	return
 }
 
-// interface: AnimationEffect
+// class: AnimationEffect
 type AnimationEffect struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1129,7 +1115,7 @@ func (_this *AnimationEffect) UpdateTiming(timing *OptionalEffectTiming) {
 	return
 }
 
-// interface: AnimationPlaybackEvent
+// class: AnimationPlaybackEvent
 type AnimationPlaybackEvent struct {
 	domcore.Event
 }
@@ -1192,7 +1178,7 @@ func (_this *AnimationPlaybackEvent) TimelineTime() *float64 {
 	return ret
 }
 
-// interface: AnimationTimeline
+// class: AnimationTimeline
 type AnimationTimeline struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1225,7 +1211,7 @@ func (_this *AnimationTimeline) CurrentTime() *float64 {
 	return ret
 }
 
-// interface: DocumentTimeline
+// class: DocumentTimeline
 type DocumentTimeline struct {
 	AnimationTimeline
 }
@@ -1261,7 +1247,7 @@ func NewDocumentTimeline(options *DocumentTimelineOptions) (_result *DocumentTim
 	return
 }
 
-// interface: KeyframeEffect
+// class: KeyframeEffect
 type KeyframeEffect struct {
 	AnimationEffect
 }

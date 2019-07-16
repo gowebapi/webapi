@@ -36,20 +36,6 @@ import (
 // html.go.md
 // media-source.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -83,7 +69,7 @@ var appendModeFromWasmTable = map[string]AppendMode{
 	"segments": SegmentsAppendMode, "sequence": SequenceAppendMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AppendMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -126,7 +112,7 @@ var canPlayTypeResultFromWasmTable = map[string]CanPlayTypeResult{
 	"": EmptyString0CanPlayTypeResult, "maybe": MaybeCanPlayTypeResult, "probably": ProbablyCanPlayTypeResult,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CanPlayTypeResult) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -168,7 +154,7 @@ var endOfStreamErrorFromWasmTable = map[string]EndOfStreamError{
 	"network": NetworkEndOfStreamError, "decode": DecodeEndOfStreamError,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *EndOfStreamError) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -211,7 +197,7 @@ var readyStateFromWasmTable = map[string]ReadyState{
 	"closed": ClosedReadyState, "open": OpenReadyState, "ended": EndedReadyState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ReadyState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -256,7 +242,7 @@ var textTrackKindFromWasmTable = map[string]TextTrackKind{
 	"subtitles": SubtitlesTextTrackKind, "captions": CaptionsTextTrackKind, "descriptions": DescriptionsTextTrackKind, "chapters": ChaptersTextTrackKind, "metadata": MetadataTextTrackKind,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *TextTrackKind) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -299,7 +285,7 @@ var textTrackModeFromWasmTable = map[string]TextTrackMode{
 	"disabled": DisabledTextTrackMode, "hidden": HiddenTextTrackMode, "showing": ShowingTextTrackMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *TextTrackMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -325,7 +311,7 @@ func TextTrackModeFromJS(value js.Value) TextTrackMode {
 	return conv
 }
 
-// interface: AudioTrack
+// class: AudioTrack
 type AudioTrack struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -409,7 +395,7 @@ func (_this *AudioTrack) SourceBuffer() *SourceBuffer {
 	return ret
 }
 
-// interface: AudioTrackList
+// class: AudioTrackList
 type AudioTrackList struct {
 	domcore.EventTarget
 }
@@ -542,7 +528,7 @@ func (_this *AudioTrackList) GetTrackById(id string) (_result *AudioTrack) {
 	return
 }
 
-// interface: HTMLAudioElement
+// class: HTMLAudioElement
 type HTMLAudioElement struct {
 	HTMLMediaElement
 }
@@ -558,7 +544,7 @@ func HTMLAudioElementFromJS(value js.Wrapper) *HTMLAudioElement {
 	return ret
 }
 
-// interface: HTMLMediaElement
+// class: HTMLMediaElement
 type HTMLMediaElement struct {
 	html.HTMLElement
 }
@@ -1170,7 +1156,7 @@ func (_this *HTMLMediaElement) CaptureStream() (_result *local.MediaStream) {
 	return
 }
 
-// interface: HTMLTrackElement
+// class: HTMLTrackElement
 type HTMLTrackElement struct {
 	html.HTMLElement
 }
@@ -1291,7 +1277,7 @@ func (_this *HTMLTrackElement) Track() *TextTrack {
 	return ret
 }
 
-// interface: HTMLVideoElement
+// class: HTMLVideoElement
 type HTMLVideoElement struct {
 	HTMLMediaElement
 }
@@ -1483,7 +1469,7 @@ func (_this *HTMLVideoElement) RequestPictureInPicture() (_result *pictureinpict
 	return
 }
 
-// interface: MediaError
+// class: MediaError
 type MediaError struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1529,7 +1515,7 @@ func (_this *MediaError) Message() string {
 	return ret
 }
 
-// interface: MediaSource
+// class: MediaSource
 type MediaSource struct {
 	domcore.EventTarget
 }
@@ -1761,7 +1747,7 @@ func (_this *MediaSource) ClearLiveSeekableRange() {
 	return
 }
 
-// interface: SourceBuffer
+// class: SourceBuffer
 type SourceBuffer struct {
 	domcore.EventTarget
 }
@@ -2042,7 +2028,7 @@ func (_this *SourceBuffer) Remove(start float64, end float64) {
 	return
 }
 
-// interface: SourceBufferList
+// class: SourceBufferList
 type SourceBufferList struct {
 	domcore.EventTarget
 }
@@ -2132,7 +2118,7 @@ func (_this *SourceBufferList) Index(index uint) (_result *SourceBuffer) {
 	return
 }
 
-// interface: TextTrack
+// class: TextTrack
 type TextTrack struct {
 	domcore.EventTarget
 }
@@ -2290,7 +2276,7 @@ func (_this *TextTrack) RemoveCue(cue *TextTrackCue) {
 	return
 }
 
-// interface: TextTrackCue
+// class: TextTrackCue
 type TextTrackCue struct {
 	domcore.EventTarget
 }
@@ -2429,7 +2415,7 @@ func (_this *TextTrackCue) SetOnexit(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onexit", input)
 }
 
-// interface: TextTrackCueList
+// class: TextTrackCueList
 type TextTrackCueList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2495,7 +2481,7 @@ func (_this *TextTrackCueList) GetCueById(id string) (_result *TextTrackCue) {
 	return
 }
 
-// interface: TextTrackList
+// class: TextTrackList
 type TextTrackList struct {
 	domcore.EventTarget
 }
@@ -2628,7 +2614,7 @@ func (_this *TextTrackList) GetTrackById(id string) (_result *TextTrack) {
 	return
 }
 
-// interface: VideoTrack
+// class: VideoTrack
 type VideoTrack struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2712,7 +2698,7 @@ func (_this *VideoTrack) SourceBuffer() *SourceBuffer {
 	return ret
 }
 
-// interface: VideoTrackList
+// class: VideoTrackList
 type VideoTrackList struct {
 	domcore.EventTarget
 }

@@ -17,20 +17,6 @@ import (
 // transform files:
 // css-counter-styles.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -48,7 +34,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: CSSCounterStyleRule
+// class: CSSCounterStyleRule
 type CSSCounterStyleRule struct {
 	cssom.CSSRule
 }

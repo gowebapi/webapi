@@ -26,20 +26,6 @@ import (
 // promises.go.md
 // push-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -73,7 +59,7 @@ var pushEncryptionKeyNameFromWasmTable = map[string]EncryptionKeyName{
 	"p256dh": P256dh, "auth": Auth,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *EncryptionKeyName) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -116,7 +102,7 @@ var pushPermissionStateFromWasmTable = map[string]PermissionState{
 	"denied": Denied, "granted": Granted, "prompt": Prompt,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PermissionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -547,7 +533,7 @@ func SubscriptionOptionsInitFromJS(value js.Wrapper) *SubscriptionOptionsInit {
 	return &out
 }
 
-// interface: PushEvent
+// class: PushEvent
 type Event struct {
 	domcore.ExtendableEvent
 }
@@ -597,7 +583,7 @@ func (_this *Event) Data() *MessageData {
 	return ret
 }
 
-// interface: PushManager
+// class: PushManager
 type Manager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -680,7 +666,7 @@ func (_this *Manager) PermissionState(options *SubscriptionOptionsInit) (_result
 	return
 }
 
-// interface: PushMessageData
+// class: PushMessageData
 type MessageData struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -757,7 +743,7 @@ func (_this *MessageData) Text() (_result string) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilSubscription struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -862,7 +848,7 @@ func (_this *PromiseNilSubscription) Finally(onFinally *javascript.PromiseFinall
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePermissionState struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -967,7 +953,7 @@ func (_this *PromisePermissionState) Finally(onFinally *javascript.PromiseFinall
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSubscription struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1072,7 +1058,7 @@ func (_this *PromiseSubscription) Finally(onFinally *javascript.PromiseFinally) 
 	return
 }
 
-// interface: PushSubscription
+// class: PushSubscription
 type Subscription struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1170,7 +1156,7 @@ func (_this *Subscription) ToJSON() (_result *SubscriptionJSON) {
 	return
 }
 
-// interface: PushSubscriptionChangeEvent
+// class: PushSubscriptionChangeEvent
 type SubscriptionChangeEvent struct {
 	domcore.ExtendableEvent
 }
@@ -1231,7 +1217,7 @@ func (_this *SubscriptionChangeEvent) OldSubscription() *Subscription {
 	return ret
 }
 
-// interface: PushSubscriptionOptions
+// class: PushSubscriptionOptions
 type SubscriptionOptions struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

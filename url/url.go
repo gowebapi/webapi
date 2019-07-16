@@ -21,20 +21,6 @@ import (
 // transform files:
 // url.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -215,7 +201,7 @@ func URLSearchParamsValueIteratorValueFromJS(value js.Wrapper) *URLSearchParamsV
 	return &out
 }
 
-// interface: URL
+// class: URL
 type URL struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -508,7 +494,7 @@ func (_this *URL) ToJSON() (_result string) {
 	return
 }
 
-// interface: URLSearchParams
+// class: URLSearchParams
 type URLSearchParams struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -722,7 +708,7 @@ func (_this *URLSearchParams) Values() (_result *URLSearchParamsValueIterator) {
 	return
 }
 
-// interface: URLSearchParamsEntryIterator
+// class: URLSearchParamsEntryIterator
 type URLSearchParamsEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -757,7 +743,7 @@ func (_this *URLSearchParamsEntryIterator) Next() (_result *URLSearchParamsEntry
 	return
 }
 
-// interface: URLSearchParamsKeyIterator
+// class: URLSearchParamsKeyIterator
 type URLSearchParamsKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -792,7 +778,7 @@ func (_this *URLSearchParamsKeyIterator) Next() (_result *URLSearchParamsKeyIter
 	return
 }
 
-// interface: URLSearchParamsValueIterator
+// class: URLSearchParamsValueIterator
 type URLSearchParamsValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

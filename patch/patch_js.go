@@ -12,20 +12,6 @@ import "syscall/js"
 // transform files:
 // patch.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -43,7 +29,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: ByteString
+// class: ByteString
 type ByteString struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -64,7 +50,7 @@ func ByteStringFromJS(value js.Wrapper) *ByteString {
 	return ret
 }
 
-// interface: OverconstrainedError
+// class: OverconstrainedError
 type OverconstrainedError struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -85,7 +71,7 @@ func OverconstrainedErrorFromJS(value js.Wrapper) *OverconstrainedError {
 	return ret
 }
 
-// interface: ReadableStream
+// class: ReadableStream
 type ReadableStream struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -106,7 +92,7 @@ func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
 	return ret
 }
 
-// interface: Uint8ClampedArray
+// class: Uint8ClampedArray
 type Uint8ClampedArray struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

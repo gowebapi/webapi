@@ -21,20 +21,6 @@ import (
 // transform files:
 // worklets.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -80,7 +66,7 @@ func WorkletOptionsFromJS(value js.Wrapper) *WorkletOptions {
 	return &out
 }
 
-// interface: Worklet
+// class: Worklet
 type Worklet struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -123,7 +109,7 @@ func (_this *Worklet) AddModule(moduleURL string, options *WorkletOptions) (_res
 	return
 }
 
-// interface: WorkletGlobalScope
+// class: WorkletGlobalScope
 type WorkletGlobalScope struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

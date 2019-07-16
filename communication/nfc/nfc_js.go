@@ -23,20 +23,6 @@ import (
 // transform files:
 // web-nfc.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -71,7 +57,7 @@ var nDEFCompatibilityFromWasmTable = map[string]NDEFCompatibility{
 	"nfc-forum": CompatibilityNfcForum, "vendor": CompatibilityVendor, "any": CompatibilityAny,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *NDEFCompatibility) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -116,7 +102,7 @@ var nDEFRecordTypeFromWasmTable = map[string]NDEFRecordType{
 	"empty": RecordEmpty, "text": RecordText, "url": RecordUrl, "json": RecordJson, "opaque": RecordOpaque,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *NDEFRecordType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -159,7 +145,7 @@ var nFCPushTargetFromWasmTable = map[string]PushTarget{
 	"tag": PushTargetTag, "peer": PushTargetPeer, "any": PushTargetAny,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PushTarget) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -463,7 +449,7 @@ func ReadingEventInitFromJS(value js.Wrapper) *ReadingEventInit {
 	return &out
 }
 
-// interface: NFCErrorEvent
+// class: NFCErrorEvent
 type ErrorEvent struct {
 	domcore.Event
 }
@@ -509,7 +495,7 @@ func (_this *ErrorEvent) Error() *domcore.DOMException {
 	return ret
 }
 
-// interface: NFCReader
+// class: NFCReader
 type Reader struct {
 	domcore.EventTarget
 }
@@ -611,7 +597,7 @@ func (_this *Reader) Stop() {
 	return
 }
 
-// interface: NFCReadingEvent
+// class: NFCReadingEvent
 type ReadingEvent struct {
 	domcore.Event
 }
@@ -657,7 +643,7 @@ func (_this *ReadingEvent) Message() *NDEFMessage {
 	return ret
 }
 
-// interface: NFCWriter
+// class: NFCWriter
 type Writer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

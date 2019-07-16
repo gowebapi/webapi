@@ -24,20 +24,6 @@ import (
 // transform files:
 // mediastream-recording.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var recordingStateFromWasmTable = map[string]RecordingState{
 	"inactive": InactiveRecordingState, "recording": RecordingRecordingState, "paused": PausedRecordingState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RecordingState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -224,7 +210,7 @@ func MediaRecorderOptionsFromJS(value js.Wrapper) *MediaRecorderOptions {
 	return &out
 }
 
-// interface: BlobEvent
+// class: BlobEvent
 type BlobEvent struct {
 	domcore.Event
 }
@@ -279,7 +265,7 @@ func (_this *BlobEvent) Timecode() float64 {
 	return ret
 }
 
-// interface: MediaRecorder
+// class: MediaRecorder
 type MediaRecorder struct {
 	domcore.EventTarget
 }
@@ -576,7 +562,7 @@ func (_this *MediaRecorder) RequestData() {
 	return
 }
 
-// interface: MediaRecorderErrorEvent
+// class: MediaRecorderErrorEvent
 type MediaRecorderErrorEvent struct {
 	domcore.Event
 }

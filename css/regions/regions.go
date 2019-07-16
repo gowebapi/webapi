@@ -22,20 +22,6 @@ import (
 // transform files:
 // css-regions.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -53,7 +39,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: NamedFlow
+// class: NamedFlow
 type NamedFlow struct {
 	domcore.EventTarget
 }
@@ -165,7 +151,7 @@ func (_this *NamedFlow) GetRegionsByContent(node *dom.Node) (_result []*Region) 
 	return
 }
 
-// interface: NamedFlowMap
+// class: NamedFlowMap
 type NamedFlowMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -259,7 +245,7 @@ func (_this *NamedFlowMap) Delete(flowName string) (_result bool) {
 	return
 }
 
-// interface: Region
+// class: Region
 type Region struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -31,20 +31,6 @@ import (
 // image-capture.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -79,7 +65,7 @@ var fillLightModeFromWasmTable = map[string]FillLightMode{
 	"auto": AutoFillLightMode, "off": OffFillLightMode, "flash": FlashFillLightMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FillLightMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -122,7 +108,7 @@ var redEyeReductionFromWasmTable = map[string]RedEyeReduction{
 	"never": NeverRedEyeReduction, "always": AlwaysRedEyeReduction, "controllable": ControllableRedEyeReduction,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *RedEyeReduction) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -408,7 +394,7 @@ func PhotoSettingsFromJS(value js.Wrapper) *PhotoSettings {
 	return &out
 }
 
-// interface: ImageCapture
+// class: ImageCapture
 type ImageCapture struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -517,7 +503,7 @@ func (_this *ImageCapture) GrabFrame() (_result *canvas.PromiseImageBitmap) {
 	return
 }
 
-// interface: PhotoCapabilities
+// class: PhotoCapabilities
 type PhotoCapabilities struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -574,7 +560,7 @@ func (_this *PhotoCapabilities) FillLightMode() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromisePhotoCapabilities struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -679,7 +665,7 @@ func (_this *PromisePhotoCapabilities) Finally(onFinally *javascript.PromiseFina
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePhotoSettings struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

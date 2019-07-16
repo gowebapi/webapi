@@ -19,20 +19,6 @@ import (
 // transform files:
 // entries-api.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -252,7 +238,7 @@ func FileSystemFlagsFromJS(value js.Wrapper) *FileSystemFlags {
 	return &out
 }
 
-// interface: FileSystem
+// class: FileSystem
 type FileSystem struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -291,7 +277,7 @@ func (_this *FileSystem) Root() *FileSystemDirectoryEntry {
 	return ret
 }
 
-// interface: FileSystemDirectoryEntry
+// class: FileSystemDirectoryEntry
 type FileSystemDirectoryEntry struct {
 	FileSystemEntry
 }
@@ -407,7 +393,7 @@ func (_this *FileSystemDirectoryEntry) GetDirectory(path *string, options *FileS
 	return
 }
 
-// interface: FileSystemDirectoryReader
+// class: FileSystemDirectoryReader
 type FileSystemDirectoryReader struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -459,7 +445,7 @@ func (_this *FileSystemDirectoryReader) ReadEntries(successCallback *FileSystemE
 	return
 }
 
-// interface: FileSystemEntry
+// class: FileSystemEntry
 type FileSystemEntry struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -558,7 +544,7 @@ func (_this *FileSystemEntry) GetParent(successCallback *FileSystemEntryCallback
 	return
 }
 
-// interface: FileSystemFileEntry
+// class: FileSystemFileEntry
 type FileSystemFileEntry struct {
 	FileSystemEntry
 }

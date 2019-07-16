@@ -17,20 +17,6 @@ import (
 // transform files:
 // html.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -64,7 +50,7 @@ var workerTypeFromWasmTable = map[string]WorkerType{
 	"classic": ClassicWorkerType, "module": ModuleWorkerType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *WorkerType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -259,7 +245,7 @@ func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
 	}
 }
 
-// interface: BeforeUnloadEvent
+// class: BeforeUnloadEvent
 type BeforeUnloadEvent struct {
 	domcore.Event
 }

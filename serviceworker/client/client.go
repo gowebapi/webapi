@@ -25,20 +25,6 @@ import (
 // promises.go.md
 // service-workers.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -74,7 +60,7 @@ var clientTypeFromWasmTable = map[string]ClientType{
 	"window": WindowClientType, "worker": WorkerClientType, "sharedworker": SharedworkerClientType, "all": AllClientType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ClientType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -118,7 +104,7 @@ var frameTypeFromWasmTable = map[string]FrameType{
 	"auxiliary": AuxiliaryFrameType, "top-level": TopLevelFrameType, "nested": NestedFrameType, "none": NoneFrameType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FrameType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -300,7 +286,7 @@ func PromiseWindowClientOnRejectedFromJS(_value js.Value) PromiseWindowClientOnR
 	}
 }
 
-// interface: Client
+// class: Client
 type Client struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -378,7 +364,7 @@ func (_this *Client) PostMessage(message interface{}, transfer []*javascript.Obj
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilWindowClient struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -483,7 +469,7 @@ func (_this *PromiseNilWindowClient) Finally(onFinally *javascript.PromiseFinall
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseWindowClient struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -588,7 +574,7 @@ func (_this *PromiseWindowClient) Finally(onFinally *javascript.PromiseFinally) 
 	return
 }
 
-// interface: WindowClient
+// class: WindowClient
 type WindowClient struct {
 	Client
 }

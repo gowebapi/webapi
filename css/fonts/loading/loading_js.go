@@ -25,20 +25,6 @@ import (
 // css-font-loading.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -74,7 +60,7 @@ var fontFaceLoadStatusFromWasmTable = map[string]FontFaceLoadStatus{
 	"unloaded": UnloadedFontFaceLoadStatus, "loading": LoadingFontFaceLoadStatus, "loaded": LoadedFontFaceLoadStatus, "error": ErrorFontFaceLoadStatus,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FontFaceLoadStatus) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -116,7 +102,7 @@ var fontFaceSetLoadStatusFromWasmTable = map[string]FontFaceSetLoadStatus{
 	"loading": LoadingFontFaceSetLoadStatus, "loaded": LoadedFontFaceSetLoadStatus,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FontFaceSetLoadStatus) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -601,7 +587,7 @@ func FontFaceSetValueIteratorValueFromJS(value js.Wrapper) *FontFaceSetValueIter
 	return &out
 }
 
-// interface: FontFace
+// class: FontFace
 type FontFace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -824,7 +810,7 @@ func (_this *FontFace) Load() (_result *PromiseFontFace) {
 	return
 }
 
-// interface: FontFaceSet
+// class: FontFaceSet
 type FontFaceSet struct {
 	domcore.EventTarget
 }
@@ -1150,7 +1136,7 @@ func (_this *FontFaceSet) Has(key *FontFace) (_result bool) {
 	return
 }
 
-// interface: FontFaceSetEntryIterator
+// class: FontFaceSetEntryIterator
 type FontFaceSetEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1185,7 +1171,7 @@ func (_this *FontFaceSetEntryIterator) Next() (_result *FontFaceSetEntryIterator
 	return
 }
 
-// interface: FontFaceSetKeyIterator
+// class: FontFaceSetKeyIterator
 type FontFaceSetKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1220,7 +1206,7 @@ func (_this *FontFaceSetKeyIterator) Next() (_result *FontFaceSetKeyIteratorValu
 	return
 }
 
-// interface: FontFaceSetLoadEvent
+// class: FontFaceSetLoadEvent
 type FontFaceSetLoadEvent struct {
 	domcore.Event
 }
@@ -1268,7 +1254,7 @@ func (_this *FontFaceSetLoadEvent) Fontfaces() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: FontFaceSetValueIterator
+// class: FontFaceSetValueIterator
 type FontFaceSetValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1303,7 +1289,7 @@ func (_this *FontFaceSetValueIterator) Next() (_result *FontFaceSetValueIterator
 	return
 }
 
-// interface: FontFaceSource
+// class: FontFaceSource
 type FontFaceSource struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1333,7 +1319,7 @@ func (_this *FontFaceSource) Fonts() *FontFaceSet {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseFontFace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1438,7 +1424,7 @@ func (_this *PromiseFontFace) Finally(onFinally *javascript.PromiseFinally) (_re
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceFontFace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -18,20 +18,6 @@ import (
 // transform files:
 // css-fonts.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -399,7 +385,7 @@ func CSSFontPaletteValuesRuleValueIteratorValueFromJS(value js.Wrapper) *CSSFont
 	return &out
 }
 
-// interface: CSSFontFaceRule
+// class: CSSFontFaceRule
 type CSSFontFaceRule struct {
 	cssom.CSSRule
 }
@@ -424,7 +410,7 @@ func (_this *CSSFontFaceRule) Style() *cssom.CSSStyleDeclaration {
 	return ret
 }
 
-// interface: CSSFontFeatureValuesMap
+// class: CSSFontFeatureValuesMap
 type CSSFontFeatureValuesMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -605,7 +591,7 @@ func (_this *CSSFontFeatureValuesMap) Delete(key string) (_result bool) {
 	return
 }
 
-// interface: CSSFontFeatureValuesMapEntryIterator
+// class: CSSFontFeatureValuesMapEntryIterator
 type CSSFontFeatureValuesMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -640,7 +626,7 @@ func (_this *CSSFontFeatureValuesMapEntryIterator) Next() (_result *CSSFontFeatu
 	return
 }
 
-// interface: CSSFontFeatureValuesMapKeyIterator
+// class: CSSFontFeatureValuesMapKeyIterator
 type CSSFontFeatureValuesMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -675,7 +661,7 @@ func (_this *CSSFontFeatureValuesMapKeyIterator) Next() (_result *CSSFontFeature
 	return
 }
 
-// interface: CSSFontFeatureValuesMapValueIterator
+// class: CSSFontFeatureValuesMapValueIterator
 type CSSFontFeatureValuesMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -710,7 +696,7 @@ func (_this *CSSFontFeatureValuesMapValueIterator) Next() (_result *CSSFontFeatu
 	return
 }
 
-// interface: CSSFontFeatureValuesRule
+// class: CSSFontFeatureValuesRule
 type CSSFontFeatureValuesRule struct {
 	cssom.CSSRule
 }
@@ -796,7 +782,7 @@ func (_this *CSSFontFeatureValuesRule) Styleset() *CSSFontFeatureValuesMap {
 	return ret
 }
 
-// interface: CSSFontPaletteValuesRule
+// class: CSSFontPaletteValuesRule
 type CSSFontPaletteValuesRule struct {
 	cssom.CSSRule
 }
@@ -1002,7 +988,7 @@ func (_this *CSSFontPaletteValuesRule) Set(key uint, value string) (_result *CSS
 	return
 }
 
-// interface: CSSFontPaletteValuesRuleEntryIterator
+// class: CSSFontPaletteValuesRuleEntryIterator
 type CSSFontPaletteValuesRuleEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1037,7 +1023,7 @@ func (_this *CSSFontPaletteValuesRuleEntryIterator) Next() (_result *CSSFontPale
 	return
 }
 
-// interface: CSSFontPaletteValuesRuleKeyIterator
+// class: CSSFontPaletteValuesRuleKeyIterator
 type CSSFontPaletteValuesRuleKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1072,7 +1058,7 @@ func (_this *CSSFontPaletteValuesRuleKeyIterator) Next() (_result *CSSFontPalett
 	return
 }
 
-// interface: CSSFontPaletteValuesRuleValueIterator
+// class: CSSFontPaletteValuesRuleValueIterator
 type CSSFontPaletteValuesRuleValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

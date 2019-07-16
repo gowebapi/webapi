@@ -19,20 +19,6 @@ import (
 // transform files:
 // geometry.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -442,7 +428,7 @@ func DOMRectInitFromJS(value js.Wrapper) *DOMRectInit {
 	return &out
 }
 
-// interface: DOMMatrix
+// class: DOMMatrix
 type DOMMatrix struct {
 	DOMMatrixReadOnly
 }
@@ -1190,7 +1176,7 @@ func (_this *DOMMatrix) SetMatrixValue(transformList string) (_result *DOMMatrix
 	return
 }
 
-// interface: DOMMatrixReadOnly
+// class: DOMMatrixReadOnly
 type DOMMatrixReadOnly struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1898,7 +1884,7 @@ func (_this *DOMMatrixReadOnly) ToString() (_result string) {
 	return
 }
 
-// interface: DOMPoint
+// class: DOMPoint
 type DOMPoint struct {
 	DOMPointReadOnly
 }
@@ -2034,7 +2020,7 @@ func (_this *DOMPoint) SetW(value float64) {
 	_this.Value_JS.Set("w", input)
 }
 
-// interface: DOMPointReadOnly
+// class: DOMPointReadOnly
 type DOMPointReadOnly struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2180,7 +2166,7 @@ func (_this *DOMPointReadOnly) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: DOMQuad
+// class: DOMQuad
 type DOMQuad struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2342,7 +2328,7 @@ func (_this *DOMQuad) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: DOMRect
+// class: DOMRect
 type DOMRect struct {
 	DOMRectReadOnly
 }
@@ -2478,7 +2464,7 @@ func (_this *DOMRect) SetHeight(value float64) {
 	_this.Value_JS.Set("height", input)
 }
 
-// interface: DOMRectList
+// class: DOMRectList
 type DOMRectList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2546,7 +2532,7 @@ func (_this *DOMRectList) Item(index uint) (_result *DOMRect) {
 	return
 }
 
-// interface: DOMRectReadOnly
+// class: DOMRectReadOnly
 type DOMRectReadOnly struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

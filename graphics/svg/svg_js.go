@@ -43,20 +43,6 @@ import (
 // transform files:
 // SVG.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -120,7 +106,7 @@ func SVGBoundingBoxOptionsFromJS(value js.Wrapper) *SVGBoundingBoxOptions {
 	return &out
 }
 
-// interface: SVGAElement
+// class: SVGAElement
 type SVGAElement struct {
 	SVGGraphicsElement
 }
@@ -440,7 +426,7 @@ func (_this *SVGAElement) SetHash(value string) {
 	_this.Value_JS.Set("hash", input)
 }
 
-// interface: SVGAngle
+// class: SVGAngle
 type SVGAngle struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -553,7 +539,7 @@ func (_this *SVGAngle) ConvertToSpecifiedUnits(unitType int) {
 	return
 }
 
-// interface: SVGAnimatedAngle
+// class: SVGAnimatedAngle
 type SVGAnimatedAngle struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -592,7 +578,7 @@ func (_this *SVGAnimatedAngle) AnimVal() *SVGAngle {
 	return ret
 }
 
-// interface: SVGAnimatedBoolean
+// class: SVGAnimatedBoolean
 type SVGAnimatedBoolean struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -638,7 +624,7 @@ func (_this *SVGAnimatedBoolean) AnimVal() bool {
 	return ret
 }
 
-// interface: SVGAnimatedEnumeration
+// class: SVGAnimatedEnumeration
 type SVGAnimatedEnumeration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -684,7 +670,7 @@ func (_this *SVGAnimatedEnumeration) AnimVal() int {
 	return ret
 }
 
-// interface: SVGAnimatedInteger
+// class: SVGAnimatedInteger
 type SVGAnimatedInteger struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -730,7 +716,7 @@ func (_this *SVGAnimatedInteger) AnimVal() int {
 	return ret
 }
 
-// interface: SVGAnimatedLength
+// class: SVGAnimatedLength
 type SVGAnimatedLength struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -769,7 +755,7 @@ func (_this *SVGAnimatedLength) AnimVal() *SVGLength {
 	return ret
 }
 
-// interface: SVGAnimatedLengthList
+// class: SVGAnimatedLengthList
 type SVGAnimatedLengthList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -808,7 +794,7 @@ func (_this *SVGAnimatedLengthList) AnimVal() *SVGLengthList {
 	return ret
 }
 
-// interface: SVGAnimatedNumber
+// class: SVGAnimatedNumber
 type SVGAnimatedNumber struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -854,7 +840,7 @@ func (_this *SVGAnimatedNumber) AnimVal() float32 {
 	return ret
 }
 
-// interface: SVGAnimatedNumberList
+// class: SVGAnimatedNumberList
 type SVGAnimatedNumberList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -893,7 +879,7 @@ func (_this *SVGAnimatedNumberList) AnimVal() *SVGNumberList {
 	return ret
 }
 
-// interface: SVGAnimatedPreserveAspectRatio
+// class: SVGAnimatedPreserveAspectRatio
 type SVGAnimatedPreserveAspectRatio struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -932,7 +918,7 @@ func (_this *SVGAnimatedPreserveAspectRatio) AnimVal() *SVGPreserveAspectRatio {
 	return ret
 }
 
-// interface: SVGAnimatedRect
+// class: SVGAnimatedRect
 type SVGAnimatedRect struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -971,7 +957,7 @@ func (_this *SVGAnimatedRect) AnimVal() *geometry.DOMRectReadOnly {
 	return ret
 }
 
-// interface: SVGAnimatedString
+// class: SVGAnimatedString
 type SVGAnimatedString struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1017,7 +1003,7 @@ func (_this *SVGAnimatedString) AnimVal() string {
 	return ret
 }
 
-// interface: SVGAnimatedTransformList
+// class: SVGAnimatedTransformList
 type SVGAnimatedTransformList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1056,7 +1042,7 @@ func (_this *SVGAnimatedTransformList) AnimVal() *SVGTransformList {
 	return ret
 }
 
-// interface: SVGCircleElement
+// class: SVGCircleElement
 type SVGCircleElement struct {
 	SVGGeometryElement
 }
@@ -1099,7 +1085,7 @@ func (_this *SVGCircleElement) R() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGDefsElement
+// class: SVGDefsElement
 type SVGDefsElement struct {
 	SVGGraphicsElement
 }
@@ -1115,7 +1101,7 @@ func SVGDefsElementFromJS(value js.Wrapper) *SVGDefsElement {
 	return ret
 }
 
-// interface: SVGDescElement
+// class: SVGDescElement
 type SVGDescElement struct {
 	SVGElement
 }
@@ -1131,7 +1117,7 @@ func SVGDescElementFromJS(value js.Wrapper) *SVGDescElement {
 	return ret
 }
 
-// interface: SVGElement
+// class: SVGElement
 type SVGElement struct {
 	dom.Element
 }
@@ -3442,7 +3428,7 @@ func (_this *SVGElement) Blur() {
 	return
 }
 
-// interface: SVGEllipseElement
+// class: SVGEllipseElement
 type SVGEllipseElement struct {
 	SVGGeometryElement
 }
@@ -3494,7 +3480,7 @@ func (_this *SVGEllipseElement) Ry() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGForeignObjectElement
+// class: SVGForeignObjectElement
 type SVGForeignObjectElement struct {
 	SVGGraphicsElement
 }
@@ -3546,7 +3532,7 @@ func (_this *SVGForeignObjectElement) Height() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGGElement
+// class: SVGGElement
 type SVGGElement struct {
 	SVGGraphicsElement
 }
@@ -3562,7 +3548,7 @@ func SVGGElementFromJS(value js.Wrapper) *SVGGElement {
 	return ret
 }
 
-// interface: SVGGeometryElement
+// class: SVGGeometryElement
 type SVGGeometryElement struct {
 	SVGGraphicsElement
 }
@@ -3656,7 +3642,7 @@ func (_this *SVGGeometryElement) GetPointAtLength(distance float32) (_result *ge
 	return
 }
 
-// interface: SVGGradientElement
+// class: SVGGradientElement
 type SVGGradientElement struct {
 	SVGElement
 }
@@ -3715,7 +3701,7 @@ func (_this *SVGGradientElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGGraphicsElement
+// class: SVGGraphicsElement
 type SVGGraphicsElement struct {
 	SVGElement
 }
@@ -3809,7 +3795,7 @@ func (_this *SVGGraphicsElement) GetScreenCTM() (_result *geometry.DOMMatrix) {
 	return
 }
 
-// interface: SVGImageElement
+// class: SVGImageElement
 type SVGImageElement struct {
 	SVGGraphicsElement
 }
@@ -3898,7 +3884,7 @@ func (_this *SVGImageElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGLength
+// class: SVGLength
 type SVGLength struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4017,7 +4003,7 @@ func (_this *SVGLength) ConvertToSpecifiedUnits(unitType int) {
 	return
 }
 
-// interface: SVGLengthList
+// class: SVGLengthList
 type SVGLengthList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4205,7 +4191,7 @@ func (_this *SVGLengthList) AppendItem(newItem *SVGLength) (_result *SVGLength) 
 	return
 }
 
-// interface: SVGLineElement
+// class: SVGLineElement
 type SVGLineElement struct {
 	SVGGeometryElement
 }
@@ -4257,7 +4243,7 @@ func (_this *SVGLineElement) Y2() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGLinearGradientElement
+// class: SVGLinearGradientElement
 type SVGLinearGradientElement struct {
 	SVGGradientElement
 }
@@ -4309,7 +4295,7 @@ func (_this *SVGLinearGradientElement) Y2() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGMarkerElement
+// class: SVGMarkerElement
 type SVGMarkerElement struct {
 	SVGElement
 }
@@ -4452,7 +4438,7 @@ func (_this *SVGMarkerElement) SetOrientToAngle(angle *SVGAngle) {
 	return
 }
 
-// interface: SVGMetadataElement
+// class: SVGMetadataElement
 type SVGMetadataElement struct {
 	SVGElement
 }
@@ -4468,7 +4454,7 @@ func SVGMetadataElementFromJS(value js.Wrapper) *SVGMetadataElement {
 	return ret
 }
 
-// interface: SVGNumber
+// class: SVGNumber
 type SVGNumber struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4505,7 +4491,7 @@ func (_this *SVGNumber) SetValue(value float32) {
 	_this.Value_JS.Set("value", input)
 }
 
-// interface: SVGNumberList
+// class: SVGNumberList
 type SVGNumberList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4693,7 +4679,7 @@ func (_this *SVGNumberList) AppendItem(newItem *SVGNumber) (_result *SVGNumber) 
 	return
 }
 
-// interface: SVGPathElement
+// class: SVGPathElement
 type SVGPathElement struct {
 	SVGGeometryElement
 }
@@ -4709,7 +4695,7 @@ func SVGPathElementFromJS(value js.Wrapper) *SVGPathElement {
 	return ret
 }
 
-// interface: SVGPatternElement
+// class: SVGPatternElement
 type SVGPatternElement struct {
 	SVGElement
 }
@@ -4815,7 +4801,7 @@ func (_this *SVGPatternElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGPointList
+// class: SVGPointList
 type SVGPointList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5003,7 +4989,7 @@ func (_this *SVGPointList) AppendItem(newItem *geometry.DOMPoint) (_result *geom
 	return
 }
 
-// interface: SVGPolygonElement
+// class: SVGPolygonElement
 type SVGPolygonElement struct {
 	SVGGeometryElement
 }
@@ -5037,7 +5023,7 @@ func (_this *SVGPolygonElement) AnimatedPoints() *SVGPointList {
 	return ret
 }
 
-// interface: SVGPolylineElement
+// class: SVGPolylineElement
 type SVGPolylineElement struct {
 	SVGGeometryElement
 }
@@ -5071,7 +5057,7 @@ func (_this *SVGPolylineElement) AnimatedPoints() *SVGPointList {
 	return ret
 }
 
-// interface: SVGPreserveAspectRatio
+// class: SVGPreserveAspectRatio
 type SVGPreserveAspectRatio struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -5141,7 +5127,7 @@ func (_this *SVGPreserveAspectRatio) SetMeetOrSlice(value int) {
 	_this.Value_JS.Set("meetOrSlice", input)
 }
 
-// interface: SVGRadialGradientElement
+// class: SVGRadialGradientElement
 type SVGRadialGradientElement struct {
 	SVGGradientElement
 }
@@ -5211,7 +5197,7 @@ func (_this *SVGRadialGradientElement) Fr() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGRectElement
+// class: SVGRectElement
 type SVGRectElement struct {
 	SVGGeometryElement
 }
@@ -5281,7 +5267,7 @@ func (_this *SVGRectElement) Ry() *SVGAnimatedLength {
 	return ret
 }
 
-// interface: SVGSVGElement
+// class: SVGSVGElement
 type SVGSVGElement struct {
 	SVGGraphicsElement
 }
@@ -6052,7 +6038,7 @@ func (_this *SVGSVGElement) ForceRedraw() {
 	return
 }
 
-// interface: SVGScriptElement
+// class: SVGScriptElement
 type SVGScriptElement struct {
 	SVGElement
 }
@@ -6112,7 +6098,7 @@ func (_this *SVGScriptElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGStopElement
+// class: SVGStopElement
 type SVGStopElement struct {
 	SVGElement
 }
@@ -6137,7 +6123,7 @@ func (_this *SVGStopElement) Offset() *SVGAnimatedNumber {
 	return ret
 }
 
-// interface: SVGStringList
+// class: SVGStringList
 type SVGStringList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6325,7 +6311,7 @@ func (_this *SVGStringList) AppendItem(newItem string) (_result string) {
 	return
 }
 
-// interface: SVGStyleElement
+// class: SVGStyleElement
 type SVGStyleElement struct {
 	SVGElement
 }
@@ -6400,7 +6386,7 @@ func (_this *SVGStyleElement) Sheet() *cssom.CSSStyleSheet {
 	return ret
 }
 
-// interface: SVGSwitchElement
+// class: SVGSwitchElement
 type SVGSwitchElement struct {
 	SVGGraphicsElement
 }
@@ -6416,7 +6402,7 @@ func SVGSwitchElementFromJS(value js.Wrapper) *SVGSwitchElement {
 	return ret
 }
 
-// interface: SVGSymbolElement
+// class: SVGSymbolElement
 type SVGSymbolElement struct {
 	SVGGraphicsElement
 }
@@ -6450,7 +6436,7 @@ func (_this *SVGSymbolElement) PreserveAspectRatio() *SVGAnimatedPreserveAspectR
 	return ret
 }
 
-// interface: SVGTSpanElement
+// class: SVGTSpanElement
 type SVGTSpanElement struct {
 	SVGTextPositioningElement
 }
@@ -6466,7 +6452,7 @@ func SVGTSpanElementFromJS(value js.Wrapper) *SVGTSpanElement {
 	return ret
 }
 
-// interface: SVGTextContentElement
+// class: SVGTextContentElement
 type SVGTextContentElement struct {
 	SVGGraphicsElement
 }
@@ -6656,7 +6642,7 @@ func (_this *SVGTextContentElement) SelectSubString(charnum uint, nchars uint) {
 	return
 }
 
-// interface: SVGTextElement
+// class: SVGTextElement
 type SVGTextElement struct {
 	SVGTextPositioningElement
 }
@@ -6672,7 +6658,7 @@ func SVGTextElementFromJS(value js.Wrapper) *SVGTextElement {
 	return ret
 }
 
-// interface: SVGTextPathElement
+// class: SVGTextPathElement
 type SVGTextPathElement struct {
 	SVGTextContentElement
 }
@@ -6733,7 +6719,7 @@ func (_this *SVGTextPathElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGTextPositioningElement
+// class: SVGTextPositioningElement
 type SVGTextPositioningElement struct {
 	SVGTextContentElement
 }
@@ -6794,7 +6780,7 @@ func (_this *SVGTextPositioningElement) Rotate() *SVGAnimatedNumberList {
 	return ret
 }
 
-// interface: SVGTitleElement
+// class: SVGTitleElement
 type SVGTitleElement struct {
 	SVGElement
 }
@@ -6810,7 +6796,7 @@ func SVGTitleElementFromJS(value js.Wrapper) *SVGTitleElement {
 	return ret
 }
 
-// interface: SVGTransform
+// class: SVGTransform
 type SVGTransform struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6954,7 +6940,7 @@ func (_this *SVGTransform) SetSkewY(angle float32) {
 	return
 }
 
-// interface: SVGTransformList
+// class: SVGTransformList
 type SVGTransformList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -7177,7 +7163,7 @@ func (_this *SVGTransformList) Consolidate() (_result *SVGTransform) {
 	return
 }
 
-// interface: SVGUnitTypes
+// class: SVGUnitTypes
 type SVGUnitTypes struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -7204,7 +7190,7 @@ const (
 	SVG_UNIT_TYPE_OBJECTBOUNDINGBOX int = 2
 )
 
-// interface: SVGUnknownElement
+// class: SVGUnknownElement
 type SVGUnknownElement struct {
 	SVGGraphicsElement
 }
@@ -7220,7 +7206,7 @@ func SVGUnknownElementFromJS(value js.Wrapper) *SVGUnknownElement {
 	return ret
 }
 
-// interface: SVGUseElement
+// class: SVGUseElement
 type SVGUseElement struct {
 	SVGGraphicsElement
 }
@@ -7303,7 +7289,7 @@ func (_this *SVGUseElement) Href() *SVGAnimatedString {
 	return ret
 }
 
-// interface: SVGUseElementShadowRoot
+// class: SVGUseElementShadowRoot
 type SVGUseElementShadowRoot struct {
 	dom.ShadowRoot
 }
@@ -7319,7 +7305,7 @@ func SVGUseElementShadowRootFromJS(value js.Wrapper) *SVGUseElementShadowRoot {
 	return ret
 }
 
-// interface: SVGViewElement
+// class: SVGViewElement
 type SVGViewElement struct {
 	SVGElement
 }
@@ -7375,7 +7361,7 @@ func (_this *SVGViewElement) SetZoomAndPan(value int) {
 	_this.Value_JS.Set("zoomAndPan", input)
 }
 
-// interface: ShadowAnimation
+// class: ShadowAnimation
 type ShadowAnimation struct {
 	webani.Animation
 }

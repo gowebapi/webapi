@@ -29,20 +29,6 @@ import (
 // encrypted-media.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -78,7 +64,7 @@ var mediaKeyMessageTypeFromWasmTable = map[string]MediaKeyMessageType{
 	"license-request": LicenseRequestMediaKeyMessageType, "license-renewal": LicenseRenewalMediaKeyMessageType, "license-release": LicenseReleaseMediaKeyMessageType, "individualization-request": IndividualizationRequestMediaKeyMessageType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaKeyMessageType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -120,7 +106,7 @@ var mediaKeySessionTypeFromWasmTable = map[string]MediaKeySessionType{
 	"temporary": TemporaryMediaKeySessionType, "persistent-license": PersistentLicenseMediaKeySessionType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaKeySessionType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -167,7 +153,7 @@ var mediaKeyStatusFromWasmTable = map[string]MediaKeyStatus{
 	"usable": UsableMediaKeyStatus, "expired": ExpiredMediaKeyStatus, "released": ReleasedMediaKeyStatus, "output-restricted": OutputRestrictedMediaKeyStatus, "output-downscaled": OutputDownscaledMediaKeyStatus, "status-pending": StatusPendingMediaKeyStatus, "internal-error": InternalErrorMediaKeyStatus,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaKeyStatus) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -210,7 +196,7 @@ var mediaKeysRequirementFromWasmTable = map[string]MediaKeysRequirement{
 	"required": RequiredMediaKeysRequirement, "optional": OptionalMediaKeysRequirement, "not-allowed": NotAllowedMediaKeysRequirement,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaKeysRequirement) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -807,7 +793,7 @@ func MediaKeySystemMediaCapabilityFromJS(value js.Wrapper) *MediaKeySystemMediaC
 	return &out
 }
 
-// interface: MediaEncryptedEvent
+// class: MediaEncryptedEvent
 type MediaEncryptedEvent struct {
 	domcore.Event
 }
@@ -866,7 +852,7 @@ func (_this *MediaEncryptedEvent) InitData() *javascript.ArrayBuffer {
 	return ret
 }
 
-// interface: MediaKeyMessageEvent
+// class: MediaKeyMessageEvent
 type MediaKeyMessageEvent struct {
 	domcore.Event
 }
@@ -921,7 +907,7 @@ func (_this *MediaKeyMessageEvent) Message() *javascript.ArrayBuffer {
 	return ret
 }
 
-// interface: MediaKeySession
+// class: MediaKeySession
 type MediaKeySession struct {
 	domcore.EventTarget
 }
@@ -1103,7 +1089,7 @@ func (_this *MediaKeySession) Remove() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: MediaKeyStatusMap
+// class: MediaKeyStatusMap
 type MediaKeyStatusMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1233,7 +1219,7 @@ func (_this *MediaKeyStatusMap) Values() (_result *MediaKeyStatusMapValueIterato
 	return
 }
 
-// interface: MediaKeyStatusMapEntryIterator
+// class: MediaKeyStatusMapEntryIterator
 type MediaKeyStatusMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1268,7 +1254,7 @@ func (_this *MediaKeyStatusMapEntryIterator) Next() (_result *MediaKeyStatusMapE
 	return
 }
 
-// interface: MediaKeyStatusMapKeyIterator
+// class: MediaKeyStatusMapKeyIterator
 type MediaKeyStatusMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1303,7 +1289,7 @@ func (_this *MediaKeyStatusMapKeyIterator) Next() (_result *MediaKeyStatusMapKey
 	return
 }
 
-// interface: MediaKeyStatusMapValueIterator
+// class: MediaKeyStatusMapValueIterator
 type MediaKeyStatusMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1338,7 +1324,7 @@ func (_this *MediaKeyStatusMapValueIterator) Next() (_result *MediaKeyStatusMapV
 	return
 }
 
-// interface: MediaKeySystemAccess
+// class: MediaKeySystemAccess
 type MediaKeySystemAccess struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1396,7 +1382,7 @@ func (_this *MediaKeySystemAccess) CreateMediaKeys() (_result *PromiseMediaKeys)
 	return
 }
 
-// interface: MediaKeys
+// class: MediaKeys
 type MediaKeys struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1453,7 +1439,7 @@ func (_this *MediaKeys) SetServerCertificate(serverCertificate *Union) (_result 
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseMediaKeySystemAccess struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1558,7 +1544,7 @@ func (_this *PromiseMediaKeySystemAccess) Finally(onFinally *javascript.PromiseF
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseMediaKeys struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

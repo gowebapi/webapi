@@ -12,20 +12,6 @@ import "syscall/js"
 // transform files:
 // requestidlecallback.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -110,7 +96,7 @@ func IdleRequestOptionsFromJS(value js.Wrapper) *IdleRequestOptions {
 	return &out
 }
 
-// interface: IdleDeadline
+// class: IdleDeadline
 type IdleDeadline struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

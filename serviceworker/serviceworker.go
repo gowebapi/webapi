@@ -53,20 +53,6 @@ import (
 // promises.go.md
 // service-workers.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -104,7 +90,7 @@ var backgroundFetchFailureReasonFromWasmTable = map[string]BackgroundFetchFailur
 	"": EmptyString0BackgroundFetchFailureReason, "aborted": AbortedBackgroundFetchFailureReason, "bad-status": BadStatusBackgroundFetchFailureReason, "fetch-error": FetchErrorBackgroundFetchFailureReason, "quota-exceeded": QuotaExceededBackgroundFetchFailureReason, "download-total-exceeded": DownloadTotalExceededBackgroundFetchFailureReason,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BackgroundFetchFailureReason) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -147,7 +133,7 @@ var backgroundFetchResultFromWasmTable = map[string]BackgroundFetchResult{
 	"": EmptyString0BackgroundFetchResult, "success": SuccessBackgroundFetchResult, "failure": FailureBackgroundFetchResult,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *BackgroundFetchResult) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -192,7 +178,7 @@ var serviceWorkerStateFromWasmTable = map[string]ServiceWorkerState{
 	"installing": InstallingServiceWorkerState, "installed": InstalledServiceWorkerState, "activating": ActivatingServiceWorkerState, "activated": ActivatedServiceWorkerState, "redundant": RedundantServiceWorkerState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ServiceWorkerState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -235,7 +221,7 @@ var serviceWorkerUpdateViaCacheFromWasmTable = map[string]ServiceWorkerUpdateVia
 	"imports": ImportsServiceWorkerUpdateViaCache, "all": AllServiceWorkerUpdateViaCache, "none": NoneServiceWorkerUpdateViaCache,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ServiceWorkerUpdateViaCache) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -1233,7 +1219,7 @@ func SyncEventInitFromJS(value js.Wrapper) *SyncEventInit {
 	return &out
 }
 
-// interface: BackgroundFetchEvent
+// class: BackgroundFetchEvent
 type BackgroundFetchEvent struct {
 	domcore.ExtendableEvent
 }
@@ -1279,7 +1265,7 @@ func (_this *BackgroundFetchEvent) Registration() *BackgroundFetchRegistration {
 	return ret
 }
 
-// interface: BackgroundFetchManager
+// class: BackgroundFetchManager
 type BackgroundFetchManager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1356,7 +1342,7 @@ func (_this *BackgroundFetchManager) GetIds() (_result *javascript.PromiseSequen
 	return
 }
 
-// interface: BackgroundFetchRecord
+// class: BackgroundFetchRecord
 type BackgroundFetchRecord struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1395,7 +1381,7 @@ func (_this *BackgroundFetchRecord) ResponseReady() *javascript.Promise {
 	return ret
 }
 
-// interface: BackgroundFetchRegistration
+// class: BackgroundFetchRegistration
 type BackgroundFetchRegistration struct {
 	domcore.EventTarget
 }
@@ -1567,7 +1553,7 @@ func (_this *BackgroundFetchRegistration) MatchAll(request *Union, options *Cach
 	return
 }
 
-// interface: BackgroundFetchUpdateUIEvent
+// class: BackgroundFetchUpdateUIEvent
 type BackgroundFetchUpdateUIEvent struct {
 	BackgroundFetchEvent
 }
@@ -1623,7 +1609,7 @@ func (_this *BackgroundFetchUpdateUIEvent) UpdateUI(options *BackgroundFetchUIOp
 	return
 }
 
-// interface: Cache
+// class: Cache
 type Cache struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1794,7 +1780,7 @@ func (_this *Cache) Keys(request *Union, options *CacheQueryOptions) (_result *j
 	return
 }
 
-// interface: CacheStorage
+// class: CacheStorage
 type CacheStorage struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1902,7 +1888,7 @@ func (_this *CacheStorage) Keys() (_result *javascript.PromiseSequenceString) {
 	return
 }
 
-// interface: Clients
+// class: Clients
 type Clients struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1990,7 +1976,7 @@ func (_this *Clients) Claim() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: ExtendableMessageEvent
+// class: ExtendableMessageEvent
 type ExtendableMessageEvent struct {
 	domcore.ExtendableEvent
 }
@@ -2076,7 +2062,7 @@ func (_this *ExtendableMessageEvent) Ports() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: FetchEvent
+// class: FetchEvent
 type FetchEvent struct {
 	domcore.ExtendableEvent
 }
@@ -2143,7 +2129,7 @@ func (_this *FetchEvent) RespondWith(r *fetch.PromiseResponse) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseBackgroundFetchRecord struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2248,7 +2234,7 @@ func (_this *PromiseBackgroundFetchRecord) Finally(onFinally *javascript.Promise
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseBackgroundFetchRegistration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2353,7 +2339,7 @@ func (_this *PromiseBackgroundFetchRegistration) Finally(onFinally *javascript.P
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseCache struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2458,7 +2444,7 @@ func (_this *PromiseCache) Finally(onFinally *javascript.PromiseFinally) (_resul
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilBackgroundFetchRegistration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2563,7 +2549,7 @@ func (_this *PromiseNilBackgroundFetchRegistration) Finally(onFinally *javascrip
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceBackgroundFetchRecord struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2668,7 +2654,7 @@ func (_this *PromiseSequenceBackgroundFetchRecord) Finally(onFinally *javascript
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseServiceWorkerRegistration struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2773,7 +2759,7 @@ func (_this *PromiseServiceWorkerRegistration) Finally(onFinally *javascript.Pro
 	return
 }
 
-// interface: ServiceWorker
+// class: ServiceWorker
 type ServiceWorker struct {
 	domcore.EventTarget
 }
@@ -2876,7 +2862,7 @@ func (_this *ServiceWorker) PostMessage(message interface{}, transfer []*javascr
 	return
 }
 
-// interface: ServiceWorkerContainer
+// class: ServiceWorkerContainer
 type ServiceWorkerContainer struct {
 	domcore.EventTarget
 }
@@ -3048,7 +3034,7 @@ func (_this *ServiceWorkerContainer) StartMessages() {
 	return
 }
 
-// interface: ServiceWorkerRegistration
+// class: ServiceWorkerRegistration
 type ServiceWorkerRegistration struct {
 	domcore.EventTarget
 }
@@ -3203,7 +3189,7 @@ func (_this *ServiceWorkerRegistration) Unregister() (_result *javascript.Promis
 	return
 }
 
-// interface: SyncEvent
+// class: SyncEvent
 type SyncEvent struct {
 	domcore.ExtendableEvent
 }
@@ -3258,7 +3244,7 @@ func (_this *SyncEvent) LastChance() bool {
 	return ret
 }
 
-// interface: SyncManager
+// class: SyncManager
 type SyncManager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

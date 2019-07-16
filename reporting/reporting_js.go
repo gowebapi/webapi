@@ -17,20 +17,6 @@ import (
 // transform files:
 // reporting.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -150,7 +136,7 @@ func ReportingObserverOptionsFromJS(value js.Wrapper) *ReportingObserverOptions 
 	return &out
 }
 
-// interface: CrashReportBody
+// class: CrashReportBody
 type CrashReportBody struct {
 	ReportBody
 }
@@ -178,7 +164,7 @@ func (_this *CrashReportBody) Reason() *string {
 	return ret
 }
 
-// interface: DeprecationReportBody
+// class: DeprecationReportBody
 type DeprecationReportBody struct {
 	ReportBody
 }
@@ -259,7 +245,7 @@ func (_this *DeprecationReportBody) ColumnNumber() *uint {
 	return ret
 }
 
-// interface: InterventionReportBody
+// class: InterventionReportBody
 type InterventionReportBody struct {
 	ReportBody
 }
@@ -329,7 +315,7 @@ func (_this *InterventionReportBody) ColumnNumber() *uint {
 	return ret
 }
 
-// interface: Report
+// class: Report
 type Report struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -379,7 +365,7 @@ func (_this *Report) Body() *ReportBody {
 	return ret
 }
 
-// interface: ReportBody
+// class: ReportBody
 type ReportBody struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -400,7 +386,7 @@ func ReportBodyFromJS(value js.Wrapper) *ReportBody {
 	return ret
 }
 
-// interface: ReportingObserver
+// class: ReportingObserver
 type ReportingObserver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

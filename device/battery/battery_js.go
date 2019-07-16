@@ -22,20 +22,6 @@ import (
 // battery-status.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -131,7 +117,7 @@ func PromiseBatteryManagerOnRejectedFromJS(_value js.Value) PromiseBatteryManage
 	}
 }
 
-// interface: BatteryManager
+// class: BatteryManager
 type BatteryManager struct {
 	domcore.EventTarget
 }
@@ -279,7 +265,7 @@ func (_this *BatteryManager) SetOnlevelchange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onlevelchange", input)
 }
 
-// interface: Promise
+// class: Promise
 type PromiseBatteryManager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

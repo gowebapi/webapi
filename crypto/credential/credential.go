@@ -36,20 +36,6 @@ import (
 // promises.go.md
 // webauthn.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -84,7 +70,7 @@ var credentialMediationRequirementFromWasmTable = map[string]CredentialMediation
 	"silent": SilentCredentialMediationRequirement, "optional": OptionalCredentialMediationRequirement, "required": RequiredCredentialMediationRequirement,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *CredentialMediationRequirement) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -125,7 +111,7 @@ var publicKeyCredentialTypeFromWasmTable = map[string]PublicKeyCredentialType{
 	"public-key": PublicKeyPublicKeyCredentialType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PublicKeyCredentialType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -977,7 +963,7 @@ func PublicKeyCredentialUserEntityFromJS(value js.Wrapper) *PublicKeyCredentialU
 	return &out
 }
 
-// interface: Credential
+// class: Credential
 type Credential struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1016,7 +1002,7 @@ func (_this *Credential) Type() string {
 	return ret
 }
 
-// interface: CredentialsContainer
+// class: CredentialsContainer
 type CredentialsContainer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1106,7 +1092,7 @@ func (_this *CredentialsContainer) PreventSilentAccess() (_result *javascript.Pr
 	return
 }
 
-// interface: FederatedCredential
+// class: FederatedCredential
 type FederatedCredential struct {
 	Credential
 }
@@ -1179,7 +1165,7 @@ func (_this *FederatedCredential) IconURL() string {
 	return ret
 }
 
-// interface: PasswordCredential
+// class: PasswordCredential
 type PasswordCredential struct {
 	Credential
 }
@@ -1240,7 +1226,7 @@ func (_this *PasswordCredential) IconURL() string {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseCredential struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1345,7 +1331,7 @@ func (_this *PromiseCredential) Finally(onFinally *javascript.PromiseFinally) (_
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilCredential struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1450,7 +1436,7 @@ func (_this *PromiseNilCredential) Finally(onFinally *javascript.PromiseFinally)
 	return
 }
 
-// interface: PublicKeyCredential
+// class: PublicKeyCredential
 type PublicKeyCredential struct {
 	Credential
 }

@@ -23,20 +23,6 @@ import (
 // notifications.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -71,7 +57,7 @@ var notificationDirectionFromWasmTable = map[string]Direction{
 	"auto": Auto, "ltr": LeftToRight, "rtl": RightToLeft,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *Direction) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -114,7 +100,7 @@ var notificationPermissionFromWasmTable = map[string]PermissionMode{
 	"default": Default, "denied": Denied, "granted": Granted,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PermissionMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -409,7 +395,7 @@ func OptionsFromJS(value js.Wrapper) *Options {
 	return &out
 }
 
-// interface: Notification
+// class: Notification
 type Notification struct {
 	domcore.EventTarget
 }
@@ -736,7 +722,7 @@ func (_this *Notification) Close() {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePermissionMode struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

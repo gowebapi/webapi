@@ -49,20 +49,6 @@ import (
 // fullscreen.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -96,7 +82,7 @@ var fragmentFilterFromWasmTable = map[string]FragmentFilter{
 	"direct-fragments-only": DirectFragmentsOnlyFragmentFilter, "fragment-hierarchy": FragmentHierarchyFragmentFilter,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FragmentFilter) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -139,7 +125,7 @@ var fullscreenNavigationUIFromWasmTable = map[string]FullscreenNavigationUI{
 	"auto": AutoFullscreenNavigationUI, "show": ShowFullscreenNavigationUI, "hide": HideFullscreenNavigationUI,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *FullscreenNavigationUI) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -181,7 +167,7 @@ var shadowRootModeFromWasmTable = map[string]ShadowRootMode{
 	"open": OpenShadowRootMode, "closed": ClosedShadowRootMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *ShadowRootMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -532,7 +518,7 @@ func ShadowRootInitFromJS(value js.Wrapper) *ShadowRootInit {
 	return &out
 }
 
-// interface: AbstractRange
+// class: AbstractRange
 type AbstractRange struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -598,7 +584,7 @@ func (_this *AbstractRange) Collapsed() bool {
 	return ret
 }
 
-// interface: Attr
+// class: Attr
 type Attr struct {
 	Node
 }
@@ -692,7 +678,7 @@ func (_this *Attr) Specified() bool {
 	return ret
 }
 
-// interface: CDATASection
+// class: CDATASection
 type CDATASection struct {
 	Text
 }
@@ -708,7 +694,7 @@ func CDATASectionFromJS(value js.Wrapper) *CDATASection {
 	return ret
 }
 
-// interface: CharacterData
+// class: CharacterData
 type CharacterData struct {
 	Node
 }
@@ -902,7 +888,7 @@ func (_this *CharacterData) Remove() {
 	return
 }
 
-// interface: Comment
+// class: Comment
 type Comment struct {
 	CharacterData
 }
@@ -938,7 +924,7 @@ func NewComment(data *string) (_result *Comment) {
 	return
 }
 
-// interface: DeadFragmentInformation
+// class: DeadFragmentInformation
 type DeadFragmentInformation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1068,7 +1054,7 @@ func (_this *DeadFragmentInformation) PreviousInBox() *DeadFragmentInformation {
 	return ret
 }
 
-// interface: DocumentFragment
+// class: DocumentFragment
 type DocumentFragment struct {
 	Node
 }
@@ -1222,7 +1208,7 @@ func (_this *DocumentFragment) QuerySelectorAll(selectors string) (_result *Node
 	return
 }
 
-// interface: DocumentType
+// class: DocumentType
 type DocumentType struct {
 	Node
 }
@@ -1316,7 +1302,7 @@ func (_this *DocumentType) Remove() {
 	return
 }
 
-// interface: Element
+// class: Element
 type Element struct {
 	Node
 }
@@ -3541,7 +3527,7 @@ func (_this *Element) GetAnimations() (_result []*webani.Animation) {
 	return
 }
 
-// interface: HTMLCollection
+// class: HTMLCollection
 type HTMLCollection struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3647,7 +3633,7 @@ func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
 	return
 }
 
-// interface: NamedNodeMap
+// class: NamedNodeMap
 type NamedNodeMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3850,7 +3836,7 @@ func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string
 	return
 }
 
-// interface: Node
+// class: Node
 type Node struct {
 	domcore.EventTarget
 }
@@ -4437,7 +4423,7 @@ func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
 	return
 }
 
-// interface: NodeIterator
+// class: NodeIterator
 type NodeIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4546,7 +4532,7 @@ func (_this *NodeIterator) Detach() {
 	return
 }
 
-// interface: NodeList
+// class: NodeList
 type NodeList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4680,7 +4666,7 @@ func (_this *NodeList) Values() (_result *NodeListValueIterator) {
 	return
 }
 
-// interface: NodeListEntryIterator
+// class: NodeListEntryIterator
 type NodeListEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4715,7 +4701,7 @@ func (_this *NodeListEntryIterator) Next() (_result *NodeListEntryIteratorValue)
 	return
 }
 
-// interface: NodeListKeyIterator
+// class: NodeListKeyIterator
 type NodeListKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4750,7 +4736,7 @@ func (_this *NodeListKeyIterator) Next() (_result *NodeListKeyIteratorValue) {
 	return
 }
 
-// interface: NodeListValueIterator
+// class: NodeListValueIterator
 type NodeListValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4785,7 +4771,7 @@ func (_this *NodeListValueIterator) Next() (_result *NodeListValueIteratorValue)
 	return
 }
 
-// interface: ProcessingInstruction
+// class: ProcessingInstruction
 type ProcessingInstruction struct {
 	CharacterData
 }
@@ -4821,7 +4807,7 @@ func (_this *ProcessingInstruction) Sheet() *cssom.CSSStyleSheet {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseDeadFragmentInformation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -4926,7 +4912,7 @@ func (_this *PromiseDeadFragmentInformation) Finally(onFinally *javascript.Promi
 	return
 }
 
-// interface: Range
+// class: Range
 type Range struct {
 	AbstractRange
 }
@@ -5309,7 +5295,7 @@ func (_this *Range) ToString() (_result string) {
 	return
 }
 
-// interface: ShadowRoot
+// class: ShadowRoot
 type ShadowRoot struct {
 	DocumentFragment
 }
@@ -5385,7 +5371,7 @@ func (_this *ShadowRoot) PointerLockElement() *Element {
 	return ret
 }
 
-// interface: StaticRange
+// class: StaticRange
 type StaticRange struct {
 	AbstractRange
 }
@@ -5401,7 +5387,7 @@ func StaticRangeFromJS(value js.Wrapper) *StaticRange {
 	return ret
 }
 
-// interface: Text
+// class: Text
 type Text struct {
 	CharacterData
 }
@@ -5574,7 +5560,7 @@ func (_this *Text) ConvertPointFromNode(point *geometry.DOMPointInit, from *Unio
 	return
 }
 
-// interface: TreeWalker
+// class: TreeWalker
 type TreeWalker struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -14,20 +14,6 @@ import js "github.com/gowebapi/webapi/core/js"
 // transform files:
 // missingtypes.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -45,7 +31,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: Coordinates
+// class: Coordinates
 type Coordinates struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -66,7 +52,7 @@ func CoordinatesFromJS(value js.Wrapper) *Coordinates {
 	return ret
 }
 
-// interface: Date
+// class: Date
 type Date struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -87,7 +73,7 @@ func DateFromJS(value js.Wrapper) *Date {
 	return ret
 }
 
-// interface: Dictionary
+// class: Dictionary
 type Dictionary struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -108,7 +94,7 @@ func DictionaryFromJS(value js.Wrapper) *Dictionary {
 	return ret
 }
 
-// interface: WritableStream
+// class: WritableStream
 type WritableStream struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -33,20 +33,6 @@ import (
 // promises.go.md
 // webxr.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -81,7 +67,7 @@ var xREnvironmentBlendModeFromWasmTable = map[string]XREnvironmentBlendMode{
 	"opaque": OpaqueXREnvironmentBlendMode, "additive": AdditiveXREnvironmentBlendMode, "alpha-blend": AlphaBlendXREnvironmentBlendMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XREnvironmentBlendMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -123,7 +109,7 @@ var xREyeFromWasmTable = map[string]XREye{
 	"left": LeftXREye, "right": RightXREye,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XREye) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -166,7 +152,7 @@ var xRHandednessFromWasmTable = map[string]XRHandedness{
 	"none": NoneXRHandedness, "left": LeftXRHandedness, "right": RightXRHandedness,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XRHandedness) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -209,7 +195,7 @@ var xRReferenceSpaceTypeFromWasmTable = map[string]XRReferenceSpaceType{
 	"stationary": StationaryXRReferenceSpaceType, "bounded": BoundedXRReferenceSpaceType, "unbounded": UnboundedXRReferenceSpaceType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XRReferenceSpaceType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -252,7 +238,7 @@ var xRSessionModeFromWasmTable = map[string]XRSessionMode{
 	"inline": InlineXRSessionMode, "immersive-vr": ImmersiveVrXRSessionMode, "immersive-ar": ImmersiveArXRSessionMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XRSessionMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -295,7 +281,7 @@ var xRStationaryReferenceSpaceSubtypeFromWasmTable = map[string]XRStationaryRefe
 	"eye-level": EyeLevelXRStationaryReferenceSpaceSubtype, "floor-level": FloorLevelXRStationaryReferenceSpaceSubtype, "position-disabled": PositionDisabledXRStationaryReferenceSpaceSubtype,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XRStationaryReferenceSpaceSubtype) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -338,7 +324,7 @@ var xRTargetRayModeFromWasmTable = map[string]XRTargetRayMode{
 	"gaze": GazeXRTargetRayMode, "tracked-pointer": TrackedPointerXRTargetRayMode, "screen": ScreenXRTargetRayMode,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *XRTargetRayMode) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -878,7 +864,7 @@ func XRWebGLLayerInitFromJS(value js.Wrapper) *XRWebGLLayerInit {
 	return &out
 }
 
-// interface: Promise
+// class: Promise
 type PromiseXRReferenceSpace struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -983,7 +969,7 @@ func (_this *PromiseXRReferenceSpace) Finally(onFinally *javascript.PromiseFinal
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseXRSession struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1088,7 +1074,7 @@ func (_this *PromiseXRSession) Finally(onFinally *javascript.PromiseFinally) (_r
 	return
 }
 
-// interface: XR
+// class: XR
 type XR struct {
 	domcore.EventTarget
 }
@@ -1164,7 +1150,7 @@ func (_this *XR) RequestSession(parameters *XRSessionCreationOptions) (_result *
 	return
 }
 
-// interface: XRBoundedReferenceSpace
+// class: XRBoundedReferenceSpace
 type XRBoundedReferenceSpace struct {
 	XRReferenceSpace
 }
@@ -1189,7 +1175,7 @@ func (_this *XRBoundedReferenceSpace) BoundsGeometry() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: XRFrame
+// class: XRFrame
 type XRFrame struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1260,7 +1246,7 @@ func (_this *XRFrame) GetPose(space *XRSpace, relativeTo *XRSpace) (_result *XRP
 	return
 }
 
-// interface: XRInputSource
+// class: XRInputSource
 type XRInputSource struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1319,7 +1305,7 @@ func (_this *XRInputSource) GripSpace() *XRSpace {
 	return ret
 }
 
-// interface: XRInputSourceEvent
+// class: XRInputSourceEvent
 type XRInputSourceEvent struct {
 	domcore.Event
 }
@@ -1374,7 +1360,7 @@ func (_this *XRInputSourceEvent) InputSource() *XRInputSource {
 	return ret
 }
 
-// interface: XRLayer
+// class: XRLayer
 type XRLayer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1395,7 +1381,7 @@ func XRLayerFromJS(value js.Wrapper) *XRLayer {
 	return ret
 }
 
-// interface: XRPose
+// class: XRPose
 type XRPose struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1434,7 +1420,7 @@ func (_this *XRPose) EmulatedPosition() bool {
 	return ret
 }
 
-// interface: XRPresentationContext
+// class: XRPresentationContext
 type XRPresentationContext struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1464,7 +1450,7 @@ func (_this *XRPresentationContext) Canvas() *canvas.HTMLCanvasElement {
 	return ret
 }
 
-// interface: XRRay
+// class: XRRay
 type XRRay struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1530,7 +1516,7 @@ func (_this *XRRay) Matrix() *javascript.Float32Array {
 	return ret
 }
 
-// interface: XRReferenceSpace
+// class: XRReferenceSpace
 type XRReferenceSpace struct {
 	XRSpace
 }
@@ -1586,7 +1572,7 @@ func (_this *XRReferenceSpace) SetOnreset(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onreset", input)
 }
 
-// interface: XRReferenceSpaceEvent
+// class: XRReferenceSpaceEvent
 type XRReferenceSpaceEvent struct {
 	domcore.Event
 }
@@ -1643,7 +1629,7 @@ func (_this *XRReferenceSpaceEvent) Transform() *XRRigidTransform {
 	return ret
 }
 
-// interface: XRRenderState
+// class: XRRenderState
 type XRRenderState struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1693,7 +1679,7 @@ func (_this *XRRenderState) BaseLayer() *XRLayer {
 	return ret
 }
 
-// interface: XRRigidTransform
+// class: XRRigidTransform
 type XRRigidTransform struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1766,7 +1752,7 @@ func (_this *XRRigidTransform) Matrix() *javascript.Float32Array {
 	return ret
 }
 
-// interface: XRSession
+// class: XRSession
 type XRSession struct {
 	domcore.EventTarget
 }
@@ -2092,7 +2078,7 @@ func (_this *XRSession) End() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: XRSessionEvent
+// class: XRSessionEvent
 type XRSessionEvent struct {
 	domcore.Event
 }
@@ -2138,7 +2124,7 @@ func (_this *XRSessionEvent) Session() *XRSession {
 	return ret
 }
 
-// interface: XRSpace
+// class: XRSpace
 type XRSpace struct {
 	domcore.EventTarget
 }
@@ -2154,7 +2140,7 @@ func XRSpaceFromJS(value js.Wrapper) *XRSpace {
 	return ret
 }
 
-// interface: XRStationaryReferenceSpace
+// class: XRStationaryReferenceSpace
 type XRStationaryReferenceSpace struct {
 	XRReferenceSpace
 }
@@ -2179,7 +2165,7 @@ func (_this *XRStationaryReferenceSpace) Subtype() XRStationaryReferenceSpaceSub
 	return ret
 }
 
-// interface: XRUnboundedReferenceSpace
+// class: XRUnboundedReferenceSpace
 type XRUnboundedReferenceSpace struct {
 	XRReferenceSpace
 }
@@ -2195,7 +2181,7 @@ func XRUnboundedReferenceSpaceFromJS(value js.Wrapper) *XRUnboundedReferenceSpac
 	return ret
 }
 
-// interface: XRView
+// class: XRView
 type XRView struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2252,7 +2238,7 @@ func (_this *XRView) Transform() *XRRigidTransform {
 	return ret
 }
 
-// interface: XRViewerPose
+// class: XRViewerPose
 type XRViewerPose struct {
 	XRPose
 }
@@ -2277,7 +2263,7 @@ func (_this *XRViewerPose) Views() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: XRViewport
+// class: XRViewport
 type XRViewport struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2334,7 +2320,7 @@ func (_this *XRViewport) Height() int {
 	return ret
 }
 
-// interface: XRWebGLLayer
+// class: XRWebGLLayer
 type XRWebGLLayer struct {
 	XRLayer
 }

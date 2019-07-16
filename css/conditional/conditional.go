@@ -20,20 +20,6 @@ import (
 // transform files:
 // css-conditional.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -51,7 +37,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: CSSConditionRule
+// class: CSSConditionRule
 type CSSConditionRule struct {
 	cssom.CSSGroupingRule
 }
@@ -83,7 +69,7 @@ func (_this *CSSConditionRule) SetConditionText(value string) {
 	_this.Value_JS.Set("conditionText", input)
 }
 
-// interface: CSSMediaRule
+// class: CSSMediaRule
 type CSSMediaRule struct {
 	CSSConditionRule
 }
@@ -108,7 +94,7 @@ func (_this *CSSMediaRule) Media() *cssom.MediaList {
 	return ret
 }
 
-// interface: CSSSupportsRule
+// class: CSSSupportsRule
 type CSSSupportsRule struct {
 	CSSConditionRule
 }

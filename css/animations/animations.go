@@ -23,20 +23,6 @@ import (
 // transform files:
 // css-animations.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -112,7 +98,7 @@ func AnimationEventInitFromJS(value js.Wrapper) *AnimationEventInit {
 	return &out
 }
 
-// interface: AnimationEvent
+// class: AnimationEvent
 type AnimationEvent struct {
 	domcore.Event
 }
@@ -178,7 +164,7 @@ func (_this *AnimationEvent) PseudoElement() string {
 	return ret
 }
 
-// interface: CSSKeyframeRule
+// class: CSSKeyframeRule
 type CSSKeyframeRule struct {
 	cssom.CSSRule
 }
@@ -219,7 +205,7 @@ func (_this *CSSKeyframeRule) Style() *cssom.CSSStyleDeclaration {
 	return ret
 }
 
-// interface: CSSKeyframesRule
+// class: CSSKeyframesRule
 type CSSKeyframesRule struct {
 	cssom.CSSRule
 }

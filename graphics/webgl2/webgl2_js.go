@@ -30,20 +30,6 @@ import (
 // transform files:
 // webgl2.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -61,7 +47,7 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// interface: WebGLQuery
+// class: WebGLQuery
 type Query struct {
 	webgl.Object
 }
@@ -77,7 +63,7 @@ func QueryFromJS(value js.Wrapper) *Query {
 	return ret
 }
 
-// interface: WebGL2RenderingContext
+// class: WebGL2RenderingContext
 type RenderingContext struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -6340,7 +6326,7 @@ func (_this *RenderingContext) BindVertexArray(array *VertexArrayObject) {
 	return
 }
 
-// interface: WebGLSampler
+// class: WebGLSampler
 type Sampler struct {
 	webgl.Object
 }
@@ -6356,7 +6342,7 @@ func SamplerFromJS(value js.Wrapper) *Sampler {
 	return ret
 }
 
-// interface: WebGLSync
+// class: WebGLSync
 type Sync struct {
 	webgl.Object
 }
@@ -6372,7 +6358,7 @@ func SyncFromJS(value js.Wrapper) *Sync {
 	return ret
 }
 
-// interface: WebGLTransformFeedback
+// class: WebGLTransformFeedback
 type TransformFeedback struct {
 	webgl.Object
 }
@@ -6388,7 +6374,7 @@ func TransformFeedbackFromJS(value js.Wrapper) *TransformFeedback {
 	return ret
 }
 
-// interface: WebGLVertexArrayObject
+// class: WebGLVertexArrayObject
 type VertexArrayObject struct {
 	webgl.Object
 }

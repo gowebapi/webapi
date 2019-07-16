@@ -35,20 +35,6 @@ import (
 // mediacapture-streams.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -83,7 +69,7 @@ var mediaDeviceKindFromWasmTable = map[string]MediaDeviceKind{
 	"audioinput": AudioinputMediaDeviceKind, "audiooutput": AudiooutputMediaDeviceKind, "videoinput": VideoinputMediaDeviceKind,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaDeviceKind) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -125,7 +111,7 @@ var mediaStreamTrackStateFromWasmTable = map[string]MediaStreamTrackState{
 	"live": LiveMediaStreamTrackState, "ended": EndedMediaStreamTrackState,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *MediaStreamTrackState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -2385,7 +2371,7 @@ func ULongRangeFromJS(value js.Wrapper) *ULongRange {
 	return &out
 }
 
-// interface: ConstrainablePattern
+// class: ConstrainablePattern
 type ConstrainablePattern struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2491,7 +2477,7 @@ func (_this *ConstrainablePattern) ApplyConstraints(constraints *Constraints) (_
 	return
 }
 
-// interface: InputDeviceInfo
+// class: InputDeviceInfo
 type InputDeviceInfo struct {
 	MediaDeviceInfo
 }
@@ -2521,7 +2507,7 @@ func (_this *InputDeviceInfo) GetCapabilities() (_result *MediaTrackCapabilities
 	return
 }
 
-// interface: MediaDeviceInfo
+// class: MediaDeviceInfo
 type MediaDeviceInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -2592,7 +2578,7 @@ func (_this *MediaDeviceInfo) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: MediaDevices
+// class: MediaDevices
 type MediaDevices struct {
 	domcore.EventTarget
 }
@@ -2698,7 +2684,7 @@ func (_this *MediaDevices) GetDisplayMedia(constraints *screen.DisplayMediaStrea
 	return
 }
 
-// interface: MediaStream
+// class: MediaStream
 type MediaStream struct {
 	domcore.EventTarget
 }
@@ -2925,7 +2911,7 @@ func (_this *MediaStream) Clone() (_result *MediaStream) {
 	return
 }
 
-// interface: MediaStreamTrack
+// class: MediaStreamTrack
 type MediaStreamTrack struct {
 	domcore.EventTarget
 }
@@ -3198,7 +3184,7 @@ func (_this *MediaStreamTrack) ApplyConstraints(constraints *MediaTrackConstrain
 	return
 }
 
-// interface: MediaStreamTrackEvent
+// class: MediaStreamTrackEvent
 type MediaStreamTrackEvent struct {
 	domcore.Event
 }
@@ -3244,7 +3230,7 @@ func (_this *MediaStreamTrackEvent) Track() *MediaStreamTrack {
 	return ret
 }
 
-// interface: OverconstrainedErrorEvent
+// class: OverconstrainedErrorEvent
 type OverconstrainedErrorEvent struct {
 	domcore.Event
 }
@@ -3292,7 +3278,7 @@ func (_this *OverconstrainedErrorEvent) Error() *patch.OverconstrainedError {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseMediaStream struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3397,7 +3383,7 @@ func (_this *PromiseMediaStream) Finally(onFinally *javascript.PromiseFinally) (
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceMediaDeviceInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

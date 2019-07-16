@@ -33,20 +33,6 @@ import (
 // payment-handler.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -574,7 +560,7 @@ func PaymentRequestEventInitFromJS(value js.Wrapper) *PaymentRequestEventInit {
 	return &out
 }
 
-// interface: CanMakePaymentEvent
+// class: CanMakePaymentEvent
 type CanMakePaymentEvent struct {
 	domcore.ExtendableEvent
 }
@@ -650,7 +636,7 @@ func (_this *CanMakePaymentEvent) RespondWith(canMakePaymentResponse *javascript
 	return
 }
 
-// interface: PaymentInstruments
+// class: PaymentInstruments
 type PaymentInstruments struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -770,7 +756,7 @@ func (_this *PaymentInstruments) Clear() (_result *javascript.PromiseVoid) {
 	return
 }
 
-// interface: PaymentManager
+// class: PaymentManager
 type PaymentManager struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -816,7 +802,7 @@ func (_this *PaymentManager) SetUserHint(value string) {
 	_this.Value_JS.Set("userHint", input)
 }
 
-// interface: PaymentRequestEvent
+// class: PaymentRequestEvent
 type PaymentRequestEvent struct {
 	domcore.ExtendableEvent
 }
@@ -976,7 +962,7 @@ func (_this *PaymentRequestEvent) RespondWith(handlerResponsePromise *PromisePay
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseNilPaymentMethodChangeResponse struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1081,7 +1067,7 @@ func (_this *PromiseNilPaymentMethodChangeResponse) Finally(onFinally *javascrip
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePaymentHandlerResponse struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

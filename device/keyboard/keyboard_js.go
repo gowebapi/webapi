@@ -22,20 +22,6 @@ import (
 // keyboard-map.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -294,7 +280,7 @@ func LayoutMapValueIteratorValueFromJS(value js.Wrapper) *LayoutMapValueIterator
 	return &out
 }
 
-// interface: Keyboard
+// class: Keyboard
 type Keyboard struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -361,7 +347,7 @@ func (_this *Keyboard) GetLayoutMap() (_result *PromiseLayoutMap) {
 	return
 }
 
-// interface: KeyboardLayoutMap
+// class: KeyboardLayoutMap
 type LayoutMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -494,7 +480,7 @@ func (_this *LayoutMap) Has(key string) (_result bool) {
 	return
 }
 
-// interface: KeyboardLayoutMapEntryIterator
+// class: KeyboardLayoutMapEntryIterator
 type LayoutMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -529,7 +515,7 @@ func (_this *LayoutMapEntryIterator) Next() (_result *LayoutMapEntryIteratorValu
 	return
 }
 
-// interface: KeyboardLayoutMapKeyIterator
+// class: KeyboardLayoutMapKeyIterator
 type LayoutMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -564,7 +550,7 @@ func (_this *LayoutMapKeyIterator) Next() (_result *LayoutMapKeyIteratorValue) {
 	return
 }
 
-// interface: KeyboardLayoutMapValueIterator
+// class: KeyboardLayoutMapValueIterator
 type LayoutMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -599,7 +585,7 @@ func (_this *LayoutMapValueIterator) Next() (_result *LayoutMapValueIteratorValu
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseLayoutMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

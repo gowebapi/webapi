@@ -22,20 +22,6 @@ import (
 // promises.go.md
 // wake-lock.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var wakeLockTypeFromWasmTable = map[string]WakeLockType{
 	"screen": ScreenWakeLockType, "system": SystemWakeLockType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *WakeLockType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -173,7 +159,7 @@ func PromiseWakeLockOnRejectedFromJS(_value js.Value) PromiseWakeLockOnRejectedF
 	}
 }
 
-// interface: Promise
+// class: Promise
 type PromiseWakeLock struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -278,7 +264,7 @@ func (_this *PromiseWakeLock) Finally(onFinally *javascript.PromiseFinally) (_re
 	return
 }
 
-// interface: WakeLock
+// class: WakeLock
 type WakeLock struct {
 	domcore.EventTarget
 }
@@ -350,7 +336,7 @@ func (_this *WakeLock) CreateRequest() (_result *WakeLockRequest) {
 	return
 }
 
-// interface: WakeLockRequest
+// class: WakeLockRequest
 type WakeLockRequest struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

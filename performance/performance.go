@@ -39,20 +39,6 @@ import (
 // server-timing.go.md
 // user-timing.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -88,7 +74,7 @@ var navigationTypeFromWasmTable = map[string]NavigationType{
 	"navigate": NavigateNavigationType, "reload": ReloadNavigationType, "back_forward": BackForwardNavigationType, "prerender": PrerenderNavigationType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *NavigationType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -453,7 +439,7 @@ func ObserverInitFromJS(value js.Wrapper) *ObserverInit {
 	return &out
 }
 
-// interface: PerformanceEntry
+// class: PerformanceEntry
 type Entry struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -524,7 +510,7 @@ func (_this *Entry) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: EventCounts
+// class: EventCounts
 type EventCounts struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -657,7 +643,7 @@ func (_this *EventCounts) Has(key string) (_result bool) {
 	return
 }
 
-// interface: EventCountsEntryIterator
+// class: EventCountsEntryIterator
 type EventCountsEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -692,7 +678,7 @@ func (_this *EventCountsEntryIterator) Next() (_result *EventCountsEntryIterator
 	return
 }
 
-// interface: EventCountsKeyIterator
+// class: EventCountsKeyIterator
 type EventCountsKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -727,7 +713,7 @@ func (_this *EventCountsKeyIterator) Next() (_result *EventCountsKeyIteratorValu
 	return
 }
 
-// interface: EventCountsValueIterator
+// class: EventCountsValueIterator
 type EventCountsValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -762,7 +748,7 @@ func (_this *EventCountsValueIterator) Next() (_result *EventCountsValueIterator
 	return
 }
 
-// interface: PerformanceEventTiming
+// class: PerformanceEventTiming
 type EventTiming struct {
 	Entry
 }
@@ -805,7 +791,7 @@ func (_this *EventTiming) Cancelable() bool {
 	return ret
 }
 
-// interface: PerformanceLongTaskTiming
+// class: PerformanceLongTaskTiming
 type LongTaskTiming struct {
 	Entry
 }
@@ -830,7 +816,7 @@ func (_this *LongTaskTiming) Attribution() *javascript.FrozenArray {
 	return ret
 }
 
-// interface: PerformanceMark
+// class: PerformanceMark
 type Mark struct {
 	Entry
 }
@@ -878,7 +864,7 @@ func (_this *Mark) Detail() js.Value {
 	return ret
 }
 
-// interface: PerformanceMeasure
+// class: PerformanceMeasure
 type Measure struct {
 	Entry
 }
@@ -903,7 +889,7 @@ func (_this *Measure) Detail() js.Value {
 	return ret
 }
 
-// interface: PerformanceNavigation
+// class: PerformanceNavigation
 type Navigation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -963,7 +949,7 @@ func (_this *Navigation) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: PerformanceNavigationTiming
+// class: PerformanceNavigationTiming
 type NavigationTiming struct {
 	ResourceTiming
 }
@@ -1083,7 +1069,7 @@ func (_this *NavigationTiming) ToJSON3() (_result *javascript.Object) {
 	return
 }
 
-// interface: PerformanceObserver
+// class: PerformanceObserver
 type Observer struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1182,7 +1168,7 @@ func (_this *Observer) TakeRecords() (_result []*Entry) {
 	return
 }
 
-// interface: PerformanceObserverEntryList
+// class: PerformanceObserverEntryList
 type ObserverEntryList struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1280,7 +1266,7 @@ func (_this *ObserverEntryList) GetEntriesByName(name string, _type *string) (_r
 	return
 }
 
-// interface: Performance
+// class: Performance
 type Performance struct {
 	domcore.EventTarget
 }
@@ -1559,7 +1545,7 @@ func (_this *Performance) ClearMeasures(measureName *string) {
 	return
 }
 
-// interface: PerformancePaintTiming
+// class: PerformancePaintTiming
 type PerformancePaintTiming struct {
 	Entry
 }
@@ -1575,7 +1561,7 @@ func PerformancePaintTimingFromJS(value js.Wrapper) *PerformancePaintTiming {
 	return ret
 }
 
-// interface: PerformanceResourceTiming
+// class: PerformanceResourceTiming
 type ResourceTiming struct {
 	Entry
 }
@@ -1767,7 +1753,7 @@ func (_this *ResourceTiming) ToJSON2() (_result *javascript.Object) {
 	return
 }
 
-// interface: PerformanceServerTiming
+// class: PerformanceServerTiming
 type ServerTiming struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1829,7 +1815,7 @@ func (_this *ServerTiming) ToJSON() (_result *javascript.Object) {
 	return
 }
 
-// interface: TaskAttributionTiming
+// class: TaskAttributionTiming
 type TaskAttributionTiming struct {
 	Entry
 }
@@ -1881,7 +1867,7 @@ func (_this *TaskAttributionTiming) ContainerName() string {
 	return ret
 }
 
-// interface: PerformanceTiming
+// class: PerformanceTiming
 type Timing struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

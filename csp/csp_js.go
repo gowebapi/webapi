@@ -17,20 +17,6 @@ import (
 // transform files:
 // CSP.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -64,7 +50,7 @@ var securityPolicyViolationEventDispositionFromWasmTable = map[string]SecurityPo
 	"enforce": EnforceSecurityPolicyViolationEventDisposition, "report": ReportSecurityPolicyViolationEventDisposition,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *SecurityPolicyViolationEventDisposition) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -196,7 +182,7 @@ func SecurityPolicyViolationEventInitFromJS(value js.Wrapper) *SecurityPolicyVio
 	return &out
 }
 
-// interface: SecurityPolicyViolationEvent
+// class: SecurityPolicyViolationEvent
 type SecurityPolicyViolationEvent struct {
 	domcore.Event
 }

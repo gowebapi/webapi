@@ -22,20 +22,6 @@ import (
 // appmanifest.go.md
 // promises.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -69,7 +55,7 @@ var appBannerPromptOutcomeFromWasmTable = map[string]AppBannerPromptOutcome{
 	"accepted": AcceptedAppBannerPromptOutcome, "dismissed": DismissedAppBannerPromptOutcome,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *AppBannerPromptOutcome) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -253,7 +239,7 @@ func PromptResponseObjectFromJS(value js.Wrapper) *PromptResponseObject {
 	return &out
 }
 
-// interface: BeforeInstallPromptEvent
+// class: BeforeInstallPromptEvent
 type BeforeInstallPromptEvent struct {
 	domcore.Event
 }
@@ -306,7 +292,7 @@ func (_this *BeforeInstallPromptEvent) Prompt() (_result *PromisePromptResponseO
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePromptResponseObject struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

@@ -21,20 +21,6 @@ import (
 // transform files:
 // gamepad.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -68,7 +54,7 @@ var gamepadMappingTypeFromWasmTable = map[string]GamepadMappingType{
 	"": EmptyString0GamepadMappingType, "standard": StandardGamepadMappingType,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *GamepadMappingType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -140,7 +126,7 @@ func GamepadEventInitFromJS(value js.Wrapper) *GamepadEventInit {
 	return &out
 }
 
-// interface: Gamepad
+// class: Gamepad
 type Gamepad struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -233,7 +219,7 @@ func (_this *Gamepad) DisplayId() uint {
 	return ret
 }
 
-// interface: GamepadButton
+// class: GamepadButton
 type GamepadButton struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -281,7 +267,7 @@ func (_this *GamepadButton) Value() float64 {
 	return ret
 }
 
-// interface: GamepadEvent
+// class: GamepadEvent
 type GamepadEvent struct {
 	domcore.Event
 }

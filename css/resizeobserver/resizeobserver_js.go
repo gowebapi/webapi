@@ -19,20 +19,6 @@ import (
 // transform files:
 // ResizeObserver.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -106,7 +92,7 @@ func ResizeObserverCallbackFromJS(_value js.Value) ResizeObserverCallbackFunc {
 	}
 }
 
-// interface: ResizeObservation
+// class: ResizeObservation
 type ResizeObservation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -186,7 +172,7 @@ func (_this *ResizeObservation) IsActive() (_result bool) {
 	return
 }
 
-// interface: ResizeObserver
+// class: ResizeObserver
 type ResizeObserver struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -265,7 +251,7 @@ func (_this *ResizeObserver) Disconnect() {
 	return
 }
 
-// interface: ResizeObserverEntry
+// class: ResizeObserverEntry
 type ResizeObserverEntry struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

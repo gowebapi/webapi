@@ -24,20 +24,6 @@ import (
 // promises.go.md
 // webmidi.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -72,7 +58,7 @@ var mIDIPortConnectionStateFromWasmTable = map[string]PortConnectionState{
 	"open": Open, "closed": Closed, "pending": Pending,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PortConnectionState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -114,7 +100,7 @@ var mIDIPortDeviceStateFromWasmTable = map[string]PortDeviceState{
 	"disconnected": Disconnected, "connected": Connected,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PortDeviceState) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -156,7 +142,7 @@ var mIDIPortTypeFromWasmTable = map[string]PortType{
 	"input": InputPort, "output": OutputPort,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PortType) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -790,7 +776,7 @@ func OutputMapValueIteratorValueFromJS(value js.Wrapper) *OutputMapValueIterator
 	return &out
 }
 
-// interface: MIDIAccess
+// class: MIDIAccess
 type Access struct {
 	domcore.EventTarget
 }
@@ -857,7 +843,7 @@ func (_this *Access) SysexEnabled() bool {
 	return ret
 }
 
-// interface: MIDIConnectionEvent
+// class: MIDIConnectionEvent
 type ConnectionEvent struct {
 	domcore.Event
 }
@@ -905,7 +891,7 @@ func (_this *ConnectionEvent) Port() *Port {
 	return ret
 }
 
-// interface: MIDIInput
+// class: MIDIInput
 type Input struct {
 	Port
 }
@@ -945,7 +931,7 @@ func (_this *Input) SetOnmidimessage(value *domcore.EventHandler) {
 	_this.Value_JS.Set("onmidimessage", input)
 }
 
-// interface: MIDIInputMap
+// class: MIDIInputMap
 type InputMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1077,7 +1063,7 @@ func (_this *InputMap) Has(key string) (_result bool) {
 	return
 }
 
-// interface: MIDIInputMapEntryIterator
+// class: MIDIInputMapEntryIterator
 type InputMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1112,7 +1098,7 @@ func (_this *InputMapEntryIterator) Next() (_result *InputMapEntryIteratorValue)
 	return
 }
 
-// interface: MIDIInputMapKeyIterator
+// class: MIDIInputMapKeyIterator
 type InputMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1147,7 +1133,7 @@ func (_this *InputMapKeyIterator) Next() (_result *InputMapKeyIteratorValue) {
 	return
 }
 
-// interface: MIDIInputMapValueIterator
+// class: MIDIInputMapValueIterator
 type InputMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1182,7 +1168,7 @@ func (_this *InputMapValueIterator) Next() (_result *InputMapValueIteratorValue)
 	return
 }
 
-// interface: MIDIMessageEvent
+// class: MIDIMessageEvent
 type MessageEvent struct {
 	domcore.Event
 }
@@ -1230,7 +1216,7 @@ func (_this *MessageEvent) Data() *javascript.Uint8Array {
 	return ret
 }
 
-// interface: MIDIOutput
+// class: MIDIOutput
 type Output struct {
 	Port
 }
@@ -1276,7 +1262,7 @@ func (_this *Output) Clear() {
 	return
 }
 
-// interface: MIDIOutputMap
+// class: MIDIOutputMap
 type OutputMap struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1408,7 +1394,7 @@ func (_this *OutputMap) Has(key string) (_result bool) {
 	return
 }
 
-// interface: MIDIOutputMapEntryIterator
+// class: MIDIOutputMapEntryIterator
 type OutputMapEntryIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1443,7 +1429,7 @@ func (_this *OutputMapEntryIterator) Next() (_result *OutputMapEntryIteratorValu
 	return
 }
 
-// interface: MIDIOutputMapKeyIterator
+// class: MIDIOutputMapKeyIterator
 type OutputMapKeyIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1478,7 +1464,7 @@ func (_this *OutputMapKeyIterator) Next() (_result *OutputMapKeyIteratorValue) {
 	return
 }
 
-// interface: MIDIOutputMapValueIterator
+// class: MIDIOutputMapValueIterator
 type OutputMapValueIterator struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1513,7 +1499,7 @@ func (_this *OutputMapValueIterator) Next() (_result *OutputMapValueIteratorValu
 	return
 }
 
-// interface: MIDIPort
+// class: MIDIPort
 type Port struct {
 	domcore.EventTarget
 }
@@ -1653,7 +1639,7 @@ func (_this *Port) Close() (_result *PromisePort) {
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromiseAccess struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1758,7 +1744,7 @@ func (_this *PromiseAccess) Finally(onFinally *javascript.PromiseFinally) (_resu
 	return
 }
 
-// interface: Promise
+// class: Promise
 type PromisePort struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

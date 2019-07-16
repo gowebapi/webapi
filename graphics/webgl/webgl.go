@@ -22,20 +22,6 @@ import (
 // transform files:
 // webgl1.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -70,7 +56,7 @@ var webGLPowerPreferenceFromWasmTable = map[string]PowerPreference{
 	"default": DefaultWebGLPowerPreference, "low-power": LowPowerWebGLPowerPreference, "high-performance": HighPerformanceWebGLPowerPreference,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *PowerPreference) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -218,7 +204,7 @@ func ContextEventInitFromJS(value js.Wrapper) *ContextEventInit {
 	return &out
 }
 
-// interface: WebGLActiveInfo
+// class: WebGLActiveInfo
 type ActiveInfo struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -266,7 +252,7 @@ func (_this *ActiveInfo) Name() string {
 	return ret
 }
 
-// interface: WebGLBuffer
+// class: WebGLBuffer
 type Buffer struct {
 	Object
 }
@@ -282,7 +268,7 @@ func BufferFromJS(value js.Wrapper) *Buffer {
 	return ret
 }
 
-// interface: WebGLContextEvent
+// class: WebGLContextEvent
 type ContextEvent struct {
 	domcore.Event
 }
@@ -330,7 +316,7 @@ func (_this *ContextEvent) StatusMessage() string {
 	return ret
 }
 
-// interface: WebGLFramebuffer
+// class: WebGLFramebuffer
 type Framebuffer struct {
 	Object
 }
@@ -346,7 +332,7 @@ func FramebufferFromJS(value js.Wrapper) *Framebuffer {
 	return ret
 }
 
-// interface: WebGLObject
+// class: WebGLObject
 type Object struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -367,7 +353,7 @@ func ObjectFromJS(value js.Wrapper) *Object {
 	return ret
 }
 
-// interface: WebGLProgram
+// class: WebGLProgram
 type Program struct {
 	Object
 }
@@ -383,7 +369,7 @@ func ProgramFromJS(value js.Wrapper) *Program {
 	return ret
 }
 
-// interface: WebGLRenderbuffer
+// class: WebGLRenderbuffer
 type Renderbuffer struct {
 	Object
 }
@@ -399,7 +385,7 @@ func RenderbufferFromJS(value js.Wrapper) *Renderbuffer {
 	return ret
 }
 
-// interface: WebGLRenderingContext
+// class: WebGLRenderingContext
 type RenderingContext struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3232,7 +3218,7 @@ func (_this *RenderingContext) MakeXRCompatible() (_result *javascript.PromiseVo
 	return
 }
 
-// interface: WebGLShader
+// class: WebGLShader
 type Shader struct {
 	Object
 }
@@ -3248,7 +3234,7 @@ func ShaderFromJS(value js.Wrapper) *Shader {
 	return ret
 }
 
-// interface: WebGLShaderPrecisionFormat
+// class: WebGLShaderPrecisionFormat
 type ShaderPrecisionFormat struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -3296,7 +3282,7 @@ func (_this *ShaderPrecisionFormat) Precision() int {
 	return ret
 }
 
-// interface: WebGLTexture
+// class: WebGLTexture
 type Texture struct {
 	Object
 }
@@ -3312,7 +3298,7 @@ func TextureFromJS(value js.Wrapper) *Texture {
 	return ret
 }
 
-// interface: WebGLUniformLocation
+// class: WebGLUniformLocation
 type UniformLocation struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value

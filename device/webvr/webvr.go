@@ -28,20 +28,6 @@ import (
 // promises.go.md
 // webvr.go.md
 
-// ReleasableApiResource is used to release underlaying
-// allocated resources.
-type ReleasableApiResource interface {
-	Release()
-}
-
-type releasableApiResourceList []ReleasableApiResource
-
-func (a releasableApiResourceList) Release() {
-	for _, v := range a {
-		v.Release()
-	}
-}
-
 // workaround for compiler error
 func unused(value interface{}) {
 	// TODO remove this method
@@ -77,7 +63,7 @@ var vRDisplayEventReasonFromWasmTable = map[string]DisplayEventReason{
 	"mounted": Mounted, "navigation": Navigation, "requested": Requested, "unmounted": Unmounted,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *DisplayEventReason) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -119,7 +105,7 @@ var vREyeFromWasmTable = map[string]Eye{
 	"left": Left, "right": Right,
 }
 
-// JSValue is converting this enum into a java object
+// JSValue is converting this enum into a javascript object
 func (this *Eye) JSValue() js.Value {
 	return js.ValueOf(this.Value())
 }
@@ -329,7 +315,7 @@ func LayerInitFromJS(value js.Wrapper) *LayerInit {
 	return &out
 }
 
-// interface: VRDisplay
+// class: VRDisplay
 type Display struct {
 	domcore.EventTarget
 }
@@ -592,7 +578,7 @@ func (_this *Display) SubmitFrame() {
 	return
 }
 
-// interface: VRDisplayCapabilities
+// class: VRDisplayCapabilities
 type DisplayCapabilities struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -658,7 +644,7 @@ func (_this *DisplayCapabilities) MaxLayers() uint {
 	return ret
 }
 
-// interface: VRDisplayEvent
+// class: VRDisplayEvent
 type DisplayEvent struct {
 	domcore.Event
 }
@@ -716,7 +702,7 @@ func (_this *DisplayEvent) Reason() *DisplayEventReason {
 	return ret
 }
 
-// interface: VREyeParameters
+// class: VREyeParameters
 type EyeParameters struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -773,7 +759,7 @@ func (_this *EyeParameters) RenderHeight() uint {
 	return ret
 }
 
-// interface: VRFieldOfView
+// class: VRFieldOfView
 type FieldOfView struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -830,7 +816,7 @@ func (_this *FieldOfView) LeftDegrees() float64 {
 	return ret
 }
 
-// interface: VRFrameData
+// class: VRFrameData
 type FrameData struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -920,7 +906,7 @@ func (_this *FrameData) Pose() *Pose {
 	return ret
 }
 
-// interface: VRPose
+// class: VRPose
 type Pose struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1007,7 +993,7 @@ func (_this *Pose) AngularAcceleration() *javascript.Float32Array {
 	return ret
 }
 
-// interface: Promise
+// class: Promise
 type PromiseSequenceDisplay struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
@@ -1112,7 +1098,7 @@ func (_this *PromiseSequenceDisplay) Finally(onFinally *javascript.PromiseFinall
 	return
 }
 
-// interface: VRStageParameters
+// class: VRStageParameters
 type StageParameters struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
