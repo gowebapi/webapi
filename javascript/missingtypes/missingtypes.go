@@ -31,27 +31,6 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// class: Coordinates
-type Coordinates struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Coordinates) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// CoordinatesFromJS is casting a js.Wrapper into Coordinates.
-func CoordinatesFromJS(value js.Wrapper) *Coordinates {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Coordinates{}
-	ret.Value_JS = input
-	return ret
-}
-
 // class: Date
 type Date struct {
 	// Value_JS holds a reference to a javascript value

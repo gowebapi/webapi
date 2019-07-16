@@ -14,6 +14,7 @@ import (
 	"github.com/gowebapi/webapi/device/battery"
 	"github.com/gowebapi/webapi/device/gamepad"
 	"github.com/gowebapi/webapi/device/keyboard"
+	"github.com/gowebapi/webapi/device/sensor"
 	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/device/wakelock"
 	"github.com/gowebapi/webapi/device/webvr"
@@ -60,6 +61,7 @@ import (
 // netinfo.NetworkInformation
 // permissions.Permissions
 // presentation.Presentation
+// sensor.Geolocation
 // serviceworker.ServiceWorkerContainer
 // session.MediaSession
 // share.ShareData
@@ -1410,6 +1412,15 @@ func (_this *Navigator) Credentials() *credential.CredentialsContainer {
 	var ret *credential.CredentialsContainer
 	value := _this.Value_JS.Get("credentials")
 	ret = credential.CredentialsContainerFromJS(value)
+	return ret
+}
+
+// Geolocation returning attribute 'geolocation' with
+// type sensor.Geolocation (idl: Geolocation).
+func (_this *Navigator) Geolocation() *sensor.Geolocation {
+	var ret *sensor.Geolocation
+	value := _this.Value_JS.Get("geolocation")
+	ret = sensor.GeolocationFromJS(value)
 	return ret
 }
 

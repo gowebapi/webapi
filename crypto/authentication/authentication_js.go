@@ -5,13 +5,13 @@ package authentication
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/device/sensor"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/javascript/missingtypes"
 )
 
 // using following types:
 // javascript.ArrayBuffer
-// missingtypes.Coordinates
+// sensor.Coordinates
 
 // source idl files:
 // webauthn.idl
@@ -298,7 +298,7 @@ type AuthenticationExtensionsClientOutputs struct {
 	AuthnSel      bool
 	Exts          []string
 	Uvi           *javascript.ArrayBuffer
-	Loc           *missingtypes.Coordinates
+	Loc           *sensor.Coordinates
 	Uvm           [][]uint
 }
 
@@ -344,14 +344,14 @@ func AuthenticationExtensionsClientOutputsFromJS(value js.Wrapper) *Authenticati
 	input := value.JSValue()
 	var out AuthenticationExtensionsClientOutputs
 	var (
-		value0 bool                      // javascript: boolean {appid Appid appid}
-		value1 string                    // javascript: USVString {txAuthSimple TxAuthSimple txAuthSimple}
-		value2 *javascript.ArrayBuffer   // javascript: ArrayBuffer {txAuthGeneric TxAuthGeneric txAuthGeneric}
-		value3 bool                      // javascript: boolean {authnSel AuthnSel authnSel}
-		value4 []string                  // javascript: sequence<USVString> {exts Exts exts}
-		value5 *javascript.ArrayBuffer   // javascript: ArrayBuffer {uvi Uvi uvi}
-		value6 *missingtypes.Coordinates // javascript: Coordinates {loc Loc loc}
-		value7 [][]uint                  // javascript: sequence<sequence<unsigned long>> {uvm Uvm uvm}
+		value0 bool                    // javascript: boolean {appid Appid appid}
+		value1 string                  // javascript: USVString {txAuthSimple TxAuthSimple txAuthSimple}
+		value2 *javascript.ArrayBuffer // javascript: ArrayBuffer {txAuthGeneric TxAuthGeneric txAuthGeneric}
+		value3 bool                    // javascript: boolean {authnSel AuthnSel authnSel}
+		value4 []string                // javascript: sequence<USVString> {exts Exts exts}
+		value5 *javascript.ArrayBuffer // javascript: ArrayBuffer {uvi Uvi uvi}
+		value6 *sensor.Coordinates     // javascript: Coordinates {loc Loc loc}
+		value7 [][]uint                // javascript: sequence<sequence<unsigned long>> {uvm Uvm uvm}
 	)
 	value0 = (input.Get("appid")).Bool()
 	out.Appid = value0
@@ -373,7 +373,7 @@ func AuthenticationExtensionsClientOutputsFromJS(value js.Wrapper) *Authenticati
 	out.Exts = value4
 	value5 = javascript.ArrayBufferFromJS(input.Get("uvi"))
 	out.Uvi = value5
-	value6 = missingtypes.CoordinatesFromJS(input.Get("loc"))
+	value6 = sensor.CoordinatesFromJS(input.Get("loc"))
 	out.Loc = value6
 	__length7 := input.Get("uvm").Length()
 	__array7 := make([][]uint, __length7, __length7)

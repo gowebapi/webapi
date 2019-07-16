@@ -6192,6 +6192,54 @@ func (_this *Window) External() *htmlmisc.External {
 	return ret
 }
 
+// Ondeviceorientation returning attribute 'ondeviceorientation' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondeviceorientation() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondeviceorientation")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndeviceorientation setting attribute 'ondeviceorientation' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOndeviceorientation(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondeviceorientation", input)
+}
+
+// Ondevicemotion returning attribute 'ondevicemotion' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) Ondevicemotion() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("ondevicemotion")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOndevicemotion setting attribute 'ondevicemotion' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Window) SetOndevicemotion(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("ondevicemotion", input)
+}
+
 // SpeechSynthesis returning attribute 'speechSynthesis' with
 // type speech.SpeechSynthesis (idl: SpeechSynthesis).
 func (_this *Window) SpeechSynthesis() *speech.SpeechSynthesis {
