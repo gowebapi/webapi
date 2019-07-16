@@ -33,6 +33,7 @@ import (
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/speech"
 	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/performance"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/webidl"
 )
@@ -96,6 +97,7 @@ import (
 // javascript.Object
 // javascript.PromiseVoid
 // patch.ByteString
+// performance.Performance
 // pseudo.CSSPseudoElementList
 // regions.NamedFlowMap
 // selection.Selection
@@ -1110,15 +1112,6 @@ func (_this *Document) All() *html.HTMLAllCollection {
 	return ret
 }
 
-// FeaturePolicy returning attribute 'featurePolicy' with
-// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
-func (_this *Document) FeaturePolicy() *featurepolicy.FeaturePolicy {
-	var ret *featurepolicy.FeaturePolicy
-	value := _this.Value_JS.Get("featurePolicy")
-	ret = featurepolicy.FeaturePolicyFromJS(value)
-	return ret
-}
-
 // Hidden returning attribute 'hidden' with
 // type bool (idl: boolean).
 func (_this *Document) Hidden() bool {
@@ -1224,6 +1217,15 @@ func (_this *Document) Timeline() *webani.DocumentTimeline {
 	var ret *webani.DocumentTimeline
 	value := _this.Value_JS.Get("timeline")
 	ret = webani.DocumentTimelineFromJS(value)
+	return ret
+}
+
+// FeaturePolicy returning attribute 'featurePolicy' with
+// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
+func (_this *Document) FeaturePolicy() *featurepolicy.FeaturePolicy {
+	var ret *featurepolicy.FeaturePolicy
+	value := _this.Value_JS.Get("featurePolicy")
+	ret = featurepolicy.FeaturePolicyFromJS(value)
 	return ret
 }
 
@@ -8945,6 +8947,15 @@ func (_this *Window) Crypto() *crypto.Crypto {
 	var ret *crypto.Crypto
 	value := _this.Value_JS.Get("crypto")
 	ret = crypto.CryptoFromJS(value)
+	return ret
+}
+
+// Performance returning attribute 'performance' with
+// type performance.Performance (idl: Performance).
+func (_this *Window) Performance() *performance.Performance {
+	var ret *performance.Performance
+	value := _this.Value_JS.Get("performance")
+	ret = performance.PerformanceFromJS(value)
 	return ret
 }
 

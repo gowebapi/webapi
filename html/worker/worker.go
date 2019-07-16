@@ -22,6 +22,7 @@ import (
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/performance"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/storage"
 	"github.com/gowebapi/webapi/webidl"
@@ -50,6 +51,7 @@ import (
 // javascript.PromiseVoid
 // netinfo.NetworkInformation
 // patch.ByteString
+// performance.Performance
 // permissions.Permissions
 // serviceworker.CacheStorage
 // serviceworker.Clients
@@ -1233,6 +1235,15 @@ func (_this *WorkerGlobalScope) Crypto() *crypto.Crypto {
 	var ret *crypto.Crypto
 	value := _this.Value_JS.Get("crypto")
 	ret = crypto.CryptoFromJS(value)
+	return ret
+}
+
+// Performance returning attribute 'performance' with
+// type performance.Performance (idl: Performance).
+func (_this *WorkerGlobalScope) Performance() *performance.Performance {
+	var ret *performance.Performance
+	value := _this.Value_JS.Get("performance")
+	ret = performance.PerformanceFromJS(value)
 	return ret
 }
 
