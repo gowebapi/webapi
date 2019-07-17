@@ -20,9 +20,12 @@ func main() {
 }
 ```
 
-## Status
+## Roadmap
 
-* Currently we are in an initail phase we where to generator can create compilable code.
-* The plan is to move types into specification related packages. _webapi.*_ will be changed to _dom.*_, _html.*_, _webgl.*_ etc
+|Milestone|Status|Description|
+|----|----|----|
+|1|Ongoing|Be abto to read and and understand all of WebIDL syntax. Notible missing thing are _namespace_ and _union_|
+|2|Planned|Easy up the syntax. Promise will be refactor and other places where simplifications can be done. Classes can be renamed like clipboard.ClipboardPermission to clipboard.Permission.|
+|3|Planned|API Stability with a predefined release schedule. Documentation and added examples|
 
 More infomation of missing stuff can be found on the [generator status info](https://github.com/gowebapi/webidlgenerator).
