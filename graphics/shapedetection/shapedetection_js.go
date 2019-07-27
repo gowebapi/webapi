@@ -163,6 +163,7 @@ func PromiseSequenceBarcodeFormatOnFulfilledToJS(callback PromiseSequenceBarcode
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -206,6 +207,7 @@ func PromiseSequenceBarcodeFormatOnRejectedToJS(callback PromiseSequenceBarcodeF
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -253,6 +255,7 @@ func PromiseSequenceDetectedBarcodeOnFulfilledToJS(callback PromiseSequenceDetec
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -296,6 +299,7 @@ func PromiseSequenceDetectedBarcodeOnRejectedToJS(callback PromiseSequenceDetect
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -343,6 +347,7 @@ func PromiseSequenceDetectedFaceOnFulfilledToJS(callback PromiseSequenceDetected
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -386,6 +391,7 @@ func PromiseSequenceDetectedFaceOnRejectedToJS(callback PromiseSequenceDetectedF
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

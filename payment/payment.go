@@ -71,6 +71,7 @@ func PromiseNilPaymentMethodChangeResponseOnFulfilledToJS(callback PromiseNilPay
 		)
 		_p0 = PaymentMethodChangeResponseFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -110,6 +111,7 @@ func PromiseNilPaymentMethodChangeResponseOnRejectedToJS(callback PromiseNilPaym
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -149,6 +151,7 @@ func PromisePaymentHandlerResponseOnFulfilledToJS(callback PromisePaymentHandler
 		)
 		_p0 = PaymentHandlerResponseFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -188,6 +191,7 @@ func PromisePaymentHandlerResponseOnRejectedToJS(callback PromisePaymentHandlerR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

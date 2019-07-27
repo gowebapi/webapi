@@ -235,6 +235,7 @@ func PromiseIntrinsicSizesOnFulfilledToJS(callback PromiseIntrinsicSizesOnFulfil
 		)
 		_p0 = IntrinsicSizesFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -274,6 +275,7 @@ func PromiseIntrinsicSizesOnRejectedToJS(callback PromiseIntrinsicSizesOnRejecte
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -313,6 +315,7 @@ func PromiseLayoutFragmentOnFulfilledToJS(callback PromiseLayoutFragmentOnFulfil
 		)
 		_p0 = LayoutFragmentFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -352,6 +355,7 @@ func PromiseLayoutFragmentOnRejectedToJS(callback PromiseLayoutFragmentOnRejecte
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

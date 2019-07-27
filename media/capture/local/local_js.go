@@ -156,6 +156,7 @@ func NavigatorUserMediaErrorCallbackToJS(callback NavigatorUserMediaErrorCallbac
 		)
 		_p0 = javascript.ObjectFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -195,6 +196,7 @@ func NavigatorUserMediaSuccessCallbackToJS(callback NavigatorUserMediaSuccessCal
 		)
 		_p0 = MediaStreamFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -234,6 +236,7 @@ func PromiseMediaStreamOnFulfilledToJS(callback PromiseMediaStreamOnFulfilledFun
 		)
 		_p0 = MediaStreamFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -273,6 +276,7 @@ func PromiseMediaStreamOnRejectedToJS(callback PromiseMediaStreamOnRejectedFunc)
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -320,6 +324,7 @@ func PromiseSequenceMediaDeviceInfoOnFulfilledToJS(callback PromiseSequenceMedia
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -363,6 +368,7 @@ func PromiseSequenceMediaDeviceInfoOnRejectedToJS(callback PromiseSequenceMediaD
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

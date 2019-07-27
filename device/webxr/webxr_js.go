@@ -369,6 +369,7 @@ func PromiseXRReferenceSpaceOnFulfilledToJS(callback PromiseXRReferenceSpaceOnFu
 		)
 		_p0 = XRReferenceSpaceFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -408,6 +409,7 @@ func PromiseXRReferenceSpaceOnRejectedToJS(callback PromiseXRReferenceSpaceOnRej
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -447,6 +449,7 @@ func PromiseXRSessionOnFulfilledToJS(callback PromiseXRSessionOnFulfilledFunc) *
 		)
 		_p0 = XRSessionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -486,6 +489,7 @@ func PromiseXRSessionOnRejectedToJS(callback PromiseXRSessionOnRejectedFunc) *Pr
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -527,6 +531,7 @@ func XRFrameRequestCallbackToJS(callback XRFrameRequestCallbackFunc) *XRFrameReq
 		_p0 = (args[0]).Float()
 		_p1 = XRFrameFromJS(args[1])
 		callback(_p0, _p1)
+
 		// returning no return value
 		return nil
 	}))

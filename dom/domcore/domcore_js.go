@@ -108,6 +108,7 @@ func DOMTokenListForEachToJS(callback DOMTokenListForEachFunc) *DOMTokenListForE
 		_p1 = (args[1]).Int()
 		_p2 = DOMTokenListFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -1552,8 +1553,10 @@ type EventListener interface {
 type EventListenerValue struct {
 	// Value is the underlying javascript object or function.
 	Value js.Value
+
 	// Functions is the underlying function objects that is allocated for the interface callback
 	Functions [1]js.Func
+
 	// Go interface to invoke
 	impl      EventListener
 	function  func(event *Event)
@@ -1620,6 +1623,7 @@ func (t *EventListenerValue) allocateHandleEvent() js.Func {
 		} else {
 			t.impl.HandleEvent(_p0)
 		}
+
 		// returning no return value
 		return nil
 	})
@@ -1640,6 +1644,7 @@ func (_this *EventListenerValue) HandleEvent(event *Event) {
 	_args[0] = _p0
 	_end++
 	if _this.useInvoke {
+
 		// invoke a javascript function
 		_this.Value.Invoke(_args[0:_end]...)
 	} else {

@@ -151,6 +151,7 @@ func PromisePhotoCapabilitiesOnFulfilledToJS(callback PromisePhotoCapabilitiesOn
 		)
 		_p0 = PhotoCapabilitiesFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -190,6 +191,7 @@ func PromisePhotoCapabilitiesOnRejectedToJS(callback PromisePhotoCapabilitiesOnR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -229,6 +231,7 @@ func PromisePhotoSettingsOnFulfilledToJS(callback PromisePhotoSettingsOnFulfille
 		)
 		_p0 = PhotoSettingsFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -268,6 +271,7 @@ func PromisePhotoSettingsOnRejectedToJS(callback PromisePhotoSettingsOnRejectedF
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

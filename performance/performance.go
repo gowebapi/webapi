@@ -123,6 +123,7 @@ func EventCountsForEachToJS(callback EventCountsForEachFunc) *EventCountsForEach
 		_p1 = (args[1]).String()
 		_p2 = EventCountsFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -170,6 +171,7 @@ func ObserverCallbackToJS(callback ObserverCallbackFunc) *ObserverCallback {
 		_p0 = ObserverEntryListFromJS(args[0])
 		_p1 = ObserverFromJS(args[1])
 		callback(_p0, _p1)
+
 		// returning no return value
 		return nil
 	}))

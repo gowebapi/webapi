@@ -68,6 +68,7 @@ func CSSFontFeatureValuesMapForEachToJS(callback CSSFontFeatureValuesMapForEachF
 		_p1 = (args[1]).String()
 		_p2 = CSSFontFeatureValuesMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -121,6 +122,7 @@ func CSSFontPaletteValuesRuleForEachToJS(callback CSSFontPaletteValuesRuleForEac
 		_p1 = (uint)((args[1]).Int())
 		_p2 = CSSFontPaletteValuesRuleFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))

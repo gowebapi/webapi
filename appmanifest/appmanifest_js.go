@@ -196,6 +196,7 @@ func PromisePromptResponseObjectOnFulfilledToJS(callback PromisePromptResponseOb
 		)
 		_p0 = PromptResponseObjectFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -235,6 +236,7 @@ func PromisePromptResponseObjectOnRejectedToJS(callback PromisePromptResponseObj
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

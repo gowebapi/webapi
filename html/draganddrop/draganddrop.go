@@ -50,6 +50,7 @@ func FunctionStringCallbackToJS(callback FunctionStringCallbackFunc) *FunctionSt
 		)
 		_p0 = (args[0]).String()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

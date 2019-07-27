@@ -106,6 +106,7 @@ func BlobCallbackToJS(callback BlobCallbackFunc) *BlobCallback {
 			_p0 = BlobFromJS(args[0])
 		}
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -145,6 +146,7 @@ func PromiseBlobOnFulfilledToJS(callback PromiseBlobOnFulfilledFunc) *PromiseBlo
 		)
 		_p0 = BlobFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -184,6 +186,7 @@ func PromiseBlobOnRejectedToJS(callback PromiseBlobOnRejectedFunc) *PromiseBlobO
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

@@ -153,6 +153,7 @@ func FontFaceSetForEachToJS(callback FontFaceSetForEachFunc) *FontFaceSetForEach
 		_p1 = FontFaceFromJS(args[1])
 		_p2 = FontFaceSetFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -198,6 +199,7 @@ func PromiseFontFaceOnFulfilledToJS(callback PromiseFontFaceOnFulfilledFunc) *Pr
 		)
 		_p0 = FontFaceFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -237,6 +239,7 @@ func PromiseFontFaceOnRejectedToJS(callback PromiseFontFaceOnRejectedFunc) *Prom
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -284,6 +287,7 @@ func PromiseSequenceFontFaceOnFulfilledToJS(callback PromiseSequenceFontFaceOnFu
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -327,6 +331,7 @@ func PromiseSequenceFontFaceOnRejectedToJS(callback PromiseSequenceFontFaceOnRej
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

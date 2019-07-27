@@ -60,6 +60,7 @@ func PromiseBatteryManagerOnFulfilledToJS(callback PromiseBatteryManagerOnFulfil
 		)
 		_p0 = BatteryManagerFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -99,6 +100,7 @@ func PromiseBatteryManagerOnRejectedToJS(callback PromiseBatteryManagerOnRejecte
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

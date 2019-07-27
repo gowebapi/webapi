@@ -147,6 +147,7 @@ func PromiseNilWindowClientOnFulfilledToJS(callback PromiseNilWindowClientOnFulf
 		)
 		_p0 = WindowClientFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -186,6 +187,7 @@ func PromiseNilWindowClientOnRejectedToJS(callback PromiseNilWindowClientOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -225,6 +227,7 @@ func PromiseWindowClientOnFulfilledToJS(callback PromiseWindowClientOnFulfilledF
 		)
 		_p0 = WindowClientFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -264,6 +267,7 @@ func PromiseWindowClientOnRejectedToJS(callback PromiseWindowClientOnRejectedFun
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

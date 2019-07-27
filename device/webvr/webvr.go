@@ -158,6 +158,7 @@ func PromiseSequenceDisplayOnFulfilledToJS(callback PromiseSequenceDisplayOnFulf
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -201,6 +202,7 @@ func PromiseSequenceDisplayOnRejectedToJS(callback PromiseSequenceDisplayOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

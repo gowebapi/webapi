@@ -63,6 +63,7 @@ func FormDataForEachToJS(callback FormDataForEachFunc) *FormDataForEach {
 		_p1 = (args[1]).Int()
 		_p2 = FormDataFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -108,6 +109,7 @@ func PromiseFormDataOnFulfilledToJS(callback PromiseFormDataOnFulfilledFunc) *Pr
 		)
 		_p0 = FormDataFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -147,6 +149,7 @@ func PromiseFormDataOnRejectedToJS(callback PromiseFormDataOnRejectedFunc) *Prom
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

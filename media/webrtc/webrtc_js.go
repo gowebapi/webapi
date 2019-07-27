@@ -1135,6 +1135,7 @@ func PeerConnectionErrorCallbackToJS(callback PeerConnectionErrorCallbackFunc) *
 		)
 		_p0 = domcore.DOMExceptionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1174,6 +1175,7 @@ func PromiseCertificateOnFulfilledToJS(callback PromiseCertificateOnFulfilledFun
 		)
 		_p0 = CertificateFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1213,6 +1215,7 @@ func PromiseCertificateOnRejectedToJS(callback PromiseCertificateOnRejectedFunc)
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1252,6 +1255,7 @@ func PromiseSessionDescriptionInitOnFulfilledToJS(callback PromiseSessionDescrip
 		)
 		_p0 = SessionDescriptionInitFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1291,6 +1295,7 @@ func PromiseSessionDescriptionInitOnRejectedToJS(callback PromiseSessionDescript
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1330,6 +1335,7 @@ func PromiseStatsReportOnFulfilledToJS(callback PromiseStatsReportOnFulfilledFun
 		)
 		_p0 = StatsReportFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1369,6 +1375,7 @@ func PromiseStatsReportOnRejectedToJS(callback PromiseStatsReportOnRejectedFunc)
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1408,6 +1415,7 @@ func SessionDescriptionCallbackToJS(callback SessionDescriptionCallbackFunc) *Se
 		)
 		_p0 = SessionDescriptionInitFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1451,6 +1459,7 @@ func StatsReportForEachToJS(callback StatsReportForEachFunc) *StatsReportForEach
 		_p1 = (args[1]).String()
 		_p2 = StatsReportFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))

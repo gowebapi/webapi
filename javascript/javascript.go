@@ -105,6 +105,7 @@ func ArrayForEachCallbackToJS(callback ArrayForEachCallbackFunc) *ArrayForEachCa
 		_p1 = (args[1]).Int()
 		_p2 = ArrayFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -415,6 +416,7 @@ func PromiseArrayBufferOnFulfilledToJS(callback PromiseArrayBufferOnFulfilledFun
 		)
 		_p0 = ArrayBufferFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -454,6 +456,7 @@ func PromiseArrayBufferOnRejectedToJS(callback PromiseArrayBufferOnRejectedFunc)
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -493,6 +496,7 @@ func PromiseBoolOnFulfilledToJS(callback PromiseBoolOnFulfilledFunc) *PromiseBoo
 		)
 		_p0 = (args[0]).Bool()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -532,6 +536,7 @@ func PromiseBoolOnRejectedToJS(callback PromiseBoolOnRejectedFunc) *PromiseBoolO
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -571,6 +576,7 @@ func PromiseDataViewOnFulfilledToJS(callback PromiseDataViewOnFulfilledFunc) *Pr
 		)
 		_p0 = DataViewFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -610,6 +616,7 @@ func PromiseDataViewOnRejectedToJS(callback PromiseDataViewOnRejectedFunc) *Prom
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -646,6 +653,7 @@ func PromiseFinallyToJS(callback PromiseFinallyFunc) *PromiseFinally {
 	ret := PromiseFinally(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		callback()
+
 		// returning no return value
 		return nil
 	}))
@@ -682,6 +690,7 @@ func PromiseFrozenArrayOnFulfilledToJS(callback PromiseFrozenArrayOnFulfilledFun
 		)
 		_p0 = FrozenArrayFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -721,6 +730,7 @@ func PromiseFrozenArrayOnRejectedToJS(callback PromiseFrozenArrayOnRejectedFunc)
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -760,6 +770,7 @@ func PromiseIntOnFulfilledToJS(callback PromiseIntOnFulfilledFunc) *PromiseIntOn
 		)
 		_p0 = (args[0]).Int()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -799,6 +810,7 @@ func PromiseIntOnRejectedToJS(callback PromiseIntOnRejectedFunc) *PromiseIntOnRe
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -838,6 +850,7 @@ func PromiseOnFulfilledToJS(callback PromiseOnFulfilledFunc) *PromiseOnFulfilled
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -877,6 +890,7 @@ func PromiseOnRejectedToJS(callback PromiseOnRejectedFunc) *PromiseOnRejected {
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -924,6 +938,7 @@ func PromiseSequenceStringOnFulfilledToJS(callback PromiseSequenceStringOnFulfil
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -967,6 +982,7 @@ func PromiseSequenceStringOnRejectedToJS(callback PromiseSequenceStringOnRejecte
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1006,6 +1022,7 @@ func PromiseStringOnFulfilledToJS(callback PromiseStringOnFulfilledFunc) *Promis
 		)
 		_p0 = (args[0]).String()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1045,6 +1062,7 @@ func PromiseStringOnRejectedToJS(callback PromiseStringOnRejectedFunc) *PromiseS
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -1081,6 +1099,7 @@ func PromiseVoidOnFulfilledToJS(callback PromiseVoidOnFulfilledFunc) *PromiseVoi
 	ret := PromiseVoidOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		callback()
+
 		// returning no return value
 		return nil
 	}))
@@ -1117,6 +1136,7 @@ func PromiseVoidOnRejectedToJS(callback PromiseVoidOnRejectedFunc) *PromiseVoidO
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

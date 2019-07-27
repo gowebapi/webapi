@@ -266,6 +266,7 @@ func PromiseBackgroundFetchRecordOnFulfilledToJS(callback PromiseBackgroundFetch
 		)
 		_p0 = BackgroundFetchRecordFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -305,6 +306,7 @@ func PromiseBackgroundFetchRecordOnRejectedToJS(callback PromiseBackgroundFetchR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -344,6 +346,7 @@ func PromiseBackgroundFetchRegistrationOnFulfilledToJS(callback PromiseBackgroun
 		)
 		_p0 = BackgroundFetchRegistrationFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -383,6 +386,7 @@ func PromiseBackgroundFetchRegistrationOnRejectedToJS(callback PromiseBackground
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -422,6 +426,7 @@ func PromiseCacheOnFulfilledToJS(callback PromiseCacheOnFulfilledFunc) *PromiseC
 		)
 		_p0 = CacheFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -461,6 +466,7 @@ func PromiseCacheOnRejectedToJS(callback PromiseCacheOnRejectedFunc) *PromiseCac
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -500,6 +506,7 @@ func PromiseNilBackgroundFetchRegistrationOnFulfilledToJS(callback PromiseNilBac
 		)
 		_p0 = BackgroundFetchRegistrationFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -539,6 +546,7 @@ func PromiseNilBackgroundFetchRegistrationOnRejectedToJS(callback PromiseNilBack
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -586,6 +594,7 @@ func PromiseSequenceBackgroundFetchRecordOnFulfilledToJS(callback PromiseSequenc
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -629,6 +638,7 @@ func PromiseSequenceBackgroundFetchRecordOnRejectedToJS(callback PromiseSequence
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -668,6 +678,7 @@ func PromiseServiceWorkerRegistrationOnFulfilledToJS(callback PromiseServiceWork
 		)
 		_p0 = ServiceWorkerRegistrationFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -707,6 +718,7 @@ func PromiseServiceWorkerRegistrationOnRejectedToJS(callback PromiseServiceWorke
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

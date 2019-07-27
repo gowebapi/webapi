@@ -140,6 +140,7 @@ func MediaSessionActionHandlerToJS(callback MediaSessionActionHandlerFunc) *Medi
 	ret := MediaSessionActionHandler(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		callback()
+
 		// returning no return value
 		return nil
 	}))

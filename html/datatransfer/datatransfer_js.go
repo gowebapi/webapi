@@ -65,6 +65,7 @@ func PromiseDataTransferOnFulfilledToJS(callback PromiseDataTransferOnFulfilledF
 		)
 		_p0 = DataTransferFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -104,6 +105,7 @@ func PromiseDataTransferOnRejectedToJS(callback PromiseDataTransferOnRejectedFun
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

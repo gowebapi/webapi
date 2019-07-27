@@ -289,6 +289,7 @@ func PromiseSequenceUSBDeviceOnFulfilledToJS(callback PromiseSequenceUSBDeviceOn
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -332,6 +333,7 @@ func PromiseSequenceUSBDeviceOnRejectedToJS(callback PromiseSequenceUSBDeviceOnR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -371,6 +373,7 @@ func PromiseUSBDeviceOnFulfilledToJS(callback PromiseUSBDeviceOnFulfilledFunc) *
 		)
 		_p0 = USBDeviceFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -410,6 +413,7 @@ func PromiseUSBDeviceOnRejectedToJS(callback PromiseUSBDeviceOnRejectedFunc) *Pr
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -449,6 +453,7 @@ func PromiseUSBInTransferResultOnFulfilledToJS(callback PromiseUSBInTransferResu
 		)
 		_p0 = USBInTransferResultFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -488,6 +493,7 @@ func PromiseUSBInTransferResultOnRejectedToJS(callback PromiseUSBInTransferResul
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -527,6 +533,7 @@ func PromiseUSBIsochronousInTransferResultOnFulfilledToJS(callback PromiseUSBIso
 		)
 		_p0 = USBIsochronousInTransferResultFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -566,6 +573,7 @@ func PromiseUSBIsochronousInTransferResultOnRejectedToJS(callback PromiseUSBIsoc
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -605,6 +613,7 @@ func PromiseUSBIsochronousOutTransferResultOnFulfilledToJS(callback PromiseUSBIs
 		)
 		_p0 = USBIsochronousOutTransferResultFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -644,6 +653,7 @@ func PromiseUSBIsochronousOutTransferResultOnRejectedToJS(callback PromiseUSBIso
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -683,6 +693,7 @@ func PromiseUSBOutTransferResultOnFulfilledToJS(callback PromiseUSBOutTransferRe
 		)
 		_p0 = USBOutTransferResultFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -722,6 +733,7 @@ func PromiseUSBOutTransferResultOnRejectedToJS(callback PromiseUSBOutTransferRes
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

@@ -96,6 +96,7 @@ func VoidFunctionToJS(callback VoidFunctionFunc) *VoidFunction {
 	ret := VoidFunction(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var ()
 		callback()
+
 		// returning no return value
 		return nil
 	}))

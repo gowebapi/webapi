@@ -154,6 +154,7 @@ func CSSNumericArrayForEachToJS(callback CSSNumericArrayForEachFunc) *CSSNumeric
 		_p1 = (args[1]).Int()
 		_p2 = CSSNumericArrayFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -203,6 +204,7 @@ func CSSTransformValueForEachToJS(callback CSSTransformValueForEachFunc) *CSSTra
 		_p1 = (args[1]).Int()
 		_p2 = CSSTransformValueFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -252,6 +254,7 @@ func CSSUnparsedValueForEachToJS(callback CSSUnparsedValueForEachFunc) *CSSUnpar
 		_p1 = (args[1]).Int()
 		_p2 = CSSUnparsedValueFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -309,6 +312,7 @@ func StylePropertyMapReadOnlyForEachToJS(callback StylePropertyMapReadOnlyForEac
 		_p1 = (args[1]).Int()
 		_p2 = StylePropertyMapReadOnlyFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))

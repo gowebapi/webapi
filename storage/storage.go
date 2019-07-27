@@ -58,6 +58,7 @@ func PromiseStorageEstimateOnFulfilledToJS(callback PromiseStorageEstimateOnFulf
 		)
 		_p0 = StorageEstimateFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -97,6 +98,7 @@ func PromiseStorageEstimateOnRejectedToJS(callback PromiseStorageEstimateOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

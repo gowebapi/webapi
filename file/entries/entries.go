@@ -57,6 +57,7 @@ func ErrorCallbackToJS(callback ErrorCallbackFunc) *ErrorCallback {
 		)
 		_p0 = domcore.DOMExceptionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -96,6 +97,7 @@ func FileCallbackToJS(callback FileCallbackFunc) *FileCallback {
 		)
 		_p0 = file.FileFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -143,6 +145,7 @@ func FileSystemEntriesCallbackToJS(callback FileSystemEntriesCallbackFunc) *File
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -186,6 +189,7 @@ func FileSystemEntryCallbackToJS(callback FileSystemEntryCallbackFunc) *FileSyst
 		)
 		_p0 = FileSystemEntryFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

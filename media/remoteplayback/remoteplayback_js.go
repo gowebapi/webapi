@@ -100,6 +100,7 @@ func RemotePlaybackAvailabilityCallbackToJS(callback RemotePlaybackAvailabilityC
 		)
 		_p0 = (args[0]).Bool()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

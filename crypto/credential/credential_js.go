@@ -154,6 +154,7 @@ func PromiseCredentialOnFulfilledToJS(callback PromiseCredentialOnFulfilledFunc)
 		)
 		_p0 = CredentialFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -193,6 +194,7 @@ func PromiseCredentialOnRejectedToJS(callback PromiseCredentialOnRejectedFunc) *
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -232,6 +234,7 @@ func PromiseNilCredentialOnFulfilledToJS(callback PromiseNilCredentialOnFulfille
 		)
 		_p0 = CredentialFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -271,6 +274,7 @@ func PromiseNilCredentialOnRejectedToJS(callback PromiseNilCredentialOnRejectedF
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

@@ -404,6 +404,7 @@ func HeadersForEachToJS(callback HeadersForEachFunc) *HeadersForEach {
 		_p1 = (args[1]).Int()
 		_p2 = HeadersFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -449,6 +450,7 @@ func PromiseResponseOnFulfilledToJS(callback PromiseResponseOnFulfilledFunc) *Pr
 		)
 		_p0 = ResponseFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -488,6 +490,7 @@ func PromiseResponseOnRejectedToJS(callback PromiseResponseOnRejectedFunc) *Prom
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

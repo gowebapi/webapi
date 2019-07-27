@@ -153,6 +153,7 @@ func PromiseAvailabilityOnFulfilledToJS(callback PromiseAvailabilityOnFulfilledF
 		)
 		_p0 = AvailabilityFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -192,6 +193,7 @@ func PromiseAvailabilityOnRejectedToJS(callback PromiseAvailabilityOnRejectedFun
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -231,6 +233,7 @@ func PromiseConnectionOnFulfilledToJS(callback PromiseConnectionOnFulfilledFunc)
 		)
 		_p0 = ConnectionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -270,6 +273,7 @@ func PromiseConnectionOnRejectedToJS(callback PromiseConnectionOnRejectedFunc) *
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

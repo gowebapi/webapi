@@ -48,6 +48,7 @@ func IdleRequestCallbackToJS(callback IdleRequestCallbackFunc) *IdleRequestCallb
 		)
 		_p0 = IdleDeadlineFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

@@ -193,6 +193,7 @@ func InputMapForEachToJS(callback InputMapForEachFunc) *InputMapForEach {
 		_p1 = (args[1]).String()
 		_p2 = InputMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -242,6 +243,7 @@ func OutputMapForEachToJS(callback OutputMapForEachFunc) *OutputMapForEach {
 		_p1 = (args[1]).String()
 		_p2 = OutputMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -287,6 +289,7 @@ func PromiseAccessOnFulfilledToJS(callback PromiseAccessOnFulfilledFunc) *Promis
 		)
 		_p0 = AccessFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -326,6 +329,7 @@ func PromiseAccessOnRejectedToJS(callback PromiseAccessOnRejectedFunc) *PromiseA
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -365,6 +369,7 @@ func PromisePortOnFulfilledToJS(callback PromisePortOnFulfilledFunc) *PromisePor
 		)
 		_p0 = PortFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -404,6 +409,7 @@ func PromisePortOnRejectedToJS(callback PromisePortOnRejectedFunc) *PromisePortO
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

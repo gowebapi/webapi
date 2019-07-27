@@ -64,6 +64,7 @@ func LayoutMapForEachToJS(callback LayoutMapForEachFunc) *LayoutMapForEach {
 		_p1 = (args[1]).String()
 		_p2 = LayoutMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -109,6 +110,7 @@ func PromiseLayoutMapOnFulfilledToJS(callback PromiseLayoutMapOnFulfilledFunc) *
 		)
 		_p0 = LayoutMapFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -148,6 +150,7 @@ func PromiseLayoutMapOnRejectedToJS(callback PromiseLayoutMapOnRejectedFunc) *Pr
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

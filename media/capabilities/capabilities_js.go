@@ -185,6 +185,7 @@ func PromiseMediaCapabilitiesDecodingInfoOnFulfilledToJS(callback PromiseMediaCa
 		)
 		_p0 = MediaCapabilitiesDecodingInfoFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -224,6 +225,7 @@ func PromiseMediaCapabilitiesDecodingInfoOnRejectedToJS(callback PromiseMediaCap
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -263,6 +265,7 @@ func PromiseMediaCapabilitiesInfoOnFulfilledToJS(callback PromiseMediaCapabiliti
 		)
 		_p0 = MediaCapabilitiesInfoFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -302,6 +305,7 @@ func PromiseMediaCapabilitiesInfoOnRejectedToJS(callback PromiseMediaCapabilitie
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

@@ -67,6 +67,7 @@ func ResizeObserverCallbackToJS(callback ResizeObserverCallbackFunc) *ResizeObse
 		_p0 = __array0
 		_p1 = ResizeObserverFromJS(args[1])
 		callback(_p0, _p1)
+
 		// returning no return value
 		return nil
 	}))

@@ -152,6 +152,7 @@ func PromisePaymentDetailsUpdateOnFulfilledToJS(callback PromisePaymentDetailsUp
 		)
 		_p0 = PaymentDetailsUpdateFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -191,6 +192,7 @@ func PromisePaymentDetailsUpdateOnRejectedToJS(callback PromisePaymentDetailsUpd
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -230,6 +232,7 @@ func PromisePaymentResponseOnFulfilledToJS(callback PromisePaymentResponseOnFulf
 		)
 		_p0 = PaymentResponseFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -269,6 +272,7 @@ func PromisePaymentResponseOnRejectedToJS(callback PromisePaymentResponseOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

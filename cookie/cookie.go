@@ -148,6 +148,7 @@ func PromiseNilCookieListItemOnFulfilledToJS(callback PromiseNilCookieListItemOn
 		)
 		_p0 = CookieListItemFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -187,6 +188,7 @@ func PromiseNilCookieListItemOnRejectedToJS(callback PromiseNilCookieListItemOnR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -234,6 +236,7 @@ func PromiseSequenceCookieListItemOnFulfilledToJS(callback PromiseSequenceCookie
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -277,6 +280,7 @@ func PromiseSequenceCookieListItemOnRejectedToJS(callback PromiseSequenceCookieL
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -324,6 +328,7 @@ func PromiseSequenceCookieStoreGetOptionsOnFulfilledToJS(callback PromiseSequenc
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -367,6 +372,7 @@ func PromiseSequenceCookieStoreGetOptionsOnRejectedToJS(callback PromiseSequence
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

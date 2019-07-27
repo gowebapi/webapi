@@ -102,6 +102,7 @@ func PromisePermissionStatusOnFulfilledToJS(callback PromisePermissionStatusOnFu
 		)
 		_p0 = PermissionStatusFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -141,6 +142,7 @@ func PromisePermissionStatusOnRejectedToJS(callback PromisePermissionStatusOnRej
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

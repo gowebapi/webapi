@@ -102,6 +102,7 @@ func PromiseWakeLockOnFulfilledToJS(callback PromiseWakeLockOnFulfilledFunc) *Pr
 		)
 		_p0 = WakeLockFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -141,6 +142,7 @@ func PromiseWakeLockOnRejectedToJS(callback PromiseWakeLockOnRejectedFunc) *Prom
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

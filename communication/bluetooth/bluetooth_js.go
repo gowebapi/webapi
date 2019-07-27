@@ -71,6 +71,7 @@ func ManufacturerDataMapForEachToJS(callback ManufacturerDataMapForEachFunc) *Ma
 		_p1 = (args[1]).Int()
 		_p2 = ManufacturerDataMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -116,6 +117,7 @@ func PromiseDeviceOnFulfilledToJS(callback PromiseDeviceOnFulfilledFunc) *Promis
 		)
 		_p0 = DeviceFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -155,6 +157,7 @@ func PromiseDeviceOnRejectedToJS(callback PromiseDeviceOnRejectedFunc) *PromiseD
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -194,6 +197,7 @@ func PromiseRemoteGATTCharacteristicOnFulfilledToJS(callback PromiseRemoteGATTCh
 		)
 		_p0 = RemoteGATTCharacteristicFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -233,6 +237,7 @@ func PromiseRemoteGATTCharacteristicOnRejectedToJS(callback PromiseRemoteGATTCha
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -272,6 +277,7 @@ func PromiseRemoteGATTDescriptorOnFulfilledToJS(callback PromiseRemoteGATTDescri
 		)
 		_p0 = RemoteGATTDescriptorFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -311,6 +317,7 @@ func PromiseRemoteGATTDescriptorOnRejectedToJS(callback PromiseRemoteGATTDescrip
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -350,6 +357,7 @@ func PromiseRemoteGATTServerOnFulfilledToJS(callback PromiseRemoteGATTServerOnFu
 		)
 		_p0 = RemoteGATTServerFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -389,6 +397,7 @@ func PromiseRemoteGATTServerOnRejectedToJS(callback PromiseRemoteGATTServerOnRej
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -428,6 +437,7 @@ func PromiseRemoteGATTServiceOnFulfilledToJS(callback PromiseRemoteGATTServiceOn
 		)
 		_p0 = RemoteGATTServiceFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -467,6 +477,7 @@ func PromiseRemoteGATTServiceOnRejectedToJS(callback PromiseRemoteGATTServiceOnR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -514,6 +525,7 @@ func PromiseSequenceRemoteGATTCharacteristicOnFulfilledToJS(callback PromiseSequ
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -557,6 +569,7 @@ func PromiseSequenceRemoteGATTCharacteristicOnRejectedToJS(callback PromiseSeque
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -604,6 +617,7 @@ func PromiseSequenceRemoteGATTDescriptorOnFulfilledToJS(callback PromiseSequence
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -647,6 +661,7 @@ func PromiseSequenceRemoteGATTDescriptorOnRejectedToJS(callback PromiseSequenceR
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -694,6 +709,7 @@ func PromiseSequenceRemoteGATTServiceOnFulfilledToJS(callback PromiseSequenceRem
 		}
 		_p0 = __array0
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -737,6 +753,7 @@ func PromiseSequenceRemoteGATTServiceOnRejectedToJS(callback PromiseSequenceRemo
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -780,6 +797,7 @@ func ServiceDataMapForEachToJS(callback ServiceDataMapForEachFunc) *ServiceDataM
 		_p1 = (args[1]).String()
 		_p2 = ServiceDataMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))

@@ -147,6 +147,7 @@ func PermissionCallbackToJS(callback PermissionCallbackFunc) *PermissionCallback
 		)
 		_p0 = PermissionModeFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -186,6 +187,7 @@ func PromisePermissionModeOnFulfilledToJS(callback PromisePermissionModeOnFulfil
 		)
 		_p0 = PermissionModeFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -225,6 +227,7 @@ func PromisePermissionModeOnRejectedToJS(callback PromisePermissionModeOnRejecte
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

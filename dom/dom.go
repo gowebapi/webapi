@@ -218,6 +218,7 @@ func NodeListForEachToJS(callback NodeListForEachFunc) *NodeListForEach {
 		_p1 = (args[1]).Int()
 		_p2 = NodeListFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -263,6 +264,7 @@ func PromiseDeadFragmentInformationOnFulfilledToJS(callback PromiseDeadFragmentI
 		)
 		_p0 = DeadFragmentInformationFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -302,6 +304,7 @@ func PromiseDeadFragmentInformationOnRejectedToJS(callback PromiseDeadFragmentIn
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -4322,8 +4325,10 @@ type NodeFilter interface {
 type NodeFilterValue struct {
 	// Value is the underlying javascript object or function.
 	Value js.Value
+
 	// Functions is the underlying function objects that is allocated for the interface callback
 	Functions [1]js.Func
+
 	// Go interface to invoke
 	impl      NodeFilter
 	function  func(node *Node) (_result int)
@@ -4412,6 +4417,7 @@ func (_this *NodeFilterValue) AcceptNode(node *Node) (_result int) {
 	_end++
 	var _returned js.Value
 	if _this.useInvoke {
+
 		// invoke a javascript function
 		_returned = _this.Value.Invoke(_args[0:_end]...)
 	} else {

@@ -245,6 +245,7 @@ func MediaKeyStatusMapForEachToJS(callback MediaKeyStatusMapForEachFunc) *MediaK
 		_p1 = (args[1]).Int()
 		_p2 = MediaKeyStatusMapFromJS(args[2])
 		callback(_p0, _p1, _p2)
+
 		// returning no return value
 		return nil
 	}))
@@ -290,6 +291,7 @@ func PromiseMediaKeySystemAccessOnFulfilledToJS(callback PromiseMediaKeySystemAc
 		)
 		_p0 = MediaKeySystemAccessFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -329,6 +331,7 @@ func PromiseMediaKeySystemAccessOnRejectedToJS(callback PromiseMediaKeySystemAcc
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -368,6 +371,7 @@ func PromiseMediaKeysOnFulfilledToJS(callback PromiseMediaKeysOnFulfilledFunc) *
 		)
 		_p0 = MediaKeysFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -407,6 +411,7 @@ func PromiseMediaKeysOnRejectedToJS(callback PromiseMediaKeysOnRejectedFunc) *Pr
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

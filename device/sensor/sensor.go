@@ -177,6 +177,7 @@ func PositionCallbackToJS(callback PositionCallbackFunc) *PositionCallback {
 		)
 		_p0 = PositionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -216,6 +217,7 @@ func PositionErrorCallbackToJS(callback PositionErrorCallbackFunc) *PositionErro
 		)
 		_p0 = PositionErrorFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -255,6 +257,7 @@ func PromiseGeolocationSensorReadingOnFulfilledToJS(callback PromiseGeolocationS
 		)
 		_p0 = GeolocationSensorReadingFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -294,6 +297,7 @@ func PromiseGeolocationSensorReadingOnRejectedToJS(callback PromiseGeolocationSe
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

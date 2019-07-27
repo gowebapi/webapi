@@ -194,6 +194,7 @@ func PromiseCryptoKeyOnFulfilledToJS(callback PromiseCryptoKeyOnFulfilledFunc) *
 		)
 		_p0 = CryptoKeyFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -233,6 +234,7 @@ func PromiseCryptoKeyOnRejectedToJS(callback PromiseCryptoKeyOnRejectedFunc) *Pr
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

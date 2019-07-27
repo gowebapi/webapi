@@ -95,6 +95,7 @@ func FrameRequestCallbackToJS(callback FrameRequestCallbackFunc) *FrameRequestCa
 		)
 		_p0 = (args[0]).Float()
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))

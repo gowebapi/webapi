@@ -214,6 +214,7 @@ func MutationCallbackToJS(callback MutationCallbackFunc) *MutationCallback {
 		_p0 = __array0
 		_p1 = MutationObserverFromJS(args[1])
 		callback(_p0, _p1)
+
 		// returning no return value
 		return nil
 	}))

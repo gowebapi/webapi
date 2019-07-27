@@ -147,6 +147,7 @@ func PromiseNilSubscriptionOnFulfilledToJS(callback PromiseNilSubscriptionOnFulf
 		)
 		_p0 = SubscriptionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -186,6 +187,7 @@ func PromiseNilSubscriptionOnRejectedToJS(callback PromiseNilSubscriptionOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -225,6 +227,7 @@ func PromisePermissionStateOnFulfilledToJS(callback PromisePermissionStateOnFulf
 		)
 		_p0 = PermissionStateFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -264,6 +267,7 @@ func PromisePermissionStateOnRejectedToJS(callback PromisePermissionStateOnRejec
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -303,6 +307,7 @@ func PromiseSubscriptionOnFulfilledToJS(callback PromiseSubscriptionOnFulfilledF
 		)
 		_p0 = SubscriptionFromJS(args[0])
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
@@ -342,6 +347,7 @@ func PromiseSubscriptionOnRejectedToJS(callback PromiseSubscriptionOnRejectedFun
 		)
 		_p0 = args[0]
 		callback(_p0)
+
 		// returning no return value
 		return nil
 	}))
