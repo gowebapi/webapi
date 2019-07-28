@@ -426,7 +426,7 @@ func CaretPositionFromJS(value js.Wrapper) *CaretPosition {
 }
 
 // OffsetNode returning attribute 'offsetNode' with
-// type js.Value (idl: <rawjs>).
+// type js.Value (idl: Node).
 func (_this *CaretPosition) OffsetNode() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("offsetNode")

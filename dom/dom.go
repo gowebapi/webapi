@@ -1671,7 +1671,7 @@ func (_this *Element) NextElementSibling() *Element {
 }
 
 // AssignedSlot returning attribute 'assignedSlot' with
-// type js.Value (idl: <rawjs>).
+// type js.Value (idl: HTMLSlotElement).
 func (_this *Element) AssignedSlot() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("assignedSlot")
@@ -3915,7 +3915,7 @@ func (_this *Node) IsConnected() bool {
 }
 
 // OwnerDocument returning attribute 'ownerDocument' with
-// type js.Value (idl: <rawjs>).
+// type js.Value (idl: Document).
 func (_this *Node) OwnerDocument() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("ownerDocument")
@@ -5441,7 +5441,7 @@ func (_this *Text) WholeText() string {
 }
 
 // AssignedSlot returning attribute 'assignedSlot' with
-// type js.Value (idl: <rawjs>).
+// type js.Value (idl: HTMLSlotElement).
 func (_this *Text) AssignedSlot() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("assignedSlot")

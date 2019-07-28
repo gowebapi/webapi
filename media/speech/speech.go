@@ -235,7 +235,7 @@ func SpeechRecognitionEventInitFromJS(value js.Wrapper) *SpeechRecognitionEventI
 		value3 uint                         // javascript: unsigned long {resultIndex ResultIndex resultIndex}
 		value4 *SpeechRecognitionResultList // javascript: SpeechRecognitionResultList {results Results results}
 		value5 js.Value                     // javascript: any {interpretation Interpretation interpretation}
-		value6 js.Value                     // javascript: <rawjs> {emma Emma emma}
+		value6 js.Value                     // javascript: Document {emma Emma emma}
 	)
 	value0 = (input.Get("bubbles")).Bool()
 	out.Bubbles = value0
@@ -1146,7 +1146,7 @@ func (_this *SpeechRecognitionEvent) Interpretation() js.Value {
 }
 
 // Emma returning attribute 'emma' with
-// type js.Value (idl: <rawjs>).
+// type js.Value (idl: Document).
 func (_this *SpeechRecognitionEvent) Emma() js.Value {
 	var ret js.Value
 	value := _this.Value_JS.Get("emma")
