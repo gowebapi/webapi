@@ -7,7 +7,6 @@ package xhr
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
-	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/patch"
 )
@@ -17,7 +16,6 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // patch.ByteString
-// webapi.Document
 
 // source idl files:
 // xhr.idl
@@ -387,13 +385,11 @@ func (_this *XMLHttpRequest) ResponseText() string {
 }
 
 // ResponseXML returning attribute 'responseXML' with
-// type webapi.Document (idl: Document).
-func (_this *XMLHttpRequest) ResponseXML() *webapi.Document {
-	var ret *webapi.Document
+// type js.Value (idl: Document).
+func (_this *XMLHttpRequest) ResponseXML() js.Value {
+	var ret js.Value
 	value := _this.Value_JS.Get("responseXML")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = webapi.DocumentFromJS(value)
-	}
+	ret = value
 	return ret
 }
 
