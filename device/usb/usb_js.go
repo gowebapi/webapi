@@ -1720,9 +1720,9 @@ func USBFromJS(value js.Wrapper) *USB {
 	return ret
 }
 
-// Onconnect returning attribute 'onconnect' with
+// OnConnect returning attribute 'onconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *USB) Onconnect() domcore.EventHandlerFunc {
+func (_this *USB) OnConnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1731,22 +1731,9 @@ func (_this *USB) Onconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnect setting attribute 'onconnect' with
+// OnDisconnect returning attribute 'ondisconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *USB) SetOnconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onconnect", input)
-}
-
-// Ondisconnect returning attribute 'ondisconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *USB) Ondisconnect() domcore.EventHandlerFunc {
+func (_this *USB) OnDisconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondisconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1755,17 +1742,50 @@ func (_this *USB) Ondisconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndisconnect setting attribute 'ondisconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *USB) SetOndisconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: USBConnectionEvent
+func eventFuncUSB_USBConnectionEvent(listener func(event *USBConnectionEvent, target *USB)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *USBConnectionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = USBConnectionEventFromJS(value)
+		src := USBFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("ondisconnect", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnect is adding doing AddEventListener for 'Connect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *USB) AddEventConnect(listener func(event *USBConnectionEvent, currentTarget *USB)) js.Func {
+	cb := eventFuncUSB_USBConnectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "connect", cb)
+	return cb
+}
+
+// SetOnConnect is assigning a function to 'onconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *USB) SetOnConnect(listener func(event *USBConnectionEvent, currentTarget *USB)) js.Func {
+	cb := eventFuncUSB_USBConnectionEvent(listener)
+	_this.Value_JS.Set("onconnect", cb)
+	return cb
+}
+
+// AddDisconnect is adding doing AddEventListener for 'Disconnect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *USB) AddEventDisconnect(listener func(event *USBConnectionEvent, currentTarget *USB)) js.Func {
+	cb := eventFuncUSB_USBConnectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "disconnect", cb)
+	return cb
+}
+
+// SetOnDisconnect is assigning a function to 'ondisconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *USB) SetOnDisconnect(listener func(event *USBConnectionEvent, currentTarget *USB)) js.Func {
+	cb := eventFuncUSB_USBConnectionEvent(listener)
+	_this.Value_JS.Set("ondisconnect", cb)
+	return cb
 }
 
 func (_this *USB) GetDevices() (_result *PromiseSequenceUSBDevice) {

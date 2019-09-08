@@ -5,6 +5,7 @@ package file
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/communication/xhr"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -15,6 +16,7 @@ import (
 // domcore.EventTarget
 // javascript.ArrayBuffer
 // javascript.PromiseFinally
+// xhr.ProgressEvent
 
 // source idl files:
 // fileapi.idl
@@ -587,9 +589,9 @@ func (_this *FileReader) Error() *domcore.DOMException {
 	return ret
 }
 
-// Onloadstart returning attribute 'onloadstart' with
+// OnLoadStart returning attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onloadstart() domcore.EventHandlerFunc {
+func (_this *FileReader) OnLoadStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -598,22 +600,9 @@ func (_this *FileReader) Onloadstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadstart setting attribute 'onloadstart' with
+// OnProgress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadstart", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onprogress() domcore.EventHandlerFunc {
+func (_this *FileReader) OnProgress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -622,22 +611,9 @@ func (_this *FileReader) Onprogress() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnprogress setting attribute 'onprogress' with
+// OnLoad returning attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnprogress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onload returning attribute 'onload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onload() domcore.EventHandlerFunc {
+func (_this *FileReader) OnLoad() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -646,22 +622,9 @@ func (_this *FileReader) Onload() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnload setting attribute 'onload' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnload(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onload", input)
-}
-
-// Onabort returning attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onabort() domcore.EventHandlerFunc {
+func (_this *FileReader) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -670,22 +633,9 @@ func (_this *FileReader) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onerror() domcore.EventHandlerFunc {
+func (_this *FileReader) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -694,22 +644,9 @@ func (_this *FileReader) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnLoadEnd returning attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onloadend returning attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) Onloadend() domcore.EventHandlerFunc {
+func (_this *FileReader) OnLoadEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -718,17 +655,114 @@ func (_this *FileReader) Onloadend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadend setting attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FileReader) SetOnloadend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: xhr.ProgressEvent
+func eventFuncFileReader_xhr_ProgressEvent(listener func(event *xhr.ProgressEvent, target *FileReader)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *xhr.ProgressEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = xhr.ProgressEventFromJS(value)
+		src := FileReaderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onloadend", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventAbort(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnAbort(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventError(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnError(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddLoad is adding doing AddEventListener for 'Load' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventLoad(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "load", cb)
+	return cb
+}
+
+// SetOnLoad is assigning a function to 'onload'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnLoad(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onload", cb)
+	return cb
+}
+
+// AddLoadEnd is adding doing AddEventListener for 'LoadEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventLoadEnd(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadend", cb)
+	return cb
+}
+
+// SetOnLoadEnd is assigning a function to 'onloadend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnLoadEnd(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onloadend", cb)
+	return cb
+}
+
+// AddLoadStart is adding doing AddEventListener for 'LoadStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventLoadStart(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadstart", cb)
+	return cb
+}
+
+// SetOnLoadStart is assigning a function to 'onloadstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnLoadStart(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onloadstart", cb)
+	return cb
+}
+
+// AddProgress is adding doing AddEventListener for 'Progress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) AddEventProgress(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "progress", cb)
+	return cb
+}
+
+// SetOnProgress is assigning a function to 'onprogress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FileReader) SetOnProgress(listener func(event *xhr.ProgressEvent, currentTarget *FileReader)) js.Func {
+	cb := eventFuncFileReader_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onprogress", cb)
+	return cb
 }
 
 func (_this *FileReader) ReadAsArrayBuffer(blob *Blob) {

@@ -1584,9 +1584,9 @@ func (_this *PaymentRequest) ShippingType() *PaymentShippingType {
 	return ret
 }
 
-// Onmerchantvalidation returning attribute 'onmerchantvalidation' with
+// OnMerchantValidation returning attribute 'onmerchantvalidation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) Onmerchantvalidation() domcore.EventHandlerFunc {
+func (_this *PaymentRequest) OnMerchantValidation() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmerchantvalidation")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1595,22 +1595,9 @@ func (_this *PaymentRequest) Onmerchantvalidation() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmerchantvalidation setting attribute 'onmerchantvalidation' with
+// OnShippingAddressChange returning attribute 'onshippingaddresschange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) SetOnmerchantvalidation(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmerchantvalidation", input)
-}
-
-// Onshippingaddresschange returning attribute 'onshippingaddresschange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) Onshippingaddresschange() domcore.EventHandlerFunc {
+func (_this *PaymentRequest) OnShippingAddressChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onshippingaddresschange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1619,22 +1606,9 @@ func (_this *PaymentRequest) Onshippingaddresschange() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOnshippingaddresschange setting attribute 'onshippingaddresschange' with
+// OnShippingOptionChange returning attribute 'onshippingoptionchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) SetOnshippingaddresschange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onshippingaddresschange", input)
-}
-
-// Onshippingoptionchange returning attribute 'onshippingoptionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) Onshippingoptionchange() domcore.EventHandlerFunc {
+func (_this *PaymentRequest) OnShippingOptionChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onshippingoptionchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1643,22 +1617,9 @@ func (_this *PaymentRequest) Onshippingoptionchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnshippingoptionchange setting attribute 'onshippingoptionchange' with
+// OnPaymentMethodChange returning attribute 'onpaymentmethodchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) SetOnshippingoptionchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onshippingoptionchange", input)
-}
-
-// Onpaymentmethodchange returning attribute 'onpaymentmethodchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) Onpaymentmethodchange() domcore.EventHandlerFunc {
+func (_this *PaymentRequest) OnPaymentMethodChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaymentmethodchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1667,17 +1628,110 @@ func (_this *PaymentRequest) Onpaymentmethodchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpaymentmethodchange setting attribute 'onpaymentmethodchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentRequest) SetOnpaymentmethodchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MerchantValidationEvent
+func eventFuncPaymentRequest_MerchantValidationEvent(listener func(event *MerchantValidationEvent, target *PaymentRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MerchantValidationEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MerchantValidationEventFromJS(value)
+		src := PaymentRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onpaymentmethodchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddMerchantValidation is adding doing AddEventListener for 'MerchantValidation' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) AddEventMerchantValidation(listener func(event *MerchantValidationEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_MerchantValidationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "merchantvalidation", cb)
+	return cb
+}
+
+// SetOnMerchantValidation is assigning a function to 'onmerchantvalidation'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) SetOnMerchantValidation(listener func(event *MerchantValidationEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_MerchantValidationEvent(listener)
+	_this.Value_JS.Set("onmerchantvalidation", cb)
+	return cb
+}
+
+// event attribute: PaymentMethodChangeEvent
+func eventFuncPaymentRequest_PaymentMethodChangeEvent(listener func(event *PaymentMethodChangeEvent, target *PaymentRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *PaymentMethodChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = PaymentMethodChangeEventFromJS(value)
+		src := PaymentRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPaymentMethodChange is adding doing AddEventListener for 'PaymentMethodChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) AddEventPaymentMethodChange(listener func(event *PaymentMethodChangeEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentMethodChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "paymentmethodchange", cb)
+	return cb
+}
+
+// SetOnPaymentMethodChange is assigning a function to 'onpaymentmethodchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) SetOnPaymentMethodChange(listener func(event *PaymentMethodChangeEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentMethodChangeEvent(listener)
+	_this.Value_JS.Set("onpaymentmethodchange", cb)
+	return cb
+}
+
+// event attribute: PaymentRequestUpdateEvent
+func eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener func(event *PaymentRequestUpdateEvent, target *PaymentRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *PaymentRequestUpdateEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = PaymentRequestUpdateEventFromJS(value)
+		src := PaymentRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddShippingAddressChange is adding doing AddEventListener for 'ShippingAddressChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) AddEventShippingAddressChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Call("addEventListener", "shippingaddresschange", cb)
+	return cb
+}
+
+// SetOnShippingAddressChange is assigning a function to 'onshippingaddresschange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) SetOnShippingAddressChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Set("onshippingaddresschange", cb)
+	return cb
+}
+
+// AddShippingOptionChange is adding doing AddEventListener for 'ShippingOptionChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) AddEventShippingOptionChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Call("addEventListener", "shippingoptionchange", cb)
+	return cb
+}
+
+// SetOnShippingOptionChange is assigning a function to 'onshippingoptionchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentRequest) SetOnShippingOptionChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentRequest)) js.Func {
+	cb := eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Set("onshippingoptionchange", cb)
+	return cb
 }
 
 func (_this *PaymentRequest) Show(detailsPromise *PromisePaymentDetailsUpdate) (_result *PromisePaymentResponse) {
@@ -1880,9 +1934,9 @@ func (_this *PaymentResponse) PayerPhone() *string {
 	return ret
 }
 
-// Onpayerdetailchange returning attribute 'onpayerdetailchange' with
+// OnPayerDetailChange returning attribute 'onpayerdetailchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentResponse) Onpayerdetailchange() domcore.EventHandlerFunc {
+func (_this *PaymentResponse) OnPayerDetailChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpayerdetailchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1891,17 +1945,34 @@ func (_this *PaymentResponse) Onpayerdetailchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpayerdetailchange setting attribute 'onpayerdetailchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PaymentResponse) SetOnpayerdetailchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: PaymentRequestUpdateEvent
+func eventFuncPaymentResponse_PaymentRequestUpdateEvent(listener func(event *PaymentRequestUpdateEvent, target *PaymentResponse)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *PaymentRequestUpdateEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = PaymentRequestUpdateEventFromJS(value)
+		src := PaymentResponseFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onpayerdetailchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddPayerDetailChange is adding doing AddEventListener for 'PayerDetailChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentResponse) AddEventPayerDetailChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentResponse)) js.Func {
+	cb := eventFuncPaymentResponse_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Call("addEventListener", "payerdetailchange", cb)
+	return cb
+}
+
+// SetOnPayerDetailChange is assigning a function to 'onpayerdetailchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PaymentResponse) SetOnPayerDetailChange(listener func(event *PaymentRequestUpdateEvent, currentTarget *PaymentResponse)) js.Func {
+	cb := eventFuncPaymentResponse_PaymentRequestUpdateEvent(listener)
+	_this.Value_JS.Set("onpayerdetailchange", cb)
+	return cb
 }
 
 func (_this *PaymentResponse) ToJSON() (_result *javascript.Object) {

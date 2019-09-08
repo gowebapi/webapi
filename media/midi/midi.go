@@ -818,28 +818,15 @@ func (_this *Access) Outputs() *OutputMap {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Access) Onstatechange() domcore.EventHandlerFunc {
+func (_this *Access) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnstatechange setting attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Access) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
 }
 
 // SysexEnabled returning attribute 'sysexEnabled' with
@@ -849,6 +836,36 @@ func (_this *Access) SysexEnabled() bool {
 	value := _this.Value_JS.Get("sysexEnabled")
 	ret = (value).Bool()
 	return ret
+}
+
+// event attribute: ConnectionEvent
+func eventFuncAccess_ConnectionEvent(listener func(event *ConnectionEvent, target *Access)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ConnectionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ConnectionEventFromJS(value)
+		src := AccessFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Access) AddEventStateChange(listener func(event *ConnectionEvent, currentTarget *Access)) js.Func {
+	cb := eventFuncAccess_ConnectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Access) SetOnStateChange(listener func(event *ConnectionEvent, currentTarget *Access)) js.Func {
+	cb := eventFuncAccess_ConnectionEvent(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 // class: MIDIConnectionEvent
@@ -915,9 +932,9 @@ func InputFromJS(value js.Wrapper) *Input {
 	return ret
 }
 
-// Onmidimessage returning attribute 'onmidimessage' with
+// OnMIDIMessage returning attribute 'onmidimessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Input) Onmidimessage() domcore.EventHandlerFunc {
+func (_this *Input) OnMIDIMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmidimessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -926,17 +943,34 @@ func (_this *Input) Onmidimessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmidimessage setting attribute 'onmidimessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Input) SetOnmidimessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MessageEvent
+func eventFuncInput_MessageEvent(listener func(event *MessageEvent, target *Input)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MessageEventFromJS(value)
+		src := InputFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmidimessage", input)
+	return js.FuncOf(fn)
+}
+
+// AddMIDIMessage is adding doing AddEventListener for 'MIDIMessage' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Input) AddEventMIDIMessage(listener func(event *MessageEvent, currentTarget *Input)) js.Func {
+	cb := eventFuncInput_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "midimessage", cb)
+	return cb
+}
+
+// SetOnMIDIMessage is assigning a function to 'onmidimessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Input) SetOnMIDIMessage(listener func(event *MessageEvent, currentTarget *Input)) js.Func {
+	cb := eventFuncInput_MessageEvent(listener)
+	_this.Value_JS.Set("onmidimessage", cb)
+	return cb
 }
 
 // class: MIDIInputMap
@@ -1595,9 +1629,9 @@ func (_this *Port) Connection() PortConnectionState {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Port) Onstatechange() domcore.EventHandlerFunc {
+func (_this *Port) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1606,17 +1640,34 @@ func (_this *Port) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Port) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ConnectionEvent
+func eventFuncPort_ConnectionEvent(listener func(event *ConnectionEvent, target *Port)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ConnectionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ConnectionEventFromJS(value)
+		src := PortFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Port) AddEventStateChange(listener func(event *ConnectionEvent, currentTarget *Port)) js.Func {
+	cb := eventFuncPort_ConnectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Port) SetOnStateChange(listener func(event *ConnectionEvent, currentTarget *Port)) js.Func {
+	cb := eventFuncPort_ConnectionEvent(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 func (_this *Port) Open() (_result *PromisePort) {

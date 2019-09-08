@@ -1123,9 +1123,9 @@ func (_this *Animation) Finished() *javascript.Promise {
 	return ret
 }
 
-// Onfinish returning attribute 'onfinish' with
+// OnFinish returning attribute 'onfinish' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Animation) Onfinish() domcore.EventHandlerFunc {
+func (_this *Animation) OnFinish() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfinish")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1134,22 +1134,9 @@ func (_this *Animation) Onfinish() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnfinish setting attribute 'onfinish' with
+// OnCancel returning attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Animation) SetOnfinish(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfinish", input)
-}
-
-// Oncancel returning attribute 'oncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Animation) Oncancel() domcore.EventHandlerFunc {
+func (_this *Animation) OnCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1158,17 +1145,50 @@ func (_this *Animation) Oncancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncancel setting attribute 'oncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Animation) SetOncancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: AnimationPlaybackEvent
+func eventFuncAnimation_AnimationPlaybackEvent(listener func(event *AnimationPlaybackEvent, target *Animation)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *AnimationPlaybackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = AnimationPlaybackEventFromJS(value)
+		src := AnimationFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("oncancel", input)
+	return js.FuncOf(fn)
+}
+
+// AddCancel is adding doing AddEventListener for 'Cancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Animation) AddEventCancel(listener func(event *AnimationPlaybackEvent, currentTarget *Animation)) js.Func {
+	cb := eventFuncAnimation_AnimationPlaybackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "cancel", cb)
+	return cb
+}
+
+// SetOnCancel is assigning a function to 'oncancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Animation) SetOnCancel(listener func(event *AnimationPlaybackEvent, currentTarget *Animation)) js.Func {
+	cb := eventFuncAnimation_AnimationPlaybackEvent(listener)
+	_this.Value_JS.Set("oncancel", cb)
+	return cb
+}
+
+// AddFinish is adding doing AddEventListener for 'Finish' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Animation) AddEventFinish(listener func(event *AnimationPlaybackEvent, currentTarget *Animation)) js.Func {
+	cb := eventFuncAnimation_AnimationPlaybackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "finish", cb)
+	return cb
+}
+
+// SetOnFinish is assigning a function to 'onfinish'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Animation) SetOnFinish(listener func(event *AnimationPlaybackEvent, currentTarget *Animation)) js.Func {
+	cb := eventFuncAnimation_AnimationPlaybackEvent(listener)
+	_this.Value_JS.Set("onfinish", cb)
+	return cb
 }
 
 func (_this *Animation) Cancel() {

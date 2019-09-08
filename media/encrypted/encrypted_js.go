@@ -962,9 +962,9 @@ func (_this *MediaKeySession) KeyStatuses() *MediaKeyStatusMap {
 	return ret
 }
 
-// Onkeystatuseschange returning attribute 'onkeystatuseschange' with
+// OnKeyStatusesChange returning attribute 'onkeystatuseschange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaKeySession) Onkeystatuseschange() domcore.EventHandlerFunc {
+func (_this *MediaKeySession) OnKeyStatusesChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeystatuseschange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -973,22 +973,9 @@ func (_this *MediaKeySession) Onkeystatuseschange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnkeystatuseschange setting attribute 'onkeystatuseschange' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaKeySession) SetOnkeystatuseschange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onkeystatuseschange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaKeySession) Onmessage() domcore.EventHandlerFunc {
+func (_this *MediaKeySession) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -997,17 +984,64 @@ func (_this *MediaKeySession) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaKeySession) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncMediaKeySession_domcore_Event(listener func(event *domcore.Event, target *MediaKeySession)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := MediaKeySessionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
+	return js.FuncOf(fn)
+}
+
+// AddKeyStatusesChange is adding doing AddEventListener for 'KeyStatusesChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaKeySession) AddEventKeyStatusesChange(listener func(event *domcore.Event, currentTarget *MediaKeySession)) js.Func {
+	cb := eventFuncMediaKeySession_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "keystatuseschange", cb)
+	return cb
+}
+
+// SetOnKeyStatusesChange is assigning a function to 'onkeystatuseschange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaKeySession) SetOnKeyStatusesChange(listener func(event *domcore.Event, currentTarget *MediaKeySession)) js.Func {
+	cb := eventFuncMediaKeySession_domcore_Event(listener)
+	_this.Value_JS.Set("onkeystatuseschange", cb)
+	return cb
+}
+
+// event attribute: MediaKeyMessageEvent
+func eventFuncMediaKeySession_MediaKeyMessageEvent(listener func(event *MediaKeyMessageEvent, target *MediaKeySession)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MediaKeyMessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MediaKeyMessageEventFromJS(value)
+		src := MediaKeySessionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaKeySession) AddEventMessage(listener func(event *MediaKeyMessageEvent, currentTarget *MediaKeySession)) js.Func {
+	cb := eventFuncMediaKeySession_MediaKeyMessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaKeySession) SetOnMessage(listener func(event *MediaKeyMessageEvent, currentTarget *MediaKeySession)) js.Func {
+	cb := eventFuncMediaKeySession_MediaKeyMessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
 }
 
 func (_this *MediaKeySession) GenerateRequest(initDataType string, initData *Union) (_result *javascript.PromiseVoid) {

@@ -311,9 +311,9 @@ func (_this *BroadcastChannel) Name() string {
 	return ret
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
+func (_this *BroadcastChannel) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -322,22 +322,9 @@ func (_this *BroadcastChannel) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *BroadcastChannel) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -346,17 +333,50 @@ func (_this *BroadcastChannel) Onmessageerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BroadcastChannel) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MessageEvent
+func eventFuncBroadcastChannel_MessageEvent(listener func(event *MessageEvent, target *BroadcastChannel)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MessageEventFromJS(value)
+		src := BroadcastChannelFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BroadcastChannel) AddEventMessage(listener func(event *MessageEvent, currentTarget *BroadcastChannel)) js.Func {
+	cb := eventFuncBroadcastChannel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BroadcastChannel) SetOnMessage(listener func(event *MessageEvent, currentTarget *BroadcastChannel)) js.Func {
+	cb := eventFuncBroadcastChannel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BroadcastChannel) AddEventMessageError(listener func(event *MessageEvent, currentTarget *BroadcastChannel)) js.Func {
+	cb := eventFuncBroadcastChannel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BroadcastChannel) SetOnMessageError(listener func(event *MessageEvent, currentTarget *BroadcastChannel)) js.Func {
+	cb := eventFuncBroadcastChannel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
 }
 
 func (_this *BroadcastChannel) PostMessage(message interface{}) {
@@ -653,9 +673,9 @@ func MessagePortFromJS(value js.Wrapper) *MessagePort {
 	return ret
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
+func (_this *MessagePort) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -664,22 +684,9 @@ func (_this *MessagePort) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *MessagePort) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -688,17 +695,50 @@ func (_this *MessagePort) Onmessageerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MessagePort) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MessageEvent
+func eventFuncMessagePort_MessageEvent(listener func(event *MessageEvent, target *MessagePort)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MessageEventFromJS(value)
+		src := MessagePortFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MessagePort) AddEventMessage(listener func(event *MessageEvent, currentTarget *MessagePort)) js.Func {
+	cb := eventFuncMessagePort_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MessagePort) SetOnMessage(listener func(event *MessageEvent, currentTarget *MessagePort)) js.Func {
+	cb := eventFuncMessagePort_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MessagePort) AddEventMessageError(listener func(event *MessageEvent, currentTarget *MessagePort)) js.Func {
+	cb := eventFuncMessagePort_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MessagePort) SetOnMessageError(listener func(event *MessageEvent, currentTarget *MessagePort)) js.Func {
+	cb := eventFuncMessagePort_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
 }
 
 func (_this *MessagePort) PostMessage(message interface{}, transfer []*javascript.Object) {
@@ -828,9 +868,9 @@ func (_this *WebSocket) BufferedAmount() int {
 	return ret
 }
 
-// Onopen returning attribute 'onopen' with
+// OnOpen returning attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onopen() domcore.EventHandlerFunc {
+func (_this *WebSocket) OnOpen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -839,22 +879,9 @@ func (_this *WebSocket) Onopen() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnopen setting attribute 'onopen' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnopen(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onopen", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onerror() domcore.EventHandlerFunc {
+func (_this *WebSocket) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -863,41 +890,15 @@ func (_this *WebSocket) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onclose() domcore.EventHandlerFunc {
+func (_this *WebSocket) OnClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnclose setting attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
 }
 
 // Extensions returning attribute 'extensions' with
@@ -918,28 +919,15 @@ func (_this *WebSocket) Protocol() string {
 	return ret
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) Onmessage() domcore.EventHandlerFunc {
+func (_this *WebSocket) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WebSocket) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
 }
 
 // BinaryType returning attribute 'binaryType' with
@@ -956,6 +944,112 @@ func (_this *WebSocket) BinaryType() BinaryType {
 func (_this *WebSocket) SetBinaryType(value BinaryType) {
 	input := value.JSValue()
 	_this.Value_JS.Set("binaryType", input)
+}
+
+// event attribute: CloseEvent
+func eventFuncWebSocket_CloseEvent(listener func(event *CloseEvent, target *WebSocket)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *CloseEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = CloseEventFromJS(value)
+		src := WebSocketFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) AddEventClose(listener func(event *CloseEvent, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_CloseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) SetOnClose(listener func(event *CloseEvent, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_CloseEvent(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncWebSocket_domcore_Event(listener func(event *domcore.Event, target *WebSocket)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := WebSocketFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) AddEventError(listener func(event *domcore.Event, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) SetOnError(listener func(event *domcore.Event, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: MessageEvent
+func eventFuncWebSocket_MessageEvent(listener func(event *MessageEvent, target *WebSocket)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MessageEventFromJS(value)
+		src := WebSocketFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) AddEventMessage(listener func(event *MessageEvent, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) SetOnMessage(listener func(event *MessageEvent, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddOpen is adding doing AddEventListener for 'Open' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) AddEventOpen(listener func(event *domcore.Event, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "open", cb)
+	return cb
+}
+
+// SetOnOpen is assigning a function to 'onopen'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WebSocket) SetOnOpen(listener func(event *domcore.Event, currentTarget *WebSocket)) js.Func {
+	cb := eventFuncWebSocket_domcore_Event(listener)
+	_this.Value_JS.Set("onopen", cb)
+	return cb
 }
 
 func (_this *WebSocket) Close(code *int, reason *string) {

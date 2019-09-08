@@ -694,9 +694,9 @@ func (_this *SpeechRecognition) SetServiceURI(value string) {
 	_this.Value_JS.Set("serviceURI", input)
 }
 
-// Onaudiostart returning attribute 'onaudiostart' with
+// OnAudioStart returning attribute 'onaudiostart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onaudiostart() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnAudioStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudiostart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -705,22 +705,9 @@ func (_this *SpeechRecognition) Onaudiostart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaudiostart setting attribute 'onaudiostart' with
+// OnSoundStart returning attribute 'onsoundstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnaudiostart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaudiostart", input)
-}
-
-// Onsoundstart returning attribute 'onsoundstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onsoundstart() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnSoundStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsoundstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -729,22 +716,9 @@ func (_this *SpeechRecognition) Onsoundstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsoundstart setting attribute 'onsoundstart' with
+// OnSpeechStart returning attribute 'onspeechstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnsoundstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsoundstart", input)
-}
-
-// Onspeechstart returning attribute 'onspeechstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onspeechstart() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnSpeechStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onspeechstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -753,22 +727,9 @@ func (_this *SpeechRecognition) Onspeechstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnspeechstart setting attribute 'onspeechstart' with
+// OnSpeechEnd returning attribute 'onspeechend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnspeechstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onspeechstart", input)
-}
-
-// Onspeechend returning attribute 'onspeechend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onspeechend() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnSpeechEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onspeechend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -777,22 +738,9 @@ func (_this *SpeechRecognition) Onspeechend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnspeechend setting attribute 'onspeechend' with
+// OnSoundEnd returning attribute 'onsoundend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnspeechend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onspeechend", input)
-}
-
-// Onsoundend returning attribute 'onsoundend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onsoundend() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnSoundEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsoundend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -801,22 +749,9 @@ func (_this *SpeechRecognition) Onsoundend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsoundend setting attribute 'onsoundend' with
+// OnAudioEnd returning attribute 'onaudioend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnsoundend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsoundend", input)
-}
-
-// Onaudioend returning attribute 'onaudioend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onaudioend() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnAudioEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudioend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -825,22 +760,9 @@ func (_this *SpeechRecognition) Onaudioend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaudioend setting attribute 'onaudioend' with
+// OnResult returning attribute 'onresult' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnaudioend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaudioend", input)
-}
-
-// Onresult returning attribute 'onresult' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onresult() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnResult() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresult")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -849,22 +771,9 @@ func (_this *SpeechRecognition) Onresult() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnresult setting attribute 'onresult' with
+// OnNoMatch returning attribute 'onnomatch' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnresult(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onresult", input)
-}
-
-// Onnomatch returning attribute 'onnomatch' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onnomatch() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnNoMatch() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnomatch")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -873,22 +782,9 @@ func (_this *SpeechRecognition) Onnomatch() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnnomatch setting attribute 'onnomatch' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnnomatch(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onnomatch", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onerror() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -897,22 +793,9 @@ func (_this *SpeechRecognition) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnStart returning attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onstart returning attribute 'onstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onstart() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -921,22 +804,9 @@ func (_this *SpeechRecognition) Onstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstart setting attribute 'onstart' with
+// OnEnd returning attribute 'onend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstart", input)
-}
-
-// Onend returning attribute 'onend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) Onend() domcore.EventHandlerFunc {
+func (_this *SpeechRecognition) OnEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -945,17 +815,222 @@ func (_this *SpeechRecognition) Onend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnend setting attribute 'onend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechRecognition) SetOnend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSpeechRecognition_domcore_Event(listener func(event *domcore.Event, target *SpeechRecognition)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SpeechRecognitionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onend", input)
+	return js.FuncOf(fn)
+}
+
+// AddAudioEnd is adding doing AddEventListener for 'AudioEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventAudioEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "audioend", cb)
+	return cb
+}
+
+// SetOnAudioEnd is assigning a function to 'onaudioend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnAudioEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onaudioend", cb)
+	return cb
+}
+
+// AddAudioStart is adding doing AddEventListener for 'AudioStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventAudioStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "audiostart", cb)
+	return cb
+}
+
+// SetOnAudioStart is assigning a function to 'onaudiostart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnAudioStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onaudiostart", cb)
+	return cb
+}
+
+// AddEnd is adding doing AddEventListener for 'End' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "end", cb)
+	return cb
+}
+
+// SetOnEnd is assigning a function to 'onend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onend", cb)
+	return cb
+}
+
+// event attribute: SpeechRecognitionErrorEvent
+func eventFuncSpeechRecognition_SpeechRecognitionErrorEvent(listener func(event *SpeechRecognitionErrorEvent, target *SpeechRecognition)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *SpeechRecognitionErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = SpeechRecognitionErrorEventFromJS(value)
+		src := SpeechRecognitionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventError(listener func(event *SpeechRecognitionErrorEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnError(listener func(event *SpeechRecognitionErrorEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: SpeechRecognitionEvent
+func eventFuncSpeechRecognition_SpeechRecognitionEvent(listener func(event *SpeechRecognitionEvent, target *SpeechRecognition)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *SpeechRecognitionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = SpeechRecognitionEventFromJS(value)
+		src := SpeechRecognitionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddNoMatch is adding doing AddEventListener for 'NoMatch' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventNoMatch(listener func(event *SpeechRecognitionEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "nomatch", cb)
+	return cb
+}
+
+// SetOnNoMatch is assigning a function to 'onnomatch'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnNoMatch(listener func(event *SpeechRecognitionEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionEvent(listener)
+	_this.Value_JS.Set("onnomatch", cb)
+	return cb
+}
+
+// AddResult is adding doing AddEventListener for 'Result' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventResult(listener func(event *SpeechRecognitionEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "result", cb)
+	return cb
+}
+
+// SetOnResult is assigning a function to 'onresult'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnResult(listener func(event *SpeechRecognitionEvent, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_SpeechRecognitionEvent(listener)
+	_this.Value_JS.Set("onresult", cb)
+	return cb
+}
+
+// AddSoundEnd is adding doing AddEventListener for 'SoundEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventSoundEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "soundend", cb)
+	return cb
+}
+
+// SetOnSoundEnd is assigning a function to 'onsoundend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnSoundEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onsoundend", cb)
+	return cb
+}
+
+// AddSoundStart is adding doing AddEventListener for 'SoundStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventSoundStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "soundstart", cb)
+	return cb
+}
+
+// SetOnSoundStart is assigning a function to 'onsoundstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnSoundStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onsoundstart", cb)
+	return cb
+}
+
+// AddSpeechEnd is adding doing AddEventListener for 'SpeechEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventSpeechEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "speechend", cb)
+	return cb
+}
+
+// SetOnSpeechEnd is assigning a function to 'onspeechend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnSpeechEnd(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onspeechend", cb)
+	return cb
+}
+
+// AddSpeechStart is adding doing AddEventListener for 'SpeechStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventSpeechStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "speechstart", cb)
+	return cb
+}
+
+// SetOnSpeechStart is assigning a function to 'onspeechstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnSpeechStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onspeechstart", cb)
+	return cb
+}
+
+// AddStart is adding doing AddEventListener for 'Start' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) AddEventStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "start", cb)
+	return cb
+}
+
+// SetOnStart is assigning a function to 'onstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechRecognition) SetOnStart(listener func(event *domcore.Event, currentTarget *SpeechRecognition)) js.Func {
+	cb := eventFuncSpeechRecognition_domcore_Event(listener)
+	_this.Value_JS.Set("onstart", cb)
+	return cb
 }
 
 func (_this *SpeechRecognition) Start() {
@@ -1332,9 +1407,9 @@ func (_this *SpeechSynthesis) Paused() bool {
 	return ret
 }
 
-// Onvoiceschanged returning attribute 'onvoiceschanged' with
+// OnVoicesChanged returning attribute 'onvoiceschanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesis) Onvoiceschanged() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesis) OnVoicesChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvoiceschanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1343,17 +1418,34 @@ func (_this *SpeechSynthesis) Onvoiceschanged() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnvoiceschanged setting attribute 'onvoiceschanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesis) SetOnvoiceschanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSpeechSynthesis_domcore_Event(listener func(event *domcore.Event, target *SpeechSynthesis)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SpeechSynthesisFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onvoiceschanged", input)
+	return js.FuncOf(fn)
+}
+
+// AddVoicesChanged is adding doing AddEventListener for 'VoicesChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesis) AddEventVoicesChanged(listener func(event *domcore.Event, currentTarget *SpeechSynthesis)) js.Func {
+	cb := eventFuncSpeechSynthesis_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "voiceschanged", cb)
+	return cb
+}
+
+// SetOnVoicesChanged is assigning a function to 'onvoiceschanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesis) SetOnVoicesChanged(listener func(event *domcore.Event, currentTarget *SpeechSynthesis)) js.Func {
+	cb := eventFuncSpeechSynthesis_domcore_Event(listener)
+	_this.Value_JS.Set("onvoiceschanged", cb)
+	return cb
 }
 
 func (_this *SpeechSynthesis) Speak(utterance *SpeechSynthesisUtterance) {
@@ -1670,9 +1762,9 @@ func (_this *SpeechSynthesisUtterance) SetPitch(value float32) {
 	_this.Value_JS.Set("pitch", input)
 }
 
-// Onstart returning attribute 'onstart' with
+// OnStart returning attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onstart() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1681,22 +1773,9 @@ func (_this *SpeechSynthesisUtterance) Onstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstart setting attribute 'onstart' with
+// OnEnd returning attribute 'onend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstart", input)
-}
-
-// Onend returning attribute 'onend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onend() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1705,22 +1784,9 @@ func (_this *SpeechSynthesisUtterance) Onend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnend setting attribute 'onend' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onend", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onerror() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1729,22 +1795,9 @@ func (_this *SpeechSynthesisUtterance) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnPause returning attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onpause returning attribute 'onpause' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onpause() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnPause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1753,22 +1806,9 @@ func (_this *SpeechSynthesisUtterance) Onpause() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpause setting attribute 'onpause' with
+// OnResume returning attribute 'onresume' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnpause(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpause", input)
-}
-
-// Onresume returning attribute 'onresume' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onresume() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnResume() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresume")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1777,22 +1817,9 @@ func (_this *SpeechSynthesisUtterance) Onresume() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnresume setting attribute 'onresume' with
+// OnMark returning attribute 'onmark' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnresume(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onresume", input)
-}
-
-// Onmark returning attribute 'onmark' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onmark() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnMark() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmark")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1801,22 +1828,9 @@ func (_this *SpeechSynthesisUtterance) Onmark() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmark setting attribute 'onmark' with
+// OnBoundary returning attribute 'onboundary' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnmark(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmark", input)
-}
-
-// Onboundary returning attribute 'onboundary' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) Onboundary() domcore.EventHandlerFunc {
+func (_this *SpeechSynthesisUtterance) OnBoundary() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onboundary")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1825,17 +1839,144 @@ func (_this *SpeechSynthesisUtterance) Onboundary() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnboundary setting attribute 'onboundary' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SpeechSynthesisUtterance) SetOnboundary(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: SpeechSynthesisEvent
+func eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener func(event *SpeechSynthesisEvent, target *SpeechSynthesisUtterance)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *SpeechSynthesisEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = SpeechSynthesisEventFromJS(value)
+		src := SpeechSynthesisUtteranceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onboundary", input)
+	return js.FuncOf(fn)
+}
+
+// AddBoundary is adding doing AddEventListener for 'Boundary' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventBoundary(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "boundary", cb)
+	return cb
+}
+
+// SetOnBoundary is assigning a function to 'onboundary'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnBoundary(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onboundary", cb)
+	return cb
+}
+
+// AddEnd is adding doing AddEventListener for 'End' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventEnd(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "end", cb)
+	return cb
+}
+
+// SetOnEnd is assigning a function to 'onend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnEnd(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onend", cb)
+	return cb
+}
+
+// event attribute: SpeechSynthesisErrorEvent
+func eventFuncSpeechSynthesisUtterance_SpeechSynthesisErrorEvent(listener func(event *SpeechSynthesisErrorEvent, target *SpeechSynthesisUtterance)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *SpeechSynthesisErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = SpeechSynthesisErrorEventFromJS(value)
+		src := SpeechSynthesisUtteranceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventError(listener func(event *SpeechSynthesisErrorEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnError(listener func(event *SpeechSynthesisErrorEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddMark is adding doing AddEventListener for 'Mark' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventMark(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mark", cb)
+	return cb
+}
+
+// SetOnMark is assigning a function to 'onmark'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnMark(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onmark", cb)
+	return cb
+}
+
+// AddPause is adding doing AddEventListener for 'Pause' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventPause(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pause", cb)
+	return cb
+}
+
+// SetOnPause is assigning a function to 'onpause'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnPause(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onpause", cb)
+	return cb
+}
+
+// AddResume is adding doing AddEventListener for 'Resume' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventResume(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "resume", cb)
+	return cb
+}
+
+// SetOnResume is assigning a function to 'onresume'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnResume(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onresume", cb)
+	return cb
+}
+
+// AddStart is adding doing AddEventListener for 'Start' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) AddEventStart(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Call("addEventListener", "start", cb)
+	return cb
+}
+
+// SetOnStart is assigning a function to 'onstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SpeechSynthesisUtterance) SetOnStart(listener func(event *SpeechSynthesisEvent, currentTarget *SpeechSynthesisUtterance)) js.Func {
+	cb := eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener)
+	_this.Value_JS.Set("onstart", cb)
+	return cb
 }
 
 // class: SpeechSynthesisVoice

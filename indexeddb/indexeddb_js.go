@@ -619,9 +619,9 @@ func (_this *IDBDatabase) ObjectStoreNames() *domcore.DOMStringList {
 	return ret
 }
 
-// Onabort returning attribute 'onabort' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) Onabort() domcore.EventHandlerFunc {
+func (_this *IDBDatabase) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -630,22 +630,9 @@ func (_this *IDBDatabase) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
+// OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) Onclose() domcore.EventHandlerFunc {
+func (_this *IDBDatabase) OnClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -654,22 +641,9 @@ func (_this *IDBDatabase) Onclose() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnclose setting attribute 'onclose' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) SetOnclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) Onerror() domcore.EventHandlerFunc {
+func (_this *IDBDatabase) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -678,22 +652,9 @@ func (_this *IDBDatabase) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnVersionChange returning attribute 'onversionchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onversionchange returning attribute 'onversionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) Onversionchange() domcore.EventHandlerFunc {
+func (_this *IDBDatabase) OnVersionChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onversionchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -702,17 +663,96 @@ func (_this *IDBDatabase) Onversionchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnversionchange setting attribute 'onversionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBDatabase) SetOnversionchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncIDBDatabase_domcore_Event(listener func(event *domcore.Event, target *IDBDatabase)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := IDBDatabaseFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onversionchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) AddEventAbort(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) SetOnAbort(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) AddEventClose(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) SetOnClose(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) AddEventError(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) SetOnError(listener func(event *domcore.Event, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: IDBVersionChangeEvent
+func eventFuncIDBDatabase_IDBVersionChangeEvent(listener func(event *IDBVersionChangeEvent, target *IDBDatabase)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *IDBVersionChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = IDBVersionChangeEventFromJS(value)
+		src := IDBDatabaseFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddVersionChange is adding doing AddEventListener for 'VersionChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) AddEventVersionChange(listener func(event *IDBVersionChangeEvent, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_IDBVersionChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "versionchange", cb)
+	return cb
+}
+
+// SetOnVersionChange is assigning a function to 'onversionchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBDatabase) SetOnVersionChange(listener func(event *IDBVersionChangeEvent, currentTarget *IDBDatabase)) js.Func {
+	cb := eventFuncIDBDatabase_IDBVersionChangeEvent(listener)
+	_this.Value_JS.Set("onversionchange", cb)
+	return cb
 }
 
 func (_this *IDBDatabase) Transaction(storeNames *Union, mode *IDBTransactionMode) (_result *IDBTransaction) {
@@ -1636,9 +1676,9 @@ func IDBOpenDBRequestFromJS(value js.Wrapper) *IDBOpenDBRequest {
 	return ret
 }
 
-// Onblocked returning attribute 'onblocked' with
+// OnBlocked returning attribute 'onblocked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBOpenDBRequest) Onblocked() domcore.EventHandlerFunc {
+func (_this *IDBOpenDBRequest) OnBlocked() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblocked")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1647,22 +1687,9 @@ func (_this *IDBOpenDBRequest) Onblocked() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnblocked setting attribute 'onblocked' with
+// OnUpgradeNeeded returning attribute 'onupgradeneeded' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBOpenDBRequest) SetOnblocked(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onblocked", input)
-}
-
-// Onupgradeneeded returning attribute 'onupgradeneeded' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBOpenDBRequest) Onupgradeneeded() domcore.EventHandlerFunc {
+func (_this *IDBOpenDBRequest) OnUpgradeNeeded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupgradeneeded")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1671,17 +1698,50 @@ func (_this *IDBOpenDBRequest) Onupgradeneeded() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnupgradeneeded setting attribute 'onupgradeneeded' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBOpenDBRequest) SetOnupgradeneeded(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncIDBOpenDBRequest_domcore_Event(listener func(event *domcore.Event, target *IDBOpenDBRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := IDBOpenDBRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onupgradeneeded", input)
+	return js.FuncOf(fn)
+}
+
+// AddBlocked is adding doing AddEventListener for 'Blocked' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBOpenDBRequest) AddEventBlocked(listener func(event *domcore.Event, currentTarget *IDBOpenDBRequest)) js.Func {
+	cb := eventFuncIDBOpenDBRequest_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "blocked", cb)
+	return cb
+}
+
+// SetOnBlocked is assigning a function to 'onblocked'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBOpenDBRequest) SetOnBlocked(listener func(event *domcore.Event, currentTarget *IDBOpenDBRequest)) js.Func {
+	cb := eventFuncIDBOpenDBRequest_domcore_Event(listener)
+	_this.Value_JS.Set("onblocked", cb)
+	return cb
+}
+
+// AddUpgradeNeeded is adding doing AddEventListener for 'UpgradeNeeded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBOpenDBRequest) AddEventUpgradeNeeded(listener func(event *domcore.Event, currentTarget *IDBOpenDBRequest)) js.Func {
+	cb := eventFuncIDBOpenDBRequest_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "upgradeneeded", cb)
+	return cb
+}
+
+// SetOnUpgradeNeeded is assigning a function to 'onupgradeneeded'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBOpenDBRequest) SetOnUpgradeNeeded(listener func(event *domcore.Event, currentTarget *IDBOpenDBRequest)) js.Func {
+	cb := eventFuncIDBOpenDBRequest_domcore_Event(listener)
+	_this.Value_JS.Set("onupgradeneeded", cb)
+	return cb
 }
 
 // class: IDBRequest
@@ -1751,9 +1811,9 @@ func (_this *IDBRequest) ReadyState() IDBRequestReadyState {
 	return ret
 }
 
-// Onsuccess returning attribute 'onsuccess' with
+// OnSuccess returning attribute 'onsuccess' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBRequest) Onsuccess() domcore.EventHandlerFunc {
+func (_this *IDBRequest) OnSuccess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuccess")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1762,22 +1822,9 @@ func (_this *IDBRequest) Onsuccess() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsuccess setting attribute 'onsuccess' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBRequest) SetOnsuccess(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsuccess", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBRequest) Onerror() domcore.EventHandlerFunc {
+func (_this *IDBRequest) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1786,17 +1833,50 @@ func (_this *IDBRequest) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBRequest) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncIDBRequest_domcore_Event(listener func(event *domcore.Event, target *IDBRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := IDBRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBRequest) AddEventError(listener func(event *domcore.Event, currentTarget *IDBRequest)) js.Func {
+	cb := eventFuncIDBRequest_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBRequest) SetOnError(listener func(event *domcore.Event, currentTarget *IDBRequest)) js.Func {
+	cb := eventFuncIDBRequest_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddSuccess is adding doing AddEventListener for 'Success' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBRequest) AddEventSuccess(listener func(event *domcore.Event, currentTarget *IDBRequest)) js.Func {
+	cb := eventFuncIDBRequest_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "success", cb)
+	return cb
+}
+
+// SetOnSuccess is assigning a function to 'onsuccess'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBRequest) SetOnSuccess(listener func(event *domcore.Event, currentTarget *IDBRequest)) js.Func {
+	cb := eventFuncIDBRequest_domcore_Event(listener)
+	_this.Value_JS.Set("onsuccess", cb)
+	return cb
 }
 
 // class: IDBTransaction
@@ -1851,9 +1931,9 @@ func (_this *IDBTransaction) Error() *domcore.DOMException {
 	return ret
 }
 
-// Onabort returning attribute 'onabort' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) Onabort() domcore.EventHandlerFunc {
+func (_this *IDBTransaction) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1862,22 +1942,9 @@ func (_this *IDBTransaction) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
+// OnComplete returning attribute 'oncomplete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Oncomplete returning attribute 'oncomplete' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) Oncomplete() domcore.EventHandlerFunc {
+func (_this *IDBTransaction) OnComplete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncomplete")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1886,22 +1953,9 @@ func (_this *IDBTransaction) Oncomplete() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncomplete setting attribute 'oncomplete' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) SetOncomplete(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncomplete", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) Onerror() domcore.EventHandlerFunc {
+func (_this *IDBTransaction) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1910,17 +1964,66 @@ func (_this *IDBTransaction) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IDBTransaction) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncIDBTransaction_domcore_Event(listener func(event *domcore.Event, target *IDBTransaction)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := IDBTransactionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) AddEventAbort(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) SetOnAbort(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// AddComplete is adding doing AddEventListener for 'Complete' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) AddEventComplete(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "complete", cb)
+	return cb
+}
+
+// SetOnComplete is assigning a function to 'oncomplete'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) SetOnComplete(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Set("oncomplete", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) AddEventError(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IDBTransaction) SetOnError(listener func(event *domcore.Event, currentTarget *IDBTransaction)) js.Func {
+	cb := eventFuncIDBTransaction_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
 }
 
 func (_this *IDBTransaction) ObjectStore(name string) (_result *IDBObjectStore) {

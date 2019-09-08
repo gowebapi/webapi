@@ -20,6 +20,7 @@ import (
 // cssom.CSSStyleSheet
 // cssom.StyleSheetList
 // domcore.DOMTokenList
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // geometry.DOMPoint
@@ -1560,9 +1561,9 @@ func (_this *Element) ClientHeight() int {
 	return ret
 }
 
-// Onfullscreenchange returning attribute 'onfullscreenchange' with
+// OnFullscreenChange returning attribute 'onfullscreenchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Element) Onfullscreenchange() domcore.EventHandlerFunc {
+func (_this *Element) OnFullscreenChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfullscreenchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1571,41 +1572,15 @@ func (_this *Element) Onfullscreenchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnfullscreenchange setting attribute 'onfullscreenchange' with
+// OnFullscreenError returning attribute 'onfullscreenerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Element) SetOnfullscreenchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfullscreenchange", input)
-}
-
-// Onfullscreenerror returning attribute 'onfullscreenerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Element) Onfullscreenerror() domcore.EventHandlerFunc {
+func (_this *Element) OnFullscreenError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfullscreenerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnfullscreenerror setting attribute 'onfullscreenerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Element) SetOnfullscreenerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfullscreenerror", input)
 }
 
 // Children returning attribute 'children' with
@@ -2570,6 +2545,52 @@ func (_this *Element) AriaValueText() *string {
 func (_this *Element) SetAriaValueText(value *string) {
 	input := value
 	_this.Value_JS.Set("ariaValueText", input)
+}
+
+// event attribute: domcore.Event
+func eventFuncElement_domcore_Event(listener func(event *domcore.Event, target *Element)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddFullscreenChange is adding doing AddEventListener for 'FullscreenChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Element) AddEventFullscreenChange(listener func(event *domcore.Event, currentTarget *Element)) js.Func {
+	cb := eventFuncElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "fullscreenchange", cb)
+	return cb
+}
+
+// SetOnFullscreenChange is assigning a function to 'onfullscreenchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Element) SetOnFullscreenChange(listener func(event *domcore.Event, currentTarget *Element)) js.Func {
+	cb := eventFuncElement_domcore_Event(listener)
+	_this.Value_JS.Set("onfullscreenchange", cb)
+	return cb
+}
+
+// AddFullscreenError is adding doing AddEventListener for 'FullscreenError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Element) AddEventFullscreenError(listener func(event *domcore.Event, currentTarget *Element)) js.Func {
+	cb := eventFuncElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "fullscreenerror", cb)
+	return cb
+}
+
+// SetOnFullscreenError is assigning a function to 'onfullscreenerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Element) SetOnFullscreenError(listener func(event *domcore.Event, currentTarget *Element)) js.Func {
+	cb := eventFuncElement_domcore_Event(listener)
+	_this.Value_JS.Set("onfullscreenerror", cb)
+	return cb
 }
 
 func (_this *Element) HasAttributes() (_result bool) {

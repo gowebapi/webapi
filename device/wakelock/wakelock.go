@@ -12,6 +12,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.PromiseFinally
@@ -302,9 +303,9 @@ func (_this *WakeLock) Active() bool {
 	return ret
 }
 
-// Onactivechange returning attribute 'onactivechange' with
+// OnActiveChange returning attribute 'onactivechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WakeLock) Onactivechange() domcore.EventHandlerFunc {
+func (_this *WakeLock) OnActiveChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onactivechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -313,17 +314,34 @@ func (_this *WakeLock) Onactivechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnactivechange setting attribute 'onactivechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WakeLock) SetOnactivechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncWakeLock_domcore_Event(listener func(event *domcore.Event, target *WakeLock)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := WakeLockFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onactivechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddActiveChange is adding doing AddEventListener for 'ActiveChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WakeLock) AddEventActiveChange(listener func(event *domcore.Event, currentTarget *WakeLock)) js.Func {
+	cb := eventFuncWakeLock_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "activechange", cb)
+	return cb
+}
+
+// SetOnActiveChange is assigning a function to 'onactivechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WakeLock) SetOnActiveChange(listener func(event *domcore.Event, currentTarget *WakeLock)) js.Func {
+	cb := eventFuncWakeLock_domcore_Event(listener)
+	_this.Value_JS.Set("onactivechange", cb)
+	return cb
 }
 
 func (_this *WakeLock) CreateRequest() (_result *WakeLockRequest) {

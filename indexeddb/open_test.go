@@ -6,13 +6,10 @@ import (
 	"github.com/gowebapi/webapi/indexeddb"
 )
 
-func Example_Open() {
+func Example_open() {
 	request := webapi.GetWindow().IndexedDB().Open("test", nil)
-	onsucess := func(event *domcore.Event) interface{} {
-		return nil
-	}
-	request.SetOnsuccess(domcore.EventHandlerToJS(onsucess))
-	request.SetOnupgradeneeded(domcore.EventHandlerToJS(func(event *domcore.Event) interface{} {
+	request.AddEventSuccess(func(event *domcore.Event, target *indexeddb.IDBRequest) {})
+	request.AddEventUpgradeNeeded(func(event *domcore.Event, currentTarget *indexeddb.IDBOpenDBRequest) {
 		db := indexeddb.IDBDatabaseFromJS(request.Result())
 		db.CreateObjectStore("names", &indexeddb.IDBObjectStoreParameters{
 			AutoIncrement: true,
@@ -21,6 +18,5 @@ func Example_Open() {
 		   var db = event.target.result;
 		   var objStore = db.createObjectStore("names", { autoIncrement : true });
 		*/
-		return nil
-	}))
+	})
 }

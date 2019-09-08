@@ -491,9 +491,9 @@ func (_this *MediaQueryList) Matches() bool {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaQueryList) Onchange() domcore.EventHandlerFunc {
+func (_this *MediaQueryList) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -502,17 +502,34 @@ func (_this *MediaQueryList) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaQueryList) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MediaQueryListEvent
+func eventFuncMediaQueryList_MediaQueryListEvent(listener func(event *MediaQueryListEvent, target *MediaQueryList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MediaQueryListEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MediaQueryListEventFromJS(value)
+		src := MediaQueryListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaQueryList) AddEventChange(listener func(event *MediaQueryListEvent, currentTarget *MediaQueryList)) js.Func {
+	cb := eventFuncMediaQueryList_MediaQueryListEvent(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaQueryList) SetOnChange(listener func(event *MediaQueryListEvent, currentTarget *MediaQueryList)) js.Func {
+	cb := eventFuncMediaQueryList_MediaQueryListEvent(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }
 
 func (_this *MediaQueryList) AddListener(listener *domcore.EventListenerValue) {
@@ -691,28 +708,15 @@ func (_this *Screen) Luminance() *capabilities.ScreenLuminance {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Screen) Onchange() domcore.EventHandlerFunc {
+func (_this *Screen) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Screen) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
 }
 
 // Orientation returning attribute 'orientation' with
@@ -722,4 +726,34 @@ func (_this *Screen) Orientation() *orientation.ScreenOrientation {
 	value := _this.Value_JS.Get("orientation")
 	ret = orientation.ScreenOrientationFromJS(value)
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncScreen_domcore_Event(listener func(event *domcore.Event, target *Screen)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ScreenFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Screen) AddEventChange(listener func(event *domcore.Event, currentTarget *Screen)) js.Func {
+	cb := eventFuncScreen_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Screen) SetOnChange(listener func(event *domcore.Event, currentTarget *Screen)) js.Func {
+	cb := eventFuncScreen_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }

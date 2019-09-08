@@ -10,6 +10,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.FrozenArray
@@ -1318,9 +1319,9 @@ func (_this *Performance) Navigation() *Navigation {
 	return ret
 }
 
-// Onresourcetimingbufferfull returning attribute 'onresourcetimingbufferfull' with
+// OnResourceTimingBufferFull returning attribute 'onresourcetimingbufferfull' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Performance) Onresourcetimingbufferfull() domcore.EventHandlerFunc {
+func (_this *Performance) OnResourceTimingBufferFull() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresourcetimingbufferfull")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1329,17 +1330,34 @@ func (_this *Performance) Onresourcetimingbufferfull() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOnresourcetimingbufferfull setting attribute 'onresourcetimingbufferfull' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Performance) SetOnresourcetimingbufferfull(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncPerformance_domcore_Event(listener func(event *domcore.Event, target *Performance)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := PerformanceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onresourcetimingbufferfull", input)
+	return js.FuncOf(fn)
+}
+
+// AddResourceTimingBufferFull is adding doing AddEventListener for 'ResourceTimingBufferFull' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Performance) AddEventResourceTimingBufferFull(listener func(event *domcore.Event, currentTarget *Performance)) js.Func {
+	cb := eventFuncPerformance_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "resourcetimingbufferfull", cb)
+	return cb
+}
+
+// SetOnResourceTimingBufferFull is assigning a function to 'onresourcetimingbufferfull'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Performance) SetOnResourceTimingBufferFull(listener func(event *domcore.Event, currentTarget *Performance)) js.Func {
+	cb := eventFuncPerformance_domcore_Event(listener)
+	_this.Value_JS.Set("onresourcetimingbufferfull", cb)
+	return cb
 }
 
 func (_this *Performance) Now() (_result float64) {

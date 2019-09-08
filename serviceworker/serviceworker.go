@@ -20,9 +20,11 @@ import (
 
 // using following types:
 // appmenifestres.ImageResource
+// channel.MessageEvent
 // channel.MessagePort
 // client.ClientType
 // client.PromiseNilWindowClient
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.ExtendableEvent
@@ -1481,9 +1483,9 @@ func (_this *BackgroundFetchRegistration) RecordsAvailable() bool {
 	return ret
 }
 
-// Onprogress returning attribute 'onprogress' with
+// OnProgress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BackgroundFetchRegistration) Onprogress() domcore.EventHandlerFunc {
+func (_this *BackgroundFetchRegistration) OnProgress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1492,17 +1494,34 @@ func (_this *BackgroundFetchRegistration) Onprogress() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOnprogress setting attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BackgroundFetchRegistration) SetOnprogress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncBackgroundFetchRegistration_domcore_Event(listener func(event *domcore.Event, target *BackgroundFetchRegistration)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := BackgroundFetchRegistrationFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onprogress", input)
+	return js.FuncOf(fn)
+}
+
+// AddProgress is adding doing AddEventListener for 'Progress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BackgroundFetchRegistration) AddEventProgress(listener func(event *domcore.Event, currentTarget *BackgroundFetchRegistration)) js.Func {
+	cb := eventFuncBackgroundFetchRegistration_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "progress", cb)
+	return cb
+}
+
+// SetOnProgress is assigning a function to 'onprogress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BackgroundFetchRegistration) SetOnProgress(listener func(event *domcore.Event, currentTarget *BackgroundFetchRegistration)) js.Func {
+	cb := eventFuncBackgroundFetchRegistration_domcore_Event(listener)
+	_this.Value_JS.Set("onprogress", cb)
+	return cb
 }
 
 func (_this *BackgroundFetchRegistration) Abort() (_result *javascript.PromiseBool) {
@@ -2805,9 +2824,9 @@ func (_this *ServiceWorker) State() ServiceWorkerState {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) Onstatechange() domcore.EventHandlerFunc {
+func (_this *ServiceWorker) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2816,22 +2835,9 @@ func (_this *ServiceWorker) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) Onerror() domcore.EventHandlerFunc {
+func (_this *ServiceWorker) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2840,17 +2846,50 @@ func (_this *ServiceWorker) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorker) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncServiceWorker_domcore_Event(listener func(event *domcore.Event, target *ServiceWorker)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ServiceWorkerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorker) AddEventError(listener func(event *domcore.Event, currentTarget *ServiceWorker)) js.Func {
+	cb := eventFuncServiceWorker_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorker) SetOnError(listener func(event *domcore.Event, currentTarget *ServiceWorker)) js.Func {
+	cb := eventFuncServiceWorker_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorker) AddEventStateChange(listener func(event *domcore.Event, currentTarget *ServiceWorker)) js.Func {
+	cb := eventFuncServiceWorker_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorker) SetOnStateChange(listener func(event *domcore.Event, currentTarget *ServiceWorker)) js.Func {
+	cb := eventFuncServiceWorker_domcore_Event(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 func (_this *ServiceWorker) PostMessage(message interface{}, transfer []*javascript.Object) {
@@ -2910,9 +2949,9 @@ func (_this *ServiceWorkerContainer) Ready() *javascript.Promise {
 	return ret
 }
 
-// Oncontrollerchange returning attribute 'oncontrollerchange' with
+// OnControllerChange returning attribute 'oncontrollerchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Oncontrollerchange() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerContainer) OnControllerChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontrollerchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2921,22 +2960,9 @@ func (_this *ServiceWorkerContainer) Oncontrollerchange() domcore.EventHandlerFu
 	return ret
 }
 
-// SetOncontrollerchange setting attribute 'oncontrollerchange' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOncontrollerchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncontrollerchange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Onmessage() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerContainer) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2945,22 +2971,9 @@ func (_this *ServiceWorkerContainer) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerContainer) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2969,17 +2982,94 @@ func (_this *ServiceWorkerContainer) Onmessageerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerContainer) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncServiceWorkerContainer_domcore_Event(listener func(event *domcore.Event, target *ServiceWorkerContainer)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ServiceWorkerContainerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddControllerChange is adding doing AddEventListener for 'ControllerChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) AddEventControllerChange(listener func(event *domcore.Event, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "controllerchange", cb)
+	return cb
+}
+
+// SetOnControllerChange is assigning a function to 'oncontrollerchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) SetOnControllerChange(listener func(event *domcore.Event, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_domcore_Event(listener)
+	_this.Value_JS.Set("oncontrollerchange", cb)
+	return cb
+}
+
+// event attribute: ExtendableMessageEvent
+func eventFuncServiceWorkerContainer_ExtendableMessageEvent(listener func(event *ExtendableMessageEvent, target *ServiceWorkerContainer)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ExtendableMessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ExtendableMessageEventFromJS(value)
+		src := ServiceWorkerContainerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) AddEventMessage(listener func(event *ExtendableMessageEvent, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_ExtendableMessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) SetOnMessage(listener func(event *ExtendableMessageEvent, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_ExtendableMessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncServiceWorkerContainer_channel_MessageEvent(listener func(event *channel.MessageEvent, target *ServiceWorkerContainer)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := ServiceWorkerContainerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) AddEventMessageError(listener func(event *channel.MessageEvent, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerContainer) SetOnMessageError(listener func(event *channel.MessageEvent, currentTarget *ServiceWorkerContainer)) js.Func {
+	cb := eventFuncServiceWorkerContainer_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
 }
 
 func (_this *ServiceWorkerContainer) Register(scriptURL string, options *RegistrationOptions) (_result *PromiseServiceWorkerRegistration) {
@@ -3113,28 +3203,15 @@ func (_this *ServiceWorkerRegistration) UpdateViaCache() ServiceWorkerUpdateViaC
 	return ret
 }
 
-// Onupdatefound returning attribute 'onupdatefound' with
+// OnUpdateFound returning attribute 'onupdatefound' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerRegistration) Onupdatefound() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerRegistration) OnUpdateFound() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdatefound")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnupdatefound setting attribute 'onupdatefound' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerRegistration) SetOnupdatefound(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onupdatefound", input)
 }
 
 // Sync returning attribute 'sync' with
@@ -3171,6 +3248,36 @@ func (_this *ServiceWorkerRegistration) PushManager() *push.Manager {
 	value := _this.Value_JS.Get("pushManager")
 	ret = push.ManagerFromJS(value)
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncServiceWorkerRegistration_domcore_Event(listener func(event *domcore.Event, target *ServiceWorkerRegistration)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ServiceWorkerRegistrationFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddUpdateFound is adding doing AddEventListener for 'UpdateFound' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerRegistration) AddEventUpdateFound(listener func(event *domcore.Event, currentTarget *ServiceWorkerRegistration)) js.Func {
+	cb := eventFuncServiceWorkerRegistration_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "updatefound", cb)
+	return cb
+}
+
+// SetOnUpdateFound is assigning a function to 'onupdatefound'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerRegistration) SetOnUpdateFound(listener func(event *domcore.Event, currentTarget *ServiceWorkerRegistration)) js.Func {
+	cb := eventFuncServiceWorkerRegistration_domcore_Event(listener)
+	_this.Value_JS.Set("onupdatefound", cb)
+	return cb
 }
 
 func (_this *ServiceWorkerRegistration) Update() (_result *javascript.PromiseVoid) {

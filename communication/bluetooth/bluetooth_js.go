@@ -1653,28 +1653,15 @@ func BluetoothFromJS(value js.Wrapper) *Bluetooth {
 	return ret
 }
 
-// Onavailabilitychanged returning attribute 'onavailabilitychanged' with
+// OnAvailabilityChanged returning attribute 'onavailabilitychanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Onavailabilitychanged() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnAvailabilityChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onavailabilitychanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnavailabilitychanged setting attribute 'onavailabilitychanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOnavailabilitychanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onavailabilitychanged", input)
 }
 
 // ReferringDevice returning attribute 'referringDevice' with
@@ -1688,9 +1675,9 @@ func (_this *Bluetooth) ReferringDevice() *Device {
 	return ret
 }
 
-// Onadvertisementreceived returning attribute 'onadvertisementreceived' with
+// OnAdvertisementReceived returning attribute 'onadvertisementreceived' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Onadvertisementreceived() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnAdvertisementReceived() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onadvertisementreceived")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1699,22 +1686,9 @@ func (_this *Bluetooth) Onadvertisementreceived() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnadvertisementreceived setting attribute 'onadvertisementreceived' with
+// OnGattServerDisconnected returning attribute 'ongattserverdisconnected' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOnadvertisementreceived(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onadvertisementreceived", input)
-}
-
-// Ongattserverdisconnected returning attribute 'ongattserverdisconnected' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Ongattserverdisconnected() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnGattServerDisconnected() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongattserverdisconnected")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1723,22 +1697,9 @@ func (_this *Bluetooth) Ongattserverdisconnected() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOngattserverdisconnected setting attribute 'ongattserverdisconnected' with
+// OnCharacteristicValueChanged returning attribute 'oncharacteristicvaluechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOngattserverdisconnected(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ongattserverdisconnected", input)
-}
-
-// Oncharacteristicvaluechanged returning attribute 'oncharacteristicvaluechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Oncharacteristicvaluechanged() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnCharacteristicValueChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncharacteristicvaluechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1747,22 +1708,9 @@ func (_this *Bluetooth) Oncharacteristicvaluechanged() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOncharacteristicvaluechanged setting attribute 'oncharacteristicvaluechanged' with
+// OnServiceAdded returning attribute 'onserviceadded' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOncharacteristicvaluechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncharacteristicvaluechanged", input)
-}
-
-// Onserviceadded returning attribute 'onserviceadded' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Onserviceadded() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnServiceAdded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceadded")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1771,22 +1719,9 @@ func (_this *Bluetooth) Onserviceadded() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceadded setting attribute 'onserviceadded' with
+// OnServiceChanged returning attribute 'onservicechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOnserviceadded(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceadded", input)
-}
-
-// Onservicechanged returning attribute 'onservicechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Onservicechanged() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnServiceChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onservicechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1795,22 +1730,9 @@ func (_this *Bluetooth) Onservicechanged() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnservicechanged setting attribute 'onservicechanged' with
+// OnServiceRemoved returning attribute 'onserviceremoved' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOnservicechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onservicechanged", input)
-}
-
-// Onserviceremoved returning attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) Onserviceremoved() domcore.EventHandlerFunc {
+func (_this *Bluetooth) OnServiceRemoved() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceremoved")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1819,17 +1741,158 @@ func (_this *Bluetooth) Onserviceremoved() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceremoved setting attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Bluetooth) SetOnserviceremoved(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: AdvertisingEvent
+func eventFuncBluetooth_AdvertisingEvent(listener func(event *AdvertisingEvent, target *Bluetooth)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *AdvertisingEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = AdvertisingEventFromJS(value)
+		src := BluetoothFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceremoved", input)
+	return js.FuncOf(fn)
+}
+
+// AddAdvertisementReceived is adding doing AddEventListener for 'AdvertisementReceived' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventAdvertisementReceived(listener func(event *AdvertisingEvent, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_AdvertisingEvent(listener)
+	_this.Value_JS.Call("addEventListener", "advertisementreceived", cb)
+	return cb
+}
+
+// SetOnAdvertisementReceived is assigning a function to 'onadvertisementreceived'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnAdvertisementReceived(listener func(event *AdvertisingEvent, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_AdvertisingEvent(listener)
+	_this.Value_JS.Set("onadvertisementreceived", cb)
+	return cb
+}
+
+// event attribute: ValueEvent
+func eventFuncBluetooth_ValueEvent(listener func(event *ValueEvent, target *Bluetooth)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ValueEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ValueEventFromJS(value)
+		src := BluetoothFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddAvailabilityChanged is adding doing AddEventListener for 'AvailabilityChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventAvailabilityChanged(listener func(event *ValueEvent, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_ValueEvent(listener)
+	_this.Value_JS.Call("addEventListener", "availabilitychanged", cb)
+	return cb
+}
+
+// SetOnAvailabilityChanged is assigning a function to 'onavailabilitychanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnAvailabilityChanged(listener func(event *ValueEvent, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_ValueEvent(listener)
+	_this.Value_JS.Set("onavailabilitychanged", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncBluetooth_domcore_Event(listener func(event *domcore.Event, target *Bluetooth)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := BluetoothFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCharacteristicValueChanged is adding doing AddEventListener for 'CharacteristicValueChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "characteristicvaluechanged", cb)
+	return cb
+}
+
+// SetOnCharacteristicValueChanged is assigning a function to 'oncharacteristicvaluechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Set("oncharacteristicvaluechanged", cb)
+	return cb
+}
+
+// AddGattServerDisconnected is adding doing AddEventListener for 'GattServerDisconnected' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventGattServerDisconnected(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "gattserverdisconnected", cb)
+	return cb
+}
+
+// SetOnGattServerDisconnected is assigning a function to 'ongattserverdisconnected'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnGattServerDisconnected(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Set("ongattserverdisconnected", cb)
+	return cb
+}
+
+// AddServiceAdded is adding doing AddEventListener for 'ServiceAdded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventServiceAdded(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceadded", cb)
+	return cb
+}
+
+// SetOnServiceAdded is assigning a function to 'onserviceadded'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnServiceAdded(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceadded", cb)
+	return cb
+}
+
+// AddServiceChanged is adding doing AddEventListener for 'ServiceChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventServiceChanged(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "servicechanged", cb)
+	return cb
+}
+
+// SetOnServiceChanged is assigning a function to 'onservicechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnServiceChanged(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Set("onservicechanged", cb)
+	return cb
+}
+
+// AddServiceRemoved is adding doing AddEventListener for 'ServiceRemoved' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) AddEventServiceRemoved(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceremoved", cb)
+	return cb
+}
+
+// SetOnServiceRemoved is assigning a function to 'onserviceremoved'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Bluetooth) SetOnServiceRemoved(listener func(event *domcore.Event, currentTarget *Bluetooth)) js.Func {
+	cb := eventFuncBluetooth_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceremoved", cb)
+	return cb
 }
 
 func (_this *Bluetooth) GetAvailability() (_result *javascript.PromiseBool) {
@@ -2024,9 +2087,9 @@ func (_this *Device) WatchingAdvertisements() bool {
 	return ret
 }
 
-// Onadvertisementreceived returning attribute 'onadvertisementreceived' with
+// OnAdvertisementReceived returning attribute 'onadvertisementreceived' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Onadvertisementreceived() domcore.EventHandlerFunc {
+func (_this *Device) OnAdvertisementReceived() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onadvertisementreceived")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2035,22 +2098,9 @@ func (_this *Device) Onadvertisementreceived() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnadvertisementreceived setting attribute 'onadvertisementreceived' with
+// OnGattServerDisconnected returning attribute 'ongattserverdisconnected' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOnadvertisementreceived(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onadvertisementreceived", input)
-}
-
-// Ongattserverdisconnected returning attribute 'ongattserverdisconnected' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Ongattserverdisconnected() domcore.EventHandlerFunc {
+func (_this *Device) OnGattServerDisconnected() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongattserverdisconnected")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2059,22 +2109,9 @@ func (_this *Device) Ongattserverdisconnected() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOngattserverdisconnected setting attribute 'ongattserverdisconnected' with
+// OnCharacteristicValueChanged returning attribute 'oncharacteristicvaluechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOngattserverdisconnected(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ongattserverdisconnected", input)
-}
-
-// Oncharacteristicvaluechanged returning attribute 'oncharacteristicvaluechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Oncharacteristicvaluechanged() domcore.EventHandlerFunc {
+func (_this *Device) OnCharacteristicValueChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncharacteristicvaluechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2083,22 +2120,9 @@ func (_this *Device) Oncharacteristicvaluechanged() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncharacteristicvaluechanged setting attribute 'oncharacteristicvaluechanged' with
+// OnServiceAdded returning attribute 'onserviceadded' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOncharacteristicvaluechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncharacteristicvaluechanged", input)
-}
-
-// Onserviceadded returning attribute 'onserviceadded' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Onserviceadded() domcore.EventHandlerFunc {
+func (_this *Device) OnServiceAdded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceadded")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2107,22 +2131,9 @@ func (_this *Device) Onserviceadded() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceadded setting attribute 'onserviceadded' with
+// OnServiceChanged returning attribute 'onservicechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOnserviceadded(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceadded", input)
-}
-
-// Onservicechanged returning attribute 'onservicechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Onservicechanged() domcore.EventHandlerFunc {
+func (_this *Device) OnServiceChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onservicechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2131,22 +2142,9 @@ func (_this *Device) Onservicechanged() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnservicechanged setting attribute 'onservicechanged' with
+// OnServiceRemoved returning attribute 'onserviceremoved' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOnservicechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onservicechanged", input)
-}
-
-// Onserviceremoved returning attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) Onserviceremoved() domcore.EventHandlerFunc {
+func (_this *Device) OnServiceRemoved() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceremoved")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2155,17 +2153,128 @@ func (_this *Device) Onserviceremoved() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceremoved setting attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Device) SetOnserviceremoved(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: AdvertisingEvent
+func eventFuncDevice_AdvertisingEvent(listener func(event *AdvertisingEvent, target *Device)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *AdvertisingEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = AdvertisingEventFromJS(value)
+		src := DeviceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceremoved", input)
+	return js.FuncOf(fn)
+}
+
+// AddAdvertisementReceived is adding doing AddEventListener for 'AdvertisementReceived' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventAdvertisementReceived(listener func(event *AdvertisingEvent, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_AdvertisingEvent(listener)
+	_this.Value_JS.Call("addEventListener", "advertisementreceived", cb)
+	return cb
+}
+
+// SetOnAdvertisementReceived is assigning a function to 'onadvertisementreceived'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnAdvertisementReceived(listener func(event *AdvertisingEvent, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_AdvertisingEvent(listener)
+	_this.Value_JS.Set("onadvertisementreceived", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncDevice_domcore_Event(listener func(event *domcore.Event, target *Device)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := DeviceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCharacteristicValueChanged is adding doing AddEventListener for 'CharacteristicValueChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "characteristicvaluechanged", cb)
+	return cb
+}
+
+// SetOnCharacteristicValueChanged is assigning a function to 'oncharacteristicvaluechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Set("oncharacteristicvaluechanged", cb)
+	return cb
+}
+
+// AddGattServerDisconnected is adding doing AddEventListener for 'GattServerDisconnected' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventGattServerDisconnected(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "gattserverdisconnected", cb)
+	return cb
+}
+
+// SetOnGattServerDisconnected is assigning a function to 'ongattserverdisconnected'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnGattServerDisconnected(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Set("ongattserverdisconnected", cb)
+	return cb
+}
+
+// AddServiceAdded is adding doing AddEventListener for 'ServiceAdded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventServiceAdded(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceadded", cb)
+	return cb
+}
+
+// SetOnServiceAdded is assigning a function to 'onserviceadded'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnServiceAdded(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceadded", cb)
+	return cb
+}
+
+// AddServiceChanged is adding doing AddEventListener for 'ServiceChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventServiceChanged(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "servicechanged", cb)
+	return cb
+}
+
+// SetOnServiceChanged is assigning a function to 'onservicechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnServiceChanged(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Set("onservicechanged", cb)
+	return cb
+}
+
+// AddServiceRemoved is adding doing AddEventListener for 'ServiceRemoved' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) AddEventServiceRemoved(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceremoved", cb)
+	return cb
+}
+
+// SetOnServiceRemoved is assigning a function to 'onserviceremoved'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Device) SetOnServiceRemoved(listener func(event *domcore.Event, currentTarget *Device)) js.Func {
+	cb := eventFuncDevice_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceremoved", cb)
+	return cb
 }
 
 func (_this *Device) WatchAdvertisements() (_result *javascript.PromiseVoid) {
@@ -3354,9 +3463,9 @@ func (_this *RemoteGATTCharacteristic) Value() *javascript.DataView {
 	return ret
 }
 
-// Oncharacteristicvaluechanged returning attribute 'oncharacteristicvaluechanged' with
+// OnCharacteristicValueChanged returning attribute 'oncharacteristicvaluechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTCharacteristic) Oncharacteristicvaluechanged() domcore.EventHandlerFunc {
+func (_this *RemoteGATTCharacteristic) OnCharacteristicValueChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncharacteristicvaluechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3365,17 +3474,34 @@ func (_this *RemoteGATTCharacteristic) Oncharacteristicvaluechanged() domcore.Ev
 	return ret
 }
 
-// SetOncharacteristicvaluechanged setting attribute 'oncharacteristicvaluechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTCharacteristic) SetOncharacteristicvaluechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncRemoteGATTCharacteristic_domcore_Event(listener func(event *domcore.Event, target *RemoteGATTCharacteristic)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := RemoteGATTCharacteristicFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("oncharacteristicvaluechanged", input)
+	return js.FuncOf(fn)
+}
+
+// AddCharacteristicValueChanged is adding doing AddEventListener for 'CharacteristicValueChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTCharacteristic) AddEventCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTCharacteristic)) js.Func {
+	cb := eventFuncRemoteGATTCharacteristic_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "characteristicvaluechanged", cb)
+	return cb
+}
+
+// SetOnCharacteristicValueChanged is assigning a function to 'oncharacteristicvaluechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTCharacteristic) SetOnCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTCharacteristic)) js.Func {
+	cb := eventFuncRemoteGATTCharacteristic_domcore_Event(listener)
+	_this.Value_JS.Set("oncharacteristicvaluechanged", cb)
+	return cb
 }
 
 func (_this *RemoteGATTCharacteristic) GetDescriptor(descriptor *Union) (_result *PromiseRemoteGATTDescriptor) {
@@ -3695,9 +3821,9 @@ func (_this *RemoteGATTService) IsPrimary() bool {
 	return ret
 }
 
-// Oncharacteristicvaluechanged returning attribute 'oncharacteristicvaluechanged' with
+// OnCharacteristicValueChanged returning attribute 'oncharacteristicvaluechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) Oncharacteristicvaluechanged() domcore.EventHandlerFunc {
+func (_this *RemoteGATTService) OnCharacteristicValueChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncharacteristicvaluechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3706,22 +3832,9 @@ func (_this *RemoteGATTService) Oncharacteristicvaluechanged() domcore.EventHand
 	return ret
 }
 
-// SetOncharacteristicvaluechanged setting attribute 'oncharacteristicvaluechanged' with
+// OnServiceAdded returning attribute 'onserviceadded' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) SetOncharacteristicvaluechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncharacteristicvaluechanged", input)
-}
-
-// Onserviceadded returning attribute 'onserviceadded' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) Onserviceadded() domcore.EventHandlerFunc {
+func (_this *RemoteGATTService) OnServiceAdded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceadded")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3730,22 +3843,9 @@ func (_this *RemoteGATTService) Onserviceadded() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceadded setting attribute 'onserviceadded' with
+// OnServiceChanged returning attribute 'onservicechanged' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) SetOnserviceadded(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceadded", input)
-}
-
-// Onservicechanged returning attribute 'onservicechanged' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) Onservicechanged() domcore.EventHandlerFunc {
+func (_this *RemoteGATTService) OnServiceChanged() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onservicechanged")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3754,22 +3854,9 @@ func (_this *RemoteGATTService) Onservicechanged() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnservicechanged setting attribute 'onservicechanged' with
+// OnServiceRemoved returning attribute 'onserviceremoved' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) SetOnservicechanged(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onservicechanged", input)
-}
-
-// Onserviceremoved returning attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) Onserviceremoved() domcore.EventHandlerFunc {
+func (_this *RemoteGATTService) OnServiceRemoved() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onserviceremoved")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3778,17 +3865,82 @@ func (_this *RemoteGATTService) Onserviceremoved() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnserviceremoved setting attribute 'onserviceremoved' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemoteGATTService) SetOnserviceremoved(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncRemoteGATTService_domcore_Event(listener func(event *domcore.Event, target *RemoteGATTService)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := RemoteGATTServiceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onserviceremoved", input)
+	return js.FuncOf(fn)
+}
+
+// AddCharacteristicValueChanged is adding doing AddEventListener for 'CharacteristicValueChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) AddEventCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "characteristicvaluechanged", cb)
+	return cb
+}
+
+// SetOnCharacteristicValueChanged is assigning a function to 'oncharacteristicvaluechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) SetOnCharacteristicValueChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Set("oncharacteristicvaluechanged", cb)
+	return cb
+}
+
+// AddServiceAdded is adding doing AddEventListener for 'ServiceAdded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) AddEventServiceAdded(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceadded", cb)
+	return cb
+}
+
+// SetOnServiceAdded is assigning a function to 'onserviceadded'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) SetOnServiceAdded(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceadded", cb)
+	return cb
+}
+
+// AddServiceChanged is adding doing AddEventListener for 'ServiceChanged' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) AddEventServiceChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "servicechanged", cb)
+	return cb
+}
+
+// SetOnServiceChanged is assigning a function to 'onservicechanged'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) SetOnServiceChanged(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Set("onservicechanged", cb)
+	return cb
+}
+
+// AddServiceRemoved is adding doing AddEventListener for 'ServiceRemoved' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) AddEventServiceRemoved(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "serviceremoved", cb)
+	return cb
+}
+
+// SetOnServiceRemoved is assigning a function to 'onserviceremoved'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemoteGATTService) SetOnServiceRemoved(listener func(event *domcore.Event, currentTarget *RemoteGATTService)) js.Func {
+	cb := eventFuncRemoteGATTService_domcore_Event(listener)
+	_this.Value_JS.Set("onserviceremoved", cb)
+	return cb
 }
 
 func (_this *RemoteGATTService) GetCharacteristic(characteristic *Union) (_result *PromiseRemoteGATTCharacteristic) {

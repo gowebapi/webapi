@@ -13,6 +13,7 @@ import (
 
 // using following types:
 // channel.BinaryType
+// channel.MessageEvent
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
@@ -417,9 +418,9 @@ func (_this *Availability) Value() bool {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Availability) Onchange() domcore.EventHandlerFunc {
+func (_this *Availability) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -428,17 +429,34 @@ func (_this *Availability) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Availability) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncAvailability_domcore_Event(listener func(event *domcore.Event, target *Availability)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := AvailabilityFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Availability) AddEventChange(listener func(event *domcore.Event, currentTarget *Availability)) js.Func {
+	cb := eventFuncAvailability_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Availability) SetOnChange(listener func(event *domcore.Event, currentTarget *Availability)) js.Func {
+	cb := eventFuncAvailability_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }
 
 // class: PresentationConnection
@@ -484,9 +502,9 @@ func (_this *Connection) State() ConnectionState {
 	return ret
 }
 
-// Onconnect returning attribute 'onconnect' with
+// OnConnect returning attribute 'onconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) Onconnect() domcore.EventHandlerFunc {
+func (_this *Connection) OnConnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -495,22 +513,9 @@ func (_this *Connection) Onconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnect setting attribute 'onconnect' with
+// OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) SetOnconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onconnect", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) Onclose() domcore.EventHandlerFunc {
+func (_this *Connection) OnClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -519,41 +524,15 @@ func (_this *Connection) Onclose() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnclose setting attribute 'onclose' with
+// OnTerminate returning attribute 'onterminate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) SetOnclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Onterminate returning attribute 'onterminate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) Onterminate() domcore.EventHandlerFunc {
+func (_this *Connection) OnTerminate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onterminate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnterminate setting attribute 'onterminate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) SetOnterminate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onterminate", input)
 }
 
 // BinaryType returning attribute 'binaryType' with
@@ -572,9 +551,9 @@ func (_this *Connection) SetBinaryType(value channel.BinaryType) {
 	_this.Value_JS.Set("binaryType", input)
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) Onmessage() domcore.EventHandlerFunc {
+func (_this *Connection) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -583,17 +562,110 @@ func (_this *Connection) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Connection) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ConnectionCloseEvent
+func eventFuncConnection_ConnectionCloseEvent(listener func(event *ConnectionCloseEvent, target *Connection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ConnectionCloseEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ConnectionCloseEventFromJS(value)
+		src := ConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
+	return js.FuncOf(fn)
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) AddEventClose(listener func(event *ConnectionCloseEvent, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_ConnectionCloseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) SetOnClose(listener func(event *ConnectionCloseEvent, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_ConnectionCloseEvent(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncConnection_domcore_Event(listener func(event *domcore.Event, target *Connection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddConnect is adding doing AddEventListener for 'Connect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) AddEventConnect(listener func(event *domcore.Event, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "connect", cb)
+	return cb
+}
+
+// SetOnConnect is assigning a function to 'onconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) SetOnConnect(listener func(event *domcore.Event, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onconnect", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncConnection_channel_MessageEvent(listener func(event *channel.MessageEvent, target *Connection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := ConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddTerminate is adding doing AddEventListener for 'Terminate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) AddEventTerminate(listener func(event *domcore.Event, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "terminate", cb)
+	return cb
+}
+
+// SetOnTerminate is assigning a function to 'onterminate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Connection) SetOnTerminate(listener func(event *domcore.Event, currentTarget *Connection)) js.Func {
+	cb := eventFuncConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onterminate", cb)
+	return cb
 }
 
 func (_this *Connection) Close() {
@@ -788,9 +860,9 @@ func (_this *ConnectionList) Connections() *javascript.FrozenArray {
 	return ret
 }
 
-// Onconnectionavailable returning attribute 'onconnectionavailable' with
+// OnConnectionAvailable returning attribute 'onconnectionavailable' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ConnectionList) Onconnectionavailable() domcore.EventHandlerFunc {
+func (_this *ConnectionList) OnConnectionAvailable() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnectionavailable")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -799,17 +871,34 @@ func (_this *ConnectionList) Onconnectionavailable() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnectionavailable setting attribute 'onconnectionavailable' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ConnectionList) SetOnconnectionavailable(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ConnectionAvailableEvent
+func eventFuncConnectionList_ConnectionAvailableEvent(listener func(event *ConnectionAvailableEvent, target *ConnectionList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ConnectionAvailableEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ConnectionAvailableEventFromJS(value)
+		src := ConnectionListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onconnectionavailable", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnectionAvailable is adding doing AddEventListener for 'ConnectionAvailable' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ConnectionList) AddEventConnectionAvailable(listener func(event *ConnectionAvailableEvent, currentTarget *ConnectionList)) js.Func {
+	cb := eventFuncConnectionList_ConnectionAvailableEvent(listener)
+	_this.Value_JS.Call("addEventListener", "connectionavailable", cb)
+	return cb
+}
+
+// SetOnConnectionAvailable is assigning a function to 'onconnectionavailable'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ConnectionList) SetOnConnectionAvailable(listener func(event *ConnectionAvailableEvent, currentTarget *ConnectionList)) js.Func {
+	cb := eventFuncConnectionList_ConnectionAvailableEvent(listener)
+	_this.Value_JS.Set("onconnectionavailable", cb)
+	return cb
 }
 
 // class: Presentation
@@ -1140,9 +1229,9 @@ func NewPresentationRequest(urls []string) (_result *Request) {
 	return
 }
 
-// Onconnectionavailable returning attribute 'onconnectionavailable' with
+// OnConnectionAvailable returning attribute 'onconnectionavailable' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Request) Onconnectionavailable() domcore.EventHandlerFunc {
+func (_this *Request) OnConnectionAvailable() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnectionavailable")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1151,17 +1240,34 @@ func (_this *Request) Onconnectionavailable() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnectionavailable setting attribute 'onconnectionavailable' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Request) SetOnconnectionavailable(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ConnectionAvailableEvent
+func eventFuncRequest_ConnectionAvailableEvent(listener func(event *ConnectionAvailableEvent, target *Request)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ConnectionAvailableEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ConnectionAvailableEventFromJS(value)
+		src := RequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onconnectionavailable", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnectionAvailable is adding doing AddEventListener for 'ConnectionAvailable' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Request) AddEventConnectionAvailable(listener func(event *ConnectionAvailableEvent, currentTarget *Request)) js.Func {
+	cb := eventFuncRequest_ConnectionAvailableEvent(listener)
+	_this.Value_JS.Call("addEventListener", "connectionavailable", cb)
+	return cb
+}
+
+// SetOnConnectionAvailable is assigning a function to 'onconnectionavailable'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Request) SetOnConnectionAvailable(listener func(event *ConnectionAvailableEvent, currentTarget *Request)) js.Func {
+	cb := eventFuncRequest_ConnectionAvailableEvent(listener)
+	_this.Value_JS.Set("onconnectionavailable", cb)
+	return cb
 }
 
 func (_this *Request) Start() (_result *PromiseConnection) {

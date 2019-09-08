@@ -531,9 +531,9 @@ func NewNFCReader(options *ReaderOptions) (_result *Reader) {
 	return
 }
 
-// Onreading returning attribute 'onreading' with
+// OnReading returning attribute 'onreading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Reader) Onreading() domcore.EventHandlerFunc {
+func (_this *Reader) OnReading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreading")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -542,22 +542,9 @@ func (_this *Reader) Onreading() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnreading setting attribute 'onreading' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Reader) SetOnreading(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onreading", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Reader) Onerror() domcore.EventHandlerFunc {
+func (_this *Reader) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -566,17 +553,64 @@ func (_this *Reader) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Reader) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ErrorEvent
+func eventFuncReader_ErrorEvent(listener func(event *ErrorEvent, target *Reader)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ErrorEventFromJS(value)
+		src := ReaderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Reader) AddEventError(listener func(event *ErrorEvent, currentTarget *Reader)) js.Func {
+	cb := eventFuncReader_ErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Reader) SetOnError(listener func(event *ErrorEvent, currentTarget *Reader)) js.Func {
+	cb := eventFuncReader_ErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: ReadingEvent
+func eventFuncReader_ReadingEvent(listener func(event *ReadingEvent, target *Reader)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ReadingEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ReadingEventFromJS(value)
+		src := ReaderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddReading is adding doing AddEventListener for 'Reading' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Reader) AddEventReading(listener func(event *ReadingEvent, currentTarget *Reader)) js.Func {
+	cb := eventFuncReader_ReadingEvent(listener)
+	_this.Value_JS.Call("addEventListener", "reading", cb)
+	return cb
+}
+
+// SetOnReading is assigning a function to 'onreading'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Reader) SetOnReading(listener func(event *ReadingEvent, currentTarget *Reader)) js.Func {
+	cb := eventFuncReader_ReadingEvent(listener)
+	_this.Value_JS.Set("onreading", cb)
+	return cb
 }
 
 func (_this *Reader) Start() {

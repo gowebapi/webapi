@@ -248,9 +248,9 @@ func (_this *PictureInPictureWindow) Height() int {
 	return ret
 }
 
-// Onresize returning attribute 'onresize' with
+// OnResize returning attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PictureInPictureWindow) Onresize() domcore.EventHandlerFunc {
+func (_this *PictureInPictureWindow) OnResize() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -259,17 +259,34 @@ func (_this *PictureInPictureWindow) Onresize() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnresize setting attribute 'onresize' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PictureInPictureWindow) SetOnresize(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncPictureInPictureWindow_domcore_Event(listener func(event *domcore.Event, target *PictureInPictureWindow)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := PictureInPictureWindowFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onresize", input)
+	return js.FuncOf(fn)
+}
+
+// AddResize is adding doing AddEventListener for 'Resize' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PictureInPictureWindow) AddEventResize(listener func(event *domcore.Event, currentTarget *PictureInPictureWindow)) js.Func {
+	cb := eventFuncPictureInPictureWindow_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "resize", cb)
+	return cb
+}
+
+// SetOnResize is assigning a function to 'onresize'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PictureInPictureWindow) SetOnResize(listener func(event *domcore.Event, currentTarget *PictureInPictureWindow)) js.Func {
+	cb := eventFuncPictureInPictureWindow_domcore_Event(listener)
+	_this.Value_JS.Set("onresize", cb)
+	return cb
 }
 
 // class: Promise

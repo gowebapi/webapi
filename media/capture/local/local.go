@@ -2400,9 +2400,9 @@ func ConstrainablePatternFromJS(value js.Wrapper) *ConstrainablePattern {
 	return ret
 }
 
-// Onoverconstrained returning attribute 'onoverconstrained' with
+// OnOverConstrained returning attribute 'onoverconstrained' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ConstrainablePattern) Onoverconstrained() domcore.EventHandlerFunc {
+func (_this *ConstrainablePattern) OnOverConstrained() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoverconstrained")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2411,17 +2411,34 @@ func (_this *ConstrainablePattern) Onoverconstrained() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOnoverconstrained setting attribute 'onoverconstrained' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ConstrainablePattern) SetOnoverconstrained(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncConstrainablePattern_domcore_Event(listener func(event *domcore.Event, target *ConstrainablePattern)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ConstrainablePatternFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onoverconstrained", input)
+	return js.FuncOf(fn)
+}
+
+// AddOverConstrained is adding doing AddEventListener for 'OverConstrained' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ConstrainablePattern) AddEventOverConstrained(listener func(event *domcore.Event, currentTarget *ConstrainablePattern)) js.Func {
+	cb := eventFuncConstrainablePattern_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "overconstrained", cb)
+	return cb
+}
+
+// SetOnOverConstrained is assigning a function to 'onoverconstrained'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ConstrainablePattern) SetOnOverConstrained(listener func(event *domcore.Event, currentTarget *ConstrainablePattern)) js.Func {
+	cb := eventFuncConstrainablePattern_domcore_Event(listener)
+	_this.Value_JS.Set("onoverconstrained", cb)
+	return cb
 }
 
 func (_this *ConstrainablePattern) GetCapabilities() (_result *Capabilities) {
@@ -2602,9 +2619,9 @@ func MediaDevicesFromJS(value js.Wrapper) *MediaDevices {
 	return ret
 }
 
-// Ondevicechange returning attribute 'ondevicechange' with
+// OnDeviceChange returning attribute 'ondevicechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaDevices) Ondevicechange() domcore.EventHandlerFunc {
+func (_this *MediaDevices) OnDeviceChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondevicechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2613,17 +2630,34 @@ func (_this *MediaDevices) Ondevicechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndevicechange setting attribute 'ondevicechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaDevices) SetOndevicechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncMediaDevices_domcore_Event(listener func(event *domcore.Event, target *MediaDevices)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := MediaDevicesFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("ondevicechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddDeviceChange is adding doing AddEventListener for 'DeviceChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaDevices) AddEventDeviceChange(listener func(event *domcore.Event, currentTarget *MediaDevices)) js.Func {
+	cb := eventFuncMediaDevices_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "devicechange", cb)
+	return cb
+}
+
+// SetOnDeviceChange is assigning a function to 'ondevicechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaDevices) SetOnDeviceChange(listener func(event *domcore.Event, currentTarget *MediaDevices)) js.Func {
+	cb := eventFuncMediaDevices_domcore_Event(listener)
+	_this.Value_JS.Set("ondevicechange", cb)
+	return cb
 }
 
 func (_this *MediaDevices) EnumerateDevices() (_result *PromiseSequenceMediaDeviceInfo) {
@@ -2748,9 +2782,9 @@ func (_this *MediaStream) Active() bool {
 	return ret
 }
 
-// Onaddtrack returning attribute 'onaddtrack' with
+// OnAddTrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStream) Onaddtrack() domcore.EventHandlerFunc {
+func (_this *MediaStream) OnAddTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2759,22 +2793,9 @@ func (_this *MediaStream) Onaddtrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaddtrack setting attribute 'onaddtrack' with
+// OnRemoveTrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStream) SetOnaddtrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStream) Onremovetrack() domcore.EventHandlerFunc {
+func (_this *MediaStream) OnRemoveTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2783,17 +2804,50 @@ func (_this *MediaStream) Onremovetrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStream) SetOnremovetrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: MediaStreamTrackEvent
+func eventFuncMediaStream_MediaStreamTrackEvent(listener func(event *MediaStreamTrackEvent, target *MediaStream)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MediaStreamTrackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MediaStreamTrackEventFromJS(value)
+		src := MediaStreamFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onremovetrack", input)
+	return js.FuncOf(fn)
+}
+
+// AddAddTrack is adding doing AddEventListener for 'AddTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStream) AddEventAddTrack(listener func(event *MediaStreamTrackEvent, currentTarget *MediaStream)) js.Func {
+	cb := eventFuncMediaStream_MediaStreamTrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "addtrack", cb)
+	return cb
+}
+
+// SetOnAddTrack is assigning a function to 'onaddtrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStream) SetOnAddTrack(listener func(event *MediaStreamTrackEvent, currentTarget *MediaStream)) js.Func {
+	cb := eventFuncMediaStream_MediaStreamTrackEvent(listener)
+	_this.Value_JS.Set("onaddtrack", cb)
+	return cb
+}
+
+// AddRemoveTrack is adding doing AddEventListener for 'RemoveTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStream) AddEventRemoveTrack(listener func(event *MediaStreamTrackEvent, currentTarget *MediaStream)) js.Func {
+	cb := eventFuncMediaStream_MediaStreamTrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "removetrack", cb)
+	return cb
+}
+
+// SetOnRemoveTrack is assigning a function to 'onremovetrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStream) SetOnRemoveTrack(listener func(event *MediaStreamTrackEvent, currentTarget *MediaStream)) js.Func {
+	cb := eventFuncMediaStream_MediaStreamTrackEvent(listener)
+	_this.Value_JS.Set("onremovetrack", cb)
+	return cb
 }
 
 func (_this *MediaStream) GetAudioTracks() (_result []*MediaStreamTrack) {
@@ -2987,9 +3041,9 @@ func (_this *MediaStreamTrack) Muted() bool {
 	return ret
 }
 
-// Onmute returning attribute 'onmute' with
+// OnMute returning attribute 'onmute' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) Onmute() domcore.EventHandlerFunc {
+func (_this *MediaStreamTrack) OnMute() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmute")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2998,41 +3052,15 @@ func (_this *MediaStreamTrack) Onmute() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmute setting attribute 'onmute' with
+// OnUnmute returning attribute 'onunmute' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) SetOnmute(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmute", input)
-}
-
-// Onunmute returning attribute 'onunmute' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) Onunmute() domcore.EventHandlerFunc {
+func (_this *MediaStreamTrack) OnUnmute() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunmute")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnunmute setting attribute 'onunmute' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) SetOnunmute(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onunmute", input)
 }
 
 // ReadyState returning attribute 'readyState' with
@@ -3044,9 +3072,9 @@ func (_this *MediaStreamTrack) ReadyState() MediaStreamTrackState {
 	return ret
 }
 
-// Onended returning attribute 'onended' with
+// OnEnded returning attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) Onended() domcore.EventHandlerFunc {
+func (_this *MediaStreamTrack) OnEnded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3055,41 +3083,15 @@ func (_this *MediaStreamTrack) Onended() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnended setting attribute 'onended' with
+// OnOverConstrained returning attribute 'onoverconstrained' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) SetOnended(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onended", input)
-}
-
-// Onoverconstrained returning attribute 'onoverconstrained' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) Onoverconstrained() domcore.EventHandlerFunc {
+func (_this *MediaStreamTrack) OnOverConstrained() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoverconstrained")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnoverconstrained setting attribute 'onoverconstrained' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaStreamTrack) SetOnoverconstrained(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onoverconstrained", input)
 }
 
 // ContentHint returning attribute 'contentHint' with
@@ -3106,6 +3108,84 @@ func (_this *MediaStreamTrack) ContentHint() string {
 func (_this *MediaStreamTrack) SetContentHint(value string) {
 	input := value
 	_this.Value_JS.Set("contentHint", input)
+}
+
+// event attribute: domcore.Event
+func eventFuncMediaStreamTrack_domcore_Event(listener func(event *domcore.Event, target *MediaStreamTrack)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := MediaStreamTrackFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddEnded is adding doing AddEventListener for 'Ended' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) AddEventEnded(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "ended", cb)
+	return cb
+}
+
+// SetOnEnded is assigning a function to 'onended'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) SetOnEnded(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Set("onended", cb)
+	return cb
+}
+
+// AddMute is adding doing AddEventListener for 'Mute' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) AddEventMute(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "mute", cb)
+	return cb
+}
+
+// SetOnMute is assigning a function to 'onmute'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) SetOnMute(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Set("onmute", cb)
+	return cb
+}
+
+// AddOverConstrained is adding doing AddEventListener for 'OverConstrained' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) AddEventOverConstrained(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "overconstrained", cb)
+	return cb
+}
+
+// SetOnOverConstrained is assigning a function to 'onoverconstrained'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) SetOnOverConstrained(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Set("onoverconstrained", cb)
+	return cb
+}
+
+// AddUnmute is adding doing AddEventListener for 'Unmute' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) AddEventUnmute(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "unmute", cb)
+	return cb
+}
+
+// SetOnUnmute is assigning a function to 'onunmute'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaStreamTrack) SetOnUnmute(listener func(event *domcore.Event, currentTarget *MediaStreamTrack)) js.Func {
+	cb := eventFuncMediaStreamTrack_domcore_Event(listener)
+	_this.Value_JS.Set("onunmute", cb)
+	return cb
 }
 
 func (_this *MediaStreamTrack) Clone() (_result *MediaStreamTrack) {

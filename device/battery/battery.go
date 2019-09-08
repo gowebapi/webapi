@@ -12,6 +12,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.PromiseFinally
@@ -173,9 +174,9 @@ func (_this *BatteryManager) Level() float64 {
 	return ret
 }
 
-// Onchargingchange returning attribute 'onchargingchange' with
+// OnChargingChange returning attribute 'onchargingchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) Onchargingchange() domcore.EventHandlerFunc {
+func (_this *BatteryManager) OnChargingChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchargingchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -184,22 +185,9 @@ func (_this *BatteryManager) Onchargingchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchargingchange setting attribute 'onchargingchange' with
+// OnChargingTimeChange returning attribute 'onchargingtimechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) SetOnchargingchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchargingchange", input)
-}
-
-// Onchargingtimechange returning attribute 'onchargingtimechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) Onchargingtimechange() domcore.EventHandlerFunc {
+func (_this *BatteryManager) OnChargingTimeChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchargingtimechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -208,22 +196,9 @@ func (_this *BatteryManager) Onchargingtimechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchargingtimechange setting attribute 'onchargingtimechange' with
+// OnDischargingTimeChange returning attribute 'ondischargingtimechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) SetOnchargingtimechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchargingtimechange", input)
-}
-
-// Ondischargingtimechange returning attribute 'ondischargingtimechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) Ondischargingtimechange() domcore.EventHandlerFunc {
+func (_this *BatteryManager) OnDischargingTimeChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondischargingtimechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -232,22 +207,9 @@ func (_this *BatteryManager) Ondischargingtimechange() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOndischargingtimechange setting attribute 'ondischargingtimechange' with
+// OnLevelChange returning attribute 'onlevelchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) SetOndischargingtimechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondischargingtimechange", input)
-}
-
-// Onlevelchange returning attribute 'onlevelchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) Onlevelchange() domcore.EventHandlerFunc {
+func (_this *BatteryManager) OnLevelChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlevelchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -256,17 +218,82 @@ func (_this *BatteryManager) Onlevelchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnlevelchange setting attribute 'onlevelchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BatteryManager) SetOnlevelchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncBatteryManager_domcore_Event(listener func(event *domcore.Event, target *BatteryManager)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := BatteryManagerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onlevelchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChargingChange is adding doing AddEventListener for 'ChargingChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) AddEventChargingChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "chargingchange", cb)
+	return cb
+}
+
+// SetOnChargingChange is assigning a function to 'onchargingchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) SetOnChargingChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Set("onchargingchange", cb)
+	return cb
+}
+
+// AddChargingTimeChange is adding doing AddEventListener for 'ChargingTimeChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) AddEventChargingTimeChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "chargingtimechange", cb)
+	return cb
+}
+
+// SetOnChargingTimeChange is assigning a function to 'onchargingtimechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) SetOnChargingTimeChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Set("onchargingtimechange", cb)
+	return cb
+}
+
+// AddDischargingTimeChange is adding doing AddEventListener for 'DischargingTimeChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) AddEventDischargingTimeChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "dischargingtimechange", cb)
+	return cb
+}
+
+// SetOnDischargingTimeChange is assigning a function to 'ondischargingtimechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) SetOnDischargingTimeChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Set("ondischargingtimechange", cb)
+	return cb
+}
+
+// AddLevelChange is adding doing AddEventListener for 'LevelChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) AddEventLevelChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "levelchange", cb)
+	return cb
+}
+
+// SetOnLevelChange is assigning a function to 'onlevelchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BatteryManager) SetOnLevelChange(listener func(event *domcore.Event, currentTarget *BatteryManager)) js.Func {
+	cb := eventFuncBatteryManager_domcore_Event(listener)
+	_this.Value_JS.Set("onlevelchange", cb)
+	return cb
 }
 
 // class: Promise

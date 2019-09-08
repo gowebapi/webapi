@@ -3003,9 +3003,9 @@ func (_this *Sensor) Timestamp() *float64 {
 	return ret
 }
 
-// Onreading returning attribute 'onreading' with
+// OnReading returning attribute 'onreading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) Onreading() domcore.EventHandlerFunc {
+func (_this *Sensor) OnReading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreading")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3014,22 +3014,9 @@ func (_this *Sensor) Onreading() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnreading setting attribute 'onreading' with
+// OnActivate returning attribute 'onactivate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) SetOnreading(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onreading", input)
-}
-
-// Onactivate returning attribute 'onactivate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) Onactivate() domcore.EventHandlerFunc {
+func (_this *Sensor) OnActivate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onactivate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3038,22 +3025,9 @@ func (_this *Sensor) Onactivate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnactivate setting attribute 'onactivate' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) SetOnactivate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onactivate", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) Onerror() domcore.EventHandlerFunc {
+func (_this *Sensor) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3062,17 +3036,80 @@ func (_this *Sensor) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Sensor) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSensor_domcore_Event(listener func(event *domcore.Event, target *Sensor)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SensorFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddActivate is adding doing AddEventListener for 'Activate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) AddEventActivate(listener func(event *domcore.Event, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "activate", cb)
+	return cb
+}
+
+// SetOnActivate is assigning a function to 'onactivate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) SetOnActivate(listener func(event *domcore.Event, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_domcore_Event(listener)
+	_this.Value_JS.Set("onactivate", cb)
+	return cb
+}
+
+// event attribute: SensorErrorEvent
+func eventFuncSensor_SensorErrorEvent(listener func(event *SensorErrorEvent, target *Sensor)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *SensorErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = SensorErrorEventFromJS(value)
+		src := SensorFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) AddEventError(listener func(event *SensorErrorEvent, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_SensorErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) SetOnError(listener func(event *SensorErrorEvent, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_SensorErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddReading is adding doing AddEventListener for 'Reading' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) AddEventReading(listener func(event *domcore.Event, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "reading", cb)
+	return cb
+}
+
+// SetOnReading is assigning a function to 'onreading'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Sensor) SetOnReading(listener func(event *domcore.Event, currentTarget *Sensor)) js.Func {
+	cb := eventFuncSensor_domcore_Event(listener)
+	_this.Value_JS.Set("onreading", cb)
+	return cb
 }
 
 func (_this *Sensor) Start() {

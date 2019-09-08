@@ -9,6 +9,7 @@ import js "github.com/gowebapi/webapi/core/js"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/channel"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/html/media"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/local"
@@ -22,6 +23,7 @@ import (
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// htmlevent.ErrorEvent
 // javascript.ArrayBuffer
 // javascript.Float32Array
 // javascript.Object
@@ -3817,9 +3819,9 @@ func AudioScheduledSourceNodeFromJS(value js.Wrapper) *AudioScheduledSourceNode 
 	return ret
 }
 
-// Onended returning attribute 'onended' with
+// OnEnded returning attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioScheduledSourceNode) Onended() domcore.EventHandlerFunc {
+func (_this *AudioScheduledSourceNode) OnEnded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3828,17 +3830,34 @@ func (_this *AudioScheduledSourceNode) Onended() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnended setting attribute 'onended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioScheduledSourceNode) SetOnended(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncAudioScheduledSourceNode_domcore_Event(listener func(event *domcore.Event, target *AudioScheduledSourceNode)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := AudioScheduledSourceNodeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onended", input)
+	return js.FuncOf(fn)
+}
+
+// AddEnded is adding doing AddEventListener for 'Ended' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioScheduledSourceNode) AddEventEnded(listener func(event *domcore.Event, currentTarget *AudioScheduledSourceNode)) js.Func {
+	cb := eventFuncAudioScheduledSourceNode_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "ended", cb)
+	return cb
+}
+
+// SetOnEnded is assigning a function to 'onended'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioScheduledSourceNode) SetOnEnded(listener func(event *domcore.Event, currentTarget *AudioScheduledSourceNode)) js.Func {
+	cb := eventFuncAudioScheduledSourceNode_domcore_Event(listener)
+	_this.Value_JS.Set("onended", cb)
+	return cb
 }
 
 func (_this *AudioScheduledSourceNode) Start(when *float64) {
@@ -4010,9 +4029,9 @@ func (_this *AudioWorkletNode) Port() *channel.MessagePort {
 	return ret
 }
 
-// Onprocessorerror returning attribute 'onprocessorerror' with
+// OnProcessorError returning attribute 'onprocessorerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioWorkletNode) Onprocessorerror() domcore.EventHandlerFunc {
+func (_this *AudioWorkletNode) OnProcessorError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprocessorerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4021,17 +4040,34 @@ func (_this *AudioWorkletNode) Onprocessorerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnprocessorerror setting attribute 'onprocessorerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioWorkletNode) SetOnprocessorerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: htmlevent.ErrorEvent
+func eventFuncAudioWorkletNode_htmlevent_ErrorEvent(listener func(event *htmlevent.ErrorEvent, target *AudioWorkletNode)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.ErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.ErrorEventFromJS(value)
+		src := AudioWorkletNodeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onprocessorerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddProcessorError is adding doing AddEventListener for 'ProcessorError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioWorkletNode) AddEventProcessorError(listener func(event *htmlevent.ErrorEvent, currentTarget *AudioWorkletNode)) js.Func {
+	cb := eventFuncAudioWorkletNode_htmlevent_ErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "processorerror", cb)
+	return cb
+}
+
+// SetOnProcessorError is assigning a function to 'onprocessorerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioWorkletNode) SetOnProcessorError(listener func(event *htmlevent.ErrorEvent, currentTarget *AudioWorkletNode)) js.Func {
+	cb := eventFuncAudioWorkletNode_htmlevent_ErrorEvent(listener)
+	_this.Value_JS.Set("onprocessorerror", cb)
+	return cb
 }
 
 // class: AudioWorkletProcessor
@@ -4154,9 +4190,9 @@ func (_this *BaseAudioContext) AudioWorklet() *AudioWorklet {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BaseAudioContext) Onstatechange() domcore.EventHandlerFunc {
+func (_this *BaseAudioContext) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4165,17 +4201,34 @@ func (_this *BaseAudioContext) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *BaseAudioContext) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncBaseAudioContext_domcore_Event(listener func(event *domcore.Event, target *BaseAudioContext)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := BaseAudioContextFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *BaseAudioContext) AddEventStateChange(listener func(event *domcore.Event, currentTarget *BaseAudioContext)) js.Func {
+	cb := eventFuncBaseAudioContext_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *BaseAudioContext) SetOnStateChange(listener func(event *domcore.Event, currentTarget *BaseAudioContext)) js.Func {
+	cb := eventFuncBaseAudioContext_domcore_Event(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 func (_this *BaseAudioContext) CreateAnalyser() (_result *AnalyserNode) {
@@ -5351,9 +5404,9 @@ func (_this *OfflineAudioContext) Length() uint {
 	return ret
 }
 
-// Oncomplete returning attribute 'oncomplete' with
+// OnComplete returning attribute 'oncomplete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *OfflineAudioContext) Oncomplete() domcore.EventHandlerFunc {
+func (_this *OfflineAudioContext) OnComplete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncomplete")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5362,17 +5415,34 @@ func (_this *OfflineAudioContext) Oncomplete() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncomplete setting attribute 'oncomplete' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *OfflineAudioContext) SetOncomplete(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: OfflineAudioCompletionEvent
+func eventFuncOfflineAudioContext_OfflineAudioCompletionEvent(listener func(event *OfflineAudioCompletionEvent, target *OfflineAudioContext)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *OfflineAudioCompletionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = OfflineAudioCompletionEventFromJS(value)
+		src := OfflineAudioContextFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("oncomplete", input)
+	return js.FuncOf(fn)
+}
+
+// AddComplete is adding doing AddEventListener for 'Complete' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *OfflineAudioContext) AddEventComplete(listener func(event *OfflineAudioCompletionEvent, currentTarget *OfflineAudioContext)) js.Func {
+	cb := eventFuncOfflineAudioContext_OfflineAudioCompletionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "complete", cb)
+	return cb
+}
+
+// SetOnComplete is assigning a function to 'oncomplete'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *OfflineAudioContext) SetOnComplete(listener func(event *OfflineAudioCompletionEvent, currentTarget *OfflineAudioContext)) js.Func {
+	cb := eventFuncOfflineAudioContext_OfflineAudioCompletionEvent(listener)
+	_this.Value_JS.Set("oncomplete", cb)
+	return cb
 }
 
 func (_this *OfflineAudioContext) StartRendering() (_result *PromiseAudioBuffer) {
@@ -5927,28 +5997,15 @@ func ScriptProcessorNodeFromJS(value js.Wrapper) *ScriptProcessorNode {
 	return ret
 }
 
-// Onaudioprocess returning attribute 'onaudioprocess' with
+// OnAudioProcess returning attribute 'onaudioprocess' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ScriptProcessorNode) Onaudioprocess() domcore.EventHandlerFunc {
+func (_this *ScriptProcessorNode) OnAudioProcess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaudioprocess")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnaudioprocess setting attribute 'onaudioprocess' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ScriptProcessorNode) SetOnaudioprocess(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaudioprocess", input)
 }
 
 // BufferSize returning attribute 'bufferSize' with
@@ -5958,6 +6015,36 @@ func (_this *ScriptProcessorNode) BufferSize() int {
 	value := _this.Value_JS.Get("bufferSize")
 	ret = (value).Int()
 	return ret
+}
+
+// event attribute: AudioProcessingEvent
+func eventFuncScriptProcessorNode_AudioProcessingEvent(listener func(event *AudioProcessingEvent, target *ScriptProcessorNode)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *AudioProcessingEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = AudioProcessingEventFromJS(value)
+		src := ScriptProcessorNodeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddAudioProcess is adding doing AddEventListener for 'AudioProcess' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ScriptProcessorNode) AddEventAudioProcess(listener func(event *AudioProcessingEvent, currentTarget *ScriptProcessorNode)) js.Func {
+	cb := eventFuncScriptProcessorNode_AudioProcessingEvent(listener)
+	_this.Value_JS.Call("addEventListener", "audioprocess", cb)
+	return cb
+}
+
+// SetOnAudioProcess is assigning a function to 'onaudioprocess'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ScriptProcessorNode) SetOnAudioProcess(listener func(event *AudioProcessingEvent, currentTarget *ScriptProcessorNode)) js.Func {
+	cb := eventFuncScriptProcessorNode_AudioProcessingEvent(listener)
+	_this.Value_JS.Set("onaudioprocess", cb)
+	return cb
 }
 
 // class: StereoPannerNode

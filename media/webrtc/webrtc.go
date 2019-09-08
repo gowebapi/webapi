@@ -9,12 +9,14 @@ import js "github.com/gowebapi/webapi/core/js"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
+	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/webidl"
 )
 
 // using following types:
+// channel.MessageEvent
 // domcore.DOMException
 // domcore.Event
 // domcore.EventHandler
@@ -3453,28 +3455,15 @@ func DTMFSenderFromJS(value js.Wrapper) *DTMFSender {
 	return ret
 }
 
-// Ontonechange returning attribute 'ontonechange' with
+// OnToneChange returning attribute 'ontonechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DTMFSender) Ontonechange() domcore.EventHandlerFunc {
+func (_this *DTMFSender) OnToneChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontonechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOntonechange setting attribute 'ontonechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DTMFSender) SetOntonechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontonechange", input)
 }
 
 // CanInsertDTMF returning attribute 'canInsertDTMF' with
@@ -3493,6 +3482,36 @@ func (_this *DTMFSender) ToneBuffer() string {
 	value := _this.Value_JS.Get("toneBuffer")
 	ret = (value).String()
 	return ret
+}
+
+// event attribute: DTMFToneChangeEvent
+func eventFuncDTMFSender_DTMFToneChangeEvent(listener func(event *DTMFToneChangeEvent, target *DTMFSender)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *DTMFToneChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = DTMFToneChangeEventFromJS(value)
+		src := DTMFSenderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddToneChange is adding doing AddEventListener for 'ToneChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DTMFSender) AddEventToneChange(listener func(event *DTMFToneChangeEvent, currentTarget *DTMFSender)) js.Func {
+	cb := eventFuncDTMFSender_DTMFToneChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "tonechange", cb)
+	return cb
+}
+
+// SetOnToneChange is assigning a function to 'ontonechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DTMFSender) SetOnToneChange(listener func(event *DTMFToneChangeEvent, currentTarget *DTMFSender)) js.Func {
+	cb := eventFuncDTMFSender_DTMFToneChangeEvent(listener)
+	_this.Value_JS.Set("ontonechange", cb)
+	return cb
 }
 
 func (_this *DTMFSender) InsertDTMF(tones string, duration *uint, interToneGap *uint) {
@@ -3694,9 +3713,9 @@ func (_this *DataChannel) SetBufferedAmountLowThreshold(value uint) {
 	_this.Value_JS.Set("bufferedAmountLowThreshold", input)
 }
 
-// Onopen returning attribute 'onopen' with
+// OnOpen returning attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) Onopen() domcore.EventHandlerFunc {
+func (_this *DataChannel) OnOpen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3705,22 +3724,9 @@ func (_this *DataChannel) Onopen() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnopen setting attribute 'onopen' with
+// OnBufferedAmountLow returning attribute 'onbufferedamountlow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) SetOnopen(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onopen", input)
-}
-
-// Onbufferedamountlow returning attribute 'onbufferedamountlow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) Onbufferedamountlow() domcore.EventHandlerFunc {
+func (_this *DataChannel) OnBufferedAmountLow() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbufferedamountlow")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3729,22 +3735,9 @@ func (_this *DataChannel) Onbufferedamountlow() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnbufferedamountlow setting attribute 'onbufferedamountlow' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) SetOnbufferedamountlow(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbufferedamountlow", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) Onerror() domcore.EventHandlerFunc {
+func (_this *DataChannel) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3753,22 +3746,9 @@ func (_this *DataChannel) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) Onclose() domcore.EventHandlerFunc {
+func (_this *DataChannel) OnClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3777,41 +3757,15 @@ func (_this *DataChannel) Onclose() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnclose setting attribute 'onclose' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) SetOnclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) Onmessage() domcore.EventHandlerFunc {
+func (_this *DataChannel) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnmessage setting attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DataChannel) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
 }
 
 // BinaryType returning attribute 'binaryType' with
@@ -3828,6 +3782,128 @@ func (_this *DataChannel) BinaryType() string {
 func (_this *DataChannel) SetBinaryType(value string) {
 	input := value
 	_this.Value_JS.Set("binaryType", input)
+}
+
+// event attribute: domcore.Event
+func eventFuncDataChannel_domcore_Event(listener func(event *domcore.Event, target *DataChannel)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := DataChannelFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddBufferedAmountLow is adding doing AddEventListener for 'BufferedAmountLow' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) AddEventBufferedAmountLow(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "bufferedamountlow", cb)
+	return cb
+}
+
+// SetOnBufferedAmountLow is assigning a function to 'onbufferedamountlow'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) SetOnBufferedAmountLow(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Set("onbufferedamountlow", cb)
+	return cb
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) AddEventClose(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) SetOnClose(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// event attribute: ErrorEvent
+func eventFuncDataChannel_ErrorEvent(listener func(event *ErrorEvent, target *DataChannel)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ErrorEventFromJS(value)
+		src := DataChannelFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) AddEventError(listener func(event *ErrorEvent, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_ErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) SetOnError(listener func(event *ErrorEvent, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_ErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncDataChannel_channel_MessageEvent(listener func(event *channel.MessageEvent, target *DataChannel)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := DataChannelFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddOpen is adding doing AddEventListener for 'Open' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) AddEventOpen(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "open", cb)
+	return cb
+}
+
+// SetOnOpen is assigning a function to 'onopen'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DataChannel) SetOnOpen(listener func(event *domcore.Event, currentTarget *DataChannel)) js.Func {
+	cb := eventFuncDataChannel_domcore_Event(listener)
+	_this.Value_JS.Set("onopen", cb)
+	return cb
 }
 
 func (_this *DataChannel) Close() {
@@ -3967,9 +4043,9 @@ func (_this *DtlsTransport) State() DtlsTransportState {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DtlsTransport) Onstatechange() domcore.EventHandlerFunc {
+func (_this *DtlsTransport) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3978,22 +4054,9 @@ func (_this *DtlsTransport) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DtlsTransport) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DtlsTransport) Onerror() domcore.EventHandlerFunc {
+func (_this *DtlsTransport) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4002,17 +4065,64 @@ func (_this *DtlsTransport) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DtlsTransport) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ErrorEvent
+func eventFuncDtlsTransport_ErrorEvent(listener func(event *ErrorEvent, target *DtlsTransport)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ErrorEventFromJS(value)
+		src := DtlsTransportFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DtlsTransport) AddEventError(listener func(event *ErrorEvent, currentTarget *DtlsTransport)) js.Func {
+	cb := eventFuncDtlsTransport_ErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DtlsTransport) SetOnError(listener func(event *ErrorEvent, currentTarget *DtlsTransport)) js.Func {
+	cb := eventFuncDtlsTransport_ErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncDtlsTransport_domcore_Event(listener func(event *domcore.Event, target *DtlsTransport)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := DtlsTransportFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DtlsTransport) AddEventStateChange(listener func(event *domcore.Event, currentTarget *DtlsTransport)) js.Func {
+	cb := eventFuncDtlsTransport_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DtlsTransport) SetOnStateChange(listener func(event *domcore.Event, currentTarget *DtlsTransport)) js.Func {
+	cb := eventFuncDtlsTransport_domcore_Event(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 func (_this *DtlsTransport) GetRemoteCertificates() (_result []*javascript.ArrayBuffer) {
@@ -4378,9 +4488,9 @@ func (_this *IceTransport) GatheringState() IceGathererState {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) Onstatechange() domcore.EventHandlerFunc {
+func (_this *IceTransport) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4389,22 +4499,9 @@ func (_this *IceTransport) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
+// OnGatheringStateChange returning attribute 'ongatheringstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
-}
-
-// Ongatheringstatechange returning attribute 'ongatheringstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) Ongatheringstatechange() domcore.EventHandlerFunc {
+func (_this *IceTransport) OnGatheringStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongatheringstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4413,22 +4510,9 @@ func (_this *IceTransport) Ongatheringstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOngatheringstatechange setting attribute 'ongatheringstatechange' with
+// OnSelectedCandidatePairChange returning attribute 'onselectedcandidatepairchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) SetOngatheringstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ongatheringstatechange", input)
-}
-
-// Onselectedcandidatepairchange returning attribute 'onselectedcandidatepairchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) Onselectedcandidatepairchange() domcore.EventHandlerFunc {
+func (_this *IceTransport) OnSelectedCandidatePairChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectedcandidatepairchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4437,17 +4521,66 @@ func (_this *IceTransport) Onselectedcandidatepairchange() domcore.EventHandlerF
 	return ret
 }
 
-// SetOnselectedcandidatepairchange setting attribute 'onselectedcandidatepairchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *IceTransport) SetOnselectedcandidatepairchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncIceTransport_domcore_Event(listener func(event *domcore.Event, target *IceTransport)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := IceTransportFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onselectedcandidatepairchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddGatheringStateChange is adding doing AddEventListener for 'GatheringStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) AddEventGatheringStateChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "gatheringstatechange", cb)
+	return cb
+}
+
+// SetOnGatheringStateChange is assigning a function to 'ongatheringstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) SetOnGatheringStateChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Set("ongatheringstatechange", cb)
+	return cb
+}
+
+// AddSelectedCandidatePairChange is adding doing AddEventListener for 'SelectedCandidatePairChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) AddEventSelectedCandidatePairChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "selectedcandidatepairchange", cb)
+	return cb
+}
+
+// SetOnSelectedCandidatePairChange is assigning a function to 'onselectedcandidatepairchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) SetOnSelectedCandidatePairChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Set("onselectedcandidatepairchange", cb)
+	return cb
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) AddEventStateChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *IceTransport) SetOnStateChange(listener func(event *domcore.Event, currentTarget *IceTransport)) js.Func {
+	cb := eventFuncIceTransport_domcore_Event(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 func (_this *IceTransport) GetLocalCandidates() (_result []*IceCandidate) {
@@ -4735,9 +4868,9 @@ func (_this *PeerConnection) CanTrickleIceCandidates() *bool {
 	return ret
 }
 
-// Onnegotiationneeded returning attribute 'onnegotiationneeded' with
+// OnNegotiationNeeded returning attribute 'onnegotiationneeded' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onnegotiationneeded() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnNegotiationNeeded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnegotiationneeded")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4746,22 +4879,9 @@ func (_this *PeerConnection) Onnegotiationneeded() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnnegotiationneeded setting attribute 'onnegotiationneeded' with
+// OnIceCandidate returning attribute 'onicecandidate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnnegotiationneeded(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onnegotiationneeded", input)
-}
-
-// Onicecandidate returning attribute 'onicecandidate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onicecandidate() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnIceCandidate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onicecandidate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4770,22 +4890,9 @@ func (_this *PeerConnection) Onicecandidate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnicecandidate setting attribute 'onicecandidate' with
+// OnIceCandidateError returning attribute 'onicecandidateerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnicecandidate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onicecandidate", input)
-}
-
-// Onicecandidateerror returning attribute 'onicecandidateerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onicecandidateerror() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnIceCandidateError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onicecandidateerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4794,22 +4901,9 @@ func (_this *PeerConnection) Onicecandidateerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnicecandidateerror setting attribute 'onicecandidateerror' with
+// OnSignalingStateChange returning attribute 'onsignalingstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnicecandidateerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onicecandidateerror", input)
-}
-
-// Onsignalingstatechange returning attribute 'onsignalingstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onsignalingstatechange() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnSignalingStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsignalingstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4818,22 +4912,9 @@ func (_this *PeerConnection) Onsignalingstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsignalingstatechange setting attribute 'onsignalingstatechange' with
+// OnIceConnectionStateChange returning attribute 'oniceconnectionstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnsignalingstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsignalingstatechange", input)
-}
-
-// Oniceconnectionstatechange returning attribute 'oniceconnectionstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Oniceconnectionstatechange() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnIceConnectionStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oniceconnectionstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4842,22 +4923,9 @@ func (_this *PeerConnection) Oniceconnectionstatechange() domcore.EventHandlerFu
 	return ret
 }
 
-// SetOniceconnectionstatechange setting attribute 'oniceconnectionstatechange' with
+// OnIceGatheringStateChange returning attribute 'onicegatheringstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOniceconnectionstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oniceconnectionstatechange", input)
-}
-
-// Onicegatheringstatechange returning attribute 'onicegatheringstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onicegatheringstatechange() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnIceGatheringStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onicegatheringstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4866,22 +4934,9 @@ func (_this *PeerConnection) Onicegatheringstatechange() domcore.EventHandlerFun
 	return ret
 }
 
-// SetOnicegatheringstatechange setting attribute 'onicegatheringstatechange' with
+// OnConnectionStateChange returning attribute 'onconnectionstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnicegatheringstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onicegatheringstatechange", input)
-}
-
-// Onconnectionstatechange returning attribute 'onconnectionstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onconnectionstatechange() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnConnectionStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnectionstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4890,41 +4945,15 @@ func (_this *PeerConnection) Onconnectionstatechange() domcore.EventHandlerFunc 
 	return ret
 }
 
-// SetOnconnectionstatechange setting attribute 'onconnectionstatechange' with
+// OnTrack returning attribute 'ontrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnconnectionstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onconnectionstatechange", input)
-}
-
-// Ontrack returning attribute 'ontrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Ontrack() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOntrack setting attribute 'ontrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOntrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontrack", input)
 }
 
 // Sctp returning attribute 'sctp' with
@@ -4938,9 +4967,9 @@ func (_this *PeerConnection) Sctp() *SctpTransport {
 	return ret
 }
 
-// Ondatachannel returning attribute 'ondatachannel' with
+// OnDataChannel returning attribute 'ondatachannel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Ondatachannel() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnDataChannel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondatachannel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4949,22 +4978,9 @@ func (_this *PeerConnection) Ondatachannel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndatachannel setting attribute 'ondatachannel' with
+// OnStatsEnded returning attribute 'onstatsended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOndatachannel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondatachannel", input)
-}
-
-// Onstatsended returning attribute 'onstatsended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) Onstatsended() domcore.EventHandlerFunc {
+func (_this *PeerConnection) OnStatsEnded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatsended")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -4973,17 +4989,248 @@ func (_this *PeerConnection) Onstatsended() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatsended setting attribute 'onstatsended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PeerConnection) SetOnstatsended(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncPeerConnection_domcore_Event(listener func(event *domcore.Event, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onstatsended", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnectionStateChange is adding doing AddEventListener for 'ConnectionStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventConnectionStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "connectionstatechange", cb)
+	return cb
+}
+
+// SetOnConnectionStateChange is assigning a function to 'onconnectionstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnConnectionStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onconnectionstatechange", cb)
+	return cb
+}
+
+// event attribute: DataChannelEvent
+func eventFuncPeerConnection_DataChannelEvent(listener func(event *DataChannelEvent, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *DataChannelEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = DataChannelEventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddDataChannel is adding doing AddEventListener for 'DataChannel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventDataChannel(listener func(event *DataChannelEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_DataChannelEvent(listener)
+	_this.Value_JS.Call("addEventListener", "datachannel", cb)
+	return cb
+}
+
+// SetOnDataChannel is assigning a function to 'ondatachannel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnDataChannel(listener func(event *DataChannelEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_DataChannelEvent(listener)
+	_this.Value_JS.Set("ondatachannel", cb)
+	return cb
+}
+
+// event attribute: PeerConnectionIceEvent
+func eventFuncPeerConnection_PeerConnectionIceEvent(listener func(event *PeerConnectionIceEvent, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *PeerConnectionIceEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = PeerConnectionIceEventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddIceCandidate is adding doing AddEventListener for 'IceCandidate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventIceCandidate(listener func(event *PeerConnectionIceEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_PeerConnectionIceEvent(listener)
+	_this.Value_JS.Call("addEventListener", "icecandidate", cb)
+	return cb
+}
+
+// SetOnIceCandidate is assigning a function to 'onicecandidate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnIceCandidate(listener func(event *PeerConnectionIceEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_PeerConnectionIceEvent(listener)
+	_this.Value_JS.Set("onicecandidate", cb)
+	return cb
+}
+
+// event attribute: PeerConnectionIceErrorEvent
+func eventFuncPeerConnection_PeerConnectionIceErrorEvent(listener func(event *PeerConnectionIceErrorEvent, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *PeerConnectionIceErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = PeerConnectionIceErrorEventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddIceCandidateError is adding doing AddEventListener for 'IceCandidateError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventIceCandidateError(listener func(event *PeerConnectionIceErrorEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_PeerConnectionIceErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "icecandidateerror", cb)
+	return cb
+}
+
+// SetOnIceCandidateError is assigning a function to 'onicecandidateerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnIceCandidateError(listener func(event *PeerConnectionIceErrorEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_PeerConnectionIceErrorEvent(listener)
+	_this.Value_JS.Set("onicecandidateerror", cb)
+	return cb
+}
+
+// AddIceConnectionStateChange is adding doing AddEventListener for 'IceConnectionStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventIceConnectionStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "iceconnectionstatechange", cb)
+	return cb
+}
+
+// SetOnIceConnectionStateChange is assigning a function to 'oniceconnectionstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnIceConnectionStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Set("oniceconnectionstatechange", cb)
+	return cb
+}
+
+// AddIceGatheringStateChange is adding doing AddEventListener for 'IceGatheringStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventIceGatheringStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "icegatheringstatechange", cb)
+	return cb
+}
+
+// SetOnIceGatheringStateChange is assigning a function to 'onicegatheringstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnIceGatheringStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onicegatheringstatechange", cb)
+	return cb
+}
+
+// AddNegotiationNeeded is adding doing AddEventListener for 'NegotiationNeeded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventNegotiationNeeded(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "negotiationneeded", cb)
+	return cb
+}
+
+// SetOnNegotiationNeeded is assigning a function to 'onnegotiationneeded'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnNegotiationNeeded(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onnegotiationneeded", cb)
+	return cb
+}
+
+// AddSignalingStateChange is adding doing AddEventListener for 'SignalingStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventSignalingStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "signalingstatechange", cb)
+	return cb
+}
+
+// SetOnSignalingStateChange is assigning a function to 'onsignalingstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnSignalingStateChange(listener func(event *domcore.Event, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_domcore_Event(listener)
+	_this.Value_JS.Set("onsignalingstatechange", cb)
+	return cb
+}
+
+// event attribute: StatsEvent
+func eventFuncPeerConnection_StatsEvent(listener func(event *StatsEvent, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *StatsEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = StatsEventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddStatsEnded is adding doing AddEventListener for 'StatsEnded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventStatsEnded(listener func(event *StatsEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_StatsEvent(listener)
+	_this.Value_JS.Call("addEventListener", "statsended", cb)
+	return cb
+}
+
+// SetOnStatsEnded is assigning a function to 'onstatsended'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnStatsEnded(listener func(event *StatsEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_StatsEvent(listener)
+	_this.Value_JS.Set("onstatsended", cb)
+	return cb
+}
+
+// event attribute: TrackEvent
+func eventFuncPeerConnection_TrackEvent(listener func(event *TrackEvent, target *PeerConnection)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *TrackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = TrackEventFromJS(value)
+		src := PeerConnectionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddTrack is adding doing AddEventListener for 'Track' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) AddEventTrack(listener func(event *TrackEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "track", cb)
+	return cb
+}
+
+// SetOnTrack is assigning a function to 'ontrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PeerConnection) SetOnTrack(listener func(event *TrackEvent, currentTarget *PeerConnection)) js.Func {
+	cb := eventFuncPeerConnection_TrackEvent(listener)
+	_this.Value_JS.Set("ontrack", cb)
+	return cb
 }
 
 func (_this *PeerConnection) CreateOffer(options *OfferOptions) (_result *PromiseSessionDescriptionInit) {
@@ -6387,9 +6634,9 @@ func (_this *SctpTransport) MaxChannels() *int {
 	return ret
 }
 
-// Onstatechange returning attribute 'onstatechange' with
+// OnStateChange returning attribute 'onstatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SctpTransport) Onstatechange() domcore.EventHandlerFunc {
+func (_this *SctpTransport) OnStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -6398,17 +6645,34 @@ func (_this *SctpTransport) Onstatechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstatechange setting attribute 'onstatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SctpTransport) SetOnstatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSctpTransport_domcore_Event(listener func(event *domcore.Event, target *SctpTransport)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SctpTransportFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onstatechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddStateChange is adding doing AddEventListener for 'StateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SctpTransport) AddEventStateChange(listener func(event *domcore.Event, currentTarget *SctpTransport)) js.Func {
+	cb := eventFuncSctpTransport_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "statechange", cb)
+	return cb
+}
+
+// SetOnStateChange is assigning a function to 'onstatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SctpTransport) SetOnStateChange(listener func(event *domcore.Event, currentTarget *SctpTransport)) js.Func {
+	cb := eventFuncSctpTransport_domcore_Event(listener)
+	_this.Value_JS.Set("onstatechange", cb)
+	return cb
 }
 
 // class: RTCSessionDescription

@@ -568,9 +568,9 @@ func (_this *AbortSignal) Aborted() bool {
 	return ret
 }
 
-// Onabort returning attribute 'onabort' with
+// OnAbort returning attribute 'onabort' with
 // type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) Onabort() EventHandlerFunc {
+func (_this *AbortSignal) OnAbort() EventHandlerFunc {
 	var ret EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -579,17 +579,34 @@ func (_this *AbortSignal) Onabort() EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
-// type EventHandler (idl: EventHandlerNonNull).
-func (_this *AbortSignal) SetOnabort(value *EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: Event
+func eventFuncAbortSignal_Event(listener func(event *Event, target *AbortSignal)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = EventFromJS(value)
+		src := AbortSignalFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AbortSignal) AddEventAbort(listener func(event *Event, currentTarget *AbortSignal)) js.Func {
+	cb := eventFuncAbortSignal_Event(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AbortSignal) SetOnAbort(listener func(event *Event, currentTarget *AbortSignal)) js.Func {
+	cb := eventFuncAbortSignal_Event(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
 }
 
 // class: CustomEvent

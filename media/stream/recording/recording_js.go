@@ -350,9 +350,9 @@ func (_this *MediaRecorder) State() RecordingState {
 	return ret
 }
 
-// Onstart returning attribute 'onstart' with
+// OnStart returning attribute 'onstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Onstart() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -361,22 +361,9 @@ func (_this *MediaRecorder) Onstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstart setting attribute 'onstart' with
+// OnStop returning attribute 'onstop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOnstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstart", input)
-}
-
-// Onstop returning attribute 'onstop' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Onstop() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnStop() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstop")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -385,22 +372,9 @@ func (_this *MediaRecorder) Onstop() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstop setting attribute 'onstop' with
+// OnDataAvailable returning attribute 'ondataavailable' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOnstop(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstop", input)
-}
-
-// Ondataavailable returning attribute 'ondataavailable' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Ondataavailable() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnDataAvailable() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondataavailable")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -409,22 +383,9 @@ func (_this *MediaRecorder) Ondataavailable() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndataavailable setting attribute 'ondataavailable' with
+// OnPause returning attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOndataavailable(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondataavailable", input)
-}
-
-// Onpause returning attribute 'onpause' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Onpause() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnPause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -433,22 +394,9 @@ func (_this *MediaRecorder) Onpause() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpause setting attribute 'onpause' with
+// OnResume returning attribute 'onresume' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOnpause(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpause", input)
-}
-
-// Onresume returning attribute 'onresume' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Onresume() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnResume() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresume")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -457,41 +405,15 @@ func (_this *MediaRecorder) Onresume() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnresume setting attribute 'onresume' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOnresume(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onresume", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) Onerror() domcore.EventHandlerFunc {
+func (_this *MediaRecorder) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaRecorder) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
 }
 
 // VideoBitsPerSecond returning attribute 'videoBitsPerSecond' with
@@ -510,6 +432,144 @@ func (_this *MediaRecorder) AudioBitsPerSecond() uint {
 	value := _this.Value_JS.Get("audioBitsPerSecond")
 	ret = (uint)((value).Int())
 	return ret
+}
+
+// event attribute: BlobEvent
+func eventFuncMediaRecorder_BlobEvent(listener func(event *BlobEvent, target *MediaRecorder)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *BlobEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = BlobEventFromJS(value)
+		src := MediaRecorderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddDataAvailable is adding doing AddEventListener for 'DataAvailable' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventDataAvailable(listener func(event *BlobEvent, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_BlobEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dataavailable", cb)
+	return cb
+}
+
+// SetOnDataAvailable is assigning a function to 'ondataavailable'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnDataAvailable(listener func(event *BlobEvent, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_BlobEvent(listener)
+	_this.Value_JS.Set("ondataavailable", cb)
+	return cb
+}
+
+// event attribute: MediaRecorderErrorEvent
+func eventFuncMediaRecorder_MediaRecorderErrorEvent(listener func(event *MediaRecorderErrorEvent, target *MediaRecorder)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *MediaRecorderErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = MediaRecorderErrorEventFromJS(value)
+		src := MediaRecorderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventError(listener func(event *MediaRecorderErrorEvent, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_MediaRecorderErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnError(listener func(event *MediaRecorderErrorEvent, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_MediaRecorderErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncMediaRecorder_domcore_Event(listener func(event *domcore.Event, target *MediaRecorder)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := MediaRecorderFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPause is adding doing AddEventListener for 'Pause' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventPause(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "pause", cb)
+	return cb
+}
+
+// SetOnPause is assigning a function to 'onpause'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnPause(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Set("onpause", cb)
+	return cb
+}
+
+// AddResume is adding doing AddEventListener for 'Resume' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventResume(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "resume", cb)
+	return cb
+}
+
+// SetOnResume is assigning a function to 'onresume'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnResume(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Set("onresume", cb)
+	return cb
+}
+
+// AddStart is adding doing AddEventListener for 'Start' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventStart(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "start", cb)
+	return cb
+}
+
+// SetOnStart is assigning a function to 'onstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnStart(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Set("onstart", cb)
+	return cb
+}
+
+// AddStop is adding doing AddEventListener for 'Stop' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) AddEventStop(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "stop", cb)
+	return cb
+}
+
+// SetOnStop is assigning a function to 'onstop'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaRecorder) SetOnStop(listener func(event *domcore.Event, currentTarget *MediaRecorder)) js.Func {
+	cb := eventFuncMediaRecorder_domcore_Event(listener)
+	_this.Value_JS.Set("onstop", cb)
+	return cb
 }
 
 func (_this *MediaRecorder) Start(timeslice *uint) {

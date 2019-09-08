@@ -8,6 +8,7 @@ import (
 	"github.com/gowebapi/webapi/clipboard"
 	"github.com/gowebapi/webapi/communication/bluetooth"
 	"github.com/gowebapi/webapi/communication/netinfo"
+	"github.com/gowebapi/webapi/communication/xhr"
 	"github.com/gowebapi/webapi/crypto/credential"
 	"github.com/gowebapi/webapi/device/battery"
 	"github.com/gowebapi/webapi/device/gamepad"
@@ -21,6 +22,8 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/graphics/presentation"
+	"github.com/gowebapi/webapi/html/channel"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/media/capture/local"
@@ -36,6 +39,7 @@ import (
 // battery.PromiseBatteryManager
 // bluetooth.Bluetooth
 // capabilities.MediaCapabilities
+// channel.MessageEvent
 // clipboard.Clipboard
 // credential.CredentialsContainer
 // dom.Node
@@ -47,6 +51,7 @@ import (
 // encrypted.MediaKeySystemConfiguration
 // encrypted.PromiseMediaKeySystemAccess
 // gamepad.Gamepad
+// htmlevent.ErrorEvent
 // javascript.FrozenArray
 // javascript.PromiseVoid
 // keyboard.Keyboard
@@ -69,6 +74,7 @@ import (
 // wakelock.WakeLockType
 // webvr.PromiseSequenceDisplay
 // webxr.XR
+// xhr.ProgressEvent
 
 // source idl files:
 // html.idl
@@ -257,87 +263,6 @@ func ImageBitmapRenderingContextSettingsFromJS(value js.Wrapper) *ImageBitmapRen
 	return &out
 }
 
-// dictionary: StorageEventInit
-type StorageEventInit struct {
-	Bubbles     bool
-	Cancelable  bool
-	Composed    bool
-	Key         *string
-	OldValue    *string
-	NewValue    *string
-	Url         string
-	StorageArea *Storage
-}
-
-// JSValue is allocating a new javasript object and copy
-// all values
-func (_this *StorageEventInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.Bubbles
-	out.Set("bubbles", value0)
-	value1 := _this.Cancelable
-	out.Set("cancelable", value1)
-	value2 := _this.Composed
-	out.Set("composed", value2)
-	value3 := _this.Key
-	out.Set("key", value3)
-	value4 := _this.OldValue
-	out.Set("oldValue", value4)
-	value5 := _this.NewValue
-	out.Set("newValue", value5)
-	value6 := _this.Url
-	out.Set("url", value6)
-	value7 := _this.StorageArea.JSValue()
-	out.Set("storageArea", value7)
-	return out
-}
-
-// StorageEventInitFromJS is allocating a new
-// StorageEventInit object and copy all values from
-// input javascript object
-func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
-	input := value.JSValue()
-	var out StorageEventInit
-	var (
-		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
-		value1 bool     // javascript: boolean {cancelable Cancelable cancelable}
-		value2 bool     // javascript: boolean {composed Composed composed}
-		value3 *string  // javascript: DOMString {key Key key}
-		value4 *string  // javascript: DOMString {oldValue OldValue oldValue}
-		value5 *string  // javascript: DOMString {newValue NewValue newValue}
-		value6 string   // javascript: USVString {url Url url}
-		value7 *Storage // javascript: Storage {storageArea StorageArea storageArea}
-	)
-	value0 = (input.Get("bubbles")).Bool()
-	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
-	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
-	out.Composed = value2
-	if input.Get("key").Type() != js.TypeNull && input.Get("key").Type() != js.TypeUndefined {
-		__tmp := (input.Get("key")).String()
-		value3 = &__tmp
-	}
-	out.Key = value3
-	if input.Get("oldValue").Type() != js.TypeNull && input.Get("oldValue").Type() != js.TypeUndefined {
-		__tmp := (input.Get("oldValue")).String()
-		value4 = &__tmp
-	}
-	out.OldValue = value4
-	if input.Get("newValue").Type() != js.TypeNull && input.Get("newValue").Type() != js.TypeUndefined {
-		__tmp := (input.Get("newValue")).String()
-		value5 = &__tmp
-	}
-	out.NewValue = value5
-	value6 = (input.Get("url")).String()
-	out.Url = value6
-	if input.Get("storageArea").Type() != js.TypeNull && input.Get("storageArea").Type() != js.TypeUndefined {
-		value7 = StorageFromJS(input.Get("storageArea"))
-	}
-	out.StorageArea = value7
-	return &out
-}
-
 // class: ApplicationCache
 type ApplicationCache struct {
 	domcore.EventTarget
@@ -372,9 +297,9 @@ func (_this *ApplicationCache) Status() int {
 	return ret
 }
 
-// Onchecking returning attribute 'onchecking' with
+// OnChecking returning attribute 'onchecking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onchecking() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnChecking() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchecking")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -383,22 +308,9 @@ func (_this *ApplicationCache) Onchecking() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchecking setting attribute 'onchecking' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnchecking(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchecking", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onerror() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -407,22 +319,9 @@ func (_this *ApplicationCache) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnNoupdate returning attribute 'onnoupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onnoupdate returning attribute 'onnoupdate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onnoupdate() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnNoupdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onnoupdate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -431,22 +330,9 @@ func (_this *ApplicationCache) Onnoupdate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnnoupdate setting attribute 'onnoupdate' with
+// OnDownloading returning attribute 'ondownloading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnnoupdate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onnoupdate", input)
-}
-
-// Ondownloading returning attribute 'ondownloading' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Ondownloading() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnDownloading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondownloading")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -455,22 +341,9 @@ func (_this *ApplicationCache) Ondownloading() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndownloading setting attribute 'ondownloading' with
+// OnProgress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOndownloading(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondownloading", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onprogress() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnProgress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -479,22 +352,9 @@ func (_this *ApplicationCache) Onprogress() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnprogress setting attribute 'onprogress' with
+// OnUpdateready returning attribute 'onupdateready' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnprogress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onupdateready returning attribute 'onupdateready' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onupdateready() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnUpdateready() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdateready")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -503,22 +363,9 @@ func (_this *ApplicationCache) Onupdateready() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnupdateready setting attribute 'onupdateready' with
+// OnCached returning attribute 'oncached' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnupdateready(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onupdateready", input)
-}
-
-// Oncached returning attribute 'oncached' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Oncached() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnCached() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncached")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -527,22 +374,9 @@ func (_this *ApplicationCache) Oncached() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncached setting attribute 'oncached' with
+// OnObsolete returning attribute 'onobsolete' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOncached(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncached", input)
-}
-
-// Onobsolete returning attribute 'onobsolete' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) Onobsolete() domcore.EventHandlerFunc {
+func (_this *ApplicationCache) OnObsolete() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onobsolete")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -551,17 +385,160 @@ func (_this *ApplicationCache) Onobsolete() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnobsolete setting attribute 'onobsolete' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ApplicationCache) SetOnobsolete(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncApplicationCache_domcore_Event(listener func(event *domcore.Event, target *ApplicationCache)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := ApplicationCacheFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onobsolete", input)
+	return js.FuncOf(fn)
+}
+
+// AddCached is adding doing AddEventListener for 'Cached' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventCached(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "cached", cb)
+	return cb
+}
+
+// SetOnCached is assigning a function to 'oncached'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnCached(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("oncached", cb)
+	return cb
+}
+
+// AddChecking is adding doing AddEventListener for 'Checking' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventChecking(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "checking", cb)
+	return cb
+}
+
+// SetOnChecking is assigning a function to 'onchecking'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnChecking(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("onchecking", cb)
+	return cb
+}
+
+// AddDownloading is adding doing AddEventListener for 'Downloading' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventDownloading(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "downloading", cb)
+	return cb
+}
+
+// SetOnDownloading is assigning a function to 'ondownloading'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnDownloading(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("ondownloading", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventError(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnError(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddNoupdate is adding doing AddEventListener for 'Noupdate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventNoupdate(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "noupdate", cb)
+	return cb
+}
+
+// SetOnNoupdate is assigning a function to 'onnoupdate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnNoupdate(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("onnoupdate", cb)
+	return cb
+}
+
+// AddObsolete is adding doing AddEventListener for 'Obsolete' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventObsolete(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "obsolete", cb)
+	return cb
+}
+
+// SetOnObsolete is assigning a function to 'onobsolete'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnObsolete(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("onobsolete", cb)
+	return cb
+}
+
+// event attribute: xhr.ProgressEvent
+func eventFuncApplicationCache_xhr_ProgressEvent(listener func(event *xhr.ProgressEvent, target *ApplicationCache)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *xhr.ProgressEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = xhr.ProgressEventFromJS(value)
+		src := ApplicationCacheFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddProgress is adding doing AddEventListener for 'Progress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventProgress(listener func(event *xhr.ProgressEvent, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "progress", cb)
+	return cb
+}
+
+// SetOnProgress is assigning a function to 'onprogress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnProgress(listener func(event *xhr.ProgressEvent, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onprogress", cb)
+	return cb
+}
+
+// AddUpdateready is adding doing AddEventListener for 'Updateready' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) AddEventUpdateready(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "updateready", cb)
+	return cb
+}
+
+// SetOnUpdateready is assigning a function to 'onupdateready'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ApplicationCache) SetOnUpdateready(listener func(event *domcore.Event, currentTarget *ApplicationCache)) js.Func {
+	cb := eventFuncApplicationCache_domcore_Event(listener)
+	_this.Value_JS.Set("onupdateready", cb)
+	return cb
 }
 
 func (_this *ApplicationCache) Update() {
@@ -787,9 +764,9 @@ func (_this *EventSource) ReadyState() int {
 	return ret
 }
 
-// Onopen returning attribute 'onopen' with
+// OnOpen returning attribute 'onopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onopen() domcore.EventHandlerFunc {
+func (_this *EventSource) OnOpen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onopen")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -798,22 +775,9 @@ func (_this *EventSource) Onopen() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnopen setting attribute 'onopen' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnopen(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onopen", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onmessage() domcore.EventHandlerFunc {
+func (_this *EventSource) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -822,22 +786,9 @@ func (_this *EventSource) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) Onerror() domcore.EventHandlerFunc {
+func (_this *EventSource) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -846,17 +797,94 @@ func (_this *EventSource) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *EventSource) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: htmlevent.ErrorEvent
+func eventFuncEventSource_htmlevent_ErrorEvent(listener func(event *htmlevent.ErrorEvent, target *EventSource)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.ErrorEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.ErrorEventFromJS(value)
+		src := EventSourceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) AddEventError(listener func(event *htmlevent.ErrorEvent, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_htmlevent_ErrorEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) SetOnError(listener func(event *htmlevent.ErrorEvent, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_htmlevent_ErrorEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncEventSource_channel_MessageEvent(listener func(event *channel.MessageEvent, target *EventSource)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := EventSourceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncEventSource_domcore_Event(listener func(event *domcore.Event, target *EventSource)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := EventSourceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddOpen is adding doing AddEventListener for 'Open' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) AddEventOpen(listener func(event *domcore.Event, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "open", cb)
+	return cb
+}
+
+// SetOnOpen is assigning a function to 'onopen'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *EventSource) SetOnOpen(listener func(event *domcore.Event, currentTarget *EventSource)) js.Func {
+	cb := eventFuncEventSource_domcore_Event(listener)
+	_this.Value_JS.Set("onopen", cb)
+	return cb
 }
 
 func (_this *EventSource) Close() {
@@ -2282,299 +2310,4 @@ func (_this *RadioNodeList) Value() string {
 func (_this *RadioNodeList) SetValue(value string) {
 	input := value
 	_this.Value_JS.Set("value", input)
-}
-
-// class: Storage
-type Storage struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-func (_this *Storage) JSValue() js.Value {
-	return _this.Value_JS
-}
-
-// StorageFromJS is casting a js.Wrapper into Storage.
-func StorageFromJS(value js.Wrapper) *Storage {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &Storage{}
-	ret.Value_JS = input
-	return ret
-}
-
-// Length returning attribute 'length' with
-// type uint (idl: unsigned long).
-func (_this *Storage) Length() uint {
-	var ret uint
-	value := _this.Value_JS.Get("length")
-	ret = (uint)((value).Int())
-	return ret
-}
-
-func (_this *Storage) Get(key string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Storage) Set(key string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) Delete(key string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("removeItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) Key(index uint) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := index
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("key", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Storage) GetItem(key string) (_result *string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getItem", _args[0:_end]...)
-	var (
-		_converted *string // javascript: DOMString _what_return_name
-	)
-	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
-		__tmp := (_returned).String()
-		_converted = &__tmp
-	}
-	_result = _converted
-	return
-}
-
-func (_this *Storage) SetItem(key string, value string) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_p1 := value
-	_args[1] = _p1
-	_end++
-	_this.Value_JS.Call("setItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) RemoveItem(key string) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := key
-	_args[0] = _p0
-	_end++
-	_this.Value_JS.Call("removeItem", _args[0:_end]...)
-	return
-}
-
-func (_this *Storage) Clear() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("clear", _args[0:_end]...)
-	return
-}
-
-// class: StorageEvent
-type StorageEvent struct {
-	domcore.Event
-}
-
-// StorageEventFromJS is casting a js.Wrapper into StorageEvent.
-func StorageEventFromJS(value js.Wrapper) *StorageEvent {
-	input := value.JSValue()
-	if input.Type() == js.TypeNull {
-		return nil
-	}
-	ret := &StorageEvent{}
-	ret.Value_JS = input
-	return ret
-}
-
-func NewStorageEvent(_type string, eventInitDict *StorageEventInit) (_result *StorageEvent) {
-	_klass := js.Global().Get("StorageEvent")
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if eventInitDict != nil {
-		_p1 := eventInitDict.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *StorageEvent // javascript: StorageEvent _what_return_name
-	)
-	_converted = StorageEventFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Key returning attribute 'key' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) Key() *string {
-	var ret *string
-	value := _this.Value_JS.Get("key")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// OldValue returning attribute 'oldValue' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) OldValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("oldValue")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// NewValue returning attribute 'newValue' with
-// type string (idl: DOMString).
-func (_this *StorageEvent) NewValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("newValue")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Url returning attribute 'url' with
-// type string (idl: USVString).
-func (_this *StorageEvent) Url() string {
-	var ret string
-	value := _this.Value_JS.Get("url")
-	ret = (value).String()
-	return ret
-}
-
-// StorageArea returning attribute 'storageArea' with
-// type Storage (idl: Storage).
-func (_this *StorageEvent) StorageArea() *Storage {
-	var ret *Storage
-	value := _this.Value_JS.Get("storageArea")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = StorageFromJS(value)
-	}
-	return ret
-}
-
-func (_this *StorageEvent) InitStorageEvent(_type string, bubbles *bool, cancelable *bool, key *string, oldValue *string, newValue *string, url *string, storageArea *Storage) {
-	var (
-		_args [8]interface{}
-		_end  int
-	)
-	_p0 := _type
-	_args[0] = _p0
-	_end++
-	if bubbles != nil {
-		_p1 := bubbles
-		_args[1] = _p1
-		_end++
-	}
-	if cancelable != nil {
-		_p2 := cancelable
-		_args[2] = _p2
-		_end++
-	}
-	if key != nil {
-		_p3 := key
-		_args[3] = _p3
-		_end++
-	}
-	if oldValue != nil {
-		_p4 := oldValue
-		_args[4] = _p4
-		_end++
-	}
-	if newValue != nil {
-		_p5 := newValue
-		_args[5] = _p5
-		_end++
-	}
-	if url != nil {
-		_p6 := url
-		_args[6] = _p6
-		_end++
-	}
-	if storageArea != nil {
-		_p7 := storageArea.JSValue()
-		_args[7] = _p7
-		_end++
-	}
-	_this.Value_JS.Call("initStorageEvent", _args[0:_end]...)
-	return
 }

@@ -10,6 +10,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.Object
@@ -358,9 +359,9 @@ func (_this *PermissionStatus) State() PermissionState {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PermissionStatus) Onchange() domcore.EventHandlerFunc {
+func (_this *PermissionStatus) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -369,17 +370,34 @@ func (_this *PermissionStatus) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *PermissionStatus) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncPermissionStatus_domcore_Event(listener func(event *domcore.Event, target *PermissionStatus)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := PermissionStatusFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *PermissionStatus) AddEventChange(listener func(event *domcore.Event, currentTarget *PermissionStatus)) js.Func {
+	cb := eventFuncPermissionStatus_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *PermissionStatus) SetOnChange(listener func(event *domcore.Event, currentTarget *PermissionStatus)) js.Func {
+	cb := eventFuncPermissionStatus_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }
 
 // class: Permissions

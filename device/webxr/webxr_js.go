@@ -1095,9 +1095,9 @@ func XRFromJS(value js.Wrapper) *XR {
 	return ret
 }
 
-// Ondevicechange returning attribute 'ondevicechange' with
+// OnDeviceChange returning attribute 'ondevicechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XR) Ondevicechange() domcore.EventHandlerFunc {
+func (_this *XR) OnDeviceChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondevicechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1106,17 +1106,34 @@ func (_this *XR) Ondevicechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndevicechange setting attribute 'ondevicechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XR) SetOndevicechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncXR_domcore_Event(listener func(event *domcore.Event, target *XR)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := XRFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("ondevicechange", input)
+	return js.FuncOf(fn)
+}
+
+// AddDeviceChange is adding doing AddEventListener for 'DeviceChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XR) AddEventDeviceChange(listener func(event *domcore.Event, currentTarget *XR)) js.Func {
+	cb := eventFuncXR_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "devicechange", cb)
+	return cb
+}
+
+// SetOnDeviceChange is assigning a function to 'ondevicechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XR) SetOnDeviceChange(listener func(event *domcore.Event, currentTarget *XR)) js.Func {
+	cb := eventFuncXR_domcore_Event(listener)
+	_this.Value_JS.Set("ondevicechange", cb)
+	return cb
 }
 
 func (_this *XR) SupportsSessionMode(mode XRSessionMode) (_result *javascript.PromiseVoid) {
@@ -1553,9 +1570,9 @@ func (_this *XRReferenceSpace) SetOriginOffset(value *XRRigidTransform) {
 	_this.Value_JS.Set("originOffset", input)
 }
 
-// Onreset returning attribute 'onreset' with
+// OnReset returning attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRReferenceSpace) Onreset() domcore.EventHandlerFunc {
+func (_this *XRReferenceSpace) OnReset() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1564,17 +1581,34 @@ func (_this *XRReferenceSpace) Onreset() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnreset setting attribute 'onreset' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRReferenceSpace) SetOnreset(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: XRReferenceSpaceEvent
+func eventFuncXRReferenceSpace_XRReferenceSpaceEvent(listener func(event *XRReferenceSpaceEvent, target *XRReferenceSpace)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *XRReferenceSpaceEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = XRReferenceSpaceEventFromJS(value)
+		src := XRReferenceSpaceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onreset", input)
+	return js.FuncOf(fn)
+}
+
+// AddReset is adding doing AddEventListener for 'Reset' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRReferenceSpace) AddEventReset(listener func(event *XRReferenceSpaceEvent, currentTarget *XRReferenceSpace)) js.Func {
+	cb := eventFuncXRReferenceSpace_XRReferenceSpaceEvent(listener)
+	_this.Value_JS.Call("addEventListener", "reset", cb)
+	return cb
+}
+
+// SetOnReset is assigning a function to 'onreset'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRReferenceSpace) SetOnReset(listener func(event *XRReferenceSpaceEvent, currentTarget *XRReferenceSpace)) js.Func {
+	cb := eventFuncXRReferenceSpace_XRReferenceSpaceEvent(listener)
+	_this.Value_JS.Set("onreset", cb)
+	return cb
 }
 
 // class: XRReferenceSpaceEvent
@@ -1820,9 +1854,9 @@ func (_this *XRSession) ViewerSpace() *XRSpace {
 	return ret
 }
 
-// Onblur returning attribute 'onblur' with
+// OnBlur returning attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onblur() domcore.EventHandlerFunc {
+func (_this *XRSession) OnBlur() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1831,22 +1865,9 @@ func (_this *XRSession) Onblur() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnblur setting attribute 'onblur' with
+// OnFocus returning attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnblur(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onblur", input)
-}
-
-// Onfocus returning attribute 'onfocus' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onfocus() domcore.EventHandlerFunc {
+func (_this *XRSession) OnFocus() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1855,22 +1876,9 @@ func (_this *XRSession) Onfocus() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnfocus setting attribute 'onfocus' with
+// OnEnd returning attribute 'onend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnfocus(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfocus", input)
-}
-
-// Onend returning attribute 'onend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onend() domcore.EventHandlerFunc {
+func (_this *XRSession) OnEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1879,41 +1887,15 @@ func (_this *XRSession) Onend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnend setting attribute 'onend' with
+// OnSelect returning attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onend", input)
-}
-
-// Onselect returning attribute 'onselect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onselect() domcore.EventHandlerFunc {
+func (_this *XRSession) OnSelect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnselect setting attribute 'onselect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnselect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onselect", input)
 }
 
 // Oninputsourceschange returning attribute 'oninputsourceschange' with
@@ -1940,9 +1922,9 @@ func (_this *XRSession) SetOninputsourceschange(value *domcore.EventHandler) {
 	_this.Value_JS.Set("oninputsourceschange", input)
 }
 
-// Onselectstart returning attribute 'onselectstart' with
+// OnSelectStart returning attribute 'onselectstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onselectstart() domcore.EventHandlerFunc {
+func (_this *XRSession) OnSelectStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1951,22 +1933,9 @@ func (_this *XRSession) Onselectstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnselectstart setting attribute 'onselectstart' with
+// OnSelectEnd returning attribute 'onselectend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnselectstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onselectstart", input)
-}
-
-// Onselectend returning attribute 'onselectend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) Onselectend() domcore.EventHandlerFunc {
+func (_this *XRSession) OnSelectEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1975,17 +1944,142 @@ func (_this *XRSession) Onselectend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnselectend setting attribute 'onselectend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XRSession) SetOnselectend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncXRSession_domcore_Event(listener func(event *domcore.Event, target *XRSession)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := XRSessionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onselectend", input)
+	return js.FuncOf(fn)
+}
+
+// AddBlur is adding doing AddEventListener for 'Blur' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventBlur(listener func(event *domcore.Event, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "blur", cb)
+	return cb
+}
+
+// SetOnBlur is assigning a function to 'onblur'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnBlur(listener func(event *domcore.Event, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_domcore_Event(listener)
+	_this.Value_JS.Set("onblur", cb)
+	return cb
+}
+
+// event attribute: XRSessionEvent
+func eventFuncXRSession_XRSessionEvent(listener func(event *XRSessionEvent, target *XRSession)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *XRSessionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = XRSessionEventFromJS(value)
+		src := XRSessionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddEnd is adding doing AddEventListener for 'End' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventEnd(listener func(event *XRSessionEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRSessionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "end", cb)
+	return cb
+}
+
+// SetOnEnd is assigning a function to 'onend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnEnd(listener func(event *XRSessionEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRSessionEvent(listener)
+	_this.Value_JS.Set("onend", cb)
+	return cb
+}
+
+// AddFocus is adding doing AddEventListener for 'Focus' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventFocus(listener func(event *domcore.Event, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "focus", cb)
+	return cb
+}
+
+// SetOnFocus is assigning a function to 'onfocus'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnFocus(listener func(event *domcore.Event, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_domcore_Event(listener)
+	_this.Value_JS.Set("onfocus", cb)
+	return cb
+}
+
+// event attribute: XRInputSourceEvent
+func eventFuncXRSession_XRInputSourceEvent(listener func(event *XRInputSourceEvent, target *XRSession)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *XRInputSourceEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = XRInputSourceEventFromJS(value)
+		src := XRSessionFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddSelect is adding doing AddEventListener for 'Select' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventSelect(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Call("addEventListener", "select", cb)
+	return cb
+}
+
+// SetOnSelect is assigning a function to 'onselect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnSelect(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Set("onselect", cb)
+	return cb
+}
+
+// AddSelectEnd is adding doing AddEventListener for 'SelectEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventSelectEnd(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Call("addEventListener", "selectend", cb)
+	return cb
+}
+
+// SetOnSelectEnd is assigning a function to 'onselectend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnSelectEnd(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Set("onselectend", cb)
+	return cb
+}
+
+// AddSelectStart is adding doing AddEventListener for 'SelectStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) AddEventSelectStart(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Call("addEventListener", "selectstart", cb)
+	return cb
+}
+
+// SetOnSelectStart is assigning a function to 'onselectstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XRSession) SetOnSelectStart(listener func(event *XRInputSourceEvent, currentTarget *XRSession)) js.Func {
+	cb := eventFuncXRSession_XRInputSourceEvent(listener)
+	_this.Value_JS.Set("onselectstart", cb)
+	return cb
 }
 
 func (_this *XRSession) UpdateRenderState(state *XRRenderStateInit) {

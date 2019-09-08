@@ -853,9 +853,9 @@ func NewFontFaceSet(initialFaces []*FontFace) (_result *FontFaceSet) {
 	return
 }
 
-// Onloading returning attribute 'onloading' with
+// OnLoading returning attribute 'onloading' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) Onloading() domcore.EventHandlerFunc {
+func (_this *FontFaceSet) OnLoading() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloading")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -864,22 +864,9 @@ func (_this *FontFaceSet) Onloading() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloading setting attribute 'onloading' with
+// OnLoadingDone returning attribute 'onloadingdone' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) SetOnloading(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloading", input)
-}
-
-// Onloadingdone returning attribute 'onloadingdone' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) Onloadingdone() domcore.EventHandlerFunc {
+func (_this *FontFaceSet) OnLoadingDone() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadingdone")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -888,41 +875,15 @@ func (_this *FontFaceSet) Onloadingdone() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadingdone setting attribute 'onloadingdone' with
+// OnLoadingError returning attribute 'onloadingerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) SetOnloadingdone(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadingdone", input)
-}
-
-// Onloadingerror returning attribute 'onloadingerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) Onloadingerror() domcore.EventHandlerFunc {
+func (_this *FontFaceSet) OnLoadingError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadingerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnloadingerror setting attribute 'onloadingerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *FontFaceSet) SetOnloadingerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadingerror", input)
 }
 
 // Ready returning attribute 'ready' with
@@ -950,6 +911,68 @@ func (_this *FontFaceSet) Size() int {
 	value := _this.Value_JS.Get("size")
 	ret = (value).Int()
 	return ret
+}
+
+// event attribute: FontFaceSetLoadEvent
+func eventFuncFontFaceSet_FontFaceSetLoadEvent(listener func(event *FontFaceSetLoadEvent, target *FontFaceSet)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *FontFaceSetLoadEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = FontFaceSetLoadEventFromJS(value)
+		src := FontFaceSetFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddLoading is adding doing AddEventListener for 'Loading' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) AddEventLoading(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loading", cb)
+	return cb
+}
+
+// SetOnLoading is assigning a function to 'onloading'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) SetOnLoading(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Set("onloading", cb)
+	return cb
+}
+
+// AddLoadingDone is adding doing AddEventListener for 'LoadingDone' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) AddEventLoadingDone(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadingdone", cb)
+	return cb
+}
+
+// SetOnLoadingDone is assigning a function to 'onloadingdone'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) SetOnLoadingDone(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Set("onloadingdone", cb)
+	return cb
+}
+
+// AddLoadingError is adding doing AddEventListener for 'LoadingError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) AddEventLoadingError(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadingerror", cb)
+	return cb
+}
+
+// SetOnLoadingError is assigning a function to 'onloadingerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *FontFaceSet) SetOnLoadingError(listener func(event *FontFaceSetLoadEvent, currentTarget *FontFaceSet)) js.Func {
+	cb := eventFuncFontFaceSet_FontFaceSetLoadEvent(listener)
+	_this.Value_JS.Set("onloadingerror", cb)
+	return cb
 }
 
 func (_this *FontFaceSet) Add(font *FontFace) (_result *FontFaceSet) {

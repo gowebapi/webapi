@@ -16,11 +16,14 @@ import (
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/indexeddb"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
 	"github.com/gowebapi/webapi/patch"
+	"github.com/gowebapi/webapi/payment"
 	"github.com/gowebapi/webapi/performance"
+	"github.com/gowebapi/webapi/push"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/storage"
 	"github.com/gowebapi/webapi/webidl"
@@ -30,31 +33,45 @@ import (
 // canvas.ImageBitmapOptions
 // canvas.PromiseImageBitmap
 // capabilities.MediaCapabilities
+// channel.MessageEvent
 // channel.MessagePort
 // channel.PostMessageOptions
+// cookie.CookieChangeEvent
 // cookie.CookieStore
 // corsrfc1918.AddressSpace
 // crypto.Crypto
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// domcore.ExtendableEvent
 // fetch.PromiseResponse
 // fetch.RequestCredentials
 // fetch.RequestInit
 // htmlcommon.FrameRequestCallback
 // htmlcommon.OnErrorEventHandler
 // htmlcommon.WorkerType
+// htmlevent.PromiseRejectionEvent
 // indexeddb.IDBFactory
 // javascript.FrozenArray
 // javascript.Object
 // javascript.PromiseVoid
 // netinfo.NetworkInformation
 // patch.ByteString
+// payment.CanMakePaymentEvent
+// payment.PaymentRequestEvent
 // performance.Performance
 // permissions.Permissions
+// push.Event
+// push.SubscriptionChangeEvent
+// serviceworker.BackgroundFetchEvent
+// serviceworker.BackgroundFetchUpdateUIEvent
 // serviceworker.CacheStorage
 // serviceworker.Clients
+// serviceworker.ExtendableMessageEvent
+// serviceworker.FetchEvent
 // serviceworker.ServiceWorkerContainer
 // serviceworker.ServiceWorkerRegistration
+// serviceworker.SyncEvent
 // storage.StorageManager
 // usb.USB
 // webidl.VoidFunction
@@ -149,9 +166,9 @@ func (_this *DedicatedWorkerGlobalScope) Name() string {
 	return ret
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
+func (_this *DedicatedWorkerGlobalScope) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -160,22 +177,9 @@ func (_this *DedicatedWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *DedicatedWorkerGlobalScope) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -184,17 +188,50 @@ func (_this *DedicatedWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFu
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *DedicatedWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: channel.MessageEvent
+func eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener func(event *channel.MessageEvent, target *DedicatedWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := DedicatedWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DedicatedWorkerGlobalScope) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *DedicatedWorkerGlobalScope)) js.Func {
+	cb := eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DedicatedWorkerGlobalScope) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *DedicatedWorkerGlobalScope)) js.Func {
+	cb := eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *DedicatedWorkerGlobalScope) AddEventMessageError(listener func(event *channel.MessageEvent, currentTarget *DedicatedWorkerGlobalScope)) js.Func {
+	cb := eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *DedicatedWorkerGlobalScope) SetOnMessageError(listener func(event *channel.MessageEvent, currentTarget *DedicatedWorkerGlobalScope)) js.Func {
+	cb := eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
 }
 
 func (_this *DedicatedWorkerGlobalScope) PostMessage(message interface{}, transfer []*javascript.Object) {
@@ -312,9 +349,9 @@ func (_this *ServiceWorkerGlobalScope) Registration() *serviceworker.ServiceWork
 	return ret
 }
 
-// Oninstall returning attribute 'oninstall' with
+// OnInstall returning attribute 'oninstall' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Oninstall() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnInstall() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninstall")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -323,22 +360,9 @@ func (_this *ServiceWorkerGlobalScope) Oninstall() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOninstall setting attribute 'oninstall' with
+// OnActivate returning attribute 'onactivate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOninstall(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oninstall", input)
-}
-
-// Onactivate returning attribute 'onactivate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onactivate() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnActivate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onactivate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -347,22 +371,9 @@ func (_this *ServiceWorkerGlobalScope) Onactivate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnactivate setting attribute 'onactivate' with
+// OnFetch returning attribute 'onfetch' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnactivate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onactivate", input)
-}
-
-// Onfetch returning attribute 'onfetch' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onfetch() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnFetch() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfetch")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -371,22 +382,9 @@ func (_this *ServiceWorkerGlobalScope) Onfetch() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnfetch setting attribute 'onfetch' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnfetch(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfetch", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -395,22 +393,9 @@ func (_this *ServiceWorkerGlobalScope) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -419,22 +404,9 @@ func (_this *ServiceWorkerGlobalScope) Onmessageerror() domcore.EventHandlerFunc
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
+// OnSync returning attribute 'onsync' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onsync returning attribute 'onsync' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnSync() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsync")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -443,22 +415,9 @@ func (_this *ServiceWorkerGlobalScope) Onsync() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsync setting attribute 'onsync' with
+// OnBackgroundFetchSuccess returning attribute 'onbackgroundfetchsuccess' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnsync(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsync", input)
-}
-
-// Onbackgroundfetchsuccess returning attribute 'onbackgroundfetchsuccess' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchsuccess() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchSuccess() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchsuccess")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -467,22 +426,9 @@ func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchsuccess() domcore.EventH
 	return ret
 }
 
-// SetOnbackgroundfetchsuccess setting attribute 'onbackgroundfetchsuccess' with
+// OnBackgroundFetchFail returning attribute 'onbackgroundfetchfail' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchsuccess(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbackgroundfetchsuccess", input)
-}
-
-// Onbackgroundfetchfail returning attribute 'onbackgroundfetchfail' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchfail() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchFail() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchfail")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -491,22 +437,9 @@ func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchfail() domcore.EventHand
 	return ret
 }
 
-// SetOnbackgroundfetchfail setting attribute 'onbackgroundfetchfail' with
+// OnBackgroundFetchAbort returning attribute 'onbackgroundfetchabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchfail(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbackgroundfetchfail", input)
-}
-
-// Onbackgroundfetchabort returning attribute 'onbackgroundfetchabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchabort() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -515,41 +448,15 @@ func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchabort() domcore.EventHan
 	return ret
 }
 
-// SetOnbackgroundfetchabort setting attribute 'onbackgroundfetchabort' with
+// OnBackgroundFetchClick returning attribute 'onbackgroundfetchclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbackgroundfetchabort", input)
-}
-
-// Onbackgroundfetchclick returning attribute 'onbackgroundfetchclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onbackgroundfetchclick() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchClick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbackgroundfetchclick")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnbackgroundfetchclick setting attribute 'onbackgroundfetchclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnbackgroundfetchclick(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbackgroundfetchclick", input)
 }
 
 // CookieStore returning attribute 'cookieStore' with
@@ -561,9 +468,9 @@ func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
 	return ret
 }
 
-// Oncookiechange returning attribute 'oncookiechange' with
+// OnCookieChange returning attribute 'oncookiechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnCookieChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncookiechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -572,22 +479,9 @@ func (_this *ServiceWorkerGlobalScope) Oncookiechange() domcore.EventHandlerFunc
 	return ret
 }
 
-// SetOncookiechange setting attribute 'oncookiechange' with
+// OnCanMakePayment returning attribute 'oncanmakepayment' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOncookiechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncookiechange", input)
-}
-
-// Oncanmakepayment returning attribute 'oncanmakepayment' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Oncanmakepayment() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnCanMakePayment() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanmakepayment")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -596,22 +490,9 @@ func (_this *ServiceWorkerGlobalScope) Oncanmakepayment() domcore.EventHandlerFu
 	return ret
 }
 
-// SetOncanmakepayment setting attribute 'oncanmakepayment' with
+// OnPaymentRequest returning attribute 'onpaymentrequest' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOncanmakepayment(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncanmakepayment", input)
-}
-
-// Onpaymentrequest returning attribute 'onpaymentrequest' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onpaymentrequest() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnPaymentRequest() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaymentrequest")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -620,22 +501,9 @@ func (_this *ServiceWorkerGlobalScope) Onpaymentrequest() domcore.EventHandlerFu
 	return ret
 }
 
-// SetOnpaymentrequest setting attribute 'onpaymentrequest' with
+// OnPush returning attribute 'onpush' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnpaymentrequest(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpaymentrequest", input)
-}
-
-// Onpush returning attribute 'onpush' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onpush() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnPush() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpush")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -644,22 +512,9 @@ func (_this *ServiceWorkerGlobalScope) Onpush() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpush setting attribute 'onpush' with
+// OnPushSubscriptionChange returning attribute 'onpushsubscriptionchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnpush(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpush", input)
-}
-
-// Onpushsubscriptionchange returning attribute 'onpushsubscriptionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) Onpushsubscriptionchange() domcore.EventHandlerFunc {
+func (_this *ServiceWorkerGlobalScope) OnPushSubscriptionChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpushsubscriptionchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -668,17 +523,412 @@ func (_this *ServiceWorkerGlobalScope) Onpushsubscriptionchange() domcore.EventH
 	return ret
 }
 
-// SetOnpushsubscriptionchange setting attribute 'onpushsubscriptionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) SetOnpushsubscriptionchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.ExtendableEvent
+func eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener func(event *domcore.ExtendableEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.ExtendableEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.ExtendableEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onpushsubscriptionchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddActivate is adding doing AddEventListener for 'Activate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventActivate(listener func(event *domcore.ExtendableEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener)
+	_this.Value_JS.Call("addEventListener", "activate", cb)
+	return cb
+}
+
+// SetOnActivate is assigning a function to 'onactivate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnActivate(listener func(event *domcore.ExtendableEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener)
+	_this.Value_JS.Set("onactivate", cb)
+	return cb
+}
+
+// event attribute: serviceworker.BackgroundFetchEvent
+func eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listener func(event *serviceworker.BackgroundFetchEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *serviceworker.BackgroundFetchEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = serviceworker.BackgroundFetchEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddBackgroundFetchAbort is adding doing AddEventListener for 'BackgroundFetchAbort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventBackgroundFetchAbort(listener func(event *serviceworker.BackgroundFetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "backgroundfetchabort", cb)
+	return cb
+}
+
+// SetOnBackgroundFetchAbort is assigning a function to 'onbackgroundfetchabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnBackgroundFetchAbort(listener func(event *serviceworker.BackgroundFetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listener)
+	_this.Value_JS.Set("onbackgroundfetchabort", cb)
+	return cb
+}
+
+// AddBackgroundFetchClick is adding doing AddEventListener for 'BackgroundFetchClick' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventBackgroundFetchClick(listener func(event *serviceworker.BackgroundFetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "backgroundfetchclick", cb)
+	return cb
+}
+
+// SetOnBackgroundFetchClick is assigning a function to 'onbackgroundfetchclick'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnBackgroundFetchClick(listener func(event *serviceworker.BackgroundFetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listener)
+	_this.Value_JS.Set("onbackgroundfetchclick", cb)
+	return cb
+}
+
+// event attribute: serviceworker.BackgroundFetchUpdateUIEvent
+func eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEvent(listener func(event *serviceworker.BackgroundFetchUpdateUIEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *serviceworker.BackgroundFetchUpdateUIEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = serviceworker.BackgroundFetchUpdateUIEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddBackgroundFetchFail is adding doing AddEventListener for 'BackgroundFetchFail' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventBackgroundFetchFail(listener func(event *serviceworker.BackgroundFetchUpdateUIEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEvent(listener)
+	_this.Value_JS.Call("addEventListener", "backgroundfetchfail", cb)
+	return cb
+}
+
+// SetOnBackgroundFetchFail is assigning a function to 'onbackgroundfetchfail'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnBackgroundFetchFail(listener func(event *serviceworker.BackgroundFetchUpdateUIEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEvent(listener)
+	_this.Value_JS.Set("onbackgroundfetchfail", cb)
+	return cb
+}
+
+// AddBackgroundFetchSuccess is adding doing AddEventListener for 'BackgroundFetchSuccess' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventBackgroundFetchSuccess(listener func(event *serviceworker.BackgroundFetchUpdateUIEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEvent(listener)
+	_this.Value_JS.Call("addEventListener", "backgroundfetchsuccess", cb)
+	return cb
+}
+
+// SetOnBackgroundFetchSuccess is assigning a function to 'onbackgroundfetchsuccess'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnBackgroundFetchSuccess(listener func(event *serviceworker.BackgroundFetchUpdateUIEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEvent(listener)
+	_this.Value_JS.Set("onbackgroundfetchsuccess", cb)
+	return cb
+}
+
+// event attribute: payment.CanMakePaymentEvent
+func eventFuncServiceWorkerGlobalScope_payment_CanMakePaymentEvent(listener func(event *payment.CanMakePaymentEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *payment.CanMakePaymentEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = payment.CanMakePaymentEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCanMakePayment is adding doing AddEventListener for 'CanMakePayment' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventCanMakePayment(listener func(event *payment.CanMakePaymentEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_payment_CanMakePaymentEvent(listener)
+	_this.Value_JS.Call("addEventListener", "canmakepayment", cb)
+	return cb
+}
+
+// SetOnCanMakePayment is assigning a function to 'oncanmakepayment'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnCanMakePayment(listener func(event *payment.CanMakePaymentEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_payment_CanMakePaymentEvent(listener)
+	_this.Value_JS.Set("oncanmakepayment", cb)
+	return cb
+}
+
+// event attribute: cookie.CookieChangeEvent
+func eventFuncServiceWorkerGlobalScope_cookie_CookieChangeEvent(listener func(event *cookie.CookieChangeEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *cookie.CookieChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = cookie.CookieChangeEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCookieChange is adding doing AddEventListener for 'CookieChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventCookieChange(listener func(event *cookie.CookieChangeEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_cookie_CookieChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "cookiechange", cb)
+	return cb
+}
+
+// SetOnCookieChange is assigning a function to 'oncookiechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnCookieChange(listener func(event *cookie.CookieChangeEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_cookie_CookieChangeEvent(listener)
+	_this.Value_JS.Set("oncookiechange", cb)
+	return cb
+}
+
+// event attribute: serviceworker.FetchEvent
+func eventFuncServiceWorkerGlobalScope_serviceworker_FetchEvent(listener func(event *serviceworker.FetchEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *serviceworker.FetchEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = serviceworker.FetchEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddFetch is adding doing AddEventListener for 'Fetch' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventFetch(listener func(event *serviceworker.FetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_FetchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "fetch", cb)
+	return cb
+}
+
+// SetOnFetch is assigning a function to 'onfetch'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnFetch(listener func(event *serviceworker.FetchEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_FetchEvent(listener)
+	_this.Value_JS.Set("onfetch", cb)
+	return cb
+}
+
+// AddInstall is adding doing AddEventListener for 'Install' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventInstall(listener func(event *domcore.ExtendableEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener)
+	_this.Value_JS.Call("addEventListener", "install", cb)
+	return cb
+}
+
+// SetOnInstall is assigning a function to 'oninstall'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnInstall(listener func(event *domcore.ExtendableEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener)
+	_this.Value_JS.Set("oninstall", cb)
+	return cb
+}
+
+// event attribute: serviceworker.ExtendableMessageEvent
+func eventFuncServiceWorkerGlobalScope_serviceworker_ExtendableMessageEvent(listener func(event *serviceworker.ExtendableMessageEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *serviceworker.ExtendableMessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = serviceworker.ExtendableMessageEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventMessage(listener func(event *serviceworker.ExtendableMessageEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_ExtendableMessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnMessage(listener func(event *serviceworker.ExtendableMessageEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_ExtendableMessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncServiceWorkerGlobalScope_channel_MessageEvent(listener func(event *channel.MessageEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventMessageError(listener func(event *channel.MessageEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnMessageError(listener func(event *channel.MessageEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
+}
+
+// event attribute: payment.PaymentRequestEvent
+func eventFuncServiceWorkerGlobalScope_payment_PaymentRequestEvent(listener func(event *payment.PaymentRequestEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *payment.PaymentRequestEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = payment.PaymentRequestEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPaymentRequest is adding doing AddEventListener for 'PaymentRequest' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventPaymentRequest(listener func(event *payment.PaymentRequestEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_payment_PaymentRequestEvent(listener)
+	_this.Value_JS.Call("addEventListener", "paymentrequest", cb)
+	return cb
+}
+
+// SetOnPaymentRequest is assigning a function to 'onpaymentrequest'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnPaymentRequest(listener func(event *payment.PaymentRequestEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_payment_PaymentRequestEvent(listener)
+	_this.Value_JS.Set("onpaymentrequest", cb)
+	return cb
+}
+
+// event attribute: push.Event
+func eventFuncServiceWorkerGlobalScope_push_Event(listener func(event *push.Event, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *push.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = push.EventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPush is adding doing AddEventListener for 'Push' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventPush(listener func(event *push.Event, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_push_Event(listener)
+	_this.Value_JS.Call("addEventListener", "push", cb)
+	return cb
+}
+
+// SetOnPush is assigning a function to 'onpush'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnPush(listener func(event *push.Event, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_push_Event(listener)
+	_this.Value_JS.Set("onpush", cb)
+	return cb
+}
+
+// event attribute: push.SubscriptionChangeEvent
+func eventFuncServiceWorkerGlobalScope_push_SubscriptionChangeEvent(listener func(event *push.SubscriptionChangeEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *push.SubscriptionChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = push.SubscriptionChangeEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPushSubscriptionChange is adding doing AddEventListener for 'PushSubscriptionChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventPushSubscriptionChange(listener func(event *push.SubscriptionChangeEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_push_SubscriptionChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pushsubscriptionchange", cb)
+	return cb
+}
+
+// SetOnPushSubscriptionChange is assigning a function to 'onpushsubscriptionchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnPushSubscriptionChange(listener func(event *push.SubscriptionChangeEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_push_SubscriptionChangeEvent(listener)
+	_this.Value_JS.Set("onpushsubscriptionchange", cb)
+	return cb
+}
+
+// event attribute: serviceworker.SyncEvent
+func eventFuncServiceWorkerGlobalScope_serviceworker_SyncEvent(listener func(event *serviceworker.SyncEvent, target *ServiceWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *serviceworker.SyncEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = serviceworker.SyncEventFromJS(value)
+		src := ServiceWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddSync is adding doing AddEventListener for 'Sync' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) AddEventSync(listener func(event *serviceworker.SyncEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_SyncEvent(listener)
+	_this.Value_JS.Call("addEventListener", "sync", cb)
+	return cb
+}
+
+// SetOnSync is assigning a function to 'onsync'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *ServiceWorkerGlobalScope) SetOnSync(listener func(event *serviceworker.SyncEvent, currentTarget *ServiceWorkerGlobalScope)) js.Func {
+	cb := eventFuncServiceWorkerGlobalScope_serviceworker_SyncEvent(listener)
+	_this.Value_JS.Set("onsync", cb)
+	return cb
 }
 
 func (_this *ServiceWorkerGlobalScope) SkipWaiting() (_result *javascript.PromiseVoid) {
@@ -743,9 +993,9 @@ func (_this *SharedWorker) Port() *channel.MessagePort {
 	return ret
 }
 
-// Onerror returning attribute 'onerror' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) Onerror() domcore.EventHandlerFunc {
+func (_this *SharedWorker) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -754,17 +1004,34 @@ func (_this *SharedWorker) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorker) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSharedWorker_domcore_Event(listener func(event *domcore.Event, target *SharedWorker)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SharedWorkerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SharedWorker) AddEventError(listener func(event *domcore.Event, currentTarget *SharedWorker)) js.Func {
+	cb := eventFuncSharedWorker_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SharedWorker) SetOnError(listener func(event *domcore.Event, currentTarget *SharedWorker)) js.Func {
+	cb := eventFuncSharedWorker_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
 }
 
 // class: SharedWorkerGlobalScope
@@ -792,9 +1059,9 @@ func (_this *SharedWorkerGlobalScope) Name() string {
 	return ret
 }
 
-// Onconnect returning attribute 'onconnect' with
+// OnConnect returning attribute 'onconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandlerFunc {
+func (_this *SharedWorkerGlobalScope) OnConnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -803,17 +1070,34 @@ func (_this *SharedWorkerGlobalScope) Onconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnect setting attribute 'onconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SharedWorkerGlobalScope) SetOnconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: channel.MessageEvent
+func eventFuncSharedWorkerGlobalScope_channel_MessageEvent(listener func(event *channel.MessageEvent, target *SharedWorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := SharedWorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onconnect", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnect is adding doing AddEventListener for 'Connect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SharedWorkerGlobalScope) AddEventConnect(listener func(event *channel.MessageEvent, currentTarget *SharedWorkerGlobalScope)) js.Func {
+	cb := eventFuncSharedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "connect", cb)
+	return cb
+}
+
+// SetOnConnect is assigning a function to 'onconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SharedWorkerGlobalScope) SetOnConnect(listener func(event *channel.MessageEvent, currentTarget *SharedWorkerGlobalScope)) js.Func {
+	cb := eventFuncSharedWorkerGlobalScope_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onconnect", cb)
+	return cb
 }
 
 func (_this *SharedWorkerGlobalScope) Close() {
@@ -864,9 +1148,9 @@ func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
 	return
 }
 
-// Onmessage returning attribute 'onmessage' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessage() domcore.EventHandlerFunc {
+func (_this *Worker) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -875,22 +1159,9 @@ func (_this *Worker) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *Worker) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -899,22 +1170,9 @@ func (_this *Worker) Onmessageerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) Onerror() domcore.EventHandlerFunc {
+func (_this *Worker) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -923,17 +1181,80 @@ func (_this *Worker) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Worker) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncWorker_domcore_Event(listener func(event *domcore.Event, target *Worker)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := WorkerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) AddEventError(listener func(event *domcore.Event, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) SetOnError(listener func(event *domcore.Event, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncWorker_channel_MessageEvent(listener func(event *channel.MessageEvent, target *Worker)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := WorkerFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) AddEventMessageError(listener func(event *channel.MessageEvent, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Worker) SetOnMessageError(listener func(event *channel.MessageEvent, currentTarget *Worker)) js.Func {
+	cb := eventFuncWorker_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
 }
 
 func (_this *Worker) Terminate() {
@@ -1024,9 +1345,9 @@ func (_this *WorkerGlobalScope) Navigator() *WorkerNavigator {
 	return ret
 }
 
-// Onerror returning attribute 'onerror' with
+// OnError returning attribute 'onerror' with
 // type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onerror() htmlcommon.OnErrorEventHandlerFunc {
+func (_this *WorkerGlobalScope) OnError() htmlcommon.OnErrorEventHandlerFunc {
 	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1035,22 +1356,9 @@ func (_this *WorkerGlobalScope) Onerror() htmlcommon.OnErrorEventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
+// OnLanguageChange returning attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onlanguagechange() domcore.EventHandlerFunc {
+func (_this *WorkerGlobalScope) OnLanguageChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1059,22 +1367,9 @@ func (_this *WorkerGlobalScope) Onlanguagechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// OnOffline returning attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnlanguagechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onoffline() domcore.EventHandlerFunc {
+func (_this *WorkerGlobalScope) OnOffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1083,22 +1378,9 @@ func (_this *WorkerGlobalScope) Onoffline() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnoffline setting attribute 'onoffline' with
+// OnOnline returning attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnoffline(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Ononline() domcore.EventHandlerFunc {
+func (_this *WorkerGlobalScope) OnOnline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1107,22 +1389,9 @@ func (_this *WorkerGlobalScope) Ononline() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnonline setting attribute 'ononline' with
+// OnRejectionHandled returning attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnonline(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onrejectionhandled() domcore.EventHandlerFunc {
+func (_this *WorkerGlobalScope) OnRejectionHandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1131,41 +1400,15 @@ func (_this *WorkerGlobalScope) Onrejectionhandled() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// OnUnhandledRejection returning attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnrejectionhandled(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) Onunhandledrejection() domcore.EventHandlerFunc {
+func (_this *WorkerGlobalScope) OnUnhandledRejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WorkerGlobalScope) SetOnunhandledrejection(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onunhandledrejection", input)
 }
 
 // AddressSpace returning attribute 'addressSpace' with
@@ -1229,6 +1472,130 @@ func (_this *WorkerGlobalScope) Performance() *performance.Performance {
 	value := _this.Value_JS.Get("performance")
 	ret = performance.PerformanceFromJS(value)
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncWorkerGlobalScope_domcore_Event(listener func(event *domcore.Event, target *WorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := WorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventError(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnError(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddLanguageChange is adding doing AddEventListener for 'LanguageChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventLanguageChange(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "languagechange", cb)
+	return cb
+}
+
+// SetOnLanguageChange is assigning a function to 'onlanguagechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnLanguageChange(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Set("onlanguagechange", cb)
+	return cb
+}
+
+// AddOffline is adding doing AddEventListener for 'Offline' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventOffline(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "offline", cb)
+	return cb
+}
+
+// SetOnOffline is assigning a function to 'onoffline'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnOffline(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Set("onoffline", cb)
+	return cb
+}
+
+// AddOnline is adding doing AddEventListener for 'Online' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventOnline(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "online", cb)
+	return cb
+}
+
+// SetOnOnline is assigning a function to 'ononline'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnOnline(listener func(event *domcore.Event, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_domcore_Event(listener)
+	_this.Value_JS.Set("ononline", cb)
+	return cb
+}
+
+// event attribute: htmlevent.PromiseRejectionEvent
+func eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener func(event *htmlevent.PromiseRejectionEvent, target *WorkerGlobalScope)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.PromiseRejectionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.PromiseRejectionEventFromJS(value)
+		src := WorkerGlobalScopeFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddRejectionHandled is adding doing AddEventListener for 'RejectionHandled' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventRejectionHandled(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "rejectionhandled", cb)
+	return cb
+}
+
+// SetOnRejectionHandled is assigning a function to 'onrejectionhandled'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnRejectionHandled(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Set("onrejectionhandled", cb)
+	return cb
+}
+
+// AddUnhandledRejection is adding doing AddEventListener for 'UnhandledRejection' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) AddEventUnhandledRejection(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "unhandledrejection", cb)
+	return cb
+}
+
+// SetOnUnhandledRejection is assigning a function to 'onunhandledrejection'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *WorkerGlobalScope) SetOnUnhandledRejection(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *WorkerGlobalScope)) js.Func {
+	cb := eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Set("onunhandledrejection", cb)
+	return cb
 }
 
 func (_this *WorkerGlobalScope) ImportScripts(urls ...string) {

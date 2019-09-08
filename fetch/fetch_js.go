@@ -5,9 +5,9 @@ package fetch
 import "syscall/js"
 
 import (
-	"github.com/gowebapi/webapi/communication/form"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
+	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/patch"
 )
@@ -15,7 +15,7 @@ import (
 // using following types:
 // domcore.AbortSignal
 // file.PromiseBlob
-// form.PromiseFormData
+// html.PromiseFormData
 // javascript.Promise
 // javascript.PromiseArrayBuffer
 // javascript.PromiseFinally
@@ -1459,16 +1459,16 @@ func (_this *Request) Blob() (_result *file.PromiseBlob) {
 	return
 }
 
-func (_this *Request) FormData() (_result *form.PromiseFormData) {
+func (_this *Request) FormData() (_result *html.PromiseFormData) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("formData", _args[0:_end]...)
 	var (
-		_converted *form.PromiseFormData // javascript: Promise _what_return_name
+		_converted *html.PromiseFormData // javascript: Promise _what_return_name
 	)
-	_converted = form.PromiseFormDataFromJS(_returned)
+	_converted = html.PromiseFormDataFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1721,16 +1721,16 @@ func (_this *Response) Blob() (_result *file.PromiseBlob) {
 	return
 }
 
-func (_this *Response) FormData() (_result *form.PromiseFormData) {
+func (_this *Response) FormData() (_result *html.PromiseFormData) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("formData", _args[0:_end]...)
 	var (
-		_converted *form.PromiseFormData // javascript: Promise _what_return_name
+		_converted *html.PromiseFormData // javascript: Promise _what_return_name
 	)
-	_converted = form.PromiseFormDataFromJS(_returned)
+	_converted = html.PromiseFormDataFromJS(_returned)
 	_result = _converted
 	return
 }

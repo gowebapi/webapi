@@ -247,28 +247,15 @@ func NewXMLHttpRequest() (_result *XMLHttpRequest) {
 	return
 }
 
-// Onreadystatechange returning attribute 'onreadystatechange' with
+// OnReadyStateChange returning attribute 'onreadystatechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequest) Onreadystatechange() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequest) OnReadyStateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreadystatechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnreadystatechange setting attribute 'onreadystatechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequest) SetOnreadystatechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onreadystatechange", input)
 }
 
 // ReadyState returning attribute 'readyState' with
@@ -389,6 +376,36 @@ func (_this *XMLHttpRequest) ResponseXML() js.Value {
 	value := _this.Value_JS.Get("responseXML")
 	ret = value
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncXMLHttpRequest_domcore_Event(listener func(event *domcore.Event, target *XMLHttpRequest)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := XMLHttpRequestFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddReadyStateChange is adding doing AddEventListener for 'ReadyStateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequest) AddEventReadyStateChange(listener func(event *domcore.Event, currentTarget *XMLHttpRequest)) js.Func {
+	cb := eventFuncXMLHttpRequest_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "readystatechange", cb)
+	return cb
+}
+
+// SetOnReadyStateChange is assigning a function to 'onreadystatechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequest) SetOnReadyStateChange(listener func(event *domcore.Event, currentTarget *XMLHttpRequest)) js.Func {
+	cb := eventFuncXMLHttpRequest_domcore_Event(listener)
+	_this.Value_JS.Set("onreadystatechange", cb)
+	return cb
 }
 
 func (_this *XMLHttpRequest) Open(method *patch.ByteString, url string) {
@@ -533,9 +550,9 @@ func XMLHttpRequestEventTargetFromJS(value js.Wrapper) *XMLHttpRequestEventTarge
 	return ret
 }
 
-// Onloadstart returning attribute 'onloadstart' with
+// OnLoadStart returning attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onloadstart() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnLoadStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -544,22 +561,9 @@ func (_this *XMLHttpRequestEventTarget) Onloadstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadstart setting attribute 'onloadstart' with
+// OnProgress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadstart", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onprogress() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnProgress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -568,22 +572,9 @@ func (_this *XMLHttpRequestEventTarget) Onprogress() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnprogress setting attribute 'onprogress' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnprogress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onabort returning attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onabort() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -592,22 +583,9 @@ func (_this *XMLHttpRequestEventTarget) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onerror() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -616,22 +594,9 @@ func (_this *XMLHttpRequestEventTarget) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnLoad returning attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onload returning attribute 'onload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onload() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnLoad() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -640,22 +605,9 @@ func (_this *XMLHttpRequestEventTarget) Onload() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnload setting attribute 'onload' with
+// OnTimeOut returning attribute 'ontimeout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnload(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onload", input)
-}
-
-// Ontimeout returning attribute 'ontimeout' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Ontimeout() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnTimeOut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeout")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -664,22 +616,9 @@ func (_this *XMLHttpRequestEventTarget) Ontimeout() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntimeout setting attribute 'ontimeout' with
+// OnLoadEnd returning attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOntimeout(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontimeout", input)
-}
-
-// Onloadend returning attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) Onloadend() domcore.EventHandlerFunc {
+func (_this *XMLHttpRequestEventTarget) OnLoadEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -688,17 +627,130 @@ func (_this *XMLHttpRequestEventTarget) Onloadend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadend setting attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *XMLHttpRequestEventTarget) SetOnloadend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: ProgressEvent
+func eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener func(event *ProgressEvent, target *XMLHttpRequestEventTarget)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *ProgressEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = ProgressEventFromJS(value)
+		src := XMLHttpRequestEventTargetFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onloadend", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventAbort(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnAbort(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventError(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnError(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddLoad is adding doing AddEventListener for 'Load' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventLoad(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "load", cb)
+	return cb
+}
+
+// SetOnLoad is assigning a function to 'onload'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnLoad(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onload", cb)
+	return cb
+}
+
+// AddLoadEnd is adding doing AddEventListener for 'LoadEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventLoadEnd(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadend", cb)
+	return cb
+}
+
+// SetOnLoadEnd is assigning a function to 'onloadend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnLoadEnd(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onloadend", cb)
+	return cb
+}
+
+// AddLoadStart is adding doing AddEventListener for 'LoadStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventLoadStart(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadstart", cb)
+	return cb
+}
+
+// SetOnLoadStart is assigning a function to 'onloadstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnLoadStart(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onloadstart", cb)
+	return cb
+}
+
+// AddProgress is adding doing AddEventListener for 'Progress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventProgress(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "progress", cb)
+	return cb
+}
+
+// SetOnProgress is assigning a function to 'onprogress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnProgress(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("onprogress", cb)
+	return cb
+}
+
+// AddTimeOut is adding doing AddEventListener for 'TimeOut' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) AddEventTimeOut(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "timeout", cb)
+	return cb
+}
+
+// SetOnTimeOut is assigning a function to 'ontimeout'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *XMLHttpRequestEventTarget) SetOnTimeOut(listener func(event *ProgressEvent, currentTarget *XMLHttpRequestEventTarget)) js.Func {
+	cb := eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener)
+	_this.Value_JS.Set("ontimeout", cb)
+	return cb
 }
 
 // class: XMLHttpRequestUpload

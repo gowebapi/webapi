@@ -11,6 +11,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 
@@ -200,9 +201,9 @@ func (_this *NetworkInformation) SaveData() bool {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *NetworkInformation) Onchange() domcore.EventHandlerFunc {
+func (_this *NetworkInformation) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -211,15 +212,32 @@ func (_this *NetworkInformation) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *NetworkInformation) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncNetworkInformation_domcore_Event(listener func(event *domcore.Event, target *NetworkInformation)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := NetworkInformationFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *NetworkInformation) AddEventChange(listener func(event *domcore.Event, currentTarget *NetworkInformation)) js.Func {
+	cb := eventFuncNetworkInformation_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *NetworkInformation) SetOnChange(listener func(event *domcore.Event, currentTarget *NetworkInformation)) js.Func {
+	cb := eventFuncNetworkInformation_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }

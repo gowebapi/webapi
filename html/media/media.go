@@ -9,6 +9,7 @@ import js "github.com/gowebapi/webapi/core/js"
 import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html"
+	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/local"
 	"github.com/gowebapi/webapi/media/encrypted"
@@ -17,14 +18,18 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
+// encrypted.MediaEncryptedEvent
 // encrypted.MediaKeys
 // html.HTMLElement
 // html.TimeRanges
+// htmlevent.TrackEvent
 // javascript.Object
 // javascript.PromiseVoid
 // local.MediaStream
+// pictureinpicture.EnterPictureInPictureEvent
 // pictureinpicture.PromisePictureInPictureWindow
 // remoteplayback.RemotePlayback
 
@@ -420,9 +425,9 @@ func (_this *AudioTrackList) Length() uint {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onchange() domcore.EventHandlerFunc {
+func (_this *AudioTrackList) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -431,22 +436,9 @@ func (_this *AudioTrackList) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
+// OnAddTrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onaddtrack() domcore.EventHandlerFunc {
+func (_this *AudioTrackList) OnAddTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -455,22 +447,9 @@ func (_this *AudioTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaddtrack setting attribute 'onaddtrack' with
+// OnRemoveTrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnaddtrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) Onremovetrack() domcore.EventHandlerFunc {
+func (_this *AudioTrackList) OnRemoveTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -479,17 +458,80 @@ func (_this *AudioTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *AudioTrackList) SetOnremovetrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: htmlevent.TrackEvent
+func eventFuncAudioTrackList_htmlevent_TrackEvent(listener func(event *htmlevent.TrackEvent, target *AudioTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.TrackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.TrackEventFromJS(value)
+		src := AudioTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onremovetrack", input)
+	return js.FuncOf(fn)
+}
+
+// AddAddTrack is adding doing AddEventListener for 'AddTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) AddEventAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "addtrack", cb)
+	return cb
+}
+
+// SetOnAddTrack is assigning a function to 'onaddtrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) SetOnAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onaddtrack", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncAudioTrackList_domcore_Event(listener func(event *domcore.Event, target *AudioTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := AudioTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) AddEventChange(listener func(event *domcore.Event, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) SetOnChange(listener func(event *domcore.Event, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
+}
+
+// AddRemoveTrack is adding doing AddEventListener for 'RemoveTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) AddEventRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "removetrack", cb)
+	return cb
+}
+
+// SetOnRemoveTrack is assigning a function to 'onremovetrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *AudioTrackList) SetOnRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *AudioTrackList)) js.Func {
+	cb := eventFuncAudioTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onremovetrack", cb)
+	return cb
 }
 
 func (_this *AudioTrackList) Index(index uint) (_result *AudioTrack) {
@@ -933,9 +975,9 @@ func (_this *HTMLMediaElement) MediaKeys() *encrypted.MediaKeys {
 	return ret
 }
 
-// Onencrypted returning attribute 'onencrypted' with
+// OnEncrypted returning attribute 'onencrypted' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMediaElement) Onencrypted() domcore.EventHandlerFunc {
+func (_this *HTMLMediaElement) OnEncrypted() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onencrypted")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -944,41 +986,15 @@ func (_this *HTMLMediaElement) Onencrypted() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnencrypted setting attribute 'onencrypted' with
+// OnWaitingForKey returning attribute 'onwaitingforkey' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMediaElement) SetOnencrypted(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onencrypted", input)
-}
-
-// Onwaitingforkey returning attribute 'onwaitingforkey' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMediaElement) Onwaitingforkey() domcore.EventHandlerFunc {
+func (_this *HTMLMediaElement) OnWaitingForKey() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaitingforkey")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnwaitingforkey setting attribute 'onwaitingforkey' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLMediaElement) SetOnwaitingforkey(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onwaitingforkey", input)
 }
 
 // Remote returning attribute 'remote' with
@@ -1004,6 +1020,66 @@ func (_this *HTMLMediaElement) DisableRemotePlayback() bool {
 func (_this *HTMLMediaElement) SetDisableRemotePlayback(value bool) {
 	input := value
 	_this.Value_JS.Set("disableRemotePlayback", input)
+}
+
+// event attribute: encrypted.MediaEncryptedEvent
+func eventFuncHTMLMediaElement_encrypted_MediaEncryptedEvent(listener func(event *encrypted.MediaEncryptedEvent, target *HTMLMediaElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *encrypted.MediaEncryptedEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = encrypted.MediaEncryptedEventFromJS(value)
+		src := HTMLMediaElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddEncrypted is adding doing AddEventListener for 'Encrypted' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLMediaElement) AddEventEncrypted(listener func(event *encrypted.MediaEncryptedEvent, currentTarget *HTMLMediaElement)) js.Func {
+	cb := eventFuncHTMLMediaElement_encrypted_MediaEncryptedEvent(listener)
+	_this.Value_JS.Call("addEventListener", "encrypted", cb)
+	return cb
+}
+
+// SetOnEncrypted is assigning a function to 'onencrypted'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLMediaElement) SetOnEncrypted(listener func(event *encrypted.MediaEncryptedEvent, currentTarget *HTMLMediaElement)) js.Func {
+	cb := eventFuncHTMLMediaElement_encrypted_MediaEncryptedEvent(listener)
+	_this.Value_JS.Set("onencrypted", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncHTMLMediaElement_domcore_Event(listener func(event *domcore.Event, target *HTMLMediaElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := HTMLMediaElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddWaitingForKey is adding doing AddEventListener for 'WaitingForKey' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLMediaElement) AddEventWaitingForKey(listener func(event *domcore.Event, currentTarget *HTMLMediaElement)) js.Func {
+	cb := eventFuncHTMLMediaElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "waitingforkey", cb)
+	return cb
+}
+
+// SetOnWaitingForKey is assigning a function to 'onwaitingforkey'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLMediaElement) SetOnWaitingForKey(listener func(event *domcore.Event, currentTarget *HTMLMediaElement)) js.Func {
+	cb := eventFuncHTMLMediaElement_domcore_Event(listener)
+	_this.Value_JS.Set("onwaitingforkey", cb)
+	return cb
 }
 
 func (_this *HTMLMediaElement) Load() {
@@ -1375,9 +1451,9 @@ func (_this *HTMLVideoElement) SetPlaysInline(value bool) {
 	_this.Value_JS.Set("playsInline", input)
 }
 
-// Onenterpictureinpicture returning attribute 'onenterpictureinpicture' with
+// OnEnterPictureInPicture returning attribute 'onenterpictureinpicture' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLVideoElement) Onenterpictureinpicture() domcore.EventHandlerFunc {
+func (_this *HTMLVideoElement) OnEnterPictureInPicture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onenterpictureinpicture")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1386,41 +1462,15 @@ func (_this *HTMLVideoElement) Onenterpictureinpicture() domcore.EventHandlerFun
 	return ret
 }
 
-// SetOnenterpictureinpicture setting attribute 'onenterpictureinpicture' with
+// OnLeavePictureInPicture returning attribute 'onleavepictureinpicture' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLVideoElement) SetOnenterpictureinpicture(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onenterpictureinpicture", input)
-}
-
-// Onleavepictureinpicture returning attribute 'onleavepictureinpicture' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLVideoElement) Onleavepictureinpicture() domcore.EventHandlerFunc {
+func (_this *HTMLVideoElement) OnLeavePictureInPicture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onleavepictureinpicture")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnleavepictureinpicture setting attribute 'onleavepictureinpicture' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *HTMLVideoElement) SetOnleavepictureinpicture(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onleavepictureinpicture", input)
 }
 
 // AutoPictureInPicture returning attribute 'autoPictureInPicture' with
@@ -1453,6 +1503,66 @@ func (_this *HTMLVideoElement) DisablePictureInPicture() bool {
 func (_this *HTMLVideoElement) SetDisablePictureInPicture(value bool) {
 	input := value
 	_this.Value_JS.Set("disablePictureInPicture", input)
+}
+
+// event attribute: pictureinpicture.EnterPictureInPictureEvent
+func eventFuncHTMLVideoElement_pictureinpicture_EnterPictureInPictureEvent(listener func(event *pictureinpicture.EnterPictureInPictureEvent, target *HTMLVideoElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *pictureinpicture.EnterPictureInPictureEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = pictureinpicture.EnterPictureInPictureEventFromJS(value)
+		src := HTMLVideoElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddEnterPictureInPicture is adding doing AddEventListener for 'EnterPictureInPicture' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLVideoElement) AddEventEnterPictureInPicture(listener func(event *pictureinpicture.EnterPictureInPictureEvent, currentTarget *HTMLVideoElement)) js.Func {
+	cb := eventFuncHTMLVideoElement_pictureinpicture_EnterPictureInPictureEvent(listener)
+	_this.Value_JS.Call("addEventListener", "enterpictureinpicture", cb)
+	return cb
+}
+
+// SetOnEnterPictureInPicture is assigning a function to 'onenterpictureinpicture'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLVideoElement) SetOnEnterPictureInPicture(listener func(event *pictureinpicture.EnterPictureInPictureEvent, currentTarget *HTMLVideoElement)) js.Func {
+	cb := eventFuncHTMLVideoElement_pictureinpicture_EnterPictureInPictureEvent(listener)
+	_this.Value_JS.Set("onenterpictureinpicture", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncHTMLVideoElement_domcore_Event(listener func(event *domcore.Event, target *HTMLVideoElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := HTMLVideoElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddLeavePictureInPicture is adding doing AddEventListener for 'LeavePictureInPicture' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLVideoElement) AddEventLeavePictureInPicture(listener func(event *domcore.Event, currentTarget *HTMLVideoElement)) js.Func {
+	cb := eventFuncHTMLVideoElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "leavepictureinpicture", cb)
+	return cb
+}
+
+// SetOnLeavePictureInPicture is assigning a function to 'onleavepictureinpicture'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *HTMLVideoElement) SetOnLeavePictureInPicture(listener func(event *domcore.Event, currentTarget *HTMLVideoElement)) js.Func {
+	cb := eventFuncHTMLVideoElement_domcore_Event(listener)
+	_this.Value_JS.Set("onleavepictureinpicture", cb)
+	return cb
 }
 
 func (_this *HTMLVideoElement) RequestPictureInPicture() (_result *pictureinpicture.PromisePictureInPictureWindow) {
@@ -1608,9 +1718,9 @@ func (_this *MediaSource) SetDuration(value float64) {
 	_this.Value_JS.Set("duration", input)
 }
 
-// Onsourceopen returning attribute 'onsourceopen' with
+// OnSourceOpen returning attribute 'onsourceopen' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) Onsourceopen() domcore.EventHandlerFunc {
+func (_this *MediaSource) OnSourceOpen() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceopen")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1619,22 +1729,9 @@ func (_this *MediaSource) Onsourceopen() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsourceopen setting attribute 'onsourceopen' with
+// OnSourceEnded returning attribute 'onsourceended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) SetOnsourceopen(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsourceopen", input)
-}
-
-// Onsourceended returning attribute 'onsourceended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) Onsourceended() domcore.EventHandlerFunc {
+func (_this *MediaSource) OnSourceEnded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceended")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1643,22 +1740,9 @@ func (_this *MediaSource) Onsourceended() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsourceended setting attribute 'onsourceended' with
+// OnSourceClose returning attribute 'onsourceclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) SetOnsourceended(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsourceended", input)
-}
-
-// Onsourceclose returning attribute 'onsourceclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) Onsourceclose() domcore.EventHandlerFunc {
+func (_this *MediaSource) OnSourceClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsourceclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1667,17 +1751,66 @@ func (_this *MediaSource) Onsourceclose() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsourceclose setting attribute 'onsourceclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *MediaSource) SetOnsourceclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncMediaSource_domcore_Event(listener func(event *domcore.Event, target *MediaSource)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := MediaSourceFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onsourceclose", input)
+	return js.FuncOf(fn)
+}
+
+// AddSourceClose is adding doing AddEventListener for 'SourceClose' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) AddEventSourceClose(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "sourceclose", cb)
+	return cb
+}
+
+// SetOnSourceClose is assigning a function to 'onsourceclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) SetOnSourceClose(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Set("onsourceclose", cb)
+	return cb
+}
+
+// AddSourceEnded is adding doing AddEventListener for 'SourceEnded' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) AddEventSourceEnded(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "sourceended", cb)
+	return cb
+}
+
+// SetOnSourceEnded is assigning a function to 'onsourceended'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) SetOnSourceEnded(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Set("onsourceended", cb)
+	return cb
+}
+
+// AddSourceOpen is adding doing AddEventListener for 'SourceOpen' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) AddEventSourceOpen(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "sourceopen", cb)
+	return cb
+}
+
+// SetOnSourceOpen is assigning a function to 'onsourceopen'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *MediaSource) SetOnSourceOpen(listener func(event *domcore.Event, currentTarget *MediaSource)) js.Func {
+	cb := eventFuncMediaSource_domcore_Event(listener)
+	_this.Value_JS.Set("onsourceopen", cb)
+	return cb
 }
 
 func (_this *MediaSource) AddSourceBuffer(_type string) (_result *SourceBuffer) {
@@ -1872,9 +2005,9 @@ func (_this *SourceBuffer) SetAppendWindowEnd(value float64) {
 	_this.Value_JS.Set("appendWindowEnd", input)
 }
 
-// Onupdatestart returning attribute 'onupdatestart' with
+// OnUpdateStart returning attribute 'onupdatestart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) Onupdatestart() domcore.EventHandlerFunc {
+func (_this *SourceBuffer) OnUpdateStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdatestart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1883,22 +2016,9 @@ func (_this *SourceBuffer) Onupdatestart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnupdatestart setting attribute 'onupdatestart' with
+// OnUpdate returning attribute 'onupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) SetOnupdatestart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onupdatestart", input)
-}
-
-// Onupdate returning attribute 'onupdate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) Onupdate() domcore.EventHandlerFunc {
+func (_this *SourceBuffer) OnUpdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1907,22 +2027,9 @@ func (_this *SourceBuffer) Onupdate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnupdate setting attribute 'onupdate' with
+// OnUpdateEnd returning attribute 'onupdateend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) SetOnupdate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onupdate", input)
-}
-
-// Onupdateend returning attribute 'onupdateend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) Onupdateend() domcore.EventHandlerFunc {
+func (_this *SourceBuffer) OnUpdateEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onupdateend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1931,22 +2038,9 @@ func (_this *SourceBuffer) Onupdateend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnupdateend setting attribute 'onupdateend' with
+// OnError returning attribute 'onerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) SetOnupdateend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onupdateend", input)
-}
-
-// Onerror returning attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) Onerror() domcore.EventHandlerFunc {
+func (_this *SourceBuffer) OnError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1955,22 +2049,9 @@ func (_this *SourceBuffer) Onerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) SetOnerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onabort returning attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) Onabort() domcore.EventHandlerFunc {
+func (_this *SourceBuffer) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1979,17 +2060,98 @@ func (_this *SourceBuffer) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBuffer) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSourceBuffer_domcore_Event(listener func(event *domcore.Event, target *SourceBuffer)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SourceBufferFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) AddEventAbort(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) SetOnAbort(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) AddEventError(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) SetOnError(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddUpdate is adding doing AddEventListener for 'Update' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) AddEventUpdate(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "update", cb)
+	return cb
+}
+
+// SetOnUpdate is assigning a function to 'onupdate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) SetOnUpdate(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Set("onupdate", cb)
+	return cb
+}
+
+// AddUpdateEnd is adding doing AddEventListener for 'UpdateEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) AddEventUpdateEnd(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "updateend", cb)
+	return cb
+}
+
+// SetOnUpdateEnd is assigning a function to 'onupdateend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) SetOnUpdateEnd(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Set("onupdateend", cb)
+	return cb
+}
+
+// AddUpdateStart is adding doing AddEventListener for 'UpdateStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) AddEventUpdateStart(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "updatestart", cb)
+	return cb
+}
+
+// SetOnUpdateStart is assigning a function to 'onupdatestart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBuffer) SetOnUpdateStart(listener func(event *domcore.Event, currentTarget *SourceBuffer)) js.Func {
+	cb := eventFuncSourceBuffer_domcore_Event(listener)
+	_this.Value_JS.Set("onupdatestart", cb)
+	return cb
 }
 
 func (_this *SourceBuffer) AppendBuffer(data *Union) {
@@ -2053,9 +2215,9 @@ func (_this *SourceBufferList) Length() uint {
 	return ret
 }
 
-// Onaddsourcebuffer returning attribute 'onaddsourcebuffer' with
+// OnAddSourceBuffer returning attribute 'onaddsourcebuffer' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBufferList) Onaddsourcebuffer() domcore.EventHandlerFunc {
+func (_this *SourceBufferList) OnAddSourceBuffer() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddsourcebuffer")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2064,22 +2226,9 @@ func (_this *SourceBufferList) Onaddsourcebuffer() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaddsourcebuffer setting attribute 'onaddsourcebuffer' with
+// OnRemoveSourceBuffer returning attribute 'onremovesourcebuffer' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBufferList) SetOnaddsourcebuffer(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaddsourcebuffer", input)
-}
-
-// Onremovesourcebuffer returning attribute 'onremovesourcebuffer' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBufferList) Onremovesourcebuffer() domcore.EventHandlerFunc {
+func (_this *SourceBufferList) OnRemoveSourceBuffer() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovesourcebuffer")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2088,17 +2237,50 @@ func (_this *SourceBufferList) Onremovesourcebuffer() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnremovesourcebuffer setting attribute 'onremovesourcebuffer' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SourceBufferList) SetOnremovesourcebuffer(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSourceBufferList_domcore_Event(listener func(event *domcore.Event, target *SourceBufferList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SourceBufferListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onremovesourcebuffer", input)
+	return js.FuncOf(fn)
+}
+
+// AddAddSourceBuffer is adding doing AddEventListener for 'AddSourceBuffer' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBufferList) AddEventAddSourceBuffer(listener func(event *domcore.Event, currentTarget *SourceBufferList)) js.Func {
+	cb := eventFuncSourceBufferList_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "addsourcebuffer", cb)
+	return cb
+}
+
+// SetOnAddSourceBuffer is assigning a function to 'onaddsourcebuffer'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBufferList) SetOnAddSourceBuffer(listener func(event *domcore.Event, currentTarget *SourceBufferList)) js.Func {
+	cb := eventFuncSourceBufferList_domcore_Event(listener)
+	_this.Value_JS.Set("onaddsourcebuffer", cb)
+	return cb
+}
+
+// AddRemoveSourceBuffer is adding doing AddEventListener for 'RemoveSourceBuffer' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBufferList) AddEventRemoveSourceBuffer(listener func(event *domcore.Event, currentTarget *SourceBufferList)) js.Func {
+	cb := eventFuncSourceBufferList_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "removesourcebuffer", cb)
+	return cb
+}
+
+// SetOnRemoveSourceBuffer is assigning a function to 'onremovesourcebuffer'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SourceBufferList) SetOnRemoveSourceBuffer(listener func(event *domcore.Event, currentTarget *SourceBufferList)) js.Func {
+	cb := eventFuncSourceBufferList_domcore_Event(listener)
+	_this.Value_JS.Set("onremovesourcebuffer", cb)
+	return cb
 }
 
 func (_this *SourceBufferList) Index(index uint) (_result *SourceBuffer) {
@@ -2217,28 +2399,15 @@ func (_this *TextTrack) ActiveCues() *TextTrackCueList {
 	return ret
 }
 
-// Oncuechange returning attribute 'oncuechange' with
+// OnCueChange returning attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) Oncuechange() domcore.EventHandlerFunc {
+func (_this *TextTrack) OnCueChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOncuechange setting attribute 'oncuechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrack) SetOncuechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncuechange", input)
 }
 
 // SourceBuffer returning attribute 'sourceBuffer' with
@@ -2250,6 +2419,36 @@ func (_this *TextTrack) SourceBuffer() *SourceBuffer {
 		ret = SourceBufferFromJS(value)
 	}
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncTextTrack_domcore_Event(listener func(event *domcore.Event, target *TextTrack)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := TextTrackFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCueChange is adding doing AddEventListener for 'CueChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrack) AddEventCueChange(listener func(event *domcore.Event, currentTarget *TextTrack)) js.Func {
+	cb := eventFuncTextTrack_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "cuechange", cb)
+	return cb
+}
+
+// SetOnCueChange is assigning a function to 'oncuechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrack) SetOnCueChange(listener func(event *domcore.Event, currentTarget *TextTrack)) js.Func {
+	cb := eventFuncTextTrack_domcore_Event(listener)
+	_this.Value_JS.Set("oncuechange", cb)
+	return cb
 }
 
 func (_this *TextTrack) AddCue(cue *TextTrackCue) {
@@ -2367,9 +2566,9 @@ func (_this *TextTrackCue) SetPauseOnExit(value bool) {
 	_this.Value_JS.Set("pauseOnExit", input)
 }
 
-// Onenter returning attribute 'onenter' with
+// OnEnter returning attribute 'onenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onenter() domcore.EventHandlerFunc {
+func (_this *TextTrackCue) OnEnter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onenter")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2378,22 +2577,9 @@ func (_this *TextTrackCue) Onenter() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnenter setting attribute 'onenter' with
+// OnExit returning attribute 'onexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnenter(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onenter", input)
-}
-
-// Onexit returning attribute 'onexit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) Onexit() domcore.EventHandlerFunc {
+func (_this *TextTrackCue) OnExit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onexit")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2402,17 +2588,50 @@ func (_this *TextTrackCue) Onexit() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnexit setting attribute 'onexit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackCue) SetOnexit(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncTextTrackCue_domcore_Event(listener func(event *domcore.Event, target *TextTrackCue)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := TextTrackCueFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onexit", input)
+	return js.FuncOf(fn)
+}
+
+// AddEnter is adding doing AddEventListener for 'Enter' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackCue) AddEventEnter(listener func(event *domcore.Event, currentTarget *TextTrackCue)) js.Func {
+	cb := eventFuncTextTrackCue_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "enter", cb)
+	return cb
+}
+
+// SetOnEnter is assigning a function to 'onenter'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackCue) SetOnEnter(listener func(event *domcore.Event, currentTarget *TextTrackCue)) js.Func {
+	cb := eventFuncTextTrackCue_domcore_Event(listener)
+	_this.Value_JS.Set("onenter", cb)
+	return cb
+}
+
+// AddExit is adding doing AddEventListener for 'Exit' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackCue) AddEventExit(listener func(event *domcore.Event, currentTarget *TextTrackCue)) js.Func {
+	cb := eventFuncTextTrackCue_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "exit", cb)
+	return cb
+}
+
+// SetOnExit is assigning a function to 'onexit'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackCue) SetOnExit(listener func(event *domcore.Event, currentTarget *TextTrackCue)) js.Func {
+	cb := eventFuncTextTrackCue_domcore_Event(listener)
+	_this.Value_JS.Set("onexit", cb)
+	return cb
 }
 
 // class: TextTrackCueList
@@ -2506,9 +2725,9 @@ func (_this *TextTrackList) Length() uint {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onchange() domcore.EventHandlerFunc {
+func (_this *TextTrackList) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2517,22 +2736,9 @@ func (_this *TextTrackList) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
+// OnAddTrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onaddtrack() domcore.EventHandlerFunc {
+func (_this *TextTrackList) OnAddTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2541,22 +2747,9 @@ func (_this *TextTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaddtrack setting attribute 'onaddtrack' with
+// OnRemoveTrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnaddtrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) Onremovetrack() domcore.EventHandlerFunc {
+func (_this *TextTrackList) OnRemoveTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2565,17 +2758,80 @@ func (_this *TextTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *TextTrackList) SetOnremovetrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: htmlevent.TrackEvent
+func eventFuncTextTrackList_htmlevent_TrackEvent(listener func(event *htmlevent.TrackEvent, target *TextTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.TrackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.TrackEventFromJS(value)
+		src := TextTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onremovetrack", input)
+	return js.FuncOf(fn)
+}
+
+// AddAddTrack is adding doing AddEventListener for 'AddTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) AddEventAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "addtrack", cb)
+	return cb
+}
+
+// SetOnAddTrack is assigning a function to 'onaddtrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) SetOnAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onaddtrack", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncTextTrackList_domcore_Event(listener func(event *domcore.Event, target *TextTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := TextTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) AddEventChange(listener func(event *domcore.Event, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) SetOnChange(listener func(event *domcore.Event, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
+}
+
+// AddRemoveTrack is adding doing AddEventListener for 'RemoveTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) AddEventRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "removetrack", cb)
+	return cb
+}
+
+// SetOnRemoveTrack is assigning a function to 'onremovetrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *TextTrackList) SetOnRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *TextTrackList)) js.Func {
+	cb := eventFuncTextTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onremovetrack", cb)
+	return cb
 }
 
 func (_this *TextTrackList) Index(index uint) (_result *TextTrack) {
@@ -2732,9 +2988,9 @@ func (_this *VideoTrackList) SelectedIndex() int {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onchange() domcore.EventHandlerFunc {
+func (_this *VideoTrackList) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2743,22 +2999,9 @@ func (_this *VideoTrackList) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
+// OnAddTrack returning attribute 'onaddtrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onaddtrack returning attribute 'onaddtrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onaddtrack() domcore.EventHandlerFunc {
+func (_this *VideoTrackList) OnAddTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onaddtrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2767,22 +3010,9 @@ func (_this *VideoTrackList) Onaddtrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnaddtrack setting attribute 'onaddtrack' with
+// OnRemoveTrack returning attribute 'onremovetrack' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnaddtrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onaddtrack", input)
-}
-
-// Onremovetrack returning attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) Onremovetrack() domcore.EventHandlerFunc {
+func (_this *VideoTrackList) OnRemoveTrack() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onremovetrack")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2791,17 +3021,80 @@ func (_this *VideoTrackList) Onremovetrack() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnremovetrack setting attribute 'onremovetrack' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *VideoTrackList) SetOnremovetrack(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: htmlevent.TrackEvent
+func eventFuncVideoTrackList_htmlevent_TrackEvent(listener func(event *htmlevent.TrackEvent, target *VideoTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.TrackEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.TrackEventFromJS(value)
+		src := VideoTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onremovetrack", input)
+	return js.FuncOf(fn)
+}
+
+// AddAddTrack is adding doing AddEventListener for 'AddTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) AddEventAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "addtrack", cb)
+	return cb
+}
+
+// SetOnAddTrack is assigning a function to 'onaddtrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) SetOnAddTrack(listener func(event *htmlevent.TrackEvent, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onaddtrack", cb)
+	return cb
+}
+
+// event attribute: domcore.Event
+func eventFuncVideoTrackList_domcore_Event(listener func(event *domcore.Event, target *VideoTrackList)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := VideoTrackListFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) AddEventChange(listener func(event *domcore.Event, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) SetOnChange(listener func(event *domcore.Event, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
+}
+
+// AddRemoveTrack is adding doing AddEventListener for 'RemoveTrack' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) AddEventRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Call("addEventListener", "removetrack", cb)
+	return cb
+}
+
+// SetOnRemoveTrack is assigning a function to 'onremovetrack'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *VideoTrackList) SetOnRemoveTrack(listener func(event *htmlevent.TrackEvent, currentTarget *VideoTrackList)) js.Func {
+	cb := eventFuncVideoTrackList_htmlevent_TrackEvent(listener)
+	_this.Value_JS.Set("onremovetrack", cb)
+	return cb
 }
 
 func (_this *VideoTrackList) Index(index uint) (_result *VideoTrack) {

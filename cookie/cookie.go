@@ -915,9 +915,9 @@ func CookieStoreFromJS(value js.Wrapper) *CookieStore {
 	return ret
 }
 
-// Onchange returning attribute 'onchange' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *CookieStore) Onchange() domcore.EventHandlerFunc {
+func (_this *CookieStore) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -926,17 +926,34 @@ func (_this *CookieStore) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *CookieStore) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: CookieChangeEvent
+func eventFuncCookieStore_CookieChangeEvent(listener func(event *CookieChangeEvent, target *CookieStore)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *CookieChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = CookieChangeEventFromJS(value)
+		src := CookieStoreFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
+	return js.FuncOf(fn)
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *CookieStore) AddEventChange(listener func(event *CookieChangeEvent, currentTarget *CookieStore)) js.Func {
+	cb := eventFuncCookieStore_CookieChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *CookieStore) SetOnChange(listener func(event *CookieChangeEvent, currentTarget *CookieStore)) js.Func {
+	cb := eventFuncCookieStore_CookieChangeEvent(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
 }
 
 func (_this *CookieStore) Get(name string) (_result *PromiseNilCookieListItem) {

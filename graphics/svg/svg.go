@@ -7,17 +7,29 @@ package svg
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/clipboard"
+	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/csp"
+	"github.com/gowebapi/webapi/css/animations"
 	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/cssom"
+	"github.com/gowebapi/webapi/css/transitions"
 	"github.com/gowebapi/webapi/css/typedom"
+	"github.com/gowebapi/webapi/device/touchevents"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/html"
+	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
+	"github.com/gowebapi/webapi/html/htmlevent"
 )
 
 // using following types:
+// animations.AnimationEvent
+// channel.MessageEvent
+// clipboard.ClipboardEvent
+// csp.SecurityPolicyViolationEvent
 // cssom.CSSStyleDeclaration
 // cssom.CSSStyleSheet
 // dom.Element
@@ -25,6 +37,7 @@ import (
 // dom.ShadowRoot
 // domcore.DOMStringMap
 // domcore.DOMTokenList
+// domcore.Event
 // domcore.EventHandler
 // geometry.DOMMatrix
 // geometry.DOMMatrix2DInit
@@ -34,10 +47,28 @@ import (
 // geometry.DOMRect
 // geometry.DOMRectReadOnly
 // html.FocusOptions
+// html.FormDataEvent
+// htmlcommon.BeforeUnloadEvent
 // htmlcommon.OnBeforeUnloadEventHandler
 // htmlcommon.OnErrorEventHandler
+// htmlevent.DragEvent
+// htmlevent.FocusEvent
+// htmlevent.HashChangeEvent
+// htmlevent.InputEvent
+// htmlevent.KeyboardEvent
+// htmlevent.MouseEvent
+// htmlevent.PageTransitionEvent
+// htmlevent.PointerEvent
+// htmlevent.PopStateEvent
+// htmlevent.PromiseRejectionEvent
+// htmlevent.StorageEvent
+// htmlevent.UIEvent
+// htmlevent.WheelEvent
+// touchevents.TouchEvent
+// transitions.TransitionEvent
 // typedom.StylePropertyMap
 // webani.Animation
+// xhr.ProgressEvent
 
 // source idl files:
 // SVG.idl
@@ -1166,9 +1197,9 @@ func (_this *SVGElement) ViewportElement() *SVGElement {
 	return ret
 }
 
-// Onabort returning attribute 'onabort' with
+// OnAbort returning attribute 'onabort' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onabort() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAbort() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onabort")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1177,22 +1208,9 @@ func (_this *SVGElement) Onabort() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnabort setting attribute 'onabort' with
+// OnAuxclick returning attribute 'onauxclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnabort(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onabort", input)
-}
-
-// Onauxclick returning attribute 'onauxclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onauxclick() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAuxclick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onauxclick")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1201,22 +1219,9 @@ func (_this *SVGElement) Onauxclick() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnauxclick setting attribute 'onauxclick' with
+// OnBlur returning attribute 'onblur' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnauxclick(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onauxclick", input)
-}
-
-// Onblur returning attribute 'onblur' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onblur() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnBlur() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onblur")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1225,22 +1230,9 @@ func (_this *SVGElement) Onblur() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnblur setting attribute 'onblur' with
+// OnCancel returning attribute 'oncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnblur(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onblur", input)
-}
-
-// Oncancel returning attribute 'oncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncancel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1249,22 +1241,9 @@ func (_this *SVGElement) Oncancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncancel setting attribute 'oncancel' with
+// OnCanPlay returning attribute 'oncanplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncancel", input)
-}
-
-// Oncanplay returning attribute 'oncanplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncanplay() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCanPlay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplay")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1273,22 +1252,9 @@ func (_this *SVGElement) Oncanplay() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncanplay setting attribute 'oncanplay' with
+// OnCanPlayThrough returning attribute 'oncanplaythrough' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncanplay(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncanplay", input)
-}
-
-// Oncanplaythrough returning attribute 'oncanplaythrough' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncanplaythrough() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCanPlayThrough() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncanplaythrough")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1297,22 +1263,9 @@ func (_this *SVGElement) Oncanplaythrough() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncanplaythrough setting attribute 'oncanplaythrough' with
+// OnChange returning attribute 'onchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncanplaythrough(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncanplaythrough", input)
-}
-
-// Onchange returning attribute 'onchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onchange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1321,22 +1274,9 @@ func (_this *SVGElement) Onchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnchange setting attribute 'onchange' with
+// OnClick returning attribute 'onclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onchange", input)
-}
-
-// Onclick returning attribute 'onclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onclick() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnClick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclick")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1345,22 +1285,9 @@ func (_this *SVGElement) Onclick() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnclick setting attribute 'onclick' with
+// OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnclick(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclick", input)
-}
-
-// Onclose returning attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onclose() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnClose() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onclose")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1369,22 +1296,9 @@ func (_this *SVGElement) Onclose() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnclose setting attribute 'onclose' with
+// OnContextMenu returning attribute 'oncontextmenu' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnclose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
-}
-
-// Oncontextmenu returning attribute 'oncontextmenu' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncontextmenu() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnContextMenu() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncontextmenu")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1393,22 +1307,9 @@ func (_this *SVGElement) Oncontextmenu() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncontextmenu setting attribute 'oncontextmenu' with
+// OnCueChange returning attribute 'oncuechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncontextmenu(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncontextmenu", input)
-}
-
-// Oncuechange returning attribute 'oncuechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncuechange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCueChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncuechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1417,22 +1318,9 @@ func (_this *SVGElement) Oncuechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncuechange setting attribute 'oncuechange' with
+// OnDblClick returning attribute 'ondblclick' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncuechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncuechange", input)
-}
-
-// Ondblclick returning attribute 'ondblclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondblclick() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDblClick() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondblclick")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1441,22 +1329,9 @@ func (_this *SVGElement) Ondblclick() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndblclick setting attribute 'ondblclick' with
+// OnDrag returning attribute 'ondrag' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndblclick(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondblclick", input)
-}
-
-// Ondrag returning attribute 'ondrag' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondrag() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDrag() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrag")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1465,22 +1340,9 @@ func (_this *SVGElement) Ondrag() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndrag setting attribute 'ondrag' with
+// OnDragEnd returning attribute 'ondragend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndrag(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondrag", input)
-}
-
-// Ondragend returning attribute 'ondragend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1489,22 +1351,9 @@ func (_this *SVGElement) Ondragend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragend setting attribute 'ondragend' with
+// OnDragEnter returning attribute 'ondragenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragend", input)
-}
-
-// Ondragenter returning attribute 'ondragenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragenter() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragEnter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragenter")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1513,22 +1362,9 @@ func (_this *SVGElement) Ondragenter() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragenter setting attribute 'ondragenter' with
+// OnDragExit returning attribute 'ondragexit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragenter(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragenter", input)
-}
-
-// Ondragexit returning attribute 'ondragexit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragexit() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragExit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragexit")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1537,22 +1373,9 @@ func (_this *SVGElement) Ondragexit() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragexit setting attribute 'ondragexit' with
+// OnDragLeave returning attribute 'ondragleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragexit(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragexit", input)
-}
-
-// Ondragleave returning attribute 'ondragleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragleave() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragLeave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragleave")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1561,22 +1384,9 @@ func (_this *SVGElement) Ondragleave() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragleave setting attribute 'ondragleave' with
+// OnDragOver returning attribute 'ondragover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragleave(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragleave", input)
-}
-
-// Ondragover returning attribute 'ondragover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragover() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragOver() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragover")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1585,22 +1395,9 @@ func (_this *SVGElement) Ondragover() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragover setting attribute 'ondragover' with
+// OnDragStart returning attribute 'ondragstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragover(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragover", input)
-}
-
-// Ondragstart returning attribute 'ondragstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondragstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDragStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondragstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1609,22 +1406,9 @@ func (_this *SVGElement) Ondragstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndragstart setting attribute 'ondragstart' with
+// OnDrop returning attribute 'ondrop' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndragstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondragstart", input)
-}
-
-// Ondrop returning attribute 'ondrop' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondrop() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDrop() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondrop")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1633,22 +1417,9 @@ func (_this *SVGElement) Ondrop() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndrop setting attribute 'ondrop' with
+// OnDurationChange returning attribute 'ondurationchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndrop(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondrop", input)
-}
-
-// Ondurationchange returning attribute 'ondurationchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ondurationchange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnDurationChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondurationchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1657,22 +1428,9 @@ func (_this *SVGElement) Ondurationchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndurationchange setting attribute 'ondurationchange' with
+// OnEmptied returning attribute 'onemptied' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOndurationchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ondurationchange", input)
-}
-
-// Onemptied returning attribute 'onemptied' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onemptied() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnEmptied() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onemptied")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1681,22 +1439,9 @@ func (_this *SVGElement) Onemptied() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnemptied setting attribute 'onemptied' with
+// OnEnded returning attribute 'onended' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnemptied(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onemptied", input)
-}
-
-// Onended returning attribute 'onended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onended() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnEnded() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onended")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1705,22 +1450,9 @@ func (_this *SVGElement) Onended() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnended setting attribute 'onended' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnended(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onended", input)
-}
-
-// Onerror returning attribute 'onerror' with
+// OnError returning attribute 'onerror' with
 // type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *SVGElement) Onerror() htmlcommon.OnErrorEventHandlerFunc {
+func (_this *SVGElement) OnError() htmlcommon.OnErrorEventHandlerFunc {
 	var ret htmlcommon.OnErrorEventHandlerFunc
 	value := _this.Value_JS.Get("onerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1729,22 +1461,9 @@ func (_this *SVGElement) Onerror() htmlcommon.OnErrorEventHandlerFunc {
 	return ret
 }
 
-// SetOnerror setting attribute 'onerror' with
-// type htmlcommon.OnErrorEventHandler (idl: OnErrorEventHandlerNonNull).
-func (_this *SVGElement) SetOnerror(value *htmlcommon.OnErrorEventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
-// Onfocus returning attribute 'onfocus' with
+// OnFocus returning attribute 'onfocus' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onfocus() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnFocus() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onfocus")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1753,22 +1472,9 @@ func (_this *SVGElement) Onfocus() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnfocus setting attribute 'onfocus' with
+// OnFormData returning attribute 'onformdata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnfocus(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onfocus", input)
-}
-
-// Onformdata returning attribute 'onformdata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onformdata() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnFormData() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onformdata")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1777,22 +1483,9 @@ func (_this *SVGElement) Onformdata() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnformdata setting attribute 'onformdata' with
+// OnInput returning attribute 'oninput' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnformdata(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onformdata", input)
-}
-
-// Oninput returning attribute 'oninput' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oninput() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnInput() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninput")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1801,22 +1494,9 @@ func (_this *SVGElement) Oninput() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOninput setting attribute 'oninput' with
+// OnInvalid returning attribute 'oninvalid' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOninput(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oninput", input)
-}
-
-// Oninvalid returning attribute 'oninvalid' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oninvalid() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnInvalid() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oninvalid")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1825,22 +1505,9 @@ func (_this *SVGElement) Oninvalid() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOninvalid setting attribute 'oninvalid' with
+// OnKeyDown returning attribute 'onkeydown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOninvalid(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oninvalid", input)
-}
-
-// Onkeydown returning attribute 'onkeydown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onkeydown() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnKeyDown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeydown")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1849,22 +1516,9 @@ func (_this *SVGElement) Onkeydown() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnkeydown setting attribute 'onkeydown' with
+// OnKeyPress returning attribute 'onkeypress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnkeydown(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onkeydown", input)
-}
-
-// Onkeypress returning attribute 'onkeypress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onkeypress() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnKeyPress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeypress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1873,22 +1527,9 @@ func (_this *SVGElement) Onkeypress() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnkeypress setting attribute 'onkeypress' with
+// OnKeyUp returning attribute 'onkeyup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnkeypress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onkeypress", input)
-}
-
-// Onkeyup returning attribute 'onkeyup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onkeyup() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnKeyUp() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onkeyup")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1897,22 +1538,9 @@ func (_this *SVGElement) Onkeyup() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnkeyup setting attribute 'onkeyup' with
+// OnLoad returning attribute 'onload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnkeyup(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onkeyup", input)
-}
-
-// Onload returning attribute 'onload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onload() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLoad() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onload")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1921,22 +1549,9 @@ func (_this *SVGElement) Onload() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnload setting attribute 'onload' with
+// OnLoadedData returning attribute 'onloadeddata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnload(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onload", input)
-}
-
-// Onloadeddata returning attribute 'onloadeddata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onloadeddata() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLoadedData() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadeddata")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1945,22 +1560,9 @@ func (_this *SVGElement) Onloadeddata() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadeddata setting attribute 'onloadeddata' with
+// OnLoadedMetaData returning attribute 'onloadedmetadata' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnloadeddata(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadeddata", input)
-}
-
-// Onloadedmetadata returning attribute 'onloadedmetadata' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onloadedmetadata() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLoadedMetaData() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadedmetadata")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1969,22 +1571,9 @@ func (_this *SVGElement) Onloadedmetadata() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadedmetadata setting attribute 'onloadedmetadata' with
+// OnLoadEnd returning attribute 'onloadend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnloadedmetadata(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadedmetadata", input)
-}
-
-// Onloadend returning attribute 'onloadend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onloadend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLoadEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -1993,22 +1582,9 @@ func (_this *SVGElement) Onloadend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadend setting attribute 'onloadend' with
+// OnLoadStart returning attribute 'onloadstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnloadend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadend", input)
-}
-
-// Onloadstart returning attribute 'onloadstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onloadstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLoadStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onloadstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2017,22 +1593,9 @@ func (_this *SVGElement) Onloadstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnloadstart setting attribute 'onloadstart' with
+// OnMouseDown returning attribute 'onmousedown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnloadstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onloadstart", input)
-}
-
-// Onmousedown returning attribute 'onmousedown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmousedown() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseDown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousedown")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2041,22 +1604,9 @@ func (_this *SVGElement) Onmousedown() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmousedown setting attribute 'onmousedown' with
+// OnMouseEnter returning attribute 'onmouseenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmousedown(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmousedown", input)
-}
-
-// Onmouseenter returning attribute 'onmouseenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmouseenter() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseEnter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseenter")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2065,22 +1615,9 @@ func (_this *SVGElement) Onmouseenter() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmouseenter setting attribute 'onmouseenter' with
+// OnMouseLeave returning attribute 'onmouseleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmouseenter(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmouseenter", input)
-}
-
-// Onmouseleave returning attribute 'onmouseleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmouseleave() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseLeave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseleave")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2089,22 +1626,9 @@ func (_this *SVGElement) Onmouseleave() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmouseleave setting attribute 'onmouseleave' with
+// OnMouseMove returning attribute 'onmousemove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmouseleave(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmouseleave", input)
-}
-
-// Onmousemove returning attribute 'onmousemove' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmousemove() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseMove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmousemove")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2113,22 +1637,9 @@ func (_this *SVGElement) Onmousemove() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmousemove setting attribute 'onmousemove' with
+// OnMouseOut returning attribute 'onmouseout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmousemove(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmousemove", input)
-}
-
-// Onmouseout returning attribute 'onmouseout' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmouseout() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseOut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseout")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2137,22 +1648,9 @@ func (_this *SVGElement) Onmouseout() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmouseout setting attribute 'onmouseout' with
+// OnMouseOver returning attribute 'onmouseover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmouseout(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmouseout", input)
-}
-
-// Onmouseover returning attribute 'onmouseover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmouseover() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseOver() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseover")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2161,22 +1659,9 @@ func (_this *SVGElement) Onmouseover() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmouseover setting attribute 'onmouseover' with
+// OnMouseUp returning attribute 'onmouseup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmouseover(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmouseover", input)
-}
-
-// Onmouseup returning attribute 'onmouseup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onmouseup() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnMouseUp() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmouseup")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2185,22 +1670,9 @@ func (_this *SVGElement) Onmouseup() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmouseup setting attribute 'onmouseup' with
+// OnWheel returning attribute 'onwheel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnmouseup(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmouseup", input)
-}
-
-// Onwheel returning attribute 'onwheel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onwheel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnWheel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwheel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2209,22 +1681,9 @@ func (_this *SVGElement) Onwheel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnwheel setting attribute 'onwheel' with
+// OnPause returning attribute 'onpause' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnwheel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onwheel", input)
-}
-
-// Onpause returning attribute 'onpause' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpause() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPause() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpause")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2233,22 +1692,9 @@ func (_this *SVGElement) Onpause() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpause setting attribute 'onpause' with
+// OnPlay returning attribute 'onplay' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpause(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpause", input)
-}
-
-// Onplay returning attribute 'onplay' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onplay() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPlay() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplay")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2257,22 +1703,9 @@ func (_this *SVGElement) Onplay() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnplay setting attribute 'onplay' with
+// OnPlaying returning attribute 'onplaying' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnplay(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onplay", input)
-}
-
-// Onplaying returning attribute 'onplaying' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onplaying() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPlaying() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onplaying")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2281,22 +1714,9 @@ func (_this *SVGElement) Onplaying() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnplaying setting attribute 'onplaying' with
+// OnProgress returning attribute 'onprogress' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnplaying(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onplaying", input)
-}
-
-// Onprogress returning attribute 'onprogress' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onprogress() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnProgress() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onprogress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2305,22 +1725,9 @@ func (_this *SVGElement) Onprogress() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnprogress setting attribute 'onprogress' with
+// OnRateChange returning attribute 'onratechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnprogress(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onprogress", input)
-}
-
-// Onratechange returning attribute 'onratechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onratechange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnRateChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onratechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2329,22 +1736,9 @@ func (_this *SVGElement) Onratechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnratechange setting attribute 'onratechange' with
+// OnReset returning attribute 'onreset' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnratechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onratechange", input)
-}
-
-// Onreset returning attribute 'onreset' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onreset() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnReset() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onreset")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2353,22 +1747,9 @@ func (_this *SVGElement) Onreset() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnreset setting attribute 'onreset' with
+// OnResize returning attribute 'onresize' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnreset(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onreset", input)
-}
-
-// Onresize returning attribute 'onresize' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onresize() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnResize() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onresize")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2377,22 +1758,9 @@ func (_this *SVGElement) Onresize() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnresize setting attribute 'onresize' with
+// OnScroll returning attribute 'onscroll' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnresize(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onresize", input)
-}
-
-// Onscroll returning attribute 'onscroll' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onscroll() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnScroll() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onscroll")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2401,22 +1769,9 @@ func (_this *SVGElement) Onscroll() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnscroll setting attribute 'onscroll' with
+// OnSecurityPolicyViolation returning attribute 'onsecuritypolicyviolation' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnscroll(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onscroll", input)
-}
-
-// Onsecuritypolicyviolation returning attribute 'onsecuritypolicyviolation' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSecurityPolicyViolation() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsecuritypolicyviolation")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2425,22 +1780,9 @@ func (_this *SVGElement) Onsecuritypolicyviolation() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsecuritypolicyviolation setting attribute 'onsecuritypolicyviolation' with
+// OnSeeked returning attribute 'onseeked' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnsecuritypolicyviolation(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsecuritypolicyviolation", input)
-}
-
-// Onseeked returning attribute 'onseeked' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onseeked() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSeeked() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeked")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2449,22 +1791,9 @@ func (_this *SVGElement) Onseeked() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnseeked setting attribute 'onseeked' with
+// OnSeeking returning attribute 'onseeking' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnseeked(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onseeked", input)
-}
-
-// Onseeking returning attribute 'onseeking' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onseeking() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSeeking() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onseeking")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2473,22 +1802,9 @@ func (_this *SVGElement) Onseeking() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnseeking setting attribute 'onseeking' with
+// OnSelect returning attribute 'onselect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnseeking(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onseeking", input)
-}
-
-// Onselect returning attribute 'onselect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onselect() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSelect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2497,22 +1813,9 @@ func (_this *SVGElement) Onselect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnselect setting attribute 'onselect' with
+// OnStalled returning attribute 'onstalled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnselect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onselect", input)
-}
-
-// Onstalled returning attribute 'onstalled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onstalled() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnStalled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstalled")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2521,22 +1824,9 @@ func (_this *SVGElement) Onstalled() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstalled setting attribute 'onstalled' with
+// OnSubmit returning attribute 'onsubmit' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnstalled(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstalled", input)
-}
-
-// Onsubmit returning attribute 'onsubmit' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onsubmit() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSubmit() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsubmit")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2545,22 +1835,9 @@ func (_this *SVGElement) Onsubmit() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsubmit setting attribute 'onsubmit' with
+// OnSuspend returning attribute 'onsuspend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnsubmit(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsubmit", input)
-}
-
-// Onsuspend returning attribute 'onsuspend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onsuspend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSuspend() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onsuspend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2569,22 +1846,9 @@ func (_this *SVGElement) Onsuspend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnsuspend setting attribute 'onsuspend' with
+// OnTimeUpdate returning attribute 'ontimeupdate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnsuspend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onsuspend", input)
-}
-
-// Ontimeupdate returning attribute 'ontimeupdate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontimeupdate() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTimeUpdate() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontimeupdate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2593,22 +1857,9 @@ func (_this *SVGElement) Ontimeupdate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntimeupdate setting attribute 'ontimeupdate' with
+// OnToggle returning attribute 'ontoggle' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntimeupdate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontimeupdate", input)
-}
-
-// Ontoggle returning attribute 'ontoggle' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontoggle() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnToggle() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontoggle")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2617,22 +1868,9 @@ func (_this *SVGElement) Ontoggle() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntoggle setting attribute 'ontoggle' with
+// OnVolumeChange returning attribute 'onvolumechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntoggle(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontoggle", input)
-}
-
-// Onvolumechange returning attribute 'onvolumechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onvolumechange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnVolumeChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onvolumechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2641,22 +1879,9 @@ func (_this *SVGElement) Onvolumechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnvolumechange setting attribute 'onvolumechange' with
+// OnWaiting returning attribute 'onwaiting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnvolumechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onvolumechange", input)
-}
-
-// Onwaiting returning attribute 'onwaiting' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onwaiting() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnWaiting() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onwaiting")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2665,22 +1890,9 @@ func (_this *SVGElement) Onwaiting() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnwaiting setting attribute 'onwaiting' with
+// OnGotPointerCapture returning attribute 'ongotpointercapture' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnwaiting(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onwaiting", input)
-}
-
-// Ongotpointercapture returning attribute 'ongotpointercapture' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ongotpointercapture() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnGotPointerCapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ongotpointercapture")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2689,22 +1901,9 @@ func (_this *SVGElement) Ongotpointercapture() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOngotpointercapture setting attribute 'ongotpointercapture' with
+// OnLostPointerCapture returning attribute 'onlostpointercapture' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOngotpointercapture(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ongotpointercapture", input)
-}
-
-// Onlostpointercapture returning attribute 'onlostpointercapture' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onlostpointercapture() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnLostPointerCapture() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlostpointercapture")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2713,22 +1912,9 @@ func (_this *SVGElement) Onlostpointercapture() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnlostpointercapture setting attribute 'onlostpointercapture' with
+// OnPointerDown returning attribute 'onpointerdown' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnlostpointercapture(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onlostpointercapture", input)
-}
-
-// Onpointerdown returning attribute 'onpointerdown' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerdown() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerDown() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerdown")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2737,22 +1923,9 @@ func (_this *SVGElement) Onpointerdown() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerdown setting attribute 'onpointerdown' with
+// OnPointerMove returning attribute 'onpointermove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerdown(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerdown", input)
-}
-
-// Onpointermove returning attribute 'onpointermove' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointermove() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerMove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointermove")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2761,22 +1934,9 @@ func (_this *SVGElement) Onpointermove() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointermove setting attribute 'onpointermove' with
+// OnPointerUp returning attribute 'onpointerup' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointermove(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointermove", input)
-}
-
-// Onpointerup returning attribute 'onpointerup' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerup() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerUp() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerup")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2785,22 +1945,9 @@ func (_this *SVGElement) Onpointerup() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerup setting attribute 'onpointerup' with
+// OnPointerCancel returning attribute 'onpointercancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerup(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerup", input)
-}
-
-// Onpointercancel returning attribute 'onpointercancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointercancel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointercancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2809,22 +1956,9 @@ func (_this *SVGElement) Onpointercancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointercancel setting attribute 'onpointercancel' with
+// OnPointerOver returning attribute 'onpointerover' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointercancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointercancel", input)
-}
-
-// Onpointerover returning attribute 'onpointerover' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerover() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerOver() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerover")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2833,22 +1967,9 @@ func (_this *SVGElement) Onpointerover() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerover setting attribute 'onpointerover' with
+// OnPointerOut returning attribute 'onpointerout' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerover(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerover", input)
-}
-
-// Onpointerout returning attribute 'onpointerout' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerout() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerOut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerout")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2857,22 +1978,9 @@ func (_this *SVGElement) Onpointerout() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerout setting attribute 'onpointerout' with
+// OnPointerEnter returning attribute 'onpointerenter' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerout(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerout", input)
-}
-
-// Onpointerenter returning attribute 'onpointerenter' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerenter() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerEnter() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerenter")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2881,22 +1989,9 @@ func (_this *SVGElement) Onpointerenter() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerenter setting attribute 'onpointerenter' with
+// OnPointerLeave returning attribute 'onpointerleave' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerenter(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerenter", input)
-}
-
-// Onpointerleave returning attribute 'onpointerleave' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpointerleave() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPointerLeave() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpointerleave")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2905,22 +2000,9 @@ func (_this *SVGElement) Onpointerleave() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpointerleave setting attribute 'onpointerleave' with
+// OnTouchStart returning attribute 'ontouchstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpointerleave(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpointerleave", input)
-}
-
-// Ontouchstart returning attribute 'ontouchstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontouchstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTouchStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2929,22 +2011,9 @@ func (_this *SVGElement) Ontouchstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntouchstart setting attribute 'ontouchstart' with
+// OnTouchEnd returning attribute 'ontouchend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntouchstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontouchstart", input)
-}
-
-// Ontouchend returning attribute 'ontouchend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontouchend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTouchEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2953,22 +2022,9 @@ func (_this *SVGElement) Ontouchend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntouchend setting attribute 'ontouchend' with
+// OnTouchMove returning attribute 'ontouchmove' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntouchend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontouchend", input)
-}
-
-// Ontouchmove returning attribute 'ontouchmove' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontouchmove() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTouchMove() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchmove")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -2977,22 +2033,9 @@ func (_this *SVGElement) Ontouchmove() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntouchmove setting attribute 'ontouchmove' with
+// OnTouchCancel returning attribute 'ontouchcancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntouchmove(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontouchmove", input)
-}
-
-// Ontouchcancel returning attribute 'ontouchcancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontouchcancel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTouchCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontouchcancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3001,22 +2044,9 @@ func (_this *SVGElement) Ontouchcancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntouchcancel setting attribute 'ontouchcancel' with
+// OnAnimationStart returning attribute 'onanimationstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntouchcancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontouchcancel", input)
-}
-
-// Onanimationstart returning attribute 'onanimationstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onanimationstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAnimationStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3025,22 +2055,9 @@ func (_this *SVGElement) Onanimationstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnanimationstart setting attribute 'onanimationstart' with
+// OnAnimationIteration returning attribute 'onanimationiteration' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnanimationstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onanimationstart", input)
-}
-
-// Onanimationiteration returning attribute 'onanimationiteration' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onanimationiteration() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAnimationIteration() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationiteration")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3049,22 +2066,9 @@ func (_this *SVGElement) Onanimationiteration() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnanimationiteration setting attribute 'onanimationiteration' with
+// OnAnimationEnd returning attribute 'onanimationend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnanimationiteration(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onanimationiteration", input)
-}
-
-// Onanimationend returning attribute 'onanimationend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onanimationend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAnimationEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3073,22 +2077,9 @@ func (_this *SVGElement) Onanimationend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnanimationend setting attribute 'onanimationend' with
+// OnAnimationCancel returning attribute 'onanimationcancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnanimationend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onanimationend", input)
-}
-
-// Onanimationcancel returning attribute 'onanimationcancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onanimationcancel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnAnimationCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onanimationcancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3097,22 +2088,9 @@ func (_this *SVGElement) Onanimationcancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnanimationcancel setting attribute 'onanimationcancel' with
+// OnTransitionRun returning attribute 'ontransitionrun' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnanimationcancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onanimationcancel", input)
-}
-
-// Ontransitionrun returning attribute 'ontransitionrun' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontransitionrun() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTransitionRun() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionrun")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3121,22 +2099,9 @@ func (_this *SVGElement) Ontransitionrun() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntransitionrun setting attribute 'ontransitionrun' with
+// OnTransitionStart returning attribute 'ontransitionstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntransitionrun(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontransitionrun", input)
-}
-
-// Ontransitionstart returning attribute 'ontransitionstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontransitionstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTransitionStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3145,22 +2110,9 @@ func (_this *SVGElement) Ontransitionstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntransitionstart setting attribute 'ontransitionstart' with
+// OnTransitionEnd returning attribute 'ontransitionend' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntransitionstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontransitionstart", input)
-}
-
-// Ontransitionend returning attribute 'ontransitionend' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontransitionend() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTransitionEnd() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitionend")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3169,22 +2121,9 @@ func (_this *SVGElement) Ontransitionend() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntransitionend setting attribute 'ontransitionend' with
+// OnTransitionCancel returning attribute 'ontransitioncancel' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntransitionend(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontransitionend", input)
-}
-
-// Ontransitioncancel returning attribute 'ontransitioncancel' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Ontransitioncancel() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnTransitionCancel() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ontransitioncancel")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3193,22 +2132,9 @@ func (_this *SVGElement) Ontransitioncancel() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOntransitioncancel setting attribute 'ontransitioncancel' with
+// OnSelectStart returning attribute 'onselectstart' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOntransitioncancel(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ontransitioncancel", input)
-}
-
-// Onselectstart returning attribute 'onselectstart' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onselectstart() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSelectStart() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectstart")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3217,22 +2143,9 @@ func (_this *SVGElement) Onselectstart() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnselectstart setting attribute 'onselectstart' with
+// OnSelectionChange returning attribute 'onselectionchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnselectstart(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onselectstart", input)
-}
-
-// Onselectionchange returning attribute 'onselectionchange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onselectionchange() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnSelectionChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onselectionchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3241,22 +2154,9 @@ func (_this *SVGElement) Onselectionchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnselectionchange setting attribute 'onselectionchange' with
+// OnCopy returning attribute 'oncopy' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnselectionchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onselectionchange", input)
-}
-
-// Oncopy returning attribute 'oncopy' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncopy() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCopy() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncopy")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3265,22 +2165,9 @@ func (_this *SVGElement) Oncopy() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncopy setting attribute 'oncopy' with
+// OnCut returning attribute 'oncut' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncopy(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncopy", input)
-}
-
-// Oncut returning attribute 'oncut' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Oncut() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnCut() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncut")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -3289,41 +2176,15 @@ func (_this *SVGElement) Oncut() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOncut setting attribute 'oncut' with
+// OnPaste returning attribute 'onpaste' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOncut(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("oncut", input)
-}
-
-// Onpaste returning attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) Onpaste() domcore.EventHandlerFunc {
+func (_this *SVGElement) OnPaste() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpaste")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnpaste setting attribute 'onpaste' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGElement) SetOnpaste(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpaste", input)
 }
 
 // CorrespondingElement returning attribute 'correspondingElement' with
@@ -3405,6 +2266,1670 @@ func (_this *SVGElement) AttributeStyleMap() *typedom.StylePropertyMap {
 	value := _this.Value_JS.Get("attributeStyleMap")
 	ret = typedom.StylePropertyMapFromJS(value)
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncSVGElement_domcore_Event(listener func(event *domcore.Event, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddAbort is adding doing AddEventListener for 'Abort' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAbort(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "abort", cb)
+	return cb
+}
+
+// SetOnAbort is assigning a function to 'onabort'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAbort(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onabort", cb)
+	return cb
+}
+
+// event attribute: animations.AnimationEvent
+func eventFuncSVGElement_animations_AnimationEvent(listener func(event *animations.AnimationEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *animations.AnimationEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = animations.AnimationEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddAnimationCancel is adding doing AddEventListener for 'AnimationCancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAnimationCancel(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "animationcancel", cb)
+	return cb
+}
+
+// SetOnAnimationCancel is assigning a function to 'onanimationcancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAnimationCancel(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Set("onanimationcancel", cb)
+	return cb
+}
+
+// AddAnimationEnd is adding doing AddEventListener for 'AnimationEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAnimationEnd(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "animationend", cb)
+	return cb
+}
+
+// SetOnAnimationEnd is assigning a function to 'onanimationend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAnimationEnd(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Set("onanimationend", cb)
+	return cb
+}
+
+// AddAnimationIteration is adding doing AddEventListener for 'AnimationIteration' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAnimationIteration(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "animationiteration", cb)
+	return cb
+}
+
+// SetOnAnimationIteration is assigning a function to 'onanimationiteration'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAnimationIteration(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Set("onanimationiteration", cb)
+	return cb
+}
+
+// AddAnimationStart is adding doing AddEventListener for 'AnimationStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAnimationStart(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "animationstart", cb)
+	return cb
+}
+
+// SetOnAnimationStart is assigning a function to 'onanimationstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAnimationStart(listener func(event *animations.AnimationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_animations_AnimationEvent(listener)
+	_this.Value_JS.Set("onanimationstart", cb)
+	return cb
+}
+
+// event attribute: htmlevent.MouseEvent
+func eventFuncSVGElement_htmlevent_MouseEvent(listener func(event *htmlevent.MouseEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.MouseEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.MouseEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddAuxclick is adding doing AddEventListener for 'Auxclick' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventAuxclick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "auxclick", cb)
+	return cb
+}
+
+// SetOnAuxclick is assigning a function to 'onauxclick'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnAuxclick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onauxclick", cb)
+	return cb
+}
+
+// event attribute: htmlevent.FocusEvent
+func eventFuncSVGElement_htmlevent_FocusEvent(listener func(event *htmlevent.FocusEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.FocusEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.FocusEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddBlur is adding doing AddEventListener for 'Blur' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventBlur(listener func(event *htmlevent.FocusEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_FocusEvent(listener)
+	_this.Value_JS.Call("addEventListener", "blur", cb)
+	return cb
+}
+
+// SetOnBlur is assigning a function to 'onblur'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnBlur(listener func(event *htmlevent.FocusEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_FocusEvent(listener)
+	_this.Value_JS.Set("onblur", cb)
+	return cb
+}
+
+// AddCancel is adding doing AddEventListener for 'Cancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCancel(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "cancel", cb)
+	return cb
+}
+
+// SetOnCancel is assigning a function to 'oncancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCancel(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("oncancel", cb)
+	return cb
+}
+
+// AddCanPlay is adding doing AddEventListener for 'CanPlay' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCanPlay(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "canplay", cb)
+	return cb
+}
+
+// SetOnCanPlay is assigning a function to 'oncanplay'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCanPlay(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("oncanplay", cb)
+	return cb
+}
+
+// AddCanPlayThrough is adding doing AddEventListener for 'CanPlayThrough' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCanPlayThrough(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "canplaythrough", cb)
+	return cb
+}
+
+// SetOnCanPlayThrough is assigning a function to 'oncanplaythrough'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCanPlayThrough(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("oncanplaythrough", cb)
+	return cb
+}
+
+// AddChange is adding doing AddEventListener for 'Change' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "change", cb)
+	return cb
+}
+
+// SetOnChange is assigning a function to 'onchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onchange", cb)
+	return cb
+}
+
+// AddClick is adding doing AddEventListener for 'Click' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventClick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "click", cb)
+	return cb
+}
+
+// SetOnClick is assigning a function to 'onclick'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnClick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onclick", cb)
+	return cb
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventClose(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnClose(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// AddContextMenu is adding doing AddEventListener for 'ContextMenu' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventContextMenu(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "contextmenu", cb)
+	return cb
+}
+
+// SetOnContextMenu is assigning a function to 'oncontextmenu'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnContextMenu(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("oncontextmenu", cb)
+	return cb
+}
+
+// event attribute: clipboard.ClipboardEvent
+func eventFuncSVGElement_clipboard_ClipboardEvent(listener func(event *clipboard.ClipboardEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *clipboard.ClipboardEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = clipboard.ClipboardEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddCopy is adding doing AddEventListener for 'Copy' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCopy(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "copy", cb)
+	return cb
+}
+
+// SetOnCopy is assigning a function to 'oncopy'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCopy(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Set("oncopy", cb)
+	return cb
+}
+
+// AddCueChange is adding doing AddEventListener for 'CueChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCueChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "cuechange", cb)
+	return cb
+}
+
+// SetOnCueChange is assigning a function to 'oncuechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCueChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("oncuechange", cb)
+	return cb
+}
+
+// AddCut is adding doing AddEventListener for 'Cut' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventCut(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "cut", cb)
+	return cb
+}
+
+// SetOnCut is assigning a function to 'oncut'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnCut(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Set("oncut", cb)
+	return cb
+}
+
+// AddDblClick is adding doing AddEventListener for 'DblClick' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDblClick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dblclick", cb)
+	return cb
+}
+
+// SetOnDblClick is assigning a function to 'ondblclick'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDblClick(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("ondblclick", cb)
+	return cb
+}
+
+// event attribute: htmlevent.DragEvent
+func eventFuncSVGElement_htmlevent_DragEvent(listener func(event *htmlevent.DragEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.DragEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.DragEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddDrag is adding doing AddEventListener for 'Drag' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDrag(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "drag", cb)
+	return cb
+}
+
+// SetOnDrag is assigning a function to 'ondrag'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDrag(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondrag", cb)
+	return cb
+}
+
+// AddDragEnd is adding doing AddEventListener for 'DragEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragEnd(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragend", cb)
+	return cb
+}
+
+// SetOnDragEnd is assigning a function to 'ondragend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragEnd(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragend", cb)
+	return cb
+}
+
+// AddDragEnter is adding doing AddEventListener for 'DragEnter' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragEnter(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragenter", cb)
+	return cb
+}
+
+// SetOnDragEnter is assigning a function to 'ondragenter'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragEnter(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragenter", cb)
+	return cb
+}
+
+// AddDragExit is adding doing AddEventListener for 'DragExit' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragExit(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragexit", cb)
+	return cb
+}
+
+// SetOnDragExit is assigning a function to 'ondragexit'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragExit(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragexit", cb)
+	return cb
+}
+
+// AddDragLeave is adding doing AddEventListener for 'DragLeave' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragLeave(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragleave", cb)
+	return cb
+}
+
+// SetOnDragLeave is assigning a function to 'ondragleave'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragLeave(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragleave", cb)
+	return cb
+}
+
+// AddDragOver is adding doing AddEventListener for 'DragOver' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragOver(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragover", cb)
+	return cb
+}
+
+// SetOnDragOver is assigning a function to 'ondragover'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragOver(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragover", cb)
+	return cb
+}
+
+// AddDragStart is adding doing AddEventListener for 'DragStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDragStart(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "dragstart", cb)
+	return cb
+}
+
+// SetOnDragStart is assigning a function to 'ondragstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDragStart(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondragstart", cb)
+	return cb
+}
+
+// AddDrop is adding doing AddEventListener for 'Drop' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDrop(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Call("addEventListener", "drop", cb)
+	return cb
+}
+
+// SetOnDrop is assigning a function to 'ondrop'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDrop(listener func(event *htmlevent.DragEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_DragEvent(listener)
+	_this.Value_JS.Set("ondrop", cb)
+	return cb
+}
+
+// AddDurationChange is adding doing AddEventListener for 'DurationChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventDurationChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "durationchange", cb)
+	return cb
+}
+
+// SetOnDurationChange is assigning a function to 'ondurationchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnDurationChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("ondurationchange", cb)
+	return cb
+}
+
+// AddEmptied is adding doing AddEventListener for 'Emptied' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventEmptied(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "emptied", cb)
+	return cb
+}
+
+// SetOnEmptied is assigning a function to 'onemptied'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnEmptied(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onemptied", cb)
+	return cb
+}
+
+// AddEnded is adding doing AddEventListener for 'Ended' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventEnded(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "ended", cb)
+	return cb
+}
+
+// SetOnEnded is assigning a function to 'onended'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnEnded(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onended", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventError(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnError(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddFocus is adding doing AddEventListener for 'Focus' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventFocus(listener func(event *htmlevent.FocusEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_FocusEvent(listener)
+	_this.Value_JS.Call("addEventListener", "focus", cb)
+	return cb
+}
+
+// SetOnFocus is assigning a function to 'onfocus'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnFocus(listener func(event *htmlevent.FocusEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_FocusEvent(listener)
+	_this.Value_JS.Set("onfocus", cb)
+	return cb
+}
+
+// event attribute: html.FormDataEvent
+func eventFuncSVGElement_html_FormDataEvent(listener func(event *html.FormDataEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *html.FormDataEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = html.FormDataEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddFormData is adding doing AddEventListener for 'FormData' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventFormData(listener func(event *html.FormDataEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_html_FormDataEvent(listener)
+	_this.Value_JS.Call("addEventListener", "formdata", cb)
+	return cb
+}
+
+// SetOnFormData is assigning a function to 'onformdata'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnFormData(listener func(event *html.FormDataEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_html_FormDataEvent(listener)
+	_this.Value_JS.Set("onformdata", cb)
+	return cb
+}
+
+// event attribute: htmlevent.PointerEvent
+func eventFuncSVGElement_htmlevent_PointerEvent(listener func(event *htmlevent.PointerEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.PointerEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.PointerEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddGotPointerCapture is adding doing AddEventListener for 'GotPointerCapture' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventGotPointerCapture(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "gotpointercapture", cb)
+	return cb
+}
+
+// SetOnGotPointerCapture is assigning a function to 'ongotpointercapture'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnGotPointerCapture(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("ongotpointercapture", cb)
+	return cb
+}
+
+// event attribute: htmlevent.InputEvent
+func eventFuncSVGElement_htmlevent_InputEvent(listener func(event *htmlevent.InputEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.InputEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.InputEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddInput is adding doing AddEventListener for 'Input' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventInput(listener func(event *htmlevent.InputEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_InputEvent(listener)
+	_this.Value_JS.Call("addEventListener", "input", cb)
+	return cb
+}
+
+// SetOnInput is assigning a function to 'oninput'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnInput(listener func(event *htmlevent.InputEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_InputEvent(listener)
+	_this.Value_JS.Set("oninput", cb)
+	return cb
+}
+
+// AddInvalid is adding doing AddEventListener for 'Invalid' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventInvalid(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "invalid", cb)
+	return cb
+}
+
+// SetOnInvalid is assigning a function to 'oninvalid'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnInvalid(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("oninvalid", cb)
+	return cb
+}
+
+// event attribute: htmlevent.KeyboardEvent
+func eventFuncSVGElement_htmlevent_KeyboardEvent(listener func(event *htmlevent.KeyboardEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.KeyboardEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.KeyboardEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddKeyDown is adding doing AddEventListener for 'KeyDown' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventKeyDown(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "keydown", cb)
+	return cb
+}
+
+// SetOnKeyDown is assigning a function to 'onkeydown'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnKeyDown(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Set("onkeydown", cb)
+	return cb
+}
+
+// AddKeyPress is adding doing AddEventListener for 'KeyPress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventKeyPress(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "keypress", cb)
+	return cb
+}
+
+// SetOnKeyPress is assigning a function to 'onkeypress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnKeyPress(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Set("onkeypress", cb)
+	return cb
+}
+
+// AddKeyUp is adding doing AddEventListener for 'KeyUp' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventKeyUp(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "keyup", cb)
+	return cb
+}
+
+// SetOnKeyUp is assigning a function to 'onkeyup'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnKeyUp(listener func(event *htmlevent.KeyboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_KeyboardEvent(listener)
+	_this.Value_JS.Set("onkeyup", cb)
+	return cb
+}
+
+// AddLoad is adding doing AddEventListener for 'Load' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLoad(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "load", cb)
+	return cb
+}
+
+// SetOnLoad is assigning a function to 'onload'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLoad(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onload", cb)
+	return cb
+}
+
+// AddLoadedData is adding doing AddEventListener for 'LoadedData' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLoadedData(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "loadeddata", cb)
+	return cb
+}
+
+// SetOnLoadedData is assigning a function to 'onloadeddata'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLoadedData(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onloadeddata", cb)
+	return cb
+}
+
+// AddLoadedMetaData is adding doing AddEventListener for 'LoadedMetaData' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLoadedMetaData(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "loadedmetadata", cb)
+	return cb
+}
+
+// SetOnLoadedMetaData is assigning a function to 'onloadedmetadata'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLoadedMetaData(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onloadedmetadata", cb)
+	return cb
+}
+
+// event attribute: xhr.ProgressEvent
+func eventFuncSVGElement_xhr_ProgressEvent(listener func(event *xhr.ProgressEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *xhr.ProgressEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = xhr.ProgressEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddLoadEnd is adding doing AddEventListener for 'LoadEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLoadEnd(listener func(event *xhr.ProgressEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "loadend", cb)
+	return cb
+}
+
+// SetOnLoadEnd is assigning a function to 'onloadend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLoadEnd(listener func(event *xhr.ProgressEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onloadend", cb)
+	return cb
+}
+
+// AddLoadStart is adding doing AddEventListener for 'LoadStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLoadStart(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "loadstart", cb)
+	return cb
+}
+
+// SetOnLoadStart is assigning a function to 'onloadstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLoadStart(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onloadstart", cb)
+	return cb
+}
+
+// AddLostPointerCapture is adding doing AddEventListener for 'LostPointerCapture' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventLostPointerCapture(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "lostpointercapture", cb)
+	return cb
+}
+
+// SetOnLostPointerCapture is assigning a function to 'onlostpointercapture'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnLostPointerCapture(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onlostpointercapture", cb)
+	return cb
+}
+
+// AddMouseDown is adding doing AddEventListener for 'MouseDown' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseDown(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mousedown", cb)
+	return cb
+}
+
+// SetOnMouseDown is assigning a function to 'onmousedown'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseDown(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmousedown", cb)
+	return cb
+}
+
+// AddMouseEnter is adding doing AddEventListener for 'MouseEnter' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseEnter(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mouseenter", cb)
+	return cb
+}
+
+// SetOnMouseEnter is assigning a function to 'onmouseenter'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseEnter(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmouseenter", cb)
+	return cb
+}
+
+// AddMouseLeave is adding doing AddEventListener for 'MouseLeave' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseLeave(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mouseleave", cb)
+	return cb
+}
+
+// SetOnMouseLeave is assigning a function to 'onmouseleave'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseLeave(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmouseleave", cb)
+	return cb
+}
+
+// AddMouseMove is adding doing AddEventListener for 'MouseMove' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseMove(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mousemove", cb)
+	return cb
+}
+
+// SetOnMouseMove is assigning a function to 'onmousemove'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseMove(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmousemove", cb)
+	return cb
+}
+
+// AddMouseOut is adding doing AddEventListener for 'MouseOut' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseOut(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mouseout", cb)
+	return cb
+}
+
+// SetOnMouseOut is assigning a function to 'onmouseout'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseOut(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmouseout", cb)
+	return cb
+}
+
+// AddMouseOver is adding doing AddEventListener for 'MouseOver' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseOver(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mouseover", cb)
+	return cb
+}
+
+// SetOnMouseOver is assigning a function to 'onmouseover'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseOver(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmouseover", cb)
+	return cb
+}
+
+// AddMouseUp is adding doing AddEventListener for 'MouseUp' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventMouseUp(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Call("addEventListener", "mouseup", cb)
+	return cb
+}
+
+// SetOnMouseUp is assigning a function to 'onmouseup'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnMouseUp(listener func(event *htmlevent.MouseEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_MouseEvent(listener)
+	_this.Value_JS.Set("onmouseup", cb)
+	return cb
+}
+
+// AddPaste is adding doing AddEventListener for 'Paste' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPaste(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Call("addEventListener", "paste", cb)
+	return cb
+}
+
+// SetOnPaste is assigning a function to 'onpaste'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPaste(listener func(event *clipboard.ClipboardEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_clipboard_ClipboardEvent(listener)
+	_this.Value_JS.Set("onpaste", cb)
+	return cb
+}
+
+// AddPause is adding doing AddEventListener for 'Pause' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPause(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "pause", cb)
+	return cb
+}
+
+// SetOnPause is assigning a function to 'onpause'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPause(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onpause", cb)
+	return cb
+}
+
+// AddPlay is adding doing AddEventListener for 'Play' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPlay(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "play", cb)
+	return cb
+}
+
+// SetOnPlay is assigning a function to 'onplay'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPlay(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onplay", cb)
+	return cb
+}
+
+// AddPlaying is adding doing AddEventListener for 'Playing' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPlaying(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "playing", cb)
+	return cb
+}
+
+// SetOnPlaying is assigning a function to 'onplaying'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPlaying(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onplaying", cb)
+	return cb
+}
+
+// AddPointerCancel is adding doing AddEventListener for 'PointerCancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerCancel(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointercancel", cb)
+	return cb
+}
+
+// SetOnPointerCancel is assigning a function to 'onpointercancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerCancel(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointercancel", cb)
+	return cb
+}
+
+// AddPointerDown is adding doing AddEventListener for 'PointerDown' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerDown(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerdown", cb)
+	return cb
+}
+
+// SetOnPointerDown is assigning a function to 'onpointerdown'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerDown(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerdown", cb)
+	return cb
+}
+
+// AddPointerEnter is adding doing AddEventListener for 'PointerEnter' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerEnter(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerenter", cb)
+	return cb
+}
+
+// SetOnPointerEnter is assigning a function to 'onpointerenter'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerEnter(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerenter", cb)
+	return cb
+}
+
+// AddPointerLeave is adding doing AddEventListener for 'PointerLeave' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerLeave(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerleave", cb)
+	return cb
+}
+
+// SetOnPointerLeave is assigning a function to 'onpointerleave'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerLeave(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerleave", cb)
+	return cb
+}
+
+// AddPointerMove is adding doing AddEventListener for 'PointerMove' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerMove(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointermove", cb)
+	return cb
+}
+
+// SetOnPointerMove is assigning a function to 'onpointermove'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerMove(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointermove", cb)
+	return cb
+}
+
+// AddPointerOut is adding doing AddEventListener for 'PointerOut' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerOut(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerout", cb)
+	return cb
+}
+
+// SetOnPointerOut is assigning a function to 'onpointerout'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerOut(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerout", cb)
+	return cb
+}
+
+// AddPointerOver is adding doing AddEventListener for 'PointerOver' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerOver(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerover", cb)
+	return cb
+}
+
+// SetOnPointerOver is assigning a function to 'onpointerover'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerOver(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerover", cb)
+	return cb
+}
+
+// AddPointerUp is adding doing AddEventListener for 'PointerUp' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventPointerUp(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pointerup", cb)
+	return cb
+}
+
+// SetOnPointerUp is assigning a function to 'onpointerup'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnPointerUp(listener func(event *htmlevent.PointerEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_PointerEvent(listener)
+	_this.Value_JS.Set("onpointerup", cb)
+	return cb
+}
+
+// AddProgress is adding doing AddEventListener for 'Progress' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventProgress(listener func(event *xhr.ProgressEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_xhr_ProgressEvent(listener)
+	_this.Value_JS.Call("addEventListener", "progress", cb)
+	return cb
+}
+
+// SetOnProgress is assigning a function to 'onprogress'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnProgress(listener func(event *xhr.ProgressEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_xhr_ProgressEvent(listener)
+	_this.Value_JS.Set("onprogress", cb)
+	return cb
+}
+
+// AddRateChange is adding doing AddEventListener for 'RateChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventRateChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "ratechange", cb)
+	return cb
+}
+
+// SetOnRateChange is assigning a function to 'onratechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnRateChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onratechange", cb)
+	return cb
+}
+
+// AddReset is adding doing AddEventListener for 'Reset' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventReset(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "reset", cb)
+	return cb
+}
+
+// SetOnReset is assigning a function to 'onreset'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnReset(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onreset", cb)
+	return cb
+}
+
+// event attribute: htmlevent.UIEvent
+func eventFuncSVGElement_htmlevent_UIEvent(listener func(event *htmlevent.UIEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.UIEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.UIEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddResize is adding doing AddEventListener for 'Resize' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventResize(listener func(event *htmlevent.UIEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_UIEvent(listener)
+	_this.Value_JS.Call("addEventListener", "resize", cb)
+	return cb
+}
+
+// SetOnResize is assigning a function to 'onresize'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnResize(listener func(event *htmlevent.UIEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_UIEvent(listener)
+	_this.Value_JS.Set("onresize", cb)
+	return cb
+}
+
+// AddScroll is adding doing AddEventListener for 'Scroll' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventScroll(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "scroll", cb)
+	return cb
+}
+
+// SetOnScroll is assigning a function to 'onscroll'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnScroll(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onscroll", cb)
+	return cb
+}
+
+// event attribute: csp.SecurityPolicyViolationEvent
+func eventFuncSVGElement_csp_SecurityPolicyViolationEvent(listener func(event *csp.SecurityPolicyViolationEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *csp.SecurityPolicyViolationEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = csp.SecurityPolicyViolationEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddSecurityPolicyViolation is adding doing AddEventListener for 'SecurityPolicyViolation' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSecurityPolicyViolation(listener func(event *csp.SecurityPolicyViolationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_csp_SecurityPolicyViolationEvent(listener)
+	_this.Value_JS.Call("addEventListener", "securitypolicyviolation", cb)
+	return cb
+}
+
+// SetOnSecurityPolicyViolation is assigning a function to 'onsecuritypolicyviolation'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSecurityPolicyViolation(listener func(event *csp.SecurityPolicyViolationEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_csp_SecurityPolicyViolationEvent(listener)
+	_this.Value_JS.Set("onsecuritypolicyviolation", cb)
+	return cb
+}
+
+// AddSeeked is adding doing AddEventListener for 'Seeked' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSeeked(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "seeked", cb)
+	return cb
+}
+
+// SetOnSeeked is assigning a function to 'onseeked'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSeeked(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onseeked", cb)
+	return cb
+}
+
+// AddSeeking is adding doing AddEventListener for 'Seeking' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSeeking(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "seeking", cb)
+	return cb
+}
+
+// SetOnSeeking is assigning a function to 'onseeking'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSeeking(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onseeking", cb)
+	return cb
+}
+
+// AddSelect is adding doing AddEventListener for 'Select' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSelect(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "select", cb)
+	return cb
+}
+
+// SetOnSelect is assigning a function to 'onselect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSelect(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onselect", cb)
+	return cb
+}
+
+// AddSelectionChange is adding doing AddEventListener for 'SelectionChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSelectionChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "selectionchange", cb)
+	return cb
+}
+
+// SetOnSelectionChange is assigning a function to 'onselectionchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSelectionChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onselectionchange", cb)
+	return cb
+}
+
+// AddSelectStart is adding doing AddEventListener for 'SelectStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSelectStart(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "selectstart", cb)
+	return cb
+}
+
+// SetOnSelectStart is assigning a function to 'onselectstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSelectStart(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onselectstart", cb)
+	return cb
+}
+
+// AddStalled is adding doing AddEventListener for 'Stalled' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventStalled(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "stalled", cb)
+	return cb
+}
+
+// SetOnStalled is assigning a function to 'onstalled'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnStalled(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onstalled", cb)
+	return cb
+}
+
+// AddSubmit is adding doing AddEventListener for 'Submit' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSubmit(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "submit", cb)
+	return cb
+}
+
+// SetOnSubmit is assigning a function to 'onsubmit'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSubmit(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onsubmit", cb)
+	return cb
+}
+
+// AddSuspend is adding doing AddEventListener for 'Suspend' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventSuspend(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "suspend", cb)
+	return cb
+}
+
+// SetOnSuspend is assigning a function to 'onsuspend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnSuspend(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onsuspend", cb)
+	return cb
+}
+
+// AddTimeUpdate is adding doing AddEventListener for 'TimeUpdate' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTimeUpdate(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "timeupdate", cb)
+	return cb
+}
+
+// SetOnTimeUpdate is assigning a function to 'ontimeupdate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTimeUpdate(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("ontimeupdate", cb)
+	return cb
+}
+
+// AddToggle is adding doing AddEventListener for 'Toggle' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventToggle(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "toggle", cb)
+	return cb
+}
+
+// SetOnToggle is assigning a function to 'ontoggle'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnToggle(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("ontoggle", cb)
+	return cb
+}
+
+// event attribute: touchevents.TouchEvent
+func eventFuncSVGElement_touchevents_TouchEvent(listener func(event *touchevents.TouchEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *touchevents.TouchEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = touchevents.TouchEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddTouchCancel is adding doing AddEventListener for 'TouchCancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTouchCancel(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "touchcancel", cb)
+	return cb
+}
+
+// SetOnTouchCancel is assigning a function to 'ontouchcancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTouchCancel(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Set("ontouchcancel", cb)
+	return cb
+}
+
+// AddTouchEnd is adding doing AddEventListener for 'TouchEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTouchEnd(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "touchend", cb)
+	return cb
+}
+
+// SetOnTouchEnd is assigning a function to 'ontouchend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTouchEnd(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Set("ontouchend", cb)
+	return cb
+}
+
+// AddTouchMove is adding doing AddEventListener for 'TouchMove' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTouchMove(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "touchmove", cb)
+	return cb
+}
+
+// SetOnTouchMove is assigning a function to 'ontouchmove'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTouchMove(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Set("ontouchmove", cb)
+	return cb
+}
+
+// AddTouchStart is adding doing AddEventListener for 'TouchStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTouchStart(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Call("addEventListener", "touchstart", cb)
+	return cb
+}
+
+// SetOnTouchStart is assigning a function to 'ontouchstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTouchStart(listener func(event *touchevents.TouchEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_touchevents_TouchEvent(listener)
+	_this.Value_JS.Set("ontouchstart", cb)
+	return cb
+}
+
+// event attribute: transitions.TransitionEvent
+func eventFuncSVGElement_transitions_TransitionEvent(listener func(event *transitions.TransitionEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *transitions.TransitionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = transitions.TransitionEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddTransitionCancel is adding doing AddEventListener for 'TransitionCancel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTransitionCancel(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "transitioncancel", cb)
+	return cb
+}
+
+// SetOnTransitionCancel is assigning a function to 'ontransitioncancel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTransitionCancel(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Set("ontransitioncancel", cb)
+	return cb
+}
+
+// AddTransitionEnd is adding doing AddEventListener for 'TransitionEnd' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTransitionEnd(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "transitionend", cb)
+	return cb
+}
+
+// SetOnTransitionEnd is assigning a function to 'ontransitionend'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTransitionEnd(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Set("ontransitionend", cb)
+	return cb
+}
+
+// AddTransitionRun is adding doing AddEventListener for 'TransitionRun' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTransitionRun(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "transitionrun", cb)
+	return cb
+}
+
+// SetOnTransitionRun is assigning a function to 'ontransitionrun'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTransitionRun(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Set("ontransitionrun", cb)
+	return cb
+}
+
+// AddTransitionStart is adding doing AddEventListener for 'TransitionStart' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventTransitionStart(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "transitionstart", cb)
+	return cb
+}
+
+// SetOnTransitionStart is assigning a function to 'ontransitionstart'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnTransitionStart(listener func(event *transitions.TransitionEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_transitions_TransitionEvent(listener)
+	_this.Value_JS.Set("ontransitionstart", cb)
+	return cb
+}
+
+// AddVolumeChange is adding doing AddEventListener for 'VolumeChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventVolumeChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "volumechange", cb)
+	return cb
+}
+
+// SetOnVolumeChange is assigning a function to 'onvolumechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnVolumeChange(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onvolumechange", cb)
+	return cb
+}
+
+// AddWaiting is adding doing AddEventListener for 'Waiting' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventWaiting(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "waiting", cb)
+	return cb
+}
+
+// SetOnWaiting is assigning a function to 'onwaiting'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnWaiting(listener func(event *domcore.Event, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onwaiting", cb)
+	return cb
+}
+
+// event attribute: htmlevent.WheelEvent
+func eventFuncSVGElement_htmlevent_WheelEvent(listener func(event *htmlevent.WheelEvent, target *SVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.WheelEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.WheelEventFromJS(value)
+		src := SVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddWheel is adding doing AddEventListener for 'Wheel' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) AddEventWheel(listener func(event *htmlevent.WheelEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_WheelEvent(listener)
+	_this.Value_JS.Call("addEventListener", "wheel", cb)
+	return cb
+}
+
+// SetOnWheel is assigning a function to 'onwheel'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGElement) SetOnWheel(listener func(event *htmlevent.WheelEvent, currentTarget *SVGElement)) js.Func {
+	cb := eventFuncSVGElement_htmlevent_WheelEvent(listener)
+	_this.Value_JS.Set("onwheel", cb)
+	return cb
 }
 
 func (_this *SVGElement) Focus(options *html.FocusOptions) {
@@ -5386,9 +5911,9 @@ func (_this *SVGSVGElement) SetZoomAndPan(value int) {
 	_this.Value_JS.Set("zoomAndPan", input)
 }
 
-// Onafterprint returning attribute 'onafterprint' with
+// OnAfterPrint returning attribute 'onafterprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onafterprint() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnAfterPrint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onafterprint")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5397,22 +5922,9 @@ func (_this *SVGSVGElement) Onafterprint() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnafterprint setting attribute 'onafterprint' with
+// OnBeforePrint returning attribute 'onbeforeprint' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnafterprint(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onafterprint", input)
-}
-
-// Onbeforeprint returning attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onbeforeprint() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnBeforePrint() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeprint")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5421,22 +5933,9 @@ func (_this *SVGSVGElement) Onbeforeprint() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnbeforeprint setting attribute 'onbeforeprint' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnbeforeprint(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbeforeprint", input)
-}
-
-// Onbeforeunload returning attribute 'onbeforeunload' with
+// OnBeforeUnload returning attribute 'onbeforeunload' with
 // type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *SVGSVGElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
+func (_this *SVGSVGElement) OnBeforeUnload() htmlcommon.OnBeforeUnloadEventHandlerFunc {
 	var ret htmlcommon.OnBeforeUnloadEventHandlerFunc
 	value := _this.Value_JS.Get("onbeforeunload")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5445,22 +5944,9 @@ func (_this *SVGSVGElement) Onbeforeunload() htmlcommon.OnBeforeUnloadEventHandl
 	return ret
 }
 
-// SetOnbeforeunload setting attribute 'onbeforeunload' with
-// type htmlcommon.OnBeforeUnloadEventHandler (idl: OnBeforeUnloadEventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnbeforeunload(value *htmlcommon.OnBeforeUnloadEventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onbeforeunload", input)
-}
-
-// Onhashchange returning attribute 'onhashchange' with
+// OnHashChange returning attribute 'onhashchange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onhashchange() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnHashChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onhashchange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5469,22 +5955,9 @@ func (_this *SVGSVGElement) Onhashchange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnhashchange setting attribute 'onhashchange' with
+// OnLanguageChange returning attribute 'onlanguagechange' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnhashchange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onhashchange", input)
-}
-
-// Onlanguagechange returning attribute 'onlanguagechange' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onlanguagechange() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnLanguageChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onlanguagechange")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5493,22 +5966,9 @@ func (_this *SVGSVGElement) Onlanguagechange() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnlanguagechange setting attribute 'onlanguagechange' with
+// OnMessage returning attribute 'onmessage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnlanguagechange(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onlanguagechange", input)
-}
-
-// Onmessage returning attribute 'onmessage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onmessage() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnMessage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5517,22 +5977,9 @@ func (_this *SVGSVGElement) Onmessage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessage setting attribute 'onmessage' with
+// OnMessageError returning attribute 'onmessageerror' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnmessage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessage", input)
-}
-
-// Onmessageerror returning attribute 'onmessageerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onmessageerror() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnMessageError() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onmessageerror")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5541,22 +5988,9 @@ func (_this *SVGSVGElement) Onmessageerror() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnmessageerror setting attribute 'onmessageerror' with
+// OnOffline returning attribute 'onoffline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnmessageerror(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onmessageerror", input)
-}
-
-// Onoffline returning attribute 'onoffline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onoffline() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnOffline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onoffline")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5565,22 +5999,9 @@ func (_this *SVGSVGElement) Onoffline() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnoffline setting attribute 'onoffline' with
+// OnOnline returning attribute 'ononline' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnoffline(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onoffline", input)
-}
-
-// Ononline returning attribute 'ononline' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Ononline() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnOnline() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ononline")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5589,22 +6010,9 @@ func (_this *SVGSVGElement) Ononline() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnonline setting attribute 'ononline' with
+// OnPageHide returning attribute 'onpagehide' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnonline(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("ononline", input)
-}
-
-// Onpagehide returning attribute 'onpagehide' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onpagehide() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnPageHide() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpagehide")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5613,22 +6021,9 @@ func (_this *SVGSVGElement) Onpagehide() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpagehide setting attribute 'onpagehide' with
+// OnPageShow returning attribute 'onpageshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnpagehide(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpagehide", input)
-}
-
-// Onpageshow returning attribute 'onpageshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onpageshow() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnPageShow() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpageshow")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5637,22 +6032,9 @@ func (_this *SVGSVGElement) Onpageshow() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpageshow setting attribute 'onpageshow' with
+// OnPopState returning attribute 'onpopstate' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnpageshow(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpageshow", input)
-}
-
-// Onpopstate returning attribute 'onpopstate' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onpopstate() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnPopState() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpopstate")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5661,22 +6043,9 @@ func (_this *SVGSVGElement) Onpopstate() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnpopstate setting attribute 'onpopstate' with
+// OnRejectionHandled returning attribute 'onrejectionhandled' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnpopstate(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onpopstate", input)
-}
-
-// Onrejectionhandled returning attribute 'onrejectionhandled' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onrejectionhandled() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnRejectionHandled() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onrejectionhandled")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5685,22 +6054,9 @@ func (_this *SVGSVGElement) Onrejectionhandled() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnrejectionhandled setting attribute 'onrejectionhandled' with
+// OnStorage returning attribute 'onstorage' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnrejectionhandled(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onrejectionhandled", input)
-}
-
-// Onstorage returning attribute 'onstorage' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onstorage() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnStorage() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onstorage")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5709,22 +6065,9 @@ func (_this *SVGSVGElement) Onstorage() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnstorage setting attribute 'onstorage' with
+// OnUnhandledRejection returning attribute 'onunhandledrejection' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnstorage(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onstorage", input)
-}
-
-// Onunhandledrejection returning attribute 'onunhandledrejection' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onunhandledrejection() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnUnhandledRejection() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunhandledrejection")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5733,22 +6076,9 @@ func (_this *SVGSVGElement) Onunhandledrejection() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnunhandledrejection setting attribute 'onunhandledrejection' with
+// OnUnload returning attribute 'onunload' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnunhandledrejection(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onunhandledrejection", input)
-}
-
-// Onunload returning attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) Onunload() domcore.EventHandlerFunc {
+func (_this *SVGSVGElement) OnUnload() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onunload")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -5757,17 +6087,372 @@ func (_this *SVGSVGElement) Onunload() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnunload setting attribute 'onunload' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *SVGSVGElement) SetOnunload(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncSVGSVGElement_domcore_Event(listener func(event *domcore.Event, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("onunload", input)
+	return js.FuncOf(fn)
+}
+
+// AddAfterPrint is adding doing AddEventListener for 'AfterPrint' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventAfterPrint(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "afterprint", cb)
+	return cb
+}
+
+// SetOnAfterPrint is assigning a function to 'onafterprint'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnAfterPrint(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onafterprint", cb)
+	return cb
+}
+
+// AddBeforePrint is adding doing AddEventListener for 'BeforePrint' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventBeforePrint(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "beforeprint", cb)
+	return cb
+}
+
+// SetOnBeforePrint is assigning a function to 'onbeforeprint'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnBeforePrint(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onbeforeprint", cb)
+	return cb
+}
+
+// event attribute: htmlcommon.BeforeUnloadEvent
+func eventFuncSVGSVGElement_htmlcommon_BeforeUnloadEvent(listener func(event *htmlcommon.BeforeUnloadEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlcommon.BeforeUnloadEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlcommon.BeforeUnloadEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddBeforeUnload is adding doing AddEventListener for 'BeforeUnload' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventBeforeUnload(listener func(event *htmlcommon.BeforeUnloadEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlcommon_BeforeUnloadEvent(listener)
+	_this.Value_JS.Call("addEventListener", "beforeunload", cb)
+	return cb
+}
+
+// SetOnBeforeUnload is assigning a function to 'onbeforeunload'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnBeforeUnload(listener func(event *htmlcommon.BeforeUnloadEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlcommon_BeforeUnloadEvent(listener)
+	_this.Value_JS.Set("onbeforeunload", cb)
+	return cb
+}
+
+// event attribute: htmlevent.HashChangeEvent
+func eventFuncSVGSVGElement_htmlevent_HashChangeEvent(listener func(event *htmlevent.HashChangeEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.HashChangeEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.HashChangeEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddHashChange is adding doing AddEventListener for 'HashChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventHashChange(listener func(event *htmlevent.HashChangeEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_HashChangeEvent(listener)
+	_this.Value_JS.Call("addEventListener", "hashchange", cb)
+	return cb
+}
+
+// SetOnHashChange is assigning a function to 'onhashchange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnHashChange(listener func(event *htmlevent.HashChangeEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_HashChangeEvent(listener)
+	_this.Value_JS.Set("onhashchange", cb)
+	return cb
+}
+
+// AddLanguageChange is adding doing AddEventListener for 'LanguageChange' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventLanguageChange(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "languagechange", cb)
+	return cb
+}
+
+// SetOnLanguageChange is assigning a function to 'onlanguagechange'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnLanguageChange(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onlanguagechange", cb)
+	return cb
+}
+
+// event attribute: channel.MessageEvent
+func eventFuncSVGSVGElement_channel_MessageEvent(listener func(event *channel.MessageEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *channel.MessageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = channel.MessageEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddMessage is adding doing AddEventListener for 'Message' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventMessage(listener func(event *channel.MessageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "message", cb)
+	return cb
+}
+
+// SetOnMessage is assigning a function to 'onmessage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnMessage(listener func(event *channel.MessageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessage", cb)
+	return cb
+}
+
+// AddMessageError is adding doing AddEventListener for 'MessageError' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventMessageError(listener func(event *channel.MessageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_channel_MessageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "messageerror", cb)
+	return cb
+}
+
+// SetOnMessageError is assigning a function to 'onmessageerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnMessageError(listener func(event *channel.MessageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_channel_MessageEvent(listener)
+	_this.Value_JS.Set("onmessageerror", cb)
+	return cb
+}
+
+// AddOffline is adding doing AddEventListener for 'Offline' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventOffline(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "offline", cb)
+	return cb
+}
+
+// SetOnOffline is assigning a function to 'onoffline'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnOffline(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onoffline", cb)
+	return cb
+}
+
+// AddOnline is adding doing AddEventListener for 'Online' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventOnline(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "online", cb)
+	return cb
+}
+
+// SetOnOnline is assigning a function to 'ononline'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnOnline(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("ononline", cb)
+	return cb
+}
+
+// event attribute: htmlevent.PageTransitionEvent
+func eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener func(event *htmlevent.PageTransitionEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.PageTransitionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.PageTransitionEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPageHide is adding doing AddEventListener for 'PageHide' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventPageHide(listener func(event *htmlevent.PageTransitionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pagehide", cb)
+	return cb
+}
+
+// SetOnPageHide is assigning a function to 'onpagehide'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnPageHide(listener func(event *htmlevent.PageTransitionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener)
+	_this.Value_JS.Set("onpagehide", cb)
+	return cb
+}
+
+// AddPageShow is adding doing AddEventListener for 'PageShow' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventPageShow(listener func(event *htmlevent.PageTransitionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "pageshow", cb)
+	return cb
+}
+
+// SetOnPageShow is assigning a function to 'onpageshow'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnPageShow(listener func(event *htmlevent.PageTransitionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener)
+	_this.Value_JS.Set("onpageshow", cb)
+	return cb
+}
+
+// event attribute: htmlevent.PopStateEvent
+func eventFuncSVGSVGElement_htmlevent_PopStateEvent(listener func(event *htmlevent.PopStateEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.PopStateEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.PopStateEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddPopState is adding doing AddEventListener for 'PopState' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventPopState(listener func(event *htmlevent.PopStateEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PopStateEvent(listener)
+	_this.Value_JS.Call("addEventListener", "popstate", cb)
+	return cb
+}
+
+// SetOnPopState is assigning a function to 'onpopstate'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnPopState(listener func(event *htmlevent.PopStateEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PopStateEvent(listener)
+	_this.Value_JS.Set("onpopstate", cb)
+	return cb
+}
+
+// event attribute: htmlevent.PromiseRejectionEvent
+func eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener func(event *htmlevent.PromiseRejectionEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.PromiseRejectionEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.PromiseRejectionEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddRejectionHandled is adding doing AddEventListener for 'RejectionHandled' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventRejectionHandled(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "rejectionhandled", cb)
+	return cb
+}
+
+// SetOnRejectionHandled is assigning a function to 'onrejectionhandled'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnRejectionHandled(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Set("onrejectionhandled", cb)
+	return cb
+}
+
+// event attribute: htmlevent.StorageEvent
+func eventFuncSVGSVGElement_htmlevent_StorageEvent(listener func(event *htmlevent.StorageEvent, target *SVGSVGElement)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *htmlevent.StorageEvent
+		value := args[0]
+		incoming := value.Get("target")
+		ret = htmlevent.StorageEventFromJS(value)
+		src := SVGSVGElementFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddStorage is adding doing AddEventListener for 'Storage' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventStorage(listener func(event *htmlevent.StorageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_StorageEvent(listener)
+	_this.Value_JS.Call("addEventListener", "storage", cb)
+	return cb
+}
+
+// SetOnStorage is assigning a function to 'onstorage'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnStorage(listener func(event *htmlevent.StorageEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_StorageEvent(listener)
+	_this.Value_JS.Set("onstorage", cb)
+	return cb
+}
+
+// AddUnhandledRejection is adding doing AddEventListener for 'UnhandledRejection' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventUnhandledRejection(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Call("addEventListener", "unhandledrejection", cb)
+	return cb
+}
+
+// SetOnUnhandledRejection is assigning a function to 'onunhandledrejection'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnUnhandledRejection(listener func(event *htmlevent.PromiseRejectionEvent, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener)
+	_this.Value_JS.Set("onunhandledrejection", cb)
+	return cb
+}
+
+// AddUnload is adding doing AddEventListener for 'Unload' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) AddEventUnload(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "unload", cb)
+	return cb
+}
+
+// SetOnUnload is assigning a function to 'onunload'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *SVGSVGElement) SetOnUnload(listener func(event *domcore.Event, currentTarget *SVGSVGElement)) js.Func {
+	cb := eventFuncSVGSVGElement_domcore_Event(listener)
+	_this.Value_JS.Set("onunload", cb)
+	return cb
 }
 
 func (_this *SVGSVGElement) GetIntersectionList(rect *geometry.DOMRectReadOnly, referenceElement *SVGElement) (_result *dom.NodeList) {

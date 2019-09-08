@@ -7,7 +7,6 @@ package touchevents
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
-	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/device/inputcapabilities"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -17,7 +16,6 @@ import (
 // domcore.EventTarget
 // htmlevent.UIEvent
 // inputcapabilities.InputDeviceCapabilities
-// webapi.Window
 
 // source idl files:
 // touch-events.idl
@@ -89,7 +87,7 @@ type TouchEventInit struct {
 	Bubbles            bool
 	Cancelable         bool
 	Composed           bool
-	View               *webapi.Window
+	View               js.Value
 	Detail             int
 	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 	CtrlKey            bool
@@ -121,7 +119,7 @@ func (_this *TouchEventInit) JSValue() js.Value {
 	out.Set("cancelable", value1)
 	value2 := _this.Composed
 	out.Set("composed", value2)
-	value3 := _this.View.JSValue()
+	value3 := _this.View
 	out.Set("view", value3)
 	value4 := _this.Detail
 	out.Set("detail", value4)
@@ -186,7 +184,7 @@ func TouchEventInitFromJS(value js.Wrapper) *TouchEventInit {
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
 		value1  bool                                       // javascript: boolean {cancelable Cancelable cancelable}
 		value2  bool                                       // javascript: boolean {composed Composed composed}
-		value3  *webapi.Window                             // javascript: Window {view View view}
+		value3  js.Value                                   // javascript: Window {view View view}
 		value4  int                                        // javascript: long {detail Detail detail}
 		value5  *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
 		value6  bool                                       // javascript: boolean {ctrlKey CtrlKey ctrlKey}
@@ -213,9 +211,7 @@ func TouchEventInitFromJS(value js.Wrapper) *TouchEventInit {
 	out.Cancelable = value1
 	value2 = (input.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("view").Type() != js.TypeNull && input.Get("view").Type() != js.TypeUndefined {
-		value3 = webapi.WindowFromJS(input.Get("view"))
-	}
+	value3 = input.Get("view")
 	out.View = value3
 	value4 = (input.Get("detail")).Int()
 	out.Detail = value4

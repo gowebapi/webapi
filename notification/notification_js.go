@@ -10,6 +10,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.FrozenArray
@@ -524,19 +525,6 @@ func (_this *Notification) OnClick() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnClick setting attribute 'onclick' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClick(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclick", input)
-}
-
 // OnShow returning attribute 'onshow' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Notification) OnShow() domcore.EventHandlerFunc {
@@ -546,19 +534,6 @@ func (_this *Notification) OnShow() domcore.EventHandlerFunc {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnShow setting attribute 'onshow' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnShow(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onshow", input)
 }
 
 // OnError returning attribute 'onerror' with
@@ -572,19 +547,6 @@ func (_this *Notification) OnError() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnError setting attribute 'onerror' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnError(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onerror", input)
-}
-
 // OnClose returning attribute 'onclose' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *Notification) OnClose() domcore.EventHandlerFunc {
@@ -594,19 +556,6 @@ func (_this *Notification) OnClose() domcore.EventHandlerFunc {
 		ret = domcore.EventHandlerFromJS(value)
 	}
 	return ret
-}
-
-// SetOnClose setting attribute 'onclose' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *Notification) SetOnClose(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onclose", input)
 }
 
 // Title returning attribute 'title' with
@@ -742,6 +691,84 @@ func (_this *Notification) Actions() *javascript.FrozenArray {
 	value := _this.Value_JS.Get("actions")
 	ret = javascript.FrozenArrayFromJS(value)
 	return ret
+}
+
+// event attribute: domcore.Event
+func eventFuncNotification_domcore_Event(listener func(event *domcore.Event, target *Notification)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := NotificationFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
+	}
+	return js.FuncOf(fn)
+}
+
+// AddClick is adding doing AddEventListener for 'Click' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) AddEventClick(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "click", cb)
+	return cb
+}
+
+// SetOnClick is assigning a function to 'onclick'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) SetOnClick(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Set("onclick", cb)
+	return cb
+}
+
+// AddClose is adding doing AddEventListener for 'Close' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) AddEventClose(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "close", cb)
+	return cb
+}
+
+// SetOnClose is assigning a function to 'onclose'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) SetOnClose(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Set("onclose", cb)
+	return cb
+}
+
+// AddError is adding doing AddEventListener for 'Error' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) AddEventError(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "error", cb)
+	return cb
+}
+
+// SetOnError is assigning a function to 'onerror'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) SetOnError(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Set("onerror", cb)
+	return cb
+}
+
+// AddShow is adding doing AddEventListener for 'Show' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) AddEventShow(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "show", cb)
+	return cb
+}
+
+// SetOnShow is assigning a function to 'onshow'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *Notification) SetOnShow(listener func(event *domcore.Event, currentTarget *Notification)) js.Func {
+	cb := eventFuncNotification_domcore_Event(listener)
+	_this.Value_JS.Set("onshow", cb)
+	return cb
 }
 
 func (_this *Notification) Close() {

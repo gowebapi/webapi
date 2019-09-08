@@ -12,6 +12,7 @@ import (
 )
 
 // using following types:
+// domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.PromiseInt
@@ -148,9 +149,9 @@ func (_this *RemotePlayback) State() RemotePlaybackState {
 	return ret
 }
 
-// Onconnecting returning attribute 'onconnecting' with
+// OnConnecting returning attribute 'onconnecting' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) Onconnecting() domcore.EventHandlerFunc {
+func (_this *RemotePlayback) OnConnecting() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnecting")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -159,22 +160,9 @@ func (_this *RemotePlayback) Onconnecting() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnecting setting attribute 'onconnecting' with
+// OnConnect returning attribute 'onconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) SetOnconnecting(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onconnecting", input)
-}
-
-// Onconnect returning attribute 'onconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) Onconnect() domcore.EventHandlerFunc {
+func (_this *RemotePlayback) OnConnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -183,22 +171,9 @@ func (_this *RemotePlayback) Onconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOnconnect setting attribute 'onconnect' with
+// OnDisconnect returning attribute 'ondisconnect' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) SetOnconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	input := __callback0
-	_this.Value_JS.Set("onconnect", input)
-}
-
-// Ondisconnect returning attribute 'ondisconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) Ondisconnect() domcore.EventHandlerFunc {
+func (_this *RemotePlayback) OnDisconnect() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("ondisconnect")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
@@ -207,17 +182,66 @@ func (_this *RemotePlayback) Ondisconnect() domcore.EventHandlerFunc {
 	return ret
 }
 
-// SetOndisconnect setting attribute 'ondisconnect' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *RemotePlayback) SetOndisconnect(value *domcore.EventHandler) {
-	var __callback0 js.Value
-	if value != nil {
-		__callback0 = (*value).Value
-	} else {
-		__callback0 = js.Null()
+// event attribute: domcore.Event
+func eventFuncRemotePlayback_domcore_Event(listener func(event *domcore.Event, target *RemotePlayback)) js.Func {
+	fn := func(this js.Value, args []js.Value) interface{} {
+		var ret *domcore.Event
+		value := args[0]
+		incoming := value.Get("target")
+		ret = domcore.EventFromJS(value)
+		src := RemotePlaybackFromJS(incoming)
+		listener(ret, src)
+		return js.Undefined
 	}
-	input := __callback0
-	_this.Value_JS.Set("ondisconnect", input)
+	return js.FuncOf(fn)
+}
+
+// AddConnect is adding doing AddEventListener for 'Connect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) AddEventConnect(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "connect", cb)
+	return cb
+}
+
+// SetOnConnect is assigning a function to 'onconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) SetOnConnect(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Set("onconnect", cb)
+	return cb
+}
+
+// AddConnecting is adding doing AddEventListener for 'Connecting' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) AddEventConnecting(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "connecting", cb)
+	return cb
+}
+
+// SetOnConnecting is assigning a function to 'onconnecting'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) SetOnConnecting(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Set("onconnecting", cb)
+	return cb
+}
+
+// AddDisconnect is adding doing AddEventListener for 'Disconnect' on target.
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) AddEventDisconnect(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "disconnect", cb)
+	return cb
+}
+
+// SetOnDisconnect is assigning a function to 'ondisconnect'. This
+// This method is returning allocated javascript function that need to be released.
+func (_this *RemotePlayback) SetOnDisconnect(listener func(event *domcore.Event, currentTarget *RemotePlayback)) js.Func {
+	cb := eventFuncRemotePlayback_domcore_Event(listener)
+	_this.Value_JS.Set("ondisconnect", cb)
+	return cb
 }
 
 func (_this *RemotePlayback) WatchAvailability(callback *RemotePlaybackAvailabilityCallback) (_result *javascript.PromiseInt) {
