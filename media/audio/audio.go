@@ -7,6 +7,7 @@ package audio
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -1697,8 +1698,8 @@ type IIRFilterOptions struct {
 	ChannelCount          uint
 	ChannelCountMode      ChannelCountMode
 	ChannelInterpretation ChannelInterpretation
-	Feedforward           js.Value
-	Feedback              js.Value
+	Feedforward           []float64
+	Feedback              []float64
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -1711,9 +1712,9 @@ func (_this *IIRFilterOptions) JSValue() js.Value {
 	out.Set("channelCountMode", value1)
 	value2 := _this.ChannelInterpretation.JSValue()
 	out.Set("channelInterpretation", value2)
-	value3 := _this.Feedforward
+	value3 := jsarray.Float64ToJS(_this.Feedforward)
 	out.Set("feedforward", value3)
-	value4 := _this.Feedback
+	value4 := jsarray.Float64ToJS(_this.Feedback)
 	out.Set("feedback", value4)
 	return out
 }
@@ -1728,8 +1729,8 @@ func IIRFilterOptionsFromJS(value js.Wrapper) *IIRFilterOptions {
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
 		value1 ChannelCountMode      // javascript: ChannelCountMode {channelCountMode ChannelCountMode channelCountMode}
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
-		value3 js.Value              // javascript: typed-array {feedforward Feedforward feedforward}
-		value4 js.Value              // javascript: typed-array {feedback Feedback feedback}
+		value3 []float64             // javascript: typed-array {feedforward Feedforward feedforward}
+		value4 []float64             // javascript: typed-array {feedback Feedback feedback}
 	)
 	value0 = (uint)((input.Get("channelCount")).Int())
 	out.ChannelCount = value0
@@ -1737,9 +1738,9 @@ func IIRFilterOptionsFromJS(value js.Wrapper) *IIRFilterOptions {
 	out.ChannelCountMode = value1
 	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = input.Get("feedforward")
+	value3 = jsarray.Float64ToGo(input.Get("feedforward"))
 	out.Feedforward = value3
-	value4 = input.Get("feedback")
+	value4 = jsarray.Float64ToGo(input.Get("feedback"))
 	out.Feedback = value4
 	return &out
 }
@@ -2133,8 +2134,8 @@ func PeriodicWaveConstraintsFromJS(value js.Wrapper) *PeriodicWaveConstraints {
 // dictionary: PeriodicWaveOptions
 type PeriodicWaveOptions struct {
 	DisableNormalization bool
-	Real                 js.Value
-	Imag                 js.Value
+	Real                 []float32
+	Imag                 []float32
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -2143,9 +2144,9 @@ func (_this *PeriodicWaveOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.DisableNormalization
 	out.Set("disableNormalization", value0)
-	value1 := _this.Real
+	value1 := jsarray.Float32ToJS(_this.Real)
 	out.Set("real", value1)
-	value2 := _this.Imag
+	value2 := jsarray.Float32ToJS(_this.Imag)
 	out.Set("imag", value2)
 	return out
 }
@@ -2157,15 +2158,15 @@ func PeriodicWaveOptionsFromJS(value js.Wrapper) *PeriodicWaveOptions {
 	input := value.JSValue()
 	var out PeriodicWaveOptions
 	var (
-		value0 bool     // javascript: boolean {disableNormalization DisableNormalization disableNormalization}
-		value1 js.Value // javascript: typed-array {real Real real}
-		value2 js.Value // javascript: typed-array {imag Imag imag}
+		value0 bool      // javascript: boolean {disableNormalization DisableNormalization disableNormalization}
+		value1 []float32 // javascript: typed-array {real Real real}
+		value2 []float32 // javascript: typed-array {imag Imag imag}
 	)
 	value0 = (input.Get("disableNormalization")).Bool()
 	out.DisableNormalization = value0
-	value1 = input.Get("real")
+	value1 = jsarray.Float32ToGo(input.Get("real"))
 	out.Real = value1
-	value2 = input.Get("imag")
+	value2 = jsarray.Float32ToGo(input.Get("imag"))
 	out.Imag = value2
 	return &out
 }
@@ -2221,7 +2222,7 @@ type WaveShaperOptions struct {
 	ChannelCount          uint
 	ChannelCountMode      ChannelCountMode
 	ChannelInterpretation ChannelInterpretation
-	Curve                 js.Value
+	Curve                 []float32
 	Oversample            OverSampleType
 }
 
@@ -2235,7 +2236,7 @@ func (_this *WaveShaperOptions) JSValue() js.Value {
 	out.Set("channelCountMode", value1)
 	value2 := _this.ChannelInterpretation.JSValue()
 	out.Set("channelInterpretation", value2)
-	value3 := _this.Curve
+	value3 := jsarray.Float32ToJS(_this.Curve)
 	out.Set("curve", value3)
 	value4 := _this.Oversample.JSValue()
 	out.Set("oversample", value4)
@@ -2252,7 +2253,7 @@ func WaveShaperOptionsFromJS(value js.Wrapper) *WaveShaperOptions {
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
 		value1 ChannelCountMode      // javascript: ChannelCountMode {channelCountMode ChannelCountMode channelCountMode}
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
-		value3 js.Value              // javascript: typed-array {curve Curve curve}
+		value3 []float32             // javascript: typed-array {curve Curve curve}
 		value4 OverSampleType        // javascript: OverSampleType {oversample Oversample oversample}
 	)
 	value0 = (uint)((input.Get("channelCount")).Int())
@@ -2261,7 +2262,7 @@ func WaveShaperOptionsFromJS(value js.Wrapper) *WaveShaperOptions {
 	out.ChannelCountMode = value1
 	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = input.Get("curve")
+	value3 = jsarray.Float32ToGo(input.Get("curve"))
 	out.Curve = value3
 	value4 = OverSampleTypeFromJS(input.Get("oversample"))
 	out.Oversample = value4
@@ -3445,12 +3446,12 @@ func (_this *AudioParam) SetTargetAtTime(target float32, startTime float64, time
 	return
 }
 
-func (_this *AudioParam) SetValueCurveAtTime(values js.Value, startTime float64, duration float64) (_result *AudioParam) {
+func (_this *AudioParam) SetValueCurveAtTime(values []float32, startTime float64, duration float64) (_result *AudioParam) {
 	var (
 		_args [3]interface{}
 		_end  int
 	)
-	_p0 := values
+	_p0 := jsarray.Float32ToJS(values)
 	_args[0] = _p0
 	_end++
 	_p1 := startTime
@@ -4409,15 +4410,15 @@ func (_this *BaseAudioContext) CreateGain() (_result *GainNode) {
 	return
 }
 
-func (_this *BaseAudioContext) CreateIIRFilter(feedforward js.Value, feedback js.Value) (_result *IIRFilterNode) {
+func (_this *BaseAudioContext) CreateIIRFilter(feedforward []float64, feedback []float64) (_result *IIRFilterNode) {
 	var (
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := feedforward
+	_p0 := jsarray.Float64ToJS(feedforward)
 	_args[0] = _p0
 	_end++
-	_p1 := feedback
+	_p1 := jsarray.Float64ToJS(feedback)
 	_args[1] = _p1
 	_end++
 	_returned := _this.Value_JS.Call("createIIRFilter", _args[0:_end]...)
@@ -4457,15 +4458,15 @@ func (_this *BaseAudioContext) CreatePanner() (_result *PannerNode) {
 	return
 }
 
-func (_this *BaseAudioContext) CreatePeriodicWave(real js.Value, imag js.Value, constraints *PeriodicWaveConstraints) (_result *PeriodicWave) {
+func (_this *BaseAudioContext) CreatePeriodicWave(real []float32, imag []float32, constraints *PeriodicWaveConstraints) (_result *PeriodicWave) {
 	var (
 		_args [3]interface{}
 		_end  int
 	)
-	_p0 := real
+	_p0 := jsarray.Float32ToJS(real)
 	_args[0] = _p0
 	_end++
-	_p1 := imag
+	_p1 := jsarray.Float32ToJS(imag)
 	_args[1] = _p1
 	_end++
 	if constraints != nil {

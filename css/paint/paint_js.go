@@ -5,6 +5,7 @@ package paint
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/webidl"
@@ -896,28 +897,28 @@ func (_this *PaintRenderingContext2D) DrawImage3(image *Union, sx float64, sy fl
 	return
 }
 
-func (_this *PaintRenderingContext2D) SetLineDash(segments js.Value) {
+func (_this *PaintRenderingContext2D) SetLineDash(segments []float64) {
 	var (
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := segments
+	_p0 := jsarray.Float64ToJS(segments)
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("setLineDash", _args[0:_end]...)
 	return
 }
 
-func (_this *PaintRenderingContext2D) GetLineDash() (_result js.Value) {
+func (_this *PaintRenderingContext2D) GetLineDash() (_result []float64) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
 	_returned := _this.Value_JS.Call("getLineDash", _args[0:_end]...)
 	var (
-		_converted js.Value // javascript: typed-array _what_return_name
+		_converted []float64 // javascript: typed-array _what_return_name
 	)
-	_converted = _returned
+	_converted = jsarray.Float64ToGo(_returned)
 	_result = _converted
 	return
 }

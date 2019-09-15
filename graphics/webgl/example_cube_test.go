@@ -5,6 +5,7 @@ import (
 
 	"github.com/gowebapi/webapi"
 	"github.com/gowebapi/webapi/core/js"
+	"github.com/gowebapi/webapi/core/jsconv"
 	"github.com/gowebapi/webapi/graphics/webgl"
 	"github.com/gowebapi/webapi/html/canvas"
 )
@@ -86,13 +87,13 @@ func createBuffers(gl *webgl.RenderingContext) (*webgl.Buffer, *webgl.Buffer, in
 		-0.5, -0.5, 0,
 		0.5, -0.5, 0,
 	}
-	var vertices = js.TypedArrayOf(verticesNative)
+	var vertices = jsconv.Float32ToJs(verticesNative)
 	// Create buffer
 	vBuffer := gl.CreateBuffer()
 	// Bind to buffer
 	gl.BindBuffer(webgl.ARRAY_BUFFER, vBuffer)
 	// Pass data to buffer
-	gl.BufferData2(webgl.ARRAY_BUFFER, webgl.UnionFromJS(vertices.Value), webgl.STATIC_DRAW)
+	gl.BufferData2(webgl.ARRAY_BUFFER, webgl.UnionFromJS(vertices), webgl.STATIC_DRAW)
 	// Unbind buffer
 	gl.BindBuffer(webgl.ARRAY_BUFFER, &webgl.Buffer{})
 
@@ -100,7 +101,7 @@ func createBuffers(gl *webgl.RenderingContext) (*webgl.Buffer, *webgl.Buffer, in
 	var indicesNative = []uint32{
 		2, 1, 0,
 	}
-	var indices = js.TypedArrayOf(indicesNative)
+	var indices = jsconv.UInt32ToJs(indicesNative)
 
 	// Create buffer
 	iBuffer := gl.CreateBuffer()
@@ -109,7 +110,7 @@ func createBuffers(gl *webgl.RenderingContext) (*webgl.Buffer, *webgl.Buffer, in
 	gl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, iBuffer)
 
 	// Pass data to buffer
-	gl.BufferData2(webgl.ELEMENT_ARRAY_BUFFER, webgl.UnionFromJS(indices.Value), webgl.STATIC_DRAW)
+	gl.BufferData2(webgl.ELEMENT_ARRAY_BUFFER, webgl.UnionFromJS(indices), webgl.STATIC_DRAW)
 
 	// Unbind buffer
 	gl.BindBuffer(webgl.ELEMENT_ARRAY_BUFFER, &webgl.Buffer{})

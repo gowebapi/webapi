@@ -9,11 +9,33 @@
 //
 // The usage is to get a tab complession to work inside an IDE
 // (e.g. Visual Studio Code) without changing to GOOS to js
+//
+// Original documentation:
+//
+// Package js gives access to the WebAssembly host environment when using the js/wasm architecture.
+// Its API is based on JavaScript semantics.
+//
+// This package is EXPERIMENTAL. Its current scope is only to allow tests to run, but not yet to provide a
+// comprehensive API for users. It is exempt from the Go compatibility promise.
 package js
 
 import (
 	"syscall/js"
 )
+
+// CopyBytesToGo copies bytes from the Uint8Array src to dst.
+// It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
+// CopyBytesToGo panics if src is not an Uint8Array.
+func CopyBytesToGo(dst []byte, src Value) int {
+	return CopyBytesToGo(dst, src)
+}
+
+// CopyBytesToJS copies bytes from src to the Uint8Array dst.
+// It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
+// CopyBytesToJS panics if dst is not an Uint8Array.
+func CopyBytesToJS(dst Value, src []byte) int {
+	return CopyBytesToJS(dst, src)
+}
 
 // Error wraps a JavaScript error.
 type Error = js.Error
@@ -52,19 +74,6 @@ const (
 	TypeFunction       = js.TypeFunction
 )
 
-// TypedArray represents a JavaScript typed array.
-type TypedArray = js.TypedArray
-
-// TypedArrayOf returns a JavaScript typed array backed by the slice's underlying array.
-//
-// The supported types are []int8, []int16, []int32, []uint8, []uint16, []uint32, []float32 and []float64.
-// Passing an unsupported value causes a panic.
-//
-// TypedArray.Release must be called to free up resources when the typed array will not be used any more.
-func TypedArrayOf(slice interface{}) TypedArray {
-	return TypedArray(js.TypedArrayOf(slice))
-}
-
 // Value represents a JavaScript value. The zero value is the JavaScript value "undefined".
 type Value = js.Value
 
@@ -88,7 +97,6 @@ func Undefined() Value {
 //  | Go                     | JavaScript             |
 //  | ---------------------- | ---------------------- |
 //  | js.Value               | [its value]            |
-//  | js.TypedArray          | typed array            |
 //  | js.Func                | function               |
 //  | nil                    | null                   |
 //  | bool                   | boolean                |

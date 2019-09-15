@@ -11,9 +11,31 @@
 //
 // The usage is to get a tab complession to work inside an IDE
 // (e.g. Visual Studio Code) without changing to GOOS to js
+//
+// Original documentation:
+//
+// Package js gives access to the WebAssembly host environment when using the js/wasm architecture.
+// Its API is based on JavaScript semantics.
+//
+// This package is EXPERIMENTAL. Its current scope is only to allow tests to run, but not yet to provide a
+// comprehensive API for users. It is exempt from the Go compatibility promise.
 package js
 
 const message = "this library should be executed under WASM"
+
+// CopyBytesToGo copies bytes from the Uint8Array src to dst.
+// It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
+// CopyBytesToGo panics if src is not an Uint8Array.
+func CopyBytesToGo(dst []byte, src Value) int {
+	panic(message)
+}
+
+// CopyBytesToJS copies bytes from src to the Uint8Array dst.
+// It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
+// CopyBytesToJS panics if dst is not an Uint8Array.
+func CopyBytesToJS(dst Value, src []byte) int {
+	panic(message)
+}
 
 // Error wraps a JavaScript error.
 type Error struct {
@@ -28,7 +50,7 @@ func (e Error) Error() string {
 
 // Func is a wrapped Go function to be called by JavaScript.
 type Func struct {
-	Value
+	Value // the JavaScript function that invokes the Go function
 }
 
 // FuncOf returns a wrapped function.
@@ -69,28 +91,26 @@ const (
 )
 
 func (t Type) String() string {
-	panic(message)
-}
-
-// TypedArray represents a JavaScript typed array.
-type TypedArray struct {
-	Value
-}
-
-// TypedArrayOf returns a JavaScript typed array backed by the slice's underlying array.
-//
-// The supported types are []int8, []int16, []int32, []uint8, []uint16, []uint32, []float32 and []float64.
-// Passing an unsupported value causes a panic.
-//
-// TypedArray.Release must be called to free up resources when the typed array will not be used any more.
-func TypedArrayOf(slice interface{}) TypedArray {
-	panic(message)
-}
-
-// Release frees up resources allocated for the typed array.
-// The typed array and its buffer must not be accessed after calling Release.
-func (a TypedArray) Release() {
-	panic(message)
+	switch t {
+	case TypeUndefined:
+		return "undefined"
+	case TypeNull:
+		return "null"
+	case TypeBoolean:
+		return "boolean"
+	case TypeNumber:
+		return "number"
+	case TypeString:
+		return "string"
+	case TypeSymbol:
+		return "symbol"
+	case TypeObject:
+		return "object"
+	case TypeFunction:
+		return "function"
+	default:
+		panic("bad type")
+	}
 }
 
 // Value represents a JavaScript value. The zero value is the JavaScript value "undefined".
@@ -117,7 +137,6 @@ func Undefined() Value {
 //  | Go                     | JavaScript             |
 //  | ---------------------- | ---------------------- |
 //  | js.Value               | [its value]            |
-//  | js.TypedArray          | typed array            |
 //  | js.Func                | function               |
 //  | nil                    | null                   |
 //  | bool                   | boolean                |
@@ -143,17 +162,20 @@ func (v Value) Call(m string, args ...interface{}) Value {
 	panic(message)
 }
 
-// Float returns the value v as a float64. It panics if v is not a JavaScript number.
+// Float returns the value v as a float64.
+// It panics if v is not a JavaScript number.
 func (v Value) Float() float64 {
 	panic(message)
 }
 
 // Get returns the JavaScript property p of value v.
+// It panics if v is not a JavaScript object.
 func (v Value) Get(p string) Value {
 	panic(message)
 }
 
 // Index returns JavaScript index i of value v.
+// It panics if v is not a JavaScript object.
 func (v Value) Index(i int) Value {
 	panic(message)
 }
@@ -163,13 +185,14 @@ func (v Value) InstanceOf(t Value) bool {
 	panic(message)
 }
 
-// Int returns the value v truncated to an int. It panics if v is not a JavaScript number.
+// Int returns the value v truncated to an int.
+// It panics if v is not a JavaScript number.
 func (v Value) Int() int {
 	panic(message)
 }
 
 // Invoke does a JavaScript call of the value v with the given arguments.
-// It panics if v is not a function.
+// It panics if v is not a JavaScript function.
 // The arguments get mapped to JavaScript values according to the ValueOf function.
 func (v Value) Invoke(args ...interface{}) Value {
 	panic(message)
@@ -181,28 +204,34 @@ func (v Value) JSValue() Value {
 }
 
 // Length returns the JavaScript property "length" of v.
+// It panics if v is not a JavaScript object.
 func (v Value) Length() int {
 	panic(message)
 }
 
 // New uses JavaScript's "new" operator with value v as constructor and the given arguments.
-// It panics if v is not a function.
+// It panics if v is not a JavaScript function.
 // The arguments get mapped to JavaScript values according to the ValueOf function.
 func (v Value) New(args ...interface{}) Value {
 	panic(message)
 }
 
 // Set sets the JavaScript property p of value v to ValueOf(x).
+// It panics if v is not a JavaScript object.
 func (v Value) Set(p string, x interface{}) {
 	panic(message)
 }
 
 // SetIndex sets the JavaScript index i of value v to ValueOf(x).
+// It panics if v is not a JavaScript object.
 func (v Value) SetIndex(i int, x interface{}) {
 	panic(message)
 }
 
-// String returns the value v converted to string according to JavaScript type conversions.
+// String returns the value v as a string.
+// String is a special case because of Go's String method convention. Unlike the other getters,
+// it does not panic if v's Type is not TypeString. Instead, it returns a string of the form "<T>"
+// or "<T: V>" where T is v's type and V is a string representation of v's value.
 func (v Value) String() string {
 	panic(message)
 }

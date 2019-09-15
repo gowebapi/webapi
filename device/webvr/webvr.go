@@ -7,6 +7,7 @@ package webvr
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
@@ -278,8 +279,8 @@ func DisplayEventInitFromJS(value js.Wrapper) *DisplayEventInit {
 // dictionary: VRLayerInit
 type LayerInit struct {
 	Source      *Union
-	LeftBounds  js.Value
-	RightBounds js.Value
+	LeftBounds  []float32
+	RightBounds []float32
 }
 
 // JSValue is allocating a new javasript object and copy
@@ -288,9 +289,9 @@ func (_this *LayerInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Source.JSValue()
 	out.Set("source", value0)
-	value1 := _this.LeftBounds
+	value1 := jsarray.Float32ToJS(_this.LeftBounds)
 	out.Set("leftBounds", value1)
-	value2 := _this.RightBounds
+	value2 := jsarray.Float32ToJS(_this.RightBounds)
 	out.Set("rightBounds", value2)
 	return out
 }
@@ -302,17 +303,17 @@ func LayerInitFromJS(value js.Wrapper) *LayerInit {
 	input := value.JSValue()
 	var out LayerInit
 	var (
-		value0 *Union   // javascript: Union {source Source source}
-		value1 js.Value // javascript: typed-array {leftBounds LeftBounds leftBounds}
-		value2 js.Value // javascript: typed-array {rightBounds RightBounds rightBounds}
+		value0 *Union    // javascript: Union {source Source source}
+		value1 []float32 // javascript: typed-array {leftBounds LeftBounds leftBounds}
+		value2 []float32 // javascript: typed-array {rightBounds RightBounds rightBounds}
 	)
 	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
 		value0 = UnionFromJS(input.Get("source"))
 	}
 	out.Source = value0
-	value1 = input.Get("leftBounds")
+	value1 = jsarray.Float32ToGo(input.Get("leftBounds"))
 	out.LeftBounds = value1
-	value2 = input.Get("rightBounds")
+	value2 = jsarray.Float32ToGo(input.Get("rightBounds"))
 	out.RightBounds = value2
 	return &out
 }
