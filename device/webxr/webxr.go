@@ -884,7 +884,7 @@ func (_this *PromiseXRReferenceSpace) JSValue() js.Value {
 // PromiseXRReferenceSpaceFromJS is casting a js.Wrapper into PromiseXRReferenceSpace.
 func PromiseXRReferenceSpaceFromJS(value js.Wrapper) *PromiseXRReferenceSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseXRReferenceSpace{}
@@ -989,7 +989,7 @@ func (_this *PromiseXRSession) JSValue() js.Value {
 // PromiseXRSessionFromJS is casting a js.Wrapper into PromiseXRSession.
 func PromiseXRSessionFromJS(value js.Wrapper) *PromiseXRSession {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseXRSession{}
@@ -1089,7 +1089,7 @@ type XR struct {
 // XRFromJS is casting a js.Wrapper into XR.
 func XRFromJS(value js.Wrapper) *XR {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XR{}
@@ -1182,7 +1182,7 @@ type XRBoundedReferenceSpace struct {
 // XRBoundedReferenceSpaceFromJS is casting a js.Wrapper into XRBoundedReferenceSpace.
 func XRBoundedReferenceSpaceFromJS(value js.Wrapper) *XRBoundedReferenceSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRBoundedReferenceSpace{}
@@ -1212,7 +1212,7 @@ func (_this *XRFrame) JSValue() js.Value {
 // XRFrameFromJS is casting a js.Wrapper into XRFrame.
 func XRFrameFromJS(value js.Wrapper) *XRFrame {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRFrame{}
@@ -1283,7 +1283,7 @@ func (_this *XRInputSource) JSValue() js.Value {
 // XRInputSourceFromJS is casting a js.Wrapper into XRInputSource.
 func XRInputSourceFromJS(value js.Wrapper) *XRInputSource {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRInputSource{}
@@ -1337,7 +1337,7 @@ type XRInputSourceEvent struct {
 // XRInputSourceEventFromJS is casting a js.Wrapper into XRInputSourceEvent.
 func XRInputSourceEventFromJS(value js.Wrapper) *XRInputSourceEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRInputSourceEvent{}
@@ -1397,7 +1397,7 @@ func (_this *XRLayer) JSValue() js.Value {
 // XRLayerFromJS is casting a js.Wrapper into XRLayer.
 func XRLayerFromJS(value js.Wrapper) *XRLayer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRLayer{}
@@ -1418,7 +1418,7 @@ func (_this *XRPose) JSValue() js.Value {
 // XRPoseFromJS is casting a js.Wrapper into XRPose.
 func XRPoseFromJS(value js.Wrapper) *XRPose {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRPose{}
@@ -1457,7 +1457,7 @@ func (_this *XRPresentationContext) JSValue() js.Value {
 // XRPresentationContextFromJS is casting a js.Wrapper into XRPresentationContext.
 func XRPresentationContextFromJS(value js.Wrapper) *XRPresentationContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRPresentationContext{}
@@ -1487,7 +1487,7 @@ func (_this *XRRay) JSValue() js.Value {
 // XRRayFromJS is casting a js.Wrapper into XRRay.
 func XRRayFromJS(value js.Wrapper) *XRRay {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRRay{}
@@ -1548,7 +1548,7 @@ type XRReferenceSpace struct {
 // XRReferenceSpaceFromJS is casting a js.Wrapper into XRReferenceSpace.
 func XRReferenceSpaceFromJS(value js.Wrapper) *XRReferenceSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRReferenceSpace{}
@@ -1621,7 +1621,7 @@ type XRReferenceSpaceEvent struct {
 // XRReferenceSpaceEventFromJS is casting a js.Wrapper into XRReferenceSpaceEvent.
 func XRReferenceSpaceEventFromJS(value js.Wrapper) *XRReferenceSpaceEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRReferenceSpaceEvent{}
@@ -1683,7 +1683,7 @@ func (_this *XRRenderState) JSValue() js.Value {
 // XRRenderStateFromJS is casting a js.Wrapper into XRRenderState.
 func XRRenderStateFromJS(value js.Wrapper) *XRRenderState {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRRenderState{}
@@ -1733,7 +1733,7 @@ func (_this *XRRigidTransform) JSValue() js.Value {
 // XRRigidTransformFromJS is casting a js.Wrapper into XRRigidTransform.
 func XRRigidTransformFromJS(value js.Wrapper) *XRRigidTransform {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRRigidTransform{}
@@ -1801,7 +1801,7 @@ type XRSession struct {
 // XRSessionFromJS is casting a js.Wrapper into XRSession.
 func XRSessionFromJS(value js.Wrapper) *XRSession {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRSession{}
@@ -2187,7 +2187,7 @@ type XRSessionEvent struct {
 // XRSessionEventFromJS is casting a js.Wrapper into XRSessionEvent.
 func XRSessionEventFromJS(value js.Wrapper) *XRSessionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRSessionEvent{}
@@ -2233,7 +2233,7 @@ type XRSpace struct {
 // XRSpaceFromJS is casting a js.Wrapper into XRSpace.
 func XRSpaceFromJS(value js.Wrapper) *XRSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRSpace{}
@@ -2249,7 +2249,7 @@ type XRStationaryReferenceSpace struct {
 // XRStationaryReferenceSpaceFromJS is casting a js.Wrapper into XRStationaryReferenceSpace.
 func XRStationaryReferenceSpaceFromJS(value js.Wrapper) *XRStationaryReferenceSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRStationaryReferenceSpace{}
@@ -2274,7 +2274,7 @@ type XRUnboundedReferenceSpace struct {
 // XRUnboundedReferenceSpaceFromJS is casting a js.Wrapper into XRUnboundedReferenceSpace.
 func XRUnboundedReferenceSpaceFromJS(value js.Wrapper) *XRUnboundedReferenceSpace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRUnboundedReferenceSpace{}
@@ -2295,7 +2295,7 @@ func (_this *XRView) JSValue() js.Value {
 // XRViewFromJS is casting a js.Wrapper into XRView.
 func XRViewFromJS(value js.Wrapper) *XRView {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRView{}
@@ -2347,7 +2347,7 @@ type XRViewerPose struct {
 // XRViewerPoseFromJS is casting a js.Wrapper into XRViewerPose.
 func XRViewerPoseFromJS(value js.Wrapper) *XRViewerPose {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRViewerPose{}
@@ -2377,7 +2377,7 @@ func (_this *XRViewport) JSValue() js.Value {
 // XRViewportFromJS is casting a js.Wrapper into XRViewport.
 func XRViewportFromJS(value js.Wrapper) *XRViewport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRViewport{}
@@ -2429,7 +2429,7 @@ type XRWebGLLayer struct {
 // XRWebGLLayerFromJS is casting a js.Wrapper into XRWebGLLayer.
 func XRWebGLLayerFromJS(value js.Wrapper) *XRWebGLLayer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XRWebGLLayer{}

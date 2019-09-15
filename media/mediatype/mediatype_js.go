@@ -76,7 +76,7 @@ func (_this *MediaSettingsRange) JSValue() js.Value {
 // MediaSettingsRangeFromJS is casting a js.Wrapper into MediaSettingsRange.
 func MediaSettingsRangeFromJS(value js.Wrapper) *MediaSettingsRange {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSettingsRange{}

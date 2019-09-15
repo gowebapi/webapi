@@ -828,7 +828,7 @@ func (_this *Headers) JSValue() js.Value {
 // HeadersFromJS is casting a js.Wrapper into Headers.
 func HeadersFromJS(value js.Wrapper) *Headers {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Headers{}
@@ -1021,7 +1021,7 @@ func (_this *HeadersEntryIterator) JSValue() js.Value {
 // HeadersEntryIteratorFromJS is casting a js.Wrapper into HeadersEntryIterator.
 func HeadersEntryIteratorFromJS(value js.Wrapper) *HeadersEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersEntryIterator{}
@@ -1056,7 +1056,7 @@ func (_this *HeadersKeyIterator) JSValue() js.Value {
 // HeadersKeyIteratorFromJS is casting a js.Wrapper into HeadersKeyIterator.
 func HeadersKeyIteratorFromJS(value js.Wrapper) *HeadersKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersKeyIterator{}
@@ -1091,7 +1091,7 @@ func (_this *HeadersValueIterator) JSValue() js.Value {
 // HeadersValueIteratorFromJS is casting a js.Wrapper into HeadersValueIterator.
 func HeadersValueIteratorFromJS(value js.Wrapper) *HeadersValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersValueIterator{}
@@ -1126,7 +1126,7 @@ func (_this *PromiseResponse) JSValue() js.Value {
 // PromiseResponseFromJS is casting a js.Wrapper into PromiseResponse.
 func PromiseResponseFromJS(value js.Wrapper) *PromiseResponse {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseResponse{}
@@ -1231,7 +1231,7 @@ func (_this *Request) JSValue() js.Value {
 // RequestFromJS is casting a js.Wrapper into Request.
 func RequestFromJS(value js.Wrapper) *Request {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Request{}
@@ -1514,7 +1514,7 @@ func (_this *Response) JSValue() js.Value {
 // ResponseFromJS is casting a js.Wrapper into Response.
 func ResponseFromJS(value js.Wrapper) *Response {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Response{}

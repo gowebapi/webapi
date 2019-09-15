@@ -948,7 +948,7 @@ type Animation struct {
 // AnimationFromJS is casting a js.Wrapper into Animation.
 func AnimationFromJS(value js.Wrapper) *Animation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Animation{}
@@ -1261,7 +1261,7 @@ func (_this *AnimationEffect) JSValue() js.Value {
 // AnimationEffectFromJS is casting a js.Wrapper into AnimationEffect.
 func AnimationEffectFromJS(value js.Wrapper) *AnimationEffect {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationEffect{}
@@ -1319,7 +1319,7 @@ type AnimationPlaybackEvent struct {
 // AnimationPlaybackEventFromJS is casting a js.Wrapper into AnimationPlaybackEvent.
 func AnimationPlaybackEventFromJS(value js.Wrapper) *AnimationPlaybackEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationPlaybackEvent{}
@@ -1387,7 +1387,7 @@ func (_this *AnimationTimeline) JSValue() js.Value {
 // AnimationTimelineFromJS is casting a js.Wrapper into AnimationTimeline.
 func AnimationTimelineFromJS(value js.Wrapper) *AnimationTimeline {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationTimeline{}
@@ -1415,7 +1415,7 @@ type DocumentTimeline struct {
 // DocumentTimelineFromJS is casting a js.Wrapper into DocumentTimeline.
 func DocumentTimelineFromJS(value js.Wrapper) *DocumentTimeline {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DocumentTimeline{}
@@ -1451,7 +1451,7 @@ type KeyframeEffect struct {
 // KeyframeEffectFromJS is casting a js.Wrapper into KeyframeEffect.
 func KeyframeEffectFromJS(value js.Wrapper) *KeyframeEffect {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &KeyframeEffect{}

@@ -218,7 +218,7 @@ type BlobEvent struct {
 // BlobEventFromJS is casting a js.Wrapper into BlobEvent.
 func BlobEventFromJS(value js.Wrapper) *BlobEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BlobEvent{}
@@ -273,7 +273,7 @@ type MediaRecorder struct {
 // MediaRecorderFromJS is casting a js.Wrapper into MediaRecorder.
 func MediaRecorderFromJS(value js.Wrapper) *MediaRecorder {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaRecorder{}
@@ -630,7 +630,7 @@ type MediaRecorderErrorEvent struct {
 // MediaRecorderErrorEventFromJS is casting a js.Wrapper into MediaRecorderErrorEvent.
 func MediaRecorderErrorEventFromJS(value js.Wrapper) *MediaRecorderErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaRecorderErrorEvent{}

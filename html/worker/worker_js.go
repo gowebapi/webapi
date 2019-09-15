@@ -149,7 +149,7 @@ type DedicatedWorkerGlobalScope struct {
 // DedicatedWorkerGlobalScopeFromJS is casting a js.Wrapper into DedicatedWorkerGlobalScope.
 func DedicatedWorkerGlobalScopeFromJS(value js.Wrapper) *DedicatedWorkerGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DedicatedWorkerGlobalScope{}
@@ -323,7 +323,7 @@ type ServiceWorkerGlobalScope struct {
 // ServiceWorkerGlobalScopeFromJS is casting a js.Wrapper into ServiceWorkerGlobalScope.
 func ServiceWorkerGlobalScopeFromJS(value js.Wrapper) *ServiceWorkerGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerGlobalScope{}
@@ -953,7 +953,7 @@ type SharedWorker struct {
 // SharedWorkerFromJS is casting a js.Wrapper into SharedWorker.
 func SharedWorkerFromJS(value js.Wrapper) *SharedWorker {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SharedWorker{}
@@ -1042,7 +1042,7 @@ type SharedWorkerGlobalScope struct {
 // SharedWorkerGlobalScopeFromJS is casting a js.Wrapper into SharedWorkerGlobalScope.
 func SharedWorkerGlobalScopeFromJS(value js.Wrapper) *SharedWorkerGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SharedWorkerGlobalScope{}
@@ -1117,7 +1117,7 @@ type Worker struct {
 // WorkerFromJS is casting a js.Wrapper into Worker.
 func WorkerFromJS(value js.Wrapper) *Worker {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Worker{}
@@ -1310,7 +1310,7 @@ type WorkerGlobalScope struct {
 // WorkerGlobalScopeFromJS is casting a js.Wrapper into WorkerGlobalScope.
 func WorkerGlobalScopeFromJS(value js.Wrapper) *WorkerGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerGlobalScope{}
@@ -1838,7 +1838,7 @@ func (_this *WorkerLocation) JSValue() js.Value {
 // WorkerLocationFromJS is casting a js.Wrapper into WorkerLocation.
 func WorkerLocationFromJS(value js.Wrapper) *WorkerLocation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerLocation{}
@@ -1945,7 +1945,7 @@ func (_this *WorkerNavigator) JSValue() js.Value {
 // WorkerNavigatorFromJS is casting a js.Wrapper into WorkerNavigator.
 func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerNavigator{}

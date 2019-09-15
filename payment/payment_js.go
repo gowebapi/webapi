@@ -572,7 +572,7 @@ type CanMakePaymentEvent struct {
 // CanMakePaymentEventFromJS is casting a js.Wrapper into CanMakePaymentEvent.
 func CanMakePaymentEventFromJS(value js.Wrapper) *CanMakePaymentEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CanMakePaymentEvent{}
@@ -653,7 +653,7 @@ func (_this *PaymentInstruments) JSValue() js.Value {
 // PaymentInstrumentsFromJS is casting a js.Wrapper into PaymentInstruments.
 func PaymentInstrumentsFromJS(value js.Wrapper) *PaymentInstruments {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentInstruments{}
@@ -773,7 +773,7 @@ func (_this *PaymentManager) JSValue() js.Value {
 // PaymentManagerFromJS is casting a js.Wrapper into PaymentManager.
 func PaymentManagerFromJS(value js.Wrapper) *PaymentManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentManager{}
@@ -814,7 +814,7 @@ type PaymentRequestEvent struct {
 // PaymentRequestEventFromJS is casting a js.Wrapper into PaymentRequestEvent.
 func PaymentRequestEventFromJS(value js.Wrapper) *PaymentRequestEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentRequestEvent{}
@@ -979,7 +979,7 @@ func (_this *PromiseNilPaymentMethodChangeResponse) JSValue() js.Value {
 // PromiseNilPaymentMethodChangeResponseFromJS is casting a js.Wrapper into PromiseNilPaymentMethodChangeResponse.
 func PromiseNilPaymentMethodChangeResponseFromJS(value js.Wrapper) *PromiseNilPaymentMethodChangeResponse {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilPaymentMethodChangeResponse{}
@@ -1084,7 +1084,7 @@ func (_this *PromisePaymentHandlerResponse) JSValue() js.Value {
 // PromisePaymentHandlerResponseFromJS is casting a js.Wrapper into PromisePaymentHandlerResponse.
 func PromisePaymentHandlerResponseFromJS(value js.Wrapper) *PromisePaymentHandlerResponse {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePaymentHandlerResponse{}

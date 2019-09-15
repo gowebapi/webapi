@@ -327,7 +327,7 @@ func (_this *AudioTrack) JSValue() js.Value {
 // AudioTrackFromJS is casting a js.Wrapper into AudioTrack.
 func AudioTrackFromJS(value js.Wrapper) *AudioTrack {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioTrack{}
@@ -406,7 +406,7 @@ type AudioTrackList struct {
 // AudioTrackListFromJS is casting a js.Wrapper into AudioTrackList.
 func AudioTrackListFromJS(value js.Wrapper) *AudioTrackList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioTrackList{}
@@ -576,7 +576,7 @@ type HTMLAudioElement struct {
 // HTMLAudioElementFromJS is casting a js.Wrapper into HTMLAudioElement.
 func HTMLAudioElementFromJS(value js.Wrapper) *HTMLAudioElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLAudioElement{}
@@ -592,7 +592,7 @@ type HTMLMediaElement struct {
 // HTMLMediaElementFromJS is casting a js.Wrapper into HTMLMediaElement.
 func HTMLMediaElementFromJS(value js.Wrapper) *HTMLMediaElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMediaElement{}
@@ -1238,7 +1238,7 @@ type HTMLTrackElement struct {
 // HTMLTrackElementFromJS is casting a js.Wrapper into HTMLTrackElement.
 func HTMLTrackElementFromJS(value js.Wrapper) *HTMLTrackElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTrackElement{}
@@ -1359,7 +1359,7 @@ type HTMLVideoElement struct {
 // HTMLVideoElementFromJS is casting a js.Wrapper into HTMLVideoElement.
 func HTMLVideoElementFromJS(value js.Wrapper) *HTMLVideoElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLVideoElement{}
@@ -1590,7 +1590,7 @@ func (_this *MediaError) JSValue() js.Value {
 // MediaErrorFromJS is casting a js.Wrapper into MediaError.
 func MediaErrorFromJS(value js.Wrapper) *MediaError {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaError{}
@@ -1631,7 +1631,7 @@ type MediaSource struct {
 // MediaSourceFromJS is casting a js.Wrapper into MediaSource.
 func MediaSourceFromJS(value js.Wrapper) *MediaSource {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSource{}
@@ -1886,7 +1886,7 @@ type SourceBuffer struct {
 // SourceBufferFromJS is casting a js.Wrapper into SourceBuffer.
 func SourceBufferFromJS(value js.Wrapper) *SourceBuffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SourceBuffer{}
@@ -2196,7 +2196,7 @@ type SourceBufferList struct {
 // SourceBufferListFromJS is casting a js.Wrapper into SourceBufferList.
 func SourceBufferListFromJS(value js.Wrapper) *SourceBufferList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SourceBufferList{}
@@ -2306,7 +2306,7 @@ type TextTrack struct {
 // TextTrackFromJS is casting a js.Wrapper into TextTrack.
 func TextTrackFromJS(value js.Wrapper) *TextTrack {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrack{}
@@ -2481,7 +2481,7 @@ type TextTrackCue struct {
 // TextTrackCueFromJS is casting a js.Wrapper into TextTrackCue.
 func TextTrackCueFromJS(value js.Wrapper) *TextTrackCue {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackCue{}
@@ -2645,7 +2645,7 @@ func (_this *TextTrackCueList) JSValue() js.Value {
 // TextTrackCueListFromJS is casting a js.Wrapper into TextTrackCueList.
 func TextTrackCueListFromJS(value js.Wrapper) *TextTrackCueList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackCueList{}
@@ -2706,7 +2706,7 @@ type TextTrackList struct {
 // TextTrackListFromJS is casting a js.Wrapper into TextTrackList.
 func TextTrackListFromJS(value js.Wrapper) *TextTrackList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackList{}
@@ -2881,7 +2881,7 @@ func (_this *VideoTrack) JSValue() js.Value {
 // VideoTrackFromJS is casting a js.Wrapper into VideoTrack.
 func VideoTrackFromJS(value js.Wrapper) *VideoTrack {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VideoTrack{}
@@ -2960,7 +2960,7 @@ type VideoTrackList struct {
 // VideoTrackListFromJS is casting a js.Wrapper into VideoTrackList.
 func VideoTrackListFromJS(value js.Wrapper) *VideoTrackList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VideoTrackList{}

@@ -1526,7 +1526,7 @@ type AdvertisingEvent struct {
 // AdvertisingEventFromJS is casting a js.Wrapper into AdvertisingEvent.
 func AdvertisingEventFromJS(value js.Wrapper) *AdvertisingEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AdvertisingEvent{}
@@ -1647,7 +1647,7 @@ type Bluetooth struct {
 // BluetoothFromJS is casting a js.Wrapper into Bluetooth.
 func BluetoothFromJS(value js.Wrapper) *Bluetooth {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Bluetooth{}
@@ -1943,7 +1943,7 @@ func (_this *CharacteristicProperties) JSValue() js.Value {
 // CharacteristicPropertiesFromJS is casting a js.Wrapper into CharacteristicProperties.
 func CharacteristicPropertiesFromJS(value js.Wrapper) *CharacteristicProperties {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CharacteristicProperties{}
@@ -2040,7 +2040,7 @@ type Device struct {
 // DeviceFromJS is casting a js.Wrapper into Device.
 func DeviceFromJS(value js.Wrapper) *Device {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Device{}
@@ -2315,7 +2315,7 @@ func (_this *ManufacturerDataMap) JSValue() js.Value {
 // ManufacturerDataMapFromJS is casting a js.Wrapper into ManufacturerDataMap.
 func ManufacturerDataMapFromJS(value js.Wrapper) *ManufacturerDataMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMap{}
@@ -2447,7 +2447,7 @@ func (_this *ManufacturerDataMapEntryIterator) JSValue() js.Value {
 // ManufacturerDataMapEntryIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapEntryIterator.
 func ManufacturerDataMapEntryIteratorFromJS(value js.Wrapper) *ManufacturerDataMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapEntryIterator{}
@@ -2482,7 +2482,7 @@ func (_this *ManufacturerDataMapKeyIterator) JSValue() js.Value {
 // ManufacturerDataMapKeyIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapKeyIterator.
 func ManufacturerDataMapKeyIteratorFromJS(value js.Wrapper) *ManufacturerDataMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapKeyIterator{}
@@ -2517,7 +2517,7 @@ func (_this *ManufacturerDataMapValueIterator) JSValue() js.Value {
 // ManufacturerDataMapValueIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapValueIterator.
 func ManufacturerDataMapValueIteratorFromJS(value js.Wrapper) *ManufacturerDataMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapValueIterator{}
@@ -2547,7 +2547,7 @@ type PermissionResult struct {
 // PermissionResultFromJS is casting a js.Wrapper into PermissionResult.
 func PermissionResultFromJS(value js.Wrapper) *PermissionResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PermissionResult{}
@@ -2584,7 +2584,7 @@ func (_this *PromiseDevice) JSValue() js.Value {
 // PromiseDeviceFromJS is casting a js.Wrapper into PromiseDevice.
 func PromiseDeviceFromJS(value js.Wrapper) *PromiseDevice {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDevice{}
@@ -2689,7 +2689,7 @@ func (_this *PromiseRemoteGATTCharacteristic) JSValue() js.Value {
 // PromiseRemoteGATTCharacteristicFromJS is casting a js.Wrapper into PromiseRemoteGATTCharacteristic.
 func PromiseRemoteGATTCharacteristicFromJS(value js.Wrapper) *PromiseRemoteGATTCharacteristic {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTCharacteristic{}
@@ -2794,7 +2794,7 @@ func (_this *PromiseRemoteGATTDescriptor) JSValue() js.Value {
 // PromiseRemoteGATTDescriptorFromJS is casting a js.Wrapper into PromiseRemoteGATTDescriptor.
 func PromiseRemoteGATTDescriptorFromJS(value js.Wrapper) *PromiseRemoteGATTDescriptor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTDescriptor{}
@@ -2899,7 +2899,7 @@ func (_this *PromiseRemoteGATTServer) JSValue() js.Value {
 // PromiseRemoteGATTServerFromJS is casting a js.Wrapper into PromiseRemoteGATTServer.
 func PromiseRemoteGATTServerFromJS(value js.Wrapper) *PromiseRemoteGATTServer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTServer{}
@@ -3004,7 +3004,7 @@ func (_this *PromiseRemoteGATTService) JSValue() js.Value {
 // PromiseRemoteGATTServiceFromJS is casting a js.Wrapper into PromiseRemoteGATTService.
 func PromiseRemoteGATTServiceFromJS(value js.Wrapper) *PromiseRemoteGATTService {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTService{}
@@ -3109,7 +3109,7 @@ func (_this *PromiseSequenceRemoteGATTCharacteristic) JSValue() js.Value {
 // PromiseSequenceRemoteGATTCharacteristicFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTCharacteristic.
 func PromiseSequenceRemoteGATTCharacteristicFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTCharacteristic {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTCharacteristic{}
@@ -3214,7 +3214,7 @@ func (_this *PromiseSequenceRemoteGATTDescriptor) JSValue() js.Value {
 // PromiseSequenceRemoteGATTDescriptorFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTDescriptor.
 func PromiseSequenceRemoteGATTDescriptorFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTDescriptor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTDescriptor{}
@@ -3319,7 +3319,7 @@ func (_this *PromiseSequenceRemoteGATTService) JSValue() js.Value {
 // PromiseSequenceRemoteGATTServiceFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTService.
 func PromiseSequenceRemoteGATTServiceFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTService {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTService{}
@@ -3419,7 +3419,7 @@ type RemoteGATTCharacteristic struct {
 // RemoteGATTCharacteristicFromJS is casting a js.Wrapper into RemoteGATTCharacteristic.
 func RemoteGATTCharacteristicFromJS(value js.Wrapper) *RemoteGATTCharacteristic {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTCharacteristic{}
@@ -3614,7 +3614,7 @@ func (_this *RemoteGATTDescriptor) JSValue() js.Value {
 // RemoteGATTDescriptorFromJS is casting a js.Wrapper into RemoteGATTDescriptor.
 func RemoteGATTDescriptorFromJS(value js.Wrapper) *RemoteGATTDescriptor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTDescriptor{}
@@ -3695,7 +3695,7 @@ func (_this *RemoteGATTServer) JSValue() js.Value {
 // RemoteGATTServerFromJS is casting a js.Wrapper into RemoteGATTServer.
 func RemoteGATTServerFromJS(value js.Wrapper) *RemoteGATTServer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTServer{}
@@ -3788,7 +3788,7 @@ type RemoteGATTService struct {
 // RemoteGATTServiceFromJS is casting a js.Wrapper into RemoteGATTService.
 func RemoteGATTServiceFromJS(value js.Wrapper) *RemoteGATTService {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTService{}
@@ -4030,7 +4030,7 @@ func (_this *ServiceDataMap) JSValue() js.Value {
 // ServiceDataMapFromJS is casting a js.Wrapper into ServiceDataMap.
 func ServiceDataMapFromJS(value js.Wrapper) *ServiceDataMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMap{}
@@ -4162,7 +4162,7 @@ func (_this *ServiceDataMapEntryIterator) JSValue() js.Value {
 // ServiceDataMapEntryIteratorFromJS is casting a js.Wrapper into ServiceDataMapEntryIterator.
 func ServiceDataMapEntryIteratorFromJS(value js.Wrapper) *ServiceDataMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapEntryIterator{}
@@ -4197,7 +4197,7 @@ func (_this *ServiceDataMapKeyIterator) JSValue() js.Value {
 // ServiceDataMapKeyIteratorFromJS is casting a js.Wrapper into ServiceDataMapKeyIterator.
 func ServiceDataMapKeyIteratorFromJS(value js.Wrapper) *ServiceDataMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapKeyIterator{}
@@ -4232,7 +4232,7 @@ func (_this *ServiceDataMapValueIterator) JSValue() js.Value {
 // ServiceDataMapValueIteratorFromJS is casting a js.Wrapper into ServiceDataMapValueIterator.
 func ServiceDataMapValueIteratorFromJS(value js.Wrapper) *ServiceDataMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapValueIterator{}
@@ -4338,7 +4338,7 @@ type ValueEvent struct {
 // ValueEventFromJS is casting a js.Wrapper into ValueEvent.
 func ValueEventFromJS(value js.Wrapper) *ValueEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ValueEvent{}

@@ -417,7 +417,7 @@ func (_this *CaretPosition) JSValue() js.Value {
 // CaretPositionFromJS is casting a js.Wrapper into CaretPosition.
 func CaretPositionFromJS(value js.Wrapper) *CaretPosition {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CaretPosition{}
@@ -467,7 +467,7 @@ type MediaQueryList struct {
 // MediaQueryListFromJS is casting a js.Wrapper into MediaQueryList.
 func MediaQueryListFromJS(value js.Wrapper) *MediaQueryList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaQueryList{}
@@ -566,7 +566,7 @@ type MediaQueryListEvent struct {
 // MediaQueryListEventFromJS is casting a js.Wrapper into MediaQueryListEvent.
 func MediaQueryListEventFromJS(value js.Wrapper) *MediaQueryListEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaQueryListEvent{}
@@ -628,7 +628,7 @@ func (_this *Screen) JSValue() js.Value {
 // ScreenFromJS is casting a js.Wrapper into Screen.
 func ScreenFromJS(value js.Wrapper) *Screen {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Screen{}

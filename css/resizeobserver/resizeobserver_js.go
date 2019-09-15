@@ -106,7 +106,7 @@ func (_this *ResizeObservation) JSValue() js.Value {
 // ResizeObservationFromJS is casting a js.Wrapper into ResizeObservation.
 func ResizeObservationFromJS(value js.Wrapper) *ResizeObservation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ResizeObservation{}
@@ -186,7 +186,7 @@ func (_this *ResizeObserver) JSValue() js.Value {
 // ResizeObserverFromJS is casting a js.Wrapper into ResizeObserver.
 func ResizeObserverFromJS(value js.Wrapper) *ResizeObserver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ResizeObserver{}
@@ -265,7 +265,7 @@ func (_this *ResizeObserverEntry) JSValue() js.Value {
 // ResizeObserverEntryFromJS is casting a js.Wrapper into ResizeObserverEntry.
 func ResizeObserverEntryFromJS(value js.Wrapper) *ResizeObserverEntry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ResizeObserverEntry{}

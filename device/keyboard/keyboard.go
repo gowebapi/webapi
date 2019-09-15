@@ -298,7 +298,7 @@ func (_this *Keyboard) JSValue() js.Value {
 // KeyboardFromJS is casting a js.Wrapper into Keyboard.
 func KeyboardFromJS(value js.Wrapper) *Keyboard {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Keyboard{}
@@ -365,7 +365,7 @@ func (_this *LayoutMap) JSValue() js.Value {
 // LayoutMapFromJS is casting a js.Wrapper into LayoutMap.
 func LayoutMapFromJS(value js.Wrapper) *LayoutMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMap{}
@@ -498,7 +498,7 @@ func (_this *LayoutMapEntryIterator) JSValue() js.Value {
 // LayoutMapEntryIteratorFromJS is casting a js.Wrapper into LayoutMapEntryIterator.
 func LayoutMapEntryIteratorFromJS(value js.Wrapper) *LayoutMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapEntryIterator{}
@@ -533,7 +533,7 @@ func (_this *LayoutMapKeyIterator) JSValue() js.Value {
 // LayoutMapKeyIteratorFromJS is casting a js.Wrapper into LayoutMapKeyIterator.
 func LayoutMapKeyIteratorFromJS(value js.Wrapper) *LayoutMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapKeyIterator{}
@@ -568,7 +568,7 @@ func (_this *LayoutMapValueIterator) JSValue() js.Value {
 // LayoutMapValueIteratorFromJS is casting a js.Wrapper into LayoutMapValueIterator.
 func LayoutMapValueIteratorFromJS(value js.Wrapper) *LayoutMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapValueIterator{}
@@ -603,7 +603,7 @@ func (_this *PromiseLayoutMap) JSValue() js.Value {
 // PromiseLayoutMapFromJS is casting a js.Wrapper into PromiseLayoutMap.
 func PromiseLayoutMapFromJS(value js.Wrapper) *PromiseLayoutMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseLayoutMap{}

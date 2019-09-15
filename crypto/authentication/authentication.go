@@ -636,7 +636,7 @@ type AssertionResponse struct {
 // AssertionResponseFromJS is casting a js.Wrapper into AssertionResponse.
 func AssertionResponseFromJS(value js.Wrapper) *AssertionResponse {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AssertionResponse{}
@@ -681,7 +681,7 @@ type AttestationResponse struct {
 // AttestationResponseFromJS is casting a js.Wrapper into AttestationResponse.
 func AttestationResponseFromJS(value js.Wrapper) *AttestationResponse {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AttestationResponse{}
@@ -711,7 +711,7 @@ func (_this *Response) JSValue() js.Value {
 // ResponseFromJS is casting a js.Wrapper into Response.
 func ResponseFromJS(value js.Wrapper) *Response {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Response{}

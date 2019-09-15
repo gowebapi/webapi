@@ -47,7 +47,7 @@ func (_this *FeaturePolicy) JSValue() js.Value {
 // FeaturePolicyFromJS is casting a js.Wrapper into FeaturePolicy.
 func FeaturePolicyFromJS(value js.Wrapper) *FeaturePolicy {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FeaturePolicy{}
@@ -154,7 +154,7 @@ type ViolationReportBody struct {
 // ViolationReportBodyFromJS is casting a js.Wrapper into ViolationReportBody.
 func ViolationReportBodyFromJS(value js.Wrapper) *ViolationReportBody {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ViolationReportBody{}

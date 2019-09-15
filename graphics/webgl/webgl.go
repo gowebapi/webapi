@@ -217,7 +217,7 @@ func (_this *ActiveInfo) JSValue() js.Value {
 // ActiveInfoFromJS is casting a js.Wrapper into ActiveInfo.
 func ActiveInfoFromJS(value js.Wrapper) *ActiveInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ActiveInfo{}
@@ -260,7 +260,7 @@ type Buffer struct {
 // BufferFromJS is casting a js.Wrapper into Buffer.
 func BufferFromJS(value js.Wrapper) *Buffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Buffer{}
@@ -276,7 +276,7 @@ type ContextEvent struct {
 // ContextEventFromJS is casting a js.Wrapper into ContextEvent.
 func ContextEventFromJS(value js.Wrapper) *ContextEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ContextEvent{}
@@ -324,7 +324,7 @@ type Framebuffer struct {
 // FramebufferFromJS is casting a js.Wrapper into Framebuffer.
 func FramebufferFromJS(value js.Wrapper) *Framebuffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Framebuffer{}
@@ -345,7 +345,7 @@ func (_this *Object) JSValue() js.Value {
 // ObjectFromJS is casting a js.Wrapper into Object.
 func ObjectFromJS(value js.Wrapper) *Object {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Object{}
@@ -361,7 +361,7 @@ type Program struct {
 // ProgramFromJS is casting a js.Wrapper into Program.
 func ProgramFromJS(value js.Wrapper) *Program {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Program{}
@@ -377,7 +377,7 @@ type Renderbuffer struct {
 // RenderbufferFromJS is casting a js.Wrapper into Renderbuffer.
 func RenderbufferFromJS(value js.Wrapper) *Renderbuffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Renderbuffer{}
@@ -398,7 +398,7 @@ func (_this *RenderingContext) JSValue() js.Value {
 // RenderingContextFromJS is casting a js.Wrapper into RenderingContext.
 func RenderingContextFromJS(value js.Wrapper) *RenderingContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RenderingContext{}
@@ -3226,7 +3226,7 @@ type Shader struct {
 // ShaderFromJS is casting a js.Wrapper into Shader.
 func ShaderFromJS(value js.Wrapper) *Shader {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Shader{}
@@ -3247,7 +3247,7 @@ func (_this *ShaderPrecisionFormat) JSValue() js.Value {
 // ShaderPrecisionFormatFromJS is casting a js.Wrapper into ShaderPrecisionFormat.
 func ShaderPrecisionFormatFromJS(value js.Wrapper) *ShaderPrecisionFormat {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ShaderPrecisionFormat{}
@@ -3290,7 +3290,7 @@ type Texture struct {
 // TextureFromJS is casting a js.Wrapper into Texture.
 func TextureFromJS(value js.Wrapper) *Texture {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Texture{}
@@ -3311,7 +3311,7 @@ func (_this *UniformLocation) JSValue() js.Value {
 // UniformLocationFromJS is casting a js.Wrapper into UniformLocation.
 func UniformLocationFromJS(value js.Wrapper) *UniformLocation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &UniformLocation{}

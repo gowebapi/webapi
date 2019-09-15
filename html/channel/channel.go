@@ -276,7 +276,7 @@ type BroadcastChannel struct {
 // BroadcastChannelFromJS is casting a js.Wrapper into BroadcastChannel.
 func BroadcastChannelFromJS(value js.Wrapper) *BroadcastChannel {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BroadcastChannel{}
@@ -408,7 +408,7 @@ type CloseEvent struct {
 // CloseEventFromJS is casting a js.Wrapper into CloseEvent.
 func CloseEventFromJS(value js.Wrapper) *CloseEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CloseEvent{}
@@ -479,7 +479,7 @@ func (_this *MessageChannel) JSValue() js.Value {
 // MessageChannelFromJS is casting a js.Wrapper into MessageChannel.
 func MessageChannelFromJS(value js.Wrapper) *MessageChannel {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageChannel{}
@@ -528,7 +528,7 @@ type MessageEvent struct {
 // MessageEventFromJS is casting a js.Wrapper into MessageEvent.
 func MessageEventFromJS(value js.Wrapper) *MessageEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageEvent{}
@@ -665,7 +665,7 @@ type MessagePort struct {
 // MessagePortFromJS is casting a js.Wrapper into MessagePort.
 func MessagePortFromJS(value js.Wrapper) *MessagePort {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessagePort{}
@@ -803,7 +803,7 @@ type WebSocket struct {
 // WebSocketFromJS is casting a js.Wrapper into WebSocket.
 func WebSocketFromJS(value js.Wrapper) *WebSocket {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WebSocket{}

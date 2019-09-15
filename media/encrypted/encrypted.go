@@ -806,7 +806,7 @@ type MediaEncryptedEvent struct {
 // MediaEncryptedEventFromJS is casting a js.Wrapper into MediaEncryptedEvent.
 func MediaEncryptedEventFromJS(value js.Wrapper) *MediaEncryptedEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaEncryptedEvent{}
@@ -865,7 +865,7 @@ type MediaKeyMessageEvent struct {
 // MediaKeyMessageEventFromJS is casting a js.Wrapper into MediaKeyMessageEvent.
 func MediaKeyMessageEventFromJS(value js.Wrapper) *MediaKeyMessageEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyMessageEvent{}
@@ -920,7 +920,7 @@ type MediaKeySession struct {
 // MediaKeySessionFromJS is casting a js.Wrapper into MediaKeySession.
 func MediaKeySessionFromJS(value js.Wrapper) *MediaKeySession {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeySession{}
@@ -1141,7 +1141,7 @@ func (_this *MediaKeyStatusMap) JSValue() js.Value {
 // MediaKeyStatusMapFromJS is casting a js.Wrapper into MediaKeyStatusMap.
 func MediaKeyStatusMapFromJS(value js.Wrapper) *MediaKeyStatusMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMap{}
@@ -1271,7 +1271,7 @@ func (_this *MediaKeyStatusMapEntryIterator) JSValue() js.Value {
 // MediaKeyStatusMapEntryIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapEntryIterator.
 func MediaKeyStatusMapEntryIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapEntryIterator{}
@@ -1306,7 +1306,7 @@ func (_this *MediaKeyStatusMapKeyIterator) JSValue() js.Value {
 // MediaKeyStatusMapKeyIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapKeyIterator.
 func MediaKeyStatusMapKeyIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapKeyIterator{}
@@ -1341,7 +1341,7 @@ func (_this *MediaKeyStatusMapValueIterator) JSValue() js.Value {
 // MediaKeyStatusMapValueIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapValueIterator.
 func MediaKeyStatusMapValueIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapValueIterator{}
@@ -1376,7 +1376,7 @@ func (_this *MediaKeySystemAccess) JSValue() js.Value {
 // MediaKeySystemAccessFromJS is casting a js.Wrapper into MediaKeySystemAccess.
 func MediaKeySystemAccessFromJS(value js.Wrapper) *MediaKeySystemAccess {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeySystemAccess{}
@@ -1434,7 +1434,7 @@ func (_this *MediaKeys) JSValue() js.Value {
 // MediaKeysFromJS is casting a js.Wrapper into MediaKeys.
 func MediaKeysFromJS(value js.Wrapper) *MediaKeys {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeys{}
@@ -1491,7 +1491,7 @@ func (_this *PromiseMediaKeySystemAccess) JSValue() js.Value {
 // PromiseMediaKeySystemAccessFromJS is casting a js.Wrapper into PromiseMediaKeySystemAccess.
 func PromiseMediaKeySystemAccessFromJS(value js.Wrapper) *PromiseMediaKeySystemAccess {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaKeySystemAccess{}
@@ -1596,7 +1596,7 @@ func (_this *PromiseMediaKeys) JSValue() js.Value {
 // PromiseMediaKeysFromJS is casting a js.Wrapper into PromiseMediaKeys.
 func PromiseMediaKeysFromJS(value js.Wrapper) *PromiseMediaKeys {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaKeys{}

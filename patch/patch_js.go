@@ -42,7 +42,7 @@ func (_this *ByteString) JSValue() js.Value {
 // ByteStringFromJS is casting a js.Wrapper into ByteString.
 func ByteStringFromJS(value js.Wrapper) *ByteString {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ByteString{}
@@ -63,7 +63,7 @@ func (_this *OverconstrainedError) JSValue() js.Value {
 // OverconstrainedErrorFromJS is casting a js.Wrapper into OverconstrainedError.
 func OverconstrainedErrorFromJS(value js.Wrapper) *OverconstrainedError {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OverconstrainedError{}
@@ -84,7 +84,7 @@ func (_this *ReadableStream) JSValue() js.Value {
 // ReadableStreamFromJS is casting a js.Wrapper into ReadableStream.
 func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReadableStream{}
@@ -105,7 +105,7 @@ func (_this *Uint8ClampedArray) JSValue() js.Value {
 // Uint8ClampedArrayFromJS is casting a js.Wrapper into Uint8ClampedArray.
 func Uint8ClampedArrayFromJS(value js.Wrapper) *Uint8ClampedArray {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Uint8ClampedArray{}

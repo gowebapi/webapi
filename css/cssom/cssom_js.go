@@ -42,7 +42,7 @@ type CSSGroupingRule struct {
 // CSSGroupingRuleFromJS is casting a js.Wrapper into CSSGroupingRule.
 func CSSGroupingRuleFromJS(value js.Wrapper) *CSSGroupingRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSGroupingRule{}
@@ -101,7 +101,7 @@ type CSSImportRule struct {
 // CSSImportRuleFromJS is casting a js.Wrapper into CSSImportRule.
 func CSSImportRuleFromJS(value js.Wrapper) *CSSImportRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSImportRule{}
@@ -144,7 +144,7 @@ type CSSMarginRule struct {
 // CSSMarginRuleFromJS is casting a js.Wrapper into CSSMarginRule.
 func CSSMarginRuleFromJS(value js.Wrapper) *CSSMarginRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMarginRule{}
@@ -178,7 +178,7 @@ type CSSNamespaceRule struct {
 // CSSNamespaceRuleFromJS is casting a js.Wrapper into CSSNamespaceRule.
 func CSSNamespaceRuleFromJS(value js.Wrapper) *CSSNamespaceRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNamespaceRule{}
@@ -212,7 +212,7 @@ type CSSPageRule struct {
 // CSSPageRuleFromJS is casting a js.Wrapper into CSSPageRule.
 func CSSPageRuleFromJS(value js.Wrapper) *CSSPageRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPageRule{}
@@ -258,7 +258,7 @@ func (_this *CSSRule) JSValue() js.Value {
 // CSSRuleFromJS is casting a js.Wrapper into CSSRule.
 func CSSRuleFromJS(value js.Wrapper) *CSSRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSRule{}
@@ -344,7 +344,7 @@ func (_this *CSSRuleList) JSValue() js.Value {
 // CSSRuleListFromJS is casting a js.Wrapper into CSSRuleList.
 func CSSRuleListFromJS(value js.Wrapper) *CSSRuleList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSRuleList{}
@@ -412,7 +412,7 @@ func (_this *CSSStyleDeclaration) JSValue() js.Value {
 // CSSStyleDeclarationFromJS is casting a js.Wrapper into CSSStyleDeclaration.
 func CSSStyleDeclarationFromJS(value js.Wrapper) *CSSStyleDeclaration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSStyleDeclaration{}
@@ -585,7 +585,7 @@ type CSSStyleRule struct {
 // CSSStyleRuleFromJS is casting a js.Wrapper into CSSStyleRule.
 func CSSStyleRuleFromJS(value js.Wrapper) *CSSStyleRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSStyleRule{}
@@ -635,7 +635,7 @@ type CSSStyleSheet struct {
 // CSSStyleSheetFromJS is casting a js.Wrapper into CSSStyleSheet.
 func CSSStyleSheetFromJS(value js.Wrapper) *CSSStyleSheet {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSStyleSheet{}
@@ -710,7 +710,7 @@ func (_this *MediaList) JSValue() js.Value {
 // MediaListFromJS is casting a js.Wrapper into MediaList.
 func MediaListFromJS(value js.Wrapper) *MediaList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaList{}
@@ -825,7 +825,7 @@ func (_this *StyleSheet) JSValue() js.Value {
 // StyleSheetFromJS is casting a js.Wrapper into StyleSheet.
 func StyleSheetFromJS(value js.Wrapper) *StyleSheet {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StyleSheet{}
@@ -926,7 +926,7 @@ func (_this *StyleSheetList) JSValue() js.Value {
 // StyleSheetListFromJS is casting a js.Wrapper into StyleSheetList.
 func StyleSheetListFromJS(value js.Wrapper) *StyleSheetList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StyleSheetList{}

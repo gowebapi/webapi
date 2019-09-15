@@ -1999,7 +1999,7 @@ type CompositionEvent struct {
 // CompositionEventFromJS is casting a js.Wrapper into CompositionEvent.
 func CompositionEventFromJS(value js.Wrapper) *CompositionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CompositionEvent{}
@@ -2047,7 +2047,7 @@ type DragEvent struct {
 // DragEventFromJS is casting a js.Wrapper into DragEvent.
 func DragEventFromJS(value js.Wrapper) *DragEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DragEvent{}
@@ -2097,7 +2097,7 @@ type ErrorEvent struct {
 // ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
 func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
@@ -2181,7 +2181,7 @@ type FocusEvent struct {
 // FocusEventFromJS is casting a js.Wrapper into FocusEvent.
 func FocusEventFromJS(value js.Wrapper) *FocusEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FocusEvent{}
@@ -2231,7 +2231,7 @@ type HashChangeEvent struct {
 // HashChangeEventFromJS is casting a js.Wrapper into HashChangeEvent.
 func HashChangeEventFromJS(value js.Wrapper) *HashChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HashChangeEvent{}
@@ -2288,7 +2288,7 @@ type InputEvent struct {
 // InputEventFromJS is casting a js.Wrapper into InputEvent.
 func InputEventFromJS(value js.Wrapper) *InputEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputEvent{}
@@ -2390,7 +2390,7 @@ type KeyboardEvent struct {
 // KeyboardEventFromJS is casting a js.Wrapper into KeyboardEvent.
 func KeyboardEventFromJS(value js.Wrapper) *KeyboardEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &KeyboardEvent{}
@@ -2552,7 +2552,7 @@ type MouseEvent struct {
 // MouseEventFromJS is casting a js.Wrapper into MouseEvent.
 func MouseEventFromJS(value js.Wrapper) *MouseEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MouseEvent{}
@@ -2781,7 +2781,7 @@ type PageTransitionEvent struct {
 // PageTransitionEventFromJS is casting a js.Wrapper into PageTransitionEvent.
 func PageTransitionEventFromJS(value js.Wrapper) *PageTransitionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PageTransitionEvent{}
@@ -2829,7 +2829,7 @@ type PointerEvent struct {
 // PointerEventFromJS is casting a js.Wrapper into PointerEvent.
 func PointerEventFromJS(value js.Wrapper) *PointerEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PointerEvent{}
@@ -3002,7 +3002,7 @@ type PopStateEvent struct {
 // PopStateEventFromJS is casting a js.Wrapper into PopStateEvent.
 func PopStateEventFromJS(value js.Wrapper) *PopStateEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PopStateEvent{}
@@ -3050,7 +3050,7 @@ type PromiseRejectionEvent struct {
 // PromiseRejectionEventFromJS is casting a js.Wrapper into PromiseRejectionEvent.
 func PromiseRejectionEventFromJS(value js.Wrapper) *PromiseRejectionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRejectionEvent{}
@@ -3110,7 +3110,7 @@ func (_this *Storage) JSValue() js.Value {
 // StorageFromJS is casting a js.Wrapper into Storage.
 func StorageFromJS(value js.Wrapper) *Storage {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Storage{}
@@ -3258,7 +3258,7 @@ type StorageEvent struct {
 // StorageEventFromJS is casting a js.Wrapper into StorageEvent.
 func StorageEventFromJS(value js.Wrapper) *StorageEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StorageEvent{}
@@ -3400,7 +3400,7 @@ type TrackEvent struct {
 // TrackEventFromJS is casting a js.Wrapper into TrackEvent.
 func TrackEventFromJS(value js.Wrapper) *TrackEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TrackEvent{}
@@ -3450,7 +3450,7 @@ type UIEvent struct {
 // UIEventFromJS is casting a js.Wrapper into UIEvent.
 func UIEventFromJS(value js.Wrapper) *UIEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &UIEvent{}
@@ -3527,7 +3527,7 @@ type WheelEvent struct {
 // WheelEventFromJS is casting a js.Wrapper into WheelEvent.
 func WheelEventFromJS(value js.Wrapper) *WheelEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WheelEvent{}

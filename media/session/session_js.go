@@ -269,7 +269,7 @@ func (_this *MediaMetadata) JSValue() js.Value {
 // MediaMetadataFromJS is casting a js.Wrapper into MediaMetadata.
 func MediaMetadataFromJS(value js.Wrapper) *MediaMetadata {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaMetadata{}
@@ -374,7 +374,7 @@ func (_this *MediaSession) JSValue() js.Value {
 // MediaSessionFromJS is casting a js.Wrapper into MediaSession.
 func MediaSessionFromJS(value js.Wrapper) *MediaSession {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSession{}

@@ -1089,7 +1089,7 @@ func (_this *PromiseSequenceUSBDevice) JSValue() js.Value {
 // PromiseSequenceUSBDeviceFromJS is casting a js.Wrapper into PromiseSequenceUSBDevice.
 func PromiseSequenceUSBDeviceFromJS(value js.Wrapper) *PromiseSequenceUSBDevice {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceUSBDevice{}
@@ -1194,7 +1194,7 @@ func (_this *PromiseUSBDevice) JSValue() js.Value {
 // PromiseUSBDeviceFromJS is casting a js.Wrapper into PromiseUSBDevice.
 func PromiseUSBDeviceFromJS(value js.Wrapper) *PromiseUSBDevice {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseUSBDevice{}
@@ -1299,7 +1299,7 @@ func (_this *PromiseUSBInTransferResult) JSValue() js.Value {
 // PromiseUSBInTransferResultFromJS is casting a js.Wrapper into PromiseUSBInTransferResult.
 func PromiseUSBInTransferResultFromJS(value js.Wrapper) *PromiseUSBInTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseUSBInTransferResult{}
@@ -1404,7 +1404,7 @@ func (_this *PromiseUSBIsochronousInTransferResult) JSValue() js.Value {
 // PromiseUSBIsochronousInTransferResultFromJS is casting a js.Wrapper into PromiseUSBIsochronousInTransferResult.
 func PromiseUSBIsochronousInTransferResultFromJS(value js.Wrapper) *PromiseUSBIsochronousInTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseUSBIsochronousInTransferResult{}
@@ -1509,7 +1509,7 @@ func (_this *PromiseUSBIsochronousOutTransferResult) JSValue() js.Value {
 // PromiseUSBIsochronousOutTransferResultFromJS is casting a js.Wrapper into PromiseUSBIsochronousOutTransferResult.
 func PromiseUSBIsochronousOutTransferResultFromJS(value js.Wrapper) *PromiseUSBIsochronousOutTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseUSBIsochronousOutTransferResult{}
@@ -1614,7 +1614,7 @@ func (_this *PromiseUSBOutTransferResult) JSValue() js.Value {
 // PromiseUSBOutTransferResultFromJS is casting a js.Wrapper into PromiseUSBOutTransferResult.
 func PromiseUSBOutTransferResultFromJS(value js.Wrapper) *PromiseUSBOutTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseUSBOutTransferResult{}
@@ -1714,7 +1714,7 @@ type USB struct {
 // USBFromJS is casting a js.Wrapper into USB.
 func USBFromJS(value js.Wrapper) *USB {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USB{}
@@ -1834,7 +1834,7 @@ func (_this *USBAlternateInterface) JSValue() js.Value {
 // USBAlternateInterfaceFromJS is casting a js.Wrapper into USBAlternateInterface.
 func USBAlternateInterfaceFromJS(value js.Wrapper) *USBAlternateInterface {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBAlternateInterface{}
@@ -1933,7 +1933,7 @@ func (_this *USBConfiguration) JSValue() js.Value {
 // USBConfigurationFromJS is casting a js.Wrapper into USBConfiguration.
 func USBConfigurationFromJS(value js.Wrapper) *USBConfiguration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBConfiguration{}
@@ -2000,7 +2000,7 @@ type USBConnectionEvent struct {
 // USBConnectionEventFromJS is casting a js.Wrapper into USBConnectionEvent.
 func USBConnectionEventFromJS(value js.Wrapper) *USBConnectionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBConnectionEvent{}
@@ -2051,7 +2051,7 @@ func (_this *USBDevice) JSValue() js.Value {
 // USBDeviceFromJS is casting a js.Wrapper into USBDevice.
 func USBDeviceFromJS(value js.Wrapper) *USBDevice {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBDevice{}
@@ -2502,7 +2502,7 @@ func (_this *USBEndpoint) JSValue() js.Value {
 // USBEndpointFromJS is casting a js.Wrapper into USBEndpoint.
 func USBEndpointFromJS(value js.Wrapper) *USBEndpoint {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBEndpoint{}
@@ -2583,7 +2583,7 @@ func (_this *USBInTransferResult) JSValue() js.Value {
 // USBInTransferResultFromJS is casting a js.Wrapper into USBInTransferResult.
 func USBInTransferResultFromJS(value js.Wrapper) *USBInTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBInTransferResult{}
@@ -2647,7 +2647,7 @@ func (_this *USBInterface) JSValue() js.Value {
 // USBInterfaceFromJS is casting a js.Wrapper into USBInterface.
 func USBInterfaceFromJS(value js.Wrapper) *USBInterface {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBInterface{}
@@ -2725,7 +2725,7 @@ func (_this *USBIsochronousInTransferPacket) JSValue() js.Value {
 // USBIsochronousInTransferPacketFromJS is casting a js.Wrapper into USBIsochronousInTransferPacket.
 func USBIsochronousInTransferPacketFromJS(value js.Wrapper) *USBIsochronousInTransferPacket {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBIsochronousInTransferPacket{}
@@ -2789,7 +2789,7 @@ func (_this *USBIsochronousInTransferResult) JSValue() js.Value {
 // USBIsochronousInTransferResultFromJS is casting a js.Wrapper into USBIsochronousInTransferResult.
 func USBIsochronousInTransferResultFromJS(value js.Wrapper) *USBIsochronousInTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBIsochronousInTransferResult{}
@@ -2857,7 +2857,7 @@ func (_this *USBIsochronousOutTransferPacket) JSValue() js.Value {
 // USBIsochronousOutTransferPacketFromJS is casting a js.Wrapper into USBIsochronousOutTransferPacket.
 func USBIsochronousOutTransferPacketFromJS(value js.Wrapper) *USBIsochronousOutTransferPacket {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBIsochronousOutTransferPacket{}
@@ -2919,7 +2919,7 @@ func (_this *USBIsochronousOutTransferResult) JSValue() js.Value {
 // USBIsochronousOutTransferResultFromJS is casting a js.Wrapper into USBIsochronousOutTransferResult.
 func USBIsochronousOutTransferResultFromJS(value js.Wrapper) *USBIsochronousOutTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBIsochronousOutTransferResult{}
@@ -2971,7 +2971,7 @@ func (_this *USBOutTransferResult) JSValue() js.Value {
 // USBOutTransferResultFromJS is casting a js.Wrapper into USBOutTransferResult.
 func USBOutTransferResultFromJS(value js.Wrapper) *USBOutTransferResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBOutTransferResult{}
@@ -3028,7 +3028,7 @@ type USBPermissionResult struct {
 // USBPermissionResultFromJS is casting a js.Wrapper into USBPermissionResult.
 func USBPermissionResultFromJS(value js.Wrapper) *USBPermissionResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &USBPermissionResult{}

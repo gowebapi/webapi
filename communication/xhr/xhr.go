@@ -152,7 +152,7 @@ type ProgressEvent struct {
 // ProgressEventFromJS is casting a js.Wrapper into ProgressEvent.
 func ProgressEventFromJS(value js.Wrapper) *ProgressEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ProgressEvent{}
@@ -218,7 +218,7 @@ type XMLHttpRequest struct {
 // XMLHttpRequestFromJS is casting a js.Wrapper into XMLHttpRequest.
 func XMLHttpRequestFromJS(value js.Wrapper) *XMLHttpRequest {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequest{}
@@ -544,7 +544,7 @@ type XMLHttpRequestEventTarget struct {
 // XMLHttpRequestEventTargetFromJS is casting a js.Wrapper into XMLHttpRequestEventTarget.
 func XMLHttpRequestEventTargetFromJS(value js.Wrapper) *XMLHttpRequestEventTarget {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequestEventTarget{}
@@ -763,7 +763,7 @@ type XMLHttpRequestUpload struct {
 // XMLHttpRequestUploadFromJS is casting a js.Wrapper into XMLHttpRequestUpload.
 func XMLHttpRequestUploadFromJS(value js.Wrapper) *XMLHttpRequestUpload {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequestUpload{}

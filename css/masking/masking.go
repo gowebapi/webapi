@@ -47,7 +47,7 @@ type SVGClipPathElement struct {
 // SVGClipPathElementFromJS is casting a js.Wrapper into SVGClipPathElement.
 func SVGClipPathElementFromJS(value js.Wrapper) *SVGClipPathElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGClipPathElement{}
@@ -81,7 +81,7 @@ type SVGMaskElement struct {
 // SVGMaskElementFromJS is casting a js.Wrapper into SVGMaskElement.
 func SVGMaskElementFromJS(value js.Wrapper) *SVGMaskElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMaskElement{}

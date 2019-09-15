@@ -1432,7 +1432,7 @@ func (_this *Crypto) JSValue() js.Value {
 // CryptoFromJS is casting a js.Wrapper into Crypto.
 func CryptoFromJS(value js.Wrapper) *Crypto {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Crypto{}
@@ -1479,7 +1479,7 @@ func (_this *CryptoKey) JSValue() js.Value {
 // CryptoKeyFromJS is casting a js.Wrapper into CryptoKey.
 func CryptoKeyFromJS(value js.Wrapper) *CryptoKey {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CryptoKey{}
@@ -1536,7 +1536,7 @@ func (_this *PromiseCryptoKey) JSValue() js.Value {
 // PromiseCryptoKeyFromJS is casting a js.Wrapper into PromiseCryptoKey.
 func PromiseCryptoKeyFromJS(value js.Wrapper) *PromiseCryptoKey {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCryptoKey{}
@@ -1641,7 +1641,7 @@ func (_this *SubtleCrypto) JSValue() js.Value {
 // SubtleCryptoFromJS is casting a js.Wrapper into SubtleCrypto.
 func SubtleCryptoFromJS(value js.Wrapper) *SubtleCrypto {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubtleCrypto{}

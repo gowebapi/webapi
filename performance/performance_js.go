@@ -453,7 +453,7 @@ func (_this *Entry) JSValue() js.Value {
 // EntryFromJS is casting a js.Wrapper into Entry.
 func EntryFromJS(value js.Wrapper) *Entry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Entry{}
@@ -524,7 +524,7 @@ func (_this *EventCounts) JSValue() js.Value {
 // EventCountsFromJS is casting a js.Wrapper into EventCounts.
 func EventCountsFromJS(value js.Wrapper) *EventCounts {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCounts{}
@@ -657,7 +657,7 @@ func (_this *EventCountsEntryIterator) JSValue() js.Value {
 // EventCountsEntryIteratorFromJS is casting a js.Wrapper into EventCountsEntryIterator.
 func EventCountsEntryIteratorFromJS(value js.Wrapper) *EventCountsEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsEntryIterator{}
@@ -692,7 +692,7 @@ func (_this *EventCountsKeyIterator) JSValue() js.Value {
 // EventCountsKeyIteratorFromJS is casting a js.Wrapper into EventCountsKeyIterator.
 func EventCountsKeyIteratorFromJS(value js.Wrapper) *EventCountsKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsKeyIterator{}
@@ -727,7 +727,7 @@ func (_this *EventCountsValueIterator) JSValue() js.Value {
 // EventCountsValueIteratorFromJS is casting a js.Wrapper into EventCountsValueIterator.
 func EventCountsValueIteratorFromJS(value js.Wrapper) *EventCountsValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsValueIterator{}
@@ -757,7 +757,7 @@ type EventTiming struct {
 // EventTimingFromJS is casting a js.Wrapper into EventTiming.
 func EventTimingFromJS(value js.Wrapper) *EventTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventTiming{}
@@ -800,7 +800,7 @@ type LongTaskTiming struct {
 // LongTaskTimingFromJS is casting a js.Wrapper into LongTaskTiming.
 func LongTaskTimingFromJS(value js.Wrapper) *LongTaskTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LongTaskTiming{}
@@ -825,7 +825,7 @@ type Mark struct {
 // MarkFromJS is casting a js.Wrapper into Mark.
 func MarkFromJS(value js.Wrapper) *Mark {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Mark{}
@@ -873,7 +873,7 @@ type Measure struct {
 // MeasureFromJS is casting a js.Wrapper into Measure.
 func MeasureFromJS(value js.Wrapper) *Measure {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Measure{}
@@ -903,7 +903,7 @@ func (_this *Navigation) JSValue() js.Value {
 // NavigationFromJS is casting a js.Wrapper into Navigation.
 func NavigationFromJS(value js.Wrapper) *Navigation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Navigation{}
@@ -958,7 +958,7 @@ type NavigationTiming struct {
 // NavigationTimingFromJS is casting a js.Wrapper into NavigationTiming.
 func NavigationTimingFromJS(value js.Wrapper) *NavigationTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NavigationTiming{}
@@ -1083,7 +1083,7 @@ func (_this *Observer) JSValue() js.Value {
 // ObserverFromJS is casting a js.Wrapper into Observer.
 func ObserverFromJS(value js.Wrapper) *Observer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Observer{}
@@ -1182,7 +1182,7 @@ func (_this *ObserverEntryList) JSValue() js.Value {
 // ObserverEntryListFromJS is casting a js.Wrapper into ObserverEntryList.
 func ObserverEntryListFromJS(value js.Wrapper) *ObserverEntryList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ObserverEntryList{}
@@ -1275,7 +1275,7 @@ type Performance struct {
 // PerformanceFromJS is casting a js.Wrapper into Performance.
 func PerformanceFromJS(value js.Wrapper) *Performance {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Performance{}
@@ -1571,7 +1571,7 @@ type PerformancePaintTiming struct {
 // PerformancePaintTimingFromJS is casting a js.Wrapper into PerformancePaintTiming.
 func PerformancePaintTimingFromJS(value js.Wrapper) *PerformancePaintTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PerformancePaintTiming{}
@@ -1587,7 +1587,7 @@ type ResourceTiming struct {
 // ResourceTimingFromJS is casting a js.Wrapper into ResourceTiming.
 func ResourceTimingFromJS(value js.Wrapper) *ResourceTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ResourceTiming{}
@@ -1784,7 +1784,7 @@ func (_this *ServerTiming) JSValue() js.Value {
 // ServerTimingFromJS is casting a js.Wrapper into ServerTiming.
 func ServerTimingFromJS(value js.Wrapper) *ServerTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServerTiming{}
@@ -1841,7 +1841,7 @@ type TaskAttributionTiming struct {
 // TaskAttributionTimingFromJS is casting a js.Wrapper into TaskAttributionTiming.
 func TaskAttributionTimingFromJS(value js.Wrapper) *TaskAttributionTiming {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TaskAttributionTiming{}
@@ -1898,7 +1898,7 @@ func (_this *Timing) JSValue() js.Value {
 // TimingFromJS is casting a js.Wrapper into Timing.
 func TimingFromJS(value js.Wrapper) *Timing {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Timing{}

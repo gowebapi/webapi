@@ -254,7 +254,7 @@ type BeforeUnloadEvent struct {
 // BeforeUnloadEventFromJS is casting a js.Wrapper into BeforeUnloadEvent.
 func BeforeUnloadEventFromJS(value js.Wrapper) *BeforeUnloadEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BeforeUnloadEvent{}

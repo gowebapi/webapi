@@ -96,7 +96,7 @@ func (_this *DOMParser) JSValue() js.Value {
 // DOMParserFromJS is casting a js.Wrapper into DOMParser.
 func DOMParserFromJS(value js.Wrapper) *DOMParser {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMParser{}
@@ -152,7 +152,7 @@ func (_this *XMLSerializer) JSValue() js.Value {
 // XMLSerializerFromJS is casting a js.Wrapper into XMLSerializer.
 func XMLSerializerFromJS(value js.Wrapper) *XMLSerializer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLSerializer{}

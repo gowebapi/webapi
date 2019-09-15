@@ -978,7 +978,7 @@ func (_this *Credential) JSValue() js.Value {
 // CredentialFromJS is casting a js.Wrapper into Credential.
 func CredentialFromJS(value js.Wrapper) *Credential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Credential{}
@@ -1017,7 +1017,7 @@ func (_this *CredentialsContainer) JSValue() js.Value {
 // CredentialsContainerFromJS is casting a js.Wrapper into CredentialsContainer.
 func CredentialsContainerFromJS(value js.Wrapper) *CredentialsContainer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CredentialsContainer{}
@@ -1102,7 +1102,7 @@ type FederatedCredential struct {
 // FederatedCredentialFromJS is casting a js.Wrapper into FederatedCredential.
 func FederatedCredentialFromJS(value js.Wrapper) *FederatedCredential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FederatedCredential{}
@@ -1175,7 +1175,7 @@ type PasswordCredential struct {
 // PasswordCredentialFromJS is casting a js.Wrapper into PasswordCredential.
 func PasswordCredentialFromJS(value js.Wrapper) *PasswordCredential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PasswordCredential{}
@@ -1241,7 +1241,7 @@ func (_this *PromiseCredential) JSValue() js.Value {
 // PromiseCredentialFromJS is casting a js.Wrapper into PromiseCredential.
 func PromiseCredentialFromJS(value js.Wrapper) *PromiseCredential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCredential{}
@@ -1346,7 +1346,7 @@ func (_this *PromiseNilCredential) JSValue() js.Value {
 // PromiseNilCredentialFromJS is casting a js.Wrapper into PromiseNilCredential.
 func PromiseNilCredentialFromJS(value js.Wrapper) *PromiseNilCredential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilCredential{}
@@ -1446,7 +1446,7 @@ type PublicKeyCredential struct {
 // PublicKeyCredentialFromJS is casting a js.Wrapper into PublicKeyCredential.
 func PublicKeyCredentialFromJS(value js.Wrapper) *PublicKeyCredential {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PublicKeyCredential{}

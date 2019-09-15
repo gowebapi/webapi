@@ -651,7 +651,7 @@ func (_this *BreakToken) JSValue() js.Value {
 // BreakTokenFromJS is casting a js.Wrapper into BreakToken.
 func BreakTokenFromJS(value js.Wrapper) *BreakToken {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BreakToken{}
@@ -690,7 +690,7 @@ func (_this *ChildBreakToken) JSValue() js.Value {
 // ChildBreakTokenFromJS is casting a js.Wrapper into ChildBreakToken.
 func ChildBreakTokenFromJS(value js.Wrapper) *ChildBreakToken {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChildBreakToken{}
@@ -729,7 +729,7 @@ func (_this *FragmentResult) JSValue() js.Value {
 // FragmentResultFromJS is casting a js.Wrapper into FragmentResult.
 func FragmentResultFromJS(value js.Wrapper) *FragmentResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FragmentResult{}
@@ -786,7 +786,7 @@ func (_this *IntrinsicSizes) JSValue() js.Value {
 // IntrinsicSizesFromJS is casting a js.Wrapper into IntrinsicSizes.
 func IntrinsicSizesFromJS(value js.Wrapper) *IntrinsicSizes {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntrinsicSizes{}
@@ -825,7 +825,7 @@ func (_this *LayoutChild) JSValue() js.Value {
 // LayoutChildFromJS is casting a js.Wrapper into LayoutChild.
 func LayoutChildFromJS(value js.Wrapper) *LayoutChild {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutChild{}
@@ -889,7 +889,7 @@ func (_this *LayoutConstraints) JSValue() js.Value {
 // LayoutConstraintsFromJS is casting a js.Wrapper into LayoutConstraints.
 func LayoutConstraintsFromJS(value js.Wrapper) *LayoutConstraints {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutConstraints{}
@@ -1000,7 +1000,7 @@ func (_this *LayoutEdges) JSValue() js.Value {
 // LayoutEdgesFromJS is casting a js.Wrapper into LayoutEdges.
 func LayoutEdgesFromJS(value js.Wrapper) *LayoutEdges {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutEdges{}
@@ -1075,7 +1075,7 @@ func (_this *LayoutFragment) JSValue() js.Value {
 // LayoutFragmentFromJS is casting a js.Wrapper into LayoutFragment.
 func LayoutFragmentFromJS(value js.Wrapper) *LayoutFragment {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutFragment{}
@@ -1161,7 +1161,7 @@ type LayoutWorkletGlobalScope struct {
 // LayoutWorkletGlobalScopeFromJS is casting a js.Wrapper into LayoutWorkletGlobalScope.
 func LayoutWorkletGlobalScopeFromJS(value js.Wrapper) *LayoutWorkletGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutWorkletGlobalScope{}
@@ -1204,7 +1204,7 @@ func (_this *PromiseIntrinsicSizes) JSValue() js.Value {
 // PromiseIntrinsicSizesFromJS is casting a js.Wrapper into PromiseIntrinsicSizes.
 func PromiseIntrinsicSizesFromJS(value js.Wrapper) *PromiseIntrinsicSizes {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseIntrinsicSizes{}
@@ -1309,7 +1309,7 @@ func (_this *PromiseLayoutFragment) JSValue() js.Value {
 // PromiseLayoutFragmentFromJS is casting a js.Wrapper into PromiseLayoutFragment.
 func PromiseLayoutFragmentFromJS(value js.Wrapper) *PromiseLayoutFragment {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseLayoutFragment{}

@@ -149,7 +149,7 @@ func (_this *Decoder) JSValue() js.Value {
 // DecoderFromJS is casting a js.Wrapper into Decoder.
 func DecoderFromJS(value js.Wrapper) *Decoder {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Decoder{}
@@ -246,7 +246,7 @@ func (_this *DecoderStream) JSValue() js.Value {
 // DecoderStreamFromJS is casting a js.Wrapper into DecoderStream.
 func DecoderStreamFromJS(value js.Wrapper) *DecoderStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DecoderStream{}
@@ -337,7 +337,7 @@ func (_this *Encoder) JSValue() js.Value {
 // EncoderFromJS is casting a js.Wrapper into Encoder.
 func EncoderFromJS(value js.Wrapper) *Encoder {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Encoder{}
@@ -421,7 +421,7 @@ func (_this *EncoderStream) JSValue() js.Value {
 // EncoderStreamFromJS is casting a js.Wrapper into EncoderStream.
 func EncoderStreamFromJS(value js.Wrapper) *EncoderStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EncoderStream{}

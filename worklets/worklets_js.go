@@ -77,7 +77,7 @@ func (_this *Worklet) JSValue() js.Value {
 // WorkletFromJS is casting a js.Wrapper into Worklet.
 func WorkletFromJS(value js.Wrapper) *Worklet {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Worklet{}
@@ -120,7 +120,7 @@ func (_this *WorkletGlobalScope) JSValue() js.Value {
 // WorkletGlobalScopeFromJS is casting a js.Wrapper into WorkletGlobalScope.
 func WorkletGlobalScopeFromJS(value js.Wrapper) *WorkletGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkletGlobalScope{}

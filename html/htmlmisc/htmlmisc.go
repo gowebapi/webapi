@@ -273,7 +273,7 @@ type ApplicationCache struct {
 // ApplicationCacheFromJS is casting a js.Wrapper into ApplicationCache.
 func ApplicationCacheFromJS(value js.Wrapper) *ApplicationCache {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ApplicationCache{}
@@ -583,7 +583,7 @@ func (_this *BarProp) JSValue() js.Value {
 // BarPropFromJS is casting a js.Wrapper into BarProp.
 func BarPropFromJS(value js.Wrapper) *BarProp {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BarProp{}
@@ -613,7 +613,7 @@ func (_this *CustomElementRegistry) JSValue() js.Value {
 // CustomElementRegistryFromJS is casting a js.Wrapper into CustomElementRegistry.
 func CustomElementRegistryFromJS(value js.Wrapper) *CustomElementRegistry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CustomElementRegistry{}
@@ -702,7 +702,7 @@ type EventSource struct {
 // EventSourceFromJS is casting a js.Wrapper into EventSource.
 func EventSourceFromJS(value js.Wrapper) *EventSource {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventSource{}
@@ -911,7 +911,7 @@ func (_this *External) JSValue() js.Value {
 // ExternalFromJS is casting a js.Wrapper into External.
 func ExternalFromJS(value js.Wrapper) *External {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &External{}
@@ -950,7 +950,7 @@ func (_this *History) JSValue() js.Value {
 // HistoryFromJS is casting a js.Wrapper into History.
 func HistoryFromJS(value js.Wrapper) *History {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &History{}
@@ -1077,7 +1077,7 @@ func (_this *Location) JSValue() js.Value {
 // LocationFromJS is casting a js.Wrapper into Location.
 func LocationFromJS(value js.Wrapper) *Location {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Location{}
@@ -1282,7 +1282,7 @@ func (_this *MimeType) JSValue() js.Value {
 // MimeTypeFromJS is casting a js.Wrapper into MimeType.
 func MimeTypeFromJS(value js.Wrapper) *MimeType {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MimeType{}
@@ -1339,7 +1339,7 @@ func (_this *MimeTypeArray) JSValue() js.Value {
 // MimeTypeArrayFromJS is casting a js.Wrapper into MimeTypeArray.
 func MimeTypeArrayFromJS(value js.Wrapper) *MimeTypeArray {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MimeTypeArray{}
@@ -1445,7 +1445,7 @@ func (_this *Navigator) JSValue() js.Value {
 // NavigatorFromJS is casting a js.Wrapper into Navigator.
 func NavigatorFromJS(value js.Wrapper) *Navigator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Navigator{}
@@ -2042,7 +2042,7 @@ func (_this *Plugin) JSValue() js.Value {
 // PluginFromJS is casting a js.Wrapper into Plugin.
 func PluginFromJS(value js.Wrapper) *Plugin {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Plugin{}
@@ -2175,7 +2175,7 @@ func (_this *PluginArray) JSValue() js.Value {
 // PluginArrayFromJS is casting a js.Wrapper into PluginArray.
 func PluginArrayFromJS(value js.Wrapper) *PluginArray {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PluginArray{}
@@ -2290,7 +2290,7 @@ type RadioNodeList struct {
 // RadioNodeListFromJS is casting a js.Wrapper into RadioNodeList.
 func RadioNodeListFromJS(value js.Wrapper) *RadioNodeList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RadioNodeList{}

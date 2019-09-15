@@ -395,7 +395,7 @@ type CSSFontFaceRule struct {
 // CSSFontFaceRuleFromJS is casting a js.Wrapper into CSSFontFaceRule.
 func CSSFontFaceRuleFromJS(value js.Wrapper) *CSSFontFaceRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFaceRule{}
@@ -425,7 +425,7 @@ func (_this *CSSFontFeatureValuesMap) JSValue() js.Value {
 // CSSFontFeatureValuesMapFromJS is casting a js.Wrapper into CSSFontFeatureValuesMap.
 func CSSFontFeatureValuesMapFromJS(value js.Wrapper) *CSSFontFeatureValuesMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFeatureValuesMap{}
@@ -606,7 +606,7 @@ func (_this *CSSFontFeatureValuesMapEntryIterator) JSValue() js.Value {
 // CSSFontFeatureValuesMapEntryIteratorFromJS is casting a js.Wrapper into CSSFontFeatureValuesMapEntryIterator.
 func CSSFontFeatureValuesMapEntryIteratorFromJS(value js.Wrapper) *CSSFontFeatureValuesMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFeatureValuesMapEntryIterator{}
@@ -641,7 +641,7 @@ func (_this *CSSFontFeatureValuesMapKeyIterator) JSValue() js.Value {
 // CSSFontFeatureValuesMapKeyIteratorFromJS is casting a js.Wrapper into CSSFontFeatureValuesMapKeyIterator.
 func CSSFontFeatureValuesMapKeyIteratorFromJS(value js.Wrapper) *CSSFontFeatureValuesMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFeatureValuesMapKeyIterator{}
@@ -676,7 +676,7 @@ func (_this *CSSFontFeatureValuesMapValueIterator) JSValue() js.Value {
 // CSSFontFeatureValuesMapValueIteratorFromJS is casting a js.Wrapper into CSSFontFeatureValuesMapValueIterator.
 func CSSFontFeatureValuesMapValueIteratorFromJS(value js.Wrapper) *CSSFontFeatureValuesMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFeatureValuesMapValueIterator{}
@@ -706,7 +706,7 @@ type CSSFontFeatureValuesRule struct {
 // CSSFontFeatureValuesRuleFromJS is casting a js.Wrapper into CSSFontFeatureValuesRule.
 func CSSFontFeatureValuesRuleFromJS(value js.Wrapper) *CSSFontFeatureValuesRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontFeatureValuesRule{}
@@ -792,7 +792,7 @@ type CSSFontPaletteValuesRule struct {
 // CSSFontPaletteValuesRuleFromJS is casting a js.Wrapper into CSSFontPaletteValuesRule.
 func CSSFontPaletteValuesRuleFromJS(value js.Wrapper) *CSSFontPaletteValuesRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontPaletteValuesRule{}
@@ -1003,7 +1003,7 @@ func (_this *CSSFontPaletteValuesRuleEntryIterator) JSValue() js.Value {
 // CSSFontPaletteValuesRuleEntryIteratorFromJS is casting a js.Wrapper into CSSFontPaletteValuesRuleEntryIterator.
 func CSSFontPaletteValuesRuleEntryIteratorFromJS(value js.Wrapper) *CSSFontPaletteValuesRuleEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontPaletteValuesRuleEntryIterator{}
@@ -1038,7 +1038,7 @@ func (_this *CSSFontPaletteValuesRuleKeyIterator) JSValue() js.Value {
 // CSSFontPaletteValuesRuleKeyIteratorFromJS is casting a js.Wrapper into CSSFontPaletteValuesRuleKeyIterator.
 func CSSFontPaletteValuesRuleKeyIteratorFromJS(value js.Wrapper) *CSSFontPaletteValuesRuleKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontPaletteValuesRuleKeyIterator{}
@@ -1073,7 +1073,7 @@ func (_this *CSSFontPaletteValuesRuleValueIterator) JSValue() js.Value {
 // CSSFontPaletteValuesRuleValueIteratorFromJS is casting a js.Wrapper into CSSFontPaletteValuesRuleValueIterator.
 func CSSFontPaletteValuesRuleValueIteratorFromJS(value js.Wrapper) *CSSFontPaletteValuesRuleValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSFontPaletteValuesRuleValueIterator{}

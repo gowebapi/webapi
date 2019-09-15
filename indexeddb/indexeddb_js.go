@@ -435,7 +435,7 @@ func (_this *IDBCursor) JSValue() js.Value {
 // IDBCursorFromJS is casting a js.Wrapper into IDBCursor.
 func IDBCursorFromJS(value js.Wrapper) *IDBCursor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBCursor{}
@@ -559,7 +559,7 @@ type IDBCursorWithValue struct {
 // IDBCursorWithValueFromJS is casting a js.Wrapper into IDBCursorWithValue.
 func IDBCursorWithValueFromJS(value js.Wrapper) *IDBCursorWithValue {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBCursorWithValue{}
@@ -584,7 +584,7 @@ type IDBDatabase struct {
 // IDBDatabaseFromJS is casting a js.Wrapper into IDBDatabase.
 func IDBDatabaseFromJS(value js.Wrapper) *IDBDatabase {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBDatabase{}
@@ -833,7 +833,7 @@ func (_this *IDBFactory) JSValue() js.Value {
 // IDBFactoryFromJS is casting a js.Wrapper into IDBFactory.
 func IDBFactoryFromJS(value js.Wrapper) *IDBFactory {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBFactory{}
@@ -927,7 +927,7 @@ func (_this *IDBIndex) JSValue() js.Value {
 // IDBIndexFromJS is casting a js.Wrapper into IDBIndex.
 func IDBIndexFromJS(value js.Wrapper) *IDBIndex {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBIndex{}
@@ -1149,7 +1149,7 @@ func (_this *IDBKeyRange) JSValue() js.Value {
 // IDBKeyRangeFromJS is casting a js.Wrapper into IDBKeyRange.
 func IDBKeyRangeFromJS(value js.Wrapper) *IDBKeyRange {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBKeyRange{}
@@ -1322,7 +1322,7 @@ func (_this *IDBObjectStore) JSValue() js.Value {
 // IDBObjectStoreFromJS is casting a js.Wrapper into IDBObjectStore.
 func IDBObjectStoreFromJS(value js.Wrapper) *IDBObjectStore {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBObjectStore{}
@@ -1668,7 +1668,7 @@ type IDBOpenDBRequest struct {
 // IDBOpenDBRequestFromJS is casting a js.Wrapper into IDBOpenDBRequest.
 func IDBOpenDBRequestFromJS(value js.Wrapper) *IDBOpenDBRequest {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBOpenDBRequest{}
@@ -1752,7 +1752,7 @@ type IDBRequest struct {
 // IDBRequestFromJS is casting a js.Wrapper into IDBRequest.
 func IDBRequestFromJS(value js.Wrapper) *IDBRequest {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBRequest{}
@@ -1887,7 +1887,7 @@ type IDBTransaction struct {
 // IDBTransactionFromJS is casting a js.Wrapper into IDBTransaction.
 func IDBTransactionFromJS(value js.Wrapper) *IDBTransaction {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBTransaction{}
@@ -2069,7 +2069,7 @@ type IDBVersionChangeEvent struct {
 // IDBVersionChangeEventFromJS is casting a js.Wrapper into IDBVersionChangeEvent.
 func IDBVersionChangeEventFromJS(value js.Wrapper) *IDBVersionChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IDBVersionChangeEvent{}
@@ -2134,7 +2134,7 @@ func (_this *PromiseSequenceIDBDatabaseInfo) JSValue() js.Value {
 // PromiseSequenceIDBDatabaseInfoFromJS is casting a js.Wrapper into PromiseSequenceIDBDatabaseInfo.
 func PromiseSequenceIDBDatabaseInfoFromJS(value js.Wrapper) *PromiseSequenceIDBDatabaseInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceIDBDatabaseInfo{}

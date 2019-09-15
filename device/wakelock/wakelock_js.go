@@ -175,7 +175,7 @@ func (_this *PromiseWakeLock) JSValue() js.Value {
 // PromiseWakeLockFromJS is casting a js.Wrapper into PromiseWakeLock.
 func PromiseWakeLockFromJS(value js.Wrapper) *PromiseWakeLock {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseWakeLock{}
@@ -275,7 +275,7 @@ type WakeLock struct {
 // WakeLockFromJS is casting a js.Wrapper into WakeLock.
 func WakeLockFromJS(value js.Wrapper) *WakeLock {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WakeLock{}
@@ -369,7 +369,7 @@ func (_this *WakeLockRequest) JSValue() js.Value {
 // WakeLockRequestFromJS is casting a js.Wrapper into WakeLockRequest.
 func WakeLockRequestFromJS(value js.Wrapper) *WakeLockRequest {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WakeLockRequest{}

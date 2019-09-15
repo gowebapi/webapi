@@ -535,7 +535,7 @@ func (_this *BarcodeDetector) JSValue() js.Value {
 // BarcodeDetectorFromJS is casting a js.Wrapper into BarcodeDetector.
 func BarcodeDetectorFromJS(value js.Wrapper) *BarcodeDetector {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BarcodeDetector{}
@@ -609,7 +609,7 @@ func (_this *DetectedBarcode) JSValue() js.Value {
 // DetectedBarcodeFromJS is casting a js.Wrapper into DetectedBarcode.
 func DetectedBarcodeFromJS(value js.Wrapper) *DetectedBarcode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DetectedBarcode{}
@@ -666,7 +666,7 @@ func (_this *DetectedFace) JSValue() js.Value {
 // DetectedFaceFromJS is casting a js.Wrapper into DetectedFace.
 func DetectedFaceFromJS(value js.Wrapper) *DetectedFace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DetectedFace{}
@@ -707,7 +707,7 @@ func (_this *FaceDetector) JSValue() js.Value {
 // FaceDetectorFromJS is casting a js.Wrapper into FaceDetector.
 func FaceDetectorFromJS(value js.Wrapper) *FaceDetector {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FaceDetector{}
@@ -765,7 +765,7 @@ func (_this *PromiseSequenceBarcodeFormat) JSValue() js.Value {
 // PromiseSequenceBarcodeFormatFromJS is casting a js.Wrapper into PromiseSequenceBarcodeFormat.
 func PromiseSequenceBarcodeFormatFromJS(value js.Wrapper) *PromiseSequenceBarcodeFormat {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceBarcodeFormat{}
@@ -870,7 +870,7 @@ func (_this *PromiseSequenceDetectedBarcode) JSValue() js.Value {
 // PromiseSequenceDetectedBarcodeFromJS is casting a js.Wrapper into PromiseSequenceDetectedBarcode.
 func PromiseSequenceDetectedBarcodeFromJS(value js.Wrapper) *PromiseSequenceDetectedBarcode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDetectedBarcode{}
@@ -975,7 +975,7 @@ func (_this *PromiseSequenceDetectedFace) JSValue() js.Value {
 // PromiseSequenceDetectedFaceFromJS is casting a js.Wrapper into PromiseSequenceDetectedFace.
 func PromiseSequenceDetectedFaceFromJS(value js.Wrapper) *PromiseSequenceDetectedFace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDetectedFace{}

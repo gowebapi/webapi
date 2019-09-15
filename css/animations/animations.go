@@ -106,7 +106,7 @@ type AnimationEvent struct {
 // AnimationEventFromJS is casting a js.Wrapper into AnimationEvent.
 func AnimationEventFromJS(value js.Wrapper) *AnimationEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationEvent{}
@@ -172,7 +172,7 @@ type CSSKeyframeRule struct {
 // CSSKeyframeRuleFromJS is casting a js.Wrapper into CSSKeyframeRule.
 func CSSKeyframeRuleFromJS(value js.Wrapper) *CSSKeyframeRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSKeyframeRule{}
@@ -213,7 +213,7 @@ type CSSKeyframesRule struct {
 // CSSKeyframesRuleFromJS is casting a js.Wrapper into CSSKeyframesRule.
 func CSSKeyframesRuleFromJS(value js.Wrapper) *CSSKeyframesRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSKeyframesRule{}

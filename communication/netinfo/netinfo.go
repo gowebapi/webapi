@@ -139,7 +139,7 @@ type NetworkInformation struct {
 // NetworkInformationFromJS is casting a js.Wrapper into NetworkInformation.
 func NetworkInformationFromJS(value js.Wrapper) *NetworkInformation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NetworkInformation{}

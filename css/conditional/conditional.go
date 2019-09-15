@@ -45,7 +45,7 @@ type CSSConditionRule struct {
 // CSSConditionRuleFromJS is casting a js.Wrapper into CSSConditionRule.
 func CSSConditionRuleFromJS(value js.Wrapper) *CSSConditionRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSConditionRule{}
@@ -77,7 +77,7 @@ type CSSMediaRule struct {
 // CSSMediaRuleFromJS is casting a js.Wrapper into CSSMediaRule.
 func CSSMediaRuleFromJS(value js.Wrapper) *CSSMediaRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMediaRule{}
@@ -102,7 +102,7 @@ type CSSSupportsRule struct {
 // CSSSupportsRuleFromJS is casting a js.Wrapper into CSSSupportsRule.
 func CSSSupportsRuleFromJS(value js.Wrapper) *CSSSupportsRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSSupportsRule{}

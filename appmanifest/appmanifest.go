@@ -519,7 +519,7 @@ type BeforeInstallPromptEvent struct {
 // BeforeInstallPromptEventFromJS is casting a js.Wrapper into BeforeInstallPromptEvent.
 func BeforeInstallPromptEventFromJS(value js.Wrapper) *BeforeInstallPromptEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BeforeInstallPromptEvent{}
@@ -577,7 +577,7 @@ func (_this *PromisePromptResponseObject) JSValue() js.Value {
 // PromisePromptResponseObjectFromJS is casting a js.Wrapper into PromisePromptResponseObject.
 func PromisePromptResponseObjectFromJS(value js.Wrapper) *PromisePromptResponseObject {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePromptResponseObject{}

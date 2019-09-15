@@ -403,7 +403,7 @@ func (_this *Touch) JSValue() js.Value {
 // TouchFromJS is casting a js.Wrapper into Touch.
 func TouchFromJS(value js.Wrapper) *Touch {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Touch{}
@@ -572,7 +572,7 @@ type TouchEvent struct {
 // TouchEventFromJS is casting a js.Wrapper into TouchEvent.
 func TouchEventFromJS(value js.Wrapper) *TouchEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TouchEvent{}
@@ -679,7 +679,7 @@ func (_this *TouchList) JSValue() js.Value {
 // TouchListFromJS is casting a js.Wrapper into TouchList.
 func TouchListFromJS(value js.Wrapper) *TouchList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TouchList{}

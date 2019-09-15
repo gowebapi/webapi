@@ -607,7 +607,7 @@ func (_this *FontFace) JSValue() js.Value {
 // FontFaceFromJS is casting a js.Wrapper into FontFace.
 func FontFaceFromJS(value js.Wrapper) *FontFace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFace{}
@@ -825,7 +825,7 @@ type FontFaceSet struct {
 // FontFaceSetFromJS is casting a js.Wrapper into FontFaceSet.
 func FontFaceSetFromJS(value js.Wrapper) *FontFaceSet {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSet{}
@@ -1179,7 +1179,7 @@ func (_this *FontFaceSetEntryIterator) JSValue() js.Value {
 // FontFaceSetEntryIteratorFromJS is casting a js.Wrapper into FontFaceSetEntryIterator.
 func FontFaceSetEntryIteratorFromJS(value js.Wrapper) *FontFaceSetEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSetEntryIterator{}
@@ -1214,7 +1214,7 @@ func (_this *FontFaceSetKeyIterator) JSValue() js.Value {
 // FontFaceSetKeyIteratorFromJS is casting a js.Wrapper into FontFaceSetKeyIterator.
 func FontFaceSetKeyIteratorFromJS(value js.Wrapper) *FontFaceSetKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSetKeyIterator{}
@@ -1244,7 +1244,7 @@ type FontFaceSetLoadEvent struct {
 // FontFaceSetLoadEventFromJS is casting a js.Wrapper into FontFaceSetLoadEvent.
 func FontFaceSetLoadEventFromJS(value js.Wrapper) *FontFaceSetLoadEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSetLoadEvent{}
@@ -1297,7 +1297,7 @@ func (_this *FontFaceSetValueIterator) JSValue() js.Value {
 // FontFaceSetValueIteratorFromJS is casting a js.Wrapper into FontFaceSetValueIterator.
 func FontFaceSetValueIteratorFromJS(value js.Wrapper) *FontFaceSetValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSetValueIterator{}
@@ -1332,7 +1332,7 @@ func (_this *FontFaceSource) JSValue() js.Value {
 // FontFaceSourceFromJS is casting a js.Wrapper into FontFaceSource.
 func FontFaceSourceFromJS(value js.Wrapper) *FontFaceSource {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontFaceSource{}
@@ -1362,7 +1362,7 @@ func (_this *PromiseFontFace) JSValue() js.Value {
 // PromiseFontFaceFromJS is casting a js.Wrapper into PromiseFontFace.
 func PromiseFontFaceFromJS(value js.Wrapper) *PromiseFontFace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseFontFace{}
@@ -1467,7 +1467,7 @@ func (_this *PromiseSequenceFontFace) JSValue() js.Value {
 // PromiseSequenceFontFaceFromJS is casting a js.Wrapper into PromiseSequenceFontFace.
 func PromiseSequenceFontFaceFromJS(value js.Wrapper) *PromiseSequenceFontFace {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceFontFace{}

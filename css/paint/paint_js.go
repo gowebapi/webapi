@@ -89,7 +89,7 @@ func (_this *PaintRenderingContext2D) JSValue() js.Value {
 // PaintRenderingContext2DFromJS is casting a js.Wrapper into PaintRenderingContext2D.
 func PaintRenderingContext2DFromJS(value js.Wrapper) *PaintRenderingContext2D {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintRenderingContext2D{}
@@ -1132,7 +1132,7 @@ func (_this *PaintSize) JSValue() js.Value {
 // PaintSizeFromJS is casting a js.Wrapper into PaintSize.
 func PaintSizeFromJS(value js.Wrapper) *PaintSize {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintSize{}
@@ -1166,7 +1166,7 @@ type PaintWorkletGlobalScope struct {
 // PaintWorkletGlobalScopeFromJS is casting a js.Wrapper into PaintWorkletGlobalScope.
 func PaintWorkletGlobalScopeFromJS(value js.Wrapper) *PaintWorkletGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintWorkletGlobalScope{}

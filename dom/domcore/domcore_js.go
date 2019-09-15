@@ -500,7 +500,7 @@ func (_this *AbortController) JSValue() js.Value {
 // AbortControllerFromJS is casting a js.Wrapper into AbortController.
 func AbortControllerFromJS(value js.Wrapper) *AbortController {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AbortController{}
@@ -549,7 +549,7 @@ type AbortSignal struct {
 // AbortSignalFromJS is casting a js.Wrapper into AbortSignal.
 func AbortSignalFromJS(value js.Wrapper) *AbortSignal {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AbortSignal{}
@@ -615,7 +615,7 @@ type CustomEvent struct {
 // CustomEventFromJS is casting a js.Wrapper into CustomEvent.
 func CustomEventFromJS(value js.Wrapper) *CustomEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CustomEvent{}
@@ -695,7 +695,7 @@ func (_this *DOMException) JSValue() js.Value {
 // DOMExceptionFromJS is casting a js.Wrapper into DOMException.
 func DOMExceptionFromJS(value js.Wrapper) *DOMException {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMException{}
@@ -796,7 +796,7 @@ func (_this *DOMStringList) JSValue() js.Value {
 // DOMStringListFromJS is casting a js.Wrapper into DOMStringList.
 func DOMStringListFromJS(value js.Wrapper) *DOMStringList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMStringList{}
@@ -883,7 +883,7 @@ func (_this *DOMStringMap) JSValue() js.Value {
 // DOMStringMapFromJS is casting a js.Wrapper into DOMStringMap.
 func DOMStringMapFromJS(value js.Wrapper) *DOMStringMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMStringMap{}
@@ -948,7 +948,7 @@ func (_this *DOMTokenList) JSValue() js.Value {
 // DOMTokenListFromJS is casting a js.Wrapper into DOMTokenList.
 func DOMTokenListFromJS(value js.Wrapper) *DOMTokenList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMTokenList{}
@@ -1209,7 +1209,7 @@ func (_this *DOMTokenListEntryIterator) JSValue() js.Value {
 // DOMTokenListEntryIteratorFromJS is casting a js.Wrapper into DOMTokenListEntryIterator.
 func DOMTokenListEntryIteratorFromJS(value js.Wrapper) *DOMTokenListEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMTokenListEntryIterator{}
@@ -1244,7 +1244,7 @@ func (_this *DOMTokenListKeyIterator) JSValue() js.Value {
 // DOMTokenListKeyIteratorFromJS is casting a js.Wrapper into DOMTokenListKeyIterator.
 func DOMTokenListKeyIteratorFromJS(value js.Wrapper) *DOMTokenListKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMTokenListKeyIterator{}
@@ -1279,7 +1279,7 @@ func (_this *DOMTokenListValueIterator) JSValue() js.Value {
 // DOMTokenListValueIteratorFromJS is casting a js.Wrapper into DOMTokenListValueIterator.
 func DOMTokenListValueIteratorFromJS(value js.Wrapper) *DOMTokenListValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMTokenListValueIterator{}
@@ -1314,7 +1314,7 @@ func (_this *Event) JSValue() js.Value {
 // EventFromJS is casting a js.Wrapper into Event.
 func EventFromJS(value js.Wrapper) *Event {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Event{}
@@ -1683,7 +1683,7 @@ func (_this *EventTarget) JSValue() js.Value {
 // EventTargetFromJS is casting a js.Wrapper into EventTarget.
 func EventTargetFromJS(value js.Wrapper) *EventTarget {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventTarget{}
@@ -1771,7 +1771,7 @@ type ExtendableEvent struct {
 // ExtendableEventFromJS is casting a js.Wrapper into ExtendableEvent.
 func ExtendableEventFromJS(value js.Wrapper) *ExtendableEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ExtendableEvent{}

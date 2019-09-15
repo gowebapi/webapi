@@ -57,7 +57,7 @@ type Query struct {
 // QueryFromJS is casting a js.Wrapper into Query.
 func QueryFromJS(value js.Wrapper) *Query {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Query{}
@@ -78,7 +78,7 @@ func (_this *RenderingContext) JSValue() js.Value {
 // RenderingContextFromJS is casting a js.Wrapper into RenderingContext.
 func RenderingContextFromJS(value js.Wrapper) *RenderingContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RenderingContext{}
@@ -6336,7 +6336,7 @@ type Sampler struct {
 // SamplerFromJS is casting a js.Wrapper into Sampler.
 func SamplerFromJS(value js.Wrapper) *Sampler {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Sampler{}
@@ -6352,7 +6352,7 @@ type Sync struct {
 // SyncFromJS is casting a js.Wrapper into Sync.
 func SyncFromJS(value js.Wrapper) *Sync {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Sync{}
@@ -6368,7 +6368,7 @@ type TransformFeedback struct {
 // TransformFeedbackFromJS is casting a js.Wrapper into TransformFeedback.
 func TransformFeedbackFromJS(value js.Wrapper) *TransformFeedback {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TransformFeedback{}
@@ -6384,7 +6384,7 @@ type VertexArrayObject struct {
 // VertexArrayObjectFromJS is casting a js.Wrapper into VertexArrayObject.
 func VertexArrayObjectFromJS(value js.Wrapper) *VertexArrayObject {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VertexArrayObject{}

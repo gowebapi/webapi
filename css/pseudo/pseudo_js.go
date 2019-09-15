@@ -62,7 +62,7 @@ func (_this *CSSPseudoElement) JSValue() js.Value {
 // CSSPseudoElementFromJS is casting a js.Wrapper into CSSPseudoElement.
 func CSSPseudoElementFromJS(value js.Wrapper) *CSSPseudoElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPseudoElement{}
@@ -256,7 +256,7 @@ func (_this *CSSPseudoElementList) JSValue() js.Value {
 // CSSPseudoElementListFromJS is casting a js.Wrapper into CSSPseudoElementList.
 func CSSPseudoElementListFromJS(value js.Wrapper) *CSSPseudoElementList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPseudoElementList{}

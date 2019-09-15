@@ -790,7 +790,7 @@ type Access struct {
 // AccessFromJS is casting a js.Wrapper into Access.
 func AccessFromJS(value js.Wrapper) *Access {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Access{}
@@ -874,7 +874,7 @@ type ConnectionEvent struct {
 // ConnectionEventFromJS is casting a js.Wrapper into ConnectionEvent.
 func ConnectionEventFromJS(value js.Wrapper) *ConnectionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionEvent{}
@@ -922,7 +922,7 @@ type Input struct {
 // InputFromJS is casting a js.Wrapper into Input.
 func InputFromJS(value js.Wrapper) *Input {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Input{}
@@ -984,7 +984,7 @@ func (_this *InputMap) JSValue() js.Value {
 // InputMapFromJS is casting a js.Wrapper into InputMap.
 func InputMapFromJS(value js.Wrapper) *InputMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMap{}
@@ -1116,7 +1116,7 @@ func (_this *InputMapEntryIterator) JSValue() js.Value {
 // InputMapEntryIteratorFromJS is casting a js.Wrapper into InputMapEntryIterator.
 func InputMapEntryIteratorFromJS(value js.Wrapper) *InputMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapEntryIterator{}
@@ -1151,7 +1151,7 @@ func (_this *InputMapKeyIterator) JSValue() js.Value {
 // InputMapKeyIteratorFromJS is casting a js.Wrapper into InputMapKeyIterator.
 func InputMapKeyIteratorFromJS(value js.Wrapper) *InputMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapKeyIterator{}
@@ -1186,7 +1186,7 @@ func (_this *InputMapValueIterator) JSValue() js.Value {
 // InputMapValueIteratorFromJS is casting a js.Wrapper into InputMapValueIterator.
 func InputMapValueIteratorFromJS(value js.Wrapper) *InputMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapValueIterator{}
@@ -1216,7 +1216,7 @@ type MessageEvent struct {
 // MessageEventFromJS is casting a js.Wrapper into MessageEvent.
 func MessageEventFromJS(value js.Wrapper) *MessageEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageEvent{}
@@ -1264,7 +1264,7 @@ type Output struct {
 // OutputFromJS is casting a js.Wrapper into Output.
 func OutputFromJS(value js.Wrapper) *Output {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Output{}
@@ -1315,7 +1315,7 @@ func (_this *OutputMap) JSValue() js.Value {
 // OutputMapFromJS is casting a js.Wrapper into OutputMap.
 func OutputMapFromJS(value js.Wrapper) *OutputMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMap{}
@@ -1447,7 +1447,7 @@ func (_this *OutputMapEntryIterator) JSValue() js.Value {
 // OutputMapEntryIteratorFromJS is casting a js.Wrapper into OutputMapEntryIterator.
 func OutputMapEntryIteratorFromJS(value js.Wrapper) *OutputMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapEntryIterator{}
@@ -1482,7 +1482,7 @@ func (_this *OutputMapKeyIterator) JSValue() js.Value {
 // OutputMapKeyIteratorFromJS is casting a js.Wrapper into OutputMapKeyIterator.
 func OutputMapKeyIteratorFromJS(value js.Wrapper) *OutputMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapKeyIterator{}
@@ -1517,7 +1517,7 @@ func (_this *OutputMapValueIterator) JSValue() js.Value {
 // OutputMapValueIteratorFromJS is casting a js.Wrapper into OutputMapValueIterator.
 func OutputMapValueIteratorFromJS(value js.Wrapper) *OutputMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapValueIterator{}
@@ -1547,7 +1547,7 @@ type Port struct {
 // PortFromJS is casting a js.Wrapper into Port.
 func PortFromJS(value js.Wrapper) *Port {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Port{}
@@ -1709,7 +1709,7 @@ func (_this *PromiseAccess) JSValue() js.Value {
 // PromiseAccessFromJS is casting a js.Wrapper into PromiseAccess.
 func PromiseAccessFromJS(value js.Wrapper) *PromiseAccess {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAccess{}
@@ -1814,7 +1814,7 @@ func (_this *PromisePort) JSValue() js.Value {
 // PromisePortFromJS is casting a js.Wrapper into PromisePort.
 func PromisePortFromJS(value js.Wrapper) *PromisePort {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePort{}

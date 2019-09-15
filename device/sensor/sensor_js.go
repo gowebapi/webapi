@@ -1631,7 +1631,7 @@ type AbsoluteOrientationSensor struct {
 // AbsoluteOrientationSensorFromJS is casting a js.Wrapper into AbsoluteOrientationSensor.
 func AbsoluteOrientationSensorFromJS(value js.Wrapper) *AbsoluteOrientationSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AbsoluteOrientationSensor{}
@@ -1667,7 +1667,7 @@ type Accelerometer struct {
 // AccelerometerFromJS is casting a js.Wrapper into Accelerometer.
 func AccelerometerFromJS(value js.Wrapper) *Accelerometer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Accelerometer{}
@@ -1739,7 +1739,7 @@ type AmbientLightSensor struct {
 // AmbientLightSensorFromJS is casting a js.Wrapper into AmbientLightSensor.
 func AmbientLightSensorFromJS(value js.Wrapper) *AmbientLightSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AmbientLightSensor{}
@@ -1792,7 +1792,7 @@ func (_this *Coordinates) JSValue() js.Value {
 // CoordinatesFromJS is casting a js.Wrapper into Coordinates.
 func CoordinatesFromJS(value js.Wrapper) *Coordinates {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Coordinates{}
@@ -1888,7 +1888,7 @@ func (_this *DeviceAcceleration) JSValue() js.Value {
 // DeviceAccelerationFromJS is casting a js.Wrapper into DeviceAcceleration.
 func DeviceAccelerationFromJS(value js.Wrapper) *DeviceAcceleration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeviceAcceleration{}
@@ -1940,7 +1940,7 @@ type DeviceMotionEvent struct {
 // DeviceMotionEventFromJS is casting a js.Wrapper into DeviceMotionEvent.
 func DeviceMotionEventFromJS(value js.Wrapper) *DeviceMotionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeviceMotionEvent{}
@@ -2021,7 +2021,7 @@ type DeviceOrientationEvent struct {
 // DeviceOrientationEventFromJS is casting a js.Wrapper into DeviceOrientationEvent.
 func DeviceOrientationEventFromJS(value js.Wrapper) *DeviceOrientationEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeviceOrientationEvent{}
@@ -2110,7 +2110,7 @@ func (_this *DeviceRotationRate) JSValue() js.Value {
 // DeviceRotationRateFromJS is casting a js.Wrapper into DeviceRotationRate.
 func DeviceRotationRateFromJS(value js.Wrapper) *DeviceRotationRate {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeviceRotationRate{}
@@ -2167,7 +2167,7 @@ func (_this *Geolocation) JSValue() js.Value {
 // GeolocationFromJS is casting a js.Wrapper into Geolocation.
 func GeolocationFromJS(value js.Wrapper) *Geolocation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Geolocation{}
@@ -2272,7 +2272,7 @@ type GeolocationSensor struct {
 // GeolocationSensorFromJS is casting a js.Wrapper into GeolocationSensor.
 func GeolocationSensorFromJS(value js.Wrapper) *GeolocationSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GeolocationSensor{}
@@ -2413,7 +2413,7 @@ type GravitySensor struct {
 // GravitySensorFromJS is casting a js.Wrapper into GravitySensor.
 func GravitySensorFromJS(value js.Wrapper) *GravitySensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GravitySensor{}
@@ -2449,7 +2449,7 @@ type Gyroscope struct {
 // GyroscopeFromJS is casting a js.Wrapper into Gyroscope.
 func GyroscopeFromJS(value js.Wrapper) *Gyroscope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Gyroscope{}
@@ -2521,7 +2521,7 @@ type LinearAccelerationSensor struct {
 // LinearAccelerationSensorFromJS is casting a js.Wrapper into LinearAccelerationSensor.
 func LinearAccelerationSensorFromJS(value js.Wrapper) *LinearAccelerationSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LinearAccelerationSensor{}
@@ -2557,7 +2557,7 @@ type Magnetometer struct {
 // MagnetometerFromJS is casting a js.Wrapper into Magnetometer.
 func MagnetometerFromJS(value js.Wrapper) *Magnetometer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Magnetometer{}
@@ -2629,7 +2629,7 @@ type OrientationSensor struct {
 // OrientationSensorFromJS is casting a js.Wrapper into OrientationSensor.
 func OrientationSensorFromJS(value js.Wrapper) *OrientationSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OrientationSensor{}
@@ -2673,7 +2673,7 @@ func (_this *Position) JSValue() js.Value {
 // PositionFromJS is casting a js.Wrapper into Position.
 func PositionFromJS(value js.Wrapper) *Position {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Position{}
@@ -2712,7 +2712,7 @@ func (_this *PositionError) JSValue() js.Value {
 // PositionErrorFromJS is casting a js.Wrapper into PositionError.
 func PositionErrorFromJS(value js.Wrapper) *PositionError {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PositionError{}
@@ -2757,7 +2757,7 @@ func (_this *PromiseGeolocationSensorReading) JSValue() js.Value {
 // PromiseGeolocationSensorReadingFromJS is casting a js.Wrapper into PromiseGeolocationSensorReading.
 func PromiseGeolocationSensorReadingFromJS(value js.Wrapper) *PromiseGeolocationSensorReading {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseGeolocationSensorReading{}
@@ -2857,7 +2857,7 @@ type ProximitySensor struct {
 // ProximitySensorFromJS is casting a js.Wrapper into ProximitySensor.
 func ProximitySensorFromJS(value js.Wrapper) *ProximitySensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ProximitySensor{}
@@ -2929,7 +2929,7 @@ type RelativeOrientationSensor struct {
 // RelativeOrientationSensorFromJS is casting a js.Wrapper into RelativeOrientationSensor.
 func RelativeOrientationSensorFromJS(value js.Wrapper) *RelativeOrientationSensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RelativeOrientationSensor{}
@@ -2965,7 +2965,7 @@ type Sensor struct {
 // SensorFromJS is casting a js.Wrapper into Sensor.
 func SensorFromJS(value js.Wrapper) *Sensor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Sensor{}
@@ -3138,7 +3138,7 @@ type SensorErrorEvent struct {
 // SensorErrorEventFromJS is casting a js.Wrapper into SensorErrorEvent.
 func SensorErrorEventFromJS(value js.Wrapper) *SensorErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SensorErrorEvent{}
@@ -3184,7 +3184,7 @@ type UncalibratedMagnetometer struct {
 // UncalibratedMagnetometerFromJS is casting a js.Wrapper into UncalibratedMagnetometer.
 func UncalibratedMagnetometerFromJS(value js.Wrapper) *UncalibratedMagnetometer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &UncalibratedMagnetometer{}

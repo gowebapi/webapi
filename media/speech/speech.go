@@ -401,7 +401,7 @@ func (_this *SpeechGrammar) JSValue() js.Value {
 // SpeechGrammarFromJS is casting a js.Wrapper into SpeechGrammar.
 func SpeechGrammarFromJS(value js.Wrapper) *SpeechGrammar {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechGrammar{}
@@ -469,7 +469,7 @@ func (_this *SpeechGrammarList) JSValue() js.Value {
 // SpeechGrammarListFromJS is casting a js.Wrapper into SpeechGrammarList.
 func SpeechGrammarListFromJS(value js.Wrapper) *SpeechGrammarList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechGrammarList{}
@@ -577,7 +577,7 @@ type SpeechRecognition struct {
 // SpeechRecognitionFromJS is casting a js.Wrapper into SpeechRecognition.
 func SpeechRecognitionFromJS(value js.Wrapper) *SpeechRecognition {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognition{}
@@ -1075,7 +1075,7 @@ func (_this *SpeechRecognitionAlternative) JSValue() js.Value {
 // SpeechRecognitionAlternativeFromJS is casting a js.Wrapper into SpeechRecognitionAlternative.
 func SpeechRecognitionAlternativeFromJS(value js.Wrapper) *SpeechRecognitionAlternative {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionAlternative{}
@@ -1109,7 +1109,7 @@ type SpeechRecognitionErrorEvent struct {
 // SpeechRecognitionErrorEventFromJS is casting a js.Wrapper into SpeechRecognitionErrorEvent.
 func SpeechRecognitionErrorEventFromJS(value js.Wrapper) *SpeechRecognitionErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionErrorEvent{}
@@ -1164,7 +1164,7 @@ type SpeechRecognitionEvent struct {
 // SpeechRecognitionEventFromJS is casting a js.Wrapper into SpeechRecognitionEvent.
 func SpeechRecognitionEventFromJS(value js.Wrapper) *SpeechRecognitionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionEvent{}
@@ -1242,7 +1242,7 @@ func (_this *SpeechRecognitionResult) JSValue() js.Value {
 // SpeechRecognitionResultFromJS is casting a js.Wrapper into SpeechRecognitionResult.
 func SpeechRecognitionResultFromJS(value js.Wrapper) *SpeechRecognitionResult {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionResult{}
@@ -1315,7 +1315,7 @@ func (_this *SpeechRecognitionResultList) JSValue() js.Value {
 // SpeechRecognitionResultListFromJS is casting a js.Wrapper into SpeechRecognitionResultList.
 func SpeechRecognitionResultListFromJS(value js.Wrapper) *SpeechRecognitionResultList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionResultList{}
@@ -1374,7 +1374,7 @@ type SpeechSynthesis struct {
 // SpeechSynthesisFromJS is casting a js.Wrapper into SpeechSynthesis.
 func SpeechSynthesisFromJS(value js.Wrapper) *SpeechSynthesis {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesis{}
@@ -1519,7 +1519,7 @@ type SpeechSynthesisErrorEvent struct {
 // SpeechSynthesisErrorEventFromJS is casting a js.Wrapper into SpeechSynthesisErrorEvent.
 func SpeechSynthesisErrorEventFromJS(value js.Wrapper) *SpeechSynthesisErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisErrorEvent{}
@@ -1565,7 +1565,7 @@ type SpeechSynthesisEvent struct {
 // SpeechSynthesisEventFromJS is casting a js.Wrapper into SpeechSynthesisEvent.
 func SpeechSynthesisEventFromJS(value js.Wrapper) *SpeechSynthesisEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisEvent{}
@@ -1638,7 +1638,7 @@ type SpeechSynthesisUtterance struct {
 // SpeechSynthesisUtteranceFromJS is casting a js.Wrapper into SpeechSynthesisUtterance.
 func SpeechSynthesisUtteranceFromJS(value js.Wrapper) *SpeechSynthesisUtterance {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisUtterance{}
@@ -1994,7 +1994,7 @@ func (_this *SpeechSynthesisVoice) JSValue() js.Value {
 // SpeechSynthesisVoiceFromJS is casting a js.Wrapper into SpeechSynthesisVoice.
 func SpeechSynthesisVoiceFromJS(value js.Wrapper) *SpeechSynthesisVoice {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisVoice{}

@@ -255,7 +255,7 @@ func (_this *FileSystem) JSValue() js.Value {
 // FileSystemFromJS is casting a js.Wrapper into FileSystem.
 func FileSystemFromJS(value js.Wrapper) *FileSystem {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystem{}
@@ -289,7 +289,7 @@ type FileSystemDirectoryEntry struct {
 // FileSystemDirectoryEntryFromJS is casting a js.Wrapper into FileSystemDirectoryEntry.
 func FileSystemDirectoryEntryFromJS(value js.Wrapper) *FileSystemDirectoryEntry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemDirectoryEntry{}
@@ -410,7 +410,7 @@ func (_this *FileSystemDirectoryReader) JSValue() js.Value {
 // FileSystemDirectoryReaderFromJS is casting a js.Wrapper into FileSystemDirectoryReader.
 func FileSystemDirectoryReaderFromJS(value js.Wrapper) *FileSystemDirectoryReader {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemDirectoryReader{}
@@ -462,7 +462,7 @@ func (_this *FileSystemEntry) JSValue() js.Value {
 // FileSystemEntryFromJS is casting a js.Wrapper into FileSystemEntry.
 func FileSystemEntryFromJS(value js.Wrapper) *FileSystemEntry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemEntry{}
@@ -556,7 +556,7 @@ type FileSystemFileEntry struct {
 // FileSystemFileEntryFromJS is casting a js.Wrapper into FileSystemFileEntry.
 func FileSystemFileEntryFromJS(value js.Wrapper) *FileSystemFileEntry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemFileEntry{}

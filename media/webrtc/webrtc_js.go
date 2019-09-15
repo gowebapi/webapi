@@ -3374,7 +3374,7 @@ func (_this *Certificate) JSValue() js.Value {
 // CertificateFromJS is casting a js.Wrapper into Certificate.
 func CertificateFromJS(value js.Wrapper) *Certificate {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Certificate{}
@@ -3445,7 +3445,7 @@ type DTMFSender struct {
 // DTMFSenderFromJS is casting a js.Wrapper into DTMFSender.
 func DTMFSenderFromJS(value js.Wrapper) *DTMFSender {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DTMFSender{}
@@ -3542,7 +3542,7 @@ type DTMFToneChangeEvent struct {
 // DTMFToneChangeEventFromJS is casting a js.Wrapper into DTMFToneChangeEvent.
 func DTMFToneChangeEventFromJS(value js.Wrapper) *DTMFToneChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DTMFToneChangeEvent{}
@@ -3588,7 +3588,7 @@ type DataChannel struct {
 // DataChannelFromJS is casting a js.Wrapper into DataChannel.
 func DataChannelFromJS(value js.Wrapper) *DataChannel {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataChannel{}
@@ -3969,7 +3969,7 @@ type DataChannelEvent struct {
 // DataChannelEventFromJS is casting a js.Wrapper into DataChannelEvent.
 func DataChannelEventFromJS(value js.Wrapper) *DataChannelEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataChannelEvent{}
@@ -4015,7 +4015,7 @@ type DtlsTransport struct {
 // DtlsTransportFromJS is casting a js.Wrapper into DtlsTransport.
 func DtlsTransportFromJS(value js.Wrapper) *DtlsTransport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DtlsTransport{}
@@ -4158,7 +4158,7 @@ func (_this *Error) JSValue() js.Value {
 // ErrorFromJS is casting a js.Wrapper into Error.
 func ErrorFromJS(value js.Wrapper) *Error {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Error{}
@@ -4174,7 +4174,7 @@ type ErrorEvent struct {
 // ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
 func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
@@ -4227,7 +4227,7 @@ func (_this *IceCandidate) JSValue() js.Value {
 // IceCandidateFromJS is casting a js.Wrapper into IceCandidate.
 func IceCandidateFromJS(value js.Wrapper) *IceCandidate {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IceCandidate{}
@@ -4442,7 +4442,7 @@ type IceTransport struct {
 // IceTransportFromJS is casting a js.Wrapper into IceTransport.
 func IceTransportFromJS(value js.Wrapper) *IceTransport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IceTransport{}
@@ -4681,7 +4681,7 @@ type PeerConnection struct {
 // PeerConnectionFromJS is casting a js.Wrapper into PeerConnection.
 func PeerConnectionFromJS(value js.Wrapper) *PeerConnection {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnection{}
@@ -5710,7 +5710,7 @@ type PeerConnectionIceErrorEvent struct {
 // PeerConnectionIceErrorEventFromJS is casting a js.Wrapper into PeerConnectionIceErrorEvent.
 func PeerConnectionIceErrorEventFromJS(value js.Wrapper) *PeerConnectionIceErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnectionIceErrorEvent{}
@@ -5783,7 +5783,7 @@ type PeerConnectionIceEvent struct {
 // PeerConnectionIceEventFromJS is casting a js.Wrapper into PeerConnectionIceEvent.
 func PeerConnectionIceEventFromJS(value js.Wrapper) *PeerConnectionIceEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnectionIceEvent{}
@@ -5850,7 +5850,7 @@ func (_this *PromiseCertificate) JSValue() js.Value {
 // PromiseCertificateFromJS is casting a js.Wrapper into PromiseCertificate.
 func PromiseCertificateFromJS(value js.Wrapper) *PromiseCertificate {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCertificate{}
@@ -5955,7 +5955,7 @@ func (_this *PromiseSessionDescriptionInit) JSValue() js.Value {
 // PromiseSessionDescriptionInitFromJS is casting a js.Wrapper into PromiseSessionDescriptionInit.
 func PromiseSessionDescriptionInitFromJS(value js.Wrapper) *PromiseSessionDescriptionInit {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSessionDescriptionInit{}
@@ -6060,7 +6060,7 @@ func (_this *PromiseStatsReport) JSValue() js.Value {
 // PromiseStatsReportFromJS is casting a js.Wrapper into PromiseStatsReport.
 func PromiseStatsReportFromJS(value js.Wrapper) *PromiseStatsReport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseStatsReport{}
@@ -6165,7 +6165,7 @@ func (_this *RtpReceiver) JSValue() js.Value {
 // RtpReceiverFromJS is casting a js.Wrapper into RtpReceiver.
 func RtpReceiverFromJS(value js.Wrapper) *RtpReceiver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpReceiver{}
@@ -6310,7 +6310,7 @@ func (_this *RtpSender) JSValue() js.Value {
 // RtpSenderFromJS is casting a js.Wrapper into RtpSender.
 func RtpSenderFromJS(value js.Wrapper) *RtpSender {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpSender{}
@@ -6472,7 +6472,7 @@ func (_this *RtpTransceiver) JSValue() js.Value {
 // RtpTransceiverFromJS is casting a js.Wrapper into RtpTransceiver.
 func RtpTransceiverFromJS(value js.Wrapper) *RtpTransceiver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpTransceiver{}
@@ -6585,7 +6585,7 @@ func (_this *SctpTransport) JSValue() js.Value {
 // SctpTransportFromJS is casting a js.Wrapper into SctpTransport.
 func SctpTransportFromJS(value js.Wrapper) *SctpTransport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SctpTransport{}
@@ -6686,7 +6686,7 @@ func (_this *SessionDescription) JSValue() js.Value {
 // SessionDescriptionFromJS is casting a js.Wrapper into SessionDescription.
 func SessionDescriptionFromJS(value js.Wrapper) *SessionDescription {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SessionDescription{}
@@ -6752,7 +6752,7 @@ type StatsEvent struct {
 // StatsEventFromJS is casting a js.Wrapper into StatsEvent.
 func StatsEventFromJS(value js.Wrapper) *StatsEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsEvent{}
@@ -6803,7 +6803,7 @@ func (_this *StatsReport) JSValue() js.Value {
 // StatsReportFromJS is casting a js.Wrapper into StatsReport.
 func StatsReportFromJS(value js.Wrapper) *StatsReport {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReport{}
@@ -6935,7 +6935,7 @@ func (_this *StatsReportEntryIterator) JSValue() js.Value {
 // StatsReportEntryIteratorFromJS is casting a js.Wrapper into StatsReportEntryIterator.
 func StatsReportEntryIteratorFromJS(value js.Wrapper) *StatsReportEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportEntryIterator{}
@@ -6970,7 +6970,7 @@ func (_this *StatsReportKeyIterator) JSValue() js.Value {
 // StatsReportKeyIteratorFromJS is casting a js.Wrapper into StatsReportKeyIterator.
 func StatsReportKeyIteratorFromJS(value js.Wrapper) *StatsReportKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportKeyIterator{}
@@ -7005,7 +7005,7 @@ func (_this *StatsReportValueIterator) JSValue() js.Value {
 // StatsReportValueIteratorFromJS is casting a js.Wrapper into StatsReportValueIterator.
 func StatsReportValueIteratorFromJS(value js.Wrapper) *StatsReportValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportValueIterator{}
@@ -7035,7 +7035,7 @@ type TrackEvent struct {
 // TrackEventFromJS is casting a js.Wrapper into TrackEvent.
 func TrackEventFromJS(value js.Wrapper) *TrackEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TrackEvent{}

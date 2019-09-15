@@ -403,7 +403,7 @@ type Availability struct {
 // AvailabilityFromJS is casting a js.Wrapper into Availability.
 func AvailabilityFromJS(value js.Wrapper) *Availability {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Availability{}
@@ -469,7 +469,7 @@ type Connection struct {
 // ConnectionFromJS is casting a js.Wrapper into Connection.
 func ConnectionFromJS(value js.Wrapper) *Connection {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Connection{}
@@ -744,7 +744,7 @@ type ConnectionAvailableEvent struct {
 // ConnectionAvailableEventFromJS is casting a js.Wrapper into ConnectionAvailableEvent.
 func ConnectionAvailableEventFromJS(value js.Wrapper) *ConnectionAvailableEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionAvailableEvent{}
@@ -790,7 +790,7 @@ type ConnectionCloseEvent struct {
 // ConnectionCloseEventFromJS is casting a js.Wrapper into ConnectionCloseEvent.
 func ConnectionCloseEventFromJS(value js.Wrapper) *ConnectionCloseEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionCloseEvent{}
@@ -845,7 +845,7 @@ type ConnectionList struct {
 // ConnectionListFromJS is casting a js.Wrapper into ConnectionList.
 func ConnectionListFromJS(value js.Wrapper) *ConnectionList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionList{}
@@ -916,7 +916,7 @@ func (_this *Presentation) JSValue() js.Value {
 // PresentationFromJS is casting a js.Wrapper into Presentation.
 func PresentationFromJS(value js.Wrapper) *Presentation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Presentation{}
@@ -966,7 +966,7 @@ func (_this *PromiseAvailability) JSValue() js.Value {
 // PromiseAvailabilityFromJS is casting a js.Wrapper into PromiseAvailability.
 func PromiseAvailabilityFromJS(value js.Wrapper) *PromiseAvailability {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAvailability{}
@@ -1071,7 +1071,7 @@ func (_this *PromiseConnection) JSValue() js.Value {
 // PromiseConnectionFromJS is casting a js.Wrapper into PromiseConnection.
 func PromiseConnectionFromJS(value js.Wrapper) *PromiseConnection {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseConnection{}
@@ -1176,7 +1176,7 @@ func (_this *Receiver) JSValue() js.Value {
 // ReceiverFromJS is casting a js.Wrapper into Receiver.
 func ReceiverFromJS(value js.Wrapper) *Receiver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Receiver{}
@@ -1201,7 +1201,7 @@ type Request struct {
 // RequestFromJS is casting a js.Wrapper into Request.
 func RequestFromJS(value js.Wrapper) *Request {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Request{}

@@ -128,7 +128,7 @@ type BatteryManager struct {
 // BatteryManagerFromJS is casting a js.Wrapper into BatteryManager.
 func BatteryManagerFromJS(value js.Wrapper) *BatteryManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BatteryManager{}
@@ -307,7 +307,7 @@ func (_this *PromiseBatteryManager) JSValue() js.Value {
 // PromiseBatteryManagerFromJS is casting a js.Wrapper into PromiseBatteryManager.
 func PromiseBatteryManagerFromJS(value js.Wrapper) *PromiseBatteryManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBatteryManager{}

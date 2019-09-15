@@ -78,7 +78,7 @@ func (_this *InputDeviceCapabilities) JSValue() js.Value {
 // InputDeviceCapabilitiesFromJS is casting a js.Wrapper into InputDeviceCapabilities.
 func InputDeviceCapabilitiesFromJS(value js.Wrapper) *InputDeviceCapabilities {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputDeviceCapabilities{}

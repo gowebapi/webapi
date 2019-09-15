@@ -440,7 +440,7 @@ func (_this *DOMImplementation) JSValue() js.Value {
 // DOMImplementationFromJS is casting a js.Wrapper into DOMImplementation.
 func DOMImplementationFromJS(value js.Wrapper) *DOMImplementation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMImplementation{}
@@ -537,7 +537,7 @@ type Document struct {
 // DocumentFromJS is casting a js.Wrapper into Document.
 func DocumentFromJS(value js.Wrapper) *Document {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Document{}
@@ -5031,7 +5031,7 @@ type HTMLEmbedElement struct {
 // HTMLEmbedElementFromJS is casting a js.Wrapper into HTMLEmbedElement.
 func HTMLEmbedElementFromJS(value js.Wrapper) *HTMLEmbedElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLEmbedElement{}
@@ -5159,7 +5159,7 @@ type HTMLFrameElement struct {
 // HTMLFrameElementFromJS is casting a js.Wrapper into HTMLFrameElement.
 func HTMLFrameElementFromJS(value js.Wrapper) *HTMLFrameElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFrameElement{}
@@ -5325,7 +5325,7 @@ type HTMLIFrameElement struct {
 // HTMLIFrameElementFromJS is casting a js.Wrapper into HTMLIFrameElement.
 func HTMLIFrameElementFromJS(value js.Wrapper) *HTMLIFrameElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLIFrameElement{}
@@ -5653,7 +5653,7 @@ type HTMLObjectElement struct {
 // HTMLObjectElementFromJS is casting a js.Wrapper into HTMLObjectElement.
 func HTMLObjectElementFromJS(value js.Wrapper) *HTMLObjectElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLObjectElement{}
@@ -6062,7 +6062,7 @@ func (_this *MutationObserver) JSValue() js.Value {
 // MutationObserverFromJS is casting a js.Wrapper into MutationObserver.
 func MutationObserverFromJS(value js.Wrapper) *MutationObserver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MutationObserver{}
@@ -6156,7 +6156,7 @@ func (_this *MutationRecord) JSValue() js.Value {
 // MutationRecordFromJS is casting a js.Wrapper into MutationRecord.
 func MutationRecordFromJS(value js.Wrapper) *MutationRecord {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MutationRecord{}
@@ -6266,7 +6266,7 @@ type Window struct {
 // WindowFromJS is casting a js.Wrapper into Window.
 func WindowFromJS(value js.Wrapper) *Window {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Window{}
@@ -11013,7 +11013,7 @@ type XMLDocument struct {
 // XMLDocumentFromJS is casting a js.Wrapper into XMLDocument.
 func XMLDocumentFromJS(value js.Wrapper) *XMLDocument {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLDocument{}

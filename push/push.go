@@ -549,7 +549,7 @@ type Event struct {
 // EventFromJS is casting a js.Wrapper into Event.
 func EventFromJS(value js.Wrapper) *Event {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Event{}
@@ -604,7 +604,7 @@ func (_this *Manager) JSValue() js.Value {
 // ManagerFromJS is casting a js.Wrapper into Manager.
 func ManagerFromJS(value js.Wrapper) *Manager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Manager{}
@@ -687,7 +687,7 @@ func (_this *MessageData) JSValue() js.Value {
 // MessageDataFromJS is casting a js.Wrapper into MessageData.
 func MessageDataFromJS(value js.Wrapper) *MessageData {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageData{}
@@ -764,7 +764,7 @@ func (_this *PromiseNilSubscription) JSValue() js.Value {
 // PromiseNilSubscriptionFromJS is casting a js.Wrapper into PromiseNilSubscription.
 func PromiseNilSubscriptionFromJS(value js.Wrapper) *PromiseNilSubscription {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilSubscription{}
@@ -869,7 +869,7 @@ func (_this *PromisePermissionState) JSValue() js.Value {
 // PromisePermissionStateFromJS is casting a js.Wrapper into PromisePermissionState.
 func PromisePermissionStateFromJS(value js.Wrapper) *PromisePermissionState {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionState{}
@@ -974,7 +974,7 @@ func (_this *PromiseSubscription) JSValue() js.Value {
 // PromiseSubscriptionFromJS is casting a js.Wrapper into PromiseSubscription.
 func PromiseSubscriptionFromJS(value js.Wrapper) *PromiseSubscription {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSubscription{}
@@ -1079,7 +1079,7 @@ func (_this *Subscription) JSValue() js.Value {
 // SubscriptionFromJS is casting a js.Wrapper into Subscription.
 func SubscriptionFromJS(value js.Wrapper) *Subscription {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Subscription{}
@@ -1172,7 +1172,7 @@ type SubscriptionChangeEvent struct {
 // SubscriptionChangeEventFromJS is casting a js.Wrapper into SubscriptionChangeEvent.
 func SubscriptionChangeEventFromJS(value js.Wrapper) *SubscriptionChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubscriptionChangeEvent{}
@@ -1238,7 +1238,7 @@ func (_this *SubscriptionOptions) JSValue() js.Value {
 // SubscriptionOptionsFromJS is casting a js.Wrapper into SubscriptionOptions.
 func SubscriptionOptionsFromJS(value js.Wrapper) *SubscriptionOptions {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubscriptionOptions{}

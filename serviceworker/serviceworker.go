@@ -1241,7 +1241,7 @@ type BackgroundFetchEvent struct {
 // BackgroundFetchEventFromJS is casting a js.Wrapper into BackgroundFetchEvent.
 func BackgroundFetchEventFromJS(value js.Wrapper) *BackgroundFetchEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchEvent{}
@@ -1292,7 +1292,7 @@ func (_this *BackgroundFetchManager) JSValue() js.Value {
 // BackgroundFetchManagerFromJS is casting a js.Wrapper into BackgroundFetchManager.
 func BackgroundFetchManagerFromJS(value js.Wrapper) *BackgroundFetchManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchManager{}
@@ -1369,7 +1369,7 @@ func (_this *BackgroundFetchRecord) JSValue() js.Value {
 // BackgroundFetchRecordFromJS is casting a js.Wrapper into BackgroundFetchRecord.
 func BackgroundFetchRecordFromJS(value js.Wrapper) *BackgroundFetchRecord {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchRecord{}
@@ -1403,7 +1403,7 @@ type BackgroundFetchRegistration struct {
 // BackgroundFetchRegistrationFromJS is casting a js.Wrapper into BackgroundFetchRegistration.
 func BackgroundFetchRegistrationFromJS(value js.Wrapper) *BackgroundFetchRegistration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchRegistration{}
@@ -1592,7 +1592,7 @@ type BackgroundFetchUpdateUIEvent struct {
 // BackgroundFetchUpdateUIEventFromJS is casting a js.Wrapper into BackgroundFetchUpdateUIEvent.
 func BackgroundFetchUpdateUIEventFromJS(value js.Wrapper) *BackgroundFetchUpdateUIEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchUpdateUIEvent{}
@@ -1653,7 +1653,7 @@ func (_this *Cache) JSValue() js.Value {
 // CacheFromJS is casting a js.Wrapper into Cache.
 func CacheFromJS(value js.Wrapper) *Cache {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Cache{}
@@ -1824,7 +1824,7 @@ func (_this *CacheStorage) JSValue() js.Value {
 // CacheStorageFromJS is casting a js.Wrapper into CacheStorage.
 func CacheStorageFromJS(value js.Wrapper) *CacheStorage {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CacheStorage{}
@@ -1932,7 +1932,7 @@ func (_this *Clients) JSValue() js.Value {
 // ClientsFromJS is casting a js.Wrapper into Clients.
 func ClientsFromJS(value js.Wrapper) *Clients {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Clients{}
@@ -2015,7 +2015,7 @@ type ExtendableMessageEvent struct {
 // ExtendableMessageEventFromJS is casting a js.Wrapper into ExtendableMessageEvent.
 func ExtendableMessageEventFromJS(value js.Wrapper) *ExtendableMessageEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ExtendableMessageEvent{}
@@ -2101,7 +2101,7 @@ type FetchEvent struct {
 // FetchEventFromJS is casting a js.Wrapper into FetchEvent.
 func FetchEventFromJS(value js.Wrapper) *FetchEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FetchEvent{}
@@ -2173,7 +2173,7 @@ func (_this *PromiseBackgroundFetchRecord) JSValue() js.Value {
 // PromiseBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseBackgroundFetchRecord.
 func PromiseBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseBackgroundFetchRecord {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBackgroundFetchRecord{}
@@ -2278,7 +2278,7 @@ func (_this *PromiseBackgroundFetchRegistration) JSValue() js.Value {
 // PromiseBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseBackgroundFetchRegistration.
 func PromiseBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseBackgroundFetchRegistration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBackgroundFetchRegistration{}
@@ -2383,7 +2383,7 @@ func (_this *PromiseCache) JSValue() js.Value {
 // PromiseCacheFromJS is casting a js.Wrapper into PromiseCache.
 func PromiseCacheFromJS(value js.Wrapper) *PromiseCache {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCache{}
@@ -2488,7 +2488,7 @@ func (_this *PromiseNilBackgroundFetchRegistration) JSValue() js.Value {
 // PromiseNilBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseNilBackgroundFetchRegistration.
 func PromiseNilBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseNilBackgroundFetchRegistration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilBackgroundFetchRegistration{}
@@ -2593,7 +2593,7 @@ func (_this *PromiseSequenceBackgroundFetchRecord) JSValue() js.Value {
 // PromiseSequenceBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseSequenceBackgroundFetchRecord.
 func PromiseSequenceBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseSequenceBackgroundFetchRecord {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceBackgroundFetchRecord{}
@@ -2698,7 +2698,7 @@ func (_this *PromiseServiceWorkerRegistration) JSValue() js.Value {
 // PromiseServiceWorkerRegistrationFromJS is casting a js.Wrapper into PromiseServiceWorkerRegistration.
 func PromiseServiceWorkerRegistrationFromJS(value js.Wrapper) *PromiseServiceWorkerRegistration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseServiceWorkerRegistration{}
@@ -2798,7 +2798,7 @@ type ServiceWorker struct {
 // ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
 func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorker{}
@@ -2921,7 +2921,7 @@ type ServiceWorkerContainer struct {
 // ServiceWorkerContainerFromJS is casting a js.Wrapper into ServiceWorkerContainer.
 func ServiceWorkerContainerFromJS(value js.Wrapper) *ServiceWorkerContainer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerContainer{}
@@ -3144,7 +3144,7 @@ type ServiceWorkerRegistration struct {
 // ServiceWorkerRegistrationFromJS is casting a js.Wrapper into ServiceWorkerRegistration.
 func ServiceWorkerRegistrationFromJS(value js.Wrapper) *ServiceWorkerRegistration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerRegistration{}
@@ -3316,7 +3316,7 @@ type SyncEvent struct {
 // SyncEventFromJS is casting a js.Wrapper into SyncEvent.
 func SyncEventFromJS(value js.Wrapper) *SyncEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SyncEvent{}
@@ -3376,7 +3376,7 @@ func (_this *SyncManager) JSValue() js.Value {
 // SyncManagerFromJS is casting a js.Wrapper into SyncManager.
 func SyncManagerFromJS(value js.Wrapper) *SyncManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SyncManager{}

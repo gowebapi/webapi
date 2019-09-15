@@ -137,7 +137,7 @@ func (_this *Gamepad) JSValue() js.Value {
 // GamepadFromJS is casting a js.Wrapper into Gamepad.
 func GamepadFromJS(value js.Wrapper) *Gamepad {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Gamepad{}
@@ -230,7 +230,7 @@ func (_this *GamepadButton) JSValue() js.Value {
 // GamepadButtonFromJS is casting a js.Wrapper into GamepadButton.
 func GamepadButtonFromJS(value js.Wrapper) *GamepadButton {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GamepadButton{}
@@ -273,7 +273,7 @@ type GamepadEvent struct {
 // GamepadEventFromJS is casting a js.Wrapper into GamepadEvent.
 func GamepadEventFromJS(value js.Wrapper) *GamepadEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GamepadEvent{}

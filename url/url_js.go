@@ -213,7 +213,7 @@ func (_this *URL) JSValue() js.Value {
 // URLFromJS is casting a js.Wrapper into URL.
 func URLFromJS(value js.Wrapper) *URL {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URL{}
@@ -506,7 +506,7 @@ func (_this *URLSearchParams) JSValue() js.Value {
 // URLSearchParamsFromJS is casting a js.Wrapper into URLSearchParams.
 func URLSearchParamsFromJS(value js.Wrapper) *URLSearchParams {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParams{}
@@ -720,7 +720,7 @@ func (_this *URLSearchParamsEntryIterator) JSValue() js.Value {
 // URLSearchParamsEntryIteratorFromJS is casting a js.Wrapper into URLSearchParamsEntryIterator.
 func URLSearchParamsEntryIteratorFromJS(value js.Wrapper) *URLSearchParamsEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsEntryIterator{}
@@ -755,7 +755,7 @@ func (_this *URLSearchParamsKeyIterator) JSValue() js.Value {
 // URLSearchParamsKeyIteratorFromJS is casting a js.Wrapper into URLSearchParamsKeyIterator.
 func URLSearchParamsKeyIteratorFromJS(value js.Wrapper) *URLSearchParamsKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsKeyIterator{}
@@ -790,7 +790,7 @@ func (_this *URLSearchParamsValueIterator) JSValue() js.Value {
 // URLSearchParamsValueIteratorFromJS is casting a js.Wrapper into URLSearchParamsValueIterator.
 func URLSearchParamsValueIteratorFromJS(value js.Wrapper) *URLSearchParamsValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsValueIterator{}

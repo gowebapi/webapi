@@ -141,7 +141,7 @@ func (_this *DataTransfer) JSValue() js.Value {
 // DataTransferFromJS is casting a js.Wrapper into DataTransfer.
 func DataTransferFromJS(value js.Wrapper) *DataTransfer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransfer{}
@@ -300,7 +300,7 @@ func (_this *DataTransferItem) JSValue() js.Value {
 // DataTransferItemFromJS is casting a js.Wrapper into DataTransferItem.
 func DataTransferItemFromJS(value js.Wrapper) *DataTransferItem {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransferItem{}
@@ -390,7 +390,7 @@ func (_this *DataTransferItemList) JSValue() js.Value {
 // DataTransferItemListFromJS is casting a js.Wrapper into DataTransferItemList.
 func DataTransferItemListFromJS(value js.Wrapper) *DataTransferItemList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransferItemList{}
@@ -499,7 +499,7 @@ func (_this *PromiseDataTransfer) JSValue() js.Value {
 // PromiseDataTransferFromJS is casting a js.Wrapper into PromiseDataTransfer.
 func PromiseDataTransferFromJS(value js.Wrapper) *PromiseDataTransfer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDataTransfer{}

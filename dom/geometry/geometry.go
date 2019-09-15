@@ -438,7 +438,7 @@ type DOMMatrix struct {
 // DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
 func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMMatrix{}
@@ -1191,7 +1191,7 @@ func (_this *DOMMatrixReadOnly) JSValue() js.Value {
 // DOMMatrixReadOnlyFromJS is casting a js.Wrapper into DOMMatrixReadOnly.
 func DOMMatrixReadOnlyFromJS(value js.Wrapper) *DOMMatrixReadOnly {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMMatrixReadOnly{}
@@ -1894,7 +1894,7 @@ type DOMPoint struct {
 // DOMPointFromJS is casting a js.Wrapper into DOMPoint.
 func DOMPointFromJS(value js.Wrapper) *DOMPoint {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMPoint{}
@@ -2035,7 +2035,7 @@ func (_this *DOMPointReadOnly) JSValue() js.Value {
 // DOMPointReadOnlyFromJS is casting a js.Wrapper into DOMPointReadOnly.
 func DOMPointReadOnlyFromJS(value js.Wrapper) *DOMPointReadOnly {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMPointReadOnly{}
@@ -2181,7 +2181,7 @@ func (_this *DOMQuad) JSValue() js.Value {
 // DOMQuadFromJS is casting a js.Wrapper into DOMQuad.
 func DOMQuadFromJS(value js.Wrapper) *DOMQuad {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMQuad{}
@@ -2338,7 +2338,7 @@ type DOMRect struct {
 // DOMRectFromJS is casting a js.Wrapper into DOMRect.
 func DOMRectFromJS(value js.Wrapper) *DOMRect {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRect{}
@@ -2479,7 +2479,7 @@ func (_this *DOMRectList) JSValue() js.Value {
 // DOMRectListFromJS is casting a js.Wrapper into DOMRectList.
 func DOMRectListFromJS(value js.Wrapper) *DOMRectList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRectList{}
@@ -2547,7 +2547,7 @@ func (_this *DOMRectReadOnly) JSValue() js.Value {
 // DOMRectReadOnlyFromJS is casting a js.Wrapper into DOMRectReadOnly.
 func DOMRectReadOnlyFromJS(value js.Wrapper) *DOMRectReadOnly {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRectReadOnly{}

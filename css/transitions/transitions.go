@@ -102,7 +102,7 @@ type TransitionEvent struct {
 // TransitionEventFromJS is casting a js.Wrapper into TransitionEvent.
 func TransitionEventFromJS(value js.Wrapper) *TransitionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TransitionEvent{}

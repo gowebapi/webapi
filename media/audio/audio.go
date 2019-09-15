@@ -2277,7 +2277,7 @@ type AnalyserNode struct {
 // AnalyserNodeFromJS is casting a js.Wrapper into AnalyserNode.
 func AnalyserNodeFromJS(value js.Wrapper) *AnalyserNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnalyserNode{}
@@ -2442,7 +2442,7 @@ func (_this *AudioBuffer) JSValue() js.Value {
 // AudioBufferFromJS is casting a js.Wrapper into AudioBuffer.
 func AudioBufferFromJS(value js.Wrapper) *AudioBuffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioBuffer{}
@@ -2569,7 +2569,7 @@ type AudioBufferSourceNode struct {
 // AudioBufferSourceNodeFromJS is casting a js.Wrapper into AudioBufferSourceNode.
 func AudioBufferSourceNodeFromJS(value js.Wrapper) *AudioBufferSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioBufferSourceNode{}
@@ -2716,7 +2716,7 @@ type AudioContext struct {
 // AudioContextFromJS is casting a js.Wrapper into AudioContext.
 func AudioContextFromJS(value js.Wrapper) *AudioContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioContext{}
@@ -2891,7 +2891,7 @@ type AudioDestinationNode struct {
 // AudioDestinationNodeFromJS is casting a js.Wrapper into AudioDestinationNode.
 func AudioDestinationNodeFromJS(value js.Wrapper) *AudioDestinationNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioDestinationNode{}
@@ -2921,7 +2921,7 @@ func (_this *AudioListener) JSValue() js.Value {
 // AudioListenerFromJS is casting a js.Wrapper into AudioListener.
 func AudioListenerFromJS(value js.Wrapper) *AudioListener {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioListener{}
@@ -3063,7 +3063,7 @@ type AudioNode struct {
 // AudioNodeFromJS is casting a js.Wrapper into AudioNode.
 func AudioNodeFromJS(value js.Wrapper) *AudioNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioNode{}
@@ -3296,7 +3296,7 @@ func (_this *AudioParam) JSValue() js.Value {
 // AudioParamFromJS is casting a js.Wrapper into AudioParam.
 func AudioParamFromJS(value js.Wrapper) *AudioParam {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParam{}
@@ -3516,7 +3516,7 @@ func (_this *AudioParamMap) JSValue() js.Value {
 // AudioParamMapFromJS is casting a js.Wrapper into AudioParamMap.
 func AudioParamMapFromJS(value js.Wrapper) *AudioParamMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMap{}
@@ -3648,7 +3648,7 @@ func (_this *AudioParamMapEntryIterator) JSValue() js.Value {
 // AudioParamMapEntryIteratorFromJS is casting a js.Wrapper into AudioParamMapEntryIterator.
 func AudioParamMapEntryIteratorFromJS(value js.Wrapper) *AudioParamMapEntryIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapEntryIterator{}
@@ -3683,7 +3683,7 @@ func (_this *AudioParamMapKeyIterator) JSValue() js.Value {
 // AudioParamMapKeyIteratorFromJS is casting a js.Wrapper into AudioParamMapKeyIterator.
 func AudioParamMapKeyIteratorFromJS(value js.Wrapper) *AudioParamMapKeyIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapKeyIterator{}
@@ -3718,7 +3718,7 @@ func (_this *AudioParamMapValueIterator) JSValue() js.Value {
 // AudioParamMapValueIteratorFromJS is casting a js.Wrapper into AudioParamMapValueIterator.
 func AudioParamMapValueIteratorFromJS(value js.Wrapper) *AudioParamMapValueIterator {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapValueIterator{}
@@ -3748,7 +3748,7 @@ type AudioProcessingEvent struct {
 // AudioProcessingEventFromJS is casting a js.Wrapper into AudioProcessingEvent.
 func AudioProcessingEventFromJS(value js.Wrapper) *AudioProcessingEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioProcessingEvent{}
@@ -3812,7 +3812,7 @@ type AudioScheduledSourceNode struct {
 // AudioScheduledSourceNodeFromJS is casting a js.Wrapper into AudioScheduledSourceNode.
 func AudioScheduledSourceNodeFromJS(value js.Wrapper) *AudioScheduledSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioScheduledSourceNode{}
@@ -3897,7 +3897,7 @@ type AudioWorklet struct {
 // AudioWorkletFromJS is casting a js.Wrapper into AudioWorklet.
 func AudioWorkletFromJS(value js.Wrapper) *AudioWorklet {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorklet{}
@@ -3913,7 +3913,7 @@ type AudioWorkletGlobalScope struct {
 // AudioWorkletGlobalScopeFromJS is casting a js.Wrapper into AudioWorkletGlobalScope.
 func AudioWorkletGlobalScopeFromJS(value js.Wrapper) *AudioWorkletGlobalScope {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletGlobalScope{}
@@ -3978,7 +3978,7 @@ type AudioWorkletNode struct {
 // AudioWorkletNodeFromJS is casting a js.Wrapper into AudioWorkletNode.
 func AudioWorkletNodeFromJS(value js.Wrapper) *AudioWorkletNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletNode{}
@@ -4084,7 +4084,7 @@ func (_this *AudioWorkletProcessor) JSValue() js.Value {
 // AudioWorkletProcessorFromJS is casting a js.Wrapper into AudioWorkletProcessor.
 func AudioWorkletProcessorFromJS(value js.Wrapper) *AudioWorkletProcessor {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletProcessor{}
@@ -4129,7 +4129,7 @@ type BaseAudioContext struct {
 // BaseAudioContextFromJS is casting a js.Wrapper into BaseAudioContext.
 func BaseAudioContextFromJS(value js.Wrapper) *BaseAudioContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BaseAudioContext{}
@@ -4589,7 +4589,7 @@ type BiquadFilterNode struct {
 // BiquadFilterNodeFromJS is casting a js.Wrapper into BiquadFilterNode.
 func BiquadFilterNodeFromJS(value js.Wrapper) *BiquadFilterNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BiquadFilterNode{}
@@ -4698,7 +4698,7 @@ type ChannelMergerNode struct {
 // ChannelMergerNodeFromJS is casting a js.Wrapper into ChannelMergerNode.
 func ChannelMergerNodeFromJS(value js.Wrapper) *ChannelMergerNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChannelMergerNode{}
@@ -4737,7 +4737,7 @@ type ChannelSplitterNode struct {
 // ChannelSplitterNodeFromJS is casting a js.Wrapper into ChannelSplitterNode.
 func ChannelSplitterNodeFromJS(value js.Wrapper) *ChannelSplitterNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChannelSplitterNode{}
@@ -4776,7 +4776,7 @@ type ConstantSourceNode struct {
 // ConstantSourceNodeFromJS is casting a js.Wrapper into ConstantSourceNode.
 func ConstantSourceNodeFromJS(value js.Wrapper) *ConstantSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConstantSourceNode{}
@@ -4824,7 +4824,7 @@ type ConvolverNode struct {
 // ConvolverNodeFromJS is casting a js.Wrapper into ConvolverNode.
 func ConvolverNodeFromJS(value js.Wrapper) *ConvolverNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConvolverNode{}
@@ -4897,7 +4897,7 @@ type DelayNode struct {
 // DelayNodeFromJS is casting a js.Wrapper into DelayNode.
 func DelayNodeFromJS(value js.Wrapper) *DelayNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DelayNode{}
@@ -4945,7 +4945,7 @@ type DynamicsCompressorNode struct {
 // DynamicsCompressorNodeFromJS is casting a js.Wrapper into DynamicsCompressorNode.
 func DynamicsCompressorNodeFromJS(value js.Wrapper) *DynamicsCompressorNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DynamicsCompressorNode{}
@@ -5038,7 +5038,7 @@ type GainNode struct {
 // GainNodeFromJS is casting a js.Wrapper into GainNode.
 func GainNodeFromJS(value js.Wrapper) *GainNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GainNode{}
@@ -5086,7 +5086,7 @@ type IIRFilterNode struct {
 // IIRFilterNodeFromJS is casting a js.Wrapper into IIRFilterNode.
 func IIRFilterNodeFromJS(value js.Wrapper) *IIRFilterNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IIRFilterNode{}
@@ -5141,7 +5141,7 @@ type MediaElementAudioSourceNode struct {
 // MediaElementAudioSourceNodeFromJS is casting a js.Wrapper into MediaElementAudioSourceNode.
 func MediaElementAudioSourceNodeFromJS(value js.Wrapper) *MediaElementAudioSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaElementAudioSourceNode{}
@@ -5187,7 +5187,7 @@ type MediaStreamAudioDestinationNode struct {
 // MediaStreamAudioDestinationNodeFromJS is casting a js.Wrapper into MediaStreamAudioDestinationNode.
 func MediaStreamAudioDestinationNodeFromJS(value js.Wrapper) *MediaStreamAudioDestinationNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamAudioDestinationNode{}
@@ -5235,7 +5235,7 @@ type MediaStreamAudioSourceNode struct {
 // MediaStreamAudioSourceNodeFromJS is casting a js.Wrapper into MediaStreamAudioSourceNode.
 func MediaStreamAudioSourceNodeFromJS(value js.Wrapper) *MediaStreamAudioSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamAudioSourceNode{}
@@ -5281,7 +5281,7 @@ type MediaStreamTrackAudioSourceNode struct {
 // MediaStreamTrackAudioSourceNodeFromJS is casting a js.Wrapper into MediaStreamTrackAudioSourceNode.
 func MediaStreamTrackAudioSourceNodeFromJS(value js.Wrapper) *MediaStreamTrackAudioSourceNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrackAudioSourceNode{}
@@ -5318,7 +5318,7 @@ type OfflineAudioCompletionEvent struct {
 // OfflineAudioCompletionEventFromJS is casting a js.Wrapper into OfflineAudioCompletionEvent.
 func OfflineAudioCompletionEventFromJS(value js.Wrapper) *OfflineAudioCompletionEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OfflineAudioCompletionEvent{}
@@ -5364,7 +5364,7 @@ type OfflineAudioContext struct {
 // OfflineAudioContextFromJS is casting a js.Wrapper into OfflineAudioContext.
 func OfflineAudioContextFromJS(value js.Wrapper) *OfflineAudioContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OfflineAudioContext{}
@@ -5499,7 +5499,7 @@ type OscillatorNode struct {
 // OscillatorNodeFromJS is casting a js.Wrapper into OscillatorNode.
 func OscillatorNodeFromJS(value js.Wrapper) *OscillatorNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OscillatorNode{}
@@ -5584,7 +5584,7 @@ type PannerNode struct {
 // PannerNodeFromJS is casting a js.Wrapper into PannerNode.
 func PannerNodeFromJS(value js.Wrapper) *PannerNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PannerNode{}
@@ -5846,7 +5846,7 @@ func (_this *PeriodicWave) JSValue() js.Value {
 // PeriodicWaveFromJS is casting a js.Wrapper into PeriodicWave.
 func PeriodicWaveFromJS(value js.Wrapper) *PeriodicWave {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeriodicWave{}
@@ -5890,7 +5890,7 @@ func (_this *PromiseAudioBuffer) JSValue() js.Value {
 // PromiseAudioBufferFromJS is casting a js.Wrapper into PromiseAudioBuffer.
 func PromiseAudioBufferFromJS(value js.Wrapper) *PromiseAudioBuffer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAudioBuffer{}
@@ -5990,7 +5990,7 @@ type ScriptProcessorNode struct {
 // ScriptProcessorNodeFromJS is casting a js.Wrapper into ScriptProcessorNode.
 func ScriptProcessorNodeFromJS(value js.Wrapper) *ScriptProcessorNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScriptProcessorNode{}
@@ -6056,7 +6056,7 @@ type StereoPannerNode struct {
 // StereoPannerNodeFromJS is casting a js.Wrapper into StereoPannerNode.
 func StereoPannerNodeFromJS(value js.Wrapper) *StereoPannerNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StereoPannerNode{}
@@ -6104,7 +6104,7 @@ type WaveShaperNode struct {
 // WaveShaperNodeFromJS is casting a js.Wrapper into WaveShaperNode.
 func WaveShaperNodeFromJS(value js.Wrapper) *WaveShaperNode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WaveShaperNode{}

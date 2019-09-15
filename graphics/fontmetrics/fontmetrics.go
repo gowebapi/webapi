@@ -49,7 +49,7 @@ func (_this *Baseline) JSValue() js.Value {
 // BaselineFromJS is casting a js.Wrapper into Baseline.
 func BaselineFromJS(value js.Wrapper) *Baseline {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Baseline{}
@@ -88,7 +88,7 @@ func (_this *Font) JSValue() js.Value {
 // FontFromJS is casting a js.Wrapper into Font.
 func FontFromJS(value js.Wrapper) *Font {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Font{}
@@ -127,7 +127,7 @@ func (_this *FontMetrics) JSValue() js.Value {
 // FontMetricsFromJS is casting a js.Wrapper into FontMetrics.
 func FontMetricsFromJS(value js.Wrapper) *FontMetrics {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontMetrics{}

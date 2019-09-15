@@ -176,7 +176,7 @@ type EnterPictureInPictureEvent struct {
 // EnterPictureInPictureEventFromJS is casting a js.Wrapper into EnterPictureInPictureEvent.
 func EnterPictureInPictureEventFromJS(value js.Wrapper) *EnterPictureInPictureEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EnterPictureInPictureEvent{}
@@ -222,7 +222,7 @@ type PictureInPictureWindow struct {
 // PictureInPictureWindowFromJS is casting a js.Wrapper into PictureInPictureWindow.
 func PictureInPictureWindowFromJS(value js.Wrapper) *PictureInPictureWindow {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PictureInPictureWindow{}
@@ -302,7 +302,7 @@ func (_this *PromisePictureInPictureWindow) JSValue() js.Value {
 // PromisePictureInPictureWindowFromJS is casting a js.Wrapper into PromisePictureInPictureWindow.
 func PromisePictureInPictureWindowFromJS(value js.Wrapper) *PromisePictureInPictureWindow {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePictureInPictureWindow{}

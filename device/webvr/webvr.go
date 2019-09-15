@@ -326,7 +326,7 @@ type Display struct {
 // DisplayFromJS is casting a js.Wrapper into Display.
 func DisplayFromJS(value js.Wrapper) *Display {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Display{}
@@ -594,7 +594,7 @@ func (_this *DisplayCapabilities) JSValue() js.Value {
 // DisplayCapabilitiesFromJS is casting a js.Wrapper into DisplayCapabilities.
 func DisplayCapabilitiesFromJS(value js.Wrapper) *DisplayCapabilities {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DisplayCapabilities{}
@@ -655,7 +655,7 @@ type DisplayEvent struct {
 // DisplayEventFromJS is casting a js.Wrapper into DisplayEvent.
 func DisplayEventFromJS(value js.Wrapper) *DisplayEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DisplayEvent{}
@@ -718,7 +718,7 @@ func (_this *EyeParameters) JSValue() js.Value {
 // EyeParametersFromJS is casting a js.Wrapper into EyeParameters.
 func EyeParametersFromJS(value js.Wrapper) *EyeParameters {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EyeParameters{}
@@ -775,7 +775,7 @@ func (_this *FieldOfView) JSValue() js.Value {
 // FieldOfViewFromJS is casting a js.Wrapper into FieldOfView.
 func FieldOfViewFromJS(value js.Wrapper) *FieldOfView {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FieldOfView{}
@@ -832,7 +832,7 @@ func (_this *FrameData) JSValue() js.Value {
 // FrameDataFromJS is casting a js.Wrapper into FrameData.
 func FrameDataFromJS(value js.Wrapper) *FrameData {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FrameData{}
@@ -922,7 +922,7 @@ func (_this *Pose) JSValue() js.Value {
 // PoseFromJS is casting a js.Wrapper into Pose.
 func PoseFromJS(value js.Wrapper) *Pose {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Pose{}
@@ -1009,7 +1009,7 @@ func (_this *PromiseSequenceDisplay) JSValue() js.Value {
 // PromiseSequenceDisplayFromJS is casting a js.Wrapper into PromiseSequenceDisplay.
 func PromiseSequenceDisplayFromJS(value js.Wrapper) *PromiseSequenceDisplay {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDisplay{}
@@ -1114,7 +1114,7 @@ func (_this *StageParameters) JSValue() js.Value {
 // StageParametersFromJS is casting a js.Wrapper into StageParameters.
 func StageParametersFromJS(value js.Wrapper) *StageParameters {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StageParameters{}

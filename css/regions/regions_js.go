@@ -45,7 +45,7 @@ type NamedFlow struct {
 // NamedFlowFromJS is casting a js.Wrapper into NamedFlow.
 func NamedFlowFromJS(value js.Wrapper) *NamedFlow {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NamedFlow{}
@@ -162,7 +162,7 @@ func (_this *NamedFlowMap) JSValue() js.Value {
 // NamedFlowMapFromJS is casting a js.Wrapper into NamedFlowMap.
 func NamedFlowMapFromJS(value js.Wrapper) *NamedFlowMap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NamedFlowMap{}
@@ -256,7 +256,7 @@ func (_this *Region) JSValue() js.Value {
 // RegionFromJS is casting a js.Wrapper into Region.
 func RegionFromJS(value js.Wrapper) *Region {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Region{}

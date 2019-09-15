@@ -712,7 +712,7 @@ func (_this *CanvasGradient) JSValue() js.Value {
 // CanvasGradientFromJS is casting a js.Wrapper into CanvasGradient.
 func CanvasGradientFromJS(value js.Wrapper) *CanvasGradient {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CanvasGradient{}
@@ -748,7 +748,7 @@ func (_this *CanvasPattern) JSValue() js.Value {
 // CanvasPatternFromJS is casting a js.Wrapper into CanvasPattern.
 func CanvasPatternFromJS(value js.Wrapper) *CanvasPattern {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CanvasPattern{}
@@ -783,7 +783,7 @@ func (_this *CanvasRenderingContext2D) JSValue() js.Value {
 // CanvasRenderingContext2DFromJS is casting a js.Wrapper into CanvasRenderingContext2D.
 func CanvasRenderingContext2DFromJS(value js.Wrapper) *CanvasRenderingContext2D {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CanvasRenderingContext2D{}
@@ -2146,7 +2146,7 @@ type HTMLCanvasElement struct {
 // HTMLCanvasElementFromJS is casting a js.Wrapper into HTMLCanvasElement.
 func HTMLCanvasElementFromJS(value js.Wrapper) *HTMLCanvasElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLCanvasElement{}
@@ -2309,7 +2309,7 @@ func (_this *ImageBitmap) JSValue() js.Value {
 // ImageBitmapFromJS is casting a js.Wrapper into ImageBitmap.
 func ImageBitmapFromJS(value js.Wrapper) *ImageBitmap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ImageBitmap{}
@@ -2357,7 +2357,7 @@ func (_this *ImageBitmapRenderingContext) JSValue() js.Value {
 // ImageBitmapRenderingContextFromJS is casting a js.Wrapper into ImageBitmapRenderingContext.
 func ImageBitmapRenderingContextFromJS(value js.Wrapper) *ImageBitmapRenderingContext {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ImageBitmapRenderingContext{}
@@ -2399,7 +2399,7 @@ func (_this *ImageData) JSValue() js.Value {
 // ImageDataFromJS is casting a js.Wrapper into ImageData.
 func ImageDataFromJS(value js.Wrapper) *ImageData {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ImageData{}
@@ -2468,7 +2468,7 @@ type OffscreenCanvas struct {
 // OffscreenCanvasFromJS is casting a js.Wrapper into OffscreenCanvas.
 func OffscreenCanvasFromJS(value js.Wrapper) *OffscreenCanvas {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OffscreenCanvas{}
@@ -2599,7 +2599,7 @@ func (_this *OffscreenCanvasRenderingContext2D) JSValue() js.Value {
 // OffscreenCanvasRenderingContext2DFromJS is casting a js.Wrapper into OffscreenCanvasRenderingContext2D.
 func OffscreenCanvasRenderingContext2DFromJS(value js.Wrapper) *OffscreenCanvasRenderingContext2D {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OffscreenCanvasRenderingContext2D{}
@@ -3914,7 +3914,7 @@ func (_this *Path2D) JSValue() js.Value {
 // Path2DFromJS is casting a js.Wrapper into Path2D.
 func Path2DFromJS(value js.Wrapper) *Path2D {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Path2D{}
@@ -4168,7 +4168,7 @@ func (_this *PromiseImageBitmap) JSValue() js.Value {
 // PromiseImageBitmapFromJS is casting a js.Wrapper into PromiseImageBitmap.
 func PromiseImageBitmapFromJS(value js.Wrapper) *PromiseImageBitmap {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseImageBitmap{}
@@ -4273,7 +4273,7 @@ func (_this *TextMetrics) JSValue() js.Value {
 // TextMetricsFromJS is casting a js.Wrapper into TextMetrics.
 func TextMetricsFromJS(value js.Wrapper) *TextMetrics {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextMetrics{}

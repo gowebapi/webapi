@@ -164,7 +164,7 @@ func (_this *PromiseStorageEstimate) JSValue() js.Value {
 // PromiseStorageEstimateFromJS is casting a js.Wrapper into PromiseStorageEstimate.
 func PromiseStorageEstimateFromJS(value js.Wrapper) *PromiseStorageEstimate {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseStorageEstimate{}
@@ -269,7 +269,7 @@ func (_this *StorageManager) JSValue() js.Value {
 // StorageManagerFromJS is casting a js.Wrapper into StorageManager.
 func StorageManagerFromJS(value js.Wrapper) *StorageManager {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StorageManager{}

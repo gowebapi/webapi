@@ -457,7 +457,7 @@ type ErrorEvent struct {
 // ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
 func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
@@ -503,7 +503,7 @@ type Reader struct {
 // ReaderFromJS is casting a js.Wrapper into Reader.
 func ReaderFromJS(value js.Wrapper) *Reader {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Reader{}
@@ -639,7 +639,7 @@ type ReadingEvent struct {
 // ReadingEventFromJS is casting a js.Wrapper into ReadingEvent.
 func ReadingEventFromJS(value js.Wrapper) *ReadingEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReadingEvent{}
@@ -690,7 +690,7 @@ func (_this *Writer) JSValue() js.Value {
 // WriterFromJS is casting a js.Wrapper into Writer.
 func WriterFromJS(value js.Wrapper) *Writer {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Writer{}

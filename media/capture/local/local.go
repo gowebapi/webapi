@@ -2392,7 +2392,7 @@ func (_this *ConstrainablePattern) JSValue() js.Value {
 // ConstrainablePatternFromJS is casting a js.Wrapper into ConstrainablePattern.
 func ConstrainablePatternFromJS(value js.Wrapper) *ConstrainablePattern {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConstrainablePattern{}
@@ -2510,7 +2510,7 @@ type InputDeviceInfo struct {
 // InputDeviceInfoFromJS is casting a js.Wrapper into InputDeviceInfo.
 func InputDeviceInfoFromJS(value js.Wrapper) *InputDeviceInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputDeviceInfo{}
@@ -2545,7 +2545,7 @@ func (_this *MediaDeviceInfo) JSValue() js.Value {
 // MediaDeviceInfoFromJS is casting a js.Wrapper into MediaDeviceInfo.
 func MediaDeviceInfoFromJS(value js.Wrapper) *MediaDeviceInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaDeviceInfo{}
@@ -2611,7 +2611,7 @@ type MediaDevices struct {
 // MediaDevicesFromJS is casting a js.Wrapper into MediaDevices.
 func MediaDevicesFromJS(value js.Wrapper) *MediaDevices {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaDevices{}
@@ -2734,7 +2734,7 @@ type MediaStream struct {
 // MediaStreamFromJS is casting a js.Wrapper into MediaStream.
 func MediaStreamFromJS(value js.Wrapper) *MediaStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStream{}
@@ -2981,7 +2981,7 @@ type MediaStreamTrack struct {
 // MediaStreamTrackFromJS is casting a js.Wrapper into MediaStreamTrack.
 func MediaStreamTrackFromJS(value js.Wrapper) *MediaStreamTrack {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrack{}
@@ -3280,7 +3280,7 @@ type MediaStreamTrackEvent struct {
 // MediaStreamTrackEventFromJS is casting a js.Wrapper into MediaStreamTrackEvent.
 func MediaStreamTrackEventFromJS(value js.Wrapper) *MediaStreamTrackEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrackEvent{}
@@ -3326,7 +3326,7 @@ type OverconstrainedErrorEvent struct {
 // OverconstrainedErrorEventFromJS is casting a js.Wrapper into OverconstrainedErrorEvent.
 func OverconstrainedErrorEventFromJS(value js.Wrapper) *OverconstrainedErrorEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OverconstrainedErrorEvent{}
@@ -3379,7 +3379,7 @@ func (_this *PromiseMediaStream) JSValue() js.Value {
 // PromiseMediaStreamFromJS is casting a js.Wrapper into PromiseMediaStream.
 func PromiseMediaStreamFromJS(value js.Wrapper) *PromiseMediaStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaStream{}
@@ -3484,7 +3484,7 @@ func (_this *PromiseSequenceMediaDeviceInfo) JSValue() js.Value {
 // PromiseSequenceMediaDeviceInfoFromJS is casting a js.Wrapper into PromiseSequenceMediaDeviceInfo.
 func PromiseSequenceMediaDeviceInfoFromJS(value js.Wrapper) *PromiseSequenceMediaDeviceInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceMediaDeviceInfo{}

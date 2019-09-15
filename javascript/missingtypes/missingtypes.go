@@ -44,7 +44,7 @@ func (_this *Date) JSValue() js.Value {
 // DateFromJS is casting a js.Wrapper into Date.
 func DateFromJS(value js.Wrapper) *Date {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Date{}
@@ -65,7 +65,7 @@ func (_this *Dictionary) JSValue() js.Value {
 // DictionaryFromJS is casting a js.Wrapper into Dictionary.
 func DictionaryFromJS(value js.Wrapper) *Dictionary {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Dictionary{}
@@ -86,7 +86,7 @@ func (_this *WritableStream) JSValue() js.Value {
 // WritableStreamFromJS is casting a js.Wrapper into WritableStream.
 func WritableStreamFromJS(value js.Wrapper) *WritableStream {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WritableStream{}

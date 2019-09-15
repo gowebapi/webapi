@@ -296,7 +296,7 @@ func (_this *Blob) JSValue() js.Value {
 // BlobFromJS is casting a js.Wrapper into Blob.
 func BlobFromJS(value js.Wrapper) *Blob {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Blob{}
@@ -388,7 +388,7 @@ type File struct {
 // FileFromJS is casting a js.Wrapper into File.
 func FileFromJS(value js.Wrapper) *File {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &File{}
@@ -466,7 +466,7 @@ func (_this *FileList) JSValue() js.Value {
 // FileListFromJS is casting a js.Wrapper into FileList.
 func FileListFromJS(value js.Wrapper) *FileList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileList{}
@@ -529,7 +529,7 @@ type FileReader struct {
 // FileReaderFromJS is casting a js.Wrapper into FileReader.
 func FileReaderFromJS(value js.Wrapper) *FileReader {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileReader{}
@@ -840,7 +840,7 @@ func (_this *FileReaderSync) JSValue() js.Value {
 // FileReaderSyncFromJS is casting a js.Wrapper into FileReaderSync.
 func FileReaderSyncFromJS(value js.Wrapper) *FileReaderSync {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileReaderSync{}
@@ -949,7 +949,7 @@ func (_this *PromiseBlob) JSValue() js.Value {
 // PromiseBlobFromJS is casting a js.Wrapper into PromiseBlob.
 func PromiseBlobFromJS(value js.Wrapper) *PromiseBlob {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBlob{}

@@ -344,7 +344,7 @@ type PermissionStatus struct {
 // PermissionStatusFromJS is casting a js.Wrapper into PermissionStatus.
 func PermissionStatusFromJS(value js.Wrapper) *PermissionStatus {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PermissionStatus{}
@@ -415,7 +415,7 @@ func (_this *Permissions) JSValue() js.Value {
 // PermissionsFromJS is casting a js.Wrapper into Permissions.
 func PermissionsFromJS(value js.Wrapper) *Permissions {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Permissions{}
@@ -453,7 +453,7 @@ func (_this *PromisePermissionStatus) JSValue() js.Value {
 // PromisePermissionStatusFromJS is casting a js.Wrapper into PromisePermissionStatus.
 func PromisePermissionStatusFromJS(value js.Wrapper) *PromisePermissionStatus {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionStatus{}

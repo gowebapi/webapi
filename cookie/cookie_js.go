@@ -832,7 +832,7 @@ type CookieChangeEvent struct {
 // CookieChangeEventFromJS is casting a js.Wrapper into CookieChangeEvent.
 func CookieChangeEventFromJS(value js.Wrapper) *CookieChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CookieChangeEvent{}
@@ -905,7 +905,7 @@ type CookieStore struct {
 // CookieStoreFromJS is casting a js.Wrapper into CookieStore.
 func CookieStoreFromJS(value js.Wrapper) *CookieStore {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CookieStore{}
@@ -1145,7 +1145,7 @@ type ExtendableCookieChangeEvent struct {
 // ExtendableCookieChangeEventFromJS is casting a js.Wrapper into ExtendableCookieChangeEvent.
 func ExtendableCookieChangeEventFromJS(value js.Wrapper) *ExtendableCookieChangeEvent {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ExtendableCookieChangeEvent{}
@@ -1223,7 +1223,7 @@ func (_this *PromiseNilCookieListItem) JSValue() js.Value {
 // PromiseNilCookieListItemFromJS is casting a js.Wrapper into PromiseNilCookieListItem.
 func PromiseNilCookieListItemFromJS(value js.Wrapper) *PromiseNilCookieListItem {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilCookieListItem{}
@@ -1328,7 +1328,7 @@ func (_this *PromiseSequenceCookieListItem) JSValue() js.Value {
 // PromiseSequenceCookieListItemFromJS is casting a js.Wrapper into PromiseSequenceCookieListItem.
 func PromiseSequenceCookieListItemFromJS(value js.Wrapper) *PromiseSequenceCookieListItem {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceCookieListItem{}
@@ -1433,7 +1433,7 @@ func (_this *PromiseSequenceCookieStoreGetOptions) JSValue() js.Value {
 // PromiseSequenceCookieStoreGetOptionsFromJS is casting a js.Wrapper into PromiseSequenceCookieStoreGetOptions.
 func PromiseSequenceCookieStoreGetOptionsFromJS(value js.Wrapper) *PromiseSequenceCookieStoreGetOptions {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceCookieStoreGetOptions{}

@@ -719,7 +719,7 @@ func (_this *MediaCapabilities) JSValue() js.Value {
 // MediaCapabilitiesFromJS is casting a js.Wrapper into MediaCapabilities.
 func MediaCapabilitiesFromJS(value js.Wrapper) *MediaCapabilities {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaCapabilities{}
@@ -774,7 +774,7 @@ func (_this *PromiseMediaCapabilitiesDecodingInfo) JSValue() js.Value {
 // PromiseMediaCapabilitiesDecodingInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesDecodingInfo.
 func PromiseMediaCapabilitiesDecodingInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesDecodingInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaCapabilitiesDecodingInfo{}
@@ -879,7 +879,7 @@ func (_this *PromiseMediaCapabilitiesInfo) JSValue() js.Value {
 // PromiseMediaCapabilitiesInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesInfo.
 func PromiseMediaCapabilitiesInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesInfo {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaCapabilitiesInfo{}
@@ -984,7 +984,7 @@ func (_this *ScreenLuminance) JSValue() js.Value {
 // ScreenLuminanceFromJS is casting a js.Wrapper into ScreenLuminance.
 func ScreenLuminanceFromJS(value js.Wrapper) *ScreenLuminance {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScreenLuminance{}

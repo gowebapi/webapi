@@ -409,7 +409,7 @@ func (_this *ImageCapture) JSValue() js.Value {
 // ImageCaptureFromJS is casting a js.Wrapper into ImageCapture.
 func ImageCaptureFromJS(value js.Wrapper) *ImageCapture {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ImageCapture{}
@@ -518,7 +518,7 @@ func (_this *PhotoCapabilities) JSValue() js.Value {
 // PhotoCapabilitiesFromJS is casting a js.Wrapper into PhotoCapabilities.
 func PhotoCapabilitiesFromJS(value js.Wrapper) *PhotoCapabilities {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PhotoCapabilities{}
@@ -575,7 +575,7 @@ func (_this *PromisePhotoCapabilities) JSValue() js.Value {
 // PromisePhotoCapabilitiesFromJS is casting a js.Wrapper into PromisePhotoCapabilities.
 func PromisePhotoCapabilitiesFromJS(value js.Wrapper) *PromisePhotoCapabilities {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePhotoCapabilities{}
@@ -680,7 +680,7 @@ func (_this *PromisePhotoSettings) JSValue() js.Value {
 // PromisePhotoSettingsFromJS is casting a js.Wrapper into PromisePhotoSettings.
 func PromisePhotoSettingsFromJS(value js.Wrapper) *PromisePhotoSettings {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePhotoSettings{}

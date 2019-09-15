@@ -145,7 +145,7 @@ type SVGAElement struct {
 // SVGAElementFromJS is casting a js.Wrapper into SVGAElement.
 func SVGAElementFromJS(value js.Wrapper) *SVGAElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAElement{}
@@ -470,7 +470,7 @@ func (_this *SVGAngle) JSValue() js.Value {
 // SVGAngleFromJS is casting a js.Wrapper into SVGAngle.
 func SVGAngleFromJS(value js.Wrapper) *SVGAngle {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAngle{}
@@ -583,7 +583,7 @@ func (_this *SVGAnimatedAngle) JSValue() js.Value {
 // SVGAnimatedAngleFromJS is casting a js.Wrapper into SVGAnimatedAngle.
 func SVGAnimatedAngleFromJS(value js.Wrapper) *SVGAnimatedAngle {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedAngle{}
@@ -622,7 +622,7 @@ func (_this *SVGAnimatedBoolean) JSValue() js.Value {
 // SVGAnimatedBooleanFromJS is casting a js.Wrapper into SVGAnimatedBoolean.
 func SVGAnimatedBooleanFromJS(value js.Wrapper) *SVGAnimatedBoolean {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedBoolean{}
@@ -668,7 +668,7 @@ func (_this *SVGAnimatedEnumeration) JSValue() js.Value {
 // SVGAnimatedEnumerationFromJS is casting a js.Wrapper into SVGAnimatedEnumeration.
 func SVGAnimatedEnumerationFromJS(value js.Wrapper) *SVGAnimatedEnumeration {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedEnumeration{}
@@ -714,7 +714,7 @@ func (_this *SVGAnimatedInteger) JSValue() js.Value {
 // SVGAnimatedIntegerFromJS is casting a js.Wrapper into SVGAnimatedInteger.
 func SVGAnimatedIntegerFromJS(value js.Wrapper) *SVGAnimatedInteger {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedInteger{}
@@ -760,7 +760,7 @@ func (_this *SVGAnimatedLength) JSValue() js.Value {
 // SVGAnimatedLengthFromJS is casting a js.Wrapper into SVGAnimatedLength.
 func SVGAnimatedLengthFromJS(value js.Wrapper) *SVGAnimatedLength {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedLength{}
@@ -799,7 +799,7 @@ func (_this *SVGAnimatedLengthList) JSValue() js.Value {
 // SVGAnimatedLengthListFromJS is casting a js.Wrapper into SVGAnimatedLengthList.
 func SVGAnimatedLengthListFromJS(value js.Wrapper) *SVGAnimatedLengthList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedLengthList{}
@@ -838,7 +838,7 @@ func (_this *SVGAnimatedNumber) JSValue() js.Value {
 // SVGAnimatedNumberFromJS is casting a js.Wrapper into SVGAnimatedNumber.
 func SVGAnimatedNumberFromJS(value js.Wrapper) *SVGAnimatedNumber {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedNumber{}
@@ -884,7 +884,7 @@ func (_this *SVGAnimatedNumberList) JSValue() js.Value {
 // SVGAnimatedNumberListFromJS is casting a js.Wrapper into SVGAnimatedNumberList.
 func SVGAnimatedNumberListFromJS(value js.Wrapper) *SVGAnimatedNumberList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedNumberList{}
@@ -923,7 +923,7 @@ func (_this *SVGAnimatedPreserveAspectRatio) JSValue() js.Value {
 // SVGAnimatedPreserveAspectRatioFromJS is casting a js.Wrapper into SVGAnimatedPreserveAspectRatio.
 func SVGAnimatedPreserveAspectRatioFromJS(value js.Wrapper) *SVGAnimatedPreserveAspectRatio {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedPreserveAspectRatio{}
@@ -962,7 +962,7 @@ func (_this *SVGAnimatedRect) JSValue() js.Value {
 // SVGAnimatedRectFromJS is casting a js.Wrapper into SVGAnimatedRect.
 func SVGAnimatedRectFromJS(value js.Wrapper) *SVGAnimatedRect {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedRect{}
@@ -1001,7 +1001,7 @@ func (_this *SVGAnimatedString) JSValue() js.Value {
 // SVGAnimatedStringFromJS is casting a js.Wrapper into SVGAnimatedString.
 func SVGAnimatedStringFromJS(value js.Wrapper) *SVGAnimatedString {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedString{}
@@ -1047,7 +1047,7 @@ func (_this *SVGAnimatedTransformList) JSValue() js.Value {
 // SVGAnimatedTransformListFromJS is casting a js.Wrapper into SVGAnimatedTransformList.
 func SVGAnimatedTransformListFromJS(value js.Wrapper) *SVGAnimatedTransformList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedTransformList{}
@@ -1081,7 +1081,7 @@ type SVGCircleElement struct {
 // SVGCircleElementFromJS is casting a js.Wrapper into SVGCircleElement.
 func SVGCircleElementFromJS(value js.Wrapper) *SVGCircleElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGCircleElement{}
@@ -1124,7 +1124,7 @@ type SVGDefsElement struct {
 // SVGDefsElementFromJS is casting a js.Wrapper into SVGDefsElement.
 func SVGDefsElementFromJS(value js.Wrapper) *SVGDefsElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGDefsElement{}
@@ -1140,7 +1140,7 @@ type SVGDescElement struct {
 // SVGDescElementFromJS is casting a js.Wrapper into SVGDescElement.
 func SVGDescElementFromJS(value js.Wrapper) *SVGDescElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGDescElement{}
@@ -1156,7 +1156,7 @@ type SVGElement struct {
 // SVGElementFromJS is casting a js.Wrapper into SVGElement.
 func SVGElementFromJS(value js.Wrapper) *SVGElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGElement{}
@@ -3961,7 +3961,7 @@ type SVGEllipseElement struct {
 // SVGEllipseElementFromJS is casting a js.Wrapper into SVGEllipseElement.
 func SVGEllipseElementFromJS(value js.Wrapper) *SVGEllipseElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGEllipseElement{}
@@ -4013,7 +4013,7 @@ type SVGForeignObjectElement struct {
 // SVGForeignObjectElementFromJS is casting a js.Wrapper into SVGForeignObjectElement.
 func SVGForeignObjectElementFromJS(value js.Wrapper) *SVGForeignObjectElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGForeignObjectElement{}
@@ -4065,7 +4065,7 @@ type SVGGElement struct {
 // SVGGElementFromJS is casting a js.Wrapper into SVGGElement.
 func SVGGElementFromJS(value js.Wrapper) *SVGGElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGElement{}
@@ -4081,7 +4081,7 @@ type SVGGeometryElement struct {
 // SVGGeometryElementFromJS is casting a js.Wrapper into SVGGeometryElement.
 func SVGGeometryElementFromJS(value js.Wrapper) *SVGGeometryElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGeometryElement{}
@@ -4175,7 +4175,7 @@ type SVGGradientElement struct {
 // SVGGradientElementFromJS is casting a js.Wrapper into SVGGradientElement.
 func SVGGradientElementFromJS(value js.Wrapper) *SVGGradientElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGradientElement{}
@@ -4234,7 +4234,7 @@ type SVGGraphicsElement struct {
 // SVGGraphicsElementFromJS is casting a js.Wrapper into SVGGraphicsElement.
 func SVGGraphicsElementFromJS(value js.Wrapper) *SVGGraphicsElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGraphicsElement{}
@@ -4328,7 +4328,7 @@ type SVGImageElement struct {
 // SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
 func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGImageElement{}
@@ -4422,7 +4422,7 @@ func (_this *SVGLength) JSValue() js.Value {
 // SVGLengthFromJS is casting a js.Wrapper into SVGLength.
 func SVGLengthFromJS(value js.Wrapper) *SVGLength {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLength{}
@@ -4541,7 +4541,7 @@ func (_this *SVGLengthList) JSValue() js.Value {
 // SVGLengthListFromJS is casting a js.Wrapper into SVGLengthList.
 func SVGLengthListFromJS(value js.Wrapper) *SVGLengthList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLengthList{}
@@ -4724,7 +4724,7 @@ type SVGLineElement struct {
 // SVGLineElementFromJS is casting a js.Wrapper into SVGLineElement.
 func SVGLineElementFromJS(value js.Wrapper) *SVGLineElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLineElement{}
@@ -4776,7 +4776,7 @@ type SVGLinearGradientElement struct {
 // SVGLinearGradientElementFromJS is casting a js.Wrapper into SVGLinearGradientElement.
 func SVGLinearGradientElementFromJS(value js.Wrapper) *SVGLinearGradientElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLinearGradientElement{}
@@ -4828,7 +4828,7 @@ type SVGMarkerElement struct {
 // SVGMarkerElementFromJS is casting a js.Wrapper into SVGMarkerElement.
 func SVGMarkerElementFromJS(value js.Wrapper) *SVGMarkerElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMarkerElement{}
@@ -4971,7 +4971,7 @@ type SVGMetadataElement struct {
 // SVGMetadataElementFromJS is casting a js.Wrapper into SVGMetadataElement.
 func SVGMetadataElementFromJS(value js.Wrapper) *SVGMetadataElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMetadataElement{}
@@ -4992,7 +4992,7 @@ func (_this *SVGNumber) JSValue() js.Value {
 // SVGNumberFromJS is casting a js.Wrapper into SVGNumber.
 func SVGNumberFromJS(value js.Wrapper) *SVGNumber {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGNumber{}
@@ -5029,7 +5029,7 @@ func (_this *SVGNumberList) JSValue() js.Value {
 // SVGNumberListFromJS is casting a js.Wrapper into SVGNumberList.
 func SVGNumberListFromJS(value js.Wrapper) *SVGNumberList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGNumberList{}
@@ -5212,7 +5212,7 @@ type SVGPathElement struct {
 // SVGPathElementFromJS is casting a js.Wrapper into SVGPathElement.
 func SVGPathElementFromJS(value js.Wrapper) *SVGPathElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPathElement{}
@@ -5228,7 +5228,7 @@ type SVGPatternElement struct {
 // SVGPatternElementFromJS is casting a js.Wrapper into SVGPatternElement.
 func SVGPatternElementFromJS(value js.Wrapper) *SVGPatternElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPatternElement{}
@@ -5339,7 +5339,7 @@ func (_this *SVGPointList) JSValue() js.Value {
 // SVGPointListFromJS is casting a js.Wrapper into SVGPointList.
 func SVGPointListFromJS(value js.Wrapper) *SVGPointList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPointList{}
@@ -5522,7 +5522,7 @@ type SVGPolygonElement struct {
 // SVGPolygonElementFromJS is casting a js.Wrapper into SVGPolygonElement.
 func SVGPolygonElementFromJS(value js.Wrapper) *SVGPolygonElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPolygonElement{}
@@ -5556,7 +5556,7 @@ type SVGPolylineElement struct {
 // SVGPolylineElementFromJS is casting a js.Wrapper into SVGPolylineElement.
 func SVGPolylineElementFromJS(value js.Wrapper) *SVGPolylineElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPolylineElement{}
@@ -5595,7 +5595,7 @@ func (_this *SVGPreserveAspectRatio) JSValue() js.Value {
 // SVGPreserveAspectRatioFromJS is casting a js.Wrapper into SVGPreserveAspectRatio.
 func SVGPreserveAspectRatioFromJS(value js.Wrapper) *SVGPreserveAspectRatio {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPreserveAspectRatio{}
@@ -5660,7 +5660,7 @@ type SVGRadialGradientElement struct {
 // SVGRadialGradientElementFromJS is casting a js.Wrapper into SVGRadialGradientElement.
 func SVGRadialGradientElementFromJS(value js.Wrapper) *SVGRadialGradientElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGRadialGradientElement{}
@@ -5730,7 +5730,7 @@ type SVGRectElement struct {
 // SVGRectElementFromJS is casting a js.Wrapper into SVGRectElement.
 func SVGRectElementFromJS(value js.Wrapper) *SVGRectElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGRectElement{}
@@ -5800,7 +5800,7 @@ type SVGSVGElement struct {
 // SVGSVGElementFromJS is casting a js.Wrapper into SVGSVGElement.
 func SVGSVGElementFromJS(value js.Wrapper) *SVGSVGElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSVGElement{}
@@ -6731,7 +6731,7 @@ type SVGScriptElement struct {
 // SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
 func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGScriptElement{}
@@ -6791,7 +6791,7 @@ type SVGStopElement struct {
 // SVGStopElementFromJS is casting a js.Wrapper into SVGStopElement.
 func SVGStopElementFromJS(value js.Wrapper) *SVGStopElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStopElement{}
@@ -6821,7 +6821,7 @@ func (_this *SVGStringList) JSValue() js.Value {
 // SVGStringListFromJS is casting a js.Wrapper into SVGStringList.
 func SVGStringListFromJS(value js.Wrapper) *SVGStringList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStringList{}
@@ -7004,7 +7004,7 @@ type SVGStyleElement struct {
 // SVGStyleElementFromJS is casting a js.Wrapper into SVGStyleElement.
 func SVGStyleElementFromJS(value js.Wrapper) *SVGStyleElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStyleElement{}
@@ -7079,7 +7079,7 @@ type SVGSwitchElement struct {
 // SVGSwitchElementFromJS is casting a js.Wrapper into SVGSwitchElement.
 func SVGSwitchElementFromJS(value js.Wrapper) *SVGSwitchElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSwitchElement{}
@@ -7095,7 +7095,7 @@ type SVGSymbolElement struct {
 // SVGSymbolElementFromJS is casting a js.Wrapper into SVGSymbolElement.
 func SVGSymbolElementFromJS(value js.Wrapper) *SVGSymbolElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSymbolElement{}
@@ -7129,7 +7129,7 @@ type SVGTSpanElement struct {
 // SVGTSpanElementFromJS is casting a js.Wrapper into SVGTSpanElement.
 func SVGTSpanElementFromJS(value js.Wrapper) *SVGTSpanElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTSpanElement{}
@@ -7145,7 +7145,7 @@ type SVGTextContentElement struct {
 // SVGTextContentElementFromJS is casting a js.Wrapper into SVGTextContentElement.
 func SVGTextContentElementFromJS(value js.Wrapper) *SVGTextContentElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextContentElement{}
@@ -7335,7 +7335,7 @@ type SVGTextElement struct {
 // SVGTextElementFromJS is casting a js.Wrapper into SVGTextElement.
 func SVGTextElementFromJS(value js.Wrapper) *SVGTextElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextElement{}
@@ -7351,7 +7351,7 @@ type SVGTextPathElement struct {
 // SVGTextPathElementFromJS is casting a js.Wrapper into SVGTextPathElement.
 func SVGTextPathElementFromJS(value js.Wrapper) *SVGTextPathElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextPathElement{}
@@ -7412,7 +7412,7 @@ type SVGTextPositioningElement struct {
 // SVGTextPositioningElementFromJS is casting a js.Wrapper into SVGTextPositioningElement.
 func SVGTextPositioningElementFromJS(value js.Wrapper) *SVGTextPositioningElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextPositioningElement{}
@@ -7473,7 +7473,7 @@ type SVGTitleElement struct {
 // SVGTitleElementFromJS is casting a js.Wrapper into SVGTitleElement.
 func SVGTitleElementFromJS(value js.Wrapper) *SVGTitleElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTitleElement{}
@@ -7494,7 +7494,7 @@ func (_this *SVGTransform) JSValue() js.Value {
 // SVGTransformFromJS is casting a js.Wrapper into SVGTransform.
 func SVGTransformFromJS(value js.Wrapper) *SVGTransform {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTransform{}
@@ -7638,7 +7638,7 @@ func (_this *SVGTransformList) JSValue() js.Value {
 // SVGTransformListFromJS is casting a js.Wrapper into SVGTransformList.
 func SVGTransformListFromJS(value js.Wrapper) *SVGTransformList {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTransformList{}
@@ -7861,7 +7861,7 @@ func (_this *SVGUnitTypes) JSValue() js.Value {
 // SVGUnitTypesFromJS is casting a js.Wrapper into SVGUnitTypes.
 func SVGUnitTypesFromJS(value js.Wrapper) *SVGUnitTypes {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUnitTypes{}
@@ -7883,7 +7883,7 @@ type SVGUnknownElement struct {
 // SVGUnknownElementFromJS is casting a js.Wrapper into SVGUnknownElement.
 func SVGUnknownElementFromJS(value js.Wrapper) *SVGUnknownElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUnknownElement{}
@@ -7899,7 +7899,7 @@ type SVGUseElement struct {
 // SVGUseElementFromJS is casting a js.Wrapper into SVGUseElement.
 func SVGUseElementFromJS(value js.Wrapper) *SVGUseElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUseElement{}
@@ -7982,7 +7982,7 @@ type SVGUseElementShadowRoot struct {
 // SVGUseElementShadowRootFromJS is casting a js.Wrapper into SVGUseElementShadowRoot.
 func SVGUseElementShadowRootFromJS(value js.Wrapper) *SVGUseElementShadowRoot {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUseElementShadowRoot{}
@@ -7998,7 +7998,7 @@ type SVGViewElement struct {
 // SVGViewElementFromJS is casting a js.Wrapper into SVGViewElement.
 func SVGViewElementFromJS(value js.Wrapper) *SVGViewElement {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGViewElement{}
@@ -8054,7 +8054,7 @@ type ShadowAnimation struct {
 // ShadowAnimationFromJS is casting a js.Wrapper into ShadowAnimation.
 func ShadowAnimationFromJS(value js.Wrapper) *ShadowAnimation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ShadowAnimation{}

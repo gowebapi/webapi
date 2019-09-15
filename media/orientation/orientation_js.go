@@ -138,7 +138,7 @@ type ScreenOrientation struct {
 // ScreenOrientationFromJS is casting a js.Wrapper into ScreenOrientation.
 func ScreenOrientationFromJS(value js.Wrapper) *ScreenOrientation {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScreenOrientation{}

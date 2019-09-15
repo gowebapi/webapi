@@ -302,7 +302,7 @@ type VTTCue struct {
 // VTTCueFromJS is casting a js.Wrapper into VTTCue.
 func VTTCueFromJS(value js.Wrapper) *VTTCue {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VTTCue{}
@@ -523,7 +523,7 @@ func (_this *VTTRegion) JSValue() js.Value {
 // VTTRegionFromJS is casting a js.Wrapper into VTTRegion.
 func VTTRegionFromJS(value js.Wrapper) *VTTRegion {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VTTRegion{}

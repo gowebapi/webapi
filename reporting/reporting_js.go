@@ -179,7 +179,7 @@ type CrashReportBody struct {
 // CrashReportBodyFromJS is casting a js.Wrapper into CrashReportBody.
 func CrashReportBodyFromJS(value js.Wrapper) *CrashReportBody {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CrashReportBody{}
@@ -207,7 +207,7 @@ type DeprecationReportBody struct {
 // DeprecationReportBodyFromJS is casting a js.Wrapper into DeprecationReportBody.
 func DeprecationReportBodyFromJS(value js.Wrapper) *DeprecationReportBody {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeprecationReportBody{}
@@ -288,7 +288,7 @@ type InterventionReportBody struct {
 // InterventionReportBodyFromJS is casting a js.Wrapper into InterventionReportBody.
 func InterventionReportBodyFromJS(value js.Wrapper) *InterventionReportBody {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InterventionReportBody{}
@@ -363,7 +363,7 @@ func (_this *Report) JSValue() js.Value {
 // ReportFromJS is casting a js.Wrapper into Report.
 func ReportFromJS(value js.Wrapper) *Report {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Report{}
@@ -413,7 +413,7 @@ func (_this *ReportBody) JSValue() js.Value {
 // ReportBodyFromJS is casting a js.Wrapper into ReportBody.
 func ReportBodyFromJS(value js.Wrapper) *ReportBody {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReportBody{}
@@ -434,7 +434,7 @@ func (_this *ReportingObserver) JSValue() js.Value {
 // ReportingObserverFromJS is casting a js.Wrapper into ReportingObserver.
 func ReportingObserverFromJS(value js.Wrapper) *ReportingObserver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReportingObserver{}

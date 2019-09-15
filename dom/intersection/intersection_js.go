@@ -217,7 +217,7 @@ func (_this *IntersectionObserver) JSValue() js.Value {
 // IntersectionObserverFromJS is casting a js.Wrapper into IntersectionObserver.
 func IntersectionObserverFromJS(value js.Wrapper) *IntersectionObserver {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntersectionObserver{}
@@ -352,7 +352,7 @@ func (_this *IntersectionObserverEntry) JSValue() js.Value {
 // IntersectionObserverEntryFromJS is casting a js.Wrapper into IntersectionObserverEntry.
 func IntersectionObserverEntryFromJS(value js.Wrapper) *IntersectionObserverEntry {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntersectionObserverEntry{}

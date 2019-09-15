@@ -301,7 +301,7 @@ func (_this *Client) JSValue() js.Value {
 // ClientFromJS is casting a js.Wrapper into Client.
 func ClientFromJS(value js.Wrapper) *Client {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Client{}
@@ -379,7 +379,7 @@ func (_this *PromiseNilWindowClient) JSValue() js.Value {
 // PromiseNilWindowClientFromJS is casting a js.Wrapper into PromiseNilWindowClient.
 func PromiseNilWindowClientFromJS(value js.Wrapper) *PromiseNilWindowClient {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilWindowClient{}
@@ -484,7 +484,7 @@ func (_this *PromiseWindowClient) JSValue() js.Value {
 // PromiseWindowClientFromJS is casting a js.Wrapper into PromiseWindowClient.
 func PromiseWindowClientFromJS(value js.Wrapper) *PromiseWindowClient {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseWindowClient{}
@@ -584,7 +584,7 @@ type WindowClient struct {
 // WindowClientFromJS is casting a js.Wrapper into WindowClient.
 func WindowClientFromJS(value js.Wrapper) *WindowClient {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WindowClient{}

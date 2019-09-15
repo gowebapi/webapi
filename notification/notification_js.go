@@ -435,7 +435,7 @@ type Notification struct {
 // NotificationFromJS is casting a js.Wrapper into Notification.
 func NotificationFromJS(value js.Wrapper) *Notification {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Notification{}
@@ -793,7 +793,7 @@ func (_this *PromisePermissionMode) JSValue() js.Value {
 // PromisePermissionModeFromJS is casting a js.Wrapper into PromisePermissionMode.
 func PromisePermissionModeFromJS(value js.Wrapper) *PromisePermissionMode {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionMode{}

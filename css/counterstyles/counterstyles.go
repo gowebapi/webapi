@@ -44,7 +44,7 @@ type CSSCounterStyleRule struct {
 // CSSCounterStyleRuleFromJS is casting a js.Wrapper into CSSCounterStyleRule.
 func CSSCounterStyleRuleFromJS(value js.Wrapper) *CSSCounterStyleRule {
 	input := value.JSValue()
-	if input.Type() == js.TypeNull {
+	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSCounterStyleRule{}
