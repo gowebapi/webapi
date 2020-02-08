@@ -320,9 +320,21 @@ func (_this *AnimationPlaybackEventInit) JSValue() js.Value {
 	out.Set("cancelable", value1)
 	value2 := _this.Composed
 	out.Set("composed", value2)
-	value3 := _this.CurrentTime
+
+	var value3 interface{}
+	if _this.CurrentTime != nil {
+		value3 = *(_this.CurrentTime)
+	} else {
+		value3 = nil
+	}
 	out.Set("currentTime", value3)
-	value4 := _this.TimelineTime
+
+	var value4 interface{}
+	if _this.TimelineTime != nil {
+		value4 = *(_this.TimelineTime)
+	} else {
+		value4 = nil
+	}
 	out.Set("timelineTime", value4)
 	return out
 }
@@ -371,7 +383,13 @@ type BaseComputedKeyframe struct {
 // all values
 func (_this *BaseComputedKeyframe) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Offset
+
+	var value0 interface{}
+	if _this.Offset != nil {
+		value0 = *(_this.Offset)
+	} else {
+		value0 = nil
+	}
 	out.Set("offset", value0)
 	value1 := _this.ComputedOffset
 	out.Set("computedOffset", value1)
@@ -419,7 +437,13 @@ type BaseKeyframe struct {
 // all values
 func (_this *BaseKeyframe) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Offset
+
+	var value0 interface{}
+	if _this.Offset != nil {
+		value0 = *(_this.Offset)
+	} else {
+		value0 = nil
+	}
 	out.Set("offset", value0)
 	value1 := _this.Easing
 	out.Set("easing", value1)
@@ -532,11 +556,29 @@ func (_this *ComputedEffectTiming) JSValue() js.Value {
 	out.Set("endTime", value8)
 	value9 := _this.ActiveDuration
 	out.Set("activeDuration", value9)
-	value10 := _this.LocalTime
+
+	var value10 interface{}
+	if _this.LocalTime != nil {
+		value10 = *(_this.LocalTime)
+	} else {
+		value10 = nil
+	}
 	out.Set("localTime", value10)
-	value11 := _this.Progress
+
+	var value11 interface{}
+	if _this.Progress != nil {
+		value11 = *(_this.Progress)
+	} else {
+		value11 = nil
+	}
 	out.Set("progress", value11)
-	value12 := _this.CurrentIteration
+
+	var value12 interface{}
+	if _this.CurrentIteration != nil {
+		value12 = *(_this.CurrentIteration)
+	} else {
+		value12 = nil
+	}
 	out.Set("currentIteration", value12)
 	return out
 }
@@ -1046,7 +1088,12 @@ func (_this *Animation) StartTime() *float64 {
 // SetStartTime setting attribute 'startTime' with
 // type float64 (idl: double).
 func (_this *Animation) SetStartTime(value *float64) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("startTime", input)
 }
 
@@ -1065,7 +1112,12 @@ func (_this *Animation) CurrentTime() *float64 {
 // SetCurrentTime setting attribute 'currentTime' with
 // type float64 (idl: double).
 func (_this *Animation) SetCurrentTime(value *float64) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("currentTime", input)
 }
 

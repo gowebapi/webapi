@@ -578,7 +578,13 @@ func (_this *MediaRecorder) Start(timeslice *uint) {
 		_end  int
 	)
 	if timeslice != nil {
-		_p0 := timeslice
+
+		var _p0 interface{}
+		if timeslice != nil {
+			_p0 = *(timeslice)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

@@ -357,17 +357,35 @@ func (_this *Blob) Slice(start *int, end *int, contentType *string) (_result *Bl
 		_end  int
 	)
 	if start != nil {
-		_p0 := start
+
+		var _p0 interface{}
+		if start != nil {
+			_p0 = *(start)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if end != nil {
-		_p1 := end
+
+		var _p1 interface{}
+		if end != nil {
+			_p1 = *(end)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if contentType != nil {
-		_p2 := contentType
+
+		var _p2 interface{}
+		if contentType != nil {
+			_p2 = *(contentType)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -798,7 +816,13 @@ func (_this *FileReader) ReadAsText(blob *Blob, encoding *string) {
 	_args[0] = _p0
 	_end++
 	if encoding != nil {
-		_p1 := encoding
+
+		var _p1 interface{}
+		if encoding != nil {
+			_p1 = *(encoding)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -906,7 +930,13 @@ func (_this *FileReaderSync) ReadAsText(blob *Blob, encoding *string) (_result s
 	_args[0] = _p0
 	_end++
 	if encoding != nil {
-		_p1 := encoding
+
+		var _p1 interface{}
+		if encoding != nil {
+			_p1 = *(encoding)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

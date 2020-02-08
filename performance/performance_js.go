@@ -1246,7 +1246,13 @@ func (_this *ObserverEntryList) GetEntriesByName(name string, _type *string) (_r
 	_args[0] = _p0
 	_end++
 	if _type != nil {
-		_p1 := _type
+
+		var _p1 interface{}
+		if _type != nil {
+			_p1 = *(_type)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1444,7 +1450,13 @@ func (_this *Performance) GetEntriesByName(name string, _type *string) (_result 
 	_args[0] = _p0
 	_end++
 	if _type != nil {
-		_p1 := _type
+
+		var _p1 interface{}
+		if _type != nil {
+			_p1 = *(_type)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1514,7 +1526,13 @@ func (_this *Performance) ClearMarks(markName *string) {
 		_end  int
 	)
 	if markName != nil {
-		_p0 := markName
+
+		var _p0 interface{}
+		if markName != nil {
+			_p0 = *(markName)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1536,7 +1554,13 @@ func (_this *Performance) Measure(measureName string, startOrMeasureOptions *Uni
 		_end++
 	}
 	if endMark != nil {
-		_p2 := endMark
+
+		var _p2 interface{}
+		if endMark != nil {
+			_p2 = *(endMark)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1555,7 +1579,13 @@ func (_this *Performance) ClearMeasures(measureName *string) {
 		_end  int
 	)
 	if measureName != nil {
-		_p0 := measureName
+
+		var _p0 interface{}
+		if measureName != nil {
+			_p0 = *(measureName)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

@@ -440,12 +440,24 @@ func (_this *XMLHttpRequest) Open2(method *patch.ByteString, url string, async b
 	_args[2] = _p2
 	_end++
 	if username != nil {
-		_p3 := username
+
+		var _p3 interface{}
+		if username != nil {
+			_p3 = *(username)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if password != nil {
-		_p4 := password
+
+		var _p4 interface{}
+		if password != nil {
+			_p4 = *(password)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}

@@ -666,12 +666,24 @@ func (_this *CustomEvent) InitCustomEvent(_type string, bubbles *bool, cancelabl
 	_args[0] = _p0
 	_end++
 	if bubbles != nil {
-		_p1 := bubbles
+
+		var _p1 interface{}
+		if bubbles != nil {
+			_p1 = *(bubbles)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if cancelable != nil {
-		_p2 := cancelable
+
+		var _p2 interface{}
+		if cancelable != nil {
+			_p2 = *(cancelable)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -740,12 +752,24 @@ func NewDOMException(message *string, name *string) (_result *DOMException) {
 		_end  int
 	)
 	if message != nil {
-		_p0 := message
+
+		var _p0 interface{}
+		if message != nil {
+			_p0 = *(message)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if name != nil {
-		_p1 := name
+
+		var _p1 interface{}
+		if name != nil {
+			_p1 = *(name)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1082,7 +1106,13 @@ func (_this *DOMTokenList) Toggle(token string, force *bool) (_result bool) {
 	_args[0] = _p0
 	_end++
 	if force != nil {
-		_p1 := force
+
+		var _p1 interface{}
+		if force != nil {
+			_p1 = *(force)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1549,12 +1579,24 @@ func (_this *Event) InitEvent(_type string, bubbles *bool, cancelable *bool) {
 	_args[0] = _p0
 	_end++
 	if bubbles != nil {
-		_p1 := bubbles
+
+		var _p1 interface{}
+		if bubbles != nil {
+			_p1 = *(bubbles)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if cancelable != nil {
-		_p2 := cancelable
+
+		var _p2 interface{}
+		if cancelable != nil {
+			_p2 = *(cancelable)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}

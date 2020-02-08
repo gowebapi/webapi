@@ -1432,12 +1432,24 @@ func (_this *Array) CopyWithin(target int, start *int, end *int) (_result *Array
 	_args[0] = _p0
 	_end++
 	if start != nil {
-		_p1 := start
+
+		var _p1 interface{}
+		if start != nil {
+			_p1 = *(start)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if end != nil {
-		_p2 := end
+
+		var _p2 interface{}
+		if end != nil {
+			_p2 = *(end)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1502,12 +1514,24 @@ func (_this *Array) Fill(value interface{}, start *int, end *int) (_result *Arra
 	_args[0] = _p0
 	_end++
 	if start != nil {
-		_p1 := start
+
+		var _p1 interface{}
+		if start != nil {
+			_p1 = *(start)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if end != nil {
-		_p2 := end
+
+		var _p2 interface{}
+		if end != nil {
+			_p2 = *(end)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1613,7 +1637,13 @@ func (_this *Array) Flat(depth *int) (_result *Array) {
 		_end  int
 	)
 	if depth != nil {
-		_p0 := depth
+
+		var _p0 interface{}
+		if depth != nil {
+			_p0 = *(depth)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1725,7 +1755,13 @@ func (_this *Array) Join(separator *string) (_result string) {
 		_end  int
 	)
 	if separator != nil {
-		_p0 := separator
+
+		var _p0 interface{}
+		if separator != nil {
+			_p0 = *(separator)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1761,7 +1797,13 @@ func (_this *Array) LastIndexOf(searchElement interface{}, fromIndex *int) (_res
 	_args[0] = _p0
 	_end++
 	if fromIndex != nil {
-		_p1 := fromIndex
+
+		var _p1 interface{}
+		if fromIndex != nil {
+			_p1 = *(fromIndex)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1927,12 +1969,24 @@ func (_this *Array) Slice(begin *int, end *int) (_result *Array) {
 		_end  int
 	)
 	if begin != nil {
-		_p0 := begin
+
+		var _p0 interface{}
+		if begin != nil {
+			_p0 = *(begin)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if end != nil {
-		_p1 := end
+
+		var _p1 interface{}
+		if end != nil {
+			_p1 = *(end)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -2031,7 +2085,13 @@ func (_this *Array) ToLocaleString(locales *string) (_result string) {
 		_end  int
 	)
 	if locales != nil {
-		_p0 := locales
+
+		var _p0 interface{}
+		if locales != nil {
+			_p0 = *(locales)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

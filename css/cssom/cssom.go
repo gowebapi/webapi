@@ -70,7 +70,13 @@ func (_this *CSSGroupingRule) InsertRule(rule string, index *uint) (_result uint
 	_args[0] = _p0
 	_end++
 	if index != nil {
-		_p1 := index
+
+		var _p1 interface{}
+		if index != nil {
+			_p1 = *(index)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -554,7 +560,13 @@ func (_this *CSSStyleDeclaration) SetProperty(property string, value string, pri
 	_args[1] = _p1
 	_end++
 	if priority != nil {
-		_p2 := priority
+
+		var _p2 interface{}
+		if priority != nil {
+			_p2 = *(priority)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -674,7 +686,13 @@ func (_this *CSSStyleSheet) InsertRule(rule string, index *uint) (_result uint) 
 	_args[0] = _p0
 	_end++
 	if index != nil {
-		_p1 := index
+
+		var _p1 interface{}
+		if index != nil {
+			_p1 = *(index)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

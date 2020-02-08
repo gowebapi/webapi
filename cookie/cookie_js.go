@@ -486,11 +486,23 @@ func (_this *CookieListItem) JSValue() js.Value {
 	out.Set("name", value0)
 	value1 := _this.Value
 	out.Set("value", value1)
-	value2 := _this.Domain
+
+	var value2 interface{}
+	if _this.Domain != nil {
+		value2 = *(_this.Domain)
+	} else {
+		value2 = nil
+	}
 	out.Set("domain", value2)
 	value3 := _this.Path
 	out.Set("path", value3)
-	value4 := _this.Expires
+
+	var value4 interface{}
+	if _this.Expires != nil {
+		value4 = *(_this.Expires)
+	} else {
+		value4 = nil
+	}
 	out.Set("expires", value4)
 	value5 := _this.Secure
 	out.Set("secure", value5)
@@ -550,7 +562,13 @@ func (_this *CookieStoreDeleteOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Name
 	out.Set("name", value0)
-	value1 := _this.Domain
+
+	var value1 interface{}
+	if _this.Domain != nil {
+		value1 = *(_this.Domain)
+	} else {
+		value1 = nil
+	}
 	out.Set("domain", value1)
 	value2 := _this.Path
 	out.Set("path", value2)
@@ -635,9 +653,21 @@ type CookieStoreSetExtraOptions struct {
 // all values
 func (_this *CookieStoreSetExtraOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Expires
+
+	var value0 interface{}
+	if _this.Expires != nil {
+		value0 = *(_this.Expires)
+	} else {
+		value0 = nil
+	}
 	out.Set("expires", value0)
-	value1 := _this.Domain
+
+	var value1 interface{}
+	if _this.Domain != nil {
+		value1 = *(_this.Domain)
+	} else {
+		value1 = nil
+	}
 	out.Set("domain", value1)
 	value2 := _this.Path
 	out.Set("path", value2)
@@ -703,9 +733,21 @@ type CookieStoreSetOptions struct {
 // all values
 func (_this *CookieStoreSetOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Expires
+
+	var value0 interface{}
+	if _this.Expires != nil {
+		value0 = *(_this.Expires)
+	} else {
+		value0 = nil
+	}
 	out.Set("expires", value0)
-	value1 := _this.Domain
+
+	var value1 interface{}
+	if _this.Domain != nil {
+		value1 = *(_this.Domain)
+	} else {
+		value1 = nil
+	}
 	out.Set("domain", value1)
 	value2 := _this.Path
 	out.Set("path", value2)

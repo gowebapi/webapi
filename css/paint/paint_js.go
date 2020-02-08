@@ -1076,7 +1076,13 @@ func (_this *PaintRenderingContext2D) Arc(x float64, y float64, radius float64, 
 	_args[4] = _p4
 	_end++
 	if anticlockwise != nil {
-		_p5 := anticlockwise
+
+		var _p5 interface{}
+		if anticlockwise != nil {
+			_p5 = *(anticlockwise)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -1111,7 +1117,13 @@ func (_this *PaintRenderingContext2D) Ellipse(x float64, y float64, radiusX floa
 	_args[6] = _p6
 	_end++
 	if anticlockwise != nil {
-		_p7 := anticlockwise
+
+		var _p7 interface{}
+		if anticlockwise != nil {
+			_p7 = *(anticlockwise)
+		} else {
+			_p7 = nil
+		}
 		_args[7] = _p7
 		_end++
 	}

@@ -3231,7 +3231,13 @@ func (_this *RenderingContext) BufferData5(target uint, srcData *Union, usage ui
 	_args[3] = _p3
 	_end++
 	if length != nil {
-		_p4 := length
+
+		var _p4 interface{}
+		if length != nil {
+			_p4 = *(length)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -3257,7 +3263,13 @@ func (_this *RenderingContext) BufferSubData3(target uint, dstByteOffset int, sr
 	_args[3] = _p3
 	_end++
 	if length != nil {
-		_p4 := length
+
+		var _p4 interface{}
+		if length != nil {
+			_p4 = *(length)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -3304,12 +3316,24 @@ func (_this *RenderingContext) GetBufferSubData(target uint, srcByteOffset int, 
 	_args[2] = _p2
 	_end++
 	if dstOffset != nil {
-		_p3 := dstOffset
+
+		var _p3 interface{}
+		if dstOffset != nil {
+			_p3 = *(dstOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if length != nil {
-		_p4 := length
+
+		var _p4 interface{}
+		if length != nil {
+			_p4 = *(length)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -4173,7 +4197,13 @@ func (_this *RenderingContext) TexSubImage3D3(target uint, level int, xoffset in
 	_args[10] = _p10
 	_end++
 	if srcOffset != nil {
-		_p11 := srcOffset
+
+		var _p11 interface{}
+		if srcOffset != nil {
+			_p11 = *(srcOffset)
+		} else {
+			_p11 = nil
+		}
 		_args[11] = _p11
 		_end++
 	}
@@ -4277,12 +4307,24 @@ func (_this *RenderingContext) CompressedTexImage2D3(target uint, level int, int
 	_args[6] = _p6
 	_end++
 	if srcOffset != nil {
-		_p7 := srcOffset
+
+		var _p7 interface{}
+		if srcOffset != nil {
+			_p7 = *(srcOffset)
+		} else {
+			_p7 = nil
+		}
 		_args[7] = _p7
 		_end++
 	}
 	if srcLengthOverride != nil {
-		_p8 := srcLengthOverride
+
+		var _p8 interface{}
+		if srcLengthOverride != nil {
+			_p8 = *(srcLengthOverride)
+		} else {
+			_p8 = nil
+		}
 		_args[8] = _p8
 		_end++
 	}
@@ -4356,12 +4398,24 @@ func (_this *RenderingContext) CompressedTexImage3D2(target uint, level int, int
 	_args[7] = _p7
 	_end++
 	if srcOffset != nil {
-		_p8 := srcOffset
+
+		var _p8 interface{}
+		if srcOffset != nil {
+			_p8 = *(srcOffset)
+		} else {
+			_p8 = nil
+		}
 		_args[8] = _p8
 		_end++
 	}
 	if srcLengthOverride != nil {
-		_p9 := srcLengthOverride
+
+		var _p9 interface{}
+		if srcLengthOverride != nil {
+			_p9 = *(srcLengthOverride)
+		} else {
+			_p9 = nil
+		}
 		_args[9] = _p9
 		_end++
 	}
@@ -4435,12 +4489,24 @@ func (_this *RenderingContext) CompressedTexSubImage2D3(target uint, level int, 
 	_args[7] = _p7
 	_end++
 	if srcOffset != nil {
-		_p8 := srcOffset
+
+		var _p8 interface{}
+		if srcOffset != nil {
+			_p8 = *(srcOffset)
+		} else {
+			_p8 = nil
+		}
 		_args[8] = _p8
 		_end++
 	}
 	if srcLengthOverride != nil {
-		_p9 := srcLengthOverride
+
+		var _p9 interface{}
+		if srcLengthOverride != nil {
+			_p9 = *(srcLengthOverride)
+		} else {
+			_p9 = nil
+		}
 		_args[9] = _p9
 		_end++
 	}
@@ -4526,12 +4592,24 @@ func (_this *RenderingContext) CompressedTexSubImage3D2(target uint, level int, 
 	_args[9] = _p9
 	_end++
 	if srcOffset != nil {
-		_p10 := srcOffset
+
+		var _p10 interface{}
+		if srcOffset != nil {
+			_p10 = *(srcOffset)
+		} else {
+			_p10 = nil
+		}
 		_args[10] = _p10
 		_end++
 	}
 	if srcLengthOverride != nil {
-		_p11 := srcLengthOverride
+
+		var _p11 interface{}
+		if srcLengthOverride != nil {
+			_p11 = *(srcLengthOverride)
+		} else {
+			_p11 = nil
+		}
 		_args[11] = _p11
 		_end++
 	}
@@ -4649,12 +4727,24 @@ func (_this *RenderingContext) Uniform1fv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4674,12 +4764,24 @@ func (_this *RenderingContext) Uniform2fv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4699,12 +4801,24 @@ func (_this *RenderingContext) Uniform3fv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4724,12 +4838,24 @@ func (_this *RenderingContext) Uniform4fv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4749,12 +4875,24 @@ func (_this *RenderingContext) Uniform1iv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4774,12 +4912,24 @@ func (_this *RenderingContext) Uniform2iv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4799,12 +4949,24 @@ func (_this *RenderingContext) Uniform3iv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4824,12 +4986,24 @@ func (_this *RenderingContext) Uniform4iv2(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4849,12 +5023,24 @@ func (_this *RenderingContext) Uniform1uiv(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4874,12 +5060,24 @@ func (_this *RenderingContext) Uniform2uiv(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4899,12 +5097,24 @@ func (_this *RenderingContext) Uniform3uiv(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4924,12 +5134,24 @@ func (_this *RenderingContext) Uniform4uiv(location *webgl.UniformLocation, data
 	_args[1] = _p1
 	_end++
 	if srcOffset != nil {
-		_p2 := srcOffset
+
+		var _p2 interface{}
+		if srcOffset != nil {
+			_p2 = *(srcOffset)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if srcLength != nil {
-		_p3 := srcLength
+
+		var _p3 interface{}
+		if srcLength != nil {
+			_p3 = *(srcLength)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -4952,12 +5174,24 @@ func (_this *RenderingContext) UniformMatrix2fv2(location *webgl.UniformLocation
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -4980,12 +5214,24 @@ func (_this *RenderingContext) UniformMatrix3x2fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5008,12 +5254,24 @@ func (_this *RenderingContext) UniformMatrix4x2fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5036,12 +5294,24 @@ func (_this *RenderingContext) UniformMatrix2x3fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5064,12 +5334,24 @@ func (_this *RenderingContext) UniformMatrix3fv2(location *webgl.UniformLocation
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5092,12 +5374,24 @@ func (_this *RenderingContext) UniformMatrix4x3fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5120,12 +5414,24 @@ func (_this *RenderingContext) UniformMatrix2x4fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5148,12 +5454,24 @@ func (_this *RenderingContext) UniformMatrix3x4fv(location *webgl.UniformLocatio
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5176,12 +5494,24 @@ func (_this *RenderingContext) UniformMatrix4fv2(location *webgl.UniformLocation
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if srcLength != nil {
-		_p4 := srcLength
+
+		var _p4 interface{}
+		if srcLength != nil {
+			_p4 = *(srcLength)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
@@ -5502,7 +5832,13 @@ func (_this *RenderingContext) ClearBufferfv(buffer uint, drawbuffer int, values
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -5525,7 +5861,13 @@ func (_this *RenderingContext) ClearBufferiv(buffer uint, drawbuffer int, values
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -5548,7 +5890,13 @@ func (_this *RenderingContext) ClearBufferuiv(buffer uint, drawbuffer int, value
 	_args[2] = _p2
 	_end++
 	if srcOffset != nil {
-		_p3 := srcOffset
+
+		var _p3 interface{}
+		if srcOffset != nil {
+			_p3 = *(srcOffset)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}

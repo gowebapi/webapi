@@ -1657,7 +1657,13 @@ func (_this *WorkerGlobalScope) SetTimeout(handler *Union, timeout *int, argumen
 	_args[0] = _p0
 	_end++
 	if timeout != nil {
-		_p1 := timeout
+
+		var _p1 interface{}
+		if timeout != nil {
+			_p1 = *(timeout)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1681,7 +1687,13 @@ func (_this *WorkerGlobalScope) ClearTimeout(handle *int) {
 		_end  int
 	)
 	if handle != nil {
-		_p0 := handle
+
+		var _p0 interface{}
+		if handle != nil {
+			_p0 = *(handle)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1698,7 +1710,13 @@ func (_this *WorkerGlobalScope) SetInterval(handler *Union, timeout *int, argume
 	_args[0] = _p0
 	_end++
 	if timeout != nil {
-		_p1 := timeout
+
+		var _p1 interface{}
+		if timeout != nil {
+			_p1 = *(timeout)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1722,7 +1740,13 @@ func (_this *WorkerGlobalScope) ClearInterval(handle *int) {
 		_end  int
 	)
 	if handle != nil {
-		_p0 := handle
+
+		var _p0 interface{}
+		if handle != nil {
+			_p0 = *(handle)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

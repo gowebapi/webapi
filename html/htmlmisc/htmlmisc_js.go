@@ -996,7 +996,13 @@ func (_this *History) Go(delta *int) {
 		_end  int
 	)
 	if delta != nil {
-		_p0 := delta
+
+		var _p0 interface{}
+		if delta != nil {
+			_p0 = *(delta)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1034,7 +1040,13 @@ func (_this *History) PushState(data interface{}, title string, url *string) {
 	_args[1] = _p1
 	_end++
 	if url != nil {
-		_p2 := url
+
+		var _p2 interface{}
+		if url != nil {
+			_p2 = *(url)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1054,7 +1066,13 @@ func (_this *History) ReplaceState(data interface{}, title string, url *string) 
 	_args[1] = _p1
 	_end++
 	if url != nil {
-		_p2 := url
+
+		var _p2 interface{}
+		if url != nil {
+			_p2 = *(url)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -2234,7 +2252,13 @@ func (_this *PluginArray) Refresh(reload *bool) {
 		_end  int
 	)
 	if reload != nil {
-		_p0 := reload
+
+		var _p0 interface{}
+		if reload != nil {
+			_p0 = *(reload)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

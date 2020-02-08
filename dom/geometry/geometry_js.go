@@ -919,17 +919,35 @@ func (_this *DOMMatrix) TranslateSelf(tx *float64, ty *float64, tz *float64) (_r
 		_end  int
 	)
 	if tx != nil {
-		_p0 := tx
+
+		var _p0 interface{}
+		if tx != nil {
+			_p0 = *(tx)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if ty != nil {
-		_p1 := ty
+
+		var _p1 interface{}
+		if ty != nil {
+			_p1 = *(ty)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if tz != nil {
-		_p2 := tz
+
+		var _p2 interface{}
+		if tz != nil {
+			_p2 = *(tz)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -948,32 +966,68 @@ func (_this *DOMMatrix) ScaleSelf(scaleX *float64, scaleY *float64, scaleZ *floa
 		_end  int
 	)
 	if scaleX != nil {
-		_p0 := scaleX
+
+		var _p0 interface{}
+		if scaleX != nil {
+			_p0 = *(scaleX)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if scaleY != nil {
-		_p1 := scaleY
+
+		var _p1 interface{}
+		if scaleY != nil {
+			_p1 = *(scaleY)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if scaleZ != nil {
-		_p2 := scaleZ
+
+		var _p2 interface{}
+		if scaleZ != nil {
+			_p2 = *(scaleZ)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if originX != nil {
-		_p3 := originX
+
+		var _p3 interface{}
+		if originX != nil {
+			_p3 = *(originX)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if originY != nil {
-		_p4 := originY
+
+		var _p4 interface{}
+		if originY != nil {
+			_p4 = *(originY)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
 	if originZ != nil {
-		_p5 := originZ
+
+		var _p5 interface{}
+		if originZ != nil {
+			_p5 = *(originZ)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -992,22 +1046,46 @@ func (_this *DOMMatrix) Scale3dSelf(scale *float64, originX *float64, originY *f
 		_end  int
 	)
 	if scale != nil {
-		_p0 := scale
+
+		var _p0 interface{}
+		if scale != nil {
+			_p0 = *(scale)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if originX != nil {
-		_p1 := originX
+
+		var _p1 interface{}
+		if originX != nil {
+			_p1 = *(originX)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if originY != nil {
-		_p2 := originY
+
+		var _p2 interface{}
+		if originY != nil {
+			_p2 = *(originY)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if originZ != nil {
-		_p3 := originZ
+
+		var _p3 interface{}
+		if originZ != nil {
+			_p3 = *(originZ)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1026,17 +1104,35 @@ func (_this *DOMMatrix) RotateSelf(rotX *float64, rotY *float64, rotZ *float64) 
 		_end  int
 	)
 	if rotX != nil {
-		_p0 := rotX
+
+		var _p0 interface{}
+		if rotX != nil {
+			_p0 = *(rotX)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if rotY != nil {
-		_p1 := rotY
+
+		var _p1 interface{}
+		if rotY != nil {
+			_p1 = *(rotY)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if rotZ != nil {
-		_p2 := rotZ
+
+		var _p2 interface{}
+		if rotZ != nil {
+			_p2 = *(rotZ)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1055,12 +1151,24 @@ func (_this *DOMMatrix) RotateFromVectorSelf(x *float64, y *float64) (_result *D
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1079,22 +1187,46 @@ func (_this *DOMMatrix) RotateAxisAngleSelf(x *float64, y *float64, z *float64, 
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if z != nil {
-		_p2 := z
+
+		var _p2 interface{}
+		if z != nil {
+			_p2 = *(z)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if angle != nil {
-		_p3 := angle
+
+		var _p3 interface{}
+		if angle != nil {
+			_p3 = *(angle)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1113,7 +1245,13 @@ func (_this *DOMMatrix) SkewXSelf(sx *float64) (_result *DOMMatrix) {
 		_end  int
 	)
 	if sx != nil {
-		_p0 := sx
+
+		var _p0 interface{}
+		if sx != nil {
+			_p0 = *(sx)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1132,7 +1270,13 @@ func (_this *DOMMatrix) SkewYSelf(sy *float64) (_result *DOMMatrix) {
 		_end  int
 	)
 	if sy != nil {
-		_p0 := sy
+
+		var _p0 interface{}
+		if sy != nil {
+			_p0 = *(sy)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1498,17 +1642,35 @@ func (_this *DOMMatrixReadOnly) Translate(tx *float64, ty *float64, tz *float64)
 		_end  int
 	)
 	if tx != nil {
-		_p0 := tx
+
+		var _p0 interface{}
+		if tx != nil {
+			_p0 = *(tx)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if ty != nil {
-		_p1 := ty
+
+		var _p1 interface{}
+		if ty != nil {
+			_p1 = *(ty)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if tz != nil {
-		_p2 := tz
+
+		var _p2 interface{}
+		if tz != nil {
+			_p2 = *(tz)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1527,32 +1689,68 @@ func (_this *DOMMatrixReadOnly) Scale(scaleX *float64, scaleY *float64, scaleZ *
 		_end  int
 	)
 	if scaleX != nil {
-		_p0 := scaleX
+
+		var _p0 interface{}
+		if scaleX != nil {
+			_p0 = *(scaleX)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if scaleY != nil {
-		_p1 := scaleY
+
+		var _p1 interface{}
+		if scaleY != nil {
+			_p1 = *(scaleY)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if scaleZ != nil {
-		_p2 := scaleZ
+
+		var _p2 interface{}
+		if scaleZ != nil {
+			_p2 = *(scaleZ)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if originX != nil {
-		_p3 := originX
+
+		var _p3 interface{}
+		if originX != nil {
+			_p3 = *(originX)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if originY != nil {
-		_p4 := originY
+
+		var _p4 interface{}
+		if originY != nil {
+			_p4 = *(originY)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
 	if originZ != nil {
-		_p5 := originZ
+
+		var _p5 interface{}
+		if originZ != nil {
+			_p5 = *(originZ)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -1571,12 +1769,24 @@ func (_this *DOMMatrixReadOnly) ScaleNonUniform(scaleX *float64, scaleY *float64
 		_end  int
 	)
 	if scaleX != nil {
-		_p0 := scaleX
+
+		var _p0 interface{}
+		if scaleX != nil {
+			_p0 = *(scaleX)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if scaleY != nil {
-		_p1 := scaleY
+
+		var _p1 interface{}
+		if scaleY != nil {
+			_p1 = *(scaleY)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1595,22 +1805,46 @@ func (_this *DOMMatrixReadOnly) Scale3d(scale *float64, originX *float64, origin
 		_end  int
 	)
 	if scale != nil {
-		_p0 := scale
+
+		var _p0 interface{}
+		if scale != nil {
+			_p0 = *(scale)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if originX != nil {
-		_p1 := originX
+
+		var _p1 interface{}
+		if originX != nil {
+			_p1 = *(originX)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if originY != nil {
-		_p2 := originY
+
+		var _p2 interface{}
+		if originY != nil {
+			_p2 = *(originY)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if originZ != nil {
-		_p3 := originZ
+
+		var _p3 interface{}
+		if originZ != nil {
+			_p3 = *(originZ)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1629,17 +1863,35 @@ func (_this *DOMMatrixReadOnly) Rotate(rotX *float64, rotY *float64, rotZ *float
 		_end  int
 	)
 	if rotX != nil {
-		_p0 := rotX
+
+		var _p0 interface{}
+		if rotX != nil {
+			_p0 = *(rotX)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if rotY != nil {
-		_p1 := rotY
+
+		var _p1 interface{}
+		if rotY != nil {
+			_p1 = *(rotY)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if rotZ != nil {
-		_p2 := rotZ
+
+		var _p2 interface{}
+		if rotZ != nil {
+			_p2 = *(rotZ)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1658,12 +1910,24 @@ func (_this *DOMMatrixReadOnly) RotateFromVector(x *float64, y *float64) (_resul
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1682,22 +1946,46 @@ func (_this *DOMMatrixReadOnly) RotateAxisAngle(x *float64, y *float64, z *float
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if z != nil {
-		_p2 := z
+
+		var _p2 interface{}
+		if z != nil {
+			_p2 = *(z)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if angle != nil {
-		_p3 := angle
+
+		var _p3 interface{}
+		if angle != nil {
+			_p3 = *(angle)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1716,7 +2004,13 @@ func (_this *DOMMatrixReadOnly) SkewX(sx *float64) (_result *DOMMatrix) {
 		_end  int
 	)
 	if sx != nil {
-		_p0 := sx
+
+		var _p0 interface{}
+		if sx != nil {
+			_p0 = *(sx)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1735,7 +2029,13 @@ func (_this *DOMMatrixReadOnly) SkewY(sy *float64) (_result *DOMMatrix) {
 		_end  int
 	)
 	if sy != nil {
-		_p0 := sy
+
+		var _p0 interface{}
+		if sy != nil {
+			_p0 = *(sy)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1928,22 +2228,46 @@ func NewDOMPoint(x *float64, y *float64, z *float64, w *float64) (_result *DOMPo
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if z != nil {
-		_p2 := z
+
+		var _p2 interface{}
+		if z != nil {
+			_p2 = *(z)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if w != nil {
-		_p3 := w
+
+		var _p3 interface{}
+		if w != nil {
+			_p3 = *(w)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -2069,22 +2393,46 @@ func NewDOMPointReadOnly(x *float64, y *float64, z *float64, w *float64) (_resul
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if z != nil {
-		_p2 := z
+
+		var _p2 interface{}
+		if z != nil {
+			_p2 = *(z)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if w != nil {
-		_p3 := w
+
+		var _p3 interface{}
+		if w != nil {
+			_p3 = *(w)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -2372,22 +2720,46 @@ func NewDOMRect(x *float64, y *float64, width *float64, height *float64) (_resul
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if width != nil {
-		_p2 := width
+
+		var _p2 interface{}
+		if width != nil {
+			_p2 = *(width)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if height != nil {
-		_p3 := height
+
+		var _p3 interface{}
+		if height != nil {
+			_p3 = *(height)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -2581,22 +2953,46 @@ func NewDOMRectReadOnly(x *float64, y *float64, width *float64, height *float64)
 		_end  int
 	)
 	if x != nil {
-		_p0 := x
+
+		var _p0 interface{}
+		if x != nil {
+			_p0 = *(x)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if y != nil {
-		_p1 := y
+
+		var _p1 interface{}
+		if y != nil {
+			_p1 = *(y)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if width != nil {
-		_p2 := width
+
+		var _p2 interface{}
+		if width != nil {
+			_p2 = *(width)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if height != nil {
-		_p3 := height
+
+		var _p3 interface{}
+		if height != nil {
+			_p3 = *(height)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}

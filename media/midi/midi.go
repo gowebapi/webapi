@@ -1287,7 +1287,13 @@ func (_this *Output) Send(data []int, timestamp *float64) {
 	_args[0] = _p0
 	_end++
 	if timestamp != nil {
-		_p1 := timestamp
+
+		var _p1 interface{}
+		if timestamp != nil {
+			_p1 = *(timestamp)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

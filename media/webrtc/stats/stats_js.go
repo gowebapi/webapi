@@ -1051,7 +1051,13 @@ func (_this *IceCandidateStats) JSValue() js.Value {
 	out.Set("transportId", value3)
 	value4 := _this.NetworkType.JSValue()
 	out.Set("networkType", value4)
-	value5 := _this.Address
+
+	var value5 interface{}
+	if _this.Address != nil {
+		value5 = *(_this.Address)
+	} else {
+		value5 = nil
+	}
 	out.Set("address", value5)
 	value6 := _this.Port
 	out.Set("port", value6)

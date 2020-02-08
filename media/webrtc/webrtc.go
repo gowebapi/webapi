@@ -1886,9 +1886,21 @@ func (_this *IceCandidateInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Candidate
 	out.Set("candidate", value0)
-	value1 := _this.SdpMid
+
+	var value1 interface{}
+	if _this.SdpMid != nil {
+		value1 = *(_this.SdpMid)
+	} else {
+		value1 = nil
+	}
 	out.Set("sdpMid", value1)
-	value2 := _this.SdpMLineIndex
+
+	var value2 interface{}
+	if _this.SdpMLineIndex != nil {
+		value2 = *(_this.SdpMLineIndex)
+	} else {
+		value2 = nil
+	}
 	out.Set("sdpMLineIndex", value2)
 	value3 := _this.UsernameFragment
 	out.Set("usernameFragment", value3)
@@ -2231,7 +2243,13 @@ func (_this *PeerConnectionIceEventInit) JSValue() js.Value {
 	out.Set("composed", value2)
 	value3 := _this.Candidate.JSValue()
 	out.Set("candidate", value3)
-	value4 := _this.Url
+
+	var value4 interface{}
+	if _this.Url != nil {
+		value4 = *(_this.Url)
+	} else {
+		value4 = nil
+	}
 	out.Set("url", value4)
 	return out
 }
@@ -3523,12 +3541,24 @@ func (_this *DTMFSender) InsertDTMF(tones string, duration *uint, interToneGap *
 	_args[0] = _p0
 	_end++
 	if duration != nil {
-		_p1 := duration
+
+		var _p1 interface{}
+		if duration != nil {
+			_p1 = *(duration)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if interToneGap != nil {
-		_p2 := interToneGap
+
+		var _p2 interface{}
+		if interToneGap != nil {
+			_p2 = *(interToneGap)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}

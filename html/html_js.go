@@ -627,7 +627,13 @@ func (_this *FormData) Append2(name string, blobValue *file.Blob, filename *stri
 	_args[1] = _p1
 	_end++
 	if filename != nil {
-		_p2 := filename
+
+		var _p2 interface{}
+		if filename != nil {
+			_p2 = *(filename)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -735,7 +741,13 @@ func (_this *FormData) Set2(name string, blobValue *file.Blob, filename *string)
 	_args[1] = _p1
 	_end++
 	if filename != nil {
-		_p2 := filename
+
+		var _p2 interface{}
+		if filename != nil {
+			_p2 = *(filename)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -1053,7 +1065,13 @@ func (_this *HTMLAllCollection) Item(nameOrIndex *string) (_result *Union) {
 		_end  int
 	)
 	if nameOrIndex != nil {
-		_p0 := nameOrIndex
+
+		var _p0 interface{}
+		if nameOrIndex != nil {
+			_p0 = *(nameOrIndex)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -3037,7 +3055,13 @@ func (_this *HTMLDialogElement) Close(returnValue *string) {
 		_end  int
 	)
 	if returnValue != nil {
-		_p0 := returnValue
+
+		var _p0 interface{}
+		if returnValue != nil {
+			_p0 = *(returnValue)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -7551,7 +7575,12 @@ func (_this *HTMLImageElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *HTMLImageElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 
@@ -8486,7 +8515,12 @@ func (_this *HTMLInputElement) SelectionStart() *uint {
 // SetSelectionStart setting attribute 'selectionStart' with
 // type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetSelectionStart(value *uint) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("selectionStart", input)
 }
 
@@ -8505,7 +8539,12 @@ func (_this *HTMLInputElement) SelectionEnd() *uint {
 // SetSelectionEnd setting attribute 'selectionEnd' with
 // type uint (idl: unsigned long).
 func (_this *HTMLInputElement) SetSelectionEnd(value *uint) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("selectionEnd", input)
 }
 
@@ -8524,7 +8563,12 @@ func (_this *HTMLInputElement) SelectionDirection() *string {
 // SetSelectionDirection setting attribute 'selectionDirection' with
 // type string (idl: DOMString).
 func (_this *HTMLInputElement) SetSelectionDirection(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("selectionDirection", input)
 }
 
@@ -8607,7 +8651,13 @@ func (_this *HTMLInputElement) StepUp(n *int) {
 		_end  int
 	)
 	if n != nil {
-		_p0 := n
+
+		var _p0 interface{}
+		if n != nil {
+			_p0 = *(n)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -8621,7 +8671,13 @@ func (_this *HTMLInputElement) StepDown(n *int) {
 		_end  int
 	)
 	if n != nil {
-		_p0 := n
+
+		var _p0 interface{}
+		if n != nil {
+			_p0 = *(n)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -8725,7 +8781,13 @@ func (_this *HTMLInputElement) SetSelectionRange(start uint, end uint, direction
 	_args[1] = _p1
 	_end++
 	if direction != nil {
-		_p2 := direction
+
+		var _p2 interface{}
+		if direction != nil {
+			_p2 = *(direction)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -8925,7 +8987,12 @@ func (_this *HTMLLinkElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *HTMLLinkElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 
@@ -10635,7 +10702,12 @@ func (_this *HTMLScriptElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *HTMLScriptElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 
@@ -12106,7 +12178,13 @@ func (_this *HTMLTableElement) InsertRow(index *int) (_result *HTMLTableRowEleme
 		_end  int
 	)
 	if index != nil {
-		_p0 := index
+
+		var _p0 interface{}
+		if index != nil {
+			_p0 = *(index)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -12260,7 +12338,13 @@ func (_this *HTMLTableRowElement) InsertCell(index *int) (_result *HTMLTableCell
 		_end  int
 	)
 	if index != nil {
-		_p0 := index
+
+		var _p0 interface{}
+		if index != nil {
+			_p0 = *(index)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -12380,7 +12464,13 @@ func (_this *HTMLTableSectionElement) InsertRow(index *int) (_result *HTMLTableR
 		_end  int
 	)
 	if index != nil {
-		_p0 := index
+
+		var _p0 interface{}
+		if index != nil {
+			_p0 = *(index)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -12895,7 +12985,13 @@ func (_this *HTMLTextAreaElement) SetSelectionRange(start uint, end uint, direct
 	_args[1] = _p1
 	_end++
 	if direction != nil {
-		_p2 := direction
+
+		var _p2 interface{}
+		if direction != nil {
+			_p2 = *(direction)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}

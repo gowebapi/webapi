@@ -283,7 +283,13 @@ func NewURL(url string, base *string) (_result *URL) {
 	_args[0] = _p0
 	_end++
 	if base != nil {
-		_p1 := base
+
+		var _p1 interface{}
+		if base != nil {
+			_p1 = *(base)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

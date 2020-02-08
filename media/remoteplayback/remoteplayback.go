@@ -274,7 +274,13 @@ func (_this *RemotePlayback) CancelWatchAvailability(id *int) (_result *javascri
 		_end  int
 	)
 	if id != nil {
-		_p0 := id
+
+		var _p0 interface{}
+		if id != nil {
+			_p0 = *(id)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

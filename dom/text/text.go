@@ -164,7 +164,13 @@ func NewTextDecoder(label *string, options *DecoderOptions) (_result *Decoder) {
 		_end  int
 	)
 	if label != nil {
-		_p0 := label
+
+		var _p0 interface{}
+		if label != nil {
+			_p0 = *(label)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -261,7 +267,13 @@ func NewTextDecoderStream(label *string, options *DecoderOptions) (_result *Deco
 		_end  int
 	)
 	if label != nil {
-		_p0 := label
+
+		var _p0 interface{}
+		if label != nil {
+			_p0 = *(label)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -375,7 +387,13 @@ func (_this *Encoder) Encode(input *string) (_result *javascript.Uint8Array) {
 		_end  int
 	)
 	if input != nil {
-		_p0 := input
+
+		var _p0 interface{}
+		if input != nil {
+			_p0 = *(input)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

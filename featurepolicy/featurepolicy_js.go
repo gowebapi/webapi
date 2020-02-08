@@ -64,7 +64,13 @@ func (_this *FeaturePolicy) AllowsFeature(feature string, origin *string) (_resu
 	_args[0] = _p0
 	_end++
 	if origin != nil {
-		_p1 := origin
+
+		var _p1 interface{}
+		if origin != nil {
+			_p1 = *(origin)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

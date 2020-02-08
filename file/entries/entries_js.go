@@ -317,7 +317,13 @@ func (_this *FileSystemDirectoryEntry) GetFile(path *string, options *FileSystem
 		_end  int
 	)
 	if path != nil {
-		_p0 := path
+
+		var _p0 interface{}
+		if path != nil {
+			_p0 = *(path)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -360,7 +366,13 @@ func (_this *FileSystemDirectoryEntry) GetDirectory(path *string, options *FileS
 		_end  int
 	)
 	if path != nil {
-		_p0 := path
+
+		var _p0 interface{}
+		if path != nil {
+			_p0 = *(path)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

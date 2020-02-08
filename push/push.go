@@ -480,7 +480,13 @@ func (_this *SubscriptionJSON) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.Endpoint
 	out.Set("endpoint", value0)
-	value1 := _this.ExpirationTime
+
+	var value1 interface{}
+	if _this.ExpirationTime != nil {
+		value1 = *(_this.ExpirationTime)
+	} else {
+		value1 = nil
+	}
 	out.Set("expirationTime", value1)
 	return out
 }

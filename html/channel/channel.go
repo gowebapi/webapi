@@ -615,12 +615,24 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 	_args[0] = _p0
 	_end++
 	if bubbles != nil {
-		_p1 := bubbles
+
+		var _p1 interface{}
+		if bubbles != nil {
+			_p1 = *(bubbles)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if cancelable != nil {
-		_p2 := cancelable
+
+		var _p2 interface{}
+		if cancelable != nil {
+			_p2 = *(cancelable)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -630,12 +642,24 @@ func (_this *MessageEvent) InitMessageEvent(_type string, bubbles *bool, cancela
 		_end++
 	}
 	if origin != nil {
-		_p4 := origin
+
+		var _p4 interface{}
+		if origin != nil {
+			_p4 = *(origin)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
 	if lastEventId != nil {
-		_p5 := lastEventId
+
+		var _p5 interface{}
+		if lastEventId != nil {
+			_p5 = *(lastEventId)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -1058,12 +1082,24 @@ func (_this *WebSocket) Close(code *int, reason *string) {
 		_end  int
 	)
 	if code != nil {
-		_p0 := code
+
+		var _p0 interface{}
+		if code != nil {
+			_p0 = *(code)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if reason != nil {
-		_p1 := reason
+
+		var _p1 interface{}
+		if reason != nil {
+			_p1 = *(reason)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

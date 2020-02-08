@@ -2531,7 +2531,13 @@ func (_this *AudioBuffer) CopyFromChannel(destination *javascript.Float32Array, 
 	_args[1] = _p1
 	_end++
 	if startInChannel != nil {
-		_p2 := startInChannel
+
+		var _p2 interface{}
+		if startInChannel != nil {
+			_p2 = *(startInChannel)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -2551,7 +2557,13 @@ func (_this *AudioBuffer) CopyToChannel(source *javascript.Float32Array, channel
 	_args[1] = _p1
 	_end++
 	if startInChannel != nil {
-		_p2 := startInChannel
+
+		var _p2 interface{}
+		if startInChannel != nil {
+			_p2 = *(startInChannel)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -2688,17 +2700,35 @@ func (_this *AudioBufferSourceNode) Start2(when *float64, offset *float64, durat
 		_end  int
 	)
 	if when != nil {
-		_p0 := when
+
+		var _p0 interface{}
+		if when != nil {
+			_p0 = *(when)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if offset != nil {
-		_p1 := offset
+
+		var _p1 interface{}
+		if offset != nil {
+			_p1 = *(offset)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if duration != nil {
-		_p2 := duration
+
+		var _p2 interface{}
+		if duration != nil {
+			_p2 = *(duration)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -3153,12 +3183,24 @@ func (_this *AudioNode) Connect(destinationNode *AudioNode, output *uint, input 
 	_args[0] = _p0
 	_end++
 	if output != nil {
-		_p1 := output
+
+		var _p1 interface{}
+		if output != nil {
+			_p1 = *(output)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if input != nil {
-		_p2 := input
+
+		var _p2 interface{}
+		if input != nil {
+			_p2 = *(input)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -3180,7 +3222,13 @@ func (_this *AudioNode) Connect2(destinationParam *AudioParam, output *uint) {
 	_args[0] = _p0
 	_end++
 	if output != nil {
-		_p1 := output
+
+		var _p1 interface{}
+		if output != nil {
+			_p1 = *(output)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -3865,7 +3913,13 @@ func (_this *AudioScheduledSourceNode) Start(when *float64) {
 		_end  int
 	)
 	if when != nil {
-		_p0 := when
+
+		var _p0 interface{}
+		if when != nil {
+			_p0 = *(when)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -3879,7 +3933,13 @@ func (_this *AudioScheduledSourceNode) Stop(when *float64) {
 		_end  int
 	)
 	if when != nil {
-		_p0 := when
+
+		var _p0 interface{}
+		if when != nil {
+			_p0 = *(when)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4301,7 +4361,13 @@ func (_this *BaseAudioContext) CreateChannelMerger(numberOfInputs *uint) (_resul
 		_end  int
 	)
 	if numberOfInputs != nil {
-		_p0 := numberOfInputs
+
+		var _p0 interface{}
+		if numberOfInputs != nil {
+			_p0 = *(numberOfInputs)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4320,7 +4386,13 @@ func (_this *BaseAudioContext) CreateChannelSplitter(numberOfOutputs *uint) (_re
 		_end  int
 	)
 	if numberOfOutputs != nil {
-		_p0 := numberOfOutputs
+
+		var _p0 interface{}
+		if numberOfOutputs != nil {
+			_p0 = *(numberOfOutputs)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4367,7 +4439,13 @@ func (_this *BaseAudioContext) CreateDelay(maxDelayTime *float64) (_result *Dela
 		_end  int
 	)
 	if maxDelayTime != nil {
-		_p0 := maxDelayTime
+
+		var _p0 interface{}
+		if maxDelayTime != nil {
+			_p0 = *(maxDelayTime)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4487,17 +4565,35 @@ func (_this *BaseAudioContext) CreateScriptProcessor(bufferSize *uint, numberOfI
 		_end  int
 	)
 	if bufferSize != nil {
-		_p0 := bufferSize
+
+		var _p0 interface{}
+		if bufferSize != nil {
+			_p0 = *(bufferSize)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if numberOfInputChannels != nil {
-		_p1 := numberOfInputChannels
+
+		var _p1 interface{}
+		if numberOfInputChannels != nil {
+			_p1 = *(numberOfInputChannels)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if numberOfOutputChannels != nil {
-		_p2 := numberOfOutputChannels
+
+		var _p2 interface{}
+		if numberOfOutputChannels != nil {
+			_p2 = *(numberOfOutputChannels)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}

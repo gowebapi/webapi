@@ -359,11 +359,29 @@ type AccelerometerReadingValues struct {
 // all values
 func (_this *AccelerometerReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -440,7 +458,13 @@ type AmbientLightReadingValues struct {
 // all values
 func (_this *AmbientLightReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Illuminance
+
+	var value0 interface{}
+	if _this.Illuminance != nil {
+		value0 = *(_this.Illuminance)
+	} else {
+		value0 = nil
+	}
 	out.Set("illuminance", value0)
 	return out
 }
@@ -473,11 +497,29 @@ type DeviceAccelerationInit struct {
 // all values
 func (_this *DeviceAccelerationInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -602,11 +644,29 @@ func (_this *DeviceOrientationEventInit) JSValue() js.Value {
 	out.Set("cancelable", value1)
 	value2 := _this.Composed
 	out.Set("composed", value2)
-	value3 := _this.Alpha
+
+	var value3 interface{}
+	if _this.Alpha != nil {
+		value3 = *(_this.Alpha)
+	} else {
+		value3 = nil
+	}
 	out.Set("alpha", value3)
-	value4 := _this.Beta
+
+	var value4 interface{}
+	if _this.Beta != nil {
+		value4 = *(_this.Beta)
+	} else {
+		value4 = nil
+	}
 	out.Set("beta", value4)
-	value5 := _this.Gamma
+
+	var value5 interface{}
+	if _this.Gamma != nil {
+		value5 = *(_this.Gamma)
+	} else {
+		value5 = nil
+	}
 	out.Set("gamma", value5)
 	value6 := _this.Absolute
 	out.Set("absolute", value6)
@@ -665,11 +725,29 @@ type DeviceRotationRateInit struct {
 // all values
 func (_this *DeviceRotationRateInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Alpha
+
+	var value0 interface{}
+	if _this.Alpha != nil {
+		value0 = *(_this.Alpha)
+	} else {
+		value0 = nil
+	}
 	out.Set("alpha", value0)
-	value1 := _this.Beta
+
+	var value1 interface{}
+	if _this.Beta != nil {
+		value1 = *(_this.Beta)
+	} else {
+		value1 = nil
+	}
 	out.Set("beta", value1)
-	value2 := _this.Gamma
+
+	var value2 interface{}
+	if _this.Gamma != nil {
+		value2 = *(_this.Gamma)
+	} else {
+		value2 = nil
+	}
 	out.Set("gamma", value2)
 	return out
 }
@@ -718,19 +796,61 @@ type GeolocationReadingValues struct {
 // all values
 func (_this *GeolocationReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Latitude
+
+	var value0 interface{}
+	if _this.Latitude != nil {
+		value0 = *(_this.Latitude)
+	} else {
+		value0 = nil
+	}
 	out.Set("latitude", value0)
-	value1 := _this.Longitude
+
+	var value1 interface{}
+	if _this.Longitude != nil {
+		value1 = *(_this.Longitude)
+	} else {
+		value1 = nil
+	}
 	out.Set("longitude", value1)
-	value2 := _this.Altitude
+
+	var value2 interface{}
+	if _this.Altitude != nil {
+		value2 = *(_this.Altitude)
+	} else {
+		value2 = nil
+	}
 	out.Set("altitude", value2)
-	value3 := _this.Accuracy
+
+	var value3 interface{}
+	if _this.Accuracy != nil {
+		value3 = *(_this.Accuracy)
+	} else {
+		value3 = nil
+	}
 	out.Set("accuracy", value3)
-	value4 := _this.AltitudeAccuracy
+
+	var value4 interface{}
+	if _this.AltitudeAccuracy != nil {
+		value4 = *(_this.AltitudeAccuracy)
+	} else {
+		value4 = nil
+	}
 	out.Set("altitudeAccuracy", value4)
-	value5 := _this.Heading
+
+	var value5 interface{}
+	if _this.Heading != nil {
+		value5 = *(_this.Heading)
+	} else {
+		value5 = nil
+	}
 	out.Set("heading", value5)
-	value6 := _this.Speed
+
+	var value6 interface{}
+	if _this.Speed != nil {
+		value6 = *(_this.Speed)
+	} else {
+		value6 = nil
+	}
 	out.Set("speed", value6)
 	return out
 }
@@ -832,21 +952,69 @@ type GeolocationSensorReading struct {
 // all values
 func (_this *GeolocationSensorReading) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Timestamp
+
+	var value0 interface{}
+	if _this.Timestamp != nil {
+		value0 = *(_this.Timestamp)
+	} else {
+		value0 = nil
+	}
 	out.Set("timestamp", value0)
-	value1 := _this.Latitude
+
+	var value1 interface{}
+	if _this.Latitude != nil {
+		value1 = *(_this.Latitude)
+	} else {
+		value1 = nil
+	}
 	out.Set("latitude", value1)
-	value2 := _this.Longitude
+
+	var value2 interface{}
+	if _this.Longitude != nil {
+		value2 = *(_this.Longitude)
+	} else {
+		value2 = nil
+	}
 	out.Set("longitude", value2)
-	value3 := _this.Altitude
+
+	var value3 interface{}
+	if _this.Altitude != nil {
+		value3 = *(_this.Altitude)
+	} else {
+		value3 = nil
+	}
 	out.Set("altitude", value3)
-	value4 := _this.Accuracy
+
+	var value4 interface{}
+	if _this.Accuracy != nil {
+		value4 = *(_this.Accuracy)
+	} else {
+		value4 = nil
+	}
 	out.Set("accuracy", value4)
-	value5 := _this.AltitudeAccuracy
+
+	var value5 interface{}
+	if _this.AltitudeAccuracy != nil {
+		value5 = *(_this.AltitudeAccuracy)
+	} else {
+		value5 = nil
+	}
 	out.Set("altitudeAccuracy", value5)
-	value6 := _this.Heading
+
+	var value6 interface{}
+	if _this.Heading != nil {
+		value6 = *(_this.Heading)
+	} else {
+		value6 = nil
+	}
 	out.Set("heading", value6)
-	value7 := _this.Speed
+
+	var value7 interface{}
+	if _this.Speed != nil {
+		value7 = *(_this.Speed)
+	} else {
+		value7 = nil
+	}
 	out.Set("speed", value7)
 	return out
 }
@@ -921,11 +1089,29 @@ type GravityReadingValues struct {
 // all values
 func (_this *GravityReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -970,11 +1156,29 @@ type GyroscopeReadingValues struct {
 // all values
 func (_this *GyroscopeReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -1053,11 +1257,29 @@ type LinearAccelerationReadingValues struct {
 // all values
 func (_this *LinearAccelerationReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -1102,11 +1324,29 @@ type MagnetometerReadingValues struct {
 // all values
 func (_this *MagnetometerReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
 	return out
 }
@@ -1230,9 +1470,21 @@ func (_this *MockSensorConfiguration) JSValue() js.Value {
 	out.Set("mockSensorType", value0)
 	value1 := _this.Connected
 	out.Set("connected", value1)
-	value2 := _this.MaxSamplingFrequency
+
+	var value2 interface{}
+	if _this.MaxSamplingFrequency != nil {
+		value2 = *(_this.MaxSamplingFrequency)
+	} else {
+		value2 = nil
+	}
 	out.Set("maxSamplingFrequency", value2)
-	value3 := _this.MinSamplingFrequency
+
+	var value3 interface{}
+	if _this.MinSamplingFrequency != nil {
+		value3 = *(_this.MinSamplingFrequency)
+	} else {
+		value3 = nil
+	}
 	out.Set("minSamplingFrequency", value3)
 	return out
 }
@@ -1371,11 +1623,29 @@ type ProximityReadingValues struct {
 // all values
 func (_this *ProximityReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.Distance
+
+	var value0 interface{}
+	if _this.Distance != nil {
+		value0 = *(_this.Distance)
+	} else {
+		value0 = nil
+	}
 	out.Set("distance", value0)
-	value1 := _this.Max
+
+	var value1 interface{}
+	if _this.Max != nil {
+		value1 = *(_this.Max)
+	} else {
+		value1 = nil
+	}
 	out.Set("max", value1)
-	value2 := _this.Near
+
+	var value2 interface{}
+	if _this.Near != nil {
+		value2 = *(_this.Near)
+	} else {
+		value2 = nil
+	}
 	out.Set("near", value2)
 	return out
 }
@@ -1563,17 +1833,53 @@ type UncalibratedMagnetometerReadingValues struct {
 // all values
 func (_this *UncalibratedMagnetometerReadingValues) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
-	value0 := _this.X
+
+	var value0 interface{}
+	if _this.X != nil {
+		value0 = *(_this.X)
+	} else {
+		value0 = nil
+	}
 	out.Set("x", value0)
-	value1 := _this.Y
+
+	var value1 interface{}
+	if _this.Y != nil {
+		value1 = *(_this.Y)
+	} else {
+		value1 = nil
+	}
 	out.Set("y", value1)
-	value2 := _this.Z
+
+	var value2 interface{}
+	if _this.Z != nil {
+		value2 = *(_this.Z)
+	} else {
+		value2 = nil
+	}
 	out.Set("z", value2)
-	value3 := _this.XBias
+
+	var value3 interface{}
+	if _this.XBias != nil {
+		value3 = *(_this.XBias)
+	} else {
+		value3 = nil
+	}
 	out.Set("xBias", value3)
-	value4 := _this.YBias
+
+	var value4 interface{}
+	if _this.YBias != nil {
+		value4 = *(_this.YBias)
+	} else {
+		value4 = nil
+	}
 	out.Set("yBias", value4)
-	value5 := _this.ZBias
+
+	var value5 interface{}
+	if _this.ZBias != nil {
+		value5 = *(_this.ZBias)
+	} else {
+		value5 = nil
+	}
 	out.Set("zBias", value5)
 	return out
 }

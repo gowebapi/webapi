@@ -4398,7 +4398,12 @@ func (_this *SVGImageElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *SVGImageElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 
@@ -6772,7 +6777,12 @@ func (_this *SVGScriptElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *SVGScriptElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 

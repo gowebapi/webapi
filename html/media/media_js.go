@@ -681,7 +681,12 @@ func (_this *HTMLMediaElement) CrossOrigin() *string {
 // SetCrossOrigin setting attribute 'crossOrigin' with
 // type string (idl: DOMString).
 func (_this *HTMLMediaElement) SetCrossOrigin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("crossOrigin", input)
 }
 
@@ -1164,12 +1169,24 @@ func (_this *HTMLMediaElement) AddTextTrack(kind TextTrackKind, label *string, l
 	_args[0] = _p0
 	_end++
 	if label != nil {
-		_p1 := label
+
+		var _p1 interface{}
+		if label != nil {
+			_p1 = *(label)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if language != nil {
-		_p2 := language
+
+		var _p2 interface{}
+		if language != nil {
+			_p2 = *(language)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}

@@ -3098,7 +3098,13 @@ func (_this *ServiceWorkerContainer) GetRegistration(clientURL *string) (_result
 		_end  int
 	)
 	if clientURL != nil {
-		_p0 := clientURL
+
+		var _p0 interface{}
+		if clientURL != nil {
+			_p0 = *(clientURL)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

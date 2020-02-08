@@ -1551,7 +1551,13 @@ func Redirect(url string, status *int) (_result *Response) {
 	_args[0] = _p0
 	_end++
 	if status != nil {
-		_p1 := status
+
+		var _p1 interface{}
+		if status != nil {
+			_p1 = *(status)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

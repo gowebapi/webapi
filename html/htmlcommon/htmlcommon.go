@@ -137,7 +137,13 @@ func OnBeforeUnloadEventHandlerToJS(callback OnBeforeUnloadEventHandlerFunc) *On
 		)
 		_p0 = domcore.EventFromJS(args[0])
 		_returned := callback(_p0)
-		_converted := _returned
+
+		var _converted interface{}
+		if _returned != nil {
+			_converted = *(_returned)
+		} else {
+			_converted = nil
+		}
 		return _converted
 	}))
 	return &ret
@@ -219,17 +225,35 @@ func OnErrorEventHandlerFromJS(_value js.Value) OnErrorEventHandlerFunc {
 		_args[0] = _p0
 		_end++
 		if source != nil {
-			_p1 := source
+
+			var _p1 interface{}
+			if source != nil {
+				_p1 = *(source)
+			} else {
+				_p1 = nil
+			}
 			_args[1] = _p1
 			_end++
 		}
 		if lineno != nil {
-			_p2 := lineno
+
+			var _p2 interface{}
+			if lineno != nil {
+				_p2 = *(lineno)
+			} else {
+				_p2 = nil
+			}
 			_args[2] = _p2
 			_end++
 		}
 		if colno != nil {
-			_p3 := colno
+
+			var _p3 interface{}
+			if colno != nil {
+				_p3 = *(colno)
+			} else {
+				_p3 = nil
+			}
 			_args[3] = _p3
 			_end++
 		}

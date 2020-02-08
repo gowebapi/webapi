@@ -388,7 +388,13 @@ func (_this *IDBVersionChangeEventInit) JSValue() js.Value {
 	out.Set("composed", value2)
 	value3 := _this.OldVersion
 	out.Set("oldVersion", value3)
-	value4 := _this.NewVersion
+
+	var value4 interface{}
+	if _this.NewVersion != nil {
+		value4 = *(_this.NewVersion)
+	} else {
+		value4 = nil
+	}
 	out.Set("newVersion", value4)
 	return out
 }
@@ -850,7 +856,13 @@ func (_this *IDBFactory) Open(name string, version *int) (_result *IDBOpenDBRequ
 	_args[0] = _p0
 	_end++
 	if version != nil {
-		_p1 := version
+
+		var _p1 interface{}
+		if version != nil {
+			_p1 = *(version)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1032,7 +1044,13 @@ func (_this *IDBIndex) GetAll(query interface{}, count *uint) (_result *IDBReque
 		_end++
 	}
 	if count != nil {
-		_p1 := count
+
+		var _p1 interface{}
+		if count != nil {
+			_p1 = *(count)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1056,7 +1074,13 @@ func (_this *IDBIndex) GetAllKeys(query interface{}, count *uint) (_result *IDBR
 		_end++
 	}
 	if count != nil {
-		_p1 := count
+
+		var _p1 interface{}
+		if count != nil {
+			_p1 = *(count)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1187,7 +1211,13 @@ func LowerBound(lower interface{}, open *bool) (_result *IDBKeyRange) {
 	_args[0] = _p0
 	_end++
 	if open != nil {
-		_p1 := open
+
+		var _p1 interface{}
+		if open != nil {
+			_p1 = *(open)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1211,7 +1241,13 @@ func UpperBound(upper interface{}, open *bool) (_result *IDBKeyRange) {
 	_args[0] = _p0
 	_end++
 	if open != nil {
-		_p1 := open
+
+		var _p1 interface{}
+		if open != nil {
+			_p1 = *(open)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1238,12 +1274,24 @@ func Bound(lower interface{}, upper interface{}, lowerOpen *bool, upperOpen *boo
 	_args[1] = _p1
 	_end++
 	if lowerOpen != nil {
-		_p2 := lowerOpen
+
+		var _p2 interface{}
+		if lowerOpen != nil {
+			_p2 = *(lowerOpen)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if upperOpen != nil {
-		_p3 := upperOpen
+
+		var _p3 interface{}
+		if upperOpen != nil {
+			_p3 = *(upperOpen)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1502,7 +1550,13 @@ func (_this *IDBObjectStore) GetAll(query interface{}, count *uint) (_result *ID
 		_end++
 	}
 	if count != nil {
-		_p1 := count
+
+		var _p1 interface{}
+		if count != nil {
+			_p1 = *(count)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1526,7 +1580,13 @@ func (_this *IDBObjectStore) GetAllKeys(query interface{}, count *uint) (_result
 		_end++
 	}
 	if count != nil {
-		_p1 := count
+
+		var _p1 interface{}
+		if count != nil {
+			_p1 = *(count)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

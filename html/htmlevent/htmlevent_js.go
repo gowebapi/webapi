@@ -686,7 +686,13 @@ func (_this *InputEventInit) JSValue() js.Value {
 	out.Set("detail", value4)
 	value5 := _this.SourceCapabilities.JSValue()
 	out.Set("sourceCapabilities", value5)
-	value6 := _this.Data
+
+	var value6 interface{}
+	if _this.Data != nil {
+		value6 = *(_this.Data)
+	} else {
+		value6 = nil
+	}
 	out.Set("data", value6)
 	value7 := _this.IsComposing
 	out.Set("isComposing", value7)
@@ -1598,11 +1604,29 @@ func (_this *StorageEventInit) JSValue() js.Value {
 	out.Set("cancelable", value1)
 	value2 := _this.Composed
 	out.Set("composed", value2)
-	value3 := _this.Key
+
+	var value3 interface{}
+	if _this.Key != nil {
+		value3 = *(_this.Key)
+	} else {
+		value3 = nil
+	}
 	out.Set("key", value3)
-	value4 := _this.OldValue
+
+	var value4 interface{}
+	if _this.OldValue != nil {
+		value4 = *(_this.OldValue)
+	} else {
+		value4 = nil
+	}
 	out.Set("oldValue", value4)
-	value5 := _this.NewValue
+
+	var value5 interface{}
+	if _this.NewValue != nil {
+		value5 = *(_this.NewValue)
+	} else {
+		value5 = nil
+	}
 	out.Set("newValue", value5)
 	value6 := _this.Url
 	out.Set("url", value6)
@@ -3352,32 +3376,68 @@ func (_this *StorageEvent) InitStorageEvent(_type string, bubbles *bool, cancela
 	_args[0] = _p0
 	_end++
 	if bubbles != nil {
-		_p1 := bubbles
+
+		var _p1 interface{}
+		if bubbles != nil {
+			_p1 = *(bubbles)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if cancelable != nil {
-		_p2 := cancelable
+
+		var _p2 interface{}
+		if cancelable != nil {
+			_p2 = *(cancelable)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
 	if key != nil {
-		_p3 := key
+
+		var _p3 interface{}
+		if key != nil {
+			_p3 = *(key)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
 	if oldValue != nil {
-		_p4 := oldValue
+
+		var _p4 interface{}
+		if oldValue != nil {
+			_p4 = *(oldValue)
+		} else {
+			_p4 = nil
+		}
 		_args[4] = _p4
 		_end++
 	}
 	if newValue != nil {
-		_p5 := newValue
+
+		var _p5 interface{}
+		if newValue != nil {
+			_p5 = *(newValue)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
 	if url != nil {
-		_p6 := url
+
+		var _p6 interface{}
+		if url != nil {
+			_p6 = *(url)
+		} else {
+			_p6 = nil
+		}
 		_args[6] = _p6
 		_end++
 	}

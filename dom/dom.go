@@ -917,7 +917,13 @@ func NewComment(data *string) (_result *Comment) {
 		_end  int
 	)
 	if data != nil {
-		_p0 := data
+
+		var _p0 interface{}
+		if data != nil {
+			_p0 = *(data)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -1669,7 +1675,12 @@ func (_this *Element) Role() *string {
 // SetRole setting attribute 'role' with
 // type string (idl: DOMString).
 func (_this *Element) SetRole(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("role", input)
 }
 
@@ -1688,7 +1699,12 @@ func (_this *Element) AriaActiveDescendant() *string {
 // SetAriaActiveDescendant setting attribute 'ariaActiveDescendant' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaActiveDescendant(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaActiveDescendant", input)
 }
 
@@ -1707,7 +1723,12 @@ func (_this *Element) AriaAtomic() *string {
 // SetAriaAtomic setting attribute 'ariaAtomic' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaAtomic(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaAtomic", input)
 }
 
@@ -1726,7 +1747,12 @@ func (_this *Element) AriaAutoComplete() *string {
 // SetAriaAutoComplete setting attribute 'ariaAutoComplete' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaAutoComplete(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaAutoComplete", input)
 }
 
@@ -1745,7 +1771,12 @@ func (_this *Element) AriaBusy() *string {
 // SetAriaBusy setting attribute 'ariaBusy' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaBusy(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaBusy", input)
 }
 
@@ -1764,7 +1795,12 @@ func (_this *Element) AriaChecked() *string {
 // SetAriaChecked setting attribute 'ariaChecked' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaChecked(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaChecked", input)
 }
 
@@ -1783,7 +1819,12 @@ func (_this *Element) AriaColCount() *string {
 // SetAriaColCount setting attribute 'ariaColCount' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaColCount(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaColCount", input)
 }
 
@@ -1802,7 +1843,12 @@ func (_this *Element) AriaColIndex() *string {
 // SetAriaColIndex setting attribute 'ariaColIndex' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaColIndex(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaColIndex", input)
 }
 
@@ -1821,7 +1867,12 @@ func (_this *Element) AriaColSpan() *string {
 // SetAriaColSpan setting attribute 'ariaColSpan' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaColSpan(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaColSpan", input)
 }
 
@@ -1840,7 +1891,12 @@ func (_this *Element) AriaControls() *string {
 // SetAriaControls setting attribute 'ariaControls' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaControls(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaControls", input)
 }
 
@@ -1859,7 +1915,12 @@ func (_this *Element) AriaCurrent() *string {
 // SetAriaCurrent setting attribute 'ariaCurrent' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaCurrent(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaCurrent", input)
 }
 
@@ -1878,7 +1939,12 @@ func (_this *Element) AriaDescribedBy() *string {
 // SetAriaDescribedBy setting attribute 'ariaDescribedBy' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaDescribedBy(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaDescribedBy", input)
 }
 
@@ -1897,7 +1963,12 @@ func (_this *Element) AriaDetails() *string {
 // SetAriaDetails setting attribute 'ariaDetails' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaDetails(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaDetails", input)
 }
 
@@ -1916,7 +1987,12 @@ func (_this *Element) AriaDisabled() *string {
 // SetAriaDisabled setting attribute 'ariaDisabled' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaDisabled(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaDisabled", input)
 }
 
@@ -1935,7 +2011,12 @@ func (_this *Element) AriaErrorMessage() *string {
 // SetAriaErrorMessage setting attribute 'ariaErrorMessage' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaErrorMessage(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaErrorMessage", input)
 }
 
@@ -1954,7 +2035,12 @@ func (_this *Element) AriaExpanded() *string {
 // SetAriaExpanded setting attribute 'ariaExpanded' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaExpanded(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaExpanded", input)
 }
 
@@ -1973,7 +2059,12 @@ func (_this *Element) AriaFlowTo() *string {
 // SetAriaFlowTo setting attribute 'ariaFlowTo' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaFlowTo(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaFlowTo", input)
 }
 
@@ -1992,7 +2083,12 @@ func (_this *Element) AriaHasPopup() *string {
 // SetAriaHasPopup setting attribute 'ariaHasPopup' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaHasPopup(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaHasPopup", input)
 }
 
@@ -2011,7 +2107,12 @@ func (_this *Element) AriaHidden() *string {
 // SetAriaHidden setting attribute 'ariaHidden' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaHidden(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaHidden", input)
 }
 
@@ -2030,7 +2131,12 @@ func (_this *Element) AriaInvalid() *string {
 // SetAriaInvalid setting attribute 'ariaInvalid' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaInvalid(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaInvalid", input)
 }
 
@@ -2049,7 +2155,12 @@ func (_this *Element) AriaKeyShortcuts() *string {
 // SetAriaKeyShortcuts setting attribute 'ariaKeyShortcuts' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaKeyShortcuts(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaKeyShortcuts", input)
 }
 
@@ -2068,7 +2179,12 @@ func (_this *Element) AriaLabel() *string {
 // SetAriaLabel setting attribute 'ariaLabel' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaLabel(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaLabel", input)
 }
 
@@ -2087,7 +2203,12 @@ func (_this *Element) AriaLabelledBy() *string {
 // SetAriaLabelledBy setting attribute 'ariaLabelledBy' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaLabelledBy(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaLabelledBy", input)
 }
 
@@ -2106,7 +2227,12 @@ func (_this *Element) AriaLevel() *string {
 // SetAriaLevel setting attribute 'ariaLevel' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaLevel(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaLevel", input)
 }
 
@@ -2125,7 +2251,12 @@ func (_this *Element) AriaLive() *string {
 // SetAriaLive setting attribute 'ariaLive' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaLive(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaLive", input)
 }
 
@@ -2144,7 +2275,12 @@ func (_this *Element) AriaModal() *string {
 // SetAriaModal setting attribute 'ariaModal' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaModal(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaModal", input)
 }
 
@@ -2163,7 +2299,12 @@ func (_this *Element) AriaMultiLine() *string {
 // SetAriaMultiLine setting attribute 'ariaMultiLine' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaMultiLine(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaMultiLine", input)
 }
 
@@ -2182,7 +2323,12 @@ func (_this *Element) AriaMultiSelectable() *string {
 // SetAriaMultiSelectable setting attribute 'ariaMultiSelectable' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaMultiSelectable(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaMultiSelectable", input)
 }
 
@@ -2201,7 +2347,12 @@ func (_this *Element) AriaOrientation() *string {
 // SetAriaOrientation setting attribute 'ariaOrientation' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaOrientation(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaOrientation", input)
 }
 
@@ -2220,7 +2371,12 @@ func (_this *Element) AriaOwns() *string {
 // SetAriaOwns setting attribute 'ariaOwns' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaOwns(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaOwns", input)
 }
 
@@ -2239,7 +2395,12 @@ func (_this *Element) AriaPlaceholder() *string {
 // SetAriaPlaceholder setting attribute 'ariaPlaceholder' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaPlaceholder(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaPlaceholder", input)
 }
 
@@ -2258,7 +2419,12 @@ func (_this *Element) AriaPosInSet() *string {
 // SetAriaPosInSet setting attribute 'ariaPosInSet' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaPosInSet(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaPosInSet", input)
 }
 
@@ -2277,7 +2443,12 @@ func (_this *Element) AriaPressed() *string {
 // SetAriaPressed setting attribute 'ariaPressed' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaPressed(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaPressed", input)
 }
 
@@ -2296,7 +2467,12 @@ func (_this *Element) AriaReadOnly() *string {
 // SetAriaReadOnly setting attribute 'ariaReadOnly' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaReadOnly(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaReadOnly", input)
 }
 
@@ -2315,7 +2491,12 @@ func (_this *Element) AriaRelevant() *string {
 // SetAriaRelevant setting attribute 'ariaRelevant' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRelevant(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRelevant", input)
 }
 
@@ -2334,7 +2515,12 @@ func (_this *Element) AriaRequired() *string {
 // SetAriaRequired setting attribute 'ariaRequired' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRequired(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRequired", input)
 }
 
@@ -2353,7 +2539,12 @@ func (_this *Element) AriaRoleDescription() *string {
 // SetAriaRoleDescription setting attribute 'ariaRoleDescription' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRoleDescription(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRoleDescription", input)
 }
 
@@ -2372,7 +2563,12 @@ func (_this *Element) AriaRowCount() *string {
 // SetAriaRowCount setting attribute 'ariaRowCount' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRowCount(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRowCount", input)
 }
 
@@ -2391,7 +2587,12 @@ func (_this *Element) AriaRowIndex() *string {
 // SetAriaRowIndex setting attribute 'ariaRowIndex' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRowIndex(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRowIndex", input)
 }
 
@@ -2410,7 +2611,12 @@ func (_this *Element) AriaRowSpan() *string {
 // SetAriaRowSpan setting attribute 'ariaRowSpan' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaRowSpan(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaRowSpan", input)
 }
 
@@ -2429,7 +2635,12 @@ func (_this *Element) AriaSelected() *string {
 // SetAriaSelected setting attribute 'ariaSelected' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaSelected(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaSelected", input)
 }
 
@@ -2448,7 +2659,12 @@ func (_this *Element) AriaSetSize() *string {
 // SetAriaSetSize setting attribute 'ariaSetSize' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaSetSize(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaSetSize", input)
 }
 
@@ -2467,7 +2683,12 @@ func (_this *Element) AriaSort() *string {
 // SetAriaSort setting attribute 'ariaSort' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaSort(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaSort", input)
 }
 
@@ -2486,7 +2707,12 @@ func (_this *Element) AriaValueMax() *string {
 // SetAriaValueMax setting attribute 'ariaValueMax' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaValueMax(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaValueMax", input)
 }
 
@@ -2505,7 +2731,12 @@ func (_this *Element) AriaValueMin() *string {
 // SetAriaValueMin setting attribute 'ariaValueMin' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaValueMin(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaValueMin", input)
 }
 
@@ -2524,7 +2755,12 @@ func (_this *Element) AriaValueNow() *string {
 // SetAriaValueNow setting attribute 'ariaValueNow' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaValueNow(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaValueNow", input)
 }
 
@@ -2543,7 +2779,12 @@ func (_this *Element) AriaValueText() *string {
 // SetAriaValueText setting attribute 'ariaValueText' with
 // type string (idl: DOMString).
 func (_this *Element) SetAriaValueText(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("ariaValueText", input)
 }
 
@@ -2654,7 +2895,13 @@ func (_this *Element) GetAttributeNS(namespace *string, localName string) (_resu
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -2692,7 +2939,13 @@ func (_this *Element) SetAttributeNS(namespace *string, qualifiedName string, va
 		_args [3]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := qualifiedName
@@ -2722,7 +2975,13 @@ func (_this *Element) RemoveAttributeNS(namespace *string, localName string) {
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -2741,7 +3000,13 @@ func (_this *Element) ToggleAttribute(qualifiedName string, force *bool) (_resul
 	_args[0] = _p0
 	_end++
 	if force != nil {
-		_p1 := force
+
+		var _p1 interface{}
+		if force != nil {
+			_p1 = *(force)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -2776,7 +3041,13 @@ func (_this *Element) HasAttributeNS(namespace *string, localName string) (_resu
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -2815,7 +3086,13 @@ func (_this *Element) GetAttributeNodeNS(namespace *string, localName string) (_
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -2979,7 +3256,13 @@ func (_this *Element) GetElementsByTagNameNS(namespace *string, localName string
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -3770,7 +4053,13 @@ func (_this *NamedNodeMap) GetNamedItemNS(namespace *string, localName string) (
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -3847,7 +4136,13 @@ func (_this *NamedNodeMap) RemoveNamedItemNS(namespace *string, localName string
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -4034,7 +4329,12 @@ func (_this *Node) NodeValue() *string {
 // SetNodeValue setting attribute 'nodeValue' with
 // type string (idl: DOMString).
 func (_this *Node) SetNodeValue(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("nodeValue", input)
 }
 
@@ -4053,7 +4353,12 @@ func (_this *Node) TextContent() *string {
 // SetTextContent setting attribute 'textContent' with
 // type string (idl: DOMString).
 func (_this *Node) SetTextContent(value *string) {
-	input := value
+	var input interface{}
+	if value != nil {
+		input = *(value)
+	} else {
+		input = nil
+	}
 	_this.Value_JS.Set("textContent", input)
 }
 
@@ -4105,7 +4410,13 @@ func (_this *Node) CloneNode(deep *bool) (_result *Node) {
 		_end  int
 	)
 	if deep != nil {
-		_p0 := deep
+
+		var _p0 interface{}
+		if deep != nil {
+			_p0 = *(deep)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4191,7 +4502,13 @@ func (_this *Node) LookupPrefix(namespace *string) (_result *string) {
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_returned := _this.Value_JS.Call("lookupPrefix", _args[0:_end]...)
@@ -4211,7 +4528,13 @@ func (_this *Node) LookupNamespaceURI(prefix *string) (_result *string) {
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := prefix
+
+	var _p0 interface{}
+	if prefix != nil {
+		_p0 = *(prefix)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_returned := _this.Value_JS.Call("lookupNamespaceURI", _args[0:_end]...)
@@ -4231,7 +4554,13 @@ func (_this *Node) IsDefaultNamespace(namespace *string) (_result bool) {
 		_args [1]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_returned := _this.Value_JS.Call("isDefaultNamespace", _args[0:_end]...)
@@ -5072,7 +5401,13 @@ func (_this *Range) Collapse(toStart *bool) {
 		_end  int
 	)
 	if toStart != nil {
-		_p0 := toStart
+
+		var _p0 interface{}
+		if toStart != nil {
+			_p0 = *(toStart)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -5439,7 +5774,13 @@ func NewText(data *string) (_result *Text) {
 		_end  int
 	)
 	if data != nil {
-		_p0 := data
+
+		var _p0 interface{}
+		if data != nil {
+			_p0 = *(data)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

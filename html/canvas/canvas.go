@@ -1679,7 +1679,13 @@ func (_this *CanvasRenderingContext2D) FillText(text string, x float64, y float6
 	_args[2] = _p2
 	_end++
 	if maxWidth != nil {
-		_p3 := maxWidth
+
+		var _p3 interface{}
+		if maxWidth != nil {
+			_p3 = *(maxWidth)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -1702,7 +1708,13 @@ func (_this *CanvasRenderingContext2D) StrokeText(text string, x float64, y floa
 	_args[2] = _p2
 	_end++
 	if maxWidth != nil {
-		_p3 := maxWidth
+
+		var _p3 interface{}
+		if maxWidth != nil {
+			_p3 = *(maxWidth)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -2095,7 +2107,13 @@ func (_this *CanvasRenderingContext2D) Arc(x float64, y float64, radius float64,
 	_args[4] = _p4
 	_end++
 	if anticlockwise != nil {
-		_p5 := anticlockwise
+
+		var _p5 interface{}
+		if anticlockwise != nil {
+			_p5 = *(anticlockwise)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -2130,7 +2148,13 @@ func (_this *CanvasRenderingContext2D) Ellipse(x float64, y float64, radiusX flo
 	_args[6] = _p6
 	_end++
 	if anticlockwise != nil {
-		_p7 := anticlockwise
+
+		var _p7 interface{}
+		if anticlockwise != nil {
+			_p7 = *(anticlockwise)
+		} else {
+			_p7 = nil
+		}
 		_args[7] = _p7
 		_end++
 	}
@@ -2216,7 +2240,13 @@ func (_this *HTMLCanvasElement) ToDataURL(_type *string, quality interface{}) (_
 		_end  int
 	)
 	if _type != nil {
-		_p0 := _type
+
+		var _p0 interface{}
+		if _type != nil {
+			_p0 = *(_type)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -2250,7 +2280,13 @@ func (_this *HTMLCanvasElement) ToBlob(callback *file.BlobCallback, _type *strin
 	_args[0] = _p0
 	_end++
 	if _type != nil {
-		_p1 := _type
+
+		var _p1 interface{}
+		if _type != nil {
+			_p1 = *(_type)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -2283,7 +2319,13 @@ func (_this *HTMLCanvasElement) CaptureStream(frameRequestRate *float64) (_resul
 		_end  int
 	)
 	if frameRequestRate != nil {
-		_p0 := frameRequestRate
+
+		var _p0 interface{}
+		if frameRequestRate != nil {
+			_p0 = *(frameRequestRate)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -2420,7 +2462,13 @@ func NewImageData(data *patch.Uint8ClampedArray, sw uint, sh *uint) (_result *Im
 	_args[1] = _p1
 	_end++
 	if sh != nil {
-		_p2 := sh
+
+		var _p2 interface{}
+		if sh != nil {
+			_p2 = *(sh)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -3442,7 +3490,13 @@ func (_this *OffscreenCanvasRenderingContext2D) FillText(text string, x float64,
 	_args[2] = _p2
 	_end++
 	if maxWidth != nil {
-		_p3 := maxWidth
+
+		var _p3 interface{}
+		if maxWidth != nil {
+			_p3 = *(maxWidth)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -3465,7 +3519,13 @@ func (_this *OffscreenCanvasRenderingContext2D) StrokeText(text string, x float6
 	_args[2] = _p2
 	_end++
 	if maxWidth != nil {
-		_p3 := maxWidth
+
+		var _p3 interface{}
+		if maxWidth != nil {
+			_p3 = *(maxWidth)
+		} else {
+			_p3 = nil
+		}
 		_args[3] = _p3
 		_end++
 	}
@@ -3858,7 +3918,13 @@ func (_this *OffscreenCanvasRenderingContext2D) Arc(x float64, y float64, radius
 	_args[4] = _p4
 	_end++
 	if anticlockwise != nil {
-		_p5 := anticlockwise
+
+		var _p5 interface{}
+		if anticlockwise != nil {
+			_p5 = *(anticlockwise)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -3893,7 +3959,13 @@ func (_this *OffscreenCanvasRenderingContext2D) Ellipse(x float64, y float64, ra
 	_args[6] = _p6
 	_end++
 	if anticlockwise != nil {
-		_p7 := anticlockwise
+
+		var _p7 interface{}
+		if anticlockwise != nil {
+			_p7 = *(anticlockwise)
+		} else {
+			_p7 = nil
+		}
 		_args[7] = _p7
 		_end++
 	}
@@ -4112,7 +4184,13 @@ func (_this *Path2D) Arc(x float64, y float64, radius float64, startAngle float6
 	_args[4] = _p4
 	_end++
 	if anticlockwise != nil {
-		_p5 := anticlockwise
+
+		var _p5 interface{}
+		if anticlockwise != nil {
+			_p5 = *(anticlockwise)
+		} else {
+			_p5 = nil
+		}
 		_args[5] = _p5
 		_end++
 	}
@@ -4147,7 +4225,13 @@ func (_this *Path2D) Ellipse(x float64, y float64, radiusX float64, radiusY floa
 	_args[6] = _p6
 	_end++
 	if anticlockwise != nil {
-		_p7 := anticlockwise
+
+		var _p7 interface{}
+		if anticlockwise != nil {
+			_p7 = *(anticlockwise)
+		} else {
+			_p7 = nil
+		}
 		_args[7] = _p7
 		_end++
 	}

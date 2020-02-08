@@ -2873,7 +2873,13 @@ func NewUSBIsochronousOutTransferPacket(status USBTransferStatus, bytesWritten *
 	_args[0] = _p0
 	_end++
 	if bytesWritten != nil {
-		_p1 := bytesWritten
+
+		var _p1 interface{}
+		if bytesWritten != nil {
+			_p1 = *(bytesWritten)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -2987,7 +2993,13 @@ func NewUSBOutTransferResult(status USBTransferStatus, bytesWritten *uint) (_res
 	_args[0] = _p0
 	_end++
 	if bytesWritten != nil {
-		_p1 := bytesWritten
+
+		var _p1 interface{}
+		if bytesWritten != nil {
+			_p1 = *(bytesWritten)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

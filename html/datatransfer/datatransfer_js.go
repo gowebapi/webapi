@@ -277,7 +277,13 @@ func (_this *DataTransfer) ClearData(format *string) {
 		_end  int
 	)
 	if format != nil {
-		_p0 := format
+
+		var _p0 interface{}
+		if format != nil {
+			_p0 = *(format)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

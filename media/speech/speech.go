@@ -544,7 +544,13 @@ func (_this *SpeechGrammarList) AddFromURI(src string, weight *float32) {
 	_args[0] = _p0
 	_end++
 	if weight != nil {
-		_p1 := weight
+
+		var _p1 interface{}
+		if weight != nil {
+			_p1 = *(weight)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -561,7 +567,13 @@ func (_this *SpeechGrammarList) AddFromString(string string, weight *float32) {
 	_args[0] = _p0
 	_end++
 	if weight != nil {
-		_p1 := weight
+
+		var _p1 interface{}
+		if weight != nil {
+			_p1 = *(weight)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1653,7 +1665,13 @@ func NewSpeechSynthesisUtterance(text *string) (_result *SpeechSynthesisUtteranc
 		_end  int
 	)
 	if text != nil {
-		_p0 := text
+
+		var _p0 interface{}
+		if text != nil {
+			_p0 = *(text)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

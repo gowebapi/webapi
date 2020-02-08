@@ -476,7 +476,13 @@ func (_this *DOMImplementation) CreateDocument(namespace *string, qualifiedName 
 		_args [3]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := qualifiedName
@@ -502,7 +508,13 @@ func (_this *DOMImplementation) CreateHTMLDocument(title *string) (_result *Docu
 		_end  int
 	)
 	if title != nil {
-		_p0 := title
+
+		var _p0 interface{}
+		if title != nil {
+			_p0 = *(title)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -4044,7 +4056,13 @@ func (_this *Document) GetElementsByTagNameNS(namespace *string, localName strin
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := localName
@@ -4103,7 +4121,13 @@ func (_this *Document) CreateElementNS(namespace *string, qualifiedName string, 
 		_args [3]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := qualifiedName
@@ -4217,7 +4241,13 @@ func (_this *Document) ImportNode(node *dom.Node, deep *bool) (_result *dom.Node
 	_args[0] = _p0
 	_end++
 	if deep != nil {
-		_p1 := deep
+
+		var _p1 interface{}
+		if deep != nil {
+			_p1 = *(deep)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -4269,7 +4299,13 @@ func (_this *Document) CreateAttributeNS(namespace *string, qualifiedName string
 		_args [2]interface{}
 		_end  int
 	)
-	_p0 := namespace
+
+	var _p0 interface{}
+	if namespace != nil {
+		_p0 = *(namespace)
+	} else {
+		_p0 = nil
+	}
 	_args[0] = _p0
 	_end++
 	_p1 := qualifiedName
@@ -4324,7 +4360,13 @@ func (_this *Document) CreateNodeIterator(root *dom.Node, whatToShow *uint, filt
 	_args[0] = _p0
 	_end++
 	if whatToShow != nil {
-		_p1 := whatToShow
+
+		var _p1 interface{}
+		if whatToShow != nil {
+			_p1 = *(whatToShow)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -4351,7 +4393,13 @@ func (_this *Document) CreateTreeWalker(root *dom.Node, whatToShow *uint, filter
 	_args[0] = _p0
 	_end++
 	if whatToShow != nil {
-		_p1 := whatToShow
+
+		var _p1 interface{}
+		if whatToShow != nil {
+			_p1 = *(whatToShow)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -4524,12 +4572,24 @@ func (_this *Document) Open(unused1 *string, unused2 *string) (_result *Document
 		_end  int
 	)
 	if unused1 != nil {
-		_p0 := unused1
+
+		var _p0 interface{}
+		if unused1 != nil {
+			_p0 = *(unused1)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if unused2 != nil {
-		_p1 := unused2
+
+		var _p1 interface{}
+		if unused2 != nil {
+			_p1 = *(unused2)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -4627,12 +4687,24 @@ func (_this *Document) ExecCommand(commandId string, showUI *bool, value *string
 	_args[0] = _p0
 	_end++
 	if showUI != nil {
-		_p1 := showUI
+
+		var _p1 interface{}
+		if showUI != nil {
+			_p1 = *(showUI)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if value != nil {
-		_p2 := value
+
+		var _p2 interface{}
+		if value != nil {
+			_p2 = *(value)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -10333,17 +10405,35 @@ func (_this *Window) Open(url *string, target *string, features *string) (_resul
 		_end  int
 	)
 	if url != nil {
-		_p0 := url
+
+		var _p0 interface{}
+		if url != nil {
+			_p0 = *(url)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if target != nil {
-		_p1 := target
+
+		var _p1 interface{}
+		if target != nil {
+			_p1 = *(target)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
 	if features != nil {
-		_p2 := features
+
+		var _p2 interface{}
+		if features != nil {
+			_p2 = *(features)
+		} else {
+			_p2 = nil
+		}
 		_args[2] = _p2
 		_end++
 	}
@@ -10385,7 +10475,13 @@ func (_this *Window) Confirm(message *string) (_result bool) {
 		_end  int
 	)
 	if message != nil {
-		_p0 := message
+
+		var _p0 interface{}
+		if message != nil {
+			_p0 = *(message)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -10404,12 +10500,24 @@ func (_this *Window) Prompt(message *string, _default *string) (_result *string)
 		_end  int
 	)
 	if message != nil {
-		_p0 := message
+
+		var _p0 interface{}
+		if message != nil {
+			_p0 = *(message)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
 	if _default != nil {
-		_p1 := _default
+
+		var _p1 interface{}
+		if _default != nil {
+			_p1 = *(_default)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -10668,7 +10776,13 @@ func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_res
 	_args[0] = _p0
 	_end++
 	if pseudoElt != nil {
-		_p1 := pseudoElt
+
+		var _p1 interface{}
+		if pseudoElt != nil {
+			_p1 = *(pseudoElt)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -10799,7 +10913,13 @@ func (_this *Window) SetTimeout(handler *Union, timeout *int, arguments ...inter
 	_args[0] = _p0
 	_end++
 	if timeout != nil {
-		_p1 := timeout
+
+		var _p1 interface{}
+		if timeout != nil {
+			_p1 = *(timeout)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -10823,7 +10943,13 @@ func (_this *Window) ClearTimeout(handle *int) {
 		_end  int
 	)
 	if handle != nil {
-		_p0 := handle
+
+		var _p0 interface{}
+		if handle != nil {
+			_p0 = *(handle)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}
@@ -10840,7 +10966,13 @@ func (_this *Window) SetInterval(handler *Union, timeout *int, arguments ...inte
 	_args[0] = _p0
 	_end++
 	if timeout != nil {
-		_p1 := timeout
+
+		var _p1 interface{}
+		if timeout != nil {
+			_p1 = *(timeout)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -10864,7 +10996,13 @@ func (_this *Window) ClearInterval(handle *int) {
 		_end  int
 	)
 	if handle != nil {
-		_p0 := handle
+
+		var _p0 interface{}
+		if handle != nil {
+			_p0 = *(handle)
+		} else {
+			_p0 = nil
+		}
 		_args[0] = _p0
 		_end++
 	}

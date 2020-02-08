@@ -191,7 +191,13 @@ func (_this *Selection) Collapse(node *dom.Node, offset *uint) {
 	_args[0] = _p0
 	_end++
 	if offset != nil {
-		_p1 := offset
+
+		var _p1 interface{}
+		if offset != nil {
+			_p1 = *(offset)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -208,7 +214,13 @@ func (_this *Selection) SetPosition(node *dom.Node, offset *uint) {
 	_args[0] = _p0
 	_end++
 	if offset != nil {
-		_p1 := offset
+
+		var _p1 interface{}
+		if offset != nil {
+			_p1 = *(offset)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -243,7 +255,13 @@ func (_this *Selection) Extend(node *dom.Node, offset *uint) {
 	_args[0] = _p0
 	_end++
 	if offset != nil {
-		_p1 := offset
+
+		var _p1 interface{}
+		if offset != nil {
+			_p1 = *(offset)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -302,7 +320,13 @@ func (_this *Selection) ContainsNode(node *dom.Node, allowPartialContainment *bo
 	_args[0] = _p0
 	_end++
 	if allowPartialContainment != nil {
-		_p1 := allowPartialContainment
+
+		var _p1 interface{}
+		if allowPartialContainment != nil {
+			_p1 = *(allowPartialContainment)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}

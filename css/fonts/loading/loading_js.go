@@ -1027,7 +1027,13 @@ func (_this *FontFaceSet) Load(font string, text *string) (_result *PromiseSeque
 	_args[0] = _p0
 	_end++
 	if text != nil {
-		_p1 := text
+
+		var _p1 interface{}
+		if text != nil {
+			_p1 = *(text)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
@@ -1049,7 +1055,13 @@ func (_this *FontFaceSet) Check(font string, text *string) (_result bool) {
 	_args[0] = _p0
 	_end++
 	if text != nil {
-		_p1 := text
+
+		var _p1 interface{}
+		if text != nil {
+			_p1 = *(text)
+		} else {
+			_p1 = nil
+		}
 		_args[1] = _p1
 		_end++
 	}
