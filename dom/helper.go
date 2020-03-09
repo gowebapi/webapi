@@ -1,7 +1,5 @@
 package dom
 
-import js "github.com/gowebapi/webapi/core/js"
-
 // RequestFullscreenByBrowser is an alternative way to
 // request fullscreen that is taking different browser into
 // accound
