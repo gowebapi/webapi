@@ -1,8 +1,7 @@
 package dom
 
 // RequestFullscreenByBrowser is an alternative way to
-// request fullscreen that is taking different browser into
-// accound
+// request fullscreen that works for different browsers.
 func (t *Element) RequestFullscreenByBrowser() {
 	elem := t.Value_JS
 	if !elem.Get("requestFullscreen").IsUndefined() {
