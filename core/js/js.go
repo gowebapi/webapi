@@ -198,6 +198,11 @@ func (v Value) Invoke(args ...interface{}) Value {
 	panic(message)
 }
 
+// IsUndefined reports whether v is the JavaScript value "undefined".
+func (v Value) IsUndefined() bool {
+	panic(message)
+}
+
 // JSValue implements Wrapper interface.
 func (v Value) JSValue() Value {
 	panic(message)
