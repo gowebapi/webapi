@@ -1635,7 +1635,7 @@ func eventFuncPaymentRequest_MerchantValidationEvent(listener func(event *Mercha
 		ret = MerchantValidationEventFromJS(value)
 		src := PaymentRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1665,7 +1665,7 @@ func eventFuncPaymentRequest_PaymentMethodChangeEvent(listener func(event *Payme
 		ret = PaymentMethodChangeEventFromJS(value)
 		src := PaymentRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1695,7 +1695,7 @@ func eventFuncPaymentRequest_PaymentRequestUpdateEvent(listener func(event *Paym
 		ret = PaymentRequestUpdateEventFromJS(value)
 		src := PaymentRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1952,7 +1952,7 @@ func eventFuncPaymentResponse_PaymentRequestUpdateEvent(listener func(event *Pay
 		ret = PaymentRequestUpdateEventFromJS(value)
 		src := PaymentResponseFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

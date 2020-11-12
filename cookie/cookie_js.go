@@ -975,7 +975,7 @@ func eventFuncCookieStore_CookieChangeEvent(listener func(event *CookieChangeEve
 		ret = CookieChangeEventFromJS(value)
 		src := CookieStoreFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

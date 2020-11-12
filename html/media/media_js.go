@@ -465,7 +465,7 @@ func eventFuncAudioTrackList_htmlevent_TrackEvent(listener func(event *htmlevent
 		ret = htmlevent.TrackEventFromJS(value)
 		src := AudioTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -495,7 +495,7 @@ func eventFuncAudioTrackList_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := AudioTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1034,7 +1034,7 @@ func eventFuncHTMLMediaElement_encrypted_MediaEncryptedEvent(listener func(event
 		ret = encrypted.MediaEncryptedEventFromJS(value)
 		src := HTMLMediaElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1064,7 +1064,7 @@ func eventFuncHTMLMediaElement_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := HTMLMediaElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1529,7 +1529,7 @@ func eventFuncHTMLVideoElement_pictureinpicture_EnterPictureInPictureEvent(liste
 		ret = pictureinpicture.EnterPictureInPictureEventFromJS(value)
 		src := HTMLVideoElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1559,7 +1559,7 @@ func eventFuncHTMLVideoElement_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := HTMLVideoElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1775,7 +1775,7 @@ func eventFuncMediaSource_domcore_Event(listener func(event *domcore.Event, targ
 		ret = domcore.EventFromJS(value)
 		src := MediaSourceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2084,7 +2084,7 @@ func eventFuncSourceBuffer_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := SourceBufferFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2261,7 +2261,7 @@ func eventFuncSourceBufferList_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := SourceBufferListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2445,7 +2445,7 @@ func eventFuncTextTrack_domcore_Event(listener func(event *domcore.Event, target
 		ret = domcore.EventFromJS(value)
 		src := TextTrackFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2612,7 +2612,7 @@ func eventFuncTextTrackCue_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := TextTrackCueFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2782,7 +2782,7 @@ func eventFuncTextTrackList_htmlevent_TrackEvent(listener func(event *htmlevent.
 		ret = htmlevent.TrackEventFromJS(value)
 		src := TextTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2812,7 +2812,7 @@ func eventFuncTextTrackList_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := TextTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3045,7 +3045,7 @@ func eventFuncVideoTrackList_htmlevent_TrackEvent(listener func(event *htmlevent
 		ret = htmlevent.TrackEventFromJS(value)
 		src := VideoTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3075,7 +3075,7 @@ func eventFuncVideoTrackList_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := VideoTrackListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

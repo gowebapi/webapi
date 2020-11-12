@@ -588,7 +588,7 @@ func eventFuncAbortSignal_Event(listener func(event *Event, target *AbortSignal)
 		ret = EventFromJS(value)
 		src := AbortSignalFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

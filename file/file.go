@@ -684,7 +684,7 @@ func eventFuncFileReader_xhr_ProgressEvent(listener func(event *xhr.ProgressEven
 		ret = xhr.ProgressEventFromJS(value)
 		src := FileReaderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

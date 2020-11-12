@@ -838,7 +838,7 @@ func eventFuncSpeechRecognition_domcore_Event(listener func(event *domcore.Event
 		ret = domcore.EventFromJS(value)
 		src := SpeechRecognitionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -900,7 +900,7 @@ func eventFuncSpeechRecognition_SpeechRecognitionErrorEvent(listener func(event 
 		ret = SpeechRecognitionErrorEventFromJS(value)
 		src := SpeechRecognitionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -930,7 +930,7 @@ func eventFuncSpeechRecognition_SpeechRecognitionEvent(listener func(event *Spee
 		ret = SpeechRecognitionEventFromJS(value)
 		src := SpeechRecognitionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1441,7 +1441,7 @@ func eventFuncSpeechSynthesis_domcore_Event(listener func(event *domcore.Event, 
 		ret = domcore.EventFromJS(value)
 		src := SpeechSynthesisFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1868,7 +1868,7 @@ func eventFuncSpeechSynthesisUtterance_SpeechSynthesisEvent(listener func(event 
 		ret = SpeechSynthesisEventFromJS(value)
 		src := SpeechSynthesisUtteranceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1914,7 +1914,7 @@ func eventFuncSpeechSynthesisUtterance_SpeechSynthesisErrorEvent(listener func(e
 		ret = SpeechSynthesisErrorEventFromJS(value)
 		src := SpeechSynthesisUtteranceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

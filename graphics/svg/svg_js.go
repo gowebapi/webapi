@@ -2275,7 +2275,7 @@ func eventFuncSVGElement_domcore_Event(listener func(event *domcore.Event, targe
 		ret = domcore.EventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2305,7 +2305,7 @@ func eventFuncSVGElement_animations_AnimationEvent(listener func(event *animatio
 		ret = animations.AnimationEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2383,7 +2383,7 @@ func eventFuncSVGElement_htmlevent_MouseEvent(listener func(event *htmlevent.Mou
 		ret = htmlevent.MouseEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2413,7 +2413,7 @@ func eventFuncSVGElement_htmlevent_FocusEvent(listener func(event *htmlevent.Foc
 		ret = htmlevent.FocusEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2555,7 +2555,7 @@ func eventFuncSVGElement_clipboard_ClipboardEvent(listener func(event *clipboard
 		ret = clipboard.ClipboardEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2633,7 +2633,7 @@ func eventFuncSVGElement_htmlevent_DragEvent(listener func(event *htmlevent.Drag
 		ret = htmlevent.DragEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2855,7 +2855,7 @@ func eventFuncSVGElement_html_FormDataEvent(listener func(event *html.FormDataEv
 		ret = html.FormDataEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2885,7 +2885,7 @@ func eventFuncSVGElement_htmlevent_PointerEvent(listener func(event *htmlevent.P
 		ret = htmlevent.PointerEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2915,7 +2915,7 @@ func eventFuncSVGElement_htmlevent_InputEvent(listener func(event *htmlevent.Inp
 		ret = htmlevent.InputEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2961,7 +2961,7 @@ func eventFuncSVGElement_htmlevent_KeyboardEvent(listener func(event *htmlevent.
 		ret = htmlevent.KeyboardEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3071,7 +3071,7 @@ func eventFuncSVGElement_xhr_ProgressEvent(listener func(event *xhr.ProgressEven
 		ret = xhr.ProgressEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3485,7 +3485,7 @@ func eventFuncSVGElement_htmlevent_UIEvent(listener func(event *htmlevent.UIEven
 		ret = htmlevent.UIEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3531,7 +3531,7 @@ func eventFuncSVGElement_csp_SecurityPolicyViolationEvent(listener func(event *c
 		ret = csp.SecurityPolicyViolationEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3721,7 +3721,7 @@ func eventFuncSVGElement_touchevents_TouchEvent(listener func(event *touchevents
 		ret = touchevents.TouchEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3799,7 +3799,7 @@ func eventFuncSVGElement_transitions_TransitionEvent(listener func(event *transi
 		ret = transitions.TransitionEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3909,7 +3909,7 @@ func eventFuncSVGElement_htmlevent_WheelEvent(listener func(event *htmlevent.Whe
 		ret = htmlevent.WheelEventFromJS(value)
 		src := SVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6099,7 +6099,7 @@ func eventFuncSVGSVGElement_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6145,7 +6145,7 @@ func eventFuncSVGSVGElement_htmlcommon_BeforeUnloadEvent(listener func(event *ht
 		ret = htmlcommon.BeforeUnloadEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6175,7 +6175,7 @@ func eventFuncSVGSVGElement_htmlevent_HashChangeEvent(listener func(event *htmle
 		ret = htmlevent.HashChangeEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6221,7 +6221,7 @@ func eventFuncSVGSVGElement_channel_MessageEvent(listener func(event *channel.Me
 		ret = channel.MessageEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6299,7 +6299,7 @@ func eventFuncSVGSVGElement_htmlevent_PageTransitionEvent(listener func(event *h
 		ret = htmlevent.PageTransitionEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6345,7 +6345,7 @@ func eventFuncSVGSVGElement_htmlevent_PopStateEvent(listener func(event *htmleve
 		ret = htmlevent.PopStateEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6375,7 +6375,7 @@ func eventFuncSVGSVGElement_htmlevent_PromiseRejectionEvent(listener func(event 
 		ret = htmlevent.PromiseRejectionEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6405,7 +6405,7 @@ func eventFuncSVGSVGElement_htmlevent_StorageEvent(listener func(event *htmleven
 		ret = htmlevent.StorageEventFromJS(value)
 		src := SVGSVGElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

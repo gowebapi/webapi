@@ -191,7 +191,7 @@ func eventFuncRemotePlayback_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := RemotePlaybackFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

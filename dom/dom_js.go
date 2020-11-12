@@ -2795,7 +2795,7 @@ func eventFuncElement_domcore_Event(listener func(event *domcore.Event, target *
 		ret = domcore.EventFromJS(value)
 		src := ElementFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

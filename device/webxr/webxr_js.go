@@ -1115,7 +1115,7 @@ func eventFuncXR_domcore_Event(listener func(event *domcore.Event, target *XR)) 
 		ret = domcore.EventFromJS(value)
 		src := XRFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1590,7 +1590,7 @@ func eventFuncXRReferenceSpace_XRReferenceSpaceEvent(listener func(event *XRRefe
 		ret = XRReferenceSpaceEventFromJS(value)
 		src := XRReferenceSpaceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1953,7 +1953,7 @@ func eventFuncXRSession_domcore_Event(listener func(event *domcore.Event, target
 		ret = domcore.EventFromJS(value)
 		src := XRSessionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1983,7 +1983,7 @@ func eventFuncXRSession_XRSessionEvent(listener func(event *XRSessionEvent, targ
 		ret = XRSessionEventFromJS(value)
 		src := XRSessionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2029,7 +2029,7 @@ func eventFuncXRSession_XRInputSourceEvent(listener func(event *XRInputSourceEve
 		ret = XRInputSourceEventFromJS(value)
 		src := XRSessionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

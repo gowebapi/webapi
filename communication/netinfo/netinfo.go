@@ -221,7 +221,7 @@ func eventFuncNetworkInformation_domcore_Event(listener func(event *domcore.Even
 		ret = domcore.EventFromJS(value)
 		src := NetworkInformationFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

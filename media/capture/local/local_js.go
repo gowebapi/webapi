@@ -2418,7 +2418,7 @@ func eventFuncConstrainablePattern_domcore_Event(listener func(event *domcore.Ev
 		ret = domcore.EventFromJS(value)
 		src := ConstrainablePatternFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2637,7 +2637,7 @@ func eventFuncMediaDevices_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := MediaDevicesFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2811,7 +2811,7 @@ func eventFuncMediaStream_MediaStreamTrackEvent(listener func(event *MediaStream
 		ret = MediaStreamTrackEventFromJS(value)
 		src := MediaStreamFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3117,7 +3117,7 @@ func eventFuncMediaStreamTrack_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := MediaStreamTrackFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

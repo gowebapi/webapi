@@ -511,7 +511,7 @@ func eventFuncMediaQueryList_MediaQueryListEvent(listener func(event *MediaQuery
 		ret = MediaQueryListEventFromJS(value)
 		src := MediaQueryListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -737,7 +737,7 @@ func eventFuncScreen_domcore_Event(listener func(event *domcore.Event, target *S
 		ret = domcore.EventFromJS(value)
 		src := ScreenFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

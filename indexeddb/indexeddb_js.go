@@ -678,7 +678,7 @@ func eventFuncIDBDatabase_domcore_Event(listener func(event *domcore.Event, targ
 		ret = domcore.EventFromJS(value)
 		src := IDBDatabaseFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -740,7 +740,7 @@ func eventFuncIDBDatabase_IDBVersionChangeEvent(listener func(event *IDBVersionC
 		ret = IDBVersionChangeEventFromJS(value)
 		src := IDBDatabaseFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1767,7 +1767,7 @@ func eventFuncIDBOpenDBRequest_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := IDBOpenDBRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1902,7 +1902,7 @@ func eventFuncIDBRequest_domcore_Event(listener func(event *domcore.Event, targe
 		ret = domcore.EventFromJS(value)
 		src := IDBRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2033,7 +2033,7 @@ func eventFuncIDBTransaction_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := IDBTransactionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

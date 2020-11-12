@@ -702,7 +702,7 @@ func eventFuncNotification_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := NotificationFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

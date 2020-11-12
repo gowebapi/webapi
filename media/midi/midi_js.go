@@ -845,7 +845,7 @@ func eventFuncAccess_ConnectionEvent(listener func(event *ConnectionEvent, targe
 		ret = ConnectionEventFromJS(value)
 		src := AccessFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -950,7 +950,7 @@ func eventFuncInput_MessageEvent(listener func(event *MessageEvent, target *Inpu
 		ret = MessageEventFromJS(value)
 		src := InputFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1653,7 +1653,7 @@ func eventFuncPort_ConnectionEvent(listener func(event *ConnectionEvent, target 
 		ret = ConnectionEventFromJS(value)
 		src := PortFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

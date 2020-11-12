@@ -1347,7 +1347,7 @@ func eventFuncPerformance_domcore_Event(listener func(event *domcore.Event, targ
 		ret = domcore.EventFromJS(value)
 		src := PerformanceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

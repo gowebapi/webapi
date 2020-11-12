@@ -445,7 +445,7 @@ func eventFuncMediaRecorder_BlobEvent(listener func(event *BlobEvent, target *Me
 		ret = BlobEventFromJS(value)
 		src := MediaRecorderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -475,7 +475,7 @@ func eventFuncMediaRecorder_MediaRecorderErrorEvent(listener func(event *MediaRe
 		ret = MediaRecorderErrorEventFromJS(value)
 		src := MediaRecorderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -505,7 +505,7 @@ func eventFuncMediaRecorder_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := MediaRecorderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

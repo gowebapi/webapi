@@ -1752,7 +1752,7 @@ func eventFuncBluetooth_AdvertisingEvent(listener func(event *AdvertisingEvent, 
 		ret = AdvertisingEventFromJS(value)
 		src := BluetoothFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1782,7 +1782,7 @@ func eventFuncBluetooth_ValueEvent(listener func(event *ValueEvent, target *Blue
 		ret = ValueEventFromJS(value)
 		src := BluetoothFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1812,7 +1812,7 @@ func eventFuncBluetooth_domcore_Event(listener func(event *domcore.Event, target
 		ret = domcore.EventFromJS(value)
 		src := BluetoothFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2164,7 +2164,7 @@ func eventFuncDevice_AdvertisingEvent(listener func(event *AdvertisingEvent, tar
 		ret = AdvertisingEventFromJS(value)
 		src := DeviceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2194,7 +2194,7 @@ func eventFuncDevice_domcore_Event(listener func(event *domcore.Event, target *D
 		ret = domcore.EventFromJS(value)
 		src := DeviceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3485,7 +3485,7 @@ func eventFuncRemoteGATTCharacteristic_domcore_Event(listener func(event *domcor
 		ret = domcore.EventFromJS(value)
 		src := RemoteGATTCharacteristicFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3876,7 +3876,7 @@ func eventFuncRemoteGATTService_domcore_Event(listener func(event *domcore.Event
 		ret = domcore.EventFromJS(value)
 		src := RemoteGATTServiceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

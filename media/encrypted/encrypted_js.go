@@ -993,7 +993,7 @@ func eventFuncMediaKeySession_domcore_Event(listener func(event *domcore.Event, 
 		ret = domcore.EventFromJS(value)
 		src := MediaKeySessionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1023,7 +1023,7 @@ func eventFuncMediaKeySession_MediaKeyMessageEvent(listener func(event *MediaKey
 		ret = MediaKeyMessageEventFromJS(value)
 		src := MediaKeySessionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

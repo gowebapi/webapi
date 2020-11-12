@@ -440,7 +440,7 @@ func eventFuncAvailability_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := AvailabilityFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -573,7 +573,7 @@ func eventFuncConnection_ConnectionCloseEvent(listener func(event *ConnectionClo
 		ret = ConnectionCloseEventFromJS(value)
 		src := ConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -603,7 +603,7 @@ func eventFuncConnection_domcore_Event(listener func(event *domcore.Event, targe
 		ret = domcore.EventFromJS(value)
 		src := ConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -633,7 +633,7 @@ func eventFuncConnection_channel_MessageEvent(listener func(event *channel.Messa
 		ret = channel.MessageEventFromJS(value)
 		src := ConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -882,7 +882,7 @@ func eventFuncConnectionList_ConnectionAvailableEvent(listener func(event *Conne
 		ret = ConnectionAvailableEventFromJS(value)
 		src := ConnectionListFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1251,7 +1251,7 @@ func eventFuncRequest_ConnectionAvailableEvent(listener func(event *ConnectionAv
 		ret = ConnectionAvailableEventFromJS(value)
 		src := RequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

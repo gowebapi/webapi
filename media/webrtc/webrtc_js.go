@@ -3509,7 +3509,7 @@ func eventFuncDTMFSender_DTMFToneChangeEvent(listener func(event *DTMFToneChange
 		ret = DTMFToneChangeEventFromJS(value)
 		src := DTMFSenderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3821,7 +3821,7 @@ func eventFuncDataChannel_domcore_Event(listener func(event *domcore.Event, targ
 		ret = domcore.EventFromJS(value)
 		src := DataChannelFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3867,7 +3867,7 @@ func eventFuncDataChannel_ErrorEvent(listener func(event *ErrorEvent, target *Da
 		ret = ErrorEventFromJS(value)
 		src := DataChannelFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3897,7 +3897,7 @@ func eventFuncDataChannel_channel_MessageEvent(listener func(event *channel.Mess
 		ret = channel.MessageEventFromJS(value)
 		src := DataChannelFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -4102,7 +4102,7 @@ func eventFuncDtlsTransport_ErrorEvent(listener func(event *ErrorEvent, target *
 		ret = ErrorEventFromJS(value)
 		src := DtlsTransportFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -4132,7 +4132,7 @@ func eventFuncDtlsTransport_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := DtlsTransportFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -4558,7 +4558,7 @@ func eventFuncIceTransport_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := IceTransportFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5026,7 +5026,7 @@ func eventFuncPeerConnection_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5056,7 +5056,7 @@ func eventFuncPeerConnection_DataChannelEvent(listener func(event *DataChannelEv
 		ret = DataChannelEventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5086,7 +5086,7 @@ func eventFuncPeerConnection_PeerConnectionIceEvent(listener func(event *PeerCon
 		ret = PeerConnectionIceEventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5116,7 +5116,7 @@ func eventFuncPeerConnection_PeerConnectionIceErrorEvent(listener func(event *Pe
 		ret = PeerConnectionIceErrorEventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5210,7 +5210,7 @@ func eventFuncPeerConnection_StatsEvent(listener func(event *StatsEvent, target 
 		ret = StatsEventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5240,7 +5240,7 @@ func eventFuncPeerConnection_TrackEvent(listener func(event *TrackEvent, target 
 		ret = TrackEventFromJS(value)
 		src := PeerConnectionFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6682,7 +6682,7 @@ func eventFuncSctpTransport_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := SctpTransportFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

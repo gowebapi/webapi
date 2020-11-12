@@ -394,7 +394,7 @@ func eventFuncApplicationCache_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := ApplicationCacheFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -504,7 +504,7 @@ func eventFuncApplicationCache_xhr_ProgressEvent(listener func(event *xhr.Progre
 		ret = xhr.ProgressEventFromJS(value)
 		src := ApplicationCacheFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -806,7 +806,7 @@ func eventFuncEventSource_htmlevent_ErrorEvent(listener func(event *htmlevent.Er
 		ret = htmlevent.ErrorEventFromJS(value)
 		src := EventSourceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -836,7 +836,7 @@ func eventFuncEventSource_channel_MessageEvent(listener func(event *channel.Mess
 		ret = channel.MessageEventFromJS(value)
 		src := EventSourceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -866,7 +866,7 @@ func eventFuncEventSource_domcore_Event(listener func(event *domcore.Event, targ
 		ret = domcore.EventFromJS(value)
 		src := EventSourceFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

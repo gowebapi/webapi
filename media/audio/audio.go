@@ -3888,7 +3888,7 @@ func eventFuncAudioScheduledSourceNode_domcore_Event(listener func(event *domcor
 		ret = domcore.EventFromJS(value)
 		src := AudioScheduledSourceNodeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -4110,7 +4110,7 @@ func eventFuncAudioWorkletNode_htmlevent_ErrorEvent(listener func(event *htmleve
 		ret = htmlevent.ErrorEventFromJS(value)
 		src := AudioWorkletNodeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -4271,7 +4271,7 @@ func eventFuncBaseAudioContext_domcore_Event(listener func(event *domcore.Event,
 		ret = domcore.EventFromJS(value)
 		src := BaseAudioContextFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -5521,7 +5521,7 @@ func eventFuncOfflineAudioContext_OfflineAudioCompletionEvent(listener func(even
 		ret = OfflineAudioCompletionEventFromJS(value)
 		src := OfflineAudioContextFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -6123,7 +6123,7 @@ func eventFuncScriptProcessorNode_AudioProcessingEvent(listener func(event *Audi
 		ret = AudioProcessingEventFromJS(value)
 		src := ScriptProcessorNodeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

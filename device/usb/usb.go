@@ -1753,7 +1753,7 @@ func eventFuncUSB_USBConnectionEvent(listener func(event *USBConnectionEvent, ta
 		ret = USBConnectionEventFromJS(value)
 		src := USBFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

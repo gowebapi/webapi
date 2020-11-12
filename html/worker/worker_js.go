@@ -197,7 +197,7 @@ func eventFuncDedicatedWorkerGlobalScope_channel_MessageEvent(listener func(even
 		ret = channel.MessageEventFromJS(value)
 		src := DedicatedWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -532,7 +532,7 @@ func eventFuncServiceWorkerGlobalScope_domcore_ExtendableEvent(listener func(eve
 		ret = domcore.ExtendableEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -562,7 +562,7 @@ func eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchEvent(listen
 		ret = serviceworker.BackgroundFetchEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -608,7 +608,7 @@ func eventFuncServiceWorkerGlobalScope_serviceworker_BackgroundFetchUpdateUIEven
 		ret = serviceworker.BackgroundFetchUpdateUIEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -654,7 +654,7 @@ func eventFuncServiceWorkerGlobalScope_payment_CanMakePaymentEvent(listener func
 		ret = payment.CanMakePaymentEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -684,7 +684,7 @@ func eventFuncServiceWorkerGlobalScope_cookie_CookieChangeEvent(listener func(ev
 		ret = cookie.CookieChangeEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -714,7 +714,7 @@ func eventFuncServiceWorkerGlobalScope_serviceworker_FetchEvent(listener func(ev
 		ret = serviceworker.FetchEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -760,7 +760,7 @@ func eventFuncServiceWorkerGlobalScope_serviceworker_ExtendableMessageEvent(list
 		ret = serviceworker.ExtendableMessageEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -790,7 +790,7 @@ func eventFuncServiceWorkerGlobalScope_channel_MessageEvent(listener func(event 
 		ret = channel.MessageEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -820,7 +820,7 @@ func eventFuncServiceWorkerGlobalScope_payment_PaymentRequestEvent(listener func
 		ret = payment.PaymentRequestEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -850,7 +850,7 @@ func eventFuncServiceWorkerGlobalScope_push_Event(listener func(event *push.Even
 		ret = push.EventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -880,7 +880,7 @@ func eventFuncServiceWorkerGlobalScope_push_SubscriptionChangeEvent(listener fun
 		ret = push.SubscriptionChangeEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -910,7 +910,7 @@ func eventFuncServiceWorkerGlobalScope_serviceworker_SyncEvent(listener func(eve
 		ret = serviceworker.SyncEventFromJS(value)
 		src := ServiceWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1013,7 +1013,7 @@ func eventFuncSharedWorker_domcore_Event(listener func(event *domcore.Event, tar
 		ret = domcore.EventFromJS(value)
 		src := SharedWorkerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1079,7 +1079,7 @@ func eventFuncSharedWorkerGlobalScope_channel_MessageEvent(listener func(event *
 		ret = channel.MessageEventFromJS(value)
 		src := SharedWorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1190,7 +1190,7 @@ func eventFuncWorker_domcore_Event(listener func(event *domcore.Event, target *W
 		ret = domcore.EventFromJS(value)
 		src := WorkerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1220,7 +1220,7 @@ func eventFuncWorker_channel_MessageEvent(listener func(event *channel.MessageEv
 		ret = channel.MessageEventFromJS(value)
 		src := WorkerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1483,7 +1483,7 @@ func eventFuncWorkerGlobalScope_domcore_Event(listener func(event *domcore.Event
 		ret = domcore.EventFromJS(value)
 		src := WorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1561,7 +1561,7 @@ func eventFuncWorkerGlobalScope_htmlevent_PromiseRejectionEvent(listener func(ev
 		ret = htmlevent.PromiseRejectionEventFromJS(value)
 		src := WorkerGlobalScopeFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

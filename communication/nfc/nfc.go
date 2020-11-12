@@ -564,7 +564,7 @@ func eventFuncReader_ErrorEvent(listener func(event *ErrorEvent, target *Reader)
 		ret = ErrorEventFromJS(value)
 		src := ReaderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -594,7 +594,7 @@ func eventFuncReader_ReadingEvent(listener func(event *ReadingEvent, target *Rea
 		ret = ReadingEventFromJS(value)
 		src := ReaderFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

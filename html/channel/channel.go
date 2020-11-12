@@ -342,7 +342,7 @@ func eventFuncBroadcastChannel_MessageEvent(listener func(event *MessageEvent, t
 		ret = MessageEventFromJS(value)
 		src := BroadcastChannelFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -728,7 +728,7 @@ func eventFuncMessagePort_MessageEvent(listener func(event *MessageEvent, target
 		ret = MessageEventFromJS(value)
 		src := MessagePortFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -979,7 +979,7 @@ func eventFuncWebSocket_CloseEvent(listener func(event *CloseEvent, target *WebS
 		ret = CloseEventFromJS(value)
 		src := WebSocketFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1009,7 +1009,7 @@ func eventFuncWebSocket_domcore_Event(listener func(event *domcore.Event, target
 		ret = domcore.EventFromJS(value)
 		src := WebSocketFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -1039,7 +1039,7 @@ func eventFuncWebSocket_MessageEvent(listener func(event *MessageEvent, target *
 		ret = MessageEventFromJS(value)
 		src := WebSocketFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

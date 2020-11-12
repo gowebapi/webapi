@@ -266,7 +266,7 @@ func eventFuncPictureInPictureWindow_domcore_Event(listener func(event *domcore.
 		ret = domcore.EventFromJS(value)
 		src := PictureInPictureWindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

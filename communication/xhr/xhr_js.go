@@ -387,7 +387,7 @@ func eventFuncXMLHttpRequest_domcore_Event(listener func(event *domcore.Event, t
 		ret = domcore.EventFromJS(value)
 		src := XMLHttpRequestFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -648,7 +648,7 @@ func eventFuncXMLHttpRequestEventTarget_ProgressEvent(listener func(event *Progr
 		ret = ProgressEventFromJS(value)
 		src := XMLHttpRequestEventTargetFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

@@ -1503,7 +1503,7 @@ func eventFuncBackgroundFetchRegistration_domcore_Event(listener func(event *dom
 		ret = domcore.EventFromJS(value)
 		src := BackgroundFetchRegistrationFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2855,7 +2855,7 @@ func eventFuncServiceWorker_domcore_Event(listener func(event *domcore.Event, ta
 		ret = domcore.EventFromJS(value)
 		src := ServiceWorkerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2991,7 +2991,7 @@ func eventFuncServiceWorkerContainer_domcore_Event(listener func(event *domcore.
 		ret = domcore.EventFromJS(value)
 		src := ServiceWorkerContainerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3021,7 +3021,7 @@ func eventFuncServiceWorkerContainer_ExtendableMessageEvent(listener func(event 
 		ret = ExtendableMessageEventFromJS(value)
 		src := ServiceWorkerContainerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3051,7 +3051,7 @@ func eventFuncServiceWorkerContainer_channel_MessageEvent(listener func(event *c
 		ret = channel.MessageEventFromJS(value)
 		src := ServiceWorkerContainerFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3265,7 +3265,7 @@ func eventFuncServiceWorkerRegistration_domcore_Event(listener func(event *domco
 		ret = domcore.EventFromJS(value)
 		src := ServiceWorkerRegistrationFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

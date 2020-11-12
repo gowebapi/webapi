@@ -1204,7 +1204,7 @@ func eventFuncAnimation_AnimationPlaybackEvent(listener func(event *AnimationPla
 		ret = AnimationPlaybackEventFromJS(value)
 		src := AnimationFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

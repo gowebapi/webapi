@@ -3351,7 +3351,7 @@ func eventFuncSensor_domcore_Event(listener func(event *domcore.Event, target *S
 		ret = domcore.EventFromJS(value)
 		src := SensorFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3381,7 +3381,7 @@ func eventFuncSensor_SensorErrorEvent(listener func(event *SensorErrorEvent, tar
 		ret = SensorErrorEventFromJS(value)
 		src := SensorFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

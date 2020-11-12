@@ -2268,7 +2268,7 @@ func eventFuncDocument_domcore_Event(listener func(event *domcore.Event, target 
 		ret = domcore.EventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2298,7 +2298,7 @@ func eventFuncDocument_animations_AnimationEvent(listener func(event *animations
 		ret = animations.AnimationEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2376,7 +2376,7 @@ func eventFuncDocument_htmlevent_MouseEvent(listener func(event *htmlevent.Mouse
 		ret = htmlevent.MouseEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2406,7 +2406,7 @@ func eventFuncDocument_htmlevent_FocusEvent(listener func(event *htmlevent.Focus
 		ret = htmlevent.FocusEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2548,7 +2548,7 @@ func eventFuncDocument_clipboard_ClipboardEvent(listener func(event *clipboard.C
 		ret = clipboard.ClipboardEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2626,7 +2626,7 @@ func eventFuncDocument_htmlevent_DragEvent(listener func(event *htmlevent.DragEv
 		ret = htmlevent.DragEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2848,7 +2848,7 @@ func eventFuncDocument_html_FormDataEvent(listener func(event *html.FormDataEven
 		ret = html.FormDataEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2910,7 +2910,7 @@ func eventFuncDocument_htmlevent_PointerEvent(listener func(event *htmlevent.Poi
 		ret = htmlevent.PointerEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2940,7 +2940,7 @@ func eventFuncDocument_htmlevent_InputEvent(listener func(event *htmlevent.Input
 		ret = htmlevent.InputEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -2986,7 +2986,7 @@ func eventFuncDocument_htmlevent_KeyboardEvent(listener func(event *htmlevent.Ke
 		ret = htmlevent.KeyboardEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3096,7 +3096,7 @@ func eventFuncDocument_xhr_ProgressEvent(listener func(event *xhr.ProgressEvent,
 		ret = xhr.ProgressEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3558,7 +3558,7 @@ func eventFuncDocument_htmlevent_UIEvent(listener func(event *htmlevent.UIEvent,
 		ret = htmlevent.UIEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3604,7 +3604,7 @@ func eventFuncDocument_csp_SecurityPolicyViolationEvent(listener func(event *csp
 		ret = csp.SecurityPolicyViolationEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3794,7 +3794,7 @@ func eventFuncDocument_touchevents_TouchEvent(listener func(event *touchevents.T
 		ret = touchevents.TouchEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3872,7 +3872,7 @@ func eventFuncDocument_transitions_TransitionEvent(listener func(event *transiti
 		ret = transitions.TransitionEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -3998,7 +3998,7 @@ func eventFuncDocument_htmlevent_WheelEvent(listener func(event *htmlevent.Wheel
 		ret = htmlevent.WheelEventFromJS(value)
 		src := DocumentFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8121,7 +8121,7 @@ func eventFuncWindow_domcore_Event(listener func(event *domcore.Event, target *W
 		ret = domcore.EventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8167,7 +8167,7 @@ func eventFuncWindow_animations_AnimationEvent(listener func(event *animations.A
 		ret = animations.AnimationEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8261,7 +8261,7 @@ func eventFuncWindow_htmlevent_MouseEvent(listener func(event *htmlevent.MouseEv
 		ret = htmlevent.MouseEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8291,7 +8291,7 @@ func eventFuncWindow_appmanifest_BeforeInstallPromptEvent(listener func(event *a
 		ret = appmanifest.BeforeInstallPromptEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8337,7 +8337,7 @@ func eventFuncWindow_htmlcommon_BeforeUnloadEvent(listener func(event *htmlcommo
 		ret = htmlcommon.BeforeUnloadEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8367,7 +8367,7 @@ func eventFuncWindow_htmlevent_FocusEvent(listener func(event *htmlevent.FocusEv
 		ret = htmlevent.FocusEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8541,7 +8541,7 @@ func eventFuncWindow_sensor_DeviceMotionEvent(listener func(event *sensor.Device
 		ret = sensor.DeviceMotionEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8571,7 +8571,7 @@ func eventFuncWindow_sensor_DeviceOrientationEvent(listener func(event *sensor.D
 		ret = sensor.DeviceOrientationEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8601,7 +8601,7 @@ func eventFuncWindow_htmlevent_DragEvent(listener func(event *htmlevent.DragEven
 		ret = htmlevent.DragEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8823,7 +8823,7 @@ func eventFuncWindow_html_FormDataEvent(listener func(event *html.FormDataEvent,
 		ret = html.FormDataEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8853,7 +8853,7 @@ func eventFuncWindow_htmlevent_PointerEvent(listener func(event *htmlevent.Point
 		ret = htmlevent.PointerEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8883,7 +8883,7 @@ func eventFuncWindow_htmlevent_HashChangeEvent(listener func(event *htmlevent.Ha
 		ret = htmlevent.HashChangeEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8913,7 +8913,7 @@ func eventFuncWindow_htmlevent_InputEvent(listener func(event *htmlevent.InputEv
 		ret = htmlevent.InputEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -8959,7 +8959,7 @@ func eventFuncWindow_htmlevent_KeyboardEvent(listener func(event *htmlevent.Keyb
 		ret = htmlevent.KeyboardEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9085,7 +9085,7 @@ func eventFuncWindow_xhr_ProgressEvent(listener func(event *xhr.ProgressEvent, t
 		ret = xhr.ProgressEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9147,7 +9147,7 @@ func eventFuncWindow_channel_MessageEvent(listener func(event *channel.MessageEv
 		ret = channel.MessageEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9353,7 +9353,7 @@ func eventFuncWindow_htmlevent_PageTransitionEvent(listener func(event *htmleven
 		ret = htmlevent.PageTransitionEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9575,7 +9575,7 @@ func eventFuncWindow_htmlevent_PopStateEvent(listener func(event *htmlevent.PopS
 		ret = htmlevent.PopStateEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9637,7 +9637,7 @@ func eventFuncWindow_htmlevent_PromiseRejectionEvent(listener func(event *htmlev
 		ret = htmlevent.PromiseRejectionEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9683,7 +9683,7 @@ func eventFuncWindow_htmlevent_UIEvent(listener func(event *htmlevent.UIEvent, t
 		ret = htmlevent.UIEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9729,7 +9729,7 @@ func eventFuncWindow_csp_SecurityPolicyViolationEvent(listener func(event *csp.S
 		ret = csp.SecurityPolicyViolationEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9855,7 +9855,7 @@ func eventFuncWindow_htmlevent_StorageEvent(listener func(event *htmlevent.Stora
 		ret = htmlevent.StorageEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -9949,7 +9949,7 @@ func eventFuncWindow_touchevents_TouchEvent(listener func(event *touchevents.Tou
 		ret = touchevents.TouchEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -10027,7 +10027,7 @@ func eventFuncWindow_transitions_TransitionEvent(listener func(event *transition
 		ret = transitions.TransitionEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -10153,7 +10153,7 @@ func eventFuncWindow_webvr_DisplayEvent(listener func(event *webvr.DisplayEvent,
 		ret = webvr.DisplayEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
@@ -10327,7 +10327,7 @@ func eventFuncWindow_htmlevent_WheelEvent(listener func(event *htmlevent.WheelEv
 		ret = htmlevent.WheelEventFromJS(value)
 		src := WindowFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }

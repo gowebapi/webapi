@@ -922,7 +922,7 @@ func eventFuncFontFaceSet_FontFaceSetLoadEvent(listener func(event *FontFaceSetL
 		ret = FontFaceSetLoadEventFromJS(value)
 		src := FontFaceSetFromJS(incoming)
 		listener(ret, src)
-		return js.Undefined
+		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
