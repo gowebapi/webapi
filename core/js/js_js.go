@@ -27,14 +27,14 @@ import (
 // It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
 // CopyBytesToGo panics if src is not an Uint8Array.
 func CopyBytesToGo(dst []byte, src Value) int {
-	return CopyBytesToGo(dst, src)
+	return js.CopyBytesToGo(dst, src)
 }
 
 // CopyBytesToJS copies bytes from src to the Uint8Array dst.
 // It returns the number of bytes copied, which will be the minimum of the lengths of src and dst.
 // CopyBytesToJS panics if dst is not an Uint8Array.
 func CopyBytesToJS(dst Value, src []byte) int {
-	return CopyBytesToJS(dst, src)
+	return js.CopyBytesToJS(dst, src)
 }
 
 // Error wraps a JavaScript error.
