@@ -19,7 +19,7 @@ const templateText = `
 //
 // See LICENSE.md for license information
 
-package jsutil
+package jsconv
 
 //go:generate go run generator.go
 
@@ -76,7 +76,7 @@ func {{.Name}}ToJs(src []{{.GoType}} ) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("{{.Js}}").New(
 		buf, 
 		array.Get("byteOffset"), 
 		array.Get("byteLength").Int()/{{.Size}},

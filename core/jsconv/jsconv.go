@@ -50,7 +50,7 @@ func Int8ToJs(src []int8) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Int8Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/1,
@@ -90,7 +90,7 @@ func UInt16ToJs(src []uint16) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Uint16Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/2,
@@ -170,7 +170,7 @@ func UInt32ToJs(src []uint32) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Uint32Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/4,
@@ -210,7 +210,7 @@ func Int32ToJs(src []int32) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Int32Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/4,
@@ -250,7 +250,7 @@ func Float32ToJs(src []float32) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Float32Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/4,
@@ -290,7 +290,7 @@ func Float64ToJs(src []float64) js.Value {
 
 	// convert back
 	buf := array.Get("buffer")
-	return js.Global().Get("Int16Array").New(
+	return js.Global().Get("Float64Array").New(
 		buf,
 		array.Get("byteOffset"),
 		array.Get("byteLength").Int()/8,
