@@ -5,6 +5,7 @@ package recording
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/media/capture/local"
@@ -90,7 +91,7 @@ type BlobEventInit struct {
 	Timecode float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BlobEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -102,18 +103,16 @@ func (_this *BlobEventInit) JSValue() js.Value {
 }
 
 // BlobEventInitFromJS is allocating a new
-// BlobEventInit object and copy all values from
-// input javascript object
-func BlobEventInitFromJS(value js.Wrapper) *BlobEventInit {
-	input := value.JSValue()
+// BlobEventInit object and copy all values in the value javascript object.
+func BlobEventInitFromJS(value js.Value) *BlobEventInit {
 	var out BlobEventInit
 	var (
 		value0 *file.Blob // javascript: Blob {data Data data}
 		value1 float64    // javascript: double {timecode Timecode timecode}
 	)
-	value0 = file.BlobFromJS(input.Get("data"))
+	value0 = file.BlobFromJS(value.Get("data"))
 	out.Data = value0
-	value1 = (input.Get("timecode")).Float()
+	value1 = (value.Get("timecode")).Float()
 	out.Timecode = value1
 	return &out
 }
@@ -126,7 +125,7 @@ type MediaRecorderErrorEventInit struct {
 	Error      *domcore.DOMException
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaRecorderErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -142,10 +141,8 @@ func (_this *MediaRecorderErrorEventInit) JSValue() js.Value {
 }
 
 // MediaRecorderErrorEventInitFromJS is allocating a new
-// MediaRecorderErrorEventInit object and copy all values from
-// input javascript object
-func MediaRecorderErrorEventInitFromJS(value js.Wrapper) *MediaRecorderErrorEventInit {
-	input := value.JSValue()
+// MediaRecorderErrorEventInit object and copy all values in the value javascript object.
+func MediaRecorderErrorEventInitFromJS(value js.Value) *MediaRecorderErrorEventInit {
 	var out MediaRecorderErrorEventInit
 	var (
 		value0 bool                  // javascript: boolean {bubbles Bubbles bubbles}
@@ -153,13 +150,13 @@ func MediaRecorderErrorEventInitFromJS(value js.Wrapper) *MediaRecorderErrorEven
 		value2 bool                  // javascript: boolean {composed Composed composed}
 		value3 *domcore.DOMException // javascript: DOMException {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = domcore.DOMExceptionFromJS(input.Get("error"))
+	value3 = domcore.DOMExceptionFromJS(value.Get("error"))
 	out.Error = value3
 	return &out
 }
@@ -172,7 +169,7 @@ type MediaRecorderOptions struct {
 	BitsPerSecond      uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaRecorderOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -188,10 +185,8 @@ func (_this *MediaRecorderOptions) JSValue() js.Value {
 }
 
 // MediaRecorderOptionsFromJS is allocating a new
-// MediaRecorderOptions object and copy all values from
-// input javascript object
-func MediaRecorderOptionsFromJS(value js.Wrapper) *MediaRecorderOptions {
-	input := value.JSValue()
+// MediaRecorderOptions object and copy all values in the value javascript object.
+func MediaRecorderOptionsFromJS(value js.Value) *MediaRecorderOptions {
 	var out MediaRecorderOptions
 	var (
 		value0 string // javascript: DOMString {mimeType MimeType mimeType}
@@ -199,13 +194,13 @@ func MediaRecorderOptionsFromJS(value js.Wrapper) *MediaRecorderOptions {
 		value2 uint   // javascript: unsigned long {videoBitsPerSecond VideoBitsPerSecond videoBitsPerSecond}
 		value3 uint   // javascript: unsigned long {bitsPerSecond BitsPerSecond bitsPerSecond}
 	)
-	value0 = (input.Get("mimeType")).String()
+	value0 = (value.Get("mimeType")).String()
 	out.MimeType = value0
-	value1 = (uint)((input.Get("audioBitsPerSecond")).Int())
+	value1 = (uint)((value.Get("audioBitsPerSecond")).Int())
 	out.AudioBitsPerSecond = value1
-	value2 = (uint)((input.Get("videoBitsPerSecond")).Int())
+	value2 = (uint)((value.Get("videoBitsPerSecond")).Int())
 	out.VideoBitsPerSecond = value2
-	value3 = (uint)((input.Get("bitsPerSecond")).Int())
+	value3 = (uint)((value.Get("bitsPerSecond")).Int())
 	out.BitsPerSecond = value3
 	return &out
 }
@@ -215,15 +210,19 @@ type BlobEvent struct {
 	domcore.Event
 }
 
-// BlobEventFromJS is casting a js.Wrapper into BlobEvent.
-func BlobEventFromJS(value js.Wrapper) *BlobEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BlobEventFromJS is casting a js.Value into BlobEvent.
+func BlobEventFromJS(value js.Value) *BlobEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BlobEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BlobEventFromJS is casting from something that holds a js.Value into BlobEvent.
+func BlobEventFromWrapper(input core.Wrapper) *BlobEvent {
+	return BlobEventFromJS(input.JSValue())
 }
 
 func NewBlobEvent(_type string, eventInitDict *BlobEventInit) (_result *BlobEvent) {
@@ -270,15 +269,19 @@ type MediaRecorder struct {
 	domcore.EventTarget
 }
 
-// MediaRecorderFromJS is casting a js.Wrapper into MediaRecorder.
-func MediaRecorderFromJS(value js.Wrapper) *MediaRecorder {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaRecorderFromJS is casting a js.Value into MediaRecorder.
+func MediaRecorderFromJS(value js.Value) *MediaRecorder {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaRecorder{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaRecorderFromJS is casting from something that holds a js.Value into MediaRecorder.
+func MediaRecorderFromWrapper(input core.Wrapper) *MediaRecorder {
+	return MediaRecorderFromJS(input.JSValue())
 }
 
 func IsTypeSupported(_type string) (_result bool) {
@@ -633,15 +636,19 @@ type MediaRecorderErrorEvent struct {
 	domcore.Event
 }
 
-// MediaRecorderErrorEventFromJS is casting a js.Wrapper into MediaRecorderErrorEvent.
-func MediaRecorderErrorEventFromJS(value js.Wrapper) *MediaRecorderErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaRecorderErrorEventFromJS is casting a js.Value into MediaRecorderErrorEvent.
+func MediaRecorderErrorEventFromJS(value js.Value) *MediaRecorderErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaRecorderErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaRecorderErrorEventFromJS is casting from something that holds a js.Value into MediaRecorderErrorEvent.
+func MediaRecorderErrorEventFromWrapper(input core.Wrapper) *MediaRecorderErrorEvent {
+	return MediaRecorderErrorEventFromJS(input.JSValue())
 }
 
 func NewMediaRecorderErrorEvent(_type string, eventInitDict *MediaRecorderErrorEventInit) (_result *MediaRecorderErrorEvent) {

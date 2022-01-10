@@ -5,6 +5,7 @@ package csp
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
@@ -94,7 +95,7 @@ type SecurityPolicyViolationEventInit struct {
 	Colno              uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SecurityPolicyViolationEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -130,10 +131,8 @@ func (_this *SecurityPolicyViolationEventInit) JSValue() js.Value {
 }
 
 // SecurityPolicyViolationEventInitFromJS is allocating a new
-// SecurityPolicyViolationEventInit object and copy all values from
-// input javascript object
-func SecurityPolicyViolationEventInitFromJS(value js.Wrapper) *SecurityPolicyViolationEventInit {
-	input := value.JSValue()
+// SecurityPolicyViolationEventInit object and copy all values in the value javascript object.
+func SecurityPolicyViolationEventInitFromJS(value js.Value) *SecurityPolicyViolationEventInit {
 	var out SecurityPolicyViolationEventInit
 	var (
 		value0  bool                                    // javascript: boolean {bubbles Bubbles bubbles}
@@ -151,33 +150,33 @@ func SecurityPolicyViolationEventInitFromJS(value js.Wrapper) *SecurityPolicyVio
 		value12 uint                                    // javascript: unsigned long {lineno Lineno lineno}
 		value13 uint                                    // javascript: unsigned long {colno Colno colno}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("documentURL")).String()
+	value3 = (value.Get("documentURL")).String()
 	out.DocumentURL = value3
-	value4 = (input.Get("referrer")).String()
+	value4 = (value.Get("referrer")).String()
 	out.Referrer = value4
-	value5 = (input.Get("blockedURL")).String()
+	value5 = (value.Get("blockedURL")).String()
 	out.BlockedURL = value5
-	value6 = (input.Get("effectiveDirective")).String()
+	value6 = (value.Get("effectiveDirective")).String()
 	out.EffectiveDirective = value6
-	value7 = (input.Get("originalPolicy")).String()
+	value7 = (value.Get("originalPolicy")).String()
 	out.OriginalPolicy = value7
-	value8 = (input.Get("sourceFile")).String()
+	value8 = (value.Get("sourceFile")).String()
 	out.SourceFile = value8
-	value9 = (input.Get("sample")).String()
+	value9 = (value.Get("sample")).String()
 	out.Sample = value9
-	value10 = SecurityPolicyViolationEventDispositionFromJS(input.Get("disposition"))
+	value10 = SecurityPolicyViolationEventDispositionFromJS(value.Get("disposition"))
 	out.Disposition = value10
-	value11 = (input.Get("statusCode")).Int()
+	value11 = (value.Get("statusCode")).Int()
 	out.StatusCode = value11
-	value12 = (uint)((input.Get("lineno")).Int())
+	value12 = (uint)((value.Get("lineno")).Int())
 	out.Lineno = value12
-	value13 = (uint)((input.Get("colno")).Int())
+	value13 = (uint)((value.Get("colno")).Int())
 	out.Colno = value13
 	return &out
 }
@@ -187,15 +186,19 @@ type SecurityPolicyViolationEvent struct {
 	domcore.Event
 }
 
-// SecurityPolicyViolationEventFromJS is casting a js.Wrapper into SecurityPolicyViolationEvent.
-func SecurityPolicyViolationEventFromJS(value js.Wrapper) *SecurityPolicyViolationEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SecurityPolicyViolationEventFromJS is casting a js.Value into SecurityPolicyViolationEvent.
+func SecurityPolicyViolationEventFromJS(value js.Value) *SecurityPolicyViolationEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SecurityPolicyViolationEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SecurityPolicyViolationEventFromJS is casting from something that holds a js.Value into SecurityPolicyViolationEvent.
+func SecurityPolicyViolationEventFromWrapper(input core.Wrapper) *SecurityPolicyViolationEvent {
+	return SecurityPolicyViolationEventFromJS(input.JSValue())
 }
 
 func NewSecurityPolicyViolationEvent(_type string, eventInitDict *SecurityPolicyViolationEventInit) (_result *SecurityPolicyViolationEvent) {

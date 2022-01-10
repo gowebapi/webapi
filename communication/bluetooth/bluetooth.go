@@ -7,6 +7,7 @@ package bluetooth
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/javascript"
@@ -841,7 +842,7 @@ type AdvertisingEventInit struct {
 	ServiceData      *ServiceDataMap
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AdvertisingEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -875,10 +876,8 @@ func (_this *AdvertisingEventInit) JSValue() js.Value {
 }
 
 // AdvertisingEventInitFromJS is allocating a new
-// AdvertisingEventInit object and copy all values from
-// input javascript object
-func AdvertisingEventInitFromJS(value js.Wrapper) *AdvertisingEventInit {
-	input := value.JSValue()
+// AdvertisingEventInit object and copy all values in the value javascript object.
+func AdvertisingEventInitFromJS(value js.Value) *AdvertisingEventInit {
 	var out AdvertisingEventInit
 	var (
 		value0  bool                 // javascript: boolean {bubbles Bubbles bubbles}
@@ -893,35 +892,35 @@ func AdvertisingEventInitFromJS(value js.Wrapper) *AdvertisingEventInit {
 		value9  *ManufacturerDataMap // javascript: BluetoothManufacturerDataMap {manufacturerData ManufacturerData manufacturerData}
 		value10 *ServiceDataMap      // javascript: BluetoothServiceDataMap {serviceData ServiceData serviceData}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = DeviceFromJS(input.Get("device"))
+	value3 = DeviceFromJS(value.Get("device"))
 	out.Device = value3
-	__length4 := input.Get("uuids").Length()
+	__length4 := value.Get("uuids").Length()
 	__array4 := make([]*Union, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 *Union
-		__seq_in4 := input.Get("uuids").Index(__idx4)
+		__seq_in4 := value.Get("uuids").Index(__idx4)
 		__seq_out4 = UnionFromJS(__seq_in4)
 		__array4[__idx4] = __seq_out4
 	}
 	value4 = __array4
 	out.Uuids = value4
-	value5 = (input.Get("name")).String()
+	value5 = (value.Get("name")).String()
 	out.Name = value5
-	value6 = (input.Get("appearance")).Int()
+	value6 = (value.Get("appearance")).Int()
 	out.Appearance = value6
-	value7 = (input.Get("txPower")).Int()
+	value7 = (value.Get("txPower")).Int()
 	out.TxPower = value7
-	value8 = (input.Get("rssi")).Int()
+	value8 = (value.Get("rssi")).Int()
 	out.Rssi = value8
-	value9 = ManufacturerDataMapFromJS(input.Get("manufacturerData"))
+	value9 = ManufacturerDataMapFromJS(value.Get("manufacturerData"))
 	out.ManufacturerData = value9
-	value10 = ServiceDataMapFromJS(input.Get("serviceData"))
+	value10 = ServiceDataMapFromJS(value.Get("serviceData"))
 	out.ServiceData = value10
 	return &out
 }
@@ -933,7 +932,7 @@ type AllowedDevice struct {
 	AllowedServices *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AllowedDevice) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -947,21 +946,19 @@ func (_this *AllowedDevice) JSValue() js.Value {
 }
 
 // AllowedDeviceFromJS is allocating a new
-// AllowedDevice object and copy all values from
-// input javascript object
-func AllowedDeviceFromJS(value js.Wrapper) *AllowedDevice {
-	input := value.JSValue()
+// AllowedDevice object and copy all values in the value javascript object.
+func AllowedDeviceFromJS(value js.Value) *AllowedDevice {
 	var out AllowedDevice
 	var (
 		value0 string // javascript: DOMString {deviceId DeviceId deviceId}
 		value1 bool   // javascript: boolean {mayUseGATT MayUseGATT mayUseGATT}
 		value2 *Union // javascript: Union {allowedServices AllowedServices allowedServices}
 	)
-	value0 = (input.Get("deviceId")).String()
+	value0 = (value.Get("deviceId")).String()
 	out.DeviceId = value0
-	value1 = (input.Get("mayUseGATT")).Bool()
+	value1 = (value.Get("mayUseGATT")).Bool()
 	out.MayUseGATT = value1
-	value2 = UnionFromJS(input.Get("allowedServices"))
+	value2 = UnionFromJS(value.Get("allowedServices"))
 	out.AllowedServices = value2
 	return &out
 }
@@ -972,7 +969,7 @@ type DataFilterInit struct {
 	Mask       *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DataFilterInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -984,18 +981,16 @@ func (_this *DataFilterInit) JSValue() js.Value {
 }
 
 // DataFilterInitFromJS is allocating a new
-// DataFilterInit object and copy all values from
-// input javascript object
-func DataFilterInitFromJS(value js.Wrapper) *DataFilterInit {
-	input := value.JSValue()
+// DataFilterInit object and copy all values in the value javascript object.
+func DataFilterInitFromJS(value js.Value) *DataFilterInit {
 	var out DataFilterInit
 	var (
 		value0 *Union // javascript: Union {dataPrefix DataPrefix dataPrefix}
 		value1 *Union // javascript: Union {mask Mask mask}
 	)
-	value0 = UnionFromJS(input.Get("dataPrefix"))
+	value0 = UnionFromJS(value.Get("dataPrefix"))
 	out.DataPrefix = value0
-	value1 = UnionFromJS(input.Get("mask"))
+	value1 = UnionFromJS(value.Get("mask"))
 	out.Mask = value1
 	return &out
 }
@@ -1009,7 +1004,7 @@ type LEScanFilterInit struct {
 	ServiceData      *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LEScanFilterInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1031,10 +1026,8 @@ func (_this *LEScanFilterInit) JSValue() js.Value {
 }
 
 // LEScanFilterInitFromJS is allocating a new
-// LEScanFilterInit object and copy all values from
-// input javascript object
-func LEScanFilterInitFromJS(value js.Wrapper) *LEScanFilterInit {
-	input := value.JSValue()
+// LEScanFilterInit object and copy all values in the value javascript object.
+func LEScanFilterInitFromJS(value js.Value) *LEScanFilterInit {
 	var out LEScanFilterInit
 	var (
 		value0 []*Union           // javascript: sequence<Union> {services Services services}
@@ -1043,23 +1036,23 @@ func LEScanFilterInitFromJS(value js.Wrapper) *LEScanFilterInit {
 		value3 *javascript.Object // javascript: object {manufacturerData ManufacturerData manufacturerData}
 		value4 *javascript.Object // javascript: object {serviceData ServiceData serviceData}
 	)
-	__length0 := input.Get("services").Length()
+	__length0 := value.Get("services").Length()
 	__array0 := make([]*Union, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *Union
-		__seq_in0 := input.Get("services").Index(__idx0)
+		__seq_in0 := value.Get("services").Index(__idx0)
 		__seq_out0 = UnionFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Services = value0
-	value1 = (input.Get("name")).String()
+	value1 = (value.Get("name")).String()
 	out.Name = value1
-	value2 = (input.Get("namePrefix")).String()
+	value2 = (value.Get("namePrefix")).String()
 	out.NamePrefix = value2
-	value3 = javascript.ObjectFromJS(input.Get("manufacturerData"))
+	value3 = javascript.ObjectFromJS(value.Get("manufacturerData"))
 	out.ManufacturerData = value3
-	value4 = javascript.ObjectFromJS(input.Get("serviceData"))
+	value4 = javascript.ObjectFromJS(value.Get("serviceData"))
 	out.ServiceData = value4
 	return &out
 }
@@ -1070,7 +1063,7 @@ type ManufacturerDataMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ManufacturerDataMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1086,26 +1079,24 @@ func (_this *ManufacturerDataMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // ManufacturerDataMapEntryIteratorValueFromJS is allocating a new
-// ManufacturerDataMapEntryIteratorValue object and copy all values from
-// input javascript object
-func ManufacturerDataMapEntryIteratorValueFromJS(value js.Wrapper) *ManufacturerDataMapEntryIteratorValue {
-	input := value.JSValue()
+// ManufacturerDataMapEntryIteratorValue object and copy all values in the value javascript object.
+func ManufacturerDataMapEntryIteratorValueFromJS(value js.Value) *ManufacturerDataMapEntryIteratorValue {
 	var out ManufacturerDataMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1116,7 +1107,7 @@ type ManufacturerDataMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ManufacturerDataMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1128,18 +1119,16 @@ func (_this *ManufacturerDataMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // ManufacturerDataMapKeyIteratorValueFromJS is allocating a new
-// ManufacturerDataMapKeyIteratorValue object and copy all values from
-// input javascript object
-func ManufacturerDataMapKeyIteratorValueFromJS(value js.Wrapper) *ManufacturerDataMapKeyIteratorValue {
-	input := value.JSValue()
+// ManufacturerDataMapKeyIteratorValue object and copy all values in the value javascript object.
+func ManufacturerDataMapKeyIteratorValueFromJS(value js.Value) *ManufacturerDataMapKeyIteratorValue {
 	var out ManufacturerDataMapKeyIteratorValue
 	var (
 		value0 int  // javascript: unsigned short {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).Int()
+	value0 = (value.Get("value")).Int()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1150,7 +1139,7 @@ type ManufacturerDataMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ManufacturerDataMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1162,18 +1151,16 @@ func (_this *ManufacturerDataMapValueIteratorValue) JSValue() js.Value {
 }
 
 // ManufacturerDataMapValueIteratorValueFromJS is allocating a new
-// ManufacturerDataMapValueIteratorValue object and copy all values from
-// input javascript object
-func ManufacturerDataMapValueIteratorValueFromJS(value js.Wrapper) *ManufacturerDataMapValueIteratorValue {
-	input := value.JSValue()
+// ManufacturerDataMapValueIteratorValue object and copy all values in the value javascript object.
+func ManufacturerDataMapValueIteratorValueFromJS(value js.Value) *ManufacturerDataMapValueIteratorValue {
 	var out ManufacturerDataMapValueIteratorValue
 	var (
 		value0 *javascript.DataView // javascript: DataView {value Value value}
 		value1 bool                 // javascript: boolean {done Done done}
 	)
-	value0 = javascript.DataViewFromJS(input.Get("value"))
+	value0 = javascript.DataViewFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1183,7 +1170,7 @@ type PermissionData struct {
 	AllowedDevices []*AllowedDevice
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PermissionData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1197,19 +1184,17 @@ func (_this *PermissionData) JSValue() js.Value {
 }
 
 // PermissionDataFromJS is allocating a new
-// PermissionData object and copy all values from
-// input javascript object
-func PermissionDataFromJS(value js.Wrapper) *PermissionData {
-	input := value.JSValue()
+// PermissionData object and copy all values in the value javascript object.
+func PermissionDataFromJS(value js.Value) *PermissionData {
 	var out PermissionData
 	var (
 		value0 []*AllowedDevice // javascript: sequence<AllowedBluetoothDevice> {allowedDevices AllowedDevices allowedDevices}
 	)
-	__length0 := input.Get("allowedDevices").Length()
+	__length0 := value.Get("allowedDevices").Length()
 	__array0 := make([]*AllowedDevice, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *AllowedDevice
-		__seq_in0 := input.Get("allowedDevices").Index(__idx0)
+		__seq_in0 := value.Get("allowedDevices").Index(__idx0)
 		__seq_out0 = AllowedDeviceFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
@@ -1227,7 +1212,7 @@ type PermissionDescriptor struct {
 	AcceptAllDevices bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1253,10 +1238,8 @@ func (_this *PermissionDescriptor) JSValue() js.Value {
 }
 
 // PermissionDescriptorFromJS is allocating a new
-// PermissionDescriptor object and copy all values from
-// input javascript object
-func PermissionDescriptorFromJS(value js.Wrapper) *PermissionDescriptor {
-	input := value.JSValue()
+// PermissionDescriptor object and copy all values in the value javascript object.
+func PermissionDescriptorFromJS(value js.Value) *PermissionDescriptor {
 	var out PermissionDescriptor
 	var (
 		value0 string              // javascript: DOMString {name Name name}
@@ -1265,31 +1248,31 @@ func PermissionDescriptorFromJS(value js.Wrapper) *PermissionDescriptor {
 		value3 []*Union            // javascript: sequence<Union> {optionalServices OptionalServices optionalServices}
 		value4 bool                // javascript: boolean {acceptAllDevices AcceptAllDevices acceptAllDevices}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("deviceId")).String()
+	value1 = (value.Get("deviceId")).String()
 	out.DeviceId = value1
-	__length2 := input.Get("filters").Length()
+	__length2 := value.Get("filters").Length()
 	__array2 := make([]*LEScanFilterInit, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *LEScanFilterInit
-		__seq_in2 := input.Get("filters").Index(__idx2)
+		__seq_in2 := value.Get("filters").Index(__idx2)
 		__seq_out2 = LEScanFilterInitFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.Filters = value2
-	__length3 := input.Get("optionalServices").Length()
+	__length3 := value.Get("optionalServices").Length()
 	__array3 := make([]*Union, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *Union
-		__seq_in3 := input.Get("optionalServices").Index(__idx3)
+		__seq_in3 := value.Get("optionalServices").Index(__idx3)
 		__seq_out3 = UnionFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.OptionalServices = value3
-	value4 = (input.Get("acceptAllDevices")).Bool()
+	value4 = (value.Get("acceptAllDevices")).Bool()
 	out.AcceptAllDevices = value4
 	return &out
 }
@@ -1301,7 +1284,7 @@ type RequestDeviceOptions struct {
 	AcceptAllDevices bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RequestDeviceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1323,37 +1306,35 @@ func (_this *RequestDeviceOptions) JSValue() js.Value {
 }
 
 // RequestDeviceOptionsFromJS is allocating a new
-// RequestDeviceOptions object and copy all values from
-// input javascript object
-func RequestDeviceOptionsFromJS(value js.Wrapper) *RequestDeviceOptions {
-	input := value.JSValue()
+// RequestDeviceOptions object and copy all values in the value javascript object.
+func RequestDeviceOptionsFromJS(value js.Value) *RequestDeviceOptions {
 	var out RequestDeviceOptions
 	var (
 		value0 []*LEScanFilterInit // javascript: sequence<BluetoothLEScanFilterInit> {filters Filters filters}
 		value1 []*Union            // javascript: sequence<Union> {optionalServices OptionalServices optionalServices}
 		value2 bool                // javascript: boolean {acceptAllDevices AcceptAllDevices acceptAllDevices}
 	)
-	__length0 := input.Get("filters").Length()
+	__length0 := value.Get("filters").Length()
 	__array0 := make([]*LEScanFilterInit, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *LEScanFilterInit
-		__seq_in0 := input.Get("filters").Index(__idx0)
+		__seq_in0 := value.Get("filters").Index(__idx0)
 		__seq_out0 = LEScanFilterInitFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Filters = value0
-	__length1 := input.Get("optionalServices").Length()
+	__length1 := value.Get("optionalServices").Length()
 	__array1 := make([]*Union, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *Union
-		__seq_in1 := input.Get("optionalServices").Index(__idx1)
+		__seq_in1 := value.Get("optionalServices").Index(__idx1)
 		__seq_out1 = UnionFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.OptionalServices = value1
-	value2 = (input.Get("acceptAllDevices")).Bool()
+	value2 = (value.Get("acceptAllDevices")).Bool()
 	out.AcceptAllDevices = value2
 	return &out
 }
@@ -1364,7 +1345,7 @@ type ServiceDataMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ServiceDataMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1380,26 +1361,24 @@ func (_this *ServiceDataMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // ServiceDataMapEntryIteratorValueFromJS is allocating a new
-// ServiceDataMapEntryIteratorValue object and copy all values from
-// input javascript object
-func ServiceDataMapEntryIteratorValueFromJS(value js.Wrapper) *ServiceDataMapEntryIteratorValue {
-	input := value.JSValue()
+// ServiceDataMapEntryIteratorValue object and copy all values in the value javascript object.
+func ServiceDataMapEntryIteratorValueFromJS(value js.Value) *ServiceDataMapEntryIteratorValue {
 	var out ServiceDataMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1410,7 +1389,7 @@ type ServiceDataMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ServiceDataMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1422,18 +1401,16 @@ func (_this *ServiceDataMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // ServiceDataMapKeyIteratorValueFromJS is allocating a new
-// ServiceDataMapKeyIteratorValue object and copy all values from
-// input javascript object
-func ServiceDataMapKeyIteratorValueFromJS(value js.Wrapper) *ServiceDataMapKeyIteratorValue {
-	input := value.JSValue()
+// ServiceDataMapKeyIteratorValue object and copy all values in the value javascript object.
+func ServiceDataMapKeyIteratorValueFromJS(value js.Value) *ServiceDataMapKeyIteratorValue {
 	var out ServiceDataMapKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1444,7 +1421,7 @@ type ServiceDataMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ServiceDataMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1456,18 +1433,16 @@ func (_this *ServiceDataMapValueIteratorValue) JSValue() js.Value {
 }
 
 // ServiceDataMapValueIteratorValueFromJS is allocating a new
-// ServiceDataMapValueIteratorValue object and copy all values from
-// input javascript object
-func ServiceDataMapValueIteratorValueFromJS(value js.Wrapper) *ServiceDataMapValueIteratorValue {
-	input := value.JSValue()
+// ServiceDataMapValueIteratorValue object and copy all values in the value javascript object.
+func ServiceDataMapValueIteratorValueFromJS(value js.Value) *ServiceDataMapValueIteratorValue {
 	var out ServiceDataMapValueIteratorValue
 	var (
 		value0 *javascript.DataView // javascript: DataView {value Value value}
 		value1 bool                 // javascript: boolean {done Done done}
 	)
-	value0 = javascript.DataViewFromJS(input.Get("value"))
+	value0 = javascript.DataViewFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1480,7 +1455,7 @@ type ValueEventInit struct {
 	Value      js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ValueEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1496,10 +1471,8 @@ func (_this *ValueEventInit) JSValue() js.Value {
 }
 
 // ValueEventInitFromJS is allocating a new
-// ValueEventInit object and copy all values from
-// input javascript object
-func ValueEventInitFromJS(value js.Wrapper) *ValueEventInit {
-	input := value.JSValue()
+// ValueEventInit object and copy all values in the value javascript object.
+func ValueEventInitFromJS(value js.Value) *ValueEventInit {
 	var out ValueEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -1507,13 +1480,13 @@ func ValueEventInitFromJS(value js.Wrapper) *ValueEventInit {
 		value2 bool     // javascript: boolean {composed Composed composed}
 		value3 js.Value // javascript: any {value Value value}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("value")
+	value3 = value.Get("value")
 	out.Value = value3
 	return &out
 }
@@ -1523,15 +1496,19 @@ type AdvertisingEvent struct {
 	domcore.Event
 }
 
-// AdvertisingEventFromJS is casting a js.Wrapper into AdvertisingEvent.
-func AdvertisingEventFromJS(value js.Wrapper) *AdvertisingEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AdvertisingEventFromJS is casting a js.Value into AdvertisingEvent.
+func AdvertisingEventFromJS(value js.Value) *AdvertisingEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AdvertisingEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AdvertisingEventFromJS is casting from something that holds a js.Value into AdvertisingEvent.
+func AdvertisingEventFromWrapper(input core.Wrapper) *AdvertisingEvent {
+	return AdvertisingEventFromJS(input.JSValue())
 }
 
 func NewBluetoothAdvertisingEvent(_type string, init *AdvertisingEventInit) (_result *AdvertisingEvent) {
@@ -1644,15 +1621,19 @@ type Bluetooth struct {
 	domcore.EventTarget
 }
 
-// BluetoothFromJS is casting a js.Wrapper into Bluetooth.
-func BluetoothFromJS(value js.Wrapper) *Bluetooth {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BluetoothFromJS is casting a js.Value into Bluetooth.
+func BluetoothFromJS(value js.Value) *Bluetooth {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Bluetooth{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BluetoothFromJS is casting from something that holds a js.Value into Bluetooth.
+func BluetoothFromWrapper(input core.Wrapper) *Bluetooth {
+	return BluetoothFromJS(input.JSValue())
 }
 
 // OnAvailabilityChanged returning attribute 'onavailabilitychanged' with
@@ -1940,15 +1921,19 @@ func (_this *CharacteristicProperties) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CharacteristicPropertiesFromJS is casting a js.Wrapper into CharacteristicProperties.
-func CharacteristicPropertiesFromJS(value js.Wrapper) *CharacteristicProperties {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CharacteristicPropertiesFromJS is casting a js.Value into CharacteristicProperties.
+func CharacteristicPropertiesFromJS(value js.Value) *CharacteristicProperties {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CharacteristicProperties{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CharacteristicPropertiesFromJS is casting from something that holds a js.Value into CharacteristicProperties.
+func CharacteristicPropertiesFromWrapper(input core.Wrapper) *CharacteristicProperties {
+	return CharacteristicPropertiesFromJS(input.JSValue())
 }
 
 // Broadcast returning attribute 'broadcast' with
@@ -2037,15 +2022,19 @@ type Device struct {
 	domcore.EventTarget
 }
 
-// DeviceFromJS is casting a js.Wrapper into Device.
-func DeviceFromJS(value js.Wrapper) *Device {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DeviceFromJS is casting a js.Value into Device.
+func DeviceFromJS(value js.Value) *Device {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Device{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DeviceFromJS is casting from something that holds a js.Value into Device.
+func DeviceFromWrapper(input core.Wrapper) *Device {
+	return DeviceFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -2312,15 +2301,19 @@ func (_this *ManufacturerDataMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ManufacturerDataMapFromJS is casting a js.Wrapper into ManufacturerDataMap.
-func ManufacturerDataMapFromJS(value js.Wrapper) *ManufacturerDataMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ManufacturerDataMapFromJS is casting a js.Value into ManufacturerDataMap.
+func ManufacturerDataMapFromJS(value js.Value) *ManufacturerDataMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ManufacturerDataMapFromJS is casting from something that holds a js.Value into ManufacturerDataMap.
+func ManufacturerDataMapFromWrapper(input core.Wrapper) *ManufacturerDataMap {
+	return ManufacturerDataMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -2444,15 +2437,19 @@ func (_this *ManufacturerDataMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ManufacturerDataMapEntryIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapEntryIterator.
-func ManufacturerDataMapEntryIteratorFromJS(value js.Wrapper) *ManufacturerDataMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ManufacturerDataMapEntryIteratorFromJS is casting a js.Value into ManufacturerDataMapEntryIterator.
+func ManufacturerDataMapEntryIteratorFromJS(value js.Value) *ManufacturerDataMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ManufacturerDataMapEntryIteratorFromJS is casting from something that holds a js.Value into ManufacturerDataMapEntryIterator.
+func ManufacturerDataMapEntryIteratorFromWrapper(input core.Wrapper) *ManufacturerDataMapEntryIterator {
+	return ManufacturerDataMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *ManufacturerDataMapEntryIterator) Next() (_result *ManufacturerDataMapEntryIteratorValue) {
@@ -2479,15 +2476,19 @@ func (_this *ManufacturerDataMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ManufacturerDataMapKeyIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapKeyIterator.
-func ManufacturerDataMapKeyIteratorFromJS(value js.Wrapper) *ManufacturerDataMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ManufacturerDataMapKeyIteratorFromJS is casting a js.Value into ManufacturerDataMapKeyIterator.
+func ManufacturerDataMapKeyIteratorFromJS(value js.Value) *ManufacturerDataMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ManufacturerDataMapKeyIteratorFromJS is casting from something that holds a js.Value into ManufacturerDataMapKeyIterator.
+func ManufacturerDataMapKeyIteratorFromWrapper(input core.Wrapper) *ManufacturerDataMapKeyIterator {
+	return ManufacturerDataMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *ManufacturerDataMapKeyIterator) Next() (_result *ManufacturerDataMapKeyIteratorValue) {
@@ -2514,15 +2515,19 @@ func (_this *ManufacturerDataMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ManufacturerDataMapValueIteratorFromJS is casting a js.Wrapper into ManufacturerDataMapValueIterator.
-func ManufacturerDataMapValueIteratorFromJS(value js.Wrapper) *ManufacturerDataMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ManufacturerDataMapValueIteratorFromJS is casting a js.Value into ManufacturerDataMapValueIterator.
+func ManufacturerDataMapValueIteratorFromJS(value js.Value) *ManufacturerDataMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ManufacturerDataMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ManufacturerDataMapValueIteratorFromJS is casting from something that holds a js.Value into ManufacturerDataMapValueIterator.
+func ManufacturerDataMapValueIteratorFromWrapper(input core.Wrapper) *ManufacturerDataMapValueIterator {
+	return ManufacturerDataMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *ManufacturerDataMapValueIterator) Next() (_result *ManufacturerDataMapValueIteratorValue) {
@@ -2544,15 +2549,19 @@ type PermissionResult struct {
 	permissions.PermissionStatus
 }
 
-// PermissionResultFromJS is casting a js.Wrapper into PermissionResult.
-func PermissionResultFromJS(value js.Wrapper) *PermissionResult {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PermissionResultFromJS is casting a js.Value into PermissionResult.
+func PermissionResultFromJS(value js.Value) *PermissionResult {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PermissionResult{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PermissionResultFromJS is casting from something that holds a js.Value into PermissionResult.
+func PermissionResultFromWrapper(input core.Wrapper) *PermissionResult {
+	return PermissionResultFromJS(input.JSValue())
 }
 
 // Devices returning attribute 'devices' with
@@ -2581,15 +2590,19 @@ func (_this *PromiseDevice) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseDeviceFromJS is casting a js.Wrapper into PromiseDevice.
-func PromiseDeviceFromJS(value js.Wrapper) *PromiseDevice {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseDeviceFromJS is casting a js.Value into PromiseDevice.
+func PromiseDeviceFromJS(value js.Value) *PromiseDevice {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDevice{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseDeviceFromJS is casting from something that holds a js.Value into PromiseDevice.
+func PromiseDeviceFromWrapper(input core.Wrapper) *PromiseDevice {
+	return PromiseDeviceFromJS(input.JSValue())
 }
 
 func (_this *PromiseDevice) Then(onFulfilled *PromiseDeviceOnFulfilled, onRejected *PromiseDeviceOnRejected) (_result *PromiseDevice) {
@@ -2686,15 +2699,19 @@ func (_this *PromiseRemoteGATTCharacteristic) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseRemoteGATTCharacteristicFromJS is casting a js.Wrapper into PromiseRemoteGATTCharacteristic.
-func PromiseRemoteGATTCharacteristicFromJS(value js.Wrapper) *PromiseRemoteGATTCharacteristic {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseRemoteGATTCharacteristicFromJS is casting a js.Value into PromiseRemoteGATTCharacteristic.
+func PromiseRemoteGATTCharacteristicFromJS(value js.Value) *PromiseRemoteGATTCharacteristic {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTCharacteristic{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseRemoteGATTCharacteristicFromJS is casting from something that holds a js.Value into PromiseRemoteGATTCharacteristic.
+func PromiseRemoteGATTCharacteristicFromWrapper(input core.Wrapper) *PromiseRemoteGATTCharacteristic {
+	return PromiseRemoteGATTCharacteristicFromJS(input.JSValue())
 }
 
 func (_this *PromiseRemoteGATTCharacteristic) Then(onFulfilled *PromiseRemoteGATTCharacteristicOnFulfilled, onRejected *PromiseRemoteGATTCharacteristicOnRejected) (_result *PromiseRemoteGATTCharacteristic) {
@@ -2791,15 +2808,19 @@ func (_this *PromiseRemoteGATTDescriptor) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseRemoteGATTDescriptorFromJS is casting a js.Wrapper into PromiseRemoteGATTDescriptor.
-func PromiseRemoteGATTDescriptorFromJS(value js.Wrapper) *PromiseRemoteGATTDescriptor {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseRemoteGATTDescriptorFromJS is casting a js.Value into PromiseRemoteGATTDescriptor.
+func PromiseRemoteGATTDescriptorFromJS(value js.Value) *PromiseRemoteGATTDescriptor {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTDescriptor{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseRemoteGATTDescriptorFromJS is casting from something that holds a js.Value into PromiseRemoteGATTDescriptor.
+func PromiseRemoteGATTDescriptorFromWrapper(input core.Wrapper) *PromiseRemoteGATTDescriptor {
+	return PromiseRemoteGATTDescriptorFromJS(input.JSValue())
 }
 
 func (_this *PromiseRemoteGATTDescriptor) Then(onFulfilled *PromiseRemoteGATTDescriptorOnFulfilled, onRejected *PromiseRemoteGATTDescriptorOnRejected) (_result *PromiseRemoteGATTDescriptor) {
@@ -2896,15 +2917,19 @@ func (_this *PromiseRemoteGATTServer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseRemoteGATTServerFromJS is casting a js.Wrapper into PromiseRemoteGATTServer.
-func PromiseRemoteGATTServerFromJS(value js.Wrapper) *PromiseRemoteGATTServer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseRemoteGATTServerFromJS is casting a js.Value into PromiseRemoteGATTServer.
+func PromiseRemoteGATTServerFromJS(value js.Value) *PromiseRemoteGATTServer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTServer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseRemoteGATTServerFromJS is casting from something that holds a js.Value into PromiseRemoteGATTServer.
+func PromiseRemoteGATTServerFromWrapper(input core.Wrapper) *PromiseRemoteGATTServer {
+	return PromiseRemoteGATTServerFromJS(input.JSValue())
 }
 
 func (_this *PromiseRemoteGATTServer) Then(onFulfilled *PromiseRemoteGATTServerOnFulfilled, onRejected *PromiseRemoteGATTServerOnRejected) (_result *PromiseRemoteGATTServer) {
@@ -3001,15 +3026,19 @@ func (_this *PromiseRemoteGATTService) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseRemoteGATTServiceFromJS is casting a js.Wrapper into PromiseRemoteGATTService.
-func PromiseRemoteGATTServiceFromJS(value js.Wrapper) *PromiseRemoteGATTService {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseRemoteGATTServiceFromJS is casting a js.Value into PromiseRemoteGATTService.
+func PromiseRemoteGATTServiceFromJS(value js.Value) *PromiseRemoteGATTService {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRemoteGATTService{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseRemoteGATTServiceFromJS is casting from something that holds a js.Value into PromiseRemoteGATTService.
+func PromiseRemoteGATTServiceFromWrapper(input core.Wrapper) *PromiseRemoteGATTService {
+	return PromiseRemoteGATTServiceFromJS(input.JSValue())
 }
 
 func (_this *PromiseRemoteGATTService) Then(onFulfilled *PromiseRemoteGATTServiceOnFulfilled, onRejected *PromiseRemoteGATTServiceOnRejected) (_result *PromiseRemoteGATTService) {
@@ -3106,15 +3135,19 @@ func (_this *PromiseSequenceRemoteGATTCharacteristic) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceRemoteGATTCharacteristicFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTCharacteristic.
-func PromiseSequenceRemoteGATTCharacteristicFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTCharacteristic {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceRemoteGATTCharacteristicFromJS is casting a js.Value into PromiseSequenceRemoteGATTCharacteristic.
+func PromiseSequenceRemoteGATTCharacteristicFromJS(value js.Value) *PromiseSequenceRemoteGATTCharacteristic {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTCharacteristic{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceRemoteGATTCharacteristicFromJS is casting from something that holds a js.Value into PromiseSequenceRemoteGATTCharacteristic.
+func PromiseSequenceRemoteGATTCharacteristicFromWrapper(input core.Wrapper) *PromiseSequenceRemoteGATTCharacteristic {
+	return PromiseSequenceRemoteGATTCharacteristicFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceRemoteGATTCharacteristic) Then(onFulfilled *PromiseSequenceRemoteGATTCharacteristicOnFulfilled, onRejected *PromiseSequenceRemoteGATTCharacteristicOnRejected) (_result *PromiseSequenceRemoteGATTCharacteristic) {
@@ -3211,15 +3244,19 @@ func (_this *PromiseSequenceRemoteGATTDescriptor) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceRemoteGATTDescriptorFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTDescriptor.
-func PromiseSequenceRemoteGATTDescriptorFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTDescriptor {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceRemoteGATTDescriptorFromJS is casting a js.Value into PromiseSequenceRemoteGATTDescriptor.
+func PromiseSequenceRemoteGATTDescriptorFromJS(value js.Value) *PromiseSequenceRemoteGATTDescriptor {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTDescriptor{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceRemoteGATTDescriptorFromJS is casting from something that holds a js.Value into PromiseSequenceRemoteGATTDescriptor.
+func PromiseSequenceRemoteGATTDescriptorFromWrapper(input core.Wrapper) *PromiseSequenceRemoteGATTDescriptor {
+	return PromiseSequenceRemoteGATTDescriptorFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceRemoteGATTDescriptor) Then(onFulfilled *PromiseSequenceRemoteGATTDescriptorOnFulfilled, onRejected *PromiseSequenceRemoteGATTDescriptorOnRejected) (_result *PromiseSequenceRemoteGATTDescriptor) {
@@ -3316,15 +3353,19 @@ func (_this *PromiseSequenceRemoteGATTService) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceRemoteGATTServiceFromJS is casting a js.Wrapper into PromiseSequenceRemoteGATTService.
-func PromiseSequenceRemoteGATTServiceFromJS(value js.Wrapper) *PromiseSequenceRemoteGATTService {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceRemoteGATTServiceFromJS is casting a js.Value into PromiseSequenceRemoteGATTService.
+func PromiseSequenceRemoteGATTServiceFromJS(value js.Value) *PromiseSequenceRemoteGATTService {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceRemoteGATTService{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceRemoteGATTServiceFromJS is casting from something that holds a js.Value into PromiseSequenceRemoteGATTService.
+func PromiseSequenceRemoteGATTServiceFromWrapper(input core.Wrapper) *PromiseSequenceRemoteGATTService {
+	return PromiseSequenceRemoteGATTServiceFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceRemoteGATTService) Then(onFulfilled *PromiseSequenceRemoteGATTServiceOnFulfilled, onRejected *PromiseSequenceRemoteGATTServiceOnRejected) (_result *PromiseSequenceRemoteGATTService) {
@@ -3416,15 +3457,19 @@ type RemoteGATTCharacteristic struct {
 	domcore.EventTarget
 }
 
-// RemoteGATTCharacteristicFromJS is casting a js.Wrapper into RemoteGATTCharacteristic.
-func RemoteGATTCharacteristicFromJS(value js.Wrapper) *RemoteGATTCharacteristic {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RemoteGATTCharacteristicFromJS is casting a js.Value into RemoteGATTCharacteristic.
+func RemoteGATTCharacteristicFromJS(value js.Value) *RemoteGATTCharacteristic {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTCharacteristic{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RemoteGATTCharacteristicFromJS is casting from something that holds a js.Value into RemoteGATTCharacteristic.
+func RemoteGATTCharacteristicFromWrapper(input core.Wrapper) *RemoteGATTCharacteristic {
+	return RemoteGATTCharacteristicFromJS(input.JSValue())
 }
 
 // Service returning attribute 'service' with
@@ -3611,15 +3656,19 @@ func (_this *RemoteGATTDescriptor) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RemoteGATTDescriptorFromJS is casting a js.Wrapper into RemoteGATTDescriptor.
-func RemoteGATTDescriptorFromJS(value js.Wrapper) *RemoteGATTDescriptor {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RemoteGATTDescriptorFromJS is casting a js.Value into RemoteGATTDescriptor.
+func RemoteGATTDescriptorFromJS(value js.Value) *RemoteGATTDescriptor {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTDescriptor{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RemoteGATTDescriptorFromJS is casting from something that holds a js.Value into RemoteGATTDescriptor.
+func RemoteGATTDescriptorFromWrapper(input core.Wrapper) *RemoteGATTDescriptor {
+	return RemoteGATTDescriptorFromJS(input.JSValue())
 }
 
 // Characteristic returning attribute 'characteristic' with
@@ -3692,15 +3741,19 @@ func (_this *RemoteGATTServer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RemoteGATTServerFromJS is casting a js.Wrapper into RemoteGATTServer.
-func RemoteGATTServerFromJS(value js.Wrapper) *RemoteGATTServer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RemoteGATTServerFromJS is casting a js.Value into RemoteGATTServer.
+func RemoteGATTServerFromJS(value js.Value) *RemoteGATTServer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTServer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RemoteGATTServerFromJS is casting from something that holds a js.Value into RemoteGATTServer.
+func RemoteGATTServerFromWrapper(input core.Wrapper) *RemoteGATTServer {
+	return RemoteGATTServerFromJS(input.JSValue())
 }
 
 // Device returning attribute 'device' with
@@ -3785,15 +3838,19 @@ type RemoteGATTService struct {
 	domcore.EventTarget
 }
 
-// RemoteGATTServiceFromJS is casting a js.Wrapper into RemoteGATTService.
-func RemoteGATTServiceFromJS(value js.Wrapper) *RemoteGATTService {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RemoteGATTServiceFromJS is casting a js.Value into RemoteGATTService.
+func RemoteGATTServiceFromJS(value js.Value) *RemoteGATTService {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemoteGATTService{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RemoteGATTServiceFromJS is casting from something that holds a js.Value into RemoteGATTService.
+func RemoteGATTServiceFromWrapper(input core.Wrapper) *RemoteGATTService {
+	return RemoteGATTServiceFromJS(input.JSValue())
 }
 
 // Device returning attribute 'device' with
@@ -4027,15 +4084,19 @@ func (_this *ServiceDataMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServiceDataMapFromJS is casting a js.Wrapper into ServiceDataMap.
-func ServiceDataMapFromJS(value js.Wrapper) *ServiceDataMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceDataMapFromJS is casting a js.Value into ServiceDataMap.
+func ServiceDataMapFromJS(value js.Value) *ServiceDataMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceDataMapFromJS is casting from something that holds a js.Value into ServiceDataMap.
+func ServiceDataMapFromWrapper(input core.Wrapper) *ServiceDataMap {
+	return ServiceDataMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -4159,15 +4220,19 @@ func (_this *ServiceDataMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServiceDataMapEntryIteratorFromJS is casting a js.Wrapper into ServiceDataMapEntryIterator.
-func ServiceDataMapEntryIteratorFromJS(value js.Wrapper) *ServiceDataMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceDataMapEntryIteratorFromJS is casting a js.Value into ServiceDataMapEntryIterator.
+func ServiceDataMapEntryIteratorFromJS(value js.Value) *ServiceDataMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceDataMapEntryIteratorFromJS is casting from something that holds a js.Value into ServiceDataMapEntryIterator.
+func ServiceDataMapEntryIteratorFromWrapper(input core.Wrapper) *ServiceDataMapEntryIterator {
+	return ServiceDataMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *ServiceDataMapEntryIterator) Next() (_result *ServiceDataMapEntryIteratorValue) {
@@ -4194,15 +4259,19 @@ func (_this *ServiceDataMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServiceDataMapKeyIteratorFromJS is casting a js.Wrapper into ServiceDataMapKeyIterator.
-func ServiceDataMapKeyIteratorFromJS(value js.Wrapper) *ServiceDataMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceDataMapKeyIteratorFromJS is casting a js.Value into ServiceDataMapKeyIterator.
+func ServiceDataMapKeyIteratorFromJS(value js.Value) *ServiceDataMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceDataMapKeyIteratorFromJS is casting from something that holds a js.Value into ServiceDataMapKeyIterator.
+func ServiceDataMapKeyIteratorFromWrapper(input core.Wrapper) *ServiceDataMapKeyIterator {
+	return ServiceDataMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *ServiceDataMapKeyIterator) Next() (_result *ServiceDataMapKeyIteratorValue) {
@@ -4229,15 +4298,19 @@ func (_this *ServiceDataMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServiceDataMapValueIteratorFromJS is casting a js.Wrapper into ServiceDataMapValueIterator.
-func ServiceDataMapValueIteratorFromJS(value js.Wrapper) *ServiceDataMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceDataMapValueIteratorFromJS is casting a js.Value into ServiceDataMapValueIterator.
+func ServiceDataMapValueIteratorFromJS(value js.Value) *ServiceDataMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceDataMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceDataMapValueIteratorFromJS is casting from something that holds a js.Value into ServiceDataMapValueIterator.
+func ServiceDataMapValueIteratorFromWrapper(input core.Wrapper) *ServiceDataMapValueIterator {
+	return ServiceDataMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *ServiceDataMapValueIterator) Next() (_result *ServiceDataMapValueIteratorValue) {
@@ -4335,15 +4408,19 @@ type ValueEvent struct {
 	domcore.Event
 }
 
-// ValueEventFromJS is casting a js.Wrapper into ValueEvent.
-func ValueEventFromJS(value js.Wrapper) *ValueEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ValueEventFromJS is casting a js.Value into ValueEvent.
+func ValueEventFromJS(value js.Value) *ValueEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ValueEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ValueEventFromJS is casting from something that holds a js.Value into ValueEvent.
+func ValueEventFromWrapper(input core.Wrapper) *ValueEvent {
+	return ValueEventFromJS(input.JSValue())
 }
 
 func NewValueEvent(_type string, initDict *ValueEventInit) (_result *ValueEvent) {

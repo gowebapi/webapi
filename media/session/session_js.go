@@ -5,6 +5,7 @@ package session
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -165,7 +166,7 @@ type MediaImage struct {
 	Type  string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaImage) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -179,21 +180,19 @@ func (_this *MediaImage) JSValue() js.Value {
 }
 
 // MediaImageFromJS is allocating a new
-// MediaImage object and copy all values from
-// input javascript object
-func MediaImageFromJS(value js.Wrapper) *MediaImage {
-	input := value.JSValue()
+// MediaImage object and copy all values in the value javascript object.
+func MediaImageFromJS(value js.Value) *MediaImage {
 	var out MediaImage
 	var (
 		value0 string // javascript: USVString {src Src src}
 		value1 string // javascript: DOMString {sizes Sizes sizes}
 		value2 string // javascript: DOMString {type Type _type}
 	)
-	value0 = (input.Get("src")).String()
+	value0 = (value.Get("src")).String()
 	out.Src = value0
-	value1 = (input.Get("sizes")).String()
+	value1 = (value.Get("sizes")).String()
 	out.Sizes = value1
-	value2 = (input.Get("type")).String()
+	value2 = (value.Get("type")).String()
 	out.Type = value2
 	return &out
 }
@@ -206,7 +205,7 @@ type MediaMetadataInit struct {
 	Artwork []*MediaImage
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaMetadataInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -226,10 +225,8 @@ func (_this *MediaMetadataInit) JSValue() js.Value {
 }
 
 // MediaMetadataInitFromJS is allocating a new
-// MediaMetadataInit object and copy all values from
-// input javascript object
-func MediaMetadataInitFromJS(value js.Wrapper) *MediaMetadataInit {
-	input := value.JSValue()
+// MediaMetadataInit object and copy all values in the value javascript object.
+func MediaMetadataInitFromJS(value js.Value) *MediaMetadataInit {
 	var out MediaMetadataInit
 	var (
 		value0 string        // javascript: DOMString {title Title title}
@@ -237,17 +234,17 @@ func MediaMetadataInitFromJS(value js.Wrapper) *MediaMetadataInit {
 		value2 string        // javascript: DOMString {album Album album}
 		value3 []*MediaImage // javascript: sequence<MediaImage> {artwork Artwork artwork}
 	)
-	value0 = (input.Get("title")).String()
+	value0 = (value.Get("title")).String()
 	out.Title = value0
-	value1 = (input.Get("artist")).String()
+	value1 = (value.Get("artist")).String()
 	out.Artist = value1
-	value2 = (input.Get("album")).String()
+	value2 = (value.Get("album")).String()
 	out.Album = value2
-	__length3 := input.Get("artwork").Length()
+	__length3 := value.Get("artwork").Length()
 	__array3 := make([]*MediaImage, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *MediaImage
-		__seq_in3 := input.Get("artwork").Index(__idx3)
+		__seq_in3 := value.Get("artwork").Index(__idx3)
 		__seq_out3 = MediaImageFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
@@ -266,15 +263,19 @@ func (_this *MediaMetadata) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaMetadataFromJS is casting a js.Wrapper into MediaMetadata.
-func MediaMetadataFromJS(value js.Wrapper) *MediaMetadata {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaMetadataFromJS is casting a js.Value into MediaMetadata.
+func MediaMetadataFromJS(value js.Value) *MediaMetadata {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaMetadata{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaMetadataFromJS is casting from something that holds a js.Value into MediaMetadata.
+func MediaMetadataFromWrapper(input core.Wrapper) *MediaMetadata {
+	return MediaMetadataFromJS(input.JSValue())
 }
 
 func NewMediaMetadata(init *MediaMetadataInit) (_result *MediaMetadata) {
@@ -371,15 +372,19 @@ func (_this *MediaSession) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaSessionFromJS is casting a js.Wrapper into MediaSession.
-func MediaSessionFromJS(value js.Wrapper) *MediaSession {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaSessionFromJS is casting a js.Value into MediaSession.
+func MediaSessionFromJS(value js.Value) *MediaSession {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSession{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaSessionFromJS is casting from something that holds a js.Value into MediaSession.
+func MediaSessionFromWrapper(input core.Wrapper) *MediaSession {
+	return MediaSessionFromJS(input.JSValue())
 }
 
 // Metadata returning attribute 'metadata' with

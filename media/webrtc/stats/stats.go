@@ -235,7 +235,7 @@ type AudioHandlerStats struct {
 	TotalSamplesDuration float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioHandlerStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -267,10 +267,8 @@ func (_this *AudioHandlerStats) JSValue() js.Value {
 }
 
 // AudioHandlerStatsFromJS is allocating a new
-// AudioHandlerStats object and copy all values from
-// input javascript object
-func AudioHandlerStatsFromJS(value js.Wrapper) *AudioHandlerStats {
-	input := value.JSValue()
+// AudioHandlerStats object and copy all values in the value javascript object.
+func AudioHandlerStatsFromJS(value js.Value) *AudioHandlerStats {
 	var out AudioHandlerStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -286,29 +284,29 @@ func AudioHandlerStatsFromJS(value js.Wrapper) *AudioHandlerStats {
 		value10 bool                // javascript: boolean {voiceActivityFlag VoiceActivityFlag voiceActivityFlag}
 		value11 float64             // javascript: double {totalSamplesDuration TotalSamplesDuration totalSamplesDuration}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (input.Get("audioLevel")).Float()
+	value8 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value8
-	value9 = (input.Get("totalAudioEnergy")).Float()
+	value9 = (value.Get("totalAudioEnergy")).Float()
 	out.TotalAudioEnergy = value9
-	value10 = (input.Get("voiceActivityFlag")).Bool()
+	value10 = (value.Get("voiceActivityFlag")).Bool()
 	out.VoiceActivityFlag = value10
-	value11 = (input.Get("totalSamplesDuration")).Float()
+	value11 = (value.Get("totalSamplesDuration")).Float()
 	out.TotalSamplesDuration = value11
 	return &out
 }
@@ -335,7 +333,7 @@ type AudioReceiverStats struct {
 	ConcealmentEvents         int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioReceiverStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -379,10 +377,8 @@ func (_this *AudioReceiverStats) JSValue() js.Value {
 }
 
 // AudioReceiverStatsFromJS is allocating a new
-// AudioReceiverStats object and copy all values from
-// input javascript object
-func AudioReceiverStatsFromJS(value js.Wrapper) *AudioReceiverStats {
-	input := value.JSValue()
+// AudioReceiverStats object and copy all values in the value javascript object.
+func AudioReceiverStatsFromJS(value js.Value) *AudioReceiverStats {
 	var out AudioReceiverStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -404,41 +400,41 @@ func AudioReceiverStatsFromJS(value js.Wrapper) *AudioReceiverStats {
 		value16 int                 // javascript: unsigned long long {concealedSamples ConcealedSamples concealedSamples}
 		value17 int                 // javascript: unsigned long long {concealmentEvents ConcealmentEvents concealmentEvents}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (input.Get("audioLevel")).Float()
+	value8 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value8
-	value9 = (input.Get("totalAudioEnergy")).Float()
+	value9 = (value.Get("totalAudioEnergy")).Float()
 	out.TotalAudioEnergy = value9
-	value10 = (input.Get("voiceActivityFlag")).Bool()
+	value10 = (value.Get("voiceActivityFlag")).Bool()
 	out.VoiceActivityFlag = value10
-	value11 = (input.Get("totalSamplesDuration")).Float()
+	value11 = (value.Get("totalSamplesDuration")).Float()
 	out.TotalSamplesDuration = value11
-	value12 = (input.Get("estimatedPlayoutTimestamp")).Float()
+	value12 = (value.Get("estimatedPlayoutTimestamp")).Float()
 	out.EstimatedPlayoutTimestamp = value12
-	value13 = (input.Get("jitterBufferDelay")).Float()
+	value13 = (value.Get("jitterBufferDelay")).Float()
 	out.JitterBufferDelay = value13
-	value14 = (input.Get("jitterBufferEmittedCount")).Int()
+	value14 = (value.Get("jitterBufferEmittedCount")).Int()
 	out.JitterBufferEmittedCount = value14
-	value15 = (input.Get("totalSamplesReceived")).Int()
+	value15 = (value.Get("totalSamplesReceived")).Int()
 	out.TotalSamplesReceived = value15
-	value16 = (input.Get("concealedSamples")).Int()
+	value16 = (value.Get("concealedSamples")).Int()
 	out.ConcealedSamples = value16
-	value17 = (input.Get("concealmentEvents")).Int()
+	value17 = (value.Get("concealmentEvents")).Int()
 	out.ConcealmentEvents = value17
 	return &out
 }
@@ -462,7 +458,7 @@ type AudioSenderStats struct {
 	TotalSamplesSent          int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioSenderStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -500,10 +496,8 @@ func (_this *AudioSenderStats) JSValue() js.Value {
 }
 
 // AudioSenderStatsFromJS is allocating a new
-// AudioSenderStats object and copy all values from
-// input javascript object
-func AudioSenderStatsFromJS(value js.Wrapper) *AudioSenderStats {
-	input := value.JSValue()
+// AudioSenderStats object and copy all values in the value javascript object.
+func AudioSenderStatsFromJS(value js.Value) *AudioSenderStats {
 	var out AudioSenderStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -522,35 +516,35 @@ func AudioSenderStatsFromJS(value js.Wrapper) *AudioSenderStats {
 		value13 float64             // javascript: double {echoReturnLossEnhancement EchoReturnLossEnhancement echoReturnLossEnhancement}
 		value14 int                 // javascript: unsigned long long {totalSamplesSent TotalSamplesSent totalSamplesSent}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (input.Get("audioLevel")).Float()
+	value8 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value8
-	value9 = (input.Get("totalAudioEnergy")).Float()
+	value9 = (value.Get("totalAudioEnergy")).Float()
 	out.TotalAudioEnergy = value9
-	value10 = (input.Get("voiceActivityFlag")).Bool()
+	value10 = (value.Get("voiceActivityFlag")).Bool()
 	out.VoiceActivityFlag = value10
-	value11 = (input.Get("totalSamplesDuration")).Float()
+	value11 = (value.Get("totalSamplesDuration")).Float()
 	out.TotalSamplesDuration = value11
-	value12 = (input.Get("echoReturnLoss")).Float()
+	value12 = (value.Get("echoReturnLoss")).Float()
 	out.EchoReturnLoss = value12
-	value13 = (input.Get("echoReturnLossEnhancement")).Float()
+	value13 = (value.Get("echoReturnLossEnhancement")).Float()
 	out.EchoReturnLossEnhancement = value13
-	value14 = (input.Get("totalSamplesSent")).Int()
+	value14 = (value.Get("totalSamplesSent")).Int()
 	out.TotalSamplesSent = value14
 	return &out
 }
@@ -566,7 +560,7 @@ type CertificateStats struct {
 	IssuerCertificateId  string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CertificateStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -588,10 +582,8 @@ func (_this *CertificateStats) JSValue() js.Value {
 }
 
 // CertificateStatsFromJS is allocating a new
-// CertificateStats object and copy all values from
-// input javascript object
-func CertificateStatsFromJS(value js.Wrapper) *CertificateStats {
-	input := value.JSValue()
+// CertificateStats object and copy all values in the value javascript object.
+func CertificateStatsFromJS(value js.Value) *CertificateStats {
 	var out CertificateStats
 	var (
 		value0 float64          // javascript: double {timestamp Timestamp timestamp}
@@ -602,19 +594,19 @@ func CertificateStatsFromJS(value js.Wrapper) *CertificateStats {
 		value5 string           // javascript: DOMString {base64Certificate Base64Certificate base64Certificate}
 		value6 string           // javascript: DOMString {issuerCertificateId IssuerCertificateId issuerCertificateId}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("fingerprint")).String()
+	value3 = (value.Get("fingerprint")).String()
 	out.Fingerprint = value3
-	value4 = (input.Get("fingerprintAlgorithm")).String()
+	value4 = (value.Get("fingerprintAlgorithm")).String()
 	out.FingerprintAlgorithm = value4
-	value5 = (input.Get("base64Certificate")).String()
+	value5 = (value.Get("base64Certificate")).String()
 	out.Base64Certificate = value5
-	value6 = (input.Get("issuerCertificateId")).String()
+	value6 = (value.Get("issuerCertificateId")).String()
 	out.IssuerCertificateId = value6
 	return &out
 }
@@ -634,7 +626,7 @@ type CodecStats struct {
 	Implementation string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CodecStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -664,10 +656,8 @@ func (_this *CodecStats) JSValue() js.Value {
 }
 
 // CodecStatsFromJS is allocating a new
-// CodecStats object and copy all values from
-// input javascript object
-func CodecStatsFromJS(value js.Wrapper) *CodecStats {
-	input := value.JSValue()
+// CodecStats object and copy all values in the value javascript object.
+func CodecStatsFromJS(value js.Value) *CodecStats {
 	var out CodecStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -682,27 +672,27 @@ func CodecStatsFromJS(value js.Wrapper) *CodecStats {
 		value9  string           // javascript: DOMString {sdpFmtpLine SdpFmtpLine sdpFmtpLine}
 		value10 string           // javascript: DOMString {implementation Implementation implementation}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("payloadType")).Int())
+	value3 = (uint)((value.Get("payloadType")).Int())
 	out.PayloadType = value3
-	value4 = CodecTypeFromJS(input.Get("codecType"))
+	value4 = CodecTypeFromJS(value.Get("codecType"))
 	out.CodecType = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("mimeType")).String()
+	value6 = (value.Get("mimeType")).String()
 	out.MimeType = value6
-	value7 = (uint)((input.Get("clockRate")).Int())
+	value7 = (uint)((value.Get("clockRate")).Int())
 	out.ClockRate = value7
-	value8 = (uint)((input.Get("channels")).Int())
+	value8 = (uint)((value.Get("channels")).Int())
 	out.Channels = value8
-	value9 = (input.Get("sdpFmtpLine")).String()
+	value9 = (value.Get("sdpFmtpLine")).String()
 	out.SdpFmtpLine = value9
-	value10 = (input.Get("implementation")).String()
+	value10 = (value.Get("implementation")).String()
 	out.Implementation = value10
 	return &out
 }
@@ -723,7 +713,7 @@ type DataChannelStats struct {
 	BytesReceived         int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DataChannelStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -755,10 +745,8 @@ func (_this *DataChannelStats) JSValue() js.Value {
 }
 
 // DataChannelStatsFromJS is allocating a new
-// DataChannelStats object and copy all values from
-// input javascript object
-func DataChannelStatsFromJS(value js.Wrapper) *DataChannelStats {
-	input := value.JSValue()
+// DataChannelStats object and copy all values in the value javascript object.
+func DataChannelStatsFromJS(value js.Value) *DataChannelStats {
 	var out DataChannelStats
 	var (
 		value0  float64                 // javascript: double {timestamp Timestamp timestamp}
@@ -774,29 +762,29 @@ func DataChannelStatsFromJS(value js.Wrapper) *DataChannelStats {
 		value10 uint                    // javascript: unsigned long {messagesReceived MessagesReceived messagesReceived}
 		value11 int                     // javascript: unsigned long long {bytesReceived BytesReceived bytesReceived}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("label")).String()
+	value3 = (value.Get("label")).String()
 	out.Label = value3
-	value4 = (input.Get("protocol")).String()
+	value4 = (value.Get("protocol")).String()
 	out.Protocol = value4
-	value5 = (input.Get("dataChannelIdentifier")).Int()
+	value5 = (value.Get("dataChannelIdentifier")).Int()
 	out.DataChannelIdentifier = value5
-	value6 = (input.Get("transportId")).String()
+	value6 = (value.Get("transportId")).String()
 	out.TransportId = value6
-	value7 = webrtc.DataChannelStateFromJS(input.Get("state"))
+	value7 = webrtc.DataChannelStateFromJS(value.Get("state"))
 	out.State = value7
-	value8 = (uint)((input.Get("messagesSent")).Int())
+	value8 = (uint)((value.Get("messagesSent")).Int())
 	out.MessagesSent = value8
-	value9 = (input.Get("bytesSent")).Int()
+	value9 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value9
-	value10 = (uint)((input.Get("messagesReceived")).Int())
+	value10 = (uint)((value.Get("messagesReceived")).Int())
 	out.MessagesReceived = value10
-	value11 = (input.Get("bytesReceived")).Int()
+	value11 = (value.Get("bytesReceived")).Int()
 	out.BytesReceived = value11
 	return &out
 }
@@ -838,7 +826,7 @@ type IceCandidatePairStats struct {
 	Priority                    int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceCandidatePairStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -912,10 +900,8 @@ func (_this *IceCandidatePairStats) JSValue() js.Value {
 }
 
 // IceCandidatePairStatsFromJS is allocating a new
-// IceCandidatePairStats object and copy all values from
-// input javascript object
-func IceCandidatePairStatsFromJS(value js.Wrapper) *IceCandidatePairStats {
-	input := value.JSValue()
+// IceCandidatePairStats object and copy all values in the value javascript object.
+func IceCandidatePairStatsFromJS(value js.Value) *IceCandidatePairStats {
 	var out IceCandidatePairStats
 	var (
 		value0  float64                    // javascript: double {timestamp Timestamp timestamp}
@@ -952,71 +938,71 @@ func IceCandidatePairStatsFromJS(value js.Wrapper) *IceCandidatePairStats {
 		value31 float64                    // javascript: double {currentRtt CurrentRtt currentRtt}
 		value32 int                        // javascript: unsigned long long {priority Priority priority}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("transportId")).String()
+	value3 = (value.Get("transportId")).String()
 	out.TransportId = value3
-	value4 = (input.Get("localCandidateId")).String()
+	value4 = (value.Get("localCandidateId")).String()
 	out.LocalCandidateId = value4
-	value5 = (input.Get("remoteCandidateId")).String()
+	value5 = (value.Get("remoteCandidateId")).String()
 	out.RemoteCandidateId = value5
-	value6 = StatsIceCandidatePairStateFromJS(input.Get("state"))
+	value6 = StatsIceCandidatePairStateFromJS(value.Get("state"))
 	out.State = value6
-	value7 = (input.Get("nominated")).Bool()
+	value7 = (value.Get("nominated")).Bool()
 	out.Nominated = value7
-	value8 = (uint)((input.Get("packetsSent")).Int())
+	value8 = (uint)((value.Get("packetsSent")).Int())
 	out.PacketsSent = value8
-	value9 = (uint)((input.Get("packetsReceived")).Int())
+	value9 = (uint)((value.Get("packetsReceived")).Int())
 	out.PacketsReceived = value9
-	value10 = (input.Get("bytesSent")).Int()
+	value10 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value10
-	value11 = (input.Get("bytesReceived")).Int()
+	value11 = (value.Get("bytesReceived")).Int()
 	out.BytesReceived = value11
-	value12 = (input.Get("lastPacketSentTimestamp")).Float()
+	value12 = (value.Get("lastPacketSentTimestamp")).Float()
 	out.LastPacketSentTimestamp = value12
-	value13 = (input.Get("lastPacketReceivedTimestamp")).Float()
+	value13 = (value.Get("lastPacketReceivedTimestamp")).Float()
 	out.LastPacketReceivedTimestamp = value13
-	value14 = (input.Get("firstRequestTimestamp")).Float()
+	value14 = (value.Get("firstRequestTimestamp")).Float()
 	out.FirstRequestTimestamp = value14
-	value15 = (input.Get("lastRequestTimestamp")).Float()
+	value15 = (value.Get("lastRequestTimestamp")).Float()
 	out.LastRequestTimestamp = value15
-	value16 = (input.Get("lastResponseTimestamp")).Float()
+	value16 = (value.Get("lastResponseTimestamp")).Float()
 	out.LastResponseTimestamp = value16
-	value17 = (input.Get("totalRoundTripTime")).Float()
+	value17 = (value.Get("totalRoundTripTime")).Float()
 	out.TotalRoundTripTime = value17
-	value18 = (input.Get("currentRoundTripTime")).Float()
+	value18 = (value.Get("currentRoundTripTime")).Float()
 	out.CurrentRoundTripTime = value18
-	value19 = (input.Get("availableOutgoingBitrate")).Float()
+	value19 = (value.Get("availableOutgoingBitrate")).Float()
 	out.AvailableOutgoingBitrate = value19
-	value20 = (input.Get("availableIncomingBitrate")).Float()
+	value20 = (value.Get("availableIncomingBitrate")).Float()
 	out.AvailableIncomingBitrate = value20
-	value21 = (uint)((input.Get("circuitBreakerTriggerCount")).Int())
+	value21 = (uint)((value.Get("circuitBreakerTriggerCount")).Int())
 	out.CircuitBreakerTriggerCount = value21
-	value22 = (input.Get("requestsReceived")).Int()
+	value22 = (value.Get("requestsReceived")).Int()
 	out.RequestsReceived = value22
-	value23 = (input.Get("requestsSent")).Int()
+	value23 = (value.Get("requestsSent")).Int()
 	out.RequestsSent = value23
-	value24 = (input.Get("responsesReceived")).Int()
+	value24 = (value.Get("responsesReceived")).Int()
 	out.ResponsesReceived = value24
-	value25 = (input.Get("responsesSent")).Int()
+	value25 = (value.Get("responsesSent")).Int()
 	out.ResponsesSent = value25
-	value26 = (input.Get("retransmissionsReceived")).Int()
+	value26 = (value.Get("retransmissionsReceived")).Int()
 	out.RetransmissionsReceived = value26
-	value27 = (input.Get("retransmissionsSent")).Int()
+	value27 = (value.Get("retransmissionsSent")).Int()
 	out.RetransmissionsSent = value27
-	value28 = (input.Get("consentRequestsSent")).Int()
+	value28 = (value.Get("consentRequestsSent")).Int()
 	out.ConsentRequestsSent = value28
-	value29 = (input.Get("consentExpiredTimestamp")).Float()
+	value29 = (value.Get("consentExpiredTimestamp")).Float()
 	out.ConsentExpiredTimestamp = value29
-	value30 = (input.Get("totalRtt")).Float()
+	value30 = (value.Get("totalRtt")).Float()
 	out.TotalRtt = value30
-	value31 = (input.Get("currentRtt")).Float()
+	value31 = (value.Get("currentRtt")).Float()
 	out.CurrentRtt = value31
-	value32 = (input.Get("priority")).Int()
+	value32 = (value.Get("priority")).Int()
 	out.Priority = value32
 	return &out
 }
@@ -1039,7 +1025,7 @@ type IceCandidateStats struct {
 	IsRemote      bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceCandidateStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1081,10 +1067,8 @@ func (_this *IceCandidateStats) JSValue() js.Value {
 }
 
 // IceCandidateStatsFromJS is allocating a new
-// IceCandidateStats object and copy all values from
-// input javascript object
-func IceCandidateStatsFromJS(value js.Wrapper) *IceCandidateStats {
-	input := value.JSValue()
+// IceCandidateStats object and copy all values in the value javascript object.
+func IceCandidateStatsFromJS(value js.Value) *IceCandidateStats {
 	var out IceCandidateStats
 	var (
 		value0  float64                 // javascript: double {timestamp Timestamp timestamp}
@@ -1102,36 +1086,36 @@ func IceCandidateStatsFromJS(value js.Wrapper) *IceCandidateStats {
 		value12 bool                    // javascript: boolean {deleted Deleted deleted}
 		value13 bool                    // javascript: boolean {isRemote IsRemote isRemote}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("transportId")).String()
+	value3 = (value.Get("transportId")).String()
 	out.TransportId = value3
-	value4 = NetworkTypeFromJS(input.Get("networkType"))
+	value4 = NetworkTypeFromJS(value.Get("networkType"))
 	out.NetworkType = value4
-	if input.Get("address").Type() != js.TypeNull && input.Get("address").Type() != js.TypeUndefined {
-		__tmp := (input.Get("address")).String()
+	if value.Get("address").Type() != js.TypeNull && value.Get("address").Type() != js.TypeUndefined {
+		__tmp := (value.Get("address")).String()
 		value5 = &__tmp
 	}
 	out.Address = value5
-	value6 = (input.Get("port")).Int()
+	value6 = (value.Get("port")).Int()
 	out.Port = value6
-	value7 = (input.Get("protocol")).String()
+	value7 = (value.Get("protocol")).String()
 	out.Protocol = value7
-	value8 = webrtc.IceCandidateTypeFromJS(input.Get("candidateType"))
+	value8 = webrtc.IceCandidateTypeFromJS(value.Get("candidateType"))
 	out.CandidateType = value8
-	value9 = (input.Get("priority")).Int()
+	value9 = (value.Get("priority")).Int()
 	out.Priority = value9
-	value10 = (input.Get("url")).String()
+	value10 = (value.Get("url")).String()
 	out.Url = value10
-	value11 = (input.Get("relayProtocol")).String()
+	value11 = (value.Get("relayProtocol")).String()
 	out.RelayProtocol = value11
-	value12 = (input.Get("deleted")).Bool()
+	value12 = (value.Get("deleted")).Bool()
 	out.Deleted = value12
-	value13 = (input.Get("isRemote")).Bool()
+	value13 = (value.Get("isRemote")).Bool()
 	out.IsRemote = value13
 	return &out
 }
@@ -1177,7 +1161,7 @@ type InboundRtpStreamStats struct {
 	PacketsDuplicated           uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InboundRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1259,10 +1243,8 @@ func (_this *InboundRtpStreamStats) JSValue() js.Value {
 }
 
 // InboundRtpStreamStatsFromJS is allocating a new
-// InboundRtpStreamStats object and copy all values from
-// input javascript object
-func InboundRtpStreamStatsFromJS(value js.Wrapper) *InboundRtpStreamStats {
-	input := value.JSValue()
+// InboundRtpStreamStats object and copy all values in the value javascript object.
+func InboundRtpStreamStatsFromJS(value js.Value) *InboundRtpStreamStats {
 	var out InboundRtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -1303,79 +1285,79 @@ func InboundRtpStreamStatsFromJS(value js.Wrapper) *InboundRtpStreamStats {
 		value35 uint             // javascript: unsigned long {packetsFailedDecryption PacketsFailedDecryption packetsFailedDecryption}
 		value36 uint             // javascript: unsigned long {packetsDuplicated PacketsDuplicated packetsDuplicated}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsReceived")).Int())
+	value14 = (uint)((value.Get("packetsReceived")).Int())
 	out.PacketsReceived = value14
-	value15 = (input.Get("packetsLost")).Int()
+	value15 = (value.Get("packetsLost")).Int()
 	out.PacketsLost = value15
-	value16 = (input.Get("jitter")).Float()
+	value16 = (value.Get("jitter")).Float()
 	out.Jitter = value16
-	value17 = (uint)((input.Get("packetsDiscarded")).Int())
+	value17 = (uint)((value.Get("packetsDiscarded")).Int())
 	out.PacketsDiscarded = value17
-	value18 = (uint)((input.Get("packetsRepaired")).Int())
+	value18 = (uint)((value.Get("packetsRepaired")).Int())
 	out.PacketsRepaired = value18
-	value19 = (uint)((input.Get("burstPacketsLost")).Int())
+	value19 = (uint)((value.Get("burstPacketsLost")).Int())
 	out.BurstPacketsLost = value19
-	value20 = (uint)((input.Get("burstPacketsDiscarded")).Int())
+	value20 = (uint)((value.Get("burstPacketsDiscarded")).Int())
 	out.BurstPacketsDiscarded = value20
-	value21 = (uint)((input.Get("burstLossCount")).Int())
+	value21 = (uint)((value.Get("burstLossCount")).Int())
 	out.BurstLossCount = value21
-	value22 = (uint)((input.Get("burstDiscardCount")).Int())
+	value22 = (uint)((value.Get("burstDiscardCount")).Int())
 	out.BurstDiscardCount = value22
-	value23 = (input.Get("burstLossRate")).Float()
+	value23 = (value.Get("burstLossRate")).Float()
 	out.BurstLossRate = value23
-	value24 = (input.Get("burstDiscardRate")).Float()
+	value24 = (value.Get("burstDiscardRate")).Float()
 	out.BurstDiscardRate = value24
-	value25 = (input.Get("gapLossRate")).Float()
+	value25 = (value.Get("gapLossRate")).Float()
 	out.GapLossRate = value25
-	value26 = (input.Get("gapDiscardRate")).Float()
+	value26 = (value.Get("gapDiscardRate")).Float()
 	out.GapDiscardRate = value26
-	value27 = (input.Get("trackId")).String()
+	value27 = (value.Get("trackId")).String()
 	out.TrackId = value27
-	value28 = (input.Get("receiverId")).String()
+	value28 = (value.Get("receiverId")).String()
 	out.ReceiverId = value28
-	value29 = (input.Get("remoteId")).String()
+	value29 = (value.Get("remoteId")).String()
 	out.RemoteId = value29
-	value30 = (uint)((input.Get("framesDecoded")).Int())
+	value30 = (uint)((value.Get("framesDecoded")).Int())
 	out.FramesDecoded = value30
-	value31 = (input.Get("lastPacketReceivedTimestamp")).Float()
+	value31 = (value.Get("lastPacketReceivedTimestamp")).Float()
 	out.LastPacketReceivedTimestamp = value31
-	value32 = (input.Get("averageRtcpInterval")).Float()
+	value32 = (value.Get("averageRtcpInterval")).Float()
 	out.AverageRtcpInterval = value32
-	value33 = (uint)((input.Get("fecPacketsReceived")).Int())
+	value33 = (uint)((value.Get("fecPacketsReceived")).Int())
 	out.FecPacketsReceived = value33
-	value34 = (input.Get("bytesReceived")).Int()
+	value34 = (value.Get("bytesReceived")).Int()
 	out.BytesReceived = value34
-	value35 = (uint)((input.Get("packetsFailedDecryption")).Int())
+	value35 = (uint)((value.Get("packetsFailedDecryption")).Int())
 	out.PacketsFailedDecryption = value35
-	value36 = (uint)((input.Get("packetsDuplicated")).Int())
+	value36 = (uint)((value.Get("packetsDuplicated")).Int())
 	out.PacketsDuplicated = value36
 	return &out
 }
@@ -1392,7 +1374,7 @@ type MediaHandlerStats struct {
 	Priority        webrtc.PriorityType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaHandlerStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1416,10 +1398,8 @@ func (_this *MediaHandlerStats) JSValue() js.Value {
 }
 
 // MediaHandlerStatsFromJS is allocating a new
-// MediaHandlerStats object and copy all values from
-// input javascript object
-func MediaHandlerStatsFromJS(value js.Wrapper) *MediaHandlerStats {
-	input := value.JSValue()
+// MediaHandlerStats object and copy all values in the value javascript object.
+func MediaHandlerStatsFromJS(value js.Value) *MediaHandlerStats {
 	var out MediaHandlerStats
 	var (
 		value0 float64             // javascript: double {timestamp Timestamp timestamp}
@@ -1431,21 +1411,21 @@ func MediaHandlerStatsFromJS(value js.Wrapper) *MediaHandlerStats {
 		value6 string              // javascript: DOMString {kind Kind kind}
 		value7 webrtc.PriorityType // javascript: RTCPriorityType {priority Priority priority}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
 	return &out
 }
@@ -1459,7 +1439,7 @@ type MediaStreamStats struct {
 	TrackIds         []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1481,10 +1461,8 @@ func (_this *MediaStreamStats) JSValue() js.Value {
 }
 
 // MediaStreamStatsFromJS is allocating a new
-// MediaStreamStats object and copy all values from
-// input javascript object
-func MediaStreamStatsFromJS(value js.Wrapper) *MediaStreamStats {
-	input := value.JSValue()
+// MediaStreamStats object and copy all values in the value javascript object.
+func MediaStreamStatsFromJS(value js.Value) *MediaStreamStats {
 	var out MediaStreamStats
 	var (
 		value0 float64          // javascript: double {timestamp Timestamp timestamp}
@@ -1493,19 +1471,19 @@ func MediaStreamStatsFromJS(value js.Wrapper) *MediaStreamStats {
 		value3 string           // javascript: DOMString {streamIdentifier StreamIdentifier streamIdentifier}
 		value4 []string         // javascript: sequence<DOMString> {trackIds TrackIds trackIds}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("streamIdentifier")).String()
+	value3 = (value.Get("streamIdentifier")).String()
 	out.StreamIdentifier = value3
-	__length4 := input.Get("trackIds").Length()
+	__length4 := value.Get("trackIds").Length()
 	__array4 := make([]string, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 string
-		__seq_in4 := input.Get("trackIds").Index(__idx4)
+		__seq_in4 := value.Get("trackIds").Index(__idx4)
 		__seq_out4 = (__seq_in4).String()
 		__array4[__idx4] = __seq_out4
 	}
@@ -1546,7 +1524,7 @@ type OutboundRtpStreamStats struct {
 	QualityLimitationReason QualityLimitationReason
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OutboundRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1610,10 +1588,8 @@ func (_this *OutboundRtpStreamStats) JSValue() js.Value {
 }
 
 // OutboundRtpStreamStatsFromJS is allocating a new
-// OutboundRtpStreamStats object and copy all values from
-// input javascript object
-func OutboundRtpStreamStatsFromJS(value js.Wrapper) *OutboundRtpStreamStats {
-	input := value.JSValue()
+// OutboundRtpStreamStats object and copy all values in the value javascript object.
+func OutboundRtpStreamStatsFromJS(value js.Value) *OutboundRtpStreamStats {
 	var out OutboundRtpStreamStats
 	var (
 		value0  float64                 // javascript: double {timestamp Timestamp timestamp}
@@ -1645,61 +1621,61 @@ func OutboundRtpStreamStatsFromJS(value js.Wrapper) *OutboundRtpStreamStats {
 		value26 float64                 // javascript: double {averageRtcpInterval AverageRtcpInterval averageRtcpInterval}
 		value27 QualityLimitationReason // javascript: RTCQualityLimitationReason {qualityLimitationReason QualityLimitationReason qualityLimitationReason}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsSent")).Int())
+	value14 = (uint)((value.Get("packetsSent")).Int())
 	out.PacketsSent = value14
-	value15 = (uint)((input.Get("packetsDiscardedOnSend")).Int())
+	value15 = (uint)((value.Get("packetsDiscardedOnSend")).Int())
 	out.PacketsDiscardedOnSend = value15
-	value16 = (uint)((input.Get("fecPacketsSent")).Int())
+	value16 = (uint)((value.Get("fecPacketsSent")).Int())
 	out.FecPacketsSent = value16
-	value17 = (input.Get("bytesSent")).Int()
+	value17 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value17
-	value18 = (input.Get("bytesDiscardedOnSend")).Int()
+	value18 = (value.Get("bytesDiscardedOnSend")).Int()
 	out.BytesDiscardedOnSend = value18
-	value19 = (input.Get("trackId")).String()
+	value19 = (value.Get("trackId")).String()
 	out.TrackId = value19
-	value20 = (input.Get("senderId")).String()
+	value20 = (value.Get("senderId")).String()
 	out.SenderId = value20
-	value21 = (input.Get("remoteId")).String()
+	value21 = (value.Get("remoteId")).String()
 	out.RemoteId = value21
-	value22 = (input.Get("lastPacketSentTimestamp")).Float()
+	value22 = (value.Get("lastPacketSentTimestamp")).Float()
 	out.LastPacketSentTimestamp = value22
-	value23 = (input.Get("targetBitrate")).Float()
+	value23 = (value.Get("targetBitrate")).Float()
 	out.TargetBitrate = value23
-	value24 = (uint)((input.Get("framesEncoded")).Int())
+	value24 = (uint)((value.Get("framesEncoded")).Int())
 	out.FramesEncoded = value24
-	value25 = (input.Get("totalEncodeTime")).Float()
+	value25 = (value.Get("totalEncodeTime")).Float()
 	out.TotalEncodeTime = value25
-	value26 = (input.Get("averageRtcpInterval")).Float()
+	value26 = (value.Get("averageRtcpInterval")).Float()
 	out.AverageRtcpInterval = value26
-	value27 = QualityLimitationReasonFromJS(input.Get("qualityLimitationReason"))
+	value27 = QualityLimitationReasonFromJS(value.Get("qualityLimitationReason"))
 	out.QualityLimitationReason = value27
 	return &out
 }
@@ -1715,7 +1691,7 @@ type PeerConnectionStats struct {
 	DataChannelsAccepted  uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PeerConnectionStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1737,10 +1713,8 @@ func (_this *PeerConnectionStats) JSValue() js.Value {
 }
 
 // PeerConnectionStatsFromJS is allocating a new
-// PeerConnectionStats object and copy all values from
-// input javascript object
-func PeerConnectionStatsFromJS(value js.Wrapper) *PeerConnectionStats {
-	input := value.JSValue()
+// PeerConnectionStats object and copy all values in the value javascript object.
+func PeerConnectionStatsFromJS(value js.Value) *PeerConnectionStats {
 	var out PeerConnectionStats
 	var (
 		value0 float64          // javascript: double {timestamp Timestamp timestamp}
@@ -1751,19 +1725,19 @@ func PeerConnectionStatsFromJS(value js.Wrapper) *PeerConnectionStats {
 		value5 uint             // javascript: unsigned long {dataChannelsRequested DataChannelsRequested dataChannelsRequested}
 		value6 uint             // javascript: unsigned long {dataChannelsAccepted DataChannelsAccepted dataChannelsAccepted}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("dataChannelsOpened")).Int())
+	value3 = (uint)((value.Get("dataChannelsOpened")).Int())
 	out.DataChannelsOpened = value3
-	value4 = (uint)((input.Get("dataChannelsClosed")).Int())
+	value4 = (uint)((value.Get("dataChannelsClosed")).Int())
 	out.DataChannelsClosed = value4
-	value5 = (uint)((input.Get("dataChannelsRequested")).Int())
+	value5 = (uint)((value.Get("dataChannelsRequested")).Int())
 	out.DataChannelsRequested = value5
-	value6 = (uint)((input.Get("dataChannelsAccepted")).Int())
+	value6 = (uint)((value.Get("dataChannelsAccepted")).Int())
 	out.DataChannelsAccepted = value6
 	return &out
 }
@@ -1799,7 +1773,7 @@ type ReceivedRtpStreamStats struct {
 	GapDiscardRate        float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ReceivedRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1861,10 +1835,8 @@ func (_this *ReceivedRtpStreamStats) JSValue() js.Value {
 }
 
 // ReceivedRtpStreamStatsFromJS is allocating a new
-// ReceivedRtpStreamStats object and copy all values from
-// input javascript object
-func ReceivedRtpStreamStatsFromJS(value js.Wrapper) *ReceivedRtpStreamStats {
-	input := value.JSValue()
+// ReceivedRtpStreamStats object and copy all values in the value javascript object.
+func ReceivedRtpStreamStatsFromJS(value js.Value) *ReceivedRtpStreamStats {
 	var out ReceivedRtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -1895,59 +1867,59 @@ func ReceivedRtpStreamStatsFromJS(value js.Wrapper) *ReceivedRtpStreamStats {
 		value25 float64          // javascript: double {gapLossRate GapLossRate gapLossRate}
 		value26 float64          // javascript: double {gapDiscardRate GapDiscardRate gapDiscardRate}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsReceived")).Int())
+	value14 = (uint)((value.Get("packetsReceived")).Int())
 	out.PacketsReceived = value14
-	value15 = (input.Get("packetsLost")).Int()
+	value15 = (value.Get("packetsLost")).Int()
 	out.PacketsLost = value15
-	value16 = (input.Get("jitter")).Float()
+	value16 = (value.Get("jitter")).Float()
 	out.Jitter = value16
-	value17 = (uint)((input.Get("packetsDiscarded")).Int())
+	value17 = (uint)((value.Get("packetsDiscarded")).Int())
 	out.PacketsDiscarded = value17
-	value18 = (uint)((input.Get("packetsRepaired")).Int())
+	value18 = (uint)((value.Get("packetsRepaired")).Int())
 	out.PacketsRepaired = value18
-	value19 = (uint)((input.Get("burstPacketsLost")).Int())
+	value19 = (uint)((value.Get("burstPacketsLost")).Int())
 	out.BurstPacketsLost = value19
-	value20 = (uint)((input.Get("burstPacketsDiscarded")).Int())
+	value20 = (uint)((value.Get("burstPacketsDiscarded")).Int())
 	out.BurstPacketsDiscarded = value20
-	value21 = (uint)((input.Get("burstLossCount")).Int())
+	value21 = (uint)((value.Get("burstLossCount")).Int())
 	out.BurstLossCount = value21
-	value22 = (uint)((input.Get("burstDiscardCount")).Int())
+	value22 = (uint)((value.Get("burstDiscardCount")).Int())
 	out.BurstDiscardCount = value22
-	value23 = (input.Get("burstLossRate")).Float()
+	value23 = (value.Get("burstLossRate")).Float()
 	out.BurstLossRate = value23
-	value24 = (input.Get("burstDiscardRate")).Float()
+	value24 = (value.Get("burstDiscardRate")).Float()
 	out.BurstDiscardRate = value24
-	value25 = (input.Get("gapLossRate")).Float()
+	value25 = (value.Get("gapLossRate")).Float()
 	out.GapLossRate = value25
-	value26 = (input.Get("gapDiscardRate")).Float()
+	value26 = (value.Get("gapDiscardRate")).Float()
 	out.GapDiscardRate = value26
 	return &out
 }
@@ -1986,7 +1958,7 @@ type RemoteInboundRtpStreamStats struct {
 	FractionLost          float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RemoteInboundRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2054,10 +2026,8 @@ func (_this *RemoteInboundRtpStreamStats) JSValue() js.Value {
 }
 
 // RemoteInboundRtpStreamStatsFromJS is allocating a new
-// RemoteInboundRtpStreamStats object and copy all values from
-// input javascript object
-func RemoteInboundRtpStreamStatsFromJS(value js.Wrapper) *RemoteInboundRtpStreamStats {
-	input := value.JSValue()
+// RemoteInboundRtpStreamStats object and copy all values in the value javascript object.
+func RemoteInboundRtpStreamStatsFromJS(value js.Value) *RemoteInboundRtpStreamStats {
 	var out RemoteInboundRtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -2091,65 +2061,65 @@ func RemoteInboundRtpStreamStatsFromJS(value js.Wrapper) *RemoteInboundRtpStream
 		value28 float64          // javascript: double {roundTripTime RoundTripTime roundTripTime}
 		value29 float64          // javascript: double {fractionLost FractionLost fractionLost}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsReceived")).Int())
+	value14 = (uint)((value.Get("packetsReceived")).Int())
 	out.PacketsReceived = value14
-	value15 = (input.Get("packetsLost")).Int()
+	value15 = (value.Get("packetsLost")).Int()
 	out.PacketsLost = value15
-	value16 = (input.Get("jitter")).Float()
+	value16 = (value.Get("jitter")).Float()
 	out.Jitter = value16
-	value17 = (uint)((input.Get("packetsDiscarded")).Int())
+	value17 = (uint)((value.Get("packetsDiscarded")).Int())
 	out.PacketsDiscarded = value17
-	value18 = (uint)((input.Get("packetsRepaired")).Int())
+	value18 = (uint)((value.Get("packetsRepaired")).Int())
 	out.PacketsRepaired = value18
-	value19 = (uint)((input.Get("burstPacketsLost")).Int())
+	value19 = (uint)((value.Get("burstPacketsLost")).Int())
 	out.BurstPacketsLost = value19
-	value20 = (uint)((input.Get("burstPacketsDiscarded")).Int())
+	value20 = (uint)((value.Get("burstPacketsDiscarded")).Int())
 	out.BurstPacketsDiscarded = value20
-	value21 = (uint)((input.Get("burstLossCount")).Int())
+	value21 = (uint)((value.Get("burstLossCount")).Int())
 	out.BurstLossCount = value21
-	value22 = (uint)((input.Get("burstDiscardCount")).Int())
+	value22 = (uint)((value.Get("burstDiscardCount")).Int())
 	out.BurstDiscardCount = value22
-	value23 = (input.Get("burstLossRate")).Float()
+	value23 = (value.Get("burstLossRate")).Float()
 	out.BurstLossRate = value23
-	value24 = (input.Get("burstDiscardRate")).Float()
+	value24 = (value.Get("burstDiscardRate")).Float()
 	out.BurstDiscardRate = value24
-	value25 = (input.Get("gapLossRate")).Float()
+	value25 = (value.Get("gapLossRate")).Float()
 	out.GapLossRate = value25
-	value26 = (input.Get("gapDiscardRate")).Float()
+	value26 = (value.Get("gapDiscardRate")).Float()
 	out.GapDiscardRate = value26
-	value27 = (input.Get("localId")).String()
+	value27 = (value.Get("localId")).String()
 	out.LocalId = value27
-	value28 = (input.Get("roundTripTime")).Float()
+	value28 = (value.Get("roundTripTime")).Float()
 	out.RoundTripTime = value28
-	value29 = (input.Get("fractionLost")).Float()
+	value29 = (value.Get("fractionLost")).Float()
 	out.FractionLost = value29
 	return &out
 }
@@ -2179,7 +2149,7 @@ type RemoteOutboundRtpStreamStats struct {
 	RemoteTimestamp        float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RemoteOutboundRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2229,10 +2199,8 @@ func (_this *RemoteOutboundRtpStreamStats) JSValue() js.Value {
 }
 
 // RemoteOutboundRtpStreamStatsFromJS is allocating a new
-// RemoteOutboundRtpStreamStats object and copy all values from
-// input javascript object
-func RemoteOutboundRtpStreamStatsFromJS(value js.Wrapper) *RemoteOutboundRtpStreamStats {
-	input := value.JSValue()
+// RemoteOutboundRtpStreamStats object and copy all values in the value javascript object.
+func RemoteOutboundRtpStreamStatsFromJS(value js.Value) *RemoteOutboundRtpStreamStats {
 	var out RemoteOutboundRtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -2257,47 +2225,47 @@ func RemoteOutboundRtpStreamStatsFromJS(value js.Wrapper) *RemoteOutboundRtpStre
 		value19 string           // javascript: DOMString {localId LocalId localId}
 		value20 float64          // javascript: double {remoteTimestamp RemoteTimestamp remoteTimestamp}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsSent")).Int())
+	value14 = (uint)((value.Get("packetsSent")).Int())
 	out.PacketsSent = value14
-	value15 = (uint)((input.Get("packetsDiscardedOnSend")).Int())
+	value15 = (uint)((value.Get("packetsDiscardedOnSend")).Int())
 	out.PacketsDiscardedOnSend = value15
-	value16 = (uint)((input.Get("fecPacketsSent")).Int())
+	value16 = (uint)((value.Get("fecPacketsSent")).Int())
 	out.FecPacketsSent = value16
-	value17 = (input.Get("bytesSent")).Int()
+	value17 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value17
-	value18 = (input.Get("bytesDiscardedOnSend")).Int()
+	value18 = (value.Get("bytesDiscardedOnSend")).Int()
 	out.BytesDiscardedOnSend = value18
-	value19 = (input.Get("localId")).String()
+	value19 = (value.Get("localId")).String()
 	out.LocalId = value19
-	value20 = (input.Get("remoteTimestamp")).Float()
+	value20 = (value.Get("remoteTimestamp")).Float()
 	out.RemoteTimestamp = value20
 	return &out
 }
@@ -2313,7 +2281,7 @@ type RtpContributingSourceStats struct {
 	AudioLevel           float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpContributingSourceStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2335,10 +2303,8 @@ func (_this *RtpContributingSourceStats) JSValue() js.Value {
 }
 
 // RtpContributingSourceStatsFromJS is allocating a new
-// RtpContributingSourceStats object and copy all values from
-// input javascript object
-func RtpContributingSourceStatsFromJS(value js.Wrapper) *RtpContributingSourceStats {
-	input := value.JSValue()
+// RtpContributingSourceStats object and copy all values in the value javascript object.
+func RtpContributingSourceStatsFromJS(value js.Value) *RtpContributingSourceStats {
 	var out RtpContributingSourceStats
 	var (
 		value0 float64          // javascript: double {timestamp Timestamp timestamp}
@@ -2349,19 +2315,19 @@ func RtpContributingSourceStatsFromJS(value js.Wrapper) *RtpContributingSourceSt
 		value5 uint             // javascript: unsigned long {packetsContributedTo PacketsContributedTo packetsContributedTo}
 		value6 float64          // javascript: double {audioLevel AudioLevel audioLevel}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("contributorSsrc")).Int())
+	value3 = (uint)((value.Get("contributorSsrc")).Int())
 	out.ContributorSsrc = value3
-	value4 = (input.Get("inboundRtpStreamId")).String()
+	value4 = (value.Get("inboundRtpStreamId")).String()
 	out.InboundRtpStreamId = value4
-	value5 = (uint)((input.Get("packetsContributedTo")).Int())
+	value5 = (uint)((value.Get("packetsContributedTo")).Int())
 	out.PacketsContributedTo = value5
-	value6 = (input.Get("audioLevel")).Float()
+	value6 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value6
 	return &out
 }
@@ -2384,7 +2350,7 @@ type RtpStreamStats struct {
 	AverageRTCPInterval float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2420,10 +2386,8 @@ func (_this *RtpStreamStats) JSValue() js.Value {
 }
 
 // RtpStreamStatsFromJS is allocating a new
-// RtpStreamStats object and copy all values from
-// input javascript object
-func RtpStreamStatsFromJS(value js.Wrapper) *RtpStreamStats {
-	input := value.JSValue()
+// RtpStreamStats object and copy all values in the value javascript object.
+func RtpStreamStatsFromJS(value js.Value) *RtpStreamStats {
 	var out RtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -2441,33 +2405,33 @@ func RtpStreamStatsFromJS(value js.Wrapper) *RtpStreamStats {
 		value12 string           // javascript: DOMString {mediaType MediaType mediaType}
 		value13 float64          // javascript: double {averageRTCPInterval AverageRTCPInterval averageRTCPInterval}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
 	return &out
 }
@@ -2491,7 +2455,7 @@ type SenderAudioTrackAttachmentStats struct {
 	TotalSamplesSent          int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SenderAudioTrackAttachmentStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2529,10 +2493,8 @@ func (_this *SenderAudioTrackAttachmentStats) JSValue() js.Value {
 }
 
 // SenderAudioTrackAttachmentStatsFromJS is allocating a new
-// SenderAudioTrackAttachmentStats object and copy all values from
-// input javascript object
-func SenderAudioTrackAttachmentStatsFromJS(value js.Wrapper) *SenderAudioTrackAttachmentStats {
-	input := value.JSValue()
+// SenderAudioTrackAttachmentStats object and copy all values in the value javascript object.
+func SenderAudioTrackAttachmentStatsFromJS(value js.Value) *SenderAudioTrackAttachmentStats {
 	var out SenderAudioTrackAttachmentStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -2551,35 +2513,35 @@ func SenderAudioTrackAttachmentStatsFromJS(value js.Wrapper) *SenderAudioTrackAt
 		value13 float64             // javascript: double {echoReturnLossEnhancement EchoReturnLossEnhancement echoReturnLossEnhancement}
 		value14 int                 // javascript: unsigned long long {totalSamplesSent TotalSamplesSent totalSamplesSent}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (input.Get("audioLevel")).Float()
+	value8 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value8
-	value9 = (input.Get("totalAudioEnergy")).Float()
+	value9 = (value.Get("totalAudioEnergy")).Float()
 	out.TotalAudioEnergy = value9
-	value10 = (input.Get("voiceActivityFlag")).Bool()
+	value10 = (value.Get("voiceActivityFlag")).Bool()
 	out.VoiceActivityFlag = value10
-	value11 = (input.Get("totalSamplesDuration")).Float()
+	value11 = (value.Get("totalSamplesDuration")).Float()
 	out.TotalSamplesDuration = value11
-	value12 = (input.Get("echoReturnLoss")).Float()
+	value12 = (value.Get("echoReturnLoss")).Float()
 	out.EchoReturnLoss = value12
-	value13 = (input.Get("echoReturnLossEnhancement")).Float()
+	value13 = (value.Get("echoReturnLossEnhancement")).Float()
 	out.EchoReturnLossEnhancement = value13
-	value14 = (input.Get("totalSamplesSent")).Int()
+	value14 = (value.Get("totalSamplesSent")).Int()
 	out.TotalSamplesSent = value14
 	return &out
 }
@@ -2603,7 +2565,7 @@ type SenderVideoTrackAttachmentStats struct {
 	KeyFramesSent   uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SenderVideoTrackAttachmentStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2641,10 +2603,8 @@ func (_this *SenderVideoTrackAttachmentStats) JSValue() js.Value {
 }
 
 // SenderVideoTrackAttachmentStatsFromJS is allocating a new
-// SenderVideoTrackAttachmentStats object and copy all values from
-// input javascript object
-func SenderVideoTrackAttachmentStatsFromJS(value js.Wrapper) *SenderVideoTrackAttachmentStats {
-	input := value.JSValue()
+// SenderVideoTrackAttachmentStats object and copy all values in the value javascript object.
+func SenderVideoTrackAttachmentStatsFromJS(value js.Value) *SenderVideoTrackAttachmentStats {
 	var out SenderVideoTrackAttachmentStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -2663,35 +2623,35 @@ func SenderVideoTrackAttachmentStatsFromJS(value js.Wrapper) *SenderVideoTrackAt
 		value13 uint                // javascript: unsigned long {hugeFramesSent HugeFramesSent hugeFramesSent}
 		value14 uint                // javascript: unsigned long {keyFramesSent KeyFramesSent keyFramesSent}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (uint)((input.Get("frameWidth")).Int())
+	value8 = (uint)((value.Get("frameWidth")).Int())
 	out.FrameWidth = value8
-	value9 = (uint)((input.Get("frameHeight")).Int())
+	value9 = (uint)((value.Get("frameHeight")).Int())
 	out.FrameHeight = value9
-	value10 = (input.Get("framesPerSecond")).Float()
+	value10 = (value.Get("framesPerSecond")).Float()
 	out.FramesPerSecond = value10
-	value11 = (uint)((input.Get("framesCaptured")).Int())
+	value11 = (uint)((value.Get("framesCaptured")).Int())
 	out.FramesCaptured = value11
-	value12 = (uint)((input.Get("framesSent")).Int())
+	value12 = (uint)((value.Get("framesSent")).Int())
 	out.FramesSent = value12
-	value13 = (uint)((input.Get("hugeFramesSent")).Int())
+	value13 = (uint)((value.Get("hugeFramesSent")).Int())
 	out.HugeFramesSent = value13
-	value14 = (uint)((input.Get("keyFramesSent")).Int())
+	value14 = (uint)((value.Get("keyFramesSent")).Int())
 	out.KeyFramesSent = value14
 	return &out
 }
@@ -2719,7 +2679,7 @@ type SentRtpStreamStats struct {
 	BytesDiscardedOnSend   int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SentRtpStreamStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2765,10 +2725,8 @@ func (_this *SentRtpStreamStats) JSValue() js.Value {
 }
 
 // SentRtpStreamStatsFromJS is allocating a new
-// SentRtpStreamStats object and copy all values from
-// input javascript object
-func SentRtpStreamStatsFromJS(value js.Wrapper) *SentRtpStreamStats {
-	input := value.JSValue()
+// SentRtpStreamStats object and copy all values in the value javascript object.
+func SentRtpStreamStatsFromJS(value js.Value) *SentRtpStreamStats {
 	var out SentRtpStreamStats
 	var (
 		value0  float64          // javascript: double {timestamp Timestamp timestamp}
@@ -2791,43 +2749,43 @@ func SentRtpStreamStatsFromJS(value js.Wrapper) *SentRtpStreamStats {
 		value17 int              // javascript: unsigned long long {bytesSent BytesSent bytesSent}
 		value18 int              // javascript: unsigned long long {bytesDiscardedOnSend BytesDiscardedOnSend bytesDiscardedOnSend}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("ssrc")).Int())
+	value3 = (uint)((value.Get("ssrc")).Int())
 	out.Ssrc = value3
-	value4 = (input.Get("kind")).String()
+	value4 = (value.Get("kind")).String()
 	out.Kind = value4
-	value5 = (input.Get("transportId")).String()
+	value5 = (value.Get("transportId")).String()
 	out.TransportId = value5
-	value6 = (input.Get("codecId")).String()
+	value6 = (value.Get("codecId")).String()
 	out.CodecId = value6
-	value7 = (uint)((input.Get("firCount")).Int())
+	value7 = (uint)((value.Get("firCount")).Int())
 	out.FirCount = value7
-	value8 = (uint)((input.Get("pliCount")).Int())
+	value8 = (uint)((value.Get("pliCount")).Int())
 	out.PliCount = value8
-	value9 = (uint)((input.Get("nackCount")).Int())
+	value9 = (uint)((value.Get("nackCount")).Int())
 	out.NackCount = value9
-	value10 = (uint)((input.Get("sliCount")).Int())
+	value10 = (uint)((value.Get("sliCount")).Int())
 	out.SliCount = value10
-	value11 = (input.Get("qpSum")).Int()
+	value11 = (value.Get("qpSum")).Int()
 	out.QpSum = value11
-	value12 = (input.Get("mediaType")).String()
+	value12 = (value.Get("mediaType")).String()
 	out.MediaType = value12
-	value13 = (input.Get("averageRTCPInterval")).Float()
+	value13 = (value.Get("averageRTCPInterval")).Float()
 	out.AverageRTCPInterval = value13
-	value14 = (uint)((input.Get("packetsSent")).Int())
+	value14 = (uint)((value.Get("packetsSent")).Int())
 	out.PacketsSent = value14
-	value15 = (uint)((input.Get("packetsDiscardedOnSend")).Int())
+	value15 = (uint)((value.Get("packetsDiscardedOnSend")).Int())
 	out.PacketsDiscardedOnSend = value15
-	value16 = (uint)((input.Get("fecPacketsSent")).Int())
+	value16 = (uint)((value.Get("fecPacketsSent")).Int())
 	out.FecPacketsSent = value16
-	value17 = (input.Get("bytesSent")).Int()
+	value17 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value17
-	value18 = (input.Get("bytesDiscardedOnSend")).Int()
+	value18 = (value.Get("bytesDiscardedOnSend")).Int()
 	out.BytesDiscardedOnSend = value18
 	return &out
 }
@@ -2853,7 +2811,7 @@ type TransportStats struct {
 	TlsGroup                string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TransportStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2895,10 +2853,8 @@ func (_this *TransportStats) JSValue() js.Value {
 }
 
 // TransportStatsFromJS is allocating a new
-// TransportStats object and copy all values from
-// input javascript object
-func TransportStatsFromJS(value js.Wrapper) *TransportStats {
-	input := value.JSValue()
+// TransportStats object and copy all values in the value javascript object.
+func TransportStatsFromJS(value js.Value) *TransportStats {
 	var out TransportStats
 	var (
 		value0  float64                   // javascript: double {timestamp Timestamp timestamp}
@@ -2919,39 +2875,39 @@ func TransportStatsFromJS(value js.Wrapper) *TransportStats {
 		value15 string                    // javascript: DOMString {srtpCipher SrtpCipher srtpCipher}
 		value16 string                    // javascript: DOMString {tlsGroup TlsGroup tlsGroup}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (uint)((input.Get("packetsSent")).Int())
+	value3 = (uint)((value.Get("packetsSent")).Int())
 	out.PacketsSent = value3
-	value4 = (uint)((input.Get("packetsReceived")).Int())
+	value4 = (uint)((value.Get("packetsReceived")).Int())
 	out.PacketsReceived = value4
-	value5 = (input.Get("bytesSent")).Int()
+	value5 = (value.Get("bytesSent")).Int()
 	out.BytesSent = value5
-	value6 = (input.Get("bytesReceived")).Int()
+	value6 = (value.Get("bytesReceived")).Int()
 	out.BytesReceived = value6
-	value7 = (input.Get("rtcpTransportStatsId")).String()
+	value7 = (value.Get("rtcpTransportStatsId")).String()
 	out.RtcpTransportStatsId = value7
-	value8 = webrtc.IceRoleFromJS(input.Get("iceRole"))
+	value8 = webrtc.IceRoleFromJS(value.Get("iceRole"))
 	out.IceRole = value8
-	value9 = webrtc.DtlsTransportStateFromJS(input.Get("dtlsState"))
+	value9 = webrtc.DtlsTransportStateFromJS(value.Get("dtlsState"))
 	out.DtlsState = value9
-	value10 = (input.Get("selectedCandidatePairId")).String()
+	value10 = (value.Get("selectedCandidatePairId")).String()
 	out.SelectedCandidatePairId = value10
-	value11 = (input.Get("localCertificateId")).String()
+	value11 = (value.Get("localCertificateId")).String()
 	out.LocalCertificateId = value11
-	value12 = (input.Get("remoteCertificateId")).String()
+	value12 = (value.Get("remoteCertificateId")).String()
 	out.RemoteCertificateId = value12
-	value13 = (input.Get("tlsVersion")).String()
+	value13 = (value.Get("tlsVersion")).String()
 	out.TlsVersion = value13
-	value14 = (input.Get("dtlsCipher")).String()
+	value14 = (value.Get("dtlsCipher")).String()
 	out.DtlsCipher = value14
-	value15 = (input.Get("srtpCipher")).String()
+	value15 = (value.Get("srtpCipher")).String()
 	out.SrtpCipher = value15
-	value16 = (input.Get("tlsGroup")).String()
+	value16 = (value.Get("tlsGroup")).String()
 	out.TlsGroup = value16
 	return &out
 }
@@ -2971,7 +2927,7 @@ type VideoHandlerStats struct {
 	FramesPerSecond float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *VideoHandlerStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3001,10 +2957,8 @@ func (_this *VideoHandlerStats) JSValue() js.Value {
 }
 
 // VideoHandlerStatsFromJS is allocating a new
-// VideoHandlerStats object and copy all values from
-// input javascript object
-func VideoHandlerStatsFromJS(value js.Wrapper) *VideoHandlerStats {
-	input := value.JSValue()
+// VideoHandlerStats object and copy all values in the value javascript object.
+func VideoHandlerStatsFromJS(value js.Value) *VideoHandlerStats {
 	var out VideoHandlerStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -3019,27 +2973,27 @@ func VideoHandlerStatsFromJS(value js.Wrapper) *VideoHandlerStats {
 		value9  uint                // javascript: unsigned long {frameHeight FrameHeight frameHeight}
 		value10 float64             // javascript: double {framesPerSecond FramesPerSecond framesPerSecond}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (uint)((input.Get("frameWidth")).Int())
+	value8 = (uint)((value.Get("frameWidth")).Int())
 	out.FrameWidth = value8
-	value9 = (uint)((input.Get("frameHeight")).Int())
+	value9 = (uint)((value.Get("frameHeight")).Int())
 	out.FrameHeight = value9
-	value10 = (input.Get("framesPerSecond")).Float()
+	value10 = (value.Get("framesPerSecond")).Float()
 	out.FramesPerSecond = value10
 	return &out
 }
@@ -3068,7 +3022,7 @@ type VideoReceiverStats struct {
 	FullFramesLost            uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *VideoReceiverStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3116,10 +3070,8 @@ func (_this *VideoReceiverStats) JSValue() js.Value {
 }
 
 // VideoReceiverStatsFromJS is allocating a new
-// VideoReceiverStats object and copy all values from
-// input javascript object
-func VideoReceiverStatsFromJS(value js.Wrapper) *VideoReceiverStats {
-	input := value.JSValue()
+// VideoReceiverStats object and copy all values in the value javascript object.
+func VideoReceiverStatsFromJS(value js.Value) *VideoReceiverStats {
 	var out VideoReceiverStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -3143,45 +3095,45 @@ func VideoReceiverStatsFromJS(value js.Wrapper) *VideoReceiverStats {
 		value18 uint                // javascript: unsigned long {partialFramesLost PartialFramesLost partialFramesLost}
 		value19 uint                // javascript: unsigned long {fullFramesLost FullFramesLost fullFramesLost}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (uint)((input.Get("frameWidth")).Int())
+	value8 = (uint)((value.Get("frameWidth")).Int())
 	out.FrameWidth = value8
-	value9 = (uint)((input.Get("frameHeight")).Int())
+	value9 = (uint)((value.Get("frameHeight")).Int())
 	out.FrameHeight = value9
-	value10 = (input.Get("framesPerSecond")).Float()
+	value10 = (value.Get("framesPerSecond")).Float()
 	out.FramesPerSecond = value10
-	value11 = (input.Get("estimatedPlayoutTimestamp")).Float()
+	value11 = (value.Get("estimatedPlayoutTimestamp")).Float()
 	out.EstimatedPlayoutTimestamp = value11
-	value12 = (input.Get("jitterBufferDelay")).Float()
+	value12 = (value.Get("jitterBufferDelay")).Float()
 	out.JitterBufferDelay = value12
-	value13 = (input.Get("jitterBufferEmittedCount")).Int()
+	value13 = (value.Get("jitterBufferEmittedCount")).Int()
 	out.JitterBufferEmittedCount = value13
-	value14 = (uint)((input.Get("framesReceived")).Int())
+	value14 = (uint)((value.Get("framesReceived")).Int())
 	out.FramesReceived = value14
-	value15 = (uint)((input.Get("keyFramesReceived")).Int())
+	value15 = (uint)((value.Get("keyFramesReceived")).Int())
 	out.KeyFramesReceived = value15
-	value16 = (uint)((input.Get("framesDecoded")).Int())
+	value16 = (uint)((value.Get("framesDecoded")).Int())
 	out.FramesDecoded = value16
-	value17 = (uint)((input.Get("framesDropped")).Int())
+	value17 = (uint)((value.Get("framesDropped")).Int())
 	out.FramesDropped = value17
-	value18 = (uint)((input.Get("partialFramesLost")).Int())
+	value18 = (uint)((value.Get("partialFramesLost")).Int())
 	out.PartialFramesLost = value18
-	value19 = (uint)((input.Get("fullFramesLost")).Int())
+	value19 = (uint)((value.Get("fullFramesLost")).Int())
 	out.FullFramesLost = value19
 	return &out
 }
@@ -3205,7 +3157,7 @@ type VideoSenderStats struct {
 	KeyFramesSent   uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *VideoSenderStats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3243,10 +3195,8 @@ func (_this *VideoSenderStats) JSValue() js.Value {
 }
 
 // VideoSenderStatsFromJS is allocating a new
-// VideoSenderStats object and copy all values from
-// input javascript object
-func VideoSenderStatsFromJS(value js.Wrapper) *VideoSenderStats {
-	input := value.JSValue()
+// VideoSenderStats object and copy all values in the value javascript object.
+func VideoSenderStatsFromJS(value js.Value) *VideoSenderStats {
 	var out VideoSenderStats
 	var (
 		value0  float64             // javascript: double {timestamp Timestamp timestamp}
@@ -3265,35 +3215,35 @@ func VideoSenderStatsFromJS(value js.Wrapper) *VideoSenderStats {
 		value13 uint                // javascript: unsigned long {hugeFramesSent HugeFramesSent hugeFramesSent}
 		value14 uint                // javascript: unsigned long {keyFramesSent KeyFramesSent keyFramesSent}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = webrtc.StatsTypeFromJS(input.Get("type"))
+	value1 = webrtc.StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("trackIdentifier")).String()
+	value3 = (value.Get("trackIdentifier")).String()
 	out.TrackIdentifier = value3
-	value4 = (input.Get("remoteSource")).Bool()
+	value4 = (value.Get("remoteSource")).Bool()
 	out.RemoteSource = value4
-	value5 = (input.Get("ended")).Bool()
+	value5 = (value.Get("ended")).Bool()
 	out.Ended = value5
-	value6 = (input.Get("kind")).String()
+	value6 = (value.Get("kind")).String()
 	out.Kind = value6
-	value7 = webrtc.PriorityTypeFromJS(input.Get("priority"))
+	value7 = webrtc.PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value7
-	value8 = (uint)((input.Get("frameWidth")).Int())
+	value8 = (uint)((value.Get("frameWidth")).Int())
 	out.FrameWidth = value8
-	value9 = (uint)((input.Get("frameHeight")).Int())
+	value9 = (uint)((value.Get("frameHeight")).Int())
 	out.FrameHeight = value9
-	value10 = (input.Get("framesPerSecond")).Float()
+	value10 = (value.Get("framesPerSecond")).Float()
 	out.FramesPerSecond = value10
-	value11 = (uint)((input.Get("framesCaptured")).Int())
+	value11 = (uint)((value.Get("framesCaptured")).Int())
 	out.FramesCaptured = value11
-	value12 = (uint)((input.Get("framesSent")).Int())
+	value12 = (uint)((value.Get("framesSent")).Int())
 	out.FramesSent = value12
-	value13 = (uint)((input.Get("hugeFramesSent")).Int())
+	value13 = (uint)((value.Get("hugeFramesSent")).Int())
 	out.HugeFramesSent = value13
-	value14 = (uint)((input.Get("keyFramesSent")).Int())
+	value14 = (uint)((value.Get("keyFramesSent")).Int())
 	out.KeyFramesSent = value14
 	return &out
 }

@@ -5,6 +5,7 @@ package deviceadapt
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/cssom"
 )
 
@@ -40,15 +41,19 @@ type CSSViewportRule struct {
 	cssom.CSSRule
 }
 
-// CSSViewportRuleFromJS is casting a js.Wrapper into CSSViewportRule.
-func CSSViewportRuleFromJS(value js.Wrapper) *CSSViewportRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSViewportRuleFromJS is casting a js.Value into CSSViewportRule.
+func CSSViewportRuleFromJS(value js.Value) *CSSViewportRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSViewportRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSViewportRuleFromJS is casting from something that holds a js.Value into CSSViewportRule.
+func CSSViewportRuleFromWrapper(input core.Wrapper) *CSSViewportRule {
+	return CSSViewportRuleFromJS(input.JSValue())
 }
 
 // Style returning attribute 'style' with

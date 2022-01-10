@@ -5,6 +5,7 @@ package speech
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
@@ -145,7 +146,7 @@ type SpeechRecognitionErrorEventInit struct {
 	Message    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SpeechRecognitionErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -163,10 +164,8 @@ func (_this *SpeechRecognitionErrorEventInit) JSValue() js.Value {
 }
 
 // SpeechRecognitionErrorEventInitFromJS is allocating a new
-// SpeechRecognitionErrorEventInit object and copy all values from
-// input javascript object
-func SpeechRecognitionErrorEventInitFromJS(value js.Wrapper) *SpeechRecognitionErrorEventInit {
-	input := value.JSValue()
+// SpeechRecognitionErrorEventInit object and copy all values in the value javascript object.
+func SpeechRecognitionErrorEventInitFromJS(value js.Value) *SpeechRecognitionErrorEventInit {
 	var out SpeechRecognitionErrorEventInit
 	var (
 		value0 bool                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -175,15 +174,15 @@ func SpeechRecognitionErrorEventInitFromJS(value js.Wrapper) *SpeechRecognitionE
 		value3 SpeechRecognitionErrorCode // javascript: SpeechRecognitionErrorCode {error Error _error}
 		value4 string                     // javascript: DOMString {message Message message}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = SpeechRecognitionErrorCodeFromJS(input.Get("error"))
+	value3 = SpeechRecognitionErrorCodeFromJS(value.Get("error"))
 	out.Error = value3
-	value4 = (input.Get("message")).String()
+	value4 = (value.Get("message")).String()
 	out.Message = value4
 	return &out
 }
@@ -199,7 +198,7 @@ type SpeechRecognitionEventInit struct {
 	Emma           js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SpeechRecognitionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -221,10 +220,8 @@ func (_this *SpeechRecognitionEventInit) JSValue() js.Value {
 }
 
 // SpeechRecognitionEventInitFromJS is allocating a new
-// SpeechRecognitionEventInit object and copy all values from
-// input javascript object
-func SpeechRecognitionEventInitFromJS(value js.Wrapper) *SpeechRecognitionEventInit {
-	input := value.JSValue()
+// SpeechRecognitionEventInit object and copy all values in the value javascript object.
+func SpeechRecognitionEventInitFromJS(value js.Value) *SpeechRecognitionEventInit {
 	var out SpeechRecognitionEventInit
 	var (
 		value0 bool                         // javascript: boolean {bubbles Bubbles bubbles}
@@ -235,19 +232,19 @@ func SpeechRecognitionEventInitFromJS(value js.Wrapper) *SpeechRecognitionEventI
 		value5 js.Value                     // javascript: any {interpretation Interpretation interpretation}
 		value6 js.Value                     // javascript: Document {emma Emma emma}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (uint)((input.Get("resultIndex")).Int())
+	value3 = (uint)((value.Get("resultIndex")).Int())
 	out.ResultIndex = value3
-	value4 = SpeechRecognitionResultListFromJS(input.Get("results"))
+	value4 = SpeechRecognitionResultListFromJS(value.Get("results"))
 	out.Results = value4
-	value5 = input.Get("interpretation")
+	value5 = value.Get("interpretation")
 	out.Interpretation = value5
-	value6 = input.Get("emma")
+	value6 = value.Get("emma")
 	out.Emma = value6
 	return &out
 }
@@ -264,7 +261,7 @@ type SpeechSynthesisErrorEventInit struct {
 	Error       SpeechSynthesisErrorCode
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SpeechSynthesisErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -288,10 +285,8 @@ func (_this *SpeechSynthesisErrorEventInit) JSValue() js.Value {
 }
 
 // SpeechSynthesisErrorEventInitFromJS is allocating a new
-// SpeechSynthesisErrorEventInit object and copy all values from
-// input javascript object
-func SpeechSynthesisErrorEventInitFromJS(value js.Wrapper) *SpeechSynthesisErrorEventInit {
-	input := value.JSValue()
+// SpeechSynthesisErrorEventInit object and copy all values in the value javascript object.
+func SpeechSynthesisErrorEventInitFromJS(value js.Value) *SpeechSynthesisErrorEventInit {
 	var out SpeechSynthesisErrorEventInit
 	var (
 		value0 bool                      // javascript: boolean {bubbles Bubbles bubbles}
@@ -303,21 +298,21 @@ func SpeechSynthesisErrorEventInitFromJS(value js.Wrapper) *SpeechSynthesisError
 		value6 string                    // javascript: DOMString {name Name name}
 		value7 SpeechSynthesisErrorCode  // javascript: SpeechSynthesisErrorCode {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = SpeechSynthesisUtteranceFromJS(input.Get("utterance"))
+	value3 = SpeechSynthesisUtteranceFromJS(value.Get("utterance"))
 	out.Utterance = value3
-	value4 = (uint)((input.Get("charIndex")).Int())
+	value4 = (uint)((value.Get("charIndex")).Int())
 	out.CharIndex = value4
-	value5 = (float32)((input.Get("elapsedTime")).Float())
+	value5 = (float32)((value.Get("elapsedTime")).Float())
 	out.ElapsedTime = value5
-	value6 = (input.Get("name")).String()
+	value6 = (value.Get("name")).String()
 	out.Name = value6
-	value7 = SpeechSynthesisErrorCodeFromJS(input.Get("error"))
+	value7 = SpeechSynthesisErrorCodeFromJS(value.Get("error"))
 	out.Error = value7
 	return &out
 }
@@ -333,7 +328,7 @@ type SpeechSynthesisEventInit struct {
 	Name        string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SpeechSynthesisEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -355,10 +350,8 @@ func (_this *SpeechSynthesisEventInit) JSValue() js.Value {
 }
 
 // SpeechSynthesisEventInitFromJS is allocating a new
-// SpeechSynthesisEventInit object and copy all values from
-// input javascript object
-func SpeechSynthesisEventInitFromJS(value js.Wrapper) *SpeechSynthesisEventInit {
-	input := value.JSValue()
+// SpeechSynthesisEventInit object and copy all values in the value javascript object.
+func SpeechSynthesisEventInitFromJS(value js.Value) *SpeechSynthesisEventInit {
 	var out SpeechSynthesisEventInit
 	var (
 		value0 bool                      // javascript: boolean {bubbles Bubbles bubbles}
@@ -369,19 +362,19 @@ func SpeechSynthesisEventInitFromJS(value js.Wrapper) *SpeechSynthesisEventInit 
 		value5 float32                   // javascript: float {elapsedTime ElapsedTime elapsedTime}
 		value6 string                    // javascript: DOMString {name Name name}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = SpeechSynthesisUtteranceFromJS(input.Get("utterance"))
+	value3 = SpeechSynthesisUtteranceFromJS(value.Get("utterance"))
 	out.Utterance = value3
-	value4 = (uint)((input.Get("charIndex")).Int())
+	value4 = (uint)((value.Get("charIndex")).Int())
 	out.CharIndex = value4
-	value5 = (float32)((input.Get("elapsedTime")).Float())
+	value5 = (float32)((value.Get("elapsedTime")).Float())
 	out.ElapsedTime = value5
-	value6 = (input.Get("name")).String()
+	value6 = (value.Get("name")).String()
 	out.Name = value6
 	return &out
 }
@@ -396,15 +389,19 @@ func (_this *SpeechGrammar) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechGrammarFromJS is casting a js.Wrapper into SpeechGrammar.
-func SpeechGrammarFromJS(value js.Wrapper) *SpeechGrammar {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechGrammarFromJS is casting a js.Value into SpeechGrammar.
+func SpeechGrammarFromJS(value js.Value) *SpeechGrammar {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechGrammar{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechGrammarFromJS is casting from something that holds a js.Value into SpeechGrammar.
+func SpeechGrammarFromWrapper(input core.Wrapper) *SpeechGrammar {
+	return SpeechGrammarFromJS(input.JSValue())
 }
 
 func NewSpeechGrammar() (_result *SpeechGrammar) {
@@ -464,15 +461,19 @@ func (_this *SpeechGrammarList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechGrammarListFromJS is casting a js.Wrapper into SpeechGrammarList.
-func SpeechGrammarListFromJS(value js.Wrapper) *SpeechGrammarList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechGrammarListFromJS is casting a js.Value into SpeechGrammarList.
+func SpeechGrammarListFromJS(value js.Value) *SpeechGrammarList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechGrammarList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechGrammarListFromJS is casting from something that holds a js.Value into SpeechGrammarList.
+func SpeechGrammarListFromWrapper(input core.Wrapper) *SpeechGrammarList {
+	return SpeechGrammarListFromJS(input.JSValue())
 }
 
 func NewSpeechGrammarList() (_result *SpeechGrammarList) {
@@ -584,15 +585,19 @@ type SpeechRecognition struct {
 	domcore.EventTarget
 }
 
-// SpeechRecognitionFromJS is casting a js.Wrapper into SpeechRecognition.
-func SpeechRecognitionFromJS(value js.Wrapper) *SpeechRecognition {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionFromJS is casting a js.Value into SpeechRecognition.
+func SpeechRecognitionFromJS(value js.Value) *SpeechRecognition {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognition{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionFromJS is casting from something that holds a js.Value into SpeechRecognition.
+func SpeechRecognitionFromWrapper(input core.Wrapper) *SpeechRecognition {
+	return SpeechRecognitionFromJS(input.JSValue())
 }
 
 func NewSpeechRecognition() (_result *SpeechRecognition) {
@@ -1082,15 +1087,19 @@ func (_this *SpeechRecognitionAlternative) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechRecognitionAlternativeFromJS is casting a js.Wrapper into SpeechRecognitionAlternative.
-func SpeechRecognitionAlternativeFromJS(value js.Wrapper) *SpeechRecognitionAlternative {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionAlternativeFromJS is casting a js.Value into SpeechRecognitionAlternative.
+func SpeechRecognitionAlternativeFromJS(value js.Value) *SpeechRecognitionAlternative {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionAlternative{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionAlternativeFromJS is casting from something that holds a js.Value into SpeechRecognitionAlternative.
+func SpeechRecognitionAlternativeFromWrapper(input core.Wrapper) *SpeechRecognitionAlternative {
+	return SpeechRecognitionAlternativeFromJS(input.JSValue())
 }
 
 // Transcript returning attribute 'transcript' with
@@ -1116,15 +1125,19 @@ type SpeechRecognitionErrorEvent struct {
 	domcore.Event
 }
 
-// SpeechRecognitionErrorEventFromJS is casting a js.Wrapper into SpeechRecognitionErrorEvent.
-func SpeechRecognitionErrorEventFromJS(value js.Wrapper) *SpeechRecognitionErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionErrorEventFromJS is casting a js.Value into SpeechRecognitionErrorEvent.
+func SpeechRecognitionErrorEventFromJS(value js.Value) *SpeechRecognitionErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionErrorEventFromJS is casting from something that holds a js.Value into SpeechRecognitionErrorEvent.
+func SpeechRecognitionErrorEventFromWrapper(input core.Wrapper) *SpeechRecognitionErrorEvent {
+	return SpeechRecognitionErrorEventFromJS(input.JSValue())
 }
 
 func NewSpeechRecognitionErrorEvent(_type string, eventInitDict *SpeechRecognitionErrorEventInit) (_result *SpeechRecognitionErrorEvent) {
@@ -1171,15 +1184,19 @@ type SpeechRecognitionEvent struct {
 	domcore.Event
 }
 
-// SpeechRecognitionEventFromJS is casting a js.Wrapper into SpeechRecognitionEvent.
-func SpeechRecognitionEventFromJS(value js.Wrapper) *SpeechRecognitionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionEventFromJS is casting a js.Value into SpeechRecognitionEvent.
+func SpeechRecognitionEventFromJS(value js.Value) *SpeechRecognitionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionEventFromJS is casting from something that holds a js.Value into SpeechRecognitionEvent.
+func SpeechRecognitionEventFromWrapper(input core.Wrapper) *SpeechRecognitionEvent {
+	return SpeechRecognitionEventFromJS(input.JSValue())
 }
 
 func NewSpeechRecognitionEvent(_type string, eventInitDict *SpeechRecognitionEventInit) (_result *SpeechRecognitionEvent) {
@@ -1249,15 +1266,19 @@ func (_this *SpeechRecognitionResult) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechRecognitionResultFromJS is casting a js.Wrapper into SpeechRecognitionResult.
-func SpeechRecognitionResultFromJS(value js.Wrapper) *SpeechRecognitionResult {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionResultFromJS is casting a js.Value into SpeechRecognitionResult.
+func SpeechRecognitionResultFromJS(value js.Value) *SpeechRecognitionResult {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionResult{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionResultFromJS is casting from something that holds a js.Value into SpeechRecognitionResult.
+func SpeechRecognitionResultFromWrapper(input core.Wrapper) *SpeechRecognitionResult {
+	return SpeechRecognitionResultFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1322,15 +1343,19 @@ func (_this *SpeechRecognitionResultList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechRecognitionResultListFromJS is casting a js.Wrapper into SpeechRecognitionResultList.
-func SpeechRecognitionResultListFromJS(value js.Wrapper) *SpeechRecognitionResultList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechRecognitionResultListFromJS is casting a js.Value into SpeechRecognitionResultList.
+func SpeechRecognitionResultListFromJS(value js.Value) *SpeechRecognitionResultList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechRecognitionResultList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechRecognitionResultListFromJS is casting from something that holds a js.Value into SpeechRecognitionResultList.
+func SpeechRecognitionResultListFromWrapper(input core.Wrapper) *SpeechRecognitionResultList {
+	return SpeechRecognitionResultListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1381,15 +1406,19 @@ type SpeechSynthesis struct {
 	domcore.EventTarget
 }
 
-// SpeechSynthesisFromJS is casting a js.Wrapper into SpeechSynthesis.
-func SpeechSynthesisFromJS(value js.Wrapper) *SpeechSynthesis {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechSynthesisFromJS is casting a js.Value into SpeechSynthesis.
+func SpeechSynthesisFromJS(value js.Value) *SpeechSynthesis {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesis{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechSynthesisFromJS is casting from something that holds a js.Value into SpeechSynthesis.
+func SpeechSynthesisFromWrapper(input core.Wrapper) *SpeechSynthesis {
+	return SpeechSynthesisFromJS(input.JSValue())
 }
 
 // Pending returning attribute 'pending' with
@@ -1526,15 +1555,19 @@ type SpeechSynthesisErrorEvent struct {
 	SpeechSynthesisEvent
 }
 
-// SpeechSynthesisErrorEventFromJS is casting a js.Wrapper into SpeechSynthesisErrorEvent.
-func SpeechSynthesisErrorEventFromJS(value js.Wrapper) *SpeechSynthesisErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechSynthesisErrorEventFromJS is casting a js.Value into SpeechSynthesisErrorEvent.
+func SpeechSynthesisErrorEventFromJS(value js.Value) *SpeechSynthesisErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechSynthesisErrorEventFromJS is casting from something that holds a js.Value into SpeechSynthesisErrorEvent.
+func SpeechSynthesisErrorEventFromWrapper(input core.Wrapper) *SpeechSynthesisErrorEvent {
+	return SpeechSynthesisErrorEventFromJS(input.JSValue())
 }
 
 func NewSpeechSynthesisErrorEvent(_type string, eventInitDict *SpeechSynthesisErrorEventInit) (_result *SpeechSynthesisErrorEvent) {
@@ -1572,15 +1605,19 @@ type SpeechSynthesisEvent struct {
 	domcore.Event
 }
 
-// SpeechSynthesisEventFromJS is casting a js.Wrapper into SpeechSynthesisEvent.
-func SpeechSynthesisEventFromJS(value js.Wrapper) *SpeechSynthesisEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechSynthesisEventFromJS is casting a js.Value into SpeechSynthesisEvent.
+func SpeechSynthesisEventFromJS(value js.Value) *SpeechSynthesisEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechSynthesisEventFromJS is casting from something that holds a js.Value into SpeechSynthesisEvent.
+func SpeechSynthesisEventFromWrapper(input core.Wrapper) *SpeechSynthesisEvent {
+	return SpeechSynthesisEventFromJS(input.JSValue())
 }
 
 func NewSpeechSynthesisEvent(_type string, eventInitDict *SpeechSynthesisEventInit) (_result *SpeechSynthesisEvent) {
@@ -1645,15 +1682,19 @@ type SpeechSynthesisUtterance struct {
 	domcore.EventTarget
 }
 
-// SpeechSynthesisUtteranceFromJS is casting a js.Wrapper into SpeechSynthesisUtterance.
-func SpeechSynthesisUtteranceFromJS(value js.Wrapper) *SpeechSynthesisUtterance {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechSynthesisUtteranceFromJS is casting a js.Value into SpeechSynthesisUtterance.
+func SpeechSynthesisUtteranceFromJS(value js.Value) *SpeechSynthesisUtterance {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisUtterance{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechSynthesisUtteranceFromJS is casting from something that holds a js.Value into SpeechSynthesisUtterance.
+func SpeechSynthesisUtteranceFromWrapper(input core.Wrapper) *SpeechSynthesisUtterance {
+	return SpeechSynthesisUtteranceFromJS(input.JSValue())
 }
 
 func NewSpeechSynthesisUtterance(text *string) (_result *SpeechSynthesisUtterance) {
@@ -2007,15 +2048,19 @@ func (_this *SpeechSynthesisVoice) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SpeechSynthesisVoiceFromJS is casting a js.Wrapper into SpeechSynthesisVoice.
-func SpeechSynthesisVoiceFromJS(value js.Wrapper) *SpeechSynthesisVoice {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SpeechSynthesisVoiceFromJS is casting a js.Value into SpeechSynthesisVoice.
+func SpeechSynthesisVoiceFromJS(value js.Value) *SpeechSynthesisVoice {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SpeechSynthesisVoice{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SpeechSynthesisVoiceFromJS is casting from something that holds a js.Value into SpeechSynthesisVoice.
+func SpeechSynthesisVoiceFromWrapper(input core.Wrapper) *SpeechSynthesisVoice {
+	return SpeechSynthesisVoiceFromJS(input.JSValue())
 }
 
 // VoiceURI returning attribute 'voiceURI' with

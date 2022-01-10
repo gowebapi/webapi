@@ -7,6 +7,7 @@ package authentication
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/device/sensor"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -264,7 +265,7 @@ type AuthenticationExtensionsClientInputs struct {
 	Uvm           bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AuthenticationExtensionsClientInputs) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -292,10 +293,8 @@ func (_this *AuthenticationExtensionsClientInputs) JSValue() js.Value {
 }
 
 // AuthenticationExtensionsClientInputsFromJS is allocating a new
-// AuthenticationExtensionsClientInputs object and copy all values from
-// input javascript object
-func AuthenticationExtensionsClientInputsFromJS(value js.Wrapper) *AuthenticationExtensionsClientInputs {
-	input := value.JSValue()
+// AuthenticationExtensionsClientInputs object and copy all values in the value javascript object.
+func AuthenticationExtensionsClientInputsFromJS(value js.Value) *AuthenticationExtensionsClientInputs {
 	var out AuthenticationExtensionsClientInputs
 	var (
 		value0 string            // javascript: USVString {appid Appid appid}
@@ -307,29 +306,29 @@ func AuthenticationExtensionsClientInputsFromJS(value js.Wrapper) *Authenticatio
 		value6 bool              // javascript: boolean {loc Loc loc}
 		value7 bool              // javascript: boolean {uvm Uvm uvm}
 	)
-	value0 = (input.Get("appid")).String()
+	value0 = (value.Get("appid")).String()
 	out.Appid = value0
-	value1 = (input.Get("txAuthSimple")).String()
+	value1 = (value.Get("txAuthSimple")).String()
 	out.TxAuthSimple = value1
-	value2 = TxAuthGenericArgFromJS(input.Get("txAuthGeneric"))
+	value2 = TxAuthGenericArgFromJS(value.Get("txAuthGeneric"))
 	out.TxAuthGeneric = value2
-	__length3 := input.Get("authnSel").Length()
+	__length3 := value.Get("authnSel").Length()
 	__array3 := make([]*Union, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *Union
-		__seq_in3 := input.Get("authnSel").Index(__idx3)
+		__seq_in3 := value.Get("authnSel").Index(__idx3)
 		__seq_out3 = UnionFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.AuthnSel = value3
-	value4 = (input.Get("exts")).Bool()
+	value4 = (value.Get("exts")).Bool()
 	out.Exts = value4
-	value5 = (input.Get("uvi")).Bool()
+	value5 = (value.Get("uvi")).Bool()
 	out.Uvi = value5
-	value6 = (input.Get("loc")).Bool()
+	value6 = (value.Get("loc")).Bool()
 	out.Loc = value6
-	value7 = (input.Get("uvm")).Bool()
+	value7 = (value.Get("uvm")).Bool()
 	out.Uvm = value7
 	return &out
 }
@@ -346,7 +345,7 @@ type AuthenticationExtensionsClientOutputs struct {
 	Uvm           [][]uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AuthenticationExtensionsClientOutputs) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -382,10 +381,8 @@ func (_this *AuthenticationExtensionsClientOutputs) JSValue() js.Value {
 }
 
 // AuthenticationExtensionsClientOutputsFromJS is allocating a new
-// AuthenticationExtensionsClientOutputs object and copy all values from
-// input javascript object
-func AuthenticationExtensionsClientOutputsFromJS(value js.Wrapper) *AuthenticationExtensionsClientOutputs {
-	input := value.JSValue()
+// AuthenticationExtensionsClientOutputs object and copy all values in the value javascript object.
+func AuthenticationExtensionsClientOutputsFromJS(value js.Value) *AuthenticationExtensionsClientOutputs {
 	var out AuthenticationExtensionsClientOutputs
 	var (
 		value0 bool                    // javascript: boolean {appid Appid appid}
@@ -397,33 +394,33 @@ func AuthenticationExtensionsClientOutputsFromJS(value js.Wrapper) *Authenticati
 		value6 *sensor.Coordinates     // javascript: Coordinates {loc Loc loc}
 		value7 [][]uint                // javascript: sequence<sequence<unsigned long>> {uvm Uvm uvm}
 	)
-	value0 = (input.Get("appid")).Bool()
+	value0 = (value.Get("appid")).Bool()
 	out.Appid = value0
-	value1 = (input.Get("txAuthSimple")).String()
+	value1 = (value.Get("txAuthSimple")).String()
 	out.TxAuthSimple = value1
-	value2 = javascript.ArrayBufferFromJS(input.Get("txAuthGeneric"))
+	value2 = javascript.ArrayBufferFromJS(value.Get("txAuthGeneric"))
 	out.TxAuthGeneric = value2
-	value3 = (input.Get("authnSel")).Bool()
+	value3 = (value.Get("authnSel")).Bool()
 	out.AuthnSel = value3
-	__length4 := input.Get("exts").Length()
+	__length4 := value.Get("exts").Length()
 	__array4 := make([]string, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 string
-		__seq_in4 := input.Get("exts").Index(__idx4)
+		__seq_in4 := value.Get("exts").Index(__idx4)
 		__seq_out4 = (__seq_in4).String()
 		__array4[__idx4] = __seq_out4
 	}
 	value4 = __array4
 	out.Exts = value4
-	value5 = javascript.ArrayBufferFromJS(input.Get("uvi"))
+	value5 = javascript.ArrayBufferFromJS(value.Get("uvi"))
 	out.Uvi = value5
-	value6 = sensor.CoordinatesFromJS(input.Get("loc"))
+	value6 = sensor.CoordinatesFromJS(value.Get("loc"))
 	out.Loc = value6
-	__length7 := input.Get("uvm").Length()
+	__length7 := value.Get("uvm").Length()
 	__array7 := make([][]uint, __length7, __length7)
 	for __idx7 := 0; __idx7 < __length7; __idx7++ {
 		var __seq_out7 []uint
-		__seq_in7 := input.Get("uvm").Index(__idx7)
+		__seq_in7 := value.Get("uvm").Index(__idx7)
 		__length8 := __seq_in7.Length()
 		__array8 := make([]uint, __length8, __length8)
 		for __idx8 := 0; __idx8 < __length8; __idx8++ {
@@ -446,7 +443,7 @@ type AuthenticatorBiometricPerfBounds struct {
 	FRR float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AuthenticatorBiometricPerfBounds) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -458,18 +455,16 @@ func (_this *AuthenticatorBiometricPerfBounds) JSValue() js.Value {
 }
 
 // AuthenticatorBiometricPerfBoundsFromJS is allocating a new
-// AuthenticatorBiometricPerfBounds object and copy all values from
-// input javascript object
-func AuthenticatorBiometricPerfBoundsFromJS(value js.Wrapper) *AuthenticatorBiometricPerfBounds {
-	input := value.JSValue()
+// AuthenticatorBiometricPerfBounds object and copy all values in the value javascript object.
+func AuthenticatorBiometricPerfBoundsFromJS(value js.Value) *AuthenticatorBiometricPerfBounds {
 	var out AuthenticatorBiometricPerfBounds
 	var (
 		value0 float32 // javascript: float {FAR FAR fAR}
 		value1 float32 // javascript: float {FRR FRR fRR}
 	)
-	value0 = (float32)((input.Get("FAR")).Float())
+	value0 = (float32)((value.Get("FAR")).Float())
 	out.FAR = value0
-	value1 = (float32)((input.Get("FRR")).Float())
+	value1 = (float32)((value.Get("FRR")).Float())
 	out.FRR = value1
 	return &out
 }
@@ -482,7 +477,7 @@ type CollectedClientData struct {
 	TokenBinding *TokenBinding
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CollectedClientData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -498,10 +493,8 @@ func (_this *CollectedClientData) JSValue() js.Value {
 }
 
 // CollectedClientDataFromJS is allocating a new
-// CollectedClientData object and copy all values from
-// input javascript object
-func CollectedClientDataFromJS(value js.Wrapper) *CollectedClientData {
-	input := value.JSValue()
+// CollectedClientData object and copy all values in the value javascript object.
+func CollectedClientDataFromJS(value js.Value) *CollectedClientData {
 	var out CollectedClientData
 	var (
 		value0 string        // javascript: DOMString {type Type _type}
@@ -509,13 +502,13 @@ func CollectedClientDataFromJS(value js.Wrapper) *CollectedClientData {
 		value2 string        // javascript: DOMString {origin Origin origin}
 		value3 *TokenBinding // javascript: TokenBinding {tokenBinding TokenBinding tokenBinding}
 	)
-	value0 = (input.Get("type")).String()
+	value0 = (value.Get("type")).String()
 	out.Type = value0
-	value1 = (input.Get("challenge")).String()
+	value1 = (value.Get("challenge")).String()
 	out.Challenge = value1
-	value2 = (input.Get("origin")).String()
+	value2 = (value.Get("origin")).String()
 	out.Origin = value2
-	value3 = TokenBindingFromJS(input.Get("tokenBinding"))
+	value3 = TokenBindingFromJS(value.Get("tokenBinding"))
 	out.TokenBinding = value3
 	return &out
 }
@@ -527,7 +520,7 @@ type SelectionCriteria struct {
 	UserVerification        UserVerificationRequirement
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SelectionCriteria) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -541,21 +534,19 @@ func (_this *SelectionCriteria) JSValue() js.Value {
 }
 
 // SelectionCriteriaFromJS is allocating a new
-// SelectionCriteria object and copy all values from
-// input javascript object
-func SelectionCriteriaFromJS(value js.Wrapper) *SelectionCriteria {
-	input := value.JSValue()
+// SelectionCriteria object and copy all values in the value javascript object.
+func SelectionCriteriaFromJS(value js.Value) *SelectionCriteria {
 	var out SelectionCriteria
 	var (
 		value0 Attachment                  // javascript: AuthenticatorAttachment {authenticatorAttachment AuthenticatorAttachment authenticatorAttachment}
 		value1 bool                        // javascript: boolean {requireResidentKey RequireResidentKey requireResidentKey}
 		value2 UserVerificationRequirement // javascript: UserVerificationRequirement {userVerification UserVerification userVerification}
 	)
-	value0 = AttachmentFromJS(input.Get("authenticatorAttachment"))
+	value0 = AttachmentFromJS(value.Get("authenticatorAttachment"))
 	out.AuthenticatorAttachment = value0
-	value1 = (input.Get("requireResidentKey")).Bool()
+	value1 = (value.Get("requireResidentKey")).Bool()
 	out.RequireResidentKey = value1
-	value2 = UserVerificationRequirementFromJS(input.Get("userVerification"))
+	value2 = UserVerificationRequirementFromJS(value.Get("userVerification"))
 	out.UserVerification = value2
 	return &out
 }
@@ -566,7 +557,7 @@ type TokenBinding struct {
 	Id     string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TokenBinding) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -578,18 +569,16 @@ func (_this *TokenBinding) JSValue() js.Value {
 }
 
 // TokenBindingFromJS is allocating a new
-// TokenBinding object and copy all values from
-// input javascript object
-func TokenBindingFromJS(value js.Wrapper) *TokenBinding {
-	input := value.JSValue()
+// TokenBinding object and copy all values in the value javascript object.
+func TokenBindingFromJS(value js.Value) *TokenBinding {
 	var out TokenBinding
 	var (
 		value0 TokenBindingStatus // javascript: TokenBindingStatus {status Status status}
 		value1 string             // javascript: DOMString {id Id id}
 	)
-	value0 = TokenBindingStatusFromJS(input.Get("status"))
+	value0 = TokenBindingStatusFromJS(value.Get("status"))
 	out.Status = value0
-	value1 = (input.Get("id")).String()
+	value1 = (value.Get("id")).String()
 	out.Id = value1
 	return &out
 }
@@ -600,7 +589,7 @@ type TxAuthGenericArg struct {
 	Content     *javascript.ArrayBuffer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TxAuthGenericArg) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -612,18 +601,16 @@ func (_this *TxAuthGenericArg) JSValue() js.Value {
 }
 
 // TxAuthGenericArgFromJS is allocating a new
-// TxAuthGenericArg object and copy all values from
-// input javascript object
-func TxAuthGenericArgFromJS(value js.Wrapper) *TxAuthGenericArg {
-	input := value.JSValue()
+// TxAuthGenericArg object and copy all values in the value javascript object.
+func TxAuthGenericArgFromJS(value js.Value) *TxAuthGenericArg {
 	var out TxAuthGenericArg
 	var (
 		value0 string                  // javascript: USVString {contentType ContentType contentType}
 		value1 *javascript.ArrayBuffer // javascript: ArrayBuffer {content Content content}
 	)
-	value0 = (input.Get("contentType")).String()
+	value0 = (value.Get("contentType")).String()
 	out.ContentType = value0
-	value1 = javascript.ArrayBufferFromJS(input.Get("content"))
+	value1 = javascript.ArrayBufferFromJS(value.Get("content"))
 	out.Content = value1
 	return &out
 }
@@ -633,15 +620,19 @@ type AssertionResponse struct {
 	Response
 }
 
-// AssertionResponseFromJS is casting a js.Wrapper into AssertionResponse.
-func AssertionResponseFromJS(value js.Wrapper) *AssertionResponse {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AssertionResponseFromJS is casting a js.Value into AssertionResponse.
+func AssertionResponseFromJS(value js.Value) *AssertionResponse {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AssertionResponse{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AssertionResponseFromJS is casting from something that holds a js.Value into AssertionResponse.
+func AssertionResponseFromWrapper(input core.Wrapper) *AssertionResponse {
+	return AssertionResponseFromJS(input.JSValue())
 }
 
 // AuthenticatorData returning attribute 'authenticatorData' with
@@ -678,15 +669,19 @@ type AttestationResponse struct {
 	Response
 }
 
-// AttestationResponseFromJS is casting a js.Wrapper into AttestationResponse.
-func AttestationResponseFromJS(value js.Wrapper) *AttestationResponse {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AttestationResponseFromJS is casting a js.Value into AttestationResponse.
+func AttestationResponseFromJS(value js.Value) *AttestationResponse {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AttestationResponse{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AttestationResponseFromJS is casting from something that holds a js.Value into AttestationResponse.
+func AttestationResponseFromWrapper(input core.Wrapper) *AttestationResponse {
+	return AttestationResponseFromJS(input.JSValue())
 }
 
 // AttestationObject returning attribute 'attestationObject' with
@@ -708,15 +703,19 @@ func (_this *Response) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ResponseFromJS is casting a js.Wrapper into Response.
-func ResponseFromJS(value js.Wrapper) *Response {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ResponseFromJS is casting a js.Value into Response.
+func ResponseFromJS(value js.Value) *Response {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Response{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ResponseFromJS is casting from something that holds a js.Value into Response.
+func ResponseFromWrapper(input core.Wrapper) *Response {
+	return ResponseFromJS(input.JSValue())
 }
 
 // ClientDataJSON returning attribute 'clientDataJSON' with

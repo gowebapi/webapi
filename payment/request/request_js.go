@@ -5,6 +5,7 @@ package request
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -305,7 +306,7 @@ type AddressErrors struct {
 	SortingCode       string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AddressErrors) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -333,10 +334,8 @@ func (_this *AddressErrors) JSValue() js.Value {
 }
 
 // AddressErrorsFromJS is allocating a new
-// AddressErrors object and copy all values from
-// input javascript object
-func AddressErrorsFromJS(value js.Wrapper) *AddressErrors {
-	input := value.JSValue()
+// AddressErrors object and copy all values in the value javascript object.
+func AddressErrorsFromJS(value js.Value) *AddressErrors {
 	var out AddressErrors
 	var (
 		value0 string // javascript: DOMString {addressLine AddressLine addressLine}
@@ -350,25 +349,25 @@ func AddressErrorsFromJS(value js.Wrapper) *AddressErrors {
 		value8 string // javascript: DOMString {region Region region}
 		value9 string // javascript: DOMString {sortingCode SortingCode sortingCode}
 	)
-	value0 = (input.Get("addressLine")).String()
+	value0 = (value.Get("addressLine")).String()
 	out.AddressLine = value0
-	value1 = (input.Get("city")).String()
+	value1 = (value.Get("city")).String()
 	out.City = value1
-	value2 = (input.Get("country")).String()
+	value2 = (value.Get("country")).String()
 	out.Country = value2
-	value3 = (input.Get("dependentLocality")).String()
+	value3 = (value.Get("dependentLocality")).String()
 	out.DependentLocality = value3
-	value4 = (input.Get("organization")).String()
+	value4 = (value.Get("organization")).String()
 	out.Organization = value4
-	value5 = (input.Get("phone")).String()
+	value5 = (value.Get("phone")).String()
 	out.Phone = value5
-	value6 = (input.Get("postalCode")).String()
+	value6 = (value.Get("postalCode")).String()
 	out.PostalCode = value6
-	value7 = (input.Get("recipient")).String()
+	value7 = (value.Get("recipient")).String()
 	out.Recipient = value7
-	value8 = (input.Get("region")).String()
+	value8 = (value.Get("region")).String()
 	out.Region = value8
-	value9 = (input.Get("sortingCode")).String()
+	value9 = (value.Get("sortingCode")).String()
 	out.SortingCode = value9
 	return &out
 }
@@ -387,7 +386,7 @@ type AddressInit struct {
 	Phone             string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AddressInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -419,10 +418,8 @@ func (_this *AddressInit) JSValue() js.Value {
 }
 
 // AddressInitFromJS is allocating a new
-// AddressInit object and copy all values from
-// input javascript object
-func AddressInitFromJS(value js.Wrapper) *AddressInit {
-	input := value.JSValue()
+// AddressInit object and copy all values in the value javascript object.
+func AddressInitFromJS(value js.Value) *AddressInit {
 	var out AddressInit
 	var (
 		value0 string   // javascript: DOMString {country Country country}
@@ -436,33 +433,33 @@ func AddressInitFromJS(value js.Wrapper) *AddressInit {
 		value8 string   // javascript: DOMString {recipient Recipient recipient}
 		value9 string   // javascript: DOMString {phone Phone phone}
 	)
-	value0 = (input.Get("country")).String()
+	value0 = (value.Get("country")).String()
 	out.Country = value0
-	__length1 := input.Get("addressLine").Length()
+	__length1 := value.Get("addressLine").Length()
 	__array1 := make([]string, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 string
-		__seq_in1 := input.Get("addressLine").Index(__idx1)
+		__seq_in1 := value.Get("addressLine").Index(__idx1)
 		__seq_out1 = (__seq_in1).String()
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.AddressLine = value1
-	value2 = (input.Get("region")).String()
+	value2 = (value.Get("region")).String()
 	out.Region = value2
-	value3 = (input.Get("city")).String()
+	value3 = (value.Get("city")).String()
 	out.City = value3
-	value4 = (input.Get("dependentLocality")).String()
+	value4 = (value.Get("dependentLocality")).String()
 	out.DependentLocality = value4
-	value5 = (input.Get("postalCode")).String()
+	value5 = (value.Get("postalCode")).String()
 	out.PostalCode = value5
-	value6 = (input.Get("sortingCode")).String()
+	value6 = (value.Get("sortingCode")).String()
 	out.SortingCode = value6
-	value7 = (input.Get("organization")).String()
+	value7 = (value.Get("organization")).String()
 	out.Organization = value7
-	value8 = (input.Get("recipient")).String()
+	value8 = (value.Get("recipient")).String()
 	out.Recipient = value8
-	value9 = (input.Get("phone")).String()
+	value9 = (value.Get("phone")).String()
 	out.Phone = value9
 	return &out
 }
@@ -476,7 +473,7 @@ type MerchantValidationEventInit struct {
 	ValidationURL string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MerchantValidationEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -494,10 +491,8 @@ func (_this *MerchantValidationEventInit) JSValue() js.Value {
 }
 
 // MerchantValidationEventInitFromJS is allocating a new
-// MerchantValidationEventInit object and copy all values from
-// input javascript object
-func MerchantValidationEventInitFromJS(value js.Wrapper) *MerchantValidationEventInit {
-	input := value.JSValue()
+// MerchantValidationEventInit object and copy all values in the value javascript object.
+func MerchantValidationEventInitFromJS(value js.Value) *MerchantValidationEventInit {
 	var out MerchantValidationEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -506,15 +501,15 @@ func MerchantValidationEventInitFromJS(value js.Wrapper) *MerchantValidationEven
 		value3 string // javascript: DOMString {methodName MethodName methodName}
 		value4 string // javascript: USVString {validationURL ValidationURL validationURL}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("methodName")).String()
+	value3 = (value.Get("methodName")).String()
 	out.MethodName = value3
-	value4 = (input.Get("validationURL")).String()
+	value4 = (value.Get("validationURL")).String()
 	out.ValidationURL = value4
 	return &out
 }
@@ -526,7 +521,7 @@ type PayerErrors struct {
 	Phone string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PayerErrors) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -540,21 +535,19 @@ func (_this *PayerErrors) JSValue() js.Value {
 }
 
 // PayerErrorsFromJS is allocating a new
-// PayerErrors object and copy all values from
-// input javascript object
-func PayerErrorsFromJS(value js.Wrapper) *PayerErrors {
-	input := value.JSValue()
+// PayerErrors object and copy all values in the value javascript object.
+func PayerErrorsFromJS(value js.Value) *PayerErrors {
 	var out PayerErrors
 	var (
 		value0 string // javascript: DOMString {email Email email}
 		value1 string // javascript: DOMString {name Name name}
 		value2 string // javascript: DOMString {phone Phone phone}
 	)
-	value0 = (input.Get("email")).String()
+	value0 = (value.Get("email")).String()
 	out.Email = value0
-	value1 = (input.Get("name")).String()
+	value1 = (value.Get("name")).String()
 	out.Name = value1
-	value2 = (input.Get("phone")).String()
+	value2 = (value.Get("phone")).String()
 	out.Phone = value2
 	return &out
 }
@@ -565,7 +558,7 @@ type PaymentCurrencyAmount struct {
 	Value    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentCurrencyAmount) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -577,18 +570,16 @@ func (_this *PaymentCurrencyAmount) JSValue() js.Value {
 }
 
 // PaymentCurrencyAmountFromJS is allocating a new
-// PaymentCurrencyAmount object and copy all values from
-// input javascript object
-func PaymentCurrencyAmountFromJS(value js.Wrapper) *PaymentCurrencyAmount {
-	input := value.JSValue()
+// PaymentCurrencyAmount object and copy all values in the value javascript object.
+func PaymentCurrencyAmountFromJS(value js.Value) *PaymentCurrencyAmount {
 	var out PaymentCurrencyAmount
 	var (
 		value0 string // javascript: DOMString {currency Currency currency}
 		value1 string // javascript: DOMString {value Value value}
 	)
-	value0 = (input.Get("currency")).String()
+	value0 = (value.Get("currency")).String()
 	out.Currency = value0
-	value1 = (input.Get("value")).String()
+	value1 = (value.Get("value")).String()
 	out.Value = value1
 	return &out
 }
@@ -600,7 +591,7 @@ type PaymentDetailsBase struct {
 	Modifiers       []*PaymentDetailsModifier
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentDetailsBase) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -626,41 +617,39 @@ func (_this *PaymentDetailsBase) JSValue() js.Value {
 }
 
 // PaymentDetailsBaseFromJS is allocating a new
-// PaymentDetailsBase object and copy all values from
-// input javascript object
-func PaymentDetailsBaseFromJS(value js.Wrapper) *PaymentDetailsBase {
-	input := value.JSValue()
+// PaymentDetailsBase object and copy all values in the value javascript object.
+func PaymentDetailsBaseFromJS(value js.Value) *PaymentDetailsBase {
 	var out PaymentDetailsBase
 	var (
 		value0 []*PaymentItem            // javascript: sequence<PaymentItem> {displayItems DisplayItems displayItems}
 		value1 []*PaymentShippingOption  // javascript: sequence<PaymentShippingOption> {shippingOptions ShippingOptions shippingOptions}
 		value2 []*PaymentDetailsModifier // javascript: sequence<PaymentDetailsModifier> {modifiers Modifiers modifiers}
 	)
-	__length0 := input.Get("displayItems").Length()
+	__length0 := value.Get("displayItems").Length()
 	__array0 := make([]*PaymentItem, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *PaymentItem
-		__seq_in0 := input.Get("displayItems").Index(__idx0)
+		__seq_in0 := value.Get("displayItems").Index(__idx0)
 		__seq_out0 = PaymentItemFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.DisplayItems = value0
-	__length1 := input.Get("shippingOptions").Length()
+	__length1 := value.Get("shippingOptions").Length()
 	__array1 := make([]*PaymentShippingOption, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *PaymentShippingOption
-		__seq_in1 := input.Get("shippingOptions").Index(__idx1)
+		__seq_in1 := value.Get("shippingOptions").Index(__idx1)
 		__seq_out1 = PaymentShippingOptionFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.ShippingOptions = value1
-	__length2 := input.Get("modifiers").Length()
+	__length2 := value.Get("modifiers").Length()
 	__array2 := make([]*PaymentDetailsModifier, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *PaymentDetailsModifier
-		__seq_in2 := input.Get("modifiers").Index(__idx2)
+		__seq_in2 := value.Get("modifiers").Index(__idx2)
 		__seq_out2 = PaymentDetailsModifierFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
@@ -678,7 +667,7 @@ type PaymentDetailsInit struct {
 	Total           *PaymentItem
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentDetailsInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -708,10 +697,8 @@ func (_this *PaymentDetailsInit) JSValue() js.Value {
 }
 
 // PaymentDetailsInitFromJS is allocating a new
-// PaymentDetailsInit object and copy all values from
-// input javascript object
-func PaymentDetailsInitFromJS(value js.Wrapper) *PaymentDetailsInit {
-	input := value.JSValue()
+// PaymentDetailsInit object and copy all values in the value javascript object.
+func PaymentDetailsInitFromJS(value js.Value) *PaymentDetailsInit {
 	var out PaymentDetailsInit
 	var (
 		value0 []*PaymentItem            // javascript: sequence<PaymentItem> {displayItems DisplayItems displayItems}
@@ -720,39 +707,39 @@ func PaymentDetailsInitFromJS(value js.Wrapper) *PaymentDetailsInit {
 		value3 string                    // javascript: DOMString {id Id id}
 		value4 *PaymentItem              // javascript: PaymentItem {total Total total}
 	)
-	__length0 := input.Get("displayItems").Length()
+	__length0 := value.Get("displayItems").Length()
 	__array0 := make([]*PaymentItem, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *PaymentItem
-		__seq_in0 := input.Get("displayItems").Index(__idx0)
+		__seq_in0 := value.Get("displayItems").Index(__idx0)
 		__seq_out0 = PaymentItemFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.DisplayItems = value0
-	__length1 := input.Get("shippingOptions").Length()
+	__length1 := value.Get("shippingOptions").Length()
 	__array1 := make([]*PaymentShippingOption, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *PaymentShippingOption
-		__seq_in1 := input.Get("shippingOptions").Index(__idx1)
+		__seq_in1 := value.Get("shippingOptions").Index(__idx1)
 		__seq_out1 = PaymentShippingOptionFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.ShippingOptions = value1
-	__length2 := input.Get("modifiers").Length()
+	__length2 := value.Get("modifiers").Length()
 	__array2 := make([]*PaymentDetailsModifier, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *PaymentDetailsModifier
-		__seq_in2 := input.Get("modifiers").Index(__idx2)
+		__seq_in2 := value.Get("modifiers").Index(__idx2)
 		__seq_out2 = PaymentDetailsModifierFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.Modifiers = value2
-	value3 = (input.Get("id")).String()
+	value3 = (value.Get("id")).String()
 	out.Id = value3
-	value4 = PaymentItemFromJS(input.Get("total"))
+	value4 = PaymentItemFromJS(value.Get("total"))
 	out.Total = value4
 	return &out
 }
@@ -765,7 +752,7 @@ type PaymentDetailsModifier struct {
 	Data                   *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentDetailsModifier) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -785,10 +772,8 @@ func (_this *PaymentDetailsModifier) JSValue() js.Value {
 }
 
 // PaymentDetailsModifierFromJS is allocating a new
-// PaymentDetailsModifier object and copy all values from
-// input javascript object
-func PaymentDetailsModifierFromJS(value js.Wrapper) *PaymentDetailsModifier {
-	input := value.JSValue()
+// PaymentDetailsModifier object and copy all values in the value javascript object.
+func PaymentDetailsModifierFromJS(value js.Value) *PaymentDetailsModifier {
 	var out PaymentDetailsModifier
 	var (
 		value0 string             // javascript: DOMString {supportedMethods SupportedMethods supportedMethods}
@@ -796,21 +781,21 @@ func PaymentDetailsModifierFromJS(value js.Wrapper) *PaymentDetailsModifier {
 		value2 []*PaymentItem     // javascript: sequence<PaymentItem> {additionalDisplayItems AdditionalDisplayItems additionalDisplayItems}
 		value3 *javascript.Object // javascript: object {data Data data}
 	)
-	value0 = (input.Get("supportedMethods")).String()
+	value0 = (value.Get("supportedMethods")).String()
 	out.SupportedMethods = value0
-	value1 = PaymentItemFromJS(input.Get("total"))
+	value1 = PaymentItemFromJS(value.Get("total"))
 	out.Total = value1
-	__length2 := input.Get("additionalDisplayItems").Length()
+	__length2 := value.Get("additionalDisplayItems").Length()
 	__array2 := make([]*PaymentItem, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *PaymentItem
-		__seq_in2 := input.Get("additionalDisplayItems").Index(__idx2)
+		__seq_in2 := value.Get("additionalDisplayItems").Index(__idx2)
 		__seq_out2 = PaymentItemFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.AdditionalDisplayItems = value2
-	value3 = javascript.ObjectFromJS(input.Get("data"))
+	value3 = javascript.ObjectFromJS(value.Get("data"))
 	out.Data = value3
 	return &out
 }
@@ -827,7 +812,7 @@ type PaymentDetailsUpdate struct {
 	PaymentMethodErrors   *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentDetailsUpdate) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -863,10 +848,8 @@ func (_this *PaymentDetailsUpdate) JSValue() js.Value {
 }
 
 // PaymentDetailsUpdateFromJS is allocating a new
-// PaymentDetailsUpdate object and copy all values from
-// input javascript object
-func PaymentDetailsUpdateFromJS(value js.Wrapper) *PaymentDetailsUpdate {
-	input := value.JSValue()
+// PaymentDetailsUpdate object and copy all values in the value javascript object.
+func PaymentDetailsUpdateFromJS(value js.Value) *PaymentDetailsUpdate {
 	var out PaymentDetailsUpdate
 	var (
 		value0 []*PaymentItem            // javascript: sequence<PaymentItem> {displayItems DisplayItems displayItems}
@@ -878,45 +861,45 @@ func PaymentDetailsUpdateFromJS(value js.Wrapper) *PaymentDetailsUpdate {
 		value6 *PayerErrors              // javascript: PayerErrors {payerErrors PayerErrors payerErrors}
 		value7 *javascript.Object        // javascript: object {paymentMethodErrors PaymentMethodErrors paymentMethodErrors}
 	)
-	__length0 := input.Get("displayItems").Length()
+	__length0 := value.Get("displayItems").Length()
 	__array0 := make([]*PaymentItem, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *PaymentItem
-		__seq_in0 := input.Get("displayItems").Index(__idx0)
+		__seq_in0 := value.Get("displayItems").Index(__idx0)
 		__seq_out0 = PaymentItemFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.DisplayItems = value0
-	__length1 := input.Get("shippingOptions").Length()
+	__length1 := value.Get("shippingOptions").Length()
 	__array1 := make([]*PaymentShippingOption, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *PaymentShippingOption
-		__seq_in1 := input.Get("shippingOptions").Index(__idx1)
+		__seq_in1 := value.Get("shippingOptions").Index(__idx1)
 		__seq_out1 = PaymentShippingOptionFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.ShippingOptions = value1
-	__length2 := input.Get("modifiers").Length()
+	__length2 := value.Get("modifiers").Length()
 	__array2 := make([]*PaymentDetailsModifier, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *PaymentDetailsModifier
-		__seq_in2 := input.Get("modifiers").Index(__idx2)
+		__seq_in2 := value.Get("modifiers").Index(__idx2)
 		__seq_out2 = PaymentDetailsModifierFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.Modifiers = value2
-	value3 = (input.Get("error")).String()
+	value3 = (value.Get("error")).String()
 	out.Error = value3
-	value4 = PaymentItemFromJS(input.Get("total"))
+	value4 = PaymentItemFromJS(value.Get("total"))
 	out.Total = value4
-	value5 = AddressErrorsFromJS(input.Get("shippingAddressErrors"))
+	value5 = AddressErrorsFromJS(value.Get("shippingAddressErrors"))
 	out.ShippingAddressErrors = value5
-	value6 = PayerErrorsFromJS(input.Get("payerErrors"))
+	value6 = PayerErrorsFromJS(value.Get("payerErrors"))
 	out.PayerErrors = value6
-	value7 = javascript.ObjectFromJS(input.Get("paymentMethodErrors"))
+	value7 = javascript.ObjectFromJS(value.Get("paymentMethodErrors"))
 	out.PaymentMethodErrors = value7
 	return &out
 }
@@ -928,7 +911,7 @@ type PaymentItem struct {
 	Pending bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentItem) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -942,21 +925,19 @@ func (_this *PaymentItem) JSValue() js.Value {
 }
 
 // PaymentItemFromJS is allocating a new
-// PaymentItem object and copy all values from
-// input javascript object
-func PaymentItemFromJS(value js.Wrapper) *PaymentItem {
-	input := value.JSValue()
+// PaymentItem object and copy all values in the value javascript object.
+func PaymentItemFromJS(value js.Value) *PaymentItem {
 	var out PaymentItem
 	var (
 		value0 string                 // javascript: DOMString {label Label label}
 		value1 *PaymentCurrencyAmount // javascript: PaymentCurrencyAmount {amount Amount amount}
 		value2 bool                   // javascript: boolean {pending Pending pending}
 	)
-	value0 = (input.Get("label")).String()
+	value0 = (value.Get("label")).String()
 	out.Label = value0
-	value1 = PaymentCurrencyAmountFromJS(input.Get("amount"))
+	value1 = PaymentCurrencyAmountFromJS(value.Get("amount"))
 	out.Amount = value1
-	value2 = (input.Get("pending")).Bool()
+	value2 = (value.Get("pending")).Bool()
 	out.Pending = value2
 	return &out
 }
@@ -970,7 +951,7 @@ type PaymentMethodChangeEventInit struct {
 	MethodDetails *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentMethodChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -988,10 +969,8 @@ func (_this *PaymentMethodChangeEventInit) JSValue() js.Value {
 }
 
 // PaymentMethodChangeEventInitFromJS is allocating a new
-// PaymentMethodChangeEventInit object and copy all values from
-// input javascript object
-func PaymentMethodChangeEventInitFromJS(value js.Wrapper) *PaymentMethodChangeEventInit {
-	input := value.JSValue()
+// PaymentMethodChangeEventInit object and copy all values in the value javascript object.
+func PaymentMethodChangeEventInitFromJS(value js.Value) *PaymentMethodChangeEventInit {
 	var out PaymentMethodChangeEventInit
 	var (
 		value0 bool               // javascript: boolean {bubbles Bubbles bubbles}
@@ -1000,16 +979,16 @@ func PaymentMethodChangeEventInitFromJS(value js.Wrapper) *PaymentMethodChangeEv
 		value3 string             // javascript: DOMString {methodName MethodName methodName}
 		value4 *javascript.Object // javascript: object {methodDetails MethodDetails methodDetails}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("methodName")).String()
+	value3 = (value.Get("methodName")).String()
 	out.MethodName = value3
-	if input.Get("methodDetails").Type() != js.TypeNull && input.Get("methodDetails").Type() != js.TypeUndefined {
-		value4 = javascript.ObjectFromJS(input.Get("methodDetails"))
+	if value.Get("methodDetails").Type() != js.TypeNull && value.Get("methodDetails").Type() != js.TypeUndefined {
+		value4 = javascript.ObjectFromJS(value.Get("methodDetails"))
 	}
 	out.MethodDetails = value4
 	return &out
@@ -1021,7 +1000,7 @@ type PaymentMethodData struct {
 	Data             *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentMethodData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1033,18 +1012,16 @@ func (_this *PaymentMethodData) JSValue() js.Value {
 }
 
 // PaymentMethodDataFromJS is allocating a new
-// PaymentMethodData object and copy all values from
-// input javascript object
-func PaymentMethodDataFromJS(value js.Wrapper) *PaymentMethodData {
-	input := value.JSValue()
+// PaymentMethodData object and copy all values in the value javascript object.
+func PaymentMethodDataFromJS(value js.Value) *PaymentMethodData {
 	var out PaymentMethodData
 	var (
 		value0 string             // javascript: DOMString {supportedMethods SupportedMethods supportedMethods}
 		value1 *javascript.Object // javascript: object {data Data data}
 	)
-	value0 = (input.Get("supportedMethods")).String()
+	value0 = (value.Get("supportedMethods")).String()
 	out.SupportedMethods = value0
-	value1 = javascript.ObjectFromJS(input.Get("data"))
+	value1 = javascript.ObjectFromJS(value.Get("data"))
 	out.Data = value1
 	return &out
 }
@@ -1059,7 +1036,7 @@ type PaymentOptions struct {
 	ShippingType          PaymentShippingType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1079,10 +1056,8 @@ func (_this *PaymentOptions) JSValue() js.Value {
 }
 
 // PaymentOptionsFromJS is allocating a new
-// PaymentOptions object and copy all values from
-// input javascript object
-func PaymentOptionsFromJS(value js.Wrapper) *PaymentOptions {
-	input := value.JSValue()
+// PaymentOptions object and copy all values in the value javascript object.
+func PaymentOptionsFromJS(value js.Value) *PaymentOptions {
 	var out PaymentOptions
 	var (
 		value0 bool                // javascript: boolean {requestPayerName RequestPayerName requestPayerName}
@@ -1092,17 +1067,17 @@ func PaymentOptionsFromJS(value js.Wrapper) *PaymentOptions {
 		value4 bool                // javascript: boolean {requestShipping RequestShipping requestShipping}
 		value5 PaymentShippingType // javascript: PaymentShippingType {shippingType ShippingType shippingType}
 	)
-	value0 = (input.Get("requestPayerName")).Bool()
+	value0 = (value.Get("requestPayerName")).Bool()
 	out.RequestPayerName = value0
-	value1 = (input.Get("requestBillingAddress")).Bool()
+	value1 = (value.Get("requestBillingAddress")).Bool()
 	out.RequestBillingAddress = value1
-	value2 = (input.Get("requestPayerEmail")).Bool()
+	value2 = (value.Get("requestPayerEmail")).Bool()
 	out.RequestPayerEmail = value2
-	value3 = (input.Get("requestPayerPhone")).Bool()
+	value3 = (value.Get("requestPayerPhone")).Bool()
 	out.RequestPayerPhone = value3
-	value4 = (input.Get("requestShipping")).Bool()
+	value4 = (value.Get("requestShipping")).Bool()
 	out.RequestShipping = value4
-	value5 = PaymentShippingTypeFromJS(input.Get("shippingType"))
+	value5 = PaymentShippingTypeFromJS(value.Get("shippingType"))
 	out.ShippingType = value5
 	return &out
 }
@@ -1114,7 +1089,7 @@ type PaymentRequestUpdateEventInit struct {
 	Composed   bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentRequestUpdateEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1128,21 +1103,19 @@ func (_this *PaymentRequestUpdateEventInit) JSValue() js.Value {
 }
 
 // PaymentRequestUpdateEventInitFromJS is allocating a new
-// PaymentRequestUpdateEventInit object and copy all values from
-// input javascript object
-func PaymentRequestUpdateEventInitFromJS(value js.Wrapper) *PaymentRequestUpdateEventInit {
-	input := value.JSValue()
+// PaymentRequestUpdateEventInit object and copy all values in the value javascript object.
+func PaymentRequestUpdateEventInitFromJS(value js.Value) *PaymentRequestUpdateEventInit {
 	var out PaymentRequestUpdateEventInit
 	var (
 		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
 		value1 bool // javascript: boolean {cancelable Cancelable cancelable}
 		value2 bool // javascript: boolean {composed Composed composed}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
 	return &out
 }
@@ -1155,7 +1128,7 @@ type PaymentShippingOption struct {
 	Selected bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentShippingOption) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1171,10 +1144,8 @@ func (_this *PaymentShippingOption) JSValue() js.Value {
 }
 
 // PaymentShippingOptionFromJS is allocating a new
-// PaymentShippingOption object and copy all values from
-// input javascript object
-func PaymentShippingOptionFromJS(value js.Wrapper) *PaymentShippingOption {
-	input := value.JSValue()
+// PaymentShippingOption object and copy all values in the value javascript object.
+func PaymentShippingOptionFromJS(value js.Value) *PaymentShippingOption {
 	var out PaymentShippingOption
 	var (
 		value0 string                 // javascript: DOMString {id Id id}
@@ -1182,13 +1153,13 @@ func PaymentShippingOptionFromJS(value js.Wrapper) *PaymentShippingOption {
 		value2 *PaymentCurrencyAmount // javascript: PaymentCurrencyAmount {amount Amount amount}
 		value3 bool                   // javascript: boolean {selected Selected selected}
 	)
-	value0 = (input.Get("id")).String()
+	value0 = (value.Get("id")).String()
 	out.Id = value0
-	value1 = (input.Get("label")).String()
+	value1 = (value.Get("label")).String()
 	out.Label = value1
-	value2 = PaymentCurrencyAmountFromJS(input.Get("amount"))
+	value2 = PaymentCurrencyAmountFromJS(value.Get("amount"))
 	out.Amount = value2
-	value3 = (input.Get("selected")).Bool()
+	value3 = (value.Get("selected")).Bool()
 	out.Selected = value3
 	return &out
 }
@@ -1201,7 +1172,7 @@ type PaymentValidationErrors struct {
 	PaymentMethod   *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaymentValidationErrors) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1217,10 +1188,8 @@ func (_this *PaymentValidationErrors) JSValue() js.Value {
 }
 
 // PaymentValidationErrorsFromJS is allocating a new
-// PaymentValidationErrors object and copy all values from
-// input javascript object
-func PaymentValidationErrorsFromJS(value js.Wrapper) *PaymentValidationErrors {
-	input := value.JSValue()
+// PaymentValidationErrors object and copy all values in the value javascript object.
+func PaymentValidationErrorsFromJS(value js.Value) *PaymentValidationErrors {
 	var out PaymentValidationErrors
 	var (
 		value0 *PayerErrors       // javascript: PayerErrors {payer Payer payer}
@@ -1228,13 +1197,13 @@ func PaymentValidationErrorsFromJS(value js.Wrapper) *PaymentValidationErrors {
 		value2 string             // javascript: DOMString {error Error _error}
 		value3 *javascript.Object // javascript: object {paymentMethod PaymentMethod paymentMethod}
 	)
-	value0 = PayerErrorsFromJS(input.Get("payer"))
+	value0 = PayerErrorsFromJS(value.Get("payer"))
 	out.Payer = value0
-	value1 = AddressErrorsFromJS(input.Get("shippingAddress"))
+	value1 = AddressErrorsFromJS(value.Get("shippingAddress"))
 	out.ShippingAddress = value1
-	value2 = (input.Get("error")).String()
+	value2 = (value.Get("error")).String()
 	out.Error = value2
-	value3 = javascript.ObjectFromJS(input.Get("paymentMethod"))
+	value3 = javascript.ObjectFromJS(value.Get("paymentMethod"))
 	out.PaymentMethod = value3
 	return &out
 }
@@ -1244,15 +1213,19 @@ type MerchantValidationEvent struct {
 	domcore.Event
 }
 
-// MerchantValidationEventFromJS is casting a js.Wrapper into MerchantValidationEvent.
-func MerchantValidationEventFromJS(value js.Wrapper) *MerchantValidationEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MerchantValidationEventFromJS is casting a js.Value into MerchantValidationEvent.
+func MerchantValidationEventFromJS(value js.Value) *MerchantValidationEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MerchantValidationEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MerchantValidationEventFromJS is casting from something that holds a js.Value into MerchantValidationEvent.
+func MerchantValidationEventFromWrapper(input core.Wrapper) *MerchantValidationEvent {
+	return MerchantValidationEventFromJS(input.JSValue())
 }
 
 func NewMerchantValidationEvent(_type string, eventInitDict *MerchantValidationEventInit) (_result *MerchantValidationEvent) {
@@ -1318,15 +1291,19 @@ func (_this *PaymentAddress) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PaymentAddressFromJS is casting a js.Wrapper into PaymentAddress.
-func PaymentAddressFromJS(value js.Wrapper) *PaymentAddress {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaymentAddressFromJS is casting a js.Value into PaymentAddress.
+func PaymentAddressFromJS(value js.Value) *PaymentAddress {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentAddress{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaymentAddressFromJS is casting from something that holds a js.Value into PaymentAddress.
+func PaymentAddressFromWrapper(input core.Wrapper) *PaymentAddress {
+	return PaymentAddressFromJS(input.JSValue())
 }
 
 // City returning attribute 'city' with
@@ -1438,15 +1415,19 @@ type PaymentMethodChangeEvent struct {
 	PaymentRequestUpdateEvent
 }
 
-// PaymentMethodChangeEventFromJS is casting a js.Wrapper into PaymentMethodChangeEvent.
-func PaymentMethodChangeEventFromJS(value js.Wrapper) *PaymentMethodChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaymentMethodChangeEventFromJS is casting a js.Value into PaymentMethodChangeEvent.
+func PaymentMethodChangeEventFromJS(value js.Value) *PaymentMethodChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentMethodChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaymentMethodChangeEventFromJS is casting from something that holds a js.Value into PaymentMethodChangeEvent.
+func PaymentMethodChangeEventFromWrapper(input core.Wrapper) *PaymentMethodChangeEvent {
+	return PaymentMethodChangeEventFromJS(input.JSValue())
 }
 
 func NewPaymentMethodChangeEvent(_type string, eventInitDict *PaymentMethodChangeEventInit) (_result *PaymentMethodChangeEvent) {
@@ -1497,15 +1478,19 @@ type PaymentRequest struct {
 	domcore.EventTarget
 }
 
-// PaymentRequestFromJS is casting a js.Wrapper into PaymentRequest.
-func PaymentRequestFromJS(value js.Wrapper) *PaymentRequest {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaymentRequestFromJS is casting a js.Value into PaymentRequest.
+func PaymentRequestFromJS(value js.Value) *PaymentRequest {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentRequest{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaymentRequestFromJS is casting from something that holds a js.Value into PaymentRequest.
+func PaymentRequestFromWrapper(input core.Wrapper) *PaymentRequest {
+	return PaymentRequestFromJS(input.JSValue())
 }
 
 func NewPaymentRequest(methodData []*PaymentMethodData, details *PaymentDetailsInit, options *PaymentOptions) (_result *PaymentRequest) {
@@ -1784,15 +1769,19 @@ type PaymentRequestUpdateEvent struct {
 	domcore.Event
 }
 
-// PaymentRequestUpdateEventFromJS is casting a js.Wrapper into PaymentRequestUpdateEvent.
-func PaymentRequestUpdateEventFromJS(value js.Wrapper) *PaymentRequestUpdateEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaymentRequestUpdateEventFromJS is casting a js.Value into PaymentRequestUpdateEvent.
+func PaymentRequestUpdateEventFromJS(value js.Value) *PaymentRequestUpdateEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentRequestUpdateEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaymentRequestUpdateEventFromJS is casting from something that holds a js.Value into PaymentRequestUpdateEvent.
+func PaymentRequestUpdateEventFromWrapper(input core.Wrapper) *PaymentRequestUpdateEvent {
+	return PaymentRequestUpdateEventFromJS(input.JSValue())
 }
 
 func NewPaymentRequestUpdateEvent(_type string, eventInitDict *PaymentRequestUpdateEventInit) (_result *PaymentRequestUpdateEvent) {
@@ -1835,15 +1824,19 @@ type PaymentResponse struct {
 	domcore.EventTarget
 }
 
-// PaymentResponseFromJS is casting a js.Wrapper into PaymentResponse.
-func PaymentResponseFromJS(value js.Wrapper) *PaymentResponse {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaymentResponseFromJS is casting a js.Value into PaymentResponse.
+func PaymentResponseFromJS(value js.Value) *PaymentResponse {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaymentResponse{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaymentResponseFromJS is casting from something that holds a js.Value into PaymentResponse.
+func PaymentResponseFromWrapper(input core.Wrapper) *PaymentResponse {
+	return PaymentResponseFromJS(input.JSValue())
 }
 
 // RequestId returning attribute 'requestId' with
@@ -2035,15 +2028,19 @@ func (_this *PromisePaymentDetailsUpdate) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePaymentDetailsUpdateFromJS is casting a js.Wrapper into PromisePaymentDetailsUpdate.
-func PromisePaymentDetailsUpdateFromJS(value js.Wrapper) *PromisePaymentDetailsUpdate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePaymentDetailsUpdateFromJS is casting a js.Value into PromisePaymentDetailsUpdate.
+func PromisePaymentDetailsUpdateFromJS(value js.Value) *PromisePaymentDetailsUpdate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePaymentDetailsUpdate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePaymentDetailsUpdateFromJS is casting from something that holds a js.Value into PromisePaymentDetailsUpdate.
+func PromisePaymentDetailsUpdateFromWrapper(input core.Wrapper) *PromisePaymentDetailsUpdate {
+	return PromisePaymentDetailsUpdateFromJS(input.JSValue())
 }
 
 func (_this *PromisePaymentDetailsUpdate) Then(onFulfilled *PromisePaymentDetailsUpdateOnFulfilled, onRejected *PromisePaymentDetailsUpdateOnRejected) (_result *PromisePaymentDetailsUpdate) {
@@ -2140,15 +2137,19 @@ func (_this *PromisePaymentResponse) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePaymentResponseFromJS is casting a js.Wrapper into PromisePaymentResponse.
-func PromisePaymentResponseFromJS(value js.Wrapper) *PromisePaymentResponse {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePaymentResponseFromJS is casting a js.Value into PromisePaymentResponse.
+func PromisePaymentResponseFromJS(value js.Value) *PromisePaymentResponse {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePaymentResponse{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePaymentResponseFromJS is casting from something that holds a js.Value into PromisePaymentResponse.
+func PromisePaymentResponseFromWrapper(input core.Wrapper) *PromisePaymentResponse {
+	return PromisePaymentResponseFromJS(input.JSValue())
 }
 
 func (_this *PromisePaymentResponse) Then(onFulfilled *PromisePaymentResponseOnFulfilled, onRejected *PromisePaymentResponseOnRejected) (_result *PromisePaymentResponse) {

@@ -7,6 +7,7 @@ package fetch
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html"
@@ -517,7 +518,7 @@ type HeadersEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HeadersEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -533,26 +534,24 @@ func (_this *HeadersEntryIteratorValue) JSValue() js.Value {
 }
 
 // HeadersEntryIteratorValueFromJS is allocating a new
-// HeadersEntryIteratorValue object and copy all values from
-// input javascript object
-func HeadersEntryIteratorValueFromJS(value js.Wrapper) *HeadersEntryIteratorValue {
-	input := value.JSValue()
+// HeadersEntryIteratorValue object and copy all values in the value javascript object.
+func HeadersEntryIteratorValueFromJS(value js.Value) *HeadersEntryIteratorValue {
 	var out HeadersEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -563,7 +562,7 @@ type HeadersKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HeadersKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -575,18 +574,16 @@ func (_this *HeadersKeyIteratorValue) JSValue() js.Value {
 }
 
 // HeadersKeyIteratorValueFromJS is allocating a new
-// HeadersKeyIteratorValue object and copy all values from
-// input javascript object
-func HeadersKeyIteratorValueFromJS(value js.Wrapper) *HeadersKeyIteratorValue {
-	input := value.JSValue()
+// HeadersKeyIteratorValue object and copy all values in the value javascript object.
+func HeadersKeyIteratorValueFromJS(value js.Value) *HeadersKeyIteratorValue {
 	var out HeadersKeyIteratorValue
 	var (
 		value0 *patch.ByteString // javascript: ByteString {value Value value}
 		value1 bool              // javascript: boolean {done Done done}
 	)
-	value0 = patch.ByteStringFromJS(input.Get("value"))
+	value0 = patch.ByteStringFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -597,7 +594,7 @@ type HeadersValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HeadersValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -609,18 +606,16 @@ func (_this *HeadersValueIteratorValue) JSValue() js.Value {
 }
 
 // HeadersValueIteratorValueFromJS is allocating a new
-// HeadersValueIteratorValue object and copy all values from
-// input javascript object
-func HeadersValueIteratorValueFromJS(value js.Wrapper) *HeadersValueIteratorValue {
-	input := value.JSValue()
+// HeadersValueIteratorValue object and copy all values in the value javascript object.
+func HeadersValueIteratorValueFromJS(value js.Value) *HeadersValueIteratorValue {
 	var out HeadersValueIteratorValue
 	var (
 		value0 *patch.ByteString // javascript: ByteString {value Value value}
 		value1 bool              // javascript: boolean {done Done done}
 	)
-	value0 = patch.ByteStringFromJS(input.Get("value"))
+	value0 = patch.ByteStringFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -642,7 +637,7 @@ type RequestInit struct {
 	Window         js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RequestInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -684,10 +679,8 @@ func (_this *RequestInit) JSValue() js.Value {
 }
 
 // RequestInitFromJS is allocating a new
-// RequestInit object and copy all values from
-// input javascript object
-func RequestInitFromJS(value js.Wrapper) *RequestInit {
-	input := value.JSValue()
+// RequestInit object and copy all values in the value javascript object.
+func RequestInitFromJS(value js.Value) *RequestInit {
 	var out RequestInit
 	var (
 		value0  *patch.ByteString     // javascript: ByteString {method Method method}
@@ -704,13 +697,13 @@ func RequestInitFromJS(value js.Wrapper) *RequestInit {
 		value11 *domcore.AbortSignal  // javascript: AbortSignal {signal Signal signal}
 		value12 js.Value              // javascript: any {window Window window}
 	)
-	value0 = patch.ByteStringFromJS(input.Get("method"))
+	value0 = patch.ByteStringFromJS(value.Get("method"))
 	out.Method = value0
-	__length1 := input.Get("headers").Length()
+	__length1 := value.Get("headers").Length()
 	__array1 := make([][]*patch.ByteString, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 []*patch.ByteString
-		__seq_in1 := input.Get("headers").Index(__idx1)
+		__seq_in1 := value.Get("headers").Index(__idx1)
 		__length2 := __seq_in1.Length()
 		__array2 := make([]*patch.ByteString, __length2, __length2)
 		for __idx2 := 0; __idx2 < __length2; __idx2++ {
@@ -724,31 +717,31 @@ func RequestInitFromJS(value js.Wrapper) *RequestInit {
 	}
 	value1 = __array1
 	out.Headers = value1
-	if input.Get("body").Type() != js.TypeNull && input.Get("body").Type() != js.TypeUndefined {
-		value2 = UnionFromJS(input.Get("body"))
+	if value.Get("body").Type() != js.TypeNull && value.Get("body").Type() != js.TypeUndefined {
+		value2 = UnionFromJS(value.Get("body"))
 	}
 	out.Body = value2
-	value3 = (input.Get("referrer")).String()
+	value3 = (value.Get("referrer")).String()
 	out.Referrer = value3
-	value4 = ReferrerPolicyFromJS(input.Get("referrerPolicy"))
+	value4 = ReferrerPolicyFromJS(value.Get("referrerPolicy"))
 	out.ReferrerPolicy = value4
-	value5 = RequestModeFromJS(input.Get("mode"))
+	value5 = RequestModeFromJS(value.Get("mode"))
 	out.Mode = value5
-	value6 = RequestCredentialsFromJS(input.Get("credentials"))
+	value6 = RequestCredentialsFromJS(value.Get("credentials"))
 	out.Credentials = value6
-	value7 = RequestCacheFromJS(input.Get("cache"))
+	value7 = RequestCacheFromJS(value.Get("cache"))
 	out.Cache = value7
-	value8 = RequestRedirectFromJS(input.Get("redirect"))
+	value8 = RequestRedirectFromJS(value.Get("redirect"))
 	out.Redirect = value8
-	value9 = (input.Get("integrity")).String()
+	value9 = (value.Get("integrity")).String()
 	out.Integrity = value9
-	value10 = (input.Get("keepalive")).Bool()
+	value10 = (value.Get("keepalive")).Bool()
 	out.Keepalive = value10
-	if input.Get("signal").Type() != js.TypeNull && input.Get("signal").Type() != js.TypeUndefined {
-		value11 = domcore.AbortSignalFromJS(input.Get("signal"))
+	if value.Get("signal").Type() != js.TypeNull && value.Get("signal").Type() != js.TypeUndefined {
+		value11 = domcore.AbortSignalFromJS(value.Get("signal"))
 	}
 	out.Signal = value11
-	value12 = input.Get("window")
+	value12 = value.Get("window")
 	out.Window = value12
 	return &out
 }
@@ -760,7 +753,7 @@ type ResponseInit struct {
 	Headers    [][]*patch.ByteString
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ResponseInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -782,25 +775,23 @@ func (_this *ResponseInit) JSValue() js.Value {
 }
 
 // ResponseInitFromJS is allocating a new
-// ResponseInit object and copy all values from
-// input javascript object
-func ResponseInitFromJS(value js.Wrapper) *ResponseInit {
-	input := value.JSValue()
+// ResponseInit object and copy all values in the value javascript object.
+func ResponseInitFromJS(value js.Value) *ResponseInit {
 	var out ResponseInit
 	var (
 		value0 int                   // javascript: unsigned short {status Status status}
 		value1 *patch.ByteString     // javascript: ByteString {statusText StatusText statusText}
 		value2 [][]*patch.ByteString // javascript: sequence<sequence<ByteString>> {headers Headers headers}
 	)
-	value0 = (input.Get("status")).Int()
+	value0 = (value.Get("status")).Int()
 	out.Status = value0
-	value1 = patch.ByteStringFromJS(input.Get("statusText"))
+	value1 = patch.ByteStringFromJS(value.Get("statusText"))
 	out.StatusText = value1
-	__length2 := input.Get("headers").Length()
+	__length2 := value.Get("headers").Length()
 	__array2 := make([][]*patch.ByteString, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 []*patch.ByteString
-		__seq_in2 := input.Get("headers").Index(__idx2)
+		__seq_in2 := value.Get("headers").Index(__idx2)
 		__length3 := __seq_in2.Length()
 		__array3 := make([]*patch.ByteString, __length3, __length3)
 		for __idx3 := 0; __idx3 < __length3; __idx3++ {
@@ -827,15 +818,19 @@ func (_this *Headers) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HeadersFromJS is casting a js.Wrapper into Headers.
-func HeadersFromJS(value js.Wrapper) *Headers {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HeadersFromJS is casting a js.Value into Headers.
+func HeadersFromJS(value js.Value) *Headers {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Headers{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HeadersFromJS is casting from something that holds a js.Value into Headers.
+func HeadersFromWrapper(input core.Wrapper) *Headers {
+	return HeadersFromJS(input.JSValue())
 }
 
 func NewHeaders(init [][]*patch.ByteString) (_result *Headers) {
@@ -1020,15 +1015,19 @@ func (_this *HeadersEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HeadersEntryIteratorFromJS is casting a js.Wrapper into HeadersEntryIterator.
-func HeadersEntryIteratorFromJS(value js.Wrapper) *HeadersEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HeadersEntryIteratorFromJS is casting a js.Value into HeadersEntryIterator.
+func HeadersEntryIteratorFromJS(value js.Value) *HeadersEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HeadersEntryIteratorFromJS is casting from something that holds a js.Value into HeadersEntryIterator.
+func HeadersEntryIteratorFromWrapper(input core.Wrapper) *HeadersEntryIterator {
+	return HeadersEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *HeadersEntryIterator) Next() (_result *HeadersEntryIteratorValue) {
@@ -1055,15 +1054,19 @@ func (_this *HeadersKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HeadersKeyIteratorFromJS is casting a js.Wrapper into HeadersKeyIterator.
-func HeadersKeyIteratorFromJS(value js.Wrapper) *HeadersKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HeadersKeyIteratorFromJS is casting a js.Value into HeadersKeyIterator.
+func HeadersKeyIteratorFromJS(value js.Value) *HeadersKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HeadersKeyIteratorFromJS is casting from something that holds a js.Value into HeadersKeyIterator.
+func HeadersKeyIteratorFromWrapper(input core.Wrapper) *HeadersKeyIterator {
+	return HeadersKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *HeadersKeyIterator) Next() (_result *HeadersKeyIteratorValue) {
@@ -1090,15 +1093,19 @@ func (_this *HeadersValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HeadersValueIteratorFromJS is casting a js.Wrapper into HeadersValueIterator.
-func HeadersValueIteratorFromJS(value js.Wrapper) *HeadersValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HeadersValueIteratorFromJS is casting a js.Value into HeadersValueIterator.
+func HeadersValueIteratorFromJS(value js.Value) *HeadersValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HeadersValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HeadersValueIteratorFromJS is casting from something that holds a js.Value into HeadersValueIterator.
+func HeadersValueIteratorFromWrapper(input core.Wrapper) *HeadersValueIterator {
+	return HeadersValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *HeadersValueIterator) Next() (_result *HeadersValueIteratorValue) {
@@ -1125,15 +1132,19 @@ func (_this *PromiseResponse) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseResponseFromJS is casting a js.Wrapper into PromiseResponse.
-func PromiseResponseFromJS(value js.Wrapper) *PromiseResponse {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseResponseFromJS is casting a js.Value into PromiseResponse.
+func PromiseResponseFromJS(value js.Value) *PromiseResponse {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseResponse{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseResponseFromJS is casting from something that holds a js.Value into PromiseResponse.
+func PromiseResponseFromWrapper(input core.Wrapper) *PromiseResponse {
+	return PromiseResponseFromJS(input.JSValue())
 }
 
 func (_this *PromiseResponse) Then(onFulfilled *PromiseResponseOnFulfilled, onRejected *PromiseResponseOnRejected) (_result *PromiseResponse) {
@@ -1230,15 +1241,19 @@ func (_this *Request) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RequestFromJS is casting a js.Wrapper into Request.
-func RequestFromJS(value js.Wrapper) *Request {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RequestFromJS is casting a js.Value into Request.
+func RequestFromJS(value js.Value) *Request {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Request{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RequestFromJS is casting from something that holds a js.Value into Request.
+func RequestFromWrapper(input core.Wrapper) *Request {
+	return RequestFromJS(input.JSValue())
 }
 
 func NewRequest(input *Union, init *RequestInit) (_result *Request) {
@@ -1513,15 +1528,19 @@ func (_this *Response) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ResponseFromJS is casting a js.Wrapper into Response.
-func ResponseFromJS(value js.Wrapper) *Response {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ResponseFromJS is casting a js.Value into Response.
+func ResponseFromJS(value js.Value) *Response {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Response{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ResponseFromJS is casting from something that holds a js.Value into Response.
+func ResponseFromWrapper(input core.Wrapper) *Response {
+	return ResponseFromJS(input.JSValue())
 }
 
 func Error() (_result *Response) {

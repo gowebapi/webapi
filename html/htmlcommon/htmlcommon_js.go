@@ -5,6 +5,7 @@ package htmlcommon
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
@@ -275,15 +276,19 @@ type BeforeUnloadEvent struct {
 	domcore.Event
 }
 
-// BeforeUnloadEventFromJS is casting a js.Wrapper into BeforeUnloadEvent.
-func BeforeUnloadEventFromJS(value js.Wrapper) *BeforeUnloadEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BeforeUnloadEventFromJS is casting a js.Value into BeforeUnloadEvent.
+func BeforeUnloadEventFromJS(value js.Value) *BeforeUnloadEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BeforeUnloadEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BeforeUnloadEventFromJS is casting from something that holds a js.Value into BeforeUnloadEvent.
+func BeforeUnloadEventFromWrapper(input core.Wrapper) *BeforeUnloadEvent {
+	return BeforeUnloadEventFromJS(input.JSValue())
 }
 
 // ReturnValue returning attribute 'returnValue' with

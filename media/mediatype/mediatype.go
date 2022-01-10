@@ -6,6 +6,10 @@ package mediatype
 
 import js "github.com/gowebapi/webapi/core/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -37,7 +41,7 @@ type Point2D struct {
 	Y float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Point2D) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -49,18 +53,16 @@ func (_this *Point2D) JSValue() js.Value {
 }
 
 // Point2DFromJS is allocating a new
-// Point2D object and copy all values from
-// input javascript object
-func Point2DFromJS(value js.Wrapper) *Point2D {
-	input := value.JSValue()
+// Point2D object and copy all values in the value javascript object.
+func Point2DFromJS(value js.Value) *Point2D {
 	var out Point2D
 	var (
 		value0 float64 // javascript: double {x X x}
 		value1 float64 // javascript: double {y Y y}
 	)
-	value0 = (input.Get("x")).Float()
+	value0 = (value.Get("x")).Float()
 	out.X = value0
-	value1 = (input.Get("y")).Float()
+	value1 = (value.Get("y")).Float()
 	out.Y = value1
 	return &out
 }
@@ -75,15 +77,19 @@ func (_this *MediaSettingsRange) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaSettingsRangeFromJS is casting a js.Wrapper into MediaSettingsRange.
-func MediaSettingsRangeFromJS(value js.Wrapper) *MediaSettingsRange {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaSettingsRangeFromJS is casting a js.Value into MediaSettingsRange.
+func MediaSettingsRangeFromJS(value js.Value) *MediaSettingsRange {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSettingsRange{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaSettingsRangeFromJS is casting from something that holds a js.Value into MediaSettingsRange.
+func MediaSettingsRangeFromWrapper(input core.Wrapper) *MediaSettingsRange {
+	return MediaSettingsRangeFromJS(input.JSValue())
 }
 
 // Max returning attribute 'max' with

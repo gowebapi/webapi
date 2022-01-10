@@ -7,6 +7,7 @@ package fontmetrics
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -46,15 +47,19 @@ func (_this *Baseline) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BaselineFromJS is casting a js.Wrapper into Baseline.
-func BaselineFromJS(value js.Wrapper) *Baseline {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BaselineFromJS is casting a js.Value into Baseline.
+func BaselineFromJS(value js.Value) *Baseline {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Baseline{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BaselineFromJS is casting from something that holds a js.Value into Baseline.
+func BaselineFromWrapper(input core.Wrapper) *Baseline {
+	return BaselineFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -85,15 +90,19 @@ func (_this *Font) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FontFromJS is casting a js.Wrapper into Font.
-func FontFromJS(value js.Wrapper) *Font {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FontFromJS is casting a js.Value into Font.
+func FontFromJS(value js.Value) *Font {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Font{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FontFromJS is casting from something that holds a js.Value into Font.
+func FontFromWrapper(input core.Wrapper) *Font {
+	return FontFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -124,15 +133,19 @@ func (_this *FontMetrics) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FontMetricsFromJS is casting a js.Wrapper into FontMetrics.
-func FontMetricsFromJS(value js.Wrapper) *FontMetrics {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FontMetricsFromJS is casting a js.Value into FontMetrics.
+func FontMetricsFromJS(value js.Value) *FontMetrics {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FontMetrics{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FontMetricsFromJS is casting from something that holds a js.Value into FontMetrics.
+func FontMetricsFromWrapper(input core.Wrapper) *FontMetrics {
+	return FontMetricsFromJS(input.JSValue())
 }
 
 // Width returning attribute 'width' with

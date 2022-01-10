@@ -6,6 +6,10 @@ package inputcapabilities
 
 import js "github.com/gowebapi/webapi/core/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -37,7 +41,7 @@ type InputDeviceCapabilitiesInit struct {
 	PointerMovementScrolls bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InputDeviceCapabilitiesInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -49,18 +53,16 @@ func (_this *InputDeviceCapabilitiesInit) JSValue() js.Value {
 }
 
 // InputDeviceCapabilitiesInitFromJS is allocating a new
-// InputDeviceCapabilitiesInit object and copy all values from
-// input javascript object
-func InputDeviceCapabilitiesInitFromJS(value js.Wrapper) *InputDeviceCapabilitiesInit {
-	input := value.JSValue()
+// InputDeviceCapabilitiesInit object and copy all values in the value javascript object.
+func InputDeviceCapabilitiesInitFromJS(value js.Value) *InputDeviceCapabilitiesInit {
 	var out InputDeviceCapabilitiesInit
 	var (
 		value0 bool // javascript: boolean {firesTouchEvents FiresTouchEvents firesTouchEvents}
 		value1 bool // javascript: boolean {pointerMovementScrolls PointerMovementScrolls pointerMovementScrolls}
 	)
-	value0 = (input.Get("firesTouchEvents")).Bool()
+	value0 = (value.Get("firesTouchEvents")).Bool()
 	out.FiresTouchEvents = value0
-	value1 = (input.Get("pointerMovementScrolls")).Bool()
+	value1 = (value.Get("pointerMovementScrolls")).Bool()
 	out.PointerMovementScrolls = value1
 	return &out
 }
@@ -75,15 +77,19 @@ func (_this *InputDeviceCapabilities) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// InputDeviceCapabilitiesFromJS is casting a js.Wrapper into InputDeviceCapabilities.
-func InputDeviceCapabilitiesFromJS(value js.Wrapper) *InputDeviceCapabilities {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputDeviceCapabilitiesFromJS is casting a js.Value into InputDeviceCapabilities.
+func InputDeviceCapabilitiesFromJS(value js.Value) *InputDeviceCapabilities {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputDeviceCapabilities{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputDeviceCapabilitiesFromJS is casting from something that holds a js.Value into InputDeviceCapabilities.
+func InputDeviceCapabilitiesFromWrapper(input core.Wrapper) *InputDeviceCapabilities {
+	return InputDeviceCapabilitiesFromJS(input.JSValue())
 }
 
 func NewInputDeviceCapabilities(deviceInitDict *InputDeviceCapabilitiesInit) (_result *InputDeviceCapabilities) {

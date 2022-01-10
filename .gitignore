@@ -10,3 +10,8 @@
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Developers files, IDE, etc.
+go.sum
+go.work
+.idea

@@ -6,6 +6,7 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -215,7 +216,7 @@ type BlobPropertyBag struct {
 	Endings EndingType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BlobPropertyBag) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -227,18 +228,16 @@ func (_this *BlobPropertyBag) JSValue() js.Value {
 }
 
 // BlobPropertyBagFromJS is allocating a new
-// BlobPropertyBag object and copy all values from
-// input javascript object
-func BlobPropertyBagFromJS(value js.Wrapper) *BlobPropertyBag {
-	input := value.JSValue()
+// BlobPropertyBag object and copy all values in the value javascript object.
+func BlobPropertyBagFromJS(value js.Value) *BlobPropertyBag {
 	var out BlobPropertyBag
 	var (
 		value0 string     // javascript: DOMString {type Type _type}
 		value1 EndingType // javascript: EndingType {endings Endings endings}
 	)
-	value0 = (input.Get("type")).String()
+	value0 = (value.Get("type")).String()
 	out.Type = value0
-	value1 = EndingTypeFromJS(input.Get("endings"))
+	value1 = EndingTypeFromJS(value.Get("endings"))
 	out.Endings = value1
 	return &out
 }
@@ -250,7 +249,7 @@ type FilePropertyBag struct {
 	LastModified int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FilePropertyBag) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -264,21 +263,19 @@ func (_this *FilePropertyBag) JSValue() js.Value {
 }
 
 // FilePropertyBagFromJS is allocating a new
-// FilePropertyBag object and copy all values from
-// input javascript object
-func FilePropertyBagFromJS(value js.Wrapper) *FilePropertyBag {
-	input := value.JSValue()
+// FilePropertyBag object and copy all values in the value javascript object.
+func FilePropertyBagFromJS(value js.Value) *FilePropertyBag {
 	var out FilePropertyBag
 	var (
 		value0 string     // javascript: DOMString {type Type _type}
 		value1 EndingType // javascript: EndingType {endings Endings endings}
 		value2 int        // javascript: long long {lastModified LastModified lastModified}
 	)
-	value0 = (input.Get("type")).String()
+	value0 = (value.Get("type")).String()
 	out.Type = value0
-	value1 = EndingTypeFromJS(input.Get("endings"))
+	value1 = EndingTypeFromJS(value.Get("endings"))
 	out.Endings = value1
-	value2 = (input.Get("lastModified")).Int()
+	value2 = (value.Get("lastModified")).Int()
 	out.LastModified = value2
 	return &out
 }
@@ -293,15 +290,19 @@ func (_this *Blob) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BlobFromJS is casting a js.Wrapper into Blob.
-func BlobFromJS(value js.Wrapper) *Blob {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BlobFromJS is casting a js.Value into Blob.
+func BlobFromJS(value js.Value) *Blob {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Blob{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BlobFromJS is casting from something that holds a js.Value into Blob.
+func BlobFromWrapper(input core.Wrapper) *Blob {
+	return BlobFromJS(input.JSValue())
 }
 
 func NewBlob(blobParts []*Union, options *BlobPropertyBag) (_result *Blob) {
@@ -403,15 +404,19 @@ type File struct {
 	Blob
 }
 
-// FileFromJS is casting a js.Wrapper into File.
-func FileFromJS(value js.Wrapper) *File {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileFromJS is casting a js.Value into File.
+func FileFromJS(value js.Value) *File {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &File{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileFromJS is casting from something that holds a js.Value into File.
+func FileFromWrapper(input core.Wrapper) *File {
+	return FileFromJS(input.JSValue())
 }
 
 func NewFile(fileBits []*Union, fileName string, options *FilePropertyBag) (_result *File) {
@@ -481,15 +486,19 @@ func (_this *FileList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileListFromJS is casting a js.Wrapper into FileList.
-func FileListFromJS(value js.Wrapper) *FileList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileListFromJS is casting a js.Value into FileList.
+func FileListFromJS(value js.Value) *FileList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileListFromJS is casting from something that holds a js.Value into FileList.
+func FileListFromWrapper(input core.Wrapper) *FileList {
+	return FileListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -544,15 +553,19 @@ type FileReader struct {
 	domcore.EventTarget
 }
 
-// FileReaderFromJS is casting a js.Wrapper into FileReader.
-func FileReaderFromJS(value js.Wrapper) *FileReader {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileReaderFromJS is casting a js.Value into FileReader.
+func FileReaderFromJS(value js.Value) *FileReader {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileReader{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileReaderFromJS is casting from something that holds a js.Value into FileReader.
+func FileReaderFromWrapper(input core.Wrapper) *FileReader {
+	return FileReaderFromJS(input.JSValue())
 }
 
 const (
@@ -861,15 +874,19 @@ func (_this *FileReaderSync) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileReaderSyncFromJS is casting a js.Wrapper into FileReaderSync.
-func FileReaderSyncFromJS(value js.Wrapper) *FileReaderSync {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileReaderSyncFromJS is casting a js.Value into FileReaderSync.
+func FileReaderSyncFromJS(value js.Value) *FileReaderSync {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileReaderSync{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileReaderSyncFromJS is casting from something that holds a js.Value into FileReaderSync.
+func FileReaderSyncFromWrapper(input core.Wrapper) *FileReaderSync {
+	return FileReaderSyncFromJS(input.JSValue())
 }
 
 func NewFileReaderSync() (_result *FileReaderSync) {
@@ -976,15 +993,19 @@ func (_this *PromiseBlob) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseBlobFromJS is casting a js.Wrapper into PromiseBlob.
-func PromiseBlobFromJS(value js.Wrapper) *PromiseBlob {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseBlobFromJS is casting a js.Value into PromiseBlob.
+func PromiseBlobFromJS(value js.Value) *PromiseBlob {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBlob{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseBlobFromJS is casting from something that holds a js.Value into PromiseBlob.
+func PromiseBlobFromWrapper(input core.Wrapper) *PromiseBlob {
+	return PromiseBlobFromJS(input.JSValue())
 }
 
 func (_this *PromiseBlob) Then(onFulfilled *PromiseBlobOnFulfilled, onRejected *PromiseBlobOnRejected) (_result *PromiseBlob) {

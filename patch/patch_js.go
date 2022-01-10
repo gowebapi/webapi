@@ -4,6 +4,10 @@ package patch
 
 import "syscall/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -39,15 +43,19 @@ func (_this *ByteString) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ByteStringFromJS is casting a js.Wrapper into ByteString.
-func ByteStringFromJS(value js.Wrapper) *ByteString {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ByteStringFromJS is casting a js.Value into ByteString.
+func ByteStringFromJS(value js.Value) *ByteString {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ByteString{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ByteStringFromJS is casting from something that holds a js.Value into ByteString.
+func ByteStringFromWrapper(input core.Wrapper) *ByteString {
+	return ByteStringFromJS(input.JSValue())
 }
 
 // class: OverconstrainedError
@@ -60,15 +68,19 @@ func (_this *OverconstrainedError) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OverconstrainedErrorFromJS is casting a js.Wrapper into OverconstrainedError.
-func OverconstrainedErrorFromJS(value js.Wrapper) *OverconstrainedError {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OverconstrainedErrorFromJS is casting a js.Value into OverconstrainedError.
+func OverconstrainedErrorFromJS(value js.Value) *OverconstrainedError {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OverconstrainedError{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OverconstrainedErrorFromJS is casting from something that holds a js.Value into OverconstrainedError.
+func OverconstrainedErrorFromWrapper(input core.Wrapper) *OverconstrainedError {
+	return OverconstrainedErrorFromJS(input.JSValue())
 }
 
 // class: ReadableStream
@@ -81,15 +93,19 @@ func (_this *ReadableStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ReadableStreamFromJS is casting a js.Wrapper into ReadableStream.
-func ReadableStreamFromJS(value js.Wrapper) *ReadableStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReadableStreamFromJS is casting a js.Value into ReadableStream.
+func ReadableStreamFromJS(value js.Value) *ReadableStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReadableStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReadableStreamFromJS is casting from something that holds a js.Value into ReadableStream.
+func ReadableStreamFromWrapper(input core.Wrapper) *ReadableStream {
+	return ReadableStreamFromJS(input.JSValue())
 }
 
 // class: Uint8ClampedArray
@@ -102,13 +118,17 @@ func (_this *Uint8ClampedArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint8ClampedArrayFromJS is casting a js.Wrapper into Uint8ClampedArray.
-func Uint8ClampedArrayFromJS(value js.Wrapper) *Uint8ClampedArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Uint8ClampedArrayFromJS is casting a js.Value into Uint8ClampedArray.
+func Uint8ClampedArrayFromJS(value js.Value) *Uint8ClampedArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Uint8ClampedArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Uint8ClampedArrayFromJS is casting from something that holds a js.Value into Uint8ClampedArray.
+func Uint8ClampedArrayFromWrapper(input core.Wrapper) *Uint8ClampedArray {
+	return Uint8ClampedArrayFromJS(input.JSValue())
 }

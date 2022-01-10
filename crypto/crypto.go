@@ -7,6 +7,7 @@ package crypto
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -263,7 +264,7 @@ type AesCbcParams struct {
 	Iv   *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesCbcParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -275,18 +276,16 @@ func (_this *AesCbcParams) JSValue() js.Value {
 }
 
 // AesCbcParamsFromJS is allocating a new
-// AesCbcParams object and copy all values from
-// input javascript object
-func AesCbcParamsFromJS(value js.Wrapper) *AesCbcParams {
-	input := value.JSValue()
+// AesCbcParams object and copy all values in the value javascript object.
+func AesCbcParamsFromJS(value js.Value) *AesCbcParams {
 	var out AesCbcParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {iv Iv iv}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("iv"))
+	value1 = UnionFromJS(value.Get("iv"))
 	out.Iv = value1
 	return &out
 }
@@ -298,7 +297,7 @@ type AesCtrParams struct {
 	Length  int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesCtrParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -312,21 +311,19 @@ func (_this *AesCtrParams) JSValue() js.Value {
 }
 
 // AesCtrParamsFromJS is allocating a new
-// AesCtrParams object and copy all values from
-// input javascript object
-func AesCtrParamsFromJS(value js.Wrapper) *AesCtrParams {
-	input := value.JSValue()
+// AesCtrParams object and copy all values in the value javascript object.
+func AesCtrParamsFromJS(value js.Value) *AesCtrParams {
 	var out AesCtrParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {counter Counter counter}
 		value2 int    // javascript: octet {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("counter"))
+	value1 = UnionFromJS(value.Get("counter"))
 	out.Counter = value1
-	value2 = (input.Get("length")).Int()
+	value2 = (value.Get("length")).Int()
 	out.Length = value2
 	return &out
 }
@@ -337,7 +334,7 @@ type AesDerivedKeyParams struct {
 	Length int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesDerivedKeyParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -349,18 +346,16 @@ func (_this *AesDerivedKeyParams) JSValue() js.Value {
 }
 
 // AesDerivedKeyParamsFromJS is allocating a new
-// AesDerivedKeyParams object and copy all values from
-// input javascript object
-func AesDerivedKeyParamsFromJS(value js.Wrapper) *AesDerivedKeyParams {
-	input := value.JSValue()
+// AesDerivedKeyParams object and copy all values in the value javascript object.
+func AesDerivedKeyParamsFromJS(value js.Value) *AesDerivedKeyParams {
 	var out AesDerivedKeyParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 int    // javascript: unsigned short {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("length")).Int()
+	value1 = (value.Get("length")).Int()
 	out.Length = value1
 	return &out
 }
@@ -373,7 +368,7 @@ type AesGcmParams struct {
 	TagLength      int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesGcmParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -389,10 +384,8 @@ func (_this *AesGcmParams) JSValue() js.Value {
 }
 
 // AesGcmParamsFromJS is allocating a new
-// AesGcmParams object and copy all values from
-// input javascript object
-func AesGcmParamsFromJS(value js.Wrapper) *AesGcmParams {
-	input := value.JSValue()
+// AesGcmParams object and copy all values in the value javascript object.
+func AesGcmParamsFromJS(value js.Value) *AesGcmParams {
 	var out AesGcmParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
@@ -400,13 +393,13 @@ func AesGcmParamsFromJS(value js.Wrapper) *AesGcmParams {
 		value2 *Union // javascript: Union {additionalData AdditionalData additionalData}
 		value3 int    // javascript: octet {tagLength TagLength tagLength}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("iv"))
+	value1 = UnionFromJS(value.Get("iv"))
 	out.Iv = value1
-	value2 = UnionFromJS(input.Get("additionalData"))
+	value2 = UnionFromJS(value.Get("additionalData"))
 	out.AdditionalData = value2
-	value3 = (input.Get("tagLength")).Int()
+	value3 = (value.Get("tagLength")).Int()
 	out.TagLength = value3
 	return &out
 }
@@ -417,7 +410,7 @@ type AesKeyAlgorithm struct {
 	Length int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesKeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -429,18 +422,16 @@ func (_this *AesKeyAlgorithm) JSValue() js.Value {
 }
 
 // AesKeyAlgorithmFromJS is allocating a new
-// AesKeyAlgorithm object and copy all values from
-// input javascript object
-func AesKeyAlgorithmFromJS(value js.Wrapper) *AesKeyAlgorithm {
-	input := value.JSValue()
+// AesKeyAlgorithm object and copy all values in the value javascript object.
+func AesKeyAlgorithmFromJS(value js.Value) *AesKeyAlgorithm {
 	var out AesKeyAlgorithm
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 int    // javascript: unsigned short {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("length")).Int()
+	value1 = (value.Get("length")).Int()
 	out.Length = value1
 	return &out
 }
@@ -451,7 +442,7 @@ type AesKeyGenParams struct {
 	Length int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AesKeyGenParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -463,18 +454,16 @@ func (_this *AesKeyGenParams) JSValue() js.Value {
 }
 
 // AesKeyGenParamsFromJS is allocating a new
-// AesKeyGenParams object and copy all values from
-// input javascript object
-func AesKeyGenParamsFromJS(value js.Wrapper) *AesKeyGenParams {
-	input := value.JSValue()
+// AesKeyGenParams object and copy all values in the value javascript object.
+func AesKeyGenParamsFromJS(value js.Value) *AesKeyGenParams {
 	var out AesKeyGenParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 int    // javascript: unsigned short {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("length")).Int()
+	value1 = (value.Get("length")).Int()
 	out.Length = value1
 	return &out
 }
@@ -484,7 +473,7 @@ type Algorithm struct {
 	Name string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Algorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -494,15 +483,13 @@ func (_this *Algorithm) JSValue() js.Value {
 }
 
 // AlgorithmFromJS is allocating a new
-// Algorithm object and copy all values from
-// input javascript object
-func AlgorithmFromJS(value js.Wrapper) *Algorithm {
-	input := value.JSValue()
+// Algorithm object and copy all values in the value javascript object.
+func AlgorithmFromJS(value js.Value) *Algorithm {
 	var out Algorithm
 	var (
 		value0 string // javascript: DOMString {name Name name}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
 	return &out
 }
@@ -513,7 +500,7 @@ type CryptoKeyPair struct {
 	PrivateKey *CryptoKey
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CryptoKeyPair) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -525,18 +512,16 @@ func (_this *CryptoKeyPair) JSValue() js.Value {
 }
 
 // CryptoKeyPairFromJS is allocating a new
-// CryptoKeyPair object and copy all values from
-// input javascript object
-func CryptoKeyPairFromJS(value js.Wrapper) *CryptoKeyPair {
-	input := value.JSValue()
+// CryptoKeyPair object and copy all values in the value javascript object.
+func CryptoKeyPairFromJS(value js.Value) *CryptoKeyPair {
 	var out CryptoKeyPair
 	var (
 		value0 *CryptoKey // javascript: CryptoKey {publicKey PublicKey publicKey}
 		value1 *CryptoKey // javascript: CryptoKey {privateKey PrivateKey privateKey}
 	)
-	value0 = CryptoKeyFromJS(input.Get("publicKey"))
+	value0 = CryptoKeyFromJS(value.Get("publicKey"))
 	out.PublicKey = value0
-	value1 = CryptoKeyFromJS(input.Get("privateKey"))
+	value1 = CryptoKeyFromJS(value.Get("privateKey"))
 	out.PrivateKey = value1
 	return &out
 }
@@ -547,7 +532,7 @@ type EcKeyAlgorithm struct {
 	NamedCurve string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EcKeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -559,18 +544,16 @@ func (_this *EcKeyAlgorithm) JSValue() js.Value {
 }
 
 // EcKeyAlgorithmFromJS is allocating a new
-// EcKeyAlgorithm object and copy all values from
-// input javascript object
-func EcKeyAlgorithmFromJS(value js.Wrapper) *EcKeyAlgorithm {
-	input := value.JSValue()
+// EcKeyAlgorithm object and copy all values in the value javascript object.
+func EcKeyAlgorithmFromJS(value js.Value) *EcKeyAlgorithm {
 	var out EcKeyAlgorithm
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("namedCurve")).String()
+	value1 = (value.Get("namedCurve")).String()
 	out.NamedCurve = value1
 	return &out
 }
@@ -581,7 +564,7 @@ type EcKeyGenParams struct {
 	NamedCurve string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EcKeyGenParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -593,18 +576,16 @@ func (_this *EcKeyGenParams) JSValue() js.Value {
 }
 
 // EcKeyGenParamsFromJS is allocating a new
-// EcKeyGenParams object and copy all values from
-// input javascript object
-func EcKeyGenParamsFromJS(value js.Wrapper) *EcKeyGenParams {
-	input := value.JSValue()
+// EcKeyGenParams object and copy all values in the value javascript object.
+func EcKeyGenParamsFromJS(value js.Value) *EcKeyGenParams {
 	var out EcKeyGenParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("namedCurve")).String()
+	value1 = (value.Get("namedCurve")).String()
 	out.NamedCurve = value1
 	return &out
 }
@@ -615,7 +596,7 @@ type EcKeyImportParams struct {
 	NamedCurve string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EcKeyImportParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -627,18 +608,16 @@ func (_this *EcKeyImportParams) JSValue() js.Value {
 }
 
 // EcKeyImportParamsFromJS is allocating a new
-// EcKeyImportParams object and copy all values from
-// input javascript object
-func EcKeyImportParamsFromJS(value js.Wrapper) *EcKeyImportParams {
-	input := value.JSValue()
+// EcKeyImportParams object and copy all values in the value javascript object.
+func EcKeyImportParamsFromJS(value js.Value) *EcKeyImportParams {
 	var out EcKeyImportParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: DOMString {namedCurve NamedCurve namedCurve}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("namedCurve")).String()
+	value1 = (value.Get("namedCurve")).String()
 	out.NamedCurve = value1
 	return &out
 }
@@ -649,7 +628,7 @@ type EcdhKeyDeriveParams struct {
 	Public *CryptoKey
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EcdhKeyDeriveParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -661,18 +640,16 @@ func (_this *EcdhKeyDeriveParams) JSValue() js.Value {
 }
 
 // EcdhKeyDeriveParamsFromJS is allocating a new
-// EcdhKeyDeriveParams object and copy all values from
-// input javascript object
-func EcdhKeyDeriveParamsFromJS(value js.Wrapper) *EcdhKeyDeriveParams {
-	input := value.JSValue()
+// EcdhKeyDeriveParams object and copy all values in the value javascript object.
+func EcdhKeyDeriveParamsFromJS(value js.Value) *EcdhKeyDeriveParams {
 	var out EcdhKeyDeriveParams
 	var (
 		value0 string     // javascript: DOMString {name Name name}
 		value1 *CryptoKey // javascript: CryptoKey {public Public public}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = CryptoKeyFromJS(input.Get("public"))
+	value1 = CryptoKeyFromJS(value.Get("public"))
 	out.Public = value1
 	return &out
 }
@@ -683,7 +660,7 @@ type EcdsaParams struct {
 	Hash *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EcdsaParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -695,18 +672,16 @@ func (_this *EcdsaParams) JSValue() js.Value {
 }
 
 // EcdsaParamsFromJS is allocating a new
-// EcdsaParams object and copy all values from
-// input javascript object
-func EcdsaParamsFromJS(value js.Wrapper) *EcdsaParams {
-	input := value.JSValue()
+// EcdsaParams object and copy all values in the value javascript object.
+func EcdsaParamsFromJS(value js.Value) *EcdsaParams {
 	var out EcdsaParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {hash Hash hash}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("hash"))
+	value1 = UnionFromJS(value.Get("hash"))
 	out.Hash = value1
 	return &out
 }
@@ -719,7 +694,7 @@ type HkdfParams struct {
 	Info *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HkdfParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -735,10 +710,8 @@ func (_this *HkdfParams) JSValue() js.Value {
 }
 
 // HkdfParamsFromJS is allocating a new
-// HkdfParams object and copy all values from
-// input javascript object
-func HkdfParamsFromJS(value js.Wrapper) *HkdfParams {
-	input := value.JSValue()
+// HkdfParams object and copy all values in the value javascript object.
+func HkdfParamsFromJS(value js.Value) *HkdfParams {
 	var out HkdfParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
@@ -746,13 +719,13 @@ func HkdfParamsFromJS(value js.Wrapper) *HkdfParams {
 		value2 *Union // javascript: Union {salt Salt salt}
 		value3 *Union // javascript: Union {info Info info}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("hash"))
+	value1 = UnionFromJS(value.Get("hash"))
 	out.Hash = value1
-	value2 = UnionFromJS(input.Get("salt"))
+	value2 = UnionFromJS(value.Get("salt"))
 	out.Salt = value2
-	value3 = UnionFromJS(input.Get("info"))
+	value3 = UnionFromJS(value.Get("info"))
 	out.Info = value3
 	return &out
 }
@@ -764,7 +737,7 @@ type HmacImportParams struct {
 	Length uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HmacImportParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -778,21 +751,19 @@ func (_this *HmacImportParams) JSValue() js.Value {
 }
 
 // HmacImportParamsFromJS is allocating a new
-// HmacImportParams object and copy all values from
-// input javascript object
-func HmacImportParamsFromJS(value js.Wrapper) *HmacImportParams {
-	input := value.JSValue()
+// HmacImportParams object and copy all values in the value javascript object.
+func HmacImportParamsFromJS(value js.Value) *HmacImportParams {
 	var out HmacImportParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {hash Hash hash}
 		value2 uint   // javascript: unsigned long {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("hash"))
+	value1 = UnionFromJS(value.Get("hash"))
 	out.Hash = value1
-	value2 = (uint)((input.Get("length")).Int())
+	value2 = (uint)((value.Get("length")).Int())
 	out.Length = value2
 	return &out
 }
@@ -804,7 +775,7 @@ type HmacKeyAlgorithm struct {
 	Length uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HmacKeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -818,21 +789,19 @@ func (_this *HmacKeyAlgorithm) JSValue() js.Value {
 }
 
 // HmacKeyAlgorithmFromJS is allocating a new
-// HmacKeyAlgorithm object and copy all values from
-// input javascript object
-func HmacKeyAlgorithmFromJS(value js.Wrapper) *HmacKeyAlgorithm {
-	input := value.JSValue()
+// HmacKeyAlgorithm object and copy all values in the value javascript object.
+func HmacKeyAlgorithmFromJS(value js.Value) *HmacKeyAlgorithm {
 	var out HmacKeyAlgorithm
 	var (
 		value0 string        // javascript: DOMString {name Name name}
 		value1 *KeyAlgorithm // javascript: KeyAlgorithm {hash Hash hash}
 		value2 uint          // javascript: unsigned long {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = KeyAlgorithmFromJS(input.Get("hash"))
+	value1 = KeyAlgorithmFromJS(value.Get("hash"))
 	out.Hash = value1
-	value2 = (uint)((input.Get("length")).Int())
+	value2 = (uint)((value.Get("length")).Int())
 	out.Length = value2
 	return &out
 }
@@ -844,7 +813,7 @@ type HmacKeyGenParams struct {
 	Length uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HmacKeyGenParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -858,21 +827,19 @@ func (_this *HmacKeyGenParams) JSValue() js.Value {
 }
 
 // HmacKeyGenParamsFromJS is allocating a new
-// HmacKeyGenParams object and copy all values from
-// input javascript object
-func HmacKeyGenParamsFromJS(value js.Wrapper) *HmacKeyGenParams {
-	input := value.JSValue()
+// HmacKeyGenParams object and copy all values in the value javascript object.
+func HmacKeyGenParamsFromJS(value js.Value) *HmacKeyGenParams {
 	var out HmacKeyGenParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {hash Hash hash}
 		value2 uint   // javascript: unsigned long {length Length length}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("hash"))
+	value1 = UnionFromJS(value.Get("hash"))
 	out.Hash = value1
-	value2 = (uint)((input.Get("length")).Int())
+	value2 = (uint)((value.Get("length")).Int())
 	out.Length = value2
 	return &out
 }
@@ -899,7 +866,7 @@ type JsonWebKey struct {
 	K      string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *JsonWebKey) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -951,10 +918,8 @@ func (_this *JsonWebKey) JSValue() js.Value {
 }
 
 // JsonWebKeyFromJS is allocating a new
-// JsonWebKey object and copy all values from
-// input javascript object
-func JsonWebKeyFromJS(value js.Wrapper) *JsonWebKey {
-	input := value.JSValue()
+// JsonWebKey object and copy all values in the value javascript object.
+func JsonWebKeyFromJS(value js.Value) *JsonWebKey {
 	var out JsonWebKey
 	var (
 		value0  string                // javascript: DOMString {kty Kty kty}
@@ -976,57 +941,57 @@ func JsonWebKeyFromJS(value js.Wrapper) *JsonWebKey {
 		value16 []*RsaOtherPrimesInfo // javascript: sequence<RsaOtherPrimesInfo> {oth Oth oth}
 		value17 string                // javascript: DOMString {k K k}
 	)
-	value0 = (input.Get("kty")).String()
+	value0 = (value.Get("kty")).String()
 	out.Kty = value0
-	value1 = (input.Get("use")).String()
+	value1 = (value.Get("use")).String()
 	out.Use = value1
-	__length2 := input.Get("key_ops").Length()
+	__length2 := value.Get("key_ops").Length()
 	__array2 := make([]string, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 string
-		__seq_in2 := input.Get("key_ops").Index(__idx2)
+		__seq_in2 := value.Get("key_ops").Index(__idx2)
 		__seq_out2 = (__seq_in2).String()
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.KeyOps = value2
-	value3 = (input.Get("alg")).String()
+	value3 = (value.Get("alg")).String()
 	out.Alg = value3
-	value4 = (input.Get("ext")).Bool()
+	value4 = (value.Get("ext")).Bool()
 	out.Ext = value4
-	value5 = (input.Get("crv")).String()
+	value5 = (value.Get("crv")).String()
 	out.Crv = value5
-	value6 = (input.Get("x")).String()
+	value6 = (value.Get("x")).String()
 	out.X = value6
-	value7 = (input.Get("y")).String()
+	value7 = (value.Get("y")).String()
 	out.Y = value7
-	value8 = (input.Get("d")).String()
+	value8 = (value.Get("d")).String()
 	out.D = value8
-	value9 = (input.Get("n")).String()
+	value9 = (value.Get("n")).String()
 	out.N = value9
-	value10 = (input.Get("e")).String()
+	value10 = (value.Get("e")).String()
 	out.E = value10
-	value11 = (input.Get("p")).String()
+	value11 = (value.Get("p")).String()
 	out.P = value11
-	value12 = (input.Get("q")).String()
+	value12 = (value.Get("q")).String()
 	out.Q = value12
-	value13 = (input.Get("dp")).String()
+	value13 = (value.Get("dp")).String()
 	out.Dp = value13
-	value14 = (input.Get("dq")).String()
+	value14 = (value.Get("dq")).String()
 	out.Dq = value14
-	value15 = (input.Get("qi")).String()
+	value15 = (value.Get("qi")).String()
 	out.Qi = value15
-	__length16 := input.Get("oth").Length()
+	__length16 := value.Get("oth").Length()
 	__array16 := make([]*RsaOtherPrimesInfo, __length16, __length16)
 	for __idx16 := 0; __idx16 < __length16; __idx16++ {
 		var __seq_out16 *RsaOtherPrimesInfo
-		__seq_in16 := input.Get("oth").Index(__idx16)
+		__seq_in16 := value.Get("oth").Index(__idx16)
 		__seq_out16 = RsaOtherPrimesInfoFromJS(__seq_in16)
 		__array16[__idx16] = __seq_out16
 	}
 	value16 = __array16
 	out.Oth = value16
-	value17 = (input.Get("k")).String()
+	value17 = (value.Get("k")).String()
 	out.K = value17
 	return &out
 }
@@ -1036,7 +1001,7 @@ type KeyAlgorithm struct {
 	Name string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *KeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1046,15 +1011,13 @@ func (_this *KeyAlgorithm) JSValue() js.Value {
 }
 
 // KeyAlgorithmFromJS is allocating a new
-// KeyAlgorithm object and copy all values from
-// input javascript object
-func KeyAlgorithmFromJS(value js.Wrapper) *KeyAlgorithm {
-	input := value.JSValue()
+// KeyAlgorithm object and copy all values in the value javascript object.
+func KeyAlgorithmFromJS(value js.Value) *KeyAlgorithm {
 	var out KeyAlgorithm
 	var (
 		value0 string // javascript: DOMString {name Name name}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
 	return &out
 }
@@ -1067,7 +1030,7 @@ type Pbkdf2Params struct {
 	Hash       *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Pbkdf2Params) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1083,10 +1046,8 @@ func (_this *Pbkdf2Params) JSValue() js.Value {
 }
 
 // Pbkdf2ParamsFromJS is allocating a new
-// Pbkdf2Params object and copy all values from
-// input javascript object
-func Pbkdf2ParamsFromJS(value js.Wrapper) *Pbkdf2Params {
-	input := value.JSValue()
+// Pbkdf2Params object and copy all values in the value javascript object.
+func Pbkdf2ParamsFromJS(value js.Value) *Pbkdf2Params {
 	var out Pbkdf2Params
 	var (
 		value0 string // javascript: DOMString {name Name name}
@@ -1094,13 +1055,13 @@ func Pbkdf2ParamsFromJS(value js.Wrapper) *Pbkdf2Params {
 		value2 uint   // javascript: unsigned long {iterations Iterations iterations}
 		value3 *Union // javascript: Union {hash Hash hash}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("salt"))
+	value1 = UnionFromJS(value.Get("salt"))
 	out.Salt = value1
-	value2 = (uint)((input.Get("iterations")).Int())
+	value2 = (uint)((value.Get("iterations")).Int())
 	out.Iterations = value2
-	value3 = UnionFromJS(input.Get("hash"))
+	value3 = UnionFromJS(value.Get("hash"))
 	out.Hash = value3
 	return &out
 }
@@ -1111,7 +1072,7 @@ type RsaHashedImportParams struct {
 	Hash *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaHashedImportParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1123,18 +1084,16 @@ func (_this *RsaHashedImportParams) JSValue() js.Value {
 }
 
 // RsaHashedImportParamsFromJS is allocating a new
-// RsaHashedImportParams object and copy all values from
-// input javascript object
-func RsaHashedImportParamsFromJS(value js.Wrapper) *RsaHashedImportParams {
-	input := value.JSValue()
+// RsaHashedImportParams object and copy all values in the value javascript object.
+func RsaHashedImportParamsFromJS(value js.Value) *RsaHashedImportParams {
 	var out RsaHashedImportParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {hash Hash hash}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("hash"))
+	value1 = UnionFromJS(value.Get("hash"))
 	out.Hash = value1
 	return &out
 }
@@ -1147,7 +1106,7 @@ type RsaHashedKeyAlgorithm struct {
 	Hash           *KeyAlgorithm
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaHashedKeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1163,10 +1122,8 @@ func (_this *RsaHashedKeyAlgorithm) JSValue() js.Value {
 }
 
 // RsaHashedKeyAlgorithmFromJS is allocating a new
-// RsaHashedKeyAlgorithm object and copy all values from
-// input javascript object
-func RsaHashedKeyAlgorithmFromJS(value js.Wrapper) *RsaHashedKeyAlgorithm {
-	input := value.JSValue()
+// RsaHashedKeyAlgorithm object and copy all values in the value javascript object.
+func RsaHashedKeyAlgorithmFromJS(value js.Value) *RsaHashedKeyAlgorithm {
 	var out RsaHashedKeyAlgorithm
 	var (
 		value0 string                 // javascript: DOMString {name Name name}
@@ -1174,13 +1131,13 @@ func RsaHashedKeyAlgorithmFromJS(value js.Wrapper) *RsaHashedKeyAlgorithm {
 		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
 		value3 *KeyAlgorithm          // javascript: KeyAlgorithm {hash Hash hash}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (uint)((input.Get("modulusLength")).Int())
+	value1 = (uint)((value.Get("modulusLength")).Int())
 	out.ModulusLength = value1
-	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	value2 = javascript.Uint8ArrayFromJS(value.Get("publicExponent"))
 	out.PublicExponent = value2
-	value3 = KeyAlgorithmFromJS(input.Get("hash"))
+	value3 = KeyAlgorithmFromJS(value.Get("hash"))
 	out.Hash = value3
 	return &out
 }
@@ -1193,7 +1150,7 @@ type RsaHashedKeyGenParams struct {
 	Hash           *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaHashedKeyGenParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1209,10 +1166,8 @@ func (_this *RsaHashedKeyGenParams) JSValue() js.Value {
 }
 
 // RsaHashedKeyGenParamsFromJS is allocating a new
-// RsaHashedKeyGenParams object and copy all values from
-// input javascript object
-func RsaHashedKeyGenParamsFromJS(value js.Wrapper) *RsaHashedKeyGenParams {
-	input := value.JSValue()
+// RsaHashedKeyGenParams object and copy all values in the value javascript object.
+func RsaHashedKeyGenParamsFromJS(value js.Value) *RsaHashedKeyGenParams {
 	var out RsaHashedKeyGenParams
 	var (
 		value0 string                 // javascript: DOMString {name Name name}
@@ -1220,13 +1175,13 @@ func RsaHashedKeyGenParamsFromJS(value js.Wrapper) *RsaHashedKeyGenParams {
 		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
 		value3 *Union                 // javascript: Union {hash Hash hash}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (uint)((input.Get("modulusLength")).Int())
+	value1 = (uint)((value.Get("modulusLength")).Int())
 	out.ModulusLength = value1
-	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	value2 = javascript.Uint8ArrayFromJS(value.Get("publicExponent"))
 	out.PublicExponent = value2
-	value3 = UnionFromJS(input.Get("hash"))
+	value3 = UnionFromJS(value.Get("hash"))
 	out.Hash = value3
 	return &out
 }
@@ -1238,7 +1193,7 @@ type RsaKeyAlgorithm struct {
 	PublicExponent *javascript.Uint8Array
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaKeyAlgorithm) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1252,21 +1207,19 @@ func (_this *RsaKeyAlgorithm) JSValue() js.Value {
 }
 
 // RsaKeyAlgorithmFromJS is allocating a new
-// RsaKeyAlgorithm object and copy all values from
-// input javascript object
-func RsaKeyAlgorithmFromJS(value js.Wrapper) *RsaKeyAlgorithm {
-	input := value.JSValue()
+// RsaKeyAlgorithm object and copy all values in the value javascript object.
+func RsaKeyAlgorithmFromJS(value js.Value) *RsaKeyAlgorithm {
 	var out RsaKeyAlgorithm
 	var (
 		value0 string                 // javascript: DOMString {name Name name}
 		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
 		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (uint)((input.Get("modulusLength")).Int())
+	value1 = (uint)((value.Get("modulusLength")).Int())
 	out.ModulusLength = value1
-	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	value2 = javascript.Uint8ArrayFromJS(value.Get("publicExponent"))
 	out.PublicExponent = value2
 	return &out
 }
@@ -1278,7 +1231,7 @@ type RsaKeyGenParams struct {
 	PublicExponent *javascript.Uint8Array
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaKeyGenParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1292,21 +1245,19 @@ func (_this *RsaKeyGenParams) JSValue() js.Value {
 }
 
 // RsaKeyGenParamsFromJS is allocating a new
-// RsaKeyGenParams object and copy all values from
-// input javascript object
-func RsaKeyGenParamsFromJS(value js.Wrapper) *RsaKeyGenParams {
-	input := value.JSValue()
+// RsaKeyGenParams object and copy all values in the value javascript object.
+func RsaKeyGenParamsFromJS(value js.Value) *RsaKeyGenParams {
 	var out RsaKeyGenParams
 	var (
 		value0 string                 // javascript: DOMString {name Name name}
 		value1 uint                   // javascript: unsigned long {modulusLength ModulusLength modulusLength}
 		value2 *javascript.Uint8Array // javascript: Uint8Array {publicExponent PublicExponent publicExponent}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (uint)((input.Get("modulusLength")).Int())
+	value1 = (uint)((value.Get("modulusLength")).Int())
 	out.ModulusLength = value1
-	value2 = javascript.Uint8ArrayFromJS(input.Get("publicExponent"))
+	value2 = javascript.Uint8ArrayFromJS(value.Get("publicExponent"))
 	out.PublicExponent = value2
 	return &out
 }
@@ -1317,7 +1268,7 @@ type RsaOaepParams struct {
 	Label *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaOaepParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1329,18 +1280,16 @@ func (_this *RsaOaepParams) JSValue() js.Value {
 }
 
 // RsaOaepParamsFromJS is allocating a new
-// RsaOaepParams object and copy all values from
-// input javascript object
-func RsaOaepParamsFromJS(value js.Wrapper) *RsaOaepParams {
-	input := value.JSValue()
+// RsaOaepParams object and copy all values in the value javascript object.
+func RsaOaepParamsFromJS(value js.Value) *RsaOaepParams {
 	var out RsaOaepParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 *Union // javascript: Union {label Label label}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = UnionFromJS(input.Get("label"))
+	value1 = UnionFromJS(value.Get("label"))
 	out.Label = value1
 	return &out
 }
@@ -1352,7 +1301,7 @@ type RsaOtherPrimesInfo struct {
 	T string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaOtherPrimesInfo) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1366,21 +1315,19 @@ func (_this *RsaOtherPrimesInfo) JSValue() js.Value {
 }
 
 // RsaOtherPrimesInfoFromJS is allocating a new
-// RsaOtherPrimesInfo object and copy all values from
-// input javascript object
-func RsaOtherPrimesInfoFromJS(value js.Wrapper) *RsaOtherPrimesInfo {
-	input := value.JSValue()
+// RsaOtherPrimesInfo object and copy all values in the value javascript object.
+func RsaOtherPrimesInfoFromJS(value js.Value) *RsaOtherPrimesInfo {
 	var out RsaOtherPrimesInfo
 	var (
 		value0 string // javascript: DOMString {r R r}
 		value1 string // javascript: DOMString {d D d}
 		value2 string // javascript: DOMString {t T t}
 	)
-	value0 = (input.Get("r")).String()
+	value0 = (value.Get("r")).String()
 	out.R = value0
-	value1 = (input.Get("d")).String()
+	value1 = (value.Get("d")).String()
 	out.D = value1
-	value2 = (input.Get("t")).String()
+	value2 = (value.Get("t")).String()
 	out.T = value2
 	return &out
 }
@@ -1391,7 +1338,7 @@ type RsaPssParams struct {
 	SaltLength uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RsaPssParams) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1403,18 +1350,16 @@ func (_this *RsaPssParams) JSValue() js.Value {
 }
 
 // RsaPssParamsFromJS is allocating a new
-// RsaPssParams object and copy all values from
-// input javascript object
-func RsaPssParamsFromJS(value js.Wrapper) *RsaPssParams {
-	input := value.JSValue()
+// RsaPssParams object and copy all values in the value javascript object.
+func RsaPssParamsFromJS(value js.Value) *RsaPssParams {
 	var out RsaPssParams
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 uint   // javascript: unsigned long {saltLength SaltLength saltLength}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (uint)((input.Get("saltLength")).Int())
+	value1 = (uint)((value.Get("saltLength")).Int())
 	out.SaltLength = value1
 	return &out
 }
@@ -1429,15 +1374,19 @@ func (_this *Crypto) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CryptoFromJS is casting a js.Wrapper into Crypto.
-func CryptoFromJS(value js.Wrapper) *Crypto {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CryptoFromJS is casting a js.Value into Crypto.
+func CryptoFromJS(value js.Value) *Crypto {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Crypto{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CryptoFromJS is casting from something that holds a js.Value into Crypto.
+func CryptoFromWrapper(input core.Wrapper) *Crypto {
+	return CryptoFromJS(input.JSValue())
 }
 
 // Subtle returning attribute 'subtle' with
@@ -1476,15 +1425,19 @@ func (_this *CryptoKey) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CryptoKeyFromJS is casting a js.Wrapper into CryptoKey.
-func CryptoKeyFromJS(value js.Wrapper) *CryptoKey {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CryptoKeyFromJS is casting a js.Value into CryptoKey.
+func CryptoKeyFromJS(value js.Value) *CryptoKey {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CryptoKey{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CryptoKeyFromJS is casting from something that holds a js.Value into CryptoKey.
+func CryptoKeyFromWrapper(input core.Wrapper) *CryptoKey {
+	return CryptoKeyFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -1533,15 +1486,19 @@ func (_this *PromiseCryptoKey) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseCryptoKeyFromJS is casting a js.Wrapper into PromiseCryptoKey.
-func PromiseCryptoKeyFromJS(value js.Wrapper) *PromiseCryptoKey {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseCryptoKeyFromJS is casting a js.Value into PromiseCryptoKey.
+func PromiseCryptoKeyFromJS(value js.Value) *PromiseCryptoKey {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCryptoKey{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseCryptoKeyFromJS is casting from something that holds a js.Value into PromiseCryptoKey.
+func PromiseCryptoKeyFromWrapper(input core.Wrapper) *PromiseCryptoKey {
+	return PromiseCryptoKeyFromJS(input.JSValue())
 }
 
 func (_this *PromiseCryptoKey) Then(onFulfilled *PromiseCryptoKeyOnFulfilled, onRejected *PromiseCryptoKeyOnRejected) (_result *PromiseCryptoKey) {
@@ -1638,15 +1595,19 @@ func (_this *SubtleCrypto) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SubtleCryptoFromJS is casting a js.Wrapper into SubtleCrypto.
-func SubtleCryptoFromJS(value js.Wrapper) *SubtleCrypto {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SubtleCryptoFromJS is casting a js.Value into SubtleCrypto.
+func SubtleCryptoFromJS(value js.Value) *SubtleCrypto {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubtleCrypto{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SubtleCryptoFromJS is casting from something that holds a js.Value into SubtleCrypto.
+func SubtleCryptoFromWrapper(input core.Wrapper) *SubtleCrypto {
+	return SubtleCryptoFromJS(input.JSValue())
 }
 
 func (_this *SubtleCrypto) Encrypt(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.Promise) {

@@ -5,6 +5,7 @@ package performance
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -200,7 +201,7 @@ type EventCountsEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventCountsEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -216,26 +217,24 @@ func (_this *EventCountsEntryIteratorValue) JSValue() js.Value {
 }
 
 // EventCountsEntryIteratorValueFromJS is allocating a new
-// EventCountsEntryIteratorValue object and copy all values from
-// input javascript object
-func EventCountsEntryIteratorValueFromJS(value js.Wrapper) *EventCountsEntryIteratorValue {
-	input := value.JSValue()
+// EventCountsEntryIteratorValue object and copy all values in the value javascript object.
+func EventCountsEntryIteratorValueFromJS(value js.Value) *EventCountsEntryIteratorValue {
 	var out EventCountsEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -246,7 +245,7 @@ type EventCountsKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventCountsKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -258,18 +257,16 @@ func (_this *EventCountsKeyIteratorValue) JSValue() js.Value {
 }
 
 // EventCountsKeyIteratorValueFromJS is allocating a new
-// EventCountsKeyIteratorValue object and copy all values from
-// input javascript object
-func EventCountsKeyIteratorValueFromJS(value js.Wrapper) *EventCountsKeyIteratorValue {
-	input := value.JSValue()
+// EventCountsKeyIteratorValue object and copy all values in the value javascript object.
+func EventCountsKeyIteratorValueFromJS(value js.Value) *EventCountsKeyIteratorValue {
 	var out EventCountsKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -280,7 +277,7 @@ type EventCountsValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventCountsValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -292,18 +289,16 @@ func (_this *EventCountsValueIteratorValue) JSValue() js.Value {
 }
 
 // EventCountsValueIteratorValueFromJS is allocating a new
-// EventCountsValueIteratorValue object and copy all values from
-// input javascript object
-func EventCountsValueIteratorValueFromJS(value js.Wrapper) *EventCountsValueIteratorValue {
-	input := value.JSValue()
+// EventCountsValueIteratorValue object and copy all values in the value javascript object.
+func EventCountsValueIteratorValueFromJS(value js.Value) *EventCountsValueIteratorValue {
 	var out EventCountsValueIteratorValue
 	var (
 		value0 uint // javascript: unsigned long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (uint)((input.Get("value")).Int())
+	value0 = (uint)((value.Get("value")).Int())
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -314,7 +309,7 @@ type MarkOptions struct {
 	StartTime float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MarkOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -326,18 +321,16 @@ func (_this *MarkOptions) JSValue() js.Value {
 }
 
 // MarkOptionsFromJS is allocating a new
-// MarkOptions object and copy all values from
-// input javascript object
-func MarkOptionsFromJS(value js.Wrapper) *MarkOptions {
-	input := value.JSValue()
+// MarkOptions object and copy all values in the value javascript object.
+func MarkOptionsFromJS(value js.Value) *MarkOptions {
 	var out MarkOptions
 	var (
 		value0 js.Value // javascript: any {detail Detail detail}
 		value1 float64  // javascript: double {startTime StartTime startTime}
 	)
-	value0 = input.Get("detail")
+	value0 = value.Get("detail")
 	out.Detail = value0
-	value1 = (input.Get("startTime")).Float()
+	value1 = (value.Get("startTime")).Float()
 	out.StartTime = value1
 	return &out
 }
@@ -350,7 +343,7 @@ type MeasureOptions struct {
 	EndTime   *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MeasureOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -366,10 +359,8 @@ func (_this *MeasureOptions) JSValue() js.Value {
 }
 
 // MeasureOptionsFromJS is allocating a new
-// MeasureOptions object and copy all values from
-// input javascript object
-func MeasureOptionsFromJS(value js.Wrapper) *MeasureOptions {
-	input := value.JSValue()
+// MeasureOptions object and copy all values in the value javascript object.
+func MeasureOptionsFromJS(value js.Value) *MeasureOptions {
 	var out MeasureOptions
 	var (
 		value0 js.Value // javascript: any {detail Detail detail}
@@ -377,13 +368,13 @@ func MeasureOptionsFromJS(value js.Wrapper) *MeasureOptions {
 		value2 float64  // javascript: double {duration Duration duration}
 		value3 *Union   // javascript: Union {endTime EndTime endTime}
 	)
-	value0 = input.Get("detail")
+	value0 = value.Get("detail")
 	out.Detail = value0
-	value1 = UnionFromJS(input.Get("startTime"))
+	value1 = UnionFromJS(value.Get("startTime"))
 	out.StartTime = value1
-	value2 = (input.Get("duration")).Float()
+	value2 = (value.Get("duration")).Float()
 	out.Duration = value2
-	value3 = UnionFromJS(input.Get("endTime"))
+	value3 = UnionFromJS(value.Get("endTime"))
 	out.EndTime = value3
 	return &out
 }
@@ -395,7 +386,7 @@ type ObserverInit struct {
 	Buffered   bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ObserverInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -413,29 +404,27 @@ func (_this *ObserverInit) JSValue() js.Value {
 }
 
 // ObserverInitFromJS is allocating a new
-// ObserverInit object and copy all values from
-// input javascript object
-func ObserverInitFromJS(value js.Wrapper) *ObserverInit {
-	input := value.JSValue()
+// ObserverInit object and copy all values in the value javascript object.
+func ObserverInitFromJS(value js.Value) *ObserverInit {
 	var out ObserverInit
 	var (
 		value0 []string // javascript: sequence<DOMString> {entryTypes EntryTypes entryTypes}
 		value1 string   // javascript: DOMString {type Type _type}
 		value2 bool     // javascript: boolean {buffered Buffered buffered}
 	)
-	__length0 := input.Get("entryTypes").Length()
+	__length0 := value.Get("entryTypes").Length()
 	__array0 := make([]string, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 string
-		__seq_in0 := input.Get("entryTypes").Index(__idx0)
+		__seq_in0 := value.Get("entryTypes").Index(__idx0)
 		__seq_out0 = (__seq_in0).String()
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.EntryTypes = value0
-	value1 = (input.Get("type")).String()
+	value1 = (value.Get("type")).String()
 	out.Type = value1
-	value2 = (input.Get("buffered")).Bool()
+	value2 = (value.Get("buffered")).Bool()
 	out.Buffered = value2
 	return &out
 }
@@ -450,15 +439,19 @@ func (_this *Entry) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EntryFromJS is casting a js.Wrapper into Entry.
-func EntryFromJS(value js.Wrapper) *Entry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EntryFromJS is casting a js.Value into Entry.
+func EntryFromJS(value js.Value) *Entry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Entry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EntryFromJS is casting from something that holds a js.Value into Entry.
+func EntryFromWrapper(input core.Wrapper) *Entry {
+	return EntryFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -521,15 +514,19 @@ func (_this *EventCounts) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventCountsFromJS is casting a js.Wrapper into EventCounts.
-func EventCountsFromJS(value js.Wrapper) *EventCounts {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventCountsFromJS is casting a js.Value into EventCounts.
+func EventCountsFromJS(value js.Value) *EventCounts {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCounts{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventCountsFromJS is casting from something that holds a js.Value into EventCounts.
+func EventCountsFromWrapper(input core.Wrapper) *EventCounts {
+	return EventCountsFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -654,15 +651,19 @@ func (_this *EventCountsEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventCountsEntryIteratorFromJS is casting a js.Wrapper into EventCountsEntryIterator.
-func EventCountsEntryIteratorFromJS(value js.Wrapper) *EventCountsEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventCountsEntryIteratorFromJS is casting a js.Value into EventCountsEntryIterator.
+func EventCountsEntryIteratorFromJS(value js.Value) *EventCountsEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventCountsEntryIteratorFromJS is casting from something that holds a js.Value into EventCountsEntryIterator.
+func EventCountsEntryIteratorFromWrapper(input core.Wrapper) *EventCountsEntryIterator {
+	return EventCountsEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *EventCountsEntryIterator) Next() (_result *EventCountsEntryIteratorValue) {
@@ -689,15 +690,19 @@ func (_this *EventCountsKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventCountsKeyIteratorFromJS is casting a js.Wrapper into EventCountsKeyIterator.
-func EventCountsKeyIteratorFromJS(value js.Wrapper) *EventCountsKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventCountsKeyIteratorFromJS is casting a js.Value into EventCountsKeyIterator.
+func EventCountsKeyIteratorFromJS(value js.Value) *EventCountsKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventCountsKeyIteratorFromJS is casting from something that holds a js.Value into EventCountsKeyIterator.
+func EventCountsKeyIteratorFromWrapper(input core.Wrapper) *EventCountsKeyIterator {
+	return EventCountsKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *EventCountsKeyIterator) Next() (_result *EventCountsKeyIteratorValue) {
@@ -724,15 +729,19 @@ func (_this *EventCountsValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EventCountsValueIteratorFromJS is casting a js.Wrapper into EventCountsValueIterator.
-func EventCountsValueIteratorFromJS(value js.Wrapper) *EventCountsValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventCountsValueIteratorFromJS is casting a js.Value into EventCountsValueIterator.
+func EventCountsValueIteratorFromJS(value js.Value) *EventCountsValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventCountsValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventCountsValueIteratorFromJS is casting from something that holds a js.Value into EventCountsValueIterator.
+func EventCountsValueIteratorFromWrapper(input core.Wrapper) *EventCountsValueIterator {
+	return EventCountsValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *EventCountsValueIterator) Next() (_result *EventCountsValueIteratorValue) {
@@ -754,15 +763,19 @@ type EventTiming struct {
 	Entry
 }
 
-// EventTimingFromJS is casting a js.Wrapper into EventTiming.
-func EventTimingFromJS(value js.Wrapper) *EventTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventTimingFromJS is casting a js.Value into EventTiming.
+func EventTimingFromJS(value js.Value) *EventTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventTimingFromJS is casting from something that holds a js.Value into EventTiming.
+func EventTimingFromWrapper(input core.Wrapper) *EventTiming {
+	return EventTimingFromJS(input.JSValue())
 }
 
 // ProcessingStart returning attribute 'processingStart' with
@@ -797,15 +810,19 @@ type LongTaskTiming struct {
 	Entry
 }
 
-// LongTaskTimingFromJS is casting a js.Wrapper into LongTaskTiming.
-func LongTaskTimingFromJS(value js.Wrapper) *LongTaskTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LongTaskTimingFromJS is casting a js.Value into LongTaskTiming.
+func LongTaskTimingFromJS(value js.Value) *LongTaskTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LongTaskTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LongTaskTimingFromJS is casting from something that holds a js.Value into LongTaskTiming.
+func LongTaskTimingFromWrapper(input core.Wrapper) *LongTaskTiming {
+	return LongTaskTimingFromJS(input.JSValue())
 }
 
 // Attribution returning attribute 'attribution' with
@@ -822,15 +839,19 @@ type Mark struct {
 	Entry
 }
 
-// MarkFromJS is casting a js.Wrapper into Mark.
-func MarkFromJS(value js.Wrapper) *Mark {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MarkFromJS is casting a js.Value into Mark.
+func MarkFromJS(value js.Value) *Mark {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Mark{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MarkFromJS is casting from something that holds a js.Value into Mark.
+func MarkFromWrapper(input core.Wrapper) *Mark {
+	return MarkFromJS(input.JSValue())
 }
 
 func NewPerformanceMark(markName string, markOptions *MarkOptions) (_result *Mark) {
@@ -870,15 +891,19 @@ type Measure struct {
 	Entry
 }
 
-// MeasureFromJS is casting a js.Wrapper into Measure.
-func MeasureFromJS(value js.Wrapper) *Measure {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MeasureFromJS is casting a js.Value into Measure.
+func MeasureFromJS(value js.Value) *Measure {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Measure{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MeasureFromJS is casting from something that holds a js.Value into Measure.
+func MeasureFromWrapper(input core.Wrapper) *Measure {
+	return MeasureFromJS(input.JSValue())
 }
 
 // Detail returning attribute 'detail' with
@@ -900,15 +925,19 @@ func (_this *Navigation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NavigationFromJS is casting a js.Wrapper into Navigation.
-func NavigationFromJS(value js.Wrapper) *Navigation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NavigationFromJS is casting a js.Value into Navigation.
+func NavigationFromJS(value js.Value) *Navigation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Navigation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NavigationFromJS is casting from something that holds a js.Value into Navigation.
+func NavigationFromWrapper(input core.Wrapper) *Navigation {
+	return NavigationFromJS(input.JSValue())
 }
 
 const (
@@ -955,15 +984,19 @@ type NavigationTiming struct {
 	ResourceTiming
 }
 
-// NavigationTimingFromJS is casting a js.Wrapper into NavigationTiming.
-func NavigationTimingFromJS(value js.Wrapper) *NavigationTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NavigationTimingFromJS is casting a js.Value into NavigationTiming.
+func NavigationTimingFromJS(value js.Value) *NavigationTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NavigationTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NavigationTimingFromJS is casting from something that holds a js.Value into NavigationTiming.
+func NavigationTimingFromWrapper(input core.Wrapper) *NavigationTiming {
+	return NavigationTimingFromJS(input.JSValue())
 }
 
 // UnloadEventStart returning attribute 'unloadEventStart' with
@@ -1080,15 +1113,19 @@ func (_this *Observer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ObserverFromJS is casting a js.Wrapper into Observer.
-func ObserverFromJS(value js.Wrapper) *Observer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ObserverFromJS is casting a js.Value into Observer.
+func ObserverFromJS(value js.Value) *Observer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Observer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ObserverFromJS is casting from something that holds a js.Value into Observer.
+func ObserverFromWrapper(input core.Wrapper) *Observer {
+	return ObserverFromJS(input.JSValue())
 }
 
 // SupportedEntryTypes returning attribute 'supportedEntryTypes' with
@@ -1179,15 +1216,19 @@ func (_this *ObserverEntryList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ObserverEntryListFromJS is casting a js.Wrapper into ObserverEntryList.
-func ObserverEntryListFromJS(value js.Wrapper) *ObserverEntryList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ObserverEntryListFromJS is casting a js.Value into ObserverEntryList.
+func ObserverEntryListFromJS(value js.Value) *ObserverEntryList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ObserverEntryList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ObserverEntryListFromJS is casting from something that holds a js.Value into ObserverEntryList.
+func ObserverEntryListFromWrapper(input core.Wrapper) *ObserverEntryList {
+	return ObserverEntryListFromJS(input.JSValue())
 }
 
 func (_this *ObserverEntryList) GetEntries() (_result []*Entry) {
@@ -1278,15 +1319,19 @@ type Performance struct {
 	domcore.EventTarget
 }
 
-// PerformanceFromJS is casting a js.Wrapper into Performance.
-func PerformanceFromJS(value js.Wrapper) *Performance {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PerformanceFromJS is casting a js.Value into Performance.
+func PerformanceFromJS(value js.Value) *Performance {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Performance{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PerformanceFromJS is casting from something that holds a js.Value into Performance.
+func PerformanceFromWrapper(input core.Wrapper) *Performance {
+	return PerformanceFromJS(input.JSValue())
 }
 
 // TimeOrigin returning attribute 'timeOrigin' with
@@ -1598,15 +1643,19 @@ type PerformancePaintTiming struct {
 	Entry
 }
 
-// PerformancePaintTimingFromJS is casting a js.Wrapper into PerformancePaintTiming.
-func PerformancePaintTimingFromJS(value js.Wrapper) *PerformancePaintTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PerformancePaintTimingFromJS is casting a js.Value into PerformancePaintTiming.
+func PerformancePaintTimingFromJS(value js.Value) *PerformancePaintTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PerformancePaintTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PerformancePaintTimingFromJS is casting from something that holds a js.Value into PerformancePaintTiming.
+func PerformancePaintTimingFromWrapper(input core.Wrapper) *PerformancePaintTiming {
+	return PerformancePaintTimingFromJS(input.JSValue())
 }
 
 // class: PerformanceResourceTiming
@@ -1614,15 +1663,19 @@ type ResourceTiming struct {
 	Entry
 }
 
-// ResourceTimingFromJS is casting a js.Wrapper into ResourceTiming.
-func ResourceTimingFromJS(value js.Wrapper) *ResourceTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ResourceTimingFromJS is casting a js.Value into ResourceTiming.
+func ResourceTimingFromJS(value js.Value) *ResourceTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ResourceTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ResourceTimingFromJS is casting from something that holds a js.Value into ResourceTiming.
+func ResourceTimingFromWrapper(input core.Wrapper) *ResourceTiming {
+	return ResourceTimingFromJS(input.JSValue())
 }
 
 // InitiatorType returning attribute 'initiatorType' with
@@ -1811,15 +1864,19 @@ func (_this *ServerTiming) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ServerTimingFromJS is casting a js.Wrapper into ServerTiming.
-func ServerTimingFromJS(value js.Wrapper) *ServerTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServerTimingFromJS is casting a js.Value into ServerTiming.
+func ServerTimingFromJS(value js.Value) *ServerTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServerTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServerTimingFromJS is casting from something that holds a js.Value into ServerTiming.
+func ServerTimingFromWrapper(input core.Wrapper) *ServerTiming {
+	return ServerTimingFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -1868,15 +1925,19 @@ type TaskAttributionTiming struct {
 	Entry
 }
 
-// TaskAttributionTimingFromJS is casting a js.Wrapper into TaskAttributionTiming.
-func TaskAttributionTimingFromJS(value js.Wrapper) *TaskAttributionTiming {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TaskAttributionTimingFromJS is casting a js.Value into TaskAttributionTiming.
+func TaskAttributionTimingFromJS(value js.Value) *TaskAttributionTiming {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TaskAttributionTiming{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TaskAttributionTimingFromJS is casting from something that holds a js.Value into TaskAttributionTiming.
+func TaskAttributionTimingFromWrapper(input core.Wrapper) *TaskAttributionTiming {
+	return TaskAttributionTimingFromJS(input.JSValue())
 }
 
 // ContainerType returning attribute 'containerType' with
@@ -1925,15 +1986,19 @@ func (_this *Timing) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TimingFromJS is casting a js.Wrapper into Timing.
-func TimingFromJS(value js.Wrapper) *Timing {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TimingFromJS is casting a js.Value into Timing.
+func TimingFromJS(value js.Value) *Timing {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Timing{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TimingFromJS is casting from something that holds a js.Value into Timing.
+func TimingFromWrapper(input core.Wrapper) *Timing {
+	return TimingFromJS(input.JSValue())
 }
 
 // NavigationStart returning attribute 'navigationStart' with

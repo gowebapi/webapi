@@ -5,6 +5,7 @@ package gamepad
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -86,7 +87,7 @@ type GamepadEventInit struct {
 	Gamepad    *Gamepad
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *GamepadEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -102,10 +103,8 @@ func (_this *GamepadEventInit) JSValue() js.Value {
 }
 
 // GamepadEventInitFromJS is allocating a new
-// GamepadEventInit object and copy all values from
-// input javascript object
-func GamepadEventInitFromJS(value js.Wrapper) *GamepadEventInit {
-	input := value.JSValue()
+// GamepadEventInit object and copy all values in the value javascript object.
+func GamepadEventInitFromJS(value js.Value) *GamepadEventInit {
 	var out GamepadEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -113,13 +112,13 @@ func GamepadEventInitFromJS(value js.Wrapper) *GamepadEventInit {
 		value2 bool     // javascript: boolean {composed Composed composed}
 		value3 *Gamepad // javascript: Gamepad {gamepad Gamepad gamepad}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = GamepadFromJS(input.Get("gamepad"))
+	value3 = GamepadFromJS(value.Get("gamepad"))
 	out.Gamepad = value3
 	return &out
 }
@@ -134,15 +133,19 @@ func (_this *Gamepad) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// GamepadFromJS is casting a js.Wrapper into Gamepad.
-func GamepadFromJS(value js.Wrapper) *Gamepad {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// GamepadFromJS is casting a js.Value into Gamepad.
+func GamepadFromJS(value js.Value) *Gamepad {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Gamepad{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// GamepadFromJS is casting from something that holds a js.Value into Gamepad.
+func GamepadFromWrapper(input core.Wrapper) *Gamepad {
+	return GamepadFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -227,15 +230,19 @@ func (_this *GamepadButton) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// GamepadButtonFromJS is casting a js.Wrapper into GamepadButton.
-func GamepadButtonFromJS(value js.Wrapper) *GamepadButton {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// GamepadButtonFromJS is casting a js.Value into GamepadButton.
+func GamepadButtonFromJS(value js.Value) *GamepadButton {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GamepadButton{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// GamepadButtonFromJS is casting from something that holds a js.Value into GamepadButton.
+func GamepadButtonFromWrapper(input core.Wrapper) *GamepadButton {
+	return GamepadButtonFromJS(input.JSValue())
 }
 
 // Pressed returning attribute 'pressed' with
@@ -270,15 +277,19 @@ type GamepadEvent struct {
 	domcore.Event
 }
 
-// GamepadEventFromJS is casting a js.Wrapper into GamepadEvent.
-func GamepadEventFromJS(value js.Wrapper) *GamepadEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// GamepadEventFromJS is casting a js.Value into GamepadEvent.
+func GamepadEventFromJS(value js.Value) *GamepadEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GamepadEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// GamepadEventFromJS is casting from something that holds a js.Value into GamepadEvent.
+func GamepadEventFromWrapper(input core.Wrapper) *GamepadEvent {
+	return GamepadEventFromJS(input.JSValue())
 }
 
 func NewGamepadEvent(_type string, eventInitDict *GamepadEventInit) (_result *GamepadEvent) {

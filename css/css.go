@@ -39,7 +39,7 @@ type PropertyDescriptor struct {
 	InitialValue string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PropertyDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -55,10 +55,8 @@ func (_this *PropertyDescriptor) JSValue() js.Value {
 }
 
 // PropertyDescriptorFromJS is allocating a new
-// PropertyDescriptor object and copy all values from
-// input javascript object
-func PropertyDescriptorFromJS(value js.Wrapper) *PropertyDescriptor {
-	input := value.JSValue()
+// PropertyDescriptor object and copy all values in the value javascript object.
+func PropertyDescriptorFromJS(value js.Value) *PropertyDescriptor {
 	var out PropertyDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
@@ -66,13 +64,13 @@ func PropertyDescriptorFromJS(value js.Wrapper) *PropertyDescriptor {
 		value2 bool   // javascript: boolean {inherits Inherits inherits}
 		value3 string // javascript: DOMString {initialValue InitialValue initialValue}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("syntax")).String()
+	value1 = (value.Get("syntax")).String()
 	out.Syntax = value1
-	value2 = (input.Get("inherits")).Bool()
+	value2 = (value.Get("inherits")).Bool()
 	out.Inherits = value2
-	value3 = (input.Get("initialValue")).String()
+	value3 = (value.Get("initialValue")).String()
 	out.InitialValue = value3
 	return &out
 }

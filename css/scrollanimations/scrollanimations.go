@@ -7,6 +7,7 @@ package scrollanimations
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/dom"
 )
@@ -134,7 +135,7 @@ type ScrollTimelineOptions struct {
 	Fill              webani.FillMode
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ScrollTimelineOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -154,10 +155,8 @@ func (_this *ScrollTimelineOptions) JSValue() js.Value {
 }
 
 // ScrollTimelineOptionsFromJS is allocating a new
-// ScrollTimelineOptions object and copy all values from
-// input javascript object
-func ScrollTimelineOptionsFromJS(value js.Wrapper) *ScrollTimelineOptions {
-	input := value.JSValue()
+// ScrollTimelineOptions object and copy all values in the value javascript object.
+func ScrollTimelineOptionsFromJS(value js.Value) *ScrollTimelineOptions {
 	var out ScrollTimelineOptions
 	var (
 		value0 *dom.Element    // javascript: Element {scrollSource ScrollSource scrollSource}
@@ -167,19 +166,19 @@ func ScrollTimelineOptionsFromJS(value js.Wrapper) *ScrollTimelineOptions {
 		value4 *Union          // javascript: Union {timeRange TimeRange timeRange}
 		value5 webani.FillMode // javascript: FillMode {fill Fill fill}
 	)
-	if input.Get("scrollSource").Type() != js.TypeNull && input.Get("scrollSource").Type() != js.TypeUndefined {
-		value0 = dom.ElementFromJS(input.Get("scrollSource"))
+	if value.Get("scrollSource").Type() != js.TypeNull && value.Get("scrollSource").Type() != js.TypeUndefined {
+		value0 = dom.ElementFromJS(value.Get("scrollSource"))
 	}
 	out.ScrollSource = value0
-	value1 = ScrollDirectionFromJS(input.Get("orientation"))
+	value1 = ScrollDirectionFromJS(value.Get("orientation"))
 	out.Orientation = value1
-	value2 = (input.Get("startScrollOffset")).String()
+	value2 = (value.Get("startScrollOffset")).String()
 	out.StartScrollOffset = value2
-	value3 = (input.Get("endScrollOffset")).String()
+	value3 = (value.Get("endScrollOffset")).String()
 	out.EndScrollOffset = value3
-	value4 = UnionFromJS(input.Get("timeRange"))
+	value4 = UnionFromJS(value.Get("timeRange"))
 	out.TimeRange = value4
-	value5 = webani.FillModeFromJS(input.Get("fill"))
+	value5 = webani.FillModeFromJS(value.Get("fill"))
 	out.Fill = value5
 	return &out
 }
@@ -189,15 +188,19 @@ type ScrollTimeline struct {
 	webani.AnimationTimeline
 }
 
-// ScrollTimelineFromJS is casting a js.Wrapper into ScrollTimeline.
-func ScrollTimelineFromJS(value js.Wrapper) *ScrollTimeline {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ScrollTimelineFromJS is casting a js.Value into ScrollTimeline.
+func ScrollTimelineFromJS(value js.Value) *ScrollTimeline {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScrollTimeline{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ScrollTimelineFromJS is casting from something that holds a js.Value into ScrollTimeline.
+func ScrollTimelineFromWrapper(input core.Wrapper) *ScrollTimeline {
+	return ScrollTimelineFromJS(input.JSValue())
 }
 
 func NewScrollTimeline(options *ScrollTimelineOptions) (_result *ScrollTimeline) {

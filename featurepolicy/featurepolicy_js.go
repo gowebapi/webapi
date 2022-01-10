@@ -5,6 +5,7 @@ package featurepolicy
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/reporting"
 )
 
@@ -44,15 +45,19 @@ func (_this *FeaturePolicy) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FeaturePolicyFromJS is casting a js.Wrapper into FeaturePolicy.
-func FeaturePolicyFromJS(value js.Wrapper) *FeaturePolicy {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FeaturePolicyFromJS is casting a js.Value into FeaturePolicy.
+func FeaturePolicyFromJS(value js.Value) *FeaturePolicy {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FeaturePolicy{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FeaturePolicyFromJS is casting from something that holds a js.Value into FeaturePolicy.
+func FeaturePolicyFromWrapper(input core.Wrapper) *FeaturePolicy {
+	return FeaturePolicyFromJS(input.JSValue())
 }
 
 func (_this *FeaturePolicy) AllowsFeature(feature string, origin *string) (_result bool) {
@@ -157,15 +162,19 @@ type ViolationReportBody struct {
 	reporting.ReportBody
 }
 
-// ViolationReportBodyFromJS is casting a js.Wrapper into ViolationReportBody.
-func ViolationReportBodyFromJS(value js.Wrapper) *ViolationReportBody {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ViolationReportBodyFromJS is casting a js.Value into ViolationReportBody.
+func ViolationReportBodyFromJS(value js.Value) *ViolationReportBody {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ViolationReportBody{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ViolationReportBodyFromJS is casting from something that holds a js.Value into ViolationReportBody.
+func ViolationReportBodyFromWrapper(input core.Wrapper) *ViolationReportBody {
+	return ViolationReportBodyFromJS(input.JSValue())
 }
 
 // FeatureId returning attribute 'featureId' with

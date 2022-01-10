@@ -7,6 +7,7 @@ package webani
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -312,7 +313,7 @@ type AnimationPlaybackEventInit struct {
 	TimelineTime *float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AnimationPlaybackEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -342,10 +343,8 @@ func (_this *AnimationPlaybackEventInit) JSValue() js.Value {
 }
 
 // AnimationPlaybackEventInitFromJS is allocating a new
-// AnimationPlaybackEventInit object and copy all values from
-// input javascript object
-func AnimationPlaybackEventInitFromJS(value js.Wrapper) *AnimationPlaybackEventInit {
-	input := value.JSValue()
+// AnimationPlaybackEventInit object and copy all values in the value javascript object.
+func AnimationPlaybackEventInitFromJS(value js.Value) *AnimationPlaybackEventInit {
 	var out AnimationPlaybackEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -354,19 +353,19 @@ func AnimationPlaybackEventInitFromJS(value js.Wrapper) *AnimationPlaybackEventI
 		value3 *float64 // javascript: double {currentTime CurrentTime currentTime}
 		value4 *float64 // javascript: double {timelineTime TimelineTime timelineTime}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("currentTime").Type() != js.TypeNull && input.Get("currentTime").Type() != js.TypeUndefined {
-		__tmp := (input.Get("currentTime")).Float()
+	if value.Get("currentTime").Type() != js.TypeNull && value.Get("currentTime").Type() != js.TypeUndefined {
+		__tmp := (value.Get("currentTime")).Float()
 		value3 = &__tmp
 	}
 	out.CurrentTime = value3
-	if input.Get("timelineTime").Type() != js.TypeNull && input.Get("timelineTime").Type() != js.TypeUndefined {
-		__tmp := (input.Get("timelineTime")).Float()
+	if value.Get("timelineTime").Type() != js.TypeNull && value.Get("timelineTime").Type() != js.TypeUndefined {
+		__tmp := (value.Get("timelineTime")).Float()
 		value4 = &__tmp
 	}
 	out.TimelineTime = value4
@@ -381,7 +380,7 @@ type BaseComputedKeyframe struct {
 	Composite      CompositeOperationOrAuto
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BaseComputedKeyframe) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -403,10 +402,8 @@ func (_this *BaseComputedKeyframe) JSValue() js.Value {
 }
 
 // BaseComputedKeyframeFromJS is allocating a new
-// BaseComputedKeyframe object and copy all values from
-// input javascript object
-func BaseComputedKeyframeFromJS(value js.Wrapper) *BaseComputedKeyframe {
-	input := value.JSValue()
+// BaseComputedKeyframe object and copy all values in the value javascript object.
+func BaseComputedKeyframeFromJS(value js.Value) *BaseComputedKeyframe {
 	var out BaseComputedKeyframe
 	var (
 		value0 *float64                 // javascript: double {offset Offset offset}
@@ -414,16 +411,16 @@ func BaseComputedKeyframeFromJS(value js.Wrapper) *BaseComputedKeyframe {
 		value2 string                   // javascript: DOMString {easing Easing easing}
 		value3 CompositeOperationOrAuto // javascript: CompositeOperationOrAuto {composite Composite composite}
 	)
-	if input.Get("offset").Type() != js.TypeNull && input.Get("offset").Type() != js.TypeUndefined {
-		__tmp := (input.Get("offset")).Float()
+	if value.Get("offset").Type() != js.TypeNull && value.Get("offset").Type() != js.TypeUndefined {
+		__tmp := (value.Get("offset")).Float()
 		value0 = &__tmp
 	}
 	out.Offset = value0
-	value1 = (input.Get("computedOffset")).Float()
+	value1 = (value.Get("computedOffset")).Float()
 	out.ComputedOffset = value1
-	value2 = (input.Get("easing")).String()
+	value2 = (value.Get("easing")).String()
 	out.Easing = value2
-	value3 = CompositeOperationOrAutoFromJS(input.Get("composite"))
+	value3 = CompositeOperationOrAutoFromJS(value.Get("composite"))
 	out.Composite = value3
 	return &out
 }
@@ -435,7 +432,7 @@ type BaseKeyframe struct {
 	Composite CompositeOperationOrAuto
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BaseKeyframe) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -455,24 +452,22 @@ func (_this *BaseKeyframe) JSValue() js.Value {
 }
 
 // BaseKeyframeFromJS is allocating a new
-// BaseKeyframe object and copy all values from
-// input javascript object
-func BaseKeyframeFromJS(value js.Wrapper) *BaseKeyframe {
-	input := value.JSValue()
+// BaseKeyframe object and copy all values in the value javascript object.
+func BaseKeyframeFromJS(value js.Value) *BaseKeyframe {
 	var out BaseKeyframe
 	var (
 		value0 *float64                 // javascript: double {offset Offset offset}
 		value1 string                   // javascript: DOMString {easing Easing easing}
 		value2 CompositeOperationOrAuto // javascript: CompositeOperationOrAuto {composite Composite composite}
 	)
-	if input.Get("offset").Type() != js.TypeNull && input.Get("offset").Type() != js.TypeUndefined {
-		__tmp := (input.Get("offset")).Float()
+	if value.Get("offset").Type() != js.TypeNull && value.Get("offset").Type() != js.TypeUndefined {
+		__tmp := (value.Get("offset")).Float()
 		value0 = &__tmp
 	}
 	out.Offset = value0
-	value1 = (input.Get("easing")).String()
+	value1 = (value.Get("easing")).String()
 	out.Easing = value1
-	value2 = CompositeOperationOrAutoFromJS(input.Get("composite"))
+	value2 = CompositeOperationOrAutoFromJS(value.Get("composite"))
 	out.Composite = value2
 	return &out
 }
@@ -484,7 +479,7 @@ type BasePropertyIndexedKeyframe struct {
 	Composite *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BasePropertyIndexedKeyframe) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -498,21 +493,19 @@ func (_this *BasePropertyIndexedKeyframe) JSValue() js.Value {
 }
 
 // BasePropertyIndexedKeyframeFromJS is allocating a new
-// BasePropertyIndexedKeyframe object and copy all values from
-// input javascript object
-func BasePropertyIndexedKeyframeFromJS(value js.Wrapper) *BasePropertyIndexedKeyframe {
-	input := value.JSValue()
+// BasePropertyIndexedKeyframe object and copy all values in the value javascript object.
+func BasePropertyIndexedKeyframeFromJS(value js.Value) *BasePropertyIndexedKeyframe {
 	var out BasePropertyIndexedKeyframe
 	var (
 		value0 *Union // javascript: Union {offset Offset offset}
 		value1 *Union // javascript: Union {easing Easing easing}
 		value2 *Union // javascript: Union {composite Composite composite}
 	)
-	value0 = UnionFromJS(input.Get("offset"))
+	value0 = UnionFromJS(value.Get("offset"))
 	out.Offset = value0
-	value1 = UnionFromJS(input.Get("easing"))
+	value1 = UnionFromJS(value.Get("easing"))
 	out.Easing = value1
-	value2 = UnionFromJS(input.Get("composite"))
+	value2 = UnionFromJS(value.Get("composite"))
 	out.Composite = value2
 	return &out
 }
@@ -534,7 +527,7 @@ type ComputedEffectTiming struct {
 	CurrentIteration *float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ComputedEffectTiming) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -586,10 +579,8 @@ func (_this *ComputedEffectTiming) JSValue() js.Value {
 }
 
 // ComputedEffectTimingFromJS is allocating a new
-// ComputedEffectTiming object and copy all values from
-// input javascript object
-func ComputedEffectTimingFromJS(value js.Wrapper) *ComputedEffectTiming {
-	input := value.JSValue()
+// ComputedEffectTiming object and copy all values in the value javascript object.
+func ComputedEffectTimingFromJS(value js.Value) *ComputedEffectTiming {
 	var out ComputedEffectTiming
 	var (
 		value0  float64           // javascript: double {delay Delay delay}
@@ -606,38 +597,38 @@ func ComputedEffectTimingFromJS(value js.Wrapper) *ComputedEffectTiming {
 		value11 *float64          // javascript: double {progress Progress progress}
 		value12 *float64          // javascript: unrestricted double {currentIteration CurrentIteration currentIteration}
 	)
-	value0 = (input.Get("delay")).Float()
+	value0 = (value.Get("delay")).Float()
 	out.Delay = value0
-	value1 = (input.Get("endDelay")).Float()
+	value1 = (value.Get("endDelay")).Float()
 	out.EndDelay = value1
-	value2 = FillModeFromJS(input.Get("fill"))
+	value2 = FillModeFromJS(value.Get("fill"))
 	out.Fill = value2
-	value3 = (input.Get("iterationStart")).Float()
+	value3 = (value.Get("iterationStart")).Float()
 	out.IterationStart = value3
-	value4 = (input.Get("iterations")).Float()
+	value4 = (value.Get("iterations")).Float()
 	out.Iterations = value4
-	value5 = UnionFromJS(input.Get("duration"))
+	value5 = UnionFromJS(value.Get("duration"))
 	out.Duration = value5
-	value6 = PlaybackDirectionFromJS(input.Get("direction"))
+	value6 = PlaybackDirectionFromJS(value.Get("direction"))
 	out.Direction = value6
-	value7 = (input.Get("easing")).String()
+	value7 = (value.Get("easing")).String()
 	out.Easing = value7
-	value8 = (input.Get("endTime")).Float()
+	value8 = (value.Get("endTime")).Float()
 	out.EndTime = value8
-	value9 = (input.Get("activeDuration")).Float()
+	value9 = (value.Get("activeDuration")).Float()
 	out.ActiveDuration = value9
-	if input.Get("localTime").Type() != js.TypeNull && input.Get("localTime").Type() != js.TypeUndefined {
-		__tmp := (input.Get("localTime")).Float()
+	if value.Get("localTime").Type() != js.TypeNull && value.Get("localTime").Type() != js.TypeUndefined {
+		__tmp := (value.Get("localTime")).Float()
 		value10 = &__tmp
 	}
 	out.LocalTime = value10
-	if input.Get("progress").Type() != js.TypeNull && input.Get("progress").Type() != js.TypeUndefined {
-		__tmp := (input.Get("progress")).Float()
+	if value.Get("progress").Type() != js.TypeNull && value.Get("progress").Type() != js.TypeUndefined {
+		__tmp := (value.Get("progress")).Float()
 		value11 = &__tmp
 	}
 	out.Progress = value11
-	if input.Get("currentIteration").Type() != js.TypeNull && input.Get("currentIteration").Type() != js.TypeUndefined {
-		__tmp := (input.Get("currentIteration")).Float()
+	if value.Get("currentIteration").Type() != js.TypeNull && value.Get("currentIteration").Type() != js.TypeUndefined {
+		__tmp := (value.Get("currentIteration")).Float()
 		value12 = &__tmp
 	}
 	out.CurrentIteration = value12
@@ -649,7 +640,7 @@ type DocumentTimelineOptions struct {
 	OriginTime float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DocumentTimelineOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -659,15 +650,13 @@ func (_this *DocumentTimelineOptions) JSValue() js.Value {
 }
 
 // DocumentTimelineOptionsFromJS is allocating a new
-// DocumentTimelineOptions object and copy all values from
-// input javascript object
-func DocumentTimelineOptionsFromJS(value js.Wrapper) *DocumentTimelineOptions {
-	input := value.JSValue()
+// DocumentTimelineOptions object and copy all values in the value javascript object.
+func DocumentTimelineOptionsFromJS(value js.Value) *DocumentTimelineOptions {
 	var out DocumentTimelineOptions
 	var (
 		value0 float64 // javascript: double {originTime OriginTime originTime}
 	)
-	value0 = (input.Get("originTime")).Float()
+	value0 = (value.Get("originTime")).Float()
 	out.OriginTime = value0
 	return &out
 }
@@ -684,7 +673,7 @@ type EffectTiming struct {
 	Easing         string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EffectTiming) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -708,10 +697,8 @@ func (_this *EffectTiming) JSValue() js.Value {
 }
 
 // EffectTimingFromJS is allocating a new
-// EffectTiming object and copy all values from
-// input javascript object
-func EffectTimingFromJS(value js.Wrapper) *EffectTiming {
-	input := value.JSValue()
+// EffectTiming object and copy all values in the value javascript object.
+func EffectTimingFromJS(value js.Value) *EffectTiming {
 	var out EffectTiming
 	var (
 		value0 float64           // javascript: double {delay Delay delay}
@@ -723,21 +710,21 @@ func EffectTimingFromJS(value js.Wrapper) *EffectTiming {
 		value6 PlaybackDirection // javascript: PlaybackDirection {direction Direction direction}
 		value7 string            // javascript: DOMString {easing Easing easing}
 	)
-	value0 = (input.Get("delay")).Float()
+	value0 = (value.Get("delay")).Float()
 	out.Delay = value0
-	value1 = (input.Get("endDelay")).Float()
+	value1 = (value.Get("endDelay")).Float()
 	out.EndDelay = value1
-	value2 = FillModeFromJS(input.Get("fill"))
+	value2 = FillModeFromJS(value.Get("fill"))
 	out.Fill = value2
-	value3 = (input.Get("iterationStart")).Float()
+	value3 = (value.Get("iterationStart")).Float()
 	out.IterationStart = value3
-	value4 = (input.Get("iterations")).Float()
+	value4 = (value.Get("iterations")).Float()
 	out.Iterations = value4
-	value5 = UnionFromJS(input.Get("duration"))
+	value5 = UnionFromJS(value.Get("duration"))
 	out.Duration = value5
-	value6 = PlaybackDirectionFromJS(input.Get("direction"))
+	value6 = PlaybackDirectionFromJS(value.Get("direction"))
 	out.Direction = value6
-	value7 = (input.Get("easing")).String()
+	value7 = (value.Get("easing")).String()
 	out.Easing = value7
 	return &out
 }
@@ -757,7 +744,7 @@ type KeyframeAnimationOptions struct {
 	Id                 string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *KeyframeAnimationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -787,10 +774,8 @@ func (_this *KeyframeAnimationOptions) JSValue() js.Value {
 }
 
 // KeyframeAnimationOptionsFromJS is allocating a new
-// KeyframeAnimationOptions object and copy all values from
-// input javascript object
-func KeyframeAnimationOptionsFromJS(value js.Wrapper) *KeyframeAnimationOptions {
-	input := value.JSValue()
+// KeyframeAnimationOptions object and copy all values in the value javascript object.
+func KeyframeAnimationOptionsFromJS(value js.Value) *KeyframeAnimationOptions {
 	var out KeyframeAnimationOptions
 	var (
 		value0  float64                     // javascript: double {delay Delay delay}
@@ -805,27 +790,27 @@ func KeyframeAnimationOptionsFromJS(value js.Wrapper) *KeyframeAnimationOptions 
 		value9  CompositeOperation          // javascript: CompositeOperation {composite Composite composite}
 		value10 string                      // javascript: DOMString {id Id id}
 	)
-	value0 = (input.Get("delay")).Float()
+	value0 = (value.Get("delay")).Float()
 	out.Delay = value0
-	value1 = (input.Get("endDelay")).Float()
+	value1 = (value.Get("endDelay")).Float()
 	out.EndDelay = value1
-	value2 = FillModeFromJS(input.Get("fill"))
+	value2 = FillModeFromJS(value.Get("fill"))
 	out.Fill = value2
-	value3 = (input.Get("iterationStart")).Float()
+	value3 = (value.Get("iterationStart")).Float()
 	out.IterationStart = value3
-	value4 = (input.Get("iterations")).Float()
+	value4 = (value.Get("iterations")).Float()
 	out.Iterations = value4
-	value5 = UnionFromJS(input.Get("duration"))
+	value5 = UnionFromJS(value.Get("duration"))
 	out.Duration = value5
-	value6 = PlaybackDirectionFromJS(input.Get("direction"))
+	value6 = PlaybackDirectionFromJS(value.Get("direction"))
 	out.Direction = value6
-	value7 = (input.Get("easing")).String()
+	value7 = (value.Get("easing")).String()
 	out.Easing = value7
-	value8 = IterationCompositeOperationFromJS(input.Get("iterationComposite"))
+	value8 = IterationCompositeOperationFromJS(value.Get("iterationComposite"))
 	out.IterationComposite = value8
-	value9 = CompositeOperationFromJS(input.Get("composite"))
+	value9 = CompositeOperationFromJS(value.Get("composite"))
 	out.Composite = value9
-	value10 = (input.Get("id")).String()
+	value10 = (value.Get("id")).String()
 	out.Id = value10
 	return &out
 }
@@ -844,7 +829,7 @@ type KeyframeEffectOptions struct {
 	Composite          CompositeOperation
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *KeyframeEffectOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -872,10 +857,8 @@ func (_this *KeyframeEffectOptions) JSValue() js.Value {
 }
 
 // KeyframeEffectOptionsFromJS is allocating a new
-// KeyframeEffectOptions object and copy all values from
-// input javascript object
-func KeyframeEffectOptionsFromJS(value js.Wrapper) *KeyframeEffectOptions {
-	input := value.JSValue()
+// KeyframeEffectOptions object and copy all values in the value javascript object.
+func KeyframeEffectOptionsFromJS(value js.Value) *KeyframeEffectOptions {
 	var out KeyframeEffectOptions
 	var (
 		value0 float64                     // javascript: double {delay Delay delay}
@@ -889,25 +872,25 @@ func KeyframeEffectOptionsFromJS(value js.Wrapper) *KeyframeEffectOptions {
 		value8 IterationCompositeOperation // javascript: IterationCompositeOperation {iterationComposite IterationComposite iterationComposite}
 		value9 CompositeOperation          // javascript: CompositeOperation {composite Composite composite}
 	)
-	value0 = (input.Get("delay")).Float()
+	value0 = (value.Get("delay")).Float()
 	out.Delay = value0
-	value1 = (input.Get("endDelay")).Float()
+	value1 = (value.Get("endDelay")).Float()
 	out.EndDelay = value1
-	value2 = FillModeFromJS(input.Get("fill"))
+	value2 = FillModeFromJS(value.Get("fill"))
 	out.Fill = value2
-	value3 = (input.Get("iterationStart")).Float()
+	value3 = (value.Get("iterationStart")).Float()
 	out.IterationStart = value3
-	value4 = (input.Get("iterations")).Float()
+	value4 = (value.Get("iterations")).Float()
 	out.Iterations = value4
-	value5 = UnionFromJS(input.Get("duration"))
+	value5 = UnionFromJS(value.Get("duration"))
 	out.Duration = value5
-	value6 = PlaybackDirectionFromJS(input.Get("direction"))
+	value6 = PlaybackDirectionFromJS(value.Get("direction"))
 	out.Direction = value6
-	value7 = (input.Get("easing")).String()
+	value7 = (value.Get("easing")).String()
 	out.Easing = value7
-	value8 = IterationCompositeOperationFromJS(input.Get("iterationComposite"))
+	value8 = IterationCompositeOperationFromJS(value.Get("iterationComposite"))
 	out.IterationComposite = value8
-	value9 = CompositeOperationFromJS(input.Get("composite"))
+	value9 = CompositeOperationFromJS(value.Get("composite"))
 	out.Composite = value9
 	return &out
 }
@@ -924,7 +907,7 @@ type OptionalEffectTiming struct {
 	Easing         string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OptionalEffectTiming) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -948,10 +931,8 @@ func (_this *OptionalEffectTiming) JSValue() js.Value {
 }
 
 // OptionalEffectTimingFromJS is allocating a new
-// OptionalEffectTiming object and copy all values from
-// input javascript object
-func OptionalEffectTimingFromJS(value js.Wrapper) *OptionalEffectTiming {
-	input := value.JSValue()
+// OptionalEffectTiming object and copy all values in the value javascript object.
+func OptionalEffectTimingFromJS(value js.Value) *OptionalEffectTiming {
 	var out OptionalEffectTiming
 	var (
 		value0 float64           // javascript: double {delay Delay delay}
@@ -963,21 +944,21 @@ func OptionalEffectTimingFromJS(value js.Wrapper) *OptionalEffectTiming {
 		value6 PlaybackDirection // javascript: PlaybackDirection {direction Direction direction}
 		value7 string            // javascript: DOMString {easing Easing easing}
 	)
-	value0 = (input.Get("delay")).Float()
+	value0 = (value.Get("delay")).Float()
 	out.Delay = value0
-	value1 = (input.Get("endDelay")).Float()
+	value1 = (value.Get("endDelay")).Float()
 	out.EndDelay = value1
-	value2 = FillModeFromJS(input.Get("fill"))
+	value2 = FillModeFromJS(value.Get("fill"))
 	out.Fill = value2
-	value3 = (input.Get("iterationStart")).Float()
+	value3 = (value.Get("iterationStart")).Float()
 	out.IterationStart = value3
-	value4 = (input.Get("iterations")).Float()
+	value4 = (value.Get("iterations")).Float()
 	out.Iterations = value4
-	value5 = UnionFromJS(input.Get("duration"))
+	value5 = UnionFromJS(value.Get("duration"))
 	out.Duration = value5
-	value6 = PlaybackDirectionFromJS(input.Get("direction"))
+	value6 = PlaybackDirectionFromJS(value.Get("direction"))
 	out.Direction = value6
-	value7 = (input.Get("easing")).String()
+	value7 = (value.Get("easing")).String()
 	out.Easing = value7
 	return &out
 }
@@ -987,15 +968,19 @@ type Animation struct {
 	domcore.EventTarget
 }
 
-// AnimationFromJS is casting a js.Wrapper into Animation.
-func AnimationFromJS(value js.Wrapper) *Animation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnimationFromJS is casting a js.Value into Animation.
+func AnimationFromJS(value js.Value) *Animation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Animation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnimationFromJS is casting from something that holds a js.Value into Animation.
+func AnimationFromWrapper(input core.Wrapper) *Animation {
+	return AnimationFromJS(input.JSValue())
 }
 
 func NewAnimation(effect *AnimationEffect, timeline *AnimationTimeline) (_result *Animation) {
@@ -1310,15 +1295,19 @@ func (_this *AnimationEffect) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AnimationEffectFromJS is casting a js.Wrapper into AnimationEffect.
-func AnimationEffectFromJS(value js.Wrapper) *AnimationEffect {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnimationEffectFromJS is casting a js.Value into AnimationEffect.
+func AnimationEffectFromJS(value js.Value) *AnimationEffect {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationEffect{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnimationEffectFromJS is casting from something that holds a js.Value into AnimationEffect.
+func AnimationEffectFromWrapper(input core.Wrapper) *AnimationEffect {
+	return AnimationEffectFromJS(input.JSValue())
 }
 
 func (_this *AnimationEffect) GetTiming() (_result *EffectTiming) {
@@ -1368,15 +1357,19 @@ type AnimationPlaybackEvent struct {
 	domcore.Event
 }
 
-// AnimationPlaybackEventFromJS is casting a js.Wrapper into AnimationPlaybackEvent.
-func AnimationPlaybackEventFromJS(value js.Wrapper) *AnimationPlaybackEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnimationPlaybackEventFromJS is casting a js.Value into AnimationPlaybackEvent.
+func AnimationPlaybackEventFromJS(value js.Value) *AnimationPlaybackEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationPlaybackEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnimationPlaybackEventFromJS is casting from something that holds a js.Value into AnimationPlaybackEvent.
+func AnimationPlaybackEventFromWrapper(input core.Wrapper) *AnimationPlaybackEvent {
+	return AnimationPlaybackEventFromJS(input.JSValue())
 }
 
 func NewAnimationPlaybackEvent(_type string, eventInitDict *AnimationPlaybackEventInit) (_result *AnimationPlaybackEvent) {
@@ -1436,15 +1429,19 @@ func (_this *AnimationTimeline) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AnimationTimelineFromJS is casting a js.Wrapper into AnimationTimeline.
-func AnimationTimelineFromJS(value js.Wrapper) *AnimationTimeline {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnimationTimelineFromJS is casting a js.Value into AnimationTimeline.
+func AnimationTimelineFromJS(value js.Value) *AnimationTimeline {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationTimeline{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnimationTimelineFromJS is casting from something that holds a js.Value into AnimationTimeline.
+func AnimationTimelineFromWrapper(input core.Wrapper) *AnimationTimeline {
+	return AnimationTimelineFromJS(input.JSValue())
 }
 
 // CurrentTime returning attribute 'currentTime' with
@@ -1464,15 +1461,19 @@ type DocumentTimeline struct {
 	AnimationTimeline
 }
 
-// DocumentTimelineFromJS is casting a js.Wrapper into DocumentTimeline.
-func DocumentTimelineFromJS(value js.Wrapper) *DocumentTimeline {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DocumentTimelineFromJS is casting a js.Value into DocumentTimeline.
+func DocumentTimelineFromJS(value js.Value) *DocumentTimeline {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DocumentTimeline{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DocumentTimelineFromJS is casting from something that holds a js.Value into DocumentTimeline.
+func DocumentTimelineFromWrapper(input core.Wrapper) *DocumentTimeline {
+	return DocumentTimelineFromJS(input.JSValue())
 }
 
 func NewDocumentTimeline(options *DocumentTimelineOptions) (_result *DocumentTimeline) {
@@ -1500,15 +1501,19 @@ type KeyframeEffect struct {
 	AnimationEffect
 }
 
-// KeyframeEffectFromJS is casting a js.Wrapper into KeyframeEffect.
-func KeyframeEffectFromJS(value js.Wrapper) *KeyframeEffect {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// KeyframeEffectFromJS is casting a js.Value into KeyframeEffect.
+func KeyframeEffectFromJS(value js.Value) *KeyframeEffect {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &KeyframeEffect{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// KeyframeEffectFromJS is casting from something that holds a js.Value into KeyframeEffect.
+func KeyframeEffectFromWrapper(input core.Wrapper) *KeyframeEffect {
+	return KeyframeEffectFromJS(input.JSValue())
 }
 
 func NewKeyframeEffect(source *KeyframeEffect) (_result *KeyframeEffect) {

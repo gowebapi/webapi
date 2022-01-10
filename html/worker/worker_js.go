@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/communication/netinfo"
 	"github.com/gowebapi/webapi/cookie"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/crypto"
 	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -108,7 +109,7 @@ type WorkerOptions struct {
 	Name        string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WorkerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -122,21 +123,19 @@ func (_this *WorkerOptions) JSValue() js.Value {
 }
 
 // WorkerOptionsFromJS is allocating a new
-// WorkerOptions object and copy all values from
-// input javascript object
-func WorkerOptionsFromJS(value js.Wrapper) *WorkerOptions {
-	input := value.JSValue()
+// WorkerOptions object and copy all values in the value javascript object.
+func WorkerOptionsFromJS(value js.Value) *WorkerOptions {
 	var out WorkerOptions
 	var (
 		value0 htmlcommon.WorkerType    // javascript: WorkerType {type Type _type}
 		value1 fetch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
 		value2 string                   // javascript: DOMString {name Name name}
 	)
-	value0 = htmlcommon.WorkerTypeFromJS(input.Get("type"))
+	value0 = htmlcommon.WorkerTypeFromJS(value.Get("type"))
 	out.Type = value0
-	value1 = fetch.RequestCredentialsFromJS(input.Get("credentials"))
+	value1 = fetch.RequestCredentialsFromJS(value.Get("credentials"))
 	out.Credentials = value1
-	value2 = (input.Get("name")).String()
+	value2 = (value.Get("name")).String()
 	out.Name = value2
 	return &out
 }
@@ -146,15 +145,19 @@ type DedicatedWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
 
-// DedicatedWorkerGlobalScopeFromJS is casting a js.Wrapper into DedicatedWorkerGlobalScope.
-func DedicatedWorkerGlobalScopeFromJS(value js.Wrapper) *DedicatedWorkerGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DedicatedWorkerGlobalScopeFromJS is casting a js.Value into DedicatedWorkerGlobalScope.
+func DedicatedWorkerGlobalScopeFromJS(value js.Value) *DedicatedWorkerGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DedicatedWorkerGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DedicatedWorkerGlobalScopeFromJS is casting from something that holds a js.Value into DedicatedWorkerGlobalScope.
+func DedicatedWorkerGlobalScopeFromWrapper(input core.Wrapper) *DedicatedWorkerGlobalScope {
+	return DedicatedWorkerGlobalScopeFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -320,15 +323,19 @@ type ServiceWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
 
-// ServiceWorkerGlobalScopeFromJS is casting a js.Wrapper into ServiceWorkerGlobalScope.
-func ServiceWorkerGlobalScopeFromJS(value js.Wrapper) *ServiceWorkerGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceWorkerGlobalScopeFromJS is casting a js.Value into ServiceWorkerGlobalScope.
+func ServiceWorkerGlobalScopeFromJS(value js.Value) *ServiceWorkerGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceWorkerGlobalScopeFromJS is casting from something that holds a js.Value into ServiceWorkerGlobalScope.
+func ServiceWorkerGlobalScopeFromWrapper(input core.Wrapper) *ServiceWorkerGlobalScope {
+	return ServiceWorkerGlobalScopeFromJS(input.JSValue())
 }
 
 // Clients returning attribute 'clients' with
@@ -950,15 +957,19 @@ type SharedWorker struct {
 	domcore.EventTarget
 }
 
-// SharedWorkerFromJS is casting a js.Wrapper into SharedWorker.
-func SharedWorkerFromJS(value js.Wrapper) *SharedWorker {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SharedWorkerFromJS is casting a js.Value into SharedWorker.
+func SharedWorkerFromJS(value js.Value) *SharedWorker {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SharedWorker{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SharedWorkerFromJS is casting from something that holds a js.Value into SharedWorker.
+func SharedWorkerFromWrapper(input core.Wrapper) *SharedWorker {
+	return SharedWorkerFromJS(input.JSValue())
 }
 
 func NewSharedWorker(scriptURL string, options *Union) (_result *SharedWorker) {
@@ -1039,15 +1050,19 @@ type SharedWorkerGlobalScope struct {
 	WorkerGlobalScope
 }
 
-// SharedWorkerGlobalScopeFromJS is casting a js.Wrapper into SharedWorkerGlobalScope.
-func SharedWorkerGlobalScopeFromJS(value js.Wrapper) *SharedWorkerGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SharedWorkerGlobalScopeFromJS is casting a js.Value into SharedWorkerGlobalScope.
+func SharedWorkerGlobalScopeFromJS(value js.Value) *SharedWorkerGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SharedWorkerGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SharedWorkerGlobalScopeFromJS is casting from something that holds a js.Value into SharedWorkerGlobalScope.
+func SharedWorkerGlobalScopeFromWrapper(input core.Wrapper) *SharedWorkerGlobalScope {
+	return SharedWorkerGlobalScopeFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -1114,15 +1129,19 @@ type Worker struct {
 	domcore.EventTarget
 }
 
-// WorkerFromJS is casting a js.Wrapper into Worker.
-func WorkerFromJS(value js.Wrapper) *Worker {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkerFromJS is casting a js.Value into Worker.
+func WorkerFromJS(value js.Value) *Worker {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Worker{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkerFromJS is casting from something that holds a js.Value into Worker.
+func WorkerFromWrapper(input core.Wrapper) *Worker {
+	return WorkerFromJS(input.JSValue())
 }
 
 func NewWorker(scriptURL string, options *WorkerOptions) (_result *Worker) {
@@ -1307,15 +1326,19 @@ type WorkerGlobalScope struct {
 	domcore.EventTarget
 }
 
-// WorkerGlobalScopeFromJS is casting a js.Wrapper into WorkerGlobalScope.
-func WorkerGlobalScopeFromJS(value js.Wrapper) *WorkerGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkerGlobalScopeFromJS is casting a js.Value into WorkerGlobalScope.
+func WorkerGlobalScopeFromJS(value js.Value) *WorkerGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkerGlobalScopeFromJS is casting from something that holds a js.Value into WorkerGlobalScope.
+func WorkerGlobalScopeFromWrapper(input core.Wrapper) *WorkerGlobalScope {
+	return WorkerGlobalScopeFromJS(input.JSValue())
 }
 
 // Self returning attribute 'self' with
@@ -1859,15 +1882,19 @@ func (_this *WorkerLocation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WorkerLocationFromJS is casting a js.Wrapper into WorkerLocation.
-func WorkerLocationFromJS(value js.Wrapper) *WorkerLocation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkerLocationFromJS is casting a js.Value into WorkerLocation.
+func WorkerLocationFromJS(value js.Value) *WorkerLocation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerLocation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkerLocationFromJS is casting from something that holds a js.Value into WorkerLocation.
+func WorkerLocationFromWrapper(input core.Wrapper) *WorkerLocation {
+	return WorkerLocationFromJS(input.JSValue())
 }
 
 // Href returning attribute 'href' with
@@ -1966,15 +1993,19 @@ func (_this *WorkerNavigator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WorkerNavigatorFromJS is casting a js.Wrapper into WorkerNavigator.
-func WorkerNavigatorFromJS(value js.Wrapper) *WorkerNavigator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkerNavigatorFromJS is casting a js.Value into WorkerNavigator.
+func WorkerNavigatorFromJS(value js.Value) *WorkerNavigator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkerNavigator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkerNavigatorFromJS is casting from something that holds a js.Value into WorkerNavigator.
+func WorkerNavigatorFromWrapper(input core.Wrapper) *WorkerNavigator {
+	return WorkerNavigatorFromJS(input.JSValue())
 }
 
 // MediaCapabilities returning attribute 'mediaCapabilities' with

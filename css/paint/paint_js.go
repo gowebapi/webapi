@@ -5,6 +5,7 @@ package paint
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/html/canvas"
@@ -53,7 +54,7 @@ type PaintRenderingContext2DSettings struct {
 	Alpha bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PaintRenderingContext2DSettings) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -63,15 +64,13 @@ func (_this *PaintRenderingContext2DSettings) JSValue() js.Value {
 }
 
 // PaintRenderingContext2DSettingsFromJS is allocating a new
-// PaintRenderingContext2DSettings object and copy all values from
-// input javascript object
-func PaintRenderingContext2DSettingsFromJS(value js.Wrapper) *PaintRenderingContext2DSettings {
-	input := value.JSValue()
+// PaintRenderingContext2DSettings object and copy all values in the value javascript object.
+func PaintRenderingContext2DSettingsFromJS(value js.Value) *PaintRenderingContext2DSettings {
 	var out PaintRenderingContext2DSettings
 	var (
 		value0 bool // javascript: boolean {alpha Alpha alpha}
 	)
-	value0 = (input.Get("alpha")).Bool()
+	value0 = (value.Get("alpha")).Bool()
 	out.Alpha = value0
 	return &out
 }
@@ -86,15 +85,19 @@ func (_this *PaintRenderingContext2D) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PaintRenderingContext2DFromJS is casting a js.Wrapper into PaintRenderingContext2D.
-func PaintRenderingContext2DFromJS(value js.Wrapper) *PaintRenderingContext2D {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaintRenderingContext2DFromJS is casting a js.Value into PaintRenderingContext2D.
+func PaintRenderingContext2DFromJS(value js.Value) *PaintRenderingContext2D {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintRenderingContext2D{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaintRenderingContext2DFromJS is casting from something that holds a js.Value into PaintRenderingContext2D.
+func PaintRenderingContext2DFromWrapper(input core.Wrapper) *PaintRenderingContext2D {
+	return PaintRenderingContext2DFromJS(input.JSValue())
 }
 
 // GlobalAlpha returning attribute 'globalAlpha' with
@@ -1141,15 +1144,19 @@ func (_this *PaintSize) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PaintSizeFromJS is casting a js.Wrapper into PaintSize.
-func PaintSizeFromJS(value js.Wrapper) *PaintSize {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaintSizeFromJS is casting a js.Value into PaintSize.
+func PaintSizeFromJS(value js.Value) *PaintSize {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintSize{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaintSizeFromJS is casting from something that holds a js.Value into PaintSize.
+func PaintSizeFromWrapper(input core.Wrapper) *PaintSize {
+	return PaintSizeFromJS(input.JSValue())
 }
 
 // Width returning attribute 'width' with
@@ -1175,15 +1182,19 @@ type PaintWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }
 
-// PaintWorkletGlobalScopeFromJS is casting a js.Wrapper into PaintWorkletGlobalScope.
-func PaintWorkletGlobalScopeFromJS(value js.Wrapper) *PaintWorkletGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PaintWorkletGlobalScopeFromJS is casting a js.Value into PaintWorkletGlobalScope.
+func PaintWorkletGlobalScopeFromJS(value js.Value) *PaintWorkletGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PaintWorkletGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PaintWorkletGlobalScopeFromJS is casting from something that holds a js.Value into PaintWorkletGlobalScope.
+func PaintWorkletGlobalScopeFromWrapper(input core.Wrapper) *PaintWorkletGlobalScope {
+	return PaintWorkletGlobalScopeFromJS(input.JSValue())
 }
 
 // DevicePixelRatio returning attribute 'devicePixelRatio' with

@@ -8,6 +8,7 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/appmanifest/appmenifestres"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/htmlcommon"
 	"github.com/gowebapi/webapi/javascript"
@@ -264,7 +265,7 @@ type PromptResponseObject struct {
 	UserChoice AppBannerPromptOutcome
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PromptResponseObject) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -274,15 +275,13 @@ func (_this *PromptResponseObject) JSValue() js.Value {
 }
 
 // PromptResponseObjectFromJS is allocating a new
-// PromptResponseObject object and copy all values from
-// input javascript object
-func PromptResponseObjectFromJS(value js.Wrapper) *PromptResponseObject {
-	input := value.JSValue()
+// PromptResponseObject object and copy all values in the value javascript object.
+func PromptResponseObjectFromJS(value js.Value) *PromptResponseObject {
 	var out PromptResponseObject
 	var (
 		value0 AppBannerPromptOutcome // javascript: AppBannerPromptOutcome {userChoice UserChoice userChoice}
 	)
-	value0 = AppBannerPromptOutcomeFromJS(input.Get("userChoice"))
+	value0 = AppBannerPromptOutcomeFromJS(value.Get("userChoice"))
 	out.UserChoice = value0
 	return &out
 }
@@ -295,7 +294,7 @@ type ServiceWorkerRegistrationObject struct {
 	UpdateViaCache serviceworker.ServiceWorkerUpdateViaCache
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ServiceWorkerRegistrationObject) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -311,10 +310,8 @@ func (_this *ServiceWorkerRegistrationObject) JSValue() js.Value {
 }
 
 // ServiceWorkerRegistrationObjectFromJS is allocating a new
-// ServiceWorkerRegistrationObject object and copy all values from
-// input javascript object
-func ServiceWorkerRegistrationObjectFromJS(value js.Wrapper) *ServiceWorkerRegistrationObject {
-	input := value.JSValue()
+// ServiceWorkerRegistrationObject object and copy all values in the value javascript object.
+func ServiceWorkerRegistrationObjectFromJS(value js.Value) *ServiceWorkerRegistrationObject {
 	var out ServiceWorkerRegistrationObject
 	var (
 		value0 string                                    // javascript: USVString {src Src src}
@@ -322,13 +319,13 @@ func ServiceWorkerRegistrationObjectFromJS(value js.Wrapper) *ServiceWorkerRegis
 		value2 htmlcommon.WorkerType                     // javascript: WorkerType {type Type _type}
 		value3 serviceworker.ServiceWorkerUpdateViaCache // javascript: ServiceWorkerUpdateViaCache {update_via_cache UpdateViaCache updateViaCache}
 	)
-	value0 = (input.Get("src")).String()
+	value0 = (value.Get("src")).String()
 	out.Src = value0
-	value1 = (input.Get("scope")).String()
+	value1 = (value.Get("scope")).String()
 	out.Scope = value1
-	value2 = htmlcommon.WorkerTypeFromJS(input.Get("type"))
+	value2 = htmlcommon.WorkerTypeFromJS(value.Get("type"))
 	out.Type = value2
-	value3 = serviceworker.ServiceWorkerUpdateViaCacheFromJS(input.Get("update_via_cache"))
+	value3 = serviceworker.ServiceWorkerUpdateViaCacheFromJS(value.Get("update_via_cache"))
 	out.UpdateViaCache = value3
 	return &out
 }
@@ -355,7 +352,7 @@ type WebAppManifest struct {
 	PreferRelatedApplications bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WebAppManifest) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -415,10 +412,8 @@ func (_this *WebAppManifest) JSValue() js.Value {
 }
 
 // WebAppManifestFromJS is allocating a new
-// WebAppManifest object and copy all values from
-// input javascript object
-func WebAppManifestFromJS(value js.Wrapper) *WebAppManifest {
-	input := value.JSValue()
+// WebAppManifest object and copy all values in the value javascript object.
+func WebAppManifestFromJS(value js.Value) *WebAppManifest {
 	var out WebAppManifest
 	var (
 		value0  TextDirectionType                             // javascript: TextDirectionType {dir Dir dir}
@@ -440,73 +435,73 @@ func WebAppManifestFromJS(value js.Wrapper) *WebAppManifest {
 		value16 []*appmenifestres.ExternalApplicationResource // javascript: sequence<ExternalApplicationResource> {related_applications RelatedApplications relatedApplications}
 		value17 bool                                          // javascript: boolean {prefer_related_applications PreferRelatedApplications preferRelatedApplications}
 	)
-	value0 = TextDirectionTypeFromJS(input.Get("dir"))
+	value0 = TextDirectionTypeFromJS(value.Get("dir"))
 	out.Dir = value0
-	value1 = (input.Get("lang")).String()
+	value1 = (value.Get("lang")).String()
 	out.Lang = value1
-	value2 = (input.Get("name")).String()
+	value2 = (value.Get("name")).String()
 	out.Name = value2
-	value3 = (input.Get("short_name")).String()
+	value3 = (value.Get("short_name")).String()
 	out.ShortName = value3
-	value4 = (input.Get("description")).String()
+	value4 = (value.Get("description")).String()
 	out.Description = value4
-	__length5 := input.Get("icons").Length()
+	__length5 := value.Get("icons").Length()
 	__array5 := make([]*appmenifestres.ImageResource, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 *appmenifestres.ImageResource
-		__seq_in5 := input.Get("icons").Index(__idx5)
+		__seq_in5 := value.Get("icons").Index(__idx5)
 		__seq_out5 = appmenifestres.ImageResourceFromJS(__seq_in5)
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.Icons = value5
-	__length6 := input.Get("screenshots").Length()
+	__length6 := value.Get("screenshots").Length()
 	__array6 := make([]*appmenifestres.ImageResource, __length6, __length6)
 	for __idx6 := 0; __idx6 < __length6; __idx6++ {
 		var __seq_out6 *appmenifestres.ImageResource
-		__seq_in6 := input.Get("screenshots").Index(__idx6)
+		__seq_in6 := value.Get("screenshots").Index(__idx6)
 		__seq_out6 = appmenifestres.ImageResourceFromJS(__seq_in6)
 		__array6[__idx6] = __seq_out6
 	}
 	value6 = __array6
 	out.Screenshots = value6
-	__length7 := input.Get("categories").Length()
+	__length7 := value.Get("categories").Length()
 	__array7 := make([]string, __length7, __length7)
 	for __idx7 := 0; __idx7 < __length7; __idx7++ {
 		var __seq_out7 string
-		__seq_in7 := input.Get("categories").Index(__idx7)
+		__seq_in7 := value.Get("categories").Index(__idx7)
 		__seq_out7 = (__seq_in7).String()
 		__array7[__idx7] = __seq_out7
 	}
 	value7 = __array7
 	out.Categories = value7
-	value8 = (input.Get("iarc_rating_id")).String()
+	value8 = (value.Get("iarc_rating_id")).String()
 	out.IarcRatingId = value8
-	value9 = (input.Get("start_url")).String()
+	value9 = (value.Get("start_url")).String()
 	out.StartUrl = value9
-	value10 = DisplayModeTypeFromJS(input.Get("display"))
+	value10 = DisplayModeTypeFromJS(value.Get("display"))
 	out.Display = value10
-	value11 = orientation.OrientationLockTypeFromJS(input.Get("orientation"))
+	value11 = orientation.OrientationLockTypeFromJS(value.Get("orientation"))
 	out.Orientation = value11
-	value12 = (input.Get("theme_color")).String()
+	value12 = (value.Get("theme_color")).String()
 	out.ThemeColor = value12
-	value13 = (input.Get("background_color")).String()
+	value13 = (value.Get("background_color")).String()
 	out.BackgroundColor = value13
-	value14 = (input.Get("scope")).String()
+	value14 = (value.Get("scope")).String()
 	out.Scope = value14
-	value15 = ServiceWorkerRegistrationObjectFromJS(input.Get("serviceworker"))
+	value15 = ServiceWorkerRegistrationObjectFromJS(value.Get("serviceworker"))
 	out.Serviceworker = value15
-	__length16 := input.Get("related_applications").Length()
+	__length16 := value.Get("related_applications").Length()
 	__array16 := make([]*appmenifestres.ExternalApplicationResource, __length16, __length16)
 	for __idx16 := 0; __idx16 < __length16; __idx16++ {
 		var __seq_out16 *appmenifestres.ExternalApplicationResource
-		__seq_in16 := input.Get("related_applications").Index(__idx16)
+		__seq_in16 := value.Get("related_applications").Index(__idx16)
 		__seq_out16 = appmenifestres.ExternalApplicationResourceFromJS(__seq_in16)
 		__array16[__idx16] = __seq_out16
 	}
 	value16 = __array16
 	out.RelatedApplications = value16
-	value17 = (input.Get("prefer_related_applications")).Bool()
+	value17 = (value.Get("prefer_related_applications")).Bool()
 	out.PreferRelatedApplications = value17
 	return &out
 }
@@ -516,15 +511,19 @@ type BeforeInstallPromptEvent struct {
 	domcore.Event
 }
 
-// BeforeInstallPromptEventFromJS is casting a js.Wrapper into BeforeInstallPromptEvent.
-func BeforeInstallPromptEventFromJS(value js.Wrapper) *BeforeInstallPromptEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BeforeInstallPromptEventFromJS is casting a js.Value into BeforeInstallPromptEvent.
+func BeforeInstallPromptEventFromJS(value js.Value) *BeforeInstallPromptEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BeforeInstallPromptEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BeforeInstallPromptEventFromJS is casting from something that holds a js.Value into BeforeInstallPromptEvent.
+func BeforeInstallPromptEventFromWrapper(input core.Wrapper) *BeforeInstallPromptEvent {
+	return BeforeInstallPromptEventFromJS(input.JSValue())
 }
 
 func NewBeforeInstallPromptEvent(_type string, eventInitDict *domcore.EventInit) (_result *BeforeInstallPromptEvent) {
@@ -574,15 +573,19 @@ func (_this *PromisePromptResponseObject) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePromptResponseObjectFromJS is casting a js.Wrapper into PromisePromptResponseObject.
-func PromisePromptResponseObjectFromJS(value js.Wrapper) *PromisePromptResponseObject {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePromptResponseObjectFromJS is casting a js.Value into PromisePromptResponseObject.
+func PromisePromptResponseObjectFromJS(value js.Value) *PromisePromptResponseObject {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePromptResponseObject{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePromptResponseObjectFromJS is casting from something that holds a js.Value into PromisePromptResponseObject.
+func PromisePromptResponseObjectFromWrapper(input core.Wrapper) *PromisePromptResponseObject {
+	return PromisePromptResponseObjectFromJS(input.JSValue())
 }
 
 func (_this *PromisePromptResponseObject) Then(onFulfilled *PromisePromptResponseObjectOnFulfilled, onRejected *PromisePromptResponseObjectOnRejected) (_result *PromisePromptResponseObject) {

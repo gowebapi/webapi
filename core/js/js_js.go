@@ -4,11 +4,11 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package js is equal api to syscall/js but is panic on all method invocation
-// when compiled under none wasm taget.
+// Package js is the same api as syscall/js, but when not
+// compiling under WASM target it panics.
 //
-// The usage is to get a tab complession to work inside an IDE
-// (e.g. Visual Studio Code) without changing to GOOS to js
+// The objective is to get tab completion to work inside an IDE
+// (e.g. Visual Studio Code, GoLand) without having to change GOOS to js.
 //
 // Original documentation:
 //
@@ -114,6 +114,3 @@ func ValueOf(x interface{}) Value {
 // a Value that does not support it. Such cases are documented
 // in the description of each method.
 type ValueError = js.ValueError
-
-// Wrapper is implemented by types that are backed by a JavaScript value.
-type Wrapper = js.Wrapper

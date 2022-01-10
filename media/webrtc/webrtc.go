@@ -7,6 +7,7 @@ package webrtc
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/channel"
@@ -1495,7 +1496,7 @@ type AnswerOptions struct {
 	VoiceActivityDetection bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AnswerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1505,15 +1506,13 @@ func (_this *AnswerOptions) JSValue() js.Value {
 }
 
 // AnswerOptionsFromJS is allocating a new
-// AnswerOptions object and copy all values from
-// input javascript object
-func AnswerOptionsFromJS(value js.Wrapper) *AnswerOptions {
-	input := value.JSValue()
+// AnswerOptions object and copy all values in the value javascript object.
+func AnswerOptionsFromJS(value js.Value) *AnswerOptions {
 	var out AnswerOptions
 	var (
 		value0 bool // javascript: boolean {voiceActivityDetection VoiceActivityDetection voiceActivityDetection}
 	)
-	value0 = (input.Get("voiceActivityDetection")).Bool()
+	value0 = (value.Get("voiceActivityDetection")).Bool()
 	out.VoiceActivityDetection = value0
 	return &out
 }
@@ -1523,7 +1522,7 @@ type CertificateExpiration struct {
 	Expires int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CertificateExpiration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1533,15 +1532,13 @@ func (_this *CertificateExpiration) JSValue() js.Value {
 }
 
 // CertificateExpirationFromJS is allocating a new
-// CertificateExpiration object and copy all values from
-// input javascript object
-func CertificateExpirationFromJS(value js.Wrapper) *CertificateExpiration {
-	input := value.JSValue()
+// CertificateExpiration object and copy all values in the value javascript object.
+func CertificateExpirationFromJS(value js.Value) *CertificateExpiration {
 	var out CertificateExpiration
 	var (
 		value0 int // javascript: unsigned long long {expires Expires expires}
 	)
-	value0 = (input.Get("expires")).Int()
+	value0 = (value.Get("expires")).Int()
 	out.Expires = value0
 	return &out
 }
@@ -1557,7 +1554,7 @@ type Configuration struct {
 	IceCandidatePoolSize int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Configuration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1587,10 +1584,8 @@ func (_this *Configuration) JSValue() js.Value {
 }
 
 // ConfigurationFromJS is allocating a new
-// Configuration object and copy all values from
-// input javascript object
-func ConfigurationFromJS(value js.Wrapper) *Configuration {
-	input := value.JSValue()
+// Configuration object and copy all values in the value javascript object.
+func ConfigurationFromJS(value js.Value) *Configuration {
 	var out Configuration
 	var (
 		value0 []*IceServer       // javascript: sequence<RTCIceServer> {iceServers IceServers iceServers}
@@ -1601,35 +1596,35 @@ func ConfigurationFromJS(value js.Wrapper) *Configuration {
 		value5 []*Certificate     // javascript: sequence<RTCCertificate> {certificates Certificates certificates}
 		value6 int                // javascript: octet {iceCandidatePoolSize IceCandidatePoolSize iceCandidatePoolSize}
 	)
-	__length0 := input.Get("iceServers").Length()
+	__length0 := value.Get("iceServers").Length()
 	__array0 := make([]*IceServer, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *IceServer
-		__seq_in0 := input.Get("iceServers").Index(__idx0)
+		__seq_in0 := value.Get("iceServers").Index(__idx0)
 		__seq_out0 = IceServerFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.IceServers = value0
-	value1 = IceTransportPolicyFromJS(input.Get("iceTransportPolicy"))
+	value1 = IceTransportPolicyFromJS(value.Get("iceTransportPolicy"))
 	out.IceTransportPolicy = value1
-	value2 = BundlePolicyFromJS(input.Get("bundlePolicy"))
+	value2 = BundlePolicyFromJS(value.Get("bundlePolicy"))
 	out.BundlePolicy = value2
-	value3 = RtcpMuxPolicyFromJS(input.Get("rtcpMuxPolicy"))
+	value3 = RtcpMuxPolicyFromJS(value.Get("rtcpMuxPolicy"))
 	out.RtcpMuxPolicy = value3
-	value4 = (input.Get("peerIdentity")).String()
+	value4 = (value.Get("peerIdentity")).String()
 	out.PeerIdentity = value4
-	__length5 := input.Get("certificates").Length()
+	__length5 := value.Get("certificates").Length()
 	__array5 := make([]*Certificate, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 *Certificate
-		__seq_in5 := input.Get("certificates").Index(__idx5)
+		__seq_in5 := value.Get("certificates").Index(__idx5)
 		__seq_out5 = CertificateFromJS(__seq_in5)
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.Certificates = value5
-	value6 = (input.Get("iceCandidatePoolSize")).Int()
+	value6 = (value.Get("iceCandidatePoolSize")).Int()
 	out.IceCandidatePoolSize = value6
 	return &out
 }
@@ -1642,7 +1637,7 @@ type DTMFToneChangeEventInit struct {
 	Tone       string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DTMFToneChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1658,10 +1653,8 @@ func (_this *DTMFToneChangeEventInit) JSValue() js.Value {
 }
 
 // DTMFToneChangeEventInitFromJS is allocating a new
-// DTMFToneChangeEventInit object and copy all values from
-// input javascript object
-func DTMFToneChangeEventInitFromJS(value js.Wrapper) *DTMFToneChangeEventInit {
-	input := value.JSValue()
+// DTMFToneChangeEventInit object and copy all values in the value javascript object.
+func DTMFToneChangeEventInitFromJS(value js.Value) *DTMFToneChangeEventInit {
 	var out DTMFToneChangeEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -1669,13 +1662,13 @@ func DTMFToneChangeEventInitFromJS(value js.Wrapper) *DTMFToneChangeEventInit {
 		value2 bool   // javascript: boolean {composed Composed composed}
 		value3 string // javascript: DOMString {tone Tone tone}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("tone")).String()
+	value3 = (value.Get("tone")).String()
 	out.Tone = value3
 	return &out
 }
@@ -1688,7 +1681,7 @@ type DataChannelEventInit struct {
 	Channel    *DataChannel
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DataChannelEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1704,10 +1697,8 @@ func (_this *DataChannelEventInit) JSValue() js.Value {
 }
 
 // DataChannelEventInitFromJS is allocating a new
-// DataChannelEventInit object and copy all values from
-// input javascript object
-func DataChannelEventInitFromJS(value js.Wrapper) *DataChannelEventInit {
-	input := value.JSValue()
+// DataChannelEventInit object and copy all values in the value javascript object.
+func DataChannelEventInitFromJS(value js.Value) *DataChannelEventInit {
 	var out DataChannelEventInit
 	var (
 		value0 bool         // javascript: boolean {bubbles Bubbles bubbles}
@@ -1715,13 +1706,13 @@ func DataChannelEventInitFromJS(value js.Wrapper) *DataChannelEventInit {
 		value2 bool         // javascript: boolean {composed Composed composed}
 		value3 *DataChannel // javascript: RTCDataChannel {channel Channel channel}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = DataChannelFromJS(input.Get("channel"))
+	value3 = DataChannelFromJS(value.Get("channel"))
 	out.Channel = value3
 	return &out
 }
@@ -1737,7 +1728,7 @@ type DataChannelInit struct {
 	Priority          PriorityType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DataChannelInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1759,10 +1750,8 @@ func (_this *DataChannelInit) JSValue() js.Value {
 }
 
 // DataChannelInitFromJS is allocating a new
-// DataChannelInit object and copy all values from
-// input javascript object
-func DataChannelInitFromJS(value js.Wrapper) *DataChannelInit {
-	input := value.JSValue()
+// DataChannelInit object and copy all values in the value javascript object.
+func DataChannelInitFromJS(value js.Value) *DataChannelInit {
 	var out DataChannelInit
 	var (
 		value0 bool         // javascript: boolean {ordered Ordered ordered}
@@ -1773,19 +1762,19 @@ func DataChannelInitFromJS(value js.Wrapper) *DataChannelInit {
 		value5 int          // javascript: unsigned short {id Id id}
 		value6 PriorityType // javascript: RTCPriorityType {priority Priority priority}
 	)
-	value0 = (input.Get("ordered")).Bool()
+	value0 = (value.Get("ordered")).Bool()
 	out.Ordered = value0
-	value1 = (input.Get("maxPacketLifeTime")).Int()
+	value1 = (value.Get("maxPacketLifeTime")).Int()
 	out.MaxPacketLifeTime = value1
-	value2 = (input.Get("maxRetransmits")).Int()
+	value2 = (value.Get("maxRetransmits")).Int()
 	out.MaxRetransmits = value2
-	value3 = (input.Get("protocol")).String()
+	value3 = (value.Get("protocol")).String()
 	out.Protocol = value3
-	value4 = (input.Get("negotiated")).Bool()
+	value4 = (value.Get("negotiated")).Bool()
 	out.Negotiated = value4
-	value5 = (input.Get("id")).Int()
+	value5 = (value.Get("id")).Int()
 	out.Id = value5
-	value6 = PriorityTypeFromJS(input.Get("priority"))
+	value6 = PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value6
 	return &out
 }
@@ -1796,7 +1785,7 @@ type DtlsFingerprint struct {
 	Value     string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DtlsFingerprint) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1808,18 +1797,16 @@ func (_this *DtlsFingerprint) JSValue() js.Value {
 }
 
 // DtlsFingerprintFromJS is allocating a new
-// DtlsFingerprint object and copy all values from
-// input javascript object
-func DtlsFingerprintFromJS(value js.Wrapper) *DtlsFingerprint {
-	input := value.JSValue()
+// DtlsFingerprint object and copy all values in the value javascript object.
+func DtlsFingerprintFromJS(value js.Value) *DtlsFingerprint {
 	var out DtlsFingerprint
 	var (
 		value0 string // javascript: DOMString {algorithm Algorithm algorithm}
 		value1 string // javascript: DOMString {value Value value}
 	)
-	value0 = (input.Get("algorithm")).String()
+	value0 = (value.Get("algorithm")).String()
 	out.Algorithm = value0
-	value1 = (input.Get("value")).String()
+	value1 = (value.Get("value")).String()
 	out.Value = value1
 	return &out
 }
@@ -1832,7 +1819,7 @@ type ErrorEventInit struct {
 	Error      *Error
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1848,10 +1835,8 @@ func (_this *ErrorEventInit) JSValue() js.Value {
 }
 
 // ErrorEventInitFromJS is allocating a new
-// ErrorEventInit object and copy all values from
-// input javascript object
-func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
-	input := value.JSValue()
+// ErrorEventInit object and copy all values in the value javascript object.
+func ErrorEventInitFromJS(value js.Value) *ErrorEventInit {
 	var out ErrorEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -1859,14 +1844,14 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 		value2 bool   // javascript: boolean {composed Composed composed}
 		value3 *Error // javascript: RTCError {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("error").Type() != js.TypeNull && input.Get("error").Type() != js.TypeUndefined {
-		value3 = ErrorFromJS(input.Get("error"))
+	if value.Get("error").Type() != js.TypeNull && value.Get("error").Type() != js.TypeUndefined {
+		value3 = ErrorFromJS(value.Get("error"))
 	}
 	out.Error = value3
 	return &out
@@ -1880,7 +1865,7 @@ type IceCandidateInit struct {
 	UsernameFragment string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceCandidateInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1908,10 +1893,8 @@ func (_this *IceCandidateInit) JSValue() js.Value {
 }
 
 // IceCandidateInitFromJS is allocating a new
-// IceCandidateInit object and copy all values from
-// input javascript object
-func IceCandidateInitFromJS(value js.Wrapper) *IceCandidateInit {
-	input := value.JSValue()
+// IceCandidateInit object and copy all values in the value javascript object.
+func IceCandidateInitFromJS(value js.Value) *IceCandidateInit {
 	var out IceCandidateInit
 	var (
 		value0 string  // javascript: DOMString {candidate Candidate candidate}
@@ -1919,19 +1902,19 @@ func IceCandidateInitFromJS(value js.Wrapper) *IceCandidateInit {
 		value2 *int    // javascript: unsigned short {sdpMLineIndex SdpMLineIndex sdpMLineIndex}
 		value3 string  // javascript: DOMString {usernameFragment UsernameFragment usernameFragment}
 	)
-	value0 = (input.Get("candidate")).String()
+	value0 = (value.Get("candidate")).String()
 	out.Candidate = value0
-	if input.Get("sdpMid").Type() != js.TypeNull && input.Get("sdpMid").Type() != js.TypeUndefined {
-		__tmp := (input.Get("sdpMid")).String()
+	if value.Get("sdpMid").Type() != js.TypeNull && value.Get("sdpMid").Type() != js.TypeUndefined {
+		__tmp := (value.Get("sdpMid")).String()
 		value1 = &__tmp
 	}
 	out.SdpMid = value1
-	if input.Get("sdpMLineIndex").Type() != js.TypeNull && input.Get("sdpMLineIndex").Type() != js.TypeUndefined {
-		__tmp := (input.Get("sdpMLineIndex")).Int()
+	if value.Get("sdpMLineIndex").Type() != js.TypeNull && value.Get("sdpMLineIndex").Type() != js.TypeUndefined {
+		__tmp := (value.Get("sdpMLineIndex")).Int()
 		value2 = &__tmp
 	}
 	out.SdpMLineIndex = value2
-	value3 = (input.Get("usernameFragment")).String()
+	value3 = (value.Get("usernameFragment")).String()
 	out.UsernameFragment = value3
 	return &out
 }
@@ -1942,7 +1925,7 @@ type IceCandidatePair struct {
 	Remote *IceCandidate
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceCandidatePair) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1954,18 +1937,16 @@ func (_this *IceCandidatePair) JSValue() js.Value {
 }
 
 // IceCandidatePairFromJS is allocating a new
-// IceCandidatePair object and copy all values from
-// input javascript object
-func IceCandidatePairFromJS(value js.Wrapper) *IceCandidatePair {
-	input := value.JSValue()
+// IceCandidatePair object and copy all values in the value javascript object.
+func IceCandidatePairFromJS(value js.Value) *IceCandidatePair {
 	var out IceCandidatePair
 	var (
 		value0 *IceCandidate // javascript: RTCIceCandidate {local Local local}
 		value1 *IceCandidate // javascript: RTCIceCandidate {remote Remote remote}
 	)
-	value0 = IceCandidateFromJS(input.Get("local"))
+	value0 = IceCandidateFromJS(value.Get("local"))
 	out.Local = value0
-	value1 = IceCandidateFromJS(input.Get("remote"))
+	value1 = IceCandidateFromJS(value.Get("remote"))
 	out.Remote = value1
 	return &out
 }
@@ -1976,7 +1957,7 @@ type IceParameters struct {
 	Password         string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1988,18 +1969,16 @@ func (_this *IceParameters) JSValue() js.Value {
 }
 
 // IceParametersFromJS is allocating a new
-// IceParameters object and copy all values from
-// input javascript object
-func IceParametersFromJS(value js.Wrapper) *IceParameters {
-	input := value.JSValue()
+// IceParameters object and copy all values in the value javascript object.
+func IceParametersFromJS(value js.Value) *IceParameters {
 	var out IceParameters
 	var (
 		value0 string // javascript: DOMString {usernameFragment UsernameFragment usernameFragment}
 		value1 string // javascript: DOMString {password Password password}
 	)
-	value0 = (input.Get("usernameFragment")).String()
+	value0 = (value.Get("usernameFragment")).String()
 	out.UsernameFragment = value0
-	value1 = (input.Get("password")).String()
+	value1 = (value.Get("password")).String()
 	out.Password = value1
 	return &out
 }
@@ -2012,7 +1991,7 @@ type IceServer struct {
 	CredentialType IceCredentialType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IceServer) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2028,10 +2007,8 @@ func (_this *IceServer) JSValue() js.Value {
 }
 
 // IceServerFromJS is allocating a new
-// IceServer object and copy all values from
-// input javascript object
-func IceServerFromJS(value js.Wrapper) *IceServer {
-	input := value.JSValue()
+// IceServer object and copy all values in the value javascript object.
+func IceServerFromJS(value js.Value) *IceServer {
 	var out IceServer
 	var (
 		value0 *Union            // javascript: Union {urls Urls urls}
@@ -2039,13 +2016,13 @@ func IceServerFromJS(value js.Wrapper) *IceServer {
 		value2 *Union            // javascript: Union {credential Credential credential}
 		value3 IceCredentialType // javascript: RTCIceCredentialType {credentialType CredentialType credentialType}
 	)
-	value0 = UnionFromJS(input.Get("urls"))
+	value0 = UnionFromJS(value.Get("urls"))
 	out.Urls = value0
-	value1 = (input.Get("username")).String()
+	value1 = (value.Get("username")).String()
 	out.Username = value1
-	value2 = UnionFromJS(input.Get("credential"))
+	value2 = UnionFromJS(value.Get("credential"))
 	out.Credential = value2
-	value3 = IceCredentialTypeFromJS(input.Get("credentialType"))
+	value3 = IceCredentialTypeFromJS(value.Get("credentialType"))
 	out.CredentialType = value3
 	return &out
 }
@@ -2056,7 +2033,7 @@ type OAuthCredential struct {
 	AccessToken string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OAuthCredential) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2068,18 +2045,16 @@ func (_this *OAuthCredential) JSValue() js.Value {
 }
 
 // OAuthCredentialFromJS is allocating a new
-// OAuthCredential object and copy all values from
-// input javascript object
-func OAuthCredentialFromJS(value js.Wrapper) *OAuthCredential {
-	input := value.JSValue()
+// OAuthCredential object and copy all values in the value javascript object.
+func OAuthCredentialFromJS(value js.Value) *OAuthCredential {
 	var out OAuthCredential
 	var (
 		value0 string // javascript: DOMString {macKey MacKey macKey}
 		value1 string // javascript: DOMString {accessToken AccessToken accessToken}
 	)
-	value0 = (input.Get("macKey")).String()
+	value0 = (value.Get("macKey")).String()
 	out.MacKey = value0
-	value1 = (input.Get("accessToken")).String()
+	value1 = (value.Get("accessToken")).String()
 	out.AccessToken = value1
 	return &out
 }
@@ -2089,7 +2064,7 @@ type OfferAnswerOptions struct {
 	VoiceActivityDetection bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OfferAnswerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2099,15 +2074,13 @@ func (_this *OfferAnswerOptions) JSValue() js.Value {
 }
 
 // OfferAnswerOptionsFromJS is allocating a new
-// OfferAnswerOptions object and copy all values from
-// input javascript object
-func OfferAnswerOptionsFromJS(value js.Wrapper) *OfferAnswerOptions {
-	input := value.JSValue()
+// OfferAnswerOptions object and copy all values in the value javascript object.
+func OfferAnswerOptionsFromJS(value js.Value) *OfferAnswerOptions {
 	var out OfferAnswerOptions
 	var (
 		value0 bool // javascript: boolean {voiceActivityDetection VoiceActivityDetection voiceActivityDetection}
 	)
-	value0 = (input.Get("voiceActivityDetection")).Bool()
+	value0 = (value.Get("voiceActivityDetection")).Bool()
 	out.VoiceActivityDetection = value0
 	return &out
 }
@@ -2120,7 +2093,7 @@ type OfferOptions struct {
 	OfferToReceiveVideo    bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OfferOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2136,10 +2109,8 @@ func (_this *OfferOptions) JSValue() js.Value {
 }
 
 // OfferOptionsFromJS is allocating a new
-// OfferOptions object and copy all values from
-// input javascript object
-func OfferOptionsFromJS(value js.Wrapper) *OfferOptions {
-	input := value.JSValue()
+// OfferOptions object and copy all values in the value javascript object.
+func OfferOptionsFromJS(value js.Value) *OfferOptions {
 	var out OfferOptions
 	var (
 		value0 bool // javascript: boolean {voiceActivityDetection VoiceActivityDetection voiceActivityDetection}
@@ -2147,13 +2118,13 @@ func OfferOptionsFromJS(value js.Wrapper) *OfferOptions {
 		value2 bool // javascript: boolean {offerToReceiveAudio OfferToReceiveAudio offerToReceiveAudio}
 		value3 bool // javascript: boolean {offerToReceiveVideo OfferToReceiveVideo offerToReceiveVideo}
 	)
-	value0 = (input.Get("voiceActivityDetection")).Bool()
+	value0 = (value.Get("voiceActivityDetection")).Bool()
 	out.VoiceActivityDetection = value0
-	value1 = (input.Get("iceRestart")).Bool()
+	value1 = (value.Get("iceRestart")).Bool()
 	out.IceRestart = value1
-	value2 = (input.Get("offerToReceiveAudio")).Bool()
+	value2 = (value.Get("offerToReceiveAudio")).Bool()
 	out.OfferToReceiveAudio = value2
-	value3 = (input.Get("offerToReceiveVideo")).Bool()
+	value3 = (value.Get("offerToReceiveVideo")).Bool()
 	out.OfferToReceiveVideo = value3
 	return &out
 }
@@ -2169,7 +2140,7 @@ type PeerConnectionIceErrorEventInit struct {
 	StatusText    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PeerConnectionIceErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2191,10 +2162,8 @@ func (_this *PeerConnectionIceErrorEventInit) JSValue() js.Value {
 }
 
 // PeerConnectionIceErrorEventInitFromJS is allocating a new
-// PeerConnectionIceErrorEventInit object and copy all values from
-// input javascript object
-func PeerConnectionIceErrorEventInitFromJS(value js.Wrapper) *PeerConnectionIceErrorEventInit {
-	input := value.JSValue()
+// PeerConnectionIceErrorEventInit object and copy all values in the value javascript object.
+func PeerConnectionIceErrorEventInitFromJS(value js.Value) *PeerConnectionIceErrorEventInit {
 	var out PeerConnectionIceErrorEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -2205,19 +2174,19 @@ func PeerConnectionIceErrorEventInitFromJS(value js.Wrapper) *PeerConnectionIceE
 		value5 int    // javascript: unsigned short {errorCode ErrorCode errorCode}
 		value6 string // javascript: USVString {statusText StatusText statusText}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("hostCandidate")).String()
+	value3 = (value.Get("hostCandidate")).String()
 	out.HostCandidate = value3
-	value4 = (input.Get("url")).String()
+	value4 = (value.Get("url")).String()
 	out.Url = value4
-	value5 = (input.Get("errorCode")).Int()
+	value5 = (value.Get("errorCode")).Int()
 	out.ErrorCode = value5
-	value6 = (input.Get("statusText")).String()
+	value6 = (value.Get("statusText")).String()
 	out.StatusText = value6
 	return &out
 }
@@ -2231,7 +2200,7 @@ type PeerConnectionIceEventInit struct {
 	Url        *string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PeerConnectionIceEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2255,10 +2224,8 @@ func (_this *PeerConnectionIceEventInit) JSValue() js.Value {
 }
 
 // PeerConnectionIceEventInitFromJS is allocating a new
-// PeerConnectionIceEventInit object and copy all values from
-// input javascript object
-func PeerConnectionIceEventInitFromJS(value js.Wrapper) *PeerConnectionIceEventInit {
-	input := value.JSValue()
+// PeerConnectionIceEventInit object and copy all values in the value javascript object.
+func PeerConnectionIceEventInitFromJS(value js.Value) *PeerConnectionIceEventInit {
 	var out PeerConnectionIceEventInit
 	var (
 		value0 bool          // javascript: boolean {bubbles Bubbles bubbles}
@@ -2267,18 +2234,18 @@ func PeerConnectionIceEventInitFromJS(value js.Wrapper) *PeerConnectionIceEventI
 		value3 *IceCandidate // javascript: RTCIceCandidate {candidate Candidate candidate}
 		value4 *string       // javascript: DOMString {url Url url}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("candidate").Type() != js.TypeNull && input.Get("candidate").Type() != js.TypeUndefined {
-		value3 = IceCandidateFromJS(input.Get("candidate"))
+	if value.Get("candidate").Type() != js.TypeNull && value.Get("candidate").Type() != js.TypeUndefined {
+		value3 = IceCandidateFromJS(value.Get("candidate"))
 	}
 	out.Candidate = value3
-	if input.Get("url").Type() != js.TypeNull && input.Get("url").Type() != js.TypeUndefined {
-		__tmp := (input.Get("url")).String()
+	if value.Get("url").Type() != js.TypeNull && value.Get("url").Type() != js.TypeUndefined {
+		__tmp := (value.Get("url")).String()
 		value4 = &__tmp
 	}
 	out.Url = value4
@@ -2291,7 +2258,7 @@ type RtcpParameters struct {
 	ReducedSize bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtcpParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2303,18 +2270,16 @@ func (_this *RtcpParameters) JSValue() js.Value {
 }
 
 // RtcpParametersFromJS is allocating a new
-// RtcpParameters object and copy all values from
-// input javascript object
-func RtcpParametersFromJS(value js.Wrapper) *RtcpParameters {
-	input := value.JSValue()
+// RtcpParameters object and copy all values in the value javascript object.
+func RtcpParametersFromJS(value js.Value) *RtcpParameters {
 	var out RtcpParameters
 	var (
 		value0 string // javascript: DOMString {cname Cname cname}
 		value1 bool   // javascript: boolean {reducedSize ReducedSize reducedSize}
 	)
-	value0 = (input.Get("cname")).String()
+	value0 = (value.Get("cname")).String()
 	out.Cname = value0
-	value1 = (input.Get("reducedSize")).Bool()
+	value1 = (value.Get("reducedSize")).Bool()
 	out.ReducedSize = value1
 	return &out
 }
@@ -2325,7 +2290,7 @@ type RtpCapabilities struct {
 	HeaderExtensions []*RtpHeaderExtensionCapability
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpCapabilities) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2345,30 +2310,28 @@ func (_this *RtpCapabilities) JSValue() js.Value {
 }
 
 // RtpCapabilitiesFromJS is allocating a new
-// RtpCapabilities object and copy all values from
-// input javascript object
-func RtpCapabilitiesFromJS(value js.Wrapper) *RtpCapabilities {
-	input := value.JSValue()
+// RtpCapabilities object and copy all values in the value javascript object.
+func RtpCapabilitiesFromJS(value js.Value) *RtpCapabilities {
 	var out RtpCapabilities
 	var (
 		value0 []*RtpCodecCapability           // javascript: sequence<RTCRtpCodecCapability> {codecs Codecs codecs}
 		value1 []*RtpHeaderExtensionCapability // javascript: sequence<RTCRtpHeaderExtensionCapability> {headerExtensions HeaderExtensions headerExtensions}
 	)
-	__length0 := input.Get("codecs").Length()
+	__length0 := value.Get("codecs").Length()
 	__array0 := make([]*RtpCodecCapability, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *RtpCodecCapability
-		__seq_in0 := input.Get("codecs").Index(__idx0)
+		__seq_in0 := value.Get("codecs").Index(__idx0)
 		__seq_out0 = RtpCodecCapabilityFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Codecs = value0
-	__length1 := input.Get("headerExtensions").Length()
+	__length1 := value.Get("headerExtensions").Length()
 	__array1 := make([]*RtpHeaderExtensionCapability, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *RtpHeaderExtensionCapability
-		__seq_in1 := input.Get("headerExtensions").Index(__idx1)
+		__seq_in1 := value.Get("headerExtensions").Index(__idx1)
 		__seq_out1 = RtpHeaderExtensionCapabilityFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
@@ -2385,7 +2348,7 @@ type RtpCodecCapability struct {
 	SdpFmtpLine string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpCodecCapability) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2401,10 +2364,8 @@ func (_this *RtpCodecCapability) JSValue() js.Value {
 }
 
 // RtpCodecCapabilityFromJS is allocating a new
-// RtpCodecCapability object and copy all values from
-// input javascript object
-func RtpCodecCapabilityFromJS(value js.Wrapper) *RtpCodecCapability {
-	input := value.JSValue()
+// RtpCodecCapability object and copy all values in the value javascript object.
+func RtpCodecCapabilityFromJS(value js.Value) *RtpCodecCapability {
 	var out RtpCodecCapability
 	var (
 		value0 string // javascript: DOMString {mimeType MimeType mimeType}
@@ -2412,13 +2373,13 @@ func RtpCodecCapabilityFromJS(value js.Wrapper) *RtpCodecCapability {
 		value2 int    // javascript: unsigned short {channels Channels channels}
 		value3 string // javascript: DOMString {sdpFmtpLine SdpFmtpLine sdpFmtpLine}
 	)
-	value0 = (input.Get("mimeType")).String()
+	value0 = (value.Get("mimeType")).String()
 	out.MimeType = value0
-	value1 = (uint)((input.Get("clockRate")).Int())
+	value1 = (uint)((value.Get("clockRate")).Int())
 	out.ClockRate = value1
-	value2 = (input.Get("channels")).Int()
+	value2 = (value.Get("channels")).Int()
 	out.Channels = value2
-	value3 = (input.Get("sdpFmtpLine")).String()
+	value3 = (value.Get("sdpFmtpLine")).String()
 	out.SdpFmtpLine = value3
 	return &out
 }
@@ -2432,7 +2393,7 @@ type RtpCodecParameters struct {
 	SdpFmtpLine string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpCodecParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2450,10 +2411,8 @@ func (_this *RtpCodecParameters) JSValue() js.Value {
 }
 
 // RtpCodecParametersFromJS is allocating a new
-// RtpCodecParameters object and copy all values from
-// input javascript object
-func RtpCodecParametersFromJS(value js.Wrapper) *RtpCodecParameters {
-	input := value.JSValue()
+// RtpCodecParameters object and copy all values in the value javascript object.
+func RtpCodecParametersFromJS(value js.Value) *RtpCodecParameters {
 	var out RtpCodecParameters
 	var (
 		value0 int    // javascript: octet {payloadType PayloadType payloadType}
@@ -2462,15 +2421,15 @@ func RtpCodecParametersFromJS(value js.Wrapper) *RtpCodecParameters {
 		value3 int    // javascript: unsigned short {channels Channels channels}
 		value4 string // javascript: DOMString {sdpFmtpLine SdpFmtpLine sdpFmtpLine}
 	)
-	value0 = (input.Get("payloadType")).Int()
+	value0 = (value.Get("payloadType")).Int()
 	out.PayloadType = value0
-	value1 = (input.Get("mimeType")).String()
+	value1 = (value.Get("mimeType")).String()
 	out.MimeType = value1
-	value2 = (uint)((input.Get("clockRate")).Int())
+	value2 = (uint)((value.Get("clockRate")).Int())
 	out.ClockRate = value2
-	value3 = (input.Get("channels")).Int()
+	value3 = (value.Get("channels")).Int()
 	out.Channels = value3
-	value4 = (input.Get("sdpFmtpLine")).String()
+	value4 = (value.Get("sdpFmtpLine")).String()
 	out.SdpFmtpLine = value4
 	return &out
 }
@@ -2480,7 +2439,7 @@ type RtpCodingParameters struct {
 	Rid string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpCodingParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2490,15 +2449,13 @@ func (_this *RtpCodingParameters) JSValue() js.Value {
 }
 
 // RtpCodingParametersFromJS is allocating a new
-// RtpCodingParameters object and copy all values from
-// input javascript object
-func RtpCodingParametersFromJS(value js.Wrapper) *RtpCodingParameters {
-	input := value.JSValue()
+// RtpCodingParameters object and copy all values in the value javascript object.
+func RtpCodingParametersFromJS(value js.Value) *RtpCodingParameters {
 	var out RtpCodingParameters
 	var (
 		value0 string // javascript: DOMString {rid Rid rid}
 	)
-	value0 = (input.Get("rid")).String()
+	value0 = (value.Get("rid")).String()
 	out.Rid = value0
 	return &out
 }
@@ -2510,7 +2467,7 @@ type RtpContributingSource struct {
 	AudioLevel float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpContributingSource) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2524,21 +2481,19 @@ func (_this *RtpContributingSource) JSValue() js.Value {
 }
 
 // RtpContributingSourceFromJS is allocating a new
-// RtpContributingSource object and copy all values from
-// input javascript object
-func RtpContributingSourceFromJS(value js.Wrapper) *RtpContributingSource {
-	input := value.JSValue()
+// RtpContributingSource object and copy all values in the value javascript object.
+func RtpContributingSourceFromJS(value js.Value) *RtpContributingSource {
 	var out RtpContributingSource
 	var (
 		value0 float64 // javascript: double {timestamp Timestamp timestamp}
 		value1 uint    // javascript: unsigned long {source Source source}
 		value2 float64 // javascript: double {audioLevel AudioLevel audioLevel}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = (uint)((input.Get("source")).Int())
+	value1 = (uint)((value.Get("source")).Int())
 	out.Source = value1
-	value2 = (input.Get("audioLevel")).Float()
+	value2 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value2
 	return &out
 }
@@ -2548,7 +2503,7 @@ type RtpDecodingParameters struct {
 	Rid string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpDecodingParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2558,15 +2513,13 @@ func (_this *RtpDecodingParameters) JSValue() js.Value {
 }
 
 // RtpDecodingParametersFromJS is allocating a new
-// RtpDecodingParameters object and copy all values from
-// input javascript object
-func RtpDecodingParametersFromJS(value js.Wrapper) *RtpDecodingParameters {
-	input := value.JSValue()
+// RtpDecodingParameters object and copy all values in the value javascript object.
+func RtpDecodingParametersFromJS(value js.Value) *RtpDecodingParameters {
 	var out RtpDecodingParameters
 	var (
 		value0 string // javascript: DOMString {rid Rid rid}
 	)
-	value0 = (input.Get("rid")).String()
+	value0 = (value.Get("rid")).String()
 	out.Rid = value0
 	return &out
 }
@@ -2584,7 +2537,7 @@ type RtpEncodingParameters struct {
 	NetworkPriority       PriorityType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpEncodingParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2610,10 +2563,8 @@ func (_this *RtpEncodingParameters) JSValue() js.Value {
 }
 
 // RtpEncodingParametersFromJS is allocating a new
-// RtpEncodingParameters object and copy all values from
-// input javascript object
-func RtpEncodingParametersFromJS(value js.Wrapper) *RtpEncodingParameters {
-	input := value.JSValue()
+// RtpEncodingParameters object and copy all values in the value javascript object.
+func RtpEncodingParametersFromJS(value js.Value) *RtpEncodingParameters {
 	var out RtpEncodingParameters
 	var (
 		value0 string       // javascript: DOMString {rid Rid rid}
@@ -2626,23 +2577,23 @@ func RtpEncodingParametersFromJS(value js.Wrapper) *RtpEncodingParameters {
 		value7 float64      // javascript: double {scaleResolutionDownBy ScaleResolutionDownBy scaleResolutionDownBy}
 		value8 PriorityType // javascript: RTCPriorityType {networkPriority NetworkPriority networkPriority}
 	)
-	value0 = (input.Get("rid")).String()
+	value0 = (value.Get("rid")).String()
 	out.Rid = value0
-	value1 = (input.Get("codecPayloadType")).Int()
+	value1 = (value.Get("codecPayloadType")).Int()
 	out.CodecPayloadType = value1
-	value2 = DtxStatusFromJS(input.Get("dtx"))
+	value2 = DtxStatusFromJS(value.Get("dtx"))
 	out.Dtx = value2
-	value3 = (input.Get("active")).Bool()
+	value3 = (value.Get("active")).Bool()
 	out.Active = value3
-	value4 = (uint)((input.Get("ptime")).Int())
+	value4 = (uint)((value.Get("ptime")).Int())
 	out.Ptime = value4
-	value5 = (uint)((input.Get("maxBitrate")).Int())
+	value5 = (uint)((value.Get("maxBitrate")).Int())
 	out.MaxBitrate = value5
-	value6 = (input.Get("maxFramerate")).Float()
+	value6 = (value.Get("maxFramerate")).Float()
 	out.MaxFramerate = value6
-	value7 = (input.Get("scaleResolutionDownBy")).Float()
+	value7 = (value.Get("scaleResolutionDownBy")).Float()
 	out.ScaleResolutionDownBy = value7
-	value8 = PriorityTypeFromJS(input.Get("networkPriority"))
+	value8 = PriorityTypeFromJS(value.Get("networkPriority"))
 	out.NetworkPriority = value8
 	return &out
 }
@@ -2652,7 +2603,7 @@ type RtpHeaderExtensionCapability struct {
 	Uri string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpHeaderExtensionCapability) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2662,15 +2613,13 @@ func (_this *RtpHeaderExtensionCapability) JSValue() js.Value {
 }
 
 // RtpHeaderExtensionCapabilityFromJS is allocating a new
-// RtpHeaderExtensionCapability object and copy all values from
-// input javascript object
-func RtpHeaderExtensionCapabilityFromJS(value js.Wrapper) *RtpHeaderExtensionCapability {
-	input := value.JSValue()
+// RtpHeaderExtensionCapability object and copy all values in the value javascript object.
+func RtpHeaderExtensionCapabilityFromJS(value js.Value) *RtpHeaderExtensionCapability {
 	var out RtpHeaderExtensionCapability
 	var (
 		value0 string // javascript: DOMString {uri Uri uri}
 	)
-	value0 = (input.Get("uri")).String()
+	value0 = (value.Get("uri")).String()
 	out.Uri = value0
 	return &out
 }
@@ -2682,7 +2631,7 @@ type RtpHeaderExtensionParameters struct {
 	Encrypted bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpHeaderExtensionParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2696,21 +2645,19 @@ func (_this *RtpHeaderExtensionParameters) JSValue() js.Value {
 }
 
 // RtpHeaderExtensionParametersFromJS is allocating a new
-// RtpHeaderExtensionParameters object and copy all values from
-// input javascript object
-func RtpHeaderExtensionParametersFromJS(value js.Wrapper) *RtpHeaderExtensionParameters {
-	input := value.JSValue()
+// RtpHeaderExtensionParameters object and copy all values in the value javascript object.
+func RtpHeaderExtensionParametersFromJS(value js.Value) *RtpHeaderExtensionParameters {
 	var out RtpHeaderExtensionParameters
 	var (
 		value0 string // javascript: DOMString {uri Uri uri}
 		value1 int    // javascript: unsigned short {id Id id}
 		value2 bool   // javascript: boolean {encrypted Encrypted encrypted}
 	)
-	value0 = (input.Get("uri")).String()
+	value0 = (value.Get("uri")).String()
 	out.Uri = value0
-	value1 = (input.Get("id")).Int()
+	value1 = (value.Get("id")).Int()
 	out.Id = value1
-	value2 = (input.Get("encrypted")).Bool()
+	value2 = (value.Get("encrypted")).Bool()
 	out.Encrypted = value2
 	return &out
 }
@@ -2722,7 +2669,7 @@ type RtpParameters struct {
 	Codecs           []*RtpCodecParameters
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2744,33 +2691,31 @@ func (_this *RtpParameters) JSValue() js.Value {
 }
 
 // RtpParametersFromJS is allocating a new
-// RtpParameters object and copy all values from
-// input javascript object
-func RtpParametersFromJS(value js.Wrapper) *RtpParameters {
-	input := value.JSValue()
+// RtpParameters object and copy all values in the value javascript object.
+func RtpParametersFromJS(value js.Value) *RtpParameters {
 	var out RtpParameters
 	var (
 		value0 []*RtpHeaderExtensionParameters // javascript: sequence<RTCRtpHeaderExtensionParameters> {headerExtensions HeaderExtensions headerExtensions}
 		value1 *RtcpParameters                 // javascript: RTCRtcpParameters {rtcp Rtcp rtcp}
 		value2 []*RtpCodecParameters           // javascript: sequence<RTCRtpCodecParameters> {codecs Codecs codecs}
 	)
-	__length0 := input.Get("headerExtensions").Length()
+	__length0 := value.Get("headerExtensions").Length()
 	__array0 := make([]*RtpHeaderExtensionParameters, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *RtpHeaderExtensionParameters
-		__seq_in0 := input.Get("headerExtensions").Index(__idx0)
+		__seq_in0 := value.Get("headerExtensions").Index(__idx0)
 		__seq_out0 = RtpHeaderExtensionParametersFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.HeaderExtensions = value0
-	value1 = RtcpParametersFromJS(input.Get("rtcp"))
+	value1 = RtcpParametersFromJS(value.Get("rtcp"))
 	out.Rtcp = value1
-	__length2 := input.Get("codecs").Length()
+	__length2 := value.Get("codecs").Length()
 	__array2 := make([]*RtpCodecParameters, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *RtpCodecParameters
-		__seq_in2 := input.Get("codecs").Index(__idx2)
+		__seq_in2 := value.Get("codecs").Index(__idx2)
 		__seq_out2 = RtpCodecParametersFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
@@ -2787,7 +2732,7 @@ type RtpReceiveParameters struct {
 	Encodings        []*RtpDecodingParameters
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpReceiveParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2815,10 +2760,8 @@ func (_this *RtpReceiveParameters) JSValue() js.Value {
 }
 
 // RtpReceiveParametersFromJS is allocating a new
-// RtpReceiveParameters object and copy all values from
-// input javascript object
-func RtpReceiveParametersFromJS(value js.Wrapper) *RtpReceiveParameters {
-	input := value.JSValue()
+// RtpReceiveParameters object and copy all values in the value javascript object.
+func RtpReceiveParametersFromJS(value js.Value) *RtpReceiveParameters {
 	var out RtpReceiveParameters
 	var (
 		value0 []*RtpHeaderExtensionParameters // javascript: sequence<RTCRtpHeaderExtensionParameters> {headerExtensions HeaderExtensions headerExtensions}
@@ -2826,33 +2769,33 @@ func RtpReceiveParametersFromJS(value js.Wrapper) *RtpReceiveParameters {
 		value2 []*RtpCodecParameters           // javascript: sequence<RTCRtpCodecParameters> {codecs Codecs codecs}
 		value3 []*RtpDecodingParameters        // javascript: sequence<RTCRtpDecodingParameters> {encodings Encodings encodings}
 	)
-	__length0 := input.Get("headerExtensions").Length()
+	__length0 := value.Get("headerExtensions").Length()
 	__array0 := make([]*RtpHeaderExtensionParameters, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *RtpHeaderExtensionParameters
-		__seq_in0 := input.Get("headerExtensions").Index(__idx0)
+		__seq_in0 := value.Get("headerExtensions").Index(__idx0)
 		__seq_out0 = RtpHeaderExtensionParametersFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.HeaderExtensions = value0
-	value1 = RtcpParametersFromJS(input.Get("rtcp"))
+	value1 = RtcpParametersFromJS(value.Get("rtcp"))
 	out.Rtcp = value1
-	__length2 := input.Get("codecs").Length()
+	__length2 := value.Get("codecs").Length()
 	__array2 := make([]*RtpCodecParameters, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *RtpCodecParameters
-		__seq_in2 := input.Get("codecs").Index(__idx2)
+		__seq_in2 := value.Get("codecs").Index(__idx2)
 		__seq_out2 = RtpCodecParametersFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.Codecs = value2
-	__length3 := input.Get("encodings").Length()
+	__length3 := value.Get("encodings").Length()
 	__array3 := make([]*RtpDecodingParameters, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *RtpDecodingParameters
-		__seq_in3 := input.Get("encodings").Index(__idx3)
+		__seq_in3 := value.Get("encodings").Index(__idx3)
 		__seq_out3 = RtpDecodingParametersFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
@@ -2872,7 +2815,7 @@ type RtpSendParameters struct {
 	Priority              PriorityType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpSendParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2906,10 +2849,8 @@ func (_this *RtpSendParameters) JSValue() js.Value {
 }
 
 // RtpSendParametersFromJS is allocating a new
-// RtpSendParameters object and copy all values from
-// input javascript object
-func RtpSendParametersFromJS(value js.Wrapper) *RtpSendParameters {
-	input := value.JSValue()
+// RtpSendParameters object and copy all values in the value javascript object.
+func RtpSendParametersFromJS(value js.Value) *RtpSendParameters {
 	var out RtpSendParameters
 	var (
 		value0 []*RtpHeaderExtensionParameters // javascript: sequence<RTCRtpHeaderExtensionParameters> {headerExtensions HeaderExtensions headerExtensions}
@@ -2920,43 +2861,43 @@ func RtpSendParametersFromJS(value js.Wrapper) *RtpSendParameters {
 		value5 DegradationPreference           // javascript: RTCDegradationPreference {degradationPreference DegradationPreference degradationPreference}
 		value6 PriorityType                    // javascript: RTCPriorityType {priority Priority priority}
 	)
-	__length0 := input.Get("headerExtensions").Length()
+	__length0 := value.Get("headerExtensions").Length()
 	__array0 := make([]*RtpHeaderExtensionParameters, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *RtpHeaderExtensionParameters
-		__seq_in0 := input.Get("headerExtensions").Index(__idx0)
+		__seq_in0 := value.Get("headerExtensions").Index(__idx0)
 		__seq_out0 = RtpHeaderExtensionParametersFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.HeaderExtensions = value0
-	value1 = RtcpParametersFromJS(input.Get("rtcp"))
+	value1 = RtcpParametersFromJS(value.Get("rtcp"))
 	out.Rtcp = value1
-	__length2 := input.Get("codecs").Length()
+	__length2 := value.Get("codecs").Length()
 	__array2 := make([]*RtpCodecParameters, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *RtpCodecParameters
-		__seq_in2 := input.Get("codecs").Index(__idx2)
+		__seq_in2 := value.Get("codecs").Index(__idx2)
 		__seq_out2 = RtpCodecParametersFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.Codecs = value2
-	value3 = (input.Get("transactionId")).String()
+	value3 = (value.Get("transactionId")).String()
 	out.TransactionId = value3
-	__length4 := input.Get("encodings").Length()
+	__length4 := value.Get("encodings").Length()
 	__array4 := make([]*RtpEncodingParameters, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 *RtpEncodingParameters
-		__seq_in4 := input.Get("encodings").Index(__idx4)
+		__seq_in4 := value.Get("encodings").Index(__idx4)
 		__seq_out4 = RtpEncodingParametersFromJS(__seq_in4)
 		__array4[__idx4] = __seq_out4
 	}
 	value4 = __array4
 	out.Encodings = value4
-	value5 = DegradationPreferenceFromJS(input.Get("degradationPreference"))
+	value5 = DegradationPreferenceFromJS(value.Get("degradationPreference"))
 	out.DegradationPreference = value5
-	value6 = PriorityTypeFromJS(input.Get("priority"))
+	value6 = PriorityTypeFromJS(value.Get("priority"))
 	out.Priority = value6
 	return &out
 }
@@ -2969,7 +2910,7 @@ type RtpSynchronizationSource struct {
 	VoiceActivityFlag bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpSynchronizationSource) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2985,10 +2926,8 @@ func (_this *RtpSynchronizationSource) JSValue() js.Value {
 }
 
 // RtpSynchronizationSourceFromJS is allocating a new
-// RtpSynchronizationSource object and copy all values from
-// input javascript object
-func RtpSynchronizationSourceFromJS(value js.Wrapper) *RtpSynchronizationSource {
-	input := value.JSValue()
+// RtpSynchronizationSource object and copy all values in the value javascript object.
+func RtpSynchronizationSourceFromJS(value js.Value) *RtpSynchronizationSource {
 	var out RtpSynchronizationSource
 	var (
 		value0 float64 // javascript: double {timestamp Timestamp timestamp}
@@ -2996,13 +2935,13 @@ func RtpSynchronizationSourceFromJS(value js.Wrapper) *RtpSynchronizationSource 
 		value2 float64 // javascript: double {audioLevel AudioLevel audioLevel}
 		value3 bool    // javascript: boolean {voiceActivityFlag VoiceActivityFlag voiceActivityFlag}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = (uint)((input.Get("source")).Int())
+	value1 = (uint)((value.Get("source")).Int())
 	out.Source = value1
-	value2 = (input.Get("audioLevel")).Float()
+	value2 = (value.Get("audioLevel")).Float()
 	out.AudioLevel = value2
-	value3 = (input.Get("voiceActivityFlag")).Bool()
+	value3 = (value.Get("voiceActivityFlag")).Bool()
 	out.VoiceActivityFlag = value3
 	return &out
 }
@@ -3014,7 +2953,7 @@ type RtpTransceiverInit struct {
 	SendEncodings []*RtpEncodingParameters
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RtpTransceiverInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3036,33 +2975,31 @@ func (_this *RtpTransceiverInit) JSValue() js.Value {
 }
 
 // RtpTransceiverInitFromJS is allocating a new
-// RtpTransceiverInit object and copy all values from
-// input javascript object
-func RtpTransceiverInitFromJS(value js.Wrapper) *RtpTransceiverInit {
-	input := value.JSValue()
+// RtpTransceiverInit object and copy all values in the value javascript object.
+func RtpTransceiverInitFromJS(value js.Value) *RtpTransceiverInit {
 	var out RtpTransceiverInit
 	var (
 		value0 RtpTransceiverDirection  // javascript: RTCRtpTransceiverDirection {direction Direction direction}
 		value1 []*local.MediaStream     // javascript: sequence<MediaStream> {streams Streams streams}
 		value2 []*RtpEncodingParameters // javascript: sequence<RTCRtpEncodingParameters> {sendEncodings SendEncodings sendEncodings}
 	)
-	value0 = RtpTransceiverDirectionFromJS(input.Get("direction"))
+	value0 = RtpTransceiverDirectionFromJS(value.Get("direction"))
 	out.Direction = value0
-	__length1 := input.Get("streams").Length()
+	__length1 := value.Get("streams").Length()
 	__array1 := make([]*local.MediaStream, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *local.MediaStream
-		__seq_in1 := input.Get("streams").Index(__idx1)
+		__seq_in1 := value.Get("streams").Index(__idx1)
 		__seq_out1 = local.MediaStreamFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.Streams = value1
-	__length2 := input.Get("sendEncodings").Length()
+	__length2 := value.Get("sendEncodings").Length()
 	__array2 := make([]*RtpEncodingParameters, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *RtpEncodingParameters
-		__seq_in2 := input.Get("sendEncodings").Index(__idx2)
+		__seq_in2 := value.Get("sendEncodings").Index(__idx2)
 		__seq_out2 = RtpEncodingParametersFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
@@ -3077,7 +3014,7 @@ type SessionDescriptionInit struct {
 	Sdp  string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SessionDescriptionInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3089,18 +3026,16 @@ func (_this *SessionDescriptionInit) JSValue() js.Value {
 }
 
 // SessionDescriptionInitFromJS is allocating a new
-// SessionDescriptionInit object and copy all values from
-// input javascript object
-func SessionDescriptionInitFromJS(value js.Wrapper) *SessionDescriptionInit {
-	input := value.JSValue()
+// SessionDescriptionInit object and copy all values in the value javascript object.
+func SessionDescriptionInitFromJS(value js.Value) *SessionDescriptionInit {
 	var out SessionDescriptionInit
 	var (
 		value0 SdpType // javascript: RTCSdpType {type Type _type}
 		value1 string  // javascript: DOMString {sdp Sdp sdp}
 	)
-	value0 = SdpTypeFromJS(input.Get("type"))
+	value0 = SdpTypeFromJS(value.Get("type"))
 	out.Type = value0
-	value1 = (input.Get("sdp")).String()
+	value1 = (value.Get("sdp")).String()
 	out.Sdp = value1
 	return &out
 }
@@ -3112,7 +3047,7 @@ type Stats struct {
 	Id        string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Stats) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3126,21 +3061,19 @@ func (_this *Stats) JSValue() js.Value {
 }
 
 // StatsFromJS is allocating a new
-// Stats object and copy all values from
-// input javascript object
-func StatsFromJS(value js.Wrapper) *Stats {
-	input := value.JSValue()
+// Stats object and copy all values in the value javascript object.
+func StatsFromJS(value js.Value) *Stats {
 	var out Stats
 	var (
 		value0 float64   // javascript: double {timestamp Timestamp timestamp}
 		value1 StatsType // javascript: RTCStatsType {type Type _type}
 		value2 string    // javascript: DOMString {id Id id}
 	)
-	value0 = (input.Get("timestamp")).Float()
+	value0 = (value.Get("timestamp")).Float()
 	out.Timestamp = value0
-	value1 = StatsTypeFromJS(input.Get("type"))
+	value1 = StatsTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
 	return &out
 }
@@ -3153,7 +3086,7 @@ type StatsEventInit struct {
 	Report     *StatsReport
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StatsEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3169,10 +3102,8 @@ func (_this *StatsEventInit) JSValue() js.Value {
 }
 
 // StatsEventInitFromJS is allocating a new
-// StatsEventInit object and copy all values from
-// input javascript object
-func StatsEventInitFromJS(value js.Wrapper) *StatsEventInit {
-	input := value.JSValue()
+// StatsEventInit object and copy all values in the value javascript object.
+func StatsEventInitFromJS(value js.Value) *StatsEventInit {
 	var out StatsEventInit
 	var (
 		value0 bool         // javascript: boolean {bubbles Bubbles bubbles}
@@ -3180,13 +3111,13 @@ func StatsEventInitFromJS(value js.Wrapper) *StatsEventInit {
 		value2 bool         // javascript: boolean {composed Composed composed}
 		value3 *StatsReport // javascript: RTCStatsReport {report Report report}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = StatsReportFromJS(input.Get("report"))
+	value3 = StatsReportFromJS(value.Get("report"))
 	out.Report = value3
 	return &out
 }
@@ -3197,7 +3128,7 @@ type StatsReportEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StatsReportEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3213,26 +3144,24 @@ func (_this *StatsReportEntryIteratorValue) JSValue() js.Value {
 }
 
 // StatsReportEntryIteratorValueFromJS is allocating a new
-// StatsReportEntryIteratorValue object and copy all values from
-// input javascript object
-func StatsReportEntryIteratorValueFromJS(value js.Wrapper) *StatsReportEntryIteratorValue {
-	input := value.JSValue()
+// StatsReportEntryIteratorValue object and copy all values in the value javascript object.
+func StatsReportEntryIteratorValueFromJS(value js.Value) *StatsReportEntryIteratorValue {
 	var out StatsReportEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -3243,7 +3172,7 @@ type StatsReportKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StatsReportKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3255,18 +3184,16 @@ func (_this *StatsReportKeyIteratorValue) JSValue() js.Value {
 }
 
 // StatsReportKeyIteratorValueFromJS is allocating a new
-// StatsReportKeyIteratorValue object and copy all values from
-// input javascript object
-func StatsReportKeyIteratorValueFromJS(value js.Wrapper) *StatsReportKeyIteratorValue {
-	input := value.JSValue()
+// StatsReportKeyIteratorValue object and copy all values in the value javascript object.
+func StatsReportKeyIteratorValueFromJS(value js.Value) *StatsReportKeyIteratorValue {
 	var out StatsReportKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -3277,7 +3204,7 @@ type StatsReportValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StatsReportValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3289,18 +3216,16 @@ func (_this *StatsReportValueIteratorValue) JSValue() js.Value {
 }
 
 // StatsReportValueIteratorValueFromJS is allocating a new
-// StatsReportValueIteratorValue object and copy all values from
-// input javascript object
-func StatsReportValueIteratorValueFromJS(value js.Wrapper) *StatsReportValueIteratorValue {
-	input := value.JSValue()
+// StatsReportValueIteratorValue object and copy all values in the value javascript object.
+func StatsReportValueIteratorValueFromJS(value js.Value) *StatsReportValueIteratorValue {
 	var out StatsReportValueIteratorValue
 	var (
 		value0 *javascript.Object // javascript: object {value Value value}
 		value1 bool               // javascript: boolean {done Done done}
 	)
-	value0 = javascript.ObjectFromJS(input.Get("value"))
+	value0 = javascript.ObjectFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -3316,7 +3241,7 @@ type TrackEventInit struct {
 	Transceiver *RtpTransceiver
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TrackEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -3342,10 +3267,8 @@ func (_this *TrackEventInit) JSValue() js.Value {
 }
 
 // TrackEventInitFromJS is allocating a new
-// TrackEventInit object and copy all values from
-// input javascript object
-func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
-	input := value.JSValue()
+// TrackEventInit object and copy all values in the value javascript object.
+func TrackEventInitFromJS(value js.Value) *TrackEventInit {
 	var out TrackEventInit
 	var (
 		value0 bool                    // javascript: boolean {bubbles Bubbles bubbles}
@@ -3356,27 +3279,27 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 		value5 []*local.MediaStream    // javascript: sequence<MediaStream> {streams Streams streams}
 		value6 *RtpTransceiver         // javascript: RTCRtpTransceiver {transceiver Transceiver transceiver}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = RtpReceiverFromJS(input.Get("receiver"))
+	value3 = RtpReceiverFromJS(value.Get("receiver"))
 	out.Receiver = value3
-	value4 = local.MediaStreamTrackFromJS(input.Get("track"))
+	value4 = local.MediaStreamTrackFromJS(value.Get("track"))
 	out.Track = value4
-	__length5 := input.Get("streams").Length()
+	__length5 := value.Get("streams").Length()
 	__array5 := make([]*local.MediaStream, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 *local.MediaStream
-		__seq_in5 := input.Get("streams").Index(__idx5)
+		__seq_in5 := value.Get("streams").Index(__idx5)
 		__seq_out5 = local.MediaStreamFromJS(__seq_in5)
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.Streams = value5
-	value6 = RtpTransceiverFromJS(input.Get("transceiver"))
+	value6 = RtpTransceiverFromJS(value.Get("transceiver"))
 	out.Transceiver = value6
 	return &out
 }
@@ -3391,15 +3314,19 @@ func (_this *Certificate) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CertificateFromJS is casting a js.Wrapper into Certificate.
-func CertificateFromJS(value js.Wrapper) *Certificate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CertificateFromJS is casting a js.Value into Certificate.
+func CertificateFromJS(value js.Value) *Certificate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Certificate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CertificateFromJS is casting from something that holds a js.Value into Certificate.
+func CertificateFromWrapper(input core.Wrapper) *Certificate {
+	return CertificateFromJS(input.JSValue())
 }
 
 func GetSupportedAlgorithms() (_result []*Union) {
@@ -3462,15 +3389,19 @@ type DTMFSender struct {
 	domcore.EventTarget
 }
 
-// DTMFSenderFromJS is casting a js.Wrapper into DTMFSender.
-func DTMFSenderFromJS(value js.Wrapper) *DTMFSender {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DTMFSenderFromJS is casting a js.Value into DTMFSender.
+func DTMFSenderFromJS(value js.Value) *DTMFSender {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DTMFSender{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DTMFSenderFromJS is casting from something that holds a js.Value into DTMFSender.
+func DTMFSenderFromWrapper(input core.Wrapper) *DTMFSender {
+	return DTMFSenderFromJS(input.JSValue())
 }
 
 // OnToneChange returning attribute 'ontonechange' with
@@ -3571,15 +3502,19 @@ type DTMFToneChangeEvent struct {
 	domcore.Event
 }
 
-// DTMFToneChangeEventFromJS is casting a js.Wrapper into DTMFToneChangeEvent.
-func DTMFToneChangeEventFromJS(value js.Wrapper) *DTMFToneChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DTMFToneChangeEventFromJS is casting a js.Value into DTMFToneChangeEvent.
+func DTMFToneChangeEventFromJS(value js.Value) *DTMFToneChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DTMFToneChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DTMFToneChangeEventFromJS is casting from something that holds a js.Value into DTMFToneChangeEvent.
+func DTMFToneChangeEventFromWrapper(input core.Wrapper) *DTMFToneChangeEvent {
+	return DTMFToneChangeEventFromJS(input.JSValue())
 }
 
 func NewRTCDTMFToneChangeEvent(_type string, eventInitDict *DTMFToneChangeEventInit) (_result *DTMFToneChangeEvent) {
@@ -3617,15 +3552,19 @@ type DataChannel struct {
 	domcore.EventTarget
 }
 
-// DataChannelFromJS is casting a js.Wrapper into DataChannel.
-func DataChannelFromJS(value js.Wrapper) *DataChannel {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataChannelFromJS is casting a js.Value into DataChannel.
+func DataChannelFromJS(value js.Value) *DataChannel {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataChannel{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataChannelFromJS is casting from something that holds a js.Value into DataChannel.
+func DataChannelFromWrapper(input core.Wrapper) *DataChannel {
+	return DataChannelFromJS(input.JSValue())
 }
 
 // Label returning attribute 'label' with
@@ -3998,15 +3937,19 @@ type DataChannelEvent struct {
 	domcore.Event
 }
 
-// DataChannelEventFromJS is casting a js.Wrapper into DataChannelEvent.
-func DataChannelEventFromJS(value js.Wrapper) *DataChannelEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataChannelEventFromJS is casting a js.Value into DataChannelEvent.
+func DataChannelEventFromJS(value js.Value) *DataChannelEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataChannelEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataChannelEventFromJS is casting from something that holds a js.Value into DataChannelEvent.
+func DataChannelEventFromWrapper(input core.Wrapper) *DataChannelEvent {
+	return DataChannelEventFromJS(input.JSValue())
 }
 
 func NewRTCDataChannelEvent(_type string, eventInitDict *DataChannelEventInit) (_result *DataChannelEvent) {
@@ -4044,15 +3987,19 @@ type DtlsTransport struct {
 	domcore.EventTarget
 }
 
-// DtlsTransportFromJS is casting a js.Wrapper into DtlsTransport.
-func DtlsTransportFromJS(value js.Wrapper) *DtlsTransport {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DtlsTransportFromJS is casting a js.Value into DtlsTransport.
+func DtlsTransportFromJS(value js.Value) *DtlsTransport {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DtlsTransport{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DtlsTransportFromJS is casting from something that holds a js.Value into DtlsTransport.
+func DtlsTransportFromWrapper(input core.Wrapper) *DtlsTransport {
+	return DtlsTransportFromJS(input.JSValue())
 }
 
 // IceTransport returning attribute 'iceTransport' with
@@ -4187,15 +4134,19 @@ func (_this *Error) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ErrorFromJS is casting a js.Wrapper into Error.
-func ErrorFromJS(value js.Wrapper) *Error {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ErrorFromJS is casting a js.Value into Error.
+func ErrorFromJS(value js.Value) *Error {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Error{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ErrorFromJS is casting from something that holds a js.Value into Error.
+func ErrorFromWrapper(input core.Wrapper) *Error {
+	return ErrorFromJS(input.JSValue())
 }
 
 // class: RTCErrorEvent
@@ -4203,15 +4154,19 @@ type ErrorEvent struct {
 	domcore.Event
 }
 
-// ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
-func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ErrorEventFromJS is casting a js.Value into ErrorEvent.
+func ErrorEventFromJS(value js.Value) *ErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ErrorEventFromJS is casting from something that holds a js.Value into ErrorEvent.
+func ErrorEventFromWrapper(input core.Wrapper) *ErrorEvent {
+	return ErrorEventFromJS(input.JSValue())
 }
 
 func NewRTCErrorEvent(_type string, eventInitDict *ErrorEventInit) (_result *ErrorEvent) {
@@ -4256,15 +4211,19 @@ func (_this *IceCandidate) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// IceCandidateFromJS is casting a js.Wrapper into IceCandidate.
-func IceCandidateFromJS(value js.Wrapper) *IceCandidate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IceCandidateFromJS is casting a js.Value into IceCandidate.
+func IceCandidateFromJS(value js.Value) *IceCandidate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IceCandidate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IceCandidateFromJS is casting from something that holds a js.Value into IceCandidate.
+func IceCandidateFromWrapper(input core.Wrapper) *IceCandidate {
+	return IceCandidateFromJS(input.JSValue())
 }
 
 func NewRTCIceCandidate(candidateInitDict *IceCandidateInit) (_result *IceCandidate) {
@@ -4471,15 +4430,19 @@ type IceTransport struct {
 	domcore.EventTarget
 }
 
-// IceTransportFromJS is casting a js.Wrapper into IceTransport.
-func IceTransportFromJS(value js.Wrapper) *IceTransport {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IceTransportFromJS is casting a js.Value into IceTransport.
+func IceTransportFromJS(value js.Value) *IceTransport {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IceTransport{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IceTransportFromJS is casting from something that holds a js.Value into IceTransport.
+func IceTransportFromWrapper(input core.Wrapper) *IceTransport {
+	return IceTransportFromJS(input.JSValue())
 }
 
 // Role returning attribute 'role' with
@@ -4710,15 +4673,19 @@ type PeerConnection struct {
 	domcore.EventTarget
 }
 
-// PeerConnectionFromJS is casting a js.Wrapper into PeerConnection.
-func PeerConnectionFromJS(value js.Wrapper) *PeerConnection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PeerConnectionFromJS is casting a js.Value into PeerConnection.
+func PeerConnectionFromJS(value js.Value) *PeerConnection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PeerConnectionFromJS is casting from something that holds a js.Value into PeerConnection.
+func PeerConnectionFromWrapper(input core.Wrapper) *PeerConnection {
+	return PeerConnectionFromJS(input.JSValue())
 }
 
 func GetDefaultIceServers() (_result []*IceServer) {
@@ -5739,15 +5706,19 @@ type PeerConnectionIceErrorEvent struct {
 	domcore.Event
 }
 
-// PeerConnectionIceErrorEventFromJS is casting a js.Wrapper into PeerConnectionIceErrorEvent.
-func PeerConnectionIceErrorEventFromJS(value js.Wrapper) *PeerConnectionIceErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PeerConnectionIceErrorEventFromJS is casting a js.Value into PeerConnectionIceErrorEvent.
+func PeerConnectionIceErrorEventFromJS(value js.Value) *PeerConnectionIceErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnectionIceErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PeerConnectionIceErrorEventFromJS is casting from something that holds a js.Value into PeerConnectionIceErrorEvent.
+func PeerConnectionIceErrorEventFromWrapper(input core.Wrapper) *PeerConnectionIceErrorEvent {
+	return PeerConnectionIceErrorEventFromJS(input.JSValue())
 }
 
 func NewRTCPeerConnectionIceErrorEvent(_type string, eventInitDict *PeerConnectionIceErrorEventInit) (_result *PeerConnectionIceErrorEvent) {
@@ -5812,15 +5783,19 @@ type PeerConnectionIceEvent struct {
 	domcore.Event
 }
 
-// PeerConnectionIceEventFromJS is casting a js.Wrapper into PeerConnectionIceEvent.
-func PeerConnectionIceEventFromJS(value js.Wrapper) *PeerConnectionIceEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PeerConnectionIceEventFromJS is casting a js.Value into PeerConnectionIceEvent.
+func PeerConnectionIceEventFromJS(value js.Value) *PeerConnectionIceEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeerConnectionIceEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PeerConnectionIceEventFromJS is casting from something that holds a js.Value into PeerConnectionIceEvent.
+func PeerConnectionIceEventFromWrapper(input core.Wrapper) *PeerConnectionIceEvent {
+	return PeerConnectionIceEventFromJS(input.JSValue())
 }
 
 func NewRTCPeerConnectionIceEvent(_type string, eventInitDict *PeerConnectionIceEventInit) (_result *PeerConnectionIceEvent) {
@@ -5879,15 +5854,19 @@ func (_this *PromiseCertificate) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseCertificateFromJS is casting a js.Wrapper into PromiseCertificate.
-func PromiseCertificateFromJS(value js.Wrapper) *PromiseCertificate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseCertificateFromJS is casting a js.Value into PromiseCertificate.
+func PromiseCertificateFromJS(value js.Value) *PromiseCertificate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCertificate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseCertificateFromJS is casting from something that holds a js.Value into PromiseCertificate.
+func PromiseCertificateFromWrapper(input core.Wrapper) *PromiseCertificate {
+	return PromiseCertificateFromJS(input.JSValue())
 }
 
 func (_this *PromiseCertificate) Then(onFulfilled *PromiseCertificateOnFulfilled, onRejected *PromiseCertificateOnRejected) (_result *PromiseCertificate) {
@@ -5984,15 +5963,19 @@ func (_this *PromiseSessionDescriptionInit) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSessionDescriptionInitFromJS is casting a js.Wrapper into PromiseSessionDescriptionInit.
-func PromiseSessionDescriptionInitFromJS(value js.Wrapper) *PromiseSessionDescriptionInit {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSessionDescriptionInitFromJS is casting a js.Value into PromiseSessionDescriptionInit.
+func PromiseSessionDescriptionInitFromJS(value js.Value) *PromiseSessionDescriptionInit {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSessionDescriptionInit{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSessionDescriptionInitFromJS is casting from something that holds a js.Value into PromiseSessionDescriptionInit.
+func PromiseSessionDescriptionInitFromWrapper(input core.Wrapper) *PromiseSessionDescriptionInit {
+	return PromiseSessionDescriptionInitFromJS(input.JSValue())
 }
 
 func (_this *PromiseSessionDescriptionInit) Then(onFulfilled *PromiseSessionDescriptionInitOnFulfilled, onRejected *PromiseSessionDescriptionInitOnRejected) (_result *PromiseSessionDescriptionInit) {
@@ -6089,15 +6072,19 @@ func (_this *PromiseStatsReport) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseStatsReportFromJS is casting a js.Wrapper into PromiseStatsReport.
-func PromiseStatsReportFromJS(value js.Wrapper) *PromiseStatsReport {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseStatsReportFromJS is casting a js.Value into PromiseStatsReport.
+func PromiseStatsReportFromJS(value js.Value) *PromiseStatsReport {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseStatsReport{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseStatsReportFromJS is casting from something that holds a js.Value into PromiseStatsReport.
+func PromiseStatsReportFromWrapper(input core.Wrapper) *PromiseStatsReport {
+	return PromiseStatsReportFromJS(input.JSValue())
 }
 
 func (_this *PromiseStatsReport) Then(onFulfilled *PromiseStatsReportOnFulfilled, onRejected *PromiseStatsReportOnRejected) (_result *PromiseStatsReport) {
@@ -6194,15 +6181,19 @@ func (_this *RtpReceiver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RtpReceiverFromJS is casting a js.Wrapper into RtpReceiver.
-func RtpReceiverFromJS(value js.Wrapper) *RtpReceiver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RtpReceiverFromJS is casting a js.Value into RtpReceiver.
+func RtpReceiverFromJS(value js.Value) *RtpReceiver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpReceiver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RtpReceiverFromJS is casting from something that holds a js.Value into RtpReceiver.
+func RtpReceiverFromWrapper(input core.Wrapper) *RtpReceiver {
+	return RtpReceiverFromJS(input.JSValue())
 }
 
 func GetCapabilities(kind string) (_result *RtpCapabilities) {
@@ -6339,15 +6330,19 @@ func (_this *RtpSender) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RtpSenderFromJS is casting a js.Wrapper into RtpSender.
-func RtpSenderFromJS(value js.Wrapper) *RtpSender {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RtpSenderFromJS is casting a js.Value into RtpSender.
+func RtpSenderFromJS(value js.Value) *RtpSender {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpSender{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RtpSenderFromJS is casting from something that holds a js.Value into RtpSender.
+func RtpSenderFromWrapper(input core.Wrapper) *RtpSender {
+	return RtpSenderFromJS(input.JSValue())
 }
 
 func GetCapabilities2(kind string) (_result *RtpCapabilities) {
@@ -6501,15 +6496,19 @@ func (_this *RtpTransceiver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RtpTransceiverFromJS is casting a js.Wrapper into RtpTransceiver.
-func RtpTransceiverFromJS(value js.Wrapper) *RtpTransceiver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RtpTransceiverFromJS is casting a js.Value into RtpTransceiver.
+func RtpTransceiverFromJS(value js.Value) *RtpTransceiver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RtpTransceiver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RtpTransceiverFromJS is casting from something that holds a js.Value into RtpTransceiver.
+func RtpTransceiverFromWrapper(input core.Wrapper) *RtpTransceiver {
+	return RtpTransceiverFromJS(input.JSValue())
 }
 
 // Mid returning attribute 'mid' with
@@ -6614,15 +6613,19 @@ func (_this *SctpTransport) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SctpTransportFromJS is casting a js.Wrapper into SctpTransport.
-func SctpTransportFromJS(value js.Wrapper) *SctpTransport {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SctpTransportFromJS is casting a js.Value into SctpTransport.
+func SctpTransportFromJS(value js.Value) *SctpTransport {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SctpTransport{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SctpTransportFromJS is casting from something that holds a js.Value into SctpTransport.
+func SctpTransportFromWrapper(input core.Wrapper) *SctpTransport {
+	return SctpTransportFromJS(input.JSValue())
 }
 
 // Transport returning attribute 'transport' with
@@ -6715,15 +6718,19 @@ func (_this *SessionDescription) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SessionDescriptionFromJS is casting a js.Wrapper into SessionDescription.
-func SessionDescriptionFromJS(value js.Wrapper) *SessionDescription {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SessionDescriptionFromJS is casting a js.Value into SessionDescription.
+func SessionDescriptionFromJS(value js.Value) *SessionDescription {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SessionDescription{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SessionDescriptionFromJS is casting from something that holds a js.Value into SessionDescription.
+func SessionDescriptionFromWrapper(input core.Wrapper) *SessionDescription {
+	return SessionDescriptionFromJS(input.JSValue())
 }
 
 func NewRTCSessionDescription(descriptionInitDict *SessionDescriptionInit) (_result *SessionDescription) {
@@ -6781,15 +6788,19 @@ type StatsEvent struct {
 	domcore.Event
 }
 
-// StatsEventFromJS is casting a js.Wrapper into StatsEvent.
-func StatsEventFromJS(value js.Wrapper) *StatsEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StatsEventFromJS is casting a js.Value into StatsEvent.
+func StatsEventFromJS(value js.Value) *StatsEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StatsEventFromJS is casting from something that holds a js.Value into StatsEvent.
+func StatsEventFromWrapper(input core.Wrapper) *StatsEvent {
+	return StatsEventFromJS(input.JSValue())
 }
 
 func NewRTCStatsEvent(_type string, eventInitDict *StatsEventInit) (_result *StatsEvent) {
@@ -6832,15 +6843,19 @@ func (_this *StatsReport) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StatsReportFromJS is casting a js.Wrapper into StatsReport.
-func StatsReportFromJS(value js.Wrapper) *StatsReport {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StatsReportFromJS is casting a js.Value into StatsReport.
+func StatsReportFromJS(value js.Value) *StatsReport {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReport{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StatsReportFromJS is casting from something that holds a js.Value into StatsReport.
+func StatsReportFromWrapper(input core.Wrapper) *StatsReport {
+	return StatsReportFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -6964,15 +6979,19 @@ func (_this *StatsReportEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StatsReportEntryIteratorFromJS is casting a js.Wrapper into StatsReportEntryIterator.
-func StatsReportEntryIteratorFromJS(value js.Wrapper) *StatsReportEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StatsReportEntryIteratorFromJS is casting a js.Value into StatsReportEntryIterator.
+func StatsReportEntryIteratorFromJS(value js.Value) *StatsReportEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StatsReportEntryIteratorFromJS is casting from something that holds a js.Value into StatsReportEntryIterator.
+func StatsReportEntryIteratorFromWrapper(input core.Wrapper) *StatsReportEntryIterator {
+	return StatsReportEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *StatsReportEntryIterator) Next() (_result *StatsReportEntryIteratorValue) {
@@ -6999,15 +7018,19 @@ func (_this *StatsReportKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StatsReportKeyIteratorFromJS is casting a js.Wrapper into StatsReportKeyIterator.
-func StatsReportKeyIteratorFromJS(value js.Wrapper) *StatsReportKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StatsReportKeyIteratorFromJS is casting a js.Value into StatsReportKeyIterator.
+func StatsReportKeyIteratorFromJS(value js.Value) *StatsReportKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StatsReportKeyIteratorFromJS is casting from something that holds a js.Value into StatsReportKeyIterator.
+func StatsReportKeyIteratorFromWrapper(input core.Wrapper) *StatsReportKeyIterator {
+	return StatsReportKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *StatsReportKeyIterator) Next() (_result *StatsReportKeyIteratorValue) {
@@ -7034,15 +7057,19 @@ func (_this *StatsReportValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StatsReportValueIteratorFromJS is casting a js.Wrapper into StatsReportValueIterator.
-func StatsReportValueIteratorFromJS(value js.Wrapper) *StatsReportValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StatsReportValueIteratorFromJS is casting a js.Value into StatsReportValueIterator.
+func StatsReportValueIteratorFromJS(value js.Value) *StatsReportValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StatsReportValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StatsReportValueIteratorFromJS is casting from something that holds a js.Value into StatsReportValueIterator.
+func StatsReportValueIteratorFromWrapper(input core.Wrapper) *StatsReportValueIterator {
+	return StatsReportValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *StatsReportValueIterator) Next() (_result *StatsReportValueIteratorValue) {
@@ -7064,15 +7091,19 @@ type TrackEvent struct {
 	domcore.Event
 }
 
-// TrackEventFromJS is casting a js.Wrapper into TrackEvent.
-func TrackEventFromJS(value js.Wrapper) *TrackEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TrackEventFromJS is casting a js.Value into TrackEvent.
+func TrackEventFromJS(value js.Value) *TrackEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TrackEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TrackEventFromJS is casting from something that holds a js.Value into TrackEvent.
+func TrackEventFromWrapper(input core.Wrapper) *TrackEvent {
+	return TrackEventFromJS(input.JSValue())
 }
 
 func NewRTCTrackEvent(_type string, eventInitDict *TrackEventInit) (_result *TrackEvent) {

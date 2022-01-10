@@ -5,6 +5,7 @@ package clipboard
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/datatransfer"
 	"github.com/gowebapi/webapi/javascript"
@@ -49,7 +50,7 @@ type ClipboardEventInit struct {
 	ClipboardData *datatransfer.DataTransfer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ClipboardEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -65,10 +66,8 @@ func (_this *ClipboardEventInit) JSValue() js.Value {
 }
 
 // ClipboardEventInitFromJS is allocating a new
-// ClipboardEventInit object and copy all values from
-// input javascript object
-func ClipboardEventInitFromJS(value js.Wrapper) *ClipboardEventInit {
-	input := value.JSValue()
+// ClipboardEventInit object and copy all values in the value javascript object.
+func ClipboardEventInitFromJS(value js.Value) *ClipboardEventInit {
 	var out ClipboardEventInit
 	var (
 		value0 bool                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -76,14 +75,14 @@ func ClipboardEventInitFromJS(value js.Wrapper) *ClipboardEventInit {
 		value2 bool                       // javascript: boolean {composed Composed composed}
 		value3 *datatransfer.DataTransfer // javascript: DataTransfer {clipboardData ClipboardData clipboardData}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("clipboardData").Type() != js.TypeNull && input.Get("clipboardData").Type() != js.TypeUndefined {
-		value3 = datatransfer.DataTransferFromJS(input.Get("clipboardData"))
+	if value.Get("clipboardData").Type() != js.TypeNull && value.Get("clipboardData").Type() != js.TypeUndefined {
+		value3 = datatransfer.DataTransferFromJS(value.Get("clipboardData"))
 	}
 	out.ClipboardData = value3
 	return &out
@@ -95,7 +94,7 @@ type ClipboardPermissionDescriptor struct {
 	AllowWithoutGesture bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ClipboardPermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -107,18 +106,16 @@ func (_this *ClipboardPermissionDescriptor) JSValue() js.Value {
 }
 
 // ClipboardPermissionDescriptorFromJS is allocating a new
-// ClipboardPermissionDescriptor object and copy all values from
-// input javascript object
-func ClipboardPermissionDescriptorFromJS(value js.Wrapper) *ClipboardPermissionDescriptor {
-	input := value.JSValue()
+// ClipboardPermissionDescriptor object and copy all values in the value javascript object.
+func ClipboardPermissionDescriptorFromJS(value js.Value) *ClipboardPermissionDescriptor {
 	var out ClipboardPermissionDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 bool   // javascript: boolean {allowWithoutGesture AllowWithoutGesture allowWithoutGesture}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("allowWithoutGesture")).Bool()
+	value1 = (value.Get("allowWithoutGesture")).Bool()
 	out.AllowWithoutGesture = value1
 	return &out
 }
@@ -128,15 +125,19 @@ type Clipboard struct {
 	domcore.EventTarget
 }
 
-// ClipboardFromJS is casting a js.Wrapper into Clipboard.
-func ClipboardFromJS(value js.Wrapper) *Clipboard {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ClipboardFromJS is casting a js.Value into Clipboard.
+func ClipboardFromJS(value js.Value) *Clipboard {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Clipboard{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ClipboardFromJS is casting from something that holds a js.Value into Clipboard.
+func ClipboardFromWrapper(input core.Wrapper) *Clipboard {
+	return ClipboardFromJS(input.JSValue())
 }
 
 func (_this *Clipboard) Read() (_result *datatransfer.PromiseDataTransfer) {
@@ -206,15 +207,19 @@ type ClipboardEvent struct {
 	domcore.Event
 }
 
-// ClipboardEventFromJS is casting a js.Wrapper into ClipboardEvent.
-func ClipboardEventFromJS(value js.Wrapper) *ClipboardEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ClipboardEventFromJS is casting a js.Value into ClipboardEvent.
+func ClipboardEventFromJS(value js.Value) *ClipboardEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ClipboardEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ClipboardEventFromJS is casting from something that holds a js.Value into ClipboardEvent.
+func ClipboardEventFromWrapper(input core.Wrapper) *ClipboardEvent {
+	return ClipboardEventFromJS(input.JSValue())
 }
 
 func NewClipboardEvent(_type string, eventInitDict *ClipboardEventInit) (_result *ClipboardEvent) {

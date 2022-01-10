@@ -7,6 +7,7 @@ package presentation
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/channel"
@@ -305,7 +306,7 @@ type ConnectionAvailableEventInit struct {
 	Connection *Connection
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConnectionAvailableEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -321,10 +322,8 @@ func (_this *ConnectionAvailableEventInit) JSValue() js.Value {
 }
 
 // ConnectionAvailableEventInitFromJS is allocating a new
-// ConnectionAvailableEventInit object and copy all values from
-// input javascript object
-func ConnectionAvailableEventInitFromJS(value js.Wrapper) *ConnectionAvailableEventInit {
-	input := value.JSValue()
+// ConnectionAvailableEventInit object and copy all values in the value javascript object.
+func ConnectionAvailableEventInitFromJS(value js.Value) *ConnectionAvailableEventInit {
 	var out ConnectionAvailableEventInit
 	var (
 		value0 bool        // javascript: boolean {bubbles Bubbles bubbles}
@@ -332,13 +331,13 @@ func ConnectionAvailableEventInitFromJS(value js.Wrapper) *ConnectionAvailableEv
 		value2 bool        // javascript: boolean {composed Composed composed}
 		value3 *Connection // javascript: PresentationConnection {connection Connection connection}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = ConnectionFromJS(input.Get("connection"))
+	value3 = ConnectionFromJS(value.Get("connection"))
 	out.Connection = value3
 	return &out
 }
@@ -352,7 +351,7 @@ type ConnectionCloseEventInit struct {
 	Message    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConnectionCloseEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -370,10 +369,8 @@ func (_this *ConnectionCloseEventInit) JSValue() js.Value {
 }
 
 // ConnectionCloseEventInitFromJS is allocating a new
-// ConnectionCloseEventInit object and copy all values from
-// input javascript object
-func ConnectionCloseEventInitFromJS(value js.Wrapper) *ConnectionCloseEventInit {
-	input := value.JSValue()
+// ConnectionCloseEventInit object and copy all values in the value javascript object.
+func ConnectionCloseEventInitFromJS(value js.Value) *ConnectionCloseEventInit {
 	var out ConnectionCloseEventInit
 	var (
 		value0 bool                  // javascript: boolean {bubbles Bubbles bubbles}
@@ -382,15 +379,15 @@ func ConnectionCloseEventInitFromJS(value js.Wrapper) *ConnectionCloseEventInit 
 		value3 ConnectionCloseReason // javascript: PresentationConnectionCloseReason {reason Reason reason}
 		value4 string                // javascript: DOMString {message Message message}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = ConnectionCloseReasonFromJS(input.Get("reason"))
+	value3 = ConnectionCloseReasonFromJS(value.Get("reason"))
 	out.Reason = value3
-	value4 = (input.Get("message")).String()
+	value4 = (value.Get("message")).String()
 	out.Message = value4
 	return &out
 }
@@ -400,15 +397,19 @@ type Availability struct {
 	domcore.EventTarget
 }
 
-// AvailabilityFromJS is casting a js.Wrapper into Availability.
-func AvailabilityFromJS(value js.Wrapper) *Availability {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AvailabilityFromJS is casting a js.Value into Availability.
+func AvailabilityFromJS(value js.Value) *Availability {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Availability{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AvailabilityFromJS is casting from something that holds a js.Value into Availability.
+func AvailabilityFromWrapper(input core.Wrapper) *Availability {
+	return AvailabilityFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -466,15 +467,19 @@ type Connection struct {
 	domcore.EventTarget
 }
 
-// ConnectionFromJS is casting a js.Wrapper into Connection.
-func ConnectionFromJS(value js.Wrapper) *Connection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConnectionFromJS is casting a js.Value into Connection.
+func ConnectionFromJS(value js.Value) *Connection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Connection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConnectionFromJS is casting from something that holds a js.Value into Connection.
+func ConnectionFromWrapper(input core.Wrapper) *Connection {
+	return ConnectionFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -741,15 +746,19 @@ type ConnectionAvailableEvent struct {
 	domcore.Event
 }
 
-// ConnectionAvailableEventFromJS is casting a js.Wrapper into ConnectionAvailableEvent.
-func ConnectionAvailableEventFromJS(value js.Wrapper) *ConnectionAvailableEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConnectionAvailableEventFromJS is casting a js.Value into ConnectionAvailableEvent.
+func ConnectionAvailableEventFromJS(value js.Value) *ConnectionAvailableEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionAvailableEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConnectionAvailableEventFromJS is casting from something that holds a js.Value into ConnectionAvailableEvent.
+func ConnectionAvailableEventFromWrapper(input core.Wrapper) *ConnectionAvailableEvent {
+	return ConnectionAvailableEventFromJS(input.JSValue())
 }
 
 func NewPresentationConnectionAvailableEvent(_type string, eventInitDict *ConnectionAvailableEventInit) (_result *ConnectionAvailableEvent) {
@@ -787,15 +796,19 @@ type ConnectionCloseEvent struct {
 	domcore.Event
 }
 
-// ConnectionCloseEventFromJS is casting a js.Wrapper into ConnectionCloseEvent.
-func ConnectionCloseEventFromJS(value js.Wrapper) *ConnectionCloseEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConnectionCloseEventFromJS is casting a js.Value into ConnectionCloseEvent.
+func ConnectionCloseEventFromJS(value js.Value) *ConnectionCloseEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionCloseEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConnectionCloseEventFromJS is casting from something that holds a js.Value into ConnectionCloseEvent.
+func ConnectionCloseEventFromWrapper(input core.Wrapper) *ConnectionCloseEvent {
+	return ConnectionCloseEventFromJS(input.JSValue())
 }
 
 func NewPresentationConnectionCloseEvent(_type string, eventInitDict *ConnectionCloseEventInit) (_result *ConnectionCloseEvent) {
@@ -842,15 +855,19 @@ type ConnectionList struct {
 	domcore.EventTarget
 }
 
-// ConnectionListFromJS is casting a js.Wrapper into ConnectionList.
-func ConnectionListFromJS(value js.Wrapper) *ConnectionList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConnectionListFromJS is casting a js.Value into ConnectionList.
+func ConnectionListFromJS(value js.Value) *ConnectionList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConnectionListFromJS is casting from something that holds a js.Value into ConnectionList.
+func ConnectionListFromWrapper(input core.Wrapper) *ConnectionList {
+	return ConnectionListFromJS(input.JSValue())
 }
 
 // Connections returning attribute 'connections' with
@@ -913,15 +930,19 @@ func (_this *Presentation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PresentationFromJS is casting a js.Wrapper into Presentation.
-func PresentationFromJS(value js.Wrapper) *Presentation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PresentationFromJS is casting a js.Value into Presentation.
+func PresentationFromJS(value js.Value) *Presentation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Presentation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PresentationFromJS is casting from something that holds a js.Value into Presentation.
+func PresentationFromWrapper(input core.Wrapper) *Presentation {
+	return PresentationFromJS(input.JSValue())
 }
 
 // DefaultRequest returning attribute 'defaultRequest' with
@@ -963,15 +984,19 @@ func (_this *PromiseAvailability) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseAvailabilityFromJS is casting a js.Wrapper into PromiseAvailability.
-func PromiseAvailabilityFromJS(value js.Wrapper) *PromiseAvailability {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseAvailabilityFromJS is casting a js.Value into PromiseAvailability.
+func PromiseAvailabilityFromJS(value js.Value) *PromiseAvailability {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAvailability{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseAvailabilityFromJS is casting from something that holds a js.Value into PromiseAvailability.
+func PromiseAvailabilityFromWrapper(input core.Wrapper) *PromiseAvailability {
+	return PromiseAvailabilityFromJS(input.JSValue())
 }
 
 func (_this *PromiseAvailability) Then(onFulfilled *PromiseAvailabilityOnFulfilled, onRejected *PromiseAvailabilityOnRejected) (_result *PromiseAvailability) {
@@ -1068,15 +1093,19 @@ func (_this *PromiseConnection) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseConnectionFromJS is casting a js.Wrapper into PromiseConnection.
-func PromiseConnectionFromJS(value js.Wrapper) *PromiseConnection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseConnectionFromJS is casting a js.Value into PromiseConnection.
+func PromiseConnectionFromJS(value js.Value) *PromiseConnection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseConnection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseConnectionFromJS is casting from something that holds a js.Value into PromiseConnection.
+func PromiseConnectionFromWrapper(input core.Wrapper) *PromiseConnection {
+	return PromiseConnectionFromJS(input.JSValue())
 }
 
 func (_this *PromiseConnection) Then(onFulfilled *PromiseConnectionOnFulfilled, onRejected *PromiseConnectionOnRejected) (_result *PromiseConnection) {
@@ -1173,15 +1202,19 @@ func (_this *Receiver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ReceiverFromJS is casting a js.Wrapper into Receiver.
-func ReceiverFromJS(value js.Wrapper) *Receiver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReceiverFromJS is casting a js.Value into Receiver.
+func ReceiverFromJS(value js.Value) *Receiver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Receiver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReceiverFromJS is casting from something that holds a js.Value into Receiver.
+func ReceiverFromWrapper(input core.Wrapper) *Receiver {
+	return ReceiverFromJS(input.JSValue())
 }
 
 // ConnectionList returning attribute 'connectionList' with
@@ -1198,15 +1231,19 @@ type Request struct {
 	domcore.EventTarget
 }
 
-// RequestFromJS is casting a js.Wrapper into Request.
-func RequestFromJS(value js.Wrapper) *Request {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RequestFromJS is casting a js.Value into Request.
+func RequestFromJS(value js.Value) *Request {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Request{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RequestFromJS is casting from something that holds a js.Value into Request.
+func RequestFromWrapper(input core.Wrapper) *Request {
+	return RequestFromJS(input.JSValue())
 }
 
 func NewPresentationRequest(urls []string) (_result *Request) {

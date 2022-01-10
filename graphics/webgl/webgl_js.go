@@ -5,6 +5,7 @@ package webgl
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -93,7 +94,7 @@ type ContextAttributes struct {
 	XrCompatible                 bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ContextAttributes) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -119,10 +120,8 @@ func (_this *ContextAttributes) JSValue() js.Value {
 }
 
 // ContextAttributesFromJS is allocating a new
-// ContextAttributes object and copy all values from
-// input javascript object
-func ContextAttributesFromJS(value js.Wrapper) *ContextAttributes {
-	input := value.JSValue()
+// ContextAttributes object and copy all values in the value javascript object.
+func ContextAttributesFromJS(value js.Value) *ContextAttributes {
 	var out ContextAttributes
 	var (
 		value0 bool            // javascript: boolean {alpha Alpha alpha}
@@ -135,23 +134,23 @@ func ContextAttributesFromJS(value js.Wrapper) *ContextAttributes {
 		value7 bool            // javascript: boolean {failIfMajorPerformanceCaveat FailIfMajorPerformanceCaveat failIfMajorPerformanceCaveat}
 		value8 bool            // javascript: boolean {xrCompatible XrCompatible xrCompatible}
 	)
-	value0 = (input.Get("alpha")).Bool()
+	value0 = (value.Get("alpha")).Bool()
 	out.Alpha = value0
-	value1 = (input.Get("depth")).Bool()
+	value1 = (value.Get("depth")).Bool()
 	out.Depth = value1
-	value2 = (input.Get("stencil")).Bool()
+	value2 = (value.Get("stencil")).Bool()
 	out.Stencil = value2
-	value3 = (input.Get("antialias")).Bool()
+	value3 = (value.Get("antialias")).Bool()
 	out.Antialias = value3
-	value4 = (input.Get("premultipliedAlpha")).Bool()
+	value4 = (value.Get("premultipliedAlpha")).Bool()
 	out.PremultipliedAlpha = value4
-	value5 = (input.Get("preserveDrawingBuffer")).Bool()
+	value5 = (value.Get("preserveDrawingBuffer")).Bool()
 	out.PreserveDrawingBuffer = value5
-	value6 = PowerPreferenceFromJS(input.Get("powerPreference"))
+	value6 = PowerPreferenceFromJS(value.Get("powerPreference"))
 	out.PowerPreference = value6
-	value7 = (input.Get("failIfMajorPerformanceCaveat")).Bool()
+	value7 = (value.Get("failIfMajorPerformanceCaveat")).Bool()
 	out.FailIfMajorPerformanceCaveat = value7
-	value8 = (input.Get("xrCompatible")).Bool()
+	value8 = (value.Get("xrCompatible")).Bool()
 	out.XrCompatible = value8
 	return &out
 }
@@ -164,7 +163,7 @@ type ContextEventInit struct {
 	StatusMessage string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ContextEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -180,10 +179,8 @@ func (_this *ContextEventInit) JSValue() js.Value {
 }
 
 // ContextEventInitFromJS is allocating a new
-// ContextEventInit object and copy all values from
-// input javascript object
-func ContextEventInitFromJS(value js.Wrapper) *ContextEventInit {
-	input := value.JSValue()
+// ContextEventInit object and copy all values in the value javascript object.
+func ContextEventInitFromJS(value js.Value) *ContextEventInit {
 	var out ContextEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -191,13 +188,13 @@ func ContextEventInitFromJS(value js.Wrapper) *ContextEventInit {
 		value2 bool   // javascript: boolean {composed Composed composed}
 		value3 string // javascript: DOMString {statusMessage StatusMessage statusMessage}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("statusMessage")).String()
+	value3 = (value.Get("statusMessage")).String()
 	out.StatusMessage = value3
 	return &out
 }
@@ -212,15 +209,19 @@ func (_this *ActiveInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ActiveInfoFromJS is casting a js.Wrapper into ActiveInfo.
-func ActiveInfoFromJS(value js.Wrapper) *ActiveInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ActiveInfoFromJS is casting a js.Value into ActiveInfo.
+func ActiveInfoFromJS(value js.Value) *ActiveInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ActiveInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ActiveInfoFromJS is casting from something that holds a js.Value into ActiveInfo.
+func ActiveInfoFromWrapper(input core.Wrapper) *ActiveInfo {
+	return ActiveInfoFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -255,15 +256,19 @@ type Buffer struct {
 	Object
 }
 
-// BufferFromJS is casting a js.Wrapper into Buffer.
-func BufferFromJS(value js.Wrapper) *Buffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BufferFromJS is casting a js.Value into Buffer.
+func BufferFromJS(value js.Value) *Buffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Buffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BufferFromJS is casting from something that holds a js.Value into Buffer.
+func BufferFromWrapper(input core.Wrapper) *Buffer {
+	return BufferFromJS(input.JSValue())
 }
 
 // class: WebGLContextEvent
@@ -271,15 +276,19 @@ type ContextEvent struct {
 	domcore.Event
 }
 
-// ContextEventFromJS is casting a js.Wrapper into ContextEvent.
-func ContextEventFromJS(value js.Wrapper) *ContextEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ContextEventFromJS is casting a js.Value into ContextEvent.
+func ContextEventFromJS(value js.Value) *ContextEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ContextEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ContextEventFromJS is casting from something that holds a js.Value into ContextEvent.
+func ContextEventFromWrapper(input core.Wrapper) *ContextEvent {
+	return ContextEventFromJS(input.JSValue())
 }
 
 func NewWebGLContextEvent(_type string, eventInit *ContextEventInit) (_result *ContextEvent) {
@@ -319,15 +328,19 @@ type Framebuffer struct {
 	Object
 }
 
-// FramebufferFromJS is casting a js.Wrapper into Framebuffer.
-func FramebufferFromJS(value js.Wrapper) *Framebuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FramebufferFromJS is casting a js.Value into Framebuffer.
+func FramebufferFromJS(value js.Value) *Framebuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Framebuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FramebufferFromJS is casting from something that holds a js.Value into Framebuffer.
+func FramebufferFromWrapper(input core.Wrapper) *Framebuffer {
+	return FramebufferFromJS(input.JSValue())
 }
 
 // class: WebGLObject
@@ -340,15 +353,19 @@ func (_this *Object) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ObjectFromJS is casting a js.Wrapper into Object.
-func ObjectFromJS(value js.Wrapper) *Object {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ObjectFromJS is casting a js.Value into Object.
+func ObjectFromJS(value js.Value) *Object {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Object{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ObjectFromJS is casting from something that holds a js.Value into Object.
+func ObjectFromWrapper(input core.Wrapper) *Object {
+	return ObjectFromJS(input.JSValue())
 }
 
 // class: WebGLProgram
@@ -356,15 +373,19 @@ type Program struct {
 	Object
 }
 
-// ProgramFromJS is casting a js.Wrapper into Program.
-func ProgramFromJS(value js.Wrapper) *Program {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ProgramFromJS is casting a js.Value into Program.
+func ProgramFromJS(value js.Value) *Program {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Program{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ProgramFromJS is casting from something that holds a js.Value into Program.
+func ProgramFromWrapper(input core.Wrapper) *Program {
+	return ProgramFromJS(input.JSValue())
 }
 
 // class: WebGLRenderbuffer
@@ -372,15 +393,19 @@ type Renderbuffer struct {
 	Object
 }
 
-// RenderbufferFromJS is casting a js.Wrapper into Renderbuffer.
-func RenderbufferFromJS(value js.Wrapper) *Renderbuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RenderbufferFromJS is casting a js.Value into Renderbuffer.
+func RenderbufferFromJS(value js.Value) *Renderbuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Renderbuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RenderbufferFromJS is casting from something that holds a js.Value into Renderbuffer.
+func RenderbufferFromWrapper(input core.Wrapper) *Renderbuffer {
+	return RenderbufferFromJS(input.JSValue())
 }
 
 // class: WebGLRenderingContext
@@ -393,15 +418,19 @@ func (_this *RenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RenderingContextFromJS is casting a js.Wrapper into RenderingContext.
-func RenderingContextFromJS(value js.Wrapper) *RenderingContext {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RenderingContextFromJS is casting a js.Value into RenderingContext.
+func RenderingContextFromJS(value js.Value) *RenderingContext {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RenderingContext{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RenderingContextFromJS is casting from something that holds a js.Value into RenderingContext.
+func RenderingContextFromWrapper(input core.Wrapper) *RenderingContext {
+	return RenderingContextFromJS(input.JSValue())
 }
 
 const (
@@ -3221,15 +3250,19 @@ type Shader struct {
 	Object
 }
 
-// ShaderFromJS is casting a js.Wrapper into Shader.
-func ShaderFromJS(value js.Wrapper) *Shader {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ShaderFromJS is casting a js.Value into Shader.
+func ShaderFromJS(value js.Value) *Shader {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Shader{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ShaderFromJS is casting from something that holds a js.Value into Shader.
+func ShaderFromWrapper(input core.Wrapper) *Shader {
+	return ShaderFromJS(input.JSValue())
 }
 
 // class: WebGLShaderPrecisionFormat
@@ -3242,15 +3275,19 @@ func (_this *ShaderPrecisionFormat) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ShaderPrecisionFormatFromJS is casting a js.Wrapper into ShaderPrecisionFormat.
-func ShaderPrecisionFormatFromJS(value js.Wrapper) *ShaderPrecisionFormat {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ShaderPrecisionFormatFromJS is casting a js.Value into ShaderPrecisionFormat.
+func ShaderPrecisionFormatFromJS(value js.Value) *ShaderPrecisionFormat {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ShaderPrecisionFormat{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ShaderPrecisionFormatFromJS is casting from something that holds a js.Value into ShaderPrecisionFormat.
+func ShaderPrecisionFormatFromWrapper(input core.Wrapper) *ShaderPrecisionFormat {
+	return ShaderPrecisionFormatFromJS(input.JSValue())
 }
 
 // RangeMin returning attribute 'rangeMin' with
@@ -3285,15 +3322,19 @@ type Texture struct {
 	Object
 }
 
-// TextureFromJS is casting a js.Wrapper into Texture.
-func TextureFromJS(value js.Wrapper) *Texture {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextureFromJS is casting a js.Value into Texture.
+func TextureFromJS(value js.Value) *Texture {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Texture{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextureFromJS is casting from something that holds a js.Value into Texture.
+func TextureFromWrapper(input core.Wrapper) *Texture {
+	return TextureFromJS(input.JSValue())
 }
 
 // class: WebGLUniformLocation
@@ -3306,13 +3347,17 @@ func (_this *UniformLocation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// UniformLocationFromJS is casting a js.Wrapper into UniformLocation.
-func UniformLocationFromJS(value js.Wrapper) *UniformLocation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// UniformLocationFromJS is casting a js.Value into UniformLocation.
+func UniformLocationFromJS(value js.Value) *UniformLocation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &UniformLocation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// UniformLocationFromJS is casting from something that holds a js.Value into UniformLocation.
+func UniformLocationFromWrapper(input core.Wrapper) *UniformLocation {
+	return UniformLocationFromJS(input.JSValue())
 }

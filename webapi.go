@@ -12,6 +12,7 @@ import (
 	"github.com/gowebapi/webapi/clipboard"
 	"github.com/gowebapi/webapi/communication/xhr"
 	"github.com/gowebapi/webapi/cookie"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/crypto"
 	"github.com/gowebapi/webapi/csp"
 	"github.com/gowebapi/webapi/css/animations"
@@ -284,7 +285,7 @@ type ElementCreationOptions struct {
 	Is string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ElementCreationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -294,15 +295,13 @@ func (_this *ElementCreationOptions) JSValue() js.Value {
 }
 
 // ElementCreationOptionsFromJS is allocating a new
-// ElementCreationOptions object and copy all values from
-// input javascript object
-func ElementCreationOptionsFromJS(value js.Wrapper) *ElementCreationOptions {
-	input := value.JSValue()
+// ElementCreationOptions object and copy all values in the value javascript object.
+func ElementCreationOptionsFromJS(value js.Value) *ElementCreationOptions {
 	var out ElementCreationOptions
 	var (
 		value0 string // javascript: DOMString {is Is is}
 	)
-	value0 = (input.Get("is")).String()
+	value0 = (value.Get("is")).String()
 	out.Is = value0
 	return &out
 }
@@ -318,7 +317,7 @@ type MutationObserverInit struct {
 	AttributeFilter       []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MutationObserverInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -344,10 +343,8 @@ func (_this *MutationObserverInit) JSValue() js.Value {
 }
 
 // MutationObserverInitFromJS is allocating a new
-// MutationObserverInit object and copy all values from
-// input javascript object
-func MutationObserverInitFromJS(value js.Wrapper) *MutationObserverInit {
-	input := value.JSValue()
+// MutationObserverInit object and copy all values in the value javascript object.
+func MutationObserverInitFromJS(value js.Value) *MutationObserverInit {
 	var out MutationObserverInit
 	var (
 		value0 bool     // javascript: boolean {childList ChildList childList}
@@ -358,23 +355,23 @@ func MutationObserverInitFromJS(value js.Wrapper) *MutationObserverInit {
 		value5 bool     // javascript: boolean {characterDataOldValue CharacterDataOldValue characterDataOldValue}
 		value6 []string // javascript: sequence<DOMString> {attributeFilter AttributeFilter attributeFilter}
 	)
-	value0 = (input.Get("childList")).Bool()
+	value0 = (value.Get("childList")).Bool()
 	out.ChildList = value0
-	value1 = (input.Get("attributes")).Bool()
+	value1 = (value.Get("attributes")).Bool()
 	out.Attributes = value1
-	value2 = (input.Get("characterData")).Bool()
+	value2 = (value.Get("characterData")).Bool()
 	out.CharacterData = value2
-	value3 = (input.Get("subtree")).Bool()
+	value3 = (value.Get("subtree")).Bool()
 	out.Subtree = value3
-	value4 = (input.Get("attributeOldValue")).Bool()
+	value4 = (value.Get("attributeOldValue")).Bool()
 	out.AttributeOldValue = value4
-	value5 = (input.Get("characterDataOldValue")).Bool()
+	value5 = (value.Get("characterDataOldValue")).Bool()
 	out.CharacterDataOldValue = value5
-	__length6 := input.Get("attributeFilter").Length()
+	__length6 := value.Get("attributeFilter").Length()
 	__array6 := make([]string, __length6, __length6)
 	for __idx6 := 0; __idx6 < __length6; __idx6++ {
 		var __seq_out6 string
-		__seq_in6 := input.Get("attributeFilter").Index(__idx6)
+		__seq_in6 := value.Get("attributeFilter").Index(__idx6)
 		__seq_out6 = (__seq_in6).String()
 		__array6[__idx6] = __seq_out6
 	}
@@ -389,7 +386,7 @@ type WindowPostMessageOptions struct {
 	TargetOrigin string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WindowPostMessageOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -405,26 +402,24 @@ func (_this *WindowPostMessageOptions) JSValue() js.Value {
 }
 
 // WindowPostMessageOptionsFromJS is allocating a new
-// WindowPostMessageOptions object and copy all values from
-// input javascript object
-func WindowPostMessageOptionsFromJS(value js.Wrapper) *WindowPostMessageOptions {
-	input := value.JSValue()
+// WindowPostMessageOptions object and copy all values in the value javascript object.
+func WindowPostMessageOptionsFromJS(value js.Value) *WindowPostMessageOptions {
 	var out WindowPostMessageOptions
 	var (
 		value0 []*javascript.Object // javascript: sequence<object> {transfer Transfer transfer}
 		value1 string               // javascript: USVString {targetOrigin TargetOrigin targetOrigin}
 	)
-	__length0 := input.Get("transfer").Length()
+	__length0 := value.Get("transfer").Length()
 	__array0 := make([]*javascript.Object, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *javascript.Object
-		__seq_in0 := input.Get("transfer").Index(__idx0)
+		__seq_in0 := value.Get("transfer").Index(__idx0)
 		__seq_out0 = javascript.ObjectFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Transfer = value0
-	value1 = (input.Get("targetOrigin")).String()
+	value1 = (value.Get("targetOrigin")).String()
 	out.TargetOrigin = value1
 	return &out
 }
@@ -439,15 +434,19 @@ func (_this *DOMImplementation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMImplementationFromJS is casting a js.Wrapper into DOMImplementation.
-func DOMImplementationFromJS(value js.Wrapper) *DOMImplementation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMImplementationFromJS is casting a js.Value into DOMImplementation.
+func DOMImplementationFromJS(value js.Value) *DOMImplementation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMImplementation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMImplementationFromJS is casting from something that holds a js.Value into DOMImplementation.
+func DOMImplementationFromWrapper(input core.Wrapper) *DOMImplementation {
+	return DOMImplementationFromJS(input.JSValue())
 }
 
 func (_this *DOMImplementation) CreateDocumentType(qualifiedName string, publicId string, systemId string) (_result *dom.DocumentType) {
@@ -548,15 +547,19 @@ type Document struct {
 	dom.Node
 }
 
-// DocumentFromJS is casting a js.Wrapper into Document.
-func DocumentFromJS(value js.Wrapper) *Document {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DocumentFromJS is casting a js.Value into Document.
+func DocumentFromJS(value js.Value) *Document {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Document{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DocumentFromJS is casting from something that holds a js.Value into Document.
+func DocumentFromWrapper(input core.Wrapper) *Document {
+	return DocumentFromJS(input.JSValue())
 }
 
 func NewDocument() (_result *Document) {
@@ -5102,15 +5105,19 @@ type HTMLEmbedElement struct {
 	html.HTMLElement
 }
 
-// HTMLEmbedElementFromJS is casting a js.Wrapper into HTMLEmbedElement.
-func HTMLEmbedElementFromJS(value js.Wrapper) *HTMLEmbedElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLEmbedElementFromJS is casting a js.Value into HTMLEmbedElement.
+func HTMLEmbedElementFromJS(value js.Value) *HTMLEmbedElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLEmbedElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLEmbedElementFromJS is casting from something that holds a js.Value into HTMLEmbedElement.
+func HTMLEmbedElementFromWrapper(input core.Wrapper) *HTMLEmbedElement {
+	return HTMLEmbedElementFromJS(input.JSValue())
 }
 
 // Src returning attribute 'src' with
@@ -5230,15 +5237,19 @@ type HTMLFrameElement struct {
 	html.HTMLElement
 }
 
-// HTMLFrameElementFromJS is casting a js.Wrapper into HTMLFrameElement.
-func HTMLFrameElementFromJS(value js.Wrapper) *HTMLFrameElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFrameElementFromJS is casting a js.Value into HTMLFrameElement.
+func HTMLFrameElementFromJS(value js.Value) *HTMLFrameElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFrameElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFrameElementFromJS is casting from something that holds a js.Value into HTMLFrameElement.
+func HTMLFrameElementFromWrapper(input core.Wrapper) *HTMLFrameElement {
+	return HTMLFrameElementFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -5396,15 +5407,19 @@ type HTMLIFrameElement struct {
 	html.HTMLElement
 }
 
-// HTMLIFrameElementFromJS is casting a js.Wrapper into HTMLIFrameElement.
-func HTMLIFrameElementFromJS(value js.Wrapper) *HTMLIFrameElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLIFrameElementFromJS is casting a js.Value into HTMLIFrameElement.
+func HTMLIFrameElementFromJS(value js.Value) *HTMLIFrameElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLIFrameElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLIFrameElementFromJS is casting from something that holds a js.Value into HTMLIFrameElement.
+func HTMLIFrameElementFromWrapper(input core.Wrapper) *HTMLIFrameElement {
+	return HTMLIFrameElementFromJS(input.JSValue())
 }
 
 // Src returning attribute 'src' with
@@ -5724,15 +5739,19 @@ type HTMLObjectElement struct {
 	html.HTMLElement
 }
 
-// HTMLObjectElementFromJS is casting a js.Wrapper into HTMLObjectElement.
-func HTMLObjectElementFromJS(value js.Wrapper) *HTMLObjectElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLObjectElementFromJS is casting a js.Value into HTMLObjectElement.
+func HTMLObjectElementFromJS(value js.Value) *HTMLObjectElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLObjectElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLObjectElementFromJS is casting from something that holds a js.Value into HTMLObjectElement.
+func HTMLObjectElementFromWrapper(input core.Wrapper) *HTMLObjectElement {
+	return HTMLObjectElementFromJS(input.JSValue())
 }
 
 // Data returning attribute 'data' with
@@ -6133,15 +6152,19 @@ func (_this *MutationObserver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MutationObserverFromJS is casting a js.Wrapper into MutationObserver.
-func MutationObserverFromJS(value js.Wrapper) *MutationObserver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MutationObserverFromJS is casting a js.Value into MutationObserver.
+func MutationObserverFromJS(value js.Value) *MutationObserver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MutationObserver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MutationObserverFromJS is casting from something that holds a js.Value into MutationObserver.
+func MutationObserverFromWrapper(input core.Wrapper) *MutationObserver {
+	return MutationObserverFromJS(input.JSValue())
 }
 
 func NewMutationObserver(callback *MutationCallback) (_result *MutationObserver) {
@@ -6227,15 +6250,19 @@ func (_this *MutationRecord) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MutationRecordFromJS is casting a js.Wrapper into MutationRecord.
-func MutationRecordFromJS(value js.Wrapper) *MutationRecord {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MutationRecordFromJS is casting a js.Value into MutationRecord.
+func MutationRecordFromJS(value js.Value) *MutationRecord {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MutationRecord{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MutationRecordFromJS is casting from something that holds a js.Value into MutationRecord.
+func MutationRecordFromWrapper(input core.Wrapper) *MutationRecord {
+	return MutationRecordFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -6337,15 +6364,19 @@ type Window struct {
 	domcore.EventTarget
 }
 
-// WindowFromJS is casting a js.Wrapper into Window.
-func WindowFromJS(value js.Wrapper) *Window {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WindowFromJS is casting a js.Value into Window.
+func WindowFromJS(value js.Value) *Window {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Window{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WindowFromJS is casting from something that holds a js.Value into Window.
+func WindowFromWrapper(input core.Wrapper) *Window {
+	return WindowFromJS(input.JSValue())
 }
 
 // Window returning attribute 'window' with
@@ -11150,13 +11181,17 @@ type XMLDocument struct {
 	Document
 }
 
-// XMLDocumentFromJS is casting a js.Wrapper into XMLDocument.
-func XMLDocumentFromJS(value js.Wrapper) *XMLDocument {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// XMLDocumentFromJS is casting a js.Value into XMLDocument.
+func XMLDocumentFromJS(value js.Value) *XMLDocument {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLDocument{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// XMLDocumentFromJS is casting from something that holds a js.Value into XMLDocument.
+func XMLDocumentFromWrapper(input core.Wrapper) *XMLDocument {
+	return XMLDocumentFromJS(input.JSValue())
 }

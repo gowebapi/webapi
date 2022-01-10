@@ -5,6 +5,7 @@ package xhr
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/patch"
 )
@@ -94,7 +95,7 @@ type ProgressEventInit struct {
 	Total            int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ProgressEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -114,10 +115,8 @@ func (_this *ProgressEventInit) JSValue() js.Value {
 }
 
 // ProgressEventInitFromJS is allocating a new
-// ProgressEventInit object and copy all values from
-// input javascript object
-func ProgressEventInitFromJS(value js.Wrapper) *ProgressEventInit {
-	input := value.JSValue()
+// ProgressEventInit object and copy all values in the value javascript object.
+func ProgressEventInitFromJS(value js.Value) *ProgressEventInit {
 	var out ProgressEventInit
 	var (
 		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
@@ -127,17 +126,17 @@ func ProgressEventInitFromJS(value js.Wrapper) *ProgressEventInit {
 		value4 int  // javascript: unsigned long long {loaded Loaded loaded}
 		value5 int  // javascript: unsigned long long {total Total total}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("lengthComputable")).Bool()
+	value3 = (value.Get("lengthComputable")).Bool()
 	out.LengthComputable = value3
-	value4 = (input.Get("loaded")).Int()
+	value4 = (value.Get("loaded")).Int()
 	out.Loaded = value4
-	value5 = (input.Get("total")).Int()
+	value5 = (value.Get("total")).Int()
 	out.Total = value5
 	return &out
 }
@@ -147,15 +146,19 @@ type ProgressEvent struct {
 	domcore.Event
 }
 
-// ProgressEventFromJS is casting a js.Wrapper into ProgressEvent.
-func ProgressEventFromJS(value js.Wrapper) *ProgressEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ProgressEventFromJS is casting a js.Value into ProgressEvent.
+func ProgressEventFromJS(value js.Value) *ProgressEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ProgressEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ProgressEventFromJS is casting from something that holds a js.Value into ProgressEvent.
+func ProgressEventFromWrapper(input core.Wrapper) *ProgressEvent {
+	return ProgressEventFromJS(input.JSValue())
 }
 
 func NewProgressEvent(_type string, eventInitDict *ProgressEventInit) (_result *ProgressEvent) {
@@ -213,15 +216,19 @@ type XMLHttpRequest struct {
 	XMLHttpRequestEventTarget
 }
 
-// XMLHttpRequestFromJS is casting a js.Wrapper into XMLHttpRequest.
-func XMLHttpRequestFromJS(value js.Wrapper) *XMLHttpRequest {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// XMLHttpRequestFromJS is casting a js.Value into XMLHttpRequest.
+func XMLHttpRequestFromJS(value js.Value) *XMLHttpRequest {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequest{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// XMLHttpRequestFromJS is casting from something that holds a js.Value into XMLHttpRequest.
+func XMLHttpRequestFromWrapper(input core.Wrapper) *XMLHttpRequest {
+	return XMLHttpRequestFromJS(input.JSValue())
 }
 
 const (
@@ -551,15 +558,19 @@ type XMLHttpRequestEventTarget struct {
 	domcore.EventTarget
 }
 
-// XMLHttpRequestEventTargetFromJS is casting a js.Wrapper into XMLHttpRequestEventTarget.
-func XMLHttpRequestEventTargetFromJS(value js.Wrapper) *XMLHttpRequestEventTarget {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// XMLHttpRequestEventTargetFromJS is casting a js.Value into XMLHttpRequestEventTarget.
+func XMLHttpRequestEventTargetFromJS(value js.Value) *XMLHttpRequestEventTarget {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequestEventTarget{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// XMLHttpRequestEventTargetFromJS is casting from something that holds a js.Value into XMLHttpRequestEventTarget.
+func XMLHttpRequestEventTargetFromWrapper(input core.Wrapper) *XMLHttpRequestEventTarget {
+	return XMLHttpRequestEventTargetFromJS(input.JSValue())
 }
 
 // OnLoadStart returning attribute 'onloadstart' with
@@ -770,13 +781,17 @@ type XMLHttpRequestUpload struct {
 	XMLHttpRequestEventTarget
 }
 
-// XMLHttpRequestUploadFromJS is casting a js.Wrapper into XMLHttpRequestUpload.
-func XMLHttpRequestUploadFromJS(value js.Wrapper) *XMLHttpRequestUpload {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// XMLHttpRequestUploadFromJS is casting a js.Value into XMLHttpRequestUpload.
+func XMLHttpRequestUploadFromJS(value js.Value) *XMLHttpRequestUpload {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLHttpRequestUpload{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// XMLHttpRequestUploadFromJS is casting from something that holds a js.Value into XMLHttpRequestUpload.
+func XMLHttpRequestUploadFromWrapper(input core.Wrapper) *XMLHttpRequestUpload {
+	return XMLHttpRequestUploadFromJS(input.JSValue())
 }

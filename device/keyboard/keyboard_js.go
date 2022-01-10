@@ -5,6 +5,7 @@ package keyboard
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -175,7 +176,7 @@ type LayoutMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayoutMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -191,26 +192,24 @@ func (_this *LayoutMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // LayoutMapEntryIteratorValueFromJS is allocating a new
-// LayoutMapEntryIteratorValue object and copy all values from
-// input javascript object
-func LayoutMapEntryIteratorValueFromJS(value js.Wrapper) *LayoutMapEntryIteratorValue {
-	input := value.JSValue()
+// LayoutMapEntryIteratorValue object and copy all values in the value javascript object.
+func LayoutMapEntryIteratorValueFromJS(value js.Value) *LayoutMapEntryIteratorValue {
 	var out LayoutMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -221,7 +220,7 @@ type LayoutMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayoutMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -233,18 +232,16 @@ func (_this *LayoutMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // LayoutMapKeyIteratorValueFromJS is allocating a new
-// LayoutMapKeyIteratorValue object and copy all values from
-// input javascript object
-func LayoutMapKeyIteratorValueFromJS(value js.Wrapper) *LayoutMapKeyIteratorValue {
-	input := value.JSValue()
+// LayoutMapKeyIteratorValue object and copy all values in the value javascript object.
+func LayoutMapKeyIteratorValueFromJS(value js.Value) *LayoutMapKeyIteratorValue {
 	var out LayoutMapKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -255,7 +252,7 @@ type LayoutMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayoutMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -267,18 +264,16 @@ func (_this *LayoutMapValueIteratorValue) JSValue() js.Value {
 }
 
 // LayoutMapValueIteratorValueFromJS is allocating a new
-// LayoutMapValueIteratorValue object and copy all values from
-// input javascript object
-func LayoutMapValueIteratorValueFromJS(value js.Wrapper) *LayoutMapValueIteratorValue {
-	input := value.JSValue()
+// LayoutMapValueIteratorValue object and copy all values in the value javascript object.
+func LayoutMapValueIteratorValueFromJS(value js.Value) *LayoutMapValueIteratorValue {
 	var out LayoutMapValueIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -293,15 +288,19 @@ func (_this *Keyboard) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// KeyboardFromJS is casting a js.Wrapper into Keyboard.
-func KeyboardFromJS(value js.Wrapper) *Keyboard {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// KeyboardFromJS is casting a js.Value into Keyboard.
+func KeyboardFromJS(value js.Value) *Keyboard {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Keyboard{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// KeyboardFromJS is casting from something that holds a js.Value into Keyboard.
+func KeyboardFromWrapper(input core.Wrapper) *Keyboard {
+	return KeyboardFromJS(input.JSValue())
 }
 
 func (_this *Keyboard) Lock(keyCodes []string) (_result *javascript.PromiseVoid) {
@@ -360,15 +359,19 @@ func (_this *LayoutMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutMapFromJS is casting a js.Wrapper into LayoutMap.
-func LayoutMapFromJS(value js.Wrapper) *LayoutMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutMapFromJS is casting a js.Value into LayoutMap.
+func LayoutMapFromJS(value js.Value) *LayoutMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutMapFromJS is casting from something that holds a js.Value into LayoutMap.
+func LayoutMapFromWrapper(input core.Wrapper) *LayoutMap {
+	return LayoutMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -493,15 +496,19 @@ func (_this *LayoutMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutMapEntryIteratorFromJS is casting a js.Wrapper into LayoutMapEntryIterator.
-func LayoutMapEntryIteratorFromJS(value js.Wrapper) *LayoutMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutMapEntryIteratorFromJS is casting a js.Value into LayoutMapEntryIterator.
+func LayoutMapEntryIteratorFromJS(value js.Value) *LayoutMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutMapEntryIteratorFromJS is casting from something that holds a js.Value into LayoutMapEntryIterator.
+func LayoutMapEntryIteratorFromWrapper(input core.Wrapper) *LayoutMapEntryIterator {
+	return LayoutMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *LayoutMapEntryIterator) Next() (_result *LayoutMapEntryIteratorValue) {
@@ -528,15 +535,19 @@ func (_this *LayoutMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutMapKeyIteratorFromJS is casting a js.Wrapper into LayoutMapKeyIterator.
-func LayoutMapKeyIteratorFromJS(value js.Wrapper) *LayoutMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutMapKeyIteratorFromJS is casting a js.Value into LayoutMapKeyIterator.
+func LayoutMapKeyIteratorFromJS(value js.Value) *LayoutMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutMapKeyIteratorFromJS is casting from something that holds a js.Value into LayoutMapKeyIterator.
+func LayoutMapKeyIteratorFromWrapper(input core.Wrapper) *LayoutMapKeyIterator {
+	return LayoutMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *LayoutMapKeyIterator) Next() (_result *LayoutMapKeyIteratorValue) {
@@ -563,15 +574,19 @@ func (_this *LayoutMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutMapValueIteratorFromJS is casting a js.Wrapper into LayoutMapValueIterator.
-func LayoutMapValueIteratorFromJS(value js.Wrapper) *LayoutMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutMapValueIteratorFromJS is casting a js.Value into LayoutMapValueIterator.
+func LayoutMapValueIteratorFromJS(value js.Value) *LayoutMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutMapValueIteratorFromJS is casting from something that holds a js.Value into LayoutMapValueIterator.
+func LayoutMapValueIteratorFromWrapper(input core.Wrapper) *LayoutMapValueIterator {
+	return LayoutMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *LayoutMapValueIterator) Next() (_result *LayoutMapValueIteratorValue) {
@@ -598,15 +613,19 @@ func (_this *PromiseLayoutMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseLayoutMapFromJS is casting a js.Wrapper into PromiseLayoutMap.
-func PromiseLayoutMapFromJS(value js.Wrapper) *PromiseLayoutMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseLayoutMapFromJS is casting a js.Value into PromiseLayoutMap.
+func PromiseLayoutMapFromJS(value js.Value) *PromiseLayoutMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseLayoutMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseLayoutMapFromJS is casting from something that holds a js.Value into PromiseLayoutMap.
+func PromiseLayoutMapFromWrapper(input core.Wrapper) *PromiseLayoutMap {
+	return PromiseLayoutMapFromJS(input.JSValue())
 }
 
 func (_this *PromiseLayoutMap) Then(onFulfilled *PromiseLayoutMapOnFulfilled, onRejected *PromiseLayoutMapOnRejected) (_result *PromiseLayoutMap) {

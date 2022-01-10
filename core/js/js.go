@@ -1,16 +1,16 @@
+//go:build !js
+
 // Part of this is taken from Go language source code:
 //
 // Copyright 2018 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build !js
-
-// Package js is equal api to syscall/js but is panic on all method invocation
-// when compiled under none wasm taget.
+// Package js is the same api as syscall/js, but when not
+// compiling under WASM target it panics.
 //
-// The usage is to get a tab complession to work inside an IDE
-// (e.g. Visual Studio Code) without changing to GOOS to js
+// The objective is to get tab completion to work inside an IDE
+// (e.g. Visual Studio Code, GoLand) without having to change GOOS to js.
 //
 // Original documentation:
 //

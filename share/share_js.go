@@ -36,7 +36,7 @@ type ShareData struct {
 	Url   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ShareData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -50,21 +50,19 @@ func (_this *ShareData) JSValue() js.Value {
 }
 
 // ShareDataFromJS is allocating a new
-// ShareData object and copy all values from
-// input javascript object
-func ShareDataFromJS(value js.Wrapper) *ShareData {
-	input := value.JSValue()
+// ShareData object and copy all values in the value javascript object.
+func ShareDataFromJS(value js.Value) *ShareData {
 	var out ShareData
 	var (
 		value0 string // javascript: USVString {title Title title}
 		value1 string // javascript: USVString {text Text text}
 		value2 string // javascript: USVString {url Url url}
 	)
-	value0 = (input.Get("title")).String()
+	value0 = (value.Get("title")).String()
 	out.Title = value0
-	value1 = (input.Get("text")).String()
+	value1 = (value.Get("text")).String()
 	out.Text = value1
-	value2 = (input.Get("url")).String()
+	value2 = (value.Get("url")).String()
 	out.Url = value2
 	return &out
 }

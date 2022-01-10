@@ -5,6 +5,7 @@ package htmlevent
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/device/inputcapabilities"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
@@ -58,7 +59,7 @@ type CompositionEventInit struct {
 	Data               string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CompositionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -80,10 +81,8 @@ func (_this *CompositionEventInit) JSValue() js.Value {
 }
 
 // CompositionEventInitFromJS is allocating a new
-// CompositionEventInit object and copy all values from
-// input javascript object
-func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
-	input := value.JSValue()
+// CompositionEventInit object and copy all values in the value javascript object.
+func CompositionEventInitFromJS(value js.Value) *CompositionEventInit {
 	var out CompositionEventInit
 	var (
 		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -94,21 +93,21 @@ func CompositionEventInitFromJS(value js.Wrapper) *CompositionEventInit {
 		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
 		value6 string                                     // javascript: DOMString {data Data data}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("data")).String()
+	value6 = (value.Get("data")).String()
 	out.Data = value6
 	return &out
 }
@@ -147,7 +146,7 @@ type DragEventInit struct {
 	DataTransfer       *datatransfer.DataTransfer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DragEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -215,10 +214,8 @@ func (_this *DragEventInit) JSValue() js.Value {
 }
 
 // DragEventInitFromJS is allocating a new
-// DragEventInit object and copy all values from
-// input javascript object
-func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
-	input := value.JSValue()
+// DragEventInit object and copy all values in the value javascript object.
+func DragEventInitFromJS(value js.Value) *DragEventInit {
 	var out DragEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -252,70 +249,70 @@ func DragEventInitFromJS(value js.Wrapper) *DragEventInit {
 		value28 int                                        // javascript: long {movementY MovementY movementY}
 		value29 *datatransfer.DataTransfer                 // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	value20 = (input.Get("button")).Int()
+	value20 = (value.Get("button")).Int()
 	out.Button = value20
-	value21 = (input.Get("buttons")).Int()
+	value21 = (value.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
-		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if value.Get("relatedTarget").Type() != js.TypeNull && value.Get("relatedTarget").Type() != js.TypeUndefined {
+		value22 = domcore.EventTargetFromJS(value.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
-	value23 = (input.Get("screenX")).Float()
+	value23 = (value.Get("screenX")).Float()
 	out.ScreenX = value23
-	value24 = (input.Get("screenY")).Float()
+	value24 = (value.Get("screenY")).Float()
 	out.ScreenY = value24
-	value25 = (input.Get("clientX")).Float()
+	value25 = (value.Get("clientX")).Float()
 	out.ClientX = value25
-	value26 = (input.Get("clientY")).Float()
+	value26 = (value.Get("clientY")).Float()
 	out.ClientY = value26
-	value27 = (input.Get("movementX")).Int()
+	value27 = (value.Get("movementX")).Int()
 	out.MovementX = value27
-	value28 = (input.Get("movementY")).Int()
+	value28 = (value.Get("movementY")).Int()
 	out.MovementY = value28
-	if input.Get("dataTransfer").Type() != js.TypeNull && input.Get("dataTransfer").Type() != js.TypeUndefined {
-		value29 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
+	if value.Get("dataTransfer").Type() != js.TypeNull && value.Get("dataTransfer").Type() != js.TypeUndefined {
+		value29 = datatransfer.DataTransferFromJS(value.Get("dataTransfer"))
 	}
 	out.DataTransfer = value29
 	return &out
@@ -333,7 +330,7 @@ type ErrorEventInit struct {
 	Error      js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -357,10 +354,8 @@ func (_this *ErrorEventInit) JSValue() js.Value {
 }
 
 // ErrorEventInitFromJS is allocating a new
-// ErrorEventInit object and copy all values from
-// input javascript object
-func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
-	input := value.JSValue()
+// ErrorEventInit object and copy all values in the value javascript object.
+func ErrorEventInitFromJS(value js.Value) *ErrorEventInit {
 	var out ErrorEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -372,21 +367,21 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 		value6 uint     // javascript: unsigned long {colno Colno colno}
 		value7 js.Value // javascript: any {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("message")).String()
+	value3 = (value.Get("message")).String()
 	out.Message = value3
-	value4 = (input.Get("filename")).String()
+	value4 = (value.Get("filename")).String()
 	out.Filename = value4
-	value5 = (uint)((input.Get("lineno")).Int())
+	value5 = (uint)((value.Get("lineno")).Int())
 	out.Lineno = value5
-	value6 = (uint)((input.Get("colno")).Int())
+	value6 = (uint)((value.Get("colno")).Int())
 	out.Colno = value6
-	value7 = input.Get("error")
+	value7 = value.Get("error")
 	out.Error = value7
 	return &out
 }
@@ -415,7 +410,7 @@ type EventModifierInit struct {
 	ModifierSymbolLock bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventModifierInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -463,10 +458,8 @@ func (_this *EventModifierInit) JSValue() js.Value {
 }
 
 // EventModifierInitFromJS is allocating a new
-// EventModifierInit object and copy all values from
-// input javascript object
-func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
-	input := value.JSValue()
+// EventModifierInit object and copy all values in the value javascript object.
+func EventModifierInitFromJS(value js.Value) *EventModifierInit {
 	var out EventModifierInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -490,47 +483,47 @@ func EventModifierInitFromJS(value js.Wrapper) *EventModifierInit {
 		value18 bool                                       // javascript: boolean {modifierSymbol ModifierSymbol modifierSymbol}
 		value19 bool                                       // javascript: boolean {modifierSymbolLock ModifierSymbolLock modifierSymbolLock}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
 	return &out
 }
@@ -546,7 +539,7 @@ type FocusEventInit struct {
 	RelatedTarget      *domcore.EventTarget
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FocusEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -568,10 +561,8 @@ func (_this *FocusEventInit) JSValue() js.Value {
 }
 
 // FocusEventInitFromJS is allocating a new
-// FocusEventInit object and copy all values from
-// input javascript object
-func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
-	input := value.JSValue()
+// FocusEventInit object and copy all values in the value javascript object.
+func FocusEventInitFromJS(value js.Value) *FocusEventInit {
 	var out FocusEventInit
 	var (
 		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -582,22 +573,22 @@ func FocusEventInitFromJS(value js.Wrapper) *FocusEventInit {
 		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
 		value6 *domcore.EventTarget                       // javascript: EventTarget {relatedTarget RelatedTarget relatedTarget}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
-		value6 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if value.Get("relatedTarget").Type() != js.TypeNull && value.Get("relatedTarget").Type() != js.TypeUndefined {
+		value6 = domcore.EventTargetFromJS(value.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value6
 	return &out
@@ -612,7 +603,7 @@ type HashChangeEventInit struct {
 	NewURL     string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *HashChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -630,10 +621,8 @@ func (_this *HashChangeEventInit) JSValue() js.Value {
 }
 
 // HashChangeEventInitFromJS is allocating a new
-// HashChangeEventInit object and copy all values from
-// input javascript object
-func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
-	input := value.JSValue()
+// HashChangeEventInit object and copy all values in the value javascript object.
+func HashChangeEventInitFromJS(value js.Value) *HashChangeEventInit {
 	var out HashChangeEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -642,15 +631,15 @@ func HashChangeEventInitFromJS(value js.Wrapper) *HashChangeEventInit {
 		value3 string // javascript: USVString {oldURL OldURL oldURL}
 		value4 string // javascript: USVString {newURL NewURL newURL}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("oldURL")).String()
+	value3 = (value.Get("oldURL")).String()
 	out.OldURL = value3
-	value4 = (input.Get("newURL")).String()
+	value4 = (value.Get("newURL")).String()
 	out.NewURL = value4
 	return &out
 }
@@ -670,7 +659,7 @@ type InputEventInit struct {
 	TargetRanges       []*dom.StaticRange
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InputEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -710,10 +699,8 @@ func (_this *InputEventInit) JSValue() js.Value {
 }
 
 // InputEventInitFromJS is allocating a new
-// InputEventInit object and copy all values from
-// input javascript object
-func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
-	input := value.JSValue()
+// InputEventInit object and copy all values in the value javascript object.
+func InputEventInitFromJS(value js.Value) *InputEventInit {
 	var out InputEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -728,38 +715,38 @@ func InputEventInitFromJS(value js.Wrapper) *InputEventInit {
 		value9  *datatransfer.DataTransfer                 // javascript: DataTransfer {dataTransfer DataTransfer dataTransfer}
 		value10 []*dom.StaticRange                         // javascript: sequence<StaticRange> {targetRanges TargetRanges targetRanges}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	if input.Get("data").Type() != js.TypeNull && input.Get("data").Type() != js.TypeUndefined {
-		__tmp := (input.Get("data")).String()
+	if value.Get("data").Type() != js.TypeNull && value.Get("data").Type() != js.TypeUndefined {
+		__tmp := (value.Get("data")).String()
 		value6 = &__tmp
 	}
 	out.Data = value6
-	value7 = (input.Get("isComposing")).Bool()
+	value7 = (value.Get("isComposing")).Bool()
 	out.IsComposing = value7
-	value8 = (input.Get("inputType")).String()
+	value8 = (value.Get("inputType")).String()
 	out.InputType = value8
-	if input.Get("dataTransfer").Type() != js.TypeNull && input.Get("dataTransfer").Type() != js.TypeUndefined {
-		value9 = datatransfer.DataTransferFromJS(input.Get("dataTransfer"))
+	if value.Get("dataTransfer").Type() != js.TypeNull && value.Get("dataTransfer").Type() != js.TypeUndefined {
+		value9 = datatransfer.DataTransferFromJS(value.Get("dataTransfer"))
 	}
 	out.DataTransfer = value9
-	__length10 := input.Get("targetRanges").Length()
+	__length10 := value.Get("targetRanges").Length()
 	__array10 := make([]*dom.StaticRange, __length10, __length10)
 	for __idx10 := 0; __idx10 < __length10; __idx10++ {
 		var __seq_out10 *dom.StaticRange
-		__seq_in10 := input.Get("targetRanges").Index(__idx10)
+		__seq_in10 := value.Get("targetRanges").Index(__idx10)
 		__seq_out10 = dom.StaticRangeFromJS(__seq_in10)
 		__array10[__idx10] = __seq_out10
 	}
@@ -797,7 +784,7 @@ type KeyboardEventInit struct {
 	IsComposing        bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *KeyboardEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -855,10 +842,8 @@ func (_this *KeyboardEventInit) JSValue() js.Value {
 }
 
 // KeyboardEventInitFromJS is allocating a new
-// KeyboardEventInit object and copy all values from
-// input javascript object
-func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
-	input := value.JSValue()
+// KeyboardEventInit object and copy all values in the value javascript object.
+func KeyboardEventInitFromJS(value js.Value) *KeyboardEventInit {
 	var out KeyboardEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -887,57 +872,57 @@ func KeyboardEventInitFromJS(value js.Wrapper) *KeyboardEventInit {
 		value23 bool                                       // javascript: boolean {repeat Repeat repeat}
 		value24 bool                                       // javascript: boolean {isComposing IsComposing isComposing}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	value20 = (input.Get("key")).String()
+	value20 = (value.Get("key")).String()
 	out.Key = value20
-	value21 = (input.Get("code")).String()
+	value21 = (value.Get("code")).String()
 	out.Code = value21
-	value22 = (uint)((input.Get("location")).Int())
+	value22 = (uint)((value.Get("location")).Int())
 	out.Location = value22
-	value23 = (input.Get("repeat")).Bool()
+	value23 = (value.Get("repeat")).Bool()
 	out.Repeat = value23
-	value24 = (input.Get("isComposing")).Bool()
+	value24 = (value.Get("isComposing")).Bool()
 	out.IsComposing = value24
 	return &out
 }
@@ -975,7 +960,7 @@ type MouseEventInit struct {
 	MovementY          int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MouseEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1041,10 +1026,8 @@ func (_this *MouseEventInit) JSValue() js.Value {
 }
 
 // MouseEventInitFromJS is allocating a new
-// MouseEventInit object and copy all values from
-// input javascript object
-func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
-	input := value.JSValue()
+// MouseEventInit object and copy all values in the value javascript object.
+func MouseEventInitFromJS(value js.Value) *MouseEventInit {
 	var out MouseEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -1077,67 +1060,67 @@ func MouseEventInitFromJS(value js.Wrapper) *MouseEventInit {
 		value27 int                                        // javascript: long {movementX MovementX movementX}
 		value28 int                                        // javascript: long {movementY MovementY movementY}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	value20 = (input.Get("button")).Int()
+	value20 = (value.Get("button")).Int()
 	out.Button = value20
-	value21 = (input.Get("buttons")).Int()
+	value21 = (value.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
-		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if value.Get("relatedTarget").Type() != js.TypeNull && value.Get("relatedTarget").Type() != js.TypeUndefined {
+		value22 = domcore.EventTargetFromJS(value.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
-	value23 = (input.Get("screenX")).Float()
+	value23 = (value.Get("screenX")).Float()
 	out.ScreenX = value23
-	value24 = (input.Get("screenY")).Float()
+	value24 = (value.Get("screenY")).Float()
 	out.ScreenY = value24
-	value25 = (input.Get("clientX")).Float()
+	value25 = (value.Get("clientX")).Float()
 	out.ClientX = value25
-	value26 = (input.Get("clientY")).Float()
+	value26 = (value.Get("clientY")).Float()
 	out.ClientY = value26
-	value27 = (input.Get("movementX")).Int()
+	value27 = (value.Get("movementX")).Int()
 	out.MovementX = value27
-	value28 = (input.Get("movementY")).Int()
+	value28 = (value.Get("movementY")).Int()
 	out.MovementY = value28
 	return &out
 }
@@ -1150,7 +1133,7 @@ type PageTransitionEventInit struct {
 	Persisted  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PageTransitionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1166,10 +1149,8 @@ func (_this *PageTransitionEventInit) JSValue() js.Value {
 }
 
 // PageTransitionEventInitFromJS is allocating a new
-// PageTransitionEventInit object and copy all values from
-// input javascript object
-func PageTransitionEventInitFromJS(value js.Wrapper) *PageTransitionEventInit {
-	input := value.JSValue()
+// PageTransitionEventInit object and copy all values in the value javascript object.
+func PageTransitionEventInitFromJS(value js.Value) *PageTransitionEventInit {
 	var out PageTransitionEventInit
 	var (
 		value0 bool // javascript: boolean {bubbles Bubbles bubbles}
@@ -1177,13 +1158,13 @@ func PageTransitionEventInitFromJS(value js.Wrapper) *PageTransitionEventInit {
 		value2 bool // javascript: boolean {composed Composed composed}
 		value3 bool // javascript: boolean {persisted Persisted persisted}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("persisted")).Bool()
+	value3 = (value.Get("persisted")).Bool()
 	out.Persisted = value3
 	return &out
 }
@@ -1233,7 +1214,7 @@ type PointerEventInit struct {
 	PredictedEvents    []*PointerEvent
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PointerEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1331,10 +1312,8 @@ func (_this *PointerEventInit) JSValue() js.Value {
 }
 
 // PointerEventInitFromJS is allocating a new
-// PointerEventInit object and copy all values from
-// input javascript object
-func PointerEventInitFromJS(value js.Wrapper) *PointerEventInit {
-	input := value.JSValue()
+// PointerEventInit object and copy all values in the value javascript object.
+func PointerEventInitFromJS(value js.Value) *PointerEventInit {
 	var out PointerEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -1379,103 +1358,103 @@ func PointerEventInitFromJS(value js.Wrapper) *PointerEventInit {
 		value39 []*PointerEvent                            // javascript: sequence<PointerEvent> {coalescedEvents CoalescedEvents coalescedEvents}
 		value40 []*PointerEvent                            // javascript: sequence<PointerEvent> {predictedEvents PredictedEvents predictedEvents}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	value20 = (input.Get("button")).Int()
+	value20 = (value.Get("button")).Int()
 	out.Button = value20
-	value21 = (input.Get("buttons")).Int()
+	value21 = (value.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
-		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if value.Get("relatedTarget").Type() != js.TypeNull && value.Get("relatedTarget").Type() != js.TypeUndefined {
+		value22 = domcore.EventTargetFromJS(value.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
-	value23 = (input.Get("screenX")).Float()
+	value23 = (value.Get("screenX")).Float()
 	out.ScreenX = value23
-	value24 = (input.Get("screenY")).Float()
+	value24 = (value.Get("screenY")).Float()
 	out.ScreenY = value24
-	value25 = (input.Get("clientX")).Float()
+	value25 = (value.Get("clientX")).Float()
 	out.ClientX = value25
-	value26 = (input.Get("clientY")).Float()
+	value26 = (value.Get("clientY")).Float()
 	out.ClientY = value26
-	value27 = (input.Get("movementX")).Int()
+	value27 = (value.Get("movementX")).Int()
 	out.MovementX = value27
-	value28 = (input.Get("movementY")).Int()
+	value28 = (value.Get("movementY")).Int()
 	out.MovementY = value28
-	value29 = (input.Get("pointerId")).Int()
+	value29 = (value.Get("pointerId")).Int()
 	out.PointerId = value29
-	value30 = (input.Get("width")).Float()
+	value30 = (value.Get("width")).Float()
 	out.Width = value30
-	value31 = (input.Get("height")).Float()
+	value31 = (value.Get("height")).Float()
 	out.Height = value31
-	value32 = (float32)((input.Get("pressure")).Float())
+	value32 = (float32)((value.Get("pressure")).Float())
 	out.Pressure = value32
-	value33 = (float32)((input.Get("tangentialPressure")).Float())
+	value33 = (float32)((value.Get("tangentialPressure")).Float())
 	out.TangentialPressure = value33
-	value34 = (input.Get("tiltX")).Int()
+	value34 = (value.Get("tiltX")).Int()
 	out.TiltX = value34
-	value35 = (input.Get("tiltY")).Int()
+	value35 = (value.Get("tiltY")).Int()
 	out.TiltY = value35
-	value36 = (input.Get("twist")).Int()
+	value36 = (value.Get("twist")).Int()
 	out.Twist = value36
-	value37 = (input.Get("pointerType")).String()
+	value37 = (value.Get("pointerType")).String()
 	out.PointerType = value37
-	value38 = (input.Get("isPrimary")).Bool()
+	value38 = (value.Get("isPrimary")).Bool()
 	out.IsPrimary = value38
-	__length39 := input.Get("coalescedEvents").Length()
+	__length39 := value.Get("coalescedEvents").Length()
 	__array39 := make([]*PointerEvent, __length39, __length39)
 	for __idx39 := 0; __idx39 < __length39; __idx39++ {
 		var __seq_out39 *PointerEvent
-		__seq_in39 := input.Get("coalescedEvents").Index(__idx39)
+		__seq_in39 := value.Get("coalescedEvents").Index(__idx39)
 		__seq_out39 = PointerEventFromJS(__seq_in39)
 		__array39[__idx39] = __seq_out39
 	}
 	value39 = __array39
 	out.CoalescedEvents = value39
-	__length40 := input.Get("predictedEvents").Length()
+	__length40 := value.Get("predictedEvents").Length()
 	__array40 := make([]*PointerEvent, __length40, __length40)
 	for __idx40 := 0; __idx40 < __length40; __idx40++ {
 		var __seq_out40 *PointerEvent
-		__seq_in40 := input.Get("predictedEvents").Index(__idx40)
+		__seq_in40 := value.Get("predictedEvents").Index(__idx40)
 		__seq_out40 = PointerEventFromJS(__seq_in40)
 		__array40[__idx40] = __seq_out40
 	}
@@ -1492,7 +1471,7 @@ type PopStateEventInit struct {
 	State      js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PopStateEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1508,10 +1487,8 @@ func (_this *PopStateEventInit) JSValue() js.Value {
 }
 
 // PopStateEventInitFromJS is allocating a new
-// PopStateEventInit object and copy all values from
-// input javascript object
-func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
-	input := value.JSValue()
+// PopStateEventInit object and copy all values in the value javascript object.
+func PopStateEventInitFromJS(value js.Value) *PopStateEventInit {
 	var out PopStateEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -1519,13 +1496,13 @@ func PopStateEventInitFromJS(value js.Wrapper) *PopStateEventInit {
 		value2 bool     // javascript: boolean {composed Composed composed}
 		value3 js.Value // javascript: any {state State state}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("state")
+	value3 = value.Get("state")
 	out.State = value3
 	return &out
 }
@@ -1539,7 +1516,7 @@ type PromiseRejectionEventInit struct {
 	Reason     js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PromiseRejectionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1557,10 +1534,8 @@ func (_this *PromiseRejectionEventInit) JSValue() js.Value {
 }
 
 // PromiseRejectionEventInitFromJS is allocating a new
-// PromiseRejectionEventInit object and copy all values from
-// input javascript object
-func PromiseRejectionEventInitFromJS(value js.Wrapper) *PromiseRejectionEventInit {
-	input := value.JSValue()
+// PromiseRejectionEventInit object and copy all values in the value javascript object.
+func PromiseRejectionEventInitFromJS(value js.Value) *PromiseRejectionEventInit {
 	var out PromiseRejectionEventInit
 	var (
 		value0 bool                // javascript: boolean {bubbles Bubbles bubbles}
@@ -1569,15 +1544,15 @@ func PromiseRejectionEventInitFromJS(value js.Wrapper) *PromiseRejectionEventIni
 		value3 *javascript.Promise // javascript: Promise {promise Promise promise}
 		value4 js.Value            // javascript: any {reason Reason reason}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = javascript.PromiseFromJS(input.Get("promise"))
+	value3 = javascript.PromiseFromJS(value.Get("promise"))
 	out.Promise = value3
-	value4 = input.Get("reason")
+	value4 = value.Get("reason")
 	out.Reason = value4
 	return &out
 }
@@ -1594,7 +1569,7 @@ type StorageEventInit struct {
 	StorageArea *Storage
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StorageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1636,10 +1611,8 @@ func (_this *StorageEventInit) JSValue() js.Value {
 }
 
 // StorageEventInitFromJS is allocating a new
-// StorageEventInit object and copy all values from
-// input javascript object
-func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
-	input := value.JSValue()
+// StorageEventInit object and copy all values in the value javascript object.
+func StorageEventInitFromJS(value js.Value) *StorageEventInit {
 	var out StorageEventInit
 	var (
 		value0 bool     // javascript: boolean {bubbles Bubbles bubbles}
@@ -1651,31 +1624,31 @@ func StorageEventInitFromJS(value js.Wrapper) *StorageEventInit {
 		value6 string   // javascript: USVString {url Url url}
 		value7 *Storage // javascript: Storage {storageArea StorageArea storageArea}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("key").Type() != js.TypeNull && input.Get("key").Type() != js.TypeUndefined {
-		__tmp := (input.Get("key")).String()
+	if value.Get("key").Type() != js.TypeNull && value.Get("key").Type() != js.TypeUndefined {
+		__tmp := (value.Get("key")).String()
 		value3 = &__tmp
 	}
 	out.Key = value3
-	if input.Get("oldValue").Type() != js.TypeNull && input.Get("oldValue").Type() != js.TypeUndefined {
-		__tmp := (input.Get("oldValue")).String()
+	if value.Get("oldValue").Type() != js.TypeNull && value.Get("oldValue").Type() != js.TypeUndefined {
+		__tmp := (value.Get("oldValue")).String()
 		value4 = &__tmp
 	}
 	out.OldValue = value4
-	if input.Get("newValue").Type() != js.TypeNull && input.Get("newValue").Type() != js.TypeUndefined {
-		__tmp := (input.Get("newValue")).String()
+	if value.Get("newValue").Type() != js.TypeNull && value.Get("newValue").Type() != js.TypeUndefined {
+		__tmp := (value.Get("newValue")).String()
 		value5 = &__tmp
 	}
 	out.NewValue = value5
-	value6 = (input.Get("url")).String()
+	value6 = (value.Get("url")).String()
 	out.Url = value6
-	if input.Get("storageArea").Type() != js.TypeNull && input.Get("storageArea").Type() != js.TypeUndefined {
-		value7 = StorageFromJS(input.Get("storageArea"))
+	if value.Get("storageArea").Type() != js.TypeNull && value.Get("storageArea").Type() != js.TypeUndefined {
+		value7 = StorageFromJS(value.Get("storageArea"))
 	}
 	out.StorageArea = value7
 	return &out
@@ -1689,7 +1662,7 @@ type TrackEventInit struct {
 	Track      *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TrackEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1705,10 +1678,8 @@ func (_this *TrackEventInit) JSValue() js.Value {
 }
 
 // TrackEventInitFromJS is allocating a new
-// TrackEventInit object and copy all values from
-// input javascript object
-func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
-	input := value.JSValue()
+// TrackEventInit object and copy all values in the value javascript object.
+func TrackEventInitFromJS(value js.Value) *TrackEventInit {
 	var out TrackEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -1716,14 +1687,14 @@ func TrackEventInitFromJS(value js.Wrapper) *TrackEventInit {
 		value2 bool   // javascript: boolean {composed Composed composed}
 		value3 *Union // javascript: Union {track Track track}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("track").Type() != js.TypeNull && input.Get("track").Type() != js.TypeUndefined {
-		value3 = UnionFromJS(input.Get("track"))
+	if value.Get("track").Type() != js.TypeNull && value.Get("track").Type() != js.TypeUndefined {
+		value3 = UnionFromJS(value.Get("track"))
 	}
 	out.Track = value3
 	return &out
@@ -1739,7 +1710,7 @@ type UIEventInit struct {
 	SourceCapabilities *inputcapabilities.InputDeviceCapabilities
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *UIEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1759,10 +1730,8 @@ func (_this *UIEventInit) JSValue() js.Value {
 }
 
 // UIEventInitFromJS is allocating a new
-// UIEventInit object and copy all values from
-// input javascript object
-func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
-	input := value.JSValue()
+// UIEventInit object and copy all values in the value javascript object.
+func UIEventInitFromJS(value js.Value) *UIEventInit {
 	var out UIEventInit
 	var (
 		value0 bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -1772,18 +1741,18 @@ func UIEventInitFromJS(value js.Wrapper) *UIEventInit {
 		value4 int                                        // javascript: long {detail Detail detail}
 		value5 *inputcapabilities.InputDeviceCapabilities // javascript: InputDeviceCapabilities {sourceCapabilities SourceCapabilities sourceCapabilities}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
 	return &out
@@ -1826,7 +1795,7 @@ type WheelEventInit struct {
 	DeltaMode          uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WheelEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1900,10 +1869,8 @@ func (_this *WheelEventInit) JSValue() js.Value {
 }
 
 // WheelEventInitFromJS is allocating a new
-// WheelEventInit object and copy all values from
-// input javascript object
-func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
-	input := value.JSValue()
+// WheelEventInit object and copy all values in the value javascript object.
+func WheelEventInitFromJS(value js.Value) *WheelEventInit {
 	var out WheelEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -1940,75 +1907,75 @@ func WheelEventInitFromJS(value js.Wrapper) *WheelEventInit {
 		value31 float64                                    // javascript: double {deltaZ DeltaZ deltaZ}
 		value32 uint                                       // javascript: unsigned long {deltaMode DeltaMode deltaMode}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	value20 = (input.Get("button")).Int()
+	value20 = (value.Get("button")).Int()
 	out.Button = value20
-	value21 = (input.Get("buttons")).Int()
+	value21 = (value.Get("buttons")).Int()
 	out.Buttons = value21
-	if input.Get("relatedTarget").Type() != js.TypeNull && input.Get("relatedTarget").Type() != js.TypeUndefined {
-		value22 = domcore.EventTargetFromJS(input.Get("relatedTarget"))
+	if value.Get("relatedTarget").Type() != js.TypeNull && value.Get("relatedTarget").Type() != js.TypeUndefined {
+		value22 = domcore.EventTargetFromJS(value.Get("relatedTarget"))
 	}
 	out.RelatedTarget = value22
-	value23 = (input.Get("screenX")).Float()
+	value23 = (value.Get("screenX")).Float()
 	out.ScreenX = value23
-	value24 = (input.Get("screenY")).Float()
+	value24 = (value.Get("screenY")).Float()
 	out.ScreenY = value24
-	value25 = (input.Get("clientX")).Float()
+	value25 = (value.Get("clientX")).Float()
 	out.ClientX = value25
-	value26 = (input.Get("clientY")).Float()
+	value26 = (value.Get("clientY")).Float()
 	out.ClientY = value26
-	value27 = (input.Get("movementX")).Int()
+	value27 = (value.Get("movementX")).Int()
 	out.MovementX = value27
-	value28 = (input.Get("movementY")).Int()
+	value28 = (value.Get("movementY")).Int()
 	out.MovementY = value28
-	value29 = (input.Get("deltaX")).Float()
+	value29 = (value.Get("deltaX")).Float()
 	out.DeltaX = value29
-	value30 = (input.Get("deltaY")).Float()
+	value30 = (value.Get("deltaY")).Float()
 	out.DeltaY = value30
-	value31 = (input.Get("deltaZ")).Float()
+	value31 = (value.Get("deltaZ")).Float()
 	out.DeltaZ = value31
-	value32 = (uint)((input.Get("deltaMode")).Int())
+	value32 = (uint)((value.Get("deltaMode")).Int())
 	out.DeltaMode = value32
 	return &out
 }
@@ -2018,15 +1985,19 @@ type CompositionEvent struct {
 	UIEvent
 }
 
-// CompositionEventFromJS is casting a js.Wrapper into CompositionEvent.
-func CompositionEventFromJS(value js.Wrapper) *CompositionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CompositionEventFromJS is casting a js.Value into CompositionEvent.
+func CompositionEventFromJS(value js.Value) *CompositionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CompositionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CompositionEventFromJS is casting from something that holds a js.Value into CompositionEvent.
+func CompositionEventFromWrapper(input core.Wrapper) *CompositionEvent {
+	return CompositionEventFromJS(input.JSValue())
 }
 
 func NewCompositionEvent(_type string, eventInitDict *CompositionEventInit) (_result *CompositionEvent) {
@@ -2066,15 +2037,19 @@ type DragEvent struct {
 	MouseEvent
 }
 
-// DragEventFromJS is casting a js.Wrapper into DragEvent.
-func DragEventFromJS(value js.Wrapper) *DragEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DragEventFromJS is casting a js.Value into DragEvent.
+func DragEventFromJS(value js.Value) *DragEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DragEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DragEventFromJS is casting from something that holds a js.Value into DragEvent.
+func DragEventFromWrapper(input core.Wrapper) *DragEvent {
+	return DragEventFromJS(input.JSValue())
 }
 
 func NewDragEvent(_type string, eventInitDict *DragEventInit) (_result *DragEvent) {
@@ -2116,15 +2091,19 @@ type ErrorEvent struct {
 	domcore.Event
 }
 
-// ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
-func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ErrorEventFromJS is casting a js.Value into ErrorEvent.
+func ErrorEventFromJS(value js.Value) *ErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ErrorEventFromJS is casting from something that holds a js.Value into ErrorEvent.
+func ErrorEventFromWrapper(input core.Wrapper) *ErrorEvent {
+	return ErrorEventFromJS(input.JSValue())
 }
 
 func NewErrorEvent(_type string, eventInitDict *ErrorEventInit) (_result *ErrorEvent) {
@@ -2200,15 +2179,19 @@ type FocusEvent struct {
 	UIEvent
 }
 
-// FocusEventFromJS is casting a js.Wrapper into FocusEvent.
-func FocusEventFromJS(value js.Wrapper) *FocusEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FocusEventFromJS is casting a js.Value into FocusEvent.
+func FocusEventFromJS(value js.Value) *FocusEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FocusEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FocusEventFromJS is casting from something that holds a js.Value into FocusEvent.
+func FocusEventFromWrapper(input core.Wrapper) *FocusEvent {
+	return FocusEventFromJS(input.JSValue())
 }
 
 func NewFocusEvent(_type string, eventInitDict *FocusEventInit) (_result *FocusEvent) {
@@ -2250,15 +2233,19 @@ type HashChangeEvent struct {
 	domcore.Event
 }
 
-// HashChangeEventFromJS is casting a js.Wrapper into HashChangeEvent.
-func HashChangeEventFromJS(value js.Wrapper) *HashChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HashChangeEventFromJS is casting a js.Value into HashChangeEvent.
+func HashChangeEventFromJS(value js.Value) *HashChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HashChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HashChangeEventFromJS is casting from something that holds a js.Value into HashChangeEvent.
+func HashChangeEventFromWrapper(input core.Wrapper) *HashChangeEvent {
+	return HashChangeEventFromJS(input.JSValue())
 }
 
 func NewHashChangeEvent(_type string, eventInitDict *HashChangeEventInit) (_result *HashChangeEvent) {
@@ -2307,15 +2294,19 @@ type InputEvent struct {
 	UIEvent
 }
 
-// InputEventFromJS is casting a js.Wrapper into InputEvent.
-func InputEventFromJS(value js.Wrapper) *InputEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputEventFromJS is casting a js.Value into InputEvent.
+func InputEventFromJS(value js.Value) *InputEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputEventFromJS is casting from something that holds a js.Value into InputEvent.
+func InputEventFromWrapper(input core.Wrapper) *InputEvent {
+	return InputEventFromJS(input.JSValue())
 }
 
 func NewInputEvent(_type string, eventInitDict *InputEventInit) (_result *InputEvent) {
@@ -2409,15 +2400,19 @@ type KeyboardEvent struct {
 	UIEvent
 }
 
-// KeyboardEventFromJS is casting a js.Wrapper into KeyboardEvent.
-func KeyboardEventFromJS(value js.Wrapper) *KeyboardEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// KeyboardEventFromJS is casting a js.Value into KeyboardEvent.
+func KeyboardEventFromJS(value js.Value) *KeyboardEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &KeyboardEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// KeyboardEventFromJS is casting from something that holds a js.Value into KeyboardEvent.
+func KeyboardEventFromWrapper(input core.Wrapper) *KeyboardEvent {
+	return KeyboardEventFromJS(input.JSValue())
 }
 
 const (
@@ -2571,15 +2566,19 @@ type MouseEvent struct {
 	UIEvent
 }
 
-// MouseEventFromJS is casting a js.Wrapper into MouseEvent.
-func MouseEventFromJS(value js.Wrapper) *MouseEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MouseEventFromJS is casting a js.Value into MouseEvent.
+func MouseEventFromJS(value js.Value) *MouseEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MouseEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MouseEventFromJS is casting from something that holds a js.Value into MouseEvent.
+func MouseEventFromWrapper(input core.Wrapper) *MouseEvent {
+	return MouseEventFromJS(input.JSValue())
 }
 
 func NewMouseEvent(_type string, eventInitDict *MouseEventInit) (_result *MouseEvent) {
@@ -2800,15 +2799,19 @@ type PageTransitionEvent struct {
 	domcore.Event
 }
 
-// PageTransitionEventFromJS is casting a js.Wrapper into PageTransitionEvent.
-func PageTransitionEventFromJS(value js.Wrapper) *PageTransitionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PageTransitionEventFromJS is casting a js.Value into PageTransitionEvent.
+func PageTransitionEventFromJS(value js.Value) *PageTransitionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PageTransitionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PageTransitionEventFromJS is casting from something that holds a js.Value into PageTransitionEvent.
+func PageTransitionEventFromWrapper(input core.Wrapper) *PageTransitionEvent {
+	return PageTransitionEventFromJS(input.JSValue())
 }
 
 func NewPageTransitionEvent(_type string, eventInitDict *PageTransitionEventInit) (_result *PageTransitionEvent) {
@@ -2848,15 +2851,19 @@ type PointerEvent struct {
 	MouseEvent
 }
 
-// PointerEventFromJS is casting a js.Wrapper into PointerEvent.
-func PointerEventFromJS(value js.Wrapper) *PointerEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PointerEventFromJS is casting a js.Value into PointerEvent.
+func PointerEventFromJS(value js.Value) *PointerEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PointerEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PointerEventFromJS is casting from something that holds a js.Value into PointerEvent.
+func PointerEventFromWrapper(input core.Wrapper) *PointerEvent {
+	return PointerEventFromJS(input.JSValue())
 }
 
 func NewPointerEvent(_type string, eventInitDict *PointerEventInit) (_result *PointerEvent) {
@@ -3021,15 +3028,19 @@ type PopStateEvent struct {
 	domcore.Event
 }
 
-// PopStateEventFromJS is casting a js.Wrapper into PopStateEvent.
-func PopStateEventFromJS(value js.Wrapper) *PopStateEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PopStateEventFromJS is casting a js.Value into PopStateEvent.
+func PopStateEventFromJS(value js.Value) *PopStateEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PopStateEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PopStateEventFromJS is casting from something that holds a js.Value into PopStateEvent.
+func PopStateEventFromWrapper(input core.Wrapper) *PopStateEvent {
+	return PopStateEventFromJS(input.JSValue())
 }
 
 func NewPopStateEvent(_type string, eventInitDict *PopStateEventInit) (_result *PopStateEvent) {
@@ -3069,15 +3080,19 @@ type PromiseRejectionEvent struct {
 	domcore.Event
 }
 
-// PromiseRejectionEventFromJS is casting a js.Wrapper into PromiseRejectionEvent.
-func PromiseRejectionEventFromJS(value js.Wrapper) *PromiseRejectionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseRejectionEventFromJS is casting a js.Value into PromiseRejectionEvent.
+func PromiseRejectionEventFromJS(value js.Value) *PromiseRejectionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseRejectionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseRejectionEventFromJS is casting from something that holds a js.Value into PromiseRejectionEvent.
+func PromiseRejectionEventFromWrapper(input core.Wrapper) *PromiseRejectionEvent {
+	return PromiseRejectionEventFromJS(input.JSValue())
 }
 
 func NewPromiseRejectionEvent(_type string, eventInitDict *PromiseRejectionEventInit) (_result *PromiseRejectionEvent) {
@@ -3129,15 +3144,19 @@ func (_this *Storage) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StorageFromJS is casting a js.Wrapper into Storage.
-func StorageFromJS(value js.Wrapper) *Storage {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StorageFromJS is casting a js.Value into Storage.
+func StorageFromJS(value js.Value) *Storage {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Storage{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StorageFromJS is casting from something that holds a js.Value into Storage.
+func StorageFromWrapper(input core.Wrapper) *Storage {
+	return StorageFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -3277,15 +3296,19 @@ type StorageEvent struct {
 	domcore.Event
 }
 
-// StorageEventFromJS is casting a js.Wrapper into StorageEvent.
-func StorageEventFromJS(value js.Wrapper) *StorageEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StorageEventFromJS is casting a js.Value into StorageEvent.
+func StorageEventFromJS(value js.Value) *StorageEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StorageEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StorageEventFromJS is casting from something that holds a js.Value into StorageEvent.
+func StorageEventFromWrapper(input core.Wrapper) *StorageEvent {
+	return StorageEventFromJS(input.JSValue())
 }
 
 func NewStorageEvent(_type string, eventInitDict *StorageEventInit) (_result *StorageEvent) {
@@ -3455,15 +3478,19 @@ type TrackEvent struct {
 	domcore.Event
 }
 
-// TrackEventFromJS is casting a js.Wrapper into TrackEvent.
-func TrackEventFromJS(value js.Wrapper) *TrackEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TrackEventFromJS is casting a js.Value into TrackEvent.
+func TrackEventFromJS(value js.Value) *TrackEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TrackEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TrackEventFromJS is casting from something that holds a js.Value into TrackEvent.
+func TrackEventFromWrapper(input core.Wrapper) *TrackEvent {
+	return TrackEventFromJS(input.JSValue())
 }
 
 func NewTrackEvent(_type string, eventInitDict *TrackEventInit) (_result *TrackEvent) {
@@ -3505,15 +3532,19 @@ type UIEvent struct {
 	domcore.Event
 }
 
-// UIEventFromJS is casting a js.Wrapper into UIEvent.
-func UIEventFromJS(value js.Wrapper) *UIEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// UIEventFromJS is casting a js.Value into UIEvent.
+func UIEventFromJS(value js.Value) *UIEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &UIEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// UIEventFromJS is casting from something that holds a js.Value into UIEvent.
+func UIEventFromWrapper(input core.Wrapper) *UIEvent {
+	return UIEventFromJS(input.JSValue())
 }
 
 func NewUIEvent(_type string, eventInitDict *UIEventInit) (_result *UIEvent) {
@@ -3582,15 +3613,19 @@ type WheelEvent struct {
 	MouseEvent
 }
 
-// WheelEventFromJS is casting a js.Wrapper into WheelEvent.
-func WheelEventFromJS(value js.Wrapper) *WheelEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WheelEventFromJS is casting a js.Value into WheelEvent.
+func WheelEventFromJS(value js.Value) *WheelEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WheelEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WheelEventFromJS is casting from something that holds a js.Value into WheelEvent.
+func WheelEventFromWrapper(input core.Wrapper) *WheelEvent {
+	return WheelEventFromJS(input.JSValue())
 }
 
 const (

@@ -5,6 +5,7 @@ package local
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capture/depth"
@@ -393,7 +394,7 @@ func PromiseSequenceMediaDeviceInfoOnRejectedFromJS(_value js.Value) PromiseSequ
 type Capabilities struct {
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Capabilities) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -401,9 +402,8 @@ func (_this *Capabilities) JSValue() js.Value {
 }
 
 // CapabilitiesFromJS is allocating a new
-// Capabilities object and copy all values from
-// input javascript object
-func CapabilitiesFromJS(value js.Wrapper) *Capabilities {
+// Capabilities object and copy all values in the value javascript object.
+func CapabilitiesFromJS(value js.Value) *Capabilities {
 	var out Capabilities
 	var ()
 	return &out
@@ -415,7 +415,7 @@ type ConstrainBooleanParameters struct {
 	Ideal bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstrainBooleanParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -427,18 +427,16 @@ func (_this *ConstrainBooleanParameters) JSValue() js.Value {
 }
 
 // ConstrainBooleanParametersFromJS is allocating a new
-// ConstrainBooleanParameters object and copy all values from
-// input javascript object
-func ConstrainBooleanParametersFromJS(value js.Wrapper) *ConstrainBooleanParameters {
-	input := value.JSValue()
+// ConstrainBooleanParameters object and copy all values in the value javascript object.
+func ConstrainBooleanParametersFromJS(value js.Value) *ConstrainBooleanParameters {
 	var out ConstrainBooleanParameters
 	var (
 		value0 bool // javascript: boolean {exact Exact exact}
 		value1 bool // javascript: boolean {ideal Ideal ideal}
 	)
-	value0 = (input.Get("exact")).Bool()
+	value0 = (value.Get("exact")).Bool()
 	out.Exact = value0
-	value1 = (input.Get("ideal")).Bool()
+	value1 = (value.Get("ideal")).Bool()
 	out.Ideal = value1
 	return &out
 }
@@ -449,7 +447,7 @@ type ConstrainDOMStringParameters struct {
 	Ideal *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstrainDOMStringParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -461,18 +459,16 @@ func (_this *ConstrainDOMStringParameters) JSValue() js.Value {
 }
 
 // ConstrainDOMStringParametersFromJS is allocating a new
-// ConstrainDOMStringParameters object and copy all values from
-// input javascript object
-func ConstrainDOMStringParametersFromJS(value js.Wrapper) *ConstrainDOMStringParameters {
-	input := value.JSValue()
+// ConstrainDOMStringParameters object and copy all values in the value javascript object.
+func ConstrainDOMStringParametersFromJS(value js.Value) *ConstrainDOMStringParameters {
 	var out ConstrainDOMStringParameters
 	var (
 		value0 *Union // javascript: Union {exact Exact exact}
 		value1 *Union // javascript: Union {ideal Ideal ideal}
 	)
-	value0 = UnionFromJS(input.Get("exact"))
+	value0 = UnionFromJS(value.Get("exact"))
 	out.Exact = value0
-	value1 = UnionFromJS(input.Get("ideal"))
+	value1 = UnionFromJS(value.Get("ideal"))
 	out.Ideal = value1
 	return &out
 }
@@ -485,7 +481,7 @@ type ConstrainDoubleRange struct {
 	Ideal float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstrainDoubleRange) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -501,10 +497,8 @@ func (_this *ConstrainDoubleRange) JSValue() js.Value {
 }
 
 // ConstrainDoubleRangeFromJS is allocating a new
-// ConstrainDoubleRange object and copy all values from
-// input javascript object
-func ConstrainDoubleRangeFromJS(value js.Wrapper) *ConstrainDoubleRange {
-	input := value.JSValue()
+// ConstrainDoubleRange object and copy all values in the value javascript object.
+func ConstrainDoubleRangeFromJS(value js.Value) *ConstrainDoubleRange {
 	var out ConstrainDoubleRange
 	var (
 		value0 float64 // javascript: double {max Max max}
@@ -512,13 +506,13 @@ func ConstrainDoubleRangeFromJS(value js.Wrapper) *ConstrainDoubleRange {
 		value2 float64 // javascript: double {exact Exact exact}
 		value3 float64 // javascript: double {ideal Ideal ideal}
 	)
-	value0 = (input.Get("max")).Float()
+	value0 = (value.Get("max")).Float()
 	out.Max = value0
-	value1 = (input.Get("min")).Float()
+	value1 = (value.Get("min")).Float()
 	out.Min = value1
-	value2 = (input.Get("exact")).Float()
+	value2 = (value.Get("exact")).Float()
 	out.Exact = value2
-	value3 = (input.Get("ideal")).Float()
+	value3 = (value.Get("ideal")).Float()
 	out.Ideal = value3
 	return &out
 }
@@ -531,7 +525,7 @@ type ConstrainULongRange struct {
 	Ideal uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstrainULongRange) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -547,10 +541,8 @@ func (_this *ConstrainULongRange) JSValue() js.Value {
 }
 
 // ConstrainULongRangeFromJS is allocating a new
-// ConstrainULongRange object and copy all values from
-// input javascript object
-func ConstrainULongRangeFromJS(value js.Wrapper) *ConstrainULongRange {
-	input := value.JSValue()
+// ConstrainULongRange object and copy all values in the value javascript object.
+func ConstrainULongRangeFromJS(value js.Value) *ConstrainULongRange {
 	var out ConstrainULongRange
 	var (
 		value0 uint // javascript: unsigned long {max Max max}
@@ -558,13 +550,13 @@ func ConstrainULongRangeFromJS(value js.Wrapper) *ConstrainULongRange {
 		value2 uint // javascript: unsigned long {exact Exact exact}
 		value3 uint // javascript: unsigned long {ideal Ideal ideal}
 	)
-	value0 = (uint)((input.Get("max")).Int())
+	value0 = (uint)((value.Get("max")).Int())
 	out.Max = value0
-	value1 = (uint)((input.Get("min")).Int())
+	value1 = (uint)((value.Get("min")).Int())
 	out.Min = value1
-	value2 = (uint)((input.Get("exact")).Int())
+	value2 = (uint)((value.Get("exact")).Int())
 	out.Exact = value2
-	value3 = (uint)((input.Get("ideal")).Int())
+	value3 = (uint)((value.Get("ideal")).Int())
 	out.Ideal = value3
 	return &out
 }
@@ -573,7 +565,7 @@ func ConstrainULongRangeFromJS(value js.Wrapper) *ConstrainULongRange {
 type ConstraintSet struct {
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstraintSet) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -581,9 +573,8 @@ func (_this *ConstraintSet) JSValue() js.Value {
 }
 
 // ConstraintSetFromJS is allocating a new
-// ConstraintSet object and copy all values from
-// input javascript object
-func ConstraintSetFromJS(value js.Wrapper) *ConstraintSet {
+// ConstraintSet object and copy all values in the value javascript object.
+func ConstraintSetFromJS(value js.Value) *ConstraintSet {
 	var out ConstraintSet
 	var ()
 	return &out
@@ -594,7 +585,7 @@ type Constraints struct {
 	Advanced []*ConstraintSet
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Constraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -608,19 +599,17 @@ func (_this *Constraints) JSValue() js.Value {
 }
 
 // ConstraintsFromJS is allocating a new
-// Constraints object and copy all values from
-// input javascript object
-func ConstraintsFromJS(value js.Wrapper) *Constraints {
-	input := value.JSValue()
+// Constraints object and copy all values in the value javascript object.
+func ConstraintsFromJS(value js.Value) *Constraints {
 	var out Constraints
 	var (
 		value0 []*ConstraintSet // javascript: sequence<ConstraintSet> {advanced Advanced advanced}
 	)
-	__length0 := input.Get("advanced").Length()
+	__length0 := value.Get("advanced").Length()
 	__array0 := make([]*ConstraintSet, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *ConstraintSet
-		__seq_in0 := input.Get("advanced").Index(__idx0)
+		__seq_in0 := value.Get("advanced").Index(__idx0)
 		__seq_out0 = ConstraintSetFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
@@ -635,7 +624,7 @@ type DoubleRange struct {
 	Min float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DoubleRange) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -647,18 +636,16 @@ func (_this *DoubleRange) JSValue() js.Value {
 }
 
 // DoubleRangeFromJS is allocating a new
-// DoubleRange object and copy all values from
-// input javascript object
-func DoubleRangeFromJS(value js.Wrapper) *DoubleRange {
-	input := value.JSValue()
+// DoubleRange object and copy all values in the value javascript object.
+func DoubleRangeFromJS(value js.Value) *DoubleRange {
 	var out DoubleRange
 	var (
 		value0 float64 // javascript: double {max Max max}
 		value1 float64 // javascript: double {min Min min}
 	)
-	value0 = (input.Get("max")).Float()
+	value0 = (value.Get("max")).Float()
 	out.Max = value0
-	value1 = (input.Get("min")).Float()
+	value1 = (value.Get("min")).Float()
 	out.Min = value1
 	return &out
 }
@@ -669,7 +656,7 @@ type MediaStreamConstraints struct {
 	Audio *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaStreamConstraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -681,18 +668,16 @@ func (_this *MediaStreamConstraints) JSValue() js.Value {
 }
 
 // MediaStreamConstraintsFromJS is allocating a new
-// MediaStreamConstraints object and copy all values from
-// input javascript object
-func MediaStreamConstraintsFromJS(value js.Wrapper) *MediaStreamConstraints {
-	input := value.JSValue()
+// MediaStreamConstraints object and copy all values in the value javascript object.
+func MediaStreamConstraintsFromJS(value js.Value) *MediaStreamConstraints {
 	var out MediaStreamConstraints
 	var (
 		value0 *Union // javascript: Union {video Video video}
 		value1 *Union // javascript: Union {audio Audio audio}
 	)
-	value0 = UnionFromJS(input.Get("video"))
+	value0 = UnionFromJS(value.Get("video"))
 	out.Video = value0
-	value1 = UnionFromJS(input.Get("audio"))
+	value1 = UnionFromJS(value.Get("audio"))
 	out.Audio = value1
 	return &out
 }
@@ -705,7 +690,7 @@ type MediaStreamTrackEventInit struct {
 	Track      *MediaStreamTrack
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaStreamTrackEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -721,10 +706,8 @@ func (_this *MediaStreamTrackEventInit) JSValue() js.Value {
 }
 
 // MediaStreamTrackEventInitFromJS is allocating a new
-// MediaStreamTrackEventInit object and copy all values from
-// input javascript object
-func MediaStreamTrackEventInitFromJS(value js.Wrapper) *MediaStreamTrackEventInit {
-	input := value.JSValue()
+// MediaStreamTrackEventInit object and copy all values in the value javascript object.
+func MediaStreamTrackEventInitFromJS(value js.Value) *MediaStreamTrackEventInit {
 	var out MediaStreamTrackEventInit
 	var (
 		value0 bool              // javascript: boolean {bubbles Bubbles bubbles}
@@ -732,13 +715,13 @@ func MediaStreamTrackEventInitFromJS(value js.Wrapper) *MediaStreamTrackEventIni
 		value2 bool              // javascript: boolean {composed Composed composed}
 		value3 *MediaStreamTrack // javascript: MediaStreamTrack {track Track track}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = MediaStreamTrackFromJS(input.Get("track"))
+	value3 = MediaStreamTrackFromJS(value.Get("track"))
 	out.Track = value3
 	return &out
 }
@@ -787,7 +770,7 @@ type MediaTrackCapabilities struct {
 	DepthToVideoTransform              bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaTrackCapabilities) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -907,10 +890,8 @@ func (_this *MediaTrackCapabilities) JSValue() js.Value {
 }
 
 // MediaTrackCapabilitiesFromJS is allocating a new
-// MediaTrackCapabilities object and copy all values from
-// input javascript object
-func MediaTrackCapabilitiesFromJS(value js.Wrapper) *MediaTrackCapabilities {
-	input := value.JSValue()
+// MediaTrackCapabilities object and copy all values in the value javascript object.
+func MediaTrackCapabilitiesFromJS(value js.Value) *MediaTrackCapabilities {
 	var out MediaTrackCapabilities
 	var (
 		value0  *ULongRange                   // javascript: ULongRange {width Width width}
@@ -954,149 +935,149 @@ func MediaTrackCapabilitiesFromJS(value js.Wrapper) *MediaTrackCapabilities {
 		value38 *Union                        // javascript: Union {depthFar DepthFar depthFar}
 		value39 bool                          // javascript: boolean {depthToVideoTransform DepthToVideoTransform depthToVideoTransform}
 	)
-	value0 = ULongRangeFromJS(input.Get("width"))
+	value0 = ULongRangeFromJS(value.Get("width"))
 	out.Width = value0
-	value1 = ULongRangeFromJS(input.Get("height"))
+	value1 = ULongRangeFromJS(value.Get("height"))
 	out.Height = value1
-	value2 = DoubleRangeFromJS(input.Get("aspectRatio"))
+	value2 = DoubleRangeFromJS(value.Get("aspectRatio"))
 	out.AspectRatio = value2
-	value3 = DoubleRangeFromJS(input.Get("frameRate"))
+	value3 = DoubleRangeFromJS(value.Get("frameRate"))
 	out.FrameRate = value3
-	__length4 := input.Get("facingMode").Length()
+	__length4 := value.Get("facingMode").Length()
 	__array4 := make([]string, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 string
-		__seq_in4 := input.Get("facingMode").Index(__idx4)
+		__seq_in4 := value.Get("facingMode").Index(__idx4)
 		__seq_out4 = (__seq_in4).String()
 		__array4[__idx4] = __seq_out4
 	}
 	value4 = __array4
 	out.FacingMode = value4
-	__length5 := input.Get("resizeMode").Length()
+	__length5 := value.Get("resizeMode").Length()
 	__array5 := make([]string, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 string
-		__seq_in5 := input.Get("resizeMode").Index(__idx5)
+		__seq_in5 := value.Get("resizeMode").Index(__idx5)
 		__seq_out5 = (__seq_in5).String()
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.ResizeMode = value5
-	value6 = DoubleRangeFromJS(input.Get("volume"))
+	value6 = DoubleRangeFromJS(value.Get("volume"))
 	out.Volume = value6
-	value7 = ULongRangeFromJS(input.Get("sampleRate"))
+	value7 = ULongRangeFromJS(value.Get("sampleRate"))
 	out.SampleRate = value7
-	value8 = ULongRangeFromJS(input.Get("sampleSize"))
+	value8 = ULongRangeFromJS(value.Get("sampleSize"))
 	out.SampleSize = value8
-	__length9 := input.Get("echoCancellation").Length()
+	__length9 := value.Get("echoCancellation").Length()
 	__array9 := make([]bool, __length9, __length9)
 	for __idx9 := 0; __idx9 < __length9; __idx9++ {
 		var __seq_out9 bool
-		__seq_in9 := input.Get("echoCancellation").Index(__idx9)
+		__seq_in9 := value.Get("echoCancellation").Index(__idx9)
 		__seq_out9 = (__seq_in9).Bool()
 		__array9[__idx9] = __seq_out9
 	}
 	value9 = __array9
 	out.EchoCancellation = value9
-	__length10 := input.Get("autoGainControl").Length()
+	__length10 := value.Get("autoGainControl").Length()
 	__array10 := make([]bool, __length10, __length10)
 	for __idx10 := 0; __idx10 < __length10; __idx10++ {
 		var __seq_out10 bool
-		__seq_in10 := input.Get("autoGainControl").Index(__idx10)
+		__seq_in10 := value.Get("autoGainControl").Index(__idx10)
 		__seq_out10 = (__seq_in10).Bool()
 		__array10[__idx10] = __seq_out10
 	}
 	value10 = __array10
 	out.AutoGainControl = value10
-	__length11 := input.Get("noiseSuppression").Length()
+	__length11 := value.Get("noiseSuppression").Length()
 	__array11 := make([]bool, __length11, __length11)
 	for __idx11 := 0; __idx11 < __length11; __idx11++ {
 		var __seq_out11 bool
-		__seq_in11 := input.Get("noiseSuppression").Index(__idx11)
+		__seq_in11 := value.Get("noiseSuppression").Index(__idx11)
 		__seq_out11 = (__seq_in11).Bool()
 		__array11[__idx11] = __seq_out11
 	}
 	value11 = __array11
 	out.NoiseSuppression = value11
-	value12 = DoubleRangeFromJS(input.Get("latency"))
+	value12 = DoubleRangeFromJS(value.Get("latency"))
 	out.Latency = value12
-	value13 = ULongRangeFromJS(input.Get("channelCount"))
+	value13 = ULongRangeFromJS(value.Get("channelCount"))
 	out.ChannelCount = value13
-	value14 = (input.Get("deviceId")).String()
+	value14 = (value.Get("deviceId")).String()
 	out.DeviceId = value14
-	value15 = (input.Get("groupId")).String()
+	value15 = (value.Get("groupId")).String()
 	out.GroupId = value15
-	__length16 := input.Get("whiteBalanceMode").Length()
+	__length16 := value.Get("whiteBalanceMode").Length()
 	__array16 := make([]string, __length16, __length16)
 	for __idx16 := 0; __idx16 < __length16; __idx16++ {
 		var __seq_out16 string
-		__seq_in16 := input.Get("whiteBalanceMode").Index(__idx16)
+		__seq_in16 := value.Get("whiteBalanceMode").Index(__idx16)
 		__seq_out16 = (__seq_in16).String()
 		__array16[__idx16] = __seq_out16
 	}
 	value16 = __array16
 	out.WhiteBalanceMode = value16
-	__length17 := input.Get("exposureMode").Length()
+	__length17 := value.Get("exposureMode").Length()
 	__array17 := make([]string, __length17, __length17)
 	for __idx17 := 0; __idx17 < __length17; __idx17++ {
 		var __seq_out17 string
-		__seq_in17 := input.Get("exposureMode").Index(__idx17)
+		__seq_in17 := value.Get("exposureMode").Index(__idx17)
 		__seq_out17 = (__seq_in17).String()
 		__array17[__idx17] = __seq_out17
 	}
 	value17 = __array17
 	out.ExposureMode = value17
-	__length18 := input.Get("focusMode").Length()
+	__length18 := value.Get("focusMode").Length()
 	__array18 := make([]string, __length18, __length18)
 	for __idx18 := 0; __idx18 < __length18; __idx18++ {
 		var __seq_out18 string
-		__seq_in18 := input.Get("focusMode").Index(__idx18)
+		__seq_in18 := value.Get("focusMode").Index(__idx18)
 		__seq_out18 = (__seq_in18).String()
 		__array18[__idx18] = __seq_out18
 	}
 	value18 = __array18
 	out.FocusMode = value18
-	value19 = mediatype.MediaSettingsRangeFromJS(input.Get("exposureCompensation"))
+	value19 = mediatype.MediaSettingsRangeFromJS(value.Get("exposureCompensation"))
 	out.ExposureCompensation = value19
-	value20 = mediatype.MediaSettingsRangeFromJS(input.Get("exposureTime"))
+	value20 = mediatype.MediaSettingsRangeFromJS(value.Get("exposureTime"))
 	out.ExposureTime = value20
-	value21 = mediatype.MediaSettingsRangeFromJS(input.Get("colorTemperature"))
+	value21 = mediatype.MediaSettingsRangeFromJS(value.Get("colorTemperature"))
 	out.ColorTemperature = value21
-	value22 = mediatype.MediaSettingsRangeFromJS(input.Get("iso"))
+	value22 = mediatype.MediaSettingsRangeFromJS(value.Get("iso"))
 	out.Iso = value22
-	value23 = mediatype.MediaSettingsRangeFromJS(input.Get("brightness"))
+	value23 = mediatype.MediaSettingsRangeFromJS(value.Get("brightness"))
 	out.Brightness = value23
-	value24 = mediatype.MediaSettingsRangeFromJS(input.Get("contrast"))
+	value24 = mediatype.MediaSettingsRangeFromJS(value.Get("contrast"))
 	out.Contrast = value24
-	value25 = mediatype.MediaSettingsRangeFromJS(input.Get("saturation"))
+	value25 = mediatype.MediaSettingsRangeFromJS(value.Get("saturation"))
 	out.Saturation = value25
-	value26 = mediatype.MediaSettingsRangeFromJS(input.Get("sharpness"))
+	value26 = mediatype.MediaSettingsRangeFromJS(value.Get("sharpness"))
 	out.Sharpness = value26
-	value27 = mediatype.MediaSettingsRangeFromJS(input.Get("focusDistance"))
+	value27 = mediatype.MediaSettingsRangeFromJS(value.Get("focusDistance"))
 	out.FocusDistance = value27
-	value28 = mediatype.MediaSettingsRangeFromJS(input.Get("zoom"))
+	value28 = mediatype.MediaSettingsRangeFromJS(value.Get("zoom"))
 	out.Zoom = value28
-	value29 = (input.Get("torch")).Bool()
+	value29 = (value.Get("torch")).Bool()
 	out.Torch = value29
-	value30 = (input.Get("videoKind")).String()
+	value30 = (value.Get("videoKind")).String()
 	out.VideoKind = value30
-	value31 = UnionFromJS(input.Get("focalLengthX"))
+	value31 = UnionFromJS(value.Get("focalLengthX"))
 	out.FocalLengthX = value31
-	value32 = UnionFromJS(input.Get("focalLengthY"))
+	value32 = UnionFromJS(value.Get("focalLengthY"))
 	out.FocalLengthY = value32
-	value33 = UnionFromJS(input.Get("principalPointX"))
+	value33 = UnionFromJS(value.Get("principalPointX"))
 	out.PrincipalPointX = value33
-	value34 = UnionFromJS(input.Get("principalPointY"))
+	value34 = UnionFromJS(value.Get("principalPointY"))
 	out.PrincipalPointY = value34
-	value35 = (input.Get("deprojectionDistortionCoefficients")).Bool()
+	value35 = (value.Get("deprojectionDistortionCoefficients")).Bool()
 	out.DeprojectionDistortionCoefficients = value35
-	value36 = (input.Get("projectionDistortionCoefficients")).Bool()
+	value36 = (value.Get("projectionDistortionCoefficients")).Bool()
 	out.ProjectionDistortionCoefficients = value36
-	value37 = UnionFromJS(input.Get("depthNear"))
+	value37 = UnionFromJS(value.Get("depthNear"))
 	out.DepthNear = value37
-	value38 = UnionFromJS(input.Get("depthFar"))
+	value38 = UnionFromJS(value.Get("depthFar"))
 	out.DepthFar = value38
-	value39 = (input.Get("depthToVideoTransform")).Bool()
+	value39 = (value.Get("depthToVideoTransform")).Bool()
 	out.DepthToVideoTransform = value39
 	return &out
 }
@@ -1149,7 +1130,7 @@ type MediaTrackConstraintSet struct {
 	Cursor                             *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaTrackConstraintSet) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1245,10 +1226,8 @@ func (_this *MediaTrackConstraintSet) JSValue() js.Value {
 }
 
 // MediaTrackConstraintSetFromJS is allocating a new
-// MediaTrackConstraintSet object and copy all values from
-// input javascript object
-func MediaTrackConstraintSetFromJS(value js.Wrapper) *MediaTrackConstraintSet {
-	input := value.JSValue()
+// MediaTrackConstraintSet object and copy all values in the value javascript object.
+func MediaTrackConstraintSetFromJS(value js.Value) *MediaTrackConstraintSet {
 	var out MediaTrackConstraintSet
 	var (
 		value0  *Union // javascript: Union {width Width width}
@@ -1296,93 +1275,93 @@ func MediaTrackConstraintSetFromJS(value js.Wrapper) *MediaTrackConstraintSet {
 		value42 *Union // javascript: Union {logicalSurface LogicalSurface logicalSurface}
 		value43 *Union // javascript: Union {cursor Cursor cursor}
 	)
-	value0 = UnionFromJS(input.Get("width"))
+	value0 = UnionFromJS(value.Get("width"))
 	out.Width = value0
-	value1 = UnionFromJS(input.Get("height"))
+	value1 = UnionFromJS(value.Get("height"))
 	out.Height = value1
-	value2 = UnionFromJS(input.Get("aspectRatio"))
+	value2 = UnionFromJS(value.Get("aspectRatio"))
 	out.AspectRatio = value2
-	value3 = UnionFromJS(input.Get("frameRate"))
+	value3 = UnionFromJS(value.Get("frameRate"))
 	out.FrameRate = value3
-	value4 = UnionFromJS(input.Get("facingMode"))
+	value4 = UnionFromJS(value.Get("facingMode"))
 	out.FacingMode = value4
-	value5 = UnionFromJS(input.Get("resizeMode"))
+	value5 = UnionFromJS(value.Get("resizeMode"))
 	out.ResizeMode = value5
-	value6 = UnionFromJS(input.Get("volume"))
+	value6 = UnionFromJS(value.Get("volume"))
 	out.Volume = value6
-	value7 = UnionFromJS(input.Get("sampleRate"))
+	value7 = UnionFromJS(value.Get("sampleRate"))
 	out.SampleRate = value7
-	value8 = UnionFromJS(input.Get("sampleSize"))
+	value8 = UnionFromJS(value.Get("sampleSize"))
 	out.SampleSize = value8
-	value9 = UnionFromJS(input.Get("echoCancellation"))
+	value9 = UnionFromJS(value.Get("echoCancellation"))
 	out.EchoCancellation = value9
-	value10 = UnionFromJS(input.Get("autoGainControl"))
+	value10 = UnionFromJS(value.Get("autoGainControl"))
 	out.AutoGainControl = value10
-	value11 = UnionFromJS(input.Get("noiseSuppression"))
+	value11 = UnionFromJS(value.Get("noiseSuppression"))
 	out.NoiseSuppression = value11
-	value12 = UnionFromJS(input.Get("latency"))
+	value12 = UnionFromJS(value.Get("latency"))
 	out.Latency = value12
-	value13 = UnionFromJS(input.Get("channelCount"))
+	value13 = UnionFromJS(value.Get("channelCount"))
 	out.ChannelCount = value13
-	value14 = UnionFromJS(input.Get("deviceId"))
+	value14 = UnionFromJS(value.Get("deviceId"))
 	out.DeviceId = value14
-	value15 = UnionFromJS(input.Get("groupId"))
+	value15 = UnionFromJS(value.Get("groupId"))
 	out.GroupId = value15
-	value16 = UnionFromJS(input.Get("whiteBalanceMode"))
+	value16 = UnionFromJS(value.Get("whiteBalanceMode"))
 	out.WhiteBalanceMode = value16
-	value17 = UnionFromJS(input.Get("exposureMode"))
+	value17 = UnionFromJS(value.Get("exposureMode"))
 	out.ExposureMode = value17
-	value18 = UnionFromJS(input.Get("focusMode"))
+	value18 = UnionFromJS(value.Get("focusMode"))
 	out.FocusMode = value18
-	value19 = UnionFromJS(input.Get("pointsOfInterest"))
+	value19 = UnionFromJS(value.Get("pointsOfInterest"))
 	out.PointsOfInterest = value19
-	value20 = UnionFromJS(input.Get("exposureCompensation"))
+	value20 = UnionFromJS(value.Get("exposureCompensation"))
 	out.ExposureCompensation = value20
-	value21 = UnionFromJS(input.Get("exposureTime"))
+	value21 = UnionFromJS(value.Get("exposureTime"))
 	out.ExposureTime = value21
-	value22 = UnionFromJS(input.Get("colorTemperature"))
+	value22 = UnionFromJS(value.Get("colorTemperature"))
 	out.ColorTemperature = value22
-	value23 = UnionFromJS(input.Get("iso"))
+	value23 = UnionFromJS(value.Get("iso"))
 	out.Iso = value23
-	value24 = UnionFromJS(input.Get("brightness"))
+	value24 = UnionFromJS(value.Get("brightness"))
 	out.Brightness = value24
-	value25 = UnionFromJS(input.Get("contrast"))
+	value25 = UnionFromJS(value.Get("contrast"))
 	out.Contrast = value25
-	value26 = UnionFromJS(input.Get("saturation"))
+	value26 = UnionFromJS(value.Get("saturation"))
 	out.Saturation = value26
-	value27 = UnionFromJS(input.Get("sharpness"))
+	value27 = UnionFromJS(value.Get("sharpness"))
 	out.Sharpness = value27
-	value28 = UnionFromJS(input.Get("focusDistance"))
+	value28 = UnionFromJS(value.Get("focusDistance"))
 	out.FocusDistance = value28
-	value29 = UnionFromJS(input.Get("zoom"))
+	value29 = UnionFromJS(value.Get("zoom"))
 	out.Zoom = value29
-	value30 = UnionFromJS(input.Get("torch"))
+	value30 = UnionFromJS(value.Get("torch"))
 	out.Torch = value30
-	value31 = UnionFromJS(input.Get("videoKind"))
+	value31 = UnionFromJS(value.Get("videoKind"))
 	out.VideoKind = value31
-	value32 = UnionFromJS(input.Get("focalLengthX"))
+	value32 = UnionFromJS(value.Get("focalLengthX"))
 	out.FocalLengthX = value32
-	value33 = UnionFromJS(input.Get("focalLengthY"))
+	value33 = UnionFromJS(value.Get("focalLengthY"))
 	out.FocalLengthY = value33
-	value34 = UnionFromJS(input.Get("principalPointX"))
+	value34 = UnionFromJS(value.Get("principalPointX"))
 	out.PrincipalPointX = value34
-	value35 = UnionFromJS(input.Get("principalPointY"))
+	value35 = UnionFromJS(value.Get("principalPointY"))
 	out.PrincipalPointY = value35
-	value36 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
+	value36 = UnionFromJS(value.Get("deprojectionDistortionCoefficients"))
 	out.DeprojectionDistortionCoefficients = value36
-	value37 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
+	value37 = UnionFromJS(value.Get("projectionDistortionCoefficients"))
 	out.ProjectionDistortionCoefficients = value37
-	value38 = UnionFromJS(input.Get("depthNear"))
+	value38 = UnionFromJS(value.Get("depthNear"))
 	out.DepthNear = value38
-	value39 = UnionFromJS(input.Get("depthFar"))
+	value39 = UnionFromJS(value.Get("depthFar"))
 	out.DepthFar = value39
-	value40 = UnionFromJS(input.Get("depthToVideoTransform"))
+	value40 = UnionFromJS(value.Get("depthToVideoTransform"))
 	out.DepthToVideoTransform = value40
-	value41 = UnionFromJS(input.Get("displaySurface"))
+	value41 = UnionFromJS(value.Get("displaySurface"))
 	out.DisplaySurface = value41
-	value42 = UnionFromJS(input.Get("logicalSurface"))
+	value42 = UnionFromJS(value.Get("logicalSurface"))
 	out.LogicalSurface = value42
-	value43 = UnionFromJS(input.Get("cursor"))
+	value43 = UnionFromJS(value.Get("cursor"))
 	out.Cursor = value43
 	return &out
 }
@@ -1436,7 +1415,7 @@ type MediaTrackConstraints struct {
 	Advanced                           []*MediaTrackConstraintSet
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaTrackConstraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1538,10 +1517,8 @@ func (_this *MediaTrackConstraints) JSValue() js.Value {
 }
 
 // MediaTrackConstraintsFromJS is allocating a new
-// MediaTrackConstraints object and copy all values from
-// input javascript object
-func MediaTrackConstraintsFromJS(value js.Wrapper) *MediaTrackConstraints {
-	input := value.JSValue()
+// MediaTrackConstraints object and copy all values in the value javascript object.
+func MediaTrackConstraintsFromJS(value js.Value) *MediaTrackConstraints {
 	var out MediaTrackConstraints
 	var (
 		value0  *Union                     // javascript: Union {width Width width}
@@ -1590,99 +1567,99 @@ func MediaTrackConstraintsFromJS(value js.Wrapper) *MediaTrackConstraints {
 		value43 *Union                     // javascript: Union {cursor Cursor cursor}
 		value44 []*MediaTrackConstraintSet // javascript: sequence<MediaTrackConstraintSet> {advanced Advanced advanced}
 	)
-	value0 = UnionFromJS(input.Get("width"))
+	value0 = UnionFromJS(value.Get("width"))
 	out.Width = value0
-	value1 = UnionFromJS(input.Get("height"))
+	value1 = UnionFromJS(value.Get("height"))
 	out.Height = value1
-	value2 = UnionFromJS(input.Get("aspectRatio"))
+	value2 = UnionFromJS(value.Get("aspectRatio"))
 	out.AspectRatio = value2
-	value3 = UnionFromJS(input.Get("frameRate"))
+	value3 = UnionFromJS(value.Get("frameRate"))
 	out.FrameRate = value3
-	value4 = UnionFromJS(input.Get("facingMode"))
+	value4 = UnionFromJS(value.Get("facingMode"))
 	out.FacingMode = value4
-	value5 = UnionFromJS(input.Get("resizeMode"))
+	value5 = UnionFromJS(value.Get("resizeMode"))
 	out.ResizeMode = value5
-	value6 = UnionFromJS(input.Get("volume"))
+	value6 = UnionFromJS(value.Get("volume"))
 	out.Volume = value6
-	value7 = UnionFromJS(input.Get("sampleRate"))
+	value7 = UnionFromJS(value.Get("sampleRate"))
 	out.SampleRate = value7
-	value8 = UnionFromJS(input.Get("sampleSize"))
+	value8 = UnionFromJS(value.Get("sampleSize"))
 	out.SampleSize = value8
-	value9 = UnionFromJS(input.Get("echoCancellation"))
+	value9 = UnionFromJS(value.Get("echoCancellation"))
 	out.EchoCancellation = value9
-	value10 = UnionFromJS(input.Get("autoGainControl"))
+	value10 = UnionFromJS(value.Get("autoGainControl"))
 	out.AutoGainControl = value10
-	value11 = UnionFromJS(input.Get("noiseSuppression"))
+	value11 = UnionFromJS(value.Get("noiseSuppression"))
 	out.NoiseSuppression = value11
-	value12 = UnionFromJS(input.Get("latency"))
+	value12 = UnionFromJS(value.Get("latency"))
 	out.Latency = value12
-	value13 = UnionFromJS(input.Get("channelCount"))
+	value13 = UnionFromJS(value.Get("channelCount"))
 	out.ChannelCount = value13
-	value14 = UnionFromJS(input.Get("deviceId"))
+	value14 = UnionFromJS(value.Get("deviceId"))
 	out.DeviceId = value14
-	value15 = UnionFromJS(input.Get("groupId"))
+	value15 = UnionFromJS(value.Get("groupId"))
 	out.GroupId = value15
-	value16 = UnionFromJS(input.Get("whiteBalanceMode"))
+	value16 = UnionFromJS(value.Get("whiteBalanceMode"))
 	out.WhiteBalanceMode = value16
-	value17 = UnionFromJS(input.Get("exposureMode"))
+	value17 = UnionFromJS(value.Get("exposureMode"))
 	out.ExposureMode = value17
-	value18 = UnionFromJS(input.Get("focusMode"))
+	value18 = UnionFromJS(value.Get("focusMode"))
 	out.FocusMode = value18
-	value19 = UnionFromJS(input.Get("pointsOfInterest"))
+	value19 = UnionFromJS(value.Get("pointsOfInterest"))
 	out.PointsOfInterest = value19
-	value20 = UnionFromJS(input.Get("exposureCompensation"))
+	value20 = UnionFromJS(value.Get("exposureCompensation"))
 	out.ExposureCompensation = value20
-	value21 = UnionFromJS(input.Get("exposureTime"))
+	value21 = UnionFromJS(value.Get("exposureTime"))
 	out.ExposureTime = value21
-	value22 = UnionFromJS(input.Get("colorTemperature"))
+	value22 = UnionFromJS(value.Get("colorTemperature"))
 	out.ColorTemperature = value22
-	value23 = UnionFromJS(input.Get("iso"))
+	value23 = UnionFromJS(value.Get("iso"))
 	out.Iso = value23
-	value24 = UnionFromJS(input.Get("brightness"))
+	value24 = UnionFromJS(value.Get("brightness"))
 	out.Brightness = value24
-	value25 = UnionFromJS(input.Get("contrast"))
+	value25 = UnionFromJS(value.Get("contrast"))
 	out.Contrast = value25
-	value26 = UnionFromJS(input.Get("saturation"))
+	value26 = UnionFromJS(value.Get("saturation"))
 	out.Saturation = value26
-	value27 = UnionFromJS(input.Get("sharpness"))
+	value27 = UnionFromJS(value.Get("sharpness"))
 	out.Sharpness = value27
-	value28 = UnionFromJS(input.Get("focusDistance"))
+	value28 = UnionFromJS(value.Get("focusDistance"))
 	out.FocusDistance = value28
-	value29 = UnionFromJS(input.Get("zoom"))
+	value29 = UnionFromJS(value.Get("zoom"))
 	out.Zoom = value29
-	value30 = UnionFromJS(input.Get("torch"))
+	value30 = UnionFromJS(value.Get("torch"))
 	out.Torch = value30
-	value31 = UnionFromJS(input.Get("videoKind"))
+	value31 = UnionFromJS(value.Get("videoKind"))
 	out.VideoKind = value31
-	value32 = UnionFromJS(input.Get("focalLengthX"))
+	value32 = UnionFromJS(value.Get("focalLengthX"))
 	out.FocalLengthX = value32
-	value33 = UnionFromJS(input.Get("focalLengthY"))
+	value33 = UnionFromJS(value.Get("focalLengthY"))
 	out.FocalLengthY = value33
-	value34 = UnionFromJS(input.Get("principalPointX"))
+	value34 = UnionFromJS(value.Get("principalPointX"))
 	out.PrincipalPointX = value34
-	value35 = UnionFromJS(input.Get("principalPointY"))
+	value35 = UnionFromJS(value.Get("principalPointY"))
 	out.PrincipalPointY = value35
-	value36 = UnionFromJS(input.Get("deprojectionDistortionCoefficients"))
+	value36 = UnionFromJS(value.Get("deprojectionDistortionCoefficients"))
 	out.DeprojectionDistortionCoefficients = value36
-	value37 = UnionFromJS(input.Get("projectionDistortionCoefficients"))
+	value37 = UnionFromJS(value.Get("projectionDistortionCoefficients"))
 	out.ProjectionDistortionCoefficients = value37
-	value38 = UnionFromJS(input.Get("depthNear"))
+	value38 = UnionFromJS(value.Get("depthNear"))
 	out.DepthNear = value38
-	value39 = UnionFromJS(input.Get("depthFar"))
+	value39 = UnionFromJS(value.Get("depthFar"))
 	out.DepthFar = value39
-	value40 = UnionFromJS(input.Get("depthToVideoTransform"))
+	value40 = UnionFromJS(value.Get("depthToVideoTransform"))
 	out.DepthToVideoTransform = value40
-	value41 = UnionFromJS(input.Get("displaySurface"))
+	value41 = UnionFromJS(value.Get("displaySurface"))
 	out.DisplaySurface = value41
-	value42 = UnionFromJS(input.Get("logicalSurface"))
+	value42 = UnionFromJS(value.Get("logicalSurface"))
 	out.LogicalSurface = value42
-	value43 = UnionFromJS(input.Get("cursor"))
+	value43 = UnionFromJS(value.Get("cursor"))
 	out.Cursor = value43
-	__length44 := input.Get("advanced").Length()
+	__length44 := value.Get("advanced").Length()
 	__array44 := make([]*MediaTrackConstraintSet, __length44, __length44)
 	for __idx44 := 0; __idx44 < __length44; __idx44++ {
 		var __seq_out44 *MediaTrackConstraintSet
-		__seq_in44 := input.Get("advanced").Index(__idx44)
+		__seq_in44 := value.Get("advanced").Index(__idx44)
 		__seq_out44 = MediaTrackConstraintSetFromJS(__seq_in44)
 		__array44[__idx44] = __seq_out44
 	}
@@ -1739,7 +1716,7 @@ type MediaTrackSettings struct {
 	Cursor                             string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaTrackSettings) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1839,10 +1816,8 @@ func (_this *MediaTrackSettings) JSValue() js.Value {
 }
 
 // MediaTrackSettingsFromJS is allocating a new
-// MediaTrackSettings object and copy all values from
-// input javascript object
-func MediaTrackSettingsFromJS(value js.Wrapper) *MediaTrackSettings {
-	input := value.JSValue()
+// MediaTrackSettings object and copy all values in the value javascript object.
+func MediaTrackSettingsFromJS(value js.Value) *MediaTrackSettings {
 	var out MediaTrackSettings
 	var (
 		value0  int                           // javascript: long {width Width width}
@@ -1890,101 +1865,101 @@ func MediaTrackSettingsFromJS(value js.Wrapper) *MediaTrackSettings {
 		value42 bool                          // javascript: boolean {logicalSurface LogicalSurface logicalSurface}
 		value43 string                        // javascript: DOMString {cursor Cursor cursor}
 	)
-	value0 = (input.Get("width")).Int()
+	value0 = (value.Get("width")).Int()
 	out.Width = value0
-	value1 = (input.Get("height")).Int()
+	value1 = (value.Get("height")).Int()
 	out.Height = value1
-	value2 = (input.Get("aspectRatio")).Float()
+	value2 = (value.Get("aspectRatio")).Float()
 	out.AspectRatio = value2
-	value3 = (input.Get("frameRate")).Float()
+	value3 = (value.Get("frameRate")).Float()
 	out.FrameRate = value3
-	value4 = (input.Get("facingMode")).String()
+	value4 = (value.Get("facingMode")).String()
 	out.FacingMode = value4
-	value5 = (input.Get("resizeMode")).String()
+	value5 = (value.Get("resizeMode")).String()
 	out.ResizeMode = value5
-	value6 = (input.Get("volume")).Float()
+	value6 = (value.Get("volume")).Float()
 	out.Volume = value6
-	value7 = (input.Get("sampleRate")).Int()
+	value7 = (value.Get("sampleRate")).Int()
 	out.SampleRate = value7
-	value8 = (input.Get("sampleSize")).Int()
+	value8 = (value.Get("sampleSize")).Int()
 	out.SampleSize = value8
-	value9 = (input.Get("echoCancellation")).Bool()
+	value9 = (value.Get("echoCancellation")).Bool()
 	out.EchoCancellation = value9
-	value10 = (input.Get("autoGainControl")).Bool()
+	value10 = (value.Get("autoGainControl")).Bool()
 	out.AutoGainControl = value10
-	value11 = (input.Get("noiseSuppression")).Bool()
+	value11 = (value.Get("noiseSuppression")).Bool()
 	out.NoiseSuppression = value11
-	value12 = (input.Get("latency")).Float()
+	value12 = (value.Get("latency")).Float()
 	out.Latency = value12
-	value13 = (input.Get("channelCount")).Int()
+	value13 = (value.Get("channelCount")).Int()
 	out.ChannelCount = value13
-	value14 = (input.Get("deviceId")).String()
+	value14 = (value.Get("deviceId")).String()
 	out.DeviceId = value14
-	value15 = (input.Get("groupId")).String()
+	value15 = (value.Get("groupId")).String()
 	out.GroupId = value15
-	value16 = (input.Get("whiteBalanceMode")).String()
+	value16 = (value.Get("whiteBalanceMode")).String()
 	out.WhiteBalanceMode = value16
-	value17 = (input.Get("exposureMode")).String()
+	value17 = (value.Get("exposureMode")).String()
 	out.ExposureMode = value17
-	value18 = (input.Get("focusMode")).String()
+	value18 = (value.Get("focusMode")).String()
 	out.FocusMode = value18
-	__length19 := input.Get("pointsOfInterest").Length()
+	__length19 := value.Get("pointsOfInterest").Length()
 	__array19 := make([]*mediatype.Point2D, __length19, __length19)
 	for __idx19 := 0; __idx19 < __length19; __idx19++ {
 		var __seq_out19 *mediatype.Point2D
-		__seq_in19 := input.Get("pointsOfInterest").Index(__idx19)
+		__seq_in19 := value.Get("pointsOfInterest").Index(__idx19)
 		__seq_out19 = mediatype.Point2DFromJS(__seq_in19)
 		__array19[__idx19] = __seq_out19
 	}
 	value19 = __array19
 	out.PointsOfInterest = value19
-	value20 = (input.Get("exposureCompensation")).Float()
+	value20 = (value.Get("exposureCompensation")).Float()
 	out.ExposureCompensation = value20
-	value21 = (input.Get("exposureTime")).Float()
+	value21 = (value.Get("exposureTime")).Float()
 	out.ExposureTime = value21
-	value22 = (input.Get("colorTemperature")).Float()
+	value22 = (value.Get("colorTemperature")).Float()
 	out.ColorTemperature = value22
-	value23 = (input.Get("iso")).Float()
+	value23 = (value.Get("iso")).Float()
 	out.Iso = value23
-	value24 = (input.Get("brightness")).Float()
+	value24 = (value.Get("brightness")).Float()
 	out.Brightness = value24
-	value25 = (input.Get("contrast")).Float()
+	value25 = (value.Get("contrast")).Float()
 	out.Contrast = value25
-	value26 = (input.Get("saturation")).Float()
+	value26 = (value.Get("saturation")).Float()
 	out.Saturation = value26
-	value27 = (input.Get("sharpness")).Float()
+	value27 = (value.Get("sharpness")).Float()
 	out.Sharpness = value27
-	value28 = (input.Get("focusDistance")).Float()
+	value28 = (value.Get("focusDistance")).Float()
 	out.FocusDistance = value28
-	value29 = (input.Get("zoom")).Float()
+	value29 = (value.Get("zoom")).Float()
 	out.Zoom = value29
-	value30 = (input.Get("torch")).Bool()
+	value30 = (value.Get("torch")).Bool()
 	out.Torch = value30
-	value31 = (input.Get("videoKind")).String()
+	value31 = (value.Get("videoKind")).String()
 	out.VideoKind = value31
-	value32 = (input.Get("focalLengthX")).Float()
+	value32 = (value.Get("focalLengthX")).Float()
 	out.FocalLengthX = value32
-	value33 = (input.Get("focalLengthY")).Float()
+	value33 = (value.Get("focalLengthY")).Float()
 	out.FocalLengthY = value33
-	value34 = (input.Get("principalPointX")).Float()
+	value34 = (value.Get("principalPointX")).Float()
 	out.PrincipalPointX = value34
-	value35 = (input.Get("principalPointY")).Float()
+	value35 = (value.Get("principalPointY")).Float()
 	out.PrincipalPointY = value35
-	value36 = depth.DistortionCoefficientsFromJS(input.Get("deprojectionDistortionCoefficients"))
+	value36 = depth.DistortionCoefficientsFromJS(value.Get("deprojectionDistortionCoefficients"))
 	out.DeprojectionDistortionCoefficients = value36
-	value37 = depth.DistortionCoefficientsFromJS(input.Get("projectionDistortionCoefficients"))
+	value37 = depth.DistortionCoefficientsFromJS(value.Get("projectionDistortionCoefficients"))
 	out.ProjectionDistortionCoefficients = value37
-	value38 = (input.Get("depthNear")).Float()
+	value38 = (value.Get("depthNear")).Float()
 	out.DepthNear = value38
-	value39 = (input.Get("depthFar")).Float()
+	value39 = (value.Get("depthFar")).Float()
 	out.DepthFar = value39
-	value40 = depth.TransformationFromJS(input.Get("depthToVideoTransform"))
+	value40 = depth.TransformationFromJS(value.Get("depthToVideoTransform"))
 	out.DepthToVideoTransform = value40
-	value41 = (input.Get("displaySurface")).String()
+	value41 = (value.Get("displaySurface")).String()
 	out.DisplaySurface = value41
-	value42 = (input.Get("logicalSurface")).Bool()
+	value42 = (value.Get("logicalSurface")).Bool()
 	out.LogicalSurface = value42
-	value43 = (input.Get("cursor")).String()
+	value43 = (value.Get("cursor")).String()
 	out.Cursor = value43
 	return &out
 }
@@ -2037,7 +2012,7 @@ type MediaTrackSupportedConstraints struct {
 	Cursor                             bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaTrackSupportedConstraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2133,10 +2108,8 @@ func (_this *MediaTrackSupportedConstraints) JSValue() js.Value {
 }
 
 // MediaTrackSupportedConstraintsFromJS is allocating a new
-// MediaTrackSupportedConstraints object and copy all values from
-// input javascript object
-func MediaTrackSupportedConstraintsFromJS(value js.Wrapper) *MediaTrackSupportedConstraints {
-	input := value.JSValue()
+// MediaTrackSupportedConstraints object and copy all values in the value javascript object.
+func MediaTrackSupportedConstraintsFromJS(value js.Value) *MediaTrackSupportedConstraints {
 	var out MediaTrackSupportedConstraints
 	var (
 		value0  bool // javascript: boolean {width Width width}
@@ -2184,93 +2157,93 @@ func MediaTrackSupportedConstraintsFromJS(value js.Wrapper) *MediaTrackSupported
 		value42 bool // javascript: boolean {logicalSurface LogicalSurface logicalSurface}
 		value43 bool // javascript: boolean {cursor Cursor cursor}
 	)
-	value0 = (input.Get("width")).Bool()
+	value0 = (value.Get("width")).Bool()
 	out.Width = value0
-	value1 = (input.Get("height")).Bool()
+	value1 = (value.Get("height")).Bool()
 	out.Height = value1
-	value2 = (input.Get("aspectRatio")).Bool()
+	value2 = (value.Get("aspectRatio")).Bool()
 	out.AspectRatio = value2
-	value3 = (input.Get("frameRate")).Bool()
+	value3 = (value.Get("frameRate")).Bool()
 	out.FrameRate = value3
-	value4 = (input.Get("facingMode")).Bool()
+	value4 = (value.Get("facingMode")).Bool()
 	out.FacingMode = value4
-	value5 = (input.Get("resizeMode")).Bool()
+	value5 = (value.Get("resizeMode")).Bool()
 	out.ResizeMode = value5
-	value6 = (input.Get("volume")).Bool()
+	value6 = (value.Get("volume")).Bool()
 	out.Volume = value6
-	value7 = (input.Get("sampleRate")).Bool()
+	value7 = (value.Get("sampleRate")).Bool()
 	out.SampleRate = value7
-	value8 = (input.Get("sampleSize")).Bool()
+	value8 = (value.Get("sampleSize")).Bool()
 	out.SampleSize = value8
-	value9 = (input.Get("echoCancellation")).Bool()
+	value9 = (value.Get("echoCancellation")).Bool()
 	out.EchoCancellation = value9
-	value10 = (input.Get("autoGainControl")).Bool()
+	value10 = (value.Get("autoGainControl")).Bool()
 	out.AutoGainControl = value10
-	value11 = (input.Get("noiseSuppression")).Bool()
+	value11 = (value.Get("noiseSuppression")).Bool()
 	out.NoiseSuppression = value11
-	value12 = (input.Get("latency")).Bool()
+	value12 = (value.Get("latency")).Bool()
 	out.Latency = value12
-	value13 = (input.Get("channelCount")).Bool()
+	value13 = (value.Get("channelCount")).Bool()
 	out.ChannelCount = value13
-	value14 = (input.Get("deviceId")).Bool()
+	value14 = (value.Get("deviceId")).Bool()
 	out.DeviceId = value14
-	value15 = (input.Get("groupId")).Bool()
+	value15 = (value.Get("groupId")).Bool()
 	out.GroupId = value15
-	value16 = (input.Get("whiteBalanceMode")).Bool()
+	value16 = (value.Get("whiteBalanceMode")).Bool()
 	out.WhiteBalanceMode = value16
-	value17 = (input.Get("exposureMode")).Bool()
+	value17 = (value.Get("exposureMode")).Bool()
 	out.ExposureMode = value17
-	value18 = (input.Get("focusMode")).Bool()
+	value18 = (value.Get("focusMode")).Bool()
 	out.FocusMode = value18
-	value19 = (input.Get("pointsOfInterest")).Bool()
+	value19 = (value.Get("pointsOfInterest")).Bool()
 	out.PointsOfInterest = value19
-	value20 = (input.Get("exposureCompensation")).Bool()
+	value20 = (value.Get("exposureCompensation")).Bool()
 	out.ExposureCompensation = value20
-	value21 = (input.Get("exposureTime")).Bool()
+	value21 = (value.Get("exposureTime")).Bool()
 	out.ExposureTime = value21
-	value22 = (input.Get("colorTemperature")).Bool()
+	value22 = (value.Get("colorTemperature")).Bool()
 	out.ColorTemperature = value22
-	value23 = (input.Get("iso")).Bool()
+	value23 = (value.Get("iso")).Bool()
 	out.Iso = value23
-	value24 = (input.Get("brightness")).Bool()
+	value24 = (value.Get("brightness")).Bool()
 	out.Brightness = value24
-	value25 = (input.Get("contrast")).Bool()
+	value25 = (value.Get("contrast")).Bool()
 	out.Contrast = value25
-	value26 = (input.Get("saturation")).Bool()
+	value26 = (value.Get("saturation")).Bool()
 	out.Saturation = value26
-	value27 = (input.Get("sharpness")).Bool()
+	value27 = (value.Get("sharpness")).Bool()
 	out.Sharpness = value27
-	value28 = (input.Get("focusDistance")).Bool()
+	value28 = (value.Get("focusDistance")).Bool()
 	out.FocusDistance = value28
-	value29 = (input.Get("zoom")).Bool()
+	value29 = (value.Get("zoom")).Bool()
 	out.Zoom = value29
-	value30 = (input.Get("torch")).Bool()
+	value30 = (value.Get("torch")).Bool()
 	out.Torch = value30
-	value31 = (input.Get("videoKind")).Bool()
+	value31 = (value.Get("videoKind")).Bool()
 	out.VideoKind = value31
-	value32 = (input.Get("focalLengthX")).Bool()
+	value32 = (value.Get("focalLengthX")).Bool()
 	out.FocalLengthX = value32
-	value33 = (input.Get("focalLengthY")).Bool()
+	value33 = (value.Get("focalLengthY")).Bool()
 	out.FocalLengthY = value33
-	value34 = (input.Get("principalPointX")).Bool()
+	value34 = (value.Get("principalPointX")).Bool()
 	out.PrincipalPointX = value34
-	value35 = (input.Get("principalPointY")).Bool()
+	value35 = (value.Get("principalPointY")).Bool()
 	out.PrincipalPointY = value35
-	value36 = (input.Get("deprojectionDistortionCoefficients")).Bool()
+	value36 = (value.Get("deprojectionDistortionCoefficients")).Bool()
 	out.DeprojectionDistortionCoefficients = value36
-	value37 = (input.Get("projectionDistortionCoefficients")).Bool()
+	value37 = (value.Get("projectionDistortionCoefficients")).Bool()
 	out.ProjectionDistortionCoefficients = value37
-	value38 = (input.Get("depthNear")).Bool()
+	value38 = (value.Get("depthNear")).Bool()
 	out.DepthNear = value38
-	value39 = (input.Get("depthFar")).Bool()
+	value39 = (value.Get("depthFar")).Bool()
 	out.DepthFar = value39
-	value40 = (input.Get("depthToVideoTransform")).Bool()
+	value40 = (value.Get("depthToVideoTransform")).Bool()
 	out.DepthToVideoTransform = value40
-	value41 = (input.Get("displaySurface")).Bool()
+	value41 = (value.Get("displaySurface")).Bool()
 	out.DisplaySurface = value41
-	value42 = (input.Get("logicalSurface")).Bool()
+	value42 = (value.Get("logicalSurface")).Bool()
 	out.LogicalSurface = value42
-	value43 = (input.Get("cursor")).Bool()
+	value43 = (value.Get("cursor")).Bool()
 	out.Cursor = value43
 	return &out
 }
@@ -2283,7 +2256,7 @@ type OverconstrainedErrorEventInit struct {
 	Error      *patch.OverconstrainedError
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OverconstrainedErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2299,10 +2272,8 @@ func (_this *OverconstrainedErrorEventInit) JSValue() js.Value {
 }
 
 // OverconstrainedErrorEventInitFromJS is allocating a new
-// OverconstrainedErrorEventInit object and copy all values from
-// input javascript object
-func OverconstrainedErrorEventInitFromJS(value js.Wrapper) *OverconstrainedErrorEventInit {
-	input := value.JSValue()
+// OverconstrainedErrorEventInit object and copy all values in the value javascript object.
+func OverconstrainedErrorEventInitFromJS(value js.Value) *OverconstrainedErrorEventInit {
 	var out OverconstrainedErrorEventInit
 	var (
 		value0 bool                        // javascript: boolean {bubbles Bubbles bubbles}
@@ -2310,14 +2281,14 @@ func OverconstrainedErrorEventInitFromJS(value js.Wrapper) *OverconstrainedError
 		value2 bool                        // javascript: boolean {composed Composed composed}
 		value3 *patch.OverconstrainedError // javascript: OverconstrainedError {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	if input.Get("error").Type() != js.TypeNull && input.Get("error").Type() != js.TypeUndefined {
-		value3 = patch.OverconstrainedErrorFromJS(input.Get("error"))
+	if value.Get("error").Type() != js.TypeNull && value.Get("error").Type() != js.TypeUndefined {
+		value3 = patch.OverconstrainedErrorFromJS(value.Get("error"))
 	}
 	out.Error = value3
 	return &out
@@ -2327,7 +2298,7 @@ func OverconstrainedErrorEventInitFromJS(value js.Wrapper) *OverconstrainedError
 type Settings struct {
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Settings) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2335,9 +2306,8 @@ func (_this *Settings) JSValue() js.Value {
 }
 
 // SettingsFromJS is allocating a new
-// Settings object and copy all values from
-// input javascript object
-func SettingsFromJS(value js.Wrapper) *Settings {
+// Settings object and copy all values in the value javascript object.
+func SettingsFromJS(value js.Value) *Settings {
 	var out Settings
 	var ()
 	return &out
@@ -2349,7 +2319,7 @@ type ULongRange struct {
 	Min uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ULongRange) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2361,18 +2331,16 @@ func (_this *ULongRange) JSValue() js.Value {
 }
 
 // ULongRangeFromJS is allocating a new
-// ULongRange object and copy all values from
-// input javascript object
-func ULongRangeFromJS(value js.Wrapper) *ULongRange {
-	input := value.JSValue()
+// ULongRange object and copy all values in the value javascript object.
+func ULongRangeFromJS(value js.Value) *ULongRange {
 	var out ULongRange
 	var (
 		value0 uint // javascript: unsigned long {max Max max}
 		value1 uint // javascript: unsigned long {min Min min}
 	)
-	value0 = (uint)((input.Get("max")).Int())
+	value0 = (uint)((value.Get("max")).Int())
 	out.Max = value0
-	value1 = (uint)((input.Get("min")).Int())
+	value1 = (uint)((value.Get("min")).Int())
 	out.Min = value1
 	return &out
 }
@@ -2387,15 +2355,19 @@ func (_this *ConstrainablePattern) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ConstrainablePatternFromJS is casting a js.Wrapper into ConstrainablePattern.
-func ConstrainablePatternFromJS(value js.Wrapper) *ConstrainablePattern {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConstrainablePatternFromJS is casting a js.Value into ConstrainablePattern.
+func ConstrainablePatternFromJS(value js.Value) *ConstrainablePattern {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConstrainablePattern{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConstrainablePatternFromJS is casting from something that holds a js.Value into ConstrainablePattern.
+func ConstrainablePatternFromWrapper(input core.Wrapper) *ConstrainablePattern {
+	return ConstrainablePatternFromJS(input.JSValue())
 }
 
 // OnOverConstrained returning attribute 'onoverconstrained' with
@@ -2505,15 +2477,19 @@ type InputDeviceInfo struct {
 	MediaDeviceInfo
 }
 
-// InputDeviceInfoFromJS is casting a js.Wrapper into InputDeviceInfo.
-func InputDeviceInfoFromJS(value js.Wrapper) *InputDeviceInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputDeviceInfoFromJS is casting a js.Value into InputDeviceInfo.
+func InputDeviceInfoFromJS(value js.Value) *InputDeviceInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputDeviceInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputDeviceInfoFromJS is casting from something that holds a js.Value into InputDeviceInfo.
+func InputDeviceInfoFromWrapper(input core.Wrapper) *InputDeviceInfo {
+	return InputDeviceInfoFromJS(input.JSValue())
 }
 
 func (_this *InputDeviceInfo) GetCapabilities() (_result *MediaTrackCapabilities) {
@@ -2540,15 +2516,19 @@ func (_this *MediaDeviceInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaDeviceInfoFromJS is casting a js.Wrapper into MediaDeviceInfo.
-func MediaDeviceInfoFromJS(value js.Wrapper) *MediaDeviceInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaDeviceInfoFromJS is casting a js.Value into MediaDeviceInfo.
+func MediaDeviceInfoFromJS(value js.Value) *MediaDeviceInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaDeviceInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaDeviceInfoFromJS is casting from something that holds a js.Value into MediaDeviceInfo.
+func MediaDeviceInfoFromWrapper(input core.Wrapper) *MediaDeviceInfo {
+	return MediaDeviceInfoFromJS(input.JSValue())
 }
 
 // DeviceId returning attribute 'deviceId' with
@@ -2606,15 +2586,19 @@ type MediaDevices struct {
 	domcore.EventTarget
 }
 
-// MediaDevicesFromJS is casting a js.Wrapper into MediaDevices.
-func MediaDevicesFromJS(value js.Wrapper) *MediaDevices {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaDevicesFromJS is casting a js.Value into MediaDevices.
+func MediaDevicesFromJS(value js.Value) *MediaDevices {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaDevices{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaDevicesFromJS is casting from something that holds a js.Value into MediaDevices.
+func MediaDevicesFromWrapper(input core.Wrapper) *MediaDevices {
+	return MediaDevicesFromJS(input.JSValue())
 }
 
 // OnDeviceChange returning attribute 'ondevicechange' with
@@ -2729,15 +2713,19 @@ type MediaStream struct {
 	domcore.EventTarget
 }
 
-// MediaStreamFromJS is casting a js.Wrapper into MediaStream.
-func MediaStreamFromJS(value js.Wrapper) *MediaStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamFromJS is casting a js.Value into MediaStream.
+func MediaStreamFromJS(value js.Value) *MediaStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamFromJS is casting from something that holds a js.Value into MediaStream.
+func MediaStreamFromWrapper(input core.Wrapper) *MediaStream {
+	return MediaStreamFromJS(input.JSValue())
 }
 
 func NewMediaStream(tracks []*MediaStreamTrack) (_result *MediaStream) {
@@ -2976,15 +2964,19 @@ type MediaStreamTrack struct {
 	domcore.EventTarget
 }
 
-// MediaStreamTrackFromJS is casting a js.Wrapper into MediaStreamTrack.
-func MediaStreamTrackFromJS(value js.Wrapper) *MediaStreamTrack {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamTrackFromJS is casting a js.Value into MediaStreamTrack.
+func MediaStreamTrackFromJS(value js.Value) *MediaStreamTrack {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrack{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamTrackFromJS is casting from something that holds a js.Value into MediaStreamTrack.
+func MediaStreamTrackFromWrapper(input core.Wrapper) *MediaStreamTrack {
+	return MediaStreamTrackFromJS(input.JSValue())
 }
 
 // Kind returning attribute 'kind' with
@@ -3275,15 +3267,19 @@ type MediaStreamTrackEvent struct {
 	domcore.Event
 }
 
-// MediaStreamTrackEventFromJS is casting a js.Wrapper into MediaStreamTrackEvent.
-func MediaStreamTrackEventFromJS(value js.Wrapper) *MediaStreamTrackEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamTrackEventFromJS is casting a js.Value into MediaStreamTrackEvent.
+func MediaStreamTrackEventFromJS(value js.Value) *MediaStreamTrackEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrackEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamTrackEventFromJS is casting from something that holds a js.Value into MediaStreamTrackEvent.
+func MediaStreamTrackEventFromWrapper(input core.Wrapper) *MediaStreamTrackEvent {
+	return MediaStreamTrackEventFromJS(input.JSValue())
 }
 
 func NewMediaStreamTrackEvent(_type string, eventInitDict *MediaStreamTrackEventInit) (_result *MediaStreamTrackEvent) {
@@ -3321,15 +3317,19 @@ type OverconstrainedErrorEvent struct {
 	domcore.Event
 }
 
-// OverconstrainedErrorEventFromJS is casting a js.Wrapper into OverconstrainedErrorEvent.
-func OverconstrainedErrorEventFromJS(value js.Wrapper) *OverconstrainedErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OverconstrainedErrorEventFromJS is casting a js.Value into OverconstrainedErrorEvent.
+func OverconstrainedErrorEventFromJS(value js.Value) *OverconstrainedErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OverconstrainedErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OverconstrainedErrorEventFromJS is casting from something that holds a js.Value into OverconstrainedErrorEvent.
+func OverconstrainedErrorEventFromWrapper(input core.Wrapper) *OverconstrainedErrorEvent {
+	return OverconstrainedErrorEventFromJS(input.JSValue())
 }
 
 func NewOverconstrainedErrorEvent(_type string, eventInitDict *OverconstrainedErrorEventInit) (_result *OverconstrainedErrorEvent) {
@@ -3374,15 +3374,19 @@ func (_this *PromiseMediaStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseMediaStreamFromJS is casting a js.Wrapper into PromiseMediaStream.
-func PromiseMediaStreamFromJS(value js.Wrapper) *PromiseMediaStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseMediaStreamFromJS is casting a js.Value into PromiseMediaStream.
+func PromiseMediaStreamFromJS(value js.Value) *PromiseMediaStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseMediaStreamFromJS is casting from something that holds a js.Value into PromiseMediaStream.
+func PromiseMediaStreamFromWrapper(input core.Wrapper) *PromiseMediaStream {
+	return PromiseMediaStreamFromJS(input.JSValue())
 }
 
 func (_this *PromiseMediaStream) Then(onFulfilled *PromiseMediaStreamOnFulfilled, onRejected *PromiseMediaStreamOnRejected) (_result *PromiseMediaStream) {
@@ -3479,15 +3483,19 @@ func (_this *PromiseSequenceMediaDeviceInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceMediaDeviceInfoFromJS is casting a js.Wrapper into PromiseSequenceMediaDeviceInfo.
-func PromiseSequenceMediaDeviceInfoFromJS(value js.Wrapper) *PromiseSequenceMediaDeviceInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceMediaDeviceInfoFromJS is casting a js.Value into PromiseSequenceMediaDeviceInfo.
+func PromiseSequenceMediaDeviceInfoFromJS(value js.Value) *PromiseSequenceMediaDeviceInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceMediaDeviceInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceMediaDeviceInfoFromJS is casting from something that holds a js.Value into PromiseSequenceMediaDeviceInfo.
+func PromiseSequenceMediaDeviceInfoFromWrapper(input core.Wrapper) *PromiseSequenceMediaDeviceInfo {
+	return PromiseSequenceMediaDeviceInfoFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceMediaDeviceInfo) Then(onFulfilled *PromiseSequenceMediaDeviceInfoOnFulfilled, onRejected *PromiseSequenceMediaDeviceInfoOnRejected) (_result *PromiseSequenceMediaDeviceInfo) {

@@ -7,6 +7,7 @@ package fromelement
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/media/capture/local"
 )
@@ -43,15 +44,19 @@ type CanvasCaptureMediaStreamTrack struct {
 	local.MediaStreamTrack
 }
 
-// CanvasCaptureMediaStreamTrackFromJS is casting a js.Wrapper into CanvasCaptureMediaStreamTrack.
-func CanvasCaptureMediaStreamTrackFromJS(value js.Wrapper) *CanvasCaptureMediaStreamTrack {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CanvasCaptureMediaStreamTrackFromJS is casting a js.Value into CanvasCaptureMediaStreamTrack.
+func CanvasCaptureMediaStreamTrackFromJS(value js.Value) *CanvasCaptureMediaStreamTrack {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CanvasCaptureMediaStreamTrack{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CanvasCaptureMediaStreamTrackFromJS is casting from something that holds a js.Value into CanvasCaptureMediaStreamTrack.
+func CanvasCaptureMediaStreamTrackFromWrapper(input core.Wrapper) *CanvasCaptureMediaStreamTrack {
+	return CanvasCaptureMediaStreamTrackFromJS(input.JSValue())
 }
 
 // Canvas returning attribute 'canvas' with

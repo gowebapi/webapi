@@ -7,6 +7,7 @@ package text
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/javascript/missingtypes"
 	"github.com/gowebapi/webapi/patch"
@@ -45,7 +46,7 @@ type DecodeOptions struct {
 	Stream bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DecodeOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -55,15 +56,13 @@ func (_this *DecodeOptions) JSValue() js.Value {
 }
 
 // DecodeOptionsFromJS is allocating a new
-// DecodeOptions object and copy all values from
-// input javascript object
-func DecodeOptionsFromJS(value js.Wrapper) *DecodeOptions {
-	input := value.JSValue()
+// DecodeOptions object and copy all values in the value javascript object.
+func DecodeOptionsFromJS(value js.Value) *DecodeOptions {
 	var out DecodeOptions
 	var (
 		value0 bool // javascript: boolean {stream Stream stream}
 	)
-	value0 = (input.Get("stream")).Bool()
+	value0 = (value.Get("stream")).Bool()
 	out.Stream = value0
 	return &out
 }
@@ -74,7 +73,7 @@ type DecoderOptions struct {
 	IgnoreBOM bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DecoderOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -86,18 +85,16 @@ func (_this *DecoderOptions) JSValue() js.Value {
 }
 
 // DecoderOptionsFromJS is allocating a new
-// DecoderOptions object and copy all values from
-// input javascript object
-func DecoderOptionsFromJS(value js.Wrapper) *DecoderOptions {
-	input := value.JSValue()
+// DecoderOptions object and copy all values in the value javascript object.
+func DecoderOptionsFromJS(value js.Value) *DecoderOptions {
 	var out DecoderOptions
 	var (
 		value0 bool // javascript: boolean {fatal Fatal fatal}
 		value1 bool // javascript: boolean {ignoreBOM IgnoreBOM ignoreBOM}
 	)
-	value0 = (input.Get("fatal")).Bool()
+	value0 = (value.Get("fatal")).Bool()
 	out.Fatal = value0
-	value1 = (input.Get("ignoreBOM")).Bool()
+	value1 = (value.Get("ignoreBOM")).Bool()
 	out.IgnoreBOM = value1
 	return &out
 }
@@ -108,7 +105,7 @@ type EncoderEncodeIntoResult struct {
 	Written int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EncoderEncodeIntoResult) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -120,18 +117,16 @@ func (_this *EncoderEncodeIntoResult) JSValue() js.Value {
 }
 
 // EncoderEncodeIntoResultFromJS is allocating a new
-// EncoderEncodeIntoResult object and copy all values from
-// input javascript object
-func EncoderEncodeIntoResultFromJS(value js.Wrapper) *EncoderEncodeIntoResult {
-	input := value.JSValue()
+// EncoderEncodeIntoResult object and copy all values in the value javascript object.
+func EncoderEncodeIntoResultFromJS(value js.Value) *EncoderEncodeIntoResult {
 	var out EncoderEncodeIntoResult
 	var (
 		value0 int // javascript: unsigned long long {read Read read}
 		value1 int // javascript: unsigned long long {written Written written}
 	)
-	value0 = (input.Get("read")).Int()
+	value0 = (value.Get("read")).Int()
 	out.Read = value0
-	value1 = (input.Get("written")).Int()
+	value1 = (value.Get("written")).Int()
 	out.Written = value1
 	return &out
 }
@@ -146,15 +141,19 @@ func (_this *Decoder) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DecoderFromJS is casting a js.Wrapper into Decoder.
-func DecoderFromJS(value js.Wrapper) *Decoder {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DecoderFromJS is casting a js.Value into Decoder.
+func DecoderFromJS(value js.Value) *Decoder {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Decoder{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DecoderFromJS is casting from something that holds a js.Value into Decoder.
+func DecoderFromWrapper(input core.Wrapper) *Decoder {
+	return DecoderFromJS(input.JSValue())
 }
 
 func NewTextDecoder(label *string, options *DecoderOptions) (_result *Decoder) {
@@ -249,15 +248,19 @@ func (_this *DecoderStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DecoderStreamFromJS is casting a js.Wrapper into DecoderStream.
-func DecoderStreamFromJS(value js.Wrapper) *DecoderStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DecoderStreamFromJS is casting a js.Value into DecoderStream.
+func DecoderStreamFromJS(value js.Value) *DecoderStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DecoderStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DecoderStreamFromJS is casting from something that holds a js.Value into DecoderStream.
+func DecoderStreamFromWrapper(input core.Wrapper) *DecoderStream {
+	return DecoderStreamFromJS(input.JSValue())
 }
 
 func NewTextDecoderStream(label *string, options *DecoderOptions) (_result *DecoderStream) {
@@ -346,15 +349,19 @@ func (_this *Encoder) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EncoderFromJS is casting a js.Wrapper into Encoder.
-func EncoderFromJS(value js.Wrapper) *Encoder {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EncoderFromJS is casting a js.Value into Encoder.
+func EncoderFromJS(value js.Value) *Encoder {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Encoder{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EncoderFromJS is casting from something that holds a js.Value into Encoder.
+func EncoderFromWrapper(input core.Wrapper) *Encoder {
+	return EncoderFromJS(input.JSValue())
 }
 
 func NewTextEncoder() (_result *Encoder) {
@@ -436,15 +443,19 @@ func (_this *EncoderStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EncoderStreamFromJS is casting a js.Wrapper into EncoderStream.
-func EncoderStreamFromJS(value js.Wrapper) *EncoderStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EncoderStreamFromJS is casting a js.Value into EncoderStream.
+func EncoderStreamFromJS(value js.Value) *EncoderStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EncoderStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EncoderStreamFromJS is casting from something that holds a js.Value into EncoderStream.
+func EncoderStreamFromWrapper(input core.Wrapper) *EncoderStream {
+	return EncoderStreamFromJS(input.JSValue())
 }
 
 func NewTextEncoderStream() (_result *EncoderStream) {

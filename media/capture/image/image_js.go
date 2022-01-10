@@ -5,6 +5,7 @@ package image
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/javascript"
@@ -298,7 +299,7 @@ type ConstrainPoint2DParameters struct {
 	Ideal []*mediatype.Point2D
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstrainPoint2DParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -318,30 +319,28 @@ func (_this *ConstrainPoint2DParameters) JSValue() js.Value {
 }
 
 // ConstrainPoint2DParametersFromJS is allocating a new
-// ConstrainPoint2DParameters object and copy all values from
-// input javascript object
-func ConstrainPoint2DParametersFromJS(value js.Wrapper) *ConstrainPoint2DParameters {
-	input := value.JSValue()
+// ConstrainPoint2DParameters object and copy all values in the value javascript object.
+func ConstrainPoint2DParametersFromJS(value js.Value) *ConstrainPoint2DParameters {
 	var out ConstrainPoint2DParameters
 	var (
 		value0 []*mediatype.Point2D // javascript: sequence<Point2D> {exact Exact exact}
 		value1 []*mediatype.Point2D // javascript: sequence<Point2D> {ideal Ideal ideal}
 	)
-	__length0 := input.Get("exact").Length()
+	__length0 := value.Get("exact").Length()
 	__array0 := make([]*mediatype.Point2D, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *mediatype.Point2D
-		__seq_in0 := input.Get("exact").Index(__idx0)
+		__seq_in0 := value.Get("exact").Index(__idx0)
 		__seq_out0 = mediatype.Point2DFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Exact = value0
-	__length1 := input.Get("ideal").Length()
+	__length1 := value.Get("ideal").Length()
 	__array1 := make([]*mediatype.Point2D, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 *mediatype.Point2D
-		__seq_in1 := input.Get("ideal").Index(__idx1)
+		__seq_in1 := value.Get("ideal").Index(__idx1)
 		__seq_out1 = mediatype.Point2DFromJS(__seq_in1)
 		__array1[__idx1] = __seq_out1
 	}
@@ -358,7 +357,7 @@ type PhotoSettings struct {
 	RedEyeReduction bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PhotoSettings) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -374,10 +373,8 @@ func (_this *PhotoSettings) JSValue() js.Value {
 }
 
 // PhotoSettingsFromJS is allocating a new
-// PhotoSettings object and copy all values from
-// input javascript object
-func PhotoSettingsFromJS(value js.Wrapper) *PhotoSettings {
-	input := value.JSValue()
+// PhotoSettings object and copy all values in the value javascript object.
+func PhotoSettingsFromJS(value js.Value) *PhotoSettings {
 	var out PhotoSettings
 	var (
 		value0 FillLightMode // javascript: FillLightMode {fillLightMode FillLightMode fillLightMode}
@@ -385,13 +382,13 @@ func PhotoSettingsFromJS(value js.Wrapper) *PhotoSettings {
 		value2 float64       // javascript: double {imageWidth ImageWidth imageWidth}
 		value3 bool          // javascript: boolean {redEyeReduction RedEyeReduction redEyeReduction}
 	)
-	value0 = FillLightModeFromJS(input.Get("fillLightMode"))
+	value0 = FillLightModeFromJS(value.Get("fillLightMode"))
 	out.FillLightMode = value0
-	value1 = (input.Get("imageHeight")).Float()
+	value1 = (value.Get("imageHeight")).Float()
 	out.ImageHeight = value1
-	value2 = (input.Get("imageWidth")).Float()
+	value2 = (value.Get("imageWidth")).Float()
 	out.ImageWidth = value2
-	value3 = (input.Get("redEyeReduction")).Bool()
+	value3 = (value.Get("redEyeReduction")).Bool()
 	out.RedEyeReduction = value3
 	return &out
 }
@@ -406,15 +403,19 @@ func (_this *ImageCapture) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ImageCaptureFromJS is casting a js.Wrapper into ImageCapture.
-func ImageCaptureFromJS(value js.Wrapper) *ImageCapture {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ImageCaptureFromJS is casting a js.Value into ImageCapture.
+func ImageCaptureFromJS(value js.Value) *ImageCapture {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ImageCapture{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ImageCaptureFromJS is casting from something that holds a js.Value into ImageCapture.
+func ImageCaptureFromWrapper(input core.Wrapper) *ImageCapture {
+	return ImageCaptureFromJS(input.JSValue())
 }
 
 func NewImageCapture(videoTrack *local.MediaStreamTrack) (_result *ImageCapture) {
@@ -515,15 +516,19 @@ func (_this *PhotoCapabilities) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PhotoCapabilitiesFromJS is casting a js.Wrapper into PhotoCapabilities.
-func PhotoCapabilitiesFromJS(value js.Wrapper) *PhotoCapabilities {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PhotoCapabilitiesFromJS is casting a js.Value into PhotoCapabilities.
+func PhotoCapabilitiesFromJS(value js.Value) *PhotoCapabilities {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PhotoCapabilities{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PhotoCapabilitiesFromJS is casting from something that holds a js.Value into PhotoCapabilities.
+func PhotoCapabilitiesFromWrapper(input core.Wrapper) *PhotoCapabilities {
+	return PhotoCapabilitiesFromJS(input.JSValue())
 }
 
 // RedEyeReduction returning attribute 'redEyeReduction' with
@@ -572,15 +577,19 @@ func (_this *PromisePhotoCapabilities) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePhotoCapabilitiesFromJS is casting a js.Wrapper into PromisePhotoCapabilities.
-func PromisePhotoCapabilitiesFromJS(value js.Wrapper) *PromisePhotoCapabilities {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePhotoCapabilitiesFromJS is casting a js.Value into PromisePhotoCapabilities.
+func PromisePhotoCapabilitiesFromJS(value js.Value) *PromisePhotoCapabilities {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePhotoCapabilities{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePhotoCapabilitiesFromJS is casting from something that holds a js.Value into PromisePhotoCapabilities.
+func PromisePhotoCapabilitiesFromWrapper(input core.Wrapper) *PromisePhotoCapabilities {
+	return PromisePhotoCapabilitiesFromJS(input.JSValue())
 }
 
 func (_this *PromisePhotoCapabilities) Then(onFulfilled *PromisePhotoCapabilitiesOnFulfilled, onRejected *PromisePhotoCapabilitiesOnRejected) (_result *PromisePhotoCapabilities) {
@@ -677,15 +686,19 @@ func (_this *PromisePhotoSettings) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePhotoSettingsFromJS is casting a js.Wrapper into PromisePhotoSettings.
-func PromisePhotoSettingsFromJS(value js.Wrapper) *PromisePhotoSettings {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePhotoSettingsFromJS is casting a js.Value into PromisePhotoSettings.
+func PromisePhotoSettingsFromJS(value js.Value) *PromisePhotoSettings {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePhotoSettings{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePhotoSettingsFromJS is casting from something that holds a js.Value into PromisePhotoSettings.
+func PromisePhotoSettingsFromWrapper(input core.Wrapper) *PromisePhotoSettings {
+	return PromisePhotoSettingsFromJS(input.JSValue())
 }
 
 func (_this *PromisePhotoSettings) Then(onFulfilled *PromisePhotoSettingsOnFulfilled, onRejected *PromisePhotoSettingsOnRejected) (_result *PromisePhotoSettings) {

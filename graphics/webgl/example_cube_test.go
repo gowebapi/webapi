@@ -32,13 +32,13 @@ func addCanvas() {
 	canvasE := webapi.GetWindow().Document().CreateElement("canvas", &webapi.Union{js.ValueOf("dom.Node")}) //TODO this seems wrong since we have to use js. for node
 	canvasE.SetId("canvas42")
 	app.AppendChild(&canvasE.Node)
-	canvasHTML := canvas.HTMLCanvasElementFromJS(canvasE)
+	canvasHTML := canvas.HTMLCanvasElementFromWrapper(canvasE)
 	canvasHTML.SetWidth(uint(width))
 	canvasHTML.SetHeight(uint(height))
 	//canvasHTML.RequestFullscreen(&dom.FullscreenOptions{})	//TODO find a way to do fullscreen request
 
 	contextU := canvasHTML.GetContext("webgl", nil)
-	gl := webgl.RenderingContextFromJS(contextU)
+	gl := webgl.RenderingContextFromWrapper(contextU)
 
 	vBuffer, iBuffer, icount := createBuffers(gl)
 

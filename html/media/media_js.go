@@ -5,6 +5,7 @@ package media
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -324,15 +325,19 @@ func (_this *AudioTrack) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioTrackFromJS is casting a js.Wrapper into AudioTrack.
-func AudioTrackFromJS(value js.Wrapper) *AudioTrack {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioTrackFromJS is casting a js.Value into AudioTrack.
+func AudioTrackFromJS(value js.Value) *AudioTrack {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioTrack{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioTrackFromJS is casting from something that holds a js.Value into AudioTrack.
+func AudioTrackFromWrapper(input core.Wrapper) *AudioTrack {
+	return AudioTrackFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -403,15 +408,19 @@ type AudioTrackList struct {
 	domcore.EventTarget
 }
 
-// AudioTrackListFromJS is casting a js.Wrapper into AudioTrackList.
-func AudioTrackListFromJS(value js.Wrapper) *AudioTrackList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioTrackListFromJS is casting a js.Value into AudioTrackList.
+func AudioTrackListFromJS(value js.Value) *AudioTrackList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioTrackList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioTrackListFromJS is casting from something that holds a js.Value into AudioTrackList.
+func AudioTrackListFromWrapper(input core.Wrapper) *AudioTrackList {
+	return AudioTrackListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -573,15 +582,19 @@ type HTMLAudioElement struct {
 	HTMLMediaElement
 }
 
-// HTMLAudioElementFromJS is casting a js.Wrapper into HTMLAudioElement.
-func HTMLAudioElementFromJS(value js.Wrapper) *HTMLAudioElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLAudioElementFromJS is casting a js.Value into HTMLAudioElement.
+func HTMLAudioElementFromJS(value js.Value) *HTMLAudioElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLAudioElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLAudioElementFromJS is casting from something that holds a js.Value into HTMLAudioElement.
+func HTMLAudioElementFromWrapper(input core.Wrapper) *HTMLAudioElement {
+	return HTMLAudioElementFromJS(input.JSValue())
 }
 
 // class: HTMLMediaElement
@@ -589,15 +602,19 @@ type HTMLMediaElement struct {
 	html.HTMLElement
 }
 
-// HTMLMediaElementFromJS is casting a js.Wrapper into HTMLMediaElement.
-func HTMLMediaElementFromJS(value js.Wrapper) *HTMLMediaElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMediaElementFromJS is casting a js.Value into HTMLMediaElement.
+func HTMLMediaElementFromJS(value js.Value) *HTMLMediaElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMediaElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMediaElementFromJS is casting from something that holds a js.Value into HTMLMediaElement.
+func HTMLMediaElementFromWrapper(input core.Wrapper) *HTMLMediaElement {
+	return HTMLMediaElementFromJS(input.JSValue())
 }
 
 const (
@@ -1252,15 +1269,19 @@ type HTMLTrackElement struct {
 	html.HTMLElement
 }
 
-// HTMLTrackElementFromJS is casting a js.Wrapper into HTMLTrackElement.
-func HTMLTrackElementFromJS(value js.Wrapper) *HTMLTrackElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTrackElementFromJS is casting a js.Value into HTMLTrackElement.
+func HTMLTrackElementFromJS(value js.Value) *HTMLTrackElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTrackElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTrackElementFromJS is casting from something that holds a js.Value into HTMLTrackElement.
+func HTMLTrackElementFromWrapper(input core.Wrapper) *HTMLTrackElement {
+	return HTMLTrackElementFromJS(input.JSValue())
 }
 
 const (
@@ -1373,15 +1394,19 @@ type HTMLVideoElement struct {
 	HTMLMediaElement
 }
 
-// HTMLVideoElementFromJS is casting a js.Wrapper into HTMLVideoElement.
-func HTMLVideoElementFromJS(value js.Wrapper) *HTMLVideoElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLVideoElementFromJS is casting a js.Value into HTMLVideoElement.
+func HTMLVideoElementFromJS(value js.Value) *HTMLVideoElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLVideoElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLVideoElementFromJS is casting from something that holds a js.Value into HTMLVideoElement.
+func HTMLVideoElementFromWrapper(input core.Wrapper) *HTMLVideoElement {
+	return HTMLVideoElementFromJS(input.JSValue())
 }
 
 // Width returning attribute 'width' with
@@ -1604,15 +1629,19 @@ func (_this *MediaError) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaErrorFromJS is casting a js.Wrapper into MediaError.
-func MediaErrorFromJS(value js.Wrapper) *MediaError {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaErrorFromJS is casting a js.Value into MediaError.
+func MediaErrorFromJS(value js.Value) *MediaError {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaError{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaErrorFromJS is casting from something that holds a js.Value into MediaError.
+func MediaErrorFromWrapper(input core.Wrapper) *MediaError {
+	return MediaErrorFromJS(input.JSValue())
 }
 
 const (
@@ -1645,15 +1674,19 @@ type MediaSource struct {
 	domcore.EventTarget
 }
 
-// MediaSourceFromJS is casting a js.Wrapper into MediaSource.
-func MediaSourceFromJS(value js.Wrapper) *MediaSource {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaSourceFromJS is casting a js.Value into MediaSource.
+func MediaSourceFromJS(value js.Value) *MediaSource {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaSource{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaSourceFromJS is casting from something that holds a js.Value into MediaSource.
+func MediaSourceFromWrapper(input core.Wrapper) *MediaSource {
+	return MediaSourceFromJS(input.JSValue())
 }
 
 func IsTypeSupported(_type string) (_result bool) {
@@ -1900,15 +1933,19 @@ type SourceBuffer struct {
 	domcore.EventTarget
 }
 
-// SourceBufferFromJS is casting a js.Wrapper into SourceBuffer.
-func SourceBufferFromJS(value js.Wrapper) *SourceBuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SourceBufferFromJS is casting a js.Value into SourceBuffer.
+func SourceBufferFromJS(value js.Value) *SourceBuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SourceBuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SourceBufferFromJS is casting from something that holds a js.Value into SourceBuffer.
+func SourceBufferFromWrapper(input core.Wrapper) *SourceBuffer {
+	return SourceBufferFromJS(input.JSValue())
 }
 
 // Mode returning attribute 'mode' with
@@ -2210,15 +2247,19 @@ type SourceBufferList struct {
 	domcore.EventTarget
 }
 
-// SourceBufferListFromJS is casting a js.Wrapper into SourceBufferList.
-func SourceBufferListFromJS(value js.Wrapper) *SourceBufferList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SourceBufferListFromJS is casting a js.Value into SourceBufferList.
+func SourceBufferListFromJS(value js.Value) *SourceBufferList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SourceBufferList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SourceBufferListFromJS is casting from something that holds a js.Value into SourceBufferList.
+func SourceBufferListFromWrapper(input core.Wrapper) *SourceBufferList {
+	return SourceBufferListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -2320,15 +2361,19 @@ type TextTrack struct {
 	domcore.EventTarget
 }
 
-// TextTrackFromJS is casting a js.Wrapper into TextTrack.
-func TextTrackFromJS(value js.Wrapper) *TextTrack {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextTrackFromJS is casting a js.Value into TextTrack.
+func TextTrackFromJS(value js.Value) *TextTrack {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrack{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextTrackFromJS is casting from something that holds a js.Value into TextTrack.
+func TextTrackFromWrapper(input core.Wrapper) *TextTrack {
+	return TextTrackFromJS(input.JSValue())
 }
 
 // Kind returning attribute 'kind' with
@@ -2495,15 +2540,19 @@ type TextTrackCue struct {
 	domcore.EventTarget
 }
 
-// TextTrackCueFromJS is casting a js.Wrapper into TextTrackCue.
-func TextTrackCueFromJS(value js.Wrapper) *TextTrackCue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextTrackCueFromJS is casting a js.Value into TextTrackCue.
+func TextTrackCueFromJS(value js.Value) *TextTrackCue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackCue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextTrackCueFromJS is casting from something that holds a js.Value into TextTrackCue.
+func TextTrackCueFromWrapper(input core.Wrapper) *TextTrackCue {
+	return TextTrackCueFromJS(input.JSValue())
 }
 
 // Track returning attribute 'track' with
@@ -2659,15 +2708,19 @@ func (_this *TextTrackCueList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TextTrackCueListFromJS is casting a js.Wrapper into TextTrackCueList.
-func TextTrackCueListFromJS(value js.Wrapper) *TextTrackCueList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextTrackCueListFromJS is casting a js.Value into TextTrackCueList.
+func TextTrackCueListFromJS(value js.Value) *TextTrackCueList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackCueList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextTrackCueListFromJS is casting from something that holds a js.Value into TextTrackCueList.
+func TextTrackCueListFromWrapper(input core.Wrapper) *TextTrackCueList {
+	return TextTrackCueListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -2720,15 +2773,19 @@ type TextTrackList struct {
 	domcore.EventTarget
 }
 
-// TextTrackListFromJS is casting a js.Wrapper into TextTrackList.
-func TextTrackListFromJS(value js.Wrapper) *TextTrackList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextTrackListFromJS is casting a js.Value into TextTrackList.
+func TextTrackListFromJS(value js.Value) *TextTrackList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TextTrackList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextTrackListFromJS is casting from something that holds a js.Value into TextTrackList.
+func TextTrackListFromWrapper(input core.Wrapper) *TextTrackList {
+	return TextTrackListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -2895,15 +2952,19 @@ func (_this *VideoTrack) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// VideoTrackFromJS is casting a js.Wrapper into VideoTrack.
-func VideoTrackFromJS(value js.Wrapper) *VideoTrack {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// VideoTrackFromJS is casting a js.Value into VideoTrack.
+func VideoTrackFromJS(value js.Value) *VideoTrack {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VideoTrack{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// VideoTrackFromJS is casting from something that holds a js.Value into VideoTrack.
+func VideoTrackFromWrapper(input core.Wrapper) *VideoTrack {
+	return VideoTrackFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -2974,15 +3035,19 @@ type VideoTrackList struct {
 	domcore.EventTarget
 }
 
-// VideoTrackListFromJS is casting a js.Wrapper into VideoTrackList.
-func VideoTrackListFromJS(value js.Wrapper) *VideoTrackList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// VideoTrackListFromJS is casting a js.Value into VideoTrackList.
+func VideoTrackListFromJS(value js.Value) *VideoTrackList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VideoTrackList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// VideoTrackListFromJS is casting from something that holds a js.Value into VideoTrackList.
+func VideoTrackListFromWrapper(input core.Wrapper) *VideoTrackList {
+	return VideoTrackListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with

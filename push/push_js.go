@@ -5,6 +5,7 @@ package push
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/javascript"
@@ -376,7 +377,7 @@ type EventInit struct {
 	Data       *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -392,10 +393,8 @@ func (_this *EventInit) JSValue() js.Value {
 }
 
 // EventInitFromJS is allocating a new
-// EventInit object and copy all values from
-// input javascript object
-func EventInitFromJS(value js.Wrapper) *EventInit {
-	input := value.JSValue()
+// EventInit object and copy all values in the value javascript object.
+func EventInitFromJS(value js.Value) *EventInit {
 	var out EventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -403,13 +402,13 @@ func EventInitFromJS(value js.Wrapper) *EventInit {
 		value2 bool   // javascript: boolean {composed Composed composed}
 		value3 *Union // javascript: Union {data Data data}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = UnionFromJS(input.Get("data"))
+	value3 = UnionFromJS(value.Get("data"))
 	out.Data = value3
 	return &out
 }
@@ -423,7 +422,7 @@ type SubscriptionChangeInit struct {
 	OldSubscription *Subscription
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SubscriptionChangeInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -441,10 +440,8 @@ func (_this *SubscriptionChangeInit) JSValue() js.Value {
 }
 
 // SubscriptionChangeInitFromJS is allocating a new
-// SubscriptionChangeInit object and copy all values from
-// input javascript object
-func SubscriptionChangeInitFromJS(value js.Wrapper) *SubscriptionChangeInit {
-	input := value.JSValue()
+// SubscriptionChangeInit object and copy all values in the value javascript object.
+func SubscriptionChangeInitFromJS(value js.Value) *SubscriptionChangeInit {
 	var out SubscriptionChangeInit
 	var (
 		value0 bool          // javascript: boolean {bubbles Bubbles bubbles}
@@ -453,15 +450,15 @@ func SubscriptionChangeInitFromJS(value js.Wrapper) *SubscriptionChangeInit {
 		value3 *Subscription // javascript: PushSubscription {newSubscription NewSubscription newSubscription}
 		value4 *Subscription // javascript: PushSubscription {oldSubscription OldSubscription oldSubscription}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = SubscriptionFromJS(input.Get("newSubscription"))
+	value3 = SubscriptionFromJS(value.Get("newSubscription"))
 	out.NewSubscription = value3
-	value4 = SubscriptionFromJS(input.Get("oldSubscription"))
+	value4 = SubscriptionFromJS(value.Get("oldSubscription"))
 	out.OldSubscription = value4
 	return &out
 }
@@ -472,7 +469,7 @@ type SubscriptionJSON struct {
 	ExpirationTime *int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SubscriptionJSON) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -490,19 +487,17 @@ func (_this *SubscriptionJSON) JSValue() js.Value {
 }
 
 // SubscriptionJSONFromJS is allocating a new
-// SubscriptionJSON object and copy all values from
-// input javascript object
-func SubscriptionJSONFromJS(value js.Wrapper) *SubscriptionJSON {
-	input := value.JSValue()
+// SubscriptionJSON object and copy all values in the value javascript object.
+func SubscriptionJSONFromJS(value js.Value) *SubscriptionJSON {
 	var out SubscriptionJSON
 	var (
 		value0 string // javascript: USVString {endpoint Endpoint endpoint}
 		value1 *int   // javascript: unsigned long long {expirationTime ExpirationTime expirationTime}
 	)
-	value0 = (input.Get("endpoint")).String()
+	value0 = (value.Get("endpoint")).String()
 	out.Endpoint = value0
-	if input.Get("expirationTime").Type() != js.TypeNull && input.Get("expirationTime").Type() != js.TypeUndefined {
-		__tmp := (input.Get("expirationTime")).Int()
+	if value.Get("expirationTime").Type() != js.TypeNull && value.Get("expirationTime").Type() != js.TypeUndefined {
+		__tmp := (value.Get("expirationTime")).Int()
 		value1 = &__tmp
 	}
 	out.ExpirationTime = value1
@@ -515,7 +510,7 @@ type SubscriptionOptionsInit struct {
 	ApplicationServerKey *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SubscriptionOptionsInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -527,19 +522,17 @@ func (_this *SubscriptionOptionsInit) JSValue() js.Value {
 }
 
 // SubscriptionOptionsInitFromJS is allocating a new
-// SubscriptionOptionsInit object and copy all values from
-// input javascript object
-func SubscriptionOptionsInitFromJS(value js.Wrapper) *SubscriptionOptionsInit {
-	input := value.JSValue()
+// SubscriptionOptionsInit object and copy all values in the value javascript object.
+func SubscriptionOptionsInitFromJS(value js.Value) *SubscriptionOptionsInit {
 	var out SubscriptionOptionsInit
 	var (
 		value0 bool   // javascript: boolean {userVisibleOnly UserVisibleOnly userVisibleOnly}
 		value1 *Union // javascript: Union {applicationServerKey ApplicationServerKey applicationServerKey}
 	)
-	value0 = (input.Get("userVisibleOnly")).Bool()
+	value0 = (value.Get("userVisibleOnly")).Bool()
 	out.UserVisibleOnly = value0
-	if input.Get("applicationServerKey").Type() != js.TypeNull && input.Get("applicationServerKey").Type() != js.TypeUndefined {
-		value1 = UnionFromJS(input.Get("applicationServerKey"))
+	if value.Get("applicationServerKey").Type() != js.TypeNull && value.Get("applicationServerKey").Type() != js.TypeUndefined {
+		value1 = UnionFromJS(value.Get("applicationServerKey"))
 	}
 	out.ApplicationServerKey = value1
 	return &out
@@ -550,15 +543,19 @@ type Event struct {
 	domcore.ExtendableEvent
 }
 
-// EventFromJS is casting a js.Wrapper into Event.
-func EventFromJS(value js.Wrapper) *Event {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventFromJS is casting a js.Value into Event.
+func EventFromJS(value js.Value) *Event {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Event{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventFromJS is casting from something that holds a js.Value into Event.
+func EventFromWrapper(input core.Wrapper) *Event {
+	return EventFromJS(input.JSValue())
 }
 
 func NewPushEvent(_type string, eventInitDict *EventInit) (_result *Event) {
@@ -605,15 +602,19 @@ func (_this *Manager) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ManagerFromJS is casting a js.Wrapper into Manager.
-func ManagerFromJS(value js.Wrapper) *Manager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ManagerFromJS is casting a js.Value into Manager.
+func ManagerFromJS(value js.Value) *Manager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Manager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ManagerFromJS is casting from something that holds a js.Value into Manager.
+func ManagerFromWrapper(input core.Wrapper) *Manager {
+	return ManagerFromJS(input.JSValue())
 }
 
 // SupportedContentEncodings returning attribute 'supportedContentEncodings' with
@@ -688,15 +689,19 @@ func (_this *MessageData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MessageDataFromJS is casting a js.Wrapper into MessageData.
-func MessageDataFromJS(value js.Wrapper) *MessageData {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MessageDataFromJS is casting a js.Value into MessageData.
+func MessageDataFromJS(value js.Value) *MessageData {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageData{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MessageDataFromJS is casting from something that holds a js.Value into MessageData.
+func MessageDataFromWrapper(input core.Wrapper) *MessageData {
+	return MessageDataFromJS(input.JSValue())
 }
 
 func (_this *MessageData) ArrayBuffer() (_result *javascript.ArrayBuffer) {
@@ -765,15 +770,19 @@ func (_this *PromiseNilSubscription) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseNilSubscriptionFromJS is casting a js.Wrapper into PromiseNilSubscription.
-func PromiseNilSubscriptionFromJS(value js.Wrapper) *PromiseNilSubscription {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseNilSubscriptionFromJS is casting a js.Value into PromiseNilSubscription.
+func PromiseNilSubscriptionFromJS(value js.Value) *PromiseNilSubscription {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilSubscription{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseNilSubscriptionFromJS is casting from something that holds a js.Value into PromiseNilSubscription.
+func PromiseNilSubscriptionFromWrapper(input core.Wrapper) *PromiseNilSubscription {
+	return PromiseNilSubscriptionFromJS(input.JSValue())
 }
 
 func (_this *PromiseNilSubscription) Then(onFulfilled *PromiseNilSubscriptionOnFulfilled, onRejected *PromiseNilSubscriptionOnRejected) (_result *PromiseNilSubscription) {
@@ -870,15 +879,19 @@ func (_this *PromisePermissionState) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePermissionStateFromJS is casting a js.Wrapper into PromisePermissionState.
-func PromisePermissionStateFromJS(value js.Wrapper) *PromisePermissionState {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePermissionStateFromJS is casting a js.Value into PromisePermissionState.
+func PromisePermissionStateFromJS(value js.Value) *PromisePermissionState {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionState{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePermissionStateFromJS is casting from something that holds a js.Value into PromisePermissionState.
+func PromisePermissionStateFromWrapper(input core.Wrapper) *PromisePermissionState {
+	return PromisePermissionStateFromJS(input.JSValue())
 }
 
 func (_this *PromisePermissionState) Then(onFulfilled *PromisePermissionStateOnFulfilled, onRejected *PromisePermissionStateOnRejected) (_result *PromisePermissionState) {
@@ -975,15 +988,19 @@ func (_this *PromiseSubscription) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSubscriptionFromJS is casting a js.Wrapper into PromiseSubscription.
-func PromiseSubscriptionFromJS(value js.Wrapper) *PromiseSubscription {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSubscriptionFromJS is casting a js.Value into PromiseSubscription.
+func PromiseSubscriptionFromJS(value js.Value) *PromiseSubscription {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSubscription{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSubscriptionFromJS is casting from something that holds a js.Value into PromiseSubscription.
+func PromiseSubscriptionFromWrapper(input core.Wrapper) *PromiseSubscription {
+	return PromiseSubscriptionFromJS(input.JSValue())
 }
 
 func (_this *PromiseSubscription) Then(onFulfilled *PromiseSubscriptionOnFulfilled, onRejected *PromiseSubscriptionOnRejected) (_result *PromiseSubscription) {
@@ -1080,15 +1097,19 @@ func (_this *Subscription) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SubscriptionFromJS is casting a js.Wrapper into Subscription.
-func SubscriptionFromJS(value js.Wrapper) *Subscription {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SubscriptionFromJS is casting a js.Value into Subscription.
+func SubscriptionFromJS(value js.Value) *Subscription {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Subscription{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SubscriptionFromJS is casting from something that holds a js.Value into Subscription.
+func SubscriptionFromWrapper(input core.Wrapper) *Subscription {
+	return SubscriptionFromJS(input.JSValue())
 }
 
 // Endpoint returning attribute 'endpoint' with
@@ -1173,15 +1194,19 @@ type SubscriptionChangeEvent struct {
 	domcore.ExtendableEvent
 }
 
-// SubscriptionChangeEventFromJS is casting a js.Wrapper into SubscriptionChangeEvent.
-func SubscriptionChangeEventFromJS(value js.Wrapper) *SubscriptionChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SubscriptionChangeEventFromJS is casting a js.Value into SubscriptionChangeEvent.
+func SubscriptionChangeEventFromJS(value js.Value) *SubscriptionChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubscriptionChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SubscriptionChangeEventFromJS is casting from something that holds a js.Value into SubscriptionChangeEvent.
+func SubscriptionChangeEventFromWrapper(input core.Wrapper) *SubscriptionChangeEvent {
+	return SubscriptionChangeEventFromJS(input.JSValue())
 }
 
 func NewPushSubscriptionChangeEvent(_type string, eventInitDict *SubscriptionChangeInit) (_result *SubscriptionChangeEvent) {
@@ -1239,15 +1264,19 @@ func (_this *SubscriptionOptions) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SubscriptionOptionsFromJS is casting a js.Wrapper into SubscriptionOptions.
-func SubscriptionOptionsFromJS(value js.Wrapper) *SubscriptionOptions {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SubscriptionOptionsFromJS is casting a js.Value into SubscriptionOptions.
+func SubscriptionOptionsFromJS(value js.Value) *SubscriptionOptions {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SubscriptionOptions{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SubscriptionOptionsFromJS is casting from something that holds a js.Value into SubscriptionOptions.
+func SubscriptionOptionsFromWrapper(input core.Wrapper) *SubscriptionOptions {
+	return SubscriptionOptionsFromJS(input.JSValue())
 }
 
 // UserVisibleOnly returning attribute 'userVisibleOnly' with

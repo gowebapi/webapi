@@ -7,6 +7,7 @@ package nfc
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -181,7 +182,7 @@ type ErrorEventInit struct {
 	Error      *domcore.DOMException
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ErrorEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -197,10 +198,8 @@ func (_this *ErrorEventInit) JSValue() js.Value {
 }
 
 // ErrorEventInitFromJS is allocating a new
-// ErrorEventInit object and copy all values from
-// input javascript object
-func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
-	input := value.JSValue()
+// ErrorEventInit object and copy all values in the value javascript object.
+func ErrorEventInitFromJS(value js.Value) *ErrorEventInit {
 	var out ErrorEventInit
 	var (
 		value0 bool                  // javascript: boolean {bubbles Bubbles bubbles}
@@ -208,13 +207,13 @@ func ErrorEventInitFromJS(value js.Wrapper) *ErrorEventInit {
 		value2 bool                  // javascript: boolean {composed Composed composed}
 		value3 *domcore.DOMException // javascript: DOMException {error Error _error}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = domcore.DOMExceptionFromJS(input.Get("error"))
+	value3 = domcore.DOMExceptionFromJS(value.Get("error"))
 	out.Error = value3
 	return &out
 }
@@ -225,7 +224,7 @@ type NDEFMessage struct {
 	Url     string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NDEFMessage) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -241,26 +240,24 @@ func (_this *NDEFMessage) JSValue() js.Value {
 }
 
 // NDEFMessageFromJS is allocating a new
-// NDEFMessage object and copy all values from
-// input javascript object
-func NDEFMessageFromJS(value js.Wrapper) *NDEFMessage {
-	input := value.JSValue()
+// NDEFMessage object and copy all values in the value javascript object.
+func NDEFMessageFromJS(value js.Value) *NDEFMessage {
 	var out NDEFMessage
 	var (
 		value0 []*NDEFRecord // javascript: sequence<NDEFRecord> {records Records records}
 		value1 string        // javascript: USVString {url Url url}
 	)
-	__length0 := input.Get("records").Length()
+	__length0 := value.Get("records").Length()
 	__array0 := make([]*NDEFRecord, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *NDEFRecord
-		__seq_in0 := input.Get("records").Index(__idx0)
+		__seq_in0 := value.Get("records").Index(__idx0)
 		__seq_out0 = NDEFRecordFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Records = value0
-	value1 = (input.Get("url")).String()
+	value1 = (value.Get("url")).String()
 	out.Url = value1
 	return &out
 }
@@ -272,7 +269,7 @@ type NDEFRecord struct {
 	Data       *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NDEFRecord) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -286,21 +283,19 @@ func (_this *NDEFRecord) JSValue() js.Value {
 }
 
 // NDEFRecordFromJS is allocating a new
-// NDEFRecord object and copy all values from
-// input javascript object
-func NDEFRecordFromJS(value js.Wrapper) *NDEFRecord {
-	input := value.JSValue()
+// NDEFRecord object and copy all values in the value javascript object.
+func NDEFRecordFromJS(value js.Value) *NDEFRecord {
 	var out NDEFRecord
 	var (
 		value0 NDEFRecordType // javascript: NDEFRecordType {recordType RecordType recordType}
 		value1 string         // javascript: USVString {mediaType MediaType mediaType}
 		value2 *Union         // javascript: Union {data Data data}
 	)
-	value0 = NDEFRecordTypeFromJS(input.Get("recordType"))
+	value0 = NDEFRecordTypeFromJS(value.Get("recordType"))
 	out.RecordType = value0
-	value1 = (input.Get("mediaType")).String()
+	value1 = (value.Get("mediaType")).String()
 	out.MediaType = value1
-	value2 = UnionFromJS(input.Get("data"))
+	value2 = UnionFromJS(value.Get("data"))
 	out.Data = value2
 	return &out
 }
@@ -314,7 +309,7 @@ type PushOptions struct {
 	Compatibility NDEFCompatibility
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PushOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -332,10 +327,8 @@ func (_this *PushOptions) JSValue() js.Value {
 }
 
 // PushOptionsFromJS is allocating a new
-// PushOptions object and copy all values from
-// input javascript object
-func PushOptionsFromJS(value js.Wrapper) *PushOptions {
-	input := value.JSValue()
+// PushOptions object and copy all values in the value javascript object.
+func PushOptionsFromJS(value js.Value) *PushOptions {
 	var out PushOptions
 	var (
 		value0 PushTarget           // javascript: NFCPushTarget {target Target target}
@@ -344,17 +337,17 @@ func PushOptionsFromJS(value js.Wrapper) *PushOptions {
 		value3 *domcore.AbortSignal // javascript: AbortSignal {signal Signal signal}
 		value4 NDEFCompatibility    // javascript: NDEFCompatibility {compatibility Compatibility compatibility}
 	)
-	value0 = PushTargetFromJS(input.Get("target"))
+	value0 = PushTargetFromJS(value.Get("target"))
 	out.Target = value0
-	value1 = (input.Get("timeout")).Float()
+	value1 = (value.Get("timeout")).Float()
 	out.Timeout = value1
-	value2 = (input.Get("ignoreRead")).Bool()
+	value2 = (value.Get("ignoreRead")).Bool()
 	out.IgnoreRead = value2
-	if input.Get("signal").Type() != js.TypeNull && input.Get("signal").Type() != js.TypeUndefined {
-		value3 = domcore.AbortSignalFromJS(input.Get("signal"))
+	if value.Get("signal").Type() != js.TypeNull && value.Get("signal").Type() != js.TypeUndefined {
+		value3 = domcore.AbortSignalFromJS(value.Get("signal"))
 	}
 	out.Signal = value3
-	value4 = NDEFCompatibilityFromJS(input.Get("compatibility"))
+	value4 = NDEFCompatibilityFromJS(value.Get("compatibility"))
 	out.Compatibility = value4
 	return &out
 }
@@ -367,7 +360,7 @@ type ReaderOptions struct {
 	Compatibility NDEFCompatibility
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ReaderOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -383,10 +376,8 @@ func (_this *ReaderOptions) JSValue() js.Value {
 }
 
 // ReaderOptionsFromJS is allocating a new
-// ReaderOptions object and copy all values from
-// input javascript object
-func ReaderOptionsFromJS(value js.Wrapper) *ReaderOptions {
-	input := value.JSValue()
+// ReaderOptions object and copy all values in the value javascript object.
+func ReaderOptionsFromJS(value js.Value) *ReaderOptions {
 	var out ReaderOptions
 	var (
 		value0 string            // javascript: USVString {url Url url}
@@ -394,13 +385,13 @@ func ReaderOptionsFromJS(value js.Wrapper) *ReaderOptions {
 		value2 string            // javascript: USVString {mediaType MediaType mediaType}
 		value3 NDEFCompatibility // javascript: NDEFCompatibility {compatibility Compatibility compatibility}
 	)
-	value0 = (input.Get("url")).String()
+	value0 = (value.Get("url")).String()
 	out.Url = value0
-	value1 = NDEFRecordTypeFromJS(input.Get("recordType"))
+	value1 = NDEFRecordTypeFromJS(value.Get("recordType"))
 	out.RecordType = value1
-	value2 = (input.Get("mediaType")).String()
+	value2 = (value.Get("mediaType")).String()
 	out.MediaType = value2
-	value3 = NDEFCompatibilityFromJS(input.Get("compatibility"))
+	value3 = NDEFCompatibilityFromJS(value.Get("compatibility"))
 	out.Compatibility = value3
 	return &out
 }
@@ -413,7 +404,7 @@ type ReadingEventInit struct {
 	Message    *NDEFMessage
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ReadingEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -429,10 +420,8 @@ func (_this *ReadingEventInit) JSValue() js.Value {
 }
 
 // ReadingEventInitFromJS is allocating a new
-// ReadingEventInit object and copy all values from
-// input javascript object
-func ReadingEventInitFromJS(value js.Wrapper) *ReadingEventInit {
-	input := value.JSValue()
+// ReadingEventInit object and copy all values in the value javascript object.
+func ReadingEventInitFromJS(value js.Value) *ReadingEventInit {
 	var out ReadingEventInit
 	var (
 		value0 bool         // javascript: boolean {bubbles Bubbles bubbles}
@@ -440,13 +429,13 @@ func ReadingEventInitFromJS(value js.Wrapper) *ReadingEventInit {
 		value2 bool         // javascript: boolean {composed Composed composed}
 		value3 *NDEFMessage // javascript: NDEFMessage {message Message message}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = NDEFMessageFromJS(input.Get("message"))
+	value3 = NDEFMessageFromJS(value.Get("message"))
 	out.Message = value3
 	return &out
 }
@@ -456,15 +445,19 @@ type ErrorEvent struct {
 	domcore.Event
 }
 
-// ErrorEventFromJS is casting a js.Wrapper into ErrorEvent.
-func ErrorEventFromJS(value js.Wrapper) *ErrorEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ErrorEventFromJS is casting a js.Value into ErrorEvent.
+func ErrorEventFromJS(value js.Value) *ErrorEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ErrorEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ErrorEventFromJS is casting from something that holds a js.Value into ErrorEvent.
+func ErrorEventFromWrapper(input core.Wrapper) *ErrorEvent {
+	return ErrorEventFromJS(input.JSValue())
 }
 
 func NewNFCErrorEvent(_type string, errorEventInitDict *ErrorEventInit) (_result *ErrorEvent) {
@@ -502,15 +495,19 @@ type Reader struct {
 	domcore.EventTarget
 }
 
-// ReaderFromJS is casting a js.Wrapper into Reader.
-func ReaderFromJS(value js.Wrapper) *Reader {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReaderFromJS is casting a js.Value into Reader.
+func ReaderFromJS(value js.Value) *Reader {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Reader{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReaderFromJS is casting from something that holds a js.Value into Reader.
+func ReaderFromWrapper(input core.Wrapper) *Reader {
+	return ReaderFromJS(input.JSValue())
 }
 
 func NewNFCReader(options *ReaderOptions) (_result *Reader) {
@@ -638,15 +635,19 @@ type ReadingEvent struct {
 	domcore.Event
 }
 
-// ReadingEventFromJS is casting a js.Wrapper into ReadingEvent.
-func ReadingEventFromJS(value js.Wrapper) *ReadingEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReadingEventFromJS is casting a js.Value into ReadingEvent.
+func ReadingEventFromJS(value js.Value) *ReadingEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReadingEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReadingEventFromJS is casting from something that holds a js.Value into ReadingEvent.
+func ReadingEventFromWrapper(input core.Wrapper) *ReadingEvent {
+	return ReadingEventFromJS(input.JSValue())
 }
 
 func NewNFCReadingEvent(_type string, readingEventInitDict *ReadingEventInit) (_result *ReadingEvent) {
@@ -689,15 +690,19 @@ func (_this *Writer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WriterFromJS is casting a js.Wrapper into Writer.
-func WriterFromJS(value js.Wrapper) *Writer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WriterFromJS is casting a js.Value into Writer.
+func WriterFromJS(value js.Value) *Writer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Writer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WriterFromJS is casting from something that holds a js.Value into Writer.
+func WriterFromWrapper(input core.Wrapper) *Writer {
+	return WriterFromJS(input.JSValue())
 }
 
 func NewNFCWriter() (_result *Writer) {
