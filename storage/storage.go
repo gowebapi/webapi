@@ -7,6 +7,7 @@ package storage
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -125,7 +126,7 @@ type StorageEstimate struct {
 	Quota int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StorageEstimate) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -137,18 +138,16 @@ func (_this *StorageEstimate) JSValue() js.Value {
 }
 
 // StorageEstimateFromJS is allocating a new
-// StorageEstimate object and copy all values from
-// input javascript object
-func StorageEstimateFromJS(value js.Wrapper) *StorageEstimate {
-	input := value.JSValue()
+// StorageEstimate object and copy all values in the value javascript object.
+func StorageEstimateFromJS(value js.Value) *StorageEstimate {
 	var out StorageEstimate
 	var (
 		value0 int // javascript: unsigned long long {usage Usage usage}
 		value1 int // javascript: unsigned long long {quota Quota quota}
 	)
-	value0 = (input.Get("usage")).Int()
+	value0 = (value.Get("usage")).Int()
 	out.Usage = value0
-	value1 = (input.Get("quota")).Int()
+	value1 = (value.Get("quota")).Int()
 	out.Quota = value1
 	return &out
 }
@@ -163,15 +162,19 @@ func (_this *PromiseStorageEstimate) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseStorageEstimateFromJS is casting a js.Wrapper into PromiseStorageEstimate.
-func PromiseStorageEstimateFromJS(value js.Wrapper) *PromiseStorageEstimate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseStorageEstimateFromJS is casting a js.Value into PromiseStorageEstimate.
+func PromiseStorageEstimateFromJS(value js.Value) *PromiseStorageEstimate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseStorageEstimate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseStorageEstimateFromJS is casting from something that holds a js.Value into PromiseStorageEstimate.
+func PromiseStorageEstimateFromWrapper(input core.Wrapper) *PromiseStorageEstimate {
+	return PromiseStorageEstimateFromJS(input.JSValue())
 }
 
 func (_this *PromiseStorageEstimate) Then(onFulfilled *PromiseStorageEstimateOnFulfilled, onRejected *PromiseStorageEstimateOnRejected) (_result *PromiseStorageEstimate) {
@@ -268,15 +271,19 @@ func (_this *StorageManager) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StorageManagerFromJS is casting a js.Wrapper into StorageManager.
-func StorageManagerFromJS(value js.Wrapper) *StorageManager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StorageManagerFromJS is casting a js.Value into StorageManager.
+func StorageManagerFromJS(value js.Value) *StorageManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StorageManager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StorageManagerFromJS is casting from something that holds a js.Value into StorageManager.
+func StorageManagerFromWrapper(input core.Wrapper) *StorageManager {
+	return StorageManagerFromJS(input.JSValue())
 }
 
 func (_this *StorageManager) Persisted() (_result *javascript.PromiseBool) {

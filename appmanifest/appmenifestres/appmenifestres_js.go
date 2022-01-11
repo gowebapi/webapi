@@ -38,7 +38,7 @@ type ExternalApplicationResource struct {
 	Fingerprints []*Fingerprint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ExternalApplicationResource) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -60,10 +60,8 @@ func (_this *ExternalApplicationResource) JSValue() js.Value {
 }
 
 // ExternalApplicationResourceFromJS is allocating a new
-// ExternalApplicationResource object and copy all values from
-// input javascript object
-func ExternalApplicationResourceFromJS(value js.Wrapper) *ExternalApplicationResource {
-	input := value.JSValue()
+// ExternalApplicationResource object and copy all values in the value javascript object.
+func ExternalApplicationResourceFromJS(value js.Value) *ExternalApplicationResource {
 	var out ExternalApplicationResource
 	var (
 		value0 string         // javascript: USVString {platform Platform platform}
@@ -72,19 +70,19 @@ func ExternalApplicationResourceFromJS(value js.Wrapper) *ExternalApplicationRes
 		value3 string         // javascript: USVString {min_version MinVersion minVersion}
 		value4 []*Fingerprint // javascript: sequence<Fingerprint> {fingerprints Fingerprints fingerprints}
 	)
-	value0 = (input.Get("platform")).String()
+	value0 = (value.Get("platform")).String()
 	out.Platform = value0
-	value1 = (input.Get("url")).String()
+	value1 = (value.Get("url")).String()
 	out.Url = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
-	value3 = (input.Get("min_version")).String()
+	value3 = (value.Get("min_version")).String()
 	out.MinVersion = value3
-	__length4 := input.Get("fingerprints").Length()
+	__length4 := value.Get("fingerprints").Length()
 	__array4 := make([]*Fingerprint, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 *Fingerprint
-		__seq_in4 := input.Get("fingerprints").Index(__idx4)
+		__seq_in4 := value.Get("fingerprints").Index(__idx4)
 		__seq_out4 = FingerprintFromJS(__seq_in4)
 		__array4[__idx4] = __seq_out4
 	}
@@ -99,7 +97,7 @@ type Fingerprint struct {
 	Value string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Fingerprint) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -111,18 +109,16 @@ func (_this *Fingerprint) JSValue() js.Value {
 }
 
 // FingerprintFromJS is allocating a new
-// Fingerprint object and copy all values from
-// input javascript object
-func FingerprintFromJS(value js.Wrapper) *Fingerprint {
-	input := value.JSValue()
+// Fingerprint object and copy all values in the value javascript object.
+func FingerprintFromJS(value js.Value) *Fingerprint {
 	var out Fingerprint
 	var (
 		value0 string // javascript: USVString {type Type _type}
 		value1 string // javascript: USVString {value Value value}
 	)
-	value0 = (input.Get("type")).String()
+	value0 = (value.Get("type")).String()
 	out.Type = value0
-	value1 = (input.Get("value")).String()
+	value1 = (value.Get("value")).String()
 	out.Value = value1
 	return &out
 }
@@ -136,7 +132,7 @@ type ImageResource struct {
 	Platform string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ImageResource) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -154,10 +150,8 @@ func (_this *ImageResource) JSValue() js.Value {
 }
 
 // ImageResourceFromJS is allocating a new
-// ImageResource object and copy all values from
-// input javascript object
-func ImageResourceFromJS(value js.Wrapper) *ImageResource {
-	input := value.JSValue()
+// ImageResource object and copy all values in the value javascript object.
+func ImageResourceFromJS(value js.Value) *ImageResource {
 	var out ImageResource
 	var (
 		value0 string // javascript: USVString {src Src src}
@@ -166,15 +160,15 @@ func ImageResourceFromJS(value js.Wrapper) *ImageResource {
 		value3 string // javascript: USVString {purpose Purpose purpose}
 		value4 string // javascript: USVString {platform Platform platform}
 	)
-	value0 = (input.Get("src")).String()
+	value0 = (value.Get("src")).String()
 	out.Src = value0
-	value1 = (input.Get("sizes")).String()
+	value1 = (value.Get("sizes")).String()
 	out.Sizes = value1
-	value2 = (input.Get("type")).String()
+	value2 = (value.Get("type")).String()
 	out.Type = value2
-	value3 = (input.Get("purpose")).String()
+	value3 = (value.Get("purpose")).String()
 	out.Purpose = value3
-	value4 = (input.Get("platform")).String()
+	value4 = (value.Get("platform")).String()
 	out.Platform = value4
 	return &out
 }

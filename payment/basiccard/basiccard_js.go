@@ -40,7 +40,7 @@ type BasicCardChangeDetails struct {
 	BillingAddress *request.PaymentAddress
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BasicCardChangeDetails) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -50,16 +50,14 @@ func (_this *BasicCardChangeDetails) JSValue() js.Value {
 }
 
 // BasicCardChangeDetailsFromJS is allocating a new
-// BasicCardChangeDetails object and copy all values from
-// input javascript object
-func BasicCardChangeDetailsFromJS(value js.Wrapper) *BasicCardChangeDetails {
-	input := value.JSValue()
+// BasicCardChangeDetails object and copy all values in the value javascript object.
+func BasicCardChangeDetailsFromJS(value js.Value) *BasicCardChangeDetails {
 	var out BasicCardChangeDetails
 	var (
 		value0 *request.PaymentAddress // javascript: PaymentAddress {billingAddress BillingAddress billingAddress}
 	)
-	if input.Get("billingAddress").Type() != js.TypeNull && input.Get("billingAddress").Type() != js.TypeUndefined {
-		value0 = request.PaymentAddressFromJS(input.Get("billingAddress"))
+	if value.Get("billingAddress").Type() != js.TypeNull && value.Get("billingAddress").Type() != js.TypeUndefined {
+		value0 = request.PaymentAddressFromJS(value.Get("billingAddress"))
 	}
 	out.BillingAddress = value0
 	return &out
@@ -75,7 +73,7 @@ type BasicCardErrors struct {
 	BillingAddress   *request.AddressErrors
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BasicCardErrors) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -95,10 +93,8 @@ func (_this *BasicCardErrors) JSValue() js.Value {
 }
 
 // BasicCardErrorsFromJS is allocating a new
-// BasicCardErrors object and copy all values from
-// input javascript object
-func BasicCardErrorsFromJS(value js.Wrapper) *BasicCardErrors {
-	input := value.JSValue()
+// BasicCardErrors object and copy all values in the value javascript object.
+func BasicCardErrorsFromJS(value js.Value) *BasicCardErrors {
 	var out BasicCardErrors
 	var (
 		value0 string                 // javascript: DOMString {cardNumber CardNumber cardNumber}
@@ -108,17 +104,17 @@ func BasicCardErrorsFromJS(value js.Wrapper) *BasicCardErrors {
 		value4 string                 // javascript: DOMString {expiryYear ExpiryYear expiryYear}
 		value5 *request.AddressErrors // javascript: AddressErrors {billingAddress BillingAddress billingAddress}
 	)
-	value0 = (input.Get("cardNumber")).String()
+	value0 = (value.Get("cardNumber")).String()
 	out.CardNumber = value0
-	value1 = (input.Get("cardholderName")).String()
+	value1 = (value.Get("cardholderName")).String()
 	out.CardholderName = value1
-	value2 = (input.Get("cardSecurityCode")).String()
+	value2 = (value.Get("cardSecurityCode")).String()
 	out.CardSecurityCode = value2
-	value3 = (input.Get("expiryMonth")).String()
+	value3 = (value.Get("expiryMonth")).String()
 	out.ExpiryMonth = value3
-	value4 = (input.Get("expiryYear")).String()
+	value4 = (value.Get("expiryYear")).String()
 	out.ExpiryYear = value4
-	value5 = request.AddressErrorsFromJS(input.Get("billingAddress"))
+	value5 = request.AddressErrorsFromJS(value.Get("billingAddress"))
 	out.BillingAddress = value5
 	return &out
 }
@@ -128,7 +124,7 @@ type BasicCardRequest struct {
 	SupportedNetworks []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BasicCardRequest) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -142,19 +138,17 @@ func (_this *BasicCardRequest) JSValue() js.Value {
 }
 
 // BasicCardRequestFromJS is allocating a new
-// BasicCardRequest object and copy all values from
-// input javascript object
-func BasicCardRequestFromJS(value js.Wrapper) *BasicCardRequest {
-	input := value.JSValue()
+// BasicCardRequest object and copy all values in the value javascript object.
+func BasicCardRequestFromJS(value js.Value) *BasicCardRequest {
 	var out BasicCardRequest
 	var (
 		value0 []string // javascript: sequence<DOMString> {supportedNetworks SupportedNetworks supportedNetworks}
 	)
-	__length0 := input.Get("supportedNetworks").Length()
+	__length0 := value.Get("supportedNetworks").Length()
 	__array0 := make([]string, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 string
-		__seq_in0 := input.Get("supportedNetworks").Index(__idx0)
+		__seq_in0 := value.Get("supportedNetworks").Index(__idx0)
 		__seq_out0 = (__seq_in0).String()
 		__array0[__idx0] = __seq_out0
 	}
@@ -173,7 +167,7 @@ type BasicCardResponse struct {
 	BillingAddress   *request.PaymentAddress
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BasicCardResponse) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -193,10 +187,8 @@ func (_this *BasicCardResponse) JSValue() js.Value {
 }
 
 // BasicCardResponseFromJS is allocating a new
-// BasicCardResponse object and copy all values from
-// input javascript object
-func BasicCardResponseFromJS(value js.Wrapper) *BasicCardResponse {
-	input := value.JSValue()
+// BasicCardResponse object and copy all values in the value javascript object.
+func BasicCardResponseFromJS(value js.Value) *BasicCardResponse {
 	var out BasicCardResponse
 	var (
 		value0 string                  // javascript: DOMString {cardNumber CardNumber cardNumber}
@@ -206,18 +198,18 @@ func BasicCardResponseFromJS(value js.Wrapper) *BasicCardResponse {
 		value4 string                  // javascript: DOMString {expiryYear ExpiryYear expiryYear}
 		value5 *request.PaymentAddress // javascript: PaymentAddress {billingAddress BillingAddress billingAddress}
 	)
-	value0 = (input.Get("cardNumber")).String()
+	value0 = (value.Get("cardNumber")).String()
 	out.CardNumber = value0
-	value1 = (input.Get("cardholderName")).String()
+	value1 = (value.Get("cardholderName")).String()
 	out.CardholderName = value1
-	value2 = (input.Get("cardSecurityCode")).String()
+	value2 = (value.Get("cardSecurityCode")).String()
 	out.CardSecurityCode = value2
-	value3 = (input.Get("expiryMonth")).String()
+	value3 = (value.Get("expiryMonth")).String()
 	out.ExpiryMonth = value3
-	value4 = (input.Get("expiryYear")).String()
+	value4 = (value.Get("expiryYear")).String()
 	out.ExpiryYear = value4
-	if input.Get("billingAddress").Type() != js.TypeNull && input.Get("billingAddress").Type() != js.TypeUndefined {
-		value5 = request.PaymentAddressFromJS(input.Get("billingAddress"))
+	if value.Get("billingAddress").Type() != js.TypeNull && value.Get("billingAddress").Type() != js.TypeUndefined {
+		value5 = request.PaymentAddressFromJS(value.Get("billingAddress"))
 	}
 	out.BillingAddress = value5
 	return &out

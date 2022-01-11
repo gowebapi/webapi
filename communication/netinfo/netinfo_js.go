@@ -5,6 +5,7 @@ package netinfo
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
@@ -134,15 +135,19 @@ type NetworkInformation struct {
 	domcore.EventTarget
 }
 
-// NetworkInformationFromJS is casting a js.Wrapper into NetworkInformation.
-func NetworkInformationFromJS(value js.Wrapper) *NetworkInformation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NetworkInformationFromJS is casting a js.Value into NetworkInformation.
+func NetworkInformationFromJS(value js.Value) *NetworkInformation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NetworkInformation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NetworkInformationFromJS is casting from something that holds a js.Value into NetworkInformation.
+func NetworkInformationFromWrapper(input core.Wrapper) *NetworkInformation {
+	return NetworkInformationFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with

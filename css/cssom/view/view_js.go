@@ -5,6 +5,7 @@ package view
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/media/capabilities"
@@ -180,7 +181,7 @@ type BoxQuadOptions struct {
 	RelativeTo *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BoxQuadOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -192,18 +193,16 @@ func (_this *BoxQuadOptions) JSValue() js.Value {
 }
 
 // BoxQuadOptionsFromJS is allocating a new
-// BoxQuadOptions object and copy all values from
-// input javascript object
-func BoxQuadOptionsFromJS(value js.Wrapper) *BoxQuadOptions {
-	input := value.JSValue()
+// BoxQuadOptions object and copy all values in the value javascript object.
+func BoxQuadOptionsFromJS(value js.Value) *BoxQuadOptions {
 	var out BoxQuadOptions
 	var (
 		value0 CSSBoxType // javascript: CSSBoxType {box Box box}
 		value1 *Union     // javascript: Union {relativeTo RelativeTo relativeTo}
 	)
-	value0 = CSSBoxTypeFromJS(input.Get("box"))
+	value0 = CSSBoxTypeFromJS(value.Get("box"))
 	out.Box = value0
-	value1 = UnionFromJS(input.Get("relativeTo"))
+	value1 = UnionFromJS(value.Get("relativeTo"))
 	out.RelativeTo = value1
 	return &out
 }
@@ -214,7 +213,7 @@ type ConvertCoordinateOptions struct {
 	ToBox   CSSBoxType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConvertCoordinateOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -226,18 +225,16 @@ func (_this *ConvertCoordinateOptions) JSValue() js.Value {
 }
 
 // ConvertCoordinateOptionsFromJS is allocating a new
-// ConvertCoordinateOptions object and copy all values from
-// input javascript object
-func ConvertCoordinateOptionsFromJS(value js.Wrapper) *ConvertCoordinateOptions {
-	input := value.JSValue()
+// ConvertCoordinateOptions object and copy all values in the value javascript object.
+func ConvertCoordinateOptionsFromJS(value js.Value) *ConvertCoordinateOptions {
 	var out ConvertCoordinateOptions
 	var (
 		value0 CSSBoxType // javascript: CSSBoxType {fromBox FromBox fromBox}
 		value1 CSSBoxType // javascript: CSSBoxType {toBox ToBox toBox}
 	)
-	value0 = CSSBoxTypeFromJS(input.Get("fromBox"))
+	value0 = CSSBoxTypeFromJS(value.Get("fromBox"))
 	out.FromBox = value0
-	value1 = CSSBoxTypeFromJS(input.Get("toBox"))
+	value1 = CSSBoxTypeFromJS(value.Get("toBox"))
 	out.ToBox = value1
 	return &out
 }
@@ -251,7 +248,7 @@ type MediaQueryListEventInit struct {
 	Matches    bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaQueryListEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -269,10 +266,8 @@ func (_this *MediaQueryListEventInit) JSValue() js.Value {
 }
 
 // MediaQueryListEventInitFromJS is allocating a new
-// MediaQueryListEventInit object and copy all values from
-// input javascript object
-func MediaQueryListEventInitFromJS(value js.Wrapper) *MediaQueryListEventInit {
-	input := value.JSValue()
+// MediaQueryListEventInit object and copy all values in the value javascript object.
+func MediaQueryListEventInitFromJS(value js.Value) *MediaQueryListEventInit {
 	var out MediaQueryListEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -281,15 +276,15 @@ func MediaQueryListEventInitFromJS(value js.Wrapper) *MediaQueryListEventInit {
 		value3 string // javascript: DOMString {media Media media}
 		value4 bool   // javascript: boolean {matches Matches matches}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("media")).String()
+	value3 = (value.Get("media")).String()
 	out.Media = value3
-	value4 = (input.Get("matches")).Bool()
+	value4 = (value.Get("matches")).Bool()
 	out.Matches = value4
 	return &out
 }
@@ -301,7 +296,7 @@ type ScrollIntoViewOptions struct {
 	Inline   ScrollLogicalPosition
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ScrollIntoViewOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -315,21 +310,19 @@ func (_this *ScrollIntoViewOptions) JSValue() js.Value {
 }
 
 // ScrollIntoViewOptionsFromJS is allocating a new
-// ScrollIntoViewOptions object and copy all values from
-// input javascript object
-func ScrollIntoViewOptionsFromJS(value js.Wrapper) *ScrollIntoViewOptions {
-	input := value.JSValue()
+// ScrollIntoViewOptions object and copy all values in the value javascript object.
+func ScrollIntoViewOptionsFromJS(value js.Value) *ScrollIntoViewOptions {
 	var out ScrollIntoViewOptions
 	var (
 		value0 ScrollBehavior        // javascript: ScrollBehavior {behavior Behavior behavior}
 		value1 ScrollLogicalPosition // javascript: ScrollLogicalPosition {block Block block}
 		value2 ScrollLogicalPosition // javascript: ScrollLogicalPosition {inline Inline inline}
 	)
-	value0 = ScrollBehaviorFromJS(input.Get("behavior"))
+	value0 = ScrollBehaviorFromJS(value.Get("behavior"))
 	out.Behavior = value0
-	value1 = ScrollLogicalPositionFromJS(input.Get("block"))
+	value1 = ScrollLogicalPositionFromJS(value.Get("block"))
 	out.Block = value1
-	value2 = ScrollLogicalPositionFromJS(input.Get("inline"))
+	value2 = ScrollLogicalPositionFromJS(value.Get("inline"))
 	out.Inline = value2
 	return &out
 }
@@ -339,7 +332,7 @@ type ScrollOptions struct {
 	Behavior ScrollBehavior
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ScrollOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -349,15 +342,13 @@ func (_this *ScrollOptions) JSValue() js.Value {
 }
 
 // ScrollOptionsFromJS is allocating a new
-// ScrollOptions object and copy all values from
-// input javascript object
-func ScrollOptionsFromJS(value js.Wrapper) *ScrollOptions {
-	input := value.JSValue()
+// ScrollOptions object and copy all values in the value javascript object.
+func ScrollOptionsFromJS(value js.Value) *ScrollOptions {
 	var out ScrollOptions
 	var (
 		value0 ScrollBehavior // javascript: ScrollBehavior {behavior Behavior behavior}
 	)
-	value0 = ScrollBehaviorFromJS(input.Get("behavior"))
+	value0 = ScrollBehaviorFromJS(value.Get("behavior"))
 	out.Behavior = value0
 	return &out
 }
@@ -369,7 +360,7 @@ type ScrollToOptions struct {
 	Top      float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ScrollToOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -383,21 +374,19 @@ func (_this *ScrollToOptions) JSValue() js.Value {
 }
 
 // ScrollToOptionsFromJS is allocating a new
-// ScrollToOptions object and copy all values from
-// input javascript object
-func ScrollToOptionsFromJS(value js.Wrapper) *ScrollToOptions {
-	input := value.JSValue()
+// ScrollToOptions object and copy all values in the value javascript object.
+func ScrollToOptionsFromJS(value js.Value) *ScrollToOptions {
 	var out ScrollToOptions
 	var (
 		value0 ScrollBehavior // javascript: ScrollBehavior {behavior Behavior behavior}
 		value1 float64        // javascript: unrestricted double {left Left left}
 		value2 float64        // javascript: unrestricted double {top Top top}
 	)
-	value0 = ScrollBehaviorFromJS(input.Get("behavior"))
+	value0 = ScrollBehaviorFromJS(value.Get("behavior"))
 	out.Behavior = value0
-	value1 = (input.Get("left")).Float()
+	value1 = (value.Get("left")).Float()
 	out.Left = value1
-	value2 = (input.Get("top")).Float()
+	value2 = (value.Get("top")).Float()
 	out.Top = value2
 	return &out
 }
@@ -412,15 +401,19 @@ func (_this *CaretPosition) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CaretPositionFromJS is casting a js.Wrapper into CaretPosition.
-func CaretPositionFromJS(value js.Wrapper) *CaretPosition {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CaretPositionFromJS is casting a js.Value into CaretPosition.
+func CaretPositionFromJS(value js.Value) *CaretPosition {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CaretPosition{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CaretPositionFromJS is casting from something that holds a js.Value into CaretPosition.
+func CaretPositionFromWrapper(input core.Wrapper) *CaretPosition {
+	return CaretPositionFromJS(input.JSValue())
 }
 
 // OffsetNode returning attribute 'offsetNode' with
@@ -462,15 +455,19 @@ type MediaQueryList struct {
 	domcore.EventTarget
 }
 
-// MediaQueryListFromJS is casting a js.Wrapper into MediaQueryList.
-func MediaQueryListFromJS(value js.Wrapper) *MediaQueryList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaQueryListFromJS is casting a js.Value into MediaQueryList.
+func MediaQueryListFromJS(value js.Value) *MediaQueryList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaQueryList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaQueryListFromJS is casting from something that holds a js.Value into MediaQueryList.
+func MediaQueryListFromWrapper(input core.Wrapper) *MediaQueryList {
+	return MediaQueryListFromJS(input.JSValue())
 }
 
 // Media returning attribute 'media' with
@@ -561,15 +558,19 @@ type MediaQueryListEvent struct {
 	domcore.Event
 }
 
-// MediaQueryListEventFromJS is casting a js.Wrapper into MediaQueryListEvent.
-func MediaQueryListEventFromJS(value js.Wrapper) *MediaQueryListEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaQueryListEventFromJS is casting a js.Value into MediaQueryListEvent.
+func MediaQueryListEventFromJS(value js.Value) *MediaQueryListEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaQueryListEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaQueryListEventFromJS is casting from something that holds a js.Value into MediaQueryListEvent.
+func MediaQueryListEventFromWrapper(input core.Wrapper) *MediaQueryListEvent {
+	return MediaQueryListEventFromJS(input.JSValue())
 }
 
 func NewMediaQueryListEvent(_type string, eventInitDict *MediaQueryListEventInit) (_result *MediaQueryListEvent) {
@@ -623,15 +624,19 @@ func (_this *Screen) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ScreenFromJS is casting a js.Wrapper into Screen.
-func ScreenFromJS(value js.Wrapper) *Screen {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ScreenFromJS is casting a js.Value into Screen.
+func ScreenFromJS(value js.Value) *Screen {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Screen{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ScreenFromJS is casting from something that holds a js.Value into Screen.
+func ScreenFromWrapper(input core.Wrapper) *Screen {
+	return ScreenFromJS(input.JSValue())
 }
 
 // AvailWidth returning attribute 'availWidth' with

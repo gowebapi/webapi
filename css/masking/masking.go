@@ -7,6 +7,7 @@ package masking
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/graphics/svg"
 )
 
@@ -44,15 +45,19 @@ type SVGClipPathElement struct {
 	svg.SVGElement
 }
 
-// SVGClipPathElementFromJS is casting a js.Wrapper into SVGClipPathElement.
-func SVGClipPathElementFromJS(value js.Wrapper) *SVGClipPathElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGClipPathElementFromJS is casting a js.Value into SVGClipPathElement.
+func SVGClipPathElementFromJS(value js.Value) *SVGClipPathElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGClipPathElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGClipPathElementFromJS is casting from something that holds a js.Value into SVGClipPathElement.
+func SVGClipPathElementFromWrapper(input core.Wrapper) *SVGClipPathElement {
+	return SVGClipPathElementFromJS(input.JSValue())
 }
 
 // ClipPathUnits returning attribute 'clipPathUnits' with
@@ -78,15 +83,19 @@ type SVGMaskElement struct {
 	svg.SVGElement
 }
 
-// SVGMaskElementFromJS is casting a js.Wrapper into SVGMaskElement.
-func SVGMaskElementFromJS(value js.Wrapper) *SVGMaskElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGMaskElementFromJS is casting a js.Value into SVGMaskElement.
+func SVGMaskElementFromJS(value js.Value) *SVGMaskElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMaskElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGMaskElementFromJS is casting from something that holds a js.Value into SVGMaskElement.
+func SVGMaskElementFromWrapper(input core.Wrapper) *SVGMaskElement {
+	return SVGMaskElementFromJS(input.JSValue())
 }
 
 // MaskUnits returning attribute 'maskUnits' with

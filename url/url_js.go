@@ -5,6 +5,7 @@ package url
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/html/media"
 )
@@ -92,7 +93,7 @@ type URLSearchParamsEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *URLSearchParamsEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -108,26 +109,24 @@ func (_this *URLSearchParamsEntryIteratorValue) JSValue() js.Value {
 }
 
 // URLSearchParamsEntryIteratorValueFromJS is allocating a new
-// URLSearchParamsEntryIteratorValue object and copy all values from
-// input javascript object
-func URLSearchParamsEntryIteratorValueFromJS(value js.Wrapper) *URLSearchParamsEntryIteratorValue {
-	input := value.JSValue()
+// URLSearchParamsEntryIteratorValue object and copy all values in the value javascript object.
+func URLSearchParamsEntryIteratorValueFromJS(value js.Value) *URLSearchParamsEntryIteratorValue {
 	var out URLSearchParamsEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -138,7 +137,7 @@ type URLSearchParamsKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *URLSearchParamsKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -150,18 +149,16 @@ func (_this *URLSearchParamsKeyIteratorValue) JSValue() js.Value {
 }
 
 // URLSearchParamsKeyIteratorValueFromJS is allocating a new
-// URLSearchParamsKeyIteratorValue object and copy all values from
-// input javascript object
-func URLSearchParamsKeyIteratorValueFromJS(value js.Wrapper) *URLSearchParamsKeyIteratorValue {
-	input := value.JSValue()
+// URLSearchParamsKeyIteratorValue object and copy all values in the value javascript object.
+func URLSearchParamsKeyIteratorValueFromJS(value js.Value) *URLSearchParamsKeyIteratorValue {
 	var out URLSearchParamsKeyIteratorValue
 	var (
 		value0 string // javascript: USVString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -172,7 +169,7 @@ type URLSearchParamsValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *URLSearchParamsValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -184,18 +181,16 @@ func (_this *URLSearchParamsValueIteratorValue) JSValue() js.Value {
 }
 
 // URLSearchParamsValueIteratorValueFromJS is allocating a new
-// URLSearchParamsValueIteratorValue object and copy all values from
-// input javascript object
-func URLSearchParamsValueIteratorValueFromJS(value js.Wrapper) *URLSearchParamsValueIteratorValue {
-	input := value.JSValue()
+// URLSearchParamsValueIteratorValue object and copy all values in the value javascript object.
+func URLSearchParamsValueIteratorValueFromJS(value js.Value) *URLSearchParamsValueIteratorValue {
 	var out URLSearchParamsValueIteratorValue
 	var (
 		value0 string // javascript: USVString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -210,15 +205,19 @@ func (_this *URL) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLFromJS is casting a js.Wrapper into URL.
-func URLFromJS(value js.Wrapper) *URL {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// URLFromJS is casting a js.Value into URL.
+func URLFromJS(value js.Value) *URL {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URL{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// URLFromJS is casting from something that holds a js.Value into URL.
+func URLFromWrapper(input core.Wrapper) *URL {
+	return URLFromJS(input.JSValue())
 }
 
 func CreateObjectURL(blob *file.Blob) (_result string) {
@@ -509,15 +508,19 @@ func (_this *URLSearchParams) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLSearchParamsFromJS is casting a js.Wrapper into URLSearchParams.
-func URLSearchParamsFromJS(value js.Wrapper) *URLSearchParams {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// URLSearchParamsFromJS is casting a js.Value into URLSearchParams.
+func URLSearchParamsFromJS(value js.Value) *URLSearchParams {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParams{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// URLSearchParamsFromJS is casting from something that holds a js.Value into URLSearchParams.
+func URLSearchParamsFromWrapper(input core.Wrapper) *URLSearchParams {
+	return URLSearchParamsFromJS(input.JSValue())
 }
 
 func (_this *URLSearchParams) Append(name string, value string) {
@@ -723,15 +726,19 @@ func (_this *URLSearchParamsEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLSearchParamsEntryIteratorFromJS is casting a js.Wrapper into URLSearchParamsEntryIterator.
-func URLSearchParamsEntryIteratorFromJS(value js.Wrapper) *URLSearchParamsEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// URLSearchParamsEntryIteratorFromJS is casting a js.Value into URLSearchParamsEntryIterator.
+func URLSearchParamsEntryIteratorFromJS(value js.Value) *URLSearchParamsEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// URLSearchParamsEntryIteratorFromJS is casting from something that holds a js.Value into URLSearchParamsEntryIterator.
+func URLSearchParamsEntryIteratorFromWrapper(input core.Wrapper) *URLSearchParamsEntryIterator {
+	return URLSearchParamsEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *URLSearchParamsEntryIterator) Next() (_result *URLSearchParamsEntryIteratorValue) {
@@ -758,15 +765,19 @@ func (_this *URLSearchParamsKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLSearchParamsKeyIteratorFromJS is casting a js.Wrapper into URLSearchParamsKeyIterator.
-func URLSearchParamsKeyIteratorFromJS(value js.Wrapper) *URLSearchParamsKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// URLSearchParamsKeyIteratorFromJS is casting a js.Value into URLSearchParamsKeyIterator.
+func URLSearchParamsKeyIteratorFromJS(value js.Value) *URLSearchParamsKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// URLSearchParamsKeyIteratorFromJS is casting from something that holds a js.Value into URLSearchParamsKeyIterator.
+func URLSearchParamsKeyIteratorFromWrapper(input core.Wrapper) *URLSearchParamsKeyIterator {
+	return URLSearchParamsKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *URLSearchParamsKeyIterator) Next() (_result *URLSearchParamsKeyIteratorValue) {
@@ -793,15 +804,19 @@ func (_this *URLSearchParamsValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// URLSearchParamsValueIteratorFromJS is casting a js.Wrapper into URLSearchParamsValueIterator.
-func URLSearchParamsValueIteratorFromJS(value js.Wrapper) *URLSearchParamsValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// URLSearchParamsValueIteratorFromJS is casting a js.Value into URLSearchParamsValueIterator.
+func URLSearchParamsValueIteratorFromJS(value js.Value) *URLSearchParamsValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &URLSearchParamsValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// URLSearchParamsValueIteratorFromJS is casting from something that holds a js.Value into URLSearchParamsValueIterator.
+func URLSearchParamsValueIteratorFromWrapper(input core.Wrapper) *URLSearchParamsValueIterator {
+	return URLSearchParamsValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *URLSearchParamsValueIterator) Next() (_result *URLSearchParamsValueIteratorValue) {

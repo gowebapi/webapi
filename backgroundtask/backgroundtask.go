@@ -6,6 +6,10 @@ package backgroundtask
 
 import js "github.com/gowebapi/webapi/core/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -76,7 +80,7 @@ type IdleRequestOptions struct {
 	Timeout uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IdleRequestOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -86,15 +90,13 @@ func (_this *IdleRequestOptions) JSValue() js.Value {
 }
 
 // IdleRequestOptionsFromJS is allocating a new
-// IdleRequestOptions object and copy all values from
-// input javascript object
-func IdleRequestOptionsFromJS(value js.Wrapper) *IdleRequestOptions {
-	input := value.JSValue()
+// IdleRequestOptions object and copy all values in the value javascript object.
+func IdleRequestOptionsFromJS(value js.Value) *IdleRequestOptions {
 	var out IdleRequestOptions
 	var (
 		value0 uint // javascript: unsigned long {timeout Timeout timeout}
 	)
-	value0 = (uint)((input.Get("timeout")).Int())
+	value0 = (uint)((value.Get("timeout")).Int())
 	out.Timeout = value0
 	return &out
 }
@@ -109,15 +111,19 @@ func (_this *IdleDeadline) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// IdleDeadlineFromJS is casting a js.Wrapper into IdleDeadline.
-func IdleDeadlineFromJS(value js.Wrapper) *IdleDeadline {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IdleDeadlineFromJS is casting a js.Value into IdleDeadline.
+func IdleDeadlineFromJS(value js.Value) *IdleDeadline {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IdleDeadline{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IdleDeadlineFromJS is casting from something that holds a js.Value into IdleDeadline.
+func IdleDeadlineFromWrapper(input core.Wrapper) *IdleDeadline {
+	return IdleDeadlineFromJS(input.JSValue())
 }
 
 // DidTimeout returning attribute 'didTimeout' with

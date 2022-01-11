@@ -5,6 +5,7 @@ package audio
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/channel"
@@ -716,7 +717,7 @@ type AnalyserOptions struct {
 	SmoothingTimeConstant float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AnalyserOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -738,10 +739,8 @@ func (_this *AnalyserOptions) JSValue() js.Value {
 }
 
 // AnalyserOptionsFromJS is allocating a new
-// AnalyserOptions object and copy all values from
-// input javascript object
-func AnalyserOptionsFromJS(value js.Wrapper) *AnalyserOptions {
-	input := value.JSValue()
+// AnalyserOptions object and copy all values in the value javascript object.
+func AnalyserOptionsFromJS(value js.Value) *AnalyserOptions {
 	var out AnalyserOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -752,19 +751,19 @@ func AnalyserOptionsFromJS(value js.Wrapper) *AnalyserOptions {
 		value5 float64               // javascript: double {minDecibels MinDecibels minDecibels}
 		value6 float64               // javascript: double {smoothingTimeConstant SmoothingTimeConstant smoothingTimeConstant}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (uint)((input.Get("fftSize")).Int())
+	value3 = (uint)((value.Get("fftSize")).Int())
 	out.FftSize = value3
-	value4 = (input.Get("maxDecibels")).Float()
+	value4 = (value.Get("maxDecibels")).Float()
 	out.MaxDecibels = value4
-	value5 = (input.Get("minDecibels")).Float()
+	value5 = (value.Get("minDecibels")).Float()
 	out.MinDecibels = value5
-	value6 = (input.Get("smoothingTimeConstant")).Float()
+	value6 = (value.Get("smoothingTimeConstant")).Float()
 	out.SmoothingTimeConstant = value6
 	return &out
 }
@@ -776,7 +775,7 @@ type AudioBufferOptions struct {
 	SampleRate       float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioBufferOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -790,21 +789,19 @@ func (_this *AudioBufferOptions) JSValue() js.Value {
 }
 
 // AudioBufferOptionsFromJS is allocating a new
-// AudioBufferOptions object and copy all values from
-// input javascript object
-func AudioBufferOptionsFromJS(value js.Wrapper) *AudioBufferOptions {
-	input := value.JSValue()
+// AudioBufferOptions object and copy all values in the value javascript object.
+func AudioBufferOptionsFromJS(value js.Value) *AudioBufferOptions {
 	var out AudioBufferOptions
 	var (
 		value0 uint    // javascript: unsigned long {numberOfChannels NumberOfChannels numberOfChannels}
 		value1 uint    // javascript: unsigned long {length Length length}
 		value2 float32 // javascript: float {sampleRate SampleRate sampleRate}
 	)
-	value0 = (uint)((input.Get("numberOfChannels")).Int())
+	value0 = (uint)((value.Get("numberOfChannels")).Int())
 	out.NumberOfChannels = value0
-	value1 = (uint)((input.Get("length")).Int())
+	value1 = (uint)((value.Get("length")).Int())
 	out.Length = value1
-	value2 = (float32)((input.Get("sampleRate")).Float())
+	value2 = (float32)((value.Get("sampleRate")).Float())
 	out.SampleRate = value2
 	return &out
 }
@@ -819,7 +816,7 @@ type AudioBufferSourceOptions struct {
 	PlaybackRate float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioBufferSourceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -839,10 +836,8 @@ func (_this *AudioBufferSourceOptions) JSValue() js.Value {
 }
 
 // AudioBufferSourceOptionsFromJS is allocating a new
-// AudioBufferSourceOptions object and copy all values from
-// input javascript object
-func AudioBufferSourceOptionsFromJS(value js.Wrapper) *AudioBufferSourceOptions {
-	input := value.JSValue()
+// AudioBufferSourceOptions object and copy all values in the value javascript object.
+func AudioBufferSourceOptionsFromJS(value js.Value) *AudioBufferSourceOptions {
 	var out AudioBufferSourceOptions
 	var (
 		value0 *AudioBuffer // javascript: AudioBuffer {buffer Buffer buffer}
@@ -852,19 +847,19 @@ func AudioBufferSourceOptionsFromJS(value js.Wrapper) *AudioBufferSourceOptions 
 		value4 float64      // javascript: double {loopStart LoopStart loopStart}
 		value5 float32      // javascript: float {playbackRate PlaybackRate playbackRate}
 	)
-	if input.Get("buffer").Type() != js.TypeNull && input.Get("buffer").Type() != js.TypeUndefined {
-		value0 = AudioBufferFromJS(input.Get("buffer"))
+	if value.Get("buffer").Type() != js.TypeNull && value.Get("buffer").Type() != js.TypeUndefined {
+		value0 = AudioBufferFromJS(value.Get("buffer"))
 	}
 	out.Buffer = value0
-	value1 = (float32)((input.Get("detune")).Float())
+	value1 = (float32)((value.Get("detune")).Float())
 	out.Detune = value1
-	value2 = (input.Get("loop")).Bool()
+	value2 = (value.Get("loop")).Bool()
 	out.Loop = value2
-	value3 = (input.Get("loopEnd")).Float()
+	value3 = (value.Get("loopEnd")).Float()
 	out.LoopEnd = value3
-	value4 = (input.Get("loopStart")).Float()
+	value4 = (value.Get("loopStart")).Float()
 	out.LoopStart = value4
-	value5 = (float32)((input.Get("playbackRate")).Float())
+	value5 = (float32)((value.Get("playbackRate")).Float())
 	out.PlaybackRate = value5
 	return &out
 }
@@ -875,7 +870,7 @@ type AudioContextOptions struct {
 	SampleRate  float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioContextOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -887,18 +882,16 @@ func (_this *AudioContextOptions) JSValue() js.Value {
 }
 
 // AudioContextOptionsFromJS is allocating a new
-// AudioContextOptions object and copy all values from
-// input javascript object
-func AudioContextOptionsFromJS(value js.Wrapper) *AudioContextOptions {
-	input := value.JSValue()
+// AudioContextOptions object and copy all values in the value javascript object.
+func AudioContextOptionsFromJS(value js.Value) *AudioContextOptions {
 	var out AudioContextOptions
 	var (
 		value0 *Union  // javascript: Union {latencyHint LatencyHint latencyHint}
 		value1 float32 // javascript: float {sampleRate SampleRate sampleRate}
 	)
-	value0 = UnionFromJS(input.Get("latencyHint"))
+	value0 = UnionFromJS(value.Get("latencyHint"))
 	out.LatencyHint = value0
-	value1 = (float32)((input.Get("sampleRate")).Float())
+	value1 = (float32)((value.Get("sampleRate")).Float())
 	out.SampleRate = value1
 	return &out
 }
@@ -910,7 +903,7 @@ type AudioNodeOptions struct {
 	ChannelInterpretation ChannelInterpretation
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioNodeOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -924,21 +917,19 @@ func (_this *AudioNodeOptions) JSValue() js.Value {
 }
 
 // AudioNodeOptionsFromJS is allocating a new
-// AudioNodeOptions object and copy all values from
-// input javascript object
-func AudioNodeOptionsFromJS(value js.Wrapper) *AudioNodeOptions {
-	input := value.JSValue()
+// AudioNodeOptions object and copy all values in the value javascript object.
+func AudioNodeOptionsFromJS(value js.Value) *AudioNodeOptions {
 	var out AudioNodeOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
 		value1 ChannelCountMode      // javascript: ChannelCountMode {channelCountMode ChannelCountMode channelCountMode}
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
 	return &out
 }
@@ -952,7 +943,7 @@ type AudioParamDescriptor struct {
 	AutomationRate AutomationRate
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioParamDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -970,10 +961,8 @@ func (_this *AudioParamDescriptor) JSValue() js.Value {
 }
 
 // AudioParamDescriptorFromJS is allocating a new
-// AudioParamDescriptor object and copy all values from
-// input javascript object
-func AudioParamDescriptorFromJS(value js.Wrapper) *AudioParamDescriptor {
-	input := value.JSValue()
+// AudioParamDescriptor object and copy all values in the value javascript object.
+func AudioParamDescriptorFromJS(value js.Value) *AudioParamDescriptor {
 	var out AudioParamDescriptor
 	var (
 		value0 string         // javascript: DOMString {name Name name}
@@ -982,15 +971,15 @@ func AudioParamDescriptorFromJS(value js.Wrapper) *AudioParamDescriptor {
 		value3 float32        // javascript: float {maxValue MaxValue maxValue}
 		value4 AutomationRate // javascript: AutomationRate {automationRate AutomationRate automationRate}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (float32)((input.Get("defaultValue")).Float())
+	value1 = (float32)((value.Get("defaultValue")).Float())
 	out.DefaultValue = value1
-	value2 = (float32)((input.Get("minValue")).Float())
+	value2 = (float32)((value.Get("minValue")).Float())
 	out.MinValue = value2
-	value3 = (float32)((input.Get("maxValue")).Float())
+	value3 = (float32)((value.Get("maxValue")).Float())
 	out.MaxValue = value3
-	value4 = AutomationRateFromJS(input.Get("automationRate"))
+	value4 = AutomationRateFromJS(value.Get("automationRate"))
 	out.AutomationRate = value4
 	return &out
 }
@@ -1001,7 +990,7 @@ type AudioParamMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioParamMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1017,26 +1006,24 @@ func (_this *AudioParamMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // AudioParamMapEntryIteratorValueFromJS is allocating a new
-// AudioParamMapEntryIteratorValue object and copy all values from
-// input javascript object
-func AudioParamMapEntryIteratorValueFromJS(value js.Wrapper) *AudioParamMapEntryIteratorValue {
-	input := value.JSValue()
+// AudioParamMapEntryIteratorValue object and copy all values in the value javascript object.
+func AudioParamMapEntryIteratorValueFromJS(value js.Value) *AudioParamMapEntryIteratorValue {
 	var out AudioParamMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1047,7 +1034,7 @@ type AudioParamMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioParamMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1059,18 +1046,16 @@ func (_this *AudioParamMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // AudioParamMapKeyIteratorValueFromJS is allocating a new
-// AudioParamMapKeyIteratorValue object and copy all values from
-// input javascript object
-func AudioParamMapKeyIteratorValueFromJS(value js.Wrapper) *AudioParamMapKeyIteratorValue {
-	input := value.JSValue()
+// AudioParamMapKeyIteratorValue object and copy all values in the value javascript object.
+func AudioParamMapKeyIteratorValueFromJS(value js.Value) *AudioParamMapKeyIteratorValue {
 	var out AudioParamMapKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1081,7 +1066,7 @@ type AudioParamMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioParamMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1093,18 +1078,16 @@ func (_this *AudioParamMapValueIteratorValue) JSValue() js.Value {
 }
 
 // AudioParamMapValueIteratorValueFromJS is allocating a new
-// AudioParamMapValueIteratorValue object and copy all values from
-// input javascript object
-func AudioParamMapValueIteratorValueFromJS(value js.Wrapper) *AudioParamMapValueIteratorValue {
-	input := value.JSValue()
+// AudioParamMapValueIteratorValue object and copy all values in the value javascript object.
+func AudioParamMapValueIteratorValueFromJS(value js.Value) *AudioParamMapValueIteratorValue {
 	var out AudioParamMapValueIteratorValue
 	var (
 		value0 *AudioParam // javascript: AudioParam {value Value value}
 		value1 bool        // javascript: boolean {done Done done}
 	)
-	value0 = AudioParamFromJS(input.Get("value"))
+	value0 = AudioParamFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1119,7 +1102,7 @@ type AudioProcessingEventInit struct {
 	OutputBuffer *AudioBuffer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioProcessingEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1139,10 +1122,8 @@ func (_this *AudioProcessingEventInit) JSValue() js.Value {
 }
 
 // AudioProcessingEventInitFromJS is allocating a new
-// AudioProcessingEventInit object and copy all values from
-// input javascript object
-func AudioProcessingEventInitFromJS(value js.Wrapper) *AudioProcessingEventInit {
-	input := value.JSValue()
+// AudioProcessingEventInit object and copy all values in the value javascript object.
+func AudioProcessingEventInitFromJS(value js.Value) *AudioProcessingEventInit {
 	var out AudioProcessingEventInit
 	var (
 		value0 bool         // javascript: boolean {bubbles Bubbles bubbles}
@@ -1152,17 +1133,17 @@ func AudioProcessingEventInitFromJS(value js.Wrapper) *AudioProcessingEventInit 
 		value4 *AudioBuffer // javascript: AudioBuffer {inputBuffer InputBuffer inputBuffer}
 		value5 *AudioBuffer // javascript: AudioBuffer {outputBuffer OutputBuffer outputBuffer}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("playbackTime")).Float()
+	value3 = (value.Get("playbackTime")).Float()
 	out.PlaybackTime = value3
-	value4 = AudioBufferFromJS(input.Get("inputBuffer"))
+	value4 = AudioBufferFromJS(value.Get("inputBuffer"))
 	out.InputBuffer = value4
-	value5 = AudioBufferFromJS(input.Get("outputBuffer"))
+	value5 = AudioBufferFromJS(value.Get("outputBuffer"))
 	out.OutputBuffer = value5
 	return &out
 }
@@ -1173,7 +1154,7 @@ type AudioTimestamp struct {
 	PerformanceTime float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioTimestamp) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1185,18 +1166,16 @@ func (_this *AudioTimestamp) JSValue() js.Value {
 }
 
 // AudioTimestampFromJS is allocating a new
-// AudioTimestamp object and copy all values from
-// input javascript object
-func AudioTimestampFromJS(value js.Wrapper) *AudioTimestamp {
-	input := value.JSValue()
+// AudioTimestamp object and copy all values in the value javascript object.
+func AudioTimestampFromJS(value js.Value) *AudioTimestamp {
 	var out AudioTimestamp
 	var (
 		value0 float64 // javascript: double {contextTime ContextTime contextTime}
 		value1 float64 // javascript: double {performanceTime PerformanceTime performanceTime}
 	)
-	value0 = (input.Get("contextTime")).Float()
+	value0 = (value.Get("contextTime")).Float()
 	out.ContextTime = value0
-	value1 = (input.Get("performanceTime")).Float()
+	value1 = (value.Get("performanceTime")).Float()
 	out.PerformanceTime = value1
 	return &out
 }
@@ -1212,7 +1191,7 @@ type AudioWorkletNodeOptions struct {
 	ProcessorOptions      *javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioWorkletNodeOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1238,10 +1217,8 @@ func (_this *AudioWorkletNodeOptions) JSValue() js.Value {
 }
 
 // AudioWorkletNodeOptionsFromJS is allocating a new
-// AudioWorkletNodeOptions object and copy all values from
-// input javascript object
-func AudioWorkletNodeOptionsFromJS(value js.Wrapper) *AudioWorkletNodeOptions {
-	input := value.JSValue()
+// AudioWorkletNodeOptions object and copy all values in the value javascript object.
+func AudioWorkletNodeOptionsFromJS(value js.Value) *AudioWorkletNodeOptions {
 	var out AudioWorkletNodeOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1252,28 +1229,28 @@ func AudioWorkletNodeOptionsFromJS(value js.Wrapper) *AudioWorkletNodeOptions {
 		value5 []uint                // javascript: sequence<unsigned long> {outputChannelCount OutputChannelCount outputChannelCount}
 		value6 *javascript.Object    // javascript: object {processorOptions ProcessorOptions processorOptions}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (uint)((input.Get("numberOfInputs")).Int())
+	value3 = (uint)((value.Get("numberOfInputs")).Int())
 	out.NumberOfInputs = value3
-	value4 = (uint)((input.Get("numberOfOutputs")).Int())
+	value4 = (uint)((value.Get("numberOfOutputs")).Int())
 	out.NumberOfOutputs = value4
-	__length5 := input.Get("outputChannelCount").Length()
+	__length5 := value.Get("outputChannelCount").Length()
 	__array5 := make([]uint, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 uint
-		__seq_in5 := input.Get("outputChannelCount").Index(__idx5)
+		__seq_in5 := value.Get("outputChannelCount").Index(__idx5)
 		__seq_out5 = (uint)((__seq_in5).Int())
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.OutputChannelCount = value5
-	if input.Get("processorOptions").Type() != js.TypeNull && input.Get("processorOptions").Type() != js.TypeUndefined {
-		value6 = javascript.ObjectFromJS(input.Get("processorOptions"))
+	if value.Get("processorOptions").Type() != js.TypeNull && value.Get("processorOptions").Type() != js.TypeUndefined {
+		value6 = javascript.ObjectFromJS(value.Get("processorOptions"))
 	}
 	out.ProcessorOptions = value6
 	return &out
@@ -1291,7 +1268,7 @@ type BiquadFilterOptions struct {
 	Gain                  float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BiquadFilterOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1315,10 +1292,8 @@ func (_this *BiquadFilterOptions) JSValue() js.Value {
 }
 
 // BiquadFilterOptionsFromJS is allocating a new
-// BiquadFilterOptions object and copy all values from
-// input javascript object
-func BiquadFilterOptionsFromJS(value js.Wrapper) *BiquadFilterOptions {
-	input := value.JSValue()
+// BiquadFilterOptions object and copy all values in the value javascript object.
+func BiquadFilterOptionsFromJS(value js.Value) *BiquadFilterOptions {
 	var out BiquadFilterOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1330,21 +1305,21 @@ func BiquadFilterOptionsFromJS(value js.Wrapper) *BiquadFilterOptions {
 		value6 float32               // javascript: float {frequency Frequency frequency}
 		value7 float32               // javascript: float {gain Gain gain}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = BiquadFilterTypeFromJS(input.Get("type"))
+	value3 = BiquadFilterTypeFromJS(value.Get("type"))
 	out.Type = value3
-	value4 = (float32)((input.Get("Q")).Float())
+	value4 = (float32)((value.Get("Q")).Float())
 	out.Q = value4
-	value5 = (float32)((input.Get("detune")).Float())
+	value5 = (float32)((value.Get("detune")).Float())
 	out.Detune = value5
-	value6 = (float32)((input.Get("frequency")).Float())
+	value6 = (float32)((value.Get("frequency")).Float())
 	out.Frequency = value6
-	value7 = (float32)((input.Get("gain")).Float())
+	value7 = (float32)((value.Get("gain")).Float())
 	out.Gain = value7
 	return &out
 }
@@ -1357,7 +1332,7 @@ type ChannelMergerOptions struct {
 	NumberOfInputs        uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ChannelMergerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1373,10 +1348,8 @@ func (_this *ChannelMergerOptions) JSValue() js.Value {
 }
 
 // ChannelMergerOptionsFromJS is allocating a new
-// ChannelMergerOptions object and copy all values from
-// input javascript object
-func ChannelMergerOptionsFromJS(value js.Wrapper) *ChannelMergerOptions {
-	input := value.JSValue()
+// ChannelMergerOptions object and copy all values in the value javascript object.
+func ChannelMergerOptionsFromJS(value js.Value) *ChannelMergerOptions {
 	var out ChannelMergerOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1384,13 +1357,13 @@ func ChannelMergerOptionsFromJS(value js.Wrapper) *ChannelMergerOptions {
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
 		value3 uint                  // javascript: unsigned long {numberOfInputs NumberOfInputs numberOfInputs}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (uint)((input.Get("numberOfInputs")).Int())
+	value3 = (uint)((value.Get("numberOfInputs")).Int())
 	out.NumberOfInputs = value3
 	return &out
 }
@@ -1403,7 +1376,7 @@ type ChannelSplitterOptions struct {
 	NumberOfOutputs       uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ChannelSplitterOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1419,10 +1392,8 @@ func (_this *ChannelSplitterOptions) JSValue() js.Value {
 }
 
 // ChannelSplitterOptionsFromJS is allocating a new
-// ChannelSplitterOptions object and copy all values from
-// input javascript object
-func ChannelSplitterOptionsFromJS(value js.Wrapper) *ChannelSplitterOptions {
-	input := value.JSValue()
+// ChannelSplitterOptions object and copy all values in the value javascript object.
+func ChannelSplitterOptionsFromJS(value js.Value) *ChannelSplitterOptions {
 	var out ChannelSplitterOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1430,13 +1401,13 @@ func ChannelSplitterOptionsFromJS(value js.Wrapper) *ChannelSplitterOptions {
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
 		value3 uint                  // javascript: unsigned long {numberOfOutputs NumberOfOutputs numberOfOutputs}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (uint)((input.Get("numberOfOutputs")).Int())
+	value3 = (uint)((value.Get("numberOfOutputs")).Int())
 	out.NumberOfOutputs = value3
 	return &out
 }
@@ -1446,7 +1417,7 @@ type ConstantSourceOptions struct {
 	Offset float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConstantSourceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1456,15 +1427,13 @@ func (_this *ConstantSourceOptions) JSValue() js.Value {
 }
 
 // ConstantSourceOptionsFromJS is allocating a new
-// ConstantSourceOptions object and copy all values from
-// input javascript object
-func ConstantSourceOptionsFromJS(value js.Wrapper) *ConstantSourceOptions {
-	input := value.JSValue()
+// ConstantSourceOptions object and copy all values in the value javascript object.
+func ConstantSourceOptionsFromJS(value js.Value) *ConstantSourceOptions {
 	var out ConstantSourceOptions
 	var (
 		value0 float32 // javascript: float {offset Offset offset}
 	)
-	value0 = (float32)((input.Get("offset")).Float())
+	value0 = (float32)((value.Get("offset")).Float())
 	out.Offset = value0
 	return &out
 }
@@ -1478,7 +1447,7 @@ type ConvolverOptions struct {
 	DisableNormalization  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConvolverOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1496,10 +1465,8 @@ func (_this *ConvolverOptions) JSValue() js.Value {
 }
 
 // ConvolverOptionsFromJS is allocating a new
-// ConvolverOptions object and copy all values from
-// input javascript object
-func ConvolverOptionsFromJS(value js.Wrapper) *ConvolverOptions {
-	input := value.JSValue()
+// ConvolverOptions object and copy all values in the value javascript object.
+func ConvolverOptionsFromJS(value js.Value) *ConvolverOptions {
 	var out ConvolverOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1508,17 +1475,17 @@ func ConvolverOptionsFromJS(value js.Wrapper) *ConvolverOptions {
 		value3 *AudioBuffer          // javascript: AudioBuffer {buffer Buffer buffer}
 		value4 bool                  // javascript: boolean {disableNormalization DisableNormalization disableNormalization}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	if input.Get("buffer").Type() != js.TypeNull && input.Get("buffer").Type() != js.TypeUndefined {
-		value3 = AudioBufferFromJS(input.Get("buffer"))
+	if value.Get("buffer").Type() != js.TypeNull && value.Get("buffer").Type() != js.TypeUndefined {
+		value3 = AudioBufferFromJS(value.Get("buffer"))
 	}
 	out.Buffer = value3
-	value4 = (input.Get("disableNormalization")).Bool()
+	value4 = (value.Get("disableNormalization")).Bool()
 	out.DisableNormalization = value4
 	return &out
 }
@@ -1532,7 +1499,7 @@ type DelayOptions struct {
 	DelayTime             float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DelayOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1550,10 +1517,8 @@ func (_this *DelayOptions) JSValue() js.Value {
 }
 
 // DelayOptionsFromJS is allocating a new
-// DelayOptions object and copy all values from
-// input javascript object
-func DelayOptionsFromJS(value js.Wrapper) *DelayOptions {
-	input := value.JSValue()
+// DelayOptions object and copy all values in the value javascript object.
+func DelayOptionsFromJS(value js.Value) *DelayOptions {
 	var out DelayOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1562,15 +1527,15 @@ func DelayOptionsFromJS(value js.Wrapper) *DelayOptions {
 		value3 float64               // javascript: double {maxDelayTime MaxDelayTime maxDelayTime}
 		value4 float64               // javascript: double {delayTime DelayTime delayTime}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (input.Get("maxDelayTime")).Float()
+	value3 = (value.Get("maxDelayTime")).Float()
 	out.MaxDelayTime = value3
-	value4 = (input.Get("delayTime")).Float()
+	value4 = (value.Get("delayTime")).Float()
 	out.DelayTime = value4
 	return &out
 }
@@ -1587,7 +1552,7 @@ type DynamicsCompressorOptions struct {
 	Threshold             float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DynamicsCompressorOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1611,10 +1576,8 @@ func (_this *DynamicsCompressorOptions) JSValue() js.Value {
 }
 
 // DynamicsCompressorOptionsFromJS is allocating a new
-// DynamicsCompressorOptions object and copy all values from
-// input javascript object
-func DynamicsCompressorOptionsFromJS(value js.Wrapper) *DynamicsCompressorOptions {
-	input := value.JSValue()
+// DynamicsCompressorOptions object and copy all values in the value javascript object.
+func DynamicsCompressorOptionsFromJS(value js.Value) *DynamicsCompressorOptions {
 	var out DynamicsCompressorOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1626,21 +1589,21 @@ func DynamicsCompressorOptionsFromJS(value js.Wrapper) *DynamicsCompressorOption
 		value6 float32               // javascript: float {release Release release}
 		value7 float32               // javascript: float {threshold Threshold threshold}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (float32)((input.Get("attack")).Float())
+	value3 = (float32)((value.Get("attack")).Float())
 	out.Attack = value3
-	value4 = (float32)((input.Get("knee")).Float())
+	value4 = (float32)((value.Get("knee")).Float())
 	out.Knee = value4
-	value5 = (float32)((input.Get("ratio")).Float())
+	value5 = (float32)((value.Get("ratio")).Float())
 	out.Ratio = value5
-	value6 = (float32)((input.Get("release")).Float())
+	value6 = (float32)((value.Get("release")).Float())
 	out.Release = value6
-	value7 = (float32)((input.Get("threshold")).Float())
+	value7 = (float32)((value.Get("threshold")).Float())
 	out.Threshold = value7
 	return &out
 }
@@ -1653,7 +1616,7 @@ type GainOptions struct {
 	Gain                  float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *GainOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1669,10 +1632,8 @@ func (_this *GainOptions) JSValue() js.Value {
 }
 
 // GainOptionsFromJS is allocating a new
-// GainOptions object and copy all values from
-// input javascript object
-func GainOptionsFromJS(value js.Wrapper) *GainOptions {
-	input := value.JSValue()
+// GainOptions object and copy all values in the value javascript object.
+func GainOptionsFromJS(value js.Value) *GainOptions {
 	var out GainOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1680,13 +1641,13 @@ func GainOptionsFromJS(value js.Wrapper) *GainOptions {
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
 		value3 float32               // javascript: float {gain Gain gain}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (float32)((input.Get("gain")).Float())
+	value3 = (float32)((value.Get("gain")).Float())
 	out.Gain = value3
 	return &out
 }
@@ -1700,7 +1661,7 @@ type IIRFilterOptions struct {
 	Feedback              []float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IIRFilterOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1718,10 +1679,8 @@ func (_this *IIRFilterOptions) JSValue() js.Value {
 }
 
 // IIRFilterOptionsFromJS is allocating a new
-// IIRFilterOptions object and copy all values from
-// input javascript object
-func IIRFilterOptionsFromJS(value js.Wrapper) *IIRFilterOptions {
-	input := value.JSValue()
+// IIRFilterOptions object and copy all values in the value javascript object.
+func IIRFilterOptionsFromJS(value js.Value) *IIRFilterOptions {
 	var out IIRFilterOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1730,15 +1689,15 @@ func IIRFilterOptionsFromJS(value js.Wrapper) *IIRFilterOptions {
 		value3 []float64             // javascript: typed-array {feedforward Feedforward feedforward}
 		value4 []float64             // javascript: typed-array {feedback Feedback feedback}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = jsarray.Float64ToGo(input.Get("feedforward"))
+	value3 = jsarray.Float64ToGo(value.Get("feedforward"))
 	out.Feedforward = value3
-	value4 = jsarray.Float64ToGo(input.Get("feedback"))
+	value4 = jsarray.Float64ToGo(value.Get("feedback"))
 	out.Feedback = value4
 	return &out
 }
@@ -1748,7 +1707,7 @@ type MediaElementAudioSourceOptions struct {
 	MediaElement *media.HTMLMediaElement
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaElementAudioSourceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1758,15 +1717,13 @@ func (_this *MediaElementAudioSourceOptions) JSValue() js.Value {
 }
 
 // MediaElementAudioSourceOptionsFromJS is allocating a new
-// MediaElementAudioSourceOptions object and copy all values from
-// input javascript object
-func MediaElementAudioSourceOptionsFromJS(value js.Wrapper) *MediaElementAudioSourceOptions {
-	input := value.JSValue()
+// MediaElementAudioSourceOptions object and copy all values in the value javascript object.
+func MediaElementAudioSourceOptionsFromJS(value js.Value) *MediaElementAudioSourceOptions {
 	var out MediaElementAudioSourceOptions
 	var (
 		value0 *media.HTMLMediaElement // javascript: HTMLMediaElement {mediaElement MediaElement mediaElement}
 	)
-	value0 = media.HTMLMediaElementFromJS(input.Get("mediaElement"))
+	value0 = media.HTMLMediaElementFromJS(value.Get("mediaElement"))
 	out.MediaElement = value0
 	return &out
 }
@@ -1776,7 +1733,7 @@ type MediaStreamAudioSourceOptions struct {
 	MediaStream *local.MediaStream
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaStreamAudioSourceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1786,15 +1743,13 @@ func (_this *MediaStreamAudioSourceOptions) JSValue() js.Value {
 }
 
 // MediaStreamAudioSourceOptionsFromJS is allocating a new
-// MediaStreamAudioSourceOptions object and copy all values from
-// input javascript object
-func MediaStreamAudioSourceOptionsFromJS(value js.Wrapper) *MediaStreamAudioSourceOptions {
-	input := value.JSValue()
+// MediaStreamAudioSourceOptions object and copy all values in the value javascript object.
+func MediaStreamAudioSourceOptionsFromJS(value js.Value) *MediaStreamAudioSourceOptions {
 	var out MediaStreamAudioSourceOptions
 	var (
 		value0 *local.MediaStream // javascript: MediaStream {mediaStream MediaStream mediaStream}
 	)
-	value0 = local.MediaStreamFromJS(input.Get("mediaStream"))
+	value0 = local.MediaStreamFromJS(value.Get("mediaStream"))
 	out.MediaStream = value0
 	return &out
 }
@@ -1804,7 +1759,7 @@ type MediaStreamTrackAudioSourceOptions struct {
 	MediaStreamTrack *local.MediaStreamTrack
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaStreamTrackAudioSourceOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1814,15 +1769,13 @@ func (_this *MediaStreamTrackAudioSourceOptions) JSValue() js.Value {
 }
 
 // MediaStreamTrackAudioSourceOptionsFromJS is allocating a new
-// MediaStreamTrackAudioSourceOptions object and copy all values from
-// input javascript object
-func MediaStreamTrackAudioSourceOptionsFromJS(value js.Wrapper) *MediaStreamTrackAudioSourceOptions {
-	input := value.JSValue()
+// MediaStreamTrackAudioSourceOptions object and copy all values in the value javascript object.
+func MediaStreamTrackAudioSourceOptionsFromJS(value js.Value) *MediaStreamTrackAudioSourceOptions {
 	var out MediaStreamTrackAudioSourceOptions
 	var (
 		value0 *local.MediaStreamTrack // javascript: MediaStreamTrack {mediaStreamTrack MediaStreamTrack mediaStreamTrack}
 	)
-	value0 = local.MediaStreamTrackFromJS(input.Get("mediaStreamTrack"))
+	value0 = local.MediaStreamTrackFromJS(value.Get("mediaStreamTrack"))
 	out.MediaStreamTrack = value0
 	return &out
 }
@@ -1835,7 +1788,7 @@ type OfflineAudioCompletionEventInit struct {
 	RenderedBuffer *AudioBuffer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OfflineAudioCompletionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1851,10 +1804,8 @@ func (_this *OfflineAudioCompletionEventInit) JSValue() js.Value {
 }
 
 // OfflineAudioCompletionEventInitFromJS is allocating a new
-// OfflineAudioCompletionEventInit object and copy all values from
-// input javascript object
-func OfflineAudioCompletionEventInitFromJS(value js.Wrapper) *OfflineAudioCompletionEventInit {
-	input := value.JSValue()
+// OfflineAudioCompletionEventInit object and copy all values in the value javascript object.
+func OfflineAudioCompletionEventInitFromJS(value js.Value) *OfflineAudioCompletionEventInit {
 	var out OfflineAudioCompletionEventInit
 	var (
 		value0 bool         // javascript: boolean {bubbles Bubbles bubbles}
@@ -1862,13 +1813,13 @@ func OfflineAudioCompletionEventInitFromJS(value js.Wrapper) *OfflineAudioComple
 		value2 bool         // javascript: boolean {composed Composed composed}
 		value3 *AudioBuffer // javascript: AudioBuffer {renderedBuffer RenderedBuffer renderedBuffer}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = AudioBufferFromJS(input.Get("renderedBuffer"))
+	value3 = AudioBufferFromJS(value.Get("renderedBuffer"))
 	out.RenderedBuffer = value3
 	return &out
 }
@@ -1880,7 +1831,7 @@ type OfflineAudioContextOptions struct {
 	SampleRate       float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OfflineAudioContextOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1894,21 +1845,19 @@ func (_this *OfflineAudioContextOptions) JSValue() js.Value {
 }
 
 // OfflineAudioContextOptionsFromJS is allocating a new
-// OfflineAudioContextOptions object and copy all values from
-// input javascript object
-func OfflineAudioContextOptionsFromJS(value js.Wrapper) *OfflineAudioContextOptions {
-	input := value.JSValue()
+// OfflineAudioContextOptions object and copy all values in the value javascript object.
+func OfflineAudioContextOptionsFromJS(value js.Value) *OfflineAudioContextOptions {
 	var out OfflineAudioContextOptions
 	var (
 		value0 uint    // javascript: unsigned long {numberOfChannels NumberOfChannels numberOfChannels}
 		value1 uint    // javascript: unsigned long {length Length length}
 		value2 float32 // javascript: float {sampleRate SampleRate sampleRate}
 	)
-	value0 = (uint)((input.Get("numberOfChannels")).Int())
+	value0 = (uint)((value.Get("numberOfChannels")).Int())
 	out.NumberOfChannels = value0
-	value1 = (uint)((input.Get("length")).Int())
+	value1 = (uint)((value.Get("length")).Int())
 	out.Length = value1
-	value2 = (float32)((input.Get("sampleRate")).Float())
+	value2 = (float32)((value.Get("sampleRate")).Float())
 	out.SampleRate = value2
 	return &out
 }
@@ -1924,7 +1873,7 @@ type OscillatorOptions struct {
 	PeriodicWave          *PeriodicWave
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OscillatorOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1946,10 +1895,8 @@ func (_this *OscillatorOptions) JSValue() js.Value {
 }
 
 // OscillatorOptionsFromJS is allocating a new
-// OscillatorOptions object and copy all values from
-// input javascript object
-func OscillatorOptionsFromJS(value js.Wrapper) *OscillatorOptions {
-	input := value.JSValue()
+// OscillatorOptions object and copy all values in the value javascript object.
+func OscillatorOptionsFromJS(value js.Value) *OscillatorOptions {
 	var out OscillatorOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -1960,19 +1907,19 @@ func OscillatorOptionsFromJS(value js.Wrapper) *OscillatorOptions {
 		value5 float32               // javascript: float {detune Detune detune}
 		value6 *PeriodicWave         // javascript: PeriodicWave {periodicWave PeriodicWave periodicWave}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = OscillatorTypeFromJS(input.Get("type"))
+	value3 = OscillatorTypeFromJS(value.Get("type"))
 	out.Type = value3
-	value4 = (float32)((input.Get("frequency")).Float())
+	value4 = (float32)((value.Get("frequency")).Float())
 	out.Frequency = value4
-	value5 = (float32)((input.Get("detune")).Float())
+	value5 = (float32)((value.Get("detune")).Float())
 	out.Detune = value5
-	value6 = PeriodicWaveFromJS(input.Get("periodicWave"))
+	value6 = PeriodicWaveFromJS(value.Get("periodicWave"))
 	out.PeriodicWave = value6
 	return &out
 }
@@ -1998,7 +1945,7 @@ type PannerOptions struct {
 	ConeOuterGain         float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PannerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2040,10 +1987,8 @@ func (_this *PannerOptions) JSValue() js.Value {
 }
 
 // PannerOptionsFromJS is allocating a new
-// PannerOptions object and copy all values from
-// input javascript object
-func PannerOptionsFromJS(value js.Wrapper) *PannerOptions {
-	input := value.JSValue()
+// PannerOptions object and copy all values in the value javascript object.
+func PannerOptionsFromJS(value js.Value) *PannerOptions {
 	var out PannerOptions
 	var (
 		value0  uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -2064,39 +2009,39 @@ func PannerOptionsFromJS(value js.Wrapper) *PannerOptions {
 		value15 float64               // javascript: double {coneOuterAngle ConeOuterAngle coneOuterAngle}
 		value16 float64               // javascript: double {coneOuterGain ConeOuterGain coneOuterGain}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = PanningModelTypeFromJS(input.Get("panningModel"))
+	value3 = PanningModelTypeFromJS(value.Get("panningModel"))
 	out.PanningModel = value3
-	value4 = DistanceModelTypeFromJS(input.Get("distanceModel"))
+	value4 = DistanceModelTypeFromJS(value.Get("distanceModel"))
 	out.DistanceModel = value4
-	value5 = (float32)((input.Get("positionX")).Float())
+	value5 = (float32)((value.Get("positionX")).Float())
 	out.PositionX = value5
-	value6 = (float32)((input.Get("positionY")).Float())
+	value6 = (float32)((value.Get("positionY")).Float())
 	out.PositionY = value6
-	value7 = (float32)((input.Get("positionZ")).Float())
+	value7 = (float32)((value.Get("positionZ")).Float())
 	out.PositionZ = value7
-	value8 = (float32)((input.Get("orientationX")).Float())
+	value8 = (float32)((value.Get("orientationX")).Float())
 	out.OrientationX = value8
-	value9 = (float32)((input.Get("orientationY")).Float())
+	value9 = (float32)((value.Get("orientationY")).Float())
 	out.OrientationY = value9
-	value10 = (float32)((input.Get("orientationZ")).Float())
+	value10 = (float32)((value.Get("orientationZ")).Float())
 	out.OrientationZ = value10
-	value11 = (input.Get("refDistance")).Float()
+	value11 = (value.Get("refDistance")).Float()
 	out.RefDistance = value11
-	value12 = (input.Get("maxDistance")).Float()
+	value12 = (value.Get("maxDistance")).Float()
 	out.MaxDistance = value12
-	value13 = (input.Get("rolloffFactor")).Float()
+	value13 = (value.Get("rolloffFactor")).Float()
 	out.RolloffFactor = value13
-	value14 = (input.Get("coneInnerAngle")).Float()
+	value14 = (value.Get("coneInnerAngle")).Float()
 	out.ConeInnerAngle = value14
-	value15 = (input.Get("coneOuterAngle")).Float()
+	value15 = (value.Get("coneOuterAngle")).Float()
 	out.ConeOuterAngle = value15
-	value16 = (input.Get("coneOuterGain")).Float()
+	value16 = (value.Get("coneOuterGain")).Float()
 	out.ConeOuterGain = value16
 	return &out
 }
@@ -2106,7 +2051,7 @@ type PeriodicWaveConstraints struct {
 	DisableNormalization bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PeriodicWaveConstraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2116,15 +2061,13 @@ func (_this *PeriodicWaveConstraints) JSValue() js.Value {
 }
 
 // PeriodicWaveConstraintsFromJS is allocating a new
-// PeriodicWaveConstraints object and copy all values from
-// input javascript object
-func PeriodicWaveConstraintsFromJS(value js.Wrapper) *PeriodicWaveConstraints {
-	input := value.JSValue()
+// PeriodicWaveConstraints object and copy all values in the value javascript object.
+func PeriodicWaveConstraintsFromJS(value js.Value) *PeriodicWaveConstraints {
 	var out PeriodicWaveConstraints
 	var (
 		value0 bool // javascript: boolean {disableNormalization DisableNormalization disableNormalization}
 	)
-	value0 = (input.Get("disableNormalization")).Bool()
+	value0 = (value.Get("disableNormalization")).Bool()
 	out.DisableNormalization = value0
 	return &out
 }
@@ -2136,7 +2079,7 @@ type PeriodicWaveOptions struct {
 	Imag                 []float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PeriodicWaveOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2150,21 +2093,19 @@ func (_this *PeriodicWaveOptions) JSValue() js.Value {
 }
 
 // PeriodicWaveOptionsFromJS is allocating a new
-// PeriodicWaveOptions object and copy all values from
-// input javascript object
-func PeriodicWaveOptionsFromJS(value js.Wrapper) *PeriodicWaveOptions {
-	input := value.JSValue()
+// PeriodicWaveOptions object and copy all values in the value javascript object.
+func PeriodicWaveOptionsFromJS(value js.Value) *PeriodicWaveOptions {
 	var out PeriodicWaveOptions
 	var (
 		value0 bool      // javascript: boolean {disableNormalization DisableNormalization disableNormalization}
 		value1 []float32 // javascript: typed-array {real Real real}
 		value2 []float32 // javascript: typed-array {imag Imag imag}
 	)
-	value0 = (input.Get("disableNormalization")).Bool()
+	value0 = (value.Get("disableNormalization")).Bool()
 	out.DisableNormalization = value0
-	value1 = jsarray.Float32ToGo(input.Get("real"))
+	value1 = jsarray.Float32ToGo(value.Get("real"))
 	out.Real = value1
-	value2 = jsarray.Float32ToGo(input.Get("imag"))
+	value2 = jsarray.Float32ToGo(value.Get("imag"))
 	out.Imag = value2
 	return &out
 }
@@ -2177,7 +2118,7 @@ type StereoPannerOptions struct {
 	Pan                   float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StereoPannerOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2193,10 +2134,8 @@ func (_this *StereoPannerOptions) JSValue() js.Value {
 }
 
 // StereoPannerOptionsFromJS is allocating a new
-// StereoPannerOptions object and copy all values from
-// input javascript object
-func StereoPannerOptionsFromJS(value js.Wrapper) *StereoPannerOptions {
-	input := value.JSValue()
+// StereoPannerOptions object and copy all values in the value javascript object.
+func StereoPannerOptionsFromJS(value js.Value) *StereoPannerOptions {
 	var out StereoPannerOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -2204,13 +2143,13 @@ func StereoPannerOptionsFromJS(value js.Wrapper) *StereoPannerOptions {
 		value2 ChannelInterpretation // javascript: ChannelInterpretation {channelInterpretation ChannelInterpretation channelInterpretation}
 		value3 float32               // javascript: float {pan Pan pan}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = (float32)((input.Get("pan")).Float())
+	value3 = (float32)((value.Get("pan")).Float())
 	out.Pan = value3
 	return &out
 }
@@ -2224,7 +2163,7 @@ type WaveShaperOptions struct {
 	Oversample            OverSampleType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WaveShaperOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -2242,10 +2181,8 @@ func (_this *WaveShaperOptions) JSValue() js.Value {
 }
 
 // WaveShaperOptionsFromJS is allocating a new
-// WaveShaperOptions object and copy all values from
-// input javascript object
-func WaveShaperOptionsFromJS(value js.Wrapper) *WaveShaperOptions {
-	input := value.JSValue()
+// WaveShaperOptions object and copy all values in the value javascript object.
+func WaveShaperOptionsFromJS(value js.Value) *WaveShaperOptions {
 	var out WaveShaperOptions
 	var (
 		value0 uint                  // javascript: unsigned long {channelCount ChannelCount channelCount}
@@ -2254,15 +2191,15 @@ func WaveShaperOptionsFromJS(value js.Wrapper) *WaveShaperOptions {
 		value3 []float32             // javascript: typed-array {curve Curve curve}
 		value4 OverSampleType        // javascript: OverSampleType {oversample Oversample oversample}
 	)
-	value0 = (uint)((input.Get("channelCount")).Int())
+	value0 = (uint)((value.Get("channelCount")).Int())
 	out.ChannelCount = value0
-	value1 = ChannelCountModeFromJS(input.Get("channelCountMode"))
+	value1 = ChannelCountModeFromJS(value.Get("channelCountMode"))
 	out.ChannelCountMode = value1
-	value2 = ChannelInterpretationFromJS(input.Get("channelInterpretation"))
+	value2 = ChannelInterpretationFromJS(value.Get("channelInterpretation"))
 	out.ChannelInterpretation = value2
-	value3 = jsarray.Float32ToGo(input.Get("curve"))
+	value3 = jsarray.Float32ToGo(value.Get("curve"))
 	out.Curve = value3
-	value4 = OverSampleTypeFromJS(input.Get("oversample"))
+	value4 = OverSampleTypeFromJS(value.Get("oversample"))
 	out.Oversample = value4
 	return &out
 }
@@ -2272,15 +2209,19 @@ type AnalyserNode struct {
 	AudioNode
 }
 
-// AnalyserNodeFromJS is casting a js.Wrapper into AnalyserNode.
-func AnalyserNodeFromJS(value js.Wrapper) *AnalyserNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnalyserNodeFromJS is casting a js.Value into AnalyserNode.
+func AnalyserNodeFromJS(value js.Value) *AnalyserNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnalyserNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnalyserNodeFromJS is casting from something that holds a js.Value into AnalyserNode.
+func AnalyserNodeFromWrapper(input core.Wrapper) *AnalyserNode {
+	return AnalyserNodeFromJS(input.JSValue())
 }
 
 func NewAnalyserNode(context *BaseAudioContext, options *AnalyserOptions) (_result *AnalyserNode) {
@@ -2437,15 +2378,19 @@ func (_this *AudioBuffer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioBufferFromJS is casting a js.Wrapper into AudioBuffer.
-func AudioBufferFromJS(value js.Wrapper) *AudioBuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioBufferFromJS is casting a js.Value into AudioBuffer.
+func AudioBufferFromJS(value js.Value) *AudioBuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioBuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioBufferFromJS is casting from something that holds a js.Value into AudioBuffer.
+func AudioBufferFromWrapper(input core.Wrapper) *AudioBuffer {
+	return AudioBufferFromJS(input.JSValue())
 }
 
 func NewAudioBuffer(options *AudioBufferOptions) (_result *AudioBuffer) {
@@ -2576,15 +2521,19 @@ type AudioBufferSourceNode struct {
 	AudioScheduledSourceNode
 }
 
-// AudioBufferSourceNodeFromJS is casting a js.Wrapper into AudioBufferSourceNode.
-func AudioBufferSourceNodeFromJS(value js.Wrapper) *AudioBufferSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioBufferSourceNodeFromJS is casting a js.Value into AudioBufferSourceNode.
+func AudioBufferSourceNodeFromJS(value js.Value) *AudioBufferSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioBufferSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioBufferSourceNodeFromJS is casting from something that holds a js.Value into AudioBufferSourceNode.
+func AudioBufferSourceNodeFromWrapper(input core.Wrapper) *AudioBufferSourceNode {
+	return AudioBufferSourceNodeFromJS(input.JSValue())
 }
 
 func NewAudioBufferSourceNode(context *BaseAudioContext, options *AudioBufferSourceOptions) (_result *AudioBufferSourceNode) {
@@ -2741,15 +2690,19 @@ type AudioContext struct {
 	BaseAudioContext
 }
 
-// AudioContextFromJS is casting a js.Wrapper into AudioContext.
-func AudioContextFromJS(value js.Wrapper) *AudioContext {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioContextFromJS is casting a js.Value into AudioContext.
+func AudioContextFromJS(value js.Value) *AudioContext {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioContext{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioContextFromJS is casting from something that holds a js.Value into AudioContext.
+func AudioContextFromWrapper(input core.Wrapper) *AudioContext {
+	return AudioContextFromJS(input.JSValue())
 }
 
 func NewAudioContext(contextOptions *AudioContextOptions) (_result *AudioContext) {
@@ -2916,15 +2869,19 @@ type AudioDestinationNode struct {
 	AudioNode
 }
 
-// AudioDestinationNodeFromJS is casting a js.Wrapper into AudioDestinationNode.
-func AudioDestinationNodeFromJS(value js.Wrapper) *AudioDestinationNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioDestinationNodeFromJS is casting a js.Value into AudioDestinationNode.
+func AudioDestinationNodeFromJS(value js.Value) *AudioDestinationNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioDestinationNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioDestinationNodeFromJS is casting from something that holds a js.Value into AudioDestinationNode.
+func AudioDestinationNodeFromWrapper(input core.Wrapper) *AudioDestinationNode {
+	return AudioDestinationNodeFromJS(input.JSValue())
 }
 
 // MaxChannelCount returning attribute 'maxChannelCount' with
@@ -2946,15 +2903,19 @@ func (_this *AudioListener) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioListenerFromJS is casting a js.Wrapper into AudioListener.
-func AudioListenerFromJS(value js.Wrapper) *AudioListener {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioListenerFromJS is casting a js.Value into AudioListener.
+func AudioListenerFromJS(value js.Value) *AudioListener {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioListener{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioListenerFromJS is casting from something that holds a js.Value into AudioListener.
+func AudioListenerFromWrapper(input core.Wrapper) *AudioListener {
+	return AudioListenerFromJS(input.JSValue())
 }
 
 // PositionX returning attribute 'positionX' with
@@ -3088,15 +3049,19 @@ type AudioNode struct {
 	domcore.EventTarget
 }
 
-// AudioNodeFromJS is casting a js.Wrapper into AudioNode.
-func AudioNodeFromJS(value js.Wrapper) *AudioNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioNodeFromJS is casting a js.Value into AudioNode.
+func AudioNodeFromJS(value js.Value) *AudioNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioNodeFromJS is casting from something that holds a js.Value into AudioNode.
+func AudioNodeFromWrapper(input core.Wrapper) *AudioNode {
+	return AudioNodeFromJS(input.JSValue())
 }
 
 // Context returning attribute 'context' with
@@ -3339,15 +3304,19 @@ func (_this *AudioParam) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioParamFromJS is casting a js.Wrapper into AudioParam.
-func AudioParamFromJS(value js.Wrapper) *AudioParam {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioParamFromJS is casting a js.Value into AudioParam.
+func AudioParamFromJS(value js.Value) *AudioParam {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParam{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioParamFromJS is casting from something that holds a js.Value into AudioParam.
+func AudioParamFromWrapper(input core.Wrapper) *AudioParam {
+	return AudioParamFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -3559,15 +3528,19 @@ func (_this *AudioParamMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioParamMapFromJS is casting a js.Wrapper into AudioParamMap.
-func AudioParamMapFromJS(value js.Wrapper) *AudioParamMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioParamMapFromJS is casting a js.Value into AudioParamMap.
+func AudioParamMapFromJS(value js.Value) *AudioParamMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioParamMapFromJS is casting from something that holds a js.Value into AudioParamMap.
+func AudioParamMapFromWrapper(input core.Wrapper) *AudioParamMap {
+	return AudioParamMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -3691,15 +3664,19 @@ func (_this *AudioParamMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioParamMapEntryIteratorFromJS is casting a js.Wrapper into AudioParamMapEntryIterator.
-func AudioParamMapEntryIteratorFromJS(value js.Wrapper) *AudioParamMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioParamMapEntryIteratorFromJS is casting a js.Value into AudioParamMapEntryIterator.
+func AudioParamMapEntryIteratorFromJS(value js.Value) *AudioParamMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioParamMapEntryIteratorFromJS is casting from something that holds a js.Value into AudioParamMapEntryIterator.
+func AudioParamMapEntryIteratorFromWrapper(input core.Wrapper) *AudioParamMapEntryIterator {
+	return AudioParamMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *AudioParamMapEntryIterator) Next() (_result *AudioParamMapEntryIteratorValue) {
@@ -3726,15 +3703,19 @@ func (_this *AudioParamMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioParamMapKeyIteratorFromJS is casting a js.Wrapper into AudioParamMapKeyIterator.
-func AudioParamMapKeyIteratorFromJS(value js.Wrapper) *AudioParamMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioParamMapKeyIteratorFromJS is casting a js.Value into AudioParamMapKeyIterator.
+func AudioParamMapKeyIteratorFromJS(value js.Value) *AudioParamMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioParamMapKeyIteratorFromJS is casting from something that holds a js.Value into AudioParamMapKeyIterator.
+func AudioParamMapKeyIteratorFromWrapper(input core.Wrapper) *AudioParamMapKeyIterator {
+	return AudioParamMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *AudioParamMapKeyIterator) Next() (_result *AudioParamMapKeyIteratorValue) {
@@ -3761,15 +3742,19 @@ func (_this *AudioParamMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioParamMapValueIteratorFromJS is casting a js.Wrapper into AudioParamMapValueIterator.
-func AudioParamMapValueIteratorFromJS(value js.Wrapper) *AudioParamMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioParamMapValueIteratorFromJS is casting a js.Value into AudioParamMapValueIterator.
+func AudioParamMapValueIteratorFromJS(value js.Value) *AudioParamMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioParamMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioParamMapValueIteratorFromJS is casting from something that holds a js.Value into AudioParamMapValueIterator.
+func AudioParamMapValueIteratorFromWrapper(input core.Wrapper) *AudioParamMapValueIterator {
+	return AudioParamMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *AudioParamMapValueIterator) Next() (_result *AudioParamMapValueIteratorValue) {
@@ -3791,15 +3776,19 @@ type AudioProcessingEvent struct {
 	domcore.Event
 }
 
-// AudioProcessingEventFromJS is casting a js.Wrapper into AudioProcessingEvent.
-func AudioProcessingEventFromJS(value js.Wrapper) *AudioProcessingEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioProcessingEventFromJS is casting a js.Value into AudioProcessingEvent.
+func AudioProcessingEventFromJS(value js.Value) *AudioProcessingEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioProcessingEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioProcessingEventFromJS is casting from something that holds a js.Value into AudioProcessingEvent.
+func AudioProcessingEventFromWrapper(input core.Wrapper) *AudioProcessingEvent {
+	return AudioProcessingEventFromJS(input.JSValue())
 }
 
 func NewAudioProcessingEvent(_type string, eventInitDict *AudioProcessingEventInit) (_result *AudioProcessingEvent) {
@@ -3855,15 +3844,19 @@ type AudioScheduledSourceNode struct {
 	AudioNode
 }
 
-// AudioScheduledSourceNodeFromJS is casting a js.Wrapper into AudioScheduledSourceNode.
-func AudioScheduledSourceNodeFromJS(value js.Wrapper) *AudioScheduledSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioScheduledSourceNodeFromJS is casting a js.Value into AudioScheduledSourceNode.
+func AudioScheduledSourceNodeFromJS(value js.Value) *AudioScheduledSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioScheduledSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioScheduledSourceNodeFromJS is casting from something that holds a js.Value into AudioScheduledSourceNode.
+func AudioScheduledSourceNodeFromWrapper(input core.Wrapper) *AudioScheduledSourceNode {
+	return AudioScheduledSourceNodeFromJS(input.JSValue())
 }
 
 // OnEnded returning attribute 'onended' with
@@ -3952,15 +3945,19 @@ type AudioWorklet struct {
 	worklets.Worklet
 }
 
-// AudioWorkletFromJS is casting a js.Wrapper into AudioWorklet.
-func AudioWorkletFromJS(value js.Wrapper) *AudioWorklet {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioWorkletFromJS is casting a js.Value into AudioWorklet.
+func AudioWorkletFromJS(value js.Value) *AudioWorklet {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorklet{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioWorkletFromJS is casting from something that holds a js.Value into AudioWorklet.
+func AudioWorkletFromWrapper(input core.Wrapper) *AudioWorklet {
+	return AudioWorkletFromJS(input.JSValue())
 }
 
 // class: AudioWorkletGlobalScope
@@ -3968,15 +3965,19 @@ type AudioWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }
 
-// AudioWorkletGlobalScopeFromJS is casting a js.Wrapper into AudioWorkletGlobalScope.
-func AudioWorkletGlobalScopeFromJS(value js.Wrapper) *AudioWorkletGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioWorkletGlobalScopeFromJS is casting a js.Value into AudioWorkletGlobalScope.
+func AudioWorkletGlobalScopeFromJS(value js.Value) *AudioWorkletGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioWorkletGlobalScopeFromJS is casting from something that holds a js.Value into AudioWorkletGlobalScope.
+func AudioWorkletGlobalScopeFromWrapper(input core.Wrapper) *AudioWorkletGlobalScope {
+	return AudioWorkletGlobalScopeFromJS(input.JSValue())
 }
 
 // CurrentFrame returning attribute 'currentFrame' with
@@ -4033,15 +4034,19 @@ type AudioWorkletNode struct {
 	AudioNode
 }
 
-// AudioWorkletNodeFromJS is casting a js.Wrapper into AudioWorkletNode.
-func AudioWorkletNodeFromJS(value js.Wrapper) *AudioWorkletNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioWorkletNodeFromJS is casting a js.Value into AudioWorkletNode.
+func AudioWorkletNodeFromJS(value js.Value) *AudioWorkletNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioWorkletNodeFromJS is casting from something that holds a js.Value into AudioWorkletNode.
+func AudioWorkletNodeFromWrapper(input core.Wrapper) *AudioWorkletNode {
+	return AudioWorkletNodeFromJS(input.JSValue())
 }
 
 func NewAudioWorkletNode(context *BaseAudioContext, name string, options *AudioWorkletNodeOptions) (_result *AudioWorkletNode) {
@@ -4139,15 +4144,19 @@ func (_this *AudioWorkletProcessor) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AudioWorkletProcessorFromJS is casting a js.Wrapper into AudioWorkletProcessor.
-func AudioWorkletProcessorFromJS(value js.Wrapper) *AudioWorkletProcessor {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AudioWorkletProcessorFromJS is casting a js.Value into AudioWorkletProcessor.
+func AudioWorkletProcessorFromJS(value js.Value) *AudioWorkletProcessor {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AudioWorkletProcessor{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AudioWorkletProcessorFromJS is casting from something that holds a js.Value into AudioWorkletProcessor.
+func AudioWorkletProcessorFromWrapper(input core.Wrapper) *AudioWorkletProcessor {
+	return AudioWorkletProcessorFromJS(input.JSValue())
 }
 
 func NewAudioWorkletProcessor(options *AudioWorkletNodeOptions) (_result *AudioWorkletProcessor) {
@@ -4184,15 +4193,19 @@ type BaseAudioContext struct {
 	domcore.EventTarget
 }
 
-// BaseAudioContextFromJS is casting a js.Wrapper into BaseAudioContext.
-func BaseAudioContextFromJS(value js.Wrapper) *BaseAudioContext {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BaseAudioContextFromJS is casting a js.Value into BaseAudioContext.
+func BaseAudioContextFromJS(value js.Value) *BaseAudioContext {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BaseAudioContext{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BaseAudioContextFromJS is casting from something that holds a js.Value into BaseAudioContext.
+func BaseAudioContextFromWrapper(input core.Wrapper) *BaseAudioContext {
+	return BaseAudioContextFromJS(input.JSValue())
 }
 
 // Destination returning attribute 'destination' with
@@ -4680,15 +4693,19 @@ type BiquadFilterNode struct {
 	AudioNode
 }
 
-// BiquadFilterNodeFromJS is casting a js.Wrapper into BiquadFilterNode.
-func BiquadFilterNodeFromJS(value js.Wrapper) *BiquadFilterNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BiquadFilterNodeFromJS is casting a js.Value into BiquadFilterNode.
+func BiquadFilterNodeFromJS(value js.Value) *BiquadFilterNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BiquadFilterNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BiquadFilterNodeFromJS is casting from something that holds a js.Value into BiquadFilterNode.
+func BiquadFilterNodeFromWrapper(input core.Wrapper) *BiquadFilterNode {
+	return BiquadFilterNodeFromJS(input.JSValue())
 }
 
 func NewBiquadFilterNode(context *BaseAudioContext, options *BiquadFilterOptions) (_result *BiquadFilterNode) {
@@ -4789,15 +4806,19 @@ type ChannelMergerNode struct {
 	AudioNode
 }
 
-// ChannelMergerNodeFromJS is casting a js.Wrapper into ChannelMergerNode.
-func ChannelMergerNodeFromJS(value js.Wrapper) *ChannelMergerNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ChannelMergerNodeFromJS is casting a js.Value into ChannelMergerNode.
+func ChannelMergerNodeFromJS(value js.Value) *ChannelMergerNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChannelMergerNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ChannelMergerNodeFromJS is casting from something that holds a js.Value into ChannelMergerNode.
+func ChannelMergerNodeFromWrapper(input core.Wrapper) *ChannelMergerNode {
+	return ChannelMergerNodeFromJS(input.JSValue())
 }
 
 func NewChannelMergerNode(context *BaseAudioContext, options *ChannelMergerOptions) (_result *ChannelMergerNode) {
@@ -4828,15 +4849,19 @@ type ChannelSplitterNode struct {
 	AudioNode
 }
 
-// ChannelSplitterNodeFromJS is casting a js.Wrapper into ChannelSplitterNode.
-func ChannelSplitterNodeFromJS(value js.Wrapper) *ChannelSplitterNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ChannelSplitterNodeFromJS is casting a js.Value into ChannelSplitterNode.
+func ChannelSplitterNodeFromJS(value js.Value) *ChannelSplitterNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChannelSplitterNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ChannelSplitterNodeFromJS is casting from something that holds a js.Value into ChannelSplitterNode.
+func ChannelSplitterNodeFromWrapper(input core.Wrapper) *ChannelSplitterNode {
+	return ChannelSplitterNodeFromJS(input.JSValue())
 }
 
 func NewChannelSplitterNode(context *BaseAudioContext, options *ChannelSplitterOptions) (_result *ChannelSplitterNode) {
@@ -4867,15 +4892,19 @@ type ConstantSourceNode struct {
 	AudioScheduledSourceNode
 }
 
-// ConstantSourceNodeFromJS is casting a js.Wrapper into ConstantSourceNode.
-func ConstantSourceNodeFromJS(value js.Wrapper) *ConstantSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConstantSourceNodeFromJS is casting a js.Value into ConstantSourceNode.
+func ConstantSourceNodeFromJS(value js.Value) *ConstantSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConstantSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConstantSourceNodeFromJS is casting from something that holds a js.Value into ConstantSourceNode.
+func ConstantSourceNodeFromWrapper(input core.Wrapper) *ConstantSourceNode {
+	return ConstantSourceNodeFromJS(input.JSValue())
 }
 
 func NewConstantSourceNode(context *BaseAudioContext, options *ConstantSourceOptions) (_result *ConstantSourceNode) {
@@ -4915,15 +4944,19 @@ type ConvolverNode struct {
 	AudioNode
 }
 
-// ConvolverNodeFromJS is casting a js.Wrapper into ConvolverNode.
-func ConvolverNodeFromJS(value js.Wrapper) *ConvolverNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConvolverNodeFromJS is casting a js.Value into ConvolverNode.
+func ConvolverNodeFromJS(value js.Value) *ConvolverNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConvolverNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConvolverNodeFromJS is casting from something that holds a js.Value into ConvolverNode.
+func ConvolverNodeFromWrapper(input core.Wrapper) *ConvolverNode {
+	return ConvolverNodeFromJS(input.JSValue())
 }
 
 func NewConvolverNode(context *BaseAudioContext, options *ConvolverOptions) (_result *ConvolverNode) {
@@ -4988,15 +5021,19 @@ type DelayNode struct {
 	AudioNode
 }
 
-// DelayNodeFromJS is casting a js.Wrapper into DelayNode.
-func DelayNodeFromJS(value js.Wrapper) *DelayNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DelayNodeFromJS is casting a js.Value into DelayNode.
+func DelayNodeFromJS(value js.Value) *DelayNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DelayNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DelayNodeFromJS is casting from something that holds a js.Value into DelayNode.
+func DelayNodeFromWrapper(input core.Wrapper) *DelayNode {
+	return DelayNodeFromJS(input.JSValue())
 }
 
 func NewDelayNode(context *BaseAudioContext, options *DelayOptions) (_result *DelayNode) {
@@ -5036,15 +5073,19 @@ type DynamicsCompressorNode struct {
 	AudioNode
 }
 
-// DynamicsCompressorNodeFromJS is casting a js.Wrapper into DynamicsCompressorNode.
-func DynamicsCompressorNodeFromJS(value js.Wrapper) *DynamicsCompressorNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DynamicsCompressorNodeFromJS is casting a js.Value into DynamicsCompressorNode.
+func DynamicsCompressorNodeFromJS(value js.Value) *DynamicsCompressorNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DynamicsCompressorNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DynamicsCompressorNodeFromJS is casting from something that holds a js.Value into DynamicsCompressorNode.
+func DynamicsCompressorNodeFromWrapper(input core.Wrapper) *DynamicsCompressorNode {
+	return DynamicsCompressorNodeFromJS(input.JSValue())
 }
 
 func NewDynamicsCompressorNode(context *BaseAudioContext, options *DynamicsCompressorOptions) (_result *DynamicsCompressorNode) {
@@ -5129,15 +5170,19 @@ type GainNode struct {
 	AudioNode
 }
 
-// GainNodeFromJS is casting a js.Wrapper into GainNode.
-func GainNodeFromJS(value js.Wrapper) *GainNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// GainNodeFromJS is casting a js.Value into GainNode.
+func GainNodeFromJS(value js.Value) *GainNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &GainNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// GainNodeFromJS is casting from something that holds a js.Value into GainNode.
+func GainNodeFromWrapper(input core.Wrapper) *GainNode {
+	return GainNodeFromJS(input.JSValue())
 }
 
 func NewGainNode(context *BaseAudioContext, options *GainOptions) (_result *GainNode) {
@@ -5177,15 +5222,19 @@ type IIRFilterNode struct {
 	AudioNode
 }
 
-// IIRFilterNodeFromJS is casting a js.Wrapper into IIRFilterNode.
-func IIRFilterNodeFromJS(value js.Wrapper) *IIRFilterNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IIRFilterNodeFromJS is casting a js.Value into IIRFilterNode.
+func IIRFilterNodeFromJS(value js.Value) *IIRFilterNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IIRFilterNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IIRFilterNodeFromJS is casting from something that holds a js.Value into IIRFilterNode.
+func IIRFilterNodeFromWrapper(input core.Wrapper) *IIRFilterNode {
+	return IIRFilterNodeFromJS(input.JSValue())
 }
 
 func NewIIRFilterNode(context *BaseAudioContext, options *IIRFilterOptions) (_result *IIRFilterNode) {
@@ -5232,15 +5281,19 @@ type MediaElementAudioSourceNode struct {
 	AudioNode
 }
 
-// MediaElementAudioSourceNodeFromJS is casting a js.Wrapper into MediaElementAudioSourceNode.
-func MediaElementAudioSourceNodeFromJS(value js.Wrapper) *MediaElementAudioSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaElementAudioSourceNodeFromJS is casting a js.Value into MediaElementAudioSourceNode.
+func MediaElementAudioSourceNodeFromJS(value js.Value) *MediaElementAudioSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaElementAudioSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaElementAudioSourceNodeFromJS is casting from something that holds a js.Value into MediaElementAudioSourceNode.
+func MediaElementAudioSourceNodeFromWrapper(input core.Wrapper) *MediaElementAudioSourceNode {
+	return MediaElementAudioSourceNodeFromJS(input.JSValue())
 }
 
 func NewMediaElementAudioSourceNode(context *AudioContext, options *MediaElementAudioSourceOptions) (_result *MediaElementAudioSourceNode) {
@@ -5278,15 +5331,19 @@ type MediaStreamAudioDestinationNode struct {
 	AudioNode
 }
 
-// MediaStreamAudioDestinationNodeFromJS is casting a js.Wrapper into MediaStreamAudioDestinationNode.
-func MediaStreamAudioDestinationNodeFromJS(value js.Wrapper) *MediaStreamAudioDestinationNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamAudioDestinationNodeFromJS is casting a js.Value into MediaStreamAudioDestinationNode.
+func MediaStreamAudioDestinationNodeFromJS(value js.Value) *MediaStreamAudioDestinationNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamAudioDestinationNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamAudioDestinationNodeFromJS is casting from something that holds a js.Value into MediaStreamAudioDestinationNode.
+func MediaStreamAudioDestinationNodeFromWrapper(input core.Wrapper) *MediaStreamAudioDestinationNode {
+	return MediaStreamAudioDestinationNodeFromJS(input.JSValue())
 }
 
 func NewMediaStreamAudioDestinationNode(context *AudioContext, options *AudioNodeOptions) (_result *MediaStreamAudioDestinationNode) {
@@ -5326,15 +5383,19 @@ type MediaStreamAudioSourceNode struct {
 	AudioNode
 }
 
-// MediaStreamAudioSourceNodeFromJS is casting a js.Wrapper into MediaStreamAudioSourceNode.
-func MediaStreamAudioSourceNodeFromJS(value js.Wrapper) *MediaStreamAudioSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamAudioSourceNodeFromJS is casting a js.Value into MediaStreamAudioSourceNode.
+func MediaStreamAudioSourceNodeFromJS(value js.Value) *MediaStreamAudioSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamAudioSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamAudioSourceNodeFromJS is casting from something that holds a js.Value into MediaStreamAudioSourceNode.
+func MediaStreamAudioSourceNodeFromWrapper(input core.Wrapper) *MediaStreamAudioSourceNode {
+	return MediaStreamAudioSourceNodeFromJS(input.JSValue())
 }
 
 func NewMediaStreamAudioSourceNode(context *AudioContext, options *MediaStreamAudioSourceOptions) (_result *MediaStreamAudioSourceNode) {
@@ -5372,15 +5433,19 @@ type MediaStreamTrackAudioSourceNode struct {
 	AudioNode
 }
 
-// MediaStreamTrackAudioSourceNodeFromJS is casting a js.Wrapper into MediaStreamTrackAudioSourceNode.
-func MediaStreamTrackAudioSourceNodeFromJS(value js.Wrapper) *MediaStreamTrackAudioSourceNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaStreamTrackAudioSourceNodeFromJS is casting a js.Value into MediaStreamTrackAudioSourceNode.
+func MediaStreamTrackAudioSourceNodeFromJS(value js.Value) *MediaStreamTrackAudioSourceNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaStreamTrackAudioSourceNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaStreamTrackAudioSourceNodeFromJS is casting from something that holds a js.Value into MediaStreamTrackAudioSourceNode.
+func MediaStreamTrackAudioSourceNodeFromWrapper(input core.Wrapper) *MediaStreamTrackAudioSourceNode {
+	return MediaStreamTrackAudioSourceNodeFromJS(input.JSValue())
 }
 
 func NewMediaStreamTrackAudioSourceNode(context *AudioContext, options *MediaStreamTrackAudioSourceOptions) (_result *MediaStreamTrackAudioSourceNode) {
@@ -5409,15 +5474,19 @@ type OfflineAudioCompletionEvent struct {
 	domcore.Event
 }
 
-// OfflineAudioCompletionEventFromJS is casting a js.Wrapper into OfflineAudioCompletionEvent.
-func OfflineAudioCompletionEventFromJS(value js.Wrapper) *OfflineAudioCompletionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OfflineAudioCompletionEventFromJS is casting a js.Value into OfflineAudioCompletionEvent.
+func OfflineAudioCompletionEventFromJS(value js.Value) *OfflineAudioCompletionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OfflineAudioCompletionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OfflineAudioCompletionEventFromJS is casting from something that holds a js.Value into OfflineAudioCompletionEvent.
+func OfflineAudioCompletionEventFromWrapper(input core.Wrapper) *OfflineAudioCompletionEvent {
+	return OfflineAudioCompletionEventFromJS(input.JSValue())
 }
 
 func NewOfflineAudioCompletionEvent(_type string, eventInitDict *OfflineAudioCompletionEventInit) (_result *OfflineAudioCompletionEvent) {
@@ -5455,15 +5524,19 @@ type OfflineAudioContext struct {
 	BaseAudioContext
 }
 
-// OfflineAudioContextFromJS is casting a js.Wrapper into OfflineAudioContext.
-func OfflineAudioContextFromJS(value js.Wrapper) *OfflineAudioContext {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OfflineAudioContextFromJS is casting a js.Value into OfflineAudioContext.
+func OfflineAudioContextFromJS(value js.Value) *OfflineAudioContext {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OfflineAudioContext{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OfflineAudioContextFromJS is casting from something that holds a js.Value into OfflineAudioContext.
+func OfflineAudioContextFromWrapper(input core.Wrapper) *OfflineAudioContext {
+	return OfflineAudioContextFromJS(input.JSValue())
 }
 
 func NewOfflineAudioContext(numberOfChannels uint, length uint, sampleRate float32) (_result *OfflineAudioContext) {
@@ -5590,15 +5663,19 @@ type OscillatorNode struct {
 	AudioScheduledSourceNode
 }
 
-// OscillatorNodeFromJS is casting a js.Wrapper into OscillatorNode.
-func OscillatorNodeFromJS(value js.Wrapper) *OscillatorNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OscillatorNodeFromJS is casting a js.Value into OscillatorNode.
+func OscillatorNodeFromJS(value js.Value) *OscillatorNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OscillatorNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OscillatorNodeFromJS is casting from something that holds a js.Value into OscillatorNode.
+func OscillatorNodeFromWrapper(input core.Wrapper) *OscillatorNode {
+	return OscillatorNodeFromJS(input.JSValue())
 }
 
 func NewOscillatorNode(context *BaseAudioContext, options *OscillatorOptions) (_result *OscillatorNode) {
@@ -5675,15 +5752,19 @@ type PannerNode struct {
 	AudioNode
 }
 
-// PannerNodeFromJS is casting a js.Wrapper into PannerNode.
-func PannerNodeFromJS(value js.Wrapper) *PannerNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PannerNodeFromJS is casting a js.Value into PannerNode.
+func PannerNodeFromJS(value js.Value) *PannerNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PannerNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PannerNodeFromJS is casting from something that holds a js.Value into PannerNode.
+func PannerNodeFromWrapper(input core.Wrapper) *PannerNode {
+	return PannerNodeFromJS(input.JSValue())
 }
 
 func NewPannerNode(context *BaseAudioContext, options *PannerOptions) (_result *PannerNode) {
@@ -5937,15 +6018,19 @@ func (_this *PeriodicWave) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PeriodicWaveFromJS is casting a js.Wrapper into PeriodicWave.
-func PeriodicWaveFromJS(value js.Wrapper) *PeriodicWave {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PeriodicWaveFromJS is casting a js.Value into PeriodicWave.
+func PeriodicWaveFromJS(value js.Value) *PeriodicWave {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PeriodicWave{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PeriodicWaveFromJS is casting from something that holds a js.Value into PeriodicWave.
+func PeriodicWaveFromWrapper(input core.Wrapper) *PeriodicWave {
+	return PeriodicWaveFromJS(input.JSValue())
 }
 
 func NewPeriodicWave(context *BaseAudioContext, options *PeriodicWaveOptions) (_result *PeriodicWave) {
@@ -5981,15 +6066,19 @@ func (_this *PromiseAudioBuffer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseAudioBufferFromJS is casting a js.Wrapper into PromiseAudioBuffer.
-func PromiseAudioBufferFromJS(value js.Wrapper) *PromiseAudioBuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseAudioBufferFromJS is casting a js.Value into PromiseAudioBuffer.
+func PromiseAudioBufferFromJS(value js.Value) *PromiseAudioBuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAudioBuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseAudioBufferFromJS is casting from something that holds a js.Value into PromiseAudioBuffer.
+func PromiseAudioBufferFromWrapper(input core.Wrapper) *PromiseAudioBuffer {
+	return PromiseAudioBufferFromJS(input.JSValue())
 }
 
 func (_this *PromiseAudioBuffer) Then(onFulfilled *PromiseAudioBufferOnFulfilled, onRejected *PromiseAudioBufferOnRejected) (_result *PromiseAudioBuffer) {
@@ -6081,15 +6170,19 @@ type ScriptProcessorNode struct {
 	AudioNode
 }
 
-// ScriptProcessorNodeFromJS is casting a js.Wrapper into ScriptProcessorNode.
-func ScriptProcessorNodeFromJS(value js.Wrapper) *ScriptProcessorNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ScriptProcessorNodeFromJS is casting a js.Value into ScriptProcessorNode.
+func ScriptProcessorNodeFromJS(value js.Value) *ScriptProcessorNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScriptProcessorNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ScriptProcessorNodeFromJS is casting from something that holds a js.Value into ScriptProcessorNode.
+func ScriptProcessorNodeFromWrapper(input core.Wrapper) *ScriptProcessorNode {
+	return ScriptProcessorNodeFromJS(input.JSValue())
 }
 
 // OnAudioProcess returning attribute 'onaudioprocess' with
@@ -6147,15 +6240,19 @@ type StereoPannerNode struct {
 	AudioNode
 }
 
-// StereoPannerNodeFromJS is casting a js.Wrapper into StereoPannerNode.
-func StereoPannerNodeFromJS(value js.Wrapper) *StereoPannerNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StereoPannerNodeFromJS is casting a js.Value into StereoPannerNode.
+func StereoPannerNodeFromJS(value js.Value) *StereoPannerNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StereoPannerNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StereoPannerNodeFromJS is casting from something that holds a js.Value into StereoPannerNode.
+func StereoPannerNodeFromWrapper(input core.Wrapper) *StereoPannerNode {
+	return StereoPannerNodeFromJS(input.JSValue())
 }
 
 func NewStereoPannerNode(context *BaseAudioContext, options *StereoPannerOptions) (_result *StereoPannerNode) {
@@ -6195,15 +6292,19 @@ type WaveShaperNode struct {
 	AudioNode
 }
 
-// WaveShaperNodeFromJS is casting a js.Wrapper into WaveShaperNode.
-func WaveShaperNodeFromJS(value js.Wrapper) *WaveShaperNode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WaveShaperNodeFromJS is casting a js.Value into WaveShaperNode.
+func WaveShaperNodeFromJS(value js.Value) *WaveShaperNode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WaveShaperNode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WaveShaperNodeFromJS is casting from something that holds a js.Value into WaveShaperNode.
+func WaveShaperNodeFromWrapper(input core.Wrapper) *WaveShaperNode {
+	return WaveShaperNodeFromJS(input.JSValue())
 }
 
 func NewWaveShaperNode(context *BaseAudioContext, options *WaveShaperOptions) (_result *WaveShaperNode) {

@@ -35,7 +35,7 @@ type DisplayMediaStreamConstraints struct {
 	Audio *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DisplayMediaStreamConstraints) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -47,18 +47,16 @@ func (_this *DisplayMediaStreamConstraints) JSValue() js.Value {
 }
 
 // DisplayMediaStreamConstraintsFromJS is allocating a new
-// DisplayMediaStreamConstraints object and copy all values from
-// input javascript object
-func DisplayMediaStreamConstraintsFromJS(value js.Wrapper) *DisplayMediaStreamConstraints {
-	input := value.JSValue()
+// DisplayMediaStreamConstraints object and copy all values in the value javascript object.
+func DisplayMediaStreamConstraintsFromJS(value js.Value) *DisplayMediaStreamConstraints {
 	var out DisplayMediaStreamConstraints
 	var (
 		value0 *Union // javascript: Union {video Video video}
 		value1 *Union // javascript: Union {audio Audio audio}
 	)
-	value0 = UnionFromJS(input.Get("video"))
+	value0 = UnionFromJS(value.Get("video"))
 	out.Video = value0
-	value1 = UnionFromJS(input.Get("audio"))
+	value1 = UnionFromJS(value.Get("audio"))
 	out.Audio = value1
 	return &out
 }

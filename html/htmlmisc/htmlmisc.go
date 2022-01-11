@@ -11,6 +11,7 @@ import (
 	"github.com/gowebapi/webapi/communication/bluetooth"
 	"github.com/gowebapi/webapi/communication/netinfo"
 	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/crypto/credential"
 	"github.com/gowebapi/webapi/device/battery"
 	"github.com/gowebapi/webapi/device/gamepad"
@@ -186,7 +187,7 @@ type ElementDefinitionOptions struct {
 	Extends string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ElementDefinitionOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -196,15 +197,13 @@ func (_this *ElementDefinitionOptions) JSValue() js.Value {
 }
 
 // ElementDefinitionOptionsFromJS is allocating a new
-// ElementDefinitionOptions object and copy all values from
-// input javascript object
-func ElementDefinitionOptionsFromJS(value js.Wrapper) *ElementDefinitionOptions {
-	input := value.JSValue()
+// ElementDefinitionOptions object and copy all values in the value javascript object.
+func ElementDefinitionOptionsFromJS(value js.Value) *ElementDefinitionOptions {
 	var out ElementDefinitionOptions
 	var (
 		value0 string // javascript: DOMString {extends Extends extends}
 	)
-	value0 = (input.Get("extends")).String()
+	value0 = (value.Get("extends")).String()
 	out.Extends = value0
 	return &out
 }
@@ -214,7 +213,7 @@ type EventSourceInit struct {
 	WithCredentials bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EventSourceInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -224,15 +223,13 @@ func (_this *EventSourceInit) JSValue() js.Value {
 }
 
 // EventSourceInitFromJS is allocating a new
-// EventSourceInit object and copy all values from
-// input javascript object
-func EventSourceInitFromJS(value js.Wrapper) *EventSourceInit {
-	input := value.JSValue()
+// EventSourceInit object and copy all values in the value javascript object.
+func EventSourceInitFromJS(value js.Value) *EventSourceInit {
 	var out EventSourceInit
 	var (
 		value0 bool // javascript: boolean {withCredentials WithCredentials withCredentials}
 	)
-	value0 = (input.Get("withCredentials")).Bool()
+	value0 = (value.Get("withCredentials")).Bool()
 	out.WithCredentials = value0
 	return &out
 }
@@ -242,7 +239,7 @@ type ImageBitmapRenderingContextSettings struct {
 	Alpha bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ImageBitmapRenderingContextSettings) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -252,15 +249,13 @@ func (_this *ImageBitmapRenderingContextSettings) JSValue() js.Value {
 }
 
 // ImageBitmapRenderingContextSettingsFromJS is allocating a new
-// ImageBitmapRenderingContextSettings object and copy all values from
-// input javascript object
-func ImageBitmapRenderingContextSettingsFromJS(value js.Wrapper) *ImageBitmapRenderingContextSettings {
-	input := value.JSValue()
+// ImageBitmapRenderingContextSettings object and copy all values in the value javascript object.
+func ImageBitmapRenderingContextSettingsFromJS(value js.Value) *ImageBitmapRenderingContextSettings {
 	var out ImageBitmapRenderingContextSettings
 	var (
 		value0 bool // javascript: boolean {alpha Alpha alpha}
 	)
-	value0 = (input.Get("alpha")).Bool()
+	value0 = (value.Get("alpha")).Bool()
 	out.Alpha = value0
 	return &out
 }
@@ -270,15 +265,19 @@ type ApplicationCache struct {
 	domcore.EventTarget
 }
 
-// ApplicationCacheFromJS is casting a js.Wrapper into ApplicationCache.
-func ApplicationCacheFromJS(value js.Wrapper) *ApplicationCache {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ApplicationCacheFromJS is casting a js.Value into ApplicationCache.
+func ApplicationCacheFromJS(value js.Value) *ApplicationCache {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ApplicationCache{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ApplicationCacheFromJS is casting from something that holds a js.Value into ApplicationCache.
+func ApplicationCacheFromWrapper(input core.Wrapper) *ApplicationCache {
+	return ApplicationCacheFromJS(input.JSValue())
 }
 
 const (
@@ -580,15 +579,19 @@ func (_this *BarProp) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BarPropFromJS is casting a js.Wrapper into BarProp.
-func BarPropFromJS(value js.Wrapper) *BarProp {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BarPropFromJS is casting a js.Value into BarProp.
+func BarPropFromJS(value js.Value) *BarProp {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BarProp{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BarPropFromJS is casting from something that holds a js.Value into BarProp.
+func BarPropFromWrapper(input core.Wrapper) *BarProp {
+	return BarPropFromJS(input.JSValue())
 }
 
 // Visible returning attribute 'visible' with
@@ -610,15 +613,19 @@ func (_this *CustomElementRegistry) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CustomElementRegistryFromJS is casting a js.Wrapper into CustomElementRegistry.
-func CustomElementRegistryFromJS(value js.Wrapper) *CustomElementRegistry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CustomElementRegistryFromJS is casting a js.Value into CustomElementRegistry.
+func CustomElementRegistryFromJS(value js.Value) *CustomElementRegistry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CustomElementRegistry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CustomElementRegistryFromJS is casting from something that holds a js.Value into CustomElementRegistry.
+func CustomElementRegistryFromWrapper(input core.Wrapper) *CustomElementRegistry {
+	return CustomElementRegistryFromJS(input.JSValue())
 }
 
 func (_this *CustomElementRegistry) Define(name string, constructor *CustomElementConstructor, options *ElementDefinitionOptions) {
@@ -699,15 +706,19 @@ type EventSource struct {
 	domcore.EventTarget
 }
 
-// EventSourceFromJS is casting a js.Wrapper into EventSource.
-func EventSourceFromJS(value js.Wrapper) *EventSource {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EventSourceFromJS is casting a js.Value into EventSource.
+func EventSourceFromJS(value js.Value) *EventSource {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EventSource{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EventSourceFromJS is casting from something that holds a js.Value into EventSource.
+func EventSourceFromWrapper(input core.Wrapper) *EventSource {
+	return EventSourceFromJS(input.JSValue())
 }
 
 const (
@@ -908,15 +919,19 @@ func (_this *External) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ExternalFromJS is casting a js.Wrapper into External.
-func ExternalFromJS(value js.Wrapper) *External {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ExternalFromJS is casting a js.Value into External.
+func ExternalFromJS(value js.Value) *External {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &External{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ExternalFromJS is casting from something that holds a js.Value into External.
+func ExternalFromWrapper(input core.Wrapper) *External {
+	return ExternalFromJS(input.JSValue())
 }
 
 func (_this *External) AddSearchProvider() {
@@ -947,15 +962,19 @@ func (_this *History) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HistoryFromJS is casting a js.Wrapper into History.
-func HistoryFromJS(value js.Wrapper) *History {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HistoryFromJS is casting a js.Value into History.
+func HistoryFromJS(value js.Value) *History {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &History{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HistoryFromJS is casting from something that holds a js.Value into History.
+func HistoryFromWrapper(input core.Wrapper) *History {
+	return HistoryFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1092,15 +1111,19 @@ func (_this *Location) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LocationFromJS is casting a js.Wrapper into Location.
-func LocationFromJS(value js.Wrapper) *Location {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LocationFromJS is casting a js.Value into Location.
+func LocationFromJS(value js.Value) *Location {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Location{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LocationFromJS is casting from something that holds a js.Value into Location.
+func LocationFromWrapper(input core.Wrapper) *Location {
+	return LocationFromJS(input.JSValue())
 }
 
 // Href returning attribute 'href' with
@@ -1297,15 +1320,19 @@ func (_this *MimeType) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MimeTypeFromJS is casting a js.Wrapper into MimeType.
-func MimeTypeFromJS(value js.Wrapper) *MimeType {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MimeTypeFromJS is casting a js.Value into MimeType.
+func MimeTypeFromJS(value js.Value) *MimeType {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MimeType{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MimeTypeFromJS is casting from something that holds a js.Value into MimeType.
+func MimeTypeFromWrapper(input core.Wrapper) *MimeType {
+	return MimeTypeFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -1354,15 +1381,19 @@ func (_this *MimeTypeArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MimeTypeArrayFromJS is casting a js.Wrapper into MimeTypeArray.
-func MimeTypeArrayFromJS(value js.Wrapper) *MimeTypeArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MimeTypeArrayFromJS is casting a js.Value into MimeTypeArray.
+func MimeTypeArrayFromJS(value js.Value) *MimeTypeArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MimeTypeArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MimeTypeArrayFromJS is casting from something that holds a js.Value into MimeTypeArray.
+func MimeTypeArrayFromWrapper(input core.Wrapper) *MimeTypeArray {
+	return MimeTypeArrayFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1460,15 +1491,19 @@ func (_this *Navigator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NavigatorFromJS is casting a js.Wrapper into Navigator.
-func NavigatorFromJS(value js.Wrapper) *Navigator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NavigatorFromJS is casting a js.Value into Navigator.
+func NavigatorFromJS(value js.Value) *Navigator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Navigator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NavigatorFromJS is casting from something that holds a js.Value into Navigator.
+func NavigatorFromWrapper(input core.Wrapper) *Navigator {
+	return NavigatorFromJS(input.JSValue())
 }
 
 // Clipboard returning attribute 'clipboard' with
@@ -2057,15 +2092,19 @@ func (_this *Plugin) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PluginFromJS is casting a js.Wrapper into Plugin.
-func PluginFromJS(value js.Wrapper) *Plugin {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PluginFromJS is casting a js.Value into Plugin.
+func PluginFromJS(value js.Value) *Plugin {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Plugin{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PluginFromJS is casting from something that holds a js.Value into Plugin.
+func PluginFromWrapper(input core.Wrapper) *Plugin {
+	return PluginFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -2190,15 +2229,19 @@ func (_this *PluginArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PluginArrayFromJS is casting a js.Wrapper into PluginArray.
-func PluginArrayFromJS(value js.Wrapper) *PluginArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PluginArrayFromJS is casting a js.Value into PluginArray.
+func PluginArrayFromJS(value js.Value) *PluginArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PluginArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PluginArrayFromJS is casting from something that holds a js.Value into PluginArray.
+func PluginArrayFromWrapper(input core.Wrapper) *PluginArray {
+	return PluginArrayFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -2311,15 +2354,19 @@ type RadioNodeList struct {
 	dom.NodeList
 }
 
-// RadioNodeListFromJS is casting a js.Wrapper into RadioNodeList.
-func RadioNodeListFromJS(value js.Wrapper) *RadioNodeList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RadioNodeListFromJS is casting a js.Value into RadioNodeList.
+func RadioNodeListFromJS(value js.Value) *RadioNodeList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RadioNodeList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RadioNodeListFromJS is casting from something that holds a js.Value into RadioNodeList.
+func RadioNodeListFromWrapper(input core.Wrapper) *RadioNodeList {
+	return RadioNodeListFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with

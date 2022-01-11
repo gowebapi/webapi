@@ -7,6 +7,7 @@ package permissions
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -172,7 +173,7 @@ type DevicePermissionDescriptor struct {
 	DeviceId string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DevicePermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -184,18 +185,16 @@ func (_this *DevicePermissionDescriptor) JSValue() js.Value {
 }
 
 // DevicePermissionDescriptorFromJS is allocating a new
-// DevicePermissionDescriptor object and copy all values from
-// input javascript object
-func DevicePermissionDescriptorFromJS(value js.Wrapper) *DevicePermissionDescriptor {
-	input := value.JSValue()
+// DevicePermissionDescriptor object and copy all values in the value javascript object.
+func DevicePermissionDescriptorFromJS(value js.Value) *DevicePermissionDescriptor {
 	var out DevicePermissionDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: DOMString {deviceId DeviceId deviceId}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("deviceId")).String()
+	value1 = (value.Get("deviceId")).String()
 	out.DeviceId = value1
 	return &out
 }
@@ -206,7 +205,7 @@ type MidiPermissionDescriptor struct {
 	Sysex bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MidiPermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -218,18 +217,16 @@ func (_this *MidiPermissionDescriptor) JSValue() js.Value {
 }
 
 // MidiPermissionDescriptorFromJS is allocating a new
-// MidiPermissionDescriptor object and copy all values from
-// input javascript object
-func MidiPermissionDescriptorFromJS(value js.Wrapper) *MidiPermissionDescriptor {
-	input := value.JSValue()
+// MidiPermissionDescriptor object and copy all values in the value javascript object.
+func MidiPermissionDescriptorFromJS(value js.Value) *MidiPermissionDescriptor {
 	var out MidiPermissionDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 bool   // javascript: boolean {sysex Sysex sysex}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("sysex")).Bool()
+	value1 = (value.Get("sysex")).Bool()
 	out.Sysex = value1
 	return &out
 }
@@ -239,7 +236,7 @@ type PermissionDescriptor struct {
 	Name string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -249,15 +246,13 @@ func (_this *PermissionDescriptor) JSValue() js.Value {
 }
 
 // PermissionDescriptorFromJS is allocating a new
-// PermissionDescriptor object and copy all values from
-// input javascript object
-func PermissionDescriptorFromJS(value js.Wrapper) *PermissionDescriptor {
-	input := value.JSValue()
+// PermissionDescriptor object and copy all values in the value javascript object.
+func PermissionDescriptorFromJS(value js.Value) *PermissionDescriptor {
 	var out PermissionDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
 	return &out
 }
@@ -269,7 +264,7 @@ type PermissionSetParameters struct {
 	OneRealm   bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PermissionSetParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -283,21 +278,19 @@ func (_this *PermissionSetParameters) JSValue() js.Value {
 }
 
 // PermissionSetParametersFromJS is allocating a new
-// PermissionSetParameters object and copy all values from
-// input javascript object
-func PermissionSetParametersFromJS(value js.Wrapper) *PermissionSetParameters {
-	input := value.JSValue()
+// PermissionSetParameters object and copy all values in the value javascript object.
+func PermissionSetParametersFromJS(value js.Value) *PermissionSetParameters {
 	var out PermissionSetParameters
 	var (
 		value0 *PermissionDescriptor // javascript: PermissionDescriptor {descriptor Descriptor descriptor}
 		value1 PermissionState       // javascript: PermissionState {state State state}
 		value2 bool                  // javascript: boolean {oneRealm OneRealm oneRealm}
 	)
-	value0 = PermissionDescriptorFromJS(input.Get("descriptor"))
+	value0 = PermissionDescriptorFromJS(value.Get("descriptor"))
 	out.Descriptor = value0
-	value1 = PermissionStateFromJS(input.Get("state"))
+	value1 = PermissionStateFromJS(value.Get("state"))
 	out.State = value1
-	value2 = (input.Get("oneRealm")).Bool()
+	value2 = (value.Get("oneRealm")).Bool()
 	out.OneRealm = value2
 	return &out
 }
@@ -308,7 +301,7 @@ type PushPermissionDescriptor struct {
 	UserVisibleOnly bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PushPermissionDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -320,18 +313,16 @@ func (_this *PushPermissionDescriptor) JSValue() js.Value {
 }
 
 // PushPermissionDescriptorFromJS is allocating a new
-// PushPermissionDescriptor object and copy all values from
-// input javascript object
-func PushPermissionDescriptorFromJS(value js.Wrapper) *PushPermissionDescriptor {
-	input := value.JSValue()
+// PushPermissionDescriptor object and copy all values in the value javascript object.
+func PushPermissionDescriptorFromJS(value js.Value) *PushPermissionDescriptor {
 	var out PushPermissionDescriptor
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 bool   // javascript: boolean {userVisibleOnly UserVisibleOnly userVisibleOnly}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("userVisibleOnly")).Bool()
+	value1 = (value.Get("userVisibleOnly")).Bool()
 	out.UserVisibleOnly = value1
 	return &out
 }
@@ -341,15 +332,19 @@ type PermissionStatus struct {
 	domcore.EventTarget
 }
 
-// PermissionStatusFromJS is casting a js.Wrapper into PermissionStatus.
-func PermissionStatusFromJS(value js.Wrapper) *PermissionStatus {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PermissionStatusFromJS is casting a js.Value into PermissionStatus.
+func PermissionStatusFromJS(value js.Value) *PermissionStatus {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PermissionStatus{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PermissionStatusFromJS is casting from something that holds a js.Value into PermissionStatus.
+func PermissionStatusFromWrapper(input core.Wrapper) *PermissionStatus {
+	return PermissionStatusFromJS(input.JSValue())
 }
 
 // State returning attribute 'state' with
@@ -412,15 +407,19 @@ func (_this *Permissions) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PermissionsFromJS is casting a js.Wrapper into Permissions.
-func PermissionsFromJS(value js.Wrapper) *Permissions {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PermissionsFromJS is casting a js.Value into Permissions.
+func PermissionsFromJS(value js.Value) *Permissions {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Permissions{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PermissionsFromJS is casting from something that holds a js.Value into Permissions.
+func PermissionsFromWrapper(input core.Wrapper) *Permissions {
+	return PermissionsFromJS(input.JSValue())
 }
 
 func (_this *Permissions) Query(permissionDesc *javascript.Object) (_result *PromisePermissionStatus) {
@@ -450,15 +449,19 @@ func (_this *PromisePermissionStatus) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePermissionStatusFromJS is casting a js.Wrapper into PromisePermissionStatus.
-func PromisePermissionStatusFromJS(value js.Wrapper) *PromisePermissionStatus {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePermissionStatusFromJS is casting a js.Value into PromisePermissionStatus.
+func PromisePermissionStatusFromJS(value js.Value) *PromisePermissionStatus {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionStatus{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePermissionStatusFromJS is casting from something that holds a js.Value into PromisePermissionStatus.
+func PromisePermissionStatusFromWrapper(input core.Wrapper) *PromisePermissionStatus {
+	return PromisePermissionStatusFromJS(input.JSValue())
 }
 
 func (_this *PromisePermissionStatus) Then(onFulfilled *PromisePermissionStatusOnFulfilled, onRejected *PromisePermissionStatusOnRejected) (_result *PromisePermissionStatus) {

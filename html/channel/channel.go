@@ -7,6 +7,7 @@ package channel
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/javascript"
@@ -96,7 +97,7 @@ type CloseEventInit struct {
 	Reason     string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CloseEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -116,10 +117,8 @@ func (_this *CloseEventInit) JSValue() js.Value {
 }
 
 // CloseEventInitFromJS is allocating a new
-// CloseEventInit object and copy all values from
-// input javascript object
-func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
-	input := value.JSValue()
+// CloseEventInit object and copy all values in the value javascript object.
+func CloseEventInitFromJS(value js.Value) *CloseEventInit {
 	var out CloseEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -129,17 +128,17 @@ func CloseEventInitFromJS(value js.Wrapper) *CloseEventInit {
 		value4 int    // javascript: unsigned short {code Code code}
 		value5 string // javascript: USVString {reason Reason reason}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("wasClean")).Bool()
+	value3 = (value.Get("wasClean")).Bool()
 	out.WasClean = value3
-	value4 = (input.Get("code")).Int()
+	value4 = (value.Get("code")).Int()
 	out.Code = value4
-	value5 = (input.Get("reason")).String()
+	value5 = (value.Get("reason")).String()
 	out.Reason = value5
 	return &out
 }
@@ -156,7 +155,7 @@ type MessageEventInit struct {
 	Ports       []*MessagePort
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MessageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -184,10 +183,8 @@ func (_this *MessageEventInit) JSValue() js.Value {
 }
 
 // MessageEventInitFromJS is allocating a new
-// MessageEventInit object and copy all values from
-// input javascript object
-func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
-	input := value.JSValue()
+// MessageEventInit object and copy all values in the value javascript object.
+func MessageEventInitFromJS(value js.Value) *MessageEventInit {
 	var out MessageEventInit
 	var (
 		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
@@ -199,27 +196,27 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 		value6 *Union         // javascript: Union {source Source source}
 		value7 []*MessagePort // javascript: sequence<MessagePort> {ports Ports ports}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("data")
+	value3 = value.Get("data")
 	out.Data = value3
-	value4 = (input.Get("origin")).String()
+	value4 = (value.Get("origin")).String()
 	out.Origin = value4
-	value5 = (input.Get("lastEventId")).String()
+	value5 = (value.Get("lastEventId")).String()
 	out.LastEventId = value5
-	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
-		value6 = UnionFromJS(input.Get("source"))
+	if value.Get("source").Type() != js.TypeNull && value.Get("source").Type() != js.TypeUndefined {
+		value6 = UnionFromJS(value.Get("source"))
 	}
 	out.Source = value6
-	__length7 := input.Get("ports").Length()
+	__length7 := value.Get("ports").Length()
 	__array7 := make([]*MessagePort, __length7, __length7)
 	for __idx7 := 0; __idx7 < __length7; __idx7++ {
 		var __seq_out7 *MessagePort
-		__seq_in7 := input.Get("ports").Index(__idx7)
+		__seq_in7 := value.Get("ports").Index(__idx7)
 		__seq_out7 = MessagePortFromJS(__seq_in7)
 		__array7[__idx7] = __seq_out7
 	}
@@ -233,7 +230,7 @@ type PostMessageOptions struct {
 	Transfer []*javascript.Object
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PostMessageOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -247,19 +244,17 @@ func (_this *PostMessageOptions) JSValue() js.Value {
 }
 
 // PostMessageOptionsFromJS is allocating a new
-// PostMessageOptions object and copy all values from
-// input javascript object
-func PostMessageOptionsFromJS(value js.Wrapper) *PostMessageOptions {
-	input := value.JSValue()
+// PostMessageOptions object and copy all values in the value javascript object.
+func PostMessageOptionsFromJS(value js.Value) *PostMessageOptions {
 	var out PostMessageOptions
 	var (
 		value0 []*javascript.Object // javascript: sequence<object> {transfer Transfer transfer}
 	)
-	__length0 := input.Get("transfer").Length()
+	__length0 := value.Get("transfer").Length()
 	__array0 := make([]*javascript.Object, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *javascript.Object
-		__seq_in0 := input.Get("transfer").Index(__idx0)
+		__seq_in0 := value.Get("transfer").Index(__idx0)
 		__seq_out0 = javascript.ObjectFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
@@ -273,15 +268,19 @@ type BroadcastChannel struct {
 	domcore.EventTarget
 }
 
-// BroadcastChannelFromJS is casting a js.Wrapper into BroadcastChannel.
-func BroadcastChannelFromJS(value js.Wrapper) *BroadcastChannel {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BroadcastChannelFromJS is casting a js.Value into BroadcastChannel.
+func BroadcastChannelFromJS(value js.Value) *BroadcastChannel {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BroadcastChannel{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BroadcastChannelFromJS is casting from something that holds a js.Value into BroadcastChannel.
+func BroadcastChannelFromWrapper(input core.Wrapper) *BroadcastChannel {
+	return BroadcastChannelFromJS(input.JSValue())
 }
 
 func NewBroadcastChannel(name string) (_result *BroadcastChannel) {
@@ -405,15 +404,19 @@ type CloseEvent struct {
 	domcore.Event
 }
 
-// CloseEventFromJS is casting a js.Wrapper into CloseEvent.
-func CloseEventFromJS(value js.Wrapper) *CloseEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CloseEventFromJS is casting a js.Value into CloseEvent.
+func CloseEventFromJS(value js.Value) *CloseEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CloseEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CloseEventFromJS is casting from something that holds a js.Value into CloseEvent.
+func CloseEventFromWrapper(input core.Wrapper) *CloseEvent {
+	return CloseEventFromJS(input.JSValue())
 }
 
 func NewCloseEvent(_type string, eventInitDict *CloseEventInit) (_result *CloseEvent) {
@@ -476,15 +479,19 @@ func (_this *MessageChannel) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MessageChannelFromJS is casting a js.Wrapper into MessageChannel.
-func MessageChannelFromJS(value js.Wrapper) *MessageChannel {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MessageChannelFromJS is casting a js.Value into MessageChannel.
+func MessageChannelFromJS(value js.Value) *MessageChannel {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageChannel{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MessageChannelFromJS is casting from something that holds a js.Value into MessageChannel.
+func MessageChannelFromWrapper(input core.Wrapper) *MessageChannel {
+	return MessageChannelFromJS(input.JSValue())
 }
 
 func NewMessageChannel() (_result *MessageChannel) {
@@ -525,15 +532,19 @@ type MessageEvent struct {
 	domcore.Event
 }
 
-// MessageEventFromJS is casting a js.Wrapper into MessageEvent.
-func MessageEventFromJS(value js.Wrapper) *MessageEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MessageEventFromJS is casting a js.Value into MessageEvent.
+func MessageEventFromJS(value js.Value) *MessageEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MessageEventFromJS is casting from something that holds a js.Value into MessageEvent.
+func MessageEventFromWrapper(input core.Wrapper) *MessageEvent {
+	return MessageEventFromJS(input.JSValue())
 }
 
 func NewMessageEvent(_type string, eventInitDict *MessageEventInit) (_result *MessageEvent) {
@@ -686,15 +697,19 @@ type MessagePort struct {
 	domcore.EventTarget
 }
 
-// MessagePortFromJS is casting a js.Wrapper into MessagePort.
-func MessagePortFromJS(value js.Wrapper) *MessagePort {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MessagePortFromJS is casting a js.Value into MessagePort.
+func MessagePortFromJS(value js.Value) *MessagePort {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessagePort{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MessagePortFromJS is casting from something that holds a js.Value into MessagePort.
+func MessagePortFromWrapper(input core.Wrapper) *MessagePort {
+	return MessagePortFromJS(input.JSValue())
 }
 
 // OnMessage returning attribute 'onmessage' with
@@ -824,15 +839,19 @@ type WebSocket struct {
 	domcore.EventTarget
 }
 
-// WebSocketFromJS is casting a js.Wrapper into WebSocket.
-func WebSocketFromJS(value js.Wrapper) *WebSocket {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WebSocketFromJS is casting a js.Value into WebSocket.
+func WebSocketFromJS(value js.Value) *WebSocket {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WebSocket{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WebSocketFromJS is casting from something that holds a js.Value into WebSocket.
+func WebSocketFromWrapper(input core.Wrapper) *WebSocket {
+	return WebSocketFromJS(input.JSValue())
 }
 
 const (

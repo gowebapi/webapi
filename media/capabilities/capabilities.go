@@ -7,6 +7,7 @@ package capabilities
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/encrypted"
 )
@@ -336,7 +337,7 @@ type AudioConfiguration struct {
 	Samplerate  uint
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AudioConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -352,10 +353,8 @@ func (_this *AudioConfiguration) JSValue() js.Value {
 }
 
 // AudioConfigurationFromJS is allocating a new
-// AudioConfiguration object and copy all values from
-// input javascript object
-func AudioConfigurationFromJS(value js.Wrapper) *AudioConfiguration {
-	input := value.JSValue()
+// AudioConfiguration object and copy all values in the value javascript object.
+func AudioConfigurationFromJS(value js.Value) *AudioConfiguration {
 	var out AudioConfiguration
 	var (
 		value0 string // javascript: DOMString {contentType ContentType contentType}
@@ -363,13 +362,13 @@ func AudioConfigurationFromJS(value js.Wrapper) *AudioConfiguration {
 		value2 int    // javascript: unsigned long long {bitrate Bitrate bitrate}
 		value3 uint   // javascript: unsigned long {samplerate Samplerate samplerate}
 	)
-	value0 = (input.Get("contentType")).String()
+	value0 = (value.Get("contentType")).String()
 	out.ContentType = value0
-	value1 = (input.Get("channels")).String()
+	value1 = (value.Get("channels")).String()
 	out.Channels = value1
-	value2 = (input.Get("bitrate")).Int()
+	value2 = (value.Get("bitrate")).Int()
 	out.Bitrate = value2
-	value3 = (uint)((input.Get("samplerate")).Int())
+	value3 = (uint)((value.Get("samplerate")).Int())
 	out.Samplerate = value3
 	return &out
 }
@@ -382,7 +381,7 @@ type MediaCapabilitiesDecodingInfo struct {
 	KeySystemAccess *encrypted.MediaKeySystemAccess
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaCapabilitiesDecodingInfo) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -398,10 +397,8 @@ func (_this *MediaCapabilitiesDecodingInfo) JSValue() js.Value {
 }
 
 // MediaCapabilitiesDecodingInfoFromJS is allocating a new
-// MediaCapabilitiesDecodingInfo object and copy all values from
-// input javascript object
-func MediaCapabilitiesDecodingInfoFromJS(value js.Wrapper) *MediaCapabilitiesDecodingInfo {
-	input := value.JSValue()
+// MediaCapabilitiesDecodingInfo object and copy all values in the value javascript object.
+func MediaCapabilitiesDecodingInfoFromJS(value js.Value) *MediaCapabilitiesDecodingInfo {
 	var out MediaCapabilitiesDecodingInfo
 	var (
 		value0 bool                            // javascript: boolean {supported Supported supported}
@@ -409,13 +406,13 @@ func MediaCapabilitiesDecodingInfoFromJS(value js.Wrapper) *MediaCapabilitiesDec
 		value2 bool                            // javascript: boolean {powerEfficient PowerEfficient powerEfficient}
 		value3 *encrypted.MediaKeySystemAccess // javascript: MediaKeySystemAccess {keySystemAccess KeySystemAccess keySystemAccess}
 	)
-	value0 = (input.Get("supported")).Bool()
+	value0 = (value.Get("supported")).Bool()
 	out.Supported = value0
-	value1 = (input.Get("smooth")).Bool()
+	value1 = (value.Get("smooth")).Bool()
 	out.Smooth = value1
-	value2 = (input.Get("powerEfficient")).Bool()
+	value2 = (value.Get("powerEfficient")).Bool()
 	out.PowerEfficient = value2
-	value3 = encrypted.MediaKeySystemAccessFromJS(input.Get("keySystemAccess"))
+	value3 = encrypted.MediaKeySystemAccessFromJS(value.Get("keySystemAccess"))
 	out.KeySystemAccess = value3
 	return &out
 }
@@ -427,7 +424,7 @@ type MediaCapabilitiesInfo struct {
 	PowerEfficient bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaCapabilitiesInfo) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -441,21 +438,19 @@ func (_this *MediaCapabilitiesInfo) JSValue() js.Value {
 }
 
 // MediaCapabilitiesInfoFromJS is allocating a new
-// MediaCapabilitiesInfo object and copy all values from
-// input javascript object
-func MediaCapabilitiesInfoFromJS(value js.Wrapper) *MediaCapabilitiesInfo {
-	input := value.JSValue()
+// MediaCapabilitiesInfo object and copy all values in the value javascript object.
+func MediaCapabilitiesInfoFromJS(value js.Value) *MediaCapabilitiesInfo {
 	var out MediaCapabilitiesInfo
 	var (
 		value0 bool // javascript: boolean {supported Supported supported}
 		value1 bool // javascript: boolean {smooth Smooth smooth}
 		value2 bool // javascript: boolean {powerEfficient PowerEfficient powerEfficient}
 	)
-	value0 = (input.Get("supported")).Bool()
+	value0 = (value.Get("supported")).Bool()
 	out.Supported = value0
-	value1 = (input.Get("smooth")).Bool()
+	value1 = (value.Get("smooth")).Bool()
 	out.Smooth = value1
-	value2 = (input.Get("powerEfficient")).Bool()
+	value2 = (value.Get("powerEfficient")).Bool()
 	out.PowerEfficient = value2
 	return &out
 }
@@ -471,7 +466,7 @@ type MediaCapabilitiesKeySystemConfiguration struct {
 	SessionTypes          []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaCapabilitiesKeySystemConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -497,10 +492,8 @@ func (_this *MediaCapabilitiesKeySystemConfiguration) JSValue() js.Value {
 }
 
 // MediaCapabilitiesKeySystemConfigurationFromJS is allocating a new
-// MediaCapabilitiesKeySystemConfiguration object and copy all values from
-// input javascript object
-func MediaCapabilitiesKeySystemConfigurationFromJS(value js.Wrapper) *MediaCapabilitiesKeySystemConfiguration {
-	input := value.JSValue()
+// MediaCapabilitiesKeySystemConfiguration object and copy all values in the value javascript object.
+func MediaCapabilitiesKeySystemConfigurationFromJS(value js.Value) *MediaCapabilitiesKeySystemConfiguration {
 	var out MediaCapabilitiesKeySystemConfiguration
 	var (
 		value0 string                         // javascript: DOMString {keySystem KeySystem keySystem}
@@ -511,23 +504,23 @@ func MediaCapabilitiesKeySystemConfigurationFromJS(value js.Wrapper) *MediaCapab
 		value5 encrypted.MediaKeysRequirement // javascript: MediaKeysRequirement {persistentState PersistentState persistentState}
 		value6 []string                       // javascript: sequence<DOMString> {sessionTypes SessionTypes sessionTypes}
 	)
-	value0 = (input.Get("keySystem")).String()
+	value0 = (value.Get("keySystem")).String()
 	out.KeySystem = value0
-	value1 = (input.Get("initDataType")).String()
+	value1 = (value.Get("initDataType")).String()
 	out.InitDataType = value1
-	value2 = (input.Get("audioRobustness")).String()
+	value2 = (value.Get("audioRobustness")).String()
 	out.AudioRobustness = value2
-	value3 = (input.Get("videoRobustness")).String()
+	value3 = (value.Get("videoRobustness")).String()
 	out.VideoRobustness = value3
-	value4 = encrypted.MediaKeysRequirementFromJS(input.Get("distinctiveIdentifier"))
+	value4 = encrypted.MediaKeysRequirementFromJS(value.Get("distinctiveIdentifier"))
 	out.DistinctiveIdentifier = value4
-	value5 = encrypted.MediaKeysRequirementFromJS(input.Get("persistentState"))
+	value5 = encrypted.MediaKeysRequirementFromJS(value.Get("persistentState"))
 	out.PersistentState = value5
-	__length6 := input.Get("sessionTypes").Length()
+	__length6 := value.Get("sessionTypes").Length()
 	__array6 := make([]string, __length6, __length6)
 	for __idx6 := 0; __idx6 < __length6; __idx6++ {
 		var __seq_out6 string
-		__seq_in6 := input.Get("sessionTypes").Index(__idx6)
+		__seq_in6 := value.Get("sessionTypes").Index(__idx6)
 		__seq_out6 = (__seq_in6).String()
 		__array6[__idx6] = __seq_out6
 	}
@@ -542,7 +535,7 @@ type MediaConfiguration struct {
 	Audio *AudioConfiguration
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -554,18 +547,16 @@ func (_this *MediaConfiguration) JSValue() js.Value {
 }
 
 // MediaConfigurationFromJS is allocating a new
-// MediaConfiguration object and copy all values from
-// input javascript object
-func MediaConfigurationFromJS(value js.Wrapper) *MediaConfiguration {
-	input := value.JSValue()
+// MediaConfiguration object and copy all values in the value javascript object.
+func MediaConfigurationFromJS(value js.Value) *MediaConfiguration {
 	var out MediaConfiguration
 	var (
 		value0 *VideoConfiguration // javascript: VideoConfiguration {video Video video}
 		value1 *AudioConfiguration // javascript: AudioConfiguration {audio Audio audio}
 	)
-	value0 = VideoConfigurationFromJS(input.Get("video"))
+	value0 = VideoConfigurationFromJS(value.Get("video"))
 	out.Video = value0
-	value1 = AudioConfigurationFromJS(input.Get("audio"))
+	value1 = AudioConfigurationFromJS(value.Get("audio"))
 	out.Audio = value1
 	return &out
 }
@@ -578,7 +569,7 @@ type MediaDecodingConfiguration struct {
 	KeySystemConfiguration *MediaCapabilitiesKeySystemConfiguration
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaDecodingConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -594,10 +585,8 @@ func (_this *MediaDecodingConfiguration) JSValue() js.Value {
 }
 
 // MediaDecodingConfigurationFromJS is allocating a new
-// MediaDecodingConfiguration object and copy all values from
-// input javascript object
-func MediaDecodingConfigurationFromJS(value js.Wrapper) *MediaDecodingConfiguration {
-	input := value.JSValue()
+// MediaDecodingConfiguration object and copy all values in the value javascript object.
+func MediaDecodingConfigurationFromJS(value js.Value) *MediaDecodingConfiguration {
 	var out MediaDecodingConfiguration
 	var (
 		value0 *VideoConfiguration                      // javascript: VideoConfiguration {video Video video}
@@ -605,13 +594,13 @@ func MediaDecodingConfigurationFromJS(value js.Wrapper) *MediaDecodingConfigurat
 		value2 MediaDecodingType                        // javascript: MediaDecodingType {type Type _type}
 		value3 *MediaCapabilitiesKeySystemConfiguration // javascript: MediaCapabilitiesKeySystemConfiguration {keySystemConfiguration KeySystemConfiguration keySystemConfiguration}
 	)
-	value0 = VideoConfigurationFromJS(input.Get("video"))
+	value0 = VideoConfigurationFromJS(value.Get("video"))
 	out.Video = value0
-	value1 = AudioConfigurationFromJS(input.Get("audio"))
+	value1 = AudioConfigurationFromJS(value.Get("audio"))
 	out.Audio = value1
-	value2 = MediaDecodingTypeFromJS(input.Get("type"))
+	value2 = MediaDecodingTypeFromJS(value.Get("type"))
 	out.Type = value2
-	value3 = MediaCapabilitiesKeySystemConfigurationFromJS(input.Get("keySystemConfiguration"))
+	value3 = MediaCapabilitiesKeySystemConfigurationFromJS(value.Get("keySystemConfiguration"))
 	out.KeySystemConfiguration = value3
 	return &out
 }
@@ -623,7 +612,7 @@ type MediaEncodingConfiguration struct {
 	Type  MediaEncodingType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaEncodingConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -637,21 +626,19 @@ func (_this *MediaEncodingConfiguration) JSValue() js.Value {
 }
 
 // MediaEncodingConfigurationFromJS is allocating a new
-// MediaEncodingConfiguration object and copy all values from
-// input javascript object
-func MediaEncodingConfigurationFromJS(value js.Wrapper) *MediaEncodingConfiguration {
-	input := value.JSValue()
+// MediaEncodingConfiguration object and copy all values in the value javascript object.
+func MediaEncodingConfigurationFromJS(value js.Value) *MediaEncodingConfiguration {
 	var out MediaEncodingConfiguration
 	var (
 		value0 *VideoConfiguration // javascript: VideoConfiguration {video Video video}
 		value1 *AudioConfiguration // javascript: AudioConfiguration {audio Audio audio}
 		value2 MediaEncodingType   // javascript: MediaEncodingType {type Type _type}
 	)
-	value0 = VideoConfigurationFromJS(input.Get("video"))
+	value0 = VideoConfigurationFromJS(value.Get("video"))
 	out.Video = value0
-	value1 = AudioConfigurationFromJS(input.Get("audio"))
+	value1 = AudioConfigurationFromJS(value.Get("audio"))
 	out.Audio = value1
-	value2 = MediaEncodingTypeFromJS(input.Get("type"))
+	value2 = MediaEncodingTypeFromJS(value.Get("type"))
 	out.Type = value2
 	return &out
 }
@@ -665,7 +652,7 @@ type VideoConfiguration struct {
 	Framerate   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *VideoConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -683,10 +670,8 @@ func (_this *VideoConfiguration) JSValue() js.Value {
 }
 
 // VideoConfigurationFromJS is allocating a new
-// VideoConfiguration object and copy all values from
-// input javascript object
-func VideoConfigurationFromJS(value js.Wrapper) *VideoConfiguration {
-	input := value.JSValue()
+// VideoConfiguration object and copy all values in the value javascript object.
+func VideoConfigurationFromJS(value js.Value) *VideoConfiguration {
 	var out VideoConfiguration
 	var (
 		value0 string // javascript: DOMString {contentType ContentType contentType}
@@ -695,15 +680,15 @@ func VideoConfigurationFromJS(value js.Wrapper) *VideoConfiguration {
 		value3 int    // javascript: unsigned long long {bitrate Bitrate bitrate}
 		value4 string // javascript: DOMString {framerate Framerate framerate}
 	)
-	value0 = (input.Get("contentType")).String()
+	value0 = (value.Get("contentType")).String()
 	out.ContentType = value0
-	value1 = (uint)((input.Get("width")).Int())
+	value1 = (uint)((value.Get("width")).Int())
 	out.Width = value1
-	value2 = (uint)((input.Get("height")).Int())
+	value2 = (uint)((value.Get("height")).Int())
 	out.Height = value2
-	value3 = (input.Get("bitrate")).Int()
+	value3 = (value.Get("bitrate")).Int()
 	out.Bitrate = value3
-	value4 = (input.Get("framerate")).String()
+	value4 = (value.Get("framerate")).String()
 	out.Framerate = value4
 	return &out
 }
@@ -718,15 +703,19 @@ func (_this *MediaCapabilities) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaCapabilitiesFromJS is casting a js.Wrapper into MediaCapabilities.
-func MediaCapabilitiesFromJS(value js.Wrapper) *MediaCapabilities {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaCapabilitiesFromJS is casting a js.Value into MediaCapabilities.
+func MediaCapabilitiesFromJS(value js.Value) *MediaCapabilities {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaCapabilities{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaCapabilitiesFromJS is casting from something that holds a js.Value into MediaCapabilities.
+func MediaCapabilitiesFromWrapper(input core.Wrapper) *MediaCapabilities {
+	return MediaCapabilitiesFromJS(input.JSValue())
 }
 
 func (_this *MediaCapabilities) DecodingInfo(configuration *MediaDecodingConfiguration) (_result *PromiseMediaCapabilitiesDecodingInfo) {
@@ -773,15 +762,19 @@ func (_this *PromiseMediaCapabilitiesDecodingInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseMediaCapabilitiesDecodingInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesDecodingInfo.
-func PromiseMediaCapabilitiesDecodingInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesDecodingInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseMediaCapabilitiesDecodingInfoFromJS is casting a js.Value into PromiseMediaCapabilitiesDecodingInfo.
+func PromiseMediaCapabilitiesDecodingInfoFromJS(value js.Value) *PromiseMediaCapabilitiesDecodingInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaCapabilitiesDecodingInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseMediaCapabilitiesDecodingInfoFromJS is casting from something that holds a js.Value into PromiseMediaCapabilitiesDecodingInfo.
+func PromiseMediaCapabilitiesDecodingInfoFromWrapper(input core.Wrapper) *PromiseMediaCapabilitiesDecodingInfo {
+	return PromiseMediaCapabilitiesDecodingInfoFromJS(input.JSValue())
 }
 
 func (_this *PromiseMediaCapabilitiesDecodingInfo) Then(onFulfilled *PromiseMediaCapabilitiesDecodingInfoOnFulfilled, onRejected *PromiseMediaCapabilitiesDecodingInfoOnRejected) (_result *PromiseMediaCapabilitiesDecodingInfo) {
@@ -878,15 +871,19 @@ func (_this *PromiseMediaCapabilitiesInfo) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseMediaCapabilitiesInfoFromJS is casting a js.Wrapper into PromiseMediaCapabilitiesInfo.
-func PromiseMediaCapabilitiesInfoFromJS(value js.Wrapper) *PromiseMediaCapabilitiesInfo {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseMediaCapabilitiesInfoFromJS is casting a js.Value into PromiseMediaCapabilitiesInfo.
+func PromiseMediaCapabilitiesInfoFromJS(value js.Value) *PromiseMediaCapabilitiesInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaCapabilitiesInfo{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseMediaCapabilitiesInfoFromJS is casting from something that holds a js.Value into PromiseMediaCapabilitiesInfo.
+func PromiseMediaCapabilitiesInfoFromWrapper(input core.Wrapper) *PromiseMediaCapabilitiesInfo {
+	return PromiseMediaCapabilitiesInfoFromJS(input.JSValue())
 }
 
 func (_this *PromiseMediaCapabilitiesInfo) Then(onFulfilled *PromiseMediaCapabilitiesInfoOnFulfilled, onRejected *PromiseMediaCapabilitiesInfoOnRejected) (_result *PromiseMediaCapabilitiesInfo) {
@@ -983,15 +980,19 @@ func (_this *ScreenLuminance) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ScreenLuminanceFromJS is casting a js.Wrapper into ScreenLuminance.
-func ScreenLuminanceFromJS(value js.Wrapper) *ScreenLuminance {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ScreenLuminanceFromJS is casting a js.Value into ScreenLuminance.
+func ScreenLuminanceFromJS(value js.Value) *ScreenLuminance {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScreenLuminance{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ScreenLuminanceFromJS is casting from something that holds a js.Value into ScreenLuminance.
+func ScreenLuminanceFromWrapper(input core.Wrapper) *ScreenLuminance {
+	return ScreenLuminanceFromJS(input.JSValue())
 }
 
 // Min returning attribute 'min' with

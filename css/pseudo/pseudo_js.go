@@ -5,6 +5,7 @@ package pseudo
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
@@ -59,15 +60,19 @@ func (_this *CSSPseudoElement) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSPseudoElementFromJS is casting a js.Wrapper into CSSPseudoElement.
-func CSSPseudoElementFromJS(value js.Wrapper) *CSSPseudoElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSPseudoElementFromJS is casting a js.Value into CSSPseudoElement.
+func CSSPseudoElementFromJS(value js.Value) *CSSPseudoElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPseudoElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSPseudoElementFromJS is casting from something that holds a js.Value into CSSPseudoElement.
+func CSSPseudoElementFromWrapper(input core.Wrapper) *CSSPseudoElement {
+	return CSSPseudoElementFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -253,15 +258,19 @@ func (_this *CSSPseudoElementList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSPseudoElementListFromJS is casting a js.Wrapper into CSSPseudoElementList.
-func CSSPseudoElementListFromJS(value js.Wrapper) *CSSPseudoElementList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSPseudoElementListFromJS is casting a js.Value into CSSPseudoElementList.
+func CSSPseudoElementListFromJS(value js.Value) *CSSPseudoElementList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPseudoElementList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSPseudoElementListFromJS is casting from something that holds a js.Value into CSSPseudoElementList.
+func CSSPseudoElementListFromWrapper(input core.Wrapper) *CSSPseudoElementList {
+	return CSSPseudoElementListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with

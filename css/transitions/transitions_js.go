@@ -5,6 +5,7 @@ package transitions
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
 
@@ -44,7 +45,7 @@ type TransitionEventInit struct {
 	PseudoElement string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TransitionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -64,10 +65,8 @@ func (_this *TransitionEventInit) JSValue() js.Value {
 }
 
 // TransitionEventInitFromJS is allocating a new
-// TransitionEventInit object and copy all values from
-// input javascript object
-func TransitionEventInitFromJS(value js.Wrapper) *TransitionEventInit {
-	input := value.JSValue()
+// TransitionEventInit object and copy all values in the value javascript object.
+func TransitionEventInitFromJS(value js.Value) *TransitionEventInit {
 	var out TransitionEventInit
 	var (
 		value0 bool    // javascript: boolean {bubbles Bubbles bubbles}
@@ -77,17 +76,17 @@ func TransitionEventInitFromJS(value js.Wrapper) *TransitionEventInit {
 		value4 float64 // javascript: double {elapsedTime ElapsedTime elapsedTime}
 		value5 string  // javascript: DOMString {pseudoElement PseudoElement pseudoElement}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("propertyName")).String()
+	value3 = (value.Get("propertyName")).String()
 	out.PropertyName = value3
-	value4 = (input.Get("elapsedTime")).Float()
+	value4 = (value.Get("elapsedTime")).Float()
 	out.ElapsedTime = value4
-	value5 = (input.Get("pseudoElement")).String()
+	value5 = (value.Get("pseudoElement")).String()
 	out.PseudoElement = value5
 	return &out
 }
@@ -97,15 +96,19 @@ type TransitionEvent struct {
 	domcore.Event
 }
 
-// TransitionEventFromJS is casting a js.Wrapper into TransitionEvent.
-func TransitionEventFromJS(value js.Wrapper) *TransitionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TransitionEventFromJS is casting a js.Value into TransitionEvent.
+func TransitionEventFromJS(value js.Value) *TransitionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TransitionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TransitionEventFromJS is casting from something that holds a js.Value into TransitionEvent.
+func TransitionEventFromWrapper(input core.Wrapper) *TransitionEvent {
+	return TransitionEventFromJS(input.JSValue())
 }
 
 func NewTransitionEvent(_type string, transitionEventInitDict *TransitionEventInit) (_result *TransitionEvent) {

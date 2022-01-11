@@ -5,6 +5,7 @@ package webvr
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/core/jsarray"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/htmlcommon"
@@ -231,7 +232,7 @@ type DisplayEventInit struct {
 	Reason     DisplayEventReason
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DisplayEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -249,10 +250,8 @@ func (_this *DisplayEventInit) JSValue() js.Value {
 }
 
 // DisplayEventInitFromJS is allocating a new
-// DisplayEventInit object and copy all values from
-// input javascript object
-func DisplayEventInitFromJS(value js.Wrapper) *DisplayEventInit {
-	input := value.JSValue()
+// DisplayEventInit object and copy all values in the value javascript object.
+func DisplayEventInitFromJS(value js.Value) *DisplayEventInit {
 	var out DisplayEventInit
 	var (
 		value0 bool               // javascript: boolean {bubbles Bubbles bubbles}
@@ -261,15 +260,15 @@ func DisplayEventInitFromJS(value js.Wrapper) *DisplayEventInit {
 		value3 *Display           // javascript: VRDisplay {display Display display}
 		value4 DisplayEventReason // javascript: VRDisplayEventReason {reason Reason reason}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = DisplayFromJS(input.Get("display"))
+	value3 = DisplayFromJS(value.Get("display"))
 	out.Display = value3
-	value4 = DisplayEventReasonFromJS(input.Get("reason"))
+	value4 = DisplayEventReasonFromJS(value.Get("reason"))
 	out.Reason = value4
 	return &out
 }
@@ -281,7 +280,7 @@ type LayerInit struct {
 	RightBounds []float32
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayerInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -295,23 +294,21 @@ func (_this *LayerInit) JSValue() js.Value {
 }
 
 // LayerInitFromJS is allocating a new
-// LayerInit object and copy all values from
-// input javascript object
-func LayerInitFromJS(value js.Wrapper) *LayerInit {
-	input := value.JSValue()
+// LayerInit object and copy all values in the value javascript object.
+func LayerInitFromJS(value js.Value) *LayerInit {
 	var out LayerInit
 	var (
 		value0 *Union    // javascript: Union {source Source source}
 		value1 []float32 // javascript: typed-array {leftBounds LeftBounds leftBounds}
 		value2 []float32 // javascript: typed-array {rightBounds RightBounds rightBounds}
 	)
-	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
-		value0 = UnionFromJS(input.Get("source"))
+	if value.Get("source").Type() != js.TypeNull && value.Get("source").Type() != js.TypeUndefined {
+		value0 = UnionFromJS(value.Get("source"))
 	}
 	out.Source = value0
-	value1 = jsarray.Float32ToGo(input.Get("leftBounds"))
+	value1 = jsarray.Float32ToGo(value.Get("leftBounds"))
 	out.LeftBounds = value1
-	value2 = jsarray.Float32ToGo(input.Get("rightBounds"))
+	value2 = jsarray.Float32ToGo(value.Get("rightBounds"))
 	out.RightBounds = value2
 	return &out
 }
@@ -321,15 +318,19 @@ type Display struct {
 	domcore.EventTarget
 }
 
-// DisplayFromJS is casting a js.Wrapper into Display.
-func DisplayFromJS(value js.Wrapper) *Display {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DisplayFromJS is casting a js.Value into Display.
+func DisplayFromJS(value js.Value) *Display {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Display{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DisplayFromJS is casting from something that holds a js.Value into Display.
+func DisplayFromWrapper(input core.Wrapper) *Display {
+	return DisplayFromJS(input.JSValue())
 }
 
 // IsConnected returning attribute 'isConnected' with
@@ -589,15 +590,19 @@ func (_this *DisplayCapabilities) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DisplayCapabilitiesFromJS is casting a js.Wrapper into DisplayCapabilities.
-func DisplayCapabilitiesFromJS(value js.Wrapper) *DisplayCapabilities {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DisplayCapabilitiesFromJS is casting a js.Value into DisplayCapabilities.
+func DisplayCapabilitiesFromJS(value js.Value) *DisplayCapabilities {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DisplayCapabilities{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DisplayCapabilitiesFromJS is casting from something that holds a js.Value into DisplayCapabilities.
+func DisplayCapabilitiesFromWrapper(input core.Wrapper) *DisplayCapabilities {
+	return DisplayCapabilitiesFromJS(input.JSValue())
 }
 
 // HasPosition returning attribute 'hasPosition' with
@@ -650,15 +655,19 @@ type DisplayEvent struct {
 	domcore.Event
 }
 
-// DisplayEventFromJS is casting a js.Wrapper into DisplayEvent.
-func DisplayEventFromJS(value js.Wrapper) *DisplayEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DisplayEventFromJS is casting a js.Value into DisplayEvent.
+func DisplayEventFromJS(value js.Value) *DisplayEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DisplayEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DisplayEventFromJS is casting from something that holds a js.Value into DisplayEvent.
+func DisplayEventFromWrapper(input core.Wrapper) *DisplayEvent {
+	return DisplayEventFromJS(input.JSValue())
 }
 
 func NewVRDisplayEvent(_type string, eventInitDict *DisplayEventInit) (_result *DisplayEvent) {
@@ -713,15 +722,19 @@ func (_this *EyeParameters) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// EyeParametersFromJS is casting a js.Wrapper into EyeParameters.
-func EyeParametersFromJS(value js.Wrapper) *EyeParameters {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EyeParametersFromJS is casting a js.Value into EyeParameters.
+func EyeParametersFromJS(value js.Value) *EyeParameters {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EyeParameters{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EyeParametersFromJS is casting from something that holds a js.Value into EyeParameters.
+func EyeParametersFromWrapper(input core.Wrapper) *EyeParameters {
+	return EyeParametersFromJS(input.JSValue())
 }
 
 // Offset returning attribute 'offset' with
@@ -770,15 +783,19 @@ func (_this *FieldOfView) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FieldOfViewFromJS is casting a js.Wrapper into FieldOfView.
-func FieldOfViewFromJS(value js.Wrapper) *FieldOfView {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FieldOfViewFromJS is casting a js.Value into FieldOfView.
+func FieldOfViewFromJS(value js.Value) *FieldOfView {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FieldOfView{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FieldOfViewFromJS is casting from something that holds a js.Value into FieldOfView.
+func FieldOfViewFromWrapper(input core.Wrapper) *FieldOfView {
+	return FieldOfViewFromJS(input.JSValue())
 }
 
 // UpDegrees returning attribute 'upDegrees' with
@@ -827,15 +844,19 @@ func (_this *FrameData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FrameDataFromJS is casting a js.Wrapper into FrameData.
-func FrameDataFromJS(value js.Wrapper) *FrameData {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FrameDataFromJS is casting a js.Value into FrameData.
+func FrameDataFromJS(value js.Value) *FrameData {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FrameData{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FrameDataFromJS is casting from something that holds a js.Value into FrameData.
+func FrameDataFromWrapper(input core.Wrapper) *FrameData {
+	return FrameDataFromJS(input.JSValue())
 }
 
 func NewVRFrameData() (_result *FrameData) {
@@ -917,15 +938,19 @@ func (_this *Pose) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PoseFromJS is casting a js.Wrapper into Pose.
-func PoseFromJS(value js.Wrapper) *Pose {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PoseFromJS is casting a js.Value into Pose.
+func PoseFromJS(value js.Value) *Pose {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Pose{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PoseFromJS is casting from something that holds a js.Value into Pose.
+func PoseFromWrapper(input core.Wrapper) *Pose {
+	return PoseFromJS(input.JSValue())
 }
 
 // Position returning attribute 'position' with
@@ -1004,15 +1029,19 @@ func (_this *PromiseSequenceDisplay) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceDisplayFromJS is casting a js.Wrapper into PromiseSequenceDisplay.
-func PromiseSequenceDisplayFromJS(value js.Wrapper) *PromiseSequenceDisplay {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceDisplayFromJS is casting a js.Value into PromiseSequenceDisplay.
+func PromiseSequenceDisplayFromJS(value js.Value) *PromiseSequenceDisplay {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDisplay{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceDisplayFromJS is casting from something that holds a js.Value into PromiseSequenceDisplay.
+func PromiseSequenceDisplayFromWrapper(input core.Wrapper) *PromiseSequenceDisplay {
+	return PromiseSequenceDisplayFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceDisplay) Then(onFulfilled *PromiseSequenceDisplayOnFulfilled, onRejected *PromiseSequenceDisplayOnRejected) (_result *PromiseSequenceDisplay) {
@@ -1109,15 +1138,19 @@ func (_this *StageParameters) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StageParametersFromJS is casting a js.Wrapper into StageParameters.
-func StageParametersFromJS(value js.Wrapper) *StageParameters {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StageParametersFromJS is casting a js.Value into StageParameters.
+func StageParametersFromJS(value js.Value) *StageParameters {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StageParameters{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StageParametersFromJS is casting from something that holds a js.Value into StageParameters.
+func StageParametersFromWrapper(input core.Wrapper) *StageParameters {
+	return StageParametersFromJS(input.JSValue())
 }
 
 // SittingToStandingTransform returning attribute 'sittingToStandingTransform' with

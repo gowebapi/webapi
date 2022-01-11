@@ -5,6 +5,7 @@ package counterstyles
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/cssom"
 )
 
@@ -39,15 +40,19 @@ type CSSCounterStyleRule struct {
 	cssom.CSSRule
 }
 
-// CSSCounterStyleRuleFromJS is casting a js.Wrapper into CSSCounterStyleRule.
-func CSSCounterStyleRuleFromJS(value js.Wrapper) *CSSCounterStyleRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSCounterStyleRuleFromJS is casting a js.Value into CSSCounterStyleRule.
+func CSSCounterStyleRuleFromJS(value js.Value) *CSSCounterStyleRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSCounterStyleRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSCounterStyleRuleFromJS is casting from something that holds a js.Value into CSSCounterStyleRule.
+func CSSCounterStyleRuleFromWrapper(input core.Wrapper) *CSSCounterStyleRule {
+	return CSSCounterStyleRuleFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with

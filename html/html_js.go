@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/clipboard"
 	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/csp"
 	"github.com/gowebapi/webapi/css/animations"
 	"github.com/gowebapi/webapi/css/cssom"
@@ -314,7 +315,7 @@ type AssignedNodesOptions struct {
 	Flatten bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AssignedNodesOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -324,15 +325,13 @@ func (_this *AssignedNodesOptions) JSValue() js.Value {
 }
 
 // AssignedNodesOptionsFromJS is allocating a new
-// AssignedNodesOptions object and copy all values from
-// input javascript object
-func AssignedNodesOptionsFromJS(value js.Wrapper) *AssignedNodesOptions {
-	input := value.JSValue()
+// AssignedNodesOptions object and copy all values in the value javascript object.
+func AssignedNodesOptionsFromJS(value js.Value) *AssignedNodesOptions {
 	var out AssignedNodesOptions
 	var (
 		value0 bool // javascript: boolean {flatten Flatten flatten}
 	)
-	value0 = (input.Get("flatten")).Bool()
+	value0 = (value.Get("flatten")).Bool()
 	out.Flatten = value0
 	return &out
 }
@@ -342,7 +341,7 @@ type FocusOptions struct {
 	PreventScroll bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FocusOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -352,15 +351,13 @@ func (_this *FocusOptions) JSValue() js.Value {
 }
 
 // FocusOptionsFromJS is allocating a new
-// FocusOptions object and copy all values from
-// input javascript object
-func FocusOptionsFromJS(value js.Wrapper) *FocusOptions {
-	input := value.JSValue()
+// FocusOptions object and copy all values in the value javascript object.
+func FocusOptionsFromJS(value js.Value) *FocusOptions {
 	var out FocusOptions
 	var (
 		value0 bool // javascript: boolean {preventScroll PreventScroll preventScroll}
 	)
-	value0 = (input.Get("preventScroll")).Bool()
+	value0 = (value.Get("preventScroll")).Bool()
 	out.PreventScroll = value0
 	return &out
 }
@@ -371,7 +368,7 @@ type FormDataEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FormDataEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -387,26 +384,24 @@ func (_this *FormDataEntryIteratorValue) JSValue() js.Value {
 }
 
 // FormDataEntryIteratorValueFromJS is allocating a new
-// FormDataEntryIteratorValue object and copy all values from
-// input javascript object
-func FormDataEntryIteratorValueFromJS(value js.Wrapper) *FormDataEntryIteratorValue {
-	input := value.JSValue()
+// FormDataEntryIteratorValue object and copy all values in the value javascript object.
+func FormDataEntryIteratorValueFromJS(value js.Value) *FormDataEntryIteratorValue {
 	var out FormDataEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -419,7 +414,7 @@ type FormDataEventInit struct {
 	FormData   *FormData
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FormDataEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -435,10 +430,8 @@ func (_this *FormDataEventInit) JSValue() js.Value {
 }
 
 // FormDataEventInitFromJS is allocating a new
-// FormDataEventInit object and copy all values from
-// input javascript object
-func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
-	input := value.JSValue()
+// FormDataEventInit object and copy all values in the value javascript object.
+func FormDataEventInitFromJS(value js.Value) *FormDataEventInit {
 	var out FormDataEventInit
 	var (
 		value0 bool      // javascript: boolean {bubbles Bubbles bubbles}
@@ -446,13 +439,13 @@ func FormDataEventInitFromJS(value js.Wrapper) *FormDataEventInit {
 		value2 bool      // javascript: boolean {composed Composed composed}
 		value3 *FormData // javascript: FormData {formData FormData formData}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = FormDataFromJS(input.Get("formData"))
+	value3 = FormDataFromJS(value.Get("formData"))
 	out.FormData = value3
 	return &out
 }
@@ -463,7 +456,7 @@ type FormDataKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FormDataKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -475,18 +468,16 @@ func (_this *FormDataKeyIteratorValue) JSValue() js.Value {
 }
 
 // FormDataKeyIteratorValueFromJS is allocating a new
-// FormDataKeyIteratorValue object and copy all values from
-// input javascript object
-func FormDataKeyIteratorValueFromJS(value js.Wrapper) *FormDataKeyIteratorValue {
-	input := value.JSValue()
+// FormDataKeyIteratorValue object and copy all values in the value javascript object.
+func FormDataKeyIteratorValueFromJS(value js.Value) *FormDataKeyIteratorValue {
 	var out FormDataKeyIteratorValue
 	var (
 		value0 string // javascript: USVString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -497,7 +488,7 @@ type FormDataValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FormDataValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -509,18 +500,16 @@ func (_this *FormDataValueIteratorValue) JSValue() js.Value {
 }
 
 // FormDataValueIteratorValueFromJS is allocating a new
-// FormDataValueIteratorValue object and copy all values from
-// input javascript object
-func FormDataValueIteratorValueFromJS(value js.Wrapper) *FormDataValueIteratorValue {
-	input := value.JSValue()
+// FormDataValueIteratorValue object and copy all values in the value javascript object.
+func FormDataValueIteratorValueFromJS(value js.Value) *FormDataValueIteratorValue {
 	var out FormDataValueIteratorValue
 	var (
 		value0 *Union // javascript: Union {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = UnionFromJS(input.Get("value"))
+	value0 = UnionFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -531,7 +520,7 @@ type ImageEncodeOptions struct {
 	Quality float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ImageEncodeOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -543,18 +532,16 @@ func (_this *ImageEncodeOptions) JSValue() js.Value {
 }
 
 // ImageEncodeOptionsFromJS is allocating a new
-// ImageEncodeOptions object and copy all values from
-// input javascript object
-func ImageEncodeOptionsFromJS(value js.Wrapper) *ImageEncodeOptions {
-	input := value.JSValue()
+// ImageEncodeOptions object and copy all values in the value javascript object.
+func ImageEncodeOptionsFromJS(value js.Value) *ImageEncodeOptions {
 	var out ImageEncodeOptions
 	var (
 		value0 string  // javascript: DOMString {type Type _type}
 		value1 float64 // javascript: unrestricted double {quality Quality quality}
 	)
-	value0 = (input.Get("type")).String()
+	value0 = (value.Get("type")).String()
 	out.Type = value0
-	value1 = (input.Get("quality")).Float()
+	value1 = (value.Get("quality")).Float()
 	out.Quality = value1
 	return &out
 }
@@ -569,15 +556,19 @@ func (_this *FormData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FormDataFromJS is casting a js.Wrapper into FormData.
-func FormDataFromJS(value js.Wrapper) *FormData {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FormDataFromJS is casting a js.Value into FormData.
+func FormDataFromJS(value js.Value) *FormData {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FormData{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FormDataFromJS is casting from something that holds a js.Value into FormData.
+func FormDataFromWrapper(input core.Wrapper) *FormData {
+	return FormDataFromJS(input.JSValue())
 }
 
 func NewFormData(form *HTMLFormElement) (_result *FormData) {
@@ -831,15 +822,19 @@ func (_this *FormDataEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FormDataEntryIteratorFromJS is casting a js.Wrapper into FormDataEntryIterator.
-func FormDataEntryIteratorFromJS(value js.Wrapper) *FormDataEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FormDataEntryIteratorFromJS is casting a js.Value into FormDataEntryIterator.
+func FormDataEntryIteratorFromJS(value js.Value) *FormDataEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FormDataEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FormDataEntryIteratorFromJS is casting from something that holds a js.Value into FormDataEntryIterator.
+func FormDataEntryIteratorFromWrapper(input core.Wrapper) *FormDataEntryIterator {
+	return FormDataEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *FormDataEntryIterator) Next() (_result *FormDataEntryIteratorValue) {
@@ -861,15 +856,19 @@ type FormDataEvent struct {
 	domcore.Event
 }
 
-// FormDataEventFromJS is casting a js.Wrapper into FormDataEvent.
-func FormDataEventFromJS(value js.Wrapper) *FormDataEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FormDataEventFromJS is casting a js.Value into FormDataEvent.
+func FormDataEventFromJS(value js.Value) *FormDataEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FormDataEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FormDataEventFromJS is casting from something that holds a js.Value into FormDataEvent.
+func FormDataEventFromWrapper(input core.Wrapper) *FormDataEvent {
+	return FormDataEventFromJS(input.JSValue())
 }
 
 func NewFormDataEvent(_type string, eventInitDict *FormDataEventInit) (_result *FormDataEvent) {
@@ -914,15 +913,19 @@ func (_this *FormDataKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FormDataKeyIteratorFromJS is casting a js.Wrapper into FormDataKeyIterator.
-func FormDataKeyIteratorFromJS(value js.Wrapper) *FormDataKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FormDataKeyIteratorFromJS is casting a js.Value into FormDataKeyIterator.
+func FormDataKeyIteratorFromJS(value js.Value) *FormDataKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FormDataKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FormDataKeyIteratorFromJS is casting from something that holds a js.Value into FormDataKeyIterator.
+func FormDataKeyIteratorFromWrapper(input core.Wrapper) *FormDataKeyIterator {
+	return FormDataKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *FormDataKeyIterator) Next() (_result *FormDataKeyIteratorValue) {
@@ -949,15 +952,19 @@ func (_this *FormDataValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FormDataValueIteratorFromJS is casting a js.Wrapper into FormDataValueIterator.
-func FormDataValueIteratorFromJS(value js.Wrapper) *FormDataValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FormDataValueIteratorFromJS is casting a js.Value into FormDataValueIterator.
+func FormDataValueIteratorFromJS(value js.Value) *FormDataValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FormDataValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FormDataValueIteratorFromJS is casting from something that holds a js.Value into FormDataValueIterator.
+func FormDataValueIteratorFromWrapper(input core.Wrapper) *FormDataValueIterator {
+	return FormDataValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *FormDataValueIterator) Next() (_result *FormDataValueIteratorValue) {
@@ -984,15 +991,19 @@ func (_this *HTMLAllCollection) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HTMLAllCollectionFromJS is casting a js.Wrapper into HTMLAllCollection.
-func HTMLAllCollectionFromJS(value js.Wrapper) *HTMLAllCollection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLAllCollectionFromJS is casting a js.Value into HTMLAllCollection.
+func HTMLAllCollectionFromJS(value js.Value) *HTMLAllCollection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLAllCollection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLAllCollectionFromJS is casting from something that holds a js.Value into HTMLAllCollection.
+func HTMLAllCollectionFromWrapper(input core.Wrapper) *HTMLAllCollection {
+	return HTMLAllCollectionFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1091,15 +1102,19 @@ type HTMLAnchorElement struct {
 	HTMLElement
 }
 
-// HTMLAnchorElementFromJS is casting a js.Wrapper into HTMLAnchorElement.
-func HTMLAnchorElementFromJS(value js.Wrapper) *HTMLAnchorElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLAnchorElementFromJS is casting a js.Value into HTMLAnchorElement.
+func HTMLAnchorElementFromJS(value js.Value) *HTMLAnchorElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLAnchorElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLAnchorElementFromJS is casting from something that holds a js.Value into HTMLAnchorElement.
+func HTMLAnchorElementFromWrapper(input core.Wrapper) *HTMLAnchorElement {
+	return HTMLAnchorElementFromJS(input.JSValue())
 }
 
 // Target returning attribute 'target' with
@@ -1498,15 +1513,19 @@ type HTMLAreaElement struct {
 	HTMLElement
 }
 
-// HTMLAreaElementFromJS is casting a js.Wrapper into HTMLAreaElement.
-func HTMLAreaElementFromJS(value js.Wrapper) *HTMLAreaElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLAreaElementFromJS is casting a js.Value into HTMLAreaElement.
+func HTMLAreaElementFromJS(value js.Value) *HTMLAreaElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLAreaElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLAreaElementFromJS is casting from something that holds a js.Value into HTMLAreaElement.
+func HTMLAreaElementFromWrapper(input core.Wrapper) *HTMLAreaElement {
+	return HTMLAreaElementFromJS(input.JSValue())
 }
 
 // Alt returning attribute 'alt' with
@@ -1841,15 +1860,19 @@ type HTMLBRElement struct {
 	HTMLElement
 }
 
-// HTMLBRElementFromJS is casting a js.Wrapper into HTMLBRElement.
-func HTMLBRElementFromJS(value js.Wrapper) *HTMLBRElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLBRElementFromJS is casting a js.Value into HTMLBRElement.
+func HTMLBRElementFromJS(value js.Value) *HTMLBRElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLBRElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLBRElementFromJS is casting from something that holds a js.Value into HTMLBRElement.
+func HTMLBRElementFromWrapper(input core.Wrapper) *HTMLBRElement {
+	return HTMLBRElementFromJS(input.JSValue())
 }
 
 // Clear returning attribute 'clear' with
@@ -1873,15 +1896,19 @@ type HTMLBaseElement struct {
 	HTMLElement
 }
 
-// HTMLBaseElementFromJS is casting a js.Wrapper into HTMLBaseElement.
-func HTMLBaseElementFromJS(value js.Wrapper) *HTMLBaseElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLBaseElementFromJS is casting a js.Value into HTMLBaseElement.
+func HTMLBaseElementFromJS(value js.Value) *HTMLBaseElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLBaseElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLBaseElementFromJS is casting from something that holds a js.Value into HTMLBaseElement.
+func HTMLBaseElementFromWrapper(input core.Wrapper) *HTMLBaseElement {
+	return HTMLBaseElementFromJS(input.JSValue())
 }
 
 // Href returning attribute 'href' with
@@ -1921,15 +1948,19 @@ type HTMLBodyElement struct {
 	HTMLElement
 }
 
-// HTMLBodyElementFromJS is casting a js.Wrapper into HTMLBodyElement.
-func HTMLBodyElementFromJS(value js.Wrapper) *HTMLBodyElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLBodyElementFromJS is casting a js.Value into HTMLBodyElement.
+func HTMLBodyElementFromJS(value js.Value) *HTMLBodyElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLBodyElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLBodyElementFromJS is casting from something that holds a js.Value into HTMLBodyElement.
+func HTMLBodyElementFromWrapper(input core.Wrapper) *HTMLBodyElement {
+	return HTMLBodyElementFromJS(input.JSValue())
 }
 
 // OnOrientationChange returning attribute 'onorientationchange' with
@@ -2604,15 +2635,19 @@ type HTMLButtonElement struct {
 	HTMLElement
 }
 
-// HTMLButtonElementFromJS is casting a js.Wrapper into HTMLButtonElement.
-func HTMLButtonElementFromJS(value js.Wrapper) *HTMLButtonElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLButtonElementFromJS is casting a js.Value into HTMLButtonElement.
+func HTMLButtonElementFromJS(value js.Value) *HTMLButtonElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLButtonElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLButtonElementFromJS is casting from something that holds a js.Value into HTMLButtonElement.
+func HTMLButtonElementFromWrapper(input core.Wrapper) *HTMLButtonElement {
+	return HTMLButtonElementFromJS(input.JSValue())
 }
 
 // Autofocus returning attribute 'autofocus' with
@@ -2867,15 +2902,19 @@ type HTMLDListElement struct {
 	HTMLElement
 }
 
-// HTMLDListElementFromJS is casting a js.Wrapper into HTMLDListElement.
-func HTMLDListElementFromJS(value js.Wrapper) *HTMLDListElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDListElementFromJS is casting a js.Value into HTMLDListElement.
+func HTMLDListElementFromJS(value js.Value) *HTMLDListElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDListElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDListElementFromJS is casting from something that holds a js.Value into HTMLDListElement.
+func HTMLDListElementFromWrapper(input core.Wrapper) *HTMLDListElement {
+	return HTMLDListElementFromJS(input.JSValue())
 }
 
 // Compact returning attribute 'compact' with
@@ -2899,15 +2938,19 @@ type HTMLDataElement struct {
 	HTMLElement
 }
 
-// HTMLDataElementFromJS is casting a js.Wrapper into HTMLDataElement.
-func HTMLDataElementFromJS(value js.Wrapper) *HTMLDataElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDataElementFromJS is casting a js.Value into HTMLDataElement.
+func HTMLDataElementFromJS(value js.Value) *HTMLDataElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDataElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDataElementFromJS is casting from something that holds a js.Value into HTMLDataElement.
+func HTMLDataElementFromWrapper(input core.Wrapper) *HTMLDataElement {
+	return HTMLDataElementFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -2931,15 +2974,19 @@ type HTMLDataListElement struct {
 	HTMLElement
 }
 
-// HTMLDataListElementFromJS is casting a js.Wrapper into HTMLDataListElement.
-func HTMLDataListElementFromJS(value js.Wrapper) *HTMLDataListElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDataListElementFromJS is casting a js.Value into HTMLDataListElement.
+func HTMLDataListElementFromJS(value js.Value) *HTMLDataListElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDataListElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDataListElementFromJS is casting from something that holds a js.Value into HTMLDataListElement.
+func HTMLDataListElementFromWrapper(input core.Wrapper) *HTMLDataListElement {
+	return HTMLDataListElementFromJS(input.JSValue())
 }
 
 // Options returning attribute 'options' with
@@ -2956,15 +3003,19 @@ type HTMLDetailsElement struct {
 	HTMLElement
 }
 
-// HTMLDetailsElementFromJS is casting a js.Wrapper into HTMLDetailsElement.
-func HTMLDetailsElementFromJS(value js.Wrapper) *HTMLDetailsElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDetailsElementFromJS is casting a js.Value into HTMLDetailsElement.
+func HTMLDetailsElementFromJS(value js.Value) *HTMLDetailsElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDetailsElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDetailsElementFromJS is casting from something that holds a js.Value into HTMLDetailsElement.
+func HTMLDetailsElementFromWrapper(input core.Wrapper) *HTMLDetailsElement {
+	return HTMLDetailsElementFromJS(input.JSValue())
 }
 
 // Open returning attribute 'open' with
@@ -2988,15 +3039,19 @@ type HTMLDialogElement struct {
 	HTMLElement
 }
 
-// HTMLDialogElementFromJS is casting a js.Wrapper into HTMLDialogElement.
-func HTMLDialogElementFromJS(value js.Wrapper) *HTMLDialogElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDialogElementFromJS is casting a js.Value into HTMLDialogElement.
+func HTMLDialogElementFromJS(value js.Value) *HTMLDialogElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDialogElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDialogElementFromJS is casting from something that holds a js.Value into HTMLDialogElement.
+func HTMLDialogElementFromWrapper(input core.Wrapper) *HTMLDialogElement {
+	return HTMLDialogElementFromJS(input.JSValue())
 }
 
 // Open returning attribute 'open' with
@@ -3074,15 +3129,19 @@ type HTMLDirectoryElement struct {
 	HTMLElement
 }
 
-// HTMLDirectoryElementFromJS is casting a js.Wrapper into HTMLDirectoryElement.
-func HTMLDirectoryElementFromJS(value js.Wrapper) *HTMLDirectoryElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDirectoryElementFromJS is casting a js.Value into HTMLDirectoryElement.
+func HTMLDirectoryElementFromJS(value js.Value) *HTMLDirectoryElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDirectoryElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDirectoryElementFromJS is casting from something that holds a js.Value into HTMLDirectoryElement.
+func HTMLDirectoryElementFromWrapper(input core.Wrapper) *HTMLDirectoryElement {
+	return HTMLDirectoryElementFromJS(input.JSValue())
 }
 
 // Compact returning attribute 'compact' with
@@ -3106,15 +3165,19 @@ type HTMLDivElement struct {
 	HTMLElement
 }
 
-// HTMLDivElementFromJS is casting a js.Wrapper into HTMLDivElement.
-func HTMLDivElementFromJS(value js.Wrapper) *HTMLDivElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLDivElementFromJS is casting a js.Value into HTMLDivElement.
+func HTMLDivElementFromJS(value js.Value) *HTMLDivElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLDivElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLDivElementFromJS is casting from something that holds a js.Value into HTMLDivElement.
+func HTMLDivElementFromWrapper(input core.Wrapper) *HTMLDivElement {
+	return HTMLDivElementFromJS(input.JSValue())
 }
 
 // Align returning attribute 'align' with
@@ -3138,15 +3201,19 @@ type HTMLElement struct {
 	dom.Element
 }
 
-// HTMLElementFromJS is casting a js.Wrapper into HTMLElement.
-func HTMLElementFromJS(value js.Wrapper) *HTMLElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLElementFromJS is casting a js.Value into HTMLElement.
+func HTMLElementFromJS(value js.Value) *HTMLElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLElementFromJS is casting from something that holds a js.Value into HTMLElement.
+func HTMLElementFromWrapper(input core.Wrapper) *HTMLElement {
+	return HTMLElementFromJS(input.JSValue())
 }
 
 // Title returning attribute 'title' with
@@ -6172,15 +6239,19 @@ type HTMLFieldSetElement struct {
 	HTMLElement
 }
 
-// HTMLFieldSetElementFromJS is casting a js.Wrapper into HTMLFieldSetElement.
-func HTMLFieldSetElementFromJS(value js.Wrapper) *HTMLFieldSetElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFieldSetElementFromJS is casting a js.Value into HTMLFieldSetElement.
+func HTMLFieldSetElementFromJS(value js.Value) *HTMLFieldSetElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFieldSetElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFieldSetElementFromJS is casting from something that holds a js.Value into HTMLFieldSetElement.
+func HTMLFieldSetElementFromWrapper(input core.Wrapper) *HTMLFieldSetElement {
+	return HTMLFieldSetElementFromJS(input.JSValue())
 }
 
 // Disabled returning attribute 'disabled' with
@@ -6316,15 +6387,19 @@ type HTMLFontElement struct {
 	HTMLElement
 }
 
-// HTMLFontElementFromJS is casting a js.Wrapper into HTMLFontElement.
-func HTMLFontElementFromJS(value js.Wrapper) *HTMLFontElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFontElementFromJS is casting a js.Value into HTMLFontElement.
+func HTMLFontElementFromJS(value js.Value) *HTMLFontElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFontElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFontElementFromJS is casting from something that holds a js.Value into HTMLFontElement.
+func HTMLFontElementFromWrapper(input core.Wrapper) *HTMLFontElement {
+	return HTMLFontElementFromJS(input.JSValue())
 }
 
 // Color returning attribute 'color' with
@@ -6380,15 +6455,19 @@ type HTMLFormControlsCollection struct {
 	dom.HTMLCollection
 }
 
-// HTMLFormControlsCollectionFromJS is casting a js.Wrapper into HTMLFormControlsCollection.
-func HTMLFormControlsCollectionFromJS(value js.Wrapper) *HTMLFormControlsCollection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFormControlsCollectionFromJS is casting a js.Value into HTMLFormControlsCollection.
+func HTMLFormControlsCollectionFromJS(value js.Value) *HTMLFormControlsCollection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFormControlsCollection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFormControlsCollectionFromJS is casting from something that holds a js.Value into HTMLFormControlsCollection.
+func HTMLFormControlsCollectionFromWrapper(input core.Wrapper) *HTMLFormControlsCollection {
+	return HTMLFormControlsCollectionFromJS(input.JSValue())
 }
 
 func (_this *HTMLFormControlsCollection) Get2(name string) (_result *Union) {
@@ -6434,15 +6513,19 @@ type HTMLFormElement struct {
 	HTMLElement
 }
 
-// HTMLFormElementFromJS is casting a js.Wrapper into HTMLFormElement.
-func HTMLFormElementFromJS(value js.Wrapper) *HTMLFormElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFormElementFromJS is casting a js.Value into HTMLFormElement.
+func HTMLFormElementFromJS(value js.Value) *HTMLFormElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFormElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFormElementFromJS is casting from something that holds a js.Value into HTMLFormElement.
+func HTMLFormElementFromWrapper(input core.Wrapper) *HTMLFormElement {
+	return HTMLFormElementFromJS(input.JSValue())
 }
 
 // AcceptCharset returning attribute 'acceptCharset' with
@@ -6717,15 +6800,19 @@ type HTMLFrameSetElement struct {
 	HTMLElement
 }
 
-// HTMLFrameSetElementFromJS is casting a js.Wrapper into HTMLFrameSetElement.
-func HTMLFrameSetElementFromJS(value js.Wrapper) *HTMLFrameSetElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLFrameSetElementFromJS is casting a js.Value into HTMLFrameSetElement.
+func HTMLFrameSetElementFromJS(value js.Value) *HTMLFrameSetElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLFrameSetElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLFrameSetElementFromJS is casting from something that holds a js.Value into HTMLFrameSetElement.
+func HTMLFrameSetElementFromWrapper(input core.Wrapper) *HTMLFrameSetElement {
+	return HTMLFrameSetElementFromJS(input.JSValue())
 }
 
 // Cols returning attribute 'cols' with
@@ -7309,15 +7396,19 @@ type HTMLHRElement struct {
 	HTMLElement
 }
 
-// HTMLHRElementFromJS is casting a js.Wrapper into HTMLHRElement.
-func HTMLHRElementFromJS(value js.Wrapper) *HTMLHRElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLHRElementFromJS is casting a js.Value into HTMLHRElement.
+func HTMLHRElementFromJS(value js.Value) *HTMLHRElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLHRElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLHRElementFromJS is casting from something that holds a js.Value into HTMLHRElement.
+func HTMLHRElementFromWrapper(input core.Wrapper) *HTMLHRElement {
+	return HTMLHRElementFromJS(input.JSValue())
 }
 
 // Align returning attribute 'align' with
@@ -7405,15 +7496,19 @@ type HTMLHeadElement struct {
 	HTMLElement
 }
 
-// HTMLHeadElementFromJS is casting a js.Wrapper into HTMLHeadElement.
-func HTMLHeadElementFromJS(value js.Wrapper) *HTMLHeadElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLHeadElementFromJS is casting a js.Value into HTMLHeadElement.
+func HTMLHeadElementFromJS(value js.Value) *HTMLHeadElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLHeadElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLHeadElementFromJS is casting from something that holds a js.Value into HTMLHeadElement.
+func HTMLHeadElementFromWrapper(input core.Wrapper) *HTMLHeadElement {
+	return HTMLHeadElementFromJS(input.JSValue())
 }
 
 // class: HTMLHeadingElement
@@ -7421,15 +7516,19 @@ type HTMLHeadingElement struct {
 	HTMLElement
 }
 
-// HTMLHeadingElementFromJS is casting a js.Wrapper into HTMLHeadingElement.
-func HTMLHeadingElementFromJS(value js.Wrapper) *HTMLHeadingElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLHeadingElementFromJS is casting a js.Value into HTMLHeadingElement.
+func HTMLHeadingElementFromJS(value js.Value) *HTMLHeadingElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLHeadingElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLHeadingElementFromJS is casting from something that holds a js.Value into HTMLHeadingElement.
+func HTMLHeadingElementFromWrapper(input core.Wrapper) *HTMLHeadingElement {
+	return HTMLHeadingElementFromJS(input.JSValue())
 }
 
 // Align returning attribute 'align' with
@@ -7453,15 +7552,19 @@ type HTMLHtmlElement struct {
 	HTMLElement
 }
 
-// HTMLHtmlElementFromJS is casting a js.Wrapper into HTMLHtmlElement.
-func HTMLHtmlElementFromJS(value js.Wrapper) *HTMLHtmlElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLHtmlElementFromJS is casting a js.Value into HTMLHtmlElement.
+func HTMLHtmlElementFromJS(value js.Value) *HTMLHtmlElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLHtmlElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLHtmlElementFromJS is casting from something that holds a js.Value into HTMLHtmlElement.
+func HTMLHtmlElementFromWrapper(input core.Wrapper) *HTMLHtmlElement {
+	return HTMLHtmlElementFromJS(input.JSValue())
 }
 
 // Version returning attribute 'version' with
@@ -7485,15 +7588,19 @@ type HTMLImageElement struct {
 	HTMLElement
 }
 
-// HTMLImageElementFromJS is casting a js.Wrapper into HTMLImageElement.
-func HTMLImageElementFromJS(value js.Wrapper) *HTMLImageElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLImageElementFromJS is casting a js.Value into HTMLImageElement.
+func HTMLImageElementFromJS(value js.Value) *HTMLImageElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLImageElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLImageElementFromJS is casting from something that holds a js.Value into HTMLImageElement.
+func HTMLImageElementFromWrapper(input core.Wrapper) *HTMLImageElement {
+	return HTMLImageElementFromJS(input.JSValue())
 }
 
 // Alt returning attribute 'alt' with
@@ -7865,15 +7972,19 @@ type HTMLInputElement struct {
 	HTMLElement
 }
 
-// HTMLInputElementFromJS is casting a js.Wrapper into HTMLInputElement.
-func HTMLInputElementFromJS(value js.Wrapper) *HTMLInputElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLInputElementFromJS is casting a js.Value into HTMLInputElement.
+func HTMLInputElementFromJS(value js.Value) *HTMLInputElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLInputElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLInputElementFromJS is casting from something that holds a js.Value into HTMLInputElement.
+func HTMLInputElementFromWrapper(input core.Wrapper) *HTMLInputElement {
+	return HTMLInputElementFromJS(input.JSValue())
 }
 
 // Accept returning attribute 'accept' with
@@ -8800,15 +8911,19 @@ type HTMLLIElement struct {
 	HTMLElement
 }
 
-// HTMLLIElementFromJS is casting a js.Wrapper into HTMLLIElement.
-func HTMLLIElementFromJS(value js.Wrapper) *HTMLLIElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLLIElementFromJS is casting a js.Value into HTMLLIElement.
+func HTMLLIElementFromJS(value js.Value) *HTMLLIElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLLIElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLLIElementFromJS is casting from something that holds a js.Value into HTMLLIElement.
+func HTMLLIElementFromWrapper(input core.Wrapper) *HTMLLIElement {
+	return HTMLLIElementFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -8848,15 +8963,19 @@ type HTMLLabelElement struct {
 	HTMLElement
 }
 
-// HTMLLabelElementFromJS is casting a js.Wrapper into HTMLLabelElement.
-func HTMLLabelElementFromJS(value js.Wrapper) *HTMLLabelElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLLabelElementFromJS is casting a js.Value into HTMLLabelElement.
+func HTMLLabelElementFromJS(value js.Value) *HTMLLabelElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLLabelElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLLabelElementFromJS is casting from something that holds a js.Value into HTMLLabelElement.
+func HTMLLabelElementFromWrapper(input core.Wrapper) *HTMLLabelElement {
+	return HTMLLabelElementFromJS(input.JSValue())
 }
 
 // Form returning attribute 'form' with
@@ -8902,15 +9021,19 @@ type HTMLLegendElement struct {
 	HTMLElement
 }
 
-// HTMLLegendElementFromJS is casting a js.Wrapper into HTMLLegendElement.
-func HTMLLegendElementFromJS(value js.Wrapper) *HTMLLegendElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLLegendElementFromJS is casting a js.Value into HTMLLegendElement.
+func HTMLLegendElementFromJS(value js.Value) *HTMLLegendElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLLegendElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLLegendElementFromJS is casting from something that holds a js.Value into HTMLLegendElement.
+func HTMLLegendElementFromWrapper(input core.Wrapper) *HTMLLegendElement {
+	return HTMLLegendElementFromJS(input.JSValue())
 }
 
 // Form returning attribute 'form' with
@@ -8945,15 +9068,19 @@ type HTMLLinkElement struct {
 	HTMLElement
 }
 
-// HTMLLinkElementFromJS is casting a js.Wrapper into HTMLLinkElement.
-func HTMLLinkElementFromJS(value js.Wrapper) *HTMLLinkElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLLinkElementFromJS is casting a js.Value into HTMLLinkElement.
+func HTMLLinkElementFromJS(value js.Value) *HTMLLinkElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLLinkElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLLinkElementFromJS is casting from something that holds a js.Value into HTMLLinkElement.
+func HTMLLinkElementFromWrapper(input core.Wrapper) *HTMLLinkElement {
+	return HTMLLinkElementFromJS(input.JSValue())
 }
 
 // Href returning attribute 'href' with
@@ -9190,15 +9317,19 @@ type HTMLMapElement struct {
 	HTMLElement
 }
 
-// HTMLMapElementFromJS is casting a js.Wrapper into HTMLMapElement.
-func HTMLMapElementFromJS(value js.Wrapper) *HTMLMapElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMapElementFromJS is casting a js.Value into HTMLMapElement.
+func HTMLMapElementFromJS(value js.Value) *HTMLMapElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMapElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMapElementFromJS is casting from something that holds a js.Value into HTMLMapElement.
+func HTMLMapElementFromWrapper(input core.Wrapper) *HTMLMapElement {
+	return HTMLMapElementFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -9231,15 +9362,19 @@ type HTMLMarqueeElement struct {
 	HTMLElement
 }
 
-// HTMLMarqueeElementFromJS is casting a js.Wrapper into HTMLMarqueeElement.
-func HTMLMarqueeElementFromJS(value js.Wrapper) *HTMLMarqueeElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMarqueeElementFromJS is casting a js.Value into HTMLMarqueeElement.
+func HTMLMarqueeElementFromJS(value js.Value) *HTMLMarqueeElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMarqueeElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMarqueeElementFromJS is casting from something that holds a js.Value into HTMLMarqueeElement.
+func HTMLMarqueeElementFromWrapper(input core.Wrapper) *HTMLMarqueeElement {
+	return HTMLMarqueeElementFromJS(input.JSValue())
 }
 
 // Behavior returning attribute 'behavior' with
@@ -9536,15 +9671,19 @@ type HTMLMenuElement struct {
 	HTMLElement
 }
 
-// HTMLMenuElementFromJS is casting a js.Wrapper into HTMLMenuElement.
-func HTMLMenuElementFromJS(value js.Wrapper) *HTMLMenuElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMenuElementFromJS is casting a js.Value into HTMLMenuElement.
+func HTMLMenuElementFromJS(value js.Value) *HTMLMenuElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMenuElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMenuElementFromJS is casting from something that holds a js.Value into HTMLMenuElement.
+func HTMLMenuElementFromWrapper(input core.Wrapper) *HTMLMenuElement {
+	return HTMLMenuElementFromJS(input.JSValue())
 }
 
 // Compact returning attribute 'compact' with
@@ -9568,15 +9707,19 @@ type HTMLMetaElement struct {
 	HTMLElement
 }
 
-// HTMLMetaElementFromJS is casting a js.Wrapper into HTMLMetaElement.
-func HTMLMetaElementFromJS(value js.Wrapper) *HTMLMetaElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMetaElementFromJS is casting a js.Value into HTMLMetaElement.
+func HTMLMetaElementFromJS(value js.Value) *HTMLMetaElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMetaElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMetaElementFromJS is casting from something that holds a js.Value into HTMLMetaElement.
+func HTMLMetaElementFromWrapper(input core.Wrapper) *HTMLMetaElement {
+	return HTMLMetaElementFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -9648,15 +9791,19 @@ type HTMLMeterElement struct {
 	HTMLElement
 }
 
-// HTMLMeterElementFromJS is casting a js.Wrapper into HTMLMeterElement.
-func HTMLMeterElementFromJS(value js.Wrapper) *HTMLMeterElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLMeterElementFromJS is casting a js.Value into HTMLMeterElement.
+func HTMLMeterElementFromJS(value js.Value) *HTMLMeterElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLMeterElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLMeterElementFromJS is casting from something that holds a js.Value into HTMLMeterElement.
+func HTMLMeterElementFromWrapper(input core.Wrapper) *HTMLMeterElement {
+	return HTMLMeterElementFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -9769,15 +9916,19 @@ type HTMLModElement struct {
 	HTMLElement
 }
 
-// HTMLModElementFromJS is casting a js.Wrapper into HTMLModElement.
-func HTMLModElementFromJS(value js.Wrapper) *HTMLModElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLModElementFromJS is casting a js.Value into HTMLModElement.
+func HTMLModElementFromJS(value js.Value) *HTMLModElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLModElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLModElementFromJS is casting from something that holds a js.Value into HTMLModElement.
+func HTMLModElementFromWrapper(input core.Wrapper) *HTMLModElement {
+	return HTMLModElementFromJS(input.JSValue())
 }
 
 // Cite returning attribute 'cite' with
@@ -9817,15 +9968,19 @@ type HTMLOListElement struct {
 	HTMLElement
 }
 
-// HTMLOListElementFromJS is casting a js.Wrapper into HTMLOListElement.
-func HTMLOListElementFromJS(value js.Wrapper) *HTMLOListElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLOListElementFromJS is casting a js.Value into HTMLOListElement.
+func HTMLOListElementFromJS(value js.Value) *HTMLOListElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLOListElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLOListElementFromJS is casting from something that holds a js.Value into HTMLOListElement.
+func HTMLOListElementFromWrapper(input core.Wrapper) *HTMLOListElement {
+	return HTMLOListElementFromJS(input.JSValue())
 }
 
 // Reversed returning attribute 'reversed' with
@@ -9897,15 +10052,19 @@ type HTMLOptGroupElement struct {
 	HTMLElement
 }
 
-// HTMLOptGroupElementFromJS is casting a js.Wrapper into HTMLOptGroupElement.
-func HTMLOptGroupElementFromJS(value js.Wrapper) *HTMLOptGroupElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLOptGroupElementFromJS is casting a js.Value into HTMLOptGroupElement.
+func HTMLOptGroupElementFromJS(value js.Value) *HTMLOptGroupElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLOptGroupElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLOptGroupElementFromJS is casting from something that holds a js.Value into HTMLOptGroupElement.
+func HTMLOptGroupElementFromWrapper(input core.Wrapper) *HTMLOptGroupElement {
+	return HTMLOptGroupElementFromJS(input.JSValue())
 }
 
 // Disabled returning attribute 'disabled' with
@@ -9945,15 +10104,19 @@ type HTMLOptionElement struct {
 	HTMLElement
 }
 
-// HTMLOptionElementFromJS is casting a js.Wrapper into HTMLOptionElement.
-func HTMLOptionElementFromJS(value js.Wrapper) *HTMLOptionElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLOptionElementFromJS is casting a js.Value into HTMLOptionElement.
+func HTMLOptionElementFromJS(value js.Value) *HTMLOptionElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLOptionElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLOptionElementFromJS is casting from something that holds a js.Value into HTMLOptionElement.
+func HTMLOptionElementFromWrapper(input core.Wrapper) *HTMLOptionElement {
+	return HTMLOptionElementFromJS(input.JSValue())
 }
 
 // Disabled returning attribute 'disabled' with
@@ -10077,15 +10240,19 @@ type HTMLOptionsCollection struct {
 	dom.HTMLCollection
 }
 
-// HTMLOptionsCollectionFromJS is casting a js.Wrapper into HTMLOptionsCollection.
-func HTMLOptionsCollectionFromJS(value js.Wrapper) *HTMLOptionsCollection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLOptionsCollectionFromJS is casting a js.Value into HTMLOptionsCollection.
+func HTMLOptionsCollectionFromJS(value js.Value) *HTMLOptionsCollection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLOptionsCollection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLOptionsCollectionFromJS is casting from something that holds a js.Value into HTMLOptionsCollection.
+func HTMLOptionsCollectionFromWrapper(input core.Wrapper) *HTMLOptionsCollection {
+	return HTMLOptionsCollectionFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -10169,15 +10336,19 @@ type HTMLOutputElement struct {
 	HTMLElement
 }
 
-// HTMLOutputElementFromJS is casting a js.Wrapper into HTMLOutputElement.
-func HTMLOutputElementFromJS(value js.Wrapper) *HTMLOutputElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLOutputElementFromJS is casting a js.Value into HTMLOutputElement.
+func HTMLOutputElementFromJS(value js.Value) *HTMLOutputElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLOutputElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLOutputElementFromJS is casting from something that holds a js.Value into HTMLOutputElement.
+func HTMLOutputElementFromWrapper(input core.Wrapper) *HTMLOutputElement {
+	return HTMLOutputElementFromJS(input.JSValue())
 }
 
 // HtmlFor returning attribute 'htmlFor' with
@@ -10338,15 +10509,19 @@ type HTMLParagraphElement struct {
 	HTMLElement
 }
 
-// HTMLParagraphElementFromJS is casting a js.Wrapper into HTMLParagraphElement.
-func HTMLParagraphElementFromJS(value js.Wrapper) *HTMLParagraphElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLParagraphElementFromJS is casting a js.Value into HTMLParagraphElement.
+func HTMLParagraphElementFromJS(value js.Value) *HTMLParagraphElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLParagraphElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLParagraphElementFromJS is casting from something that holds a js.Value into HTMLParagraphElement.
+func HTMLParagraphElementFromWrapper(input core.Wrapper) *HTMLParagraphElement {
+	return HTMLParagraphElementFromJS(input.JSValue())
 }
 
 // Align returning attribute 'align' with
@@ -10370,15 +10545,19 @@ type HTMLParamElement struct {
 	HTMLElement
 }
 
-// HTMLParamElementFromJS is casting a js.Wrapper into HTMLParamElement.
-func HTMLParamElementFromJS(value js.Wrapper) *HTMLParamElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLParamElementFromJS is casting a js.Value into HTMLParamElement.
+func HTMLParamElementFromJS(value js.Value) *HTMLParamElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLParamElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLParamElementFromJS is casting from something that holds a js.Value into HTMLParamElement.
+func HTMLParamElementFromWrapper(input core.Wrapper) *HTMLParamElement {
+	return HTMLParamElementFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -10450,15 +10629,19 @@ type HTMLPictureElement struct {
 	HTMLElement
 }
 
-// HTMLPictureElementFromJS is casting a js.Wrapper into HTMLPictureElement.
-func HTMLPictureElementFromJS(value js.Wrapper) *HTMLPictureElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLPictureElementFromJS is casting a js.Value into HTMLPictureElement.
+func HTMLPictureElementFromJS(value js.Value) *HTMLPictureElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLPictureElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLPictureElementFromJS is casting from something that holds a js.Value into HTMLPictureElement.
+func HTMLPictureElementFromWrapper(input core.Wrapper) *HTMLPictureElement {
+	return HTMLPictureElementFromJS(input.JSValue())
 }
 
 // class: HTMLPreElement
@@ -10466,15 +10649,19 @@ type HTMLPreElement struct {
 	HTMLElement
 }
 
-// HTMLPreElementFromJS is casting a js.Wrapper into HTMLPreElement.
-func HTMLPreElementFromJS(value js.Wrapper) *HTMLPreElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLPreElementFromJS is casting a js.Value into HTMLPreElement.
+func HTMLPreElementFromJS(value js.Value) *HTMLPreElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLPreElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLPreElementFromJS is casting from something that holds a js.Value into HTMLPreElement.
+func HTMLPreElementFromWrapper(input core.Wrapper) *HTMLPreElement {
+	return HTMLPreElementFromJS(input.JSValue())
 }
 
 // Width returning attribute 'width' with
@@ -10498,15 +10685,19 @@ type HTMLProgressElement struct {
 	HTMLElement
 }
 
-// HTMLProgressElementFromJS is casting a js.Wrapper into HTMLProgressElement.
-func HTMLProgressElementFromJS(value js.Wrapper) *HTMLProgressElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLProgressElementFromJS is casting a js.Value into HTMLProgressElement.
+func HTMLProgressElementFromJS(value js.Value) *HTMLProgressElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLProgressElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLProgressElementFromJS is casting from something that holds a js.Value into HTMLProgressElement.
+func HTMLProgressElementFromWrapper(input core.Wrapper) *HTMLProgressElement {
+	return HTMLProgressElementFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -10564,15 +10755,19 @@ type HTMLQuoteElement struct {
 	HTMLElement
 }
 
-// HTMLQuoteElementFromJS is casting a js.Wrapper into HTMLQuoteElement.
-func HTMLQuoteElementFromJS(value js.Wrapper) *HTMLQuoteElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLQuoteElementFromJS is casting a js.Value into HTMLQuoteElement.
+func HTMLQuoteElementFromJS(value js.Value) *HTMLQuoteElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLQuoteElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLQuoteElementFromJS is casting from something that holds a js.Value into HTMLQuoteElement.
+func HTMLQuoteElementFromWrapper(input core.Wrapper) *HTMLQuoteElement {
+	return HTMLQuoteElementFromJS(input.JSValue())
 }
 
 // Cite returning attribute 'cite' with
@@ -10596,15 +10791,19 @@ type HTMLScriptElement struct {
 	HTMLElement
 }
 
-// HTMLScriptElementFromJS is casting a js.Wrapper into HTMLScriptElement.
-func HTMLScriptElementFromJS(value js.Wrapper) *HTMLScriptElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLScriptElementFromJS is casting a js.Value into HTMLScriptElement.
+func HTMLScriptElementFromJS(value js.Value) *HTMLScriptElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLScriptElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLScriptElementFromJS is casting from something that holds a js.Value into HTMLScriptElement.
+func HTMLScriptElementFromWrapper(input core.Wrapper) *HTMLScriptElement {
+	return HTMLScriptElementFromJS(input.JSValue())
 }
 
 // Src returning attribute 'src' with
@@ -10812,15 +11011,19 @@ type HTMLSelectElement struct {
 	HTMLElement
 }
 
-// HTMLSelectElementFromJS is casting a js.Wrapper into HTMLSelectElement.
-func HTMLSelectElementFromJS(value js.Wrapper) *HTMLSelectElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLSelectElementFromJS is casting a js.Value into HTMLSelectElement.
+func HTMLSelectElementFromJS(value js.Value) *HTMLSelectElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLSelectElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLSelectElementFromJS is casting from something that holds a js.Value into HTMLSelectElement.
+func HTMLSelectElementFromWrapper(input core.Wrapper) *HTMLSelectElement {
+	return HTMLSelectElementFromJS(input.JSValue())
 }
 
 // Autocomplete returning attribute 'autocomplete' with
@@ -11212,15 +11415,19 @@ type HTMLSlotElement struct {
 	HTMLElement
 }
 
-// HTMLSlotElementFromJS is casting a js.Wrapper into HTMLSlotElement.
-func HTMLSlotElementFromJS(value js.Wrapper) *HTMLSlotElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLSlotElementFromJS is casting a js.Value into HTMLSlotElement.
+func HTMLSlotElementFromJS(value js.Value) *HTMLSlotElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLSlotElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLSlotElementFromJS is casting from something that holds a js.Value into HTMLSlotElement.
+func HTMLSlotElementFromWrapper(input core.Wrapper) *HTMLSlotElement {
+	return HTMLSlotElementFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -11298,15 +11505,19 @@ type HTMLSourceElement struct {
 	HTMLElement
 }
 
-// HTMLSourceElementFromJS is casting a js.Wrapper into HTMLSourceElement.
-func HTMLSourceElementFromJS(value js.Wrapper) *HTMLSourceElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLSourceElementFromJS is casting a js.Value into HTMLSourceElement.
+func HTMLSourceElementFromJS(value js.Value) *HTMLSourceElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLSourceElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLSourceElementFromJS is casting from something that holds a js.Value into HTMLSourceElement.
+func HTMLSourceElementFromWrapper(input core.Wrapper) *HTMLSourceElement {
+	return HTMLSourceElementFromJS(input.JSValue())
 }
 
 // Src returning attribute 'src' with
@@ -11394,15 +11605,19 @@ type HTMLSpanElement struct {
 	HTMLElement
 }
 
-// HTMLSpanElementFromJS is casting a js.Wrapper into HTMLSpanElement.
-func HTMLSpanElementFromJS(value js.Wrapper) *HTMLSpanElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLSpanElementFromJS is casting a js.Value into HTMLSpanElement.
+func HTMLSpanElementFromJS(value js.Value) *HTMLSpanElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLSpanElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLSpanElementFromJS is casting from something that holds a js.Value into HTMLSpanElement.
+func HTMLSpanElementFromWrapper(input core.Wrapper) *HTMLSpanElement {
+	return HTMLSpanElementFromJS(input.JSValue())
 }
 
 // class: HTMLStyleElement
@@ -11410,15 +11625,19 @@ type HTMLStyleElement struct {
 	HTMLElement
 }
 
-// HTMLStyleElementFromJS is casting a js.Wrapper into HTMLStyleElement.
-func HTMLStyleElementFromJS(value js.Wrapper) *HTMLStyleElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLStyleElementFromJS is casting a js.Value into HTMLStyleElement.
+func HTMLStyleElementFromJS(value js.Value) *HTMLStyleElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLStyleElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLStyleElementFromJS is casting from something that holds a js.Value into HTMLStyleElement.
+func HTMLStyleElementFromWrapper(input core.Wrapper) *HTMLStyleElement {
+	return HTMLStyleElementFromJS(input.JSValue())
 }
 
 // Media returning attribute 'media' with
@@ -11469,15 +11688,19 @@ type HTMLTableCaptionElement struct {
 	HTMLElement
 }
 
-// HTMLTableCaptionElementFromJS is casting a js.Wrapper into HTMLTableCaptionElement.
-func HTMLTableCaptionElementFromJS(value js.Wrapper) *HTMLTableCaptionElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableCaptionElementFromJS is casting a js.Value into HTMLTableCaptionElement.
+func HTMLTableCaptionElementFromJS(value js.Value) *HTMLTableCaptionElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableCaptionElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableCaptionElementFromJS is casting from something that holds a js.Value into HTMLTableCaptionElement.
+func HTMLTableCaptionElementFromWrapper(input core.Wrapper) *HTMLTableCaptionElement {
+	return HTMLTableCaptionElementFromJS(input.JSValue())
 }
 
 // Align returning attribute 'align' with
@@ -11501,15 +11724,19 @@ type HTMLTableCellElement struct {
 	HTMLElement
 }
 
-// HTMLTableCellElementFromJS is casting a js.Wrapper into HTMLTableCellElement.
-func HTMLTableCellElementFromJS(value js.Wrapper) *HTMLTableCellElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableCellElementFromJS is casting a js.Value into HTMLTableCellElement.
+func HTMLTableCellElementFromJS(value js.Value) *HTMLTableCellElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableCellElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableCellElementFromJS is casting from something that holds a js.Value into HTMLTableCellElement.
+func HTMLTableCellElementFromWrapper(input core.Wrapper) *HTMLTableCellElement {
+	return HTMLTableCellElementFromJS(input.JSValue())
 }
 
 // ColSpan returning attribute 'colSpan' with
@@ -11750,15 +11977,19 @@ type HTMLTableColElement struct {
 	HTMLElement
 }
 
-// HTMLTableColElementFromJS is casting a js.Wrapper into HTMLTableColElement.
-func HTMLTableColElementFromJS(value js.Wrapper) *HTMLTableColElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableColElementFromJS is casting a js.Value into HTMLTableColElement.
+func HTMLTableColElementFromJS(value js.Value) *HTMLTableColElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableColElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableColElementFromJS is casting from something that holds a js.Value into HTMLTableColElement.
+func HTMLTableColElementFromWrapper(input core.Wrapper) *HTMLTableColElement {
+	return HTMLTableColElementFromJS(input.JSValue())
 }
 
 // Span returning attribute 'span' with
@@ -11862,15 +12093,19 @@ type HTMLTableElement struct {
 	HTMLElement
 }
 
-// HTMLTableElementFromJS is casting a js.Wrapper into HTMLTableElement.
-func HTMLTableElementFromJS(value js.Wrapper) *HTMLTableElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableElementFromJS is casting a js.Value into HTMLTableElement.
+func HTMLTableElementFromJS(value js.Value) *HTMLTableElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableElementFromJS is casting from something that holds a js.Value into HTMLTableElement.
+func HTMLTableElementFromWrapper(input core.Wrapper) *HTMLTableElement {
+	return HTMLTableElementFromJS(input.JSValue())
 }
 
 // Caption returning attribute 'caption' with
@@ -12214,15 +12449,19 @@ type HTMLTableRowElement struct {
 	HTMLElement
 }
 
-// HTMLTableRowElementFromJS is casting a js.Wrapper into HTMLTableRowElement.
-func HTMLTableRowElementFromJS(value js.Wrapper) *HTMLTableRowElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableRowElementFromJS is casting a js.Value into HTMLTableRowElement.
+func HTMLTableRowElementFromJS(value js.Value) *HTMLTableRowElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableRowElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableRowElementFromJS is casting from something that holds a js.Value into HTMLTableRowElement.
+func HTMLTableRowElementFromWrapper(input core.Wrapper) *HTMLTableRowElement {
+	return HTMLTableRowElementFromJS(input.JSValue())
 }
 
 // RowIndex returning attribute 'rowIndex' with
@@ -12374,15 +12613,19 @@ type HTMLTableSectionElement struct {
 	HTMLElement
 }
 
-// HTMLTableSectionElementFromJS is casting a js.Wrapper into HTMLTableSectionElement.
-func HTMLTableSectionElementFromJS(value js.Wrapper) *HTMLTableSectionElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTableSectionElementFromJS is casting a js.Value into HTMLTableSectionElement.
+func HTMLTableSectionElementFromJS(value js.Value) *HTMLTableSectionElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTableSectionElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTableSectionElementFromJS is casting from something that holds a js.Value into HTMLTableSectionElement.
+func HTMLTableSectionElementFromWrapper(input core.Wrapper) *HTMLTableSectionElement {
+	return HTMLTableSectionElementFromJS(input.JSValue())
 }
 
 // Rows returning attribute 'rows' with
@@ -12500,15 +12743,19 @@ type HTMLTemplateElement struct {
 	HTMLElement
 }
 
-// HTMLTemplateElementFromJS is casting a js.Wrapper into HTMLTemplateElement.
-func HTMLTemplateElementFromJS(value js.Wrapper) *HTMLTemplateElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTemplateElementFromJS is casting a js.Value into HTMLTemplateElement.
+func HTMLTemplateElementFromJS(value js.Value) *HTMLTemplateElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTemplateElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTemplateElementFromJS is casting from something that holds a js.Value into HTMLTemplateElement.
+func HTMLTemplateElementFromWrapper(input core.Wrapper) *HTMLTemplateElement {
+	return HTMLTemplateElementFromJS(input.JSValue())
 }
 
 // Content returning attribute 'content' with
@@ -12525,15 +12772,19 @@ type HTMLTextAreaElement struct {
 	HTMLElement
 }
 
-// HTMLTextAreaElementFromJS is casting a js.Wrapper into HTMLTextAreaElement.
-func HTMLTextAreaElementFromJS(value js.Wrapper) *HTMLTextAreaElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTextAreaElementFromJS is casting a js.Value into HTMLTextAreaElement.
+func HTMLTextAreaElementFromJS(value js.Value) *HTMLTextAreaElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTextAreaElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTextAreaElementFromJS is casting from something that holds a js.Value into HTMLTextAreaElement.
+func HTMLTextAreaElementFromWrapper(input core.Wrapper) *HTMLTextAreaElement {
+	return HTMLTextAreaElementFromJS(input.JSValue())
 }
 
 // Autocomplete returning attribute 'autocomplete' with
@@ -13004,15 +13255,19 @@ type HTMLTimeElement struct {
 	HTMLElement
 }
 
-// HTMLTimeElementFromJS is casting a js.Wrapper into HTMLTimeElement.
-func HTMLTimeElementFromJS(value js.Wrapper) *HTMLTimeElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTimeElementFromJS is casting a js.Value into HTMLTimeElement.
+func HTMLTimeElementFromJS(value js.Value) *HTMLTimeElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTimeElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTimeElementFromJS is casting from something that holds a js.Value into HTMLTimeElement.
+func HTMLTimeElementFromWrapper(input core.Wrapper) *HTMLTimeElement {
+	return HTMLTimeElementFromJS(input.JSValue())
 }
 
 // DateTime returning attribute 'dateTime' with
@@ -13036,15 +13291,19 @@ type HTMLTitleElement struct {
 	HTMLElement
 }
 
-// HTMLTitleElementFromJS is casting a js.Wrapper into HTMLTitleElement.
-func HTMLTitleElementFromJS(value js.Wrapper) *HTMLTitleElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLTitleElementFromJS is casting a js.Value into HTMLTitleElement.
+func HTMLTitleElementFromJS(value js.Value) *HTMLTitleElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLTitleElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLTitleElementFromJS is casting from something that holds a js.Value into HTMLTitleElement.
+func HTMLTitleElementFromWrapper(input core.Wrapper) *HTMLTitleElement {
+	return HTMLTitleElementFromJS(input.JSValue())
 }
 
 // Text returning attribute 'text' with
@@ -13068,15 +13327,19 @@ type HTMLUListElement struct {
 	HTMLElement
 }
 
-// HTMLUListElementFromJS is casting a js.Wrapper into HTMLUListElement.
-func HTMLUListElementFromJS(value js.Wrapper) *HTMLUListElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLUListElementFromJS is casting a js.Value into HTMLUListElement.
+func HTMLUListElementFromJS(value js.Value) *HTMLUListElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLUListElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLUListElementFromJS is casting from something that holds a js.Value into HTMLUListElement.
+func HTMLUListElementFromWrapper(input core.Wrapper) *HTMLUListElement {
+	return HTMLUListElementFromJS(input.JSValue())
 }
 
 // Compact returning attribute 'compact' with
@@ -13116,15 +13379,19 @@ type HTMLUnknownElement struct {
 	HTMLElement
 }
 
-// HTMLUnknownElementFromJS is casting a js.Wrapper into HTMLUnknownElement.
-func HTMLUnknownElementFromJS(value js.Wrapper) *HTMLUnknownElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLUnknownElementFromJS is casting a js.Value into HTMLUnknownElement.
+func HTMLUnknownElementFromJS(value js.Value) *HTMLUnknownElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLUnknownElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLUnknownElementFromJS is casting from something that holds a js.Value into HTMLUnknownElement.
+func HTMLUnknownElementFromWrapper(input core.Wrapper) *HTMLUnknownElement {
+	return HTMLUnknownElementFromJS(input.JSValue())
 }
 
 // class: Promise
@@ -13137,15 +13404,19 @@ func (_this *PromiseFormData) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseFormDataFromJS is casting a js.Wrapper into PromiseFormData.
-func PromiseFormDataFromJS(value js.Wrapper) *PromiseFormData {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseFormDataFromJS is casting a js.Value into PromiseFormData.
+func PromiseFormDataFromJS(value js.Value) *PromiseFormData {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseFormData{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseFormDataFromJS is casting from something that holds a js.Value into PromiseFormData.
+func PromiseFormDataFromWrapper(input core.Wrapper) *PromiseFormData {
+	return PromiseFormDataFromJS(input.JSValue())
 }
 
 func (_this *PromiseFormData) Then(onFulfilled *PromiseFormDataOnFulfilled, onRejected *PromiseFormDataOnRejected) (_result *PromiseFormData) {
@@ -13242,15 +13513,19 @@ func (_this *TimeRanges) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TimeRangesFromJS is casting a js.Wrapper into TimeRanges.
-func TimeRangesFromJS(value js.Wrapper) *TimeRanges {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TimeRangesFromJS is casting a js.Value into TimeRanges.
+func TimeRangesFromJS(value js.Value) *TimeRanges {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TimeRanges{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TimeRangesFromJS is casting from something that holds a js.Value into TimeRanges.
+func TimeRangesFromWrapper(input core.Wrapper) *TimeRanges {
+	return TimeRangesFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -13306,15 +13581,19 @@ func (_this *ValidityState) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ValidityStateFromJS is casting a js.Wrapper into ValidityState.
-func ValidityStateFromJS(value js.Wrapper) *ValidityState {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ValidityStateFromJS is casting a js.Value into ValidityState.
+func ValidityStateFromJS(value js.Value) *ValidityState {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ValidityState{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ValidityStateFromJS is casting from something that holds a js.Value into ValidityState.
+func ValidityStateFromWrapper(input core.Wrapper) *ValidityState {
+	return ValidityStateFromJS(input.JSValue())
 }
 
 // ValueMissing returning attribute 'valueMissing' with

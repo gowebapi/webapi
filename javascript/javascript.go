@@ -6,6 +6,10 @@ package javascript
 
 import js "github.com/gowebapi/webapi/core/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -1163,7 +1167,7 @@ type ArrayEntryValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ArrayEntryValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1179,26 +1183,24 @@ func (_this *ArrayEntryValue) JSValue() js.Value {
 }
 
 // ArrayEntryValueFromJS is allocating a new
-// ArrayEntryValue object and copy all values from
-// input javascript object
-func ArrayEntryValueFromJS(value js.Wrapper) *ArrayEntryValue {
-	input := value.JSValue()
+// ArrayEntryValue object and copy all values in the value javascript object.
+func ArrayEntryValueFromJS(value js.Value) *ArrayEntryValue {
 	var out ArrayEntryValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1209,7 +1211,7 @@ type ArrayKeyValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ArrayKeyValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1221,18 +1223,16 @@ func (_this *ArrayKeyValue) JSValue() js.Value {
 }
 
 // ArrayKeyValueFromJS is allocating a new
-// ArrayKeyValue object and copy all values from
-// input javascript object
-func ArrayKeyValueFromJS(value js.Wrapper) *ArrayKeyValue {
-	input := value.JSValue()
+// ArrayKeyValue object and copy all values in the value javascript object.
+func ArrayKeyValueFromJS(value js.Value) *ArrayKeyValue {
 	var out ArrayKeyValue
 	var (
 		value0 int  // javascript: long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).Int()
+	value0 = (value.Get("value")).Int()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1243,7 +1243,7 @@ type ArrayValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ArrayValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1255,18 +1255,16 @@ func (_this *ArrayValueIteratorValue) JSValue() js.Value {
 }
 
 // ArrayValueIteratorValueFromJS is allocating a new
-// ArrayValueIteratorValue object and copy all values from
-// input javascript object
-func ArrayValueIteratorValueFromJS(value js.Wrapper) *ArrayValueIteratorValue {
-	input := value.JSValue()
+// ArrayValueIteratorValue object and copy all values in the value javascript object.
+func ArrayValueIteratorValueFromJS(value js.Value) *ArrayValueIteratorValue {
 	var out ArrayValueIteratorValue
 	var (
 		value0 js.Value // javascript: any {value Value value}
 		value1 bool     // javascript: boolean {done Done done}
 	)
-	value0 = input.Get("value")
+	value0 = value.Get("value")
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -1281,15 +1279,19 @@ func (_this *Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayFromJS is casting a js.Wrapper into Array.
-func ArrayFromJS(value js.Wrapper) *Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ArrayFromJS is casting a js.Value into Array.
+func ArrayFromJS(value js.Value) *Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ArrayFromJS is casting from something that holds a js.Value into Array.
+func ArrayFromWrapper(input core.Wrapper) *Array {
+	return ArrayFromJS(input.JSValue())
 }
 
 func From(arrayLike interface{}, mapFn *ArrayMapFn, thisArg interface{}) (_result *Array) {
@@ -2166,15 +2168,19 @@ func (_this *ArrayBuffer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayBufferFromJS is casting a js.Wrapper into ArrayBuffer.
-func ArrayBufferFromJS(value js.Wrapper) *ArrayBuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ArrayBufferFromJS is casting a js.Value into ArrayBuffer.
+func ArrayBufferFromJS(value js.Value) *ArrayBuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ArrayBuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ArrayBufferFromJS is casting from something that holds a js.Value into ArrayBuffer.
+func ArrayBufferFromWrapper(input core.Wrapper) *ArrayBuffer {
+	return ArrayBufferFromJS(input.JSValue())
 }
 
 // class: ArrayEntryIterator
@@ -2187,15 +2193,19 @@ func (_this *ArrayEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayEntryIteratorFromJS is casting a js.Wrapper into ArrayEntryIterator.
-func ArrayEntryIteratorFromJS(value js.Wrapper) *ArrayEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ArrayEntryIteratorFromJS is casting a js.Value into ArrayEntryIterator.
+func ArrayEntryIteratorFromJS(value js.Value) *ArrayEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ArrayEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ArrayEntryIteratorFromJS is casting from something that holds a js.Value into ArrayEntryIterator.
+func ArrayEntryIteratorFromWrapper(input core.Wrapper) *ArrayEntryIterator {
+	return ArrayEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *ArrayEntryIterator) Next() (_result *ArrayEntryValue) {
@@ -2222,15 +2232,19 @@ func (_this *ArrayKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayKeyIteratorFromJS is casting a js.Wrapper into ArrayKeyIterator.
-func ArrayKeyIteratorFromJS(value js.Wrapper) *ArrayKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ArrayKeyIteratorFromJS is casting a js.Value into ArrayKeyIterator.
+func ArrayKeyIteratorFromJS(value js.Value) *ArrayKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ArrayKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ArrayKeyIteratorFromJS is casting from something that holds a js.Value into ArrayKeyIterator.
+func ArrayKeyIteratorFromWrapper(input core.Wrapper) *ArrayKeyIterator {
+	return ArrayKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *ArrayKeyIterator) Next() (_result *ArrayKeyValue) {
@@ -2257,15 +2271,19 @@ func (_this *ArrayValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ArrayValueIteratorFromJS is casting a js.Wrapper into ArrayValueIterator.
-func ArrayValueIteratorFromJS(value js.Wrapper) *ArrayValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ArrayValueIteratorFromJS is casting a js.Value into ArrayValueIterator.
+func ArrayValueIteratorFromJS(value js.Value) *ArrayValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ArrayValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ArrayValueIteratorFromJS is casting from something that holds a js.Value into ArrayValueIterator.
+func ArrayValueIteratorFromWrapper(input core.Wrapper) *ArrayValueIterator {
+	return ArrayValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *ArrayValueIterator) Next() (_result *ArrayValueIteratorValue) {
@@ -2292,15 +2310,19 @@ func (_this *DataView) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataViewFromJS is casting a js.Wrapper into DataView.
-func DataViewFromJS(value js.Wrapper) *DataView {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataViewFromJS is casting a js.Value into DataView.
+func DataViewFromJS(value js.Value) *DataView {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataView{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataViewFromJS is casting from something that holds a js.Value into DataView.
+func DataViewFromWrapper(input core.Wrapper) *DataView {
+	return DataViewFromJS(input.JSValue())
 }
 
 // class: Float32Array
@@ -2313,15 +2335,19 @@ func (_this *Float32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Float32ArrayFromJS is casting a js.Wrapper into Float32Array.
-func Float32ArrayFromJS(value js.Wrapper) *Float32Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Float32ArrayFromJS is casting a js.Value into Float32Array.
+func Float32ArrayFromJS(value js.Value) *Float32Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Float32Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Float32ArrayFromJS is casting from something that holds a js.Value into Float32Array.
+func Float32ArrayFromWrapper(input core.Wrapper) *Float32Array {
+	return Float32ArrayFromJS(input.JSValue())
 }
 
 // class: Float64Array
@@ -2334,15 +2360,19 @@ func (_this *Float64Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Float64ArrayFromJS is casting a js.Wrapper into Float64Array.
-func Float64ArrayFromJS(value js.Wrapper) *Float64Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Float64ArrayFromJS is casting a js.Value into Float64Array.
+func Float64ArrayFromJS(value js.Value) *Float64Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Float64Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Float64ArrayFromJS is casting from something that holds a js.Value into Float64Array.
+func Float64ArrayFromWrapper(input core.Wrapper) *Float64Array {
+	return Float64ArrayFromJS(input.JSValue())
 }
 
 // class: FrozenArray
@@ -2355,15 +2385,19 @@ func (_this *FrozenArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FrozenArrayFromJS is casting a js.Wrapper into FrozenArray.
-func FrozenArrayFromJS(value js.Wrapper) *FrozenArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FrozenArrayFromJS is casting a js.Value into FrozenArray.
+func FrozenArrayFromJS(value js.Value) *FrozenArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FrozenArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FrozenArrayFromJS is casting from something that holds a js.Value into FrozenArray.
+func FrozenArrayFromWrapper(input core.Wrapper) *FrozenArray {
+	return FrozenArrayFromJS(input.JSValue())
 }
 
 // class: Int16Array
@@ -2376,15 +2410,19 @@ func (_this *Int16Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int16ArrayFromJS is casting a js.Wrapper into Int16Array.
-func Int16ArrayFromJS(value js.Wrapper) *Int16Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Int16ArrayFromJS is casting a js.Value into Int16Array.
+func Int16ArrayFromJS(value js.Value) *Int16Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Int16Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Int16ArrayFromJS is casting from something that holds a js.Value into Int16Array.
+func Int16ArrayFromWrapper(input core.Wrapper) *Int16Array {
+	return Int16ArrayFromJS(input.JSValue())
 }
 
 // class: Int32Array
@@ -2397,15 +2435,19 @@ func (_this *Int32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int32ArrayFromJS is casting a js.Wrapper into Int32Array.
-func Int32ArrayFromJS(value js.Wrapper) *Int32Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Int32ArrayFromJS is casting a js.Value into Int32Array.
+func Int32ArrayFromJS(value js.Value) *Int32Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Int32Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Int32ArrayFromJS is casting from something that holds a js.Value into Int32Array.
+func Int32ArrayFromWrapper(input core.Wrapper) *Int32Array {
+	return Int32ArrayFromJS(input.JSValue())
 }
 
 // class: Int8Array
@@ -2418,15 +2460,19 @@ func (_this *Int8Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Int8ArrayFromJS is casting a js.Wrapper into Int8Array.
-func Int8ArrayFromJS(value js.Wrapper) *Int8Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Int8ArrayFromJS is casting a js.Value into Int8Array.
+func Int8ArrayFromJS(value js.Value) *Int8Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Int8Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Int8ArrayFromJS is casting from something that holds a js.Value into Int8Array.
+func Int8ArrayFromWrapper(input core.Wrapper) *Int8Array {
+	return Int8ArrayFromJS(input.JSValue())
 }
 
 // class: JavaScriptFunction
@@ -2439,15 +2485,19 @@ func (_this *JavaScriptFunction) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// JavaScriptFunctionFromJS is casting a js.Wrapper into JavaScriptFunction.
-func JavaScriptFunctionFromJS(value js.Wrapper) *JavaScriptFunction {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// JavaScriptFunctionFromJS is casting a js.Value into JavaScriptFunction.
+func JavaScriptFunctionFromJS(value js.Value) *JavaScriptFunction {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &JavaScriptFunction{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// JavaScriptFunctionFromJS is casting from something that holds a js.Value into JavaScriptFunction.
+func JavaScriptFunctionFromWrapper(input core.Wrapper) *JavaScriptFunction {
+	return JavaScriptFunctionFromJS(input.JSValue())
 }
 
 func NewJavaScriptFunction(argumentAndFunctionBody ...string) (_result *JavaScriptFunction) {
@@ -2682,15 +2732,19 @@ func (_this *Object) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ObjectFromJS is casting a js.Wrapper into Object.
-func ObjectFromJS(value js.Wrapper) *Object {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ObjectFromJS is casting a js.Value into Object.
+func ObjectFromJS(value js.Value) *Object {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Object{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ObjectFromJS is casting from something that holds a js.Value into Object.
+func ObjectFromWrapper(input core.Wrapper) *Object {
+	return ObjectFromJS(input.JSValue())
 }
 
 // class: Promise
@@ -2703,15 +2757,19 @@ func (_this *Promise) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseFromJS is casting a js.Wrapper into Promise.
-func PromiseFromJS(value js.Wrapper) *Promise {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseFromJS is casting a js.Value into Promise.
+func PromiseFromJS(value js.Value) *Promise {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Promise{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseFromJS is casting from something that holds a js.Value into Promise.
+func PromiseFromWrapper(input core.Wrapper) *Promise {
+	return PromiseFromJS(input.JSValue())
 }
 
 func (_this *Promise) Then(onFulfilled *PromiseOnFulfilled, onRejected *PromiseOnRejected) (_result *Promise) {
@@ -2808,15 +2866,19 @@ func (_this *PromiseArrayBuffer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseArrayBufferFromJS is casting a js.Wrapper into PromiseArrayBuffer.
-func PromiseArrayBufferFromJS(value js.Wrapper) *PromiseArrayBuffer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseArrayBufferFromJS is casting a js.Value into PromiseArrayBuffer.
+func PromiseArrayBufferFromJS(value js.Value) *PromiseArrayBuffer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseArrayBuffer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseArrayBufferFromJS is casting from something that holds a js.Value into PromiseArrayBuffer.
+func PromiseArrayBufferFromWrapper(input core.Wrapper) *PromiseArrayBuffer {
+	return PromiseArrayBufferFromJS(input.JSValue())
 }
 
 func (_this *PromiseArrayBuffer) Then(onFulfilled *PromiseArrayBufferOnFulfilled, onRejected *PromiseArrayBufferOnRejected) (_result *PromiseArrayBuffer) {
@@ -2913,15 +2975,19 @@ func (_this *PromiseBool) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseBoolFromJS is casting a js.Wrapper into PromiseBool.
-func PromiseBoolFromJS(value js.Wrapper) *PromiseBool {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseBoolFromJS is casting a js.Value into PromiseBool.
+func PromiseBoolFromJS(value js.Value) *PromiseBool {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBool{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseBoolFromJS is casting from something that holds a js.Value into PromiseBool.
+func PromiseBoolFromWrapper(input core.Wrapper) *PromiseBool {
+	return PromiseBoolFromJS(input.JSValue())
 }
 
 func (_this *PromiseBool) Then(onFulfilled *PromiseBoolOnFulfilled, onRejected *PromiseBoolOnRejected) (_result *PromiseBool) {
@@ -3018,15 +3084,19 @@ func (_this *PromiseDataView) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseDataViewFromJS is casting a js.Wrapper into PromiseDataView.
-func PromiseDataViewFromJS(value js.Wrapper) *PromiseDataView {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseDataViewFromJS is casting a js.Value into PromiseDataView.
+func PromiseDataViewFromJS(value js.Value) *PromiseDataView {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDataView{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseDataViewFromJS is casting from something that holds a js.Value into PromiseDataView.
+func PromiseDataViewFromWrapper(input core.Wrapper) *PromiseDataView {
+	return PromiseDataViewFromJS(input.JSValue())
 }
 
 func (_this *PromiseDataView) Then(onFulfilled *PromiseDataViewOnFulfilled, onRejected *PromiseDataViewOnRejected) (_result *PromiseDataView) {
@@ -3123,15 +3193,19 @@ func (_this *PromiseFrozenArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseFrozenArrayFromJS is casting a js.Wrapper into PromiseFrozenArray.
-func PromiseFrozenArrayFromJS(value js.Wrapper) *PromiseFrozenArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseFrozenArrayFromJS is casting a js.Value into PromiseFrozenArray.
+func PromiseFrozenArrayFromJS(value js.Value) *PromiseFrozenArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseFrozenArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseFrozenArrayFromJS is casting from something that holds a js.Value into PromiseFrozenArray.
+func PromiseFrozenArrayFromWrapper(input core.Wrapper) *PromiseFrozenArray {
+	return PromiseFrozenArrayFromJS(input.JSValue())
 }
 
 func (_this *PromiseFrozenArray) Then(onFulfilled *PromiseFrozenArrayOnFulfilled, onRejected *PromiseFrozenArrayOnRejected) (_result *PromiseFrozenArray) {
@@ -3228,15 +3302,19 @@ func (_this *PromiseInt) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseIntFromJS is casting a js.Wrapper into PromiseInt.
-func PromiseIntFromJS(value js.Wrapper) *PromiseInt {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseIntFromJS is casting a js.Value into PromiseInt.
+func PromiseIntFromJS(value js.Value) *PromiseInt {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseInt{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseIntFromJS is casting from something that holds a js.Value into PromiseInt.
+func PromiseIntFromWrapper(input core.Wrapper) *PromiseInt {
+	return PromiseIntFromJS(input.JSValue())
 }
 
 func (_this *PromiseInt) Then(onFulfilled *PromiseIntOnFulfilled, onRejected *PromiseIntOnRejected) (_result *PromiseInt) {
@@ -3333,15 +3411,19 @@ func (_this *PromiseSequenceString) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceStringFromJS is casting a js.Wrapper into PromiseSequenceString.
-func PromiseSequenceStringFromJS(value js.Wrapper) *PromiseSequenceString {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceStringFromJS is casting a js.Value into PromiseSequenceString.
+func PromiseSequenceStringFromJS(value js.Value) *PromiseSequenceString {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceString{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceStringFromJS is casting from something that holds a js.Value into PromiseSequenceString.
+func PromiseSequenceStringFromWrapper(input core.Wrapper) *PromiseSequenceString {
+	return PromiseSequenceStringFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceString) Then(onFulfilled *PromiseSequenceStringOnFulfilled, onRejected *PromiseSequenceStringOnRejected) (_result *PromiseSequenceString) {
@@ -3438,15 +3520,19 @@ func (_this *PromiseString) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseStringFromJS is casting a js.Wrapper into PromiseString.
-func PromiseStringFromJS(value js.Wrapper) *PromiseString {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseStringFromJS is casting a js.Value into PromiseString.
+func PromiseStringFromJS(value js.Value) *PromiseString {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseString{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseStringFromJS is casting from something that holds a js.Value into PromiseString.
+func PromiseStringFromWrapper(input core.Wrapper) *PromiseString {
+	return PromiseStringFromJS(input.JSValue())
 }
 
 func (_this *PromiseString) Then(onFulfilled *PromiseStringOnFulfilled, onRejected *PromiseStringOnRejected) (_result *PromiseString) {
@@ -3543,15 +3629,19 @@ func (_this *PromiseVoid) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseVoidFromJS is casting a js.Wrapper into PromiseVoid.
-func PromiseVoidFromJS(value js.Wrapper) *PromiseVoid {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseVoidFromJS is casting a js.Value into PromiseVoid.
+func PromiseVoidFromJS(value js.Value) *PromiseVoid {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseVoid{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseVoidFromJS is casting from something that holds a js.Value into PromiseVoid.
+func PromiseVoidFromWrapper(input core.Wrapper) *PromiseVoid {
+	return PromiseVoidFromJS(input.JSValue())
 }
 
 func (_this *PromiseVoid) Then(onFulfilled *PromiseVoidOnFulfilled, onRejected *PromiseVoidOnRejected) (_result *PromiseVoid) {
@@ -3648,15 +3738,19 @@ func (_this *Uint16Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint16ArrayFromJS is casting a js.Wrapper into Uint16Array.
-func Uint16ArrayFromJS(value js.Wrapper) *Uint16Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Uint16ArrayFromJS is casting a js.Value into Uint16Array.
+func Uint16ArrayFromJS(value js.Value) *Uint16Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Uint16Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Uint16ArrayFromJS is casting from something that holds a js.Value into Uint16Array.
+func Uint16ArrayFromWrapper(input core.Wrapper) *Uint16Array {
+	return Uint16ArrayFromJS(input.JSValue())
 }
 
 // class: Uint32Array
@@ -3669,15 +3763,19 @@ func (_this *Uint32Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint32ArrayFromJS is casting a js.Wrapper into Uint32Array.
-func Uint32ArrayFromJS(value js.Wrapper) *Uint32Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Uint32ArrayFromJS is casting a js.Value into Uint32Array.
+func Uint32ArrayFromJS(value js.Value) *Uint32Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Uint32Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Uint32ArrayFromJS is casting from something that holds a js.Value into Uint32Array.
+func Uint32ArrayFromWrapper(input core.Wrapper) *Uint32Array {
+	return Uint32ArrayFromJS(input.JSValue())
 }
 
 // class: Uint8Array
@@ -3690,13 +3788,17 @@ func (_this *Uint8Array) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// Uint8ArrayFromJS is casting a js.Wrapper into Uint8Array.
-func Uint8ArrayFromJS(value js.Wrapper) *Uint8Array {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// Uint8ArrayFromJS is casting a js.Value into Uint8Array.
+func Uint8ArrayFromJS(value js.Value) *Uint8Array {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Uint8Array{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// Uint8ArrayFromJS is casting from something that holds a js.Value into Uint8Array.
+func Uint8ArrayFromWrapper(input core.Wrapper) *Uint8Array {
+	return Uint8ArrayFromJS(input.JSValue())
 }

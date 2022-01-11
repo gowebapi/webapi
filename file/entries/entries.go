@@ -7,6 +7,7 @@ package entries
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/file"
 )
@@ -216,7 +217,7 @@ type FileSystemFlags struct {
 	Exclusive bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FileSystemFlags) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -228,18 +229,16 @@ func (_this *FileSystemFlags) JSValue() js.Value {
 }
 
 // FileSystemFlagsFromJS is allocating a new
-// FileSystemFlags object and copy all values from
-// input javascript object
-func FileSystemFlagsFromJS(value js.Wrapper) *FileSystemFlags {
-	input := value.JSValue()
+// FileSystemFlags object and copy all values in the value javascript object.
+func FileSystemFlagsFromJS(value js.Value) *FileSystemFlags {
 	var out FileSystemFlags
 	var (
 		value0 bool // javascript: boolean {create Create create}
 		value1 bool // javascript: boolean {exclusive Exclusive exclusive}
 	)
-	value0 = (input.Get("create")).Bool()
+	value0 = (value.Get("create")).Bool()
 	out.Create = value0
-	value1 = (input.Get("exclusive")).Bool()
+	value1 = (value.Get("exclusive")).Bool()
 	out.Exclusive = value1
 	return &out
 }
@@ -254,15 +253,19 @@ func (_this *FileSystem) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileSystemFromJS is casting a js.Wrapper into FileSystem.
-func FileSystemFromJS(value js.Wrapper) *FileSystem {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileSystemFromJS is casting a js.Value into FileSystem.
+func FileSystemFromJS(value js.Value) *FileSystem {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystem{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileSystemFromJS is casting from something that holds a js.Value into FileSystem.
+func FileSystemFromWrapper(input core.Wrapper) *FileSystem {
+	return FileSystemFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -288,15 +291,19 @@ type FileSystemDirectoryEntry struct {
 	FileSystemEntry
 }
 
-// FileSystemDirectoryEntryFromJS is casting a js.Wrapper into FileSystemDirectoryEntry.
-func FileSystemDirectoryEntryFromJS(value js.Wrapper) *FileSystemDirectoryEntry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileSystemDirectoryEntryFromJS is casting a js.Value into FileSystemDirectoryEntry.
+func FileSystemDirectoryEntryFromJS(value js.Value) *FileSystemDirectoryEntry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemDirectoryEntry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileSystemDirectoryEntryFromJS is casting from something that holds a js.Value into FileSystemDirectoryEntry.
+func FileSystemDirectoryEntryFromWrapper(input core.Wrapper) *FileSystemDirectoryEntry {
+	return FileSystemDirectoryEntryFromJS(input.JSValue())
 }
 
 func (_this *FileSystemDirectoryEntry) CreateReader() (_result *FileSystemDirectoryReader) {
@@ -421,15 +428,19 @@ func (_this *FileSystemDirectoryReader) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileSystemDirectoryReaderFromJS is casting a js.Wrapper into FileSystemDirectoryReader.
-func FileSystemDirectoryReaderFromJS(value js.Wrapper) *FileSystemDirectoryReader {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileSystemDirectoryReaderFromJS is casting a js.Value into FileSystemDirectoryReader.
+func FileSystemDirectoryReaderFromJS(value js.Value) *FileSystemDirectoryReader {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemDirectoryReader{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileSystemDirectoryReaderFromJS is casting from something that holds a js.Value into FileSystemDirectoryReader.
+func FileSystemDirectoryReaderFromWrapper(input core.Wrapper) *FileSystemDirectoryReader {
+	return FileSystemDirectoryReaderFromJS(input.JSValue())
 }
 
 func (_this *FileSystemDirectoryReader) ReadEntries(successCallback *FileSystemEntriesCallback, errorCallback *ErrorCallback) {
@@ -473,15 +484,19 @@ func (_this *FileSystemEntry) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FileSystemEntryFromJS is casting a js.Wrapper into FileSystemEntry.
-func FileSystemEntryFromJS(value js.Wrapper) *FileSystemEntry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileSystemEntryFromJS is casting a js.Value into FileSystemEntry.
+func FileSystemEntryFromJS(value js.Value) *FileSystemEntry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemEntry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileSystemEntryFromJS is casting from something that holds a js.Value into FileSystemEntry.
+func FileSystemEntryFromWrapper(input core.Wrapper) *FileSystemEntry {
+	return FileSystemEntryFromJS(input.JSValue())
 }
 
 // IsFile returning attribute 'isFile' with
@@ -567,15 +582,19 @@ type FileSystemFileEntry struct {
 	FileSystemEntry
 }
 
-// FileSystemFileEntryFromJS is casting a js.Wrapper into FileSystemFileEntry.
-func FileSystemFileEntryFromJS(value js.Wrapper) *FileSystemFileEntry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FileSystemFileEntryFromJS is casting a js.Value into FileSystemFileEntry.
+func FileSystemFileEntryFromJS(value js.Value) *FileSystemFileEntry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FileSystemFileEntry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FileSystemFileEntryFromJS is casting from something that holds a js.Value into FileSystemFileEntry.
+func FileSystemFileEntryFromWrapper(input core.Wrapper) *FileSystemFileEntry {
+	return FileSystemFileEntryFromJS(input.JSValue())
 }
 
 func (_this *FileSystemFileEntry) File(successCallback *FileCallback, errorCallback *ErrorCallback) {

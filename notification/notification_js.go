@@ -5,6 +5,7 @@ package notification
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -252,7 +253,7 @@ type GetNotificationOptions struct {
 	Tag string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *GetNotificationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -262,15 +263,13 @@ func (_this *GetNotificationOptions) JSValue() js.Value {
 }
 
 // GetNotificationOptionsFromJS is allocating a new
-// GetNotificationOptions object and copy all values from
-// input javascript object
-func GetNotificationOptionsFromJS(value js.Wrapper) *GetNotificationOptions {
-	input := value.JSValue()
+// GetNotificationOptions object and copy all values in the value javascript object.
+func GetNotificationOptionsFromJS(value js.Value) *GetNotificationOptions {
 	var out GetNotificationOptions
 	var (
 		value0 string // javascript: DOMString {tag Tag tag}
 	)
-	value0 = (input.Get("tag")).String()
+	value0 = (value.Get("tag")).String()
 	out.Tag = value0
 	return &out
 }
@@ -282,7 +281,7 @@ type NotificationAction struct {
 	Icon   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NotificationAction) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -296,21 +295,19 @@ func (_this *NotificationAction) JSValue() js.Value {
 }
 
 // NotificationActionFromJS is allocating a new
-// NotificationAction object and copy all values from
-// input javascript object
-func NotificationActionFromJS(value js.Wrapper) *NotificationAction {
-	input := value.JSValue()
+// NotificationAction object and copy all values in the value javascript object.
+func NotificationActionFromJS(value js.Value) *NotificationAction {
 	var out NotificationAction
 	var (
 		value0 string // javascript: DOMString {action Action action}
 		value1 string // javascript: DOMString {title Title title}
 		value2 string // javascript: USVString {icon Icon icon}
 	)
-	value0 = (input.Get("action")).String()
+	value0 = (value.Get("action")).String()
 	out.Action = value0
-	value1 = (input.Get("title")).String()
+	value1 = (value.Get("title")).String()
 	out.Title = value1
-	value2 = (input.Get("icon")).String()
+	value2 = (value.Get("icon")).String()
 	out.Icon = value2
 	return &out
 }
@@ -332,7 +329,7 @@ type Options struct {
 	Actions            []*NotificationAction
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Options) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -370,10 +367,8 @@ func (_this *Options) JSValue() js.Value {
 }
 
 // OptionsFromJS is allocating a new
-// Options object and copy all values from
-// input javascript object
-func OptionsFromJS(value js.Wrapper) *Options {
-	input := value.JSValue()
+// Options object and copy all values in the value javascript object.
+func OptionsFromJS(value js.Value) *Options {
 	var out Options
 	var (
 		value0  Direction             // javascript: NotificationDirection {dir Dir dir}
@@ -390,35 +385,35 @@ func OptionsFromJS(value js.Wrapper) *Options {
 		value11 js.Value              // javascript: any {data Data data}
 		value12 []*NotificationAction // javascript: sequence<NotificationAction> {actions Actions actions}
 	)
-	value0 = DirectionFromJS(input.Get("dir"))
+	value0 = DirectionFromJS(value.Get("dir"))
 	out.Dir = value0
-	value1 = (input.Get("lang")).String()
+	value1 = (value.Get("lang")).String()
 	out.Lang = value1
-	value2 = (input.Get("body")).String()
+	value2 = (value.Get("body")).String()
 	out.Body = value2
-	value3 = (input.Get("tag")).String()
+	value3 = (value.Get("tag")).String()
 	out.Tag = value3
-	value4 = (input.Get("image")).String()
+	value4 = (value.Get("image")).String()
 	out.Image = value4
-	value5 = (input.Get("icon")).String()
+	value5 = (value.Get("icon")).String()
 	out.Icon = value5
-	value6 = (input.Get("badge")).String()
+	value6 = (value.Get("badge")).String()
 	out.Badge = value6
-	value7 = (input.Get("timestamp")).Int()
+	value7 = (value.Get("timestamp")).Int()
 	out.Timestamp = value7
-	value8 = (input.Get("renotify")).Bool()
+	value8 = (value.Get("renotify")).Bool()
 	out.Renotify = value8
-	value9 = (input.Get("silent")).Bool()
+	value9 = (value.Get("silent")).Bool()
 	out.Silent = value9
-	value10 = (input.Get("requireInteraction")).Bool()
+	value10 = (value.Get("requireInteraction")).Bool()
 	out.RequireInteraction = value10
-	value11 = input.Get("data")
+	value11 = value.Get("data")
 	out.Data = value11
-	__length12 := input.Get("actions").Length()
+	__length12 := value.Get("actions").Length()
 	__array12 := make([]*NotificationAction, __length12, __length12)
 	for __idx12 := 0; __idx12 < __length12; __idx12++ {
 		var __seq_out12 *NotificationAction
-		__seq_in12 := input.Get("actions").Index(__idx12)
+		__seq_in12 := value.Get("actions").Index(__idx12)
 		__seq_out12 = NotificationActionFromJS(__seq_in12)
 		__array12[__idx12] = __seq_out12
 	}
@@ -432,15 +427,19 @@ type Notification struct {
 	domcore.EventTarget
 }
 
-// NotificationFromJS is casting a js.Wrapper into Notification.
-func NotificationFromJS(value js.Wrapper) *Notification {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NotificationFromJS is casting a js.Value into Notification.
+func NotificationFromJS(value js.Value) *Notification {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Notification{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NotificationFromJS is casting from something that holds a js.Value into Notification.
+func NotificationFromWrapper(input core.Wrapper) *Notification {
+	return NotificationFromJS(input.JSValue())
 }
 
 // Permission returning attribute 'permission' with
@@ -790,15 +789,19 @@ func (_this *PromisePermissionMode) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePermissionModeFromJS is casting a js.Wrapper into PromisePermissionMode.
-func PromisePermissionModeFromJS(value js.Wrapper) *PromisePermissionMode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePermissionModeFromJS is casting a js.Value into PromisePermissionMode.
+func PromisePermissionModeFromJS(value js.Value) *PromisePermissionMode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePermissionMode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePermissionModeFromJS is casting from something that holds a js.Value into PromisePermissionMode.
+func PromisePermissionModeFromWrapper(input core.Wrapper) *PromisePermissionMode {
+	return PromisePermissionModeFromJS(input.JSValue())
 }
 
 func (_this *PromisePermissionMode) Then(onFulfilled *PromisePermissionModeOnFulfilled, onRejected *PromisePermissionModeOnRejected) (_result *PromisePermissionMode) {

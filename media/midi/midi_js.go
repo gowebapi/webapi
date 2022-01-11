@@ -5,6 +5,7 @@ package midi
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -436,7 +437,7 @@ type ConnectionEventInit struct {
 	Port       *Port
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ConnectionEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -452,10 +453,8 @@ func (_this *ConnectionEventInit) JSValue() js.Value {
 }
 
 // ConnectionEventInitFromJS is allocating a new
-// ConnectionEventInit object and copy all values from
-// input javascript object
-func ConnectionEventInitFromJS(value js.Wrapper) *ConnectionEventInit {
-	input := value.JSValue()
+// ConnectionEventInit object and copy all values in the value javascript object.
+func ConnectionEventInitFromJS(value js.Value) *ConnectionEventInit {
 	var out ConnectionEventInit
 	var (
 		value0 bool  // javascript: boolean {bubbles Bubbles bubbles}
@@ -463,13 +462,13 @@ func ConnectionEventInitFromJS(value js.Wrapper) *ConnectionEventInit {
 		value2 bool  // javascript: boolean {composed Composed composed}
 		value3 *Port // javascript: MIDIPort {port Port port}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = PortFromJS(input.Get("port"))
+	value3 = PortFromJS(value.Get("port"))
 	out.Port = value3
 	return &out
 }
@@ -480,7 +479,7 @@ type InputMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InputMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -496,26 +495,24 @@ func (_this *InputMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // InputMapEntryIteratorValueFromJS is allocating a new
-// InputMapEntryIteratorValue object and copy all values from
-// input javascript object
-func InputMapEntryIteratorValueFromJS(value js.Wrapper) *InputMapEntryIteratorValue {
-	input := value.JSValue()
+// InputMapEntryIteratorValue object and copy all values in the value javascript object.
+func InputMapEntryIteratorValueFromJS(value js.Value) *InputMapEntryIteratorValue {
 	var out InputMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -526,7 +523,7 @@ type InputMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InputMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -538,18 +535,16 @@ func (_this *InputMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // InputMapKeyIteratorValueFromJS is allocating a new
-// InputMapKeyIteratorValue object and copy all values from
-// input javascript object
-func InputMapKeyIteratorValueFromJS(value js.Wrapper) *InputMapKeyIteratorValue {
-	input := value.JSValue()
+// InputMapKeyIteratorValue object and copy all values in the value javascript object.
+func InputMapKeyIteratorValueFromJS(value js.Value) *InputMapKeyIteratorValue {
 	var out InputMapKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -560,7 +555,7 @@ type InputMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *InputMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -572,18 +567,16 @@ func (_this *InputMapValueIteratorValue) JSValue() js.Value {
 }
 
 // InputMapValueIteratorValueFromJS is allocating a new
-// InputMapValueIteratorValue object and copy all values from
-// input javascript object
-func InputMapValueIteratorValueFromJS(value js.Wrapper) *InputMapValueIteratorValue {
-	input := value.JSValue()
+// InputMapValueIteratorValue object and copy all values in the value javascript object.
+func InputMapValueIteratorValueFromJS(value js.Value) *InputMapValueIteratorValue {
 	var out InputMapValueIteratorValue
 	var (
 		value0 *Input // javascript: MIDIInput {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = InputFromJS(input.Get("value"))
+	value0 = InputFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -596,7 +589,7 @@ type MessageEventInit struct {
 	Data       *javascript.Uint8Array
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MessageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -612,10 +605,8 @@ func (_this *MessageEventInit) JSValue() js.Value {
 }
 
 // MessageEventInitFromJS is allocating a new
-// MessageEventInit object and copy all values from
-// input javascript object
-func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
-	input := value.JSValue()
+// MessageEventInit object and copy all values in the value javascript object.
+func MessageEventInitFromJS(value js.Value) *MessageEventInit {
 	var out MessageEventInit
 	var (
 		value0 bool                   // javascript: boolean {bubbles Bubbles bubbles}
@@ -623,13 +614,13 @@ func MessageEventInitFromJS(value js.Wrapper) *MessageEventInit {
 		value2 bool                   // javascript: boolean {composed Composed composed}
 		value3 *javascript.Uint8Array // javascript: Uint8Array {data Data data}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = javascript.Uint8ArrayFromJS(input.Get("data"))
+	value3 = javascript.Uint8ArrayFromJS(value.Get("data"))
 	out.Data = value3
 	return &out
 }
@@ -640,7 +631,7 @@ type Options struct {
 	Software bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Options) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -652,18 +643,16 @@ func (_this *Options) JSValue() js.Value {
 }
 
 // OptionsFromJS is allocating a new
-// Options object and copy all values from
-// input javascript object
-func OptionsFromJS(value js.Wrapper) *Options {
-	input := value.JSValue()
+// Options object and copy all values in the value javascript object.
+func OptionsFromJS(value js.Value) *Options {
 	var out Options
 	var (
 		value0 bool // javascript: boolean {sysex Sysex sysex}
 		value1 bool // javascript: boolean {software Software software}
 	)
-	value0 = (input.Get("sysex")).Bool()
+	value0 = (value.Get("sysex")).Bool()
 	out.Sysex = value0
-	value1 = (input.Get("software")).Bool()
+	value1 = (value.Get("software")).Bool()
 	out.Software = value1
 	return &out
 }
@@ -674,7 +663,7 @@ type OutputMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OutputMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -690,26 +679,24 @@ func (_this *OutputMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // OutputMapEntryIteratorValueFromJS is allocating a new
-// OutputMapEntryIteratorValue object and copy all values from
-// input javascript object
-func OutputMapEntryIteratorValueFromJS(value js.Wrapper) *OutputMapEntryIteratorValue {
-	input := value.JSValue()
+// OutputMapEntryIteratorValue object and copy all values in the value javascript object.
+func OutputMapEntryIteratorValueFromJS(value js.Value) *OutputMapEntryIteratorValue {
 	var out OutputMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -720,7 +707,7 @@ type OutputMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OutputMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -732,18 +719,16 @@ func (_this *OutputMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // OutputMapKeyIteratorValueFromJS is allocating a new
-// OutputMapKeyIteratorValue object and copy all values from
-// input javascript object
-func OutputMapKeyIteratorValueFromJS(value js.Wrapper) *OutputMapKeyIteratorValue {
-	input := value.JSValue()
+// OutputMapKeyIteratorValue object and copy all values in the value javascript object.
+func OutputMapKeyIteratorValueFromJS(value js.Value) *OutputMapKeyIteratorValue {
 	var out OutputMapKeyIteratorValue
 	var (
 		value0 string // javascript: DOMString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -754,7 +739,7 @@ type OutputMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *OutputMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -766,18 +751,16 @@ func (_this *OutputMapValueIteratorValue) JSValue() js.Value {
 }
 
 // OutputMapValueIteratorValueFromJS is allocating a new
-// OutputMapValueIteratorValue object and copy all values from
-// input javascript object
-func OutputMapValueIteratorValueFromJS(value js.Wrapper) *OutputMapValueIteratorValue {
-	input := value.JSValue()
+// OutputMapValueIteratorValue object and copy all values in the value javascript object.
+func OutputMapValueIteratorValueFromJS(value js.Value) *OutputMapValueIteratorValue {
 	var out OutputMapValueIteratorValue
 	var (
 		value0 *Output // javascript: MIDIOutput {value Value value}
 		value1 bool    // javascript: boolean {done Done done}
 	)
-	value0 = OutputFromJS(input.Get("value"))
+	value0 = OutputFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -787,15 +770,19 @@ type Access struct {
 	domcore.EventTarget
 }
 
-// AccessFromJS is casting a js.Wrapper into Access.
-func AccessFromJS(value js.Wrapper) *Access {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AccessFromJS is casting a js.Value into Access.
+func AccessFromJS(value js.Value) *Access {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Access{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AccessFromJS is casting from something that holds a js.Value into Access.
+func AccessFromWrapper(input core.Wrapper) *Access {
+	return AccessFromJS(input.JSValue())
 }
 
 // Inputs returning attribute 'inputs' with
@@ -871,15 +858,19 @@ type ConnectionEvent struct {
 	domcore.Event
 }
 
-// ConnectionEventFromJS is casting a js.Wrapper into ConnectionEvent.
-func ConnectionEventFromJS(value js.Wrapper) *ConnectionEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ConnectionEventFromJS is casting a js.Value into ConnectionEvent.
+func ConnectionEventFromJS(value js.Value) *ConnectionEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ConnectionEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ConnectionEventFromJS is casting from something that holds a js.Value into ConnectionEvent.
+func ConnectionEventFromWrapper(input core.Wrapper) *ConnectionEvent {
+	return ConnectionEventFromJS(input.JSValue())
 }
 
 func NewMIDIConnectionEvent(_type string, eventInitDict *ConnectionEventInit) (_result *ConnectionEvent) {
@@ -919,15 +910,19 @@ type Input struct {
 	Port
 }
 
-// InputFromJS is casting a js.Wrapper into Input.
-func InputFromJS(value js.Wrapper) *Input {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputFromJS is casting a js.Value into Input.
+func InputFromJS(value js.Value) *Input {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Input{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputFromJS is casting from something that holds a js.Value into Input.
+func InputFromWrapper(input core.Wrapper) *Input {
+	return InputFromJS(input.JSValue())
 }
 
 // OnMIDIMessage returning attribute 'onmidimessage' with
@@ -981,15 +976,19 @@ func (_this *InputMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// InputMapFromJS is casting a js.Wrapper into InputMap.
-func InputMapFromJS(value js.Wrapper) *InputMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputMapFromJS is casting a js.Value into InputMap.
+func InputMapFromJS(value js.Value) *InputMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputMapFromJS is casting from something that holds a js.Value into InputMap.
+func InputMapFromWrapper(input core.Wrapper) *InputMap {
+	return InputMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -1113,15 +1112,19 @@ func (_this *InputMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// InputMapEntryIteratorFromJS is casting a js.Wrapper into InputMapEntryIterator.
-func InputMapEntryIteratorFromJS(value js.Wrapper) *InputMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputMapEntryIteratorFromJS is casting a js.Value into InputMapEntryIterator.
+func InputMapEntryIteratorFromJS(value js.Value) *InputMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputMapEntryIteratorFromJS is casting from something that holds a js.Value into InputMapEntryIterator.
+func InputMapEntryIteratorFromWrapper(input core.Wrapper) *InputMapEntryIterator {
+	return InputMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *InputMapEntryIterator) Next() (_result *InputMapEntryIteratorValue) {
@@ -1148,15 +1151,19 @@ func (_this *InputMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// InputMapKeyIteratorFromJS is casting a js.Wrapper into InputMapKeyIterator.
-func InputMapKeyIteratorFromJS(value js.Wrapper) *InputMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputMapKeyIteratorFromJS is casting a js.Value into InputMapKeyIterator.
+func InputMapKeyIteratorFromJS(value js.Value) *InputMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputMapKeyIteratorFromJS is casting from something that holds a js.Value into InputMapKeyIterator.
+func InputMapKeyIteratorFromWrapper(input core.Wrapper) *InputMapKeyIterator {
+	return InputMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *InputMapKeyIterator) Next() (_result *InputMapKeyIteratorValue) {
@@ -1183,15 +1190,19 @@ func (_this *InputMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// InputMapValueIteratorFromJS is casting a js.Wrapper into InputMapValueIterator.
-func InputMapValueIteratorFromJS(value js.Wrapper) *InputMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InputMapValueIteratorFromJS is casting a js.Value into InputMapValueIterator.
+func InputMapValueIteratorFromJS(value js.Value) *InputMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InputMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InputMapValueIteratorFromJS is casting from something that holds a js.Value into InputMapValueIterator.
+func InputMapValueIteratorFromWrapper(input core.Wrapper) *InputMapValueIterator {
+	return InputMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *InputMapValueIterator) Next() (_result *InputMapValueIteratorValue) {
@@ -1213,15 +1224,19 @@ type MessageEvent struct {
 	domcore.Event
 }
 
-// MessageEventFromJS is casting a js.Wrapper into MessageEvent.
-func MessageEventFromJS(value js.Wrapper) *MessageEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MessageEventFromJS is casting a js.Value into MessageEvent.
+func MessageEventFromJS(value js.Value) *MessageEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MessageEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MessageEventFromJS is casting from something that holds a js.Value into MessageEvent.
+func MessageEventFromWrapper(input core.Wrapper) *MessageEvent {
+	return MessageEventFromJS(input.JSValue())
 }
 
 func NewMIDIMessageEvent(_type string, eventInitDict *MessageEventInit) (_result *MessageEvent) {
@@ -1261,15 +1276,19 @@ type Output struct {
 	Port
 }
 
-// OutputFromJS is casting a js.Wrapper into Output.
-func OutputFromJS(value js.Wrapper) *Output {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OutputFromJS is casting a js.Value into Output.
+func OutputFromJS(value js.Value) *Output {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Output{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OutputFromJS is casting from something that holds a js.Value into Output.
+func OutputFromWrapper(input core.Wrapper) *Output {
+	return OutputFromJS(input.JSValue())
 }
 
 func (_this *Output) Send(data []int, timestamp *float64) {
@@ -1318,15 +1337,19 @@ func (_this *OutputMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OutputMapFromJS is casting a js.Wrapper into OutputMap.
-func OutputMapFromJS(value js.Wrapper) *OutputMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OutputMapFromJS is casting a js.Value into OutputMap.
+func OutputMapFromJS(value js.Value) *OutputMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OutputMapFromJS is casting from something that holds a js.Value into OutputMap.
+func OutputMapFromWrapper(input core.Wrapper) *OutputMap {
+	return OutputMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -1450,15 +1473,19 @@ func (_this *OutputMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OutputMapEntryIteratorFromJS is casting a js.Wrapper into OutputMapEntryIterator.
-func OutputMapEntryIteratorFromJS(value js.Wrapper) *OutputMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OutputMapEntryIteratorFromJS is casting a js.Value into OutputMapEntryIterator.
+func OutputMapEntryIteratorFromJS(value js.Value) *OutputMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OutputMapEntryIteratorFromJS is casting from something that holds a js.Value into OutputMapEntryIterator.
+func OutputMapEntryIteratorFromWrapper(input core.Wrapper) *OutputMapEntryIterator {
+	return OutputMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *OutputMapEntryIterator) Next() (_result *OutputMapEntryIteratorValue) {
@@ -1485,15 +1512,19 @@ func (_this *OutputMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OutputMapKeyIteratorFromJS is casting a js.Wrapper into OutputMapKeyIterator.
-func OutputMapKeyIteratorFromJS(value js.Wrapper) *OutputMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OutputMapKeyIteratorFromJS is casting a js.Value into OutputMapKeyIterator.
+func OutputMapKeyIteratorFromJS(value js.Value) *OutputMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OutputMapKeyIteratorFromJS is casting from something that holds a js.Value into OutputMapKeyIterator.
+func OutputMapKeyIteratorFromWrapper(input core.Wrapper) *OutputMapKeyIterator {
+	return OutputMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *OutputMapKeyIterator) Next() (_result *OutputMapKeyIteratorValue) {
@@ -1520,15 +1551,19 @@ func (_this *OutputMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// OutputMapValueIteratorFromJS is casting a js.Wrapper into OutputMapValueIterator.
-func OutputMapValueIteratorFromJS(value js.Wrapper) *OutputMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// OutputMapValueIteratorFromJS is casting a js.Value into OutputMapValueIterator.
+func OutputMapValueIteratorFromJS(value js.Value) *OutputMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &OutputMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// OutputMapValueIteratorFromJS is casting from something that holds a js.Value into OutputMapValueIterator.
+func OutputMapValueIteratorFromWrapper(input core.Wrapper) *OutputMapValueIterator {
+	return OutputMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *OutputMapValueIterator) Next() (_result *OutputMapValueIteratorValue) {
@@ -1550,15 +1585,19 @@ type Port struct {
 	domcore.EventTarget
 }
 
-// PortFromJS is casting a js.Wrapper into Port.
-func PortFromJS(value js.Wrapper) *Port {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PortFromJS is casting a js.Value into Port.
+func PortFromJS(value js.Value) *Port {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Port{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PortFromJS is casting from something that holds a js.Value into Port.
+func PortFromWrapper(input core.Wrapper) *Port {
+	return PortFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -1712,15 +1751,19 @@ func (_this *PromiseAccess) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseAccessFromJS is casting a js.Wrapper into PromiseAccess.
-func PromiseAccessFromJS(value js.Wrapper) *PromiseAccess {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseAccessFromJS is casting a js.Value into PromiseAccess.
+func PromiseAccessFromJS(value js.Value) *PromiseAccess {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseAccess{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseAccessFromJS is casting from something that holds a js.Value into PromiseAccess.
+func PromiseAccessFromWrapper(input core.Wrapper) *PromiseAccess {
+	return PromiseAccessFromJS(input.JSValue())
 }
 
 func (_this *PromiseAccess) Then(onFulfilled *PromiseAccessOnFulfilled, onRejected *PromiseAccessOnRejected) (_result *PromiseAccess) {
@@ -1817,15 +1860,19 @@ func (_this *PromisePort) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePortFromJS is casting a js.Wrapper into PromisePort.
-func PromisePortFromJS(value js.Wrapper) *PromisePort {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePortFromJS is casting a js.Value into PromisePort.
+func PromisePortFromJS(value js.Value) *PromisePort {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePort{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePortFromJS is casting from something that holds a js.Value into PromisePort.
+func PromisePortFromWrapper(input core.Wrapper) *PromisePort {
+	return PromisePortFromJS(input.JSValue())
 }
 
 func (_this *PromisePort) Then(onFulfilled *PromisePortOnFulfilled, onRejected *PromisePortOnRejected) (_result *PromisePort) {

@@ -7,6 +7,7 @@ package worklets
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -43,7 +44,7 @@ type WorkletOptions struct {
 	Credentials fetch.RequestCredentials
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *WorkletOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -53,15 +54,13 @@ func (_this *WorkletOptions) JSValue() js.Value {
 }
 
 // WorkletOptionsFromJS is allocating a new
-// WorkletOptions object and copy all values from
-// input javascript object
-func WorkletOptionsFromJS(value js.Wrapper) *WorkletOptions {
-	input := value.JSValue()
+// WorkletOptions object and copy all values in the value javascript object.
+func WorkletOptionsFromJS(value js.Value) *WorkletOptions {
 	var out WorkletOptions
 	var (
 		value0 fetch.RequestCredentials // javascript: RequestCredentials {credentials Credentials credentials}
 	)
-	value0 = fetch.RequestCredentialsFromJS(input.Get("credentials"))
+	value0 = fetch.RequestCredentialsFromJS(value.Get("credentials"))
 	out.Credentials = value0
 	return &out
 }
@@ -76,15 +75,19 @@ func (_this *Worklet) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WorkletFromJS is casting a js.Wrapper into Worklet.
-func WorkletFromJS(value js.Wrapper) *Worklet {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkletFromJS is casting a js.Value into Worklet.
+func WorkletFromJS(value js.Value) *Worklet {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Worklet{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkletFromJS is casting from something that holds a js.Value into Worklet.
+func WorkletFromWrapper(input core.Wrapper) *Worklet {
+	return WorkletFromJS(input.JSValue())
 }
 
 func (_this *Worklet) AddModule(moduleURL string, options *WorkletOptions) (_result *javascript.PromiseVoid) {
@@ -119,13 +122,17 @@ func (_this *WorkletGlobalScope) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WorkletGlobalScopeFromJS is casting a js.Wrapper into WorkletGlobalScope.
-func WorkletGlobalScopeFromJS(value js.Wrapper) *WorkletGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WorkletGlobalScopeFromJS is casting a js.Value into WorkletGlobalScope.
+func WorkletGlobalScopeFromJS(value js.Value) *WorkletGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WorkletGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WorkletGlobalScopeFromJS is casting from something that holds a js.Value into WorkletGlobalScope.
+func WorkletGlobalScopeFromWrapper(input core.Wrapper) *WorkletGlobalScope {
+	return WorkletGlobalScopeFromJS(input.JSValue())
 }

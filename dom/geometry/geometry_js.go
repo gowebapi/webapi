@@ -5,6 +5,7 @@ package geometry
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
 )
 
@@ -52,7 +53,7 @@ type DOMMatrix2DInit struct {
 	M42 float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DOMMatrix2DInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -84,10 +85,8 @@ func (_this *DOMMatrix2DInit) JSValue() js.Value {
 }
 
 // DOMMatrix2DInitFromJS is allocating a new
-// DOMMatrix2DInit object and copy all values from
-// input javascript object
-func DOMMatrix2DInitFromJS(value js.Wrapper) *DOMMatrix2DInit {
-	input := value.JSValue()
+// DOMMatrix2DInit object and copy all values in the value javascript object.
+func DOMMatrix2DInitFromJS(value js.Value) *DOMMatrix2DInit {
 	var out DOMMatrix2DInit
 	var (
 		value0  float64 // javascript: unrestricted double {a A a}
@@ -103,29 +102,29 @@ func DOMMatrix2DInitFromJS(value js.Wrapper) *DOMMatrix2DInit {
 		value10 float64 // javascript: unrestricted double {m41 M41 m41}
 		value11 float64 // javascript: unrestricted double {m42 M42 m42}
 	)
-	value0 = (input.Get("a")).Float()
+	value0 = (value.Get("a")).Float()
 	out.A = value0
-	value1 = (input.Get("b")).Float()
+	value1 = (value.Get("b")).Float()
 	out.B = value1
-	value2 = (input.Get("c")).Float()
+	value2 = (value.Get("c")).Float()
 	out.C = value2
-	value3 = (input.Get("d")).Float()
+	value3 = (value.Get("d")).Float()
 	out.D = value3
-	value4 = (input.Get("e")).Float()
+	value4 = (value.Get("e")).Float()
 	out.E = value4
-	value5 = (input.Get("f")).Float()
+	value5 = (value.Get("f")).Float()
 	out.F = value5
-	value6 = (input.Get("m11")).Float()
+	value6 = (value.Get("m11")).Float()
 	out.M11 = value6
-	value7 = (input.Get("m12")).Float()
+	value7 = (value.Get("m12")).Float()
 	out.M12 = value7
-	value8 = (input.Get("m21")).Float()
+	value8 = (value.Get("m21")).Float()
 	out.M21 = value8
-	value9 = (input.Get("m22")).Float()
+	value9 = (value.Get("m22")).Float()
 	out.M22 = value9
-	value10 = (input.Get("m41")).Float()
+	value10 = (value.Get("m41")).Float()
 	out.M41 = value10
-	value11 = (input.Get("m42")).Float()
+	value11 = (value.Get("m42")).Float()
 	out.M42 = value11
 	return &out
 }
@@ -157,7 +156,7 @@ type DOMMatrixInit struct {
 	Is2D bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DOMMatrixInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -211,10 +210,8 @@ func (_this *DOMMatrixInit) JSValue() js.Value {
 }
 
 // DOMMatrixInitFromJS is allocating a new
-// DOMMatrixInit object and copy all values from
-// input javascript object
-func DOMMatrixInitFromJS(value js.Wrapper) *DOMMatrixInit {
-	input := value.JSValue()
+// DOMMatrixInit object and copy all values in the value javascript object.
+func DOMMatrixInitFromJS(value js.Value) *DOMMatrixInit {
 	var out DOMMatrixInit
 	var (
 		value0  float64 // javascript: unrestricted double {a A a}
@@ -241,51 +238,51 @@ func DOMMatrixInitFromJS(value js.Wrapper) *DOMMatrixInit {
 		value21 float64 // javascript: unrestricted double {m44 M44 m44}
 		value22 bool    // javascript: boolean {is2D Is2D is2D}
 	)
-	value0 = (input.Get("a")).Float()
+	value0 = (value.Get("a")).Float()
 	out.A = value0
-	value1 = (input.Get("b")).Float()
+	value1 = (value.Get("b")).Float()
 	out.B = value1
-	value2 = (input.Get("c")).Float()
+	value2 = (value.Get("c")).Float()
 	out.C = value2
-	value3 = (input.Get("d")).Float()
+	value3 = (value.Get("d")).Float()
 	out.D = value3
-	value4 = (input.Get("e")).Float()
+	value4 = (value.Get("e")).Float()
 	out.E = value4
-	value5 = (input.Get("f")).Float()
+	value5 = (value.Get("f")).Float()
 	out.F = value5
-	value6 = (input.Get("m11")).Float()
+	value6 = (value.Get("m11")).Float()
 	out.M11 = value6
-	value7 = (input.Get("m12")).Float()
+	value7 = (value.Get("m12")).Float()
 	out.M12 = value7
-	value8 = (input.Get("m21")).Float()
+	value8 = (value.Get("m21")).Float()
 	out.M21 = value8
-	value9 = (input.Get("m22")).Float()
+	value9 = (value.Get("m22")).Float()
 	out.M22 = value9
-	value10 = (input.Get("m41")).Float()
+	value10 = (value.Get("m41")).Float()
 	out.M41 = value10
-	value11 = (input.Get("m42")).Float()
+	value11 = (value.Get("m42")).Float()
 	out.M42 = value11
-	value12 = (input.Get("m13")).Float()
+	value12 = (value.Get("m13")).Float()
 	out.M13 = value12
-	value13 = (input.Get("m14")).Float()
+	value13 = (value.Get("m14")).Float()
 	out.M14 = value13
-	value14 = (input.Get("m23")).Float()
+	value14 = (value.Get("m23")).Float()
 	out.M23 = value14
-	value15 = (input.Get("m24")).Float()
+	value15 = (value.Get("m24")).Float()
 	out.M24 = value15
-	value16 = (input.Get("m31")).Float()
+	value16 = (value.Get("m31")).Float()
 	out.M31 = value16
-	value17 = (input.Get("m32")).Float()
+	value17 = (value.Get("m32")).Float()
 	out.M32 = value17
-	value18 = (input.Get("m33")).Float()
+	value18 = (value.Get("m33")).Float()
 	out.M33 = value18
-	value19 = (input.Get("m34")).Float()
+	value19 = (value.Get("m34")).Float()
 	out.M34 = value19
-	value20 = (input.Get("m43")).Float()
+	value20 = (value.Get("m43")).Float()
 	out.M43 = value20
-	value21 = (input.Get("m44")).Float()
+	value21 = (value.Get("m44")).Float()
 	out.M44 = value21
-	value22 = (input.Get("is2D")).Bool()
+	value22 = (value.Get("is2D")).Bool()
 	out.Is2D = value22
 	return &out
 }
@@ -298,7 +295,7 @@ type DOMPointInit struct {
 	W float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DOMPointInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -314,10 +311,8 @@ func (_this *DOMPointInit) JSValue() js.Value {
 }
 
 // DOMPointInitFromJS is allocating a new
-// DOMPointInit object and copy all values from
-// input javascript object
-func DOMPointInitFromJS(value js.Wrapper) *DOMPointInit {
-	input := value.JSValue()
+// DOMPointInit object and copy all values in the value javascript object.
+func DOMPointInitFromJS(value js.Value) *DOMPointInit {
 	var out DOMPointInit
 	var (
 		value0 float64 // javascript: unrestricted double {x X x}
@@ -325,13 +320,13 @@ func DOMPointInitFromJS(value js.Wrapper) *DOMPointInit {
 		value2 float64 // javascript: unrestricted double {z Z z}
 		value3 float64 // javascript: unrestricted double {w W w}
 	)
-	value0 = (input.Get("x")).Float()
+	value0 = (value.Get("x")).Float()
 	out.X = value0
-	value1 = (input.Get("y")).Float()
+	value1 = (value.Get("y")).Float()
 	out.Y = value1
-	value2 = (input.Get("z")).Float()
+	value2 = (value.Get("z")).Float()
 	out.Z = value2
-	value3 = (input.Get("w")).Float()
+	value3 = (value.Get("w")).Float()
 	out.W = value3
 	return &out
 }
@@ -344,7 +339,7 @@ type DOMQuadInit struct {
 	P4 *DOMPointInit
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DOMQuadInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -360,10 +355,8 @@ func (_this *DOMQuadInit) JSValue() js.Value {
 }
 
 // DOMQuadInitFromJS is allocating a new
-// DOMQuadInit object and copy all values from
-// input javascript object
-func DOMQuadInitFromJS(value js.Wrapper) *DOMQuadInit {
-	input := value.JSValue()
+// DOMQuadInit object and copy all values in the value javascript object.
+func DOMQuadInitFromJS(value js.Value) *DOMQuadInit {
 	var out DOMQuadInit
 	var (
 		value0 *DOMPointInit // javascript: DOMPointInit {p1 P1 p1}
@@ -371,13 +364,13 @@ func DOMQuadInitFromJS(value js.Wrapper) *DOMQuadInit {
 		value2 *DOMPointInit // javascript: DOMPointInit {p3 P3 p3}
 		value3 *DOMPointInit // javascript: DOMPointInit {p4 P4 p4}
 	)
-	value0 = DOMPointInitFromJS(input.Get("p1"))
+	value0 = DOMPointInitFromJS(value.Get("p1"))
 	out.P1 = value0
-	value1 = DOMPointInitFromJS(input.Get("p2"))
+	value1 = DOMPointInitFromJS(value.Get("p2"))
 	out.P2 = value1
-	value2 = DOMPointInitFromJS(input.Get("p3"))
+	value2 = DOMPointInitFromJS(value.Get("p3"))
 	out.P3 = value2
-	value3 = DOMPointInitFromJS(input.Get("p4"))
+	value3 = DOMPointInitFromJS(value.Get("p4"))
 	out.P4 = value3
 	return &out
 }
@@ -390,7 +383,7 @@ type DOMRectInit struct {
 	Height float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DOMRectInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -406,10 +399,8 @@ func (_this *DOMRectInit) JSValue() js.Value {
 }
 
 // DOMRectInitFromJS is allocating a new
-// DOMRectInit object and copy all values from
-// input javascript object
-func DOMRectInitFromJS(value js.Wrapper) *DOMRectInit {
-	input := value.JSValue()
+// DOMRectInit object and copy all values in the value javascript object.
+func DOMRectInitFromJS(value js.Value) *DOMRectInit {
 	var out DOMRectInit
 	var (
 		value0 float64 // javascript: unrestricted double {x X x}
@@ -417,13 +408,13 @@ func DOMRectInitFromJS(value js.Wrapper) *DOMRectInit {
 		value2 float64 // javascript: unrestricted double {width Width width}
 		value3 float64 // javascript: unrestricted double {height Height height}
 	)
-	value0 = (input.Get("x")).Float()
+	value0 = (value.Get("x")).Float()
 	out.X = value0
-	value1 = (input.Get("y")).Float()
+	value1 = (value.Get("y")).Float()
 	out.Y = value1
-	value2 = (input.Get("width")).Float()
+	value2 = (value.Get("width")).Float()
 	out.Width = value2
-	value3 = (input.Get("height")).Float()
+	value3 = (value.Get("height")).Float()
 	out.Height = value3
 	return &out
 }
@@ -433,15 +424,19 @@ type DOMMatrix struct {
 	DOMMatrixReadOnly
 }
 
-// DOMMatrixFromJS is casting a js.Wrapper into DOMMatrix.
-func DOMMatrixFromJS(value js.Wrapper) *DOMMatrix {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMMatrixFromJS is casting a js.Value into DOMMatrix.
+func DOMMatrixFromJS(value js.Value) *DOMMatrix {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMMatrix{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMMatrixFromJS is casting from something that holds a js.Value into DOMMatrix.
+func DOMMatrixFromWrapper(input core.Wrapper) *DOMMatrix {
+	return DOMMatrixFromJS(input.JSValue())
 }
 
 func FromMatrix(other *DOMMatrixInit) (_result *DOMMatrix) {
@@ -1330,15 +1325,19 @@ func (_this *DOMMatrixReadOnly) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMMatrixReadOnlyFromJS is casting a js.Wrapper into DOMMatrixReadOnly.
-func DOMMatrixReadOnlyFromJS(value js.Wrapper) *DOMMatrixReadOnly {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMMatrixReadOnlyFromJS is casting a js.Value into DOMMatrixReadOnly.
+func DOMMatrixReadOnlyFromJS(value js.Value) *DOMMatrixReadOnly {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMMatrixReadOnly{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMMatrixReadOnlyFromJS is casting from something that holds a js.Value into DOMMatrixReadOnly.
+func DOMMatrixReadOnlyFromWrapper(input core.Wrapper) *DOMMatrixReadOnly {
+	return DOMMatrixReadOnlyFromJS(input.JSValue())
 }
 
 func FromMatrix2(other *DOMMatrixInit) (_result *DOMMatrixReadOnly) {
@@ -2189,15 +2188,19 @@ type DOMPoint struct {
 	DOMPointReadOnly
 }
 
-// DOMPointFromJS is casting a js.Wrapper into DOMPoint.
-func DOMPointFromJS(value js.Wrapper) *DOMPoint {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMPointFromJS is casting a js.Value into DOMPoint.
+func DOMPointFromJS(value js.Value) *DOMPoint {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMPoint{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMPointFromJS is casting from something that holds a js.Value into DOMPoint.
+func DOMPointFromWrapper(input core.Wrapper) *DOMPoint {
+	return DOMPointFromJS(input.JSValue())
 }
 
 func FromPoint(other *DOMPointInit) (_result *DOMPoint) {
@@ -2354,15 +2357,19 @@ func (_this *DOMPointReadOnly) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMPointReadOnlyFromJS is casting a js.Wrapper into DOMPointReadOnly.
-func DOMPointReadOnlyFromJS(value js.Wrapper) *DOMPointReadOnly {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMPointReadOnlyFromJS is casting a js.Value into DOMPointReadOnly.
+func DOMPointReadOnlyFromJS(value js.Value) *DOMPointReadOnly {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMPointReadOnly{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMPointReadOnlyFromJS is casting from something that holds a js.Value into DOMPointReadOnly.
+func DOMPointReadOnlyFromWrapper(input core.Wrapper) *DOMPointReadOnly {
+	return DOMPointReadOnlyFromJS(input.JSValue())
 }
 
 func FromPoint2(other *DOMPointInit) (_result *DOMPointReadOnly) {
@@ -2524,15 +2531,19 @@ func (_this *DOMQuad) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMQuadFromJS is casting a js.Wrapper into DOMQuad.
-func DOMQuadFromJS(value js.Wrapper) *DOMQuad {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMQuadFromJS is casting a js.Value into DOMQuad.
+func DOMQuadFromJS(value js.Value) *DOMQuad {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMQuad{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMQuadFromJS is casting from something that holds a js.Value into DOMQuad.
+func DOMQuadFromWrapper(input core.Wrapper) *DOMQuad {
+	return DOMQuadFromJS(input.JSValue())
 }
 
 func FromRect(other *DOMRectInit) (_result *DOMQuad) {
@@ -2681,15 +2692,19 @@ type DOMRect struct {
 	DOMRectReadOnly
 }
 
-// DOMRectFromJS is casting a js.Wrapper into DOMRect.
-func DOMRectFromJS(value js.Wrapper) *DOMRect {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMRectFromJS is casting a js.Value into DOMRect.
+func DOMRectFromJS(value js.Value) *DOMRect {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRect{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMRectFromJS is casting from something that holds a js.Value into DOMRect.
+func DOMRectFromWrapper(input core.Wrapper) *DOMRect {
+	return DOMRectFromJS(input.JSValue())
 }
 
 func FromRect2(other *DOMRectInit) (_result *DOMRect) {
@@ -2846,15 +2861,19 @@ func (_this *DOMRectList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMRectListFromJS is casting a js.Wrapper into DOMRectList.
-func DOMRectListFromJS(value js.Wrapper) *DOMRectList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMRectListFromJS is casting a js.Value into DOMRectList.
+func DOMRectListFromJS(value js.Value) *DOMRectList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRectList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMRectListFromJS is casting from something that holds a js.Value into DOMRectList.
+func DOMRectListFromWrapper(input core.Wrapper) *DOMRectList {
+	return DOMRectListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -2914,15 +2933,19 @@ func (_this *DOMRectReadOnly) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMRectReadOnlyFromJS is casting a js.Wrapper into DOMRectReadOnly.
-func DOMRectReadOnlyFromJS(value js.Wrapper) *DOMRectReadOnly {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMRectReadOnlyFromJS is casting a js.Value into DOMRectReadOnly.
+func DOMRectReadOnlyFromJS(value js.Value) *DOMRectReadOnly {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMRectReadOnly{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMRectReadOnlyFromJS is casting from something that holds a js.Value into DOMRectReadOnly.
+func DOMRectReadOnlyFromWrapper(input core.Wrapper) *DOMRectReadOnly {
+	return DOMRectReadOnlyFromJS(input.JSValue())
 }
 
 func FromRect3(other *DOMRectInit) (_result *DOMRectReadOnly) {

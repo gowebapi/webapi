@@ -7,6 +7,7 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/clipboard"
 	"github.com/gowebapi/webapi/communication/xhr"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/csp"
 	"github.com/gowebapi/webapi/css/animations"
 	"github.com/gowebapi/webapi/css/animations/webani"
@@ -99,7 +100,7 @@ type SVGBoundingBoxOptions struct {
 	Clipped bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SVGBoundingBoxOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -115,10 +116,8 @@ func (_this *SVGBoundingBoxOptions) JSValue() js.Value {
 }
 
 // SVGBoundingBoxOptionsFromJS is allocating a new
-// SVGBoundingBoxOptions object and copy all values from
-// input javascript object
-func SVGBoundingBoxOptionsFromJS(value js.Wrapper) *SVGBoundingBoxOptions {
-	input := value.JSValue()
+// SVGBoundingBoxOptions object and copy all values in the value javascript object.
+func SVGBoundingBoxOptionsFromJS(value js.Value) *SVGBoundingBoxOptions {
 	var out SVGBoundingBoxOptions
 	var (
 		value0 bool // javascript: boolean {fill Fill fill}
@@ -126,13 +125,13 @@ func SVGBoundingBoxOptionsFromJS(value js.Wrapper) *SVGBoundingBoxOptions {
 		value2 bool // javascript: boolean {markers Markers markers}
 		value3 bool // javascript: boolean {clipped Clipped clipped}
 	)
-	value0 = (input.Get("fill")).Bool()
+	value0 = (value.Get("fill")).Bool()
 	out.Fill = value0
-	value1 = (input.Get("stroke")).Bool()
+	value1 = (value.Get("stroke")).Bool()
 	out.Stroke = value1
-	value2 = (input.Get("markers")).Bool()
+	value2 = (value.Get("markers")).Bool()
 	out.Markers = value2
-	value3 = (input.Get("clipped")).Bool()
+	value3 = (value.Get("clipped")).Bool()
 	out.Clipped = value3
 	return &out
 }
@@ -142,15 +141,19 @@ type SVGAElement struct {
 	SVGGraphicsElement
 }
 
-// SVGAElementFromJS is casting a js.Wrapper into SVGAElement.
-func SVGAElementFromJS(value js.Wrapper) *SVGAElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAElementFromJS is casting a js.Value into SVGAElement.
+func SVGAElementFromJS(value js.Value) *SVGAElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAElementFromJS is casting from something that holds a js.Value into SVGAElement.
+func SVGAElementFromWrapper(input core.Wrapper) *SVGAElement {
+	return SVGAElementFromJS(input.JSValue())
 }
 
 // Target returning attribute 'target' with
@@ -467,15 +470,19 @@ func (_this *SVGAngle) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAngleFromJS is casting a js.Wrapper into SVGAngle.
-func SVGAngleFromJS(value js.Wrapper) *SVGAngle {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAngleFromJS is casting a js.Value into SVGAngle.
+func SVGAngleFromJS(value js.Value) *SVGAngle {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAngle{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAngleFromJS is casting from something that holds a js.Value into SVGAngle.
+func SVGAngleFromWrapper(input core.Wrapper) *SVGAngle {
+	return SVGAngleFromJS(input.JSValue())
 }
 
 const (
@@ -580,15 +587,19 @@ func (_this *SVGAnimatedAngle) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedAngleFromJS is casting a js.Wrapper into SVGAnimatedAngle.
-func SVGAnimatedAngleFromJS(value js.Wrapper) *SVGAnimatedAngle {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedAngleFromJS is casting a js.Value into SVGAnimatedAngle.
+func SVGAnimatedAngleFromJS(value js.Value) *SVGAnimatedAngle {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedAngle{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedAngleFromJS is casting from something that holds a js.Value into SVGAnimatedAngle.
+func SVGAnimatedAngleFromWrapper(input core.Wrapper) *SVGAnimatedAngle {
+	return SVGAnimatedAngleFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -619,15 +630,19 @@ func (_this *SVGAnimatedBoolean) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedBooleanFromJS is casting a js.Wrapper into SVGAnimatedBoolean.
-func SVGAnimatedBooleanFromJS(value js.Wrapper) *SVGAnimatedBoolean {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedBooleanFromJS is casting a js.Value into SVGAnimatedBoolean.
+func SVGAnimatedBooleanFromJS(value js.Value) *SVGAnimatedBoolean {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedBoolean{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedBooleanFromJS is casting from something that holds a js.Value into SVGAnimatedBoolean.
+func SVGAnimatedBooleanFromWrapper(input core.Wrapper) *SVGAnimatedBoolean {
+	return SVGAnimatedBooleanFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -665,15 +680,19 @@ func (_this *SVGAnimatedEnumeration) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedEnumerationFromJS is casting a js.Wrapper into SVGAnimatedEnumeration.
-func SVGAnimatedEnumerationFromJS(value js.Wrapper) *SVGAnimatedEnumeration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedEnumerationFromJS is casting a js.Value into SVGAnimatedEnumeration.
+func SVGAnimatedEnumerationFromJS(value js.Value) *SVGAnimatedEnumeration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedEnumeration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedEnumerationFromJS is casting from something that holds a js.Value into SVGAnimatedEnumeration.
+func SVGAnimatedEnumerationFromWrapper(input core.Wrapper) *SVGAnimatedEnumeration {
+	return SVGAnimatedEnumerationFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -711,15 +730,19 @@ func (_this *SVGAnimatedInteger) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedIntegerFromJS is casting a js.Wrapper into SVGAnimatedInteger.
-func SVGAnimatedIntegerFromJS(value js.Wrapper) *SVGAnimatedInteger {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedIntegerFromJS is casting a js.Value into SVGAnimatedInteger.
+func SVGAnimatedIntegerFromJS(value js.Value) *SVGAnimatedInteger {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedInteger{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedIntegerFromJS is casting from something that holds a js.Value into SVGAnimatedInteger.
+func SVGAnimatedIntegerFromWrapper(input core.Wrapper) *SVGAnimatedInteger {
+	return SVGAnimatedIntegerFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -757,15 +780,19 @@ func (_this *SVGAnimatedLength) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedLengthFromJS is casting a js.Wrapper into SVGAnimatedLength.
-func SVGAnimatedLengthFromJS(value js.Wrapper) *SVGAnimatedLength {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedLengthFromJS is casting a js.Value into SVGAnimatedLength.
+func SVGAnimatedLengthFromJS(value js.Value) *SVGAnimatedLength {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedLength{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedLengthFromJS is casting from something that holds a js.Value into SVGAnimatedLength.
+func SVGAnimatedLengthFromWrapper(input core.Wrapper) *SVGAnimatedLength {
+	return SVGAnimatedLengthFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -796,15 +823,19 @@ func (_this *SVGAnimatedLengthList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedLengthListFromJS is casting a js.Wrapper into SVGAnimatedLengthList.
-func SVGAnimatedLengthListFromJS(value js.Wrapper) *SVGAnimatedLengthList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedLengthListFromJS is casting a js.Value into SVGAnimatedLengthList.
+func SVGAnimatedLengthListFromJS(value js.Value) *SVGAnimatedLengthList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedLengthList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedLengthListFromJS is casting from something that holds a js.Value into SVGAnimatedLengthList.
+func SVGAnimatedLengthListFromWrapper(input core.Wrapper) *SVGAnimatedLengthList {
+	return SVGAnimatedLengthListFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -835,15 +866,19 @@ func (_this *SVGAnimatedNumber) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedNumberFromJS is casting a js.Wrapper into SVGAnimatedNumber.
-func SVGAnimatedNumberFromJS(value js.Wrapper) *SVGAnimatedNumber {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedNumberFromJS is casting a js.Value into SVGAnimatedNumber.
+func SVGAnimatedNumberFromJS(value js.Value) *SVGAnimatedNumber {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedNumber{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedNumberFromJS is casting from something that holds a js.Value into SVGAnimatedNumber.
+func SVGAnimatedNumberFromWrapper(input core.Wrapper) *SVGAnimatedNumber {
+	return SVGAnimatedNumberFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -881,15 +916,19 @@ func (_this *SVGAnimatedNumberList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedNumberListFromJS is casting a js.Wrapper into SVGAnimatedNumberList.
-func SVGAnimatedNumberListFromJS(value js.Wrapper) *SVGAnimatedNumberList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedNumberListFromJS is casting a js.Value into SVGAnimatedNumberList.
+func SVGAnimatedNumberListFromJS(value js.Value) *SVGAnimatedNumberList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedNumberList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedNumberListFromJS is casting from something that holds a js.Value into SVGAnimatedNumberList.
+func SVGAnimatedNumberListFromWrapper(input core.Wrapper) *SVGAnimatedNumberList {
+	return SVGAnimatedNumberListFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -920,15 +959,19 @@ func (_this *SVGAnimatedPreserveAspectRatio) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedPreserveAspectRatioFromJS is casting a js.Wrapper into SVGAnimatedPreserveAspectRatio.
-func SVGAnimatedPreserveAspectRatioFromJS(value js.Wrapper) *SVGAnimatedPreserveAspectRatio {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedPreserveAspectRatioFromJS is casting a js.Value into SVGAnimatedPreserveAspectRatio.
+func SVGAnimatedPreserveAspectRatioFromJS(value js.Value) *SVGAnimatedPreserveAspectRatio {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedPreserveAspectRatio{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedPreserveAspectRatioFromJS is casting from something that holds a js.Value into SVGAnimatedPreserveAspectRatio.
+func SVGAnimatedPreserveAspectRatioFromWrapper(input core.Wrapper) *SVGAnimatedPreserveAspectRatio {
+	return SVGAnimatedPreserveAspectRatioFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -959,15 +1002,19 @@ func (_this *SVGAnimatedRect) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedRectFromJS is casting a js.Wrapper into SVGAnimatedRect.
-func SVGAnimatedRectFromJS(value js.Wrapper) *SVGAnimatedRect {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedRectFromJS is casting a js.Value into SVGAnimatedRect.
+func SVGAnimatedRectFromJS(value js.Value) *SVGAnimatedRect {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedRect{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedRectFromJS is casting from something that holds a js.Value into SVGAnimatedRect.
+func SVGAnimatedRectFromWrapper(input core.Wrapper) *SVGAnimatedRect {
+	return SVGAnimatedRectFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -998,15 +1045,19 @@ func (_this *SVGAnimatedString) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedStringFromJS is casting a js.Wrapper into SVGAnimatedString.
-func SVGAnimatedStringFromJS(value js.Wrapper) *SVGAnimatedString {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedStringFromJS is casting a js.Value into SVGAnimatedString.
+func SVGAnimatedStringFromJS(value js.Value) *SVGAnimatedString {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedString{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedStringFromJS is casting from something that holds a js.Value into SVGAnimatedString.
+func SVGAnimatedStringFromWrapper(input core.Wrapper) *SVGAnimatedString {
+	return SVGAnimatedStringFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -1044,15 +1095,19 @@ func (_this *SVGAnimatedTransformList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGAnimatedTransformListFromJS is casting a js.Wrapper into SVGAnimatedTransformList.
-func SVGAnimatedTransformListFromJS(value js.Wrapper) *SVGAnimatedTransformList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGAnimatedTransformListFromJS is casting a js.Value into SVGAnimatedTransformList.
+func SVGAnimatedTransformListFromJS(value js.Value) *SVGAnimatedTransformList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGAnimatedTransformList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGAnimatedTransformListFromJS is casting from something that holds a js.Value into SVGAnimatedTransformList.
+func SVGAnimatedTransformListFromWrapper(input core.Wrapper) *SVGAnimatedTransformList {
+	return SVGAnimatedTransformListFromJS(input.JSValue())
 }
 
 // BaseVal returning attribute 'baseVal' with
@@ -1078,15 +1133,19 @@ type SVGCircleElement struct {
 	SVGGeometryElement
 }
 
-// SVGCircleElementFromJS is casting a js.Wrapper into SVGCircleElement.
-func SVGCircleElementFromJS(value js.Wrapper) *SVGCircleElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGCircleElementFromJS is casting a js.Value into SVGCircleElement.
+func SVGCircleElementFromJS(value js.Value) *SVGCircleElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGCircleElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGCircleElementFromJS is casting from something that holds a js.Value into SVGCircleElement.
+func SVGCircleElementFromWrapper(input core.Wrapper) *SVGCircleElement {
+	return SVGCircleElementFromJS(input.JSValue())
 }
 
 // Cx returning attribute 'cx' with
@@ -1121,15 +1180,19 @@ type SVGDefsElement struct {
 	SVGGraphicsElement
 }
 
-// SVGDefsElementFromJS is casting a js.Wrapper into SVGDefsElement.
-func SVGDefsElementFromJS(value js.Wrapper) *SVGDefsElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGDefsElementFromJS is casting a js.Value into SVGDefsElement.
+func SVGDefsElementFromJS(value js.Value) *SVGDefsElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGDefsElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGDefsElementFromJS is casting from something that holds a js.Value into SVGDefsElement.
+func SVGDefsElementFromWrapper(input core.Wrapper) *SVGDefsElement {
+	return SVGDefsElementFromJS(input.JSValue())
 }
 
 // class: SVGDescElement
@@ -1137,15 +1200,19 @@ type SVGDescElement struct {
 	SVGElement
 }
 
-// SVGDescElementFromJS is casting a js.Wrapper into SVGDescElement.
-func SVGDescElementFromJS(value js.Wrapper) *SVGDescElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGDescElementFromJS is casting a js.Value into SVGDescElement.
+func SVGDescElementFromJS(value js.Value) *SVGDescElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGDescElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGDescElementFromJS is casting from something that holds a js.Value into SVGDescElement.
+func SVGDescElementFromWrapper(input core.Wrapper) *SVGDescElement {
+	return SVGDescElementFromJS(input.JSValue())
 }
 
 // class: SVGElement
@@ -1153,15 +1220,19 @@ type SVGElement struct {
 	dom.Element
 }
 
-// SVGElementFromJS is casting a js.Wrapper into SVGElement.
-func SVGElementFromJS(value js.Wrapper) *SVGElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGElementFromJS is casting a js.Value into SVGElement.
+func SVGElementFromJS(value js.Value) *SVGElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGElementFromJS is casting from something that holds a js.Value into SVGElement.
+func SVGElementFromWrapper(input core.Wrapper) *SVGElement {
+	return SVGElementFromJS(input.JSValue())
 }
 
 // ClassName returning attribute 'className' with
@@ -3958,15 +4029,19 @@ type SVGEllipseElement struct {
 	SVGGeometryElement
 }
 
-// SVGEllipseElementFromJS is casting a js.Wrapper into SVGEllipseElement.
-func SVGEllipseElementFromJS(value js.Wrapper) *SVGEllipseElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGEllipseElementFromJS is casting a js.Value into SVGEllipseElement.
+func SVGEllipseElementFromJS(value js.Value) *SVGEllipseElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGEllipseElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGEllipseElementFromJS is casting from something that holds a js.Value into SVGEllipseElement.
+func SVGEllipseElementFromWrapper(input core.Wrapper) *SVGEllipseElement {
+	return SVGEllipseElementFromJS(input.JSValue())
 }
 
 // Cx returning attribute 'cx' with
@@ -4010,15 +4085,19 @@ type SVGForeignObjectElement struct {
 	SVGGraphicsElement
 }
 
-// SVGForeignObjectElementFromJS is casting a js.Wrapper into SVGForeignObjectElement.
-func SVGForeignObjectElementFromJS(value js.Wrapper) *SVGForeignObjectElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGForeignObjectElementFromJS is casting a js.Value into SVGForeignObjectElement.
+func SVGForeignObjectElementFromJS(value js.Value) *SVGForeignObjectElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGForeignObjectElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGForeignObjectElementFromJS is casting from something that holds a js.Value into SVGForeignObjectElement.
+func SVGForeignObjectElementFromWrapper(input core.Wrapper) *SVGForeignObjectElement {
+	return SVGForeignObjectElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -4062,15 +4141,19 @@ type SVGGElement struct {
 	SVGGraphicsElement
 }
 
-// SVGGElementFromJS is casting a js.Wrapper into SVGGElement.
-func SVGGElementFromJS(value js.Wrapper) *SVGGElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGGElementFromJS is casting a js.Value into SVGGElement.
+func SVGGElementFromJS(value js.Value) *SVGGElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGGElementFromJS is casting from something that holds a js.Value into SVGGElement.
+func SVGGElementFromWrapper(input core.Wrapper) *SVGGElement {
+	return SVGGElementFromJS(input.JSValue())
 }
 
 // class: SVGGeometryElement
@@ -4078,15 +4161,19 @@ type SVGGeometryElement struct {
 	SVGGraphicsElement
 }
 
-// SVGGeometryElementFromJS is casting a js.Wrapper into SVGGeometryElement.
-func SVGGeometryElementFromJS(value js.Wrapper) *SVGGeometryElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGGeometryElementFromJS is casting a js.Value into SVGGeometryElement.
+func SVGGeometryElementFromJS(value js.Value) *SVGGeometryElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGeometryElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGGeometryElementFromJS is casting from something that holds a js.Value into SVGGeometryElement.
+func SVGGeometryElementFromWrapper(input core.Wrapper) *SVGGeometryElement {
+	return SVGGeometryElementFromJS(input.JSValue())
 }
 
 // PathLength returning attribute 'pathLength' with
@@ -4172,15 +4259,19 @@ type SVGGradientElement struct {
 	SVGElement
 }
 
-// SVGGradientElementFromJS is casting a js.Wrapper into SVGGradientElement.
-func SVGGradientElementFromJS(value js.Wrapper) *SVGGradientElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGGradientElementFromJS is casting a js.Value into SVGGradientElement.
+func SVGGradientElementFromJS(value js.Value) *SVGGradientElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGradientElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGGradientElementFromJS is casting from something that holds a js.Value into SVGGradientElement.
+func SVGGradientElementFromWrapper(input core.Wrapper) *SVGGradientElement {
+	return SVGGradientElementFromJS(input.JSValue())
 }
 
 const (
@@ -4231,15 +4322,19 @@ type SVGGraphicsElement struct {
 	SVGElement
 }
 
-// SVGGraphicsElementFromJS is casting a js.Wrapper into SVGGraphicsElement.
-func SVGGraphicsElementFromJS(value js.Wrapper) *SVGGraphicsElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGGraphicsElementFromJS is casting a js.Value into SVGGraphicsElement.
+func SVGGraphicsElementFromJS(value js.Value) *SVGGraphicsElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGGraphicsElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGGraphicsElementFromJS is casting from something that holds a js.Value into SVGGraphicsElement.
+func SVGGraphicsElementFromWrapper(input core.Wrapper) *SVGGraphicsElement {
+	return SVGGraphicsElementFromJS(input.JSValue())
 }
 
 // Transform returning attribute 'transform' with
@@ -4325,15 +4420,19 @@ type SVGImageElement struct {
 	SVGGraphicsElement
 }
 
-// SVGImageElementFromJS is casting a js.Wrapper into SVGImageElement.
-func SVGImageElementFromJS(value js.Wrapper) *SVGImageElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGImageElementFromJS is casting a js.Value into SVGImageElement.
+func SVGImageElementFromJS(value js.Value) *SVGImageElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGImageElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGImageElementFromJS is casting from something that holds a js.Value into SVGImageElement.
+func SVGImageElementFromWrapper(input core.Wrapper) *SVGImageElement {
+	return SVGImageElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -4424,15 +4523,19 @@ func (_this *SVGLength) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGLengthFromJS is casting a js.Wrapper into SVGLength.
-func SVGLengthFromJS(value js.Wrapper) *SVGLength {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGLengthFromJS is casting a js.Value into SVGLength.
+func SVGLengthFromJS(value js.Value) *SVGLength {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLength{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGLengthFromJS is casting from something that holds a js.Value into SVGLength.
+func SVGLengthFromWrapper(input core.Wrapper) *SVGLength {
+	return SVGLengthFromJS(input.JSValue())
 }
 
 const (
@@ -4543,15 +4646,19 @@ func (_this *SVGLengthList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGLengthListFromJS is casting a js.Wrapper into SVGLengthList.
-func SVGLengthListFromJS(value js.Wrapper) *SVGLengthList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGLengthListFromJS is casting a js.Value into SVGLengthList.
+func SVGLengthListFromJS(value js.Value) *SVGLengthList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLengthList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGLengthListFromJS is casting from something that holds a js.Value into SVGLengthList.
+func SVGLengthListFromWrapper(input core.Wrapper) *SVGLengthList {
+	return SVGLengthListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -4726,15 +4833,19 @@ type SVGLineElement struct {
 	SVGGeometryElement
 }
 
-// SVGLineElementFromJS is casting a js.Wrapper into SVGLineElement.
-func SVGLineElementFromJS(value js.Wrapper) *SVGLineElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGLineElementFromJS is casting a js.Value into SVGLineElement.
+func SVGLineElementFromJS(value js.Value) *SVGLineElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLineElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGLineElementFromJS is casting from something that holds a js.Value into SVGLineElement.
+func SVGLineElementFromWrapper(input core.Wrapper) *SVGLineElement {
+	return SVGLineElementFromJS(input.JSValue())
 }
 
 // X1 returning attribute 'x1' with
@@ -4778,15 +4889,19 @@ type SVGLinearGradientElement struct {
 	SVGGradientElement
 }
 
-// SVGLinearGradientElementFromJS is casting a js.Wrapper into SVGLinearGradientElement.
-func SVGLinearGradientElementFromJS(value js.Wrapper) *SVGLinearGradientElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGLinearGradientElementFromJS is casting a js.Value into SVGLinearGradientElement.
+func SVGLinearGradientElementFromJS(value js.Value) *SVGLinearGradientElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGLinearGradientElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGLinearGradientElementFromJS is casting from something that holds a js.Value into SVGLinearGradientElement.
+func SVGLinearGradientElementFromWrapper(input core.Wrapper) *SVGLinearGradientElement {
+	return SVGLinearGradientElementFromJS(input.JSValue())
 }
 
 // X1 returning attribute 'x1' with
@@ -4830,15 +4945,19 @@ type SVGMarkerElement struct {
 	SVGElement
 }
 
-// SVGMarkerElementFromJS is casting a js.Wrapper into SVGMarkerElement.
-func SVGMarkerElementFromJS(value js.Wrapper) *SVGMarkerElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGMarkerElementFromJS is casting a js.Value into SVGMarkerElement.
+func SVGMarkerElementFromJS(value js.Value) *SVGMarkerElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMarkerElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGMarkerElementFromJS is casting from something that holds a js.Value into SVGMarkerElement.
+func SVGMarkerElementFromWrapper(input core.Wrapper) *SVGMarkerElement {
+	return SVGMarkerElementFromJS(input.JSValue())
 }
 
 const (
@@ -4973,15 +5092,19 @@ type SVGMetadataElement struct {
 	SVGElement
 }
 
-// SVGMetadataElementFromJS is casting a js.Wrapper into SVGMetadataElement.
-func SVGMetadataElementFromJS(value js.Wrapper) *SVGMetadataElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGMetadataElementFromJS is casting a js.Value into SVGMetadataElement.
+func SVGMetadataElementFromJS(value js.Value) *SVGMetadataElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGMetadataElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGMetadataElementFromJS is casting from something that holds a js.Value into SVGMetadataElement.
+func SVGMetadataElementFromWrapper(input core.Wrapper) *SVGMetadataElement {
+	return SVGMetadataElementFromJS(input.JSValue())
 }
 
 // class: SVGNumber
@@ -4994,15 +5117,19 @@ func (_this *SVGNumber) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGNumberFromJS is casting a js.Wrapper into SVGNumber.
-func SVGNumberFromJS(value js.Wrapper) *SVGNumber {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGNumberFromJS is casting a js.Value into SVGNumber.
+func SVGNumberFromJS(value js.Value) *SVGNumber {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGNumber{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGNumberFromJS is casting from something that holds a js.Value into SVGNumber.
+func SVGNumberFromWrapper(input core.Wrapper) *SVGNumber {
+	return SVGNumberFromJS(input.JSValue())
 }
 
 // Value returning attribute 'value' with
@@ -5031,15 +5158,19 @@ func (_this *SVGNumberList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGNumberListFromJS is casting a js.Wrapper into SVGNumberList.
-func SVGNumberListFromJS(value js.Wrapper) *SVGNumberList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGNumberListFromJS is casting a js.Value into SVGNumberList.
+func SVGNumberListFromJS(value js.Value) *SVGNumberList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGNumberList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGNumberListFromJS is casting from something that holds a js.Value into SVGNumberList.
+func SVGNumberListFromWrapper(input core.Wrapper) *SVGNumberList {
+	return SVGNumberListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -5214,15 +5345,19 @@ type SVGPathElement struct {
 	SVGGeometryElement
 }
 
-// SVGPathElementFromJS is casting a js.Wrapper into SVGPathElement.
-func SVGPathElementFromJS(value js.Wrapper) *SVGPathElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPathElementFromJS is casting a js.Value into SVGPathElement.
+func SVGPathElementFromJS(value js.Value) *SVGPathElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPathElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPathElementFromJS is casting from something that holds a js.Value into SVGPathElement.
+func SVGPathElementFromWrapper(input core.Wrapper) *SVGPathElement {
+	return SVGPathElementFromJS(input.JSValue())
 }
 
 // class: SVGPatternElement
@@ -5230,15 +5365,19 @@ type SVGPatternElement struct {
 	SVGElement
 }
 
-// SVGPatternElementFromJS is casting a js.Wrapper into SVGPatternElement.
-func SVGPatternElementFromJS(value js.Wrapper) *SVGPatternElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPatternElementFromJS is casting a js.Value into SVGPatternElement.
+func SVGPatternElementFromJS(value js.Value) *SVGPatternElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPatternElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPatternElementFromJS is casting from something that holds a js.Value into SVGPatternElement.
+func SVGPatternElementFromWrapper(input core.Wrapper) *SVGPatternElement {
+	return SVGPatternElementFromJS(input.JSValue())
 }
 
 // PatternUnits returning attribute 'patternUnits' with
@@ -5341,15 +5480,19 @@ func (_this *SVGPointList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGPointListFromJS is casting a js.Wrapper into SVGPointList.
-func SVGPointListFromJS(value js.Wrapper) *SVGPointList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPointListFromJS is casting a js.Value into SVGPointList.
+func SVGPointListFromJS(value js.Value) *SVGPointList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPointList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPointListFromJS is casting from something that holds a js.Value into SVGPointList.
+func SVGPointListFromWrapper(input core.Wrapper) *SVGPointList {
+	return SVGPointListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -5524,15 +5667,19 @@ type SVGPolygonElement struct {
 	SVGGeometryElement
 }
 
-// SVGPolygonElementFromJS is casting a js.Wrapper into SVGPolygonElement.
-func SVGPolygonElementFromJS(value js.Wrapper) *SVGPolygonElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPolygonElementFromJS is casting a js.Value into SVGPolygonElement.
+func SVGPolygonElementFromJS(value js.Value) *SVGPolygonElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPolygonElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPolygonElementFromJS is casting from something that holds a js.Value into SVGPolygonElement.
+func SVGPolygonElementFromWrapper(input core.Wrapper) *SVGPolygonElement {
+	return SVGPolygonElementFromJS(input.JSValue())
 }
 
 // Points returning attribute 'points' with
@@ -5558,15 +5705,19 @@ type SVGPolylineElement struct {
 	SVGGeometryElement
 }
 
-// SVGPolylineElementFromJS is casting a js.Wrapper into SVGPolylineElement.
-func SVGPolylineElementFromJS(value js.Wrapper) *SVGPolylineElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPolylineElementFromJS is casting a js.Value into SVGPolylineElement.
+func SVGPolylineElementFromJS(value js.Value) *SVGPolylineElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPolylineElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPolylineElementFromJS is casting from something that holds a js.Value into SVGPolylineElement.
+func SVGPolylineElementFromWrapper(input core.Wrapper) *SVGPolylineElement {
+	return SVGPolylineElementFromJS(input.JSValue())
 }
 
 // Points returning attribute 'points' with
@@ -5597,15 +5748,19 @@ func (_this *SVGPreserveAspectRatio) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGPreserveAspectRatioFromJS is casting a js.Wrapper into SVGPreserveAspectRatio.
-func SVGPreserveAspectRatioFromJS(value js.Wrapper) *SVGPreserveAspectRatio {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGPreserveAspectRatioFromJS is casting a js.Value into SVGPreserveAspectRatio.
+func SVGPreserveAspectRatioFromJS(value js.Value) *SVGPreserveAspectRatio {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGPreserveAspectRatio{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGPreserveAspectRatioFromJS is casting from something that holds a js.Value into SVGPreserveAspectRatio.
+func SVGPreserveAspectRatioFromWrapper(input core.Wrapper) *SVGPreserveAspectRatio {
+	return SVGPreserveAspectRatioFromJS(input.JSValue())
 }
 
 const (
@@ -5662,15 +5817,19 @@ type SVGRadialGradientElement struct {
 	SVGGradientElement
 }
 
-// SVGRadialGradientElementFromJS is casting a js.Wrapper into SVGRadialGradientElement.
-func SVGRadialGradientElementFromJS(value js.Wrapper) *SVGRadialGradientElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGRadialGradientElementFromJS is casting a js.Value into SVGRadialGradientElement.
+func SVGRadialGradientElementFromJS(value js.Value) *SVGRadialGradientElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGRadialGradientElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGRadialGradientElementFromJS is casting from something that holds a js.Value into SVGRadialGradientElement.
+func SVGRadialGradientElementFromWrapper(input core.Wrapper) *SVGRadialGradientElement {
+	return SVGRadialGradientElementFromJS(input.JSValue())
 }
 
 // Cx returning attribute 'cx' with
@@ -5732,15 +5891,19 @@ type SVGRectElement struct {
 	SVGGeometryElement
 }
 
-// SVGRectElementFromJS is casting a js.Wrapper into SVGRectElement.
-func SVGRectElementFromJS(value js.Wrapper) *SVGRectElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGRectElementFromJS is casting a js.Value into SVGRectElement.
+func SVGRectElementFromJS(value js.Value) *SVGRectElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGRectElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGRectElementFromJS is casting from something that holds a js.Value into SVGRectElement.
+func SVGRectElementFromWrapper(input core.Wrapper) *SVGRectElement {
+	return SVGRectElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -5802,15 +5965,19 @@ type SVGSVGElement struct {
 	SVGGraphicsElement
 }
 
-// SVGSVGElementFromJS is casting a js.Wrapper into SVGSVGElement.
-func SVGSVGElementFromJS(value js.Wrapper) *SVGSVGElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGSVGElementFromJS is casting a js.Value into SVGSVGElement.
+func SVGSVGElementFromJS(value js.Value) *SVGSVGElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSVGElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGSVGElementFromJS is casting from something that holds a js.Value into SVGSVGElement.
+func SVGSVGElementFromWrapper(input core.Wrapper) *SVGSVGElement {
+	return SVGSVGElementFromJS(input.JSValue())
 }
 
 const (
@@ -6733,15 +6900,19 @@ type SVGScriptElement struct {
 	SVGElement
 }
 
-// SVGScriptElementFromJS is casting a js.Wrapper into SVGScriptElement.
-func SVGScriptElementFromJS(value js.Wrapper) *SVGScriptElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGScriptElementFromJS is casting a js.Value into SVGScriptElement.
+func SVGScriptElementFromJS(value js.Value) *SVGScriptElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGScriptElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGScriptElementFromJS is casting from something that holds a js.Value into SVGScriptElement.
+func SVGScriptElementFromWrapper(input core.Wrapper) *SVGScriptElement {
+	return SVGScriptElementFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -6798,15 +6969,19 @@ type SVGStopElement struct {
 	SVGElement
 }
 
-// SVGStopElementFromJS is casting a js.Wrapper into SVGStopElement.
-func SVGStopElementFromJS(value js.Wrapper) *SVGStopElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGStopElementFromJS is casting a js.Value into SVGStopElement.
+func SVGStopElementFromJS(value js.Value) *SVGStopElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStopElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGStopElementFromJS is casting from something that holds a js.Value into SVGStopElement.
+func SVGStopElementFromWrapper(input core.Wrapper) *SVGStopElement {
+	return SVGStopElementFromJS(input.JSValue())
 }
 
 // Offset returning attribute 'offset' with
@@ -6828,15 +7003,19 @@ func (_this *SVGStringList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGStringListFromJS is casting a js.Wrapper into SVGStringList.
-func SVGStringListFromJS(value js.Wrapper) *SVGStringList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGStringListFromJS is casting a js.Value into SVGStringList.
+func SVGStringListFromJS(value js.Value) *SVGStringList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStringList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGStringListFromJS is casting from something that holds a js.Value into SVGStringList.
+func SVGStringListFromWrapper(input core.Wrapper) *SVGStringList {
+	return SVGStringListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -7011,15 +7190,19 @@ type SVGStyleElement struct {
 	SVGElement
 }
 
-// SVGStyleElementFromJS is casting a js.Wrapper into SVGStyleElement.
-func SVGStyleElementFromJS(value js.Wrapper) *SVGStyleElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGStyleElementFromJS is casting a js.Value into SVGStyleElement.
+func SVGStyleElementFromJS(value js.Value) *SVGStyleElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGStyleElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGStyleElementFromJS is casting from something that holds a js.Value into SVGStyleElement.
+func SVGStyleElementFromWrapper(input core.Wrapper) *SVGStyleElement {
+	return SVGStyleElementFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -7086,15 +7269,19 @@ type SVGSwitchElement struct {
 	SVGGraphicsElement
 }
 
-// SVGSwitchElementFromJS is casting a js.Wrapper into SVGSwitchElement.
-func SVGSwitchElementFromJS(value js.Wrapper) *SVGSwitchElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGSwitchElementFromJS is casting a js.Value into SVGSwitchElement.
+func SVGSwitchElementFromJS(value js.Value) *SVGSwitchElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSwitchElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGSwitchElementFromJS is casting from something that holds a js.Value into SVGSwitchElement.
+func SVGSwitchElementFromWrapper(input core.Wrapper) *SVGSwitchElement {
+	return SVGSwitchElementFromJS(input.JSValue())
 }
 
 // class: SVGSymbolElement
@@ -7102,15 +7289,19 @@ type SVGSymbolElement struct {
 	SVGGraphicsElement
 }
 
-// SVGSymbolElementFromJS is casting a js.Wrapper into SVGSymbolElement.
-func SVGSymbolElementFromJS(value js.Wrapper) *SVGSymbolElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGSymbolElementFromJS is casting a js.Value into SVGSymbolElement.
+func SVGSymbolElementFromJS(value js.Value) *SVGSymbolElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGSymbolElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGSymbolElementFromJS is casting from something that holds a js.Value into SVGSymbolElement.
+func SVGSymbolElementFromWrapper(input core.Wrapper) *SVGSymbolElement {
+	return SVGSymbolElementFromJS(input.JSValue())
 }
 
 // ViewBox returning attribute 'viewBox' with
@@ -7136,15 +7327,19 @@ type SVGTSpanElement struct {
 	SVGTextPositioningElement
 }
 
-// SVGTSpanElementFromJS is casting a js.Wrapper into SVGTSpanElement.
-func SVGTSpanElementFromJS(value js.Wrapper) *SVGTSpanElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTSpanElementFromJS is casting a js.Value into SVGTSpanElement.
+func SVGTSpanElementFromJS(value js.Value) *SVGTSpanElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTSpanElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTSpanElementFromJS is casting from something that holds a js.Value into SVGTSpanElement.
+func SVGTSpanElementFromWrapper(input core.Wrapper) *SVGTSpanElement {
+	return SVGTSpanElementFromJS(input.JSValue())
 }
 
 // class: SVGTextContentElement
@@ -7152,15 +7347,19 @@ type SVGTextContentElement struct {
 	SVGGraphicsElement
 }
 
-// SVGTextContentElementFromJS is casting a js.Wrapper into SVGTextContentElement.
-func SVGTextContentElementFromJS(value js.Wrapper) *SVGTextContentElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTextContentElementFromJS is casting a js.Value into SVGTextContentElement.
+func SVGTextContentElementFromJS(value js.Value) *SVGTextContentElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextContentElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTextContentElementFromJS is casting from something that holds a js.Value into SVGTextContentElement.
+func SVGTextContentElementFromWrapper(input core.Wrapper) *SVGTextContentElement {
+	return SVGTextContentElementFromJS(input.JSValue())
 }
 
 const (
@@ -7342,15 +7541,19 @@ type SVGTextElement struct {
 	SVGTextPositioningElement
 }
 
-// SVGTextElementFromJS is casting a js.Wrapper into SVGTextElement.
-func SVGTextElementFromJS(value js.Wrapper) *SVGTextElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTextElementFromJS is casting a js.Value into SVGTextElement.
+func SVGTextElementFromJS(value js.Value) *SVGTextElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTextElementFromJS is casting from something that holds a js.Value into SVGTextElement.
+func SVGTextElementFromWrapper(input core.Wrapper) *SVGTextElement {
+	return SVGTextElementFromJS(input.JSValue())
 }
 
 // class: SVGTextPathElement
@@ -7358,15 +7561,19 @@ type SVGTextPathElement struct {
 	SVGTextContentElement
 }
 
-// SVGTextPathElementFromJS is casting a js.Wrapper into SVGTextPathElement.
-func SVGTextPathElementFromJS(value js.Wrapper) *SVGTextPathElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTextPathElementFromJS is casting a js.Value into SVGTextPathElement.
+func SVGTextPathElementFromJS(value js.Value) *SVGTextPathElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextPathElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTextPathElementFromJS is casting from something that holds a js.Value into SVGTextPathElement.
+func SVGTextPathElementFromWrapper(input core.Wrapper) *SVGTextPathElement {
+	return SVGTextPathElementFromJS(input.JSValue())
 }
 
 const (
@@ -7419,15 +7626,19 @@ type SVGTextPositioningElement struct {
 	SVGTextContentElement
 }
 
-// SVGTextPositioningElementFromJS is casting a js.Wrapper into SVGTextPositioningElement.
-func SVGTextPositioningElementFromJS(value js.Wrapper) *SVGTextPositioningElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTextPositioningElementFromJS is casting a js.Value into SVGTextPositioningElement.
+func SVGTextPositioningElementFromJS(value js.Value) *SVGTextPositioningElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTextPositioningElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTextPositioningElementFromJS is casting from something that holds a js.Value into SVGTextPositioningElement.
+func SVGTextPositioningElementFromWrapper(input core.Wrapper) *SVGTextPositioningElement {
+	return SVGTextPositioningElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -7480,15 +7691,19 @@ type SVGTitleElement struct {
 	SVGElement
 }
 
-// SVGTitleElementFromJS is casting a js.Wrapper into SVGTitleElement.
-func SVGTitleElementFromJS(value js.Wrapper) *SVGTitleElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTitleElementFromJS is casting a js.Value into SVGTitleElement.
+func SVGTitleElementFromJS(value js.Value) *SVGTitleElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTitleElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTitleElementFromJS is casting from something that holds a js.Value into SVGTitleElement.
+func SVGTitleElementFromWrapper(input core.Wrapper) *SVGTitleElement {
+	return SVGTitleElementFromJS(input.JSValue())
 }
 
 // class: SVGTransform
@@ -7501,15 +7716,19 @@ func (_this *SVGTransform) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGTransformFromJS is casting a js.Wrapper into SVGTransform.
-func SVGTransformFromJS(value js.Wrapper) *SVGTransform {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTransformFromJS is casting a js.Value into SVGTransform.
+func SVGTransformFromJS(value js.Value) *SVGTransform {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTransform{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTransformFromJS is casting from something that holds a js.Value into SVGTransform.
+func SVGTransformFromWrapper(input core.Wrapper) *SVGTransform {
+	return SVGTransformFromJS(input.JSValue())
 }
 
 const (
@@ -7645,15 +7864,19 @@ func (_this *SVGTransformList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGTransformListFromJS is casting a js.Wrapper into SVGTransformList.
-func SVGTransformListFromJS(value js.Wrapper) *SVGTransformList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGTransformListFromJS is casting a js.Value into SVGTransformList.
+func SVGTransformListFromJS(value js.Value) *SVGTransformList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGTransformList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGTransformListFromJS is casting from something that holds a js.Value into SVGTransformList.
+func SVGTransformListFromWrapper(input core.Wrapper) *SVGTransformList {
+	return SVGTransformListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -7868,15 +8091,19 @@ func (_this *SVGUnitTypes) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SVGUnitTypesFromJS is casting a js.Wrapper into SVGUnitTypes.
-func SVGUnitTypesFromJS(value js.Wrapper) *SVGUnitTypes {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGUnitTypesFromJS is casting a js.Value into SVGUnitTypes.
+func SVGUnitTypesFromJS(value js.Value) *SVGUnitTypes {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUnitTypes{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGUnitTypesFromJS is casting from something that holds a js.Value into SVGUnitTypes.
+func SVGUnitTypesFromWrapper(input core.Wrapper) *SVGUnitTypes {
+	return SVGUnitTypesFromJS(input.JSValue())
 }
 
 const (
@@ -7890,15 +8117,19 @@ type SVGUnknownElement struct {
 	SVGGraphicsElement
 }
 
-// SVGUnknownElementFromJS is casting a js.Wrapper into SVGUnknownElement.
-func SVGUnknownElementFromJS(value js.Wrapper) *SVGUnknownElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGUnknownElementFromJS is casting a js.Value into SVGUnknownElement.
+func SVGUnknownElementFromJS(value js.Value) *SVGUnknownElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUnknownElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGUnknownElementFromJS is casting from something that holds a js.Value into SVGUnknownElement.
+func SVGUnknownElementFromWrapper(input core.Wrapper) *SVGUnknownElement {
+	return SVGUnknownElementFromJS(input.JSValue())
 }
 
 // class: SVGUseElement
@@ -7906,15 +8137,19 @@ type SVGUseElement struct {
 	SVGGraphicsElement
 }
 
-// SVGUseElementFromJS is casting a js.Wrapper into SVGUseElement.
-func SVGUseElementFromJS(value js.Wrapper) *SVGUseElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGUseElementFromJS is casting a js.Value into SVGUseElement.
+func SVGUseElementFromJS(value js.Value) *SVGUseElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUseElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGUseElementFromJS is casting from something that holds a js.Value into SVGUseElement.
+func SVGUseElementFromWrapper(input core.Wrapper) *SVGUseElement {
+	return SVGUseElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -7989,15 +8224,19 @@ type SVGUseElementShadowRoot struct {
 	dom.ShadowRoot
 }
 
-// SVGUseElementShadowRootFromJS is casting a js.Wrapper into SVGUseElementShadowRoot.
-func SVGUseElementShadowRootFromJS(value js.Wrapper) *SVGUseElementShadowRoot {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGUseElementShadowRootFromJS is casting a js.Value into SVGUseElementShadowRoot.
+func SVGUseElementShadowRootFromJS(value js.Value) *SVGUseElementShadowRoot {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGUseElementShadowRoot{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGUseElementShadowRootFromJS is casting from something that holds a js.Value into SVGUseElementShadowRoot.
+func SVGUseElementShadowRootFromWrapper(input core.Wrapper) *SVGUseElementShadowRoot {
+	return SVGUseElementShadowRootFromJS(input.JSValue())
 }
 
 // class: SVGViewElement
@@ -8005,15 +8244,19 @@ type SVGViewElement struct {
 	SVGElement
 }
 
-// SVGViewElementFromJS is casting a js.Wrapper into SVGViewElement.
-func SVGViewElementFromJS(value js.Wrapper) *SVGViewElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGViewElementFromJS is casting a js.Value into SVGViewElement.
+func SVGViewElementFromJS(value js.Value) *SVGViewElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGViewElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGViewElementFromJS is casting from something that holds a js.Value into SVGViewElement.
+func SVGViewElementFromWrapper(input core.Wrapper) *SVGViewElement {
+	return SVGViewElementFromJS(input.JSValue())
 }
 
 const (
@@ -8061,15 +8304,19 @@ type ShadowAnimation struct {
 	webani.Animation
 }
 
-// ShadowAnimationFromJS is casting a js.Wrapper into ShadowAnimation.
-func ShadowAnimationFromJS(value js.Wrapper) *ShadowAnimation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ShadowAnimationFromJS is casting a js.Value into ShadowAnimation.
+func ShadowAnimationFromJS(value js.Value) *ShadowAnimation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ShadowAnimation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ShadowAnimationFromJS is casting from something that holds a js.Value into ShadowAnimation.
+func ShadowAnimationFromWrapper(input core.Wrapper) *ShadowAnimation {
+	return ShadowAnimationFromJS(input.JSValue())
 }
 
 // SourceAnimation returning attribute 'sourceAnimation' with

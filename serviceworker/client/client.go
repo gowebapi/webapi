@@ -7,6 +7,7 @@ package client
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -300,15 +301,19 @@ func (_this *Client) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ClientFromJS is casting a js.Wrapper into Client.
-func ClientFromJS(value js.Wrapper) *Client {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ClientFromJS is casting a js.Value into Client.
+func ClientFromJS(value js.Value) *Client {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Client{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ClientFromJS is casting from something that holds a js.Value into Client.
+func ClientFromWrapper(input core.Wrapper) *Client {
+	return ClientFromJS(input.JSValue())
 }
 
 // Url returning attribute 'url' with
@@ -378,15 +383,19 @@ func (_this *PromiseNilWindowClient) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseNilWindowClientFromJS is casting a js.Wrapper into PromiseNilWindowClient.
-func PromiseNilWindowClientFromJS(value js.Wrapper) *PromiseNilWindowClient {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseNilWindowClientFromJS is casting a js.Value into PromiseNilWindowClient.
+func PromiseNilWindowClientFromJS(value js.Value) *PromiseNilWindowClient {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilWindowClient{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseNilWindowClientFromJS is casting from something that holds a js.Value into PromiseNilWindowClient.
+func PromiseNilWindowClientFromWrapper(input core.Wrapper) *PromiseNilWindowClient {
+	return PromiseNilWindowClientFromJS(input.JSValue())
 }
 
 func (_this *PromiseNilWindowClient) Then(onFulfilled *PromiseNilWindowClientOnFulfilled, onRejected *PromiseNilWindowClientOnRejected) (_result *PromiseNilWindowClient) {
@@ -483,15 +492,19 @@ func (_this *PromiseWindowClient) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseWindowClientFromJS is casting a js.Wrapper into PromiseWindowClient.
-func PromiseWindowClientFromJS(value js.Wrapper) *PromiseWindowClient {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseWindowClientFromJS is casting a js.Value into PromiseWindowClient.
+func PromiseWindowClientFromJS(value js.Value) *PromiseWindowClient {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseWindowClient{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseWindowClientFromJS is casting from something that holds a js.Value into PromiseWindowClient.
+func PromiseWindowClientFromWrapper(input core.Wrapper) *PromiseWindowClient {
+	return PromiseWindowClientFromJS(input.JSValue())
 }
 
 func (_this *PromiseWindowClient) Then(onFulfilled *PromiseWindowClientOnFulfilled, onRejected *PromiseWindowClientOnRejected) (_result *PromiseWindowClient) {
@@ -583,15 +596,19 @@ type WindowClient struct {
 	Client
 }
 
-// WindowClientFromJS is casting a js.Wrapper into WindowClient.
-func WindowClientFromJS(value js.Wrapper) *WindowClient {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WindowClientFromJS is casting a js.Value into WindowClient.
+func WindowClientFromJS(value js.Value) *WindowClient {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WindowClient{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WindowClientFromJS is casting from something that holds a js.Value into WindowClient.
+func WindowClientFromWrapper(input core.Wrapper) *WindowClient {
+	return WindowClientFromJS(input.JSValue())
 }
 
 // VisibilityState returning attribute 'visibilityState' with

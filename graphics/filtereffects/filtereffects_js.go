@@ -5,6 +5,7 @@ package filtereffects
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/graphics/svg"
 )
 
@@ -47,15 +48,19 @@ type SVGComponentTransferFunctionElement struct {
 	svg.SVGElement
 }
 
-// SVGComponentTransferFunctionElementFromJS is casting a js.Wrapper into SVGComponentTransferFunctionElement.
-func SVGComponentTransferFunctionElementFromJS(value js.Wrapper) *SVGComponentTransferFunctionElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGComponentTransferFunctionElementFromJS is casting a js.Value into SVGComponentTransferFunctionElement.
+func SVGComponentTransferFunctionElementFromJS(value js.Value) *SVGComponentTransferFunctionElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGComponentTransferFunctionElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGComponentTransferFunctionElementFromJS is casting from something that holds a js.Value into SVGComponentTransferFunctionElement.
+func SVGComponentTransferFunctionElementFromWrapper(input core.Wrapper) *SVGComponentTransferFunctionElement {
+	return SVGComponentTransferFunctionElementFromJS(input.JSValue())
 }
 
 const (
@@ -135,15 +140,19 @@ type SVGFEBlendElement struct {
 	svg.SVGElement
 }
 
-// SVGFEBlendElementFromJS is casting a js.Wrapper into SVGFEBlendElement.
-func SVGFEBlendElementFromJS(value js.Wrapper) *SVGFEBlendElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEBlendElementFromJS is casting a js.Value into SVGFEBlendElement.
+func SVGFEBlendElementFromJS(value js.Value) *SVGFEBlendElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEBlendElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEBlendElementFromJS is casting from something that holds a js.Value into SVGFEBlendElement.
+func SVGFEBlendElementFromWrapper(input core.Wrapper) *SVGFEBlendElement {
+	return SVGFEBlendElementFromJS(input.JSValue())
 }
 
 const (
@@ -243,15 +252,19 @@ type SVGFEColorMatrixElement struct {
 	svg.SVGElement
 }
 
-// SVGFEColorMatrixElementFromJS is casting a js.Wrapper into SVGFEColorMatrixElement.
-func SVGFEColorMatrixElementFromJS(value js.Wrapper) *SVGFEColorMatrixElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEColorMatrixElementFromJS is casting a js.Value into SVGFEColorMatrixElement.
+func SVGFEColorMatrixElementFromJS(value js.Value) *SVGFEColorMatrixElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEColorMatrixElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEColorMatrixElementFromJS is casting from something that holds a js.Value into SVGFEColorMatrixElement.
+func SVGFEColorMatrixElementFromWrapper(input core.Wrapper) *SVGFEColorMatrixElement {
+	return SVGFEColorMatrixElementFromJS(input.JSValue())
 }
 
 const (
@@ -339,15 +352,19 @@ type SVGFEComponentTransferElement struct {
 	svg.SVGElement
 }
 
-// SVGFEComponentTransferElementFromJS is casting a js.Wrapper into SVGFEComponentTransferElement.
-func SVGFEComponentTransferElementFromJS(value js.Wrapper) *SVGFEComponentTransferElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEComponentTransferElementFromJS is casting a js.Value into SVGFEComponentTransferElement.
+func SVGFEComponentTransferElementFromJS(value js.Value) *SVGFEComponentTransferElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEComponentTransferElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEComponentTransferElementFromJS is casting from something that holds a js.Value into SVGFEComponentTransferElement.
+func SVGFEComponentTransferElementFromWrapper(input core.Wrapper) *SVGFEComponentTransferElement {
+	return SVGFEComponentTransferElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -409,15 +426,19 @@ type SVGFECompositeElement struct {
 	svg.SVGElement
 }
 
-// SVGFECompositeElementFromJS is casting a js.Wrapper into SVGFECompositeElement.
-func SVGFECompositeElementFromJS(value js.Wrapper) *SVGFECompositeElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFECompositeElementFromJS is casting a js.Value into SVGFECompositeElement.
+func SVGFECompositeElementFromJS(value js.Value) *SVGFECompositeElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFECompositeElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFECompositeElementFromJS is casting from something that holds a js.Value into SVGFECompositeElement.
+func SVGFECompositeElementFromWrapper(input core.Wrapper) *SVGFECompositeElement {
+	return SVGFECompositeElementFromJS(input.JSValue())
 }
 
 const (
@@ -543,15 +564,19 @@ type SVGFEConvolveMatrixElement struct {
 	svg.SVGElement
 }
 
-// SVGFEConvolveMatrixElementFromJS is casting a js.Wrapper into SVGFEConvolveMatrixElement.
-func SVGFEConvolveMatrixElementFromJS(value js.Wrapper) *SVGFEConvolveMatrixElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEConvolveMatrixElementFromJS is casting a js.Value into SVGFEConvolveMatrixElement.
+func SVGFEConvolveMatrixElementFromJS(value js.Value) *SVGFEConvolveMatrixElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEConvolveMatrixElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEConvolveMatrixElementFromJS is casting from something that holds a js.Value into SVGFEConvolveMatrixElement.
+func SVGFEConvolveMatrixElementFromWrapper(input core.Wrapper) *SVGFEConvolveMatrixElement {
+	return SVGFEConvolveMatrixElementFromJS(input.JSValue())
 }
 
 const (
@@ -719,15 +744,19 @@ type SVGFEDiffuseLightingElement struct {
 	svg.SVGElement
 }
 
-// SVGFEDiffuseLightingElementFromJS is casting a js.Wrapper into SVGFEDiffuseLightingElement.
-func SVGFEDiffuseLightingElementFromJS(value js.Wrapper) *SVGFEDiffuseLightingElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEDiffuseLightingElementFromJS is casting a js.Value into SVGFEDiffuseLightingElement.
+func SVGFEDiffuseLightingElementFromJS(value js.Value) *SVGFEDiffuseLightingElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEDiffuseLightingElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEDiffuseLightingElementFromJS is casting from something that holds a js.Value into SVGFEDiffuseLightingElement.
+func SVGFEDiffuseLightingElementFromWrapper(input core.Wrapper) *SVGFEDiffuseLightingElement {
+	return SVGFEDiffuseLightingElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -825,15 +854,19 @@ type SVGFEDisplacementMapElement struct {
 	svg.SVGElement
 }
 
-// SVGFEDisplacementMapElementFromJS is casting a js.Wrapper into SVGFEDisplacementMapElement.
-func SVGFEDisplacementMapElementFromJS(value js.Wrapper) *SVGFEDisplacementMapElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEDisplacementMapElementFromJS is casting a js.Value into SVGFEDisplacementMapElement.
+func SVGFEDisplacementMapElementFromJS(value js.Value) *SVGFEDisplacementMapElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEDisplacementMapElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEDisplacementMapElementFromJS is casting from something that holds a js.Value into SVGFEDisplacementMapElement.
+func SVGFEDisplacementMapElementFromWrapper(input core.Wrapper) *SVGFEDisplacementMapElement {
+	return SVGFEDisplacementMapElementFromJS(input.JSValue())
 }
 
 const (
@@ -939,15 +972,19 @@ type SVGFEDistantLightElement struct {
 	svg.SVGElement
 }
 
-// SVGFEDistantLightElementFromJS is casting a js.Wrapper into SVGFEDistantLightElement.
-func SVGFEDistantLightElementFromJS(value js.Wrapper) *SVGFEDistantLightElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEDistantLightElementFromJS is casting a js.Value into SVGFEDistantLightElement.
+func SVGFEDistantLightElementFromJS(value js.Value) *SVGFEDistantLightElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEDistantLightElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEDistantLightElementFromJS is casting from something that holds a js.Value into SVGFEDistantLightElement.
+func SVGFEDistantLightElementFromWrapper(input core.Wrapper) *SVGFEDistantLightElement {
+	return SVGFEDistantLightElementFromJS(input.JSValue())
 }
 
 // Azimuth returning attribute 'azimuth' with
@@ -973,15 +1010,19 @@ type SVGFEDropShadowElement struct {
 	svg.SVGElement
 }
 
-// SVGFEDropShadowElementFromJS is casting a js.Wrapper into SVGFEDropShadowElement.
-func SVGFEDropShadowElementFromJS(value js.Wrapper) *SVGFEDropShadowElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEDropShadowElementFromJS is casting a js.Value into SVGFEDropShadowElement.
+func SVGFEDropShadowElementFromJS(value js.Value) *SVGFEDropShadowElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEDropShadowElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEDropShadowElementFromJS is casting from something that holds a js.Value into SVGFEDropShadowElement.
+func SVGFEDropShadowElementFromWrapper(input core.Wrapper) *SVGFEDropShadowElement {
+	return SVGFEDropShadowElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -1094,15 +1135,19 @@ type SVGFEFloodElement struct {
 	svg.SVGElement
 }
 
-// SVGFEFloodElementFromJS is casting a js.Wrapper into SVGFEFloodElement.
-func SVGFEFloodElementFromJS(value js.Wrapper) *SVGFEFloodElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEFloodElementFromJS is casting a js.Value into SVGFEFloodElement.
+func SVGFEFloodElementFromJS(value js.Value) *SVGFEFloodElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEFloodElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEFloodElementFromJS is casting from something that holds a js.Value into SVGFEFloodElement.
+func SVGFEFloodElementFromWrapper(input core.Wrapper) *SVGFEFloodElement {
+	return SVGFEFloodElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -1155,15 +1200,19 @@ type SVGFEFuncAElement struct {
 	SVGComponentTransferFunctionElement
 }
 
-// SVGFEFuncAElementFromJS is casting a js.Wrapper into SVGFEFuncAElement.
-func SVGFEFuncAElementFromJS(value js.Wrapper) *SVGFEFuncAElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEFuncAElementFromJS is casting a js.Value into SVGFEFuncAElement.
+func SVGFEFuncAElementFromJS(value js.Value) *SVGFEFuncAElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEFuncAElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEFuncAElementFromJS is casting from something that holds a js.Value into SVGFEFuncAElement.
+func SVGFEFuncAElementFromWrapper(input core.Wrapper) *SVGFEFuncAElement {
+	return SVGFEFuncAElementFromJS(input.JSValue())
 }
 
 // class: SVGFEFuncBElement
@@ -1171,15 +1220,19 @@ type SVGFEFuncBElement struct {
 	SVGComponentTransferFunctionElement
 }
 
-// SVGFEFuncBElementFromJS is casting a js.Wrapper into SVGFEFuncBElement.
-func SVGFEFuncBElementFromJS(value js.Wrapper) *SVGFEFuncBElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEFuncBElementFromJS is casting a js.Value into SVGFEFuncBElement.
+func SVGFEFuncBElementFromJS(value js.Value) *SVGFEFuncBElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEFuncBElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEFuncBElementFromJS is casting from something that holds a js.Value into SVGFEFuncBElement.
+func SVGFEFuncBElementFromWrapper(input core.Wrapper) *SVGFEFuncBElement {
+	return SVGFEFuncBElementFromJS(input.JSValue())
 }
 
 // class: SVGFEFuncGElement
@@ -1187,15 +1240,19 @@ type SVGFEFuncGElement struct {
 	SVGComponentTransferFunctionElement
 }
 
-// SVGFEFuncGElementFromJS is casting a js.Wrapper into SVGFEFuncGElement.
-func SVGFEFuncGElementFromJS(value js.Wrapper) *SVGFEFuncGElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEFuncGElementFromJS is casting a js.Value into SVGFEFuncGElement.
+func SVGFEFuncGElementFromJS(value js.Value) *SVGFEFuncGElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEFuncGElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEFuncGElementFromJS is casting from something that holds a js.Value into SVGFEFuncGElement.
+func SVGFEFuncGElementFromWrapper(input core.Wrapper) *SVGFEFuncGElement {
+	return SVGFEFuncGElementFromJS(input.JSValue())
 }
 
 // class: SVGFEFuncRElement
@@ -1203,15 +1260,19 @@ type SVGFEFuncRElement struct {
 	SVGComponentTransferFunctionElement
 }
 
-// SVGFEFuncRElementFromJS is casting a js.Wrapper into SVGFEFuncRElement.
-func SVGFEFuncRElementFromJS(value js.Wrapper) *SVGFEFuncRElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEFuncRElementFromJS is casting a js.Value into SVGFEFuncRElement.
+func SVGFEFuncRElementFromJS(value js.Value) *SVGFEFuncRElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEFuncRElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEFuncRElementFromJS is casting from something that holds a js.Value into SVGFEFuncRElement.
+func SVGFEFuncRElementFromWrapper(input core.Wrapper) *SVGFEFuncRElement {
+	return SVGFEFuncRElementFromJS(input.JSValue())
 }
 
 // class: SVGFEGaussianBlurElement
@@ -1219,15 +1280,19 @@ type SVGFEGaussianBlurElement struct {
 	svg.SVGElement
 }
 
-// SVGFEGaussianBlurElementFromJS is casting a js.Wrapper into SVGFEGaussianBlurElement.
-func SVGFEGaussianBlurElementFromJS(value js.Wrapper) *SVGFEGaussianBlurElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEGaussianBlurElementFromJS is casting a js.Value into SVGFEGaussianBlurElement.
+func SVGFEGaussianBlurElementFromJS(value js.Value) *SVGFEGaussianBlurElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEGaussianBlurElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEGaussianBlurElementFromJS is casting from something that holds a js.Value into SVGFEGaussianBlurElement.
+func SVGFEGaussianBlurElementFromWrapper(input core.Wrapper) *SVGFEGaussianBlurElement {
+	return SVGFEGaussianBlurElementFromJS(input.JSValue())
 }
 
 const (
@@ -1338,15 +1403,19 @@ type SVGFEImageElement struct {
 	svg.SVGElement
 }
 
-// SVGFEImageElementFromJS is casting a js.Wrapper into SVGFEImageElement.
-func SVGFEImageElementFromJS(value js.Wrapper) *SVGFEImageElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEImageElementFromJS is casting a js.Value into SVGFEImageElement.
+func SVGFEImageElementFromJS(value js.Value) *SVGFEImageElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEImageElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEImageElementFromJS is casting from something that holds a js.Value into SVGFEImageElement.
+func SVGFEImageElementFromWrapper(input core.Wrapper) *SVGFEImageElement {
+	return SVGFEImageElementFromJS(input.JSValue())
 }
 
 // PreserveAspectRatio returning attribute 'preserveAspectRatio' with
@@ -1426,15 +1495,19 @@ type SVGFEMergeElement struct {
 	svg.SVGElement
 }
 
-// SVGFEMergeElementFromJS is casting a js.Wrapper into SVGFEMergeElement.
-func SVGFEMergeElementFromJS(value js.Wrapper) *SVGFEMergeElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEMergeElementFromJS is casting a js.Value into SVGFEMergeElement.
+func SVGFEMergeElementFromJS(value js.Value) *SVGFEMergeElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEMergeElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEMergeElementFromJS is casting from something that holds a js.Value into SVGFEMergeElement.
+func SVGFEMergeElementFromWrapper(input core.Wrapper) *SVGFEMergeElement {
+	return SVGFEMergeElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -1487,15 +1560,19 @@ type SVGFEMergeNodeElement struct {
 	svg.SVGElement
 }
 
-// SVGFEMergeNodeElementFromJS is casting a js.Wrapper into SVGFEMergeNodeElement.
-func SVGFEMergeNodeElementFromJS(value js.Wrapper) *SVGFEMergeNodeElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEMergeNodeElementFromJS is casting a js.Value into SVGFEMergeNodeElement.
+func SVGFEMergeNodeElementFromJS(value js.Value) *SVGFEMergeNodeElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEMergeNodeElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEMergeNodeElementFromJS is casting from something that holds a js.Value into SVGFEMergeNodeElement.
+func SVGFEMergeNodeElementFromWrapper(input core.Wrapper) *SVGFEMergeNodeElement {
+	return SVGFEMergeNodeElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -1512,15 +1589,19 @@ type SVGFEMorphologyElement struct {
 	svg.SVGElement
 }
 
-// SVGFEMorphologyElementFromJS is casting a js.Wrapper into SVGFEMorphologyElement.
-func SVGFEMorphologyElementFromJS(value js.Wrapper) *SVGFEMorphologyElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEMorphologyElementFromJS is casting a js.Value into SVGFEMorphologyElement.
+func SVGFEMorphologyElementFromJS(value js.Value) *SVGFEMorphologyElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEMorphologyElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEMorphologyElementFromJS is casting from something that holds a js.Value into SVGFEMorphologyElement.
+func SVGFEMorphologyElementFromWrapper(input core.Wrapper) *SVGFEMorphologyElement {
+	return SVGFEMorphologyElementFromJS(input.JSValue())
 }
 
 const (
@@ -1615,15 +1696,19 @@ type SVGFEOffsetElement struct {
 	svg.SVGElement
 }
 
-// SVGFEOffsetElementFromJS is casting a js.Wrapper into SVGFEOffsetElement.
-func SVGFEOffsetElementFromJS(value js.Wrapper) *SVGFEOffsetElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEOffsetElementFromJS is casting a js.Value into SVGFEOffsetElement.
+func SVGFEOffsetElementFromJS(value js.Value) *SVGFEOffsetElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEOffsetElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEOffsetElementFromJS is casting from something that holds a js.Value into SVGFEOffsetElement.
+func SVGFEOffsetElementFromWrapper(input core.Wrapper) *SVGFEOffsetElement {
+	return SVGFEOffsetElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -1703,15 +1788,19 @@ type SVGFEPointLightElement struct {
 	svg.SVGElement
 }
 
-// SVGFEPointLightElementFromJS is casting a js.Wrapper into SVGFEPointLightElement.
-func SVGFEPointLightElementFromJS(value js.Wrapper) *SVGFEPointLightElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFEPointLightElementFromJS is casting a js.Value into SVGFEPointLightElement.
+func SVGFEPointLightElementFromJS(value js.Value) *SVGFEPointLightElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFEPointLightElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFEPointLightElementFromJS is casting from something that holds a js.Value into SVGFEPointLightElement.
+func SVGFEPointLightElementFromWrapper(input core.Wrapper) *SVGFEPointLightElement {
+	return SVGFEPointLightElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -1746,15 +1835,19 @@ type SVGFESpecularLightingElement struct {
 	svg.SVGElement
 }
 
-// SVGFESpecularLightingElementFromJS is casting a js.Wrapper into SVGFESpecularLightingElement.
-func SVGFESpecularLightingElementFromJS(value js.Wrapper) *SVGFESpecularLightingElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFESpecularLightingElementFromJS is casting a js.Value into SVGFESpecularLightingElement.
+func SVGFESpecularLightingElementFromJS(value js.Value) *SVGFESpecularLightingElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFESpecularLightingElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFESpecularLightingElementFromJS is casting from something that holds a js.Value into SVGFESpecularLightingElement.
+func SVGFESpecularLightingElementFromWrapper(input core.Wrapper) *SVGFESpecularLightingElement {
+	return SVGFESpecularLightingElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -1861,15 +1954,19 @@ type SVGFESpotLightElement struct {
 	svg.SVGElement
 }
 
-// SVGFESpotLightElementFromJS is casting a js.Wrapper into SVGFESpotLightElement.
-func SVGFESpotLightElementFromJS(value js.Wrapper) *SVGFESpotLightElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFESpotLightElementFromJS is casting a js.Value into SVGFESpotLightElement.
+func SVGFESpotLightElementFromJS(value js.Value) *SVGFESpotLightElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFESpotLightElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFESpotLightElementFromJS is casting from something that holds a js.Value into SVGFESpotLightElement.
+func SVGFESpotLightElementFromWrapper(input core.Wrapper) *SVGFESpotLightElement {
+	return SVGFESpotLightElementFromJS(input.JSValue())
 }
 
 // X returning attribute 'x' with
@@ -1949,15 +2046,19 @@ type SVGFETileElement struct {
 	svg.SVGElement
 }
 
-// SVGFETileElementFromJS is casting a js.Wrapper into SVGFETileElement.
-func SVGFETileElementFromJS(value js.Wrapper) *SVGFETileElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFETileElementFromJS is casting a js.Value into SVGFETileElement.
+func SVGFETileElementFromJS(value js.Value) *SVGFETileElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFETileElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFETileElementFromJS is casting from something that holds a js.Value into SVGFETileElement.
+func SVGFETileElementFromWrapper(input core.Wrapper) *SVGFETileElement {
+	return SVGFETileElementFromJS(input.JSValue())
 }
 
 // In1 returning attribute 'in1' with
@@ -2019,15 +2120,19 @@ type SVGFETurbulenceElement struct {
 	svg.SVGElement
 }
 
-// SVGFETurbulenceElementFromJS is casting a js.Wrapper into SVGFETurbulenceElement.
-func SVGFETurbulenceElementFromJS(value js.Wrapper) *SVGFETurbulenceElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFETurbulenceElementFromJS is casting a js.Value into SVGFETurbulenceElement.
+func SVGFETurbulenceElementFromJS(value js.Value) *SVGFETurbulenceElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFETurbulenceElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFETurbulenceElementFromJS is casting from something that holds a js.Value into SVGFETurbulenceElement.
+func SVGFETurbulenceElementFromWrapper(input core.Wrapper) *SVGFETurbulenceElement {
+	return SVGFETurbulenceElementFromJS(input.JSValue())
 }
 
 const (
@@ -2143,15 +2248,19 @@ type SVGFilterElement struct {
 	svg.SVGElement
 }
 
-// SVGFilterElementFromJS is casting a js.Wrapper into SVGFilterElement.
-func SVGFilterElementFromJS(value js.Wrapper) *SVGFilterElement {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SVGFilterElementFromJS is casting a js.Value into SVGFilterElement.
+func SVGFilterElementFromJS(value js.Value) *SVGFilterElement {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SVGFilterElement{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SVGFilterElementFromJS is casting from something that holds a js.Value into SVGFilterElement.
+func SVGFilterElementFromWrapper(input core.Wrapper) *SVGFilterElement {
+	return SVGFilterElementFromJS(input.JSValue())
 }
 
 // FilterUnits returning attribute 'filterUnits' with

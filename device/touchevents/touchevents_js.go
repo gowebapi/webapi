@@ -5,6 +5,7 @@ package touchevents
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/device/inputcapabilities"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/html/htmlevent"
@@ -107,7 +108,7 @@ type TouchEventInit struct {
 	ChangedTouches     []*Touch
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TouchEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -173,10 +174,8 @@ func (_this *TouchEventInit) JSValue() js.Value {
 }
 
 // TouchEventInitFromJS is allocating a new
-// TouchEventInit object and copy all values from
-// input javascript object
-func TouchEventInitFromJS(value js.Wrapper) *TouchEventInit {
-	input := value.JSValue()
+// TouchEventInit object and copy all values in the value javascript object.
+func TouchEventInitFromJS(value js.Value) *TouchEventInit {
 	var out TouchEventInit
 	var (
 		value0  bool                                       // javascript: boolean {bubbles Bubbles bubbles}
@@ -203,73 +202,73 @@ func TouchEventInitFromJS(value js.Wrapper) *TouchEventInit {
 		value21 []*Touch                                   // javascript: sequence<Touch> {targetTouches TargetTouches targetTouches}
 		value22 []*Touch                                   // javascript: sequence<Touch> {changedTouches ChangedTouches changedTouches}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("view")
+	value3 = value.Get("view")
 	out.View = value3
-	value4 = (input.Get("detail")).Int()
+	value4 = (value.Get("detail")).Int()
 	out.Detail = value4
-	if input.Get("sourceCapabilities").Type() != js.TypeNull && input.Get("sourceCapabilities").Type() != js.TypeUndefined {
-		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(input.Get("sourceCapabilities"))
+	if value.Get("sourceCapabilities").Type() != js.TypeNull && value.Get("sourceCapabilities").Type() != js.TypeUndefined {
+		value5 = inputcapabilities.InputDeviceCapabilitiesFromJS(value.Get("sourceCapabilities"))
 	}
 	out.SourceCapabilities = value5
-	value6 = (input.Get("ctrlKey")).Bool()
+	value6 = (value.Get("ctrlKey")).Bool()
 	out.CtrlKey = value6
-	value7 = (input.Get("shiftKey")).Bool()
+	value7 = (value.Get("shiftKey")).Bool()
 	out.ShiftKey = value7
-	value8 = (input.Get("altKey")).Bool()
+	value8 = (value.Get("altKey")).Bool()
 	out.AltKey = value8
-	value9 = (input.Get("metaKey")).Bool()
+	value9 = (value.Get("metaKey")).Bool()
 	out.MetaKey = value9
-	value10 = (input.Get("modifierAltGraph")).Bool()
+	value10 = (value.Get("modifierAltGraph")).Bool()
 	out.ModifierAltGraph = value10
-	value11 = (input.Get("modifierCapsLock")).Bool()
+	value11 = (value.Get("modifierCapsLock")).Bool()
 	out.ModifierCapsLock = value11
-	value12 = (input.Get("modifierFn")).Bool()
+	value12 = (value.Get("modifierFn")).Bool()
 	out.ModifierFn = value12
-	value13 = (input.Get("modifierFnLock")).Bool()
+	value13 = (value.Get("modifierFnLock")).Bool()
 	out.ModifierFnLock = value13
-	value14 = (input.Get("modifierHyper")).Bool()
+	value14 = (value.Get("modifierHyper")).Bool()
 	out.ModifierHyper = value14
-	value15 = (input.Get("modifierNumLock")).Bool()
+	value15 = (value.Get("modifierNumLock")).Bool()
 	out.ModifierNumLock = value15
-	value16 = (input.Get("modifierScrollLock")).Bool()
+	value16 = (value.Get("modifierScrollLock")).Bool()
 	out.ModifierScrollLock = value16
-	value17 = (input.Get("modifierSuper")).Bool()
+	value17 = (value.Get("modifierSuper")).Bool()
 	out.ModifierSuper = value17
-	value18 = (input.Get("modifierSymbol")).Bool()
+	value18 = (value.Get("modifierSymbol")).Bool()
 	out.ModifierSymbol = value18
-	value19 = (input.Get("modifierSymbolLock")).Bool()
+	value19 = (value.Get("modifierSymbolLock")).Bool()
 	out.ModifierSymbolLock = value19
-	__length20 := input.Get("touches").Length()
+	__length20 := value.Get("touches").Length()
 	__array20 := make([]*Touch, __length20, __length20)
 	for __idx20 := 0; __idx20 < __length20; __idx20++ {
 		var __seq_out20 *Touch
-		__seq_in20 := input.Get("touches").Index(__idx20)
+		__seq_in20 := value.Get("touches").Index(__idx20)
 		__seq_out20 = TouchFromJS(__seq_in20)
 		__array20[__idx20] = __seq_out20
 	}
 	value20 = __array20
 	out.Touches = value20
-	__length21 := input.Get("targetTouches").Length()
+	__length21 := value.Get("targetTouches").Length()
 	__array21 := make([]*Touch, __length21, __length21)
 	for __idx21 := 0; __idx21 < __length21; __idx21++ {
 		var __seq_out21 *Touch
-		__seq_in21 := input.Get("targetTouches").Index(__idx21)
+		__seq_in21 := value.Get("targetTouches").Index(__idx21)
 		__seq_out21 = TouchFromJS(__seq_in21)
 		__array21[__idx21] = __seq_out21
 	}
 	value21 = __array21
 	out.TargetTouches = value21
-	__length22 := input.Get("changedTouches").Length()
+	__length22 := value.Get("changedTouches").Length()
 	__array22 := make([]*Touch, __length22, __length22)
 	for __idx22 := 0; __idx22 < __length22; __idx22++ {
 		var __seq_out22 *Touch
-		__seq_in22 := input.Get("changedTouches").Index(__idx22)
+		__seq_in22 := value.Get("changedTouches").Index(__idx22)
 		__seq_out22 = TouchFromJS(__seq_in22)
 		__array22[__idx22] = __seq_out22
 	}
@@ -297,7 +296,7 @@ type TouchInit struct {
 	TouchType     TouchType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *TouchInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -335,10 +334,8 @@ func (_this *TouchInit) JSValue() js.Value {
 }
 
 // TouchInitFromJS is allocating a new
-// TouchInit object and copy all values from
-// input javascript object
-func TouchInitFromJS(value js.Wrapper) *TouchInit {
-	input := value.JSValue()
+// TouchInit object and copy all values in the value javascript object.
+func TouchInitFromJS(value js.Value) *TouchInit {
 	var out TouchInit
 	var (
 		value0  int                  // javascript: long {identifier Identifier identifier}
@@ -357,35 +354,35 @@ func TouchInitFromJS(value js.Wrapper) *TouchInit {
 		value13 float64              // javascript: double {azimuthAngle AzimuthAngle azimuthAngle}
 		value14 TouchType            // javascript: TouchType {touchType TouchType touchType}
 	)
-	value0 = (input.Get("identifier")).Int()
+	value0 = (value.Get("identifier")).Int()
 	out.Identifier = value0
-	value1 = domcore.EventTargetFromJS(input.Get("target"))
+	value1 = domcore.EventTargetFromJS(value.Get("target"))
 	out.Target = value1
-	value2 = (input.Get("clientX")).Float()
+	value2 = (value.Get("clientX")).Float()
 	out.ClientX = value2
-	value3 = (input.Get("clientY")).Float()
+	value3 = (value.Get("clientY")).Float()
 	out.ClientY = value3
-	value4 = (input.Get("screenX")).Float()
+	value4 = (value.Get("screenX")).Float()
 	out.ScreenX = value4
-	value5 = (input.Get("screenY")).Float()
+	value5 = (value.Get("screenY")).Float()
 	out.ScreenY = value5
-	value6 = (input.Get("pageX")).Float()
+	value6 = (value.Get("pageX")).Float()
 	out.PageX = value6
-	value7 = (input.Get("pageY")).Float()
+	value7 = (value.Get("pageY")).Float()
 	out.PageY = value7
-	value8 = (float32)((input.Get("radiusX")).Float())
+	value8 = (float32)((value.Get("radiusX")).Float())
 	out.RadiusX = value8
-	value9 = (float32)((input.Get("radiusY")).Float())
+	value9 = (float32)((value.Get("radiusY")).Float())
 	out.RadiusY = value9
-	value10 = (float32)((input.Get("rotationAngle")).Float())
+	value10 = (float32)((value.Get("rotationAngle")).Float())
 	out.RotationAngle = value10
-	value11 = (float32)((input.Get("force")).Float())
+	value11 = (float32)((value.Get("force")).Float())
 	out.Force = value11
-	value12 = (input.Get("altitudeAngle")).Float()
+	value12 = (value.Get("altitudeAngle")).Float()
 	out.AltitudeAngle = value12
-	value13 = (input.Get("azimuthAngle")).Float()
+	value13 = (value.Get("azimuthAngle")).Float()
 	out.AzimuthAngle = value13
-	value14 = TouchTypeFromJS(input.Get("touchType"))
+	value14 = TouchTypeFromJS(value.Get("touchType"))
 	out.TouchType = value14
 	return &out
 }
@@ -400,15 +397,19 @@ func (_this *Touch) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TouchFromJS is casting a js.Wrapper into Touch.
-func TouchFromJS(value js.Wrapper) *Touch {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TouchFromJS is casting a js.Value into Touch.
+func TouchFromJS(value js.Value) *Touch {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Touch{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TouchFromJS is casting from something that holds a js.Value into Touch.
+func TouchFromWrapper(input core.Wrapper) *Touch {
+	return TouchFromJS(input.JSValue())
 }
 
 func NewTouch(touchInitDict *TouchInit) (_result *Touch) {
@@ -569,15 +570,19 @@ type TouchEvent struct {
 	htmlevent.UIEvent
 }
 
-// TouchEventFromJS is casting a js.Wrapper into TouchEvent.
-func TouchEventFromJS(value js.Wrapper) *TouchEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TouchEventFromJS is casting a js.Value into TouchEvent.
+func TouchEventFromJS(value js.Value) *TouchEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TouchEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TouchEventFromJS is casting from something that holds a js.Value into TouchEvent.
+func TouchEventFromWrapper(input core.Wrapper) *TouchEvent {
+	return TouchEventFromJS(input.JSValue())
 }
 
 func NewTouchEvent(_type string, eventInitDict *TouchEventInit) (_result *TouchEvent) {
@@ -676,15 +681,19 @@ func (_this *TouchList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TouchListFromJS is casting a js.Wrapper into TouchList.
-func TouchListFromJS(value js.Wrapper) *TouchList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TouchListFromJS is casting a js.Value into TouchList.
+func TouchListFromJS(value js.Value) *TouchList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TouchList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TouchListFromJS is casting from something that holds a js.Value into TouchList.
+func TouchListFromWrapper(input core.Wrapper) *TouchList {
+	return TouchListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with

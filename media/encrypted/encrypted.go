@@ -7,6 +7,7 @@ package encrypted
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -441,7 +442,7 @@ type MediaEncryptedEventInit struct {
 	InitData     *javascript.ArrayBuffer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaEncryptedEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -459,10 +460,8 @@ func (_this *MediaEncryptedEventInit) JSValue() js.Value {
 }
 
 // MediaEncryptedEventInitFromJS is allocating a new
-// MediaEncryptedEventInit object and copy all values from
-// input javascript object
-func MediaEncryptedEventInitFromJS(value js.Wrapper) *MediaEncryptedEventInit {
-	input := value.JSValue()
+// MediaEncryptedEventInit object and copy all values in the value javascript object.
+func MediaEncryptedEventInitFromJS(value js.Value) *MediaEncryptedEventInit {
 	var out MediaEncryptedEventInit
 	var (
 		value0 bool                    // javascript: boolean {bubbles Bubbles bubbles}
@@ -471,16 +470,16 @@ func MediaEncryptedEventInitFromJS(value js.Wrapper) *MediaEncryptedEventInit {
 		value3 string                  // javascript: DOMString {initDataType InitDataType initDataType}
 		value4 *javascript.ArrayBuffer // javascript: ArrayBuffer {initData InitData initData}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("initDataType")).String()
+	value3 = (value.Get("initDataType")).String()
 	out.InitDataType = value3
-	if input.Get("initData").Type() != js.TypeNull && input.Get("initData").Type() != js.TypeUndefined {
-		value4 = javascript.ArrayBufferFromJS(input.Get("initData"))
+	if value.Get("initData").Type() != js.TypeNull && value.Get("initData").Type() != js.TypeUndefined {
+		value4 = javascript.ArrayBufferFromJS(value.Get("initData"))
 	}
 	out.InitData = value4
 	return &out
@@ -495,7 +494,7 @@ type MediaKeyMessageEventInit struct {
 	Message     *javascript.ArrayBuffer
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeyMessageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -513,10 +512,8 @@ func (_this *MediaKeyMessageEventInit) JSValue() js.Value {
 }
 
 // MediaKeyMessageEventInitFromJS is allocating a new
-// MediaKeyMessageEventInit object and copy all values from
-// input javascript object
-func MediaKeyMessageEventInitFromJS(value js.Wrapper) *MediaKeyMessageEventInit {
-	input := value.JSValue()
+// MediaKeyMessageEventInit object and copy all values in the value javascript object.
+func MediaKeyMessageEventInitFromJS(value js.Value) *MediaKeyMessageEventInit {
 	var out MediaKeyMessageEventInit
 	var (
 		value0 bool                    // javascript: boolean {bubbles Bubbles bubbles}
@@ -525,15 +522,15 @@ func MediaKeyMessageEventInitFromJS(value js.Wrapper) *MediaKeyMessageEventInit 
 		value3 MediaKeyMessageType     // javascript: MediaKeyMessageType {messageType MessageType messageType}
 		value4 *javascript.ArrayBuffer // javascript: ArrayBuffer {message Message message}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = MediaKeyMessageTypeFromJS(input.Get("messageType"))
+	value3 = MediaKeyMessageTypeFromJS(value.Get("messageType"))
 	out.MessageType = value3
-	value4 = javascript.ArrayBufferFromJS(input.Get("message"))
+	value4 = javascript.ArrayBufferFromJS(value.Get("message"))
 	out.Message = value4
 	return &out
 }
@@ -544,7 +541,7 @@ type MediaKeyStatusMapEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeyStatusMapEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -560,26 +557,24 @@ func (_this *MediaKeyStatusMapEntryIteratorValue) JSValue() js.Value {
 }
 
 // MediaKeyStatusMapEntryIteratorValueFromJS is allocating a new
-// MediaKeyStatusMapEntryIteratorValue object and copy all values from
-// input javascript object
-func MediaKeyStatusMapEntryIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapEntryIteratorValue {
-	input := value.JSValue()
+// MediaKeyStatusMapEntryIteratorValue object and copy all values in the value javascript object.
+func MediaKeyStatusMapEntryIteratorValueFromJS(value js.Value) *MediaKeyStatusMapEntryIteratorValue {
 	var out MediaKeyStatusMapEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -590,7 +585,7 @@ type MediaKeyStatusMapKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeyStatusMapKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -602,18 +597,16 @@ func (_this *MediaKeyStatusMapKeyIteratorValue) JSValue() js.Value {
 }
 
 // MediaKeyStatusMapKeyIteratorValueFromJS is allocating a new
-// MediaKeyStatusMapKeyIteratorValue object and copy all values from
-// input javascript object
-func MediaKeyStatusMapKeyIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapKeyIteratorValue {
-	input := value.JSValue()
+// MediaKeyStatusMapKeyIteratorValue object and copy all values in the value javascript object.
+func MediaKeyStatusMapKeyIteratorValueFromJS(value js.Value) *MediaKeyStatusMapKeyIteratorValue {
 	var out MediaKeyStatusMapKeyIteratorValue
 	var (
 		value0 *Union // javascript: Union {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = UnionFromJS(input.Get("value"))
+	value0 = UnionFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -624,7 +617,7 @@ type MediaKeyStatusMapValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeyStatusMapValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -636,18 +629,16 @@ func (_this *MediaKeyStatusMapValueIteratorValue) JSValue() js.Value {
 }
 
 // MediaKeyStatusMapValueIteratorValueFromJS is allocating a new
-// MediaKeyStatusMapValueIteratorValue object and copy all values from
-// input javascript object
-func MediaKeyStatusMapValueIteratorValueFromJS(value js.Wrapper) *MediaKeyStatusMapValueIteratorValue {
-	input := value.JSValue()
+// MediaKeyStatusMapValueIteratorValue object and copy all values in the value javascript object.
+func MediaKeyStatusMapValueIteratorValueFromJS(value js.Value) *MediaKeyStatusMapValueIteratorValue {
 	var out MediaKeyStatusMapValueIteratorValue
 	var (
 		value0 MediaKeyStatus // javascript: MediaKeyStatus {value Value value}
 		value1 bool           // javascript: boolean {done Done done}
 	)
-	value0 = MediaKeyStatusFromJS(input.Get("value"))
+	value0 = MediaKeyStatusFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -663,7 +654,7 @@ type MediaKeySystemConfiguration struct {
 	SessionTypes          []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeySystemConfiguration) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -701,10 +692,8 @@ func (_this *MediaKeySystemConfiguration) JSValue() js.Value {
 }
 
 // MediaKeySystemConfigurationFromJS is allocating a new
-// MediaKeySystemConfiguration object and copy all values from
-// input javascript object
-func MediaKeySystemConfigurationFromJS(value js.Wrapper) *MediaKeySystemConfiguration {
-	input := value.JSValue()
+// MediaKeySystemConfiguration object and copy all values in the value javascript object.
+func MediaKeySystemConfigurationFromJS(value js.Value) *MediaKeySystemConfiguration {
 	var out MediaKeySystemConfiguration
 	var (
 		value0 string                           // javascript: DOMString {label Label label}
@@ -715,47 +704,47 @@ func MediaKeySystemConfigurationFromJS(value js.Wrapper) *MediaKeySystemConfigur
 		value5 MediaKeysRequirement             // javascript: MediaKeysRequirement {persistentState PersistentState persistentState}
 		value6 []string                         // javascript: sequence<DOMString> {sessionTypes SessionTypes sessionTypes}
 	)
-	value0 = (input.Get("label")).String()
+	value0 = (value.Get("label")).String()
 	out.Label = value0
-	__length1 := input.Get("initDataTypes").Length()
+	__length1 := value.Get("initDataTypes").Length()
 	__array1 := make([]string, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 string
-		__seq_in1 := input.Get("initDataTypes").Index(__idx1)
+		__seq_in1 := value.Get("initDataTypes").Index(__idx1)
 		__seq_out1 = (__seq_in1).String()
 		__array1[__idx1] = __seq_out1
 	}
 	value1 = __array1
 	out.InitDataTypes = value1
-	__length2 := input.Get("audioCapabilities").Length()
+	__length2 := value.Get("audioCapabilities").Length()
 	__array2 := make([]*MediaKeySystemMediaCapability, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 *MediaKeySystemMediaCapability
-		__seq_in2 := input.Get("audioCapabilities").Index(__idx2)
+		__seq_in2 := value.Get("audioCapabilities").Index(__idx2)
 		__seq_out2 = MediaKeySystemMediaCapabilityFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
 	value2 = __array2
 	out.AudioCapabilities = value2
-	__length3 := input.Get("videoCapabilities").Length()
+	__length3 := value.Get("videoCapabilities").Length()
 	__array3 := make([]*MediaKeySystemMediaCapability, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *MediaKeySystemMediaCapability
-		__seq_in3 := input.Get("videoCapabilities").Index(__idx3)
+		__seq_in3 := value.Get("videoCapabilities").Index(__idx3)
 		__seq_out3 = MediaKeySystemMediaCapabilityFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.VideoCapabilities = value3
-	value4 = MediaKeysRequirementFromJS(input.Get("distinctiveIdentifier"))
+	value4 = MediaKeysRequirementFromJS(value.Get("distinctiveIdentifier"))
 	out.DistinctiveIdentifier = value4
-	value5 = MediaKeysRequirementFromJS(input.Get("persistentState"))
+	value5 = MediaKeysRequirementFromJS(value.Get("persistentState"))
 	out.PersistentState = value5
-	__length6 := input.Get("sessionTypes").Length()
+	__length6 := value.Get("sessionTypes").Length()
 	__array6 := make([]string, __length6, __length6)
 	for __idx6 := 0; __idx6 < __length6; __idx6++ {
 		var __seq_out6 string
-		__seq_in6 := input.Get("sessionTypes").Index(__idx6)
+		__seq_in6 := value.Get("sessionTypes").Index(__idx6)
 		__seq_out6 = (__seq_in6).String()
 		__array6[__idx6] = __seq_out6
 	}
@@ -770,7 +759,7 @@ type MediaKeySystemMediaCapability struct {
 	Robustness  string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MediaKeySystemMediaCapability) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -782,18 +771,16 @@ func (_this *MediaKeySystemMediaCapability) JSValue() js.Value {
 }
 
 // MediaKeySystemMediaCapabilityFromJS is allocating a new
-// MediaKeySystemMediaCapability object and copy all values from
-// input javascript object
-func MediaKeySystemMediaCapabilityFromJS(value js.Wrapper) *MediaKeySystemMediaCapability {
-	input := value.JSValue()
+// MediaKeySystemMediaCapability object and copy all values in the value javascript object.
+func MediaKeySystemMediaCapabilityFromJS(value js.Value) *MediaKeySystemMediaCapability {
 	var out MediaKeySystemMediaCapability
 	var (
 		value0 string // javascript: DOMString {contentType ContentType contentType}
 		value1 string // javascript: DOMString {robustness Robustness robustness}
 	)
-	value0 = (input.Get("contentType")).String()
+	value0 = (value.Get("contentType")).String()
 	out.ContentType = value0
-	value1 = (input.Get("robustness")).String()
+	value1 = (value.Get("robustness")).String()
 	out.Robustness = value1
 	return &out
 }
@@ -803,15 +790,19 @@ type MediaEncryptedEvent struct {
 	domcore.Event
 }
 
-// MediaEncryptedEventFromJS is casting a js.Wrapper into MediaEncryptedEvent.
-func MediaEncryptedEventFromJS(value js.Wrapper) *MediaEncryptedEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaEncryptedEventFromJS is casting a js.Value into MediaEncryptedEvent.
+func MediaEncryptedEventFromJS(value js.Value) *MediaEncryptedEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaEncryptedEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaEncryptedEventFromJS is casting from something that holds a js.Value into MediaEncryptedEvent.
+func MediaEncryptedEventFromWrapper(input core.Wrapper) *MediaEncryptedEvent {
+	return MediaEncryptedEventFromJS(input.JSValue())
 }
 
 func NewMediaEncryptedEvent(_type string, eventInitDict *MediaEncryptedEventInit) (_result *MediaEncryptedEvent) {
@@ -862,15 +853,19 @@ type MediaKeyMessageEvent struct {
 	domcore.Event
 }
 
-// MediaKeyMessageEventFromJS is casting a js.Wrapper into MediaKeyMessageEvent.
-func MediaKeyMessageEventFromJS(value js.Wrapper) *MediaKeyMessageEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeyMessageEventFromJS is casting a js.Value into MediaKeyMessageEvent.
+func MediaKeyMessageEventFromJS(value js.Value) *MediaKeyMessageEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyMessageEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeyMessageEventFromJS is casting from something that holds a js.Value into MediaKeyMessageEvent.
+func MediaKeyMessageEventFromWrapper(input core.Wrapper) *MediaKeyMessageEvent {
+	return MediaKeyMessageEventFromJS(input.JSValue())
 }
 
 func NewMediaKeyMessageEvent(_type string, eventInitDict *MediaKeyMessageEventInit) (_result *MediaKeyMessageEvent) {
@@ -917,15 +912,19 @@ type MediaKeySession struct {
 	domcore.EventTarget
 }
 
-// MediaKeySessionFromJS is casting a js.Wrapper into MediaKeySession.
-func MediaKeySessionFromJS(value js.Wrapper) *MediaKeySession {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeySessionFromJS is casting a js.Value into MediaKeySession.
+func MediaKeySessionFromJS(value js.Value) *MediaKeySession {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeySession{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeySessionFromJS is casting from something that holds a js.Value into MediaKeySession.
+func MediaKeySessionFromWrapper(input core.Wrapper) *MediaKeySession {
+	return MediaKeySessionFromJS(input.JSValue())
 }
 
 // SessionId returning attribute 'sessionId' with
@@ -1138,15 +1137,19 @@ func (_this *MediaKeyStatusMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeyStatusMapFromJS is casting a js.Wrapper into MediaKeyStatusMap.
-func MediaKeyStatusMapFromJS(value js.Wrapper) *MediaKeyStatusMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeyStatusMapFromJS is casting a js.Value into MediaKeyStatusMap.
+func MediaKeyStatusMapFromJS(value js.Value) *MediaKeyStatusMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeyStatusMapFromJS is casting from something that holds a js.Value into MediaKeyStatusMap.
+func MediaKeyStatusMapFromWrapper(input core.Wrapper) *MediaKeyStatusMap {
+	return MediaKeyStatusMapFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -1268,15 +1271,19 @@ func (_this *MediaKeyStatusMapEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeyStatusMapEntryIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapEntryIterator.
-func MediaKeyStatusMapEntryIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeyStatusMapEntryIteratorFromJS is casting a js.Value into MediaKeyStatusMapEntryIterator.
+func MediaKeyStatusMapEntryIteratorFromJS(value js.Value) *MediaKeyStatusMapEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeyStatusMapEntryIteratorFromJS is casting from something that holds a js.Value into MediaKeyStatusMapEntryIterator.
+func MediaKeyStatusMapEntryIteratorFromWrapper(input core.Wrapper) *MediaKeyStatusMapEntryIterator {
+	return MediaKeyStatusMapEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *MediaKeyStatusMapEntryIterator) Next() (_result *MediaKeyStatusMapEntryIteratorValue) {
@@ -1303,15 +1310,19 @@ func (_this *MediaKeyStatusMapKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeyStatusMapKeyIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapKeyIterator.
-func MediaKeyStatusMapKeyIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeyStatusMapKeyIteratorFromJS is casting a js.Value into MediaKeyStatusMapKeyIterator.
+func MediaKeyStatusMapKeyIteratorFromJS(value js.Value) *MediaKeyStatusMapKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeyStatusMapKeyIteratorFromJS is casting from something that holds a js.Value into MediaKeyStatusMapKeyIterator.
+func MediaKeyStatusMapKeyIteratorFromWrapper(input core.Wrapper) *MediaKeyStatusMapKeyIterator {
+	return MediaKeyStatusMapKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *MediaKeyStatusMapKeyIterator) Next() (_result *MediaKeyStatusMapKeyIteratorValue) {
@@ -1338,15 +1349,19 @@ func (_this *MediaKeyStatusMapValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeyStatusMapValueIteratorFromJS is casting a js.Wrapper into MediaKeyStatusMapValueIterator.
-func MediaKeyStatusMapValueIteratorFromJS(value js.Wrapper) *MediaKeyStatusMapValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeyStatusMapValueIteratorFromJS is casting a js.Value into MediaKeyStatusMapValueIterator.
+func MediaKeyStatusMapValueIteratorFromJS(value js.Value) *MediaKeyStatusMapValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeyStatusMapValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeyStatusMapValueIteratorFromJS is casting from something that holds a js.Value into MediaKeyStatusMapValueIterator.
+func MediaKeyStatusMapValueIteratorFromWrapper(input core.Wrapper) *MediaKeyStatusMapValueIterator {
+	return MediaKeyStatusMapValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *MediaKeyStatusMapValueIterator) Next() (_result *MediaKeyStatusMapValueIteratorValue) {
@@ -1373,15 +1388,19 @@ func (_this *MediaKeySystemAccess) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeySystemAccessFromJS is casting a js.Wrapper into MediaKeySystemAccess.
-func MediaKeySystemAccessFromJS(value js.Wrapper) *MediaKeySystemAccess {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeySystemAccessFromJS is casting a js.Value into MediaKeySystemAccess.
+func MediaKeySystemAccessFromJS(value js.Value) *MediaKeySystemAccess {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeySystemAccess{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeySystemAccessFromJS is casting from something that holds a js.Value into MediaKeySystemAccess.
+func MediaKeySystemAccessFromWrapper(input core.Wrapper) *MediaKeySystemAccess {
+	return MediaKeySystemAccessFromJS(input.JSValue())
 }
 
 // KeySystem returning attribute 'keySystem' with
@@ -1431,15 +1450,19 @@ func (_this *MediaKeys) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// MediaKeysFromJS is casting a js.Wrapper into MediaKeys.
-func MediaKeysFromJS(value js.Wrapper) *MediaKeys {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// MediaKeysFromJS is casting a js.Value into MediaKeys.
+func MediaKeysFromJS(value js.Value) *MediaKeys {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &MediaKeys{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// MediaKeysFromJS is casting from something that holds a js.Value into MediaKeys.
+func MediaKeysFromWrapper(input core.Wrapper) *MediaKeys {
+	return MediaKeysFromJS(input.JSValue())
 }
 
 func (_this *MediaKeys) CreateSession(sessionType *MediaKeySessionType) (_result *MediaKeySession) {
@@ -1488,15 +1511,19 @@ func (_this *PromiseMediaKeySystemAccess) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseMediaKeySystemAccessFromJS is casting a js.Wrapper into PromiseMediaKeySystemAccess.
-func PromiseMediaKeySystemAccessFromJS(value js.Wrapper) *PromiseMediaKeySystemAccess {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseMediaKeySystemAccessFromJS is casting a js.Value into PromiseMediaKeySystemAccess.
+func PromiseMediaKeySystemAccessFromJS(value js.Value) *PromiseMediaKeySystemAccess {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaKeySystemAccess{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseMediaKeySystemAccessFromJS is casting from something that holds a js.Value into PromiseMediaKeySystemAccess.
+func PromiseMediaKeySystemAccessFromWrapper(input core.Wrapper) *PromiseMediaKeySystemAccess {
+	return PromiseMediaKeySystemAccessFromJS(input.JSValue())
 }
 
 func (_this *PromiseMediaKeySystemAccess) Then(onFulfilled *PromiseMediaKeySystemAccessOnFulfilled, onRejected *PromiseMediaKeySystemAccessOnRejected) (_result *PromiseMediaKeySystemAccess) {
@@ -1593,15 +1620,19 @@ func (_this *PromiseMediaKeys) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseMediaKeysFromJS is casting a js.Wrapper into PromiseMediaKeys.
-func PromiseMediaKeysFromJS(value js.Wrapper) *PromiseMediaKeys {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseMediaKeysFromJS is casting a js.Value into PromiseMediaKeys.
+func PromiseMediaKeysFromJS(value js.Value) *PromiseMediaKeys {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseMediaKeys{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseMediaKeysFromJS is casting from something that holds a js.Value into PromiseMediaKeys.
+func PromiseMediaKeysFromWrapper(input core.Wrapper) *PromiseMediaKeys {
+	return PromiseMediaKeysFromJS(input.JSValue())
 }
 
 func (_this *PromiseMediaKeys) Then(onFulfilled *PromiseMediaKeysOnFulfilled, onRejected *PromiseMediaKeysOnRejected) (_result *PromiseMediaKeys) {

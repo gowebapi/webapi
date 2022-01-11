@@ -5,6 +5,7 @@ package shapedetection
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -417,7 +418,7 @@ type BarcodeDetectorOptions struct {
 	Formats []BarcodeFormat
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BarcodeDetectorOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -431,19 +432,17 @@ func (_this *BarcodeDetectorOptions) JSValue() js.Value {
 }
 
 // BarcodeDetectorOptionsFromJS is allocating a new
-// BarcodeDetectorOptions object and copy all values from
-// input javascript object
-func BarcodeDetectorOptionsFromJS(value js.Wrapper) *BarcodeDetectorOptions {
-	input := value.JSValue()
+// BarcodeDetectorOptions object and copy all values in the value javascript object.
+func BarcodeDetectorOptionsFromJS(value js.Value) *BarcodeDetectorOptions {
 	var out BarcodeDetectorOptions
 	var (
 		value0 []BarcodeFormat // javascript: sequence<BarcodeFormat> {formats Formats formats}
 	)
-	__length0 := input.Get("formats").Length()
+	__length0 := value.Get("formats").Length()
 	__array0 := make([]BarcodeFormat, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 BarcodeFormat
-		__seq_in0 := input.Get("formats").Index(__idx0)
+		__seq_in0 := value.Get("formats").Index(__idx0)
 		__seq_out0 = BarcodeFormatFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
@@ -458,7 +457,7 @@ type FaceDetectorOptions struct {
 	FastMode         bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FaceDetectorOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -470,18 +469,16 @@ func (_this *FaceDetectorOptions) JSValue() js.Value {
 }
 
 // FaceDetectorOptionsFromJS is allocating a new
-// FaceDetectorOptions object and copy all values from
-// input javascript object
-func FaceDetectorOptionsFromJS(value js.Wrapper) *FaceDetectorOptions {
-	input := value.JSValue()
+// FaceDetectorOptions object and copy all values in the value javascript object.
+func FaceDetectorOptionsFromJS(value js.Value) *FaceDetectorOptions {
 	var out FaceDetectorOptions
 	var (
 		value0 int  // javascript: unsigned short {maxDetectedFaces MaxDetectedFaces maxDetectedFaces}
 		value1 bool // javascript: boolean {fastMode FastMode fastMode}
 	)
-	value0 = (input.Get("maxDetectedFaces")).Int()
+	value0 = (value.Get("maxDetectedFaces")).Int()
 	out.MaxDetectedFaces = value0
-	value1 = (input.Get("fastMode")).Bool()
+	value1 = (value.Get("fastMode")).Bool()
 	out.FastMode = value1
 	return &out
 }
@@ -492,7 +489,7 @@ type Landmark struct {
 	Type      LandmarkType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Landmark) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -504,18 +501,16 @@ func (_this *Landmark) JSValue() js.Value {
 }
 
 // LandmarkFromJS is allocating a new
-// Landmark object and copy all values from
-// input javascript object
-func LandmarkFromJS(value js.Wrapper) *Landmark {
-	input := value.JSValue()
+// Landmark object and copy all values in the value javascript object.
+func LandmarkFromJS(value js.Value) *Landmark {
 	var out Landmark
 	var (
 		value0 *javascript.FrozenArray // javascript: FrozenArray {locations Locations locations}
 		value1 LandmarkType            // javascript: LandmarkType {type Type _type}
 	)
-	value0 = javascript.FrozenArrayFromJS(input.Get("locations"))
+	value0 = javascript.FrozenArrayFromJS(value.Get("locations"))
 	out.Locations = value0
-	value1 = LandmarkTypeFromJS(input.Get("type"))
+	value1 = LandmarkTypeFromJS(value.Get("type"))
 	out.Type = value1
 	return &out
 }
@@ -530,15 +525,19 @@ func (_this *BarcodeDetector) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BarcodeDetectorFromJS is casting a js.Wrapper into BarcodeDetector.
-func BarcodeDetectorFromJS(value js.Wrapper) *BarcodeDetector {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BarcodeDetectorFromJS is casting a js.Value into BarcodeDetector.
+func BarcodeDetectorFromJS(value js.Value) *BarcodeDetector {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BarcodeDetector{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BarcodeDetectorFromJS is casting from something that holds a js.Value into BarcodeDetector.
+func BarcodeDetectorFromWrapper(input core.Wrapper) *BarcodeDetector {
+	return BarcodeDetectorFromJS(input.JSValue())
 }
 
 func GetSupportedFormats() (_result *PromiseSequenceBarcodeFormat) {
@@ -604,15 +603,19 @@ func (_this *DetectedBarcode) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DetectedBarcodeFromJS is casting a js.Wrapper into DetectedBarcode.
-func DetectedBarcodeFromJS(value js.Wrapper) *DetectedBarcode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DetectedBarcodeFromJS is casting a js.Value into DetectedBarcode.
+func DetectedBarcodeFromJS(value js.Value) *DetectedBarcode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DetectedBarcode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DetectedBarcodeFromJS is casting from something that holds a js.Value into DetectedBarcode.
+func DetectedBarcodeFromWrapper(input core.Wrapper) *DetectedBarcode {
+	return DetectedBarcodeFromJS(input.JSValue())
 }
 
 // BoundingBox returning attribute 'boundingBox' with
@@ -661,15 +664,19 @@ func (_this *DetectedFace) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DetectedFaceFromJS is casting a js.Wrapper into DetectedFace.
-func DetectedFaceFromJS(value js.Wrapper) *DetectedFace {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DetectedFaceFromJS is casting a js.Value into DetectedFace.
+func DetectedFaceFromJS(value js.Value) *DetectedFace {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DetectedFace{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DetectedFaceFromJS is casting from something that holds a js.Value into DetectedFace.
+func DetectedFaceFromWrapper(input core.Wrapper) *DetectedFace {
+	return DetectedFaceFromJS(input.JSValue())
 }
 
 // BoundingBox returning attribute 'boundingBox' with
@@ -702,15 +709,19 @@ func (_this *FaceDetector) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FaceDetectorFromJS is casting a js.Wrapper into FaceDetector.
-func FaceDetectorFromJS(value js.Wrapper) *FaceDetector {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FaceDetectorFromJS is casting a js.Value into FaceDetector.
+func FaceDetectorFromJS(value js.Value) *FaceDetector {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FaceDetector{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FaceDetectorFromJS is casting from something that holds a js.Value into FaceDetector.
+func FaceDetectorFromWrapper(input core.Wrapper) *FaceDetector {
+	return FaceDetectorFromJS(input.JSValue())
 }
 
 func NewFaceDetector(faceDetectorOptions *FaceDetectorOptions) (_result *FaceDetector) {
@@ -760,15 +771,19 @@ func (_this *PromiseSequenceBarcodeFormat) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceBarcodeFormatFromJS is casting a js.Wrapper into PromiseSequenceBarcodeFormat.
-func PromiseSequenceBarcodeFormatFromJS(value js.Wrapper) *PromiseSequenceBarcodeFormat {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceBarcodeFormatFromJS is casting a js.Value into PromiseSequenceBarcodeFormat.
+func PromiseSequenceBarcodeFormatFromJS(value js.Value) *PromiseSequenceBarcodeFormat {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceBarcodeFormat{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceBarcodeFormatFromJS is casting from something that holds a js.Value into PromiseSequenceBarcodeFormat.
+func PromiseSequenceBarcodeFormatFromWrapper(input core.Wrapper) *PromiseSequenceBarcodeFormat {
+	return PromiseSequenceBarcodeFormatFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceBarcodeFormat) Then(onFulfilled *PromiseSequenceBarcodeFormatOnFulfilled, onRejected *PromiseSequenceBarcodeFormatOnRejected) (_result *PromiseSequenceBarcodeFormat) {
@@ -865,15 +880,19 @@ func (_this *PromiseSequenceDetectedBarcode) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceDetectedBarcodeFromJS is casting a js.Wrapper into PromiseSequenceDetectedBarcode.
-func PromiseSequenceDetectedBarcodeFromJS(value js.Wrapper) *PromiseSequenceDetectedBarcode {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceDetectedBarcodeFromJS is casting a js.Value into PromiseSequenceDetectedBarcode.
+func PromiseSequenceDetectedBarcodeFromJS(value js.Value) *PromiseSequenceDetectedBarcode {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDetectedBarcode{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceDetectedBarcodeFromJS is casting from something that holds a js.Value into PromiseSequenceDetectedBarcode.
+func PromiseSequenceDetectedBarcodeFromWrapper(input core.Wrapper) *PromiseSequenceDetectedBarcode {
+	return PromiseSequenceDetectedBarcodeFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceDetectedBarcode) Then(onFulfilled *PromiseSequenceDetectedBarcodeOnFulfilled, onRejected *PromiseSequenceDetectedBarcodeOnRejected) (_result *PromiseSequenceDetectedBarcode) {
@@ -970,15 +989,19 @@ func (_this *PromiseSequenceDetectedFace) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceDetectedFaceFromJS is casting a js.Wrapper into PromiseSequenceDetectedFace.
-func PromiseSequenceDetectedFaceFromJS(value js.Wrapper) *PromiseSequenceDetectedFace {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceDetectedFaceFromJS is casting a js.Value into PromiseSequenceDetectedFace.
+func PromiseSequenceDetectedFaceFromJS(value js.Value) *PromiseSequenceDetectedFace {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceDetectedFace{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceDetectedFaceFromJS is casting from something that holds a js.Value into PromiseSequenceDetectedFace.
+func PromiseSequenceDetectedFaceFromWrapper(input core.Wrapper) *PromiseSequenceDetectedFace {
+	return PromiseSequenceDetectedFaceFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceDetectedFace) Then(onFulfilled *PromiseSequenceDetectedFaceOnFulfilled, onRejected *PromiseSequenceDetectedFaceOnRejected) (_result *PromiseSequenceDetectedFace) {

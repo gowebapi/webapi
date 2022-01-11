@@ -7,6 +7,7 @@ package dom
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/animations/webani"
 	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
@@ -331,7 +332,7 @@ type FullscreenOptions struct {
 	NavigationUI FullscreenNavigationUI
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FullscreenOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -341,15 +342,13 @@ func (_this *FullscreenOptions) JSValue() js.Value {
 }
 
 // FullscreenOptionsFromJS is allocating a new
-// FullscreenOptions object and copy all values from
-// input javascript object
-func FullscreenOptionsFromJS(value js.Wrapper) *FullscreenOptions {
-	input := value.JSValue()
+// FullscreenOptions object and copy all values in the value javascript object.
+func FullscreenOptionsFromJS(value js.Value) *FullscreenOptions {
 	var out FullscreenOptions
 	var (
 		value0 FullscreenNavigationUI // javascript: FullscreenNavigationUI {navigationUI NavigationUI navigationUI}
 	)
-	value0 = FullscreenNavigationUIFromJS(input.Get("navigationUI"))
+	value0 = FullscreenNavigationUIFromJS(value.Get("navigationUI"))
 	out.NavigationUI = value0
 	return &out
 }
@@ -359,7 +358,7 @@ type GetRootNodeOptions struct {
 	Composed bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *GetRootNodeOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -369,15 +368,13 @@ func (_this *GetRootNodeOptions) JSValue() js.Value {
 }
 
 // GetRootNodeOptionsFromJS is allocating a new
-// GetRootNodeOptions object and copy all values from
-// input javascript object
-func GetRootNodeOptionsFromJS(value js.Wrapper) *GetRootNodeOptions {
-	input := value.JSValue()
+// GetRootNodeOptions object and copy all values in the value javascript object.
+func GetRootNodeOptionsFromJS(value js.Value) *GetRootNodeOptions {
 	var out GetRootNodeOptions
 	var (
 		value0 bool // javascript: boolean {composed Composed composed}
 	)
-	value0 = (input.Get("composed")).Bool()
+	value0 = (value.Get("composed")).Bool()
 	out.Composed = value0
 	return &out
 }
@@ -388,7 +385,7 @@ type NodeListEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NodeListEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -404,26 +401,24 @@ func (_this *NodeListEntryIteratorValue) JSValue() js.Value {
 }
 
 // NodeListEntryIteratorValueFromJS is allocating a new
-// NodeListEntryIteratorValue object and copy all values from
-// input javascript object
-func NodeListEntryIteratorValueFromJS(value js.Wrapper) *NodeListEntryIteratorValue {
-	input := value.JSValue()
+// NodeListEntryIteratorValue object and copy all values in the value javascript object.
+func NodeListEntryIteratorValueFromJS(value js.Value) *NodeListEntryIteratorValue {
 	var out NodeListEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -434,7 +429,7 @@ type NodeListKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NodeListKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -446,18 +441,16 @@ func (_this *NodeListKeyIteratorValue) JSValue() js.Value {
 }
 
 // NodeListKeyIteratorValueFromJS is allocating a new
-// NodeListKeyIteratorValue object and copy all values from
-// input javascript object
-func NodeListKeyIteratorValueFromJS(value js.Wrapper) *NodeListKeyIteratorValue {
-	input := value.JSValue()
+// NodeListKeyIteratorValue object and copy all values in the value javascript object.
+func NodeListKeyIteratorValueFromJS(value js.Value) *NodeListKeyIteratorValue {
 	var out NodeListKeyIteratorValue
 	var (
 		value0 uint // javascript: unsigned long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (uint)((input.Get("value")).Int())
+	value0 = (uint)((value.Get("value")).Int())
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -468,7 +461,7 @@ type NodeListValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *NodeListValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -480,18 +473,16 @@ func (_this *NodeListValueIteratorValue) JSValue() js.Value {
 }
 
 // NodeListValueIteratorValueFromJS is allocating a new
-// NodeListValueIteratorValue object and copy all values from
-// input javascript object
-func NodeListValueIteratorValueFromJS(value js.Wrapper) *NodeListValueIteratorValue {
-	input := value.JSValue()
+// NodeListValueIteratorValue object and copy all values in the value javascript object.
+func NodeListValueIteratorValueFromJS(value js.Value) *NodeListValueIteratorValue {
 	var out NodeListValueIteratorValue
 	var (
 		value0 *Node // javascript: Node {value Value value}
 		value1 bool  // javascript: boolean {done Done done}
 	)
-	value0 = NodeFromJS(input.Get("value"))
+	value0 = NodeFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -501,7 +492,7 @@ type ShadowRootInit struct {
 	Mode ShadowRootMode
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ShadowRootInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -511,15 +502,13 @@ func (_this *ShadowRootInit) JSValue() js.Value {
 }
 
 // ShadowRootInitFromJS is allocating a new
-// ShadowRootInit object and copy all values from
-// input javascript object
-func ShadowRootInitFromJS(value js.Wrapper) *ShadowRootInit {
-	input := value.JSValue()
+// ShadowRootInit object and copy all values in the value javascript object.
+func ShadowRootInitFromJS(value js.Value) *ShadowRootInit {
 	var out ShadowRootInit
 	var (
 		value0 ShadowRootMode // javascript: ShadowRootMode {mode Mode mode}
 	)
-	value0 = ShadowRootModeFromJS(input.Get("mode"))
+	value0 = ShadowRootModeFromJS(value.Get("mode"))
 	out.Mode = value0
 	return &out
 }
@@ -534,15 +523,19 @@ func (_this *AbstractRange) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// AbstractRangeFromJS is casting a js.Wrapper into AbstractRange.
-func AbstractRangeFromJS(value js.Wrapper) *AbstractRange {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AbstractRangeFromJS is casting a js.Value into AbstractRange.
+func AbstractRangeFromJS(value js.Value) *AbstractRange {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AbstractRange{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AbstractRangeFromJS is casting from something that holds a js.Value into AbstractRange.
+func AbstractRangeFromWrapper(input core.Wrapper) *AbstractRange {
+	return AbstractRangeFromJS(input.JSValue())
 }
 
 // StartContainer returning attribute 'startContainer' with
@@ -595,15 +588,19 @@ type Attr struct {
 	Node
 }
 
-// AttrFromJS is casting a js.Wrapper into Attr.
-func AttrFromJS(value js.Wrapper) *Attr {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AttrFromJS is casting a js.Value into Attr.
+func AttrFromJS(value js.Value) *Attr {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Attr{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AttrFromJS is casting from something that holds a js.Value into Attr.
+func AttrFromWrapper(input core.Wrapper) *Attr {
+	return AttrFromJS(input.JSValue())
 }
 
 // NamespaceURI returning attribute 'namespaceURI' with
@@ -689,15 +686,19 @@ type CDATASection struct {
 	Text
 }
 
-// CDATASectionFromJS is casting a js.Wrapper into CDATASection.
-func CDATASectionFromJS(value js.Wrapper) *CDATASection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CDATASectionFromJS is casting a js.Value into CDATASection.
+func CDATASectionFromJS(value js.Value) *CDATASection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CDATASection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CDATASectionFromJS is casting from something that holds a js.Value into CDATASection.
+func CDATASectionFromWrapper(input core.Wrapper) *CDATASection {
+	return CDATASectionFromJS(input.JSValue())
 }
 
 // class: CharacterData
@@ -705,15 +706,19 @@ type CharacterData struct {
 	Node
 }
 
-// CharacterDataFromJS is casting a js.Wrapper into CharacterData.
-func CharacterDataFromJS(value js.Wrapper) *CharacterData {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CharacterDataFromJS is casting a js.Value into CharacterData.
+func CharacterDataFromJS(value js.Value) *CharacterData {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CharacterData{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CharacterDataFromJS is casting from something that holds a js.Value into CharacterData.
+func CharacterDataFromWrapper(input core.Wrapper) *CharacterData {
+	return CharacterDataFromJS(input.JSValue())
 }
 
 // Data returning attribute 'data' with
@@ -899,15 +904,19 @@ type Comment struct {
 	CharacterData
 }
 
-// CommentFromJS is casting a js.Wrapper into Comment.
-func CommentFromJS(value js.Wrapper) *Comment {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CommentFromJS is casting a js.Value into Comment.
+func CommentFromJS(value js.Value) *Comment {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Comment{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CommentFromJS is casting from something that holds a js.Value into Comment.
+func CommentFromWrapper(input core.Wrapper) *Comment {
+	return CommentFromJS(input.JSValue())
 }
 
 func NewComment(data *string) (_result *Comment) {
@@ -946,15 +955,19 @@ func (_this *DeadFragmentInformation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DeadFragmentInformationFromJS is casting a js.Wrapper into DeadFragmentInformation.
-func DeadFragmentInformationFromJS(value js.Wrapper) *DeadFragmentInformation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DeadFragmentInformationFromJS is casting a js.Value into DeadFragmentInformation.
+func DeadFragmentInformationFromJS(value js.Value) *DeadFragmentInformation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeadFragmentInformation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DeadFragmentInformationFromJS is casting from something that holds a js.Value into DeadFragmentInformation.
+func DeadFragmentInformationFromWrapper(input core.Wrapper) *DeadFragmentInformation {
+	return DeadFragmentInformationFromJS(input.JSValue())
 }
 
 // Node returning attribute 'node' with
@@ -1071,15 +1084,19 @@ type DocumentFragment struct {
 	Node
 }
 
-// DocumentFragmentFromJS is casting a js.Wrapper into DocumentFragment.
-func DocumentFragmentFromJS(value js.Wrapper) *DocumentFragment {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DocumentFragmentFromJS is casting a js.Value into DocumentFragment.
+func DocumentFragmentFromJS(value js.Value) *DocumentFragment {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DocumentFragment{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DocumentFragmentFromJS is casting from something that holds a js.Value into DocumentFragment.
+func DocumentFragmentFromWrapper(input core.Wrapper) *DocumentFragment {
+	return DocumentFragmentFromJS(input.JSValue())
 }
 
 func NewDocumentFragment() (_result *DocumentFragment) {
@@ -1225,15 +1242,19 @@ type DocumentType struct {
 	Node
 }
 
-// DocumentTypeFromJS is casting a js.Wrapper into DocumentType.
-func DocumentTypeFromJS(value js.Wrapper) *DocumentType {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DocumentTypeFromJS is casting a js.Value into DocumentType.
+func DocumentTypeFromJS(value js.Value) *DocumentType {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DocumentType{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DocumentTypeFromJS is casting from something that holds a js.Value into DocumentType.
+func DocumentTypeFromWrapper(input core.Wrapper) *DocumentType {
+	return DocumentTypeFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -1319,15 +1340,19 @@ type Element struct {
 	Node
 }
 
-// ElementFromJS is casting a js.Wrapper into Element.
-func ElementFromJS(value js.Wrapper) *Element {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ElementFromJS is casting a js.Value into Element.
+func ElementFromJS(value js.Value) *Element {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Element{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ElementFromJS is casting from something that holds a js.Value into Element.
+func ElementFromWrapper(input core.Wrapper) *Element {
+	return ElementFromJS(input.JSValue())
 }
 
 // NamespaceURI returning attribute 'namespaceURI' with
@@ -3846,15 +3871,19 @@ func (_this *HTMLCollection) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// HTMLCollectionFromJS is casting a js.Wrapper into HTMLCollection.
-func HTMLCollectionFromJS(value js.Wrapper) *HTMLCollection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// HTMLCollectionFromJS is casting a js.Value into HTMLCollection.
+func HTMLCollectionFromJS(value js.Value) *HTMLCollection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &HTMLCollection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// HTMLCollectionFromJS is casting from something that holds a js.Value into HTMLCollection.
+func HTMLCollectionFromWrapper(input core.Wrapper) *HTMLCollection {
+	return HTMLCollectionFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -3952,15 +3981,19 @@ func (_this *NamedNodeMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NamedNodeMapFromJS is casting a js.Wrapper into NamedNodeMap.
-func NamedNodeMapFromJS(value js.Wrapper) *NamedNodeMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NamedNodeMapFromJS is casting a js.Value into NamedNodeMap.
+func NamedNodeMapFromJS(value js.Value) *NamedNodeMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NamedNodeMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NamedNodeMapFromJS is casting from something that holds a js.Value into NamedNodeMap.
+func NamedNodeMapFromWrapper(input core.Wrapper) *NamedNodeMap {
+	return NamedNodeMapFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -4162,15 +4195,19 @@ type Node struct {
 	domcore.EventTarget
 }
 
-// NodeFromJS is casting a js.Wrapper into Node.
-func NodeFromJS(value js.Wrapper) *Node {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeFromJS is casting a js.Value into Node.
+func NodeFromJS(value js.Value) *Node {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Node{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeFromJS is casting from something that holds a js.Value into Node.
+func NodeFromWrapper(input core.Wrapper) *Node {
+	return NodeFromJS(input.JSValue())
 }
 
 const (
@@ -4671,7 +4708,7 @@ type NodeFilter interface {
 }
 
 // NodeFilterValue is javascript reference value for callback interface NodeFilter.
-// This is holding the underlaying javascript object.
+// This is holding the underlying javascript object.
 type NodeFilterValue struct {
 	// Value is the underlying javascript object or function.
 	Value js.Value
@@ -4723,15 +4760,18 @@ func NewNodeFilterFunc(f func(node *Node) (_result int)) *NodeFilterValue {
 // NodeFilterFromJS is taking an javascript object that reference to a
 // callback interface and return a corresponding interface that can be used
 // to invoke on that element.
-func NodeFilterFromJS(value js.Wrapper) *NodeFilterValue {
-	input := value.JSValue()
-	if input.Type() == js.TypeObject {
-		return &NodeFilterValue{Value: input}
+func NodeFilterFromJS(value js.Value) *NodeFilterValue {
+	if value.Type() == js.TypeObject {
+		return &NodeFilterValue{Value: value}
 	}
-	if input.Type() == js.TypeFunction {
-		return &NodeFilterValue{Value: input, useInvoke: true}
+	if value.Type() == js.TypeFunction {
+		return &NodeFilterValue{Value: value, useInvoke: true}
 	}
 	panic("unsupported type")
+}
+
+func NodeFilterFromWrapper(input core.Wrapper) *NodeFilterValue {
+	return NodeFilterFromJS(input.JSValue())
 }
 
 func (t *NodeFilterValue) allocateAcceptNode() js.Func {
@@ -4791,15 +4831,19 @@ func (_this *NodeIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeIteratorFromJS is casting a js.Wrapper into NodeIterator.
-func NodeIteratorFromJS(value js.Wrapper) *NodeIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeIteratorFromJS is casting a js.Value into NodeIterator.
+func NodeIteratorFromJS(value js.Value) *NodeIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NodeIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeIteratorFromJS is casting from something that holds a js.Value into NodeIterator.
+func NodeIteratorFromWrapper(input core.Wrapper) *NodeIterator {
+	return NodeIteratorFromJS(input.JSValue())
 }
 
 // Root returning attribute 'root' with
@@ -4900,15 +4944,19 @@ func (_this *NodeList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeListFromJS is casting a js.Wrapper into NodeList.
-func NodeListFromJS(value js.Wrapper) *NodeList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeListFromJS is casting a js.Value into NodeList.
+func NodeListFromJS(value js.Value) *NodeList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NodeList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeListFromJS is casting from something that holds a js.Value into NodeList.
+func NodeListFromWrapper(input core.Wrapper) *NodeList {
+	return NodeListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -5034,15 +5082,19 @@ func (_this *NodeListEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeListEntryIteratorFromJS is casting a js.Wrapper into NodeListEntryIterator.
-func NodeListEntryIteratorFromJS(value js.Wrapper) *NodeListEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeListEntryIteratorFromJS is casting a js.Value into NodeListEntryIterator.
+func NodeListEntryIteratorFromJS(value js.Value) *NodeListEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NodeListEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeListEntryIteratorFromJS is casting from something that holds a js.Value into NodeListEntryIterator.
+func NodeListEntryIteratorFromWrapper(input core.Wrapper) *NodeListEntryIterator {
+	return NodeListEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *NodeListEntryIterator) Next() (_result *NodeListEntryIteratorValue) {
@@ -5069,15 +5121,19 @@ func (_this *NodeListKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeListKeyIteratorFromJS is casting a js.Wrapper into NodeListKeyIterator.
-func NodeListKeyIteratorFromJS(value js.Wrapper) *NodeListKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeListKeyIteratorFromJS is casting a js.Value into NodeListKeyIterator.
+func NodeListKeyIteratorFromJS(value js.Value) *NodeListKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NodeListKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeListKeyIteratorFromJS is casting from something that holds a js.Value into NodeListKeyIterator.
+func NodeListKeyIteratorFromWrapper(input core.Wrapper) *NodeListKeyIterator {
+	return NodeListKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *NodeListKeyIterator) Next() (_result *NodeListKeyIteratorValue) {
@@ -5104,15 +5160,19 @@ func (_this *NodeListValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NodeListValueIteratorFromJS is casting a js.Wrapper into NodeListValueIterator.
-func NodeListValueIteratorFromJS(value js.Wrapper) *NodeListValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NodeListValueIteratorFromJS is casting a js.Value into NodeListValueIterator.
+func NodeListValueIteratorFromJS(value js.Value) *NodeListValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NodeListValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NodeListValueIteratorFromJS is casting from something that holds a js.Value into NodeListValueIterator.
+func NodeListValueIteratorFromWrapper(input core.Wrapper) *NodeListValueIterator {
+	return NodeListValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *NodeListValueIterator) Next() (_result *NodeListValueIteratorValue) {
@@ -5134,15 +5194,19 @@ type ProcessingInstruction struct {
 	CharacterData
 }
 
-// ProcessingInstructionFromJS is casting a js.Wrapper into ProcessingInstruction.
-func ProcessingInstructionFromJS(value js.Wrapper) *ProcessingInstruction {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ProcessingInstructionFromJS is casting a js.Value into ProcessingInstruction.
+func ProcessingInstructionFromJS(value js.Value) *ProcessingInstruction {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ProcessingInstruction{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ProcessingInstructionFromJS is casting from something that holds a js.Value into ProcessingInstruction.
+func ProcessingInstructionFromWrapper(input core.Wrapper) *ProcessingInstruction {
+	return ProcessingInstructionFromJS(input.JSValue())
 }
 
 // Target returning attribute 'target' with
@@ -5175,15 +5239,19 @@ func (_this *PromiseDeadFragmentInformation) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseDeadFragmentInformationFromJS is casting a js.Wrapper into PromiseDeadFragmentInformation.
-func PromiseDeadFragmentInformationFromJS(value js.Wrapper) *PromiseDeadFragmentInformation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseDeadFragmentInformationFromJS is casting a js.Value into PromiseDeadFragmentInformation.
+func PromiseDeadFragmentInformationFromJS(value js.Value) *PromiseDeadFragmentInformation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDeadFragmentInformation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseDeadFragmentInformationFromJS is casting from something that holds a js.Value into PromiseDeadFragmentInformation.
+func PromiseDeadFragmentInformationFromWrapper(input core.Wrapper) *PromiseDeadFragmentInformation {
+	return PromiseDeadFragmentInformationFromJS(input.JSValue())
 }
 
 func (_this *PromiseDeadFragmentInformation) Then(onFulfilled *PromiseDeadFragmentInformationOnFulfilled, onRejected *PromiseDeadFragmentInformationOnRejected) (_result *PromiseDeadFragmentInformation) {
@@ -5275,15 +5343,19 @@ type Range struct {
 	AbstractRange
 }
 
-// RangeFromJS is casting a js.Wrapper into Range.
-func RangeFromJS(value js.Wrapper) *Range {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RangeFromJS is casting a js.Value into Range.
+func RangeFromJS(value js.Value) *Range {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Range{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RangeFromJS is casting from something that holds a js.Value into Range.
+func RangeFromWrapper(input core.Wrapper) *Range {
+	return RangeFromJS(input.JSValue())
 }
 
 const (
@@ -5664,15 +5736,19 @@ type ShadowRoot struct {
 	DocumentFragment
 }
 
-// ShadowRootFromJS is casting a js.Wrapper into ShadowRoot.
-func ShadowRootFromJS(value js.Wrapper) *ShadowRoot {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ShadowRootFromJS is casting a js.Value into ShadowRoot.
+func ShadowRootFromJS(value js.Value) *ShadowRoot {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ShadowRoot{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ShadowRootFromJS is casting from something that holds a js.Value into ShadowRoot.
+func ShadowRootFromWrapper(input core.Wrapper) *ShadowRoot {
+	return ShadowRootFromJS(input.JSValue())
 }
 
 // Mode returning attribute 'mode' with
@@ -5740,15 +5816,19 @@ type StaticRange struct {
 	AbstractRange
 }
 
-// StaticRangeFromJS is casting a js.Wrapper into StaticRange.
-func StaticRangeFromJS(value js.Wrapper) *StaticRange {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StaticRangeFromJS is casting a js.Value into StaticRange.
+func StaticRangeFromJS(value js.Value) *StaticRange {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StaticRange{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StaticRangeFromJS is casting from something that holds a js.Value into StaticRange.
+func StaticRangeFromWrapper(input core.Wrapper) *StaticRange {
+	return StaticRangeFromJS(input.JSValue())
 }
 
 // class: Text
@@ -5756,15 +5836,19 @@ type Text struct {
 	CharacterData
 }
 
-// TextFromJS is casting a js.Wrapper into Text.
-func TextFromJS(value js.Wrapper) *Text {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TextFromJS is casting a js.Value into Text.
+func TextFromJS(value js.Value) *Text {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Text{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TextFromJS is casting from something that holds a js.Value into Text.
+func TextFromWrapper(input core.Wrapper) *Text {
+	return TextFromJS(input.JSValue())
 }
 
 func NewText(data *string) (_result *Text) {
@@ -5940,15 +6024,19 @@ func (_this *TreeWalker) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// TreeWalkerFromJS is casting a js.Wrapper into TreeWalker.
-func TreeWalkerFromJS(value js.Wrapper) *TreeWalker {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TreeWalkerFromJS is casting a js.Value into TreeWalker.
+func TreeWalkerFromJS(value js.Value) *TreeWalker {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TreeWalker{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TreeWalkerFromJS is casting from something that holds a js.Value into TreeWalker.
+func TreeWalkerFromWrapper(input core.Wrapper) *TreeWalker {
+	return TreeWalkerFromJS(input.JSValue())
 }
 
 // Root returning attribute 'root' with

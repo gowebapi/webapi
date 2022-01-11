@@ -5,6 +5,7 @@ package animations
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
@@ -48,7 +49,7 @@ type AnimationEventInit struct {
 	PseudoElement string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *AnimationEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -68,10 +69,8 @@ func (_this *AnimationEventInit) JSValue() js.Value {
 }
 
 // AnimationEventInitFromJS is allocating a new
-// AnimationEventInit object and copy all values from
-// input javascript object
-func AnimationEventInitFromJS(value js.Wrapper) *AnimationEventInit {
-	input := value.JSValue()
+// AnimationEventInit object and copy all values in the value javascript object.
+func AnimationEventInitFromJS(value js.Value) *AnimationEventInit {
 	var out AnimationEventInit
 	var (
 		value0 bool    // javascript: boolean {bubbles Bubbles bubbles}
@@ -81,17 +80,17 @@ func AnimationEventInitFromJS(value js.Wrapper) *AnimationEventInit {
 		value4 float64 // javascript: double {elapsedTime ElapsedTime elapsedTime}
 		value5 string  // javascript: DOMString {pseudoElement PseudoElement pseudoElement}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("animationName")).String()
+	value3 = (value.Get("animationName")).String()
 	out.AnimationName = value3
-	value4 = (input.Get("elapsedTime")).Float()
+	value4 = (value.Get("elapsedTime")).Float()
 	out.ElapsedTime = value4
-	value5 = (input.Get("pseudoElement")).String()
+	value5 = (value.Get("pseudoElement")).String()
 	out.PseudoElement = value5
 	return &out
 }
@@ -101,15 +100,19 @@ type AnimationEvent struct {
 	domcore.Event
 }
 
-// AnimationEventFromJS is casting a js.Wrapper into AnimationEvent.
-func AnimationEventFromJS(value js.Wrapper) *AnimationEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// AnimationEventFromJS is casting a js.Value into AnimationEvent.
+func AnimationEventFromJS(value js.Value) *AnimationEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &AnimationEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// AnimationEventFromJS is casting from something that holds a js.Value into AnimationEvent.
+func AnimationEventFromWrapper(input core.Wrapper) *AnimationEvent {
+	return AnimationEventFromJS(input.JSValue())
 }
 
 func NewAnimationEvent(_type string, animationEventInitDict *AnimationEventInit) (_result *AnimationEvent) {
@@ -167,15 +170,19 @@ type CSSKeyframeRule struct {
 	cssom.CSSRule
 }
 
-// CSSKeyframeRuleFromJS is casting a js.Wrapper into CSSKeyframeRule.
-func CSSKeyframeRuleFromJS(value js.Wrapper) *CSSKeyframeRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSKeyframeRuleFromJS is casting a js.Value into CSSKeyframeRule.
+func CSSKeyframeRuleFromJS(value js.Value) *CSSKeyframeRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSKeyframeRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSKeyframeRuleFromJS is casting from something that holds a js.Value into CSSKeyframeRule.
+func CSSKeyframeRuleFromWrapper(input core.Wrapper) *CSSKeyframeRule {
+	return CSSKeyframeRuleFromJS(input.JSValue())
 }
 
 // KeyText returning attribute 'keyText' with
@@ -208,15 +215,19 @@ type CSSKeyframesRule struct {
 	cssom.CSSRule
 }
 
-// CSSKeyframesRuleFromJS is casting a js.Wrapper into CSSKeyframesRule.
-func CSSKeyframesRuleFromJS(value js.Wrapper) *CSSKeyframesRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSKeyframesRuleFromJS is casting a js.Value into CSSKeyframesRule.
+func CSSKeyframesRuleFromJS(value js.Value) *CSSKeyframesRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSKeyframesRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSKeyframesRuleFromJS is casting from something that holds a js.Value into CSSKeyframesRule.
+func CSSKeyframesRuleFromWrapper(input core.Wrapper) *CSSKeyframesRule {
+	return CSSKeyframesRuleFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with

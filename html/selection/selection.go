@@ -7,6 +7,7 @@ package selection
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 )
 
@@ -47,15 +48,19 @@ func (_this *Selection) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SelectionFromJS is casting a js.Wrapper into Selection.
-func SelectionFromJS(value js.Wrapper) *Selection {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SelectionFromJS is casting a js.Value into Selection.
+func SelectionFromJS(value js.Value) *Selection {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Selection{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SelectionFromJS is casting from something that holds a js.Value into Selection.
+func SelectionFromWrapper(input core.Wrapper) *Selection {
+	return SelectionFromJS(input.JSValue())
 }
 
 // AnchorNode returning attribute 'anchorNode' with

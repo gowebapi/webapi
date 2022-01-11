@@ -43,7 +43,7 @@ type DistortionCoefficients struct {
 	K3 float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *DistortionCoefficients) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -61,10 +61,8 @@ func (_this *DistortionCoefficients) JSValue() js.Value {
 }
 
 // DistortionCoefficientsFromJS is allocating a new
-// DistortionCoefficients object and copy all values from
-// input javascript object
-func DistortionCoefficientsFromJS(value js.Wrapper) *DistortionCoefficients {
-	input := value.JSValue()
+// DistortionCoefficients object and copy all values in the value javascript object.
+func DistortionCoefficientsFromJS(value js.Value) *DistortionCoefficients {
 	var out DistortionCoefficients
 	var (
 		value0 float64 // javascript: double {k1 K1 k1}
@@ -73,15 +71,15 @@ func DistortionCoefficientsFromJS(value js.Wrapper) *DistortionCoefficients {
 		value3 float64 // javascript: double {p2 P2 p2}
 		value4 float64 // javascript: double {k3 K3 k3}
 	)
-	value0 = (input.Get("k1")).Float()
+	value0 = (value.Get("k1")).Float()
 	out.K1 = value0
-	value1 = (input.Get("k2")).Float()
+	value1 = (value.Get("k2")).Float()
 	out.K2 = value1
-	value2 = (input.Get("p1")).Float()
+	value2 = (value.Get("p1")).Float()
 	out.P1 = value2
-	value3 = (input.Get("p2")).Float()
+	value3 = (value.Get("p2")).Float()
 	out.P2 = value3
-	value4 = (input.Get("k3")).Float()
+	value4 = (value.Get("k3")).Float()
 	out.K3 = value4
 	return &out
 }
@@ -92,7 +90,7 @@ type Transformation struct {
 	VideoDeviceId        string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *Transformation) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -104,18 +102,16 @@ func (_this *Transformation) JSValue() js.Value {
 }
 
 // TransformationFromJS is allocating a new
-// Transformation object and copy all values from
-// input javascript object
-func TransformationFromJS(value js.Wrapper) *Transformation {
-	input := value.JSValue()
+// Transformation object and copy all values in the value javascript object.
+func TransformationFromJS(value js.Value) *Transformation {
 	var out Transformation
 	var (
 		value0 *javascript.Float32Array // javascript: Float32Array {transformationMatrix TransformationMatrix transformationMatrix}
 		value1 string                   // javascript: DOMString {videoDeviceId VideoDeviceId videoDeviceId}
 	)
-	value0 = javascript.Float32ArrayFromJS(input.Get("transformationMatrix"))
+	value0 = javascript.Float32ArrayFromJS(value.Get("transformationMatrix"))
 	out.TransformationMatrix = value0
-	value1 = (input.Get("videoDeviceId")).String()
+	value1 = (value.Get("videoDeviceId")).String()
 	out.VideoDeviceId = value1
 	return &out
 }

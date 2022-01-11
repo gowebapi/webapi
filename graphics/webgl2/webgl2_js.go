@@ -5,6 +5,7 @@ package webgl2
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/graphics/webgl"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -52,15 +53,19 @@ type Query struct {
 	webgl.Object
 }
 
-// QueryFromJS is casting a js.Wrapper into Query.
-func QueryFromJS(value js.Wrapper) *Query {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// QueryFromJS is casting a js.Value into Query.
+func QueryFromJS(value js.Value) *Query {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Query{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// QueryFromJS is casting from something that holds a js.Value into Query.
+func QueryFromWrapper(input core.Wrapper) *Query {
+	return QueryFromJS(input.JSValue())
 }
 
 // class: WebGL2RenderingContext
@@ -73,15 +78,19 @@ func (_this *RenderingContext) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RenderingContextFromJS is casting a js.Wrapper into RenderingContext.
-func RenderingContextFromJS(value js.Wrapper) *RenderingContext {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RenderingContextFromJS is casting a js.Value into RenderingContext.
+func RenderingContextFromJS(value js.Value) *RenderingContext {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RenderingContext{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RenderingContextFromJS is casting from something that holds a js.Value into RenderingContext.
+func RenderingContextFromWrapper(input core.Wrapper) *RenderingContext {
+	return RenderingContextFromJS(input.JSValue())
 }
 
 const (
@@ -6679,15 +6688,19 @@ type Sampler struct {
 	webgl.Object
 }
 
-// SamplerFromJS is casting a js.Wrapper into Sampler.
-func SamplerFromJS(value js.Wrapper) *Sampler {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SamplerFromJS is casting a js.Value into Sampler.
+func SamplerFromJS(value js.Value) *Sampler {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Sampler{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SamplerFromJS is casting from something that holds a js.Value into Sampler.
+func SamplerFromWrapper(input core.Wrapper) *Sampler {
+	return SamplerFromJS(input.JSValue())
 }
 
 // class: WebGLSync
@@ -6695,15 +6708,19 @@ type Sync struct {
 	webgl.Object
 }
 
-// SyncFromJS is casting a js.Wrapper into Sync.
-func SyncFromJS(value js.Wrapper) *Sync {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SyncFromJS is casting a js.Value into Sync.
+func SyncFromJS(value js.Value) *Sync {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Sync{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SyncFromJS is casting from something that holds a js.Value into Sync.
+func SyncFromWrapper(input core.Wrapper) *Sync {
+	return SyncFromJS(input.JSValue())
 }
 
 // class: WebGLTransformFeedback
@@ -6711,15 +6728,19 @@ type TransformFeedback struct {
 	webgl.Object
 }
 
-// TransformFeedbackFromJS is casting a js.Wrapper into TransformFeedback.
-func TransformFeedbackFromJS(value js.Wrapper) *TransformFeedback {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// TransformFeedbackFromJS is casting a js.Value into TransformFeedback.
+func TransformFeedbackFromJS(value js.Value) *TransformFeedback {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &TransformFeedback{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// TransformFeedbackFromJS is casting from something that holds a js.Value into TransformFeedback.
+func TransformFeedbackFromWrapper(input core.Wrapper) *TransformFeedback {
+	return TransformFeedbackFromJS(input.JSValue())
 }
 
 // class: WebGLVertexArrayObject
@@ -6727,13 +6748,17 @@ type VertexArrayObject struct {
 	webgl.Object
 }
 
-// VertexArrayObjectFromJS is casting a js.Wrapper into VertexArrayObject.
-func VertexArrayObjectFromJS(value js.Wrapper) *VertexArrayObject {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// VertexArrayObjectFromJS is casting a js.Value into VertexArrayObject.
+func VertexArrayObjectFromJS(value js.Value) *VertexArrayObject {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VertexArrayObject{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// VertexArrayObjectFromJS is casting from something that holds a js.Value into VertexArrayObject.
+func VertexArrayObjectFromWrapper(input core.Wrapper) *VertexArrayObject {
+	return VertexArrayObjectFromJS(input.JSValue())
 }

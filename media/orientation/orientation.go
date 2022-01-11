@@ -7,6 +7,7 @@ package orientation
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -137,15 +138,19 @@ type ScreenOrientation struct {
 	domcore.EventTarget
 }
 
-// ScreenOrientationFromJS is casting a js.Wrapper into ScreenOrientation.
-func ScreenOrientationFromJS(value js.Wrapper) *ScreenOrientation {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ScreenOrientationFromJS is casting a js.Value into ScreenOrientation.
+func ScreenOrientationFromJS(value js.Value) *ScreenOrientation {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ScreenOrientation{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ScreenOrientationFromJS is casting from something that holds a js.Value into ScreenOrientation.
+func ScreenOrientationFromWrapper(input core.Wrapper) *ScreenOrientation {
+	return ScreenOrientationFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with

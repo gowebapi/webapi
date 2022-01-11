@@ -5,6 +5,7 @@ package remoteplayback
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -127,15 +128,19 @@ type RemotePlayback struct {
 	domcore.EventTarget
 }
 
-// RemotePlaybackFromJS is casting a js.Wrapper into RemotePlayback.
-func RemotePlaybackFromJS(value js.Wrapper) *RemotePlayback {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RemotePlaybackFromJS is casting a js.Value into RemotePlayback.
+func RemotePlaybackFromJS(value js.Value) *RemotePlayback {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &RemotePlayback{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RemotePlaybackFromJS is casting from something that holds a js.Value into RemotePlayback.
+func RemotePlaybackFromWrapper(input core.Wrapper) *RemotePlayback {
+	return RemotePlaybackFromJS(input.JSValue())
 }
 
 // State returning attribute 'state' with

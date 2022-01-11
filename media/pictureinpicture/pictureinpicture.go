@@ -7,6 +7,7 @@ package pictureinpicture
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -130,7 +131,7 @@ type EnterPictureInPictureEventInit struct {
 	PictureInPictureWindow *PictureInPictureWindow
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *EnterPictureInPictureEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -146,10 +147,8 @@ func (_this *EnterPictureInPictureEventInit) JSValue() js.Value {
 }
 
 // EnterPictureInPictureEventInitFromJS is allocating a new
-// EnterPictureInPictureEventInit object and copy all values from
-// input javascript object
-func EnterPictureInPictureEventInitFromJS(value js.Wrapper) *EnterPictureInPictureEventInit {
-	input := value.JSValue()
+// EnterPictureInPictureEventInit object and copy all values in the value javascript object.
+func EnterPictureInPictureEventInitFromJS(value js.Value) *EnterPictureInPictureEventInit {
 	var out EnterPictureInPictureEventInit
 	var (
 		value0 bool                    // javascript: boolean {bubbles Bubbles bubbles}
@@ -157,13 +156,13 @@ func EnterPictureInPictureEventInitFromJS(value js.Wrapper) *EnterPictureInPictu
 		value2 bool                    // javascript: boolean {composed Composed composed}
 		value3 *PictureInPictureWindow // javascript: PictureInPictureWindow {pictureInPictureWindow PictureInPictureWindow pictureInPictureWindow}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = PictureInPictureWindowFromJS(input.Get("pictureInPictureWindow"))
+	value3 = PictureInPictureWindowFromJS(value.Get("pictureInPictureWindow"))
 	out.PictureInPictureWindow = value3
 	return &out
 }
@@ -173,15 +172,19 @@ type EnterPictureInPictureEvent struct {
 	domcore.Event
 }
 
-// EnterPictureInPictureEventFromJS is casting a js.Wrapper into EnterPictureInPictureEvent.
-func EnterPictureInPictureEventFromJS(value js.Wrapper) *EnterPictureInPictureEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// EnterPictureInPictureEventFromJS is casting a js.Value into EnterPictureInPictureEvent.
+func EnterPictureInPictureEventFromJS(value js.Value) *EnterPictureInPictureEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &EnterPictureInPictureEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// EnterPictureInPictureEventFromJS is casting from something that holds a js.Value into EnterPictureInPictureEvent.
+func EnterPictureInPictureEventFromWrapper(input core.Wrapper) *EnterPictureInPictureEvent {
+	return EnterPictureInPictureEventFromJS(input.JSValue())
 }
 
 func NewEnterPictureInPictureEvent(_type string, eventInitDict *EnterPictureInPictureEventInit) (_result *EnterPictureInPictureEvent) {
@@ -219,15 +222,19 @@ type PictureInPictureWindow struct {
 	domcore.EventTarget
 }
 
-// PictureInPictureWindowFromJS is casting a js.Wrapper into PictureInPictureWindow.
-func PictureInPictureWindowFromJS(value js.Wrapper) *PictureInPictureWindow {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PictureInPictureWindowFromJS is casting a js.Value into PictureInPictureWindow.
+func PictureInPictureWindowFromJS(value js.Value) *PictureInPictureWindow {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PictureInPictureWindow{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PictureInPictureWindowFromJS is casting from something that holds a js.Value into PictureInPictureWindow.
+func PictureInPictureWindowFromWrapper(input core.Wrapper) *PictureInPictureWindow {
+	return PictureInPictureWindowFromJS(input.JSValue())
 }
 
 // Width returning attribute 'width' with
@@ -299,15 +306,19 @@ func (_this *PromisePictureInPictureWindow) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromisePictureInPictureWindowFromJS is casting a js.Wrapper into PromisePictureInPictureWindow.
-func PromisePictureInPictureWindowFromJS(value js.Wrapper) *PromisePictureInPictureWindow {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromisePictureInPictureWindowFromJS is casting a js.Value into PromisePictureInPictureWindow.
+func PromisePictureInPictureWindowFromJS(value js.Value) *PromisePictureInPictureWindow {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromisePictureInPictureWindow{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromisePictureInPictureWindowFromJS is casting from something that holds a js.Value into PromisePictureInPictureWindow.
+func PromisePictureInPictureWindowFromWrapper(input core.Wrapper) *PromisePictureInPictureWindow {
+	return PromisePictureInPictureWindowFromJS(input.JSValue())
 }
 
 func (_this *PromisePictureInPictureWindow) Then(onFulfilled *PromisePictureInPictureWindowOnFulfilled, onRejected *PromisePictureInPictureWindowOnRejected) (_result *PromisePictureInPictureWindow) {

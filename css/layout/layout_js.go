@@ -5,6 +5,7 @@ package layout
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/typedom"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/webidl"
@@ -382,7 +383,7 @@ type BreakTokenOptions struct {
 	Data             js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BreakTokenOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -398,26 +399,24 @@ func (_this *BreakTokenOptions) JSValue() js.Value {
 }
 
 // BreakTokenOptionsFromJS is allocating a new
-// BreakTokenOptions object and copy all values from
-// input javascript object
-func BreakTokenOptionsFromJS(value js.Wrapper) *BreakTokenOptions {
-	input := value.JSValue()
+// BreakTokenOptions object and copy all values in the value javascript object.
+func BreakTokenOptionsFromJS(value js.Value) *BreakTokenOptions {
 	var out BreakTokenOptions
 	var (
 		value0 []*ChildBreakToken // javascript: sequence<ChildBreakToken> {childBreakTokens ChildBreakTokens childBreakTokens}
 		value1 js.Value           // javascript: any {data Data data}
 	)
-	__length0 := input.Get("childBreakTokens").Length()
+	__length0 := value.Get("childBreakTokens").Length()
 	__array0 := make([]*ChildBreakToken, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *ChildBreakToken
-		__seq_in0 := input.Get("childBreakTokens").Index(__idx0)
+		__seq_in0 := value.Get("childBreakTokens").Index(__idx0)
 		__seq_out0 = ChildBreakTokenFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.ChildBreakTokens = value0
-	value1 = input.Get("data")
+	value1 = value.Get("data")
 	out.Data = value1
 	return &out
 }
@@ -432,7 +431,7 @@ type FragmentResultOptions struct {
 	BreakToken     *BreakTokenOptions
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FragmentResultOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -456,10 +455,8 @@ func (_this *FragmentResultOptions) JSValue() js.Value {
 }
 
 // FragmentResultOptionsFromJS is allocating a new
-// FragmentResultOptions object and copy all values from
-// input javascript object
-func FragmentResultOptionsFromJS(value js.Wrapper) *FragmentResultOptions {
-	input := value.JSValue()
+// FragmentResultOptions object and copy all values in the value javascript object.
+func FragmentResultOptionsFromJS(value js.Value) *FragmentResultOptions {
 	var out FragmentResultOptions
 	var (
 		value0 float64            // javascript: double {inlineSize InlineSize inlineSize}
@@ -469,25 +466,25 @@ func FragmentResultOptionsFromJS(value js.Wrapper) *FragmentResultOptions {
 		value4 js.Value           // javascript: any {data Data data}
 		value5 *BreakTokenOptions // javascript: BreakTokenOptions {breakToken BreakToken breakToken}
 	)
-	value0 = (input.Get("inlineSize")).Float()
+	value0 = (value.Get("inlineSize")).Float()
 	out.InlineSize = value0
-	value1 = (input.Get("blockSize")).Float()
+	value1 = (value.Get("blockSize")).Float()
 	out.BlockSize = value1
-	value2 = (input.Get("autoBlockSize")).Float()
+	value2 = (value.Get("autoBlockSize")).Float()
 	out.AutoBlockSize = value2
-	__length3 := input.Get("childFragments").Length()
+	__length3 := value.Get("childFragments").Length()
 	__array3 := make([]*LayoutFragment, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *LayoutFragment
-		__seq_in3 := input.Get("childFragments").Index(__idx3)
+		__seq_in3 := value.Get("childFragments").Index(__idx3)
 		__seq_out3 = LayoutFragmentFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.ChildFragments = value3
-	value4 = input.Get("data")
+	value4 = value.Get("data")
 	out.Data = value4
-	value5 = BreakTokenOptionsFromJS(input.Get("breakToken"))
+	value5 = BreakTokenOptionsFromJS(value.Get("breakToken"))
 	out.BreakToken = value5
 	return &out
 }
@@ -498,7 +495,7 @@ type IntrinsicSizesResultOptions struct {
 	MinContentSize float64
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IntrinsicSizesResultOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -510,18 +507,16 @@ func (_this *IntrinsicSizesResultOptions) JSValue() js.Value {
 }
 
 // IntrinsicSizesResultOptionsFromJS is allocating a new
-// IntrinsicSizesResultOptions object and copy all values from
-// input javascript object
-func IntrinsicSizesResultOptionsFromJS(value js.Wrapper) *IntrinsicSizesResultOptions {
-	input := value.JSValue()
+// IntrinsicSizesResultOptions object and copy all values in the value javascript object.
+func IntrinsicSizesResultOptionsFromJS(value js.Value) *IntrinsicSizesResultOptions {
 	var out IntrinsicSizesResultOptions
 	var (
 		value0 float64 // javascript: double {maxContentSize MaxContentSize maxContentSize}
 		value1 float64 // javascript: double {minContentSize MinContentSize minContentSize}
 	)
-	value0 = (input.Get("maxContentSize")).Float()
+	value0 = (value.Get("maxContentSize")).Float()
 	out.MaxContentSize = value0
-	value1 = (input.Get("minContentSize")).Float()
+	value1 = (value.Get("minContentSize")).Float()
 	out.MinContentSize = value1
 	return &out
 }
@@ -539,7 +534,7 @@ type LayoutConstraintsOptions struct {
 	Data                     js.Value
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayoutConstraintsOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -565,10 +560,8 @@ func (_this *LayoutConstraintsOptions) JSValue() js.Value {
 }
 
 // LayoutConstraintsOptionsFromJS is allocating a new
-// LayoutConstraintsOptions object and copy all values from
-// input javascript object
-func LayoutConstraintsOptionsFromJS(value js.Wrapper) *LayoutConstraintsOptions {
-	input := value.JSValue()
+// LayoutConstraintsOptions object and copy all values in the value javascript object.
+func LayoutConstraintsOptionsFromJS(value js.Value) *LayoutConstraintsOptions {
 	var out LayoutConstraintsOptions
 	var (
 		value0 float64                // javascript: double {availableInlineSize AvailableInlineSize availableInlineSize}
@@ -581,23 +574,23 @@ func LayoutConstraintsOptionsFromJS(value js.Wrapper) *LayoutConstraintsOptions 
 		value7 BlockFragmentationType // javascript: BlockFragmentationType {blockFragmentationType BlockFragmentationType blockFragmentationType}
 		value8 js.Value               // javascript: any {data Data data}
 	)
-	value0 = (input.Get("availableInlineSize")).Float()
+	value0 = (value.Get("availableInlineSize")).Float()
 	out.AvailableInlineSize = value0
-	value1 = (input.Get("availableBlockSize")).Float()
+	value1 = (value.Get("availableBlockSize")).Float()
 	out.AvailableBlockSize = value1
-	value2 = (input.Get("fixedInlineSize")).Float()
+	value2 = (value.Get("fixedInlineSize")).Float()
 	out.FixedInlineSize = value2
-	value3 = (input.Get("fixedBlockSize")).Float()
+	value3 = (value.Get("fixedBlockSize")).Float()
 	out.FixedBlockSize = value3
-	value4 = (input.Get("percentageInlineSize")).Float()
+	value4 = (value.Get("percentageInlineSize")).Float()
 	out.PercentageInlineSize = value4
-	value5 = (input.Get("percentageBlockSize")).Float()
+	value5 = (value.Get("percentageBlockSize")).Float()
 	out.PercentageBlockSize = value5
-	value6 = (input.Get("blockFragmentationOffset")).Float()
+	value6 = (value.Get("blockFragmentationOffset")).Float()
 	out.BlockFragmentationOffset = value6
-	value7 = BlockFragmentationTypeFromJS(input.Get("blockFragmentationType"))
+	value7 = BlockFragmentationTypeFromJS(value.Get("blockFragmentationType"))
 	out.BlockFragmentationType = value7
-	value8 = input.Get("data")
+	value8 = value.Get("data")
 	out.Data = value8
 	return &out
 }
@@ -608,7 +601,7 @@ type LayoutOptions struct {
 	Sizing       LayoutSizingMode
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *LayoutOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -620,18 +613,16 @@ func (_this *LayoutOptions) JSValue() js.Value {
 }
 
 // LayoutOptionsFromJS is allocating a new
-// LayoutOptions object and copy all values from
-// input javascript object
-func LayoutOptionsFromJS(value js.Wrapper) *LayoutOptions {
-	input := value.JSValue()
+// LayoutOptions object and copy all values in the value javascript object.
+func LayoutOptionsFromJS(value js.Value) *LayoutOptions {
 	var out LayoutOptions
 	var (
 		value0 ChildDisplayType // javascript: ChildDisplayType {childDisplay ChildDisplay childDisplay}
 		value1 LayoutSizingMode // javascript: LayoutSizingMode {sizing Sizing sizing}
 	)
-	value0 = ChildDisplayTypeFromJS(input.Get("childDisplay"))
+	value0 = ChildDisplayTypeFromJS(value.Get("childDisplay"))
 	out.ChildDisplay = value0
-	value1 = LayoutSizingModeFromJS(input.Get("sizing"))
+	value1 = LayoutSizingModeFromJS(value.Get("sizing"))
 	out.Sizing = value1
 	return &out
 }
@@ -646,15 +637,19 @@ func (_this *BreakToken) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BreakTokenFromJS is casting a js.Wrapper into BreakToken.
-func BreakTokenFromJS(value js.Wrapper) *BreakToken {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BreakTokenFromJS is casting a js.Value into BreakToken.
+func BreakTokenFromJS(value js.Value) *BreakToken {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BreakToken{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BreakTokenFromJS is casting from something that holds a js.Value into BreakToken.
+func BreakTokenFromWrapper(input core.Wrapper) *BreakToken {
+	return BreakTokenFromJS(input.JSValue())
 }
 
 // ChildBreakTokens returning attribute 'childBreakTokens' with
@@ -685,15 +680,19 @@ func (_this *ChildBreakToken) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ChildBreakTokenFromJS is casting a js.Wrapper into ChildBreakToken.
-func ChildBreakTokenFromJS(value js.Wrapper) *ChildBreakToken {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ChildBreakTokenFromJS is casting a js.Value into ChildBreakToken.
+func ChildBreakTokenFromJS(value js.Value) *ChildBreakToken {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ChildBreakToken{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ChildBreakTokenFromJS is casting from something that holds a js.Value into ChildBreakToken.
+func ChildBreakTokenFromWrapper(input core.Wrapper) *ChildBreakToken {
+	return ChildBreakTokenFromJS(input.JSValue())
 }
 
 // BreakType returning attribute 'breakType' with
@@ -724,15 +723,19 @@ func (_this *FragmentResult) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// FragmentResultFromJS is casting a js.Wrapper into FragmentResult.
-func FragmentResultFromJS(value js.Wrapper) *FragmentResult {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FragmentResultFromJS is casting a js.Value into FragmentResult.
+func FragmentResultFromJS(value js.Value) *FragmentResult {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FragmentResult{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FragmentResultFromJS is casting from something that holds a js.Value into FragmentResult.
+func FragmentResultFromWrapper(input core.Wrapper) *FragmentResult {
+	return FragmentResultFromJS(input.JSValue())
 }
 
 func NewFragmentResult(options *FragmentResultOptions) (_result *FragmentResult) {
@@ -781,15 +784,19 @@ func (_this *IntrinsicSizes) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// IntrinsicSizesFromJS is casting a js.Wrapper into IntrinsicSizes.
-func IntrinsicSizesFromJS(value js.Wrapper) *IntrinsicSizes {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IntrinsicSizesFromJS is casting a js.Value into IntrinsicSizes.
+func IntrinsicSizesFromJS(value js.Value) *IntrinsicSizes {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntrinsicSizes{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IntrinsicSizesFromJS is casting from something that holds a js.Value into IntrinsicSizes.
+func IntrinsicSizesFromWrapper(input core.Wrapper) *IntrinsicSizes {
+	return IntrinsicSizesFromJS(input.JSValue())
 }
 
 // MinContentSize returning attribute 'minContentSize' with
@@ -820,15 +827,19 @@ func (_this *LayoutChild) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutChildFromJS is casting a js.Wrapper into LayoutChild.
-func LayoutChildFromJS(value js.Wrapper) *LayoutChild {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutChildFromJS is casting a js.Value into LayoutChild.
+func LayoutChildFromJS(value js.Value) *LayoutChild {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutChild{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutChildFromJS is casting from something that holds a js.Value into LayoutChild.
+func LayoutChildFromWrapper(input core.Wrapper) *LayoutChild {
+	return LayoutChildFromJS(input.JSValue())
 }
 
 // StyleMap returning attribute 'styleMap' with
@@ -884,15 +895,19 @@ func (_this *LayoutConstraints) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutConstraintsFromJS is casting a js.Wrapper into LayoutConstraints.
-func LayoutConstraintsFromJS(value js.Wrapper) *LayoutConstraints {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutConstraintsFromJS is casting a js.Value into LayoutConstraints.
+func LayoutConstraintsFromJS(value js.Value) *LayoutConstraints {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutConstraints{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutConstraintsFromJS is casting from something that holds a js.Value into LayoutConstraints.
+func LayoutConstraintsFromWrapper(input core.Wrapper) *LayoutConstraints {
+	return LayoutConstraintsFromJS(input.JSValue())
 }
 
 // AvailableInlineSize returning attribute 'availableInlineSize' with
@@ -995,15 +1010,19 @@ func (_this *LayoutEdges) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutEdgesFromJS is casting a js.Wrapper into LayoutEdges.
-func LayoutEdgesFromJS(value js.Wrapper) *LayoutEdges {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutEdgesFromJS is casting a js.Value into LayoutEdges.
+func LayoutEdgesFromJS(value js.Value) *LayoutEdges {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutEdges{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutEdgesFromJS is casting from something that holds a js.Value into LayoutEdges.
+func LayoutEdgesFromWrapper(input core.Wrapper) *LayoutEdges {
+	return LayoutEdgesFromJS(input.JSValue())
 }
 
 // InlineStart returning attribute 'inlineStart' with
@@ -1070,15 +1089,19 @@ func (_this *LayoutFragment) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// LayoutFragmentFromJS is casting a js.Wrapper into LayoutFragment.
-func LayoutFragmentFromJS(value js.Wrapper) *LayoutFragment {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutFragmentFromJS is casting a js.Value into LayoutFragment.
+func LayoutFragmentFromJS(value js.Value) *LayoutFragment {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutFragment{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutFragmentFromJS is casting from something that holds a js.Value into LayoutFragment.
+func LayoutFragmentFromWrapper(input core.Wrapper) *LayoutFragment {
+	return LayoutFragmentFromJS(input.JSValue())
 }
 
 // InlineSize returning attribute 'inlineSize' with
@@ -1156,15 +1179,19 @@ type LayoutWorkletGlobalScope struct {
 	worklets.WorkletGlobalScope
 }
 
-// LayoutWorkletGlobalScopeFromJS is casting a js.Wrapper into LayoutWorkletGlobalScope.
-func LayoutWorkletGlobalScopeFromJS(value js.Wrapper) *LayoutWorkletGlobalScope {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// LayoutWorkletGlobalScopeFromJS is casting a js.Value into LayoutWorkletGlobalScope.
+func LayoutWorkletGlobalScopeFromJS(value js.Value) *LayoutWorkletGlobalScope {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &LayoutWorkletGlobalScope{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// LayoutWorkletGlobalScopeFromJS is casting from something that holds a js.Value into LayoutWorkletGlobalScope.
+func LayoutWorkletGlobalScopeFromWrapper(input core.Wrapper) *LayoutWorkletGlobalScope {
+	return LayoutWorkletGlobalScopeFromJS(input.JSValue())
 }
 
 func (_this *LayoutWorkletGlobalScope) RegisterLayout(name string, layoutCtor *webidl.VoidFunction) {
@@ -1199,15 +1226,19 @@ func (_this *PromiseIntrinsicSizes) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseIntrinsicSizesFromJS is casting a js.Wrapper into PromiseIntrinsicSizes.
-func PromiseIntrinsicSizesFromJS(value js.Wrapper) *PromiseIntrinsicSizes {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseIntrinsicSizesFromJS is casting a js.Value into PromiseIntrinsicSizes.
+func PromiseIntrinsicSizesFromJS(value js.Value) *PromiseIntrinsicSizes {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseIntrinsicSizes{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseIntrinsicSizesFromJS is casting from something that holds a js.Value into PromiseIntrinsicSizes.
+func PromiseIntrinsicSizesFromWrapper(input core.Wrapper) *PromiseIntrinsicSizes {
+	return PromiseIntrinsicSizesFromJS(input.JSValue())
 }
 
 func (_this *PromiseIntrinsicSizes) Then(onFulfilled *PromiseIntrinsicSizesOnFulfilled, onRejected *PromiseIntrinsicSizesOnRejected) (_result *PromiseIntrinsicSizes) {
@@ -1304,15 +1335,19 @@ func (_this *PromiseLayoutFragment) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseLayoutFragmentFromJS is casting a js.Wrapper into PromiseLayoutFragment.
-func PromiseLayoutFragmentFromJS(value js.Wrapper) *PromiseLayoutFragment {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseLayoutFragmentFromJS is casting a js.Value into PromiseLayoutFragment.
+func PromiseLayoutFragmentFromJS(value js.Value) *PromiseLayoutFragment {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseLayoutFragment{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseLayoutFragmentFromJS is casting from something that holds a js.Value into PromiseLayoutFragment.
+func PromiseLayoutFragmentFromWrapper(input core.Wrapper) *PromiseLayoutFragment {
+	return PromiseLayoutFragmentFromJS(input.JSValue())
 }
 
 func (_this *PromiseLayoutFragment) Then(onFulfilled *PromiseLayoutFragmentOnFulfilled, onRejected *PromiseLayoutFragmentOnRejected) (_result *PromiseLayoutFragment) {

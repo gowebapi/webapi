@@ -7,6 +7,7 @@ package credential
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/crypto/authentication"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
@@ -305,7 +306,7 @@ type CredentialCreationOptions struct {
 	PublicKey *PublicKeyCredentialCreationOptions
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CredentialCreationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -321,10 +322,8 @@ func (_this *CredentialCreationOptions) JSValue() js.Value {
 }
 
 // CredentialCreationOptionsFromJS is allocating a new
-// CredentialCreationOptions object and copy all values from
-// input javascript object
-func CredentialCreationOptionsFromJS(value js.Wrapper) *CredentialCreationOptions {
-	input := value.JSValue()
+// CredentialCreationOptions object and copy all values in the value javascript object.
+func CredentialCreationOptionsFromJS(value js.Value) *CredentialCreationOptions {
 	var out CredentialCreationOptions
 	var (
 		value0 *domcore.AbortSignal                // javascript: AbortSignal {signal Signal signal}
@@ -332,13 +331,13 @@ func CredentialCreationOptionsFromJS(value js.Wrapper) *CredentialCreationOption
 		value2 *FederatedCredentialInit            // javascript: FederatedCredentialInit {federated Federated federated}
 		value3 *PublicKeyCredentialCreationOptions // javascript: PublicKeyCredentialCreationOptions {publicKey PublicKey publicKey}
 	)
-	value0 = domcore.AbortSignalFromJS(input.Get("signal"))
+	value0 = domcore.AbortSignalFromJS(value.Get("signal"))
 	out.Signal = value0
-	value1 = UnionFromJS(input.Get("password"))
+	value1 = UnionFromJS(value.Get("password"))
 	out.Password = value1
-	value2 = FederatedCredentialInitFromJS(input.Get("federated"))
+	value2 = FederatedCredentialInitFromJS(value.Get("federated"))
 	out.Federated = value2
-	value3 = PublicKeyCredentialCreationOptionsFromJS(input.Get("publicKey"))
+	value3 = PublicKeyCredentialCreationOptionsFromJS(value.Get("publicKey"))
 	out.PublicKey = value3
 	return &out
 }
@@ -348,7 +347,7 @@ type CredentialData struct {
 	Id string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CredentialData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -358,15 +357,13 @@ func (_this *CredentialData) JSValue() js.Value {
 }
 
 // CredentialDataFromJS is allocating a new
-// CredentialData object and copy all values from
-// input javascript object
-func CredentialDataFromJS(value js.Wrapper) *CredentialData {
-	input := value.JSValue()
+// CredentialData object and copy all values in the value javascript object.
+func CredentialDataFromJS(value js.Value) *CredentialData {
 	var out CredentialData
 	var (
 		value0 string // javascript: USVString {id Id id}
 	)
-	value0 = (input.Get("id")).String()
+	value0 = (value.Get("id")).String()
 	out.Id = value0
 	return &out
 }
@@ -380,7 +377,7 @@ type CredentialRequestOptions struct {
 	PublicKey *PublicKeyCredentialRequestOptions
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CredentialRequestOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -398,10 +395,8 @@ func (_this *CredentialRequestOptions) JSValue() js.Value {
 }
 
 // CredentialRequestOptionsFromJS is allocating a new
-// CredentialRequestOptions object and copy all values from
-// input javascript object
-func CredentialRequestOptionsFromJS(value js.Wrapper) *CredentialRequestOptions {
-	input := value.JSValue()
+// CredentialRequestOptions object and copy all values in the value javascript object.
+func CredentialRequestOptionsFromJS(value js.Value) *CredentialRequestOptions {
 	var out CredentialRequestOptions
 	var (
 		value0 CredentialMediationRequirement     // javascript: CredentialMediationRequirement {mediation Mediation mediation}
@@ -410,15 +405,15 @@ func CredentialRequestOptionsFromJS(value js.Wrapper) *CredentialRequestOptions 
 		value3 *FederatedCredentialRequestOptions // javascript: FederatedCredentialRequestOptions {federated Federated federated}
 		value4 *PublicKeyCredentialRequestOptions // javascript: PublicKeyCredentialRequestOptions {publicKey PublicKey publicKey}
 	)
-	value0 = CredentialMediationRequirementFromJS(input.Get("mediation"))
+	value0 = CredentialMediationRequirementFromJS(value.Get("mediation"))
 	out.Mediation = value0
-	value1 = domcore.AbortSignalFromJS(input.Get("signal"))
+	value1 = domcore.AbortSignalFromJS(value.Get("signal"))
 	out.Signal = value1
-	value2 = (input.Get("password")).Bool()
+	value2 = (value.Get("password")).Bool()
 	out.Password = value2
-	value3 = FederatedCredentialRequestOptionsFromJS(input.Get("federated"))
+	value3 = FederatedCredentialRequestOptionsFromJS(value.Get("federated"))
 	out.Federated = value3
-	value4 = PublicKeyCredentialRequestOptionsFromJS(input.Get("publicKey"))
+	value4 = PublicKeyCredentialRequestOptionsFromJS(value.Get("publicKey"))
 	out.PublicKey = value4
 	return &out
 }
@@ -433,7 +428,7 @@ type FederatedCredentialInit struct {
 	Protocol string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FederatedCredentialInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -453,10 +448,8 @@ func (_this *FederatedCredentialInit) JSValue() js.Value {
 }
 
 // FederatedCredentialInitFromJS is allocating a new
-// FederatedCredentialInit object and copy all values from
-// input javascript object
-func FederatedCredentialInitFromJS(value js.Wrapper) *FederatedCredentialInit {
-	input := value.JSValue()
+// FederatedCredentialInit object and copy all values in the value javascript object.
+func FederatedCredentialInitFromJS(value js.Value) *FederatedCredentialInit {
 	var out FederatedCredentialInit
 	var (
 		value0 string // javascript: USVString {id Id id}
@@ -466,17 +459,17 @@ func FederatedCredentialInitFromJS(value js.Wrapper) *FederatedCredentialInit {
 		value4 string // javascript: USVString {provider Provider provider}
 		value5 string // javascript: DOMString {protocol Protocol protocol}
 	)
-	value0 = (input.Get("id")).String()
+	value0 = (value.Get("id")).String()
 	out.Id = value0
-	value1 = (input.Get("name")).String()
+	value1 = (value.Get("name")).String()
 	out.Name = value1
-	value2 = (input.Get("iconURL")).String()
+	value2 = (value.Get("iconURL")).String()
 	out.IconURL = value2
-	value3 = (input.Get("origin")).String()
+	value3 = (value.Get("origin")).String()
 	out.Origin = value3
-	value4 = (input.Get("provider")).String()
+	value4 = (value.Get("provider")).String()
 	out.Provider = value4
-	value5 = (input.Get("protocol")).String()
+	value5 = (value.Get("protocol")).String()
 	out.Protocol = value5
 	return &out
 }
@@ -487,7 +480,7 @@ type FederatedCredentialRequestOptions struct {
 	Protocols []string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FederatedCredentialRequestOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -507,30 +500,28 @@ func (_this *FederatedCredentialRequestOptions) JSValue() js.Value {
 }
 
 // FederatedCredentialRequestOptionsFromJS is allocating a new
-// FederatedCredentialRequestOptions object and copy all values from
-// input javascript object
-func FederatedCredentialRequestOptionsFromJS(value js.Wrapper) *FederatedCredentialRequestOptions {
-	input := value.JSValue()
+// FederatedCredentialRequestOptions object and copy all values in the value javascript object.
+func FederatedCredentialRequestOptionsFromJS(value js.Value) *FederatedCredentialRequestOptions {
 	var out FederatedCredentialRequestOptions
 	var (
 		value0 []string // javascript: sequence<USVString> {providers Providers providers}
 		value1 []string // javascript: sequence<DOMString> {protocols Protocols protocols}
 	)
-	__length0 := input.Get("providers").Length()
+	__length0 := value.Get("providers").Length()
 	__array0 := make([]string, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 string
-		__seq_in0 := input.Get("providers").Index(__idx0)
+		__seq_in0 := value.Get("providers").Index(__idx0)
 		__seq_out0 = (__seq_in0).String()
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Providers = value0
-	__length1 := input.Get("protocols").Length()
+	__length1 := value.Get("protocols").Length()
 	__array1 := make([]string, __length1, __length1)
 	for __idx1 := 0; __idx1 < __length1; __idx1++ {
 		var __seq_out1 string
-		__seq_in1 := input.Get("protocols").Index(__idx1)
+		__seq_in1 := value.Get("protocols").Index(__idx1)
 		__seq_out1 = (__seq_in1).String()
 		__array1[__idx1] = __seq_out1
 	}
@@ -548,7 +539,7 @@ type PasswordCredentialData struct {
 	Password string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PasswordCredentialData) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -566,10 +557,8 @@ func (_this *PasswordCredentialData) JSValue() js.Value {
 }
 
 // PasswordCredentialDataFromJS is allocating a new
-// PasswordCredentialData object and copy all values from
-// input javascript object
-func PasswordCredentialDataFromJS(value js.Wrapper) *PasswordCredentialData {
-	input := value.JSValue()
+// PasswordCredentialData object and copy all values in the value javascript object.
+func PasswordCredentialDataFromJS(value js.Value) *PasswordCredentialData {
 	var out PasswordCredentialData
 	var (
 		value0 string // javascript: USVString {id Id id}
@@ -578,15 +567,15 @@ func PasswordCredentialDataFromJS(value js.Wrapper) *PasswordCredentialData {
 		value3 string // javascript: USVString {origin Origin origin}
 		value4 string // javascript: USVString {password Password password}
 	)
-	value0 = (input.Get("id")).String()
+	value0 = (value.Get("id")).String()
 	out.Id = value0
-	value1 = (input.Get("name")).String()
+	value1 = (value.Get("name")).String()
 	out.Name = value1
-	value2 = (input.Get("iconURL")).String()
+	value2 = (value.Get("iconURL")).String()
 	out.IconURL = value2
-	value3 = (input.Get("origin")).String()
+	value3 = (value.Get("origin")).String()
 	out.Origin = value3
-	value4 = (input.Get("password")).String()
+	value4 = (value.Get("password")).String()
 	out.Password = value4
 	return &out
 }
@@ -604,7 +593,7 @@ type PublicKeyCredentialCreationOptions struct {
 	Extensions             *authentication.AuthenticationExtensionsClientInputs
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialCreationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -638,10 +627,8 @@ func (_this *PublicKeyCredentialCreationOptions) JSValue() js.Value {
 }
 
 // PublicKeyCredentialCreationOptionsFromJS is allocating a new
-// PublicKeyCredentialCreationOptions object and copy all values from
-// input javascript object
-func PublicKeyCredentialCreationOptionsFromJS(value js.Wrapper) *PublicKeyCredentialCreationOptions {
-	input := value.JSValue()
+// PublicKeyCredentialCreationOptions object and copy all values in the value javascript object.
+func PublicKeyCredentialCreationOptionsFromJS(value js.Value) *PublicKeyCredentialCreationOptions {
 	var out PublicKeyCredentialCreationOptions
 	var (
 		value0 *PublicKeyCredentialRpEntity                         // javascript: PublicKeyCredentialRpEntity {rp Rp rp}
@@ -654,39 +641,39 @@ func PublicKeyCredentialCreationOptionsFromJS(value js.Wrapper) *PublicKeyCreden
 		value7 authentication.AttestationConveyancePreference       // javascript: AttestationConveyancePreference {attestation Attestation attestation}
 		value8 *authentication.AuthenticationExtensionsClientInputs // javascript: AuthenticationExtensionsClientInputs {extensions Extensions extensions}
 	)
-	value0 = PublicKeyCredentialRpEntityFromJS(input.Get("rp"))
+	value0 = PublicKeyCredentialRpEntityFromJS(value.Get("rp"))
 	out.Rp = value0
-	value1 = PublicKeyCredentialUserEntityFromJS(input.Get("user"))
+	value1 = PublicKeyCredentialUserEntityFromJS(value.Get("user"))
 	out.User = value1
-	value2 = UnionFromJS(input.Get("challenge"))
+	value2 = UnionFromJS(value.Get("challenge"))
 	out.Challenge = value2
-	__length3 := input.Get("pubKeyCredParams").Length()
+	__length3 := value.Get("pubKeyCredParams").Length()
 	__array3 := make([]*PublicKeyCredentialParameters, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *PublicKeyCredentialParameters
-		__seq_in3 := input.Get("pubKeyCredParams").Index(__idx3)
+		__seq_in3 := value.Get("pubKeyCredParams").Index(__idx3)
 		__seq_out3 = PublicKeyCredentialParametersFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.PubKeyCredParams = value3
-	value4 = (uint)((input.Get("timeout")).Int())
+	value4 = (uint)((value.Get("timeout")).Int())
 	out.Timeout = value4
-	__length5 := input.Get("excludeCredentials").Length()
+	__length5 := value.Get("excludeCredentials").Length()
 	__array5 := make([]*PublicKeyCredentialDescriptor, __length5, __length5)
 	for __idx5 := 0; __idx5 < __length5; __idx5++ {
 		var __seq_out5 *PublicKeyCredentialDescriptor
-		__seq_in5 := input.Get("excludeCredentials").Index(__idx5)
+		__seq_in5 := value.Get("excludeCredentials").Index(__idx5)
 		__seq_out5 = PublicKeyCredentialDescriptorFromJS(__seq_in5)
 		__array5[__idx5] = __seq_out5
 	}
 	value5 = __array5
 	out.ExcludeCredentials = value5
-	value6 = authentication.SelectionCriteriaFromJS(input.Get("authenticatorSelection"))
+	value6 = authentication.SelectionCriteriaFromJS(value.Get("authenticatorSelection"))
 	out.AuthenticatorSelection = value6
-	value7 = authentication.AttestationConveyancePreferenceFromJS(input.Get("attestation"))
+	value7 = authentication.AttestationConveyancePreferenceFromJS(value.Get("attestation"))
 	out.Attestation = value7
-	value8 = authentication.AuthenticationExtensionsClientInputsFromJS(input.Get("extensions"))
+	value8 = authentication.AuthenticationExtensionsClientInputsFromJS(value.Get("extensions"))
 	out.Extensions = value8
 	return &out
 }
@@ -698,7 +685,7 @@ type PublicKeyCredentialDescriptor struct {
 	Transports []authentication.Transport
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialDescriptor) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -716,25 +703,23 @@ func (_this *PublicKeyCredentialDescriptor) JSValue() js.Value {
 }
 
 // PublicKeyCredentialDescriptorFromJS is allocating a new
-// PublicKeyCredentialDescriptor object and copy all values from
-// input javascript object
-func PublicKeyCredentialDescriptorFromJS(value js.Wrapper) *PublicKeyCredentialDescriptor {
-	input := value.JSValue()
+// PublicKeyCredentialDescriptor object and copy all values in the value javascript object.
+func PublicKeyCredentialDescriptorFromJS(value js.Value) *PublicKeyCredentialDescriptor {
 	var out PublicKeyCredentialDescriptor
 	var (
 		value0 PublicKeyCredentialType    // javascript: PublicKeyCredentialType {type Type _type}
 		value1 *Union                     // javascript: Union {id Id id}
 		value2 []authentication.Transport // javascript: sequence<AuthenticatorTransport> {transports Transports transports}
 	)
-	value0 = PublicKeyCredentialTypeFromJS(input.Get("type"))
+	value0 = PublicKeyCredentialTypeFromJS(value.Get("type"))
 	out.Type = value0
-	value1 = UnionFromJS(input.Get("id"))
+	value1 = UnionFromJS(value.Get("id"))
 	out.Id = value1
-	__length2 := input.Get("transports").Length()
+	__length2 := value.Get("transports").Length()
 	__array2 := make([]authentication.Transport, __length2, __length2)
 	for __idx2 := 0; __idx2 < __length2; __idx2++ {
 		var __seq_out2 authentication.Transport
-		__seq_in2 := input.Get("transports").Index(__idx2)
+		__seq_in2 := value.Get("transports").Index(__idx2)
 		__seq_out2 = authentication.TransportFromJS(__seq_in2)
 		__array2[__idx2] = __seq_out2
 	}
@@ -749,7 +734,7 @@ type PublicKeyCredentialEntity struct {
 	Icon string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialEntity) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -761,18 +746,16 @@ func (_this *PublicKeyCredentialEntity) JSValue() js.Value {
 }
 
 // PublicKeyCredentialEntityFromJS is allocating a new
-// PublicKeyCredentialEntity object and copy all values from
-// input javascript object
-func PublicKeyCredentialEntityFromJS(value js.Wrapper) *PublicKeyCredentialEntity {
-	input := value.JSValue()
+// PublicKeyCredentialEntity object and copy all values in the value javascript object.
+func PublicKeyCredentialEntityFromJS(value js.Value) *PublicKeyCredentialEntity {
 	var out PublicKeyCredentialEntity
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: USVString {icon Icon icon}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("icon")).String()
+	value1 = (value.Get("icon")).String()
 	out.Icon = value1
 	return &out
 }
@@ -783,7 +766,7 @@ type PublicKeyCredentialParameters struct {
 	Alg  int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -795,18 +778,16 @@ func (_this *PublicKeyCredentialParameters) JSValue() js.Value {
 }
 
 // PublicKeyCredentialParametersFromJS is allocating a new
-// PublicKeyCredentialParameters object and copy all values from
-// input javascript object
-func PublicKeyCredentialParametersFromJS(value js.Wrapper) *PublicKeyCredentialParameters {
-	input := value.JSValue()
+// PublicKeyCredentialParameters object and copy all values in the value javascript object.
+func PublicKeyCredentialParametersFromJS(value js.Value) *PublicKeyCredentialParameters {
 	var out PublicKeyCredentialParameters
 	var (
 		value0 PublicKeyCredentialType // javascript: PublicKeyCredentialType {type Type _type}
 		value1 int                     // javascript: long {alg Alg alg}
 	)
-	value0 = PublicKeyCredentialTypeFromJS(input.Get("type"))
+	value0 = PublicKeyCredentialTypeFromJS(value.Get("type"))
 	out.Type = value0
-	value1 = (input.Get("alg")).Int()
+	value1 = (value.Get("alg")).Int()
 	out.Alg = value1
 	return &out
 }
@@ -821,7 +802,7 @@ type PublicKeyCredentialRequestOptions struct {
 	Extensions       *authentication.AuthenticationExtensionsClientInputs
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialRequestOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -845,10 +826,8 @@ func (_this *PublicKeyCredentialRequestOptions) JSValue() js.Value {
 }
 
 // PublicKeyCredentialRequestOptionsFromJS is allocating a new
-// PublicKeyCredentialRequestOptions object and copy all values from
-// input javascript object
-func PublicKeyCredentialRequestOptionsFromJS(value js.Wrapper) *PublicKeyCredentialRequestOptions {
-	input := value.JSValue()
+// PublicKeyCredentialRequestOptions object and copy all values in the value javascript object.
+func PublicKeyCredentialRequestOptionsFromJS(value js.Value) *PublicKeyCredentialRequestOptions {
 	var out PublicKeyCredentialRequestOptions
 	var (
 		value0 *Union                                               // javascript: Union {challenge Challenge challenge}
@@ -858,25 +837,25 @@ func PublicKeyCredentialRequestOptionsFromJS(value js.Wrapper) *PublicKeyCredent
 		value4 authentication.UserVerificationRequirement           // javascript: UserVerificationRequirement {userVerification UserVerification userVerification}
 		value5 *authentication.AuthenticationExtensionsClientInputs // javascript: AuthenticationExtensionsClientInputs {extensions Extensions extensions}
 	)
-	value0 = UnionFromJS(input.Get("challenge"))
+	value0 = UnionFromJS(value.Get("challenge"))
 	out.Challenge = value0
-	value1 = (uint)((input.Get("timeout")).Int())
+	value1 = (uint)((value.Get("timeout")).Int())
 	out.Timeout = value1
-	value2 = (input.Get("rpId")).String()
+	value2 = (value.Get("rpId")).String()
 	out.RpId = value2
-	__length3 := input.Get("allowCredentials").Length()
+	__length3 := value.Get("allowCredentials").Length()
 	__array3 := make([]*PublicKeyCredentialDescriptor, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *PublicKeyCredentialDescriptor
-		__seq_in3 := input.Get("allowCredentials").Index(__idx3)
+		__seq_in3 := value.Get("allowCredentials").Index(__idx3)
 		__seq_out3 = PublicKeyCredentialDescriptorFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.AllowCredentials = value3
-	value4 = authentication.UserVerificationRequirementFromJS(input.Get("userVerification"))
+	value4 = authentication.UserVerificationRequirementFromJS(value.Get("userVerification"))
 	out.UserVerification = value4
-	value5 = authentication.AuthenticationExtensionsClientInputsFromJS(input.Get("extensions"))
+	value5 = authentication.AuthenticationExtensionsClientInputsFromJS(value.Get("extensions"))
 	out.Extensions = value5
 	return &out
 }
@@ -888,7 +867,7 @@ type PublicKeyCredentialRpEntity struct {
 	Id   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialRpEntity) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -902,21 +881,19 @@ func (_this *PublicKeyCredentialRpEntity) JSValue() js.Value {
 }
 
 // PublicKeyCredentialRpEntityFromJS is allocating a new
-// PublicKeyCredentialRpEntity object and copy all values from
-// input javascript object
-func PublicKeyCredentialRpEntityFromJS(value js.Wrapper) *PublicKeyCredentialRpEntity {
-	input := value.JSValue()
+// PublicKeyCredentialRpEntity object and copy all values in the value javascript object.
+func PublicKeyCredentialRpEntityFromJS(value js.Value) *PublicKeyCredentialRpEntity {
 	var out PublicKeyCredentialRpEntity
 	var (
 		value0 string // javascript: DOMString {name Name name}
 		value1 string // javascript: USVString {icon Icon icon}
 		value2 string // javascript: DOMString {id Id id}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("icon")).String()
+	value1 = (value.Get("icon")).String()
 	out.Icon = value1
-	value2 = (input.Get("id")).String()
+	value2 = (value.Get("id")).String()
 	out.Id = value2
 	return &out
 }
@@ -929,7 +906,7 @@ type PublicKeyCredentialUserEntity struct {
 	DisplayName string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *PublicKeyCredentialUserEntity) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -945,10 +922,8 @@ func (_this *PublicKeyCredentialUserEntity) JSValue() js.Value {
 }
 
 // PublicKeyCredentialUserEntityFromJS is allocating a new
-// PublicKeyCredentialUserEntity object and copy all values from
-// input javascript object
-func PublicKeyCredentialUserEntityFromJS(value js.Wrapper) *PublicKeyCredentialUserEntity {
-	input := value.JSValue()
+// PublicKeyCredentialUserEntity object and copy all values in the value javascript object.
+func PublicKeyCredentialUserEntityFromJS(value js.Value) *PublicKeyCredentialUserEntity {
 	var out PublicKeyCredentialUserEntity
 	var (
 		value0 string // javascript: DOMString {name Name name}
@@ -956,13 +931,13 @@ func PublicKeyCredentialUserEntityFromJS(value js.Wrapper) *PublicKeyCredentialU
 		value2 *Union // javascript: Union {id Id id}
 		value3 string // javascript: DOMString {displayName DisplayName displayName}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("icon")).String()
+	value1 = (value.Get("icon")).String()
 	out.Icon = value1
-	value2 = UnionFromJS(input.Get("id"))
+	value2 = UnionFromJS(value.Get("id"))
 	out.Id = value2
-	value3 = (input.Get("displayName")).String()
+	value3 = (value.Get("displayName")).String()
 	out.DisplayName = value3
 	return &out
 }
@@ -977,15 +952,19 @@ func (_this *Credential) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CredentialFromJS is casting a js.Wrapper into Credential.
-func CredentialFromJS(value js.Wrapper) *Credential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CredentialFromJS is casting a js.Value into Credential.
+func CredentialFromJS(value js.Value) *Credential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Credential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CredentialFromJS is casting from something that holds a js.Value into Credential.
+func CredentialFromWrapper(input core.Wrapper) *Credential {
+	return CredentialFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -1016,15 +995,19 @@ func (_this *CredentialsContainer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CredentialsContainerFromJS is casting a js.Wrapper into CredentialsContainer.
-func CredentialsContainerFromJS(value js.Wrapper) *CredentialsContainer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CredentialsContainerFromJS is casting a js.Value into CredentialsContainer.
+func CredentialsContainerFromJS(value js.Value) *CredentialsContainer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CredentialsContainer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CredentialsContainerFromJS is casting from something that holds a js.Value into CredentialsContainer.
+func CredentialsContainerFromWrapper(input core.Wrapper) *CredentialsContainer {
+	return CredentialsContainerFromJS(input.JSValue())
 }
 
 func (_this *CredentialsContainer) Get(options *CredentialRequestOptions) (_result *PromiseNilCredential) {
@@ -1101,15 +1084,19 @@ type FederatedCredential struct {
 	Credential
 }
 
-// FederatedCredentialFromJS is casting a js.Wrapper into FederatedCredential.
-func FederatedCredentialFromJS(value js.Wrapper) *FederatedCredential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FederatedCredentialFromJS is casting a js.Value into FederatedCredential.
+func FederatedCredentialFromJS(value js.Value) *FederatedCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FederatedCredential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FederatedCredentialFromJS is casting from something that holds a js.Value into FederatedCredential.
+func FederatedCredentialFromWrapper(input core.Wrapper) *FederatedCredential {
+	return FederatedCredentialFromJS(input.JSValue())
 }
 
 func NewFederatedCredential(data *FederatedCredentialInit) (_result *FederatedCredential) {
@@ -1174,15 +1161,19 @@ type PasswordCredential struct {
 	Credential
 }
 
-// PasswordCredentialFromJS is casting a js.Wrapper into PasswordCredential.
-func PasswordCredentialFromJS(value js.Wrapper) *PasswordCredential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PasswordCredentialFromJS is casting a js.Value into PasswordCredential.
+func PasswordCredentialFromJS(value js.Value) *PasswordCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PasswordCredential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PasswordCredentialFromJS is casting from something that holds a js.Value into PasswordCredential.
+func PasswordCredentialFromWrapper(input core.Wrapper) *PasswordCredential {
+	return PasswordCredentialFromJS(input.JSValue())
 }
 
 func NewPasswordCredential(data *PasswordCredentialData) (_result *PasswordCredential) {
@@ -1240,15 +1231,19 @@ func (_this *PromiseCredential) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseCredentialFromJS is casting a js.Wrapper into PromiseCredential.
-func PromiseCredentialFromJS(value js.Wrapper) *PromiseCredential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseCredentialFromJS is casting a js.Value into PromiseCredential.
+func PromiseCredentialFromJS(value js.Value) *PromiseCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCredential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseCredentialFromJS is casting from something that holds a js.Value into PromiseCredential.
+func PromiseCredentialFromWrapper(input core.Wrapper) *PromiseCredential {
+	return PromiseCredentialFromJS(input.JSValue())
 }
 
 func (_this *PromiseCredential) Then(onFulfilled *PromiseCredentialOnFulfilled, onRejected *PromiseCredentialOnRejected) (_result *PromiseCredential) {
@@ -1345,15 +1340,19 @@ func (_this *PromiseNilCredential) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseNilCredentialFromJS is casting a js.Wrapper into PromiseNilCredential.
-func PromiseNilCredentialFromJS(value js.Wrapper) *PromiseNilCredential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseNilCredentialFromJS is casting a js.Value into PromiseNilCredential.
+func PromiseNilCredentialFromJS(value js.Value) *PromiseNilCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilCredential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseNilCredentialFromJS is casting from something that holds a js.Value into PromiseNilCredential.
+func PromiseNilCredentialFromWrapper(input core.Wrapper) *PromiseNilCredential {
+	return PromiseNilCredentialFromJS(input.JSValue())
 }
 
 func (_this *PromiseNilCredential) Then(onFulfilled *PromiseNilCredentialOnFulfilled, onRejected *PromiseNilCredentialOnRejected) (_result *PromiseNilCredential) {
@@ -1445,15 +1444,19 @@ type PublicKeyCredential struct {
 	Credential
 }
 
-// PublicKeyCredentialFromJS is casting a js.Wrapper into PublicKeyCredential.
-func PublicKeyCredentialFromJS(value js.Wrapper) *PublicKeyCredential {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PublicKeyCredentialFromJS is casting a js.Value into PublicKeyCredential.
+func PublicKeyCredentialFromJS(value js.Value) *PublicKeyCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PublicKeyCredential{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PublicKeyCredentialFromJS is casting from something that holds a js.Value into PublicKeyCredential.
+func PublicKeyCredentialFromWrapper(input core.Wrapper) *PublicKeyCredential {
+	return PublicKeyCredentialFromJS(input.JSValue())
 }
 
 func IsUserVerifyingPlatformAuthenticatorAvailable() (_result *javascript.PromiseBool) {

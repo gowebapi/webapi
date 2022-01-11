@@ -8,6 +8,7 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi/appmanifest/appmenifestres"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/html/channel"
@@ -749,7 +750,7 @@ type BackgroundFetchEventInit struct {
 	Registration *BackgroundFetchRegistration
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BackgroundFetchEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -765,10 +766,8 @@ func (_this *BackgroundFetchEventInit) JSValue() js.Value {
 }
 
 // BackgroundFetchEventInitFromJS is allocating a new
-// BackgroundFetchEventInit object and copy all values from
-// input javascript object
-func BackgroundFetchEventInitFromJS(value js.Wrapper) *BackgroundFetchEventInit {
-	input := value.JSValue()
+// BackgroundFetchEventInit object and copy all values in the value javascript object.
+func BackgroundFetchEventInitFromJS(value js.Value) *BackgroundFetchEventInit {
 	var out BackgroundFetchEventInit
 	var (
 		value0 bool                         // javascript: boolean {bubbles Bubbles bubbles}
@@ -776,13 +775,13 @@ func BackgroundFetchEventInitFromJS(value js.Wrapper) *BackgroundFetchEventInit 
 		value2 bool                         // javascript: boolean {composed Composed composed}
 		value3 *BackgroundFetchRegistration // javascript: BackgroundFetchRegistration {registration Registration registration}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = BackgroundFetchRegistrationFromJS(input.Get("registration"))
+	value3 = BackgroundFetchRegistrationFromJS(value.Get("registration"))
 	out.Registration = value3
 	return &out
 }
@@ -794,7 +793,7 @@ type BackgroundFetchOptions struct {
 	DownloadTotal int
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BackgroundFetchOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -812,29 +811,27 @@ func (_this *BackgroundFetchOptions) JSValue() js.Value {
 }
 
 // BackgroundFetchOptionsFromJS is allocating a new
-// BackgroundFetchOptions object and copy all values from
-// input javascript object
-func BackgroundFetchOptionsFromJS(value js.Wrapper) *BackgroundFetchOptions {
-	input := value.JSValue()
+// BackgroundFetchOptions object and copy all values in the value javascript object.
+func BackgroundFetchOptionsFromJS(value js.Value) *BackgroundFetchOptions {
 	var out BackgroundFetchOptions
 	var (
 		value0 []*appmenifestres.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
 		value1 string                          // javascript: DOMString {title Title title}
 		value2 int                             // javascript: unsigned long long {downloadTotal DownloadTotal downloadTotal}
 	)
-	__length0 := input.Get("icons").Length()
+	__length0 := value.Get("icons").Length()
 	__array0 := make([]*appmenifestres.ImageResource, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *appmenifestres.ImageResource
-		__seq_in0 := input.Get("icons").Index(__idx0)
+		__seq_in0 := value.Get("icons").Index(__idx0)
 		__seq_out0 = appmenifestres.ImageResourceFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Icons = value0
-	value1 = (input.Get("title")).String()
+	value1 = (value.Get("title")).String()
 	out.Title = value1
-	value2 = (input.Get("downloadTotal")).Int()
+	value2 = (value.Get("downloadTotal")).Int()
 	out.DownloadTotal = value2
 	return &out
 }
@@ -845,7 +842,7 @@ type BackgroundFetchUIOptions struct {
 	Title string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *BackgroundFetchUIOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -861,26 +858,24 @@ func (_this *BackgroundFetchUIOptions) JSValue() js.Value {
 }
 
 // BackgroundFetchUIOptionsFromJS is allocating a new
-// BackgroundFetchUIOptions object and copy all values from
-// input javascript object
-func BackgroundFetchUIOptionsFromJS(value js.Wrapper) *BackgroundFetchUIOptions {
-	input := value.JSValue()
+// BackgroundFetchUIOptions object and copy all values in the value javascript object.
+func BackgroundFetchUIOptionsFromJS(value js.Value) *BackgroundFetchUIOptions {
 	var out BackgroundFetchUIOptions
 	var (
 		value0 []*appmenifestres.ImageResource // javascript: sequence<ImageResource> {icons Icons icons}
 		value1 string                          // javascript: DOMString {title Title title}
 	)
-	__length0 := input.Get("icons").Length()
+	__length0 := value.Get("icons").Length()
 	__array0 := make([]*appmenifestres.ImageResource, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *appmenifestres.ImageResource
-		__seq_in0 := input.Get("icons").Index(__idx0)
+		__seq_in0 := value.Get("icons").Index(__idx0)
 		__seq_out0 = appmenifestres.ImageResourceFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Icons = value0
-	value1 = (input.Get("title")).String()
+	value1 = (value.Get("title")).String()
 	out.Title = value1
 	return &out
 }
@@ -892,7 +887,7 @@ type CacheQueryOptions struct {
 	IgnoreVary   bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CacheQueryOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -906,21 +901,19 @@ func (_this *CacheQueryOptions) JSValue() js.Value {
 }
 
 // CacheQueryOptionsFromJS is allocating a new
-// CacheQueryOptions object and copy all values from
-// input javascript object
-func CacheQueryOptionsFromJS(value js.Wrapper) *CacheQueryOptions {
-	input := value.JSValue()
+// CacheQueryOptions object and copy all values in the value javascript object.
+func CacheQueryOptionsFromJS(value js.Value) *CacheQueryOptions {
 	var out CacheQueryOptions
 	var (
 		value0 bool // javascript: boolean {ignoreSearch IgnoreSearch ignoreSearch}
 		value1 bool // javascript: boolean {ignoreMethod IgnoreMethod ignoreMethod}
 		value2 bool // javascript: boolean {ignoreVary IgnoreVary ignoreVary}
 	)
-	value0 = (input.Get("ignoreSearch")).Bool()
+	value0 = (value.Get("ignoreSearch")).Bool()
 	out.IgnoreSearch = value0
-	value1 = (input.Get("ignoreMethod")).Bool()
+	value1 = (value.Get("ignoreMethod")).Bool()
 	out.IgnoreMethod = value1
-	value2 = (input.Get("ignoreVary")).Bool()
+	value2 = (value.Get("ignoreVary")).Bool()
 	out.IgnoreVary = value2
 	return &out
 }
@@ -931,7 +924,7 @@ type ClientQueryOptions struct {
 	Type                client.ClientType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ClientQueryOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -943,18 +936,16 @@ func (_this *ClientQueryOptions) JSValue() js.Value {
 }
 
 // ClientQueryOptionsFromJS is allocating a new
-// ClientQueryOptions object and copy all values from
-// input javascript object
-func ClientQueryOptionsFromJS(value js.Wrapper) *ClientQueryOptions {
-	input := value.JSValue()
+// ClientQueryOptions object and copy all values in the value javascript object.
+func ClientQueryOptionsFromJS(value js.Value) *ClientQueryOptions {
 	var out ClientQueryOptions
 	var (
 		value0 bool              // javascript: boolean {includeUncontrolled IncludeUncontrolled includeUncontrolled}
 		value1 client.ClientType // javascript: ClientType {type Type _type}
 	)
-	value0 = (input.Get("includeUncontrolled")).Bool()
+	value0 = (value.Get("includeUncontrolled")).Bool()
 	out.IncludeUncontrolled = value0
-	value1 = client.ClientTypeFromJS(input.Get("type"))
+	value1 = client.ClientTypeFromJS(value.Get("type"))
 	out.Type = value1
 	return &out
 }
@@ -971,7 +962,7 @@ type ExtendableMessageEventInit struct {
 	Ports       []*channel.MessagePort
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ExtendableMessageEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -999,10 +990,8 @@ func (_this *ExtendableMessageEventInit) JSValue() js.Value {
 }
 
 // ExtendableMessageEventInitFromJS is allocating a new
-// ExtendableMessageEventInit object and copy all values from
-// input javascript object
-func ExtendableMessageEventInitFromJS(value js.Wrapper) *ExtendableMessageEventInit {
-	input := value.JSValue()
+// ExtendableMessageEventInit object and copy all values in the value javascript object.
+func ExtendableMessageEventInitFromJS(value js.Value) *ExtendableMessageEventInit {
 	var out ExtendableMessageEventInit
 	var (
 		value0 bool                   // javascript: boolean {bubbles Bubbles bubbles}
@@ -1014,27 +1003,27 @@ func ExtendableMessageEventInitFromJS(value js.Wrapper) *ExtendableMessageEventI
 		value6 *Union                 // javascript: Union {source Source source}
 		value7 []*channel.MessagePort // javascript: sequence<MessagePort> {ports Ports ports}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = input.Get("data")
+	value3 = value.Get("data")
 	out.Data = value3
-	value4 = (input.Get("origin")).String()
+	value4 = (value.Get("origin")).String()
 	out.Origin = value4
-	value5 = (input.Get("lastEventId")).String()
+	value5 = (value.Get("lastEventId")).String()
 	out.LastEventId = value5
-	if input.Get("source").Type() != js.TypeNull && input.Get("source").Type() != js.TypeUndefined {
-		value6 = UnionFromJS(input.Get("source"))
+	if value.Get("source").Type() != js.TypeNull && value.Get("source").Type() != js.TypeUndefined {
+		value6 = UnionFromJS(value.Get("source"))
 	}
 	out.Source = value6
-	__length7 := input.Get("ports").Length()
+	__length7 := value.Get("ports").Length()
 	__array7 := make([]*channel.MessagePort, __length7, __length7)
 	for __idx7 := 0; __idx7 < __length7; __idx7++ {
 		var __seq_out7 *channel.MessagePort
-		__seq_in7 := input.Get("ports").Index(__idx7)
+		__seq_in7 := value.Get("ports").Index(__idx7)
 		__seq_out7 = channel.MessagePortFromJS(__seq_in7)
 		__array7[__idx7] = __seq_out7
 	}
@@ -1052,7 +1041,7 @@ type FetchEventInit struct {
 	ClientId   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *FetchEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1070,10 +1059,8 @@ func (_this *FetchEventInit) JSValue() js.Value {
 }
 
 // FetchEventInitFromJS is allocating a new
-// FetchEventInit object and copy all values from
-// input javascript object
-func FetchEventInitFromJS(value js.Wrapper) *FetchEventInit {
-	input := value.JSValue()
+// FetchEventInit object and copy all values in the value javascript object.
+func FetchEventInitFromJS(value js.Value) *FetchEventInit {
 	var out FetchEventInit
 	var (
 		value0 bool           // javascript: boolean {bubbles Bubbles bubbles}
@@ -1082,15 +1069,15 @@ func FetchEventInitFromJS(value js.Wrapper) *FetchEventInit {
 		value3 *fetch.Request // javascript: Request {request Request request}
 		value4 string         // javascript: DOMString {clientId ClientId clientId}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = fetch.RequestFromJS(input.Get("request"))
+	value3 = fetch.RequestFromJS(value.Get("request"))
 	out.Request = value3
-	value4 = (input.Get("clientId")).String()
+	value4 = (value.Get("clientId")).String()
 	out.ClientId = value4
 	return &out
 }
@@ -1103,7 +1090,7 @@ type MultiCacheQueryOptions struct {
 	CacheName    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *MultiCacheQueryOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1119,10 +1106,8 @@ func (_this *MultiCacheQueryOptions) JSValue() js.Value {
 }
 
 // MultiCacheQueryOptionsFromJS is allocating a new
-// MultiCacheQueryOptions object and copy all values from
-// input javascript object
-func MultiCacheQueryOptionsFromJS(value js.Wrapper) *MultiCacheQueryOptions {
-	input := value.JSValue()
+// MultiCacheQueryOptions object and copy all values in the value javascript object.
+func MultiCacheQueryOptionsFromJS(value js.Value) *MultiCacheQueryOptions {
 	var out MultiCacheQueryOptions
 	var (
 		value0 bool   // javascript: boolean {ignoreSearch IgnoreSearch ignoreSearch}
@@ -1130,13 +1115,13 @@ func MultiCacheQueryOptionsFromJS(value js.Wrapper) *MultiCacheQueryOptions {
 		value2 bool   // javascript: boolean {ignoreVary IgnoreVary ignoreVary}
 		value3 string // javascript: DOMString {cacheName CacheName cacheName}
 	)
-	value0 = (input.Get("ignoreSearch")).Bool()
+	value0 = (value.Get("ignoreSearch")).Bool()
 	out.IgnoreSearch = value0
-	value1 = (input.Get("ignoreMethod")).Bool()
+	value1 = (value.Get("ignoreMethod")).Bool()
 	out.IgnoreMethod = value1
-	value2 = (input.Get("ignoreVary")).Bool()
+	value2 = (value.Get("ignoreVary")).Bool()
 	out.IgnoreVary = value2
-	value3 = (input.Get("cacheName")).String()
+	value3 = (value.Get("cacheName")).String()
 	out.CacheName = value3
 	return &out
 }
@@ -1148,7 +1133,7 @@ type RegistrationOptions struct {
 	UpdateViaCache ServiceWorkerUpdateViaCache
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *RegistrationOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1162,21 +1147,19 @@ func (_this *RegistrationOptions) JSValue() js.Value {
 }
 
 // RegistrationOptionsFromJS is allocating a new
-// RegistrationOptions object and copy all values from
-// input javascript object
-func RegistrationOptionsFromJS(value js.Wrapper) *RegistrationOptions {
-	input := value.JSValue()
+// RegistrationOptions object and copy all values in the value javascript object.
+func RegistrationOptionsFromJS(value js.Value) *RegistrationOptions {
 	var out RegistrationOptions
 	var (
 		value0 string                      // javascript: USVString {scope Scope scope}
 		value1 htmlcommon.WorkerType       // javascript: WorkerType {type Type _type}
 		value2 ServiceWorkerUpdateViaCache // javascript: ServiceWorkerUpdateViaCache {updateViaCache UpdateViaCache updateViaCache}
 	)
-	value0 = (input.Get("scope")).String()
+	value0 = (value.Get("scope")).String()
 	out.Scope = value0
-	value1 = htmlcommon.WorkerTypeFromJS(input.Get("type"))
+	value1 = htmlcommon.WorkerTypeFromJS(value.Get("type"))
 	out.Type = value1
-	value2 = ServiceWorkerUpdateViaCacheFromJS(input.Get("updateViaCache"))
+	value2 = ServiceWorkerUpdateViaCacheFromJS(value.Get("updateViaCache"))
 	out.UpdateViaCache = value2
 	return &out
 }
@@ -1190,7 +1173,7 @@ type SyncEventInit struct {
 	LastChance bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *SyncEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -1208,10 +1191,8 @@ func (_this *SyncEventInit) JSValue() js.Value {
 }
 
 // SyncEventInitFromJS is allocating a new
-// SyncEventInit object and copy all values from
-// input javascript object
-func SyncEventInitFromJS(value js.Wrapper) *SyncEventInit {
-	input := value.JSValue()
+// SyncEventInit object and copy all values in the value javascript object.
+func SyncEventInitFromJS(value js.Value) *SyncEventInit {
 	var out SyncEventInit
 	var (
 		value0 bool   // javascript: boolean {bubbles Bubbles bubbles}
@@ -1220,15 +1201,15 @@ func SyncEventInitFromJS(value js.Wrapper) *SyncEventInit {
 		value3 string // javascript: DOMString {tag Tag tag}
 		value4 bool   // javascript: boolean {lastChance LastChance lastChance}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	value3 = (input.Get("tag")).String()
+	value3 = (value.Get("tag")).String()
 	out.Tag = value3
-	value4 = (input.Get("lastChance")).Bool()
+	value4 = (value.Get("lastChance")).Bool()
 	out.LastChance = value4
 	return &out
 }
@@ -1238,15 +1219,19 @@ type BackgroundFetchEvent struct {
 	domcore.ExtendableEvent
 }
 
-// BackgroundFetchEventFromJS is casting a js.Wrapper into BackgroundFetchEvent.
-func BackgroundFetchEventFromJS(value js.Wrapper) *BackgroundFetchEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BackgroundFetchEventFromJS is casting a js.Value into BackgroundFetchEvent.
+func BackgroundFetchEventFromJS(value js.Value) *BackgroundFetchEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BackgroundFetchEventFromJS is casting from something that holds a js.Value into BackgroundFetchEvent.
+func BackgroundFetchEventFromWrapper(input core.Wrapper) *BackgroundFetchEvent {
+	return BackgroundFetchEventFromJS(input.JSValue())
 }
 
 func NewBackgroundFetchEvent(_type string, init *BackgroundFetchEventInit) (_result *BackgroundFetchEvent) {
@@ -1289,15 +1274,19 @@ func (_this *BackgroundFetchManager) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BackgroundFetchManagerFromJS is casting a js.Wrapper into BackgroundFetchManager.
-func BackgroundFetchManagerFromJS(value js.Wrapper) *BackgroundFetchManager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BackgroundFetchManagerFromJS is casting a js.Value into BackgroundFetchManager.
+func BackgroundFetchManagerFromJS(value js.Value) *BackgroundFetchManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchManager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BackgroundFetchManagerFromJS is casting from something that holds a js.Value into BackgroundFetchManager.
+func BackgroundFetchManagerFromWrapper(input core.Wrapper) *BackgroundFetchManager {
+	return BackgroundFetchManagerFromJS(input.JSValue())
 }
 
 func (_this *BackgroundFetchManager) Fetch(id string, requests *Union, options *BackgroundFetchOptions) (_result *PromiseBackgroundFetchRegistration) {
@@ -1366,15 +1355,19 @@ func (_this *BackgroundFetchRecord) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// BackgroundFetchRecordFromJS is casting a js.Wrapper into BackgroundFetchRecord.
-func BackgroundFetchRecordFromJS(value js.Wrapper) *BackgroundFetchRecord {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BackgroundFetchRecordFromJS is casting a js.Value into BackgroundFetchRecord.
+func BackgroundFetchRecordFromJS(value js.Value) *BackgroundFetchRecord {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchRecord{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BackgroundFetchRecordFromJS is casting from something that holds a js.Value into BackgroundFetchRecord.
+func BackgroundFetchRecordFromWrapper(input core.Wrapper) *BackgroundFetchRecord {
+	return BackgroundFetchRecordFromJS(input.JSValue())
 }
 
 // Request returning attribute 'request' with
@@ -1400,15 +1393,19 @@ type BackgroundFetchRegistration struct {
 	domcore.EventTarget
 }
 
-// BackgroundFetchRegistrationFromJS is casting a js.Wrapper into BackgroundFetchRegistration.
-func BackgroundFetchRegistrationFromJS(value js.Wrapper) *BackgroundFetchRegistration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BackgroundFetchRegistrationFromJS is casting a js.Value into BackgroundFetchRegistration.
+func BackgroundFetchRegistrationFromJS(value js.Value) *BackgroundFetchRegistration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchRegistration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BackgroundFetchRegistrationFromJS is casting from something that holds a js.Value into BackgroundFetchRegistration.
+func BackgroundFetchRegistrationFromWrapper(input core.Wrapper) *BackgroundFetchRegistration {
+	return BackgroundFetchRegistrationFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -1589,15 +1586,19 @@ type BackgroundFetchUpdateUIEvent struct {
 	BackgroundFetchEvent
 }
 
-// BackgroundFetchUpdateUIEventFromJS is casting a js.Wrapper into BackgroundFetchUpdateUIEvent.
-func BackgroundFetchUpdateUIEventFromJS(value js.Wrapper) *BackgroundFetchUpdateUIEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BackgroundFetchUpdateUIEventFromJS is casting a js.Value into BackgroundFetchUpdateUIEvent.
+func BackgroundFetchUpdateUIEventFromJS(value js.Value) *BackgroundFetchUpdateUIEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BackgroundFetchUpdateUIEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BackgroundFetchUpdateUIEventFromJS is casting from something that holds a js.Value into BackgroundFetchUpdateUIEvent.
+func BackgroundFetchUpdateUIEventFromWrapper(input core.Wrapper) *BackgroundFetchUpdateUIEvent {
+	return BackgroundFetchUpdateUIEventFromJS(input.JSValue())
 }
 
 func NewBackgroundFetchUpdateUIEvent(_type string, init *BackgroundFetchEventInit) (_result *BackgroundFetchUpdateUIEvent) {
@@ -1650,15 +1651,19 @@ func (_this *Cache) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CacheFromJS is casting a js.Wrapper into Cache.
-func CacheFromJS(value js.Wrapper) *Cache {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CacheFromJS is casting a js.Value into Cache.
+func CacheFromJS(value js.Value) *Cache {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Cache{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CacheFromJS is casting from something that holds a js.Value into Cache.
+func CacheFromWrapper(input core.Wrapper) *Cache {
+	return CacheFromJS(input.JSValue())
 }
 
 func (_this *Cache) Match(request *Union, options *CacheQueryOptions) (_result *javascript.Promise) {
@@ -1821,15 +1826,19 @@ func (_this *CacheStorage) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CacheStorageFromJS is casting a js.Wrapper into CacheStorage.
-func CacheStorageFromJS(value js.Wrapper) *CacheStorage {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CacheStorageFromJS is casting a js.Value into CacheStorage.
+func CacheStorageFromJS(value js.Value) *CacheStorage {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CacheStorage{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CacheStorageFromJS is casting from something that holds a js.Value into CacheStorage.
+func CacheStorageFromWrapper(input core.Wrapper) *CacheStorage {
+	return CacheStorageFromJS(input.JSValue())
 }
 
 func (_this *CacheStorage) Match(request *Union, options *MultiCacheQueryOptions) (_result *javascript.Promise) {
@@ -1929,15 +1938,19 @@ func (_this *Clients) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ClientsFromJS is casting a js.Wrapper into Clients.
-func ClientsFromJS(value js.Wrapper) *Clients {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ClientsFromJS is casting a js.Value into Clients.
+func ClientsFromJS(value js.Value) *Clients {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Clients{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ClientsFromJS is casting from something that holds a js.Value into Clients.
+func ClientsFromWrapper(input core.Wrapper) *Clients {
+	return ClientsFromJS(input.JSValue())
 }
 
 func (_this *Clients) Get(id string) (_result *javascript.Promise) {
@@ -2012,15 +2025,19 @@ type ExtendableMessageEvent struct {
 	domcore.ExtendableEvent
 }
 
-// ExtendableMessageEventFromJS is casting a js.Wrapper into ExtendableMessageEvent.
-func ExtendableMessageEventFromJS(value js.Wrapper) *ExtendableMessageEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ExtendableMessageEventFromJS is casting a js.Value into ExtendableMessageEvent.
+func ExtendableMessageEventFromJS(value js.Value) *ExtendableMessageEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ExtendableMessageEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ExtendableMessageEventFromJS is casting from something that holds a js.Value into ExtendableMessageEvent.
+func ExtendableMessageEventFromWrapper(input core.Wrapper) *ExtendableMessageEvent {
+	return ExtendableMessageEventFromJS(input.JSValue())
 }
 
 func NewExtendableMessageEvent(_type string, eventInitDict *ExtendableMessageEventInit) (_result *ExtendableMessageEvent) {
@@ -2098,15 +2115,19 @@ type FetchEvent struct {
 	domcore.ExtendableEvent
 }
 
-// FetchEventFromJS is casting a js.Wrapper into FetchEvent.
-func FetchEventFromJS(value js.Wrapper) *FetchEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// FetchEventFromJS is casting a js.Value into FetchEvent.
+func FetchEventFromJS(value js.Value) *FetchEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &FetchEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// FetchEventFromJS is casting from something that holds a js.Value into FetchEvent.
+func FetchEventFromWrapper(input core.Wrapper) *FetchEvent {
+	return FetchEventFromJS(input.JSValue())
 }
 
 func NewFetchEvent(_type string, eventInitDict *FetchEventInit) (_result *FetchEvent) {
@@ -2170,15 +2191,19 @@ func (_this *PromiseBackgroundFetchRecord) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseBackgroundFetchRecord.
-func PromiseBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseBackgroundFetchRecord {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseBackgroundFetchRecordFromJS is casting a js.Value into PromiseBackgroundFetchRecord.
+func PromiseBackgroundFetchRecordFromJS(value js.Value) *PromiseBackgroundFetchRecord {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBackgroundFetchRecord{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseBackgroundFetchRecordFromJS is casting from something that holds a js.Value into PromiseBackgroundFetchRecord.
+func PromiseBackgroundFetchRecordFromWrapper(input core.Wrapper) *PromiseBackgroundFetchRecord {
+	return PromiseBackgroundFetchRecordFromJS(input.JSValue())
 }
 
 func (_this *PromiseBackgroundFetchRecord) Then(onFulfilled *PromiseBackgroundFetchRecordOnFulfilled, onRejected *PromiseBackgroundFetchRecordOnRejected) (_result *PromiseBackgroundFetchRecord) {
@@ -2275,15 +2300,19 @@ func (_this *PromiseBackgroundFetchRegistration) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseBackgroundFetchRegistration.
-func PromiseBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseBackgroundFetchRegistration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseBackgroundFetchRegistrationFromJS is casting a js.Value into PromiseBackgroundFetchRegistration.
+func PromiseBackgroundFetchRegistrationFromJS(value js.Value) *PromiseBackgroundFetchRegistration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBackgroundFetchRegistration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseBackgroundFetchRegistrationFromJS is casting from something that holds a js.Value into PromiseBackgroundFetchRegistration.
+func PromiseBackgroundFetchRegistrationFromWrapper(input core.Wrapper) *PromiseBackgroundFetchRegistration {
+	return PromiseBackgroundFetchRegistrationFromJS(input.JSValue())
 }
 
 func (_this *PromiseBackgroundFetchRegistration) Then(onFulfilled *PromiseBackgroundFetchRegistrationOnFulfilled, onRejected *PromiseBackgroundFetchRegistrationOnRejected) (_result *PromiseBackgroundFetchRegistration) {
@@ -2380,15 +2409,19 @@ func (_this *PromiseCache) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseCacheFromJS is casting a js.Wrapper into PromiseCache.
-func PromiseCacheFromJS(value js.Wrapper) *PromiseCache {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseCacheFromJS is casting a js.Value into PromiseCache.
+func PromiseCacheFromJS(value js.Value) *PromiseCache {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseCache{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseCacheFromJS is casting from something that holds a js.Value into PromiseCache.
+func PromiseCacheFromWrapper(input core.Wrapper) *PromiseCache {
+	return PromiseCacheFromJS(input.JSValue())
 }
 
 func (_this *PromiseCache) Then(onFulfilled *PromiseCacheOnFulfilled, onRejected *PromiseCacheOnRejected) (_result *PromiseCache) {
@@ -2485,15 +2518,19 @@ func (_this *PromiseNilBackgroundFetchRegistration) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseNilBackgroundFetchRegistrationFromJS is casting a js.Wrapper into PromiseNilBackgroundFetchRegistration.
-func PromiseNilBackgroundFetchRegistrationFromJS(value js.Wrapper) *PromiseNilBackgroundFetchRegistration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseNilBackgroundFetchRegistrationFromJS is casting a js.Value into PromiseNilBackgroundFetchRegistration.
+func PromiseNilBackgroundFetchRegistrationFromJS(value js.Value) *PromiseNilBackgroundFetchRegistration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilBackgroundFetchRegistration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseNilBackgroundFetchRegistrationFromJS is casting from something that holds a js.Value into PromiseNilBackgroundFetchRegistration.
+func PromiseNilBackgroundFetchRegistrationFromWrapper(input core.Wrapper) *PromiseNilBackgroundFetchRegistration {
+	return PromiseNilBackgroundFetchRegistrationFromJS(input.JSValue())
 }
 
 func (_this *PromiseNilBackgroundFetchRegistration) Then(onFulfilled *PromiseNilBackgroundFetchRegistrationOnFulfilled, onRejected *PromiseNilBackgroundFetchRegistrationOnRejected) (_result *PromiseNilBackgroundFetchRegistration) {
@@ -2590,15 +2627,19 @@ func (_this *PromiseSequenceBackgroundFetchRecord) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceBackgroundFetchRecordFromJS is casting a js.Wrapper into PromiseSequenceBackgroundFetchRecord.
-func PromiseSequenceBackgroundFetchRecordFromJS(value js.Wrapper) *PromiseSequenceBackgroundFetchRecord {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceBackgroundFetchRecordFromJS is casting a js.Value into PromiseSequenceBackgroundFetchRecord.
+func PromiseSequenceBackgroundFetchRecordFromJS(value js.Value) *PromiseSequenceBackgroundFetchRecord {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceBackgroundFetchRecord{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceBackgroundFetchRecordFromJS is casting from something that holds a js.Value into PromiseSequenceBackgroundFetchRecord.
+func PromiseSequenceBackgroundFetchRecordFromWrapper(input core.Wrapper) *PromiseSequenceBackgroundFetchRecord {
+	return PromiseSequenceBackgroundFetchRecordFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceBackgroundFetchRecord) Then(onFulfilled *PromiseSequenceBackgroundFetchRecordOnFulfilled, onRejected *PromiseSequenceBackgroundFetchRecordOnRejected) (_result *PromiseSequenceBackgroundFetchRecord) {
@@ -2695,15 +2736,19 @@ func (_this *PromiseServiceWorkerRegistration) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseServiceWorkerRegistrationFromJS is casting a js.Wrapper into PromiseServiceWorkerRegistration.
-func PromiseServiceWorkerRegistrationFromJS(value js.Wrapper) *PromiseServiceWorkerRegistration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseServiceWorkerRegistrationFromJS is casting a js.Value into PromiseServiceWorkerRegistration.
+func PromiseServiceWorkerRegistrationFromJS(value js.Value) *PromiseServiceWorkerRegistration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseServiceWorkerRegistration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseServiceWorkerRegistrationFromJS is casting from something that holds a js.Value into PromiseServiceWorkerRegistration.
+func PromiseServiceWorkerRegistrationFromWrapper(input core.Wrapper) *PromiseServiceWorkerRegistration {
+	return PromiseServiceWorkerRegistrationFromJS(input.JSValue())
 }
 
 func (_this *PromiseServiceWorkerRegistration) Then(onFulfilled *PromiseServiceWorkerRegistrationOnFulfilled, onRejected *PromiseServiceWorkerRegistrationOnRejected) (_result *PromiseServiceWorkerRegistration) {
@@ -2795,15 +2840,19 @@ type ServiceWorker struct {
 	domcore.EventTarget
 }
 
-// ServiceWorkerFromJS is casting a js.Wrapper into ServiceWorker.
-func ServiceWorkerFromJS(value js.Wrapper) *ServiceWorker {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceWorkerFromJS is casting a js.Value into ServiceWorker.
+func ServiceWorkerFromJS(value js.Value) *ServiceWorker {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorker{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceWorkerFromJS is casting from something that holds a js.Value into ServiceWorker.
+func ServiceWorkerFromWrapper(input core.Wrapper) *ServiceWorker {
+	return ServiceWorkerFromJS(input.JSValue())
 }
 
 // ScriptURL returning attribute 'scriptURL' with
@@ -2918,15 +2967,19 @@ type ServiceWorkerContainer struct {
 	domcore.EventTarget
 }
 
-// ServiceWorkerContainerFromJS is casting a js.Wrapper into ServiceWorkerContainer.
-func ServiceWorkerContainerFromJS(value js.Wrapper) *ServiceWorkerContainer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceWorkerContainerFromJS is casting a js.Value into ServiceWorkerContainer.
+func ServiceWorkerContainerFromJS(value js.Value) *ServiceWorkerContainer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerContainer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceWorkerContainerFromJS is casting from something that holds a js.Value into ServiceWorkerContainer.
+func ServiceWorkerContainerFromWrapper(input core.Wrapper) *ServiceWorkerContainer {
+	return ServiceWorkerContainerFromJS(input.JSValue())
 }
 
 // Controller returning attribute 'controller' with
@@ -3147,15 +3200,19 @@ type ServiceWorkerRegistration struct {
 	domcore.EventTarget
 }
 
-// ServiceWorkerRegistrationFromJS is casting a js.Wrapper into ServiceWorkerRegistration.
-func ServiceWorkerRegistrationFromJS(value js.Wrapper) *ServiceWorkerRegistration {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ServiceWorkerRegistrationFromJS is casting a js.Value into ServiceWorkerRegistration.
+func ServiceWorkerRegistrationFromJS(value js.Value) *ServiceWorkerRegistration {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ServiceWorkerRegistration{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ServiceWorkerRegistrationFromJS is casting from something that holds a js.Value into ServiceWorkerRegistration.
+func ServiceWorkerRegistrationFromWrapper(input core.Wrapper) *ServiceWorkerRegistration {
+	return ServiceWorkerRegistrationFromJS(input.JSValue())
 }
 
 // Installing returning attribute 'installing' with
@@ -3319,15 +3376,19 @@ type SyncEvent struct {
 	domcore.ExtendableEvent
 }
 
-// SyncEventFromJS is casting a js.Wrapper into SyncEvent.
-func SyncEventFromJS(value js.Wrapper) *SyncEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SyncEventFromJS is casting a js.Value into SyncEvent.
+func SyncEventFromJS(value js.Value) *SyncEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SyncEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SyncEventFromJS is casting from something that holds a js.Value into SyncEvent.
+func SyncEventFromWrapper(input core.Wrapper) *SyncEvent {
+	return SyncEventFromJS(input.JSValue())
 }
 
 func NewSyncEvent(_type string, init *SyncEventInit) (_result *SyncEvent) {
@@ -3379,15 +3440,19 @@ func (_this *SyncManager) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// SyncManagerFromJS is casting a js.Wrapper into SyncManager.
-func SyncManagerFromJS(value js.Wrapper) *SyncManager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// SyncManagerFromJS is casting a js.Value into SyncManager.
+func SyncManagerFromJS(value js.Value) *SyncManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &SyncManager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// SyncManagerFromJS is casting from something that holds a js.Value into SyncManager.
+func SyncManagerFromWrapper(input core.Wrapper) *SyncManager {
+	return SyncManagerFromJS(input.JSValue())
 }
 
 func (_this *SyncManager) Register(tag string) (_result *javascript.PromiseVoid) {

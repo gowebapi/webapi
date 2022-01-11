@@ -7,6 +7,7 @@ package datatransfer
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/file/entries"
@@ -138,15 +139,19 @@ func (_this *DataTransfer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferFromJS is casting a js.Wrapper into DataTransfer.
-func DataTransferFromJS(value js.Wrapper) *DataTransfer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataTransferFromJS is casting a js.Value into DataTransfer.
+func DataTransferFromJS(value js.Value) *DataTransfer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransfer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataTransferFromJS is casting from something that holds a js.Value into DataTransfer.
+func DataTransferFromWrapper(input core.Wrapper) *DataTransfer {
+	return DataTransferFromJS(input.JSValue())
 }
 
 func NewDataTransfer() (_result *DataTransfer) {
@@ -303,15 +308,19 @@ func (_this *DataTransferItem) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferItemFromJS is casting a js.Wrapper into DataTransferItem.
-func DataTransferItemFromJS(value js.Wrapper) *DataTransferItem {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataTransferItemFromJS is casting a js.Value into DataTransferItem.
+func DataTransferItemFromJS(value js.Value) *DataTransferItem {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransferItem{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataTransferItemFromJS is casting from something that holds a js.Value into DataTransferItem.
+func DataTransferItemFromWrapper(input core.Wrapper) *DataTransferItem {
+	return DataTransferItemFromJS(input.JSValue())
 }
 
 // Kind returning attribute 'kind' with
@@ -393,15 +402,19 @@ func (_this *DataTransferItemList) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DataTransferItemListFromJS is casting a js.Wrapper into DataTransferItemList.
-func DataTransferItemListFromJS(value js.Wrapper) *DataTransferItemList {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DataTransferItemListFromJS is casting a js.Value into DataTransferItemList.
+func DataTransferItemListFromJS(value js.Value) *DataTransferItemList {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DataTransferItemList{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DataTransferItemListFromJS is casting from something that holds a js.Value into DataTransferItemList.
+func DataTransferItemListFromWrapper(input core.Wrapper) *DataTransferItemList {
+	return DataTransferItemListFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -502,15 +515,19 @@ func (_this *PromiseDataTransfer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseDataTransferFromJS is casting a js.Wrapper into PromiseDataTransfer.
-func PromiseDataTransferFromJS(value js.Wrapper) *PromiseDataTransfer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseDataTransferFromJS is casting a js.Value into PromiseDataTransfer.
+func PromiseDataTransferFromJS(value js.Value) *PromiseDataTransfer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseDataTransfer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseDataTransferFromJS is casting from something that holds a js.Value into PromiseDataTransfer.
+func PromiseDataTransferFromWrapper(input core.Wrapper) *PromiseDataTransfer {
+	return PromiseDataTransferFromJS(input.JSValue())
 }
 
 func (_this *PromiseDataTransfer) Then(onFulfilled *PromiseDataTransferOnFulfilled, onRejected *PromiseDataTransferOnRejected) (_result *PromiseDataTransfer) {

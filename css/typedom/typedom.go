@@ -7,6 +7,7 @@ package typedom
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/geometry"
 )
 
@@ -348,7 +349,7 @@ type CSSMatrixComponentOptions struct {
 	Is2D bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSMatrixComponentOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -358,15 +359,13 @@ func (_this *CSSMatrixComponentOptions) JSValue() js.Value {
 }
 
 // CSSMatrixComponentOptionsFromJS is allocating a new
-// CSSMatrixComponentOptions object and copy all values from
-// input javascript object
-func CSSMatrixComponentOptionsFromJS(value js.Wrapper) *CSSMatrixComponentOptions {
-	input := value.JSValue()
+// CSSMatrixComponentOptions object and copy all values in the value javascript object.
+func CSSMatrixComponentOptionsFromJS(value js.Value) *CSSMatrixComponentOptions {
 	var out CSSMatrixComponentOptions
 	var (
 		value0 bool // javascript: boolean {is2D Is2D is2D}
 	)
-	value0 = (input.Get("is2D")).Bool()
+	value0 = (value.Get("is2D")).Bool()
 	out.Is2D = value0
 	return &out
 }
@@ -377,7 +376,7 @@ type CSSNumericArrayEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSNumericArrayEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -393,26 +392,24 @@ func (_this *CSSNumericArrayEntryIteratorValue) JSValue() js.Value {
 }
 
 // CSSNumericArrayEntryIteratorValueFromJS is allocating a new
-// CSSNumericArrayEntryIteratorValue object and copy all values from
-// input javascript object
-func CSSNumericArrayEntryIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayEntryIteratorValue {
-	input := value.JSValue()
+// CSSNumericArrayEntryIteratorValue object and copy all values in the value javascript object.
+func CSSNumericArrayEntryIteratorValueFromJS(value js.Value) *CSSNumericArrayEntryIteratorValue {
 	var out CSSNumericArrayEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -423,7 +420,7 @@ type CSSNumericArrayKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSNumericArrayKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -435,18 +432,16 @@ func (_this *CSSNumericArrayKeyIteratorValue) JSValue() js.Value {
 }
 
 // CSSNumericArrayKeyIteratorValueFromJS is allocating a new
-// CSSNumericArrayKeyIteratorValue object and copy all values from
-// input javascript object
-func CSSNumericArrayKeyIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayKeyIteratorValue {
-	input := value.JSValue()
+// CSSNumericArrayKeyIteratorValue object and copy all values in the value javascript object.
+func CSSNumericArrayKeyIteratorValueFromJS(value js.Value) *CSSNumericArrayKeyIteratorValue {
 	var out CSSNumericArrayKeyIteratorValue
 	var (
 		value0 uint // javascript: unsigned long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (uint)((input.Get("value")).Int())
+	value0 = (uint)((value.Get("value")).Int())
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -457,7 +452,7 @@ type CSSNumericArrayValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSNumericArrayValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -469,18 +464,16 @@ func (_this *CSSNumericArrayValueIteratorValue) JSValue() js.Value {
 }
 
 // CSSNumericArrayValueIteratorValueFromJS is allocating a new
-// CSSNumericArrayValueIteratorValue object and copy all values from
-// input javascript object
-func CSSNumericArrayValueIteratorValueFromJS(value js.Wrapper) *CSSNumericArrayValueIteratorValue {
-	input := value.JSValue()
+// CSSNumericArrayValueIteratorValue object and copy all values in the value javascript object.
+func CSSNumericArrayValueIteratorValueFromJS(value js.Value) *CSSNumericArrayValueIteratorValue {
 	var out CSSNumericArrayValueIteratorValue
 	var (
 		value0 *CSSNumericValue // javascript: CSSNumericValue {value Value value}
 		value1 bool             // javascript: boolean {done Done done}
 	)
-	value0 = CSSNumericValueFromJS(input.Get("value"))
+	value0 = CSSNumericValueFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -497,7 +490,7 @@ type CSSNumericType struct {
 	PercentHint CSSNumericBaseType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSNumericType) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -521,10 +514,8 @@ func (_this *CSSNumericType) JSValue() js.Value {
 }
 
 // CSSNumericTypeFromJS is allocating a new
-// CSSNumericType object and copy all values from
-// input javascript object
-func CSSNumericTypeFromJS(value js.Wrapper) *CSSNumericType {
-	input := value.JSValue()
+// CSSNumericType object and copy all values in the value javascript object.
+func CSSNumericTypeFromJS(value js.Value) *CSSNumericType {
 	var out CSSNumericType
 	var (
 		value0 int                // javascript: long {length Length length}
@@ -536,21 +527,21 @@ func CSSNumericTypeFromJS(value js.Wrapper) *CSSNumericType {
 		value6 int                // javascript: long {percent Percent percent}
 		value7 CSSNumericBaseType // javascript: CSSNumericBaseType {percentHint PercentHint percentHint}
 	)
-	value0 = (input.Get("length")).Int()
+	value0 = (value.Get("length")).Int()
 	out.Length = value0
-	value1 = (input.Get("angle")).Int()
+	value1 = (value.Get("angle")).Int()
 	out.Angle = value1
-	value2 = (input.Get("time")).Int()
+	value2 = (value.Get("time")).Int()
 	out.Time = value2
-	value3 = (input.Get("frequency")).Int()
+	value3 = (value.Get("frequency")).Int()
 	out.Frequency = value3
-	value4 = (input.Get("resolution")).Int()
+	value4 = (value.Get("resolution")).Int()
 	out.Resolution = value4
-	value5 = (input.Get("flex")).Int()
+	value5 = (value.Get("flex")).Int()
 	out.Flex = value5
-	value6 = (input.Get("percent")).Int()
+	value6 = (value.Get("percent")).Int()
 	out.Percent = value6
-	value7 = CSSNumericBaseTypeFromJS(input.Get("percentHint"))
+	value7 = CSSNumericBaseTypeFromJS(value.Get("percentHint"))
 	out.PercentHint = value7
 	return &out
 }
@@ -561,7 +552,7 @@ type CSSTransformValueEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSTransformValueEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -577,26 +568,24 @@ func (_this *CSSTransformValueEntryIteratorValue) JSValue() js.Value {
 }
 
 // CSSTransformValueEntryIteratorValueFromJS is allocating a new
-// CSSTransformValueEntryIteratorValue object and copy all values from
-// input javascript object
-func CSSTransformValueEntryIteratorValueFromJS(value js.Wrapper) *CSSTransformValueEntryIteratorValue {
-	input := value.JSValue()
+// CSSTransformValueEntryIteratorValue object and copy all values in the value javascript object.
+func CSSTransformValueEntryIteratorValueFromJS(value js.Value) *CSSTransformValueEntryIteratorValue {
 	var out CSSTransformValueEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -607,7 +596,7 @@ type CSSTransformValueKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSTransformValueKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -619,18 +608,16 @@ func (_this *CSSTransformValueKeyIteratorValue) JSValue() js.Value {
 }
 
 // CSSTransformValueKeyIteratorValueFromJS is allocating a new
-// CSSTransformValueKeyIteratorValue object and copy all values from
-// input javascript object
-func CSSTransformValueKeyIteratorValueFromJS(value js.Wrapper) *CSSTransformValueKeyIteratorValue {
-	input := value.JSValue()
+// CSSTransformValueKeyIteratorValue object and copy all values in the value javascript object.
+func CSSTransformValueKeyIteratorValueFromJS(value js.Value) *CSSTransformValueKeyIteratorValue {
 	var out CSSTransformValueKeyIteratorValue
 	var (
 		value0 uint // javascript: unsigned long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (uint)((input.Get("value")).Int())
+	value0 = (uint)((value.Get("value")).Int())
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -641,7 +628,7 @@ type CSSTransformValueValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSTransformValueValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -653,18 +640,16 @@ func (_this *CSSTransformValueValueIteratorValue) JSValue() js.Value {
 }
 
 // CSSTransformValueValueIteratorValueFromJS is allocating a new
-// CSSTransformValueValueIteratorValue object and copy all values from
-// input javascript object
-func CSSTransformValueValueIteratorValueFromJS(value js.Wrapper) *CSSTransformValueValueIteratorValue {
-	input := value.JSValue()
+// CSSTransformValueValueIteratorValue object and copy all values in the value javascript object.
+func CSSTransformValueValueIteratorValueFromJS(value js.Value) *CSSTransformValueValueIteratorValue {
 	var out CSSTransformValueValueIteratorValue
 	var (
 		value0 *CSSTransformComponent // javascript: CSSTransformComponent {value Value value}
 		value1 bool                   // javascript: boolean {done Done done}
 	)
-	value0 = CSSTransformComponentFromJS(input.Get("value"))
+	value0 = CSSTransformComponentFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -675,7 +660,7 @@ type CSSUnparsedValueEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSUnparsedValueEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -691,26 +676,24 @@ func (_this *CSSUnparsedValueEntryIteratorValue) JSValue() js.Value {
 }
 
 // CSSUnparsedValueEntryIteratorValueFromJS is allocating a new
-// CSSUnparsedValueEntryIteratorValue object and copy all values from
-// input javascript object
-func CSSUnparsedValueEntryIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueEntryIteratorValue {
-	input := value.JSValue()
+// CSSUnparsedValueEntryIteratorValue object and copy all values in the value javascript object.
+func CSSUnparsedValueEntryIteratorValueFromJS(value js.Value) *CSSUnparsedValueEntryIteratorValue {
 	var out CSSUnparsedValueEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -721,7 +704,7 @@ type CSSUnparsedValueKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSUnparsedValueKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -733,18 +716,16 @@ func (_this *CSSUnparsedValueKeyIteratorValue) JSValue() js.Value {
 }
 
 // CSSUnparsedValueKeyIteratorValueFromJS is allocating a new
-// CSSUnparsedValueKeyIteratorValue object and copy all values from
-// input javascript object
-func CSSUnparsedValueKeyIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueKeyIteratorValue {
-	input := value.JSValue()
+// CSSUnparsedValueKeyIteratorValue object and copy all values in the value javascript object.
+func CSSUnparsedValueKeyIteratorValueFromJS(value js.Value) *CSSUnparsedValueKeyIteratorValue {
 	var out CSSUnparsedValueKeyIteratorValue
 	var (
 		value0 uint // javascript: unsigned long {value Value value}
 		value1 bool // javascript: boolean {done Done done}
 	)
-	value0 = (uint)((input.Get("value")).Int())
+	value0 = (uint)((value.Get("value")).Int())
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -755,7 +736,7 @@ type CSSUnparsedValueValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CSSUnparsedValueValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -767,18 +748,16 @@ func (_this *CSSUnparsedValueValueIteratorValue) JSValue() js.Value {
 }
 
 // CSSUnparsedValueValueIteratorValueFromJS is allocating a new
-// CSSUnparsedValueValueIteratorValue object and copy all values from
-// input javascript object
-func CSSUnparsedValueValueIteratorValueFromJS(value js.Wrapper) *CSSUnparsedValueValueIteratorValue {
-	input := value.JSValue()
+// CSSUnparsedValueValueIteratorValue object and copy all values in the value javascript object.
+func CSSUnparsedValueValueIteratorValueFromJS(value js.Value) *CSSUnparsedValueValueIteratorValue {
 	var out CSSUnparsedValueValueIteratorValue
 	var (
 		value0 *Union // javascript: Union {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = UnionFromJS(input.Get("value"))
+	value0 = UnionFromJS(value.Get("value"))
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -789,7 +768,7 @@ type StylePropertyMapReadOnlyEntryIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StylePropertyMapReadOnlyEntryIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -805,26 +784,24 @@ func (_this *StylePropertyMapReadOnlyEntryIteratorValue) JSValue() js.Value {
 }
 
 // StylePropertyMapReadOnlyEntryIteratorValueFromJS is allocating a new
-// StylePropertyMapReadOnlyEntryIteratorValue object and copy all values from
-// input javascript object
-func StylePropertyMapReadOnlyEntryIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyEntryIteratorValue {
-	input := value.JSValue()
+// StylePropertyMapReadOnlyEntryIteratorValue object and copy all values in the value javascript object.
+func StylePropertyMapReadOnlyEntryIteratorValueFromJS(value js.Value) *StylePropertyMapReadOnlyEntryIteratorValue {
 	var out StylePropertyMapReadOnlyEntryIteratorValue
 	var (
 		value0 []js.Value // javascript: sequence<any> {value Value value}
 		value1 bool       // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]js.Value, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 js.Value
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = __seq_in0
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -835,7 +812,7 @@ type StylePropertyMapReadOnlyKeyIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StylePropertyMapReadOnlyKeyIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -847,18 +824,16 @@ func (_this *StylePropertyMapReadOnlyKeyIteratorValue) JSValue() js.Value {
 }
 
 // StylePropertyMapReadOnlyKeyIteratorValueFromJS is allocating a new
-// StylePropertyMapReadOnlyKeyIteratorValue object and copy all values from
-// input javascript object
-func StylePropertyMapReadOnlyKeyIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyKeyIteratorValue {
-	input := value.JSValue()
+// StylePropertyMapReadOnlyKeyIteratorValue object and copy all values in the value javascript object.
+func StylePropertyMapReadOnlyKeyIteratorValueFromJS(value js.Value) *StylePropertyMapReadOnlyKeyIteratorValue {
 	var out StylePropertyMapReadOnlyKeyIteratorValue
 	var (
 		value0 string // javascript: USVString {value Value value}
 		value1 bool   // javascript: boolean {done Done done}
 	)
-	value0 = (input.Get("value")).String()
+	value0 = (value.Get("value")).String()
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -869,7 +844,7 @@ type StylePropertyMapReadOnlyValueIteratorValue struct {
 	Done  bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *StylePropertyMapReadOnlyValueIteratorValue) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -885,26 +860,24 @@ func (_this *StylePropertyMapReadOnlyValueIteratorValue) JSValue() js.Value {
 }
 
 // StylePropertyMapReadOnlyValueIteratorValueFromJS is allocating a new
-// StylePropertyMapReadOnlyValueIteratorValue object and copy all values from
-// input javascript object
-func StylePropertyMapReadOnlyValueIteratorValueFromJS(value js.Wrapper) *StylePropertyMapReadOnlyValueIteratorValue {
-	input := value.JSValue()
+// StylePropertyMapReadOnlyValueIteratorValue object and copy all values in the value javascript object.
+func StylePropertyMapReadOnlyValueIteratorValueFromJS(value js.Value) *StylePropertyMapReadOnlyValueIteratorValue {
 	var out StylePropertyMapReadOnlyValueIteratorValue
 	var (
 		value0 []*CSSStyleValue // javascript: sequence<CSSStyleValue> {value Value value}
 		value1 bool             // javascript: boolean {done Done done}
 	)
-	__length0 := input.Get("value").Length()
+	__length0 := value.Get("value").Length()
 	__array0 := make([]*CSSStyleValue, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 *CSSStyleValue
-		__seq_in0 := input.Get("value").Index(__idx0)
+		__seq_in0 := value.Get("value").Index(__idx0)
 		__seq_out0 = CSSStyleValueFromJS(__seq_in0)
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Value = value0
-	value1 = (input.Get("done")).Bool()
+	value1 = (value.Get("done")).Bool()
 	out.Done = value1
 	return &out
 }
@@ -914,15 +887,19 @@ type CSSImageValue struct {
 	CSSStyleValue
 }
 
-// CSSImageValueFromJS is casting a js.Wrapper into CSSImageValue.
-func CSSImageValueFromJS(value js.Wrapper) *CSSImageValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSImageValueFromJS is casting a js.Value into CSSImageValue.
+func CSSImageValueFromJS(value js.Value) *CSSImageValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSImageValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSImageValueFromJS is casting from something that holds a js.Value into CSSImageValue.
+func CSSImageValueFromWrapper(input core.Wrapper) *CSSImageValue {
+	return CSSImageValueFromJS(input.JSValue())
 }
 
 // class: CSSKeywordValue
@@ -930,15 +907,19 @@ type CSSKeywordValue struct {
 	CSSStyleValue
 }
 
-// CSSKeywordValueFromJS is casting a js.Wrapper into CSSKeywordValue.
-func CSSKeywordValueFromJS(value js.Wrapper) *CSSKeywordValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSKeywordValueFromJS is casting a js.Value into CSSKeywordValue.
+func CSSKeywordValueFromJS(value js.Value) *CSSKeywordValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSKeywordValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSKeywordValueFromJS is casting from something that holds a js.Value into CSSKeywordValue.
+func CSSKeywordValueFromWrapper(input core.Wrapper) *CSSKeywordValue {
+	return CSSKeywordValueFromJS(input.JSValue())
 }
 
 func NewCSSKeywordValue(value string) (_result *CSSKeywordValue) {
@@ -980,15 +961,19 @@ type CSSMathClamp struct {
 	CSSMathValue
 }
 
-// CSSMathClampFromJS is casting a js.Wrapper into CSSMathClamp.
-func CSSMathClampFromJS(value js.Wrapper) *CSSMathClamp {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathClampFromJS is casting a js.Value into CSSMathClamp.
+func CSSMathClampFromJS(value js.Value) *CSSMathClamp {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathClamp{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathClampFromJS is casting from something that holds a js.Value into CSSMathClamp.
+func CSSMathClampFromWrapper(input core.Wrapper) *CSSMathClamp {
+	return CSSMathClampFromJS(input.JSValue())
 }
 
 func NewCSSMathClamp(min *Union, val *Union, max *Union) (_result *CSSMathClamp) {
@@ -1047,15 +1032,19 @@ type CSSMathInvert struct {
 	CSSMathValue
 }
 
-// CSSMathInvertFromJS is casting a js.Wrapper into CSSMathInvert.
-func CSSMathInvertFromJS(value js.Wrapper) *CSSMathInvert {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathInvertFromJS is casting a js.Value into CSSMathInvert.
+func CSSMathInvertFromJS(value js.Value) *CSSMathInvert {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathInvert{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathInvertFromJS is casting from something that holds a js.Value into CSSMathInvert.
+func CSSMathInvertFromWrapper(input core.Wrapper) *CSSMathInvert {
+	return CSSMathInvertFromJS(input.JSValue())
 }
 
 func NewCSSMathInvert(arg *Union) (_result *CSSMathInvert) {
@@ -1090,15 +1079,19 @@ type CSSMathMax struct {
 	CSSMathValue
 }
 
-// CSSMathMaxFromJS is casting a js.Wrapper into CSSMathMax.
-func CSSMathMaxFromJS(value js.Wrapper) *CSSMathMax {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathMaxFromJS is casting a js.Value into CSSMathMax.
+func CSSMathMaxFromJS(value js.Value) *CSSMathMax {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathMax{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathMaxFromJS is casting from something that holds a js.Value into CSSMathMax.
+func CSSMathMaxFromWrapper(input core.Wrapper) *CSSMathMax {
+	return CSSMathMaxFromJS(input.JSValue())
 }
 
 func NewCSSMathMax(args ...*Union) (_result *CSSMathMax) {
@@ -1135,15 +1128,19 @@ type CSSMathMin struct {
 	CSSMathValue
 }
 
-// CSSMathMinFromJS is casting a js.Wrapper into CSSMathMin.
-func CSSMathMinFromJS(value js.Wrapper) *CSSMathMin {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathMinFromJS is casting a js.Value into CSSMathMin.
+func CSSMathMinFromJS(value js.Value) *CSSMathMin {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathMin{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathMinFromJS is casting from something that holds a js.Value into CSSMathMin.
+func CSSMathMinFromWrapper(input core.Wrapper) *CSSMathMin {
+	return CSSMathMinFromJS(input.JSValue())
 }
 
 func NewCSSMathMin(args ...*Union) (_result *CSSMathMin) {
@@ -1180,15 +1177,19 @@ type CSSMathNegate struct {
 	CSSMathValue
 }
 
-// CSSMathNegateFromJS is casting a js.Wrapper into CSSMathNegate.
-func CSSMathNegateFromJS(value js.Wrapper) *CSSMathNegate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathNegateFromJS is casting a js.Value into CSSMathNegate.
+func CSSMathNegateFromJS(value js.Value) *CSSMathNegate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathNegate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathNegateFromJS is casting from something that holds a js.Value into CSSMathNegate.
+func CSSMathNegateFromWrapper(input core.Wrapper) *CSSMathNegate {
+	return CSSMathNegateFromJS(input.JSValue())
 }
 
 func NewCSSMathNegate(arg *Union) (_result *CSSMathNegate) {
@@ -1223,15 +1224,19 @@ type CSSMathProduct struct {
 	CSSMathValue
 }
 
-// CSSMathProductFromJS is casting a js.Wrapper into CSSMathProduct.
-func CSSMathProductFromJS(value js.Wrapper) *CSSMathProduct {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathProductFromJS is casting a js.Value into CSSMathProduct.
+func CSSMathProductFromJS(value js.Value) *CSSMathProduct {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathProduct{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathProductFromJS is casting from something that holds a js.Value into CSSMathProduct.
+func CSSMathProductFromWrapper(input core.Wrapper) *CSSMathProduct {
+	return CSSMathProductFromJS(input.JSValue())
 }
 
 func NewCSSMathProduct(args ...*Union) (_result *CSSMathProduct) {
@@ -1268,15 +1273,19 @@ type CSSMathSum struct {
 	CSSMathValue
 }
 
-// CSSMathSumFromJS is casting a js.Wrapper into CSSMathSum.
-func CSSMathSumFromJS(value js.Wrapper) *CSSMathSum {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathSumFromJS is casting a js.Value into CSSMathSum.
+func CSSMathSumFromJS(value js.Value) *CSSMathSum {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathSum{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathSumFromJS is casting from something that holds a js.Value into CSSMathSum.
+func CSSMathSumFromWrapper(input core.Wrapper) *CSSMathSum {
+	return CSSMathSumFromJS(input.JSValue())
 }
 
 func NewCSSMathSum(args ...*Union) (_result *CSSMathSum) {
@@ -1313,15 +1322,19 @@ type CSSMathValue struct {
 	CSSNumericValue
 }
 
-// CSSMathValueFromJS is casting a js.Wrapper into CSSMathValue.
-func CSSMathValueFromJS(value js.Wrapper) *CSSMathValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMathValueFromJS is casting a js.Value into CSSMathValue.
+func CSSMathValueFromJS(value js.Value) *CSSMathValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMathValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMathValueFromJS is casting from something that holds a js.Value into CSSMathValue.
+func CSSMathValueFromWrapper(input core.Wrapper) *CSSMathValue {
+	return CSSMathValueFromJS(input.JSValue())
 }
 
 // Operator returning attribute 'operator' with
@@ -1338,15 +1351,19 @@ type CSSMatrixComponent struct {
 	CSSTransformComponent
 }
 
-// CSSMatrixComponentFromJS is casting a js.Wrapper into CSSMatrixComponent.
-func CSSMatrixComponentFromJS(value js.Wrapper) *CSSMatrixComponent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMatrixComponentFromJS is casting a js.Value into CSSMatrixComponent.
+func CSSMatrixComponentFromJS(value js.Value) *CSSMatrixComponent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMatrixComponent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMatrixComponentFromJS is casting from something that holds a js.Value into CSSMatrixComponent.
+func CSSMatrixComponentFromWrapper(input core.Wrapper) *CSSMatrixComponent {
+	return CSSMatrixComponentFromJS(input.JSValue())
 }
 
 func NewCSSMatrixComponent(matrix *geometry.DOMMatrixReadOnly, options *CSSMatrixComponentOptions) (_result *CSSMatrixComponent) {
@@ -1398,15 +1415,19 @@ func (_this *CSSNumericArray) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSNumericArrayFromJS is casting a js.Wrapper into CSSNumericArray.
-func CSSNumericArrayFromJS(value js.Wrapper) *CSSNumericArray {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSNumericArrayFromJS is casting a js.Value into CSSNumericArray.
+func CSSNumericArrayFromJS(value js.Value) *CSSNumericArray {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNumericArray{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSNumericArrayFromJS is casting from something that holds a js.Value into CSSNumericArray.
+func CSSNumericArrayFromWrapper(input core.Wrapper) *CSSNumericArray {
+	return CSSNumericArrayFromJS(input.JSValue())
 }
 
 // Length returning attribute 'length' with
@@ -1511,15 +1532,19 @@ func (_this *CSSNumericArrayEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSNumericArrayEntryIteratorFromJS is casting a js.Wrapper into CSSNumericArrayEntryIterator.
-func CSSNumericArrayEntryIteratorFromJS(value js.Wrapper) *CSSNumericArrayEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSNumericArrayEntryIteratorFromJS is casting a js.Value into CSSNumericArrayEntryIterator.
+func CSSNumericArrayEntryIteratorFromJS(value js.Value) *CSSNumericArrayEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNumericArrayEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSNumericArrayEntryIteratorFromJS is casting from something that holds a js.Value into CSSNumericArrayEntryIterator.
+func CSSNumericArrayEntryIteratorFromWrapper(input core.Wrapper) *CSSNumericArrayEntryIterator {
+	return CSSNumericArrayEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSNumericArrayEntryIterator) Next() (_result *CSSNumericArrayEntryIteratorValue) {
@@ -1546,15 +1571,19 @@ func (_this *CSSNumericArrayKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSNumericArrayKeyIteratorFromJS is casting a js.Wrapper into CSSNumericArrayKeyIterator.
-func CSSNumericArrayKeyIteratorFromJS(value js.Wrapper) *CSSNumericArrayKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSNumericArrayKeyIteratorFromJS is casting a js.Value into CSSNumericArrayKeyIterator.
+func CSSNumericArrayKeyIteratorFromJS(value js.Value) *CSSNumericArrayKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNumericArrayKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSNumericArrayKeyIteratorFromJS is casting from something that holds a js.Value into CSSNumericArrayKeyIterator.
+func CSSNumericArrayKeyIteratorFromWrapper(input core.Wrapper) *CSSNumericArrayKeyIterator {
+	return CSSNumericArrayKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSNumericArrayKeyIterator) Next() (_result *CSSNumericArrayKeyIteratorValue) {
@@ -1581,15 +1610,19 @@ func (_this *CSSNumericArrayValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSNumericArrayValueIteratorFromJS is casting a js.Wrapper into CSSNumericArrayValueIterator.
-func CSSNumericArrayValueIteratorFromJS(value js.Wrapper) *CSSNumericArrayValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSNumericArrayValueIteratorFromJS is casting a js.Value into CSSNumericArrayValueIterator.
+func CSSNumericArrayValueIteratorFromJS(value js.Value) *CSSNumericArrayValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNumericArrayValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSNumericArrayValueIteratorFromJS is casting from something that holds a js.Value into CSSNumericArrayValueIterator.
+func CSSNumericArrayValueIteratorFromWrapper(input core.Wrapper) *CSSNumericArrayValueIterator {
+	return CSSNumericArrayValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSNumericArrayValueIterator) Next() (_result *CSSNumericArrayValueIteratorValue) {
@@ -1611,15 +1644,19 @@ type CSSNumericValue struct {
 	CSSStyleValue
 }
 
-// CSSNumericValueFromJS is casting a js.Wrapper into CSSNumericValue.
-func CSSNumericValueFromJS(value js.Wrapper) *CSSNumericValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSNumericValueFromJS is casting a js.Value into CSSNumericValue.
+func CSSNumericValueFromJS(value js.Value) *CSSNumericValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSNumericValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSNumericValueFromJS is casting from something that holds a js.Value into CSSNumericValue.
+func CSSNumericValueFromWrapper(input core.Wrapper) *CSSNumericValue {
+	return CSSNumericValueFromJS(input.JSValue())
 }
 
 func Parse(cssText string) (_result *CSSNumericValue) {
@@ -1829,15 +1866,19 @@ type CSSPerspective struct {
 	CSSTransformComponent
 }
 
-// CSSPerspectiveFromJS is casting a js.Wrapper into CSSPerspective.
-func CSSPerspectiveFromJS(value js.Wrapper) *CSSPerspective {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSPerspectiveFromJS is casting a js.Value into CSSPerspective.
+func CSSPerspectiveFromJS(value js.Value) *CSSPerspective {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSPerspective{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSPerspectiveFromJS is casting from something that holds a js.Value into CSSPerspective.
+func CSSPerspectiveFromWrapper(input core.Wrapper) *CSSPerspective {
+	return CSSPerspectiveFromJS(input.JSValue())
 }
 
 func NewCSSPerspective(length *CSSNumericValue) (_result *CSSPerspective) {
@@ -1879,15 +1920,19 @@ type CSSRotate struct {
 	CSSTransformComponent
 }
 
-// CSSRotateFromJS is casting a js.Wrapper into CSSRotate.
-func CSSRotateFromJS(value js.Wrapper) *CSSRotate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSRotateFromJS is casting a js.Value into CSSRotate.
+func CSSRotateFromJS(value js.Value) *CSSRotate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSRotate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSRotateFromJS is casting from something that holds a js.Value into CSSRotate.
+func CSSRotateFromWrapper(input core.Wrapper) *CSSRotate {
+	return CSSRotateFromJS(input.JSValue())
 }
 
 func NewCSSRotate(x *Union, y *Union, z *Union, angle *CSSNumericValue) (_result *CSSRotate) {
@@ -1986,15 +2031,19 @@ type CSSScale struct {
 	CSSTransformComponent
 }
 
-// CSSScaleFromJS is casting a js.Wrapper into CSSScale.
-func CSSScaleFromJS(value js.Wrapper) *CSSScale {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSScaleFromJS is casting a js.Value into CSSScale.
+func CSSScaleFromJS(value js.Value) *CSSScale {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSScale{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSScaleFromJS is casting from something that holds a js.Value into CSSScale.
+func CSSScaleFromWrapper(input core.Wrapper) *CSSScale {
+	return CSSScaleFromJS(input.JSValue())
 }
 
 func NewCSSScale(x *Union, y *Union, z *Union) (_result *CSSScale) {
@@ -2076,15 +2125,19 @@ type CSSSkew struct {
 	CSSTransformComponent
 }
 
-// CSSSkewFromJS is casting a js.Wrapper into CSSSkew.
-func CSSSkewFromJS(value js.Wrapper) *CSSSkew {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSSkewFromJS is casting a js.Value into CSSSkew.
+func CSSSkewFromJS(value js.Value) *CSSSkew {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSSkew{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSSkewFromJS is casting from something that holds a js.Value into CSSSkew.
+func CSSSkewFromWrapper(input core.Wrapper) *CSSSkew {
+	return CSSSkewFromJS(input.JSValue())
 }
 
 func NewCSSSkew(ax *CSSNumericValue, ay *CSSNumericValue) (_result *CSSSkew) {
@@ -2145,15 +2198,19 @@ type CSSSkewX struct {
 	CSSTransformComponent
 }
 
-// CSSSkewXFromJS is casting a js.Wrapper into CSSSkewX.
-func CSSSkewXFromJS(value js.Wrapper) *CSSSkewX {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSSkewXFromJS is casting a js.Value into CSSSkewX.
+func CSSSkewXFromJS(value js.Value) *CSSSkewX {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSSkewX{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSSkewXFromJS is casting from something that holds a js.Value into CSSSkewX.
+func CSSSkewXFromWrapper(input core.Wrapper) *CSSSkewX {
+	return CSSSkewXFromJS(input.JSValue())
 }
 
 func NewCSSSkewX(ax *CSSNumericValue) (_result *CSSSkewX) {
@@ -2195,15 +2252,19 @@ type CSSSkewY struct {
 	CSSTransformComponent
 }
 
-// CSSSkewYFromJS is casting a js.Wrapper into CSSSkewY.
-func CSSSkewYFromJS(value js.Wrapper) *CSSSkewY {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSSkewYFromJS is casting a js.Value into CSSSkewY.
+func CSSSkewYFromJS(value js.Value) *CSSSkewY {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSSkewY{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSSkewYFromJS is casting from something that holds a js.Value into CSSSkewY.
+func CSSSkewYFromWrapper(input core.Wrapper) *CSSSkewY {
+	return CSSSkewYFromJS(input.JSValue())
 }
 
 func NewCSSSkewY(ay *CSSNumericValue) (_result *CSSSkewY) {
@@ -2250,15 +2311,19 @@ func (_this *CSSStyleValue) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSStyleValueFromJS is casting a js.Wrapper into CSSStyleValue.
-func CSSStyleValueFromJS(value js.Wrapper) *CSSStyleValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSStyleValueFromJS is casting a js.Value into CSSStyleValue.
+func CSSStyleValueFromJS(value js.Value) *CSSStyleValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSStyleValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSStyleValueFromJS is casting from something that holds a js.Value into CSSStyleValue.
+func CSSStyleValueFromWrapper(input core.Wrapper) *CSSStyleValue {
+	return CSSStyleValueFromJS(input.JSValue())
 }
 
 func Parse2(property string, cssText string) (_result *CSSStyleValue) {
@@ -2337,15 +2402,19 @@ func (_this *CSSTransformComponent) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSTransformComponentFromJS is casting a js.Wrapper into CSSTransformComponent.
-func CSSTransformComponentFromJS(value js.Wrapper) *CSSTransformComponent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTransformComponentFromJS is casting a js.Value into CSSTransformComponent.
+func CSSTransformComponentFromJS(value js.Value) *CSSTransformComponent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTransformComponent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTransformComponentFromJS is casting from something that holds a js.Value into CSSTransformComponent.
+func CSSTransformComponentFromWrapper(input core.Wrapper) *CSSTransformComponent {
+	return CSSTransformComponentFromJS(input.JSValue())
 }
 
 // Is2D returning attribute 'is2D' with
@@ -2397,15 +2466,19 @@ type CSSTransformValue struct {
 	CSSStyleValue
 }
 
-// CSSTransformValueFromJS is casting a js.Wrapper into CSSTransformValue.
-func CSSTransformValueFromJS(value js.Wrapper) *CSSTransformValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTransformValueFromJS is casting a js.Value into CSSTransformValue.
+func CSSTransformValueFromJS(value js.Value) *CSSTransformValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTransformValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTransformValueFromJS is casting from something that holds a js.Value into CSSTransformValue.
+func CSSTransformValueFromWrapper(input core.Wrapper) *CSSTransformValue {
+	return CSSTransformValueFromJS(input.JSValue())
 }
 
 func NewCSSTransformValue(transforms []*CSSTransformComponent) (_result *CSSTransformValue) {
@@ -2575,15 +2648,19 @@ func (_this *CSSTransformValueEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSTransformValueEntryIteratorFromJS is casting a js.Wrapper into CSSTransformValueEntryIterator.
-func CSSTransformValueEntryIteratorFromJS(value js.Wrapper) *CSSTransformValueEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTransformValueEntryIteratorFromJS is casting a js.Value into CSSTransformValueEntryIterator.
+func CSSTransformValueEntryIteratorFromJS(value js.Value) *CSSTransformValueEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTransformValueEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTransformValueEntryIteratorFromJS is casting from something that holds a js.Value into CSSTransformValueEntryIterator.
+func CSSTransformValueEntryIteratorFromWrapper(input core.Wrapper) *CSSTransformValueEntryIterator {
+	return CSSTransformValueEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSTransformValueEntryIterator) Next() (_result *CSSTransformValueEntryIteratorValue) {
@@ -2610,15 +2687,19 @@ func (_this *CSSTransformValueKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSTransformValueKeyIteratorFromJS is casting a js.Wrapper into CSSTransformValueKeyIterator.
-func CSSTransformValueKeyIteratorFromJS(value js.Wrapper) *CSSTransformValueKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTransformValueKeyIteratorFromJS is casting a js.Value into CSSTransformValueKeyIterator.
+func CSSTransformValueKeyIteratorFromJS(value js.Value) *CSSTransformValueKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTransformValueKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTransformValueKeyIteratorFromJS is casting from something that holds a js.Value into CSSTransformValueKeyIterator.
+func CSSTransformValueKeyIteratorFromWrapper(input core.Wrapper) *CSSTransformValueKeyIterator {
+	return CSSTransformValueKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSTransformValueKeyIterator) Next() (_result *CSSTransformValueKeyIteratorValue) {
@@ -2645,15 +2726,19 @@ func (_this *CSSTransformValueValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSTransformValueValueIteratorFromJS is casting a js.Wrapper into CSSTransformValueValueIterator.
-func CSSTransformValueValueIteratorFromJS(value js.Wrapper) *CSSTransformValueValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTransformValueValueIteratorFromJS is casting a js.Value into CSSTransformValueValueIterator.
+func CSSTransformValueValueIteratorFromJS(value js.Value) *CSSTransformValueValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTransformValueValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTransformValueValueIteratorFromJS is casting from something that holds a js.Value into CSSTransformValueValueIterator.
+func CSSTransformValueValueIteratorFromWrapper(input core.Wrapper) *CSSTransformValueValueIterator {
+	return CSSTransformValueValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSTransformValueValueIterator) Next() (_result *CSSTransformValueValueIteratorValue) {
@@ -2675,15 +2760,19 @@ type CSSTranslate struct {
 	CSSTransformComponent
 }
 
-// CSSTranslateFromJS is casting a js.Wrapper into CSSTranslate.
-func CSSTranslateFromJS(value js.Wrapper) *CSSTranslate {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSTranslateFromJS is casting a js.Value into CSSTranslate.
+func CSSTranslateFromJS(value js.Value) *CSSTranslate {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSTranslate{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSTranslateFromJS is casting from something that holds a js.Value into CSSTranslate.
+func CSSTranslateFromWrapper(input core.Wrapper) *CSSTranslate {
+	return CSSTranslateFromJS(input.JSValue())
 }
 
 func NewCSSTranslate(x *CSSNumericValue, y *CSSNumericValue, z *CSSNumericValue) (_result *CSSTranslate) {
@@ -2765,15 +2854,19 @@ type CSSUnitValue struct {
 	CSSNumericValue
 }
 
-// CSSUnitValueFromJS is casting a js.Wrapper into CSSUnitValue.
-func CSSUnitValueFromJS(value js.Wrapper) *CSSUnitValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSUnitValueFromJS is casting a js.Value into CSSUnitValue.
+func CSSUnitValueFromJS(value js.Value) *CSSUnitValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSUnitValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSUnitValueFromJS is casting from something that holds a js.Value into CSSUnitValue.
+func CSSUnitValueFromWrapper(input core.Wrapper) *CSSUnitValue {
+	return CSSUnitValueFromJS(input.JSValue())
 }
 
 func NewCSSUnitValue(value float64, unit string) (_result *CSSUnitValue) {
@@ -2827,15 +2920,19 @@ type CSSUnparsedValue struct {
 	CSSStyleValue
 }
 
-// CSSUnparsedValueFromJS is casting a js.Wrapper into CSSUnparsedValue.
-func CSSUnparsedValueFromJS(value js.Wrapper) *CSSUnparsedValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSUnparsedValueFromJS is casting a js.Value into CSSUnparsedValue.
+func CSSUnparsedValueFromJS(value js.Value) *CSSUnparsedValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSUnparsedValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSUnparsedValueFromJS is casting from something that holds a js.Value into CSSUnparsedValue.
+func CSSUnparsedValueFromWrapper(input core.Wrapper) *CSSUnparsedValue {
+	return CSSUnparsedValueFromJS(input.JSValue())
 }
 
 func NewCSSUnparsedValue(members []*Union) (_result *CSSUnparsedValue) {
@@ -2982,15 +3079,19 @@ func (_this *CSSUnparsedValueEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSUnparsedValueEntryIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueEntryIterator.
-func CSSUnparsedValueEntryIteratorFromJS(value js.Wrapper) *CSSUnparsedValueEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSUnparsedValueEntryIteratorFromJS is casting a js.Value into CSSUnparsedValueEntryIterator.
+func CSSUnparsedValueEntryIteratorFromJS(value js.Value) *CSSUnparsedValueEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSUnparsedValueEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSUnparsedValueEntryIteratorFromJS is casting from something that holds a js.Value into CSSUnparsedValueEntryIterator.
+func CSSUnparsedValueEntryIteratorFromWrapper(input core.Wrapper) *CSSUnparsedValueEntryIterator {
+	return CSSUnparsedValueEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSUnparsedValueEntryIterator) Next() (_result *CSSUnparsedValueEntryIteratorValue) {
@@ -3017,15 +3118,19 @@ func (_this *CSSUnparsedValueKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSUnparsedValueKeyIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueKeyIterator.
-func CSSUnparsedValueKeyIteratorFromJS(value js.Wrapper) *CSSUnparsedValueKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSUnparsedValueKeyIteratorFromJS is casting a js.Value into CSSUnparsedValueKeyIterator.
+func CSSUnparsedValueKeyIteratorFromJS(value js.Value) *CSSUnparsedValueKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSUnparsedValueKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSUnparsedValueKeyIteratorFromJS is casting from something that holds a js.Value into CSSUnparsedValueKeyIterator.
+func CSSUnparsedValueKeyIteratorFromWrapper(input core.Wrapper) *CSSUnparsedValueKeyIterator {
+	return CSSUnparsedValueKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSUnparsedValueKeyIterator) Next() (_result *CSSUnparsedValueKeyIteratorValue) {
@@ -3052,15 +3157,19 @@ func (_this *CSSUnparsedValueValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSUnparsedValueValueIteratorFromJS is casting a js.Wrapper into CSSUnparsedValueValueIterator.
-func CSSUnparsedValueValueIteratorFromJS(value js.Wrapper) *CSSUnparsedValueValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSUnparsedValueValueIteratorFromJS is casting a js.Value into CSSUnparsedValueValueIterator.
+func CSSUnparsedValueValueIteratorFromJS(value js.Value) *CSSUnparsedValueValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSUnparsedValueValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSUnparsedValueValueIteratorFromJS is casting from something that holds a js.Value into CSSUnparsedValueValueIterator.
+func CSSUnparsedValueValueIteratorFromWrapper(input core.Wrapper) *CSSUnparsedValueValueIterator {
+	return CSSUnparsedValueValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *CSSUnparsedValueValueIterator) Next() (_result *CSSUnparsedValueValueIteratorValue) {
@@ -3087,15 +3196,19 @@ func (_this *CSSVariableReferenceValue) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// CSSVariableReferenceValueFromJS is casting a js.Wrapper into CSSVariableReferenceValue.
-func CSSVariableReferenceValueFromJS(value js.Wrapper) *CSSVariableReferenceValue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSVariableReferenceValueFromJS is casting a js.Value into CSSVariableReferenceValue.
+func CSSVariableReferenceValueFromJS(value js.Value) *CSSVariableReferenceValue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSVariableReferenceValue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSVariableReferenceValueFromJS is casting from something that holds a js.Value into CSSVariableReferenceValue.
+func CSSVariableReferenceValueFromWrapper(input core.Wrapper) *CSSVariableReferenceValue {
+	return CSSVariableReferenceValueFromJS(input.JSValue())
 }
 
 func NewCSSVariableReferenceValue(variable string, fallback *CSSUnparsedValue) (_result *CSSVariableReferenceValue) {
@@ -3153,15 +3266,19 @@ type StylePropertyMap struct {
 	StylePropertyMapReadOnly
 }
 
-// StylePropertyMapFromJS is casting a js.Wrapper into StylePropertyMap.
-func StylePropertyMapFromJS(value js.Wrapper) *StylePropertyMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StylePropertyMapFromJS is casting a js.Value into StylePropertyMap.
+func StylePropertyMapFromJS(value js.Value) *StylePropertyMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StylePropertyMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StylePropertyMapFromJS is casting from something that holds a js.Value into StylePropertyMap.
+func StylePropertyMapFromWrapper(input core.Wrapper) *StylePropertyMap {
+	return StylePropertyMapFromJS(input.JSValue())
 }
 
 func (_this *StylePropertyMap) Set(property string, values ...*Union) {
@@ -3229,15 +3346,19 @@ func (_this *StylePropertyMapReadOnly) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StylePropertyMapReadOnlyFromJS is casting a js.Wrapper into StylePropertyMapReadOnly.
-func StylePropertyMapReadOnlyFromJS(value js.Wrapper) *StylePropertyMapReadOnly {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StylePropertyMapReadOnlyFromJS is casting a js.Value into StylePropertyMapReadOnly.
+func StylePropertyMapReadOnlyFromJS(value js.Value) *StylePropertyMapReadOnly {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StylePropertyMapReadOnly{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StylePropertyMapReadOnlyFromJS is casting from something that holds a js.Value into StylePropertyMapReadOnly.
+func StylePropertyMapReadOnlyFromWrapper(input core.Wrapper) *StylePropertyMapReadOnly {
+	return StylePropertyMapReadOnlyFromJS(input.JSValue())
 }
 
 // Size returning attribute 'size' with
@@ -3384,15 +3505,19 @@ func (_this *StylePropertyMapReadOnlyEntryIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StylePropertyMapReadOnlyEntryIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyEntryIterator.
-func StylePropertyMapReadOnlyEntryIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyEntryIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StylePropertyMapReadOnlyEntryIteratorFromJS is casting a js.Value into StylePropertyMapReadOnlyEntryIterator.
+func StylePropertyMapReadOnlyEntryIteratorFromJS(value js.Value) *StylePropertyMapReadOnlyEntryIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StylePropertyMapReadOnlyEntryIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StylePropertyMapReadOnlyEntryIteratorFromJS is casting from something that holds a js.Value into StylePropertyMapReadOnlyEntryIterator.
+func StylePropertyMapReadOnlyEntryIteratorFromWrapper(input core.Wrapper) *StylePropertyMapReadOnlyEntryIterator {
+	return StylePropertyMapReadOnlyEntryIteratorFromJS(input.JSValue())
 }
 
 func (_this *StylePropertyMapReadOnlyEntryIterator) Next() (_result *StylePropertyMapReadOnlyEntryIteratorValue) {
@@ -3419,15 +3544,19 @@ func (_this *StylePropertyMapReadOnlyKeyIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StylePropertyMapReadOnlyKeyIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyKeyIterator.
-func StylePropertyMapReadOnlyKeyIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyKeyIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StylePropertyMapReadOnlyKeyIteratorFromJS is casting a js.Value into StylePropertyMapReadOnlyKeyIterator.
+func StylePropertyMapReadOnlyKeyIteratorFromJS(value js.Value) *StylePropertyMapReadOnlyKeyIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StylePropertyMapReadOnlyKeyIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StylePropertyMapReadOnlyKeyIteratorFromJS is casting from something that holds a js.Value into StylePropertyMapReadOnlyKeyIterator.
+func StylePropertyMapReadOnlyKeyIteratorFromWrapper(input core.Wrapper) *StylePropertyMapReadOnlyKeyIterator {
+	return StylePropertyMapReadOnlyKeyIteratorFromJS(input.JSValue())
 }
 
 func (_this *StylePropertyMapReadOnlyKeyIterator) Next() (_result *StylePropertyMapReadOnlyKeyIteratorValue) {
@@ -3454,15 +3583,19 @@ func (_this *StylePropertyMapReadOnlyValueIterator) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// StylePropertyMapReadOnlyValueIteratorFromJS is casting a js.Wrapper into StylePropertyMapReadOnlyValueIterator.
-func StylePropertyMapReadOnlyValueIteratorFromJS(value js.Wrapper) *StylePropertyMapReadOnlyValueIterator {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// StylePropertyMapReadOnlyValueIteratorFromJS is casting a js.Value into StylePropertyMapReadOnlyValueIterator.
+func StylePropertyMapReadOnlyValueIteratorFromJS(value js.Value) *StylePropertyMapReadOnlyValueIterator {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &StylePropertyMapReadOnlyValueIterator{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// StylePropertyMapReadOnlyValueIteratorFromJS is casting from something that holds a js.Value into StylePropertyMapReadOnlyValueIterator.
+func StylePropertyMapReadOnlyValueIteratorFromWrapper(input core.Wrapper) *StylePropertyMapReadOnlyValueIterator {
+	return StylePropertyMapReadOnlyValueIteratorFromJS(input.JSValue())
 }
 
 func (_this *StylePropertyMapReadOnlyValueIterator) Next() (_result *StylePropertyMapReadOnlyValueIteratorValue) {

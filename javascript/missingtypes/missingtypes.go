@@ -6,6 +6,10 @@ package missingtypes
 
 import js "github.com/gowebapi/webapi/core/js"
 
+import (
+	"github.com/gowebapi/webapi/core"
+)
+
 // using following types:
 
 // source idl files:
@@ -41,15 +45,19 @@ func (_this *Date) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DateFromJS is casting a js.Wrapper into Date.
-func DateFromJS(value js.Wrapper) *Date {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DateFromJS is casting a js.Value into Date.
+func DateFromJS(value js.Value) *Date {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Date{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DateFromJS is casting from something that holds a js.Value into Date.
+func DateFromWrapper(input core.Wrapper) *Date {
+	return DateFromJS(input.JSValue())
 }
 
 // class: Dictionary
@@ -62,15 +70,19 @@ func (_this *Dictionary) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DictionaryFromJS is casting a js.Wrapper into Dictionary.
-func DictionaryFromJS(value js.Wrapper) *Dictionary {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DictionaryFromJS is casting a js.Value into Dictionary.
+func DictionaryFromJS(value js.Value) *Dictionary {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Dictionary{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DictionaryFromJS is casting from something that holds a js.Value into Dictionary.
+func DictionaryFromWrapper(input core.Wrapper) *Dictionary {
+	return DictionaryFromJS(input.JSValue())
 }
 
 // class: WritableStream
@@ -83,13 +95,17 @@ func (_this *WritableStream) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WritableStreamFromJS is casting a js.Wrapper into WritableStream.
-func WritableStreamFromJS(value js.Wrapper) *WritableStream {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WritableStreamFromJS is casting a js.Value into WritableStream.
+func WritableStreamFromJS(value js.Value) *WritableStream {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WritableStream{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WritableStreamFromJS is casting from something that holds a js.Value into WritableStream.
+func WritableStreamFromWrapper(input core.Wrapper) *WritableStream {
+	return WritableStreamFromJS(input.JSValue())
 }

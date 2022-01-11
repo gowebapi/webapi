@@ -7,6 +7,7 @@ package wakelock
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -174,15 +175,19 @@ func (_this *PromiseWakeLock) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseWakeLockFromJS is casting a js.Wrapper into PromiseWakeLock.
-func PromiseWakeLockFromJS(value js.Wrapper) *PromiseWakeLock {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseWakeLockFromJS is casting a js.Value into PromiseWakeLock.
+func PromiseWakeLockFromJS(value js.Value) *PromiseWakeLock {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseWakeLock{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseWakeLockFromJS is casting from something that holds a js.Value into PromiseWakeLock.
+func PromiseWakeLockFromWrapper(input core.Wrapper) *PromiseWakeLock {
+	return PromiseWakeLockFromJS(input.JSValue())
 }
 
 func (_this *PromiseWakeLock) Then(onFulfilled *PromiseWakeLockOnFulfilled, onRejected *PromiseWakeLockOnRejected) (_result *PromiseWakeLock) {
@@ -274,15 +279,19 @@ type WakeLock struct {
 	domcore.EventTarget
 }
 
-// WakeLockFromJS is casting a js.Wrapper into WakeLock.
-func WakeLockFromJS(value js.Wrapper) *WakeLock {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WakeLockFromJS is casting a js.Value into WakeLock.
+func WakeLockFromJS(value js.Value) *WakeLock {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WakeLock{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WakeLockFromJS is casting from something that holds a js.Value into WakeLock.
+func WakeLockFromWrapper(input core.Wrapper) *WakeLock {
+	return WakeLockFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -368,15 +377,19 @@ func (_this *WakeLockRequest) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// WakeLockRequestFromJS is casting a js.Wrapper into WakeLockRequest.
-func WakeLockRequestFromJS(value js.Wrapper) *WakeLockRequest {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// WakeLockRequestFromJS is casting a js.Value into WakeLockRequest.
+func WakeLockRequestFromJS(value js.Value) *WakeLockRequest {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &WakeLockRequest{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// WakeLockRequestFromJS is casting from something that holds a js.Value into WakeLockRequest.
+func WakeLockRequestFromWrapper(input core.Wrapper) *WakeLockRequest {
+	return WakeLockRequestFromJS(input.JSValue())
 }
 
 func (_this *WakeLockRequest) Cancel() {

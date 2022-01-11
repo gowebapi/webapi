@@ -7,6 +7,7 @@ package intersection
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
@@ -109,7 +110,7 @@ type IntersectionObserverEntryInit struct {
 	Target             *dom.Element
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IntersectionObserverEntryInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -131,10 +132,8 @@ func (_this *IntersectionObserverEntryInit) JSValue() js.Value {
 }
 
 // IntersectionObserverEntryInitFromJS is allocating a new
-// IntersectionObserverEntryInit object and copy all values from
-// input javascript object
-func IntersectionObserverEntryInitFromJS(value js.Wrapper) *IntersectionObserverEntryInit {
-	input := value.JSValue()
+// IntersectionObserverEntryInit object and copy all values in the value javascript object.
+func IntersectionObserverEntryInitFromJS(value js.Value) *IntersectionObserverEntryInit {
 	var out IntersectionObserverEntryInit
 	var (
 		value0 float64               // javascript: double {time Time time}
@@ -145,21 +144,21 @@ func IntersectionObserverEntryInitFromJS(value js.Wrapper) *IntersectionObserver
 		value5 float64               // javascript: double {intersectionRatio IntersectionRatio intersectionRatio}
 		value6 *dom.Element          // javascript: Element {target Target target}
 	)
-	value0 = (input.Get("time")).Float()
+	value0 = (value.Get("time")).Float()
 	out.Time = value0
-	if input.Get("rootBounds").Type() != js.TypeNull && input.Get("rootBounds").Type() != js.TypeUndefined {
-		value1 = geometry.DOMRectInitFromJS(input.Get("rootBounds"))
+	if value.Get("rootBounds").Type() != js.TypeNull && value.Get("rootBounds").Type() != js.TypeUndefined {
+		value1 = geometry.DOMRectInitFromJS(value.Get("rootBounds"))
 	}
 	out.RootBounds = value1
-	value2 = geometry.DOMRectInitFromJS(input.Get("boundingClientRect"))
+	value2 = geometry.DOMRectInitFromJS(value.Get("boundingClientRect"))
 	out.BoundingClientRect = value2
-	value3 = geometry.DOMRectInitFromJS(input.Get("intersectionRect"))
+	value3 = geometry.DOMRectInitFromJS(value.Get("intersectionRect"))
 	out.IntersectionRect = value3
-	value4 = (input.Get("isIntersecting")).Bool()
+	value4 = (value.Get("isIntersecting")).Bool()
 	out.IsIntersecting = value4
-	value5 = (input.Get("intersectionRatio")).Float()
+	value5 = (value.Get("intersectionRatio")).Float()
 	out.IntersectionRatio = value5
-	value6 = dom.ElementFromJS(input.Get("target"))
+	value6 = dom.ElementFromJS(value.Get("target"))
 	out.Target = value6
 	return &out
 }
@@ -171,7 +170,7 @@ type IntersectionObserverInit struct {
 	Threshold  *Union
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *IntersectionObserverInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -185,23 +184,21 @@ func (_this *IntersectionObserverInit) JSValue() js.Value {
 }
 
 // IntersectionObserverInitFromJS is allocating a new
-// IntersectionObserverInit object and copy all values from
-// input javascript object
-func IntersectionObserverInitFromJS(value js.Wrapper) *IntersectionObserverInit {
-	input := value.JSValue()
+// IntersectionObserverInit object and copy all values in the value javascript object.
+func IntersectionObserverInitFromJS(value js.Value) *IntersectionObserverInit {
 	var out IntersectionObserverInit
 	var (
 		value0 *dom.Element // javascript: Element {root Root root}
 		value1 string       // javascript: DOMString {rootMargin RootMargin rootMargin}
 		value2 *Union       // javascript: Union {threshold Threshold threshold}
 	)
-	if input.Get("root").Type() != js.TypeNull && input.Get("root").Type() != js.TypeUndefined {
-		value0 = dom.ElementFromJS(input.Get("root"))
+	if value.Get("root").Type() != js.TypeNull && value.Get("root").Type() != js.TypeUndefined {
+		value0 = dom.ElementFromJS(value.Get("root"))
 	}
 	out.Root = value0
-	value1 = (input.Get("rootMargin")).String()
+	value1 = (value.Get("rootMargin")).String()
 	out.RootMargin = value1
-	value2 = UnionFromJS(input.Get("threshold"))
+	value2 = UnionFromJS(value.Get("threshold"))
 	out.Threshold = value2
 	return &out
 }
@@ -216,15 +213,19 @@ func (_this *IntersectionObserver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// IntersectionObserverFromJS is casting a js.Wrapper into IntersectionObserver.
-func IntersectionObserverFromJS(value js.Wrapper) *IntersectionObserver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IntersectionObserverFromJS is casting a js.Value into IntersectionObserver.
+func IntersectionObserverFromJS(value js.Value) *IntersectionObserver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntersectionObserver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IntersectionObserverFromJS is casting from something that holds a js.Value into IntersectionObserver.
+func IntersectionObserverFromWrapper(input core.Wrapper) *IntersectionObserver {
+	return IntersectionObserverFromJS(input.JSValue())
 }
 
 func NewIntersectionObserver(callback *IntersectionObserverCallback, options *IntersectionObserverInit) (_result *IntersectionObserver) {
@@ -351,15 +352,19 @@ func (_this *IntersectionObserverEntry) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// IntersectionObserverEntryFromJS is casting a js.Wrapper into IntersectionObserverEntry.
-func IntersectionObserverEntryFromJS(value js.Wrapper) *IntersectionObserverEntry {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// IntersectionObserverEntryFromJS is casting a js.Value into IntersectionObserverEntry.
+func IntersectionObserverEntryFromJS(value js.Value) *IntersectionObserverEntry {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &IntersectionObserverEntry{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// IntersectionObserverEntryFromJS is casting from something that holds a js.Value into IntersectionObserverEntry.
+func IntersectionObserverEntryFromWrapper(input core.Wrapper) *IntersectionObserverEntry {
+	return IntersectionObserverEntryFromJS(input.JSValue())
 }
 
 func NewIntersectionObserverEntry(intersectionObserverEntryInit *IntersectionObserverEntryInit) (_result *IntersectionObserverEntry) {

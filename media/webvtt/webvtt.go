@@ -7,6 +7,7 @@ package webvtt
 import js "github.com/gowebapi/webapi/core/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/html/media"
 )
@@ -301,15 +302,19 @@ type VTTCue struct {
 	media.TextTrackCue
 }
 
-// VTTCueFromJS is casting a js.Wrapper into VTTCue.
-func VTTCueFromJS(value js.Wrapper) *VTTCue {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// VTTCueFromJS is casting a js.Value into VTTCue.
+func VTTCueFromJS(value js.Value) *VTTCue {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VTTCue{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// VTTCueFromJS is casting from something that holds a js.Value into VTTCue.
+func VTTCueFromWrapper(input core.Wrapper) *VTTCue {
+	return VTTCueFromJS(input.JSValue())
 }
 
 func NewVTTCue(startTime float64, endTime float64, text string) (_result *VTTCue) {
@@ -522,15 +527,19 @@ func (_this *VTTRegion) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// VTTRegionFromJS is casting a js.Wrapper into VTTRegion.
-func VTTRegionFromJS(value js.Wrapper) *VTTRegion {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// VTTRegionFromJS is casting a js.Value into VTTRegion.
+func VTTRegionFromJS(value js.Value) *VTTRegion {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &VTTRegion{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// VTTRegionFromJS is casting from something that holds a js.Value into VTTRegion.
+func VTTRegionFromWrapper(input core.Wrapper) *VTTRegion {
+	return VTTRegionFromJS(input.JSValue())
 }
 
 func NewVTTRegion() (_result *VTTRegion) {

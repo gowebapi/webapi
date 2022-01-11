@@ -5,6 +5,7 @@ package reporting
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript/missingtypes"
 )
 
@@ -97,7 +98,7 @@ type GenerateTestReportParameters struct {
 	Group   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *GenerateTestReportParameters) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -109,18 +110,16 @@ func (_this *GenerateTestReportParameters) JSValue() js.Value {
 }
 
 // GenerateTestReportParametersFromJS is allocating a new
-// GenerateTestReportParameters object and copy all values from
-// input javascript object
-func GenerateTestReportParametersFromJS(value js.Wrapper) *GenerateTestReportParameters {
-	input := value.JSValue()
+// GenerateTestReportParameters object and copy all values in the value javascript object.
+func GenerateTestReportParametersFromJS(value js.Value) *GenerateTestReportParameters {
 	var out GenerateTestReportParameters
 	var (
 		value0 string // javascript: DOMString {message Message message}
 		value1 string // javascript: DOMString {group Group group}
 	)
-	value0 = (input.Get("message")).String()
+	value0 = (value.Get("message")).String()
 	out.Message = value0
-	value1 = (input.Get("group")).String()
+	value1 = (value.Get("group")).String()
 	out.Group = value1
 	return &out
 }
@@ -131,7 +130,7 @@ type ReportingObserverOptions struct {
 	Buffered bool
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ReportingObserverOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -147,26 +146,24 @@ func (_this *ReportingObserverOptions) JSValue() js.Value {
 }
 
 // ReportingObserverOptionsFromJS is allocating a new
-// ReportingObserverOptions object and copy all values from
-// input javascript object
-func ReportingObserverOptionsFromJS(value js.Wrapper) *ReportingObserverOptions {
-	input := value.JSValue()
+// ReportingObserverOptions object and copy all values in the value javascript object.
+func ReportingObserverOptionsFromJS(value js.Value) *ReportingObserverOptions {
 	var out ReportingObserverOptions
 	var (
 		value0 []string // javascript: sequence<DOMString> {types Types types}
 		value1 bool     // javascript: boolean {buffered Buffered buffered}
 	)
-	__length0 := input.Get("types").Length()
+	__length0 := value.Get("types").Length()
 	__array0 := make([]string, __length0, __length0)
 	for __idx0 := 0; __idx0 < __length0; __idx0++ {
 		var __seq_out0 string
-		__seq_in0 := input.Get("types").Index(__idx0)
+		__seq_in0 := value.Get("types").Index(__idx0)
 		__seq_out0 = (__seq_in0).String()
 		__array0[__idx0] = __seq_out0
 	}
 	value0 = __array0
 	out.Types = value0
-	value1 = (input.Get("buffered")).Bool()
+	value1 = (value.Get("buffered")).Bool()
 	out.Buffered = value1
 	return &out
 }
@@ -176,15 +173,19 @@ type CrashReportBody struct {
 	ReportBody
 }
 
-// CrashReportBodyFromJS is casting a js.Wrapper into CrashReportBody.
-func CrashReportBodyFromJS(value js.Wrapper) *CrashReportBody {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CrashReportBodyFromJS is casting a js.Value into CrashReportBody.
+func CrashReportBodyFromJS(value js.Value) *CrashReportBody {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CrashReportBody{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CrashReportBodyFromJS is casting from something that holds a js.Value into CrashReportBody.
+func CrashReportBodyFromWrapper(input core.Wrapper) *CrashReportBody {
+	return CrashReportBodyFromJS(input.JSValue())
 }
 
 // Reason returning attribute 'reason' with
@@ -204,15 +205,19 @@ type DeprecationReportBody struct {
 	ReportBody
 }
 
-// DeprecationReportBodyFromJS is casting a js.Wrapper into DeprecationReportBody.
-func DeprecationReportBodyFromJS(value js.Wrapper) *DeprecationReportBody {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DeprecationReportBodyFromJS is casting a js.Value into DeprecationReportBody.
+func DeprecationReportBodyFromJS(value js.Value) *DeprecationReportBody {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DeprecationReportBody{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DeprecationReportBodyFromJS is casting from something that holds a js.Value into DeprecationReportBody.
+func DeprecationReportBodyFromWrapper(input core.Wrapper) *DeprecationReportBody {
+	return DeprecationReportBodyFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -285,15 +290,19 @@ type InterventionReportBody struct {
 	ReportBody
 }
 
-// InterventionReportBodyFromJS is casting a js.Wrapper into InterventionReportBody.
-func InterventionReportBodyFromJS(value js.Wrapper) *InterventionReportBody {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// InterventionReportBodyFromJS is casting a js.Value into InterventionReportBody.
+func InterventionReportBodyFromJS(value js.Value) *InterventionReportBody {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &InterventionReportBody{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// InterventionReportBodyFromJS is casting from something that holds a js.Value into InterventionReportBody.
+func InterventionReportBodyFromWrapper(input core.Wrapper) *InterventionReportBody {
+	return InterventionReportBodyFromJS(input.JSValue())
 }
 
 // Id returning attribute 'id' with
@@ -360,15 +369,19 @@ func (_this *Report) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ReportFromJS is casting a js.Wrapper into Report.
-func ReportFromJS(value js.Wrapper) *Report {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReportFromJS is casting a js.Value into Report.
+func ReportFromJS(value js.Value) *Report {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Report{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReportFromJS is casting from something that holds a js.Value into Report.
+func ReportFromWrapper(input core.Wrapper) *Report {
+	return ReportFromJS(input.JSValue())
 }
 
 // Type returning attribute 'type' with
@@ -410,15 +423,19 @@ func (_this *ReportBody) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ReportBodyFromJS is casting a js.Wrapper into ReportBody.
-func ReportBodyFromJS(value js.Wrapper) *ReportBody {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReportBodyFromJS is casting a js.Value into ReportBody.
+func ReportBodyFromJS(value js.Value) *ReportBody {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReportBody{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReportBodyFromJS is casting from something that holds a js.Value into ReportBody.
+func ReportBodyFromWrapper(input core.Wrapper) *ReportBody {
+	return ReportBodyFromJS(input.JSValue())
 }
 
 // class: ReportingObserver
@@ -431,15 +448,19 @@ func (_this *ReportingObserver) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// ReportingObserverFromJS is casting a js.Wrapper into ReportingObserver.
-func ReportingObserverFromJS(value js.Wrapper) *ReportingObserver {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ReportingObserverFromJS is casting a js.Value into ReportingObserver.
+func ReportingObserverFromJS(value js.Value) *ReportingObserver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ReportingObserver{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ReportingObserverFromJS is casting from something that holds a js.Value into ReportingObserver.
+func ReportingObserverFromWrapper(input core.Wrapper) *ReportingObserver {
+	return ReportingObserverFromJS(input.JSValue())
 }
 
 func NewReportingObserver(callback *ReportingObserverCallback, options *ReportingObserverOptions) (_result *ReportingObserver) {

@@ -5,6 +5,7 @@ package conditional
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/css/cssom"
 )
 
@@ -40,15 +41,19 @@ type CSSConditionRule struct {
 	cssom.CSSGroupingRule
 }
 
-// CSSConditionRuleFromJS is casting a js.Wrapper into CSSConditionRule.
-func CSSConditionRuleFromJS(value js.Wrapper) *CSSConditionRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSConditionRuleFromJS is casting a js.Value into CSSConditionRule.
+func CSSConditionRuleFromJS(value js.Value) *CSSConditionRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSConditionRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSConditionRuleFromJS is casting from something that holds a js.Value into CSSConditionRule.
+func CSSConditionRuleFromWrapper(input core.Wrapper) *CSSConditionRule {
+	return CSSConditionRuleFromJS(input.JSValue())
 }
 
 // ConditionText returning attribute 'conditionText' with
@@ -72,15 +77,19 @@ type CSSMediaRule struct {
 	CSSConditionRule
 }
 
-// CSSMediaRuleFromJS is casting a js.Wrapper into CSSMediaRule.
-func CSSMediaRuleFromJS(value js.Wrapper) *CSSMediaRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSMediaRuleFromJS is casting a js.Value into CSSMediaRule.
+func CSSMediaRuleFromJS(value js.Value) *CSSMediaRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSMediaRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSMediaRuleFromJS is casting from something that holds a js.Value into CSSMediaRule.
+func CSSMediaRuleFromWrapper(input core.Wrapper) *CSSMediaRule {
+	return CSSMediaRuleFromJS(input.JSValue())
 }
 
 // Media returning attribute 'media' with
@@ -97,13 +106,17 @@ type CSSSupportsRule struct {
 	CSSConditionRule
 }
 
-// CSSSupportsRuleFromJS is casting a js.Wrapper into CSSSupportsRule.
-func CSSSupportsRuleFromJS(value js.Wrapper) *CSSSupportsRule {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CSSSupportsRuleFromJS is casting a js.Value into CSSSupportsRule.
+func CSSSupportsRuleFromJS(value js.Value) *CSSSupportsRule {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CSSSupportsRule{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CSSSupportsRuleFromJS is casting from something that holds a js.Value into CSSSupportsRule.
+func CSSSupportsRuleFromWrapper(input core.Wrapper) *CSSSupportsRule {
+	return CSSSupportsRuleFromJS(input.JSValue())
 }

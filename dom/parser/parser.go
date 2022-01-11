@@ -8,6 +8,7 @@ import js "github.com/gowebapi/webapi/core/js"
 
 import (
 	"github.com/gowebapi/webapi"
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 )
 
@@ -93,15 +94,19 @@ func (_this *DOMParser) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// DOMParserFromJS is casting a js.Wrapper into DOMParser.
-func DOMParserFromJS(value js.Wrapper) *DOMParser {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// DOMParserFromJS is casting a js.Value into DOMParser.
+func DOMParserFromJS(value js.Value) *DOMParser {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &DOMParser{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// DOMParserFromJS is casting from something that holds a js.Value into DOMParser.
+func DOMParserFromWrapper(input core.Wrapper) *DOMParser {
+	return DOMParserFromJS(input.JSValue())
 }
 
 func NewDOMParser() (_result *DOMParser) {
@@ -149,15 +154,19 @@ func (_this *XMLSerializer) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// XMLSerializerFromJS is casting a js.Wrapper into XMLSerializer.
-func XMLSerializerFromJS(value js.Wrapper) *XMLSerializer {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// XMLSerializerFromJS is casting a js.Value into XMLSerializer.
+func XMLSerializerFromJS(value js.Value) *XMLSerializer {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &XMLSerializer{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// XMLSerializerFromJS is casting from something that holds a js.Value into XMLSerializer.
+func XMLSerializerFromWrapper(input core.Wrapper) *XMLSerializer {
+	return XMLSerializerFromJS(input.JSValue())
 }
 
 func NewXMLSerializer() (_result *XMLSerializer) {

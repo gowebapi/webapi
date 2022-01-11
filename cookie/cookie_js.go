@@ -5,6 +5,7 @@ package cookie
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -400,7 +401,7 @@ type CookieChangeEventInit struct {
 	Deleted    []*CookieListItem
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -426,10 +427,8 @@ func (_this *CookieChangeEventInit) JSValue() js.Value {
 }
 
 // CookieChangeEventInitFromJS is allocating a new
-// CookieChangeEventInit object and copy all values from
-// input javascript object
-func CookieChangeEventInitFromJS(value js.Wrapper) *CookieChangeEventInit {
-	input := value.JSValue()
+// CookieChangeEventInit object and copy all values in the value javascript object.
+func CookieChangeEventInitFromJS(value js.Value) *CookieChangeEventInit {
 	var out CookieChangeEventInit
 	var (
 		value0 bool              // javascript: boolean {bubbles Bubbles bubbles}
@@ -438,27 +437,27 @@ func CookieChangeEventInitFromJS(value js.Wrapper) *CookieChangeEventInit {
 		value3 []*CookieListItem // javascript: sequence<CookieListItem> {changed Changed changed}
 		value4 []*CookieListItem // javascript: sequence<CookieListItem> {deleted Deleted deleted}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	__length3 := input.Get("changed").Length()
+	__length3 := value.Get("changed").Length()
 	__array3 := make([]*CookieListItem, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *CookieListItem
-		__seq_in3 := input.Get("changed").Index(__idx3)
+		__seq_in3 := value.Get("changed").Index(__idx3)
 		__seq_out3 = CookieListItemFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.Changed = value3
-	__length4 := input.Get("deleted").Length()
+	__length4 := value.Get("deleted").Length()
 	__array4 := make([]*CookieListItem, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 *CookieListItem
-		__seq_in4 := input.Get("deleted").Index(__idx4)
+		__seq_in4 := value.Get("deleted").Index(__idx4)
 		__seq_out4 = CookieListItemFromJS(__seq_in4)
 		__array4[__idx4] = __seq_out4
 	}
@@ -478,7 +477,7 @@ type CookieListItem struct {
 	SameSite CookieSameSite
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieListItem) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -512,10 +511,8 @@ func (_this *CookieListItem) JSValue() js.Value {
 }
 
 // CookieListItemFromJS is allocating a new
-// CookieListItem object and copy all values from
-// input javascript object
-func CookieListItemFromJS(value js.Wrapper) *CookieListItem {
-	input := value.JSValue()
+// CookieListItem object and copy all values in the value javascript object.
+func CookieListItemFromJS(value js.Value) *CookieListItem {
 	var out CookieListItem
 	var (
 		value0 string         // javascript: USVString {name Name name}
@@ -526,25 +523,25 @@ func CookieListItemFromJS(value js.Wrapper) *CookieListItem {
 		value5 bool           // javascript: boolean {secure Secure secure}
 		value6 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("value")).String()
+	value1 = (value.Get("value")).String()
 	out.Value = value1
-	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (input.Get("domain")).String()
+	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
+		__tmp := (value.Get("domain")).String()
 		value2 = &__tmp
 	}
 	out.Domain = value2
-	value3 = (input.Get("path")).String()
+	value3 = (value.Get("path")).String()
 	out.Path = value3
-	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (input.Get("expires")).Int()
+	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
+		__tmp := (value.Get("expires")).Int()
 		value4 = &__tmp
 	}
 	out.Expires = value4
-	value5 = (input.Get("secure")).Bool()
+	value5 = (value.Get("secure")).Bool()
 	out.Secure = value5
-	value6 = CookieSameSiteFromJS(input.Get("sameSite"))
+	value6 = CookieSameSiteFromJS(value.Get("sameSite"))
 	out.SameSite = value6
 	return &out
 }
@@ -556,7 +553,7 @@ type CookieStoreDeleteOptions struct {
 	Path   string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieStoreDeleteOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -576,24 +573,22 @@ func (_this *CookieStoreDeleteOptions) JSValue() js.Value {
 }
 
 // CookieStoreDeleteOptionsFromJS is allocating a new
-// CookieStoreDeleteOptions object and copy all values from
-// input javascript object
-func CookieStoreDeleteOptionsFromJS(value js.Wrapper) *CookieStoreDeleteOptions {
-	input := value.JSValue()
+// CookieStoreDeleteOptions object and copy all values in the value javascript object.
+func CookieStoreDeleteOptionsFromJS(value js.Value) *CookieStoreDeleteOptions {
 	var out CookieStoreDeleteOptions
 	var (
 		value0 string  // javascript: USVString {name Name name}
 		value1 *string // javascript: USVString {domain Domain domain}
 		value2 string  // javascript: USVString {path Path path}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (input.Get("domain")).String()
+	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
+		__tmp := (value.Get("domain")).String()
 		value1 = &__tmp
 	}
 	out.Domain = value1
-	value2 = (input.Get("path")).String()
+	value2 = (value.Get("path")).String()
 	out.Path = value2
 	return &out
 }
@@ -605,7 +600,7 @@ type CookieStoreGetOptions struct {
 	MatchType CookieMatchType
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieStoreGetOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -619,21 +614,19 @@ func (_this *CookieStoreGetOptions) JSValue() js.Value {
 }
 
 // CookieStoreGetOptionsFromJS is allocating a new
-// CookieStoreGetOptions object and copy all values from
-// input javascript object
-func CookieStoreGetOptionsFromJS(value js.Wrapper) *CookieStoreGetOptions {
-	input := value.JSValue()
+// CookieStoreGetOptions object and copy all values in the value javascript object.
+func CookieStoreGetOptionsFromJS(value js.Value) *CookieStoreGetOptions {
 	var out CookieStoreGetOptions
 	var (
 		value0 string          // javascript: USVString {name Name name}
 		value1 string          // javascript: USVString {url Url url}
 		value2 CookieMatchType // javascript: CookieMatchType {matchType MatchType matchType}
 	)
-	value0 = (input.Get("name")).String()
+	value0 = (value.Get("name")).String()
 	out.Name = value0
-	value1 = (input.Get("url")).String()
+	value1 = (value.Get("url")).String()
 	out.Url = value1
-	value2 = CookieMatchTypeFromJS(input.Get("matchType"))
+	value2 = CookieMatchTypeFromJS(value.Get("matchType"))
 	out.MatchType = value2
 	return &out
 }
@@ -649,7 +642,7 @@ type CookieStoreSetExtraOptions struct {
 	Value    string
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieStoreSetExtraOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -683,10 +676,8 @@ func (_this *CookieStoreSetExtraOptions) JSValue() js.Value {
 }
 
 // CookieStoreSetExtraOptionsFromJS is allocating a new
-// CookieStoreSetExtraOptions object and copy all values from
-// input javascript object
-func CookieStoreSetExtraOptionsFromJS(value js.Wrapper) *CookieStoreSetExtraOptions {
-	input := value.JSValue()
+// CookieStoreSetExtraOptions object and copy all values in the value javascript object.
+func CookieStoreSetExtraOptionsFromJS(value js.Value) *CookieStoreSetExtraOptions {
 	var out CookieStoreSetExtraOptions
 	var (
 		value0 *int           // javascript: unsigned long long {expires Expires expires}
@@ -697,25 +688,25 @@ func CookieStoreSetExtraOptionsFromJS(value js.Wrapper) *CookieStoreSetExtraOpti
 		value5 string         // javascript: USVString {name Name name}
 		value6 string         // javascript: USVString {value Value value}
 	)
-	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (input.Get("expires")).Int()
+	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
+		__tmp := (value.Get("expires")).Int()
 		value0 = &__tmp
 	}
 	out.Expires = value0
-	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (input.Get("domain")).String()
+	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
+		__tmp := (value.Get("domain")).String()
 		value1 = &__tmp
 	}
 	out.Domain = value1
-	value2 = (input.Get("path")).String()
+	value2 = (value.Get("path")).String()
 	out.Path = value2
-	value3 = (input.Get("secure")).Bool()
+	value3 = (value.Get("secure")).Bool()
 	out.Secure = value3
-	value4 = CookieSameSiteFromJS(input.Get("sameSite"))
+	value4 = CookieSameSiteFromJS(value.Get("sameSite"))
 	out.SameSite = value4
-	value5 = (input.Get("name")).String()
+	value5 = (value.Get("name")).String()
 	out.Name = value5
-	value6 = (input.Get("value")).String()
+	value6 = (value.Get("value")).String()
 	out.Value = value6
 	return &out
 }
@@ -729,7 +720,7 @@ type CookieStoreSetOptions struct {
 	SameSite CookieSameSite
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *CookieStoreSetOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -759,10 +750,8 @@ func (_this *CookieStoreSetOptions) JSValue() js.Value {
 }
 
 // CookieStoreSetOptionsFromJS is allocating a new
-// CookieStoreSetOptions object and copy all values from
-// input javascript object
-func CookieStoreSetOptionsFromJS(value js.Wrapper) *CookieStoreSetOptions {
-	input := value.JSValue()
+// CookieStoreSetOptions object and copy all values in the value javascript object.
+func CookieStoreSetOptionsFromJS(value js.Value) *CookieStoreSetOptions {
 	var out CookieStoreSetOptions
 	var (
 		value0 *int           // javascript: unsigned long long {expires Expires expires}
@@ -771,21 +760,21 @@ func CookieStoreSetOptionsFromJS(value js.Wrapper) *CookieStoreSetOptions {
 		value3 bool           // javascript: boolean {secure Secure secure}
 		value4 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
 	)
-	if input.Get("expires").Type() != js.TypeNull && input.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (input.Get("expires")).Int()
+	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
+		__tmp := (value.Get("expires")).Int()
 		value0 = &__tmp
 	}
 	out.Expires = value0
-	if input.Get("domain").Type() != js.TypeNull && input.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (input.Get("domain")).String()
+	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
+		__tmp := (value.Get("domain")).String()
 		value1 = &__tmp
 	}
 	out.Domain = value1
-	value2 = (input.Get("path")).String()
+	value2 = (value.Get("path")).String()
 	out.Path = value2
-	value3 = (input.Get("secure")).Bool()
+	value3 = (value.Get("secure")).Bool()
 	out.Secure = value3
-	value4 = CookieSameSiteFromJS(input.Get("sameSite"))
+	value4 = CookieSameSiteFromJS(value.Get("sameSite"))
 	out.SameSite = value4
 	return &out
 }
@@ -799,7 +788,7 @@ type ExtendableCookieChangeEventInit struct {
 	Deleted    []*CookieListItem
 }
 
-// JSValue is allocating a new javasript object and copy
+// JSValue is allocating a new javascript object and copy
 // all values
 func (_this *ExtendableCookieChangeEventInit) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
@@ -825,10 +814,8 @@ func (_this *ExtendableCookieChangeEventInit) JSValue() js.Value {
 }
 
 // ExtendableCookieChangeEventInitFromJS is allocating a new
-// ExtendableCookieChangeEventInit object and copy all values from
-// input javascript object
-func ExtendableCookieChangeEventInitFromJS(value js.Wrapper) *ExtendableCookieChangeEventInit {
-	input := value.JSValue()
+// ExtendableCookieChangeEventInit object and copy all values in the value javascript object.
+func ExtendableCookieChangeEventInitFromJS(value js.Value) *ExtendableCookieChangeEventInit {
 	var out ExtendableCookieChangeEventInit
 	var (
 		value0 bool              // javascript: boolean {bubbles Bubbles bubbles}
@@ -837,27 +824,27 @@ func ExtendableCookieChangeEventInitFromJS(value js.Wrapper) *ExtendableCookieCh
 		value3 []*CookieListItem // javascript: sequence<CookieListItem> {changed Changed changed}
 		value4 []*CookieListItem // javascript: sequence<CookieListItem> {deleted Deleted deleted}
 	)
-	value0 = (input.Get("bubbles")).Bool()
+	value0 = (value.Get("bubbles")).Bool()
 	out.Bubbles = value0
-	value1 = (input.Get("cancelable")).Bool()
+	value1 = (value.Get("cancelable")).Bool()
 	out.Cancelable = value1
-	value2 = (input.Get("composed")).Bool()
+	value2 = (value.Get("composed")).Bool()
 	out.Composed = value2
-	__length3 := input.Get("changed").Length()
+	__length3 := value.Get("changed").Length()
 	__array3 := make([]*CookieListItem, __length3, __length3)
 	for __idx3 := 0; __idx3 < __length3; __idx3++ {
 		var __seq_out3 *CookieListItem
-		__seq_in3 := input.Get("changed").Index(__idx3)
+		__seq_in3 := value.Get("changed").Index(__idx3)
 		__seq_out3 = CookieListItemFromJS(__seq_in3)
 		__array3[__idx3] = __seq_out3
 	}
 	value3 = __array3
 	out.Changed = value3
-	__length4 := input.Get("deleted").Length()
+	__length4 := value.Get("deleted").Length()
 	__array4 := make([]*CookieListItem, __length4, __length4)
 	for __idx4 := 0; __idx4 < __length4; __idx4++ {
 		var __seq_out4 *CookieListItem
-		__seq_in4 := input.Get("deleted").Index(__idx4)
+		__seq_in4 := value.Get("deleted").Index(__idx4)
 		__seq_out4 = CookieListItemFromJS(__seq_in4)
 		__array4[__idx4] = __seq_out4
 	}
@@ -871,15 +858,19 @@ type CookieChangeEvent struct {
 	domcore.Event
 }
 
-// CookieChangeEventFromJS is casting a js.Wrapper into CookieChangeEvent.
-func CookieChangeEventFromJS(value js.Wrapper) *CookieChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CookieChangeEventFromJS is casting a js.Value into CookieChangeEvent.
+func CookieChangeEventFromJS(value js.Value) *CookieChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CookieChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CookieChangeEventFromJS is casting from something that holds a js.Value into CookieChangeEvent.
+func CookieChangeEventFromWrapper(input core.Wrapper) *CookieChangeEvent {
+	return CookieChangeEventFromJS(input.JSValue())
 }
 
 func NewCookieChangeEvent(_type string, eventInitDict *CookieChangeEventInit) (_result *CookieChangeEvent) {
@@ -944,15 +935,19 @@ type CookieStore struct {
 	domcore.EventTarget
 }
 
-// CookieStoreFromJS is casting a js.Wrapper into CookieStore.
-func CookieStoreFromJS(value js.Wrapper) *CookieStore {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// CookieStoreFromJS is casting a js.Value into CookieStore.
+func CookieStoreFromJS(value js.Value) *CookieStore {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &CookieStore{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// CookieStoreFromJS is casting from something that holds a js.Value into CookieStore.
+func CookieStoreFromWrapper(input core.Wrapper) *CookieStore {
+	return CookieStoreFromJS(input.JSValue())
 }
 
 // OnChange returning attribute 'onchange' with
@@ -1184,15 +1179,19 @@ type ExtendableCookieChangeEvent struct {
 	domcore.ExtendableEvent
 }
 
-// ExtendableCookieChangeEventFromJS is casting a js.Wrapper into ExtendableCookieChangeEvent.
-func ExtendableCookieChangeEventFromJS(value js.Wrapper) *ExtendableCookieChangeEvent {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// ExtendableCookieChangeEventFromJS is casting a js.Value into ExtendableCookieChangeEvent.
+func ExtendableCookieChangeEventFromJS(value js.Value) *ExtendableCookieChangeEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &ExtendableCookieChangeEvent{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// ExtendableCookieChangeEventFromJS is casting from something that holds a js.Value into ExtendableCookieChangeEvent.
+func ExtendableCookieChangeEventFromWrapper(input core.Wrapper) *ExtendableCookieChangeEvent {
+	return ExtendableCookieChangeEventFromJS(input.JSValue())
 }
 
 func NewExtendableCookieChangeEvent(_type string, eventInitDict *ExtendableCookieChangeEventInit) (_result *ExtendableCookieChangeEvent) {
@@ -1262,15 +1261,19 @@ func (_this *PromiseNilCookieListItem) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseNilCookieListItemFromJS is casting a js.Wrapper into PromiseNilCookieListItem.
-func PromiseNilCookieListItemFromJS(value js.Wrapper) *PromiseNilCookieListItem {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseNilCookieListItemFromJS is casting a js.Value into PromiseNilCookieListItem.
+func PromiseNilCookieListItemFromJS(value js.Value) *PromiseNilCookieListItem {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseNilCookieListItem{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseNilCookieListItemFromJS is casting from something that holds a js.Value into PromiseNilCookieListItem.
+func PromiseNilCookieListItemFromWrapper(input core.Wrapper) *PromiseNilCookieListItem {
+	return PromiseNilCookieListItemFromJS(input.JSValue())
 }
 
 func (_this *PromiseNilCookieListItem) Then(onFulfilled *PromiseNilCookieListItemOnFulfilled, onRejected *PromiseNilCookieListItemOnRejected) (_result *PromiseNilCookieListItem) {
@@ -1367,15 +1370,19 @@ func (_this *PromiseSequenceCookieListItem) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceCookieListItemFromJS is casting a js.Wrapper into PromiseSequenceCookieListItem.
-func PromiseSequenceCookieListItemFromJS(value js.Wrapper) *PromiseSequenceCookieListItem {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceCookieListItemFromJS is casting a js.Value into PromiseSequenceCookieListItem.
+func PromiseSequenceCookieListItemFromJS(value js.Value) *PromiseSequenceCookieListItem {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceCookieListItem{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceCookieListItemFromJS is casting from something that holds a js.Value into PromiseSequenceCookieListItem.
+func PromiseSequenceCookieListItemFromWrapper(input core.Wrapper) *PromiseSequenceCookieListItem {
+	return PromiseSequenceCookieListItemFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceCookieListItem) Then(onFulfilled *PromiseSequenceCookieListItemOnFulfilled, onRejected *PromiseSequenceCookieListItemOnRejected) (_result *PromiseSequenceCookieListItem) {
@@ -1472,15 +1479,19 @@ func (_this *PromiseSequenceCookieStoreGetOptions) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseSequenceCookieStoreGetOptionsFromJS is casting a js.Wrapper into PromiseSequenceCookieStoreGetOptions.
-func PromiseSequenceCookieStoreGetOptionsFromJS(value js.Wrapper) *PromiseSequenceCookieStoreGetOptions {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseSequenceCookieStoreGetOptionsFromJS is casting a js.Value into PromiseSequenceCookieStoreGetOptions.
+func PromiseSequenceCookieStoreGetOptionsFromJS(value js.Value) *PromiseSequenceCookieStoreGetOptions {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseSequenceCookieStoreGetOptions{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseSequenceCookieStoreGetOptionsFromJS is casting from something that holds a js.Value into PromiseSequenceCookieStoreGetOptions.
+func PromiseSequenceCookieStoreGetOptionsFromWrapper(input core.Wrapper) *PromiseSequenceCookieStoreGetOptions {
+	return PromiseSequenceCookieStoreGetOptionsFromJS(input.JSValue())
 }
 
 func (_this *PromiseSequenceCookieStoreGetOptions) Then(onFulfilled *PromiseSequenceCookieStoreGetOptionsOnFulfilled, onRejected *PromiseSequenceCookieStoreGetOptionsOnRejected) (_result *PromiseSequenceCookieStoreGetOptions) {

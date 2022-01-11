@@ -5,6 +5,7 @@ package battery
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -125,15 +126,19 @@ type BatteryManager struct {
 	domcore.EventTarget
 }
 
-// BatteryManagerFromJS is casting a js.Wrapper into BatteryManager.
-func BatteryManagerFromJS(value js.Wrapper) *BatteryManager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// BatteryManagerFromJS is casting a js.Value into BatteryManager.
+func BatteryManagerFromJS(value js.Value) *BatteryManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &BatteryManager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// BatteryManagerFromJS is casting from something that holds a js.Value into BatteryManager.
+func BatteryManagerFromWrapper(input core.Wrapper) *BatteryManager {
+	return BatteryManagerFromJS(input.JSValue())
 }
 
 // Charging returning attribute 'charging' with
@@ -304,15 +309,19 @@ func (_this *PromiseBatteryManager) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// PromiseBatteryManagerFromJS is casting a js.Wrapper into PromiseBatteryManager.
-func PromiseBatteryManagerFromJS(value js.Wrapper) *PromiseBatteryManager {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// PromiseBatteryManagerFromJS is casting a js.Value into PromiseBatteryManager.
+func PromiseBatteryManagerFromJS(value js.Value) *PromiseBatteryManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &PromiseBatteryManager{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// PromiseBatteryManagerFromJS is casting from something that holds a js.Value into PromiseBatteryManager.
+func PromiseBatteryManagerFromWrapper(input core.Wrapper) *PromiseBatteryManager {
+	return PromiseBatteryManagerFromJS(input.JSValue())
 }
 
 func (_this *PromiseBatteryManager) Then(onFulfilled *PromiseBatteryManagerOnFulfilled, onRejected *PromiseBatteryManagerOnRejected) (_result *PromiseBatteryManager) {

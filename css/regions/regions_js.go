@@ -5,6 +5,7 @@ package regions
 import "syscall/js"
 
 import (
+	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/domcore"
 )
@@ -42,15 +43,19 @@ type NamedFlow struct {
 	domcore.EventTarget
 }
 
-// NamedFlowFromJS is casting a js.Wrapper into NamedFlow.
-func NamedFlowFromJS(value js.Wrapper) *NamedFlow {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NamedFlowFromJS is casting a js.Value into NamedFlow.
+func NamedFlowFromJS(value js.Value) *NamedFlow {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NamedFlow{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NamedFlowFromJS is casting from something that holds a js.Value into NamedFlow.
+func NamedFlowFromWrapper(input core.Wrapper) *NamedFlow {
+	return NamedFlowFromJS(input.JSValue())
 }
 
 // Name returning attribute 'name' with
@@ -159,15 +164,19 @@ func (_this *NamedFlowMap) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// NamedFlowMapFromJS is casting a js.Wrapper into NamedFlowMap.
-func NamedFlowMapFromJS(value js.Wrapper) *NamedFlowMap {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// NamedFlowMapFromJS is casting a js.Value into NamedFlowMap.
+func NamedFlowMapFromJS(value js.Value) *NamedFlowMap {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &NamedFlowMap{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// NamedFlowMapFromJS is casting from something that holds a js.Value into NamedFlowMap.
+func NamedFlowMapFromWrapper(input core.Wrapper) *NamedFlowMap {
+	return NamedFlowMapFromJS(input.JSValue())
 }
 
 func (_this *NamedFlowMap) Get(flowName string) (_result *NamedFlow) {
@@ -253,15 +262,19 @@ func (_this *Region) JSValue() js.Value {
 	return _this.Value_JS
 }
 
-// RegionFromJS is casting a js.Wrapper into Region.
-func RegionFromJS(value js.Wrapper) *Region {
-	input := value.JSValue()
-	if typ := input.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+// RegionFromJS is casting a js.Value into Region.
+func RegionFromJS(value js.Value) *Region {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
 	ret := &Region{}
-	ret.Value_JS = input
+	ret.Value_JS = value
 	return ret
+}
+
+// RegionFromJS is casting from something that holds a js.Value into Region.
+func RegionFromWrapper(input core.Wrapper) *Region {
+	return RegionFromJS(input.JSValue())
 }
 
 // RegionOverset returning attribute 'regionOverset' with
