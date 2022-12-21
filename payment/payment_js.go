@@ -639,7 +639,11 @@ type PaymentInstruments struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PaymentInstruments) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -763,7 +767,11 @@ type PaymentManager struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PaymentManager) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -977,7 +985,11 @@ type PromiseNilPaymentMethodChangeResponse struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseNilPaymentMethodChangeResponse) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1086,7 +1098,11 @@ type PromisePaymentHandlerResponse struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromisePaymentHandlerResponse) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 

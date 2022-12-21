@@ -286,7 +286,11 @@ type Keyboard struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *Keyboard) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -357,7 +361,11 @@ type LayoutMap struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *LayoutMap) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -494,7 +502,11 @@ type LayoutMapEntryIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *LayoutMapEntryIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -533,7 +545,11 @@ type LayoutMapKeyIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *LayoutMapKeyIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -572,7 +588,11 @@ type LayoutMapValueIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *LayoutMapValueIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -611,7 +631,11 @@ type PromiseLayoutMap struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseLayoutMap) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 

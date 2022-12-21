@@ -2351,7 +2351,11 @@ type ConstrainablePattern struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *ConstrainablePattern) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -2512,7 +2516,11 @@ type MediaDeviceInfo struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaDeviceInfo) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -3370,7 +3378,11 @@ type PromiseMediaStream struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseMediaStream) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -3479,7 +3491,11 @@ type PromiseSequenceMediaDeviceInfo struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseSequenceMediaDeviceInfo) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 

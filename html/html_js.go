@@ -552,7 +552,11 @@ type FormData struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *FormData) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -818,7 +822,11 @@ type FormDataEntryIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *FormDataEntryIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -909,7 +917,11 @@ type FormDataKeyIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *FormDataKeyIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -948,7 +960,11 @@ type FormDataValueIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *FormDataValueIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -987,7 +1003,11 @@ type HTMLAllCollection struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *HTMLAllCollection) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -13400,7 +13420,11 @@ type PromiseFormData struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseFormData) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -13509,7 +13533,11 @@ type TimeRanges struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *TimeRanges) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -13577,7 +13605,11 @@ type ValidityState struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *ValidityState) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 

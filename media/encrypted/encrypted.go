@@ -1133,7 +1133,11 @@ type MediaKeyStatusMap struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeyStatusMap) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1267,7 +1271,11 @@ type MediaKeyStatusMapEntryIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeyStatusMapEntryIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1306,7 +1314,11 @@ type MediaKeyStatusMapKeyIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeyStatusMapKeyIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1345,7 +1357,11 @@ type MediaKeyStatusMapValueIterator struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeyStatusMapValueIterator) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1384,7 +1400,11 @@ type MediaKeySystemAccess struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeySystemAccess) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1446,7 +1466,11 @@ type MediaKeys struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *MediaKeys) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1507,7 +1531,11 @@ type PromiseMediaKeySystemAccess struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseMediaKeySystemAccess) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
@@ -1616,7 +1644,11 @@ type PromiseMediaKeys struct {
 	Value_JS js.Value
 }
 
+// JSValue returns the js.Value or js.Null() if _this is nil
 func (_this *PromiseMediaKeys) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
 	return _this.Value_JS
 }
 
