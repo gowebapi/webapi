@@ -10,17 +10,19 @@ import (
 	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/dom/geometry"
+	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
 // dom.Element
 // geometry.DOMRectReadOnly
+// javascript.FrozenArray
 
 // source idl files:
-// ResizeObserver.idl
+// resize-observer.idl
 
 // transform files:
-// ResizeObserver.go.md
+// resize-observer.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {
@@ -37,6 +39,49 @@ func (u *Union) JSValue() js.Value {
 
 func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
+}
+
+// enum: ResizeObserverBoxOptions
+type ResizeObserverBoxOptions int
+
+const (
+	BorderBoxResizeObserverBoxOptions ResizeObserverBoxOptions = iota
+	ContentBoxResizeObserverBoxOptions
+	DevicePixelContentBoxResizeObserverBoxOptions
+)
+
+var resizeObserverBoxOptionsToWasmTable = []string{
+	"border-box", "content-box", "device-pixel-content-box",
+}
+
+var resizeObserverBoxOptionsFromWasmTable = map[string]ResizeObserverBoxOptions{
+	"border-box": BorderBoxResizeObserverBoxOptions, "content-box": ContentBoxResizeObserverBoxOptions, "device-pixel-content-box": DevicePixelContentBoxResizeObserverBoxOptions,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *ResizeObserverBoxOptions) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this ResizeObserverBoxOptions) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(resizeObserverBoxOptionsToWasmTable) {
+		return resizeObserverBoxOptionsToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// ResizeObserverBoxOptionsFromJS is converting a javascript value into
+// a ResizeObserverBoxOptions enum value.
+func ResizeObserverBoxOptionsFromJS(value js.Value) ResizeObserverBoxOptions {
+	key := value.String()
+	conv, ok := resizeObserverBoxOptionsFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
 }
 
 // callback: ResizeObserverCallback
@@ -96,92 +141,30 @@ func ResizeObserverCallbackFromJS(_value js.Value) ResizeObserverCallbackFunc {
 	}
 }
 
-// class: ResizeObservation
-type ResizeObservation struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
+// dictionary: ResizeObserverOptions
+type ResizeObserverOptions struct {
+	Box ResizeObserverBoxOptions
 }
 
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *ResizeObservation) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *ResizeObserverOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Box.JSValue()
+	out.Set("box", value0)
+	return out
 }
 
-// ResizeObservationFromJS is casting a js.Value into ResizeObservation.
-func ResizeObservationFromJS(value js.Value) *ResizeObservation {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &ResizeObservation{}
-	ret.Value_JS = value
-	return ret
-}
-
-// ResizeObservationFromJS is casting from something that holds a js.Value into ResizeObservation.
-func ResizeObservationFromWrapper(input core.Wrapper) *ResizeObservation {
-	return ResizeObservationFromJS(input.JSValue())
-}
-
-func NewResizeObservation(target *dom.Element) (_result *ResizeObservation) {
-	_klass := js.Global().Get("ResizeObservation")
+// ResizeObserverOptionsFromJS is allocating a new
+// ResizeObserverOptions object and copy all values in the value javascript object.
+func ResizeObserverOptionsFromJS(value js.Value) *ResizeObserverOptions {
+	var out ResizeObserverOptions
 	var (
-		_args [1]interface{}
-		_end  int
+		value0 ResizeObserverBoxOptions // javascript: ResizeObserverBoxOptions {box Box box}
 	)
-	_p0 := target.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ResizeObservation // javascript: ResizeObservation _what_return_name
-	)
-	_converted = ResizeObservationFromJS(_returned)
-	_result = _converted
-	return
-}
-
-// Target returning attribute 'target' with
-// type dom.Element (idl: Element).
-func (_this *ResizeObservation) Target() *dom.Element {
-	var ret *dom.Element
-	value := _this.Value_JS.Get("target")
-	ret = dom.ElementFromJS(value)
-	return ret
-}
-
-// BroadcastWidth returning attribute 'broadcastWidth' with
-// type float32 (idl: float).
-func (_this *ResizeObservation) BroadcastWidth() float32 {
-	var ret float32
-	value := _this.Value_JS.Get("broadcastWidth")
-	ret = (float32)((value).Float())
-	return ret
-}
-
-// BroadcastHeight returning attribute 'broadcastHeight' with
-// type float32 (idl: float).
-func (_this *ResizeObservation) BroadcastHeight() float32 {
-	var ret float32
-	value := _this.Value_JS.Get("broadcastHeight")
-	ret = (float32)((value).Float())
-	return ret
-}
-
-func (_this *ResizeObservation) IsActive() (_result bool) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("isActive", _args[0:_end]...)
-	var (
-		_converted bool // javascript: boolean _what_return_name
-	)
-	_converted = (_returned).Bool()
-	_result = _converted
-	return
+	value0 = ResizeObserverBoxOptionsFromJS(value.Get("box"))
+	out.Box = value0
+	return &out
 }
 
 // class: ResizeObserver
@@ -238,14 +221,19 @@ func NewResizeObserver(callback *ResizeObserverCallback) (_result *ResizeObserve
 	return
 }
 
-func (_this *ResizeObserver) Observe(target *dom.Element) {
+func (_this *ResizeObserver) Observe(target *dom.Element, options *ResizeObserverOptions) {
 	var (
-		_args [1]interface{}
+		_args [2]interface{}
 		_end  int
 	)
 	_p0 := target.JSValue()
 	_args[0] = _p0
 	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
 	_this.Value_JS.Call("observe", _args[0:_end]...)
 	return
 }
@@ -300,24 +288,6 @@ func ResizeObserverEntryFromWrapper(input core.Wrapper) *ResizeObserverEntry {
 	return ResizeObserverEntryFromJS(input.JSValue())
 }
 
-func NewResizeObserverEntry(target *dom.Element) (_result *ResizeObserverEntry) {
-	_klass := js.Global().Get("ResizeObserverEntry")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := target.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *ResizeObserverEntry // javascript: ResizeObserverEntry _what_return_name
-	)
-	_converted = ResizeObserverEntryFromJS(_returned)
-	_result = _converted
-	return
-}
-
 // Target returning attribute 'target' with
 // type dom.Element (idl: Element).
 func (_this *ResizeObserverEntry) Target() *dom.Element {
@@ -333,5 +303,79 @@ func (_this *ResizeObserverEntry) ContentRect() *geometry.DOMRectReadOnly {
 	var ret *geometry.DOMRectReadOnly
 	value := _this.Value_JS.Get("contentRect")
 	ret = geometry.DOMRectReadOnlyFromJS(value)
+	return ret
+}
+
+// BorderBoxSize returning attribute 'borderBoxSize' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ResizeObserverEntry) BorderBoxSize() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("borderBoxSize")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// ContentBoxSize returning attribute 'contentBoxSize' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ResizeObserverEntry) ContentBoxSize() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("contentBoxSize")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// DevicePixelContentBoxSize returning attribute 'devicePixelContentBoxSize' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ResizeObserverEntry) DevicePixelContentBoxSize() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("devicePixelContentBoxSize")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+// class: ResizeObserverSize
+type ResizeObserverSize struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *ResizeObserverSize) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// ResizeObserverSizeFromJS is casting a js.Value into ResizeObserverSize.
+func ResizeObserverSizeFromJS(value js.Value) *ResizeObserverSize {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &ResizeObserverSize{}
+	ret.Value_JS = value
+	return ret
+}
+
+// ResizeObserverSizeFromJS is casting from something that holds a js.Value into ResizeObserverSize.
+func ResizeObserverSizeFromWrapper(input core.Wrapper) *ResizeObserverSize {
+	return ResizeObserverSizeFromJS(input.JSValue())
+}
+
+// InlineSize returning attribute 'inlineSize' with
+// type float64 (idl: unrestricted double).
+func (_this *ResizeObserverSize) InlineSize() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("inlineSize")
+	ret = (value).Float()
+	return ret
+}
+
+// BlockSize returning attribute 'blockSize' with
+// type float64 (idl: unrestricted double).
+func (_this *ResizeObserverSize) BlockSize() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("blockSize")
+	ret = (value).Float()
 	return ret
 }

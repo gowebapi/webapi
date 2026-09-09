@@ -17,6 +17,7 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.FrozenArray
+// javascript.Object
 // javascript.PromiseFinally
 
 // source idl files:
@@ -24,8 +25,8 @@ import (
 // ambient-light.idl
 // generic-sensor.idl
 // generic-sensor.patch.idl
-// geolocation-API.idl
 // geolocation-sensor.idl
+// geolocation.idl
 // gyroscope.idl
 // magnetometer.idl
 // orientation-event.idl
@@ -38,8 +39,8 @@ import (
 // ambient-light.go.md
 // generic-sensor.go.md
 // generic-sensor.go.md
-// geolocation-API.go.md
 // geolocation-sensor.go.md
+// geolocation.go.md
 // gyroscope.go.md
 // magnetometer.go.md
 // orientation-event.go.md
@@ -158,7 +159,7 @@ func MockSensorTypeFromJS(value js.Value) MockSensorType {
 }
 
 // callback: PositionCallback
-type PositionCallbackFunc func(position *Position)
+type PositionCallbackFunc func(position *GeolocationPosition)
 
 // PositionCallback is a javascript function type.
 //
@@ -172,9 +173,9 @@ func PositionCallbackToJS(callback PositionCallbackFunc) *PositionCallback {
 	}
 	ret := PositionCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
-			_p0 *Position // javascript: Position position
+			_p0 *GeolocationPosition // javascript: GeolocationPosition position
 		)
-		_p0 = PositionFromJS(args[0])
+		_p0 = GeolocationPositionFromJS(args[0])
 		callback(_p0)
 
 		// returning no return value
@@ -184,7 +185,7 @@ func PositionCallbackToJS(callback PositionCallbackFunc) *PositionCallback {
 }
 
 func PositionCallbackFromJS(_value js.Value) PositionCallbackFunc {
-	return func(position *Position) {
+	return func(position *GeolocationPosition) {
 		var (
 			_args [1]interface{}
 			_end  int
@@ -198,7 +199,7 @@ func PositionCallbackFromJS(_value js.Value) PositionCallbackFunc {
 }
 
 // callback: PositionErrorCallback
-type PositionErrorCallbackFunc func(positionError *PositionError)
+type PositionErrorCallbackFunc func(positionError *GeolocationPositionError)
 
 // PositionErrorCallback is a javascript function type.
 //
@@ -212,9 +213,9 @@ func PositionErrorCallbackToJS(callback PositionErrorCallbackFunc) *PositionErro
 	}
 	ret := PositionErrorCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
-			_p0 *PositionError // javascript: PositionError positionError
+			_p0 *GeolocationPositionError // javascript: GeolocationPositionError positionError
 		)
-		_p0 = PositionErrorFromJS(args[0])
+		_p0 = GeolocationPositionErrorFromJS(args[0])
 		callback(_p0)
 
 		// returning no return value
@@ -224,7 +225,7 @@ func PositionErrorCallbackToJS(callback PositionErrorCallbackFunc) *PositionErro
 }
 
 func PositionErrorCallbackFromJS(_value js.Value) PositionErrorCallbackFunc {
-	return func(positionError *PositionError) {
+	return func(positionError *GeolocationPositionError) {
 		var (
 			_args [1]interface{}
 			_end  int
@@ -2043,110 +2044,6 @@ func (_this *AmbientLightSensor) Illuminance() *float64 {
 	return ret
 }
 
-// class: Coordinates
-type Coordinates struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *Coordinates) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// CoordinatesFromJS is casting a js.Value into Coordinates.
-func CoordinatesFromJS(value js.Value) *Coordinates {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &Coordinates{}
-	ret.Value_JS = value
-	return ret
-}
-
-// CoordinatesFromJS is casting from something that holds a js.Value into Coordinates.
-func CoordinatesFromWrapper(input core.Wrapper) *Coordinates {
-	return CoordinatesFromJS(input.JSValue())
-}
-
-// Latitude returning attribute 'latitude' with
-// type float64 (idl: double).
-func (_this *Coordinates) Latitude() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("latitude")
-	ret = (value).Float()
-	return ret
-}
-
-// Longitude returning attribute 'longitude' with
-// type float64 (idl: double).
-func (_this *Coordinates) Longitude() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("longitude")
-	ret = (value).Float()
-	return ret
-}
-
-// Altitude returning attribute 'altitude' with
-// type float64 (idl: double).
-func (_this *Coordinates) Altitude() *float64 {
-	var ret *float64
-	value := _this.Value_JS.Get("altitude")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).Float()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Accuracy returning attribute 'accuracy' with
-// type float64 (idl: double).
-func (_this *Coordinates) Accuracy() float64 {
-	var ret float64
-	value := _this.Value_JS.Get("accuracy")
-	ret = (value).Float()
-	return ret
-}
-
-// AltitudeAccuracy returning attribute 'altitudeAccuracy' with
-// type float64 (idl: double).
-func (_this *Coordinates) AltitudeAccuracy() *float64 {
-	var ret *float64
-	value := _this.Value_JS.Get("altitudeAccuracy")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).Float()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Heading returning attribute 'heading' with
-// type float64 (idl: double).
-func (_this *Coordinates) Heading() *float64 {
-	var ret *float64
-	value := _this.Value_JS.Get("heading")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).Float()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// Speed returning attribute 'speed' with
-// type float64 (idl: double).
-func (_this *Coordinates) Speed() *float64 {
-	var ret *float64
-	value := _this.Value_JS.Get("speed")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).Float()
-		ret = &__tmp
-	}
-	return ret
-}
-
 // class: DeviceAcceleration
 type DeviceAcceleration struct {
 	// Value_JS holds a reference to a javascript value
@@ -2568,6 +2465,238 @@ func (_this *Geolocation) ClearWatch(watchId int) {
 	return
 }
 
+// class: GeolocationCoordinates
+type GeolocationCoordinates struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *GeolocationCoordinates) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// GeolocationCoordinatesFromJS is casting a js.Value into GeolocationCoordinates.
+func GeolocationCoordinatesFromJS(value js.Value) *GeolocationCoordinates {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &GeolocationCoordinates{}
+	ret.Value_JS = value
+	return ret
+}
+
+// GeolocationCoordinatesFromJS is casting from something that holds a js.Value into GeolocationCoordinates.
+func GeolocationCoordinatesFromWrapper(input core.Wrapper) *GeolocationCoordinates {
+	return GeolocationCoordinatesFromJS(input.JSValue())
+}
+
+// Accuracy returning attribute 'accuracy' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Accuracy() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("accuracy")
+	ret = (value).Float()
+	return ret
+}
+
+// Latitude returning attribute 'latitude' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Latitude() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("latitude")
+	ret = (value).Float()
+	return ret
+}
+
+// Longitude returning attribute 'longitude' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Longitude() float64 {
+	var ret float64
+	value := _this.Value_JS.Get("longitude")
+	ret = (value).Float()
+	return ret
+}
+
+// Altitude returning attribute 'altitude' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Altitude() *float64 {
+	var ret *float64
+	value := _this.Value_JS.Get("altitude")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).Float()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// AltitudeAccuracy returning attribute 'altitudeAccuracy' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) AltitudeAccuracy() *float64 {
+	var ret *float64
+	value := _this.Value_JS.Get("altitudeAccuracy")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).Float()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// Heading returning attribute 'heading' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Heading() *float64 {
+	var ret *float64
+	value := _this.Value_JS.Get("heading")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).Float()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// Speed returning attribute 'speed' with
+// type float64 (idl: double).
+func (_this *GeolocationCoordinates) Speed() *float64 {
+	var ret *float64
+	value := _this.Value_JS.Get("speed")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).Float()
+		ret = &__tmp
+	}
+	return ret
+}
+
+func (_this *GeolocationCoordinates) ToJSON() (_result *javascript.Object) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toJSON", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: GeolocationPosition
+type GeolocationPosition struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *GeolocationPosition) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// GeolocationPositionFromJS is casting a js.Value into GeolocationPosition.
+func GeolocationPositionFromJS(value js.Value) *GeolocationPosition {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &GeolocationPosition{}
+	ret.Value_JS = value
+	return ret
+}
+
+// GeolocationPositionFromJS is casting from something that holds a js.Value into GeolocationPosition.
+func GeolocationPositionFromWrapper(input core.Wrapper) *GeolocationPosition {
+	return GeolocationPositionFromJS(input.JSValue())
+}
+
+// Coords returning attribute 'coords' with
+// type GeolocationCoordinates (idl: GeolocationCoordinates).
+func (_this *GeolocationPosition) Coords() *GeolocationCoordinates {
+	var ret *GeolocationCoordinates
+	value := _this.Value_JS.Get("coords")
+	ret = GeolocationCoordinatesFromJS(value)
+	return ret
+}
+
+// Timestamp returning attribute 'timestamp' with
+// type int (idl: unsigned long long).
+func (_this *GeolocationPosition) Timestamp() int {
+	var ret int
+	value := _this.Value_JS.Get("timestamp")
+	ret = (value).Int()
+	return ret
+}
+
+func (_this *GeolocationPosition) ToJSON() (_result *javascript.Object) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toJSON", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: GeolocationPositionError
+type GeolocationPositionError struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *GeolocationPositionError) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// GeolocationPositionErrorFromJS is casting a js.Value into GeolocationPositionError.
+func GeolocationPositionErrorFromJS(value js.Value) *GeolocationPositionError {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &GeolocationPositionError{}
+	ret.Value_JS = value
+	return ret
+}
+
+// GeolocationPositionErrorFromJS is casting from something that holds a js.Value into GeolocationPositionError.
+func GeolocationPositionErrorFromWrapper(input core.Wrapper) *GeolocationPositionError {
+	return GeolocationPositionErrorFromJS(input.JSValue())
+}
+
+const (
+	PERMISSIONDENIED_GeolocationPositionError    int = 1
+	POSITIONUNAVAILABLE_GeolocationPositionError int = 2
+	TIMEOUT_GeolocationPositionError             int = 3
+)
+
+// Code returning attribute 'code' with
+// type int (idl: unsigned short).
+func (_this *GeolocationPositionError) Code() int {
+	var ret int
+	value := _this.Value_JS.Get("code")
+	ret = (value).Int()
+	return ret
+}
+
+// Message returning attribute 'message' with
+// type string (idl: DOMString).
+func (_this *GeolocationPositionError) Message() string {
+	var ret string
+	value := _this.Value_JS.Get("message")
+	ret = (value).String()
+	return ret
+}
+
 // class: GeolocationSensor
 type GeolocationSensor struct {
 	Sensor
@@ -2986,106 +3115,6 @@ func (_this *OrientationSensor) PopulateMatrix(targetMatrix *Union) {
 	_end++
 	_this.Value_JS.Call("populateMatrix", _args[0:_end]...)
 	return
-}
-
-// class: Position
-type Position struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *Position) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// PositionFromJS is casting a js.Value into Position.
-func PositionFromJS(value js.Value) *Position {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &Position{}
-	ret.Value_JS = value
-	return ret
-}
-
-// PositionFromJS is casting from something that holds a js.Value into Position.
-func PositionFromWrapper(input core.Wrapper) *Position {
-	return PositionFromJS(input.JSValue())
-}
-
-// Coords returning attribute 'coords' with
-// type Coordinates (idl: Coordinates).
-func (_this *Position) Coords() *Coordinates {
-	var ret *Coordinates
-	value := _this.Value_JS.Get("coords")
-	ret = CoordinatesFromJS(value)
-	return ret
-}
-
-// Timestamp returning attribute 'timestamp' with
-// type int (idl: unsigned long long).
-func (_this *Position) Timestamp() int {
-	var ret int
-	value := _this.Value_JS.Get("timestamp")
-	ret = (value).Int()
-	return ret
-}
-
-// class: PositionError
-type PositionError struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *PositionError) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// PositionErrorFromJS is casting a js.Value into PositionError.
-func PositionErrorFromJS(value js.Value) *PositionError {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &PositionError{}
-	ret.Value_JS = value
-	return ret
-}
-
-// PositionErrorFromJS is casting from something that holds a js.Value into PositionError.
-func PositionErrorFromWrapper(input core.Wrapper) *PositionError {
-	return PositionErrorFromJS(input.JSValue())
-}
-
-const (
-	PERMISSIONDENIED_PositionError    int = 1
-	POSITIONUNAVAILABLE_PositionError int = 2
-	TIMEOUT_PositionError             int = 3
-)
-
-// Code returning attribute 'code' with
-// type int (idl: unsigned short).
-func (_this *PositionError) Code() int {
-	var ret int
-	value := _this.Value_JS.Get("code")
-	ret = (value).Int()
-	return ret
-}
-
-// Message returning attribute 'message' with
-// type string (idl: DOMString).
-func (_this *PositionError) Message() string {
-	var ret string
-	value := _this.Value_JS.Get("message")
-	ret = (value).String()
-	return ret
 }
 
 // class: Promise

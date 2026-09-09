@@ -17,14 +17,15 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // javascript.PromiseFinally
+// javascript.PromiseVoid
 
 // source idl files:
 // promises.idl
-// wake-lock.idl
+// screen-wake-lock.idl
 
 // transform files:
 // promises.go.md
-// wake-lock.go.md
+// screen-wake-lock.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {
@@ -48,15 +49,14 @@ type WakeLockType int
 
 const (
 	ScreenWakeLockType WakeLockType = iota
-	SystemWakeLockType
 )
 
 var wakeLockTypeToWasmTable = []string{
-	"screen", "system",
+	"screen",
 }
 
 var wakeLockTypeFromWasmTable = map[string]WakeLockType{
-	"screen": ScreenWakeLockType, "system": SystemWakeLockType,
+	"screen": ScreenWakeLockType,
 }
 
 // JSValue is converting this enum into a javascript object
@@ -86,23 +86,23 @@ func WakeLockTypeFromJS(value js.Value) WakeLockType {
 }
 
 // callback: PromiseTemplateOnFulfilled
-type PromiseWakeLockOnFulfilledFunc func(value *WakeLock)
+type PromiseWakeLockSentinelOnFulfilledFunc func(value *WakeLockSentinel)
 
-// PromiseWakeLockOnFulfilled is a javascript function type.
+// PromiseWakeLockSentinelOnFulfilled is a javascript function type.
 //
 // Call Release() when done to release resouces
 // allocated to this type.
-type PromiseWakeLockOnFulfilled js.Func
+type PromiseWakeLockSentinelOnFulfilled js.Func
 
-func PromiseWakeLockOnFulfilledToJS(callback PromiseWakeLockOnFulfilledFunc) *PromiseWakeLockOnFulfilled {
+func PromiseWakeLockSentinelOnFulfilledToJS(callback PromiseWakeLockSentinelOnFulfilledFunc) *PromiseWakeLockSentinelOnFulfilled {
 	if callback == nil {
 		return nil
 	}
-	ret := PromiseWakeLockOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := PromiseWakeLockSentinelOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
-			_p0 *WakeLock // javascript: WakeLock value
+			_p0 *WakeLockSentinel // javascript: WakeLockSentinel value
 		)
-		_p0 = WakeLockFromJS(args[0])
+		_p0 = WakeLockSentinelFromJS(args[0])
 		callback(_p0)
 
 		// returning no return value
@@ -111,8 +111,8 @@ func PromiseWakeLockOnFulfilledToJS(callback PromiseWakeLockOnFulfilledFunc) *Pr
 	return &ret
 }
 
-func PromiseWakeLockOnFulfilledFromJS(_value js.Value) PromiseWakeLockOnFulfilledFunc {
-	return func(value *WakeLock) {
+func PromiseWakeLockSentinelOnFulfilledFromJS(_value js.Value) PromiseWakeLockSentinelOnFulfilledFunc {
+	return func(value *WakeLockSentinel) {
 		var (
 			_args [1]interface{}
 			_end  int
@@ -126,19 +126,19 @@ func PromiseWakeLockOnFulfilledFromJS(_value js.Value) PromiseWakeLockOnFulfille
 }
 
 // callback: PromiseTemplateOnRejected
-type PromiseWakeLockOnRejectedFunc func(reason js.Value)
+type PromiseWakeLockSentinelOnRejectedFunc func(reason js.Value)
 
-// PromiseWakeLockOnRejected is a javascript function type.
+// PromiseWakeLockSentinelOnRejected is a javascript function type.
 //
 // Call Release() when done to release resouces
 // allocated to this type.
-type PromiseWakeLockOnRejected js.Func
+type PromiseWakeLockSentinelOnRejected js.Func
 
-func PromiseWakeLockOnRejectedToJS(callback PromiseWakeLockOnRejectedFunc) *PromiseWakeLockOnRejected {
+func PromiseWakeLockSentinelOnRejectedToJS(callback PromiseWakeLockSentinelOnRejectedFunc) *PromiseWakeLockSentinelOnRejected {
 	if callback == nil {
 		return nil
 	}
-	ret := PromiseWakeLockOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+	ret := PromiseWakeLockSentinelOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		var (
 			_p0 js.Value // javascript: any reason
 		)
@@ -151,7 +151,7 @@ func PromiseWakeLockOnRejectedToJS(callback PromiseWakeLockOnRejectedFunc) *Prom
 	return &ret
 }
 
-func PromiseWakeLockOnRejectedFromJS(_value js.Value) PromiseWakeLockOnRejectedFunc {
+func PromiseWakeLockSentinelOnRejectedFromJS(_value js.Value) PromiseWakeLockSentinelOnRejectedFunc {
 	return func(reason js.Value) {
 		var (
 			_args [1]interface{}
@@ -166,35 +166,35 @@ func PromiseWakeLockOnRejectedFromJS(_value js.Value) PromiseWakeLockOnRejectedF
 }
 
 // class: Promise
-type PromiseWakeLock struct {
+type PromiseWakeLockSentinel struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
 // JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *PromiseWakeLock) JSValue() js.Value {
+func (_this *PromiseWakeLockSentinel) JSValue() js.Value {
 	if _this == nil {
 		return js.Null()
 	}
 	return _this.Value_JS
 }
 
-// PromiseWakeLockFromJS is casting a js.Value into PromiseWakeLock.
-func PromiseWakeLockFromJS(value js.Value) *PromiseWakeLock {
+// PromiseWakeLockSentinelFromJS is casting a js.Value into PromiseWakeLockSentinel.
+func PromiseWakeLockSentinelFromJS(value js.Value) *PromiseWakeLockSentinel {
 	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
-	ret := &PromiseWakeLock{}
+	ret := &PromiseWakeLockSentinel{}
 	ret.Value_JS = value
 	return ret
 }
 
-// PromiseWakeLockFromJS is casting from something that holds a js.Value into PromiseWakeLock.
-func PromiseWakeLockFromWrapper(input core.Wrapper) *PromiseWakeLock {
-	return PromiseWakeLockFromJS(input.JSValue())
+// PromiseWakeLockSentinelFromJS is casting from something that holds a js.Value into PromiseWakeLockSentinel.
+func PromiseWakeLockSentinelFromWrapper(input core.Wrapper) *PromiseWakeLockSentinel {
+	return PromiseWakeLockSentinelFromJS(input.JSValue())
 }
 
-func (_this *PromiseWakeLock) Then(onFulfilled *PromiseWakeLockOnFulfilled, onRejected *PromiseWakeLockOnRejected) (_result *PromiseWakeLock) {
+func (_this *PromiseWakeLockSentinel) Then(onFulfilled *PromiseWakeLockSentinelOnFulfilled, onRejected *PromiseWakeLockSentinelOnRejected) (_result *PromiseWakeLockSentinel) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -223,14 +223,14 @@ func (_this *PromiseWakeLock) Then(onFulfilled *PromiseWakeLockOnFulfilled, onRe
 	}
 	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
 	var (
-		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+		_converted *PromiseWakeLockSentinel // javascript: Promise _what_return_name
 	)
-	_converted = PromiseWakeLockFromJS(_returned)
+	_converted = PromiseWakeLockSentinelFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PromiseWakeLock) Catch(onRejected *PromiseWakeLockOnRejected) (_result *PromiseWakeLock) {
+func (_this *PromiseWakeLockSentinel) Catch(onRejected *PromiseWakeLockSentinelOnRejected) (_result *PromiseWakeLockSentinel) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -247,14 +247,14 @@ func (_this *PromiseWakeLock) Catch(onRejected *PromiseWakeLockOnRejected) (_res
 	_end++
 	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
 	var (
-		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+		_converted *PromiseWakeLockSentinel // javascript: Promise _what_return_name
 	)
-	_converted = PromiseWakeLockFromJS(_returned)
+	_converted = PromiseWakeLockSentinelFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *PromiseWakeLock) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseWakeLock) {
+func (_this *PromiseWakeLockSentinel) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseWakeLockSentinel) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -271,16 +271,25 @@ func (_this *PromiseWakeLock) Finally(onFinally *javascript.PromiseFinally) (_re
 	_end++
 	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
 	var (
-		_converted *PromiseWakeLock // javascript: Promise _what_return_name
+		_converted *PromiseWakeLockSentinel // javascript: Promise _what_return_name
 	)
-	_converted = PromiseWakeLockFromJS(_returned)
+	_converted = PromiseWakeLockSentinelFromJS(_returned)
 	_result = _converted
 	return
 }
 
 // class: WakeLock
 type WakeLock struct {
-	domcore.EventTarget
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *WakeLock) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
 }
 
 // WakeLockFromJS is casting a js.Value into WakeLock.
@@ -298,29 +307,68 @@ func WakeLockFromWrapper(input core.Wrapper) *WakeLock {
 	return WakeLockFromJS(input.JSValue())
 }
 
+func (_this *WakeLock) Request(_type *WakeLockType) (_result *PromiseWakeLockSentinel) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if _type != nil {
+		_p0 := _type.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("request", _args[0:_end]...)
+	var (
+		_converted *PromiseWakeLockSentinel // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWakeLockSentinelFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: WakeLockSentinel
+type WakeLockSentinel struct {
+	domcore.EventTarget
+}
+
+// WakeLockSentinelFromJS is casting a js.Value into WakeLockSentinel.
+func WakeLockSentinelFromJS(value js.Value) *WakeLockSentinel {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &WakeLockSentinel{}
+	ret.Value_JS = value
+	return ret
+}
+
+// WakeLockSentinelFromJS is casting from something that holds a js.Value into WakeLockSentinel.
+func WakeLockSentinelFromWrapper(input core.Wrapper) *WakeLockSentinel {
+	return WakeLockSentinelFromJS(input.JSValue())
+}
+
+// Released returning attribute 'released' with
+// type bool (idl: boolean).
+func (_this *WakeLockSentinel) Released() bool {
+	var ret bool
+	value := _this.Value_JS.Get("released")
+	ret = (value).Bool()
+	return ret
+}
+
 // Type returning attribute 'type' with
 // type WakeLockType (idl: WakeLockType).
-func (_this *WakeLock) Type() WakeLockType {
+func (_this *WakeLockSentinel) Type() WakeLockType {
 	var ret WakeLockType
 	value := _this.Value_JS.Get("type")
 	ret = WakeLockTypeFromJS(value)
 	return ret
 }
 
-// Active returning attribute 'active' with
-// type bool (idl: boolean).
-func (_this *WakeLock) Active() bool {
-	var ret bool
-	value := _this.Value_JS.Get("active")
-	ret = (value).Bool()
-	return ret
-}
-
-// OnActiveChange returning attribute 'onactivechange' with
+// OnRelease returning attribute 'onrelease' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *WakeLock) OnActiveChange() domcore.EventHandlerFunc {
+func (_this *WakeLockSentinel) OnRelease() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onactivechange")
+	value := _this.Value_JS.Get("onrelease")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
@@ -328,83 +376,45 @@ func (_this *WakeLock) OnActiveChange() domcore.EventHandlerFunc {
 }
 
 // event attribute: domcore.Event
-func eventFuncWakeLock_domcore_Event(listener func(event *domcore.Event, target *WakeLock)) js.Func {
+func eventFuncWakeLockSentinel_domcore_Event(listener func(event *domcore.Event, target *WakeLockSentinel)) js.Func {
 	fn := func(this js.Value, args []js.Value) interface{} {
 		var ret *domcore.Event
 		value := args[0]
 		incoming := value.Get("target")
 		ret = domcore.EventFromJS(value)
-		src := WakeLockFromJS(incoming)
+		src := WakeLockSentinelFromJS(incoming)
 		listener(ret, src)
 		return js.Undefined()
 	}
 	return js.FuncOf(fn)
 }
 
-// AddActiveChange is adding doing AddEventListener for 'ActiveChange' on target.
+// AddRelease is adding doing AddEventListener for 'Release' on target.
 // This method is returning allocated javascript function that need to be released.
-func (_this *WakeLock) AddEventActiveChange(listener func(event *domcore.Event, currentTarget *WakeLock)) js.Func {
-	cb := eventFuncWakeLock_domcore_Event(listener)
-	_this.Value_JS.Call("addEventListener", "activechange", cb)
+func (_this *WakeLockSentinel) AddEventRelease(listener func(event *domcore.Event, currentTarget *WakeLockSentinel)) js.Func {
+	cb := eventFuncWakeLockSentinel_domcore_Event(listener)
+	_this.Value_JS.Call("addEventListener", "release", cb)
 	return cb
 }
 
-// SetOnActiveChange is assigning a function to 'onactivechange'. This
+// SetOnRelease is assigning a function to 'onrelease'. This
 // This method is returning allocated javascript function that need to be released.
-func (_this *WakeLock) SetOnActiveChange(listener func(event *domcore.Event, currentTarget *WakeLock)) js.Func {
-	cb := eventFuncWakeLock_domcore_Event(listener)
-	_this.Value_JS.Set("onactivechange", cb)
+func (_this *WakeLockSentinel) SetOnRelease(listener func(event *domcore.Event, currentTarget *WakeLockSentinel)) js.Func {
+	cb := eventFuncWakeLockSentinel_domcore_Event(listener)
+	_this.Value_JS.Set("onrelease", cb)
 	return cb
 }
 
-func (_this *WakeLock) CreateRequest() (_result *WakeLockRequest) {
+func (_this *WakeLockSentinel) Release() (_result *javascript.PromiseVoid) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _this.Value_JS.Call("createRequest", _args[0:_end]...)
+	_returned := _this.Value_JS.Call("release", _args[0:_end]...)
 	var (
-		_converted *WakeLockRequest // javascript: WakeLockRequest _what_return_name
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
-	_converted = WakeLockRequestFromJS(_returned)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
-	return
-}
-
-// class: WakeLockRequest
-type WakeLockRequest struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *WakeLockRequest) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// WakeLockRequestFromJS is casting a js.Value into WakeLockRequest.
-func WakeLockRequestFromJS(value js.Value) *WakeLockRequest {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &WakeLockRequest{}
-	ret.Value_JS = value
-	return ret
-}
-
-// WakeLockRequestFromJS is casting from something that holds a js.Value into WakeLockRequest.
-func WakeLockRequestFromWrapper(input core.Wrapper) *WakeLockRequest {
-	return WakeLockRequestFromJS(input.JSValue())
-}
-
-func (_this *WakeLockRequest) Cancel() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("cancel", _args[0:_end]...)
 	return
 }

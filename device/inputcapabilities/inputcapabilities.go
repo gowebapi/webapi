@@ -13,10 +13,10 @@ import (
 // using following types:
 
 // source idl files:
-// InputDeviceCapabilities.idl
+// input-device-capabilities.idl
 
 // transform files:
-// InputDeviceCapabilities.go.md
+// input-device-capabilities.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {

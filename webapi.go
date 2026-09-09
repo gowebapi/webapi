@@ -23,6 +23,7 @@ import (
 	"github.com/gowebapi/webapi/css/regions"
 	"github.com/gowebapi/webapi/css/transitions"
 	"github.com/gowebapi/webapi/css/typedom"
+	"github.com/gowebapi/webapi/css/viewtransitions"
 	"github.com/gowebapi/webapi/device/sensor"
 	"github.com/gowebapi/webapi/device/touchevents"
 	"github.com/gowebapi/webapi/device/webvr"
@@ -32,6 +33,7 @@ import (
 	"github.com/gowebapi/webapi/featurepolicy"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/fetch/corsrfc1918"
+	"github.com/gowebapi/webapi/file/fs"
 	"github.com/gowebapi/webapi/graphics/fontmetrics"
 	"github.com/gowebapi/webapi/graphics/svg"
 	"github.com/gowebapi/webapi/html"
@@ -48,6 +50,7 @@ import (
 	"github.com/gowebapi/webapi/performance"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/webidl"
+	"github.com/gowebapi/webapi/window/management"
 )
 
 // using following types:
@@ -85,10 +88,16 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.VisibilityState
-// featurepolicy.FeaturePolicy
+// featurepolicy.PermissionsPolicy
 // fetch.PromiseResponse
 // fetch.RequestInit
 // fontmetrics.FontMetrics
+// fs.DirectoryPickerOptions
+// fs.OpenFilePickerOptions
+// fs.PromiseFileSystemDirectoryHandle
+// fs.PromiseFileSystemFileHandle
+// fs.PromiseSequenceFileSystemFileHandle
+// fs.SaveFilePickerOptions
 // geometry.DOMPoint
 // geometry.DOMPointInit
 // geometry.DOMQuad
@@ -127,7 +136,10 @@ import (
 // htmlmisc.Navigator
 // indexeddb.IDBFactory
 // javascript.Object
+// javascript.PromiseBool
+// javascript.PromiseFinally
 // javascript.PromiseVoid
+// management.PromiseScreenDetails
 // patch.ByteString
 // performance.Performance
 // pseudo.CSSPseudoElementList
@@ -147,6 +159,7 @@ import (
 // view.MediaQueryList
 // view.Screen
 // view.ScrollToOptions
+// viewtransitions.ViewTransition
 // webani.Animation
 // webani.DocumentTimeline
 // webidl.VoidFunction
@@ -154,14 +167,18 @@ import (
 // xhr.ProgressEvent
 
 // source idl files:
+// document-picture-in-picture.idl
 // dom.addition.idl
 // dom.idl
 // html.idl
+// promises.idl
 
 // transform files:
+// document-picture-in-picture.go.md
 // dom.go.md
 // dom.go.md
 // html.go.md
+// promises.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {
@@ -223,6 +240,231 @@ func DocumentReadyStateFromJS(value js.Value) DocumentReadyState {
 	return conv
 }
 
+// callback: MutationCallback
+type MutationCallbackFunc func(mutations []*MutationRecord, observer *MutationObserver)
+
+// MutationCallback is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type MutationCallback js.Func
+
+func MutationCallbackToJS(callback MutationCallbackFunc) *MutationCallback {
+	if callback == nil {
+		return nil
+	}
+	ret := MutationCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*MutationRecord // javascript: sequence<MutationRecord> mutations
+			_p1 *MutationObserver // javascript: MutationObserver observer
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*MutationRecord, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *MutationRecord
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = MutationRecordFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		_p1 = MutationObserverFromJS(args[1])
+		callback(_p0, _p1)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func MutationCallbackFromJS(_value js.Value) MutationCallbackFunc {
+	return func(mutations []*MutationRecord, observer *MutationObserver) {
+		var (
+			_args [2]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(mutations))
+		for __idx0, __seq_in0 := range mutations {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_p1 := observer.JSValue()
+		_args[1] = _p1
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
+type PromiseWindowOnFulfilledFunc func(value *Window)
+
+// PromiseWindowOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseWindowOnFulfilled js.Func
+
+func PromiseWindowOnFulfilledToJS(callback PromiseWindowOnFulfilledFunc) *PromiseWindowOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseWindowOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 *Window // javascript: Window value
+		)
+		_p0 = WindowFromJS(args[0])
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseWindowOnFulfilledFromJS(_value js.Value) PromiseWindowOnFulfilledFunc {
+	return func(value *Window) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseWindowOnRejectedFunc func(reason js.Value)
+
+// PromiseWindowOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseWindowOnRejected js.Func
+
+func PromiseWindowOnRejectedToJS(callback PromiseWindowOnRejectedFunc) *PromiseWindowOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseWindowOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseWindowOnRejectedFromJS(_value js.Value) PromiseWindowOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// dictionary: DocumentPictureInPictureEventInit
+type DocumentPictureInPictureEventInit struct {
+	Bubbles    bool
+	Cancelable bool
+	Composed   bool
+	Window     *Window
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DocumentPictureInPictureEventInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Bubbles
+	out.Set("bubbles", value0)
+	value1 := _this.Cancelable
+	out.Set("cancelable", value1)
+	value2 := _this.Composed
+	out.Set("composed", value2)
+	value3 := _this.Window.JSValue()
+	out.Set("window", value3)
+	return out
+}
+
+// DocumentPictureInPictureEventInitFromJS is allocating a new
+// DocumentPictureInPictureEventInit object and copy all values in the value javascript object.
+func DocumentPictureInPictureEventInitFromJS(value js.Value) *DocumentPictureInPictureEventInit {
+	var out DocumentPictureInPictureEventInit
+	var (
+		value0 bool    // javascript: boolean {bubbles Bubbles bubbles}
+		value1 bool    // javascript: boolean {cancelable Cancelable cancelable}
+		value2 bool    // javascript: boolean {composed Composed composed}
+		value3 *Window // javascript: Window {window Window window}
+	)
+	value0 = (value.Get("bubbles")).Bool()
+	out.Bubbles = value0
+	value1 = (value.Get("cancelable")).Bool()
+	out.Cancelable = value1
+	value2 = (value.Get("composed")).Bool()
+	out.Composed = value2
+	value3 = WindowFromJS(value.Get("window"))
+	out.Window = value3
+	return &out
+}
+
+// dictionary: DocumentPictureInPictureOptions
+type DocumentPictureInPictureOptions struct {
+	Width                        int
+	Height                       int
+	DisallowReturnToOpener       bool
+	PreferInitialWindowPlacement bool
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DocumentPictureInPictureOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Width
+	out.Set("width", value0)
+	value1 := _this.Height
+	out.Set("height", value1)
+	value2 := _this.DisallowReturnToOpener
+	out.Set("disallowReturnToOpener", value2)
+	value3 := _this.PreferInitialWindowPlacement
+	out.Set("preferInitialWindowPlacement", value3)
+	return out
+}
+
+// DocumentPictureInPictureOptionsFromJS is allocating a new
+// DocumentPictureInPictureOptions object and copy all values in the value javascript object.
+func DocumentPictureInPictureOptionsFromJS(value js.Value) *DocumentPictureInPictureOptions {
+	var out DocumentPictureInPictureOptions
+	var (
+		value0 int  // javascript: unsigned long long {width Width width}
+		value1 int  // javascript: unsigned long long {height Height height}
+		value2 bool // javascript: boolean {disallowReturnToOpener DisallowReturnToOpener disallowReturnToOpener}
+		value3 bool // javascript: boolean {preferInitialWindowPlacement PreferInitialWindowPlacement preferInitialWindowPlacement}
+	)
+	value0 = (value.Get("width")).Int()
+	out.Width = value0
+	value1 = (value.Get("height")).Int()
+	out.Height = value1
+	value2 = (value.Get("disallowReturnToOpener")).Bool()
+	out.DisallowReturnToOpener = value2
+	value3 = (value.Get("preferInitialWindowPlacement")).Bool()
+	out.PreferInitialWindowPlacement = value3
+	return &out
+}
+
 // dictionary: ElementCreationOptions
 type ElementCreationOptions struct {
 	Is string
@@ -246,6 +488,80 @@ func ElementCreationOptionsFromJS(value js.Value) *ElementCreationOptions {
 	)
 	value0 = (value.Get("is")).String()
 	out.Is = value0
+	return &out
+}
+
+// dictionary: MutationObserverInit
+type MutationObserverInit struct {
+	ChildList             bool
+	Attributes            bool
+	CharacterData         bool
+	Subtree               bool
+	AttributeOldValue     bool
+	CharacterDataOldValue bool
+	AttributeFilter       []string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *MutationObserverInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.ChildList
+	out.Set("childList", value0)
+	value1 := _this.Attributes
+	out.Set("attributes", value1)
+	value2 := _this.CharacterData
+	out.Set("characterData", value2)
+	value3 := _this.Subtree
+	out.Set("subtree", value3)
+	value4 := _this.AttributeOldValue
+	out.Set("attributeOldValue", value4)
+	value5 := _this.CharacterDataOldValue
+	out.Set("characterDataOldValue", value5)
+	value6 := js.Global().Get("Array").New(len(_this.AttributeFilter))
+	for __idx6, __seq_in6 := range _this.AttributeFilter {
+		__seq_out6 := __seq_in6
+		value6.SetIndex(__idx6, __seq_out6)
+	}
+	out.Set("attributeFilter", value6)
+	return out
+}
+
+// MutationObserverInitFromJS is allocating a new
+// MutationObserverInit object and copy all values in the value javascript object.
+func MutationObserverInitFromJS(value js.Value) *MutationObserverInit {
+	var out MutationObserverInit
+	var (
+		value0 bool     // javascript: boolean {childList ChildList childList}
+		value1 bool     // javascript: boolean {attributes Attributes attributes}
+		value2 bool     // javascript: boolean {characterData CharacterData characterData}
+		value3 bool     // javascript: boolean {subtree Subtree subtree}
+		value4 bool     // javascript: boolean {attributeOldValue AttributeOldValue attributeOldValue}
+		value5 bool     // javascript: boolean {characterDataOldValue CharacterDataOldValue characterDataOldValue}
+		value6 []string // javascript: sequence<DOMString> {attributeFilter AttributeFilter attributeFilter}
+	)
+	value0 = (value.Get("childList")).Bool()
+	out.ChildList = value0
+	value1 = (value.Get("attributes")).Bool()
+	out.Attributes = value1
+	value2 = (value.Get("characterData")).Bool()
+	out.CharacterData = value2
+	value3 = (value.Get("subtree")).Bool()
+	out.Subtree = value3
+	value4 = (value.Get("attributeOldValue")).Bool()
+	out.AttributeOldValue = value4
+	value5 = (value.Get("characterDataOldValue")).Bool()
+	out.CharacterDataOldValue = value5
+	__length6 := value.Get("attributeFilter").Length()
+	__array6 := make([]string, __length6, __length6)
+	for __idx6 := 0; __idx6 < __length6; __idx6++ {
+		var __seq_out6 string
+		__seq_in6 := value.Get("attributeFilter").Index(__idx6)
+		__seq_out6 = (__seq_in6).String()
+		__array6[__idx6] = __seq_out6
+	}
+	value6 = __array6
+	out.AttributeFilter = value6
 	return &out
 }
 
@@ -579,6 +895,17 @@ func (_this *Document) NamedFlows() *regions.NamedFlowMap {
 	var ret *regions.NamedFlowMap
 	value := _this.Value_JS.Get("namedFlows")
 	ret = regions.NamedFlowMapFromJS(value)
+	return ret
+}
+
+// ActiveViewTransition returning attribute 'activeViewTransition' with
+// type viewtransitions.ViewTransition (idl: ViewTransition).
+func (_this *Document) ActiveViewTransition() *viewtransitions.ViewTransition {
+	var ret *viewtransitions.ViewTransition
+	value := _this.Value_JS.Get("activeViewTransition")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = viewtransitions.ViewTransitionFromJS(value)
+	}
 	return ret
 }
 
@@ -1014,6 +1341,15 @@ func (_this *Document) OnVisibilityChange() domcore.EventHandlerFunc {
 	return ret
 }
 
+// PermissionsPolicy returning attribute 'permissionsPolicy' with
+// type featurepolicy.PermissionsPolicy (idl: PermissionsPolicy).
+func (_this *Document) PermissionsPolicy() *featurepolicy.PermissionsPolicy {
+	var ret *featurepolicy.PermissionsPolicy
+	value := _this.Value_JS.Get("permissionsPolicy")
+	ret = featurepolicy.PermissionsPolicyFromJS(value)
+	return ret
+}
+
 // PictureInPictureEnabled returning attribute 'pictureInPictureEnabled' with
 // type bool (idl: boolean).
 func (_this *Document) PictureInPictureEnabled() bool {
@@ -1051,15 +1387,6 @@ func (_this *Document) Timeline() *webani.DocumentTimeline {
 	var ret *webani.DocumentTimeline
 	value := _this.Value_JS.Get("timeline")
 	ret = webani.DocumentTimelineFromJS(value)
-	return ret
-}
-
-// FeaturePolicy returning attribute 'featurePolicy' with
-// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
-func (_this *Document) FeaturePolicy() *featurepolicy.FeaturePolicy {
-	var ret *featurepolicy.FeaturePolicy
-	value := _this.Value_JS.Get("featurePolicy")
-	ret = featurepolicy.FeaturePolicyFromJS(value)
 	return ret
 }
 
@@ -4304,6 +4631,25 @@ func (_this *Document) LayoutNow() {
 	return
 }
 
+func (_this *Document) StartViewTransition(callbackOptions *Union) (_result *viewtransitions.ViewTransition) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if callbackOptions != nil {
+		_p0 := callbackOptions.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("startViewTransition", _args[0:_end]...)
+	var (
+		_converted *viewtransitions.ViewTransition // javascript: ViewTransition _what_return_name
+	)
+	_converted = viewtransitions.ViewTransitionFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Document) ElementFromPoint(x float64, y float64) (_result *dom.Element) {
 	var (
 		_args [2]interface{}
@@ -4746,6 +5092,34 @@ func (_this *Document) GetSelection() (_result *selection.Selection) {
 	return
 }
 
+func (_this *Document) HasStorageAccess() (_result *javascript.PromiseBool) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("hasStorageAccess", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
+	)
+	_converted = javascript.PromiseBoolFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Document) RequestStorageAccess() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("requestStorageAccess", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Document) GetAnimations() (_result []*webani.Animation) {
 	var (
 		_args [0]interface{}
@@ -4951,6 +5325,128 @@ func (_this *Document) QuerySelectorAll(selectors string) (_result *dom.NodeList
 	_converted = dom.NodeListFromJS(_returned)
 	_result = _converted
 	return
+}
+
+// class: DocumentPictureInPicture
+type DocumentPictureInPicture struct {
+	domcore.EventTarget
+}
+
+// DocumentPictureInPictureFromJS is casting a js.Value into DocumentPictureInPicture.
+func DocumentPictureInPictureFromJS(value js.Value) *DocumentPictureInPicture {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &DocumentPictureInPicture{}
+	ret.Value_JS = value
+	return ret
+}
+
+// DocumentPictureInPictureFromJS is casting from something that holds a js.Value into DocumentPictureInPicture.
+func DocumentPictureInPictureFromWrapper(input core.Wrapper) *DocumentPictureInPicture {
+	return DocumentPictureInPictureFromJS(input.JSValue())
+}
+
+// Window returning attribute 'window' with
+// type Window (idl: Window).
+func (_this *DocumentPictureInPicture) Window() *Window {
+	var ret *Window
+	value := _this.Value_JS.Get("window")
+	ret = WindowFromJS(value)
+	return ret
+}
+
+// Onenter returning attribute 'onenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DocumentPictureInPicture) Onenter() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onenter")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnenter setting attribute 'onenter' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *DocumentPictureInPicture) SetOnenter(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onenter", input)
+}
+
+func (_this *DocumentPictureInPicture) RequestWindow(options *DocumentPictureInPictureOptions) (_result *PromiseWindow) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("requestWindow", _args[0:_end]...)
+	var (
+		_converted *PromiseWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWindowFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: DocumentPictureInPictureEvent
+type DocumentPictureInPictureEvent struct {
+	domcore.Event
+}
+
+// DocumentPictureInPictureEventFromJS is casting a js.Value into DocumentPictureInPictureEvent.
+func DocumentPictureInPictureEventFromJS(value js.Value) *DocumentPictureInPictureEvent {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &DocumentPictureInPictureEvent{}
+	ret.Value_JS = value
+	return ret
+}
+
+// DocumentPictureInPictureEventFromJS is casting from something that holds a js.Value into DocumentPictureInPictureEvent.
+func DocumentPictureInPictureEventFromWrapper(input core.Wrapper) *DocumentPictureInPictureEvent {
+	return DocumentPictureInPictureEventFromJS(input.JSValue())
+}
+
+func NewDocumentPictureInPictureEvent(_type string, eventInitDict *DocumentPictureInPictureEventInit) (_result *DocumentPictureInPictureEvent) {
+	_klass := js.Global().Get("DocumentPictureInPictureEvent")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := _type
+	_args[0] = _p0
+	_end++
+	_p1 := eventInitDict.JSValue()
+	_args[1] = _p1
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *DocumentPictureInPictureEvent // javascript: DocumentPictureInPictureEvent _what_return_name
+	)
+	_converted = DocumentPictureInPictureEventFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Window returning attribute 'window' with
+// type Window (idl: Window).
+func (_this *DocumentPictureInPictureEvent) Window() *Window {
+	var ret *Window
+	value := _this.Value_JS.Get("window")
+	ret = WindowFromJS(value)
+	return ret
 }
 
 // GetDocument returning attribute 'document' with
@@ -5582,12 +6078,12 @@ func (_this *HTMLIFrameElement) SetMarginWidth(value string) {
 	_this.Value_JS.Set("marginWidth", input)
 }
 
-// FeaturePolicy returning attribute 'featurePolicy' with
-// type featurepolicy.FeaturePolicy (idl: FeaturePolicy).
-func (_this *HTMLIFrameElement) FeaturePolicy() *featurepolicy.FeaturePolicy {
-	var ret *featurepolicy.FeaturePolicy
-	value := _this.Value_JS.Get("featurePolicy")
-	ret = featurepolicy.FeaturePolicyFromJS(value)
+// PermissionsPolicy returning attribute 'permissionsPolicy' with
+// type featurepolicy.PermissionsPolicy (idl: PermissionsPolicy).
+func (_this *HTMLIFrameElement) PermissionsPolicy() *featurepolicy.PermissionsPolicy {
+	var ret *featurepolicy.PermissionsPolicy
+	value := _this.Value_JS.Get("permissionsPolicy")
+	ret = featurepolicy.PermissionsPolicyFromJS(value)
 	return ret
 }
 
@@ -6012,6 +6508,344 @@ func (_this *HTMLObjectElement) SetCustomValidity(_error string) {
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("setCustomValidity", _args[0:_end]...)
+	return
+}
+
+// class: MutationObserver
+type MutationObserver struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *MutationObserver) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// MutationObserverFromJS is casting a js.Value into MutationObserver.
+func MutationObserverFromJS(value js.Value) *MutationObserver {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &MutationObserver{}
+	ret.Value_JS = value
+	return ret
+}
+
+// MutationObserverFromJS is casting from something that holds a js.Value into MutationObserver.
+func MutationObserverFromWrapper(input core.Wrapper) *MutationObserver {
+	return MutationObserverFromJS(input.JSValue())
+}
+
+func NewMutationObserver(callback *MutationCallback) (_result *MutationObserver) {
+	_klass := js.Global().Get("MutationObserver")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if callback != nil {
+		__callback0 = (*callback).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *MutationObserver // javascript: MutationObserver _what_return_name
+	)
+	_converted = MutationObserverFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *MutationObserver) Observe(target *dom.Node, options *MutationObserverInit) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := target.JSValue()
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_this.Value_JS.Call("observe", _args[0:_end]...)
+	return
+}
+
+func (_this *MutationObserver) Disconnect() {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_this.Value_JS.Call("disconnect", _args[0:_end]...)
+	return
+}
+
+func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("takeRecords", _args[0:_end]...)
+	var (
+		_converted []*MutationRecord // javascript: sequence<MutationRecord> _what_return_name
+	)
+	__length0 := _returned.Length()
+	__array0 := make([]*MutationRecord, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *MutationRecord
+		__seq_in0 := _returned.Index(__idx0)
+		__seq_out0 = MutationRecordFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	_converted = __array0
+	_result = _converted
+	return
+}
+
+// class: MutationRecord
+type MutationRecord struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *MutationRecord) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// MutationRecordFromJS is casting a js.Value into MutationRecord.
+func MutationRecordFromJS(value js.Value) *MutationRecord {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &MutationRecord{}
+	ret.Value_JS = value
+	return ret
+}
+
+// MutationRecordFromJS is casting from something that holds a js.Value into MutationRecord.
+func MutationRecordFromWrapper(input core.Wrapper) *MutationRecord {
+	return MutationRecordFromJS(input.JSValue())
+}
+
+// Type returning attribute 'type' with
+// type string (idl: DOMString).
+func (_this *MutationRecord) Type() string {
+	var ret string
+	value := _this.Value_JS.Get("type")
+	ret = (value).String()
+	return ret
+}
+
+// Target returning attribute 'target' with
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) Target() *dom.Node {
+	var ret *dom.Node
+	value := _this.Value_JS.Get("target")
+	ret = dom.NodeFromJS(value)
+	return ret
+}
+
+// AddedNodes returning attribute 'addedNodes' with
+// type dom.NodeList (idl: NodeList).
+func (_this *MutationRecord) AddedNodes() *dom.NodeList {
+	var ret *dom.NodeList
+	value := _this.Value_JS.Get("addedNodes")
+	ret = dom.NodeListFromJS(value)
+	return ret
+}
+
+// RemovedNodes returning attribute 'removedNodes' with
+// type dom.NodeList (idl: NodeList).
+func (_this *MutationRecord) RemovedNodes() *dom.NodeList {
+	var ret *dom.NodeList
+	value := _this.Value_JS.Get("removedNodes")
+	ret = dom.NodeListFromJS(value)
+	return ret
+}
+
+// PreviousSibling returning attribute 'previousSibling' with
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) PreviousSibling() *dom.Node {
+	var ret *dom.Node
+	value := _this.Value_JS.Get("previousSibling")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = dom.NodeFromJS(value)
+	}
+	return ret
+}
+
+// NextSibling returning attribute 'nextSibling' with
+// type dom.Node (idl: Node).
+func (_this *MutationRecord) NextSibling() *dom.Node {
+	var ret *dom.Node
+	value := _this.Value_JS.Get("nextSibling")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = dom.NodeFromJS(value)
+	}
+	return ret
+}
+
+// AttributeName returning attribute 'attributeName' with
+// type string (idl: DOMString).
+func (_this *MutationRecord) AttributeName() *string {
+	var ret *string
+	value := _this.Value_JS.Get("attributeName")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// AttributeNamespace returning attribute 'attributeNamespace' with
+// type string (idl: DOMString).
+func (_this *MutationRecord) AttributeNamespace() *string {
+	var ret *string
+	value := _this.Value_JS.Get("attributeNamespace")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// OldValue returning attribute 'oldValue' with
+// type string (idl: DOMString).
+func (_this *MutationRecord) OldValue() *string {
+	var ret *string
+	value := _this.Value_JS.Get("oldValue")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// class: Promise
+type PromiseWindow struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *PromiseWindow) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// PromiseWindowFromJS is casting a js.Value into PromiseWindow.
+func PromiseWindowFromJS(value js.Value) *PromiseWindow {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &PromiseWindow{}
+	ret.Value_JS = value
+	return ret
+}
+
+// PromiseWindowFromJS is casting from something that holds a js.Value into PromiseWindow.
+func PromiseWindowFromWrapper(input core.Wrapper) *PromiseWindow {
+	return PromiseWindowFromJS(input.JSValue())
+}
+
+func (_this *PromiseWindow) Then(onFulfilled *PromiseWindowOnFulfilled, onRejected *PromiseWindowOnRejected) (_result *PromiseWindow) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWindowFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseWindow) Catch(onRejected *PromiseWindowOnRejected) (_result *PromiseWindow) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWindowFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseWindow) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseWindow) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseWindow // javascript: Promise _what_return_name
+	)
+	_converted = PromiseWindowFromJS(_returned)
+	_result = _converted
 	return
 }
 
@@ -6443,6 +7277,15 @@ func (_this *Window) DevicePixelRatio() float64 {
 	var ret float64
 	value := _this.Value_JS.Get("devicePixelRatio")
 	ret = (value).Float()
+	return ret
+}
+
+// DocumentPictureInPicture returning attribute 'documentPictureInPicture' with
+// type DocumentPictureInPicture (idl: DocumentPictureInPicture).
+func (_this *Window) DocumentPictureInPicture() *DocumentPictureInPicture {
+	var ret *DocumentPictureInPicture
+	value := _this.Value_JS.Get("documentPictureInPicture")
+	ret = DocumentPictureInPictureFromJS(value)
 	return ret
 }
 
@@ -7763,21 +8606,21 @@ func (_this *Window) IndexedDB() *indexeddb.IDBFactory {
 	return ret
 }
 
-// Crypto returning attribute 'crypto' with
-// type crypto.Crypto (idl: Crypto).
-func (_this *Window) Crypto() *crypto.Crypto {
-	var ret *crypto.Crypto
-	value := _this.Value_JS.Get("crypto")
-	ret = crypto.CryptoFromJS(value)
-	return ret
-}
-
 // Performance returning attribute 'performance' with
 // type performance.Performance (idl: Performance).
 func (_this *Window) Performance() *performance.Performance {
 	var ret *performance.Performance
 	value := _this.Value_JS.Get("performance")
 	ret = performance.PerformanceFromJS(value)
+	return ret
+}
+
+// Crypto returning attribute 'crypto' with
+// type crypto.Crypto (idl: Crypto).
+func (_this *Window) Crypto() *crypto.Crypto {
+	var ret *crypto.Crypto
+	value := _this.Value_JS.Get("crypto")
+	ret = crypto.CryptoFromJS(value)
 	return ret
 }
 
@@ -10484,6 +11327,63 @@ func (_this *Window) GetComputedStyle(elt *dom.Element, pseudoElt *string) (_res
 	return
 }
 
+func (_this *Window) ShowOpenFilePicker(options *fs.OpenFilePickerOptions) (_result *fs.PromiseSequenceFileSystemFileHandle) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("showOpenFilePicker", _args[0:_end]...)
+	var (
+		_converted *fs.PromiseSequenceFileSystemFileHandle // javascript: Promise _what_return_name
+	)
+	_converted = fs.PromiseSequenceFileSystemFileHandleFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) ShowSaveFilePicker(options *fs.SaveFilePickerOptions) (_result *fs.PromiseFileSystemFileHandle) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("showSaveFilePicker", _args[0:_end]...)
+	var (
+		_converted *fs.PromiseFileSystemFileHandle // javascript: Promise _what_return_name
+	)
+	_converted = fs.PromiseFileSystemFileHandleFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) ShowDirectoryPicker(options *fs.DirectoryPickerOptions) (_result *fs.PromiseFileSystemDirectoryHandle) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if options != nil {
+		_p0 := options.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("showDirectoryPicker", _args[0:_end]...)
+	var (
+		_converted *fs.PromiseFileSystemDirectoryHandle // javascript: Promise _what_return_name
+	)
+	_converted = fs.PromiseFileSystemDirectoryHandleFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Window) CaptureEvents() {
 	var (
 		_args [0]interface{}
@@ -10555,6 +11455,79 @@ func (_this *Window) GetSelection() (_result *selection.Selection) {
 	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = selection.SelectionFromJS(_returned)
 	}
+	_result = _converted
+	return
+}
+
+func (_this *Window) GetScreenDetails() (_result *management.PromiseScreenDetails) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getScreenDetails", _args[0:_end]...)
+	var (
+		_converted *management.PromiseScreenDetails // javascript: Promise _what_return_name
+	)
+	_converted = management.PromiseScreenDetailsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) Minimize() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("minimize", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) Maximize() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("maximize", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) Restore() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("restore", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Window) SetResizable(resizable bool) (_result *javascript.PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := resizable
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("setResizable", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

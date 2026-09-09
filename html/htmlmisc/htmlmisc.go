@@ -17,7 +17,9 @@ import (
 	"github.com/gowebapi/webapi/device/gamepad"
 	"github.com/gowebapi/webapi/device/keyboard"
 	"github.com/gowebapi/webapi/device/sensor"
+	"github.com/gowebapi/webapi/device/serial"
 	"github.com/gowebapi/webapi/device/usb"
+	"github.com/gowebapi/webapi/device/virtualkeyboard"
 	"github.com/gowebapi/webapi/device/wakelock"
 	"github.com/gowebapi/webapi/device/webvr"
 	"github.com/gowebapi/webapi/device/webxr"
@@ -25,6 +27,7 @@ import (
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/graphics/presentation"
+	"github.com/gowebapi/webapi/graphics/webgpu"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlevent"
 	"github.com/gowebapi/webapi/javascript"
@@ -33,14 +36,18 @@ import (
 	"github.com/gowebapi/webapi/media/encrypted"
 	"github.com/gowebapi/webapi/media/midi"
 	"github.com/gowebapi/webapi/media/session"
+	"github.com/gowebapi/webapi/ml/webnn"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/share"
 	"github.com/gowebapi/webapi/storage"
+	"github.com/gowebapi/webapi/storage/buckets"
+	"github.com/gowebapi/webapi/storage/weblocks"
 )
 
 // using following types:
 // battery.PromiseBatteryManager
 // bluetooth.Bluetooth
+// buckets.StorageBucketManager
 // capabilities.MediaCapabilities
 // channel.MessageEvent
 // clipboard.Clipboard
@@ -68,13 +75,17 @@ import (
 // permissions.Permissions
 // presentation.Presentation
 // sensor.Geolocation
+// serial.Serial
 // serviceworker.ServiceWorkerContainer
 // session.MediaSession
 // share.ShareData
 // storage.StorageManager
 // usb.USB
-// wakelock.PromiseWakeLock
-// wakelock.WakeLockType
+// virtualkeyboard.VirtualKeyboard
+// wakelock.WakeLock
+// webgpu.GPU
+// weblocks.LockManager
+// webnn.ML
 // webvr.PromiseSequenceDisplay
 // webxr.XR
 // xhr.ProgressEvent
@@ -1628,12 +1639,39 @@ func (_this *Navigator) Presentation() *presentation.Presentation {
 	return ret
 }
 
+// WakeLock returning attribute 'wakeLock' with
+// type wakelock.WakeLock (idl: WakeLock).
+func (_this *Navigator) WakeLock() *wakelock.WakeLock {
+	var ret *wakelock.WakeLock
+	value := _this.Value_JS.Get("wakeLock")
+	ret = wakelock.WakeLockFromJS(value)
+	return ret
+}
+
+// Serial returning attribute 'serial' with
+// type serial.Serial (idl: Serial).
+func (_this *Navigator) Serial() *serial.Serial {
+	var ret *serial.Serial
+	value := _this.Value_JS.Get("serial")
+	ret = serial.SerialFromJS(value)
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *Navigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
 	var ret *serviceworker.ServiceWorkerContainer
 	value := _this.Value_JS.Get("serviceWorker")
 	ret = serviceworker.ServiceWorkerContainerFromJS(value)
+	return ret
+}
+
+// VirtualKeyboard returning attribute 'virtualKeyboard' with
+// type virtualkeyboard.VirtualKeyboard (idl: VirtualKeyboard).
+func (_this *Navigator) VirtualKeyboard() *virtualkeyboard.VirtualKeyboard {
+	var ret *virtualkeyboard.VirtualKeyboard
+	value := _this.Value_JS.Get("virtualKeyboard")
+	ret = virtualkeyboard.VirtualKeyboardFromJS(value)
 	return ret
 }
 
@@ -1835,6 +1873,15 @@ func (_this *Navigator) Connection() *netinfo.NetworkInformation {
 	return ret
 }
 
+// StorageBuckets returning attribute 'storageBuckets' with
+// type buckets.StorageBucketManager (idl: StorageBucketManager).
+func (_this *Navigator) StorageBuckets() *buckets.StorageBucketManager {
+	var ret *buckets.StorageBucketManager
+	value := _this.Value_JS.Get("storageBuckets")
+	ret = buckets.StorageBucketManagerFromJS(value)
+	return ret
+}
+
 // Storage returning attribute 'storage' with
 // type storage.StorageManager (idl: StorageManager).
 func (_this *Navigator) Storage() *storage.StorageManager {
@@ -1844,12 +1891,39 @@ func (_this *Navigator) Storage() *storage.StorageManager {
 	return ret
 }
 
+// Locks returning attribute 'locks' with
+// type weblocks.LockManager (idl: LockManager).
+func (_this *Navigator) Locks() *weblocks.LockManager {
+	var ret *weblocks.LockManager
+	value := _this.Value_JS.Get("locks")
+	ret = weblocks.LockManagerFromJS(value)
+	return ret
+}
+
 // Webdriver returning attribute 'webdriver' with
 // type bool (idl: boolean).
 func (_this *Navigator) Webdriver() bool {
 	var ret bool
 	value := _this.Value_JS.Get("webdriver")
 	ret = (value).Bool()
+	return ret
+}
+
+// Gpu returning attribute 'gpu' with
+// type webgpu.GPU (idl: GPU).
+func (_this *Navigator) Gpu() *webgpu.GPU {
+	var ret *webgpu.GPU
+	value := _this.Value_JS.Get("gpu")
+	ret = webgpu.GPUFromJS(value)
+	return ret
+}
+
+// Ml returning attribute 'ml' with
+// type webnn.ML (idl: ML).
+func (_this *Navigator) Ml() *webnn.ML {
+	var ret *webnn.ML
+	value := _this.Value_JS.Get("ml")
+	ret = webnn.MLFromJS(value)
 	return ret
 }
 
@@ -1984,23 +2058,6 @@ func (_this *Navigator) Vibrate(pattern *Union) (_result bool) {
 	return
 }
 
-func (_this *Navigator) GetWakeLock(_type wakelock.WakeLockType) (_result *wakelock.PromiseWakeLock) {
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-	_p0 := _type.JSValue()
-	_args[0] = _p0
-	_end++
-	_returned := _this.Value_JS.Call("getWakeLock", _args[0:_end]...)
-	var (
-		_converted *wakelock.PromiseWakeLock // javascript: Promise _what_return_name
-	)
-	_converted = wakelock.PromiseWakeLockFromJS(_returned)
-	_result = _converted
-	return
-}
-
 func (_this *Navigator) Share(data *share.ShareData) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
@@ -2049,6 +2106,45 @@ func (_this *Navigator) GetVRDisplays() (_result *webvr.PromiseSequenceDisplay) 
 		_converted *webvr.PromiseSequenceDisplay // javascript: Promise _what_return_name
 	)
 	_converted = webvr.PromiseSequenceDisplayFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) SetAppBadge(contents *int) (_result *javascript.PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if contents != nil {
+
+		var _p0 interface{}
+		if contents != nil {
+			_p0 = *(contents)
+		} else {
+			_p0 = nil
+		}
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("setAppBadge", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *Navigator) ClearAppBadge() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("clearAppBadge", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }

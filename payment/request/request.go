@@ -1210,6 +1210,139 @@ func PaymentValidationErrorsFromJS(value js.Value) *PaymentValidationErrors {
 	return &out
 }
 
+// class: ContactAddress
+type ContactAddress struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *ContactAddress) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// ContactAddressFromJS is casting a js.Value into ContactAddress.
+func ContactAddressFromJS(value js.Value) *ContactAddress {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &ContactAddress{}
+	ret.Value_JS = value
+	return ret
+}
+
+// ContactAddressFromJS is casting from something that holds a js.Value into ContactAddress.
+func ContactAddressFromWrapper(input core.Wrapper) *ContactAddress {
+	return ContactAddressFromJS(input.JSValue())
+}
+
+// City returning attribute 'city' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) City() string {
+	var ret string
+	value := _this.Value_JS.Get("city")
+	ret = (value).String()
+	return ret
+}
+
+// Country returning attribute 'country' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) Country() string {
+	var ret string
+	value := _this.Value_JS.Get("country")
+	ret = (value).String()
+	return ret
+}
+
+// DependentLocality returning attribute 'dependentLocality' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) DependentLocality() string {
+	var ret string
+	value := _this.Value_JS.Get("dependentLocality")
+	ret = (value).String()
+	return ret
+}
+
+// Organization returning attribute 'organization' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) Organization() string {
+	var ret string
+	value := _this.Value_JS.Get("organization")
+	ret = (value).String()
+	return ret
+}
+
+// Phone returning attribute 'phone' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) Phone() string {
+	var ret string
+	value := _this.Value_JS.Get("phone")
+	ret = (value).String()
+	return ret
+}
+
+// PostalCode returning attribute 'postalCode' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) PostalCode() string {
+	var ret string
+	value := _this.Value_JS.Get("postalCode")
+	ret = (value).String()
+	return ret
+}
+
+// Recipient returning attribute 'recipient' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) Recipient() string {
+	var ret string
+	value := _this.Value_JS.Get("recipient")
+	ret = (value).String()
+	return ret
+}
+
+// Region returning attribute 'region' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) Region() string {
+	var ret string
+	value := _this.Value_JS.Get("region")
+	ret = (value).String()
+	return ret
+}
+
+// SortingCode returning attribute 'sortingCode' with
+// type string (idl: DOMString).
+func (_this *ContactAddress) SortingCode() string {
+	var ret string
+	value := _this.Value_JS.Get("sortingCode")
+	ret = (value).String()
+	return ret
+}
+
+// AddressLine returning attribute 'addressLine' with
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ContactAddress) AddressLine() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
+	value := _this.Value_JS.Get("addressLine")
+	ret = javascript.FrozenArrayFromJS(value)
+	return ret
+}
+
+func (_this *ContactAddress) ToJSON() (_result *javascript.Object) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toJSON", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // class: MerchantValidationEvent
 type MerchantValidationEvent struct {
 	domcore.Event
@@ -1280,139 +1413,6 @@ func (_this *MerchantValidationEvent) Complete(merchantSessionPromise *javascrip
 	_args[0] = _p0
 	_end++
 	_this.Value_JS.Call("complete", _args[0:_end]...)
-	return
-}
-
-// class: PaymentAddress
-type PaymentAddress struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *PaymentAddress) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// PaymentAddressFromJS is casting a js.Value into PaymentAddress.
-func PaymentAddressFromJS(value js.Value) *PaymentAddress {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &PaymentAddress{}
-	ret.Value_JS = value
-	return ret
-}
-
-// PaymentAddressFromJS is casting from something that holds a js.Value into PaymentAddress.
-func PaymentAddressFromWrapper(input core.Wrapper) *PaymentAddress {
-	return PaymentAddressFromJS(input.JSValue())
-}
-
-// City returning attribute 'city' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) City() string {
-	var ret string
-	value := _this.Value_JS.Get("city")
-	ret = (value).String()
-	return ret
-}
-
-// Country returning attribute 'country' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) Country() string {
-	var ret string
-	value := _this.Value_JS.Get("country")
-	ret = (value).String()
-	return ret
-}
-
-// DependentLocality returning attribute 'dependentLocality' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) DependentLocality() string {
-	var ret string
-	value := _this.Value_JS.Get("dependentLocality")
-	ret = (value).String()
-	return ret
-}
-
-// Organization returning attribute 'organization' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) Organization() string {
-	var ret string
-	value := _this.Value_JS.Get("organization")
-	ret = (value).String()
-	return ret
-}
-
-// Phone returning attribute 'phone' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) Phone() string {
-	var ret string
-	value := _this.Value_JS.Get("phone")
-	ret = (value).String()
-	return ret
-}
-
-// PostalCode returning attribute 'postalCode' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) PostalCode() string {
-	var ret string
-	value := _this.Value_JS.Get("postalCode")
-	ret = (value).String()
-	return ret
-}
-
-// Recipient returning attribute 'recipient' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) Recipient() string {
-	var ret string
-	value := _this.Value_JS.Get("recipient")
-	ret = (value).String()
-	return ret
-}
-
-// Region returning attribute 'region' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) Region() string {
-	var ret string
-	value := _this.Value_JS.Get("region")
-	ret = (value).String()
-	return ret
-}
-
-// SortingCode returning attribute 'sortingCode' with
-// type string (idl: DOMString).
-func (_this *PaymentAddress) SortingCode() string {
-	var ret string
-	value := _this.Value_JS.Get("sortingCode")
-	ret = (value).String()
-	return ret
-}
-
-// AddressLine returning attribute 'addressLine' with
-// type javascript.FrozenArray (idl: FrozenArray).
-func (_this *PaymentAddress) AddressLine() *javascript.FrozenArray {
-	var ret *javascript.FrozenArray
-	value := _this.Value_JS.Get("addressLine")
-	ret = javascript.FrozenArrayFromJS(value)
-	return ret
-}
-
-func (_this *PaymentAddress) ToJSON() (_result *javascript.Object) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("toJSON", _args[0:_end]...)
-	var (
-		_converted *javascript.Object // javascript: object _what_return_name
-	)
-	_converted = javascript.ObjectFromJS(_returned)
-	_result = _converted
 	return
 }
 
@@ -1539,12 +1539,12 @@ func (_this *PaymentRequest) Id() string {
 }
 
 // ShippingAddress returning attribute 'shippingAddress' with
-// type PaymentAddress (idl: PaymentAddress).
-func (_this *PaymentRequest) ShippingAddress() *PaymentAddress {
-	var ret *PaymentAddress
+// type ContactAddress (idl: ContactAddress).
+func (_this *PaymentRequest) ShippingAddress() *ContactAddress {
+	var ret *ContactAddress
 	value := _this.Value_JS.Get("shippingAddress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = PaymentAddressFromJS(value)
+		ret = ContactAddressFromJS(value)
 	}
 	return ret
 }
@@ -1873,12 +1873,12 @@ func (_this *PaymentResponse) Details() *javascript.Object {
 }
 
 // ShippingAddress returning attribute 'shippingAddress' with
-// type PaymentAddress (idl: PaymentAddress).
-func (_this *PaymentResponse) ShippingAddress() *PaymentAddress {
-	var ret *PaymentAddress
+// type ContactAddress (idl: ContactAddress).
+func (_this *PaymentResponse) ShippingAddress() *ContactAddress {
+	var ret *ContactAddress
 	value := _this.Value_JS.Get("shippingAddress")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = PaymentAddressFromJS(value)
+		ret = ContactAddressFromJS(value)
 	}
 	return ret
 }

@@ -14,7 +14,7 @@ import (
 
 // using following types:
 // javascript.ArrayBuffer
-// sensor.Coordinates
+// sensor.GeolocationCoordinates
 
 // source idl files:
 // webauthn.idl
@@ -341,7 +341,7 @@ type AuthenticationExtensionsClientOutputs struct {
 	AuthnSel      bool
 	Exts          []string
 	Uvi           *javascript.ArrayBuffer
-	Loc           *sensor.Coordinates
+	Loc           *sensor.GeolocationCoordinates
 	Uvm           [][]uint
 }
 
@@ -385,14 +385,14 @@ func (_this *AuthenticationExtensionsClientOutputs) JSValue() js.Value {
 func AuthenticationExtensionsClientOutputsFromJS(value js.Value) *AuthenticationExtensionsClientOutputs {
 	var out AuthenticationExtensionsClientOutputs
 	var (
-		value0 bool                    // javascript: boolean {appid Appid appid}
-		value1 string                  // javascript: USVString {txAuthSimple TxAuthSimple txAuthSimple}
-		value2 *javascript.ArrayBuffer // javascript: ArrayBuffer {txAuthGeneric TxAuthGeneric txAuthGeneric}
-		value3 bool                    // javascript: boolean {authnSel AuthnSel authnSel}
-		value4 []string                // javascript: sequence<USVString> {exts Exts exts}
-		value5 *javascript.ArrayBuffer // javascript: ArrayBuffer {uvi Uvi uvi}
-		value6 *sensor.Coordinates     // javascript: Coordinates {loc Loc loc}
-		value7 [][]uint                // javascript: sequence<sequence<unsigned long>> {uvm Uvm uvm}
+		value0 bool                           // javascript: boolean {appid Appid appid}
+		value1 string                         // javascript: USVString {txAuthSimple TxAuthSimple txAuthSimple}
+		value2 *javascript.ArrayBuffer        // javascript: ArrayBuffer {txAuthGeneric TxAuthGeneric txAuthGeneric}
+		value3 bool                           // javascript: boolean {authnSel AuthnSel authnSel}
+		value4 []string                       // javascript: sequence<USVString> {exts Exts exts}
+		value5 *javascript.ArrayBuffer        // javascript: ArrayBuffer {uvi Uvi uvi}
+		value6 *sensor.GeolocationCoordinates // javascript: GeolocationCoordinates {loc Loc loc}
+		value7 [][]uint                       // javascript: sequence<sequence<unsigned long>> {uvm Uvm uvm}
 	)
 	value0 = (value.Get("appid")).Bool()
 	out.Appid = value0
@@ -414,7 +414,7 @@ func AuthenticationExtensionsClientOutputsFromJS(value js.Value) *Authentication
 	out.Exts = value4
 	value5 = javascript.ArrayBufferFromJS(value.Get("uvi"))
 	out.Uvi = value5
-	value6 = sensor.CoordinatesFromJS(value.Get("loc"))
+	value6 = sensor.GeolocationCoordinatesFromJS(value.Get("loc"))
 	out.Loc = value6
 	__length7 := value.Get("uvm").Length()
 	__array7 := make([][]uint, __length7, __length7)

@@ -15,15 +15,16 @@ import (
 // domcore.EventHandler
 // domcore.EventTarget
 // domcore.ExtendableEvent
+// javascript.FrozenArray
 // javascript.PromiseFinally
 // javascript.PromiseVoid
 
 // source idl files:
-// cookie-store.idl
+// cookiestore.idl
 // promises.idl
 
 // transform files:
-// cookie-store.go.md
+// cookiestore.go.md
 // promises.go.md
 
 // workaround for compiler error
@@ -43,63 +44,21 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// enum: CookieMatchType
-type CookieMatchType int
-
-const (
-	EqualsCookieMatchType CookieMatchType = iota
-	StartsWithCookieMatchType
-)
-
-var cookieMatchTypeToWasmTable = []string{
-	"equals", "starts-with",
-}
-
-var cookieMatchTypeFromWasmTable = map[string]CookieMatchType{
-	"equals": EqualsCookieMatchType, "starts-with": StartsWithCookieMatchType,
-}
-
-// JSValue is converting this enum into a javascript object
-func (this *CookieMatchType) JSValue() js.Value {
-	return js.ValueOf(this.Value())
-}
-
-// Value is converting this into javascript defined
-// string value
-func (this CookieMatchType) Value() string {
-	idx := int(this)
-	if idx >= 0 && idx < len(cookieMatchTypeToWasmTable) {
-		return cookieMatchTypeToWasmTable[idx]
-	}
-	panic("unknown input value")
-}
-
-// CookieMatchTypeFromJS is converting a javascript value into
-// a CookieMatchType enum value.
-func CookieMatchTypeFromJS(value js.Value) CookieMatchType {
-	key := value.String()
-	conv, ok := cookieMatchTypeFromWasmTable[key]
-	if !ok {
-		panic("unable to convert '" + key + "'")
-	}
-	return conv
-}
-
 // enum: CookieSameSite
 type CookieSameSite int
 
 const (
 	StrictCookieSameSite CookieSameSite = iota
 	LaxCookieSameSite
-	UnrestrictedCookieSameSite
+	NoneCookieSameSite
 )
 
 var cookieSameSiteToWasmTable = []string{
-	"strict", "lax", "unrestricted",
+	"strict", "lax", "none",
 }
 
 var cookieSameSiteFromWasmTable = map[string]CookieSameSite{
-	"strict": StrictCookieSameSite, "lax": LaxCookieSameSite, "unrestricted": UnrestrictedCookieSameSite,
+	"strict": StrictCookieSameSite, "lax": LaxCookieSameSite, "none": NoneCookieSameSite,
 }
 
 // JSValue is converting this enum into a javascript object
@@ -466,15 +425,105 @@ func CookieChangeEventInitFromJS(value js.Value) *CookieChangeEventInit {
 	return &out
 }
 
+// dictionary: CookieInit
+type CookieInit struct {
+	Name        string
+	Value       string
+	Expires     *float64
+	Domain      *string
+	Path        string
+	SameSite    CookieSameSite
+	Partitioned bool
+	MaxAge      *int
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *CookieInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Name
+	out.Set("name", value0)
+	value1 := _this.Value
+	out.Set("value", value1)
+
+	var value2 interface{}
+	if _this.Expires != nil {
+		value2 = *(_this.Expires)
+	} else {
+		value2 = nil
+	}
+	out.Set("expires", value2)
+
+	var value3 interface{}
+	if _this.Domain != nil {
+		value3 = *(_this.Domain)
+	} else {
+		value3 = nil
+	}
+	out.Set("domain", value3)
+	value4 := _this.Path
+	out.Set("path", value4)
+	value5 := _this.SameSite.JSValue()
+	out.Set("sameSite", value5)
+	value6 := _this.Partitioned
+	out.Set("partitioned", value6)
+
+	var value7 interface{}
+	if _this.MaxAge != nil {
+		value7 = *(_this.MaxAge)
+	} else {
+		value7 = nil
+	}
+	out.Set("maxAge", value7)
+	return out
+}
+
+// CookieInitFromJS is allocating a new
+// CookieInit object and copy all values in the value javascript object.
+func CookieInitFromJS(value js.Value) *CookieInit {
+	var out CookieInit
+	var (
+		value0 string         // javascript: USVString {name Name name}
+		value1 string         // javascript: USVString {value Value value}
+		value2 *float64       // javascript: double {expires Expires expires}
+		value3 *string        // javascript: USVString {domain Domain domain}
+		value4 string         // javascript: USVString {path Path path}
+		value5 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
+		value6 bool           // javascript: boolean {partitioned Partitioned partitioned}
+		value7 *int           // javascript: long long {maxAge MaxAge maxAge}
+	)
+	value0 = (value.Get("name")).String()
+	out.Name = value0
+	value1 = (value.Get("value")).String()
+	out.Value = value1
+	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
+		__tmp := (value.Get("expires")).Float()
+		value2 = &__tmp
+	}
+	out.Expires = value2
+	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
+		__tmp := (value.Get("domain")).String()
+		value3 = &__tmp
+	}
+	out.Domain = value3
+	value4 = (value.Get("path")).String()
+	out.Path = value4
+	value5 = CookieSameSiteFromJS(value.Get("sameSite"))
+	out.SameSite = value5
+	value6 = (value.Get("partitioned")).Bool()
+	out.Partitioned = value6
+	if value.Get("maxAge").Type() != js.TypeNull && value.Get("maxAge").Type() != js.TypeUndefined {
+		__tmp := (value.Get("maxAge")).Int()
+		value7 = &__tmp
+	}
+	out.MaxAge = value7
+	return &out
+}
+
 // dictionary: CookieListItem
 type CookieListItem struct {
-	Name     string
-	Value    string
-	Domain   *string
-	Path     string
-	Expires  *int
-	Secure   bool
-	SameSite CookieSameSite
+	Name  string
+	Value string
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -485,28 +534,6 @@ func (_this *CookieListItem) JSValue() js.Value {
 	out.Set("name", value0)
 	value1 := _this.Value
 	out.Set("value", value1)
-
-	var value2 interface{}
-	if _this.Domain != nil {
-		value2 = *(_this.Domain)
-	} else {
-		value2 = nil
-	}
-	out.Set("domain", value2)
-	value3 := _this.Path
-	out.Set("path", value3)
-
-	var value4 interface{}
-	if _this.Expires != nil {
-		value4 = *(_this.Expires)
-	} else {
-		value4 = nil
-	}
-	out.Set("expires", value4)
-	value5 := _this.Secure
-	out.Set("secure", value5)
-	value6 := _this.SameSite.JSValue()
-	out.Set("sameSite", value6)
 	return out
 }
 
@@ -515,42 +542,22 @@ func (_this *CookieListItem) JSValue() js.Value {
 func CookieListItemFromJS(value js.Value) *CookieListItem {
 	var out CookieListItem
 	var (
-		value0 string         // javascript: USVString {name Name name}
-		value1 string         // javascript: USVString {value Value value}
-		value2 *string        // javascript: USVString {domain Domain domain}
-		value3 string         // javascript: USVString {path Path path}
-		value4 *int           // javascript: unsigned long long {expires Expires expires}
-		value5 bool           // javascript: boolean {secure Secure secure}
-		value6 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
+		value0 string // javascript: USVString {name Name name}
+		value1 string // javascript: USVString {value Value value}
 	)
 	value0 = (value.Get("name")).String()
 	out.Name = value0
 	value1 = (value.Get("value")).String()
 	out.Value = value1
-	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (value.Get("domain")).String()
-		value2 = &__tmp
-	}
-	out.Domain = value2
-	value3 = (value.Get("path")).String()
-	out.Path = value3
-	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (value.Get("expires")).Int()
-		value4 = &__tmp
-	}
-	out.Expires = value4
-	value5 = (value.Get("secure")).Bool()
-	out.Secure = value5
-	value6 = CookieSameSiteFromJS(value.Get("sameSite"))
-	out.SameSite = value6
 	return &out
 }
 
 // dictionary: CookieStoreDeleteOptions
 type CookieStoreDeleteOptions struct {
-	Name   string
-	Domain *string
-	Path   string
+	Name        string
+	Domain      *string
+	Path        string
+	Partitioned bool
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -569,6 +576,8 @@ func (_this *CookieStoreDeleteOptions) JSValue() js.Value {
 	out.Set("domain", value1)
 	value2 := _this.Path
 	out.Set("path", value2)
+	value3 := _this.Partitioned
+	out.Set("partitioned", value3)
 	return out
 }
 
@@ -580,6 +589,7 @@ func CookieStoreDeleteOptionsFromJS(value js.Value) *CookieStoreDeleteOptions {
 		value0 string  // javascript: USVString {name Name name}
 		value1 *string // javascript: USVString {domain Domain domain}
 		value2 string  // javascript: USVString {path Path path}
+		value3 bool    // javascript: boolean {partitioned Partitioned partitioned}
 	)
 	value0 = (value.Get("name")).String()
 	out.Name = value0
@@ -590,14 +600,15 @@ func CookieStoreDeleteOptionsFromJS(value js.Value) *CookieStoreDeleteOptions {
 	out.Domain = value1
 	value2 = (value.Get("path")).String()
 	out.Path = value2
+	value3 = (value.Get("partitioned")).Bool()
+	out.Partitioned = value3
 	return &out
 }
 
 // dictionary: CookieStoreGetOptions
 type CookieStoreGetOptions struct {
-	Name      string
-	Url       string
-	MatchType CookieMatchType
+	Name string
+	Url  string
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -608,8 +619,6 @@ func (_this *CookieStoreGetOptions) JSValue() js.Value {
 	out.Set("name", value0)
 	value1 := _this.Url
 	out.Set("url", value1)
-	value2 := _this.MatchType.JSValue()
-	out.Set("matchType", value2)
 	return out
 }
 
@@ -618,164 +627,13 @@ func (_this *CookieStoreGetOptions) JSValue() js.Value {
 func CookieStoreGetOptionsFromJS(value js.Value) *CookieStoreGetOptions {
 	var out CookieStoreGetOptions
 	var (
-		value0 string          // javascript: USVString {name Name name}
-		value1 string          // javascript: USVString {url Url url}
-		value2 CookieMatchType // javascript: CookieMatchType {matchType MatchType matchType}
+		value0 string // javascript: USVString {name Name name}
+		value1 string // javascript: USVString {url Url url}
 	)
 	value0 = (value.Get("name")).String()
 	out.Name = value0
 	value1 = (value.Get("url")).String()
 	out.Url = value1
-	value2 = CookieMatchTypeFromJS(value.Get("matchType"))
-	out.MatchType = value2
-	return &out
-}
-
-// dictionary: CookieStoreSetExtraOptions
-type CookieStoreSetExtraOptions struct {
-	Expires  *int
-	Domain   *string
-	Path     string
-	Secure   bool
-	SameSite CookieSameSite
-	Name     string
-	Value    string
-}
-
-// JSValue is allocating a new javascript object and copy
-// all values
-func (_this *CookieStoreSetExtraOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-
-	var value0 interface{}
-	if _this.Expires != nil {
-		value0 = *(_this.Expires)
-	} else {
-		value0 = nil
-	}
-	out.Set("expires", value0)
-
-	var value1 interface{}
-	if _this.Domain != nil {
-		value1 = *(_this.Domain)
-	} else {
-		value1 = nil
-	}
-	out.Set("domain", value1)
-	value2 := _this.Path
-	out.Set("path", value2)
-	value3 := _this.Secure
-	out.Set("secure", value3)
-	value4 := _this.SameSite.JSValue()
-	out.Set("sameSite", value4)
-	value5 := _this.Name
-	out.Set("name", value5)
-	value6 := _this.Value
-	out.Set("value", value6)
-	return out
-}
-
-// CookieStoreSetExtraOptionsFromJS is allocating a new
-// CookieStoreSetExtraOptions object and copy all values in the value javascript object.
-func CookieStoreSetExtraOptionsFromJS(value js.Value) *CookieStoreSetExtraOptions {
-	var out CookieStoreSetExtraOptions
-	var (
-		value0 *int           // javascript: unsigned long long {expires Expires expires}
-		value1 *string        // javascript: USVString {domain Domain domain}
-		value2 string         // javascript: USVString {path Path path}
-		value3 bool           // javascript: boolean {secure Secure secure}
-		value4 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
-		value5 string         // javascript: USVString {name Name name}
-		value6 string         // javascript: USVString {value Value value}
-	)
-	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (value.Get("expires")).Int()
-		value0 = &__tmp
-	}
-	out.Expires = value0
-	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (value.Get("domain")).String()
-		value1 = &__tmp
-	}
-	out.Domain = value1
-	value2 = (value.Get("path")).String()
-	out.Path = value2
-	value3 = (value.Get("secure")).Bool()
-	out.Secure = value3
-	value4 = CookieSameSiteFromJS(value.Get("sameSite"))
-	out.SameSite = value4
-	value5 = (value.Get("name")).String()
-	out.Name = value5
-	value6 = (value.Get("value")).String()
-	out.Value = value6
-	return &out
-}
-
-// dictionary: CookieStoreSetOptions
-type CookieStoreSetOptions struct {
-	Expires  *int
-	Domain   *string
-	Path     string
-	Secure   bool
-	SameSite CookieSameSite
-}
-
-// JSValue is allocating a new javascript object and copy
-// all values
-func (_this *CookieStoreSetOptions) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-
-	var value0 interface{}
-	if _this.Expires != nil {
-		value0 = *(_this.Expires)
-	} else {
-		value0 = nil
-	}
-	out.Set("expires", value0)
-
-	var value1 interface{}
-	if _this.Domain != nil {
-		value1 = *(_this.Domain)
-	} else {
-		value1 = nil
-	}
-	out.Set("domain", value1)
-	value2 := _this.Path
-	out.Set("path", value2)
-	value3 := _this.Secure
-	out.Set("secure", value3)
-	value4 := _this.SameSite.JSValue()
-	out.Set("sameSite", value4)
-	return out
-}
-
-// CookieStoreSetOptionsFromJS is allocating a new
-// CookieStoreSetOptions object and copy all values in the value javascript object.
-func CookieStoreSetOptionsFromJS(value js.Value) *CookieStoreSetOptions {
-	var out CookieStoreSetOptions
-	var (
-		value0 *int           // javascript: unsigned long long {expires Expires expires}
-		value1 *string        // javascript: USVString {domain Domain domain}
-		value2 string         // javascript: USVString {path Path path}
-		value3 bool           // javascript: boolean {secure Secure secure}
-		value4 CookieSameSite // javascript: CookieSameSite {sameSite SameSite sameSite}
-	)
-	if value.Get("expires").Type() != js.TypeNull && value.Get("expires").Type() != js.TypeUndefined {
-		__tmp := (value.Get("expires")).Int()
-		value0 = &__tmp
-	}
-	out.Expires = value0
-	if value.Get("domain").Type() != js.TypeNull && value.Get("domain").Type() != js.TypeUndefined {
-		__tmp := (value.Get("domain")).String()
-		value1 = &__tmp
-	}
-	out.Domain = value1
-	value2 = (value.Get("path")).String()
-	out.Path = value2
-	value3 = (value.Get("secure")).Bool()
-	out.Secure = value3
-	value4 = CookieSameSiteFromJS(value.Get("sameSite"))
-	out.SameSite = value4
 	return &out
 }
 
@@ -897,36 +755,20 @@ func NewCookieChangeEvent(_type string, eventInitDict *CookieChangeEventInit) (_
 }
 
 // Changed returning attribute 'changed' with
-// type []CookieListItem (idl: sequence<CookieListItem>).
-func (_this *CookieChangeEvent) Changed() []*CookieListItem {
-	var ret []*CookieListItem
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *CookieChangeEvent) Changed() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("changed")
-	__length0 := value.Length()
-	__array0 := make([]*CookieListItem, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *CookieListItem
-		__seq_in0 := value.Index(__idx0)
-		__seq_out0 = CookieListItemFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	ret = __array0
+	ret = javascript.FrozenArrayFromJS(value)
 	return ret
 }
 
 // Deleted returning attribute 'deleted' with
-// type []CookieListItem (idl: sequence<CookieListItem>).
-func (_this *CookieChangeEvent) Deleted() []*CookieListItem {
-	var ret []*CookieListItem
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *CookieChangeEvent) Deleted() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("deleted")
-	__length0 := value.Length()
-	__array0 := make([]*CookieListItem, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *CookieListItem
-		__seq_in0 := value.Index(__idx0)
-		__seq_out0 = CookieListItemFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	ret = __array0
+	ret = javascript.FrozenArrayFromJS(value)
 	return ret
 }
 
@@ -1063,9 +905,9 @@ func (_this *CookieStore) GetAll2(options *CookieStoreGetOptions) (_result *Prom
 	return
 }
 
-func (_this *CookieStore) Set(name string, value string, options *CookieStoreSetOptions) (_result *javascript.PromiseVoid) {
+func (_this *CookieStore) Set(name string, value string) (_result *javascript.PromiseVoid) {
 	var (
-		_args [3]interface{}
+		_args [2]interface{}
 		_end  int
 	)
 	_p0 := name
@@ -1074,11 +916,6 @@ func (_this *CookieStore) Set(name string, value string, options *CookieStoreSet
 	_p1 := value
 	_args[1] = _p1
 	_end++
-	if options != nil {
-		_p2 := options.JSValue()
-		_args[2] = _p2
-		_end++
-	}
 	_returned := _this.Value_JS.Call("set", _args[0:_end]...)
 	var (
 		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
@@ -1088,7 +925,7 @@ func (_this *CookieStore) Set(name string, value string, options *CookieStoreSet
 	return
 }
 
-func (_this *CookieStore) Set2(options *CookieStoreSetExtraOptions) (_result *javascript.PromiseVoid) {
+func (_this *CookieStore) Set2(options *CookieInit) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1139,7 +976,36 @@ func (_this *CookieStore) Delete2(options *CookieStoreDeleteOptions) (_result *j
 	return
 }
 
-func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOptions) (_result *javascript.PromiseVoid) {
+// class: CookieStoreManager
+type CookieStoreManager struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *CookieStoreManager) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// CookieStoreManagerFromJS is casting a js.Value into CookieStoreManager.
+func CookieStoreManagerFromJS(value js.Value) *CookieStoreManager {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &CookieStoreManager{}
+	ret.Value_JS = value
+	return ret
+}
+
+// CookieStoreManagerFromJS is casting from something that holds a js.Value into CookieStoreManager.
+func CookieStoreManagerFromWrapper(input core.Wrapper) *CookieStoreManager {
+	return CookieStoreManagerFromJS(input.JSValue())
+}
+
+func (_this *CookieStoreManager) Subscribe(subscriptions []*CookieStoreGetOptions) (_result *javascript.PromiseVoid) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -1151,7 +1017,7 @@ func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOpti
 	}
 	_args[0] = _p0
 	_end++
-	_returned := _this.Value_JS.Call("subscribeToChanges", _args[0:_end]...)
+	_returned := _this.Value_JS.Call("subscribe", _args[0:_end]...)
 	var (
 		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
 	)
@@ -1160,16 +1026,37 @@ func (_this *CookieStore) SubscribeToChanges(subscriptions []*CookieStoreGetOpti
 	return
 }
 
-func (_this *CookieStore) GetChangeSubscriptions() (_result *PromiseSequenceCookieStoreGetOptions) {
+func (_this *CookieStoreManager) GetSubscriptions() (_result *PromiseSequenceCookieStoreGetOptions) {
 	var (
 		_args [0]interface{}
 		_end  int
 	)
-	_returned := _this.Value_JS.Call("getChangeSubscriptions", _args[0:_end]...)
+	_returned := _this.Value_JS.Call("getSubscriptions", _args[0:_end]...)
 	var (
 		_converted *PromiseSequenceCookieStoreGetOptions // javascript: Promise _what_return_name
 	)
 	_converted = PromiseSequenceCookieStoreGetOptionsFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *CookieStoreManager) Unsubscribe(subscriptions []*CookieStoreGetOptions) (_result *javascript.PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := js.Global().Get("Array").New(len(subscriptions))
+	for __idx0, __seq_in0 := range subscriptions {
+		__seq_out0 := __seq_in0.JSValue()
+		_p0.SetIndex(__idx0, __seq_out0)
+	}
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("unsubscribe", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1218,36 +1105,20 @@ func NewExtendableCookieChangeEvent(_type string, eventInitDict *ExtendableCooki
 }
 
 // Changed returning attribute 'changed' with
-// type []CookieListItem (idl: sequence<CookieListItem>).
-func (_this *ExtendableCookieChangeEvent) Changed() []*CookieListItem {
-	var ret []*CookieListItem
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ExtendableCookieChangeEvent) Changed() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("changed")
-	__length0 := value.Length()
-	__array0 := make([]*CookieListItem, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *CookieListItem
-		__seq_in0 := value.Index(__idx0)
-		__seq_out0 = CookieListItemFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	ret = __array0
+	ret = javascript.FrozenArrayFromJS(value)
 	return ret
 }
 
 // Deleted returning attribute 'deleted' with
-// type []CookieListItem (idl: sequence<CookieListItem>).
-func (_this *ExtendableCookieChangeEvent) Deleted() []*CookieListItem {
-	var ret []*CookieListItem
+// type javascript.FrozenArray (idl: FrozenArray).
+func (_this *ExtendableCookieChangeEvent) Deleted() *javascript.FrozenArray {
+	var ret *javascript.FrozenArray
 	value := _this.Value_JS.Get("deleted")
-	__length0 := value.Length()
-	__array0 := make([]*CookieListItem, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *CookieListItem
-		__seq_in0 := value.Index(__idx0)
-		__seq_out0 = CookieListItemFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	ret = __array0
+	ret = javascript.FrozenArrayFromJS(value)
 	return ret
 }
 

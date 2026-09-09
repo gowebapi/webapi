@@ -12,9 +12,11 @@ import (
 	"github.com/gowebapi/webapi/css/cssom"
 	"github.com/gowebapi/webapi/css/cssom/view"
 	"github.com/gowebapi/webapi/css/typedom"
+	"github.com/gowebapi/webapi/css/viewtransitions"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/geometry"
 	"github.com/gowebapi/webapi/javascript"
+	"github.com/gowebapi/webapi/window/management"
 )
 
 // using following types:
@@ -35,10 +37,12 @@ import (
 // javascript.Object
 // javascript.PromiseFinally
 // javascript.PromiseVoid
+// management.ScreenDetailed
 // typedom.StylePropertyMapReadOnly
 // view.BoxQuadOptions
 // view.ConvertCoordinateOptions
 // view.ScrollToOptions
+// viewtransitions.ViewTransition
 // webani.Animation
 
 // source idl files:
@@ -197,63 +201,6 @@ func ShadowRootModeFromJS(value js.Value) ShadowRootMode {
 	return conv
 }
 
-// callback: MutationCallback
-type MutationCallbackFunc func(mutations []*MutationRecord, observer *MutationObserver)
-
-// MutationCallback is a javascript function type.
-//
-// Call Release() when done to release resouces
-// allocated to this type.
-type MutationCallback js.Func
-
-func MutationCallbackToJS(callback MutationCallbackFunc) *MutationCallback {
-	if callback == nil {
-		return nil
-	}
-	ret := MutationCallback(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
-		var (
-			_p0 []*MutationRecord // javascript: sequence<MutationRecord> mutations
-			_p1 *MutationObserver // javascript: MutationObserver observer
-		)
-		__length0 := args[0].Length()
-		__array0 := make([]*MutationRecord, __length0, __length0)
-		for __idx0 := 0; __idx0 < __length0; __idx0++ {
-			var __seq_out0 *MutationRecord
-			__seq_in0 := args[0].Index(__idx0)
-			__seq_out0 = MutationRecordFromJS(__seq_in0)
-			__array0[__idx0] = __seq_out0
-		}
-		_p0 = __array0
-		_p1 = MutationObserverFromJS(args[1])
-		callback(_p0, _p1)
-
-		// returning no return value
-		return nil
-	}))
-	return &ret
-}
-
-func MutationCallbackFromJS(_value js.Value) MutationCallbackFunc {
-	return func(mutations []*MutationRecord, observer *MutationObserver) {
-		var (
-			_args [2]interface{}
-			_end  int
-		)
-		_p0 := js.Global().Get("Array").New(len(mutations))
-		for __idx0, __seq_in0 := range mutations {
-			__seq_out0 := __seq_in0.JSValue()
-			_p0.SetIndex(__idx0, __seq_out0)
-		}
-		_args[0] = _p0
-		_end++
-		_p1 := observer.JSValue()
-		_args[1] = _p1
-		_end++
-		_value.Invoke(_args[0:_end]...)
-		return
-	}
-}
-
 // callback: NodeListForEach
 type NodeListForEachFunc func(currentValue *Node, currentIndex int, listObj *NodeList)
 
@@ -387,6 +334,7 @@ func PromiseDeadFragmentInformationOnRejectedFromJS(_value js.Value) PromiseDead
 // dictionary: FullscreenOptions
 type FullscreenOptions struct {
 	NavigationUI FullscreenNavigationUI
+	Screen       *management.ScreenDetailed
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -395,6 +343,8 @@ func (_this *FullscreenOptions) JSValue() js.Value {
 	out := js.Global().Get("Object").New()
 	value0 := _this.NavigationUI.JSValue()
 	out.Set("navigationUI", value0)
+	value1 := _this.Screen.JSValue()
+	out.Set("screen", value1)
 	return out
 }
 
@@ -403,10 +353,13 @@ func (_this *FullscreenOptions) JSValue() js.Value {
 func FullscreenOptionsFromJS(value js.Value) *FullscreenOptions {
 	var out FullscreenOptions
 	var (
-		value0 FullscreenNavigationUI // javascript: FullscreenNavigationUI {navigationUI NavigationUI navigationUI}
+		value0 FullscreenNavigationUI     // javascript: FullscreenNavigationUI {navigationUI NavigationUI navigationUI}
+		value1 *management.ScreenDetailed // javascript: ScreenDetailed {screen Screen screen}
 	)
 	value0 = FullscreenNavigationUIFromJS(value.Get("navigationUI"))
 	out.NavigationUI = value0
+	value1 = management.ScreenDetailedFromJS(value.Get("screen"))
+	out.Screen = value1
 	return &out
 }
 
@@ -433,80 +386,6 @@ func GetRootNodeOptionsFromJS(value js.Value) *GetRootNodeOptions {
 	)
 	value0 = (value.Get("composed")).Bool()
 	out.Composed = value0
-	return &out
-}
-
-// dictionary: MutationObserverInit
-type MutationObserverInit struct {
-	ChildList             bool
-	Attributes            bool
-	CharacterData         bool
-	Subtree               bool
-	AttributeOldValue     bool
-	CharacterDataOldValue bool
-	AttributeFilter       []string
-}
-
-// JSValue is allocating a new javascript object and copy
-// all values
-func (_this *MutationObserverInit) JSValue() js.Value {
-	out := js.Global().Get("Object").New()
-	value0 := _this.ChildList
-	out.Set("childList", value0)
-	value1 := _this.Attributes
-	out.Set("attributes", value1)
-	value2 := _this.CharacterData
-	out.Set("characterData", value2)
-	value3 := _this.Subtree
-	out.Set("subtree", value3)
-	value4 := _this.AttributeOldValue
-	out.Set("attributeOldValue", value4)
-	value5 := _this.CharacterDataOldValue
-	out.Set("characterDataOldValue", value5)
-	value6 := js.Global().Get("Array").New(len(_this.AttributeFilter))
-	for __idx6, __seq_in6 := range _this.AttributeFilter {
-		__seq_out6 := __seq_in6
-		value6.SetIndex(__idx6, __seq_out6)
-	}
-	out.Set("attributeFilter", value6)
-	return out
-}
-
-// MutationObserverInitFromJS is allocating a new
-// MutationObserverInit object and copy all values in the value javascript object.
-func MutationObserverInitFromJS(value js.Value) *MutationObserverInit {
-	var out MutationObserverInit
-	var (
-		value0 bool     // javascript: boolean {childList ChildList childList}
-		value1 bool     // javascript: boolean {attributes Attributes attributes}
-		value2 bool     // javascript: boolean {characterData CharacterData characterData}
-		value3 bool     // javascript: boolean {subtree Subtree subtree}
-		value4 bool     // javascript: boolean {attributeOldValue AttributeOldValue attributeOldValue}
-		value5 bool     // javascript: boolean {characterDataOldValue CharacterDataOldValue characterDataOldValue}
-		value6 []string // javascript: sequence<DOMString> {attributeFilter AttributeFilter attributeFilter}
-	)
-	value0 = (value.Get("childList")).Bool()
-	out.ChildList = value0
-	value1 = (value.Get("attributes")).Bool()
-	out.Attributes = value1
-	value2 = (value.Get("characterData")).Bool()
-	out.CharacterData = value2
-	value3 = (value.Get("subtree")).Bool()
-	out.Subtree = value3
-	value4 = (value.Get("attributeOldValue")).Bool()
-	out.AttributeOldValue = value4
-	value5 = (value.Get("characterDataOldValue")).Bool()
-	out.CharacterDataOldValue = value5
-	__length6 := value.Get("attributeFilter").Length()
-	__array6 := make([]string, __length6, __length6)
-	for __idx6 := 0; __idx6 < __length6; __idx6++ {
-		var __seq_out6 string
-		__seq_in6 := value.Get("attributeFilter").Index(__idx6)
-		__seq_out6 = (__seq_in6).String()
-		__array6[__idx6] = __seq_out6
-	}
-	value6 = __array6
-	out.AttributeFilter = value6
 	return &out
 }
 
@@ -1643,6 +1522,17 @@ func (_this *Element) OuterHTML() string {
 func (_this *Element) SetOuterHTML(value string) {
 	input := value
 	_this.Value_JS.Set("outerHTML", input)
+}
+
+// ActiveViewTransition returning attribute 'activeViewTransition' with
+// type viewtransitions.ViewTransition (idl: ViewTransition).
+func (_this *Element) ActiveViewTransition() *viewtransitions.ViewTransition {
+	var ret *viewtransitions.ViewTransition
+	value := _this.Value_JS.Get("activeViewTransition")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = viewtransitions.ViewTransitionFromJS(value)
+	}
+	return ret
 }
 
 // ScrollTop returning attribute 'scrollTop' with
@@ -3541,6 +3431,25 @@ func (_this *Element) ComputedStyleMap() (_result *typedom.StylePropertyMapReadO
 	return
 }
 
+func (_this *Element) StartViewTransition(callbackOptions *Union) (_result *viewtransitions.ViewTransition) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if callbackOptions != nil {
+		_p0 := callbackOptions.JSValue()
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("startViewTransition", _args[0:_end]...)
+	var (
+		_converted *viewtransitions.ViewTransition // javascript: ViewTransition _what_return_name
+	)
+	_converted = viewtransitions.ViewTransitionFromJS(_returned)
+	_result = _converted
+	return
+}
+
 func (_this *Element) GetClientRects() (_result *geometry.DOMRectList) {
 	var (
 		_args [0]interface{}
@@ -4112,231 +4021,6 @@ func (_this *HTMLCollection) NamedItem(name string) (_result *Element) {
 	}
 	_result = _converted
 	return
-}
-
-// class: MutationObserver
-type MutationObserver struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *MutationObserver) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// MutationObserverFromJS is casting a js.Value into MutationObserver.
-func MutationObserverFromJS(value js.Value) *MutationObserver {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &MutationObserver{}
-	ret.Value_JS = value
-	return ret
-}
-
-// MutationObserverFromJS is casting from something that holds a js.Value into MutationObserver.
-func MutationObserverFromWrapper(input core.Wrapper) *MutationObserver {
-	return MutationObserverFromJS(input.JSValue())
-}
-
-func NewMutationObserver(callback *MutationCallback) (_result *MutationObserver) {
-	_klass := js.Global().Get("MutationObserver")
-	var (
-		_args [1]interface{}
-		_end  int
-	)
-
-	var __callback0 js.Value
-	if callback != nil {
-		__callback0 = (*callback).Value
-	} else {
-		__callback0 = js.Null()
-	}
-	_p0 := __callback0
-	_args[0] = _p0
-	_end++
-	_returned := _klass.New(_args[0:_end]...)
-	var (
-		_converted *MutationObserver // javascript: MutationObserver _what_return_name
-	)
-	_converted = MutationObserverFromJS(_returned)
-	_result = _converted
-	return
-}
-
-func (_this *MutationObserver) Observe(target *Node, options *MutationObserverInit) {
-	var (
-		_args [2]interface{}
-		_end  int
-	)
-	_p0 := target.JSValue()
-	_args[0] = _p0
-	_end++
-	if options != nil {
-		_p1 := options.JSValue()
-		_args[1] = _p1
-		_end++
-	}
-	_this.Value_JS.Call("observe", _args[0:_end]...)
-	return
-}
-
-func (_this *MutationObserver) Disconnect() {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_this.Value_JS.Call("disconnect", _args[0:_end]...)
-	return
-}
-
-func (_this *MutationObserver) TakeRecords() (_result []*MutationRecord) {
-	var (
-		_args [0]interface{}
-		_end  int
-	)
-	_returned := _this.Value_JS.Call("takeRecords", _args[0:_end]...)
-	var (
-		_converted []*MutationRecord // javascript: sequence<MutationRecord> _what_return_name
-	)
-	__length0 := _returned.Length()
-	__array0 := make([]*MutationRecord, __length0, __length0)
-	for __idx0 := 0; __idx0 < __length0; __idx0++ {
-		var __seq_out0 *MutationRecord
-		__seq_in0 := _returned.Index(__idx0)
-		__seq_out0 = MutationRecordFromJS(__seq_in0)
-		__array0[__idx0] = __seq_out0
-	}
-	_converted = __array0
-	_result = _converted
-	return
-}
-
-// class: MutationRecord
-type MutationRecord struct {
-	// Value_JS holds a reference to a javascript value
-	Value_JS js.Value
-}
-
-// JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *MutationRecord) JSValue() js.Value {
-	if _this == nil {
-		return js.Null()
-	}
-	return _this.Value_JS
-}
-
-// MutationRecordFromJS is casting a js.Value into MutationRecord.
-func MutationRecordFromJS(value js.Value) *MutationRecord {
-	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
-		return nil
-	}
-	ret := &MutationRecord{}
-	ret.Value_JS = value
-	return ret
-}
-
-// MutationRecordFromJS is casting from something that holds a js.Value into MutationRecord.
-func MutationRecordFromWrapper(input core.Wrapper) *MutationRecord {
-	return MutationRecordFromJS(input.JSValue())
-}
-
-// Type returning attribute 'type' with
-// type string (idl: DOMString).
-func (_this *MutationRecord) Type() string {
-	var ret string
-	value := _this.Value_JS.Get("type")
-	ret = (value).String()
-	return ret
-}
-
-// Target returning attribute 'target' with
-// type Node (idl: Node).
-func (_this *MutationRecord) Target() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("target")
-	ret = NodeFromJS(value)
-	return ret
-}
-
-// AddedNodes returning attribute 'addedNodes' with
-// type NodeList (idl: NodeList).
-func (_this *MutationRecord) AddedNodes() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("addedNodes")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// RemovedNodes returning attribute 'removedNodes' with
-// type NodeList (idl: NodeList).
-func (_this *MutationRecord) RemovedNodes() *NodeList {
-	var ret *NodeList
-	value := _this.Value_JS.Get("removedNodes")
-	ret = NodeListFromJS(value)
-	return ret
-}
-
-// PreviousSibling returning attribute 'previousSibling' with
-// type Node (idl: Node).
-func (_this *MutationRecord) PreviousSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("previousSibling")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// NextSibling returning attribute 'nextSibling' with
-// type Node (idl: Node).
-func (_this *MutationRecord) NextSibling() *Node {
-	var ret *Node
-	value := _this.Value_JS.Get("nextSibling")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = NodeFromJS(value)
-	}
-	return ret
-}
-
-// AttributeName returning attribute 'attributeName' with
-// type string (idl: DOMString).
-func (_this *MutationRecord) AttributeName() *string {
-	var ret *string
-	value := _this.Value_JS.Get("attributeName")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// AttributeNamespace returning attribute 'attributeNamespace' with
-// type string (idl: DOMString).
-func (_this *MutationRecord) AttributeNamespace() *string {
-	var ret *string
-	value := _this.Value_JS.Get("attributeNamespace")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
-}
-
-// OldValue returning attribute 'oldValue' with
-// type string (idl: DOMString).
-func (_this *MutationRecord) OldValue() *string {
-	var ret *string
-	value := _this.Value_JS.Get("oldValue")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		__tmp := (value).String()
-		ret = &__tmp
-	}
-	return ret
 }
 
 // class: NamedNodeMap

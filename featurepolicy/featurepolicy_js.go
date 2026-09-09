@@ -13,10 +13,10 @@ import (
 // reporting.ReportBody
 
 // source idl files:
-// webappsec-feature-policy.idl
+// permissions-policy.idl
 
 // transform files:
-// webappsec-feature-policy.go.md
+// permissions-policy.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {
@@ -35,36 +35,36 @@ func UnionFromJS(value js.Value) *Union {
 	return &Union{Value: value}
 }
 
-// class: FeaturePolicy
-type FeaturePolicy struct {
+// class: PermissionsPolicy
+type PermissionsPolicy struct {
 	// Value_JS holds a reference to a javascript value
 	Value_JS js.Value
 }
 
 // JSValue returns the js.Value or js.Null() if _this is nil
-func (_this *FeaturePolicy) JSValue() js.Value {
+func (_this *PermissionsPolicy) JSValue() js.Value {
 	if _this == nil {
 		return js.Null()
 	}
 	return _this.Value_JS
 }
 
-// FeaturePolicyFromJS is casting a js.Value into FeaturePolicy.
-func FeaturePolicyFromJS(value js.Value) *FeaturePolicy {
+// PermissionsPolicyFromJS is casting a js.Value into PermissionsPolicy.
+func PermissionsPolicyFromJS(value js.Value) *PermissionsPolicy {
 	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
 		return nil
 	}
-	ret := &FeaturePolicy{}
+	ret := &PermissionsPolicy{}
 	ret.Value_JS = value
 	return ret
 }
 
-// FeaturePolicyFromJS is casting from something that holds a js.Value into FeaturePolicy.
-func FeaturePolicyFromWrapper(input core.Wrapper) *FeaturePolicy {
-	return FeaturePolicyFromJS(input.JSValue())
+// PermissionsPolicyFromJS is casting from something that holds a js.Value into PermissionsPolicy.
+func PermissionsPolicyFromWrapper(input core.Wrapper) *PermissionsPolicy {
+	return PermissionsPolicyFromJS(input.JSValue())
 }
 
-func (_this *FeaturePolicy) AllowsFeature(feature string, origin *string) (_result bool) {
+func (_this *PermissionsPolicy) AllowsFeature(feature string, origin *string) (_result bool) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -92,7 +92,7 @@ func (_this *FeaturePolicy) AllowsFeature(feature string, origin *string) (_resu
 	return
 }
 
-func (_this *FeaturePolicy) Features() (_result []string) {
+func (_this *PermissionsPolicy) Features() (_result []string) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -114,7 +114,7 @@ func (_this *FeaturePolicy) Features() (_result []string) {
 	return
 }
 
-func (_this *FeaturePolicy) AllowedFeatures() (_result []string) {
+func (_this *PermissionsPolicy) AllowedFeatures() (_result []string) {
 	var (
 		_args [0]interface{}
 		_end  int
@@ -136,7 +136,7 @@ func (_this *FeaturePolicy) AllowedFeatures() (_result []string) {
 	return
 }
 
-func (_this *FeaturePolicy) GetAllowlistForFeature(feature string) (_result []string) {
+func (_this *PermissionsPolicy) GetAllowlistForFeature(feature string) (_result []string) {
 	var (
 		_args [1]interface{}
 		_end  int
@@ -161,7 +161,7 @@ func (_this *FeaturePolicy) GetAllowlistForFeature(feature string) (_result []st
 	return
 }
 
-// class: FeaturePolicyViolationReportBody
+// class: PermissionsPolicyViolationReportBody
 type ViolationReportBody struct {
 	reporting.ReportBody
 }
@@ -232,5 +232,29 @@ func (_this *ViolationReportBody) Disposition() string {
 	var ret string
 	value := _this.Value_JS.Get("disposition")
 	ret = (value).String()
+	return ret
+}
+
+// AllowAttribute returning attribute 'allowAttribute' with
+// type string (idl: DOMString).
+func (_this *ViolationReportBody) AllowAttribute() *string {
+	var ret *string
+	value := _this.Value_JS.Get("allowAttribute")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
+	return ret
+}
+
+// SrcAttribute returning attribute 'srcAttribute' with
+// type string (idl: DOMString).
+func (_this *ViolationReportBody) SrcAttribute() *string {
+	var ret *string
+	value := _this.Value_JS.Get("srcAttribute")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		__tmp := (value).String()
+		ret = &__tmp
+	}
 	return ret
 }

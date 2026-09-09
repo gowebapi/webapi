@@ -12,7 +12,7 @@ import (
 
 // using following types:
 // request.AddressErrors
-// request.PaymentAddress
+// request.ContactAddress
 
 // source idl files:
 // payment-method-basic-card.idl
@@ -39,7 +39,7 @@ func UnionFromJS(value js.Value) *Union {
 
 // dictionary: BasicCardChangeDetails
 type BasicCardChangeDetails struct {
-	BillingAddress *request.PaymentAddress
+	BillingAddress *request.ContactAddress
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -56,10 +56,10 @@ func (_this *BasicCardChangeDetails) JSValue() js.Value {
 func BasicCardChangeDetailsFromJS(value js.Value) *BasicCardChangeDetails {
 	var out BasicCardChangeDetails
 	var (
-		value0 *request.PaymentAddress // javascript: PaymentAddress {billingAddress BillingAddress billingAddress}
+		value0 *request.ContactAddress // javascript: ContactAddress {billingAddress BillingAddress billingAddress}
 	)
 	if value.Get("billingAddress").Type() != js.TypeNull && value.Get("billingAddress").Type() != js.TypeUndefined {
-		value0 = request.PaymentAddressFromJS(value.Get("billingAddress"))
+		value0 = request.ContactAddressFromJS(value.Get("billingAddress"))
 	}
 	out.BillingAddress = value0
 	return &out
@@ -166,7 +166,7 @@ type BasicCardResponse struct {
 	CardSecurityCode string
 	ExpiryMonth      string
 	ExpiryYear       string
-	BillingAddress   *request.PaymentAddress
+	BillingAddress   *request.ContactAddress
 }
 
 // JSValue is allocating a new javascript object and copy
@@ -198,7 +198,7 @@ func BasicCardResponseFromJS(value js.Value) *BasicCardResponse {
 		value2 string                  // javascript: DOMString {cardSecurityCode CardSecurityCode cardSecurityCode}
 		value3 string                  // javascript: DOMString {expiryMonth ExpiryMonth expiryMonth}
 		value4 string                  // javascript: DOMString {expiryYear ExpiryYear expiryYear}
-		value5 *request.PaymentAddress // javascript: PaymentAddress {billingAddress BillingAddress billingAddress}
+		value5 *request.ContactAddress // javascript: ContactAddress {billingAddress BillingAddress billingAddress}
 	)
 	value0 = (value.Get("cardNumber")).String()
 	out.CardNumber = value0
@@ -211,7 +211,7 @@ func BasicCardResponseFromJS(value js.Value) *BasicCardResponse {
 	value4 = (value.Get("expiryYear")).String()
 	out.ExpiryYear = value4
 	if value.Get("billingAddress").Type() != js.TypeNull && value.Get("billingAddress").Type() != js.TypeUndefined {
-		value5 = request.PaymentAddressFromJS(value.Get("billingAddress"))
+		value5 = request.ContactAddressFromJS(value.Get("billingAddress"))
 	}
 	out.BillingAddress = value5
 	return &out

@@ -6,10 +6,12 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/core"
+	"github.com/gowebapi/webapi/file/fs"
 	"github.com/gowebapi/webapi/javascript"
 )
 
 // using following types:
+// fs.PromiseFileSystemDirectoryHandle
 // javascript.PromiseBool
 // javascript.PromiseFinally
 
@@ -330,6 +332,20 @@ func (_this *StorageManager) Estimate() (_result *PromiseStorageEstimate) {
 		_converted *PromiseStorageEstimate // javascript: Promise _what_return_name
 	)
 	_converted = PromiseStorageEstimateFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *StorageManager) GetDirectory() (_result *fs.PromiseFileSystemDirectoryHandle) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getDirectory", _args[0:_end]...)
+	var (
+		_converted *fs.PromiseFileSystemDirectoryHandle // javascript: Promise _what_return_name
+	)
+	_converted = fs.PromiseFileSystemDirectoryHandleFromJS(_returned)
 	_result = _converted
 	return
 }

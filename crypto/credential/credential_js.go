@@ -20,18 +20,24 @@ import (
 // authentication.Transport
 // authentication.UserVerificationRequirement
 // domcore.AbortSignal
+// domcore.DOMException
 // javascript.ArrayBuffer
+// javascript.Object
 // javascript.PromiseBool
 // javascript.PromiseFinally
 // javascript.PromiseVoid
 
 // source idl files:
 // credential-management.idl
+// digital-credentials.idl
+// fedcm.idl
 // promises.idl
 // webauthn.idl
 
 // transform files:
 // credential-management.go.md
+// digital-credentials.go.md
+// fedcm.go.md
 // promises.go.md
 // webauthn.go.md
 
@@ -89,6 +95,177 @@ func (this CredentialMediationRequirement) Value() string {
 func CredentialMediationRequirementFromJS(value js.Value) CredentialMediationRequirement {
 	key := value.String()
 	conv, ok := credentialMediationRequirementFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: DigitalCredentialIssuanceProtocol
+type DigitalCredentialIssuanceProtocol int
+
+const (
+	Openid4vciV1DigitalCredentialIssuanceProtocol DigitalCredentialIssuanceProtocol = iota
+)
+
+var digitalCredentialIssuanceProtocolToWasmTable = []string{
+	"openid4vci-v1",
+}
+
+var digitalCredentialIssuanceProtocolFromWasmTable = map[string]DigitalCredentialIssuanceProtocol{
+	"openid4vci-v1": Openid4vciV1DigitalCredentialIssuanceProtocol,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *DigitalCredentialIssuanceProtocol) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this DigitalCredentialIssuanceProtocol) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(digitalCredentialIssuanceProtocolToWasmTable) {
+		return digitalCredentialIssuanceProtocolToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// DigitalCredentialIssuanceProtocolFromJS is converting a javascript value into
+// a DigitalCredentialIssuanceProtocol enum value.
+func DigitalCredentialIssuanceProtocolFromJS(value js.Value) DigitalCredentialIssuanceProtocol {
+	key := value.String()
+	conv, ok := digitalCredentialIssuanceProtocolFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: DigitalCredentialPresentationProtocol
+type DigitalCredentialPresentationProtocol int
+
+const (
+	Openid4vpV1UnsignedDigitalCredentialPresentationProtocol DigitalCredentialPresentationProtocol = iota
+	Openid4vpV1SignedDigitalCredentialPresentationProtocol
+	Openid4vpV1MultisignedDigitalCredentialPresentationProtocol
+	OrgIsoMdocDigitalCredentialPresentationProtocol
+)
+
+var digitalCredentialPresentationProtocolToWasmTable = []string{
+	"openid4vp-v1-unsigned", "openid4vp-v1-signed", "openid4vp-v1-multisigned", "org-iso-mdoc",
+}
+
+var digitalCredentialPresentationProtocolFromWasmTable = map[string]DigitalCredentialPresentationProtocol{
+	"openid4vp-v1-unsigned": Openid4vpV1UnsignedDigitalCredentialPresentationProtocol, "openid4vp-v1-signed": Openid4vpV1SignedDigitalCredentialPresentationProtocol, "openid4vp-v1-multisigned": Openid4vpV1MultisignedDigitalCredentialPresentationProtocol, "org-iso-mdoc": OrgIsoMdocDigitalCredentialPresentationProtocol,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *DigitalCredentialPresentationProtocol) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this DigitalCredentialPresentationProtocol) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(digitalCredentialPresentationProtocolToWasmTable) {
+		return digitalCredentialPresentationProtocolToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// DigitalCredentialPresentationProtocolFromJS is converting a javascript value into
+// a DigitalCredentialPresentationProtocol enum value.
+func DigitalCredentialPresentationProtocolFromJS(value js.Value) DigitalCredentialPresentationProtocol {
+	key := value.String()
+	conv, ok := digitalCredentialPresentationProtocolFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: IdentityCredentialRequestOptionsContext
+type IdentityCredentialRequestOptionsContext int
+
+const (
+	SigninIdentityCredentialRequestOptionsContext IdentityCredentialRequestOptionsContext = iota
+	SignupIdentityCredentialRequestOptionsContext
+	UseIdentityCredentialRequestOptionsContext
+	ContinueIdentityCredentialRequestOptionsContext
+)
+
+var identityCredentialRequestOptionsContextToWasmTable = []string{
+	"signin", "signup", "use", "continue",
+}
+
+var identityCredentialRequestOptionsContextFromWasmTable = map[string]IdentityCredentialRequestOptionsContext{
+	"signin": SigninIdentityCredentialRequestOptionsContext, "signup": SignupIdentityCredentialRequestOptionsContext, "use": UseIdentityCredentialRequestOptionsContext, "continue": ContinueIdentityCredentialRequestOptionsContext,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *IdentityCredentialRequestOptionsContext) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this IdentityCredentialRequestOptionsContext) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(identityCredentialRequestOptionsContextToWasmTable) {
+		return identityCredentialRequestOptionsContextToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// IdentityCredentialRequestOptionsContextFromJS is converting a javascript value into
+// a IdentityCredentialRequestOptionsContext enum value.
+func IdentityCredentialRequestOptionsContextFromJS(value js.Value) IdentityCredentialRequestOptionsContext {
+	key := value.String()
+	conv, ok := identityCredentialRequestOptionsContextFromWasmTable[key]
+	if !ok {
+		panic("unable to convert '" + key + "'")
+	}
+	return conv
+}
+
+// enum: IdentityCredentialRequestOptionsMode
+type IdentityCredentialRequestOptionsMode int
+
+const (
+	ActiveIdentityCredentialRequestOptionsMode IdentityCredentialRequestOptionsMode = iota
+	PassiveIdentityCredentialRequestOptionsMode
+)
+
+var identityCredentialRequestOptionsModeToWasmTable = []string{
+	"active", "passive",
+}
+
+var identityCredentialRequestOptionsModeFromWasmTable = map[string]IdentityCredentialRequestOptionsMode{
+	"active": ActiveIdentityCredentialRequestOptionsMode, "passive": PassiveIdentityCredentialRequestOptionsMode,
+}
+
+// JSValue is converting this enum into a javascript object
+func (this *IdentityCredentialRequestOptionsMode) JSValue() js.Value {
+	return js.ValueOf(this.Value())
+}
+
+// Value is converting this into javascript defined
+// string value
+func (this IdentityCredentialRequestOptionsMode) Value() string {
+	idx := int(this)
+	if idx >= 0 && idx < len(identityCredentialRequestOptionsModeToWasmTable) {
+		return identityCredentialRequestOptionsModeToWasmTable[idx]
+	}
+	panic("unknown input value")
+}
+
+// IdentityCredentialRequestOptionsModeFromJS is converting a javascript value into
+// a IdentityCredentialRequestOptionsMode enum value.
+func IdentityCredentialRequestOptionsModeFromJS(value js.Value) IdentityCredentialRequestOptionsMode {
+	key := value.String()
+	conv, ok := identityCredentialRequestOptionsModeFromWasmTable[key]
 	if !ok {
 		panic("unable to convert '" + key + "'")
 	}
@@ -296,11 +473,104 @@ func PromiseNilCredentialOnRejectedFromJS(_value js.Value) PromiseNilCredentialO
 	}
 }
 
+// callback: PromiseTemplateOnFulfilled
+type PromiseSequenceIdentityUserInfoOnFulfilledFunc func(value []*IdentityUserInfo)
+
+// PromiseSequenceIdentityUserInfoOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceIdentityUserInfoOnFulfilled js.Func
+
+func PromiseSequenceIdentityUserInfoOnFulfilledToJS(callback PromiseSequenceIdentityUserInfoOnFulfilledFunc) *PromiseSequenceIdentityUserInfoOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceIdentityUserInfoOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 []*IdentityUserInfo // javascript: sequence<IdentityUserInfo> value
+		)
+		__length0 := args[0].Length()
+		__array0 := make([]*IdentityUserInfo, __length0, __length0)
+		for __idx0 := 0; __idx0 < __length0; __idx0++ {
+			var __seq_out0 *IdentityUserInfo
+			__seq_in0 := args[0].Index(__idx0)
+			__seq_out0 = IdentityUserInfoFromJS(__seq_in0)
+			__array0[__idx0] = __seq_out0
+		}
+		_p0 = __array0
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceIdentityUserInfoOnFulfilledFromJS(_value js.Value) PromiseSequenceIdentityUserInfoOnFulfilledFunc {
+	return func(value []*IdentityUserInfo) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := js.Global().Get("Array").New(len(value))
+		for __idx0, __seq_in0 := range value {
+			__seq_out0 := __seq_in0.JSValue()
+			_p0.SetIndex(__idx0, __seq_out0)
+		}
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromiseSequenceIdentityUserInfoOnRejectedFunc func(reason js.Value)
+
+// PromiseSequenceIdentityUserInfoOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromiseSequenceIdentityUserInfoOnRejected js.Func
+
+func PromiseSequenceIdentityUserInfoOnRejectedToJS(callback PromiseSequenceIdentityUserInfoOnRejectedFunc) *PromiseSequenceIdentityUserInfoOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromiseSequenceIdentityUserInfoOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromiseSequenceIdentityUserInfoOnRejectedFromJS(_value js.Value) PromiseSequenceIdentityUserInfoOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
 // dictionary: CredentialCreationOptions
 type CredentialCreationOptions struct {
 	Signal    *domcore.AbortSignal
 	Password  *Union
 	Federated *FederatedCredentialInit
+	Digital   *DigitalCredentialCreationOptions
 	PublicKey *PublicKeyCredentialCreationOptions
 }
 
@@ -314,8 +584,10 @@ func (_this *CredentialCreationOptions) JSValue() js.Value {
 	out.Set("password", value1)
 	value2 := _this.Federated.JSValue()
 	out.Set("federated", value2)
-	value3 := _this.PublicKey.JSValue()
-	out.Set("publicKey", value3)
+	value3 := _this.Digital.JSValue()
+	out.Set("digital", value3)
+	value4 := _this.PublicKey.JSValue()
+	out.Set("publicKey", value4)
 	return out
 }
 
@@ -327,7 +599,8 @@ func CredentialCreationOptionsFromJS(value js.Value) *CredentialCreationOptions 
 		value0 *domcore.AbortSignal                // javascript: AbortSignal {signal Signal signal}
 		value1 *Union                              // javascript: Union {password Password password}
 		value2 *FederatedCredentialInit            // javascript: FederatedCredentialInit {federated Federated federated}
-		value3 *PublicKeyCredentialCreationOptions // javascript: PublicKeyCredentialCreationOptions {publicKey PublicKey publicKey}
+		value3 *DigitalCredentialCreationOptions   // javascript: DigitalCredentialCreationOptions {digital Digital digital}
+		value4 *PublicKeyCredentialCreationOptions // javascript: PublicKeyCredentialCreationOptions {publicKey PublicKey publicKey}
 	)
 	value0 = domcore.AbortSignalFromJS(value.Get("signal"))
 	out.Signal = value0
@@ -335,8 +608,10 @@ func CredentialCreationOptionsFromJS(value js.Value) *CredentialCreationOptions 
 	out.Password = value1
 	value2 = FederatedCredentialInitFromJS(value.Get("federated"))
 	out.Federated = value2
-	value3 = PublicKeyCredentialCreationOptionsFromJS(value.Get("publicKey"))
-	out.PublicKey = value3
+	value3 = DigitalCredentialCreationOptionsFromJS(value.Get("digital"))
+	out.Digital = value3
+	value4 = PublicKeyCredentialCreationOptionsFromJS(value.Get("publicKey"))
+	out.PublicKey = value4
 	return &out
 }
 
@@ -372,6 +647,8 @@ type CredentialRequestOptions struct {
 	Signal    *domcore.AbortSignal
 	Password  bool
 	Federated *FederatedCredentialRequestOptions
+	Digital   *DigitalCredentialRequestOptions
+	Identity  *IdentityCredentialRequestOptions
 	PublicKey *PublicKeyCredentialRequestOptions
 }
 
@@ -387,8 +664,12 @@ func (_this *CredentialRequestOptions) JSValue() js.Value {
 	out.Set("password", value2)
 	value3 := _this.Federated.JSValue()
 	out.Set("federated", value3)
-	value4 := _this.PublicKey.JSValue()
-	out.Set("publicKey", value4)
+	value4 := _this.Digital.JSValue()
+	out.Set("digital", value4)
+	value5 := _this.Identity.JSValue()
+	out.Set("identity", value5)
+	value6 := _this.PublicKey.JSValue()
+	out.Set("publicKey", value6)
 	return out
 }
 
@@ -401,7 +682,9 @@ func CredentialRequestOptionsFromJS(value js.Value) *CredentialRequestOptions {
 		value1 *domcore.AbortSignal               // javascript: AbortSignal {signal Signal signal}
 		value2 bool                               // javascript: boolean {password Password password}
 		value3 *FederatedCredentialRequestOptions // javascript: FederatedCredentialRequestOptions {federated Federated federated}
-		value4 *PublicKeyCredentialRequestOptions // javascript: PublicKeyCredentialRequestOptions {publicKey PublicKey publicKey}
+		value4 *DigitalCredentialRequestOptions   // javascript: DigitalCredentialRequestOptions {digital Digital digital}
+		value5 *IdentityCredentialRequestOptions  // javascript: IdentityCredentialRequestOptions {identity Identity identity}
+		value6 *PublicKeyCredentialRequestOptions // javascript: PublicKeyCredentialRequestOptions {publicKey PublicKey publicKey}
 	)
 	value0 = CredentialMediationRequirementFromJS(value.Get("mediation"))
 	out.Mediation = value0
@@ -411,8 +694,178 @@ func CredentialRequestOptionsFromJS(value js.Value) *CredentialRequestOptions {
 	out.Password = value2
 	value3 = FederatedCredentialRequestOptionsFromJS(value.Get("federated"))
 	out.Federated = value3
-	value4 = PublicKeyCredentialRequestOptionsFromJS(value.Get("publicKey"))
-	out.PublicKey = value4
+	value4 = DigitalCredentialRequestOptionsFromJS(value.Get("digital"))
+	out.Digital = value4
+	value5 = IdentityCredentialRequestOptionsFromJS(value.Get("identity"))
+	out.Identity = value5
+	value6 = PublicKeyCredentialRequestOptionsFromJS(value.Get("publicKey"))
+	out.PublicKey = value6
+	return &out
+}
+
+// dictionary: DigitalCredentialCreateRequest
+type DigitalCredentialCreateRequest struct {
+	Protocol string
+	Data     *javascript.Object
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DigitalCredentialCreateRequest) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Protocol
+	out.Set("protocol", value0)
+	value1 := _this.Data.JSValue()
+	out.Set("data", value1)
+	return out
+}
+
+// DigitalCredentialCreateRequestFromJS is allocating a new
+// DigitalCredentialCreateRequest object and copy all values in the value javascript object.
+func DigitalCredentialCreateRequestFromJS(value js.Value) *DigitalCredentialCreateRequest {
+	var out DigitalCredentialCreateRequest
+	var (
+		value0 string             // javascript: DOMString {protocol Protocol protocol}
+		value1 *javascript.Object // javascript: object {data Data data}
+	)
+	value0 = (value.Get("protocol")).String()
+	out.Protocol = value0
+	value1 = javascript.ObjectFromJS(value.Get("data"))
+	out.Data = value1
+	return &out
+}
+
+// dictionary: DigitalCredentialCreationOptions
+type DigitalCredentialCreationOptions struct {
+	Requests []*DigitalCredentialCreateRequest
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DigitalCredentialCreationOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Requests))
+	for __idx0, __seq_in0 := range _this.Requests {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("requests", value0)
+	return out
+}
+
+// DigitalCredentialCreationOptionsFromJS is allocating a new
+// DigitalCredentialCreationOptions object and copy all values in the value javascript object.
+func DigitalCredentialCreationOptionsFromJS(value js.Value) *DigitalCredentialCreationOptions {
+	var out DigitalCredentialCreationOptions
+	var (
+		value0 []*DigitalCredentialCreateRequest // javascript: sequence<DigitalCredentialCreateRequest> {requests Requests requests}
+	)
+	__length0 := value.Get("requests").Length()
+	__array0 := make([]*DigitalCredentialCreateRequest, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *DigitalCredentialCreateRequest
+		__seq_in0 := value.Get("requests").Index(__idx0)
+		__seq_out0 = DigitalCredentialCreateRequestFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Requests = value0
+	return &out
+}
+
+// dictionary: DigitalCredentialGetRequest
+type DigitalCredentialGetRequest struct {
+	Protocol string
+	Data     *javascript.Object
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DigitalCredentialGetRequest) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Protocol
+	out.Set("protocol", value0)
+	value1 := _this.Data.JSValue()
+	out.Set("data", value1)
+	return out
+}
+
+// DigitalCredentialGetRequestFromJS is allocating a new
+// DigitalCredentialGetRequest object and copy all values in the value javascript object.
+func DigitalCredentialGetRequestFromJS(value js.Value) *DigitalCredentialGetRequest {
+	var out DigitalCredentialGetRequest
+	var (
+		value0 string             // javascript: DOMString {protocol Protocol protocol}
+		value1 *javascript.Object // javascript: object {data Data data}
+	)
+	value0 = (value.Get("protocol")).String()
+	out.Protocol = value0
+	value1 = javascript.ObjectFromJS(value.Get("data"))
+	out.Data = value1
+	return &out
+}
+
+// dictionary: DigitalCredentialRequestOptions
+type DigitalCredentialRequestOptions struct {
+	Requests []*DigitalCredentialGetRequest
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DigitalCredentialRequestOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Requests))
+	for __idx0, __seq_in0 := range _this.Requests {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("requests", value0)
+	return out
+}
+
+// DigitalCredentialRequestOptionsFromJS is allocating a new
+// DigitalCredentialRequestOptions object and copy all values in the value javascript object.
+func DigitalCredentialRequestOptionsFromJS(value js.Value) *DigitalCredentialRequestOptions {
+	var out DigitalCredentialRequestOptions
+	var (
+		value0 []*DigitalCredentialGetRequest // javascript: sequence<DigitalCredentialGetRequest> {requests Requests requests}
+	)
+	__length0 := value.Get("requests").Length()
+	__array0 := make([]*DigitalCredentialGetRequest, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *DigitalCredentialGetRequest
+		__seq_in0 := value.Get("requests").Index(__idx0)
+		__seq_out0 = DigitalCredentialGetRequestFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Requests = value0
+	return &out
+}
+
+// dictionary: DisconnectedAccount
+type DisconnectedAccount struct {
+	AccountId string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *DisconnectedAccount) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.AccountId
+	out.Set("account_id", value0)
+	return out
+}
+
+// DisconnectedAccountFromJS is allocating a new
+// DisconnectedAccount object and copy all values in the value javascript object.
+func DisconnectedAccountFromJS(value js.Value) *DisconnectedAccount {
+	var out DisconnectedAccount
+	var (
+		value0 string // javascript: USVString {account_id AccountId accountId}
+	)
+	value0 = (value.Get("account_id")).String()
+	out.AccountId = value0
 	return &out
 }
 
@@ -525,6 +978,750 @@ func FederatedCredentialRequestOptionsFromJS(value js.Value) *FederatedCredentia
 	}
 	value1 = __array1
 	out.Protocols = value1
+	return &out
+}
+
+// dictionary: IdentityAssertionResponse
+type IdentityAssertionResponse struct {
+	Token      js.Value
+	ContinueOn string
+	Error      *IdentityCredentialErrorInit
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityAssertionResponse) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Token
+	out.Set("token", value0)
+	value1 := _this.ContinueOn
+	out.Set("continue_on", value1)
+	value2 := _this.Error.JSValue()
+	out.Set("error", value2)
+	return out
+}
+
+// IdentityAssertionResponseFromJS is allocating a new
+// IdentityAssertionResponse object and copy all values in the value javascript object.
+func IdentityAssertionResponseFromJS(value js.Value) *IdentityAssertionResponse {
+	var out IdentityAssertionResponse
+	var (
+		value0 js.Value                     // javascript: any {token Token token}
+		value1 string                       // javascript: USVString {continue_on ContinueOn continueOn}
+		value2 *IdentityCredentialErrorInit // javascript: IdentityCredentialErrorInit {error Error _error}
+	)
+	value0 = value.Get("token")
+	out.Token = value0
+	value1 = (value.Get("continue_on")).String()
+	out.ContinueOn = value1
+	value2 = IdentityCredentialErrorInitFromJS(value.Get("error"))
+	out.Error = value2
+	return &out
+}
+
+// dictionary: IdentityCredentialDisconnectOptions
+type IdentityCredentialDisconnectOptions struct {
+	ConfigURL   string
+	ClientId    string
+	AccountHint string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityCredentialDisconnectOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.ConfigURL
+	out.Set("configURL", value0)
+	value1 := _this.ClientId
+	out.Set("clientId", value1)
+	value2 := _this.AccountHint
+	out.Set("accountHint", value2)
+	return out
+}
+
+// IdentityCredentialDisconnectOptionsFromJS is allocating a new
+// IdentityCredentialDisconnectOptions object and copy all values in the value javascript object.
+func IdentityCredentialDisconnectOptionsFromJS(value js.Value) *IdentityCredentialDisconnectOptions {
+	var out IdentityCredentialDisconnectOptions
+	var (
+		value0 string // javascript: USVString {configURL ConfigURL configURL}
+		value1 string // javascript: USVString {clientId ClientId clientId}
+		value2 string // javascript: USVString {accountHint AccountHint accountHint}
+	)
+	value0 = (value.Get("configURL")).String()
+	out.ConfigURL = value0
+	value1 = (value.Get("clientId")).String()
+	out.ClientId = value1
+	value2 = (value.Get("accountHint")).String()
+	out.AccountHint = value2
+	return &out
+}
+
+// dictionary: IdentityCredentialErrorInit
+type IdentityCredentialErrorInit struct {
+	Error string
+	Url   string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityCredentialErrorInit) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Error
+	out.Set("error", value0)
+	value1 := _this.Url
+	out.Set("url", value1)
+	return out
+}
+
+// IdentityCredentialErrorInitFromJS is allocating a new
+// IdentityCredentialErrorInit object and copy all values in the value javascript object.
+func IdentityCredentialErrorInitFromJS(value js.Value) *IdentityCredentialErrorInit {
+	var out IdentityCredentialErrorInit
+	var (
+		value0 string // javascript: DOMString {error Error _error}
+		value1 string // javascript: USVString {url Url url}
+	)
+	value0 = (value.Get("error")).String()
+	out.Error = value0
+	value1 = (value.Get("url")).String()
+	out.Url = value1
+	return &out
+}
+
+// dictionary: IdentityCredentialRequestOptions
+type IdentityCredentialRequestOptions struct {
+	Providers []*IdentityProviderRequestOptions
+	Context   IdentityCredentialRequestOptionsContext
+	Mode      IdentityCredentialRequestOptionsMode
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityCredentialRequestOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Providers))
+	for __idx0, __seq_in0 := range _this.Providers {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("providers", value0)
+	value1 := _this.Context.JSValue()
+	out.Set("context", value1)
+	value2 := _this.Mode.JSValue()
+	out.Set("mode", value2)
+	return out
+}
+
+// IdentityCredentialRequestOptionsFromJS is allocating a new
+// IdentityCredentialRequestOptions object and copy all values in the value javascript object.
+func IdentityCredentialRequestOptionsFromJS(value js.Value) *IdentityCredentialRequestOptions {
+	var out IdentityCredentialRequestOptions
+	var (
+		value0 []*IdentityProviderRequestOptions       // javascript: sequence<IdentityProviderRequestOptions> {providers Providers providers}
+		value1 IdentityCredentialRequestOptionsContext // javascript: IdentityCredentialRequestOptionsContext {context Context context}
+		value2 IdentityCredentialRequestOptionsMode    // javascript: IdentityCredentialRequestOptionsMode {mode Mode mode}
+	)
+	__length0 := value.Get("providers").Length()
+	__array0 := make([]*IdentityProviderRequestOptions, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *IdentityProviderRequestOptions
+		__seq_in0 := value.Get("providers").Index(__idx0)
+		__seq_out0 = IdentityProviderRequestOptionsFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Providers = value0
+	value1 = IdentityCredentialRequestOptionsContextFromJS(value.Get("context"))
+	out.Context = value1
+	value2 = IdentityCredentialRequestOptionsModeFromJS(value.Get("mode"))
+	out.Mode = value2
+	return &out
+}
+
+// dictionary: IdentityProviderAPIConfig
+type IdentityProviderAPIConfig struct {
+	AccountsEndpoint        string
+	ClientMetadataEndpoint  string
+	IdAssertionEndpoint     string
+	LoginUrl                string
+	DisconnectEndpoint      string
+	Branding                *IdentityProviderBranding
+	SupportsUseOtherAccount bool
+	AccountLabel            string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderAPIConfig) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.AccountsEndpoint
+	out.Set("accounts_endpoint", value0)
+	value1 := _this.ClientMetadataEndpoint
+	out.Set("client_metadata_endpoint", value1)
+	value2 := _this.IdAssertionEndpoint
+	out.Set("id_assertion_endpoint", value2)
+	value3 := _this.LoginUrl
+	out.Set("login_url", value3)
+	value4 := _this.DisconnectEndpoint
+	out.Set("disconnect_endpoint", value4)
+	value5 := _this.Branding.JSValue()
+	out.Set("branding", value5)
+	value6 := _this.SupportsUseOtherAccount
+	out.Set("supports_use_other_account", value6)
+	value7 := _this.AccountLabel
+	out.Set("account_label", value7)
+	return out
+}
+
+// IdentityProviderAPIConfigFromJS is allocating a new
+// IdentityProviderAPIConfig object and copy all values in the value javascript object.
+func IdentityProviderAPIConfigFromJS(value js.Value) *IdentityProviderAPIConfig {
+	var out IdentityProviderAPIConfig
+	var (
+		value0 string                    // javascript: USVString {accounts_endpoint AccountsEndpoint accountsEndpoint}
+		value1 string                    // javascript: USVString {client_metadata_endpoint ClientMetadataEndpoint clientMetadataEndpoint}
+		value2 string                    // javascript: USVString {id_assertion_endpoint IdAssertionEndpoint idAssertionEndpoint}
+		value3 string                    // javascript: USVString {login_url LoginUrl loginUrl}
+		value4 string                    // javascript: USVString {disconnect_endpoint DisconnectEndpoint disconnectEndpoint}
+		value5 *IdentityProviderBranding // javascript: IdentityProviderBranding {branding Branding branding}
+		value6 bool                      // javascript: boolean {supports_use_other_account SupportsUseOtherAccount supportsUseOtherAccount}
+		value7 string                    // javascript: USVString {account_label AccountLabel accountLabel}
+	)
+	value0 = (value.Get("accounts_endpoint")).String()
+	out.AccountsEndpoint = value0
+	value1 = (value.Get("client_metadata_endpoint")).String()
+	out.ClientMetadataEndpoint = value1
+	value2 = (value.Get("id_assertion_endpoint")).String()
+	out.IdAssertionEndpoint = value2
+	value3 = (value.Get("login_url")).String()
+	out.LoginUrl = value3
+	value4 = (value.Get("disconnect_endpoint")).String()
+	out.DisconnectEndpoint = value4
+	value5 = IdentityProviderBrandingFromJS(value.Get("branding"))
+	out.Branding = value5
+	value6 = (value.Get("supports_use_other_account")).Bool()
+	out.SupportsUseOtherAccount = value6
+	value7 = (value.Get("account_label")).String()
+	out.AccountLabel = value7
+	return &out
+}
+
+// dictionary: IdentityProviderAccount
+type IdentityProviderAccount struct {
+	Id              string
+	Name            string
+	Email           string
+	Tel             string
+	Username        string
+	GivenName       string
+	Picture         string
+	ApprovedClients []string
+	LoginHints      []string
+	DomainHints     []string
+	LabelHints      []string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderAccount) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Id
+	out.Set("id", value0)
+	value1 := _this.Name
+	out.Set("name", value1)
+	value2 := _this.Email
+	out.Set("email", value2)
+	value3 := _this.Tel
+	out.Set("tel", value3)
+	value4 := _this.Username
+	out.Set("username", value4)
+	value5 := _this.GivenName
+	out.Set("given_name", value5)
+	value6 := _this.Picture
+	out.Set("picture", value6)
+	value7 := js.Global().Get("Array").New(len(_this.ApprovedClients))
+	for __idx7, __seq_in7 := range _this.ApprovedClients {
+		__seq_out7 := __seq_in7
+		value7.SetIndex(__idx7, __seq_out7)
+	}
+	out.Set("approved_clients", value7)
+	value8 := js.Global().Get("Array").New(len(_this.LoginHints))
+	for __idx8, __seq_in8 := range _this.LoginHints {
+		__seq_out8 := __seq_in8
+		value8.SetIndex(__idx8, __seq_out8)
+	}
+	out.Set("login_hints", value8)
+	value9 := js.Global().Get("Array").New(len(_this.DomainHints))
+	for __idx9, __seq_in9 := range _this.DomainHints {
+		__seq_out9 := __seq_in9
+		value9.SetIndex(__idx9, __seq_out9)
+	}
+	out.Set("domain_hints", value9)
+	value10 := js.Global().Get("Array").New(len(_this.LabelHints))
+	for __idx10, __seq_in10 := range _this.LabelHints {
+		__seq_out10 := __seq_in10
+		value10.SetIndex(__idx10, __seq_out10)
+	}
+	out.Set("label_hints", value10)
+	return out
+}
+
+// IdentityProviderAccountFromJS is allocating a new
+// IdentityProviderAccount object and copy all values in the value javascript object.
+func IdentityProviderAccountFromJS(value js.Value) *IdentityProviderAccount {
+	var out IdentityProviderAccount
+	var (
+		value0  string   // javascript: USVString {id Id id}
+		value1  string   // javascript: USVString {name Name name}
+		value2  string   // javascript: USVString {email Email email}
+		value3  string   // javascript: USVString {tel Tel tel}
+		value4  string   // javascript: USVString {username Username username}
+		value5  string   // javascript: USVString {given_name GivenName givenName}
+		value6  string   // javascript: USVString {picture Picture picture}
+		value7  []string // javascript: sequence<USVString> {approved_clients ApprovedClients approvedClients}
+		value8  []string // javascript: sequence<DOMString> {login_hints LoginHints loginHints}
+		value9  []string // javascript: sequence<DOMString> {domain_hints DomainHints domainHints}
+		value10 []string // javascript: sequence<DOMString> {label_hints LabelHints labelHints}
+	)
+	value0 = (value.Get("id")).String()
+	out.Id = value0
+	value1 = (value.Get("name")).String()
+	out.Name = value1
+	value2 = (value.Get("email")).String()
+	out.Email = value2
+	value3 = (value.Get("tel")).String()
+	out.Tel = value3
+	value4 = (value.Get("username")).String()
+	out.Username = value4
+	value5 = (value.Get("given_name")).String()
+	out.GivenName = value5
+	value6 = (value.Get("picture")).String()
+	out.Picture = value6
+	__length7 := value.Get("approved_clients").Length()
+	__array7 := make([]string, __length7, __length7)
+	for __idx7 := 0; __idx7 < __length7; __idx7++ {
+		var __seq_out7 string
+		__seq_in7 := value.Get("approved_clients").Index(__idx7)
+		__seq_out7 = (__seq_in7).String()
+		__array7[__idx7] = __seq_out7
+	}
+	value7 = __array7
+	out.ApprovedClients = value7
+	__length8 := value.Get("login_hints").Length()
+	__array8 := make([]string, __length8, __length8)
+	for __idx8 := 0; __idx8 < __length8; __idx8++ {
+		var __seq_out8 string
+		__seq_in8 := value.Get("login_hints").Index(__idx8)
+		__seq_out8 = (__seq_in8).String()
+		__array8[__idx8] = __seq_out8
+	}
+	value8 = __array8
+	out.LoginHints = value8
+	__length9 := value.Get("domain_hints").Length()
+	__array9 := make([]string, __length9, __length9)
+	for __idx9 := 0; __idx9 < __length9; __idx9++ {
+		var __seq_out9 string
+		__seq_in9 := value.Get("domain_hints").Index(__idx9)
+		__seq_out9 = (__seq_in9).String()
+		__array9[__idx9] = __seq_out9
+	}
+	value9 = __array9
+	out.DomainHints = value9
+	__length10 := value.Get("label_hints").Length()
+	__array10 := make([]string, __length10, __length10)
+	for __idx10 := 0; __idx10 < __length10; __idx10++ {
+		var __seq_out10 string
+		__seq_in10 := value.Get("label_hints").Index(__idx10)
+		__seq_out10 = (__seq_in10).String()
+		__array10[__idx10] = __seq_out10
+	}
+	value10 = __array10
+	out.LabelHints = value10
+	return &out
+}
+
+// dictionary: IdentityProviderAccountList
+type IdentityProviderAccountList struct {
+	Accounts []*IdentityProviderAccount
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderAccountList) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.Accounts))
+	for __idx0, __seq_in0 := range _this.Accounts {
+		__seq_out0 := __seq_in0.JSValue()
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("accounts", value0)
+	return out
+}
+
+// IdentityProviderAccountListFromJS is allocating a new
+// IdentityProviderAccountList object and copy all values in the value javascript object.
+func IdentityProviderAccountListFromJS(value js.Value) *IdentityProviderAccountList {
+	var out IdentityProviderAccountList
+	var (
+		value0 []*IdentityProviderAccount // javascript: sequence<IdentityProviderAccount> {accounts Accounts accounts}
+	)
+	__length0 := value.Get("accounts").Length()
+	__array0 := make([]*IdentityProviderAccount, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 *IdentityProviderAccount
+		__seq_in0 := value.Get("accounts").Index(__idx0)
+		__seq_out0 = IdentityProviderAccountFromJS(__seq_in0)
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.Accounts = value0
+	return &out
+}
+
+// dictionary: IdentityProviderBranding
+type IdentityProviderBranding struct {
+	BackgroundColor string
+	Color           string
+	Icons           []*IdentityProviderIcon
+	Name            string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderBranding) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.BackgroundColor
+	out.Set("background_color", value0)
+	value1 := _this.Color
+	out.Set("color", value1)
+	value2 := js.Global().Get("Array").New(len(_this.Icons))
+	for __idx2, __seq_in2 := range _this.Icons {
+		__seq_out2 := __seq_in2.JSValue()
+		value2.SetIndex(__idx2, __seq_out2)
+	}
+	out.Set("icons", value2)
+	value3 := _this.Name
+	out.Set("name", value3)
+	return out
+}
+
+// IdentityProviderBrandingFromJS is allocating a new
+// IdentityProviderBranding object and copy all values in the value javascript object.
+func IdentityProviderBrandingFromJS(value js.Value) *IdentityProviderBranding {
+	var out IdentityProviderBranding
+	var (
+		value0 string                  // javascript: USVString {background_color BackgroundColor backgroundColor}
+		value1 string                  // javascript: USVString {color Color color}
+		value2 []*IdentityProviderIcon // javascript: sequence<IdentityProviderIcon> {icons Icons icons}
+		value3 string                  // javascript: USVString {name Name name}
+	)
+	value0 = (value.Get("background_color")).String()
+	out.BackgroundColor = value0
+	value1 = (value.Get("color")).String()
+	out.Color = value1
+	__length2 := value.Get("icons").Length()
+	__array2 := make([]*IdentityProviderIcon, __length2, __length2)
+	for __idx2 := 0; __idx2 < __length2; __idx2++ {
+		var __seq_out2 *IdentityProviderIcon
+		__seq_in2 := value.Get("icons").Index(__idx2)
+		__seq_out2 = IdentityProviderIconFromJS(__seq_in2)
+		__array2[__idx2] = __seq_out2
+	}
+	value2 = __array2
+	out.Icons = value2
+	value3 = (value.Get("name")).String()
+	out.Name = value3
+	return &out
+}
+
+// dictionary: IdentityProviderClientMetadata
+type IdentityProviderClientMetadata struct {
+	PrivacyPolicyUrl                   string
+	TermsOfServiceUrl                  string
+	ClientIsThirdPartyToTopFrameOrigin bool
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderClientMetadata) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.PrivacyPolicyUrl
+	out.Set("privacy_policy_url", value0)
+	value1 := _this.TermsOfServiceUrl
+	out.Set("terms_of_service_url", value1)
+	value2 := _this.ClientIsThirdPartyToTopFrameOrigin
+	out.Set("client_is_third_party_to_top_frame_origin", value2)
+	return out
+}
+
+// IdentityProviderClientMetadataFromJS is allocating a new
+// IdentityProviderClientMetadata object and copy all values in the value javascript object.
+func IdentityProviderClientMetadataFromJS(value js.Value) *IdentityProviderClientMetadata {
+	var out IdentityProviderClientMetadata
+	var (
+		value0 string // javascript: USVString {privacy_policy_url PrivacyPolicyUrl privacyPolicyUrl}
+		value1 string // javascript: USVString {terms_of_service_url TermsOfServiceUrl termsOfServiceUrl}
+		value2 bool   // javascript: boolean {client_is_third_party_to_top_frame_origin ClientIsThirdPartyToTopFrameOrigin clientIsThirdPartyToTopFrameOrigin}
+	)
+	value0 = (value.Get("privacy_policy_url")).String()
+	out.PrivacyPolicyUrl = value0
+	value1 = (value.Get("terms_of_service_url")).String()
+	out.TermsOfServiceUrl = value1
+	value2 = (value.Get("client_is_third_party_to_top_frame_origin")).Bool()
+	out.ClientIsThirdPartyToTopFrameOrigin = value2
+	return &out
+}
+
+// dictionary: IdentityProviderConfig
+type IdentityProviderConfig struct {
+	ConfigURL string
+	ClientId  string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderConfig) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.ConfigURL
+	out.Set("configURL", value0)
+	value1 := _this.ClientId
+	out.Set("clientId", value1)
+	return out
+}
+
+// IdentityProviderConfigFromJS is allocating a new
+// IdentityProviderConfig object and copy all values in the value javascript object.
+func IdentityProviderConfigFromJS(value js.Value) *IdentityProviderConfig {
+	var out IdentityProviderConfig
+	var (
+		value0 string // javascript: USVString {configURL ConfigURL configURL}
+		value1 string // javascript: USVString {clientId ClientId clientId}
+	)
+	value0 = (value.Get("configURL")).String()
+	out.ConfigURL = value0
+	value1 = (value.Get("clientId")).String()
+	out.ClientId = value1
+	return &out
+}
+
+// dictionary: IdentityProviderIcon
+type IdentityProviderIcon struct {
+	Url  string
+	Size uint
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderIcon) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Url
+	out.Set("url", value0)
+	value1 := _this.Size
+	out.Set("size", value1)
+	return out
+}
+
+// IdentityProviderIconFromJS is allocating a new
+// IdentityProviderIcon object and copy all values in the value javascript object.
+func IdentityProviderIconFromJS(value js.Value) *IdentityProviderIcon {
+	var out IdentityProviderIcon
+	var (
+		value0 string // javascript: USVString {url Url url}
+		value1 uint   // javascript: unsigned long {size Size size}
+	)
+	value0 = (value.Get("url")).String()
+	out.Url = value0
+	value1 = (uint)((value.Get("size")).Int())
+	out.Size = value1
+	return &out
+}
+
+// dictionary: IdentityProviderRequestOptions
+type IdentityProviderRequestOptions struct {
+	ConfigURL  string
+	ClientId   string
+	LoginHint  string
+	DomainHint string
+	Fields     []string
+	Params     js.Value
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderRequestOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.ConfigURL
+	out.Set("configURL", value0)
+	value1 := _this.ClientId
+	out.Set("clientId", value1)
+	value2 := _this.LoginHint
+	out.Set("loginHint", value2)
+	value3 := _this.DomainHint
+	out.Set("domainHint", value3)
+	value4 := js.Global().Get("Array").New(len(_this.Fields))
+	for __idx4, __seq_in4 := range _this.Fields {
+		__seq_out4 := __seq_in4
+		value4.SetIndex(__idx4, __seq_out4)
+	}
+	out.Set("fields", value4)
+	value5 := _this.Params
+	out.Set("params", value5)
+	return out
+}
+
+// IdentityProviderRequestOptionsFromJS is allocating a new
+// IdentityProviderRequestOptions object and copy all values in the value javascript object.
+func IdentityProviderRequestOptionsFromJS(value js.Value) *IdentityProviderRequestOptions {
+	var out IdentityProviderRequestOptions
+	var (
+		value0 string   // javascript: USVString {configURL ConfigURL configURL}
+		value1 string   // javascript: USVString {clientId ClientId clientId}
+		value2 string   // javascript: DOMString {loginHint LoginHint loginHint}
+		value3 string   // javascript: DOMString {domainHint DomainHint domainHint}
+		value4 []string // javascript: sequence<USVString> {fields Fields fields}
+		value5 js.Value // javascript: any {params Params params}
+	)
+	value0 = (value.Get("configURL")).String()
+	out.ConfigURL = value0
+	value1 = (value.Get("clientId")).String()
+	out.ClientId = value1
+	value2 = (value.Get("loginHint")).String()
+	out.LoginHint = value2
+	value3 = (value.Get("domainHint")).String()
+	out.DomainHint = value3
+	__length4 := value.Get("fields").Length()
+	__array4 := make([]string, __length4, __length4)
+	for __idx4 := 0; __idx4 < __length4; __idx4++ {
+		var __seq_out4 string
+		__seq_in4 := value.Get("fields").Index(__idx4)
+		__seq_out4 = (__seq_in4).String()
+		__array4[__idx4] = __seq_out4
+	}
+	value4 = __array4
+	out.Fields = value4
+	value5 = value.Get("params")
+	out.Params = value5
+	return &out
+}
+
+// dictionary: IdentityProviderWellKnown
+type IdentityProviderWellKnown struct {
+	ProviderUrls     []string
+	AccountsEndpoint string
+	LoginUrl         string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityProviderWellKnown) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := js.Global().Get("Array").New(len(_this.ProviderUrls))
+	for __idx0, __seq_in0 := range _this.ProviderUrls {
+		__seq_out0 := __seq_in0
+		value0.SetIndex(__idx0, __seq_out0)
+	}
+	out.Set("provider_urls", value0)
+	value1 := _this.AccountsEndpoint
+	out.Set("accounts_endpoint", value1)
+	value2 := _this.LoginUrl
+	out.Set("login_url", value2)
+	return out
+}
+
+// IdentityProviderWellKnownFromJS is allocating a new
+// IdentityProviderWellKnown object and copy all values in the value javascript object.
+func IdentityProviderWellKnownFromJS(value js.Value) *IdentityProviderWellKnown {
+	var out IdentityProviderWellKnown
+	var (
+		value0 []string // javascript: sequence<USVString> {provider_urls ProviderUrls providerUrls}
+		value1 string   // javascript: USVString {accounts_endpoint AccountsEndpoint accountsEndpoint}
+		value2 string   // javascript: USVString {login_url LoginUrl loginUrl}
+	)
+	__length0 := value.Get("provider_urls").Length()
+	__array0 := make([]string, __length0, __length0)
+	for __idx0 := 0; __idx0 < __length0; __idx0++ {
+		var __seq_out0 string
+		__seq_in0 := value.Get("provider_urls").Index(__idx0)
+		__seq_out0 = (__seq_in0).String()
+		__array0[__idx0] = __seq_out0
+	}
+	value0 = __array0
+	out.ProviderUrls = value0
+	value1 = (value.Get("accounts_endpoint")).String()
+	out.AccountsEndpoint = value1
+	value2 = (value.Get("login_url")).String()
+	out.LoginUrl = value2
+	return &out
+}
+
+// dictionary: IdentityResolveOptions
+type IdentityResolveOptions struct {
+	AccountId string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityResolveOptions) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.AccountId
+	out.Set("accountId", value0)
+	return out
+}
+
+// IdentityResolveOptionsFromJS is allocating a new
+// IdentityResolveOptions object and copy all values in the value javascript object.
+func IdentityResolveOptionsFromJS(value js.Value) *IdentityResolveOptions {
+	var out IdentityResolveOptions
+	var (
+		value0 string // javascript: USVString {accountId AccountId accountId}
+	)
+	value0 = (value.Get("accountId")).String()
+	out.AccountId = value0
+	return &out
+}
+
+// dictionary: IdentityUserInfo
+type IdentityUserInfo struct {
+	Email     string
+	Name      string
+	GivenName string
+	Picture   string
+}
+
+// JSValue is allocating a new javascript object and copy
+// all values
+func (_this *IdentityUserInfo) JSValue() js.Value {
+	out := js.Global().Get("Object").New()
+	value0 := _this.Email
+	out.Set("email", value0)
+	value1 := _this.Name
+	out.Set("name", value1)
+	value2 := _this.GivenName
+	out.Set("givenName", value2)
+	value3 := _this.Picture
+	out.Set("picture", value3)
+	return out
+}
+
+// IdentityUserInfoFromJS is allocating a new
+// IdentityUserInfo object and copy all values in the value javascript object.
+func IdentityUserInfoFromJS(value js.Value) *IdentityUserInfo {
+	var out IdentityUserInfo
+	var (
+		value0 string // javascript: USVString {email Email email}
+		value1 string // javascript: USVString {name Name name}
+		value2 string // javascript: USVString {givenName GivenName givenName}
+		value3 string // javascript: USVString {picture Picture picture}
+	)
+	value0 = (value.Get("email")).String()
+	out.Email = value0
+	value1 = (value.Get("name")).String()
+	out.Name = value1
+	value2 = (value.Get("givenName")).String()
+	out.GivenName = value2
+	value3 = (value.Get("picture")).String()
+	out.Picture = value3
 	return &out
 }
 
@@ -1085,6 +2282,77 @@ func (_this *CredentialsContainer) PreventSilentAccess() (_result *javascript.Pr
 	return
 }
 
+// class: DigitalCredential
+type DigitalCredential struct {
+	Credential
+}
+
+// DigitalCredentialFromJS is casting a js.Value into DigitalCredential.
+func DigitalCredentialFromJS(value js.Value) *DigitalCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &DigitalCredential{}
+	ret.Value_JS = value
+	return ret
+}
+
+// DigitalCredentialFromJS is casting from something that holds a js.Value into DigitalCredential.
+func DigitalCredentialFromWrapper(input core.Wrapper) *DigitalCredential {
+	return DigitalCredentialFromJS(input.JSValue())
+}
+
+func UserAgentAllowsProtocol(protocol string) (_result bool) {
+	_klass := js.Global().Get("DigitalCredential")
+	_method := _klass.Get("userAgentAllowsProtocol")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := protocol
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted bool // javascript: boolean _what_return_name
+	)
+	_converted = (_returned).Bool()
+	_result = _converted
+	return
+}
+
+// Protocol returning attribute 'protocol' with
+// type Union (idl: Union).
+func (_this *DigitalCredential) Protocol() *Union {
+	var ret *Union
+	value := _this.Value_JS.Get("protocol")
+	ret = UnionFromJS(value)
+	return ret
+}
+
+// Data returning attribute 'data' with
+// type javascript.Object (idl: object).
+func (_this *DigitalCredential) Data() *javascript.Object {
+	var ret *javascript.Object
+	value := _this.Value_JS.Get("data")
+	ret = javascript.ObjectFromJS(value)
+	return ret
+}
+
+func (_this *DigitalCredential) ToJSON() (_result *javascript.Object) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("toJSON", _args[0:_end]...)
+	var (
+		_converted *javascript.Object // javascript: object _what_return_name
+	)
+	_converted = javascript.ObjectFromJS(_returned)
+	_result = _converted
+	return
+}
+
 // class: FederatedCredential
 type FederatedCredential struct {
 	Credential
@@ -1160,6 +2428,224 @@ func (_this *FederatedCredential) IconURL() string {
 	value := _this.Value_JS.Get("iconURL")
 	ret = (value).String()
 	return ret
+}
+
+// class: IdentityCredential
+type IdentityCredential struct {
+	Credential
+}
+
+// IdentityCredentialFromJS is casting a js.Value into IdentityCredential.
+func IdentityCredentialFromJS(value js.Value) *IdentityCredential {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &IdentityCredential{}
+	ret.Value_JS = value
+	return ret
+}
+
+// IdentityCredentialFromJS is casting from something that holds a js.Value into IdentityCredential.
+func IdentityCredentialFromWrapper(input core.Wrapper) *IdentityCredential {
+	return IdentityCredentialFromJS(input.JSValue())
+}
+
+func Disconnect(options *IdentityCredentialDisconnectOptions) (_result *javascript.PromiseVoid) {
+	_klass := js.Global().Get("IdentityCredential")
+	_method := _klass.Get("disconnect")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := options.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Token returning attribute 'token' with
+// type Any (idl: any).
+func (_this *IdentityCredential) Token() js.Value {
+	var ret js.Value
+	value := _this.Value_JS.Get("token")
+	ret = value
+	return ret
+}
+
+// IsAutoSelected returning attribute 'isAutoSelected' with
+// type bool (idl: boolean).
+func (_this *IdentityCredential) IsAutoSelected() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isAutoSelected")
+	ret = (value).Bool()
+	return ret
+}
+
+// ConfigURL returning attribute 'configURL' with
+// type string (idl: USVString).
+func (_this *IdentityCredential) ConfigURL() string {
+	var ret string
+	value := _this.Value_JS.Get("configURL")
+	ret = (value).String()
+	return ret
+}
+
+// class: IdentityCredentialError
+type IdentityCredentialError struct {
+	domcore.DOMException
+}
+
+// IdentityCredentialErrorFromJS is casting a js.Value into IdentityCredentialError.
+func IdentityCredentialErrorFromJS(value js.Value) *IdentityCredentialError {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &IdentityCredentialError{}
+	ret.Value_JS = value
+	return ret
+}
+
+// IdentityCredentialErrorFromJS is casting from something that holds a js.Value into IdentityCredentialError.
+func IdentityCredentialErrorFromWrapper(input core.Wrapper) *IdentityCredentialError {
+	return IdentityCredentialErrorFromJS(input.JSValue())
+}
+
+func NewIdentityCredentialError(message *string, options *IdentityCredentialErrorInit) (_result *IdentityCredentialError) {
+	_klass := js.Global().Get("IdentityCredentialError")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	if message != nil {
+
+		var _p0 interface{}
+		if message != nil {
+			_p0 = *(message)
+		} else {
+			_p0 = nil
+		}
+		_args[0] = _p0
+		_end++
+	}
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _klass.New(_args[0:_end]...)
+	var (
+		_converted *IdentityCredentialError // javascript: IdentityCredentialError _what_return_name
+	)
+	_converted = IdentityCredentialErrorFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// Error returning attribute 'error' with
+// type string (idl: DOMString).
+func (_this *IdentityCredentialError) Error() string {
+	var ret string
+	value := _this.Value_JS.Get("error")
+	ret = (value).String()
+	return ret
+}
+
+// Url returning attribute 'url' with
+// type string (idl: USVString).
+func (_this *IdentityCredentialError) Url() string {
+	var ret string
+	value := _this.Value_JS.Get("url")
+	ret = (value).String()
+	return ret
+}
+
+// class: IdentityProvider
+type IdentityProvider struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *IdentityProvider) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// IdentityProviderFromJS is casting a js.Value into IdentityProvider.
+func IdentityProviderFromJS(value js.Value) *IdentityProvider {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &IdentityProvider{}
+	ret.Value_JS = value
+	return ret
+}
+
+// IdentityProviderFromJS is casting from something that holds a js.Value into IdentityProvider.
+func IdentityProviderFromWrapper(input core.Wrapper) *IdentityProvider {
+	return IdentityProviderFromJS(input.JSValue())
+}
+
+func Close() {
+	_klass := js.Global().Get("IdentityProvider")
+	_method := _klass.Get("close")
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_method.Invoke(_args[0:_end]...)
+	return
+}
+
+func Resolve(token interface{}, options *IdentityResolveOptions) (_result *javascript.PromiseVoid) {
+	_klass := js.Global().Get("IdentityProvider")
+	_method := _klass.Get("resolve")
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+	_p0 := token
+	_args[0] = _p0
+	_end++
+	if options != nil {
+		_p1 := options.JSValue()
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func GetUserInfo(config *IdentityProviderConfig) (_result *PromiseSequenceIdentityUserInfo) {
+	_klass := js.Global().Get("IdentityProvider")
+	_method := _klass.Get("getUserInfo")
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	_p0 := config.JSValue()
+	_args[0] = _p0
+	_end++
+	_returned := _method.Invoke(_args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIdentityUserInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIdentityUserInfoFromJS(_returned)
+	_result = _converted
+	return
 }
 
 // class: PasswordCredential
@@ -1449,6 +2935,119 @@ func (_this *PromiseNilCredential) Finally(onFinally *javascript.PromiseFinally)
 		_converted *PromiseNilCredential // javascript: Promise _what_return_name
 	)
 	_converted = PromiseNilCredentialFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: Promise
+type PromiseSequenceIdentityUserInfo struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *PromiseSequenceIdentityUserInfo) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// PromiseSequenceIdentityUserInfoFromJS is casting a js.Value into PromiseSequenceIdentityUserInfo.
+func PromiseSequenceIdentityUserInfoFromJS(value js.Value) *PromiseSequenceIdentityUserInfo {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &PromiseSequenceIdentityUserInfo{}
+	ret.Value_JS = value
+	return ret
+}
+
+// PromiseSequenceIdentityUserInfoFromJS is casting from something that holds a js.Value into PromiseSequenceIdentityUserInfo.
+func PromiseSequenceIdentityUserInfoFromWrapper(input core.Wrapper) *PromiseSequenceIdentityUserInfo {
+	return PromiseSequenceIdentityUserInfoFromJS(input.JSValue())
+}
+
+func (_this *PromiseSequenceIdentityUserInfo) Then(onFulfilled *PromiseSequenceIdentityUserInfoOnFulfilled, onRejected *PromiseSequenceIdentityUserInfoOnRejected) (_result *PromiseSequenceIdentityUserInfo) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIdentityUserInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIdentityUserInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceIdentityUserInfo) Catch(onRejected *PromiseSequenceIdentityUserInfoOnRejected) (_result *PromiseSequenceIdentityUserInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIdentityUserInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIdentityUserInfoFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromiseSequenceIdentityUserInfo) Finally(onFinally *javascript.PromiseFinally) (_result *PromiseSequenceIdentityUserInfo) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromiseSequenceIdentityUserInfo // javascript: Promise _what_return_name
+	)
+	_converted = PromiseSequenceIdentityUserInfoFromJS(_returned)
 	_result = _converted
 	return
 }
