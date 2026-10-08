@@ -6,6 +6,8 @@ Rather than handwriting thousands of bindings, `webapi` automatically generates 
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/gowebapi/webapi.svg)](https://pkg.go.dev/github.com/gowebapi/webapi)
 
+> 🚧 **Experimental**: The project rework is relatively new, so there may still be breaking API updates — we will try to keep those as few and harmless as possible, and tag the versions appropriately. 🚧
+
 ---
 
 ## Features
