@@ -4517,6 +4517,22 @@ func (_this *HTMLElement) SetInputMode(value string) {
 	_this.Value_JS.Set("inputMode", input)
 }
 
+// VirtualKeyboardPolicy returning attribute 'virtualKeyboardPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) VirtualKeyboardPolicy() string {
+	var ret string
+	value := _this.Value_JS.Get("virtualKeyboardPolicy")
+	ret = (value).String()
+	return ret
+}
+
+// SetVirtualKeyboardPolicy setting attribute 'virtualKeyboardPolicy' with
+// type string (idl: DOMString).
+func (_this *HTMLElement) SetVirtualKeyboardPolicy(value string) {
+	input := value
+	_this.Value_JS.Set("virtualKeyboardPolicy", input)
+}
+
 // Dataset returning attribute 'dataset' with
 // type domcore.DOMStringMap (idl: DOMStringMap).
 func (_this *HTMLElement) Dataset() *domcore.DOMStringMap {

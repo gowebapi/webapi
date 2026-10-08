@@ -13,16 +13,17 @@ import (
 // javascript.Object
 // javascript.Promise
 // javascript.PromiseArrayBuffer
+// javascript.PromiseBool
 // javascript.PromiseFinally
 // javascript.Uint8Array
 
 // source idl files:
-// WebCryptoAPI.idl
 // promises.idl
+// webcrypto.idl
 
 // transform files:
-// WebCryptoAPI.go.md
 // promises.go.md
+// webcrypto.go.md
 
 // workaround for compiler error
 func unused(value interface{}) {
@@ -1417,6 +1418,20 @@ func (_this *Crypto) GetRandomValues(array *Union) (_result *Union) {
 	return
 }
 
+func (_this *Crypto) RandomUUID() (_result string) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("randomUUID", _args[0:_end]...)
+	var (
+		_converted string // javascript: DOMString _what_return_name
+	)
+	_converted = (_returned).String()
+	_result = _converted
+	return
+}
+
 // class: CryptoKey
 type CryptoKey struct {
 	// Value_JS holds a reference to a javascript value
@@ -1624,7 +1639,7 @@ func SubtleCryptoFromWrapper(input core.Wrapper) *SubtleCrypto {
 	return SubtleCryptoFromJS(input.JSValue())
 }
 
-func (_this *SubtleCrypto) Encrypt(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) Encrypt(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1640,14 +1655,14 @@ func (_this *SubtleCrypto) Encrypt(algorithm *Union, key *CryptoKey, data *Union
 	_end++
 	_returned := _this.Value_JS.Call("encrypt", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SubtleCrypto) Decrypt(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) Decrypt(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1663,14 +1678,14 @@ func (_this *SubtleCrypto) Decrypt(algorithm *Union, key *CryptoKey, data *Union
 	_end++
 	_returned := _this.Value_JS.Call("decrypt", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SubtleCrypto) Sign(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) Sign(algorithm *Union, key *CryptoKey, data *Union) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1686,14 +1701,14 @@ func (_this *SubtleCrypto) Sign(algorithm *Union, key *CryptoKey, data *Union) (
 	_end++
 	_returned := _this.Value_JS.Call("sign", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SubtleCrypto) Verify(algorithm *Union, key *CryptoKey, signature *Union, data *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) Verify(algorithm *Union, key *CryptoKey, signature *Union, data *Union) (_result *javascript.PromiseBool) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1712,14 +1727,14 @@ func (_this *SubtleCrypto) Verify(algorithm *Union, key *CryptoKey, signature *U
 	_end++
 	_returned := _this.Value_JS.Call("verify", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseBool // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseBoolFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SubtleCrypto) Digest(algorithm *Union, data *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) Digest(algorithm *Union, data *Union) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [2]interface{}
 		_end  int
@@ -1732,9 +1747,9 @@ func (_this *SubtleCrypto) Digest(algorithm *Union, data *Union) (_result *javas
 	_end++
 	_returned := _this.Value_JS.Call("digest", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }
@@ -1766,7 +1781,7 @@ func (_this *SubtleCrypto) GenerateKey(algorithm *Union, extractable bool, keyUs
 	return
 }
 
-func (_this *SubtleCrypto) DeriveKey(algorithm *Union, baseKey *CryptoKey, derivedKeyType *Union, extractable bool, keyUsages []KeyUsage) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) DeriveKey(algorithm *Union, baseKey *CryptoKey, derivedKeyType *Union, extractable bool, keyUsages []KeyUsage) (_result *PromiseCryptoKey) {
 	var (
 		_args [5]interface{}
 		_end  int
@@ -1792,14 +1807,14 @@ func (_this *SubtleCrypto) DeriveKey(algorithm *Union, baseKey *CryptoKey, deriv
 	_end++
 	_returned := _this.Value_JS.Call("deriveKey", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *PromiseCryptoKey // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = PromiseCryptoKeyFromJS(_returned)
 	_result = _converted
 	return
 }
 
-func (_this *SubtleCrypto) DeriveBits(algorithm *Union, baseKey *CryptoKey, length uint) (_result *javascript.PromiseArrayBuffer) {
+func (_this *SubtleCrypto) DeriveBits(algorithm *Union, baseKey *CryptoKey, length *uint) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [3]interface{}
 		_end  int
@@ -1810,9 +1825,17 @@ func (_this *SubtleCrypto) DeriveBits(algorithm *Union, baseKey *CryptoKey, leng
 	_p1 := baseKey.JSValue()
 	_args[1] = _p1
 	_end++
-	_p2 := length
-	_args[2] = _p2
-	_end++
+	if length != nil {
+
+		var _p2 interface{}
+		if length != nil {
+			_p2 = *(length)
+		} else {
+			_p2 = nil
+		}
+		_args[2] = _p2
+		_end++
+	}
 	_returned := _this.Value_JS.Call("deriveBits", _args[0:_end]...)
 	var (
 		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
@@ -1875,7 +1898,7 @@ func (_this *SubtleCrypto) ExportKey(format KeyFormat, key *CryptoKey) (_result 
 	return
 }
 
-func (_this *SubtleCrypto) WrapKey(format KeyFormat, key *CryptoKey, wrappingKey *CryptoKey, wrapAlgorithm *Union) (_result *javascript.Promise) {
+func (_this *SubtleCrypto) WrapKey(format KeyFormat, key *CryptoKey, wrappingKey *CryptoKey, wrapAlgorithm *Union) (_result *javascript.PromiseArrayBuffer) {
 	var (
 		_args [4]interface{}
 		_end  int
@@ -1894,9 +1917,9 @@ func (_this *SubtleCrypto) WrapKey(format KeyFormat, key *CryptoKey, wrappingKey
 	_end++
 	_returned := _this.Value_JS.Call("wrapKey", _args[0:_end]...)
 	var (
-		_converted *javascript.Promise // javascript: Promise _what_return_name
+		_converted *javascript.PromiseArrayBuffer // javascript: Promise _what_return_name
 	)
-	_converted = javascript.PromiseFromJS(_returned)
+	_converted = javascript.PromiseArrayBufferFromJS(_returned)
 	_result = _converted
 	return
 }

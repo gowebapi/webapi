@@ -6,6 +6,7 @@ import "syscall/js"
 
 import (
 	"github.com/gowebapi/webapi/appmanifest/appmenifestres"
+	"github.com/gowebapi/webapi/cookie"
 	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/fetch"
@@ -23,6 +24,7 @@ import (
 // channel.MessagePort
 // client.ClientType
 // client.PromiseNilWindowClient
+// cookie.CookieStoreManager
 // domcore.Event
 // domcore.EventHandler
 // domcore.EventTarget
@@ -43,14 +45,14 @@ import (
 // push.Manager
 
 // source idl files:
-// BackgroundSync.idl
 // background-fetch.idl
+// background-sync.idl
 // promises.idl
 // service-workers.idl
 
 // transform files:
-// BackgroundSync.go.md
 // background-fetch.go.md
+// background-sync.go.md
 // promises.go.md
 // service-workers.go.md
 
@@ -3319,15 +3321,6 @@ func (_this *ServiceWorkerRegistration) OnUpdateFound() domcore.EventHandlerFunc
 	return ret
 }
 
-// Sync returning attribute 'sync' with
-// type SyncManager (idl: SyncManager).
-func (_this *ServiceWorkerRegistration) Sync() *SyncManager {
-	var ret *SyncManager
-	value := _this.Value_JS.Get("sync")
-	ret = SyncManagerFromJS(value)
-	return ret
-}
-
 // BackgroundFetch returning attribute 'backgroundFetch' with
 // type BackgroundFetchManager (idl: BackgroundFetchManager).
 func (_this *ServiceWorkerRegistration) BackgroundFetch() *BackgroundFetchManager {
@@ -3337,12 +3330,21 @@ func (_this *ServiceWorkerRegistration) BackgroundFetch() *BackgroundFetchManage
 	return ret
 }
 
-// PaymentManager returning attribute 'paymentManager' with
-// type payment.PaymentManager (idl: PaymentManager).
-func (_this *ServiceWorkerRegistration) PaymentManager() *payment.PaymentManager {
-	var ret *payment.PaymentManager
-	value := _this.Value_JS.Get("paymentManager")
-	ret = payment.PaymentManagerFromJS(value)
+// Sync returning attribute 'sync' with
+// type SyncManager (idl: SyncManager).
+func (_this *ServiceWorkerRegistration) Sync() *SyncManager {
+	var ret *SyncManager
+	value := _this.Value_JS.Get("sync")
+	ret = SyncManagerFromJS(value)
+	return ret
+}
+
+// Cookies returning attribute 'cookies' with
+// type cookie.CookieStoreManager (idl: CookieStoreManager).
+func (_this *ServiceWorkerRegistration) Cookies() *cookie.CookieStoreManager {
+	var ret *cookie.CookieStoreManager
+	value := _this.Value_JS.Get("cookies")
+	ret = cookie.CookieStoreManagerFromJS(value)
 	return ret
 }
 
@@ -3352,6 +3354,15 @@ func (_this *ServiceWorkerRegistration) PushManager() *push.Manager {
 	var ret *push.Manager
 	value := _this.Value_JS.Get("pushManager")
 	ret = push.ManagerFromJS(value)
+	return ret
+}
+
+// PaymentManager returning attribute 'paymentManager' with
+// type payment.PaymentManager (idl: PaymentManager).
+func (_this *ServiceWorkerRegistration) PaymentManager() *payment.PaymentManager {
+	var ret *payment.PaymentManager
+	value := _this.Value_JS.Get("paymentManager")
+	ret = payment.PaymentManagerFromJS(value)
 	return ret
 }
 

@@ -88,6 +88,86 @@ func PermissionStateFromJS(value js.Value) PermissionState {
 }
 
 // callback: PromiseTemplateOnFulfilled
+type PromisePermissionStateOnFulfilledFunc func(value PermissionState)
+
+// PromisePermissionStateOnFulfilled is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePermissionStateOnFulfilled js.Func
+
+func PromisePermissionStateOnFulfilledToJS(callback PromisePermissionStateOnFulfilledFunc) *PromisePermissionStateOnFulfilled {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePermissionStateOnFulfilled(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 PermissionState // javascript: PermissionState value
+		)
+		_p0 = PermissionStateFromJS(args[0])
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePermissionStateOnFulfilledFromJS(_value js.Value) PromisePermissionStateOnFulfilledFunc {
+	return func(value PermissionState) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := value.JSValue()
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnRejected
+type PromisePermissionStateOnRejectedFunc func(reason js.Value)
+
+// PromisePermissionStateOnRejected is a javascript function type.
+//
+// Call Release() when done to release resouces
+// allocated to this type.
+type PromisePermissionStateOnRejected js.Func
+
+func PromisePermissionStateOnRejectedToJS(callback PromisePermissionStateOnRejectedFunc) *PromisePermissionStateOnRejected {
+	if callback == nil {
+		return nil
+	}
+	ret := PromisePermissionStateOnRejected(js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+		var (
+			_p0 js.Value // javascript: any reason
+		)
+		_p0 = args[0]
+		callback(_p0)
+
+		// returning no return value
+		return nil
+	}))
+	return &ret
+}
+
+func PromisePermissionStateOnRejectedFromJS(_value js.Value) PromisePermissionStateOnRejectedFunc {
+	return func(reason js.Value) {
+		var (
+			_args [1]interface{}
+			_end  int
+		)
+		_p0 := reason
+		_args[0] = _p0
+		_end++
+		_value.Invoke(_args[0:_end]...)
+		return
+	}
+}
+
+// callback: PromiseTemplateOnFulfilled
 type PromisePermissionStatusOnFulfilledFunc func(value *PermissionStatus)
 
 // PromisePermissionStatusOnFulfilled is a javascript function type.
@@ -439,6 +519,119 @@ func (_this *Permissions) Query(permissionDesc *javascript.Object) (_result *Pro
 		_converted *PromisePermissionStatus // javascript: Promise _what_return_name
 	)
 	_converted = PromisePermissionStatusFromJS(_returned)
+	_result = _converted
+	return
+}
+
+// class: Promise
+type PromisePermissionState struct {
+	// Value_JS holds a reference to a javascript value
+	Value_JS js.Value
+}
+
+// JSValue returns the js.Value or js.Null() if _this is nil
+func (_this *PromisePermissionState) JSValue() js.Value {
+	if _this == nil {
+		return js.Null()
+	}
+	return _this.Value_JS
+}
+
+// PromisePermissionStateFromJS is casting a js.Value into PromisePermissionState.
+func PromisePermissionStateFromJS(value js.Value) *PromisePermissionState {
+	if typ := value.Type(); typ == js.TypeNull || typ == js.TypeUndefined {
+		return nil
+	}
+	ret := &PromisePermissionState{}
+	ret.Value_JS = value
+	return ret
+}
+
+// PromisePermissionStateFromJS is casting from something that holds a js.Value into PromisePermissionState.
+func PromisePermissionStateFromWrapper(input core.Wrapper) *PromisePermissionState {
+	return PromisePermissionStateFromJS(input.JSValue())
+}
+
+func (_this *PromisePermissionState) Then(onFulfilled *PromisePermissionStateOnFulfilled, onRejected *PromisePermissionStateOnRejected) (_result *PromisePermissionState) {
+	var (
+		_args [2]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFulfilled != nil {
+		__callback0 = (*onFulfilled).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	if onRejected != nil {
+
+		var __callback1 js.Value
+		if onRejected != nil {
+			__callback1 = (*onRejected).Value
+		} else {
+			__callback1 = js.Null()
+		}
+		_p1 := __callback1
+		_args[1] = _p1
+		_end++
+	}
+	_returned := _this.Value_JS.Call("then", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionState // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionStateFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePermissionState) Catch(onRejected *PromisePermissionStateOnRejected) (_result *PromisePermissionState) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onRejected != nil {
+		__callback0 = (*onRejected).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("catch", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionState // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionStateFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *PromisePermissionState) Finally(onFinally *javascript.PromiseFinally) (_result *PromisePermissionState) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+
+	var __callback0 js.Value
+	if onFinally != nil {
+		__callback0 = (*onFinally).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	_p0 := __callback0
+	_args[0] = _p0
+	_end++
+	_returned := _this.Value_JS.Call("finally", _args[0:_end]...)
+	var (
+		_converted *PromisePermissionState // javascript: Promise _what_return_name
+	)
+	_converted = PromisePermissionStateFromJS(_returned)
 	_result = _converted
 	return
 }

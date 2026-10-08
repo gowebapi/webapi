@@ -743,6 +743,39 @@ func (_this *Screen) Orientation() *orientation.ScreenOrientation {
 	return ret
 }
 
+// IsExtended returning attribute 'isExtended' with
+// type bool (idl: boolean).
+func (_this *Screen) IsExtended() bool {
+	var ret bool
+	value := _this.Value_JS.Get("isExtended")
+	ret = (value).Bool()
+	return ret
+}
+
+// Onchange returning attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Screen) Onchange() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onchange")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// SetOnchange setting attribute 'onchange' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *Screen) SetOnchange(value *domcore.EventHandler) {
+	var __callback0 js.Value
+	if value != nil {
+		__callback0 = (*value).Value
+	} else {
+		__callback0 = js.Null()
+	}
+	input := __callback0
+	_this.Value_JS.Set("onchange", input)
+}
+
 // event attribute: domcore.Event
 func eventFuncScreen_domcore_Event(listener func(event *domcore.Event, target *Screen)) js.Func {
 	fn := func(this js.Value, args []js.Value) interface{} {

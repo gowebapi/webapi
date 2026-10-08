@@ -7,14 +7,10 @@ import "syscall/js"
 import (
 	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/javascript"
-	"github.com/gowebapi/webapi/javascript/missingtypes"
-	"github.com/gowebapi/webapi/patch"
 )
 
 // using following types:
 // javascript.Uint8Array
-// missingtypes.WritableStream
-// patch.ReadableStream
 
 // source idl files:
 // encoding.idl
@@ -327,24 +323,6 @@ func (_this *DecoderStream) IgnoreBOM() bool {
 	return ret
 }
 
-// Readable returning attribute 'readable' with
-// type patch.ReadableStream (idl: ReadableStream).
-func (_this *DecoderStream) Readable() *patch.ReadableStream {
-	var ret *patch.ReadableStream
-	value := _this.Value_JS.Get("readable")
-	ret = patch.ReadableStreamFromJS(value)
-	return ret
-}
-
-// Writable returning attribute 'writable' with
-// type missingtypes.WritableStream (idl: WritableStream).
-func (_this *DecoderStream) Writable() *missingtypes.WritableStream {
-	var ret *missingtypes.WritableStream
-	value := _this.Value_JS.Get("writable")
-	ret = missingtypes.WritableStreamFromJS(value)
-	return ret
-}
-
 // class: TextEncoder
 type Encoder struct {
 	// Value_JS holds a reference to a javascript value
@@ -493,23 +471,5 @@ func (_this *EncoderStream) Encoding() string {
 	var ret string
 	value := _this.Value_JS.Get("encoding")
 	ret = (value).String()
-	return ret
-}
-
-// Readable returning attribute 'readable' with
-// type patch.ReadableStream (idl: ReadableStream).
-func (_this *EncoderStream) Readable() *patch.ReadableStream {
-	var ret *patch.ReadableStream
-	value := _this.Value_JS.Get("readable")
-	ret = patch.ReadableStreamFromJS(value)
-	return ret
-}
-
-// Writable returning attribute 'writable' with
-// type missingtypes.WritableStream (idl: WritableStream).
-func (_this *EncoderStream) Writable() *missingtypes.WritableStream {
-	var ret *missingtypes.WritableStream
-	value := _this.Value_JS.Get("writable")
-	ret = missingtypes.WritableStreamFromJS(value)
 	return ret
 }

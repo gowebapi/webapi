@@ -9,6 +9,7 @@ import (
 	"github.com/gowebapi/webapi/dom"
 	"github.com/gowebapi/webapi/file"
 	"github.com/gowebapi/webapi/file/entries"
+	"github.com/gowebapi/webapi/file/fs"
 	"github.com/gowebapi/webapi/html/draganddrop"
 	"github.com/gowebapi/webapi/javascript"
 )
@@ -19,6 +20,7 @@ import (
 // entries.FileSystemEntry
 // file.File
 // file.FileList
+// fs.PromiseNilFileSystemHandle
 // javascript.FrozenArray
 // javascript.PromiseFinally
 
@@ -394,6 +396,20 @@ func (_this *DataTransferItem) WebkitGetAsEntry() (_result *entries.FileSystemEn
 	if _returned.Type() != js.TypeNull && _returned.Type() != js.TypeUndefined {
 		_converted = entries.FileSystemEntryFromJS(_returned)
 	}
+	_result = _converted
+	return
+}
+
+func (_this *DataTransferItem) GetAsFileSystemHandle() (_result *fs.PromiseNilFileSystemHandle) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("getAsFileSystemHandle", _args[0:_end]...)
+	var (
+		_converted *fs.PromiseNilFileSystemHandle // javascript: Promise _what_return_name
+	)
+	_converted = fs.PromiseNilFileSystemHandleFromJS(_returned)
 	_result = _converted
 	return
 }

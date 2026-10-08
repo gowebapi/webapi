@@ -9,11 +9,13 @@ import (
 	"github.com/gowebapi/webapi/cookie"
 	"github.com/gowebapi/webapi/core"
 	"github.com/gowebapi/webapi/crypto"
+	"github.com/gowebapi/webapi/device/serial"
 	"github.com/gowebapi/webapi/device/usb"
 	"github.com/gowebapi/webapi/dom/domcore"
 	"github.com/gowebapi/webapi/dom/permissions"
 	"github.com/gowebapi/webapi/fetch"
 	"github.com/gowebapi/webapi/fetch/corsrfc1918"
+	"github.com/gowebapi/webapi/graphics/webgpu"
 	"github.com/gowebapi/webapi/html/canvas"
 	"github.com/gowebapi/webapi/html/channel"
 	"github.com/gowebapi/webapi/html/htmlcommon"
@@ -21,16 +23,20 @@ import (
 	"github.com/gowebapi/webapi/indexeddb"
 	"github.com/gowebapi/webapi/javascript"
 	"github.com/gowebapi/webapi/media/capabilities"
+	"github.com/gowebapi/webapi/ml/webnn"
 	"github.com/gowebapi/webapi/patch"
 	"github.com/gowebapi/webapi/payment"
 	"github.com/gowebapi/webapi/performance"
 	"github.com/gowebapi/webapi/push"
 	"github.com/gowebapi/webapi/serviceworker"
 	"github.com/gowebapi/webapi/storage"
+	"github.com/gowebapi/webapi/storage/buckets"
+	"github.com/gowebapi/webapi/storage/weblocks"
 	"github.com/gowebapi/webapi/webidl"
 )
 
 // using following types:
+// buckets.StorageBucketManager
 // canvas.ImageBitmapOptions
 // canvas.PromiseImageBitmap
 // capabilities.MediaCapabilities
@@ -64,6 +70,7 @@ import (
 // permissions.Permissions
 // push.Event
 // push.SubscriptionChangeEvent
+// serial.Serial
 // serviceworker.BackgroundFetchEvent
 // serviceworker.BackgroundFetchUpdateUIEvent
 // serviceworker.CacheStorage
@@ -75,7 +82,10 @@ import (
 // serviceworker.SyncEvent
 // storage.StorageManager
 // usb.USB
+// webgpu.GPU
 // webidl.VoidFunction
+// weblocks.LockManager
+// webnn.ML
 
 // source idl files:
 // html.idl
@@ -411,17 +421,6 @@ func (_this *ServiceWorkerGlobalScope) OnMessageError() domcore.EventHandlerFunc
 	return ret
 }
 
-// OnSync returning attribute 'onsync' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) OnSync() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onsync")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
 // OnBackgroundFetchSuccess returning attribute 'onbackgroundfetchsuccess' with
 // type domcore.EventHandler (idl: EventHandlerNonNull).
 func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchSuccess() domcore.EventHandlerFunc {
@@ -466,6 +465,17 @@ func (_this *ServiceWorkerGlobalScope) OnBackgroundFetchClick() domcore.EventHan
 	return ret
 }
 
+// OnSync returning attribute 'onsync' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) OnSync() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onsync")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
 // CookieStore returning attribute 'cookieStore' with
 // type cookie.CookieStore (idl: CookieStore).
 func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
@@ -480,28 +490,6 @@ func (_this *ServiceWorkerGlobalScope) CookieStore() *cookie.CookieStore {
 func (_this *ServiceWorkerGlobalScope) OnCookieChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("oncookiechange")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// OnCanMakePayment returning attribute 'oncanmakepayment' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) OnCanMakePayment() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("oncanmakepayment")
-	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
-		ret = domcore.EventHandlerFromJS(value)
-	}
-	return ret
-}
-
-// OnPaymentRequest returning attribute 'onpaymentrequest' with
-// type domcore.EventHandler (idl: EventHandlerNonNull).
-func (_this *ServiceWorkerGlobalScope) OnPaymentRequest() domcore.EventHandlerFunc {
-	var ret domcore.EventHandlerFunc
-	value := _this.Value_JS.Get("onpaymentrequest")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
@@ -524,6 +512,28 @@ func (_this *ServiceWorkerGlobalScope) OnPush() domcore.EventHandlerFunc {
 func (_this *ServiceWorkerGlobalScope) OnPushSubscriptionChange() domcore.EventHandlerFunc {
 	var ret domcore.EventHandlerFunc
 	value := _this.Value_JS.Get("onpushsubscriptionchange")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// OnCanMakePayment returning attribute 'oncanmakepayment' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) OnCanMakePayment() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("oncanmakepayment")
+	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
+		ret = domcore.EventHandlerFromJS(value)
+	}
+	return ret
+}
+
+// OnPaymentRequest returning attribute 'onpaymentrequest' with
+// type domcore.EventHandler (idl: EventHandlerNonNull).
+func (_this *ServiceWorkerGlobalScope) OnPaymentRequest() domcore.EventHandlerFunc {
+	var ret domcore.EventHandlerFunc
+	value := _this.Value_JS.Get("onpaymentrequest")
 	if value.Type() != js.TypeNull && value.Type() != js.TypeUndefined {
 		ret = domcore.EventHandlerFromJS(value)
 	}
@@ -1479,21 +1489,21 @@ func (_this *WorkerGlobalScope) IndexedDB() *indexeddb.IDBFactory {
 	return ret
 }
 
-// Crypto returning attribute 'crypto' with
-// type crypto.Crypto (idl: Crypto).
-func (_this *WorkerGlobalScope) Crypto() *crypto.Crypto {
-	var ret *crypto.Crypto
-	value := _this.Value_JS.Get("crypto")
-	ret = crypto.CryptoFromJS(value)
-	return ret
-}
-
 // Performance returning attribute 'performance' with
 // type performance.Performance (idl: Performance).
 func (_this *WorkerGlobalScope) Performance() *performance.Performance {
 	var ret *performance.Performance
 	value := _this.Value_JS.Get("performance")
 	ret = performance.PerformanceFromJS(value)
+	return ret
+}
+
+// Crypto returning attribute 'crypto' with
+// type crypto.Crypto (idl: Crypto).
+func (_this *WorkerGlobalScope) Crypto() *crypto.Crypto {
+	var ret *crypto.Crypto
+	value := _this.Value_JS.Get("crypto")
+	ret = crypto.CryptoFromJS(value)
 	return ret
 }
 
@@ -2034,6 +2044,15 @@ func (_this *WorkerNavigator) Permissions() *permissions.Permissions {
 	return ret
 }
 
+// Serial returning attribute 'serial' with
+// type serial.Serial (idl: Serial).
+func (_this *WorkerNavigator) Serial() *serial.Serial {
+	var ret *serial.Serial
+	value := _this.Value_JS.Get("serial")
+	ret = serial.SerialFromJS(value)
+	return ret
+}
+
 // ServiceWorker returning attribute 'serviceWorker' with
 // type serviceworker.ServiceWorkerContainer (idl: ServiceWorkerContainer).
 func (_this *WorkerNavigator) ServiceWorker() *serviceworker.ServiceWorkerContainer {
@@ -2187,6 +2206,15 @@ func (_this *WorkerNavigator) Connection() *netinfo.NetworkInformation {
 	return ret
 }
 
+// StorageBuckets returning attribute 'storageBuckets' with
+// type buckets.StorageBucketManager (idl: StorageBucketManager).
+func (_this *WorkerNavigator) StorageBuckets() *buckets.StorageBucketManager {
+	var ret *buckets.StorageBucketManager
+	value := _this.Value_JS.Get("storageBuckets")
+	ret = buckets.StorageBucketManagerFromJS(value)
+	return ret
+}
+
 // Storage returning attribute 'storage' with
 // type storage.StorageManager (idl: StorageManager).
 func (_this *WorkerNavigator) Storage() *storage.StorageManager {
@@ -2194,6 +2222,72 @@ func (_this *WorkerNavigator) Storage() *storage.StorageManager {
 	value := _this.Value_JS.Get("storage")
 	ret = storage.StorageManagerFromJS(value)
 	return ret
+}
+
+// Locks returning attribute 'locks' with
+// type weblocks.LockManager (idl: LockManager).
+func (_this *WorkerNavigator) Locks() *weblocks.LockManager {
+	var ret *weblocks.LockManager
+	value := _this.Value_JS.Get("locks")
+	ret = weblocks.LockManagerFromJS(value)
+	return ret
+}
+
+// Gpu returning attribute 'gpu' with
+// type webgpu.GPU (idl: GPU).
+func (_this *WorkerNavigator) Gpu() *webgpu.GPU {
+	var ret *webgpu.GPU
+	value := _this.Value_JS.Get("gpu")
+	ret = webgpu.GPUFromJS(value)
+	return ret
+}
+
+// Ml returning attribute 'ml' with
+// type webnn.ML (idl: ML).
+func (_this *WorkerNavigator) Ml() *webnn.ML {
+	var ret *webnn.ML
+	value := _this.Value_JS.Get("ml")
+	ret = webnn.MLFromJS(value)
+	return ret
+}
+
+func (_this *WorkerNavigator) SetAppBadge(contents *int) (_result *javascript.PromiseVoid) {
+	var (
+		_args [1]interface{}
+		_end  int
+	)
+	if contents != nil {
+
+		var _p0 interface{}
+		if contents != nil {
+			_p0 = *(contents)
+		} else {
+			_p0 = nil
+		}
+		_args[0] = _p0
+		_end++
+	}
+	_returned := _this.Value_JS.Call("setAppBadge", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
+}
+
+func (_this *WorkerNavigator) ClearAppBadge() (_result *javascript.PromiseVoid) {
+	var (
+		_args [0]interface{}
+		_end  int
+	)
+	_returned := _this.Value_JS.Call("clearAppBadge", _args[0:_end]...)
+	var (
+		_converted *javascript.PromiseVoid // javascript: PromiseVoid _what_return_name
+	)
+	_converted = javascript.PromiseVoidFromJS(_returned)
+	_result = _converted
+	return
 }
 
 func (_this *WorkerNavigator) TaintEnabled() (_result bool) {
